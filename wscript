@@ -4,7 +4,9 @@
 from __future__ import print_function
 
 import os.path
+import os
 import sys
+import subprocess
 sys.path.insert(0, 'Tools/ardupilotwaf/')
 
 import ardupilotwaf
@@ -121,6 +123,104 @@ order to save typing.
         default=None,
         help='set default parameters to embed in the firmware')
 
+    g.add_option("--enable-gcov",
+                   help=("Enable gcov code coverage analysis."
+                         " WARNING: this option only has effect "
+                         "with the configure command."),
+                   action="store_true", default=False,
+                   dest="enable_gcov")
+				   
+    g.add_option("--lcov-report",
+                   help=("Generates a lcov code coverage report "
+                         "(use this option at build time, not in configure)"),
+                   action="store_true", default=False,
+                   dest="lcov_report")
+
+				   
+
+def set_lcov(cfg):
+    """
+    Sets the lcov flag if is configurated
+    :param config: The configuration context
+    :type config: waflib.Configure.ConfigurationContext
+    """
+    if cfg.options.enable_gcov:
+        cfg.start_msg("Enable gcov code coverage analysis")
+        cfg.env['GCOV_ENABLED'] = True
+        cfg.env.append_value('CCFLAGS', '-fprofile-arcs')
+        cfg.env.append_value('CCFLAGS', '-ftest-coverage')
+        cfg.env.append_value('CXXFLAGS', '-fprofile-arcs')
+        cfg.env.append_value('CXXFLAGS', '-ftest-coverage')
+        cfg.env.append_value('LINKFLAGS', '-lgcov')
+        cfg.env.append_value('LINKFLAGS', '-coverage')
+        cfg.end_msg('yes')
+
+# run enough tests to see coverage results afterwards. 
+def	run_tests(bld):
+	flyplane = '( cd /vagrant; ./Tools/autotest/autotest.py --debug fly.ArduPlane )'
+	if subprocess.Popen(flyplane, shell=True).wait():
+		print("flyplane failed")
+		raise SystemExit(1)
+	print("flyplane succeeded")
+	# TODO fly copter here as well, etc. 
+
+
+
+		
+def lcov_report(bld):
+    """
+    Generates the coverage report
+    :param bld: temporal options context
+    :type bld: wscript.tmp
+    """
+    env = bld.env
+    REPORTS = "reports"
+
+    if not env["GCOV_ENABLED"]:
+        raise WafError("project not configured for code coverage;"
+                       " reconfigure with --enable-gcov and --debug")
+
+    run_tests(bld)
+    lcov_report_dir = os.path.join(REPORTS, "lcov-report")
+    try:
+        if not os.path.exists(REPORTS):
+            os.mkdir(REPORTS)
+
+        create_dir_command = "rm -rf " + lcov_report_dir
+        create_dir_command += " && mkdir " + lcov_report_dir
+
+        print (create_dir_command );
+        if subprocess.Popen(create_dir_command, shell=True).wait():
+            raise SystemExit(1)
+
+        info_file = os.path.join(lcov_report_dir, "lcov.info")
+        lcov_command =\
+            "cd /vagrant/build ; lcov --no-external --capture --directory . -o " + info_file
+        lcov_command +=\
+            " && lcov --remove " + info_file + " \".waf*\" -o " + info_file
+
+        print (lcov_command );
+        if subprocess.Popen(lcov_command, shell=True).wait():
+            raise SystemExit(1)
+
+        genhtml_command = "genhtml " + info_file
+        genhtml_command += " -o " + lcov_report_dir
+        print (genhtml_command );
+        if subprocess.Popen(genhtml_command, shell=True).wait():
+            raise SystemExit(1)
+
+    except:
+        print (\
+            "Problems running coverage. Try manually" );
+
+    finally:
+        print (\
+            "Coverage successful. Open " + lcov_report_dir +\
+            "/index.html" );
+
+
+		
+				   
 def _collect_autoconfig_files(cfg):
     for m in sys.modules.values():
         paths = []
@@ -140,6 +240,11 @@ def _collect_autoconfig_files(cfg):
 
 def configure(cfg):
     cfg.env.BOARD = cfg.options.board
+	
+	# at the moment we enable debug mode when building for gconv
+    if cfg.options.enable_gcov:
+        cfg.options.debug = True
+	
     cfg.env.DEBUG = cfg.options.debug
     cfg.env.AUTOCONFIG = cfg.options.autoconfig
 
@@ -158,6 +263,8 @@ def configure(cfg):
 
     cfg.msg('Autoconfiguration', 'enabled' if cfg.options.autoconfig else 'disabled')
 
+    set_lcov(cfg);
+	
     if cfg.options.static:
         cfg.msg('Using static linking', 'yes', color='YELLOW')
         cfg.env.STATIC_LINKING = True
@@ -370,6 +477,9 @@ def _build_post_funs(bld):
     if bld.env.SUBMODULE_UPDATE:
         bld.git_submodule_post_fun()
 
+    #if bld.env.lcov_report:
+    bld.add_post_fun(lcov_report)
+		
 def build(bld):
     config_hash = Utils.h_file(bld.bldnode.make_node('ap_config.h').abspath())
     bld.env.CCDEPS = config_hash
