@@ -1064,7 +1064,14 @@ void GCS_MAVLINK_Plane::handleMessage(mavlink_message_t* msg)
                 break;
             }
 
-            plane.guided_state.target_airspeed_cm = packet.param2 * 100;
+            // reject duplicate airspeeds
+            float new_target_airspeed_cm = packet.param2 * 100;
+            if (new_target_airspeed_cm == plane.guided_state.target_airspeed_cm) {
+                result = MAV_RESULT_TEMPORARILY_REJECTED;
+                gcs().send_text(MAV_SEVERITY_INFO,"dup arspd request");
+                break;
+            }
+            plane.guided_state.target_airspeed_cm = new_target_airspeed_cm;
             plane.guided_state.target_airspeed_time_ms = AP_HAL::millis();
 
             if (is_zero(packet.param3)) {
