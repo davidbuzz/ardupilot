@@ -127,6 +127,22 @@ void Plane::calc_airspeed_errors()
         } else {
             target_airspeed_cm = MAX(guided_state.target_airspeed_cm, target_airspeed_cm);
         }
+
+        // precautionary clamp/s to limits, with gcs warning
+        if (  target_airspeed_cm < ( aparm.airspeed_min * 100) ) { 
+            gcs().send_text(MAV_SEVERITY_INFO,"target_airspeed_cm clamped to MIN airspeed");
+            target_airspeed_cm = aparm.airspeed_min *100;
+        }
+        if ( target_airspeed_cm > guided_state.target_airspeed_cm  ) { 
+            gcs().send_text(MAV_SEVERITY_INFO,"target_airspeed_cm clamped BELOW requested GUIDED airspeed");
+            target_airspeed_cm = guided_state.target_airspeed_cm;
+        }
+        if (  target_airspeed_cm > ( aparm.airspeed_max * 100)  ) { 
+            gcs().send_text(MAV_SEVERITY_INFO,"target_airspeed_cm clamped to MAX airspeed");
+            target_airspeed_cm = aparm.airspeed_max *100;
+        }
+
+
 #endif // OFFBOARD_GUIDED == ENABLED
     } else if (flight_stage == AP_Vehicle::FixedWing::FLIGHT_LAND) {
         // Landing airspeed target
