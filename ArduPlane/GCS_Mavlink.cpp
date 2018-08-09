@@ -1099,19 +1099,41 @@ void GCS_MAVLINK_Plane::handleMessage(mavlink_message_t* msg)
                 break;
             }
 
+
+            // the requested alt data might be relative or absolute
+            float new_target_alt = packet.z * 100;            
+            float new_target_alt_rel = packet.z * 100 + plane.home.alt;
+
             // only global/relative/terrain frames are supported
             switch(packet.frame) {
                 case MAV_FRAME_GLOBAL_RELATIVE_ALT:
+                {
+                    if (plane.guided_state.target_alt == new_target_alt_rel ) { 
+                        // reject duplicate altitude change requests
+                        result = MAV_RESULT_TEMPORARILY_REJECTED;
+                        gcs().send_text(MAV_SEVERITY_INFO,"dup rel-alt request");
+                        break;
+                    }
                     plane.guided_state.target_alt = packet.z * 100 + plane.home.alt;
                     break;
+                }
                 case MAV_FRAME_GLOBAL:
+                {
+                   if (plane.guided_state.target_alt == new_target_alt ) { 
+                        // reject duplicate altitude change requests
+                        result = MAV_RESULT_TEMPORARILY_REJECTED;
+                        gcs().send_text(MAV_SEVERITY_INFO,"dup abs-alt request");
+                        break;
+                    }
                     plane.guided_state.target_alt = packet.z * 100;
                     break;
+                }
                 default:
                     // this wasn't a mission_item, so no forms of frame nacks are supported, MAV_RESULT_UNSUPPORED is the best we can do
                     result = MAV_RESULT_UNSUPPORTED;
                     break;
             }
+
 
             plane.guided_state.target_alt_frame = packet.frame;
             plane.guided_state.last_target_alt = plane.current_loc.alt; // FIXME: Reference frame is not corrected for here
@@ -1146,6 +1168,16 @@ void GCS_MAVLINK_Plane::handleMessage(mavlink_message_t* msg)
                 break;
             }
 
+
+            float new_target_heading = radians(wrap_180(packet.param2));
+
+            // reject duplicate heading requests
+            if (new_target_heading == plane.guided_state.target_heading) {
+                result = MAV_RESULT_TEMPORARILY_REJECTED;
+                gcs().send_text(MAV_SEVERITY_INFO,"dup heading request");
+                break;
+            }
+
             if (packet.param1 == HEADING_TYPE_COURSE_OVER_GROUND) {
                 plane.guided_state.target_heading_type = GUIDED_HEADING_COG;
                 plane.prev_WP_loc = plane.current_loc;
@@ -1160,7 +1192,7 @@ void GCS_MAVLINK_Plane::handleMessage(mavlink_message_t* msg)
 
             plane.g2.guidedHeading.reset_I();
 
-            plane.guided_state.target_heading = radians(wrap_180(packet.param2));
+            plane.guided_state.target_heading = new_target_heading;
             plane.guided_state.target_heading_accel_limit = MAX(packet.param3, 0.05f);
             plane.guided_state.target_heading_time_ms = AP_HAL::millis();
             result = MAV_RESULT_ACCEPTED;
