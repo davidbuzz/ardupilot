@@ -548,11 +548,13 @@ public:
     // home reset altitude threshold
     AP_Int8 home_reset_threshold;
 
+#define GRIPPER_ENABLED 0
 #if GRIPPER_ENABLED == ENABLED
     // Payload Gripper
     AP_Gripper gripper;
 #endif
 
+#define OFFBOARD_GUIDED ENABLED
 #if OFFBOARD_GUIDED == ENABLED
     // guided yaw heading PID
     AC_PID guidedHeading{5000.0, 0.0, 0.0, 10.0, 5.0, 0.2};

@@ -977,7 +977,7 @@ void GCS_MAVLINK_Plane::handleMessage(mavlink_message_t* msg)
         mavlink_command_int_t packet;
         mavlink_msg_command_int_decode(msg, &packet);
 
-        plane.DataFlash.Log_Write_MavCmdI(packet);
+        plane.DataFlash.Log_Write_MavCmdI(packet,packet.command);
 
         uint8_t result = MAV_RESULT_UNSUPPORTED;
 
