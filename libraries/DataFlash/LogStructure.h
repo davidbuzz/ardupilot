@@ -477,6 +477,24 @@ struct PACKED log_Cmd {
     float altitude;
 };
 
+struct PACKED log_CmdInt {
+    LOG_PACKET_HEADER;
+    uint64_t time_us;
+    uint16_t command;
+    uint8_t target_sys;
+    uint8_t target_comp;
+    uint8_t current;
+    uint8_t autocontinue;
+    float param1;
+    float param2;
+    float param3;
+    float param4;
+    int32_t latitude;
+    int32_t longitude;
+    float altitude;
+    uint8_t frame;
+};
+
 struct PACKED log_Radio {
     LOG_PACKET_HEADER;
     uint64_t time_us;
@@ -980,6 +998,8 @@ Format characters in the format string for binary log messages
       "POWR","QffH","TimeUS,Vcc,VServo,Flags" },  \
     { LOG_CMD_MSG, sizeof(log_Cmd), \
       "CMD", "QHHHfffffff","TimeUS,CTot,CNum,CId,Prm1,Prm2,Prm3,Prm4,Lat,Lng,Alt" }, \
+    { LOG_CMDI_MSG, sizeof(log_CmdInt), \
+      "CMDI", "QHBBBBffffiifB","TimeUS,CId,TSys,TCmp,cur,cont,Prm1,Prm2,Prm3,Prm4,Lat,Lng,Alt,F" }, \
     { LOG_RADIO_MSG, sizeof(log_Radio), \
       "RAD", "QBBBBBHH", "TimeUS,RSSI,RemRSSI,TxBuf,Noise,RemNoise,RxErrors,Fixed" }, \
     { LOG_CAMERA_MSG, sizeof(log_Camera), \
@@ -1200,6 +1220,7 @@ enum LogMessages {
     LOG_AHR2_MSG,
     LOG_SIMSTATE_MSG,
     LOG_CMD_MSG,
+    LOG_CMDI_MSG,
     LOG_RADIO_MSG,
     LOG_ATRP_MSG,
     LOG_CAMERA_MSG,

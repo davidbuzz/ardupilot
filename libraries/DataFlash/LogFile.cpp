@@ -1472,6 +1472,28 @@ bool DataFlash_Backend::Log_Write_MavCmd(uint16_t cmd_total, const mavlink_missi
     return WriteBlock(&pkt, sizeof(pkt));
 }
 
+void DataFlash_Class::Log_Write_MavCmdI(const mavlink_command_int_t& mav_cmd)
+{
+    struct log_CmdInt pkt = {
+        LOG_PACKET_HEADER_INIT(LOG_CMDI_MSG),
+        time_us         : AP_HAL::micros64(),
+        command         : (uint16_t)mav_cmd.command,
+        target_sys      : mav_cmd.target_system,
+        target_comp     : mav_cmd.target_component,
+        current         : mav_cmd.current,
+        autocontinue    : mav_cmd.autocontinue,
+        param1          : (float)mav_cmd.param1,
+        param2          : (float)mav_cmd.param2,
+        param3          : (float)mav_cmd.param3,
+        param4          : (float)mav_cmd.param4,
+        latitude        : mav_cmd.x,
+        longitude       : mav_cmd.y,
+        altitude        : (float)mav_cmd.z,
+        frame           : (uint8_t)mav_cmd.frame
+    };
+    WriteBlock(&pkt, sizeof(pkt));
+}
+
 void DataFlash_Class::Log_Write_Radio(const mavlink_radio_t &packet)
 {
     struct log_Radio pkt = {
