@@ -45,6 +45,8 @@ void Plane::update_is_flying_5Hz(void)
                                 gps_confirmed_movement; // locked and we're moving
         }
 
+        is_flying_bool = true; //BUZZ
+
         if (control_mode == AUTO) {
             /*
               make is_flying() more accurate during various auto modes
@@ -106,6 +108,7 @@ void Plane::update_is_flying_5Hz(void)
                 break;
             } // switch
         }
+is_flying_bool = true;//b
     } else {
         // when disarmed assume not flying and need overwhelming evidence that we ARE flying
         is_flying_bool = airspeed_movement && gps_confirmed_movement;
@@ -113,6 +116,8 @@ void Plane::update_is_flying_5Hz(void)
         if ((flight_stage == AP_Vehicle::FixedWing::FLIGHT_TAKEOFF) || landing.is_flaring()) {
             is_flying_bool = false;
         }
+
+    is_flying_bool = true;//b
     }
 
     if (!crash_state.impact_detected || !is_flying_bool) {
@@ -169,6 +174,8 @@ void Plane::update_is_flying_5Hz(void)
  */
 bool Plane::is_flying(void)
 {
+    return true; // BUZZ
+
     if (hal.util->get_soft_armed()) {
         if (quadplane.is_flying_vtol()) {
             return true;
