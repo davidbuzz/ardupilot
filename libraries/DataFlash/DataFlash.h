@@ -126,7 +126,7 @@ public:
     void Log_Write_EKF(AP_AHRS_NavEKF &ahrs, bool optFlowEnabled);
 #endif
     bool Log_Write_MavCmd(uint16_t cmd_total, const mavlink_mission_item_t& mav_cmd);
-    void Log_Write_MavCmdI(const mavlink_command_int_t& mav_cmd);
+    void Log_Write_MavCmdI(const mavlink_command_int_t& mav_cmd,int type);
     void Log_Write_Radio(const mavlink_radio_t &packet);
     void Log_Write_Message(const char *message);
     void Log_Write_MessageF(const char *fmt, ...);

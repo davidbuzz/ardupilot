@@ -998,6 +998,12 @@ Format characters in the format string for binary log messages
       "POWR","QffH","TimeUS,Vcc,VServo,Flags" },  \
     { LOG_CMD_MSG, sizeof(log_Cmd), \
       "CMD", "QHHHfffffff","TimeUS,CTot,CNum,CId,Prm1,Prm2,Prm3,Prm4,Lat,Lng,Alt" }, \
+    { LOG_CMDIS_MSG, sizeof(log_CmdInt), \
+      "CMIS", "QHBBBBffffiifB","TimeUS,CId,TSys,TCmp,cur,cont,Prm1,Prm2,Prm3,Prm4,Lat,Lng,Alt,F" }, \
+    { LOG_CMDIA_MSG, sizeof(log_CmdInt), \
+      "CMIA", "QHBBBBffffiifB","TimeUS,CId,TSys,TCmp,cur,cont,Prm1,Prm2,Prm3,Prm4,Lat,Lng,Alt,F" }, \
+    { LOG_CMDIH_MSG, sizeof(log_CmdInt), \
+      "CMIH", "QHBBBBffffiifB","TimeUS,CId,TSys,TCmp,cur,cont,Prm1,Prm2,Prm3,Prm4,Lat,Lng,Alt,F" }, \
     { LOG_CMDI_MSG, sizeof(log_CmdInt), \
       "CMDI", "QHBBBBffffiifB","TimeUS,CId,TSys,TCmp,cur,cont,Prm1,Prm2,Prm3,Prm4,Lat,Lng,Alt,F" }, \
     { LOG_RADIO_MSG, sizeof(log_Radio), \
@@ -1326,6 +1332,11 @@ enum LogMessages {
     LOG_BEACON_MSG,
     LOG_PROXIMITY_MSG,
     LOG_ASP2_MSG,
+
+    LOG_CMDIS_MSG,
+    LOG_CMDIA_MSG,
+    LOG_CMDIH_MSG
+
 };
 
 enum LogOriginType {
