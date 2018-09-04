@@ -162,6 +162,13 @@ void Plane::calc_airspeed_errors()
         }
     }
 
+    // when using the special GUIDED mode features for slew control, don't allow airspeed nudging as it doesn't play nicely.
+    #if OFFBOARD_GUIDED == ENABLED
+    if (control_mode == GUIDED && !is_zero(guided_state.target_airspeed_cm)) {
+        airspeed_nudge_cm = 0; 
+    }
+    #endif
+
     // Bump up the target airspeed based on throttle nudging
     if (control_mode >= AUTO && airspeed_nudge_cm > 0) {
         target_airspeed_cm += airspeed_nudge_cm;
