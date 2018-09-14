@@ -133,10 +133,6 @@ void Plane::calc_airspeed_errors()
             gcs().send_text(MAV_SEVERITY_INFO,"target_airspeed_cm clamped to MIN airspeed");
             target_airspeed_cm = aparm.airspeed_min *100;
         }
-        if ( target_airspeed_cm > guided_state.target_airspeed_cm  ) { 
-            gcs().send_text(MAV_SEVERITY_INFO,"target_airspeed_cm clamped BELOW requested GUIDED airspeed");
-            target_airspeed_cm = guided_state.target_airspeed_cm;
-        }
         if (  target_airspeed_cm > ( aparm.airspeed_max * 100)  ) { 
             gcs().send_text(MAV_SEVERITY_INFO,"target_airspeed_cm clamped to MAX airspeed");
             target_airspeed_cm = aparm.airspeed_max *100;
