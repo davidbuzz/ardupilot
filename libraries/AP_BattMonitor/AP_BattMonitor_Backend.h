@@ -53,6 +53,8 @@ public:
     virtual void handle_bi_msg(float voltage, float current,
             float temperature) {}
 
+    virtual bool zero_consumed() { return false; }// _state.consumed_mah = 0; _state.consumed_wh = 0;  return true;}
+
 protected:
     AP_BattMonitor                      &_mon;      // reference to front-end
     AP_BattMonitor::BattMonitor_State   &_state;    // reference to this instances state (held in the front-end)

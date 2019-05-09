@@ -6,7 +6,7 @@
 #include <GCS_MAVLink/GCS.h>
 #include <stdio.h>
 
-#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
+#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS || CONFIG_HAL_BOARD == HAL_BOARD_SITL
 
 /*
   "battery" monitor for liquid fuel flow systems that give a pulse on
@@ -51,11 +51,23 @@ void AP_BattMonitor_FuelFlow::irq_handler(void)
     irq_state.last_pulse_us = timestamp;
 }
 
+bool AP_BattMonitor_FuelFlow::zero_consumed()  {  
+        gcs().send_text(MAV_SEVERITY_INFO, "fuel consumed before:%f\n", _state.consumed_mah);
+        _state.consumed_mah = 0; _state.consumed_wh = 0;  _state.current_amps = 0;
+        gcs().send_text(MAV_SEVERITY_INFO, "fuel consumption zeroed:%f\n", _state.consumed_mah);
+        return true;
+}
+
 /*
   read - read the "voltage" and "current"
 */
 void AP_BattMonitor_FuelFlow::read()
 {
+    // hack for sim to pretend there is some fuel flowing: 
+    #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
+    irq_handler();
+    #endif
+
     int8_t pin = _params._curr_pin;
     if (last_pin != pin) {
         // detach from last pin
@@ -128,4 +140,4 @@ void AP_BattMonitor_FuelFlow::read()
     _state.healthy = true;
 }
 
-#endif // CHIBIOS
+#endif

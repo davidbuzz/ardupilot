@@ -26,6 +26,7 @@ class AP_BattMonitor_SMBus;
 class AP_BattMonitor_SMBus_Solo;
 class AP_BattMonitor_SMBus_Maxell;
 class AP_BattMonitor_UAVCAN;
+class AP_BattMonitor_FuelFlow;
 
 class AP_BattMonitor
 {
@@ -164,6 +165,11 @@ public:
     // get battery resistance estimate in ohms
     float get_resistance() const { return get_resistance(AP_BATT_PRIMARY_INSTANCE); }
     float get_resistance(uint8_t instance) const { return state[instance].resistance; }
+
+    // zero used consumption value/s like we'd get on reboot, used for hot battery swaps, and refilling of fuel.
+    // not supported by all backends.
+    bool zero_consumed(uint8_t instance) ;
+    bool zero_consumed() ;
 
     static const struct AP_Param::GroupInfo var_info[];
 

@@ -2,6 +2,8 @@
 
 #include "AP_BattMonitor.h"
 #include "AP_BattMonitor_Backend.h"
+#include <stdio.h>
+#include <GCS_MAVLink/GCS.h>
 
 class AP_BattMonitor_FuelFlow : public AP_BattMonitor_Backend
 {
@@ -20,6 +22,8 @@ public:
     bool has_current() const override { return true; }
 
     void init(void) override {}
+
+    bool zero_consumed();
 
 private:
     static void irq_handler(void);

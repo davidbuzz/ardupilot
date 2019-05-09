@@ -864,6 +864,12 @@ MAV_RESULT GCS_MAVLINK_Plane::handle_command_int_packet(const mavlink_command_in
         }
         return MAV_RESULT_FAILED;
     }
+    case MAV_CMD_FUEL_USED_RESET: {
+        if (is_zero(packet.param1)) {
+            plane.battery.zero_consumed();
+        }
+        return MAV_RESULT_ACCEPTED;
+    }
 
 #if OFFBOARD_GUIDED == ENABLED
     case MAV_CMD_GUIDED_CHANGE_SPEED: {

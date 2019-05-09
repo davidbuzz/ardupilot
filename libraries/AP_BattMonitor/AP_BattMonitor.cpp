@@ -112,7 +112,7 @@ AP_BattMonitor::init()
 #endif
                 break;
 
-#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
+#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS || CONFIG_HAL_BOARD == HAL_BOARD_SITL
             case AP_BattMonitor_Params::BattMonitor_TYPE_FuelFlow:
                 drivers[instance] = new AP_BattMonitor_FuelFlow(*this, state[instance], _params[instance]);
                 _num_instances++;
@@ -301,6 +301,38 @@ float AP_BattMonitor::consumed_wh(uint8_t instance) const {
     } else {
         return 0.0f;
     }
+}
+
+
+/// zero used consumption value/s for  total current drawn since start-up in milliampere.hours and watt.hours
+// but only if the backend really can do it.
+// warning, this also clears any "battery failsafe" event/s that might have occurred,  on all "fuel" based batteries.
+bool AP_BattMonitor::zero_consumed() {
+
+    for ( int instance = 0 ; instance < _num_instances ; instance++) {
+        if ( drivers[instance] != nullptr ) { 
+           bool is_fuel = drivers[instance]->zero_consumed(); // only fuelflow batteries return true here.
+           if ( is_fuel ) { 
+              if ( state[instance].failsafe != BatteryFailsafe_None ) { 
+                  state[instance].failsafe = BatteryFailsafe_None;
+                  _has_triggered_failsafe = false; // clear any battery failsafe event/s at this point too.
+                  gcs().send_text(MAV_SEVERITY_INFO, "fuel battery failsafe cleared:%d\n", (int)is_fuel);
+              }
+
+           }
+
+        }
+    }
+    return false;
+}
+
+/// zero used consumption value/s for  total current drawn since start-up in milliampere.hours and watt.hours
+// but only if the backend really can do it.
+bool AP_BattMonitor::zero_consumed(uint8_t instance) {
+    if (instance < _num_instances && drivers[instance] != nullptr) {
+        return drivers[instance]->zero_consumed();
+    }
+    return false;
 }
 
 /// capacity_remaining_pct - returns the % battery capacity remaining (0 ~ 100)
