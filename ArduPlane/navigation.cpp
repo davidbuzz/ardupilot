@@ -136,7 +136,30 @@ void Plane::calc_airspeed_errors()
             target_airspeed_cm = ((int32_t)(aparm.airspeed_max - aparm.airspeed_min) *
                                   get_throttle_input()) + ((int32_t)aparm.airspeed_min * 100);
         }
+#if OFFBOARD_GUIDED == ENABLED
+    } else if (control_mode == &mode_guided && !is_zero(guided_state.target_airspeed_cm)) {
+        // offboard airspeed demanded
+        uint32_t now = AP_HAL::millis();
+        float delta = 1e-3f * (now - guided_state.target_airspeed_time_ms);
+        guided_state.target_airspeed_time_ms = now;
+        float delta_amt = 100 * delta * guided_state.target_airspeed_accel;
+        target_airspeed_cm += delta_amt;
+        if (is_positive(guided_state.target_airspeed_accel)) {
+            target_airspeed_cm = MIN(guided_state.target_airspeed_cm, target_airspeed_cm);
+        } else {
+            target_airspeed_cm = MAX(guided_state.target_airspeed_cm, target_airspeed_cm);
+        }
 
+        // precautionary clamp/s to limits, with gcs warning
+        if (  target_airspeed_cm < ( aparm.airspeed_min * 100) ) { 
+            gcs().send_text(MAV_SEVERITY_INFO,"target_airspeed_cm clamped to MIN airspeed");
+            target_airspeed_cm = aparm.airspeed_min *100;
+        }
+        if (  target_airspeed_cm > ( aparm.airspeed_max * 100)  ) { 
+            gcs().send_text(MAV_SEVERITY_INFO,"target_airspeed_cm clamped to MAX airspeed");
+            target_airspeed_cm = aparm.airspeed_max *100;
+        }
+#endif // OFFBOARD_GUIDED == ENABLED
     } else if (flight_stage == AP_Vehicle::FixedWing::FLIGHT_LAND) {
         // Landing airspeed target
         target_airspeed_cm = landing.get_target_airspeed_cm();
@@ -167,6 +190,14 @@ void Plane::calc_airspeed_errors()
             target_airspeed_cm = min_gnd_target_airspeed;
         }
     }
+
+    // when using the special GUIDED mode features for slew control, don't allow airspeed nudging as it doesn't play nicely.
+#if OFFBOARD_GUIDED == ENABLED
+    if (control_mode == &mode_guided && !is_zero(guided_state.target_airspeed_cm) && (airspeed_nudge_cm != 0)) {
+        gcs().send_text(MAV_SEVERITY_INFO,"airspeed_nudge_cm forced to zero");
+        airspeed_nudge_cm = 0; 
+    }
+#endif
 
     // Bump up the target airspeed based on throttle nudging
     if (throttle_allows_nudging && airspeed_nudge_cm > 0) {

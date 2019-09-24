@@ -32,6 +32,11 @@ bool Mode::enter()
     plane.guided_state.last_forced_rpy_ms.zero();
     plane.guided_state.last_forced_throttle_ms = 0;
 
+    plane.guided_state.target_heading = -1; // don't default to zero here, as zero is a valid heading.
+    plane.guided_state.target_heading_type = GUIDED_HEADING_NONE;
+    plane.guided_state.target_airspeed_cm = -1; // same as above, although an airspeed of zero is rare on plane.
+    plane.guided_state.target_alt = -1; // same as above, although a target alt of zero is rare on plane.
+ 
 #if CAMERA == ENABLED
     plane.camera.set_is_auto_mode(this == &plane.mode_auto);
 #endif

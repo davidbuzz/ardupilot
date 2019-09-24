@@ -261,6 +261,28 @@ bool Plane::set_mode(Mode &new_mode, const mode_reason_t reason)
     Mode &old_mode = *control_mode;
     const mode_reason_t previous_mode_reason_backup = previous_mode_reason;
 
+    // cancel inverted flight
+    auto_state.inverted_flight = false;
+
+    // don't cross-track when starting a mission
+    auto_state.next_wp_crosstrack = false;
+
+    // reset landing check
+    auto_state.checked_for_autoland = false;
+    
+    // zero locked course
+    steer_state.locked_course_err = 0;
+
+    // reset crash detection
+    crash_state.is_crashed = false;
+    crash_state.impact_detected = false;
+
+    // reset external attitude guidance
+    memset(&guided_state, 0, sizeof(guided_state));
+    guided_state.last_forced_rpy_ms.zero();
+    guided_state.last_forced_throttle_ms = 0;
+
+    // set mode
     // update control_mode assuming success
     // TODO: move these to be after enter() once start_command_callback() no longer checks control_mode
     previous_mode = control_mode;

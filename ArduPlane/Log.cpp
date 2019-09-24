@@ -92,6 +92,18 @@ struct PACKED log_Control_Tuning {
     float airspeed_estimate;
 };
 
+struct PACKED log_Guided {
+    LOG_PACKET_HEADER;
+    uint64_t time_us;
+    float target_airspeed_cm;
+    float target_airspeed_accel;
+    float target_alt;
+    float target_alt_accel;
+    uint8_t target_alt_frame;
+    float target_heading;
+    float target_heading_limit;
+};
+
 // Write a control tuning packet. Total length : 22 bytes
 void Plane::Log_Write_Control_Tuning()
 {
@@ -245,6 +257,31 @@ void Plane::Log_Write_RC(void)
     Log_Write_AETR();
 }
 
+void Plane::Log_Write_Guided(void)
+{
+#if OFFBOARD_GUIDED == ENABLED
+    if (control_mode != &mode_guided) {
+        return;
+    }
+
+    if (guided_state.target_heading_time_ms != 0) {
+        logger.Write_PID(LOG_PIDG_MSG, g2.guidedHeading.get_pid_info());
+    }
+
+    if (guided_state.target_alt > 0.0f || (guided_state.target_airspeed_cm > 0.001f )) {
+        logger.Write("OFG", "TimeUS,Arsp,ArspA,Alt,AltA,AltF,Hdg,HdgA", "QffffBff",
+                                               AP_HAL::micros64(),
+                                               guided_state.target_airspeed_cm*0.01,
+                                               guided_state.target_airspeed_accel,
+                                               guided_state.target_alt,
+                                               guided_state.target_alt_accel,
+                                               guided_state.target_alt_frame,
+                                               guided_state.target_heading,
+                                               guided_state.target_heading_accel_limit);
+    }
+#endif // OFFBOARD_GUIDED == ENABLED
+}
+
 // type and unit information can be found in
 // libraries/AP_Logger/Logstructure.h; search for "log_Units" for
 // units and "Format characters" for field type information
@@ -274,6 +311,8 @@ const struct LogStructure Plane::log_structure[] = {
       "PIQY", PID_FMT,  PID_LABELS, PID_UNITS, PID_MULTS }, \
     { LOG_PIQA_MSG, sizeof(log_PID), \
       "PIQA", PID_FMT,  PID_LABELS, PID_UNITS, PID_MULTS }, \
+    { LOG_PIDG_MSG, sizeof(log_PID), \
+      "PIDG", PID_FMT,  PID_LABELS, PID_UNITS, PID_MULTS }, \
     { LOG_AETR_MSG, sizeof(log_AETR), \
       "AETR", "Qhhhhh",  "TimeUS,Ail,Elev,Thr,Rudd,Flap", "s-----", "F-----" },  \
 };
@@ -285,6 +324,36 @@ void Plane::Log_Write_Vehicle_Startup_Messages()
     logger.Write_Mode(control_mode->mode_number(), control_mode_reason);
     ahrs.Log_Write_Home_And_Origin();
     gps.Write_AP_Logger_Log_Startup_messages();
+}
+
+/*
+  log a COMMAND_INT message
+ */
+void Plane::Log_Write_MavCmdI(const mavlink_command_int_t &mav_cmd)
+{
+    const char *name = "CMDI";
+    if (mav_cmd.command == MAV_CMD_GUIDED_CHANGE_SPEED) {
+        name = "CMIS";
+    } else if (mav_cmd.command == MAV_CMD_GUIDED_CHANGE_ALTITUDE) {
+        name = "CMIA";
+    } else if (mav_cmd.command == MAV_CMD_GUIDED_CHANGE_HEADING) {
+        name = "CMIH";
+    }
+    logger.Write(name, "TimeUS,CId,TSys,TCmp,cur,cont,Prm1,Prm2,Prm3,Prm4,Lat,Lng,Alt,F", "QHBBBBffffiifB",
+                                           AP_HAL::micros64(),
+                                           mav_cmd.command,
+                                           mav_cmd.target_system,
+                                           mav_cmd.target_component,
+                                           mav_cmd.current,
+                                           mav_cmd.autocontinue,
+                                           mav_cmd.param1,
+                                           mav_cmd.param2,
+                                           mav_cmd.param3,
+                                           mav_cmd.param4,
+                                           mav_cmd.x,
+                                           mav_cmd.y,
+                                           mav_cmd.z,
+                                           mav_cmd.frame);
 }
 
 /*
@@ -305,6 +374,7 @@ void Plane::Log_Write_Control_Tuning() {}
 void Plane::Log_Write_Nav_Tuning() {}
 void Plane::Log_Write_Status() {}
 void Plane::Log_Write_Sonar() {}
+void Plane::Log_Write_Guided(void) {}
 
 void Plane::Log_Write_RC(void) {}
 void Plane::Log_Write_Vehicle_Startup_Messages() {}
