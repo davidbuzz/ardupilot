@@ -56,7 +56,19 @@ void AP_BattMonitor_FuelFlow::irq_handler(uint8_t pin, bool pin_state, uint32_t 
 */
 void AP_BattMonitor_FuelFlow::read()
 {
+
     int8_t pin = _params._curr_pin;
+    uint32_t now_us = AP_HAL::micros();
+
+    // hack for sim to pretend there is some fuel flowing: 
+    #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
+        static uint32_t last_us = AP_HAL::micros();
+        if (( now_us - last_us ) > 10*1000) { // for SITL we'll tick at intervals for no real reason other than so siTL sees data changing.
+            AP_BattMonitor_FuelFlow::irq_handler(pin,-1,now_us);
+            last_us = now_us;
+        }
+    #endif
+
     if (last_pin != pin) {
         // detach from last pin
         if (last_pin != -1) {
@@ -75,7 +87,6 @@ void AP_BattMonitor_FuelFlow::read()
         }
     }
 
-    uint32_t now_us = AP_HAL::micros();
     if (_state.last_time_micros == 0) {
         // need initial time, so we can work out expected pulse rate
         _state.last_time_micros = now_us;
