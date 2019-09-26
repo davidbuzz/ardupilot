@@ -1292,6 +1292,9 @@ void SITL_State::_update_gps(double latitude, double longitude, float altitude,
     d2.longitude += glitch_offsets.y;
     d2.altitude += glitch_offsets.z;
 
+    // allow gps2 a different satcount to gps1 when gps is failed.
+    d2.have_lock = _sitl->gps2_keeplock;
+
     if (gps_state.gps_fd != 0) {
         _update_gps_instance((SITL::SITL::GPSType)_sitl->gps_type.get(), &d, 0);
     }

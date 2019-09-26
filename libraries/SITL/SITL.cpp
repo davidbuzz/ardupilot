@@ -186,6 +186,7 @@ const AP_Param::GroupInfo SITL::var_info2[] = {
     AP_GROUPINFO("OPOS_ALT",    53, SITL,  opos.alt, 584.0f),
     AP_GROUPINFO("OPOS_HDG",    54, SITL,  opos.hdg, 353.0f),
 
+    AP_GROUPINFO("GPS2_KEEPLK", 55, SITL,  gps2_keeplock,   1),
     AP_GROUPEND
 
 };
