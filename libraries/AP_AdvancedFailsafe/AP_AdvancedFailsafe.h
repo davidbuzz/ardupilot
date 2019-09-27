@@ -119,6 +119,7 @@ protected:
     AP_Int8  _rc_term_manual_only;
     AP_Int8  _enable_dual_loss;
     AP_Int16  _max_range_km;
+    AP_Int8  _gps_term_secs;
 
     bool _heartbeat_pin_value;
 

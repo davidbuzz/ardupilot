@@ -155,6 +155,13 @@ const AP_Param::GroupInfo AP_AdvancedFailsafe::var_info[] = {
     // @User: Advanced
     // @Units: km
     AP_GROUPINFO("MAX_RANGE",   20, AP_AdvancedFailsafe, _max_range_km,    0),
+
+    // @Param: GP_FAIL_TIME
+    // @DisplayName:  GPS failure time
+    // @Description: This is the time in seconds that failsafe termination will activate if GPS is lost. For the OBC rules this should be (1.5). Use 0 to disable.
+    // @User: Advanced
+    // @Units: s
+    AP_GROUPINFO("GP_FAIL_TIME",   21, AP_AdvancedFailsafe, _gps_term_secs,    0),
     
     AP_GROUPEND
 };
@@ -205,6 +212,8 @@ AP_AdvancedFailsafe::check(uint32_t last_heartbeat_ms, bool geofence_breached, u
     bool gcs_link_ok = ((now - last_heartbeat_ms) < 10000);
     bool gps_lock_ok = ((now - AP::gps().last_fix_time_ms()) < 3000);
 
+    static uint32_t last_gps_lock = 0; //AP_HAL::millis();
+
     switch (_state) {
     case STATE_PREFLIGHT:
         // we startup in preflight mode. This mode ends when
@@ -231,25 +240,43 @@ AP_AdvancedFailsafe::check(uint32_t last_heartbeat_ms, bool geofence_breached, u
             }
             break;
         }
+
         if (!gps_lock_ok) {
-            gcs().send_text(MAV_SEVERITY_DEBUG, "AFS State: GPS_LOSS");
-            _state = STATE_GPS_LOSS;
-            if (_wp_gps_loss > (int8_t)0) {
-                _saved_wp = mission.get_current_nav_cmd().index;
-                mission.set_current_cmd(_wp_gps_loss);
-            }
-            else if (_wp_gps_loss == -(int8_t)(TERMINATE_ACTION_TERMINATE) && mode == AFS_AUTO) {
-                if (!_terminate) {
-                    gcs().send_text(MAV_SEVERITY_CRITICAL, "Terminating due to GPS loss");
-                    _terminate.set_and_notify(1);
+
+            gcs().send_text(MAV_SEVERITY_DEBUG, "AFS State: GPS_LOSS transitional");
+
+
+            // whenever we haven't had a gps lock for more than x seconds, trigger loss event... GPS_FAIL_TIME is the parameter name
+            // this allows a dual-gps system time to transition between gps's without a hard failure, and single gps systems to tolerate brief loss
+            if  (  ( last_gps_lock > 0 ) && 
+                    ((unsigned)(AP_HAL::millis() - last_gps_lock)  >  (unsigned)(_gps_term_secs*1000) )
+                ) {
+
+                gcs().send_text(MAV_SEVERITY_DEBUG, "AFS State: GPS_LOSS permanent");
+
+                _state = STATE_GPS_LOSS;
+                if (_wp_gps_loss > (int8_t)0) {
+                    _saved_wp = mission.get_current_nav_cmd().index;
+                    mission.set_current_cmd(_wp_gps_loss);
                 }
+                else if (_wp_gps_loss == -(int8_t)(TERMINATE_ACTION_TERMINATE) && mode == AFS_AUTO) {
+                    if (!_terminate) {
+                        gcs().send_text(MAV_SEVERITY_CRITICAL, "Terminating due to GPS loss");
+                        _terminate.set_and_notify(1);
+                    }
+                }
+                // if two events happen within 30s we consider it to be part of the same event
+                if (now - _last_gps_loss_ms > 30*1000UL) {
+                    _gps_loss_count++;
+                    _last_gps_loss_ms = now;
+                }
+                break;
             }
-            // if two events happen within 30s we consider it to be part of the same event
-            if (now - _last_gps_loss_ms > 30*1000UL) {
-                _gps_loss_count++;
-                _last_gps_loss_ms = now;
-            }
-            break;
+
+        } else 
+        {
+                // wheneever we have gps lock, keep this value up-to-date.
+                last_gps_lock = AP_HAL::millis();
         }
         break;
 
