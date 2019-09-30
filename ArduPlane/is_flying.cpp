@@ -22,6 +22,18 @@ void Plane::update_is_flying_5Hz(void)
     bool gps_confirmed_movement = (gps.status() >= AP_GPS::GPS_OK_FIX_3D) &&
                                     (gps.ground_speed_cm() >= ground_speed_thresh_cm);
 
+
+    // if the requested INITIAL_MODE == AUTO(10), then we put it in that mode *after* ekf and gps are happy.
+    // todo: handle other mode/s defined in INITIAL_MODE at the relevant time. ( such things like STABILISE don't need gps )
+    if ((int)g.initial_mode.get() == 10 ) { 
+        static bool _initial_mode_flag = true; //(int)g.initial_mode.get()==0?false:true; // 0 is the default for this param, so do nothing in that case.
+        if ( _initial_mode_flag && ahrs.finallyreadytofly()  && (control_mode->mode_number() != (enum Mode::Number)g.initial_mode.get() )){
+            set_mode_by_number((enum Mode::Number)g.initial_mode.get(), MODE_REASON_UNKNOWN);
+            gcs().send_text(MAV_SEVERITY_ALERT, "Setting INITIAL_MODE to AUTO after EKF ready:%d\n",(int)g.initial_mode.get());
+            _initial_mode_flag = false;// only do it once.
+        }
+    }
+
     // airspeed at least 75% of stall speed?
     const float airspeed_threshold = MAX(aparm.airspeed_min,2)*0.75f;
     bool airspeed_movement = ahrs.airspeed_estimate(&aspeed) && (aspeed >= airspeed_threshold);

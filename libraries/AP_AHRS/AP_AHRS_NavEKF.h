@@ -267,6 +267,10 @@ public:
     // check whether compass can be bypassed for arming check in case when external navigation data is available 
     bool is_ext_nav_used_for_yaw(void) const;
 
+    // we pull this from the ekf to flag when it's settled and gps is ok.
+    bool _finallyreadytofly = false;
+    bool finallyreadytofly() { return _finallyreadytofly; }
+
 private:
     enum EKF_TYPE {EKF_TYPE_NONE=0,
                    EKF_TYPE3=3,

@@ -723,7 +723,9 @@ void NavEKF2::UpdateFilter(void)
             statePredictEnabled[i] = true;
         }
         core[i].UpdateFilter(statePredictEnabled[i]);
-    }
+
+        if (core[i].finallyreadytofly()) { _finallyreadytofly = true;} // if any core reports ready, lets go with it , as we are ready-enough.
+     }
 
     // If the current core selected has a bad error score or is unhealthy, switch to a healthy core with the lowest fault score
     // Don't start running the check until the primary core has started returned healthy for at least 10 seconds to avoid switching

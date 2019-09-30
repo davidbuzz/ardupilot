@@ -114,6 +114,7 @@ void Plane::read_control_switch()
         }
 
         set_mode_by_number((enum Mode::Number)flight_modes[switchPosition].get(), MODE_REASON_TX_COMMAND);
+        gcs().send_text(MAV_SEVERITY_ALERT, "Setting MODE by SWITCH position:%d\n",(int)flight_modes[switchPosition].get());
 
         oldSwitchPosition = switchPosition;
     }

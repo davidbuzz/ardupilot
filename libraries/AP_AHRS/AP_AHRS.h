@@ -581,6 +581,9 @@ public:
         return _rsem;
     }
 
+    bool _finallyreadytofly = false;
+    bool finallyreadytofly() { return _finallyreadytofly; }
+
 protected:
     void update_nmea_out();
 

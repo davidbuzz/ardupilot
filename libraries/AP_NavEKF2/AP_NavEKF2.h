@@ -57,6 +57,9 @@ public:
     // Update Filter States - this should be called whenever new IMU data is available
     void UpdateFilter(void);
 
+    bool _finallyreadytofly = false;
+    bool finallyreadytofly() { return _finallyreadytofly; }
+
     // check if we should write log messages
     void check_log_write(void);
     

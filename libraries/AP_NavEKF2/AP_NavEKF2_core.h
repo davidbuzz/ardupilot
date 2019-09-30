@@ -75,6 +75,12 @@ public:
     // The predict flag is set true when a new prediction cycle can be started
     void UpdateFilter(bool predict);
 
+    // the ekf can optionally set this as soon as it's completely done making startup decisions and state changes, very last thing.
+    // in reality, right now, we use this only when GPS aiding mode is chosen, and then during startup the AHRS INITIAL_MODE mode_change takes advantage of this.
+    // low priority todo, use this in EKF3 and in other aiding subsystems than just AID_ABSOLUTE.
+    bool finallyreadytofly(); 
+    bool _finallyreadytofly = false;
+
     // Check basic filter health metrics and return a consolidated health status
     bool healthy(void) const;
 

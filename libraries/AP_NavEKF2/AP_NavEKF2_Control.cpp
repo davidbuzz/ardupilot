@@ -301,6 +301,7 @@ void NavEKF2_core::setAidingMode()
             // We have commenced aiding and GPS usage is allowed
             if (canUseGPS) {
                 gcs().send_text(MAV_SEVERITY_INFO, "EKF2 IMU%u is using GPS",(unsigned)imu_index);
+                _finallyreadytofly = true;
             }
             posTimeout = false;
             velTimeout = false;

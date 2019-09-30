@@ -602,6 +602,10 @@ void NavEKF2_core::UpdateFilter(bool predict)
     
 }
 
+bool NavEKF2_core::finallyreadytofly() {
+    return _finallyreadytofly; 
+}
+
 void NavEKF2_core::correctDeltaAngle(Vector3f &delAng, float delAngDT, uint8_t gyro_index)
 {
     delAng.x = delAng.x * stateStruct.gyro_scale.x;

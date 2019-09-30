@@ -104,6 +104,9 @@ public:
 
     bool get_velocity_NED(Vector3f &vec) const override;
 
+    bool _finallyreadytofly = false;
+    bool finallyreadytofly() { return _finallyreadytofly; }
+
 private:
     float _ki;
     float _ki_yaw;
