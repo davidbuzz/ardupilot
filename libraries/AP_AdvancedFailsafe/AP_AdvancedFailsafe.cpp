@@ -243,7 +243,13 @@ AP_AdvancedFailsafe::check(uint32_t last_heartbeat_ms, bool geofence_breached, u
 
         if (!gps_lock_ok) {
 
+
+    // limit messages to user to 1 hz.
+    static long ttttt = AP_HAL::millis();
+    if ( AP_HAL::millis() > ttttt + 1000 ) {
             gcs().send_text(MAV_SEVERITY_DEBUG, "AFS State: GPS_LOSS transitional");
+        ttttt = AP_HAL::millis();
+    }  
 
 
             // whenever we haven't had a gps lock for more than x seconds, trigger loss event... GPS_FAIL_TIME is the parameter name

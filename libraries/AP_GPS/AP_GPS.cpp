@@ -46,6 +46,8 @@
 #include <AP_AHRS/AP_AHRS.h>
 #include <AP_Logger/AP_Logger.h>
 
+#include <stdio.h>
+
 #define GPS_RTK_INJECT_TO_ALL 127
 #define GPS_MAX_RATE_MS 200 // maximum value of rate_ms (i.e. slowest update rate) is 5hz or 200ms
 #define GPS_BAUD_TIME_MS 1200
@@ -765,6 +767,7 @@ void AP_GPS::update(void)
                     if ((state[i].status > state[primary_instance].status) ||
                         ((state[i].status == state[primary_instance].status) && (state[i].num_sats > state[primary_instance].num_sats))) {
                         primary_instance = i;
+                        gcs().send_text(MAV_SEVERITY_INFO, "GPS %d: now primary instance", primary_instance);
                         _last_instance_swap_ms = now;
                     }
                 }
@@ -1233,6 +1236,14 @@ bool AP_GPS::calc_blend_weights(void)
 
     // exit immediately if not enough receivers to do blending
     if (state[0].status <= NO_FIX || state[1].status <= NO_FIX) {
+
+        // limit messages to user to 1 hz.
+        static long tttt = AP_HAL::millis();
+        if ( AP_HAL::millis() > tttt + 1000 ) {
+            gcs().send_text(MAV_SEVERITY_WARNING,"not enuf recievers to blend." );
+            tttt = AP_HAL::millis();
+        }  
+
         return false;
     }
 
@@ -1257,6 +1268,7 @@ bool AP_GPS::calc_blend_weights(void)
         state[GPS_BLENDED_INSTANCE].last_gps_time_ms = min_ms;
     } else {
         // receiver data has timed out so fail out of blending
+                gcs().send_text(MAV_SEVERITY_WARNING,"reciever timeout, no blend.");  
         return false;
     }
 
@@ -1312,6 +1324,7 @@ bool AP_GPS::calc_blend_weights(void)
 
     // if we can't do blending using reported accuracy, return false and hard switch logic will be used instead
     if (!can_do_blending) {
+        gcs().send_text(MAV_SEVERITY_WARNING,"gps accuracy blending fail, fallback to hard");
         return false;
     }
 
@@ -1378,10 +1391,20 @@ bool AP_GPS::calc_blend_weights(void)
     }
 
     // calculate an overall weight
+    char tmp[128] = "                                                                                  ";
     for (uint8_t i=0; i<GPS_MAX_RECEIVERS; i++) {
         _blend_weights[i] = (hpos_blend_weights[i] + vpos_blend_weights[i] + spd_blend_weights[i]) / sum_of_all_weights;
+
+        if (i == 0 )  snprintf(tmp, 27, "blend weight: %d -> %0.2f    ", i, _blend_weights[i]);
+        if (i == 1 )  snprintf(tmp+26, 27, "blend weight: %d -> %0.2f    ", i, _blend_weights[i]);
     }
 
+    // limit messages to user to 1 hz.
+    static long t = AP_HAL::millis();
+    if ( AP_HAL::millis() > t + 1000 ) {
+        gcs().send_text(MAV_SEVERITY_WARNING,"%s",tmp );
+        t = AP_HAL::millis();
+    }    
     return true;
 }
 
