@@ -483,12 +483,14 @@ public:
     // user settable parameters
     static const struct AP_Param::GroupInfo var_info[];
 
+    static bool stored_in_location(uint16_t id);
+
 private:
     static AP_Mission *_singleton;
 
     static StorageAccess _storage;
 
-    static bool stored_in_location(uint16_t id);
+
 
     struct Mission_Flags {
         mission_state state;

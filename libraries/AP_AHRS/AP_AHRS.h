@@ -28,6 +28,7 @@
 #include <AP_InertialSensor/AP_InertialSensor.h>
 #include <AP_Param/AP_Param.h>
 #include <AP_Common/Location.h>
+#include <AP_Arming/AP_Arming.h>
 
 class AP_NMEA_Output;
 class OpticalFlow;
@@ -445,6 +446,14 @@ public:
         return _home;
     }
 
+    // get the home location. This is const to prevent any changes to
+    // home without telling AHRS about the change
+    const struct Location &get_nearest(void) const {
+        //AP::arming().get_nearest_wp(_nearest);
+        return _nearest;
+    }
+
+
     // functions to handle locking of home.  Some vehicles use this to
     // allow GCS to lock in a home location.
     void lock_home() {
@@ -581,6 +590,8 @@ public:
         return _rsem;
     }
 
+    struct Location _nearest;
+
 protected:
     void update_nmea_out();
 
@@ -668,6 +679,7 @@ protected:
 
     // reference position for NED positions
     struct Location _home;
+
     bool _home_is_set :1;
     bool _home_locked :1;
 

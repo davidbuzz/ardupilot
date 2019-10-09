@@ -66,10 +66,18 @@ void Plane::loiter_angle_update(void)
     }
 }
 
+void Plane::do_update_wp_counts(){
+
+    // get data from arming object and put it into ahrs object.
+    arming.get_nearest_wp(arming._nearest);
+    ahrs._nearest = arming._nearest;
+
+}
+
 //****************************************************************
 // Function that will calculate the desired direction to fly and distance
 //****************************************************************
-void Plane::navigate()
+void Plane::navigate()  // run at 10Hz by sceduler, see scheduler_tasks
 {
     // allow change of nav controller mid-flight
     set_nav_controller();
@@ -96,6 +104,8 @@ void Plane::navigate()
     // control mode specific updates to navigation demands
     // ---------------------------------------------------
     update_navigation();
+
+    do_update_wp_counts(); 
 }
 
 void Plane::calc_airspeed_errors()

@@ -472,6 +472,31 @@ const luaL_Reg Location_meta[] = {
     {NULL, NULL}
 };
 
+static int GCS_set_message_interval(lua_State *L) {
+    GCS * ud = GCS::get_singleton();
+    if (ud == nullptr) {
+        return luaL_argerror(L, 1, "gcs not supported on this firmware");
+    }
+
+    binding_argcheck(L, 4);
+    const lua_Integer raw_data_2 = luaL_checkinteger(L, 2);
+    luaL_argcheck(L, ((raw_data_2 >= MAX(0, 0)) && (raw_data_2 <= MIN(MAVLINK_COMM_NUM_BUFFERS, UINT8_MAX))), 2, "argument out of range");
+    const uint8_t data_2 = static_cast<uint8_t>(raw_data_2);
+    const uint32_t raw_data_3 = *check_uint32_t(L, 3);
+    luaL_argcheck(L, ((raw_data_3 >= MAX(0U, 0U)) && (raw_data_3 <= MIN(UINT32_MAX, UINT32_MAX))), 3, "argument out of range");
+    const uint32_t data_3 = static_cast<uint32_t>(raw_data_3);
+    const lua_Integer raw_data_4 = luaL_checkinteger(L, 4);
+    luaL_argcheck(L, ((raw_data_4 >= MAX(-1, INT32_MIN)) && (raw_data_4 <= MIN(INT32_MAX, INT32_MAX))), 4, "argument out of range");
+    const int32_t data_4 = raw_data_4;
+    const MAV_RESULT &data = ud->set_message_interval(
+            data_2,
+            data_3,
+            data_4);
+
+    lua_pushinteger(L, data);
+    return 1;
+}
+
 static int GCS_send_text(lua_State *L) {
     GCS * ud = GCS::get_singleton();
     if (ud == nullptr) {
@@ -489,32 +514,6 @@ static int GCS_send_text(lua_State *L) {
             data_3);
 
     return 0;
-}
-
-static int GCS_set_message_interval(lua_State *L) {
-    GCS * ud = GCS::get_singleton();
-    if (ud == nullptr) {
-        return luaL_argerror(L, 1, "gcs not supported on this firmware");
-    }
-
-    binding_argcheck(L, 4);
-    const lua_Integer raw_data_2 = luaL_checkinteger(L, 2);
-    luaL_argcheck(L, ((raw_data_2 >= MAX(0, 0)) && raw_data_2 <= MIN(MAVLINK_COMM_NUM_BUFFERS, UINT8_MAX)), 2, "argument out of range");
-    const uint32_t data_2 = static_cast<uint32_t>(raw_data_2);
-    const lua_Unsigned raw_data_3 = luaL_checkinteger(L, 3);
-    luaL_argcheck(L, (raw_data_3 <= UINT32_MAX), 3, "argument out of range");
-    const uint32_t data_3 = static_cast<uint32_t>(raw_data_3);
-    const lua_Integer raw_data_4 = luaL_checkinteger(L, 4);
-    luaL_argcheck(L, ((raw_data_4 >= -1) && (raw_data_4 <= INT32_MAX)), 4, "argument out of range");
-    const int32_t data_4 = static_cast<int32_t>(raw_data_4);
-    const MAV_RESULT data = ud->set_message_interval(
-            data_2,
-            data_3,
-            data_4);
-
-    lua_pushinteger(L, data);
-
-    return 1;
 }
 
 static int AP_Relay_toggle(lua_State *L) {
@@ -1278,6 +1277,45 @@ static int AP_BattMonitor_num_instances(lua_State *L) {
     return 1;
 }
 
+static int AP_Arming_nearest_following_pwm(lua_State *L) {
+    AP_Arming * ud = AP_Arming::get_singleton();
+    if (ud == nullptr) {
+        return luaL_argerror(L, 1, "arming not supported on this firmware");
+    }
+
+    binding_argcheck(L, 1);
+    const uint8_t data = ud->nearest_following_pwm();
+
+    lua_pushinteger(L, data);
+    return 1;
+}
+
+static int AP_Arming_nearest_wp_distance(lua_State *L) {
+    AP_Arming * ud = AP_Arming::get_singleton();
+    if (ud == nullptr) {
+        return luaL_argerror(L, 1, "arming not supported on this firmware");
+    }
+
+    binding_argcheck(L, 1);
+    const float data = ud->nearest_wp_distance();
+
+    lua_pushnumber(L, data);
+    return 1;
+}
+
+static int AP_Arming_nearestnum(lua_State *L) {
+    AP_Arming * ud = AP_Arming::get_singleton();
+    if (ud == nullptr) {
+        return luaL_argerror(L, 1, "arming not supported on this firmware");
+    }
+
+    binding_argcheck(L, 1);
+    const float data = ud->nearestnum();
+
+    lua_pushnumber(L, data);
+    return 1;
+}
+
 static int AP_Arming_arm(lua_State *L) {
     AP_Arming * ud = AP_Arming::get_singleton();
     if (ud == nullptr) {
@@ -1460,6 +1498,22 @@ static int AP_AHRS_get_gyro(lua_State *L) {
     return 1;
 }
 
+static int AP_AHRS_get_nearest(lua_State *L) {
+    AP_AHRS * ud = AP_AHRS::get_singleton();
+    if (ud == nullptr) {
+        return luaL_argerror(L, 1, "ahrs not supported on this firmware");
+    }
+
+    binding_argcheck(L, 1);
+    ud->get_semaphore().take_blocking();
+    const Location &data = ud->get_nearest();
+
+    ud->get_semaphore().give();
+    new_Location(L);
+    *check_Location(L, -1) = data;
+    return 1;
+}
+
 static int AP_AHRS_get_home(lua_State *L) {
     AP_AHRS * ud = AP_AHRS::get_singleton();
     if (ud == nullptr) {
@@ -1544,8 +1598,8 @@ static int AP_AHRS_get_roll(lua_State *L) {
 }
 
 const luaL_Reg GCS_meta[] = {
-    {"send_text", GCS_send_text},
     {"set_message_interval", GCS_set_message_interval},
+    {"send_text", GCS_send_text},
     {NULL, NULL}
 };
 
@@ -1621,6 +1675,9 @@ const luaL_Reg AP_BattMonitor_meta[] = {
 };
 
 const luaL_Reg AP_Arming_meta[] = {
+    {"nearest_following_pwm", AP_Arming_nearest_following_pwm},
+    {"nearest_wp_distance", AP_Arming_nearest_wp_distance},
+    {"nearestnum", AP_Arming_nearestnum},
     {"arm", AP_Arming_arm},
     {"is_armed", AP_Arming_is_armed},
     {"disarm", AP_Arming_disarm},
@@ -1636,6 +1693,7 @@ const luaL_Reg AP_AHRS_meta[] = {
     {"wind_estimate", AP_AHRS_wind_estimate},
     {"get_hagl", AP_AHRS_get_hagl},
     {"get_gyro", AP_AHRS_get_gyro},
+    {"get_nearest", AP_AHRS_get_nearest},
     {"get_home", AP_AHRS_get_home},
     {"get_position", AP_AHRS_get_position},
     {"get_yaw", AP_AHRS_get_yaw},

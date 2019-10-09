@@ -162,6 +162,8 @@ public:
     void setup() override;
     void loop() override;
 
+    void do_update_wp_counts();
+
 private:
 
     // key aircraft parameters passed to multiple libraries

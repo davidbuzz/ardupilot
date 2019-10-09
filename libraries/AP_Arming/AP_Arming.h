@@ -4,6 +4,7 @@
 #include <AP_Param/AP_Param.h>
 #include <AP_InertialSensor/AP_InertialSensor.h>
 #include <RC_Channel/RC_Channel.h>
+#include <AP_Common/Location.h>
 
 class AP_Arming {
 public:
@@ -81,6 +82,18 @@ public:
     RudderArming get_rudder_arming_type() const { return (RudderArming)_rudder_arming.get(); }
 
     static const struct AP_Param::GroupInfo        var_info[];
+
+    uint32_t get_nearest_wp( Location &nearestwp);
+
+    uint32_t _nearestnum = 0;
+    uint32_t _nearest_wp_distance = 999999;
+    uint8_t _nearest_following_pwm = 0;
+
+    float nearestnum(){ return (float)_nearestnum; }
+    float nearest_wp_distance(){return (float)_nearest_wp_distance;}
+    uint8_t nearest_following_pwm(){return (uint8_t)_nearest_following_pwm;}
+
+     const struct Location &get_nearest(void);
 
 protected:
 

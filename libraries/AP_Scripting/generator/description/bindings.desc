@@ -22,6 +22,7 @@ singleton AP_AHRS method get_pitch float
 singleton AP_AHRS method get_yaw float
 singleton AP_AHRS method get_position boolean Location'Null
 singleton AP_AHRS method get_home Location
+singleton AP_AHRS method get_nearest Location
 singleton AP_AHRS method get_gyro Vector3f
 singleton AP_AHRS method get_hagl boolean float'Null
 singleton AP_AHRS method wind_estimate Vector3f
@@ -37,6 +38,10 @@ singleton AP_Arming alias arming
 singleton AP_Arming method disarm boolean
 singleton AP_Arming method is_armed boolean
 singleton AP_Arming method arm boolean AP_Arming::Method::SCRIPTING'literal
+singleton AP_Arming method nearestnum float
+singleton AP_Arming method nearest_wp_distance float
+singleton AP_Arming method nearest_following_pwm uint8_t
+
 
 include AP_BattMonitor/AP_BattMonitor.h
 
@@ -134,4 +139,4 @@ singleton AP_Relay method toggle void uint8_t 0 AP_RELAY_NUM_RELAYS
 include GCS_MAVLink/GCS.h
 singleton GCS alias gcs
 singleton GCS method send_text void MAV_SEVERITY'enum MAV_SEVERITY_EMERGENCY MAV_SEVERITY_DEBUG "%s"'literal string
-singleton GCS method set_message_interval MAV_RESULT uint8_t 0 MAVLINK_COMM_NUM_BUFFERS uint32_t 0 UINT32_MAX int32_t -1 INT32_MAX
+singleton GCS method set_message_interval MAV_RESULT'enum uint8_t 0 MAVLINK_COMM_NUM_BUFFERS uint32_t 0U UINT32_MAX int32_t -1 INT32_MAX

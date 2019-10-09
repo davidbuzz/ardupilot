@@ -184,6 +184,10 @@ bool AP_Arming_Plane::arm(const AP_Arming::Method method, const bool do_arming_c
 
     gcs().send_text(MAV_SEVERITY_INFO, "Throttle armed");
 
+    // buzz hack to read thru entire mission on-arming, and find 'nearest' wp number as a pre-arm check.
+    //static Location nearestwp;
+    //get_nearest_wp(_nearest);
+    
     return true;
 }
 
@@ -234,5 +238,54 @@ void AP_Arming_Plane::update_soft_armed()
     hal.util->set_soft_armed(is_armed() &&
                              hal.util->safety_switch_state() != AP_HAL::Util::SAFETY_DISARMED);
     AP::logger().set_vehicle_armed(hal.util->get_soft_armed());
+}
+
+// return an int for the wp number, but also the whole wp as a 'location' in the pointer.
+uint32_t AP_Arming_Plane::get_nearest_wp( Location &nearestwp) { // returns wp number of nearest waypoint
+
+      bool display_failure = true;
+
+      // sanity check that nothing in the mission will intentionally trigger a fence
+        AP_Mission::Mission_Command cmd;
+        //const Location &home = AP::ahrs().get_home();
+        struct Location herenow;
+        if ( ! AP::ahrs().get_position(herenow) ) {
+                check_failed(display_failure, "Cant get current location from AHRS.");
+                return 0;
+        }
+
+        // object vars, not statics
+        //static Location nearestwp; //default is to not be near things
+        //static float _nearest_wp_distance = 999999; //default is to not be near things
+        //static int _nearestnum = -1;
+        for (uint16_t i = 1; i < plane.mission.num_commands(); i++) {
+            if (plane.mission.read_cmd_from_storage(i, cmd) && AP_Mission::stored_in_location(cmd.id) &&
+                (cmd.id != MAV_CMD_NAV_TAKEOFF) && (cmd.id != MAV_CMD_NAV_VTOL_TAKEOFF)) {
+                if ((cmd.content.location.get_distance(herenow) < _nearest_wp_distance )) {
+                    _nearest_wp_distance = cmd.content.location.get_distance(herenow);
+                    nearestwp = cmd.content.location;
+                    _nearestnum = i;
+                }
+                // allow distance/s to increase if we are flying away from the same wp as we were before.
+                if ((cmd.content.location.get_distance(herenow) > _nearest_wp_distance ) && ( _nearestnum == i )) {
+                    _nearest_wp_distance = cmd.content.location.get_distance(herenow);
+                }
+            }
+            //  ge the mission item right after the waypoint, if it's a DO_SET_SERVO
+            if ( plane.mission.read_cmd_from_storage(_nearestnum+1, cmd) && (cmd.id == MAV_CMD_DO_SET_SERVO)){
+                _nearest_following_pwm = cmd.content.servo.pwm; // cmd.content.servo.channel, cmd.content.servo.pwm
+                //::printf("pwm %d\n",cmd.content.servo.pwm);
+                //::printf("chan %d\n",cmd.content.servo.channel);
+            }
+        }
+        if ( _nearest_wp_distance >= 999998) {
+            check_failed(display_failure, "nearest wp is a long way away, no mission found." );
+            return 0;
+        }
+
+
+        //check_failed( display_failure, "nearest wp is %d at %d meters away, ok.", _nearestnum, (uint32_t)_nearest_wp_distance );
+        return (uint32_t)_nearest_wp_distance;
+
 }
 
