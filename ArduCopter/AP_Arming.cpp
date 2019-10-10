@@ -791,6 +791,7 @@ bool AP_Arming_Copter::disarm()
     return true;
 }
 
+/*
 // return an int for the wp number, but also the whole wp as a 'location' in the pointer.
 uint32_t AP_Arming_Copter::get_nearest_wp( Location &nearestwp) { // returns wp number of nearest waypoint
 
@@ -805,10 +806,7 @@ uint32_t AP_Arming_Copter::get_nearest_wp( Location &nearestwp) { // returns wp 
                 return 0;
         }
 
-        // object vars, not statics
-        //static Location nearestwp; //default is to not be near things
-        //static float _nearest_wp_distance = 999999; //default is to not be near things
-        //static int _nearestnum = -1;
+        
         for (uint16_t i = 1; i < copter.mode_auto.mission.num_commands(); i++) {
             if (copter.mode_auto.mission.read_cmd_from_storage(i, cmd) && AP_Mission::stored_in_location(cmd.id) &&
                 (cmd.id != MAV_CMD_NAV_TAKEOFF) && (cmd.id != MAV_CMD_NAV_VTOL_TAKEOFF)) {
@@ -839,3 +837,4 @@ uint32_t AP_Arming_Copter::get_nearest_wp( Location &nearestwp) { // returns wp 
         return (uint32_t)_nearest_wp_distance;
 
 }
+*/

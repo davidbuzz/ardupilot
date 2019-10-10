@@ -446,13 +446,12 @@ public:
         return _home;
     }
 
-    // get the home location. This is const to prevent any changes to
-    // home without telling AHRS about the change
+/*
+    // get the nearest wp location. 
     const struct Location &get_nearest(void) const {
-        //AP::arming().get_nearest_wp(_nearest);
         return _nearest;
     }
-
+*/
 
     // functions to handle locking of home.  Some vehicles use this to
     // allow GCS to lock in a home location.
@@ -590,7 +589,7 @@ public:
         return _rsem;
     }
 
-    struct Location _nearest;
+    //struct Location _nearest;
 
 protected:
     void update_nmea_out();

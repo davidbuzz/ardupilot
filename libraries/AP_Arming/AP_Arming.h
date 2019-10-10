@@ -83,6 +83,7 @@ public:
 
     static const struct AP_Param::GroupInfo        var_info[];
 
+/*
     uint32_t get_nearest_wp( Location &nearestwp);
 
     uint32_t _nearestnum = 0;
@@ -94,7 +95,7 @@ public:
     uint8_t nearest_following_pwm(){return (uint8_t)_nearest_following_pwm;}
 
      const struct Location &get_nearest(void);
-
+*/
 protected:
 
     // Parameters

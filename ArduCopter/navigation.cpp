@@ -15,9 +15,9 @@ void Copter::run_nav_updates(void)
 
 void Copter::do_update_wp_counts(){
 
-    // get data from arming object and put it into ahrs object.
-    arming.get_nearest_wp(arming._nearest);
-    ahrs._nearest = arming._nearest;
+    // get data from mission object and put it into ahrs object, as ahrs has a singleton that LUA can use.
+    mode_auto.mission.find_nearest_waypoint(mode_auto.mission._nearest);
+    //ahrs._nearest = mode_auto.mission._nearest;
 
 }
 

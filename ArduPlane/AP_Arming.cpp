@@ -183,10 +183,6 @@ bool AP_Arming_Plane::arm(const AP_Arming::Method method, const bool do_arming_c
     change_arm_state();
 
     gcs().send_text(MAV_SEVERITY_INFO, "Throttle armed");
-
-    // buzz hack to read thru entire mission on-arming, and find 'nearest' wp number as a pre-arm check.
-    //static Location nearestwp;
-    //get_nearest_wp(_nearest);
     
     return true;
 }
@@ -240,6 +236,7 @@ void AP_Arming_Plane::update_soft_armed()
     AP::logger().set_vehicle_armed(hal.util->get_soft_armed());
 }
 
+/*
 // return an int for the wp number, but also the whole wp as a 'location' in the pointer.
 uint32_t AP_Arming_Plane::get_nearest_wp( Location &nearestwp) { // returns wp number of nearest waypoint
 
@@ -254,10 +251,6 @@ uint32_t AP_Arming_Plane::get_nearest_wp( Location &nearestwp) { // returns wp n
                 return 0;
         }
 
-        // object vars, not statics
-        //static Location nearestwp; //default is to not be near things
-        //static float _nearest_wp_distance = 999999; //default is to not be near things
-        //static int _nearestnum = -1;
         for (uint16_t i = 1; i < plane.mission.num_commands(); i++) {
             if (plane.mission.read_cmd_from_storage(i, cmd) && AP_Mission::stored_in_location(cmd.id) &&
                 (cmd.id != MAV_CMD_NAV_TAKEOFF) && (cmd.id != MAV_CMD_NAV_VTOL_TAKEOFF)) {
@@ -265,6 +258,7 @@ uint32_t AP_Arming_Plane::get_nearest_wp( Location &nearestwp) { // returns wp n
                     _nearest_wp_distance = cmd.content.location.get_distance(herenow);
                     nearestwp = cmd.content.location;
                     _nearestnum = i;
+                    ::printf("iiiii %d\n",i);
                 }
                 // allow distance/s to increase if we are flying away from the same wp as we were before.
                 if ((cmd.content.location.get_distance(herenow) > _nearest_wp_distance ) && ( _nearestnum == i )) {
@@ -288,4 +282,5 @@ uint32_t AP_Arming_Plane::get_nearest_wp( Location &nearestwp) { // returns wp n
         return (uint32_t)_nearest_wp_distance;
 
 }
+*/
 

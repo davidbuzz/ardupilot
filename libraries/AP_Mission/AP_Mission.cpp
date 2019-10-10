@@ -465,6 +465,53 @@ bool AP_Mission::set_current_cmd(uint16_t index)
     return true;
 }
 
+
+// return an int for the wp number, but also the whole wp as a 'location' in the pointer.
+uint16_t AP_Mission::find_nearest_waypoint( Location &nearestwp) { // returns wp number of nearest waypoint, AND the coords in the Location
+
+      //bool display_failure = true;
+
+      // sanity check that nothing in the mission will intentionally trigger a fence
+        AP_Mission::Mission_Command cmd;
+        //const Location &home = AP::ahrs().get_home();
+        struct Location herenow;
+        if ( ! AP::ahrs().get_position(herenow) ) {
+                //gcs().sent_text(display_failure, "Cant get current location from AHRS.");
+                return 0;
+        }
+
+        
+        for (uint16_t i = 1; i < num_commands(); i++) {
+            if (read_cmd_from_storage(i, cmd) && AP_Mission::stored_in_location(cmd.id) &&
+                (cmd.id != MAV_CMD_NAV_TAKEOFF) && (cmd.id != MAV_CMD_NAV_VTOL_TAKEOFF)) {
+                if ((cmd.content.location.get_distance(herenow) < _nearest_wp_distance )) {
+                    _nearest_wp_distance = cmd.content.location.get_distance(herenow);
+                    nearestwp = cmd.content.location;
+                    _nearestnum = i;
+                }
+                // allow distance/s to increase if we are flying away from the same wp as we were before.
+                if ((cmd.content.location.get_distance(herenow) > _nearest_wp_distance ) && ( _nearestnum == i )) {
+                    _nearest_wp_distance = cmd.content.location.get_distance(herenow);
+                }
+            }
+            //  ge the mission item right after the waypoint, if it's a DO_SET_SERVO
+            if ( read_cmd_from_storage(_nearestnum+1, cmd) && (cmd.id == MAV_CMD_DO_SET_SERVO)){
+                _nearest_following_pwm = cmd.content.servo.pwm; // cmd.content.servo.channel, cmd.content.servo.pwm
+                //::printf("pwm %d\n",cmd.content.servo.pwm);
+                //::printf("chan %d\n",cmd.content.servo.channel);
+            }
+        }
+        if ( _nearest_wp_distance >= 999998) {
+            //gcs().sent_text(display_failure, "nearest wp is a long way away, no mission found." );
+            return 0;
+        }
+
+
+        //gcs().sent_text( display_failure, "nearest wp is %d at %d meters away, ok.", _nearestnum, (uint32_t)_nearest_wp_distance );
+        return (uint16_t)_nearest_wp_distance;
+
+}
+
 struct PACKED Packed_Location_Option_Flags {
     uint8_t relative_alt : 1;           // 1 if altitude is relative to home
     uint8_t unused1      : 1;           // unused flag (defined so that loiter_ccw uses the correct bit)

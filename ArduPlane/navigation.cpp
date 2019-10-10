@@ -68,9 +68,9 @@ void Plane::loiter_angle_update(void)
 
 void Plane::do_update_wp_counts(){
 
-    // get data from arming object and put it into ahrs object.
-    arming.get_nearest_wp(arming._nearest);
-    ahrs._nearest = arming._nearest;
+   // get data from mission object and put it into ahrs object, as ahrs has a singleton that LUA can use.
+    mission.find_nearest_waypoint(mission._nearest);
+    //ahrs._nearest = mission._nearest;
 
 }
 
@@ -105,6 +105,7 @@ void Plane::navigate()  // run at 10Hz by sceduler, see scheduler_tasks
     // ---------------------------------------------------
     update_navigation();
 
+    // allow the nav subsystem to re-determine 'nearest' waypoint
     do_update_wp_counts(); 
 }
 

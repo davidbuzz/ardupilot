@@ -10,6 +10,7 @@
 #include <AP_GPS/AP_GPS.h>
 #include <AP_BattMonitor/AP_BattMonitor.h>
 #include <AP_Arming/AP_Arming.h>
+#include <AP_Mission/AP_Mission.h>
 #include <AP_AHRS/AP_AHRS.h>
 #include <AP_Common/Location.h>
 
@@ -1277,45 +1278,6 @@ static int AP_BattMonitor_num_instances(lua_State *L) {
     return 1;
 }
 
-static int AP_Arming_nearest_following_pwm(lua_State *L) {
-    AP_Arming * ud = AP_Arming::get_singleton();
-    if (ud == nullptr) {
-        return luaL_argerror(L, 1, "arming not supported on this firmware");
-    }
-
-    binding_argcheck(L, 1);
-    const uint8_t data = ud->nearest_following_pwm();
-
-    lua_pushinteger(L, data);
-    return 1;
-}
-
-static int AP_Arming_nearest_wp_distance(lua_State *L) {
-    AP_Arming * ud = AP_Arming::get_singleton();
-    if (ud == nullptr) {
-        return luaL_argerror(L, 1, "arming not supported on this firmware");
-    }
-
-    binding_argcheck(L, 1);
-    const float data = ud->nearest_wp_distance();
-
-    lua_pushnumber(L, data);
-    return 1;
-}
-
-static int AP_Arming_nearestnum(lua_State *L) {
-    AP_Arming * ud = AP_Arming::get_singleton();
-    if (ud == nullptr) {
-        return luaL_argerror(L, 1, "arming not supported on this firmware");
-    }
-
-    binding_argcheck(L, 1);
-    const float data = ud->nearestnum();
-
-    lua_pushnumber(L, data);
-    return 1;
-}
-
 static int AP_Arming_arm(lua_State *L) {
     AP_Arming * ud = AP_Arming::get_singleton();
     if (ud == nullptr) {
@@ -1352,6 +1314,59 @@ static int AP_Arming_disarm(lua_State *L) {
     const bool data = ud->disarm();
 
     lua_pushboolean(L, data);
+    return 1;
+}
+
+static int AP_Mission_nearest_following_pwm(lua_State *L) {
+    AP_Mission * ud = AP_Mission::get_singleton();
+    if (ud == nullptr) {
+        return luaL_argerror(L, 1, "mission not supported on this firmware");
+    }
+
+    binding_argcheck(L, 1);
+    const uint16_t data = ud->nearest_following_pwm();
+
+    lua_pushinteger(L, data);
+    return 1;
+}
+
+static int AP_Mission_nearest_wp_distance(lua_State *L) {
+    AP_Mission * ud = AP_Mission::get_singleton();
+    if (ud == nullptr) {
+        return luaL_argerror(L, 1, "mission not supported on this firmware");
+    }
+
+    binding_argcheck(L, 1);
+    const float data = ud->nearest_wp_distance();
+
+    lua_pushnumber(L, data);
+    return 1;
+}
+
+static int AP_Mission_nearestnum(lua_State *L) {
+    AP_Mission * ud = AP_Mission::get_singleton();
+    if (ud == nullptr) {
+        return luaL_argerror(L, 1, "mission not supported on this firmware");
+    }
+
+    binding_argcheck(L, 1);
+    const uint16_t data = ud->nearestnum();
+
+    lua_pushinteger(L, data);
+    return 1;
+}
+
+static int AP_Mission_get_nearest(lua_State *L) {
+    AP_Mission * ud = AP_Mission::get_singleton();
+    if (ud == nullptr) {
+        return luaL_argerror(L, 1, "mission not supported on this firmware");
+    }
+
+    binding_argcheck(L, 1);
+    const Location &data = ud->get_nearest();
+
+    new_Location(L);
+    *check_Location(L, -1) = data;
     return 1;
 }
 
@@ -1495,22 +1510,6 @@ static int AP_AHRS_get_gyro(lua_State *L) {
     ud->get_semaphore().give();
     new_Vector3f(L);
     *check_Vector3f(L, -1) = data;
-    return 1;
-}
-
-static int AP_AHRS_get_nearest(lua_State *L) {
-    AP_AHRS * ud = AP_AHRS::get_singleton();
-    if (ud == nullptr) {
-        return luaL_argerror(L, 1, "ahrs not supported on this firmware");
-    }
-
-    binding_argcheck(L, 1);
-    ud->get_semaphore().take_blocking();
-    const Location &data = ud->get_nearest();
-
-    ud->get_semaphore().give();
-    new_Location(L);
-    *check_Location(L, -1) = data;
     return 1;
 }
 
@@ -1675,12 +1674,17 @@ const luaL_Reg AP_BattMonitor_meta[] = {
 };
 
 const luaL_Reg AP_Arming_meta[] = {
-    {"nearest_following_pwm", AP_Arming_nearest_following_pwm},
-    {"nearest_wp_distance", AP_Arming_nearest_wp_distance},
-    {"nearestnum", AP_Arming_nearestnum},
     {"arm", AP_Arming_arm},
     {"is_armed", AP_Arming_is_armed},
     {"disarm", AP_Arming_disarm},
+    {NULL, NULL}
+};
+
+const luaL_Reg AP_Mission_meta[] = {
+    {"nearest_following_pwm", AP_Mission_nearest_following_pwm},
+    {"nearest_wp_distance", AP_Mission_nearest_wp_distance},
+    {"nearestnum", AP_Mission_nearestnum},
+    {"get_nearest", AP_Mission_get_nearest},
     {NULL, NULL}
 };
 
@@ -1693,7 +1697,6 @@ const luaL_Reg AP_AHRS_meta[] = {
     {"wind_estimate", AP_AHRS_wind_estimate},
     {"get_hagl", AP_AHRS_get_hagl},
     {"get_gyro", AP_AHRS_get_gyro},
-    {"get_nearest", AP_AHRS_get_nearest},
     {"get_home", AP_AHRS_get_home},
     {"get_position", AP_AHRS_get_position},
     {"get_yaw", AP_AHRS_get_yaw},
@@ -1745,6 +1748,7 @@ const struct userdata_meta singleton_fun[] = {
     {"gps", AP_GPS_meta, AP_GPS_enums},
     {"battery", AP_BattMonitor_meta, NULL},
     {"arming", AP_Arming_meta, NULL},
+    {"mission", AP_Mission_meta, NULL},
     {"ahrs", AP_AHRS_meta, NULL},
 };
 
@@ -1796,6 +1800,7 @@ const char *singletons[] = {
     "gps",
     "battery",
     "arming",
+    "mission",
     "ahrs",
 };
 

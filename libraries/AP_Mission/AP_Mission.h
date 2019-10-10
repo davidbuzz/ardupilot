@@ -20,6 +20,7 @@
 #include <AP_Param/AP_Param.h>
 #include <StorageManager/StorageManager.h>
 
+
 // definitions
 #define AP_MISSION_EEPROM_VERSION           0x65AE  // version number stored in first four bytes of eeprom.  increment this by one when eeprom format is changed
 #define AP_MISSION_EEPROM_COMMAND_SIZE      15      // size in bytes of all mission commands
@@ -485,12 +486,29 @@ public:
 
     static bool stored_in_location(uint16_t id);
 
+   // get the nearest wp location. 
+    const struct Location &get_nearest(void) const {
+        return _nearest;
+    }
+
+    // nearest by geagraphical distance to the vehicle's current location.
+    uint16_t find_nearest_waypoint( Location &nearestwp);
+    Location _nearest;
+
+    uint16_t nearestnum(){ return (uint16_t)_nearestnum; }
+    float nearest_wp_distance(){return (float)_nearest_wp_distance;} //lua doesnt do uint32t's well, so we cast to float as workaround
+    uint16_t nearest_following_pwm(){return (uint16_t)_nearest_following_pwm;}
+
+
 private:
     static AP_Mission *_singleton;
 
     static StorageAccess _storage;
 
 
+    uint16_t _nearestnum = 0;
+    uint32_t _nearest_wp_distance = 999999;
+    uint16_t _nearest_following_pwm = 0;
 
     struct Mission_Flags {
         mission_state state;
