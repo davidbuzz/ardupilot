@@ -236,6 +236,8 @@ public:
     void setup() override;
     void loop() override;
 
+    void do_update_wp_counts();
+
 private:
     static const AP_FWVersion fwver;
 

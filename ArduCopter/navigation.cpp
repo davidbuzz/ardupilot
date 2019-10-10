@@ -8,6 +8,17 @@ void Copter::run_nav_updates(void)
     update_super_simple_bearing(false);
 
     flightmode->update_navigation();
+
+    // allow the nav subsystem to re-determine 'nearest' waypoint
+    do_update_wp_counts(); 
+}
+
+void Copter::do_update_wp_counts(){
+
+    // get data from arming object and put it into ahrs object.
+    arming.get_nearest_wp(arming._nearest);
+    ahrs._nearest = arming._nearest;
+
 }
 
 // distance between vehicle and home in cm

@@ -26,6 +26,15 @@ public:
     bool disarm() override;
     bool arm(AP_Arming::Method method, bool do_arming_checks=true) override;
 
+
+    uint32_t get_nearest_wp(Location &loc); // returns wp details of nearest waypoint
+    // get the nearest location. 
+    const struct Location &get_nearest(void) const {
+        //get_nearest_wp(_nearest);
+        return _nearest;
+    }
+    struct Location _nearest;
+
 protected:
 
     bool pre_arm_checks(bool display_failure) override;
