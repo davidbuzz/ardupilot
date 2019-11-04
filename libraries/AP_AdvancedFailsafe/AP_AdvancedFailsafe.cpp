@@ -227,29 +227,24 @@ AP_AdvancedFailsafe::check(uint32_t last_heartbeat_ms, bool geofence_breached, u
     case STATE_AUTO:
         // this is the normal mode. 
         if (!gcs_link_ok) {
-            gcs().send_text(MAV_SEVERITY_DEBUG, "AFS State: DATA_LINK_LOSS");
-            _state = STATE_DATA_LINK_LOSS;
-            if (_wp_comms_hold) {
-                _saved_wp = mission.get_current_nav_cmd().index;
-                mission.set_current_cmd(_wp_comms_hold);
-            }
-            // if two events happen within 30s we consider it to be part of the same event
-            if (now - _last_comms_loss_ms > 30*1000UL) {
-                _comms_loss_count++;
-                _last_comms_loss_ms = now;
-            }
-            break;
+
+            // this is a report-only thing, also we limit messages to user to 1 hz.
+            static long tttttt = AP_HAL::millis();
+            if ( AP_HAL::millis() > tttttt + 1000 ) {
+                gcs().send_text(MAV_SEVERITY_DEBUG, "AFS State: DATA_LINK_LOSS, no action taken.");
+                tttttt = AP_HAL::millis();
+            }  
+
         }
 
         if (!gps_lock_ok) {
 
-
-    // limit messages to user to 1 hz.
-    static long ttttt = AP_HAL::millis();
-    if ( AP_HAL::millis() > ttttt + 1000 ) {
-            gcs().send_text(MAV_SEVERITY_DEBUG, "AFS State: GPS_LOSS transitional");
-        ttttt = AP_HAL::millis();
-    }  
+            // limit messages to user to 1 hz.
+            static long ttttt = AP_HAL::millis();
+            if ( AP_HAL::millis() > ttttt + 1000 ) {
+                    gcs().send_text(MAV_SEVERITY_DEBUG, "AFS State: GPS_LOSS transitional");
+                ttttt = AP_HAL::millis();
+            }  
 
 
             // whenever we haven't had a gps lock for more than x seconds, trigger loss event... GPS_FAIL_TIME is the parameter name
@@ -286,38 +281,13 @@ AP_AdvancedFailsafe::check(uint32_t last_heartbeat_ms, bool geofence_breached, u
         }
         break;
 
+    // we don't use this state any more, but gcc needs it here.
     case STATE_DATA_LINK_LOSS:
-        if (!gps_lock_ok) {
-            // losing GPS lock when data link is lost
-            // leads to termination if AFS_DUAL_LOSS is 1
-            if(_enable_dual_loss) {
-                if (!_terminate) {
-                    gcs().send_text(MAV_SEVERITY_CRITICAL, "Terminating due to dual loss");
-                    _terminate.set_and_notify(1);
-                }
-            }
-        } else if (gcs_link_ok) {
-            _state = STATE_AUTO;
-            gcs().send_text(MAV_SEVERITY_DEBUG, "AFS State: AFS_AUTO, GCS now OK");
-            // we only return to the mission if we have not exceeded AFS_MAX_COM_LOSS
-            if (_saved_wp != 0 && 
-                (_max_comms_loss <= 0 || 
-                 _comms_loss_count <= _max_comms_loss)) {
-                mission.set_current_cmd(_saved_wp);            
-                _saved_wp = 0;
-            }
-        }
+        _state = STATE_AUTO;
         break;
 
     case STATE_GPS_LOSS:
-        if (!gcs_link_ok) {
-            // losing GCS link when GPS lock lost
-            // leads to termination if AFS_DUAL_LOSS is 1
-            if (!_terminate && _enable_dual_loss) {
-                gcs().send_text(MAV_SEVERITY_CRITICAL, "Terminating due to dual loss");
-                _terminate.set_and_notify(1);
-            }
-        } else if (gps_lock_ok) {
+        if (gps_lock_ok) {
             gcs().send_text(MAV_SEVERITY_DEBUG, "AFS State: AFS_AUTO, GPS now OK");
             _state = STATE_AUTO;
             // we only return to the mission if we have not exceeded AFS_MAX_GPS_LOSS
