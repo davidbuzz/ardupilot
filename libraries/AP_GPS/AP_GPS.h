@@ -201,6 +201,8 @@ public:
         return status(primary_instance);
     }
 
+    void report_detected_bauds_with_fix(void);
+
     // Query the highest status this GPS supports (always reports GPS_OK_FIX_3D for the blended GPS)
     GPS_Status highest_supported_status(uint8_t instance) const;
 

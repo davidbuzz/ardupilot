@@ -332,6 +332,20 @@ bool Plane::geofence_prearm_check(void)
  */
 void Plane::geofence_check(bool altitude_check_only)
 {
+
+
+    // again, messaging only.... while on the ground...
+    //if ( ! auto_state.takeoff_complete ) {
+
+  // this is a report-only thing, also we limit messages to low speed.   this check deliberately happens pre-fence as well as post-fence
+    static long qqqqqqq = AP_HAL::millis();
+    if ( AP_HAL::millis() > qqqqqqq + 30000 ) {
+            plane.gps.report_detected_bauds_with_fix();
+        qqqqqqq = AP_HAL::millis();
+    }
+
+    //}
+
     if (!geofence_enabled()) {
         // switch back to the chosen control mode if still in
         // GUIDED to the return point
@@ -357,6 +371,28 @@ void Plane::geofence_check(bool altitude_check_only)
             return;
         }
     }
+
+
+    // to get to this point in the code we know geofence_enabled() is already true, as 
+    // is g.fence_autoenable > 0 and geofence_set_enabled, but we are not necessarily airborne
+    
+
+   // this is a report-only thing, also we limit messages to user to 1/10 hz.
+    static long tttttttttt = AP_HAL::millis();
+    if ( AP_HAL::millis() > tttttttttt + 30000 ) {
+        // has geofence_load() run and succeeded, which is an on-the-ground thing
+        gcs().send_text(MAV_SEVERITY_INFO,"Geofence loaded, repeat.");
+
+        // this says we thing we are in-the-air and have run plane.complete_auto_takeoff() amon other things...
+        if (auto_state.takeoff_complete == true){
+            gcs().send_text(MAV_SEVERITY_INFO, "Fence enabled (autoenabled)");
+        }
+        tttttttttt = AP_HAL::millis();
+
+
+    }  
+
+
 
     bool outside = false;
     uint8_t breach_type = FENCE_BREACH_NONE;

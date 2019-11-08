@@ -588,6 +588,15 @@ found_gps:
     }
 }
 
+void AP_GPS::report_detected_bauds_with_fix() 
+{
+   for (uint8_t i=0; i<GPS_MAX_RECEIVERS; i++) {
+        if ( (drivers[i] != nullptr) && (state[i].status >= AP_GPS::GPS_OK_FIX_3D) ) {
+             drivers[i]->broadcast_gps_type();
+        }
+    }
+}
+
 AP_GPS::GPS_Status AP_GPS::highest_supported_status(uint8_t instance) const
 {
     if (instance < GPS_MAX_RECEIVERS && drivers[instance] != nullptr) {
@@ -767,7 +776,7 @@ void AP_GPS::update(void)
                     if ((state[i].status > state[primary_instance].status) ||
                         ((state[i].status == state[primary_instance].status) && (state[i].num_sats > state[primary_instance].num_sats))) {
                         primary_instance = i;
-                        gcs().send_text(MAV_SEVERITY_INFO, "GPS %d: now primary instance", primary_instance);
+                        gcs().send_text(MAV_SEVERITY_INFO, "GPS %d: now primary instance", primary_instance+1);
                         _last_instance_swap_ms = now;
                     }
                 }
@@ -1239,7 +1248,7 @@ bool AP_GPS::calc_blend_weights(void)
 
         // limit messages to user to 1 hz.
         static long tttt = AP_HAL::millis();
-        if ( AP_HAL::millis() > tttt + 1000 ) {
+        if ( AP_HAL::millis() > tttt + 10000 ) {
             gcs().send_text(MAV_SEVERITY_WARNING,"not enuf recievers to blend." );
             tttt = AP_HAL::millis();
         }  
@@ -1401,7 +1410,7 @@ bool AP_GPS::calc_blend_weights(void)
 
     // limit messages to user to 1 hz.
     static long t = AP_HAL::millis();
-    if ( AP_HAL::millis() > t + 1000 ) {
+    if ( AP_HAL::millis() > t + 5000 ) {
         gcs().send_text(MAV_SEVERITY_WARNING,"%s",tmp );
         t = AP_HAL::millis();
     }    
@@ -1647,6 +1656,15 @@ bool AP_GPS::prepare_for_arming(void) {
     }
     return all_passed;
 }
+
+/*
+bool AP_GPS::broadcast_gps_type(uint8_t instance) {
+    if (drivers[instance] != nullptr) {
+        drivers[instance]->broadcast_gps_type();
+    }
+    return true;
+}
+*/
 
 namespace AP {
 

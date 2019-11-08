@@ -188,17 +188,8 @@ AP_AdvancedFailsafe::check(uint32_t last_heartbeat_ms, bool geofence_breached, u
     // update max range check
     max_range_update();
 
-    enum control_mode mode = afs_mode();
+    enum control_mode mode = afs_mode(); // auto, manual, or some form of stabilization.
     
-    // check if RC termination is enabled
-    // check for RC failure in manual mode or RC failure when AFS_RC_MANUAL is 0
-    if (_state != STATE_PREFLIGHT && !_terminate && _enable_RC_fs &&
-        (mode == AFS_MANUAL || mode == AFS_STABILIZED || !_rc_term_manual_only) &&
-        _rc_fail_time_seconds > 0 &&
-            (AP_HAL::millis() - last_valid_rc_ms) > (_rc_fail_time_seconds * 1000.0f)) {
-        gcs().send_text(MAV_SEVERITY_CRITICAL, "Terminating due to RC failure");
-        _terminate.set_and_notify(1);
-    }
     
     // tell the failsafe board if we are in manual control
     // mode. This tells it to pass through controls from the
@@ -209,10 +200,19 @@ AP_AdvancedFailsafe::check(uint32_t last_heartbeat_ms, bool geofence_breached, u
     }
 
     uint32_t now = AP_HAL::millis();
-    bool gcs_link_ok = ((now - last_heartbeat_ms) < 10000);
+    //bool gcs_link_ok = ((now - last_heartbeat_ms) < 10000);
     bool gps_lock_ok = ((now - AP::gps().last_fix_time_ms()) < 3000);
 
     static uint32_t last_gps_lock = 0; //AP_HAL::millis();
+
+/* the only possible values for _state are from this enum here, and we handle all of these and none other.
+  enum state {
+        STATE_PREFLIGHT       = 0,
+        STATE_AUTO            = 1,
+        STATE_DATA_LINK_LOSS  = 2,
+        STATE_GPS_LOSS        = 3
+    };
+*/ 
 
     switch (_state) {
     case STATE_PREFLIGHT:
@@ -226,15 +226,14 @@ AP_AdvancedFailsafe::check(uint32_t last_heartbeat_ms, bool geofence_breached, u
 
     case STATE_AUTO:
         // this is the normal mode. 
-        if (!gcs_link_ok) {
 
-            // this is a report-only thing, also we limit messages to user to 1 hz.
-            static long tttttt = AP_HAL::millis();
-            if ( AP_HAL::millis() > tttttt + 1000 ) {
-                gcs().send_text(MAV_SEVERITY_DEBUG, "AFS State: DATA_LINK_LOSS, no action taken.");
-                tttttt = AP_HAL::millis();
+        if (gps_lock_ok) {
+            // this is a report-only thing, also we limit messages to user to 1/10 hz.
+            static long tttttttt = AP_HAL::millis();
+            if ( AP_HAL::millis() > tttttttt + 10000 ) {
+                gcs().send_text(MAV_SEVERITY_DEBUG, "AFS State: AFS_AUTO OK");
+                tttttttt = AP_HAL::millis();
             }  
-
         }
 
         if (!gps_lock_ok) {
@@ -290,12 +289,6 @@ AP_AdvancedFailsafe::check(uint32_t last_heartbeat_ms, bool geofence_breached, u
         if (gps_lock_ok) {
             gcs().send_text(MAV_SEVERITY_DEBUG, "AFS State: AFS_AUTO, GPS now OK");
             _state = STATE_AUTO;
-            // we only return to the mission if we have not exceeded AFS_MAX_GPS_LOSS
-            if (_saved_wp != 0 &&
-                (_max_gps_loss <= 0 || _gps_loss_count <= _max_gps_loss)) {
-                mission.set_current_cmd(_saved_wp);            
-                _saved_wp = 0;
-            }
         }
         break;
     }
