@@ -315,10 +315,7 @@ bool Plane::geofence_prearm_check(void)
         // must have position
         return false;
     }
-    Vector2l location;
-    location.x = loc.lat;
-    location.y = loc.lng;
-    bool outside = Polygon_outside(location, &geofence_state->boundary[1], geofence_state->num_points-1);
+    bool outside = geofence_GPS_check_outside();
     if (outside) {
         gcs().send_text(MAV_SEVERITY_WARNING, "PreArm: outside fence");
         return false;
@@ -326,6 +323,59 @@ bool Plane::geofence_prearm_check(void)
     return true;
 }
 
+/*
+  return true if either no GPS module has a 2D or 3D fix, or all GPS
+  modules that have a fix are outside the geofence polygon.
+  In a dual-gps setup, this requires both gps's to consider it a breach for it to actually breach.
+ */
+bool Plane::geofence_GPS_check_outside(void)
+{
+    for (uint8_t i=0; i< plane.gps.num_sensors(); i++) {
+        if (plane.gps.status(i) < AP_GPS::GPS_OK_FIX_3D) {
+            continue;
+        }
+        const Location &gps_loc = plane.gps.location(i);
+        Vector2l location;
+        location.x = gps_loc.lat;
+        location.y = gps_loc.lng;
+        if (!Polygon_outside(location, &geofence_state->boundary[1], geofence_state->num_points-1)) {
+            // this one is OK
+            return false;
+        }
+    }
+    return true;
+}
+
+/*
+  return true if either no GPS module has a 2D or 3D fix, or all GPS
+  modules that have a fix are above the max geofence altitude. 
+  In a dual-gps setup, this requires both gps's to consider it a breach for it to actually breach.
+ */
+bool Plane::geofence_GPS_check_above(void)
+{
+    for (uint8_t i=0; i< plane.gps.num_sensors(); i++) {
+        if (plane.gps.status(i) < AP_GPS::GPS_OK_FIX_3D) {
+            continue;
+        }
+        const Location &gps_loc = plane.gps.location(i);
+
+        // a lot like geofence_check_maxalt() but doesn't use the vehicle/s 
+        //position from adjusted_altitude_cm() , which uses current_loc.alt, which could come from either gps and we don't really know
+
+        int32_t amsl_m = gps_loc.alt; // get alt direct from individual gps, not current_loc.alt
+
+        // this calc is essentially what's done inside geofence_check_maxalt() and adjusted_altitude_cm() but unrolled and using
+        // a specific gps source for gps alt
+        bool geofence_check_maxalt_breached =  ( (amsl_m - (mission_alt_offset()*100)) > (g.fence_maxalt*100.0f) + home.alt);
+
+        // if either of them says its inside, then it's inside....
+        if ( ! geofence_check_maxalt_breached ) {
+            return false;
+        }
+    }
+    // if both of them say its breached, then it's breached. 
+    return true;
+}
 
 /*
  *  check if we have breached the geo-fence
@@ -406,14 +456,12 @@ void Plane::geofence_check(bool altitude_check_only)
     if (geofence_state->floor_enabled && geofence_check_minalt()) {
         outside = true;
         breach_type = FENCE_BREACH_MINALT;
-    } else if (geofence_check_maxalt()) {
+
+    } else if (geofence_GPS_check_above()) {
         outside = true;
         breach_type = FENCE_BREACH_MAXALT;
     } else if (!altitude_check_only && ahrs.get_position(loc)) {
-        Vector2l location;
-        location.x = loc.lat;
-        location.y = loc.lng;
-        outside = Polygon_outside(location, &geofence_state->boundary[1], geofence_state->num_points-1);
+        outside = geofence_GPS_check_outside();
         if (outside) {
             breach_type = FENCE_BREACH_BOUNDARY;
         }

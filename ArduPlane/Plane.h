@@ -937,6 +937,8 @@ private:
     bool geofence_check_minalt(void);
     bool geofence_check_maxalt(void);
     void geofence_check(bool altitude_check_only);
+    bool geofence_GPS_check_outside(void);
+    bool geofence_GPS_check_above(void);
     bool geofence_prearm_check(void);
     bool geofence_stickmixing(void);
     void geofence_send_status(mavlink_channel_t chan);
