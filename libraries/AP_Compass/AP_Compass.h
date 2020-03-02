@@ -14,6 +14,11 @@
 #include "Compass_PerMotor.h"
 #include <AP_Common/TSIndex.h>
 
+#if HAL_WITH_UAVCAN && CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_SITL_CAN
+#include <uavcan_linux/uavcan_linux.hpp>
+#include <uavcan_linux/helpers.hpp>
+#endif
+
 // motor compensation types (for use with motor_comp_enabled)
 #define AP_COMPASS_MOT_COMP_DISABLED    0x00
 #define AP_COMPASS_MOT_COMP_THROTTLE    0x01
@@ -334,7 +339,11 @@ public:
     MAV_RESULT mag_cal_fixed_yaw(float yaw_deg, uint8_t compass_mask,
                                  float lat_deg, float lon_deg);
 
-private:
+#if HAL_WITH_UAVCAN && CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_SITL_CAN
+    const char *_uavcan_interface;
+    uavcan_linux::NodePtr node;
+#endif
+  private:
     static Compass *_singleton;
 
     // Use Priority and StateIndex typesafe index types 
