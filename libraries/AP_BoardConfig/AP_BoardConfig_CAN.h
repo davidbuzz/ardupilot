@@ -12,6 +12,7 @@
 #define UAVCAN_PROTOCOL_ENABLE  1
 #if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_SITL_CAN
 #include <AP_UAVCAN/AP_UAVCAN.h>
+#endif
 
 class AP_BoardConfig_CAN {
 public:

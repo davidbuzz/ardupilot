@@ -1052,23 +1052,24 @@ void Compass::_detect_backends(void)
     }
 #endif
 
+
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
 #if HAL_WITH_UAVCAN
-    if (_driver_enabled(DRIVER_UAVCAN))
-    {
-        bool added;
-        do
-        {
-            added = _add_backend(AP_Compass_UAVCAN::probe(*this), "UAVCAN", true);
-            if (_backend_count == COMPASS_MAX_BACKEND || _compass_count == COMPASS_MAX_INSTANCES)
-            {
+    if (_driver_enabled(DRIVER_UAVCAN)) {
+        for (uint8_t i=0; i<COMPASS_MAX_BACKEND; i++) {
+            AP_Compass_Backend* _uavcan_backend = AP_Compass_UAVCAN::probe(i);
+            if (_uavcan_backend) {
+                _add_backend(_uavcan_backend);
+            }
+            if (_unreg_compass_count == COMPASS_MAX_UNREG_DEV) {
                 return;
             }
-        } while (added);
+        }
     }
 #else
-    ADD_BACKEND(DRIVER_SITL, new AP_Compass_SITL(*this), nullptr, false);
+    ADD_BACKEND(DRIVER_SITL, new AP_Compass_SITL());
 #endif
+
     return;
 #endif
 

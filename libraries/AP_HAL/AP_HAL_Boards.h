@@ -9,7 +9,6 @@
 #define HAL_BOARD_SITL     3
 #define HAL_BOARD_SMACCM   4  // unused
 #define HAL_BOARD_PX4      5  // unused
-//#define HAL_BOARD_SITL_CAN 6
 #define HAL_BOARD_LINUX    7
 #define HAL_BOARD_VRBRAIN  8
 #define HAL_BOARD_CHIBIOS  10
