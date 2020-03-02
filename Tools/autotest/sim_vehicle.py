@@ -280,7 +280,10 @@ def do_build_waf(opts, frame_options):
 
     waf_light = os.path.join(root_dir, "modules/waf/waf-light")
 
-    cmd_configure = [waf_light, "configure", "--board", "sitl"]
+    if opts.uavcan:
+        cmd_configure = [waf_light, "configure", "--board", "sitlcan"]
+    else:
+        cmd_configure = [waf_light, "configure", "--board", "sitl"]
     if opts.debug:
         cmd_configure.append("--debug")
 
@@ -592,6 +595,9 @@ def start_vehicle(binary, opts, stuff, loc=None):
     path = None
     if "default_params_filename" in stuff:
         paths = stuff["default_params_filename"]
+        if opts.uavcan:
+            suffix = paths.find(".")
+            paths = paths[:suffix]+"-uavcan"+paths[suffix:]
         if not isinstance(paths, list):
             paths = [paths]
         paths = [os.path.join(autotest_dir, x) for x in paths]
@@ -608,6 +614,8 @@ def start_vehicle(binary, opts, stuff, loc=None):
             sys.exit(1)
         path += "," + str(opts.add_param_file)
         progress("Adding parameters from (%s)" % (str(opts.add_param_file),))
+    if opts.uavcan > 1:
+        cmd.extend(["--uavcan", opts.uavcan])
     if path is not None:
         cmd.extend(["--defaults", path])
     if opts.mcast:
@@ -946,6 +954,11 @@ group_sim.add_option("-Z", "--swarm",
 group_sim.add_option("--flash-storage",
                      action='store_true',
                      help="enable use of flash storage emulation")
+group_sim.add_option("", "--uavcan",
+                     type='string',
+                     dest='uavcan',
+                     default=None,
+                     help="Set UAVCAN interface")
 parser.add_option_group(group_sim)
 
 
@@ -1114,7 +1127,10 @@ else:
         do_build_parameters(cmd_opts.vehicle)
 
     if cmd_opts.build_system == "waf":
-        binary_basedir = "build/sitl"
+        if cmd_opts.uavcan:
+            binary_basedir = "build/sitlcan"
+        else:
+            binary_basedir = "build/sitl"
         vehicle_binary = os.path.join(root_dir,
                                       binary_basedir,
                                       frame_infos["waf_target"])
