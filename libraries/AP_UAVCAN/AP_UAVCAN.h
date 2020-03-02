@@ -26,6 +26,7 @@
 
 #include <uavcan/helpers/heap_based_pool_allocator.hpp>
 
+
 #ifndef UAVCAN_NODE_POOL_SIZE
 #define UAVCAN_NODE_POOL_SIZE 8192
 #endif
