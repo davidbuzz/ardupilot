@@ -17,4 +17,5 @@ class DigitalSource;
 class DSP;
 class HALSITLCAN;
 class HALSITLCANDriver;
+class CANManager;
 }  // namespace HALSITL

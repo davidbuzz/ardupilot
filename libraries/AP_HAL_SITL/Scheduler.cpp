@@ -13,6 +13,11 @@
 #endif
 #include <AP_RCProtocol/AP_RCProtocol.h>
 
+#if HAL_WITH_UAVCAN
+#include "AP_UAVCAN/AP_UAVCAN.h"
+#include "CAN.h"
+#endif
+
 using namespace HALSITL;
 
 extern const AP_HAL::HAL& hal;
@@ -245,6 +250,17 @@ void Scheduler::_run_io_procs()
 #endif
 
     AP::RC().update();
+#if HAL_WITH_UAVCAN
+    for (int i = 0; i < MAX_NUMBER_OF_CAN_INTERFACES; i++)
+    {
+        if (hal.can_mgr[i] != nullptr)
+        {
+            CANManager::from(hal.can_mgr[i])->_timer_tick();
+            CAN *can = CANManager::from(hal.can_mgr[i])->getIface(0);
+            can->poll(true, false);
+        }
+    }
+#endif
 }
 
 /*

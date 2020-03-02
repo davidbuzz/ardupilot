@@ -42,6 +42,12 @@
 // #include <SITL/SIM_Frsky_SPortPassthrough.h>
 
 #include <AP_HAL/utility/Socket.h>
+#include <vector>
+#if HAL_WITH_UAVCAN
+#include <uavcan_linux/uavcan_linux.hpp>
+#include <uavcan_linux/helpers.hpp>
+#include <uavcan/equipment/ahrs/MagneticFieldStrength2.hpp>
+#endif
 
 class HAL_SITL;
 
@@ -59,6 +65,11 @@ public:
         ArduSub
     };
 
+    static const uint8_t PRIORITY_HIGHEST = 0;
+    static const uint8_t PRIORITY_HIGH = 8;
+    static const uint8_t PRIORITY_MEDIUM = 16;
+    static const uint8_t PRIORITY_LOW = 24;
+    static const uint8_t PRIORITY_LOWEST = 31;
     int gps_pipe(uint8_t index);
     ssize_t gps_read(int fd, void *buf, size_t count);
     uint16_t pwm_output[SITL_NUM_CHANNELS];
@@ -140,6 +151,7 @@ private:
     void _update_gps_mtk(const struct gps_data *d, uint8_t instance);
     void _update_gps_mtk16(const struct gps_data *d, uint8_t instance);
     void _update_gps_mtk19(const struct gps_data *d, uint8_t instance);
+    void _update_gps_can(const struct gps_data *d, uint8_t instance);
     uint16_t _gps_nmea_checksum(const char *s);
     void _gps_nmea_printf(uint8_t instance, const char *fmt, ...);
     void _update_gps_nmea(const struct gps_data *d, uint8_t instance);
@@ -155,6 +167,11 @@ private:
     void _update_gps(double latitude, double longitude, float altitude,
                      double speedN, double speedE, double speedD,
                      double yaw, bool have_lock);
+#if HAL_WITH_UAVCAN
+    void _update_gps(double latitude, double longitude, float altitude,
+                     double speedN, double speedE, double speedD, bool have_lock,
+                     uavcan_linux::NodePtr *node);
+#endif
     void _update_airspeed(float airspeed);
     void _update_gps_instance(SITL::SITL::GPSType gps_type, const struct gps_data *d, uint8_t instance);
     void _check_rc_input(void);
@@ -277,6 +294,10 @@ private:
     const char *defaults_path = HAL_PARAM_DEFAULTS_PATH;
 
     const char *_home_str;
+#if HAL_WITH_UAVCAN
+    const char *_uavcan_interface;
+    uavcan_linux::NodePtr node;
+#endif
 };
 
 #endif // CONFIG_HAL_BOARD == HAL_BOARD_SITL

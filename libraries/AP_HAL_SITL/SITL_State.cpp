@@ -22,6 +22,28 @@
 extern const AP_HAL::HAL& hal;
 
 using namespace HALSITL;
+#if HAL_WITH_UAVCAN
+static uavcan_linux::NodePtr initNode(const std::vector<std::string> &ifaces, uavcan::NodeID nid,
+                                      const std::string &name)
+{
+    auto node = uavcan_linux::makeNode(ifaces);
+    node->setNodeID(nid);
+    node->setName(name.c_str());
+    {
+        const auto app_id = uavcan_linux::makeApplicationID(uavcan_linux::MachineIDReader().read(), name, nid.get());
+        uavcan::protocol::HardwareVersion hwver;
+        std::copy(app_id.begin(), app_id.end(), hwver.unique_id.begin());
+        std::cout << hwver << std::endl;
+        node->setHardwareVersion(hwver);
+    }
+    //Start the node
+    if (0 != node->start())
+    {
+        throw std::runtime_error("Bad luck");
+    }
+    return node;
+}
+#endif
 
 void SITL_State::_set_param_default(const char *parm)
 {
@@ -62,7 +84,6 @@ void SITL_State::_set_param_default(const char *parm)
 void SITL_State::_sitl_setup(const char *home_str)
 {
     _home_str = home_str;
-
 #if !defined(__CYGWIN__) && !defined(__CYGWIN64__)
     _parent_pid = getppid();
 #endif
@@ -70,17 +91,19 @@ void SITL_State::_sitl_setup(const char *home_str)
 #ifndef HIL_MODE
     _setup_fdm();
 #endif
-    fprintf(stdout, "Starting SITL input\n");
 
     // find the barometer object if it exists
     _sitl = AP::sitl();
     _barometer = AP_Baro::get_singleton();
     _ins = AP_InertialSensor::get_singleton();
     _compass = Compass::get_singleton();
+#if HAL_WITH_UAVCAN
+    _compass->node = node;
+#endif
 #if AP_TERRAIN_AVAILABLE
     _terrain = reinterpret_cast<AP_Terrain *>(AP_Param::find_object("TERRAIN_"));
 #endif
-
+    
     if (_sitl != nullptr) {
         // setup some initial values
 #ifndef HIL_MODE
@@ -111,6 +134,10 @@ void SITL_State::_sitl_setup(const char *home_str)
         // start with non-zero clock
         hal.scheduler->stop_clock(1);
     }
+
+#if HAL_WITH_UAVCAN
+    node->setModeOperational();
+#endif
 }
 
 
@@ -142,7 +169,6 @@ void SITL_State::_setup_fdm(void)
     }
 }
 #endif
-
 
 /*
   step the FDM by one time step
@@ -183,8 +209,19 @@ void SITL_State::_fdm_input_step(void)
                     _sitl->state.speedN, _sitl->state.speedE, _sitl->state.speedD,
                     _sitl->state.yawDeg,
                     !_sitl->gps_disable);
-        _update_airspeed(_sitl->state.airspeed);
-        _update_rangefinder(_sitl->state.range);
+#if HAL_WITH_UAVCAN
+    auto mfs2_pub = node->makePublisher<uavcan::equipment::ahrs::MagneticFieldStrength2>();
+    uavcan::equipment::ahrs::MagneticFieldStrength2 mfs2;
+    Vector3f noise = rand_vec3f() * _sitl->mag_noise;
+    Vector3f new_mag_data = _sitl->state.bodyMagField + noise;
+    mfs2.sensor_id = 0;
+    mfs2.magnetic_field_ga[0] = (double)new_mag_data.x;
+    mfs2.magnetic_field_ga[1] = (double)new_mag_data.y;
+    mfs2.magnetic_field_ga[2] = (double)new_mag_data.z;
+    (void)mfs2_pub->broadcast(mfs2);
+#endif
+    _update_airspeed(_sitl->state.airspeed);
+    _update_rangefinder(_sitl->state.range);
 
         if (_sitl->adsb_plane_count >= 0 &&
             adsb == nullptr) {
@@ -195,6 +232,10 @@ void SITL_State::_fdm_input_step(void)
             adsb = nullptr;
         }
     }
+
+#if HAL_WITH_UAVCAN
+    node->spinOnce();
+#endif
 
     // trigger all APM timers.
     _scheduler->timer_event();
@@ -777,6 +818,18 @@ void SITL_State::init(int argc, char * const argv[])
     pwm_input[4] = pwm_input[7] = 1800;
     pwm_input[2] = pwm_input[5] = pwm_input[6] = 1000;
 
+#if HAL_WITH_UAVCAN
+    const int self_node_id = 20;
+    std::string iface = "vcan0";
+    for(int i = 0; i < argc; i++)
+    {
+        if(!strcmp("--uavcan", argv[i])) iface = argv[i + 1];
+    }
+    
+    std::vector<std::string> iface_names(1, iface);
+
+    node = initNode(iface_names, self_node_id, "org.ardupilot:1");
+#endif
     _scheduler = Scheduler::from(hal.scheduler);
     _parse_command_line(argc, argv);
 }
