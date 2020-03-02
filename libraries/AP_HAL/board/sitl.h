@@ -1,6 +1,5 @@
 #pragma once
 
-#define HAL_BOARD_NAME "SITL"
 #define HAL_CPU_CLASS HAL_CPU_CLASS_1000
 #define HAL_MEM_CLASS HAL_MEM_CLASS_1000
 #define HAL_OS_POSIX_IO 1
@@ -18,7 +17,6 @@
 #define HAL_GPIO_C_LED_PIN        117
 #define HAL_GPIO_LED_ON           0
 #define HAL_GPIO_LED_OFF          1
-
 #define HAL_HAVE_BOARD_VOLTAGE 1
 #define HAL_HAVE_SERVO_VOLTAGE 1
 #define HAL_HAVE_SAFETY_SWITCH 0
@@ -31,3 +29,12 @@
 #define HAL_BOARD_STORAGE_DIRECTORY "."
 #endif
 
+
+#if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_SITL_CAN
+#define HAL_BOARD_NAME "SITLCAN"
+#define HAL_BOARD_CAN_IFACE_NAME "vcan0"
+#define HAL_WITH_UAVCAN 1
+#else
+#define HAL_BOARD_NAME "SITL"
+#define HAL_WITH_UAVCAN 0
+#endif
