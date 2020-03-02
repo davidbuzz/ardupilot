@@ -96,11 +96,13 @@ bool AP_Arming_Copter::compass_checks(bool display_failure)
     if ((checks_to_perform == ARMING_CHECK_ALL) || (checks_to_perform & ARMING_CHECK_COMPASS)) {
         // check compass offsets have been set.  AP_Arming only checks
         // this if learning is off; Copter *always* checks.
+#if CONFIG_HAL_BOARD_SUBTYPE != HAL_BOARD_SUBTYPE_SITL_CAN
         char failure_msg[50] = {};
         if (!AP::compass().configured(failure_msg, ARRAY_SIZE(failure_msg))) {
             check_failed(ARMING_CHECK_COMPASS, display_failure, "%s", failure_msg);
             ret = false;
         }
+#endif
     }
 
     return ret;
