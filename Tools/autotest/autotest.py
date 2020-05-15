@@ -245,6 +245,7 @@ __bin_names = {
     "Copter": "arducopter",
     "CopterTests1": "arducopter",
     "CopterTests2": "arducopter",
+    "CopterTests3": "arducopter",
     "Plane": "arduplane",
     "Rover": "ardurover",
     "Tracker": "antennatracker",
@@ -297,6 +298,7 @@ tester_class_map = {
     "test.Copter": arducopter.AutoTestCopter,
     "test.CopterTests1": arducopter.AutoTestCopterTests1,
     "test.CopterTests2": arducopter.AutoTestCopterTests2,
+    "test.CopterTests3": arducopter.AutoTestCopterTests3,
     "test.Plane": arduplane.AutoTestPlane,
     "test.QuadPlane": quadplane.AutoTestQuadPlane,
     "test.Rover": rover.AutoTestRover,
@@ -311,6 +313,8 @@ def run_specific_test(step, *args, **kwargs):
     if t is None:
         return []
     (testname, test) = t
+
+    print("testname:"+str(testname)+" testclass:"+str(tester_class)+" tester:"+str(tester))
 
     tester_class = tester_class_map[testname]
     tester = tester_class(*args, **kwargs)
@@ -387,6 +391,7 @@ def run_step(step):
 
     # handle "test.Copter" etc:
     if step in tester_class_map:
+        print(step,binary)
         t = tester_class_map[step](binary, **fly_opts)
         return (t.autotest(), t)
 
@@ -814,6 +819,7 @@ if __name__ == "__main__":
     moresteps = [
         'test.CopterTests1',
         'test.CopterTests2',
+        'test.CopterTests3',
     ]
 
     # canonicalise the step names.  This allows
@@ -842,6 +848,7 @@ if __name__ == "__main__":
         "defaults.AntennaTracker": "defaults.Tracker",
         "fly.ArduCopterTests1": "test.CopterTests1",
         "fly.ArduCopterTests2": "test.CopterTests2",
+        "fly.ArduCopterTests3": "test.CopterTests3",
     }
 
     # form up a list of bits NOT to run, mapping from old step names

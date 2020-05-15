@@ -4954,6 +4954,50 @@ class AutoTestCopter(AutoTest):
              "Fly copter mission",
              self.fly_auto_test),
 
+            ("LogDownLoad",
+             "Log download",
+             lambda: self.log_download(
+                 self.buildlogs_path("ArduCopter-log.bin"),
+                 upload_logs=len(self.fail_list) > 0))
+        ])
+        return ret
+
+    def tests2(self):
+        '''return list of all tests'''
+        ret = ([
+            ("MotorVibration",
+             "Fly motor vibration test",
+             self.fly_motor_vibration),
+
+            ("DynamicNotches",
+             "Fly Dynamic Notches",
+             self.fly_dynamic_notches),
+
+            ("GyroFFT",
+             "Fly Gyro FFT",
+             self.fly_gyro_fft),
+
+            ("FixedYawCalibration",
+             "Test Fixed Yaw Calibration",
+             self.test_fixed_yaw_calibration),
+
+            ("GyroFFTHarmonic",
+             "Fly Gyro FFT Harmonic Matching",
+             self.fly_gyro_fft_harmonic),
+
+            ("LogDownLoad",
+             "Log download",
+             lambda: self.log_download(
+                 self.buildlogs_path("ArduCopter-log.bin"),
+                 upload_logs=len(self.fail_list) > 0))
+        ])
+        return ret
+
+
+    def tests3(self):
+        '''return list of all tests'''
+        ret = ([
+   
             ("SplineLastWaypoint",
              "Test Spline as last waypoint",
              self.test_spline_last_waypoint),
@@ -5044,42 +5088,11 @@ class AutoTestCopter(AutoTest):
                  upload_logs=len(self.fail_list) > 0))
         ])
         return ret
-
-    def tests2(self):
-        '''return list of all tests'''
-        ret = ([
-            ("MotorVibration",
-             "Fly motor vibration test",
-             self.fly_motor_vibration),
-
-            ("DynamicNotches",
-             "Fly Dynamic Notches",
-             self.fly_dynamic_notches),
-
-            ("GyroFFT",
-             "Fly Gyro FFT",
-             self.fly_gyro_fft),
-
-            ("FixedYawCalibration",
-             "Test Fixed Yaw Calibration",
-             self.test_fixed_yaw_calibration),
-
-            ("GyroFFTHarmonic",
-             "Fly Gyro FFT Harmonic Matching",
-             self.fly_gyro_fft_harmonic),
-
-            ("LogDownLoad",
-             "Log download",
-             lambda: self.log_download(
-                 self.buildlogs_path("ArduCopter-log.bin"),
-                 upload_logs=len(self.fail_list) > 0))
-        ])
-        return ret
-
     def tests(self):
         ret = []
         ret.extend(self.tests1())
         ret.extend(self.tests2())
+        ret.extend(self.tests3())
         return ret
 
     def disabled_tests(self):
@@ -5302,14 +5315,17 @@ class AutoTestHeli(AutoTestCopter):
         ])
         return ret
 
-
 class AutoTestCopterTests1(AutoTestCopter):
-
     def tests(self):
         return self.tests1()
 
 
 class AutoTestCopterTests2(AutoTestCopter):
-
     def tests(self):
         return self.tests2()
+
+class AutoTestCopterTests3(AutoTestCopter):
+    def tests(self):
+        return self.tests3()
+
+

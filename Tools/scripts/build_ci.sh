@@ -73,44 +73,30 @@ function run_autotest() {
 }
 
 for t in $CI_BUILD_TARGET; do
-    # special case for SITL testing in CI
-    if [ "$t" == "sitltest-copter-tests1" ]; then
-        run_autotest "Copter" "build.Copter" "test.CopterTests1"
-        continue
-    fi
-    if [ "$t" == "sitltest-copter-tests2" ]; then
-        run_autotest "Copter" "build.Copter" "test.CopterTests2"
-        continue
-    fi
-    if [ "$t" == "sitltest-plane" ]; then
-        run_autotest "Plane" "build.Plane" "test.Plane"
-        continue
-    fi
-    if [ "$t" == "sitltest-quadplane" ]; then
-        run_autotest "QuadPlane" "build.Plane" "test.QuadPlane"
-        continue
-    fi
-    if [ "$t" == "sitltest-rover" ]; then
-        run_autotest "Rover" "build.Rover" "test.Rover"
-        continue
-    fi
-    if [ "$t" == "sitltest-tracker" ]; then
-        run_autotest "Tracker" "build.Tracker" "test.Tracker"
-        continue
-    fi
-    if [ "$t" == "sitltest-balancebot" ]; then
-        run_autotest "BalanceBot" "build.Rover" "test.BalanceBot"
-        continue
-    fi
-    if [ "$t" == "sitltest-sub" ]; then
-        run_autotest "Sub" "build.Sub" "test.Sub"
-        continue
-    fi
 
     if [ "$t" == "unit-tests" ]; then
         run_autotest "Unit Tests" "build.unit_tests" "run.unit_tests"
         continue
     fi
+    
+    # any test.xxx  but not unit-tests 
+    if [[ "$t" == *"test"* ]]; then
+        brstr=`echo "$t" | tr - \ `
+        echo $t
+        echo $brstr
+        run_autotest $brstr
+        continue
+    fi
+#        run_autotest "Copter" "build.Copter" "test.CopterTests2"
+#        run_autotest "Copter" "build.Copter" "test.CopterTests3"
+#        run_autotest "Plane" "build.Plane" "test.Plane"
+#         run_autotest "QuadPlane" "build.Plane" "test.QuadPlane"
+#         run_autotest "Rover" "build.Rover" "test.Rover"
+#         run_autotest "Tracker" "build.Tracker" "test.Tracker"
+#         run_autotest "BalanceBot" "build.Rover" "test.BalanceBot"
+#         run_autotest "Sub" "build.Sub" "test.Sub"
+  
+
 
     if [ "$t" == "revo-bootloader" ]; then
         echo "Building revo bootloader"
