@@ -4812,8 +4812,9 @@ class AutoTestCopter(AutoTest):
         self.assert_prearm_failure("Check MOT_PWM_MIN/MAX")
 
     def tests1(self):
-        '''return list of all tests'''
+        '''return list of all tests from parent instance to start with'''
         ret = super(AutoTestCopter, self).tests()
+        # then add more here
         ret.extend([
 
             ("NavDelayTakeoffAbsTime",
@@ -5103,218 +5104,6 @@ class AutoTestCopter(AutoTest):
             "BeaconPosition": "See https://github.com/ArduPilot/ardupilot/issues/11689",
         }
 
-class AutoTestHeli(AutoTestCopter):
-
-    def log_name(self):
-        return "HeliCopter"
-
-    def default_frame(self):
-        return "heli"
-
-    def sitl_start_location(self):
-        return SITL_START_LOCATION_AVC
-
-    def is_heli(self):
-        return True
-
-    def rc_defaults(self):
-        ret = super(AutoTestHeli, self).rc_defaults()
-        ret[8] = 1000
-        ret[3] = 1000 # collective
-        return ret
-
-    @staticmethod
-    def get_position_armable_modes_list():
-        '''filter THROW mode out of armable modes list; Heli is special-cased'''
-        ret = AutoTestCopter.get_position_armable_modes_list()
-        ret = filter(lambda x : x != "THROW", ret)
-        return ret
-
-    def loiter_requires_position(self):
-        self.progress("Skipping loiter-requires-position for heli; rotor runup issues")
-
-    # fly_avc_test - fly AVC mission
-    def fly_avc_test(self):
-        # Arm
-        self.mavproxy.send('switch 6\n')  # stabilize mode
-        self.wait_mode('STABILIZE')
-        self.wait_ready_to_arm()
-
-        self.arm_vehicle()
-        self.progress("Raising rotor speed")
-        self.set_rc(8, 2000)
-
-        # upload mission from file
-        self.progress("# Load copter_AVC2013_mission")
-        # load the waypoint count
-        num_wp = self.load_mission("copter_AVC2013_mission.txt")
-        if not num_wp:
-            raise NotAchievedException("load copter_AVC2013_mission failed")
-
-        self.progress("Fly AVC mission from 1 to %u" % num_wp)
-        self.mavproxy.send('wp set 1\n')
-
-        # wait for motor runup
-        self.delay_sim_time(20)
-
-        # switch into AUTO mode and raise throttle
-        self.mavproxy.send('switch 4\n')  # auto mode
-        self.wait_mode('AUTO')
-        self.set_rc(3, 1500)
-
-        # fly the mission
-        self.wait_waypoint(0, num_wp-1, timeout=500)
-
-        # set throttle to minimum
-        self.zero_throttle()
-
-        # wait for disarm
-        self.wait_disarmed()
-        self.progress("MOTORS DISARMED OK")
-
-        self.progress("Lowering rotor speed")
-        self.set_rc(8, 1000)
-
-        self.progress("AVC mission completed: passed!")
-
-    def fly_heli_poshold_takeoff(self):
-        """ensure vehicle stays put until it is ready to fly"""
-        self.context_push()
-
-        ex = None
-        try:
-            self.set_parameter("PILOT_TKOFF_ALT", 700)
-            self.mavproxy.send('mode POSHOLD\n')
-            self.wait_mode('POSHOLD')
-            self.set_rc(3, 1000)
-            self.set_rc(8, 1000)
-            self.wait_ready_to_arm()
-            self.arm_vehicle()
-            self.set_rc(8, 2000)
-            self.progress("wait for rotor runup to complete")
-            self.wait_servo_channel_value(8, 1900, timeout=10)
-            self.delay_sim_time(20)
-            # check we are still on the ground...
-            m = self.mav.recv_match(type='GLOBAL_POSITION_INT', blocking=True)
-            if abs(m.relative_alt) > 100:
-                raise NotAchievedException("Took off prematurely")
-            self.progress("Pushing throttle past half-way")
-            self.set_rc(3, 1600)
-            self.delay_sim_time(0.5)
-            self.progress("Bringing back to hover throttle")
-            self.set_rc(3, 1500)
-
-            # make sure we haven't already reached alt:
-            m = self.mav.recv_match(type='GLOBAL_POSITION_INT', blocking=True)
-            if abs(m.relative_alt) > 500:
-                raise NotAchievedException("Took off too fast")
-
-            self.progress("Monitoring takeoff-to-alt")
-            self.wait_altitude(6.9, 8, relative=True)
-
-            self.progress("Making sure we stop at our takeoff altitude")
-            tstart = self.get_sim_time()
-            while self.get_sim_time() - tstart < 5:
-                m = self.mav.recv_match(type='GLOBAL_POSITION_INT', blocking=True)
-                delta = abs(7000 - m.relative_alt)
-                self.progress("alt=%f delta=%f" % (m.relative_alt/1000,
-                                                   delta/1000))
-                if delta > 1000:
-                    raise NotAchievedException("Failed to maintain takeoff alt")
-            self.progress("takeoff OK")
-        except Exception as e:
-            ex = e
-
-        self.mavproxy.send('mode LAND\n')
-        self.wait_mode('LAND')
-        self.wait_disarmed()
-        self.set_rc(8, 1000)
-
-        self.context_pop()
-
-        if ex is not None:
-            raise ex
-
-    def fly_spline_waypoint(self, timeout=600):
-        """ensure basic spline functionality works"""
-        self.load_mission("copter_spline_mission.txt")
-        self.change_mode("LOITER")
-        self.wait_ready_to_arm()
-        self.arm_vehicle()
-        self.progress("Raising rotor speed")
-        self.set_rc(8, 2000)
-        self.delay_sim_time(20)
-        self.change_mode("AUTO")
-        self.set_rc(3, 1500)
-        tstart = self.get_sim_time()
-        while True:
-            if self.get_sim_time() - tstart > timeout:
-                raise AutoTestTimeoutException("Vehicle did not disarm after mission")
-            if not self.armed():
-                break
-            self.delay_sim_time(1)
-        self.progress("Lowering rotor speed")
-        self.set_rc(8, 1000)
-
-    def fly_autorotation(self, timeout=600):
-        """ensure basic spline functionality works"""
-        self.set_parameter("AROT_ENABLE", 1)
-        start_alt = 100 # metres
-        self.set_parameter("PILOT_TKOFF_ALT", start_alt * 100)
-        self.mavproxy.send('mode POSHOLD\n')
-        self.wait_mode('POSHOLD')
-        self.set_rc(3, 1000)
-        self.set_rc(8, 1000)
-        self.wait_ready_to_arm()
-        self.arm_vehicle()
-        self.set_rc(8, 2000)
-        self.progress("wait for rotor runup to complete")
-        self.wait_servo_channel_value(8, 1900, timeout=10)
-        self.delay_sim_time(20)
-        self.set_rc(3, 2000)
-        self.wait_altitude(start_alt - 1,
-                           (start_alt + 5),
-                           relative=True,
-                           timeout=timeout)
-        self.progress("Triggering autorotate by raising interlock")
-        self.set_rc(8, 1000)
-        self.mavproxy.expect("SS Glide Phase")
-        self.mavproxy.expect("Hit ground at ([0-9.]+) m/s")
-        speed = float(self.mavproxy.match.group(1))
-        if speed > 30:
-            raise NotAchievedException("Hit too hard")
-        self.wait_disarmed()
-
-    def set_rc_default(self):
-        super(AutoTestHeli, self).set_rc_default()
-        self.progress("Lowering rotor speed")
-        self.set_rc(8, 1000)
-
-    def tests(self):
-        '''return list of all tests'''
-        ret = AutoTest.tests(self)
-        ret.extend([
-            ("AVCMission", "Fly AVC mission", self.fly_avc_test),
-
-            ("PosHoldTakeOff",
-             "Fly POSHOLD takeoff",
-             self.fly_heli_poshold_takeoff),
-
-            ("SplineWaypoint",
-             "Fly Spline Waypoints",
-             self.fly_spline_waypoint),
-
-            ("AutoRotation",
-             "Fly AutoRotation",
-             self.fly_autorotation),
-
-            ("LogDownLoad",
-             "Log download",
-             lambda: self.log_download(
-                 self.buildlogs_path("ArduCopter-log.bin"),
-                 upload_logs=len(self.fail_list) > 0))
-        ])
-        return ret
 
 class AutoTestCopterTests1(AutoTestCopter):
     def tests(self):
@@ -5333,44 +5122,62 @@ class AutoTestCopterTests3(AutoTestCopter):
     def which(testname):
         pass
 
-def add_description_fn(cls,description):
-    fn_name = description + '_values'
+# helper to dynamically add a method to an object, u need to know its class
+def add_description_fn(obj,fn_name,classref):
+    #fn_name = description + '_values'
     print("adding:"+str(fn_name))
-    def fn(cls):
+    def fn():
       print("----------------------------------------------")
+      print(obj.name+"-->")
       print("----------------------------------------------")
-      print(cls.name+"-->")#+self.description_names[description])
-      print("----------------------------------------------")
-      print("----------------------------------------------")
-    setattr(cls, fn_name, fn)
-    import types
-    cls.fn = types.MethodType( fn, cls )
-    fn.__name__ = fn_name
-    fn.__doc__ = "Return values for the {0} description".format(description)
 
+    setattr(obj, fn_name, fn)
+    fn.__get__(fn_name, classref)
+    fn.__name__ = fn_name
 
 class AutoTestCopterOne(AutoTestCopter):
-    def which(testname):
-        pass
+    def tests(self):
+        # get list of available tests from parent without running any
+        z = super(AutoTestCopterOne,self)
+        a = z.tests()
+        for z in a:
+            print(z[0])
+            #print(z[0],"\t\t\t\t |",z[1])#,"|",z[2])
+        return a
+
+class zzz(AutoTestCopter):
+
+    def addtestfunc(testname):
+          add_description_fn(self,testname,AutoTestCopterOne)
+
     def __init__(self, *args, **kwargs):
         self.name = 'xxx'
         self.description_names = ['color', 'sound']
 
         for description in self.description_names:
-          print("----------------------------------------------")
-          print("----------------------------------------------")
           print(description)
-          print("----------------------------------------------")
-          print("----------------------------------------------")
-          add_description_fn(self,description)
+          print(self)
+          add_description_fn(self,description,AutoTestCopterOne)
 
         super(AutoTestCopterOne,self).__init__(*args,**kwargs)
 
     def tests(self):
-        print("TEST3 TEST3 TEST3")
-        self.color_values()
-        #self.sound()
-        return self.tests3()
+
+        # get list of tests from parent without 
+        z = super(AutoTestCopterOne,self)
+        a = z.tests()
+        return a
+
+        #for z in a:
+        #    print(z[0],"|",z[1],"|",z[2])
+        #self.test_pid_tuning()
+        #for z in a:
+
+    #def tests(self):
+    #    print("TEST3 TEST3 TEST3")
+    #    self.color()
+    #    #self.sound()
+    #    return self.tests3()
 
 
 

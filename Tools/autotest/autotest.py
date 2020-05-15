@@ -305,7 +305,7 @@ tester_class_map = {
     "test.QuadPlane": quadplane.AutoTestQuadPlane,
     "test.Rover": rover.AutoTestRover,
     "test.BalanceBot": balancebot.AutoTestBalanceBot,
-    "test.Helicopter": arducopter.AutoTestHeli,
+#    "test.Helicopter": arducopter.AutoTestHeli,
     "test.Sub": ardusub.AutoTestSub,
     "test.Tracker": antennatracker.AutoTestTracker,
 }
@@ -316,15 +316,18 @@ def run_specific_test(step, *args, **kwargs):
         return []
     (testname, test) = t
 
-    print("testname:"+str(testname)+" testclass:"+str(tester_class)+" tester:"+str(tester))
 
     tester_class = tester_class_map[testname]
     tester = tester_class(*args, **kwargs)
 
+    print("testname:"+str(testname)+" testclass:"+str(tester_class)+" tester:"+str(tester)+" test:"+str(test))
+
+
     print("Got %s" % str(tester))
     for a in tester.tests():
-        print("Got %s" % (a[0]))
+        #print("Got %s" % (a[0]))
         if a[0] == test:
+            print("Running SPECIFIC TEST : "+str(a[0]))
             return tester.run_tests([a])
     print("Failed to find test %s on %s" % (test, testname))
     sys.exit(1)
@@ -899,7 +902,7 @@ if __name__ == "__main__":
         newargs.append(arg)
     args = newargs
 
-    print("availsteps:"+str(steps))
+    #print("availsteps:"+str(steps))
 
     if len(args) > 0:
         # allow a wildcard list of steps

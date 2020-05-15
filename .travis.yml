@@ -60,22 +60,224 @@ matrix:
   include:
     - if: type != cron
       compiler: "gcc"
-      env: CI_BUILD_TARGET="iofirmware fmuv2-plane Copter-build.Copter-test.CopterTests2"
-#     env: CI_BUILD_TARGET="revo-bootloader periph-build CubeOrange-bootloader iofirmware stm32f7 stm32h7 fmuv2-plane sitltest-copter-tests2"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.PIDTuning"
     - if: type != cron
       compiler: "gcc"
-      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterTests1"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.ArmFeatures"
     - if: type != cron
       compiler: "gcc"
-      env: CI_BUILD_TARGET="QuadPlane-build.Plane-test.QuadPlane Plane-build.Plane-test.Plane"
-#    - if: type != cron
-#      compiler: "clang-7"
-#      env: CI_BUILD_TARGET="sitltest-rover sitltest-sub sitltest-balancebot"
-    - if: type != cron
-      compiler: "clang-7"
-      env: CI_BUILD_TARGET="Unit_Tests-build.unit_tests-run.unit_tests sitl" #sitltest-tracker"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.SetHome"
     - if: type != cron
       compiler: "gcc"
-      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterTests3"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.ConfigErrorLoop"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.CPUFailsafe"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.Parameters"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.LoggerDocumentation"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.GetCapabilities"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.NavDelayTakeoffAbsTime"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.NavDelayAbsTime"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.NavDelay"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.GuidedSubModeChange"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.LoiterToAlt"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.PayLoadPlaceMission"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.PrecisionLoiterCompanion"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.PrecisionLandingSITL"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.SetModesViaModeSwitch"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.SetModesViaAuxSwitch"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.AuxSwitchOptions"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.AutoTune"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.ThrowMode"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.BrakeMode"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.RecordThenPlayMission"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.ThrottleFailsafe"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.GCSFailsafe"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.BatteryFailsafe"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.StabilityPatch"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.AC_Avoidance_Proximity"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.AC_Avoidance_Fence"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.AC_Avoidance_Beacon"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.HorizontalFence"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.HorizontalAvoidFence"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.MaxAltFence"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.GPSGlitchLoiter"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.GPSGlitchAuto"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.ModeAltHold"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.ModeLoiter"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.SimpleMode"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.SuperSimpleCircle"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.LogDownLoad"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.MotorVibration"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.ModeCircle"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.OpticalFlowLimits"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.MotorFail"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.Flip"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.CopterMission"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.DynamicNotches"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.GyroFFT"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.FixedYawCalibration"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.GyroFFTHarmonic"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.LogDownLoad"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.SplineLastWaypoint"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.Gripper"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.TestGripperMission"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.VisionPosition"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.BeaconPosition"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.RTLSpeed"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.Mount"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.Button"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.RangeFinder"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.SurfaceTracking"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.Parachute"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.ParameterChecks"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.ManualThrottleModeChange"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.MANUAL_CONTROL"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.ZigZag"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.PosHoldTakeOff"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.FOLLOW"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.OnboardCompassCalibration"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.RangeFinderDrivers"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.ParameterValidation"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.AltTypes"
+    - if: type != cron
+      compiler: "gcc"
+      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.LogDownLoad"
+
+
 
 
