@@ -40,10 +40,15 @@ function run_autotest() {
     if [ $mavproxy_installed -eq 0 ]; then
         echo "Installing MAVProxy"
         pushd /tmp
-          git clone --recursive https://github.com/ardupilot/MAVProxy
+          #git clone --recursive https://github.com/ardupilot/MAVProxy
+          # without mavcesium and shallower saves seconds.
+          git clone  --depth=10 https://github.com/ardupilot/MAVProxy
+          cd MAVProxy ; git rm MAVProxy/modules/mavproxy_cesium ; git submodule update --init --recursive ; cd -
+          mkdir MAVProxy/MAVProxy/modules/mavproxy_cesium
           pushd MAVProxy
             python setup.py build install --user --force
           popd
+          
         popd
         mavproxy_installed=1
         # now uninstall the version of pymavlink pulled in by MAVProxy deps:
@@ -78,16 +83,6 @@ for t in $CI_BUILD_TARGET; do
         run_autotest "Unit Tests" "build.unit_tests" "run.unit_tests"
         continue
     fi
-
-    # any test.xxx  but not unit-tests 
-    if [[ "$t" == *"trst"* ]]; then
-        brstr=`echo "$t" | tr - \ |  tr trs tes`
-        echo $t
-        echo $brstr
-        run_autotest $brstr
-        continue
-    fi
-
     
     # any test.xxx  but not unit-tests 
     if [[ "$t" == *"test"* ]]; then
@@ -97,16 +92,6 @@ for t in $CI_BUILD_TARGET; do
         run_autotest $brstr
         continue
     fi
-#        run_autotest "Copter" "build.Copter" "test.CopterTests2"
-#        run_autotest "Copter" "build.Copter" "test.CopterTests3"
-#        run_autotest "Plane" "build.Plane" "test.Plane"
-#         run_autotest "QuadPlane" "build.Plane" "test.QuadPlane"
-#         run_autotest "Rover" "build.Rover" "test.Rover"
-#         run_autotest "Tracker" "build.Tracker" "test.Tracker"
-#         run_autotest "BalanceBot" "build.Rover" "test.BalanceBot"
-#         run_autotest "Sub" "build.Sub" "test.Sub"
-  
-
 
     if [ "$t" == "revo-bootloader" ]; then
         echo "Building revo bootloader"

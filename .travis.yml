@@ -55,6 +55,11 @@ env:
     - secure: "FjIwqZQV2FhNPWYITX5LZXTE38yYqBaQdbm3QmbEg/30wnPTm1ZOLIU7o/aSvX615ImR8kHoryvFPDQDWc6wWfqTEs3Ytq2kIvcIJS2Y5l/0PFfpWJoH5gRd6hDThnoi+1oVMLvj1+bhn4yFlCCQ2vT/jxoGfiQqqgvHtv4fLzI="
     - AUTOTEST_UPLOAD=true  # Upload logs of failed tests to ArduPilot server; requires authentication
 
+#disabled tests...
+#"Parachute": "See https://github.com/ArduPilot/ardupilot/issues/4702",
+#"HorizontalAvoidFence": "See https://github.com/ArduPilot/ardupilot/issues/11525",
+#"BeaconPosition": "See https://github.com/ArduPilot/ardupilot/issues/11689",
+
 matrix:
   fast_finish: true
   include:
@@ -151,9 +156,9 @@ matrix:
     - if: type != cron
       compiler: "gcc"
       env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.HorizontalFence"
-    - if: type != cron
-      compiler: "gcc"
-      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.HorizontalAvoidFence"
+#    - if: type != cron
+#      compiler: "gcc"
+#      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.HorizontalAvoidFence"
     - if: type != cron
       compiler: "gcc"
       env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.MaxAltFence"
@@ -223,9 +228,9 @@ matrix:
     - if: type != cron
       compiler: "gcc"
       env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.VisionPosition"
-    - if: type != cron
-      compiler: "gcc"
-      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.BeaconPosition"
+#    - if: type != cron
+#      compiler: "gcc"
+#      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.BeaconPosition"
     - if: type != cron
       compiler: "gcc"
       env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.RTLSpeed"
@@ -241,9 +246,9 @@ matrix:
     - if: type != cron
       compiler: "gcc"
       env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.SurfaceTracking"
-    - if: type != cron
-      compiler: "gcc"
-      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.Parachute"
+#    - if: type != cron
+#      compiler: "gcc"
+#      env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.Parachute"
     - if: type != cron
       compiler: "gcc"
       env: CI_BUILD_TARGET="Copter-build.Copter-test.CopterOne.ParameterChecks"
