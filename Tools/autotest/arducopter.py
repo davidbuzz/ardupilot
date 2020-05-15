@@ -4934,6 +4934,22 @@ class AutoTestCopter(AutoTest):
              "Fly a circle in SUPER SIMPLE mode",
              self.fly_super_simple),
 
+
+            ("LogDownLoad",
+             "Log download",
+             lambda: self.log_download(
+                 self.buildlogs_path("ArduCopter-log.bin"),
+                 upload_logs=len(self.fail_list) > 0))
+        ])
+        return ret
+
+    def tests2(self):
+        '''return list of all tests'''
+        ret = ([
+            ("MotorVibration",
+             "Fly motor vibration test",
+             self.fly_motor_vibration),
+
             ("ModeCircle",
              "Fly CIRCLE mode",
              self.fly_circle),
@@ -4953,21 +4969,6 @@ class AutoTestCopter(AutoTest):
             ("CopterMission",
              "Fly copter mission",
              self.fly_auto_test),
-
-            ("LogDownLoad",
-             "Log download",
-             lambda: self.log_download(
-                 self.buildlogs_path("ArduCopter-log.bin"),
-                 upload_logs=len(self.fail_list) > 0))
-        ])
-        return ret
-
-    def tests2(self):
-        '''return list of all tests'''
-        ret = ([
-            ("MotorVibration",
-             "Fly motor vibration test",
-             self.fly_motor_vibration),
 
             ("DynamicNotches",
              "Fly Dynamic Notches",
@@ -5323,9 +5324,53 @@ class AutoTestCopterTests1(AutoTestCopter):
 class AutoTestCopterTests2(AutoTestCopter):
     def tests(self):
         return self.tests2()
+    def which(testname):
+        pass
 
 class AutoTestCopterTests3(AutoTestCopter):
     def tests(self):
         return self.tests3()
+    def which(testname):
+        pass
+
+def add_description_fn(cls,description):
+    fn_name = description + '_values'
+    print("adding:"+str(fn_name))
+    def fn(cls):
+      print("----------------------------------------------")
+      print("----------------------------------------------")
+      print(cls.name+"-->")#+self.description_names[description])
+      print("----------------------------------------------")
+      print("----------------------------------------------")
+    setattr(cls, fn_name, fn)
+    import types
+    cls.fn = types.MethodType( fn, cls )
+    fn.__name__ = fn_name
+    fn.__doc__ = "Return values for the {0} description".format(description)
+
+
+class AutoTestCopterOne(AutoTestCopter):
+    def which(testname):
+        pass
+    def __init__(self, *args, **kwargs):
+        self.name = 'xxx'
+        self.description_names = ['color', 'sound']
+
+        for description in self.description_names:
+          print("----------------------------------------------")
+          print("----------------------------------------------")
+          print(description)
+          print("----------------------------------------------")
+          print("----------------------------------------------")
+          add_description_fn(self,description)
+
+        super(AutoTestCopterOne,self).__init__(*args,**kwargs)
+
+    def tests(self):
+        print("TEST3 TEST3 TEST3")
+        self.color_values()
+        #self.sound()
+        return self.tests3()
+
 
 

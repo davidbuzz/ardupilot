@@ -78,6 +78,16 @@ for t in $CI_BUILD_TARGET; do
         run_autotest "Unit Tests" "build.unit_tests" "run.unit_tests"
         continue
     fi
+
+    # any test.xxx  but not unit-tests 
+    if [[ "$t" == *"trst"* ]]; then
+        brstr=`echo "$t" | tr - \ |  tr trs tes`
+        echo $t
+        echo $brstr
+        run_autotest $brstr
+        continue
+    fi
+
     
     # any test.xxx  but not unit-tests 
     if [[ "$t" == *"test"* ]]; then

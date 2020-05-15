@@ -243,6 +243,7 @@ def should_run_step(step):
 
 __bin_names = {
     "Copter": "arducopter",
+    "CopterOne": "arducopter",
     "CopterTests1": "arducopter",
     "CopterTests2": "arducopter",
     "CopterTests3": "arducopter",
@@ -299,6 +300,7 @@ tester_class_map = {
     "test.CopterTests1": arducopter.AutoTestCopterTests1,
     "test.CopterTests2": arducopter.AutoTestCopterTests2,
     "test.CopterTests3": arducopter.AutoTestCopterTests3,
+    "test.CopterOne": arducopter.AutoTestCopterOne,
     "test.Plane": arduplane.AutoTestPlane,
     "test.QuadPlane": quadplane.AutoTestQuadPlane,
     "test.Rover": rover.AutoTestRover,
@@ -391,7 +393,7 @@ def run_step(step):
 
     # handle "test.Copter" etc:
     if step in tester_class_map:
-        print(step,binary)
+        print("test step:"+str(step)+" -> binary:"+str(binary))
         t = tester_class_map[step](binary, **fly_opts)
         return (t.autotest(), t)
 
@@ -801,6 +803,7 @@ if __name__ == "__main__":
         'build.Copter',
         'defaults.Copter',
         'test.Copter',
+        'test.CopterOne',
 
         'build.Helicopter',
         'test.Helicopter',
@@ -849,6 +852,7 @@ if __name__ == "__main__":
         "fly.ArduCopterTests1": "test.CopterTests1",
         "fly.ArduCopterTests2": "test.CopterTests2",
         "fly.ArduCopterTests3": "test.CopterTests3",
+#        "test.CopterOne": "test.AutoTestCopterOne",
     }
 
     # form up a list of bits NOT to run, mapping from old step names
@@ -894,6 +898,8 @@ if __name__ == "__main__":
             arg = re.sub("^%s" % _from, to, arg)
         newargs.append(arg)
     args = newargs
+
+    print("availsteps:"+str(steps))
 
     if len(args) > 0:
         # allow a wildcard list of steps
