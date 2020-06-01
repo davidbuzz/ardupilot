@@ -222,6 +222,7 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
     setup_signal_handlers();
 
     uint32_t last_watchdog_save = AP_HAL::millis();
+    uint32_t last_persist = AP_HAL::millis();
 
     while (!HALSITL::Scheduler::_should_reboot) {
         if (HALSITL::Scheduler::_should_exit) {
@@ -239,15 +240,21 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
             watchdog_save((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4);
         }
 
+        if (now - last_persist >= 1000 ) {
+            // save persistent data every 1000ms
+            last_persist = now;
+
         // try to persist the sitl instance..
             std::ofstream ofs("buzz.persist");
         // save data to archive
             {
+                ::printf("serialised some of sitl to buzz.persist\n");
                 boost::archive::text_oarchive oa(ofs);
                 // write class instance to archive
                 oa << _sitl_state;
             	// archive and stream closed when destructors are called
             }
+        }
 
         if (using_watchdog) {
             // note that this only works for a speedup of 1

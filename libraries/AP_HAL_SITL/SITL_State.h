@@ -173,8 +173,8 @@ private:
         
         //ar & _fg_address; // char *
 
-        ar & mag_buffer_length;
-        ar &  wind_buffer_length;
+        //ar &  mag_buffer_length; //static const
+        //ar &  wind_buffer_length; // static const
 
         ar &  store_index_mag;
         ar &  last_store_time_mag;
@@ -190,7 +190,10 @@ private:
         ar &  delayed_time_wind;
         ar &  wind_start_delay_micros;
 
-        ar & sitl_model;
+        //ar & sitl_model; scary polymorphic pointer that causes boost to segfault. 
+//boost::archive::detail::save_pointer_type<boost::archive::text_oarchive>::polymorphic::save<SITL::Aircraft> (ar=..., t=...)
+
+
         ar & enable_gimbal;
         //ar & gimbal;
         //ar & adsb;
