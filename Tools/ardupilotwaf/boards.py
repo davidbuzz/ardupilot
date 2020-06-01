@@ -43,6 +43,8 @@ class Board:
         env = waflib.ConfigSet.ConfigSet()
         self.configure_env(cfg, env)
 
+        env.LIB += cfg.env['LIB_BOOST']
+
         # Setup scripting, had to defer this to allow checking board size
         if ((not cfg.options.disable_scripting) and
             (not cfg.env.DISABLE_SCRIPTING) and
@@ -123,6 +125,7 @@ class Board:
             '-Werror=format-extra-args',
             '-Werror=ignored-qualifiers',
             '-DARDUPILOT_BUILD',
+            #'-DBOOST_NO_EXCEPTIONS',
         ]
 
         if cfg.options.scripting_checks:
@@ -207,6 +210,7 @@ class Board:
             '-Wno-trigraphs',
             '-Werror=parentheses',
             '-DARDUPILOT_BUILD',
+            #'-DBOOST_NO_EXCEPTIONS',
         ]
 
         if 'clang++' in cfg.env.COMPILER_CXX:

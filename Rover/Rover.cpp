@@ -370,3 +370,4 @@ Rover rover;
 AP_Vehicle& vehicle = rover;
 
 AP_HAL_MAIN_CALLBACKS(&rover);
+

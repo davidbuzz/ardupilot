@@ -44,6 +44,22 @@
 
 #include <AP_HAL/utility/Socket.h>
 
+// without som sort of boost reference fist, the next ones errror
+#include <boost/regex.hpp>
+
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
+
+
+
 class HAL_SITL;
 
 class HALSITL::SITL_State {
@@ -107,6 +123,86 @@ public:
                            float &yaw_degrees);
 
 private:
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & output_ready;
+        ar & new_rc_input;
+        ar & sonar_pin_value;    // pin 0
+        ar & airspeed_pin_value; // pin 1
+        ar & airspeed_2_pin_value; // pin 2
+        ar & voltage_pin_value;  // pin 13
+        ar & current_pin_value;  // pin 12
+        ar & voltage2_pin_value;  // pin 15
+        ar & current2_pin_value;  // pin 14
+
+        //ar & _uart_path; // char * ?
+
+        //ar & _gps_data; // ‘struct HALSITL::SITL_State::gps_data’ has no member named ‘serialize’
+
+        ar & _vehicle;
+        ar &  _framerate;
+        ar &  _instance;
+        ar &  _base_port;
+        ar &  _parent_pid;
+        ar &  _update_count;
+
+        
+        // ar & _barometer;//‘class AP_Baro’ has no member named ‘serialize’
+        //ar & _ins;
+        //ar & _scheduler;
+        //ar & _compass; //‘class Compass’ has no member named ‘serialize’
+        //ar & _terrain;
+       
+        //ar &  _sitl_rc_in; // cant serialize SocketAPM 
+        // ar & _sitl;  //‘class SITL::SITL’ has no member named ‘serialize’
+        ar &  _rcin_port;
+        ar &  _fg_view_port;
+        ar &  _irlock_port;
+        ar &  _current;
+
+        ar &  _synthetic_clock_mode;
+
+        ar &  _use_rtscts;
+        ar &  _use_fg_view;
+        
+        //ar & _fg_address; // char *
+
+        ar & mag_buffer_length;
+        ar &  wind_buffer_length;
+
+        ar &  store_index_mag;
+        ar &  last_store_time_mag;
+      //  ar & buffer_mag;  //‘class VectorN<HALSITL::SITL_State::readings_mag, 250>’ has no member named ‘serialize’
+        ar &  time_delta_mag;
+        ar &  delayed_time_mag;
+
+        ar &  store_index_wind;
+        ar &  last_store_time_wind;
+        //ar & buffer_wind;
+       // ar & buffer_wind_2;//‘class VectorN<HALSITL::SITL_State::readings_wind, 50>’ has no member named ‘serialize’
+        ar &  time_delta_wind;
+        ar &  delayed_time_wind;
+        ar &  wind_start_delay_micros;
+
+        ar & sitl_model;
+        ar & enable_gimbal;
+        //ar & gimbal;
+        //ar & adsb;
+        //ar & lightwareserial;
+        //ar & frsky_d;
+        //ar & fg_socket; // cant serialize SocketAPM 
+
+        //ar & defaults_path; //char *
+        //ar & _home_str;  // char*
+
+    }
+
     void _parse_command_line(int argc, char * const argv[]);
     void _set_param_default(const char *parm);
     void _usage(void);

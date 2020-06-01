@@ -267,6 +267,8 @@ def configure(cfg):
     # Allow to differentiate our build from the make build
     cfg.define('WAF_BUILD', 1)
 
+    #cfg.define('BOOST_NO_EXCEPTIONS', 1)
+
     cfg.msg('Autoconfiguration', 'enabled' if cfg.options.autoconfig else 'disabled')
 
     if cfg.options.static:
@@ -331,6 +333,14 @@ def configure(cfg):
     cfg.env.prepend_value('INCLUDES', [
         cfg.srcnode.abspath() + '/libraries/',
     ])
+
+    cfg.check(compiler='cxx',lib='boost_filesystem',uselib_store='BOOST_FILESYSTEM')
+    cfg.check(compiler='cxx',lib='boost_program_options',uselib_store='BOOST_PROGRAM_OPTIONS')
+    cfg.check(compiler='cxx',lib='boost_regex',uselib_store='BOOST_REGEX')
+    cfg.check(compiler='cxx',lib='boost_serialization',uselib_store='BOOST_SERIALIZATION')
+    cfg.define('NDEBUG','',quote=False)
+
+
 
     cfg.find_program('rsync', mandatory=False)
     if cfg.options.rsync_dest:
@@ -530,8 +540,9 @@ def build(bld):
 
     bld.load('ardupilotwaf')
 
+
     bld.env.AP_LIBRARIES_OBJECTS_KW.update(
-        use=['mavlink'],
+        use=['mavlink','BOOST_SERIALIZATION','BOOST_REGEX','BOOST_FILESYSTEM', 'BOOST_PROGRAM_OPTIONS'  ],
         cxxflags=['-include', 'ap_config.h'],
     )
 

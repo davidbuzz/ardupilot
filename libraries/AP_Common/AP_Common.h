@@ -23,6 +23,12 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+
 // used to pack structures
 #define PACKED __attribute__((__packed__))
 

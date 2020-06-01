@@ -27,6 +27,19 @@
 #include <AP_InternalError/AP_InternalError.h>
 #include <AP_Logger/AP_Logger.h>
 
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+
+namespace boost
+{
+void throw_exception( std::exception const & e ){
+// unimpl
+}
+}
+
 using namespace HALSITL;
 
 static Storage sitlStorage;
@@ -225,6 +238,16 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
             last_watchdog_save = now;
             watchdog_save((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4);
         }
+
+        // try to persist the sitl instance..
+            std::ofstream ofs("buzz.persist");
+        // save data to archive
+            {
+                boost::archive::text_oarchive oa(ofs);
+                // write class instance to archive
+                oa << _sitl_state;
+            	// archive and stream closed when destructors are called
+            }
 
         if (using_watchdog) {
             // note that this only works for a speedup of 1
