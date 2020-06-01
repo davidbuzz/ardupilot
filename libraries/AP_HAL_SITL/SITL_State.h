@@ -131,26 +131,26 @@ private:
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
-        ar & output_ready;
-        ar & new_rc_input;
-        ar & sonar_pin_value;    // pin 0
-        ar & airspeed_pin_value; // pin 1
-        ar & airspeed_2_pin_value; // pin 2
-        ar & voltage_pin_value;  // pin 13
-        ar & current_pin_value;  // pin 12
-        ar & voltage2_pin_value;  // pin 15
-        ar & current2_pin_value;  // pin 14
+        ar & BOOST_SERIALIZATION_NVP(output_ready);
+        ar & BOOST_SERIALIZATION_NVP(new_rc_input);
+        ar & BOOST_SERIALIZATION_NVP(sonar_pin_value);    // pin 0
+        ar & BOOST_SERIALIZATION_NVP(airspeed_pin_value); // pin 1
+        ar & BOOST_SERIALIZATION_NVP(airspeed_2_pin_value); // pin 2
+        ar & BOOST_SERIALIZATION_NVP(voltage_pin_value);  // pin 13
+        ar & BOOST_SERIALIZATION_NVP(current_pin_value);  // pin 12
+        ar & BOOST_SERIALIZATION_NVP(voltage2_pin_value);  // pin 15
+        ar & BOOST_SERIALIZATION_NVP(current2_pin_value);  // pin 14
 
         //ar & _uart_path; // char * ?
 
         //ar & _gps_data; // ‘struct HALSITL::SITL_State::gps_data’ has no member named ‘serialize’
 
-        ar & _vehicle;
-        ar &  _framerate;
-        ar &  _instance;
-        ar &  _base_port;
-        ar &  _parent_pid;
-        ar &  _update_count;
+        ar & BOOST_SERIALIZATION_NVP(_vehicle);
+        ar &  BOOST_SERIALIZATION_NVP(_framerate);
+        ar &  BOOST_SERIALIZATION_NVP(_instance);
+        ar &  BOOST_SERIALIZATION_NVP(_base_port);
+        ar &  BOOST_SERIALIZATION_NVP(_parent_pid);
+        ar &  BOOST_SERIALIZATION_NVP(_update_count);
 
         
         // ar & _barometer;//‘class AP_Baro’ has no member named ‘serialize’
@@ -161,40 +161,40 @@ private:
        
         //ar &  _sitl_rc_in; // cant serialize SocketAPM 
         // ar & _sitl;  //‘class SITL::SITL’ has no member named ‘serialize’
-        ar &  _rcin_port;
-        ar &  _fg_view_port;
-        ar &  _irlock_port;
-        ar &  _current;
+        ar &  BOOST_SERIALIZATION_NVP(_rcin_port);
+        ar &  BOOST_SERIALIZATION_NVP(_fg_view_port);
+        ar &  BOOST_SERIALIZATION_NVP(_irlock_port);
+        ar &  BOOST_SERIALIZATION_NVP(_current);
 
-        ar &  _synthetic_clock_mode;
+        ar &  BOOST_SERIALIZATION_NVP(_synthetic_clock_mode);
 
-        ar &  _use_rtscts;
-        ar &  _use_fg_view;
+        ar &  BOOST_SERIALIZATION_NVP(_use_rtscts);
+        ar &  BOOST_SERIALIZATION_NVP(_use_fg_view);
         
         //ar & _fg_address; // char *
 
         //ar &  mag_buffer_length; //static const
         //ar &  wind_buffer_length; // static const
 
-        ar &  store_index_mag;
-        ar &  last_store_time_mag;
+        ar &  BOOST_SERIALIZATION_NVP(store_index_mag);
+        ar &  BOOST_SERIALIZATION_NVP(last_store_time_mag);
       //  ar & buffer_mag;  //‘class VectorN<HALSITL::SITL_State::readings_mag, 250>’ has no member named ‘serialize’
-        ar &  time_delta_mag;
-        ar &  delayed_time_mag;
+        ar &  BOOST_SERIALIZATION_NVP(time_delta_mag);
+        ar &  BOOST_SERIALIZATION_NVP(delayed_time_mag);
 
-        ar &  store_index_wind;
-        ar &  last_store_time_wind;
+        ar &  BOOST_SERIALIZATION_NVP(store_index_wind);
+        ar &  BOOST_SERIALIZATION_NVP(last_store_time_wind);
         //ar & buffer_wind;
        // ar & buffer_wind_2;//‘class VectorN<HALSITL::SITL_State::readings_wind, 50>’ has no member named ‘serialize’
-        ar &  time_delta_wind;
-        ar &  delayed_time_wind;
-        ar &  wind_start_delay_micros;
+        ar &  BOOST_SERIALIZATION_NVP(time_delta_wind);
+        ar &  BOOST_SERIALIZATION_NVP(delayed_time_wind);
+        ar &  BOOST_SERIALIZATION_NVP(wind_start_delay_micros);
 
         //ar & sitl_model; scary polymorphic pointer that causes boost to segfault. 
 //boost::archive::detail::save_pointer_type<boost::archive::text_oarchive>::polymorphic::save<SITL::Aircraft> (ar=..., t=...)
 
 
-        ar & enable_gimbal;
+        ar & BOOST_SERIALIZATION_NVP(enable_gimbal);
         //ar & gimbal;
         //ar & adsb;
         //ar & lightwareserial;

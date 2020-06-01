@@ -33,6 +33,13 @@
 #define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
 #endif
 
+// xml
+#include <boost/archive/tmpdir.hpp>
+#include <boost/archive/xml_iarchive.hpp>
+#include <boost/archive/xml_oarchive.hpp>
+
+
+
 namespace boost
 {
 void throw_exception( std::exception const & e ){
@@ -244,9 +251,9 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
             // save persistent data every 1000ms
             last_persist = now;
 
-        // try to persist the sitl instance..
+            // try to persist the sitl instance..
             std::ofstream ofs("buzz.persist");
-        // save data to archive
+            // save data to archive
             {
                 ::printf("serialised some of sitl to buzz.persist\n");
                 boost::archive::text_oarchive oa(ofs);
@@ -254,6 +261,17 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
                 oa << _sitl_state;
             	// archive and stream closed when destructors are called
             }
+            std::ofstream ofs2("buzz.persist.xml");
+            {
+                ::printf("serialised some of sitl to buzz.persist.xml\n");
+                boost::archive::xml_oarchive oa(ofs2);
+                assert(ofs2.good());
+                // write class instance to archive
+                oa << BOOST_SERIALIZATION_NVP(_sitl_state);
+            	// archive and stream closed when destructors are called
+            }
+
+
         }
 
         if (using_watchdog) {
