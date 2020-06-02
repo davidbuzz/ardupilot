@@ -127,6 +127,21 @@
 #define AP_GROUPEND     { AP_PARAM_NONE, 0xFF, "", 0, { group_info : nullptr } }
 #define AP_VAREND       { AP_PARAM_NONE, "", 0, nullptr, { group_info : nullptr } }
 
+
+// without som sort of boost reference fist, the next ones errror
+#include <boost/regex.hpp>
+
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
+
 enum ap_var_type {
     AP_PARAM_NONE    = 0,
     AP_PARAM_INT8,
@@ -159,6 +174,13 @@ public:
             const float def_value;
         };
         uint16_t flags;
+
+ template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+    // todo buzz impl
+    }
+
     };
     struct Info {
         uint8_t type; // AP_PARAM_*
@@ -171,18 +193,39 @@ public:
             const float def_value;
         };
         uint16_t flags;
+
+ template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+    // todo buzz impl
+    }
+
     };
     struct ConversionInfo {
         uint16_t old_key; // k_param_*
         uint32_t old_group_element; // index in old object
         enum ap_var_type type; // AP_PARAM_*
         const char *new_name;
+
+ template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+    // todo buzz impl
+    }
+
     };
 
     // param default table element
     struct defaults_table_struct {
         const char *name;   // parameter name
         float value;        // parameter value
+
+ template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+    // todo buzz impl
+    }
+
     };
 
     // called once at startup to setup the _var_info[] table. This
@@ -511,6 +554,43 @@ public:
 
     static AP_Param *get_singleton() { return _singleton; }
 
+
+ template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & BOOST_SERIALIZATION_NVP(sentinal_offset);
+     ar & BOOST_SERIALIZATION_NVP(_group_level_shift);
+     ar & BOOST_SERIALIZATION_NVP(_group_bits);
+     ar & BOOST_SERIALIZATION_NVP(_sentinal_key);
+     ar & BOOST_SERIALIZATION_NVP(_sentinal_type );
+     ar & BOOST_SERIALIZATION_NVP(_sentinal_group);
+     ar & BOOST_SERIALIZATION_NVP(_frame_type_flags);
+     ar & BOOST_SERIALIZATION_NVP(param_defaults_data); //error: ‘struct AP_Param::param_defaults_struct’ has no member named ‘serialize’
+
+
+    ar & BOOST_SERIALIZATION_NVP( _storage);
+    ar & BOOST_SERIALIZATION_NVP(  _num_vars);
+    ar & BOOST_SERIALIZATION_NVP( _parameter_count);
+    ar & BOOST_SERIALIZATION_NVP( _count_marker);
+    ar & BOOST_SERIALIZATION_NVP( _count_marker_done);
+    ar & BOOST_SERIALIZATION_NVP( _count_sem);
+    ar & BOOST_SERIALIZATION_NVP( _var_info);
+
+        ar & BOOST_SERIALIZATION_NVP( param_overrides);
+        ar & BOOST_SERIALIZATION_NVP(  num_param_overrides);
+        ar & BOOST_SERIALIZATION_NVP( num_read_only);
+
+    // statics:
+        ar & BOOST_SERIALIZATION_NVP(  k_EEPROM_magic0 );
+        ar & BOOST_SERIALIZATION_NVP(  k_EEPROM_magic1);
+        ar & BOOST_SERIALIZATION_NVP(  k_EEPROM_revision ); 
+        ar & BOOST_SERIALIZATION_NVP(  _hide_disabled_groups );
+
+  // ar & BOOST_SERIALIZATION_NVP(  save_queue);
+  // ar & BOOST_SERIALIZATION_NVP(  registered_save_handler);
+
+    }
+
 private:
     static AP_Param *_singleton;
 
@@ -569,6 +649,17 @@ private:
         uint16_t max_length;
         volatile uint16_t length;
         volatile char data[AP_PARAM_MAX_EMBEDDED_PARAM];
+
+  template <typename Archive>
+  void serialize(Archive& ar, const unsigned int version)
+  {
+    ar & BOOST_SERIALIZATION_NVP(magic_str); 
+    ar & BOOST_SERIALIZATION_NVP(param_magic); //todo buzz packed is a problem
+    ar & BOOST_SERIALIZATION_NVP((short unsigned int&)max_length);
+    ar & BOOST_SERIALIZATION_NVP( (const volatile short unsigned int&)length); // avoid  error: cannot bind packed field
+    //ar & BOOST_SERIALIZATION_NVP((volatile char[AP_PARAM_MAX_EMBEDDED_PARAM])data);
+  }
+
     };
     static const param_defaults_struct param_defaults_data;
 #endif
@@ -686,6 +777,13 @@ private:
         const AP_Param *object_ptr;
         float value;
         bool read_only; // param is marked @READONLY
+
+ template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+    // todo buzz impl
+    }
+
     };
     static struct param_override *param_overrides;
     static uint16_t num_param_overrides;
@@ -703,6 +801,8 @@ private:
     struct PACKED param_save {
         AP_Param *param;
         bool force_save;
+
+//buzz
     };
     static ObjectBuffer_TS<struct param_save> save_queue;
     static bool registered_save_handler;

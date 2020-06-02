@@ -15,8 +15,21 @@
 	<_framerate>50</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>2978</_parent_pid>
-	<_update_count>7937</_update_count>
+	<_parent_pid>11935</_parent_pid>
+	<_update_count>9138</_update_count>
+	<_barometer class_id="1" tracking_level="1" version="0" object_id="_1">
+		<_num_drivers>1</_num_drivers>
+		<_num_sensors>1</_num_sensors>
+		<_primary>0</_primary>
+		<_log_baro_bit>128</_log_baro_bit>
+		<_alt_offset_active>0.000000000e+00</_alt_offset_active>
+		<_last_altitude_EAS2TAS>0.000000000e+00</_last_altitude_EAS2TAS>
+		<_EAS2TAS>0.000000000e+00</_EAS2TAS>
+		<_external_temperature>0.000000000e+00</_external_temperature>
+		<_last_external_temperature_ms>0</_last_external_temperature_ms>
+		<_guessed_ground_temperature>2.723506165e+01</_guessed_ground_temperature>
+		<_last_notify_ms>0</_last_notify_ms>
+	</_barometer>
 	<_rcin_port>5501</_rcin_port>
 	<_fg_view_port>5503</_fg_view_port>
 	<_irlock_port>9005</_irlock_port>
@@ -29,9 +42,9 @@
 	<time_delta_mag>0</time_delta_mag>
 	<delayed_time_mag>0</delayed_time_mag>
 	<store_index_wind>11</store_index_wind>
-	<last_store_time_wind>6610</last_store_time_wind>
+	<last_store_time_wind>7610</last_store_time_wind>
 	<time_delta_wind>111</time_delta_wind>
-	<delayed_time_wind>6611</delayed_time_wind>
+	<delayed_time_wind>7611</delayed_time_wind>
 	<wind_start_delay_micros>1</wind_start_delay_micros>
 	<enable_gimbal>0</enable_gimbal>
 </_sitl_state>

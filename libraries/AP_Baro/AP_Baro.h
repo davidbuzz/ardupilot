@@ -16,6 +16,18 @@
 #define BARO_TIMEOUT_MS                 500     // timeout in ms since last successful read
 #define BARO_DATA_CHANGE_TIMEOUT_MS     2000    // timeout in ms since last successful read that involved temperature of pressure changing
 
+// without som sort of boost reference fist, the next ones errror
+#include <boost/regex.hpp>
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 class AP_Baro_Backend;
 
 class AP_Baro
@@ -185,8 +197,43 @@ public:
     HAL_Semaphore &get_semaphore(void) {
         return _rsem;
     }
-    
+
+ template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & BOOST_SERIALIZATION_NVP(_num_drivers);
+        ar & BOOST_SERIALIZATION_NVP(_num_sensors);
+        //ar & BOOST_SERIALIZATION_NVP(drivers);
+
+        ar & BOOST_SERIALIZATION_NVP(_primary);
+        ar & BOOST_SERIALIZATION_NVP(_log_baro_bit);
+
+        //ar & BOOST_SERIALIZATION_NVP(sensors);
+
+      ar & BOOST_SERIALIZATION_NVP(  _alt_offset); //param
+      ar & BOOST_SERIALIZATION_NVP(   _alt_offset_active);
+      //ar & BOOST_SERIALIZATION_NVP(   _primary_baro); //param
+      //ar & BOOST_SERIALIZATION_NVP(   _ext_bus); //param
+      ar & BOOST_SERIALIZATION_NVP(   _last_altitude_EAS2TAS);
+      ar & BOOST_SERIALIZATION_NVP(   _EAS2TAS);
+      ar & BOOST_SERIALIZATION_NVP(   _external_temperature);
+      ar & BOOST_SERIALIZATION_NVP(  _last_external_temperature_ms);
+      //ar & BOOST_SERIALIZATION_NVP(   _climb_rate_filter);
+      //ar & BOOST_SERIALIZATION_NVP(  _specific_gravity); 
+      //ar & BOOST_SERIALIZATION_NVP(  _user_ground_temperature); 
+      //ar & BOOST_SERIALIZATION_NVP(  _hil_mode);//error: cannot bind bitfield ‘((AP_Baro*)this)->AP_Baro::_hil_mode’ to ‘bool&’
+      ar & BOOST_SERIALIZATION_NVP(   _guessed_ground_temperature); 
+      ar & BOOST_SERIALIZATION_NVP(  _last_notify_ms);
+      //ar & BOOST_SERIALIZATION_NVP(  _filter_range);  //param
+      //ar & BOOST_SERIALIZATION_NVP(   _baro_probe_ext);//param
+      //ar & BOOST_SERIALIZATION_NVP(  _rsem);//error: ‘class HALSITL::Semaphore’ has no member named ‘serialize’
+
+
+// todo add more
+     }
+
 private:
+
     // singleton
     static AP_Baro *_singleton;
     

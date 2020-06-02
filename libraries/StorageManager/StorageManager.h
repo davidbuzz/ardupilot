@@ -40,6 +40,18 @@
 #error "Unsupported storage size"
 #endif
 
+// without som sort of boost reference fist, the next ones errror
+#include <boost/regex.hpp>
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
+
 /*
   The StorageManager holds the layout of non-volatile storeage
  */
@@ -59,11 +71,27 @@ public:
     // erase whole of storage
     static void erase(void);
 
+ template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & BOOST_SERIALIZATION_NVP(layout);
+   
+    }
+
 private:
     struct StorageArea {
         StorageType type;
         uint16_t    offset;
         uint16_t    length;
+
+  template <typename Archive>
+  void serialize(Archive& ar, const unsigned int version)
+  {
+    ar & type;
+    ar & offset;
+    ar & length;
+  }
+
     };
 
     // available layouts
@@ -95,6 +123,14 @@ public:
     void write_uint8(uint16_t loc, uint8_t value) const { return write_byte(loc, value); }
     void write_uint16(uint16_t loc, uint16_t value) const;
     void write_uint32(uint16_t loc, uint32_t value) const;
+
+ template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ar & BOOST_SERIALIZATION_NVP(type);
+        ar & BOOST_SERIALIZATION_NVP(total_size);
+   
+    }
 
 private:
     const StorageManager::StorageType type;

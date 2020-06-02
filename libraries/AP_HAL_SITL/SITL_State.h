@@ -58,8 +58,6 @@
 #include <boost/archive/text_iarchive.hpp>
 
 
-
-
 class HAL_SITL;
 
 class HALSITL::SITL_State {
@@ -153,7 +151,7 @@ private:
         ar &  BOOST_SERIALIZATION_NVP(_update_count);
 
         
-        // ar & _barometer;//‘class AP_Baro’ has no member named ‘serialize’
+         ar & BOOST_SERIALIZATION_NVP(_barometer);//‘class AP_Baro’ has no member named ‘serialize’
         //ar & _ins;
         //ar & _scheduler;
         //ar & _compass; //‘class Compass’ has no member named ‘serialize’
