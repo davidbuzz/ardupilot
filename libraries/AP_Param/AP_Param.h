@@ -565,7 +565,7 @@ public:
      ar & BOOST_SERIALIZATION_NVP(_sentinal_type );
      ar & BOOST_SERIALIZATION_NVP(_sentinal_group);
      ar & BOOST_SERIALIZATION_NVP(_frame_type_flags);
-     ar & BOOST_SERIALIZATION_NVP(param_defaults_data); //error: ‘struct AP_Param::param_defaults_struct’ has no member named ‘serialize’
+     //ar & BOOST_SERIALIZATION_NVP(param_defaults_data); //error: ‘struct AP_Param::param_defaults_struct’ has no member named ‘serialize’
 
 
     ar & BOOST_SERIALIZATION_NVP( _storage);

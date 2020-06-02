@@ -4,30 +4,56 @@
 <_sitl_state class_id="0" tracking_level="1" version="0" object_id="_0">
 	<output_ready>1</output_ready>
 	<new_rc_input>0</new_rc_input>
-	<sonar_pin_value>0</sonar_pin_value>
+	<sonar_pin_value>1023</sonar_pin_value>
 	<airspeed_pin_value>503</airspeed_pin_value>
 	<airspeed_2_pin_value>503</airspeed_2_pin_value>
 	<voltage_pin_value>255</voltage_pin_value>
 	<current_pin_value>0</current_pin_value>
 	<voltage2_pin_value>63</voltage2_pin_value>
 	<current2_pin_value>0</current2_pin_value>
-	<_vehicle>1</_vehicle>
-	<_framerate>50</_framerate>
+	<_vehicle>0</_vehicle>
+	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>11935</_parent_pid>
-	<_update_count>9138</_update_count>
+	<_parent_pid>8422</_parent_pid>
+	<_update_count>11443</_update_count>
 	<_barometer class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_num_drivers>1</_num_drivers>
 		<_num_sensors>1</_num_sensors>
 		<_primary>0</_primary>
 		<_log_baro_bit>128</_log_baro_bit>
+		<_alt_offset class_id="2" tracking_level="0" version="0">
+			<sentinal_offset>459</sentinal_offset>
+			<_group_level_shift>6</_group_level_shift>
+			<_group_bits>18</_group_bits>
+			<_sentinal_key>511</_sentinal_key>
+			<_sentinal_type>31</_sentinal_type>
+			<_sentinal_group>255</_sentinal_group>
+			<_frame_type_flags>1</_frame_type_flags>
+			<_storage class_id="3" tracking_level="0" version="0">
+				<type>0</type>
+				<total_size>4096</total_size>
+			</_storage>
+			<_num_vars>101</_num_vars>
+			<_parameter_count>1217</_parameter_count>
+			<_count_marker>20</_count_marker>
+			<_count_marker_done>20</_count_marker_done>
+			<_count_sem class_id="4" tracking_level="0" version="0"></_count_sem>
+			<_var_info class_id="5" tracking_level="1" version="0" object_id="_2"></_var_info>
+			<param_overrides class_id="6" tracking_level="1" version="0" object_id="_3"></param_overrides>
+			<num_param_overrides>79</num_param_overrides>
+			<num_read_only>0</num_read_only>
+			<k_EEPROM_magic0>80</k_EEPROM_magic0>
+			<k_EEPROM_magic1>65</k_EEPROM_magic1>
+			<k_EEPROM_revision>6</k_EEPROM_revision>
+			<_hide_disabled_groups>1</_hide_disabled_groups>
+		</_alt_offset>
 		<_alt_offset_active>0.000000000e+00</_alt_offset_active>
 		<_last_altitude_EAS2TAS>0.000000000e+00</_last_altitude_EAS2TAS>
-		<_EAS2TAS>0.000000000e+00</_EAS2TAS>
+		<_EAS2TAS>1.037445188e+00</_EAS2TAS>
 		<_external_temperature>0.000000000e+00</_external_temperature>
 		<_last_external_temperature_ms>0</_last_external_temperature_ms>
-		<_guessed_ground_temperature>2.723506165e+01</_guessed_ground_temperature>
+		<_guessed_ground_temperature>2.553483200e+01</_guessed_ground_temperature>
 		<_last_notify_ms>0</_last_notify_ms>
 	</_barometer>
 	<_rcin_port>5501</_rcin_port>
@@ -41,10 +67,10 @@
 	<last_store_time_mag>0</last_store_time_mag>
 	<time_delta_mag>0</time_delta_mag>
 	<delayed_time_mag>0</delayed_time_mag>
-	<store_index_wind>11</store_index_wind>
-	<last_store_time_wind>7610</last_store_time_wind>
-	<time_delta_wind>111</time_delta_wind>
-	<delayed_time_wind>7611</delayed_time_wind>
+	<store_index_wind>3</store_index_wind>
+	<last_store_time_wind>9530</last_store_time_wind>
+	<time_delta_wind>32</time_delta_wind>
+	<delayed_time_wind>9532</delayed_time_wind>
 	<wind_start_delay_micros>1</wind_start_delay_micros>
 	<enable_gimbal>0</enable_gimbal>
 </_sitl_state>
