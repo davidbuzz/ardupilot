@@ -15,8 +15,8 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>8422</_parent_pid>
-	<_update_count>11443</_update_count>
+	<_parent_pid>19297</_parent_pid>
+	<_update_count>10242</_update_count>
 	<_barometer class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_num_drivers>1</_num_drivers>
 		<_num_sensors>1</_num_sensors>
@@ -24,11 +24,7 @@
 		<_log_baro_bit>128</_log_baro_bit>
 		<_alt_offset class_id="2" tracking_level="0" version="0">
 			<sentinal_offset>459</sentinal_offset>
-			<_group_level_shift>6</_group_level_shift>
-			<_group_bits>18</_group_bits>
 			<_sentinal_key>511</_sentinal_key>
-			<_sentinal_type>31</_sentinal_type>
-			<_sentinal_group>255</_sentinal_group>
 			<_frame_type_flags>1</_frame_type_flags>
 			<_storage class_id="3" tracking_level="0" version="0">
 				<type>0</type>
@@ -43,9 +39,6 @@
 			<param_overrides class_id="6" tracking_level="1" version="0" object_id="_3"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
-			<k_EEPROM_magic0>80</k_EEPROM_magic0>
-			<k_EEPROM_magic1>65</k_EEPROM_magic1>
-			<k_EEPROM_revision>6</k_EEPROM_revision>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_alt_offset>
 		<_alt_offset_active>0.000000000e+00</_alt_offset_active>
@@ -56,6 +49,188 @@
 		<_guessed_ground_temperature>2.553483200e+01</_guessed_ground_temperature>
 		<_last_notify_ms>0</_last_notify_ms>
 	</_barometer>
+	<_compass class_id="7" tracking_level="1" version="0" object_id="_4">
+		<_compass_cal_autoreboot>0</_compass_cal_autoreboot>
+		<_cal_complete_requires_reboot>0</_cal_complete_requires_reboot>
+		<_cal_has_run>0</_cal_has_run>
+		<_backend_count>1</_backend_count>
+		<_enabled class_id="8" tracking_level="0" version="0">
+			<sentinal_offset>459</sentinal_offset>
+			<_sentinal_key>511</_sentinal_key>
+			<_frame_type_flags>1</_frame_type_flags>
+			<_storage>
+				<type>0</type>
+				<total_size>4096</total_size>
+			</_storage>
+			<_num_vars>101</_num_vars>
+			<_parameter_count>1217</_parameter_count>
+			<_count_marker>20</_count_marker>
+			<_count_marker_done>20</_count_marker_done>
+			<_count_sem></_count_sem>
+			<_var_info class_id_reference="5" object_id_reference="_2"></_var_info>
+			<param_overrides class_id_reference="6" object_id_reference="_3"></param_overrides>
+			<num_param_overrides>79</num_param_overrides>
+			<num_read_only>0</num_read_only>
+			<_hide_disabled_groups>1</_hide_disabled_groups>
+		</_enabled>
+		<_compass_count>3</_compass_count>
+		<_unreg_compass_count>3</_unreg_compass_count>
+		<_learn>
+			<sentinal_offset>459</sentinal_offset>
+			<_sentinal_key>511</_sentinal_key>
+			<_frame_type_flags>1</_frame_type_flags>
+			<_storage>
+				<type>0</type>
+				<total_size>4096</total_size>
+			</_storage>
+			<_num_vars>101</_num_vars>
+			<_parameter_count>1217</_parameter_count>
+			<_count_marker>20</_count_marker>
+			<_count_marker_done>20</_count_marker_done>
+			<_count_sem></_count_sem>
+			<_var_info class_id_reference="5" object_id_reference="_2"></_var_info>
+			<param_overrides class_id_reference="6" object_id_reference="_3"></param_overrides>
+			<num_param_overrides>79</num_param_overrides>
+			<num_read_only>0</num_read_only>
+			<_hide_disabled_groups>1</_hide_disabled_groups>
+		</_learn>
+		<_declination>
+			<sentinal_offset>459</sentinal_offset>
+			<_sentinal_key>511</_sentinal_key>
+			<_frame_type_flags>1</_frame_type_flags>
+			<_storage>
+				<type>0</type>
+				<total_size>4096</total_size>
+			</_storage>
+			<_num_vars>101</_num_vars>
+			<_parameter_count>1217</_parameter_count>
+			<_count_marker>20</_count_marker>
+			<_count_marker_done>20</_count_marker_done>
+			<_count_sem></_count_sem>
+			<_var_info class_id_reference="5" object_id_reference="_2"></_var_info>
+			<param_overrides class_id_reference="6" object_id_reference="_3"></param_overrides>
+			<num_param_overrides>79</num_param_overrides>
+			<num_read_only>0</num_read_only>
+			<_hide_disabled_groups>1</_hide_disabled_groups>
+		</_declination>
+		<_auto_declination>
+			<sentinal_offset>459</sentinal_offset>
+			<_sentinal_key>511</_sentinal_key>
+			<_frame_type_flags>1</_frame_type_flags>
+			<_storage>
+				<type>0</type>
+				<total_size>4096</total_size>
+			</_storage>
+			<_num_vars>101</_num_vars>
+			<_parameter_count>1217</_parameter_count>
+			<_count_marker>20</_count_marker>
+			<_count_marker_done>20</_count_marker_done>
+			<_count_sem></_count_sem>
+			<_var_info class_id_reference="5" object_id_reference="_2"></_var_info>
+			<param_overrides class_id_reference="6" object_id_reference="_3"></param_overrides>
+			<num_param_overrides>79</num_param_overrides>
+			<num_read_only>0</num_read_only>
+			<_hide_disabled_groups>1</_hide_disabled_groups>
+		</_auto_declination>
+		<_null_init_done>0</_null_init_done>
+		<_log_bit>8192</_log_bit>
+		<_motor_comp_type>
+			<sentinal_offset>459</sentinal_offset>
+			<_sentinal_key>511</_sentinal_key>
+			<_frame_type_flags>1</_frame_type_flags>
+			<_storage>
+				<type>0</type>
+				<total_size>4096</total_size>
+			</_storage>
+			<_num_vars>101</_num_vars>
+			<_parameter_count>1217</_parameter_count>
+			<_count_marker>20</_count_marker>
+			<_count_marker_done>20</_count_marker_done>
+			<_count_sem></_count_sem>
+			<_var_info class_id_reference="5" object_id_reference="_2"></_var_info>
+			<param_overrides class_id_reference="6" object_id_reference="_3"></param_overrides>
+			<num_param_overrides>79</num_param_overrides>
+			<num_read_only>0</num_read_only>
+			<_hide_disabled_groups>1</_hide_disabled_groups>
+		</_motor_comp_type>
+		<_rotate_auto>
+			<sentinal_offset>459</sentinal_offset>
+			<_sentinal_key>511</_sentinal_key>
+			<_frame_type_flags>1</_frame_type_flags>
+			<_storage>
+				<type>0</type>
+				<total_size>4096</total_size>
+			</_storage>
+			<_num_vars>101</_num_vars>
+			<_parameter_count>1217</_parameter_count>
+			<_count_marker>20</_count_marker>
+			<_count_marker_done>20</_count_marker_done>
+			<_count_sem></_count_sem>
+			<_var_info class_id_reference="5" object_id_reference="_2"></_var_info>
+			<param_overrides class_id_reference="6" object_id_reference="_3"></param_overrides>
+			<num_param_overrides>79</num_param_overrides>
+			<num_read_only>0</num_read_only>
+			<_hide_disabled_groups>1</_hide_disabled_groups>
+		</_rotate_auto>
+		<_custom_roll>
+			<sentinal_offset>459</sentinal_offset>
+			<_sentinal_key>511</_sentinal_key>
+			<_frame_type_flags>1</_frame_type_flags>
+			<_storage>
+				<type>0</type>
+				<total_size>4096</total_size>
+			</_storage>
+			<_num_vars>101</_num_vars>
+			<_parameter_count>1217</_parameter_count>
+			<_count_marker>20</_count_marker>
+			<_count_marker_done>20</_count_marker_done>
+			<_count_sem></_count_sem>
+			<_var_info class_id_reference="5" object_id_reference="_2"></_var_info>
+			<param_overrides class_id_reference="6" object_id_reference="_3"></param_overrides>
+			<num_param_overrides>79</num_param_overrides>
+			<num_read_only>0</num_read_only>
+			<_hide_disabled_groups>1</_hide_disabled_groups>
+		</_custom_roll>
+		<_custom_pitch>
+			<sentinal_offset>459</sentinal_offset>
+			<_sentinal_key>511</_sentinal_key>
+			<_frame_type_flags>1</_frame_type_flags>
+			<_storage>
+				<type>0</type>
+				<total_size>4096</total_size>
+			</_storage>
+			<_num_vars>101</_num_vars>
+			<_parameter_count>1217</_parameter_count>
+			<_count_marker>20</_count_marker>
+			<_count_marker_done>20</_count_marker_done>
+			<_count_sem></_count_sem>
+			<_var_info class_id_reference="5" object_id_reference="_2"></_var_info>
+			<param_overrides class_id_reference="6" object_id_reference="_3"></param_overrides>
+			<num_param_overrides>79</num_param_overrides>
+			<num_read_only>0</num_read_only>
+			<_hide_disabled_groups>1</_hide_disabled_groups>
+		</_custom_pitch>
+		<_custom_yaw>
+			<sentinal_offset>459</sentinal_offset>
+			<_sentinal_key>511</_sentinal_key>
+			<_frame_type_flags>1</_frame_type_flags>
+			<_storage>
+				<type>0</type>
+				<total_size>4096</total_size>
+			</_storage>
+			<_num_vars>101</_num_vars>
+			<_parameter_count>1217</_parameter_count>
+			<_count_marker>20</_count_marker>
+			<_count_marker_done>20</_count_marker_done>
+			<_count_sem></_count_sem>
+			<_var_info class_id_reference="5" object_id_reference="_2"></_var_info>
+			<param_overrides class_id_reference="6" object_id_reference="_3"></param_overrides>
+			<num_param_overrides>79</num_param_overrides>
+			<num_read_only>0</num_read_only>
+			<_hide_disabled_groups>1</_hide_disabled_groups>
+		</_custom_yaw>
+		<_thr>0.000000000e+00</_thr>
+	</_compass>
 	<_rcin_port>5501</_rcin_port>
 	<_fg_view_port>5503</_fg_view_port>
 	<_irlock_port>9005</_irlock_port>
@@ -68,9 +243,9 @@
 	<time_delta_mag>0</time_delta_mag>
 	<delayed_time_mag>0</delayed_time_mag>
 	<store_index_wind>3</store_index_wind>
-	<last_store_time_wind>9530</last_store_time_wind>
-	<time_delta_wind>32</time_delta_wind>
-	<delayed_time_wind>9532</delayed_time_wind>
+	<last_store_time_wind>8530</last_store_time_wind>
+	<time_delta_wind>31</time_delta_wind>
+	<delayed_time_wind>8531</delayed_time_wind>
 	<wind_start_delay_micros>1</wind_start_delay_micros>
 	<enable_gimbal>0</enable_gimbal>
 </_sitl_state>

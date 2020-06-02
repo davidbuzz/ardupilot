@@ -139,9 +139,9 @@ private:
         ar & BOOST_SERIALIZATION_NVP(voltage2_pin_value);  // pin 15
         ar & BOOST_SERIALIZATION_NVP(current2_pin_value);  // pin 14
 
-        //ar & _uart_path; // char * ?
+        //ar & BOOST_SERIALIZATION_NVP(_uart_path); // char * ?
 
-        //ar & _gps_data; // ‘struct HALSITL::SITL_State::gps_data’ has no member named ‘serialize’
+        //ar & BOOST_SERIALIZATION_NVP(_gps_data); // ‘struct HALSITL::SITL_State::gps_data’ has no member named ‘serialize’
 
         ar & BOOST_SERIALIZATION_NVP(_vehicle);
         ar &  BOOST_SERIALIZATION_NVP(_framerate);
@@ -152,13 +152,13 @@ private:
 
         
          ar & BOOST_SERIALIZATION_NVP(_barometer);//‘class AP_Baro’ has no member named ‘serialize’
-        //ar & _ins;
-        //ar & _scheduler;
-        //ar & _compass; //‘class Compass’ has no member named ‘serialize’
-        //ar & _terrain;
+        //ar & BOOST_SERIALIZATION_NVP(_ins);
+        //ar & BOOST_SERIALIZATION_NVP(_scheduler);
+        ar & BOOST_SERIALIZATION_NVP(_compass); //‘class Compass’ has no member named ‘serialize’
+        //ar & BOOST_SERIALIZATION_NVP(_terrain);
        
-        //ar &  _sitl_rc_in; // cant serialize SocketAPM 
-        // ar & _sitl;  //‘class SITL::SITL’ has no member named ‘serialize’
+        //ar &  BOOST_SERIALIZATION_NVP(_sitl_rc_in); // cant serialize SocketAPM 
+        // ar & BOOST_SERIALIZATION_NVP(_sitl);  //‘class SITL::SITL’ has no member named ‘serialize’
         ar &  BOOST_SERIALIZATION_NVP(_rcin_port);
         ar &  BOOST_SERIALIZATION_NVP(_fg_view_port);
         ar &  BOOST_SERIALIZATION_NVP(_irlock_port);
@@ -169,38 +169,38 @@ private:
         ar &  BOOST_SERIALIZATION_NVP(_use_rtscts);
         ar &  BOOST_SERIALIZATION_NVP(_use_fg_view);
         
-        //ar & _fg_address; // char *
+        //ar & BOOST_SERIALIZATION_NVP(_fg_address); // char *
 
-        //ar &  mag_buffer_length; //static const
-        //ar &  wind_buffer_length; // static const
+        //ar &  BOOST_SERIALIZATION_NVP(mag_buffer_length); //static const
+        //ar &  BOOST_SERIALIZATION_NVP(wind_buffer_length); // static const
 
         ar &  BOOST_SERIALIZATION_NVP(store_index_mag);
         ar &  BOOST_SERIALIZATION_NVP(last_store_time_mag);
-      //  ar & buffer_mag;  //‘class VectorN<HALSITL::SITL_State::readings_mag, 250>’ has no member named ‘serialize’
+      //  ar & BOOST_SERIALIZATION_NVP(buffer_mag);  //‘class VectorN<HALSITL::SITL_State::readings_mag, 250>’ has no member named ‘serialize’
         ar &  BOOST_SERIALIZATION_NVP(time_delta_mag);
         ar &  BOOST_SERIALIZATION_NVP(delayed_time_mag);
 
         ar &  BOOST_SERIALIZATION_NVP(store_index_wind);
         ar &  BOOST_SERIALIZATION_NVP(last_store_time_wind);
-        //ar & buffer_wind;
-       // ar & buffer_wind_2;//‘class VectorN<HALSITL::SITL_State::readings_wind, 50>’ has no member named ‘serialize’
+        //ar & BOOST_SERIALIZATION_NVP(buffer_wind);
+       // ar & BOOST_SERIALIZATION_NVP(buffer_wind_2);//‘class VectorN<HALSITL::SITL_State::readings_wind, 50>’ has no member named ‘serialize’
         ar &  BOOST_SERIALIZATION_NVP(time_delta_wind);
         ar &  BOOST_SERIALIZATION_NVP(delayed_time_wind);
         ar &  BOOST_SERIALIZATION_NVP(wind_start_delay_micros);
 
-        //ar & sitl_model; scary polymorphic pointer that causes boost to segfault. 
+        //ar & BOOST_SERIALIZATION_NVP(sitl_model); //scary polymorphic pointer that causes boost to segfault. 
 //boost::archive::detail::save_pointer_type<boost::archive::text_oarchive>::polymorphic::save<SITL::Aircraft> (ar=..., t=...)
 
 
         ar & BOOST_SERIALIZATION_NVP(enable_gimbal);
-        //ar & gimbal;
-        //ar & adsb;
-        //ar & lightwareserial;
-        //ar & frsky_d;
-        //ar & fg_socket; // cant serialize SocketAPM 
+        //ar & BOOST_SERIALIZATION_NVP(gimbal);
+        //ar & BOOST_SERIALIZATION_NVP(adsb);
+        //ar & BOOST_SERIALIZATION_NVP(lightwareserial);
+        //ar & BOOST_SERIALIZATION_NVP(frsky_d);
+        //ar & BOOST_SERIALIZATION_NVP(fg_socket); // cant serialize SocketAPM 
 
-        //ar & defaults_path; //char *
-        //ar & _home_str;  // char*
+        //ar & BOOST_SERIALIZATION_NVP(defaults_path); //char *
+        //ar & BOOST_SERIALIZATION_NVP(_home_str);  // char*
 
     }
 

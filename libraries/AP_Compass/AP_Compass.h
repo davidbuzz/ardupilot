@@ -63,6 +63,21 @@
 
 #define MAX_CONNECTED_MAGS (COMPASS_MAX_UNREG_DEV+COMPASS_MAX_INSTANCES)
 
+// without som sort of boost reference fist, the next ones errror
+#include <boost/regex.hpp>
+
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
+
+
 class CompassLearn;
 
 class Compass
@@ -343,6 +358,38 @@ public:
      */
     MAV_RESULT mag_cal_fixed_yaw(float yaw_deg, uint8_t compass_mask,
                                  float lat_deg, float lon_deg);
+
+
+ template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+
+
+        ar &  BOOST_SERIALIZATION_NVP(_compass_cal_autoreboot);
+        ar &  BOOST_SERIALIZATION_NVP(_cal_complete_requires_reboot);
+        ar &  BOOST_SERIALIZATION_NVP(_cal_has_run);
+        //ar &  BOOST_SERIALIZATION_NVP(_backends);
+        ar &  BOOST_SERIALIZATION_NVP(_backend_count);
+        ar &  BOOST_SERIALIZATION_NVP(_enabled);
+        ar &  BOOST_SERIALIZATION_NVP(_compass_count);
+        ar &  BOOST_SERIALIZATION_NVP(_unreg_compass_count);
+        ar &  BOOST_SERIALIZATION_NVP(_learn);
+        //ar &  BOOST_SERIALIZATION_NVP(_custom_rotation);
+        ar &  BOOST_SERIALIZATION_NVP(_declination);
+        ar &  BOOST_SERIALIZATION_NVP(_auto_declination);
+        ar &  BOOST_SERIALIZATION_NVP(_null_init_done);
+        ar &  BOOST_SERIALIZATION_NVP(_log_bit);
+        ar &  BOOST_SERIALIZATION_NVP(_motor_comp_type);
+
+        ar &  BOOST_SERIALIZATION_NVP(_rotate_auto);
+        ar &  BOOST_SERIALIZATION_NVP(_custom_roll);
+        ar &  BOOST_SERIALIZATION_NVP(_custom_pitch);
+        ar &  BOOST_SERIALIZATION_NVP(_custom_yaw);
+        ar &  BOOST_SERIALIZATION_NVP(_thr);
+
+// buzz todo more here
+
+    }
 
 private:
     static Compass *_singleton;
