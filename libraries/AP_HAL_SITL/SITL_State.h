@@ -144,7 +144,7 @@ private:
         ar & BOOST_SERIALIZATION_NVP(_ins);
         ar & BOOST_SERIALIZATION_NVP(_scheduler);
         ar & BOOST_SERIALIZATION_NVP(_compass); //‘class Compass’ has no member named ‘serialize’
-        //ar & BOOST_SERIALIZATION_NVP(_terrain);
+        ar & BOOST_SERIALIZATION_NVP(_terrain);
        
         //ar &  BOOST_SERIALIZATION_NVP(_sitl_rc_in); // cant serialize SocketAPM 
         // ar & BOOST_SERIALIZATION_NVP(_sitl);  //‘class SITL::SITL’ has no member named ‘serialize’

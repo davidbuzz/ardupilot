@@ -30,6 +30,8 @@
 #include <AP_Param/AP_Param.h>
 #include <AP_Mission/AP_Mission.h>
 
+#include <SITL/Serialize.h>
+
 #define TERRAIN_DEBUG 0
 
 
@@ -190,6 +192,68 @@ public:
      */
     bool init_failed() const { return memory_alloc_failed; }
 
+   friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+  // todo buzz
+
+    ar & BOOST_SERIALIZATION_NVP(enable);
+    ar & BOOST_SERIALIZATION_NVP(grid_spacing); 
+    ar & BOOST_SERIALIZATION_NVP(options); 
+
+    ar & BOOST_SERIALIZATION_NVP(cache_size);
+    ar & BOOST_SERIALIZATION_NVP(cache);
+
+    ar & BOOST_SERIALIZATION_NVP(disk_io_state);
+    ar & BOOST_SERIALIZATION_NVP(disk_block);
+
+    ar & BOOST_SERIALIZATION_NVP(last_request_time_ms);//[MAVLINK_COMM_NUM_BUFFERS];
+
+    //ar & BOOST_SERIALIZATION_NVP(fd);
+
+    ar & BOOST_SERIALIZATION_NVP(timer_setup);
+
+    ar & BOOST_SERIALIZATION_NVP(file_lat_degrees);
+    ar & BOOST_SERIALIZATION_NVP(file_lon_degrees);
+
+    ar & BOOST_SERIALIZATION_NVP(io_failure);
+
+    ar & BOOST_SERIALIZATION_NVP(directory_created);
+
+    ar & BOOST_SERIALIZATION_NVP(home_height);
+    ar & BOOST_SERIALIZATION_NVP(home_loc);
+
+    ar & BOOST_SERIALIZATION_NVP(have_current_loc_height);
+    ar & BOOST_SERIALIZATION_NVP(last_current_loc_height);
+
+    ar & BOOST_SERIALIZATION_NVP(next_mission_index);
+
+    ar & BOOST_SERIALIZATION_NVP(next_mission_pos);
+
+    ar & BOOST_SERIALIZATION_NVP(last_mission_change_ms);
+
+    ar & BOOST_SERIALIZATION_NVP(last_mission_spacing);
+
+    ar & BOOST_SERIALIZATION_NVP(next_rally_index);
+
+    ar & BOOST_SERIALIZATION_NVP(last_rally_change_ms);
+
+    ar & BOOST_SERIALIZATION_NVP(last_rally_spacing);
+
+    //ar & BOOST_SERIALIZATION_NVP(file_path);
+
+    //ar & BOOST_SERIALIZATION_NVP(TerrainStatusDisabled);
+
+    ar & BOOST_SERIALIZATION_NVP(memory_alloc_failed);
+
+
+    }
+
+
 private:
     // allocate the terrain subsystem data
     bool allocate(void);
@@ -211,7 +275,7 @@ private:
         uint16_t crc;
 
         // format version number
-        uint16_t version;
+        uint16_t _version;
 
         // grid spacing in meters
         uint16_t spacing;
@@ -226,6 +290,33 @@ private:
         // rounded latitude/longitude in degrees. 
         int16_t lon_degrees;
         int8_t lat_degrees;
+
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+          // todo buzz
+
+          /*  ar & BOOST_SERIALIZATION_NVP(bitmap);
+
+            ar & BOOST_SERIALIZATION_NVP(lat);
+            ar & BOOST_SERIALIZATION_NVP(lon);
+
+            ar & BOOST_SERIALIZATION_NVP(crc);
+
+            ar & BOOST_SERIALIZATION_NVP(_version);
+
+            ar & BOOST_SERIALIZATION_NVP(spacing);
+
+            ar & BOOST_SERIALIZATION_NVP(height);
+
+            ar & BOOST_SERIALIZATION_NVP(grid_idx_x);
+            ar & BOOST_SERIALIZATION_NVP(grid_idx_y);
+
+            ar & BOOST_SERIALIZATION_NVP(lon_degrees);
+            ar & BOOST_SERIALIZATION_NVP(lat_degrees);
+          */        
+        }
+
     };
 
     /*
@@ -234,6 +325,13 @@ private:
     union grid_io_block {
         struct grid_block block;
         uint8_t buffer[2048];
+
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+        // buzz todo
+        }
+
     };
 
     enum GridCacheState {
@@ -254,6 +352,12 @@ private:
 
         // the last time access was requested to this block, used for LRU
         uint32_t last_access_ms;
+
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+        // buzz todo
+        }
     };
 
     /*
@@ -283,6 +387,12 @@ private:
 
         // file offset of this grid
         uint32_t file_offset;
+
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+        // buzz todo
+        }
     };
 
     // given a location, fill a grid_info structure

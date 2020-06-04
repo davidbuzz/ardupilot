@@ -293,7 +293,7 @@ void AP_Terrain::read_block(void)
         !TERRAIN_LATLON_EQUAL(disk_block.block.lon,lon) ||
         disk_block.block.bitmap == 0 ||
         disk_block.block.spacing != grid_spacing ||
-        disk_block.block.version != TERRAIN_GRID_FORMAT_VERSION ||
+        disk_block.block._version != TERRAIN_GRID_FORMAT_VERSION ||
         disk_block.block.crc != get_block_crc(disk_block.block)) {
 #if TERRAIN_DEBUG
         printf("read empty block at %ld %ld ret=%d (%ld %ld %u 0x%08lx) 0x%04x:0x%04x\n",

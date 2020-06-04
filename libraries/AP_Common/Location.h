@@ -2,6 +2,8 @@
 
 #include <AP_Math/AP_Math.h>
 
+#include <SITL/Serialize.h>
+
 class AP_Terrain;
 
 #define LOCATION_ALT_MAX_M  83000   // maximum altitude (in meters) that can be fit into Location structure's alt field
@@ -116,6 +118,30 @@ public:
 
     bool initialised() const { return (lat !=0 || lng != 0 || alt != 0); }
 
+   friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+      // todo buzz
+
+        //ar & BOOST_SERIALIZATION_NVP(_terrain);
+
+       // these seem to crash with 'Invalid XML tag name'
+       //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)relative_alt);// bitfields cast to uint8_t then the 'const' tell the compiler we are only reading it 
+       //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)loiter_ccw );
+       //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)terrain_alt);
+       //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)origin_alt);
+       //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)loiter_xtrack);
+
+       ar & BOOST_SERIALIZATION_NVP(alt);
+       ar & BOOST_SERIALIZATION_NVP(lat);
+       ar & BOOST_SERIALIZATION_NVP(lng);
+
+
+    }
 private:
     static AP_Terrain *_terrain;
 

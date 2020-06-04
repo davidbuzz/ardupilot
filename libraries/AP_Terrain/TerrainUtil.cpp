@@ -136,7 +136,7 @@ AP_Terrain::grid_cache &AP_Terrain::find_grid_cache(const struct grid_info &info
     grid.grid.grid_idx_y = info.grid_idx_y;
     grid.grid.lat_degrees = info.lat_degrees;
     grid.grid.lon_degrees = info.lon_degrees;
-    grid.grid.version = TERRAIN_GRID_FORMAT_VERSION;
+    grid.grid._version = TERRAIN_GRID_FORMAT_VERSION;
     grid.last_access_ms = AP_HAL::millis();
 
     // mark as waiting for disk read
