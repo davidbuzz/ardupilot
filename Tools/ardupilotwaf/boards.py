@@ -392,7 +392,8 @@ class sitl(Board):
         )
 
         env.CXXFLAGS += [
-            '-Werror=float-equal'
+            '-Werror=float-equal',
+            '-ftemplate-backtrace-limit=0'
         ]
 
         if not cfg.env.DEBUG:
