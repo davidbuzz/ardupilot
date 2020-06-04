@@ -47,16 +47,7 @@
 #include <AP_Math/AP_Math.h>
 #include "FilterClass.h"
 
-// without som sort of boost reference fist, the next ones errror
-#include <boost/regex.hpp>
-#include <boost/exception/exception.hpp>
-#include <boost/current_function.hpp>
-#if !defined( BOOST_THROW_EXCEPTION )
-#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
-#endif
-// include headers that implement a archive in simple text format
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
+#include <SITL/Serialize.h>
 
 
 // DigitalLPF implements the filter math

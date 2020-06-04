@@ -30,6 +30,10 @@
 
 #include "float.h"
 
+#include <string> // for std::string used in serialize
+
+#include <SITL/Serialize.h>
+
 #define AP_MAX_NAME_SIZE 16
 
 // optionally enable debug code for dumping keys
@@ -128,17 +132,6 @@
 #define AP_VAREND       { AP_PARAM_NONE, "", 0, nullptr, { group_info : nullptr } }
 
 
-// without som sort of boost reference fist, the next ones errror
-#include <boost/regex.hpp>
-#include <boost/exception/exception.hpp>
-#include <boost/current_function.hpp>
-#if !defined( BOOST_THROW_EXCEPTION )
-#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
-#endif
-// include headers that implement a archive in simple text format
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
-
 
 enum ap_var_type {
     AP_PARAM_NONE    = 0,
@@ -149,6 +142,8 @@ enum ap_var_type {
     AP_PARAM_VECTOR3F,
     AP_PARAM_GROUP
 };
+
+
 
 
 /// Base class for variables.
@@ -177,6 +172,18 @@ public:
     void serialize(Archive & ar, const unsigned int version)
     {
     // todo buzz impl
+      ar & BOOST_SERIALIZATION_NVP(type);  // AP_PARAM_*
+      ar & BOOST_SERIALIZATION_NVP(idx);  // identifier within the group
+      ar & BOOST_SERIALIZATION_NVP(name); 
+      ar & BOOST_SERIALIZATION_NVP(offset); 
+
+      ar & BOOST_SERIALIZATION_NVP(group_info); 
+        // when  AP_PARAM_FLAG_POINTER | AP_PARAM_FLAG_INFO_POINTER:
+      ar & BOOST_SERIALIZATION_NVP(group_info_ptr); 
+      ar & BOOST_SERIALIZATION_NVP(def_value); 
+
+      ar & BOOST_SERIALIZATION_NVP(flags); 
+
     }
 
     };
@@ -196,6 +203,18 @@ public:
     void serialize(Archive & ar, const unsigned int version)
     {
     // todo buzz impl
+      ar & BOOST_SERIALIZATION_NVP(type); 
+      //ar & BOOST_SERIALIZATION_NVP(name);  //const
+      ar & BOOST_SERIALIZATION_NVP(key); 
+      //ar & BOOST_SERIALIZATION_NVP(ptr); error const void ptr
+
+      //ar & BOOST_SERIALIZATION_NVP(group_info); const
+        // when  AP_PARAM_FLAG_POINTER | AP_PARAM_FLAG_INFO_POINTER:
+      //ar & BOOST_SERIALIZATION_NVP(group_info_ptr); const
+      //ar & BOOST_SERIALIZATION_NVP(def_value);  const
+
+      ar & BOOST_SERIALIZATION_NVP(flags); 
+
     }
 
     };
@@ -218,11 +237,14 @@ public:
         const char *name;   // parameter name
         float value;        // parameter value
 
- template<class Archive>
-    void serialize(Archive & ar, const unsigned int version)
-    {
-    // todo buzz impl
-    }
+         template<class Archive>
+            void serialize(Archive & ar, const unsigned int version)
+            {
+
+              //ar & BOOST_SERIALIZATION_NVP(name);  const
+              ar & BOOST_SERIALIZATION_NVP(value); 
+
+            }
 
     };
 
@@ -563,7 +585,7 @@ public:
      //ar & BOOST_SERIALIZATION_NVP(_sentinal_type );//static const
      //ar & BOOST_SERIALIZATION_NVP(_sentinal_group);//static const
      ar & BOOST_SERIALIZATION_NVP(_frame_type_flags);
-     //ar & BOOST_SERIALIZATION_NVP(param_defaults_data); //error: ‘struct AP_Param::param_defaults_struct’ has no member named ‘serialize’
+     ar & BOOST_SERIALIZATION_NVP(param_defaults_data); //error: ‘struct AP_Param::param_defaults_struct’ has no member named ‘serialize’
 
 
     ar & BOOST_SERIALIZATION_NVP( _storage);
@@ -648,14 +670,59 @@ private:
         volatile uint16_t length;
         volatile char data[AP_PARAM_MAX_EMBEDDED_PARAM];
 
+/*
+
+ // demo of how to spilt save/load into two functions
+
+    template<class Archive>
+    void save(Archive & ar, const unsigned int version) const
+    {
+        std::string label = labels[static_cast<int>(a_)];
+        ar & boost::serialization::make_nvp("label", label);
+    }
+    template<class Archive>
+    void load(Archive & ar, const unsigned int version)
+    {
+        std::string label ;
+        ar & boost::serialization::make_nvp("label", label);
+        a_ = static_cast<e_fruit>(std::find(labels.begin(), labels.end(), label) - labels.begin());
+    }
+    BOOST_SERIALIZATION_SPLIT_MEMBER();
+    static std::vector<std::string> labels ;
+
+*/
+
   template <typename Archive>
   void serialize(Archive& ar, const unsigned int version)
   {
-    ar & BOOST_SERIALIZATION_NVP(magic_str); 
-    ar & BOOST_SERIALIZATION_NVP(param_magic); //todo buzz packed is a problem
-    ar & BOOST_SERIALIZATION_NVP((short unsigned int&)max_length);
-    ar & BOOST_SERIALIZATION_NVP( (const volatile short unsigned int&)length); // avoid  error: cannot bind packed field
+
+  // buzz todo - this will probably not UN-serialize as 'load' isn't separatred, see comments above.
+
+//    ar & BOOST_SERIALIZATION_NVP(magic_str); 
+    //std::string _magic_str(magic_str); // works if null termianted
+    // char array
+    std::string _magic_str(magic_str,7); // works if not null termianted annd know length
+    ar & BOOST_SERIALIZATION_NVP(_magic_str);
+
+    //ar & BOOST_SERIALIZATION_NVP(param_magic); //todo buzz packed is a problem
+    //std::string _param_magic(param_magic); // works if null termianted
+    // 'uint8_t' array is close-enuf to char array
+//    std::string _param_magic((char*)param_magic,8); // works if not null termianted annd know length
+//    ar & BOOST_SERIALIZATION_NVP(_param_magic);
+// above works, but binary data
+
+
+    std::string _param_magic((char*)param_magic,8); // works if not null termianted annd know length
+    std::string _param_magic_h(string_to_hex(_param_magic));
+    ar & BOOST_SERIALIZATION_NVP(_param_magic_h);
+
+    //ar & BOOST_SERIALIZATION_NVP((short unsigned int&)max_length);
+    //ar & BOOST_SERIALIZATION_NVP( (volatile short unsigned int&)length); // avoid  error: cannot bind packed field
+
+    std::string _data((char*)data,AP_PARAM_MAX_EMBEDDED_PARAM);
+    ar & BOOST_SERIALIZATION_NVP(_data); // char array, again, won't unserialise properly
     //ar & BOOST_SERIALIZATION_NVP((volatile char[AP_PARAM_MAX_EMBEDDED_PARAM])data);
+
   }
 
     };

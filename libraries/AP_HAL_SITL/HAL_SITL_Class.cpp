@@ -27,25 +27,7 @@
 #include <AP_InternalError/AP_InternalError.h>
 #include <AP_Logger/AP_Logger.h>
 
-#include <boost/exception/exception.hpp>
-#include <boost/current_function.hpp>
-#if !defined( BOOST_THROW_EXCEPTION )
-#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
-#endif
-
-// xml
-#include <boost/archive/tmpdir.hpp>
-#include <boost/archive/xml_iarchive.hpp>
-#include <boost/archive/xml_oarchive.hpp>
-
-
-
-namespace boost
-{
-void throw_exception( std::exception const & e ){
-// unimpl
-}
-}
+#include <SITL/Serialize.h>
 
 using namespace HALSITL;
 

@@ -16,17 +16,7 @@
 #define BARO_TIMEOUT_MS                 500     // timeout in ms since last successful read
 #define BARO_DATA_CHANGE_TIMEOUT_MS     2000    // timeout in ms since last successful read that involved temperature of pressure changing
 
-// without som sort of boost reference fist, the next ones errror
-#include <boost/regex.hpp>
-#include <boost/exception/exception.hpp>
-#include <boost/current_function.hpp>
-#if !defined( BOOST_THROW_EXCEPTION )
-#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
-#endif
-
-// include headers that implement a archive in simple text format
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
+#include <SITL/Serialize.h>
 
 class AP_Baro_Backend;
 
