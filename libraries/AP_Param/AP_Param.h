@@ -180,7 +180,7 @@ public:
     // how to get group info pointer, see .cpp file
     if (flags & AP_PARAM_FLAG_INFO_POINTER) {
         //handle group_info_ptr
-        ar & BOOST_SERIALIZATION_NVP(group_info_ptr); 
+        ar & BOOST_SERIALIZATION_NVP((GroupInfo*&)group_info_ptr); 
     } else {
       //handle  group_info;
       ar & BOOST_SERIALIZATION_NVP(group_info);
@@ -217,9 +217,19 @@ public:
           ar & BOOST_SERIALIZATION_NVP(key); 
           //ar & BOOST_SERIALIZATION_NVP(ptr); error const void ptr
 
-          //ar & BOOST_SERIALIZATION_NVP(*group_info); //const
-            // when  AP_PARAM_FLAG_POINTER | AP_PARAM_FLAG_INFO_POINTER:
-          //ar & BOOST_SERIALIZATION_NVP(**group_info_ptr); //const
+           // how to get group info pointer, see .cpp file
+            if (flags & AP_PARAM_FLAG_INFO_POINTER) {
+                //handle group_info_ptr
+                //ar & BOOST_SERIALIZATION_NVP((GroupInfo*&)group_info_ptr); 
+            } else {
+              //handle  group_info;
+              //ar & BOOST_SERIALIZATION_NVP(group_info);
+            }
+
+              //ar & BOOST_SERIALIZATION_NVP(group_info); 
+                // when  AP_PARAM_FLAG_POINTER | AP_PARAM_FLAG_INFO_POINTER:
+              //ar & BOOST_SERIALIZATION_NVP(group_info_ptr); 
+
 
           ar & BOOST_SERIALIZATION_NVP(def_value);  //ok
 

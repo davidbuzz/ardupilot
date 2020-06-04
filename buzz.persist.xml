@@ -15,8 +15,8 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>10433</_parent_pid>
-	<_update_count>6641</_update_count>
+	<_parent_pid>16304</_parent_pid>
+	<_update_count>7841</_update_count>
 	<_barometer class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_num_drivers>1</_num_drivers>
 		<_num_sensors>1</_num_sensors>
@@ -68,14 +68,14 @@
 		<_accel>
 			<count>3</count>
 			<item class_id="9" tracking_level="0" version="0">
-				<x>-1.965583768e-03</x>
-				<y>6.933213444e-04</y>
-				<z>-9.818060875e+00</z>
+				<x>-8.730373811e-04</x>
+				<y>4.925482790e-04</y>
+				<z>-9.817452431e+00</z>
 			</item>
 			<item>
-				<x>6.200327771e-04</x>
-				<y>-1.945773955e-03</y>
-				<z>-9.816456795e+00</z>
+				<x>-1.228676643e-03</x>
+				<y>-2.186161932e-03</y>
+				<z>-9.818010330e+00</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -86,14 +86,14 @@
 		<_delta_velocity>
 			<count>3</count>
 			<item>
-				<x>1.396007974e-06</x>
-				<y>-1.266221079e-05</y>
-				<z>-1.963881217e-02</z>
+				<x>-7.651451597e-06</x>
+				<y>-3.372472065e-06</y>
+				<z>-2.945192531e-02</z>
 			</item>
 			<item>
-				<x>9.888394743e-06</x>
-				<y>-2.291541932e-06</y>
-				<z>-2.455551922e-02</z>
+				<x>8.871111277e-06</x>
+				<y>1.915064058e-05</y>
+				<z>-2.455776930e-02</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -103,8 +103,8 @@
 		</_delta_velocity>
 		<_delta_velocity_dt>
 			<count>3</count>
-			<item>1.999969129e-03</item>
-			<item>2.500152914e-03</item>
+			<item>3.000222612e-03</item>
+			<item>2.500130329e-03</item>
 			<item>0.000000000e+00</item>
 		</_delta_velocity_dt>
 		<_delta_velocity_valid>
@@ -116,14 +116,14 @@
 		<_delta_velocity_acc>
 			<count>3</count>
 			<item>
-				<x>-3.994208782e-06</x>
-				<y>-8.144753338e-06</y>
-				<z>-9.818104096e-03</z>
+				<x>-4.167532552e-06</x>
+				<y>-1.157602583e-06</y>
+				<z>-9.816808626e-03</z>
 			</item>
 			<item>
-				<x>0.000000000e+00</x>
-				<y>0.000000000e+00</y>
-				<z>0.000000000e+00</z>
+				<x>1.085424537e-05</x>
+				<y>1.061699732e-05</y>
+				<z>-1.228093822e-02</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -133,8 +133,8 @@
 		</_delta_velocity_acc>
 		<_delta_velocity_acc_dt>
 			<count>3</count>
-			<item>9.999845643e-04</item>
-			<item>0.000000000e+00</item>
+			<item>1.000074204e-03</item>
+			<item>1.250065165e-03</item>
 			<item>0.000000000e+00</item>
 		</_delta_velocity_acc_dt>
 		<_accel_filter>
@@ -152,14 +152,14 @@
 		<_accel_filtered>
 			<count>3</count>
 			<item>
-				<x>-2.002134919e-03</x>
-				<y>5.289050168e-04</y>
-				<z>-9.818166733e+00</z>
+				<x>-9.908272186e-04</x>
+				<y>4.425469670e-04</y>
+				<z>-9.817344666e+00</z>
 			</item>
 			<item>
-				<x>6.200327771e-04</x>
-				<y>-1.945773955e-03</y>
-				<z>-9.816456795e+00</z>
+				<x>-1.227807370e-03</x>
+				<y>-1.772006042e-03</y>
+				<z>-9.818340302e+00</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -170,14 +170,14 @@
 		<_gyro_filtered>
 			<count>3</count>
 			<item>
-				<x>2.749698069e-05</x>
-				<y>2.871300967e-05</y>
-				<z>5.849250010e-05</z>
+				<x>5.684286953e-05</x>
+				<y>9.708529979e-05</y>
+				<z>4.743696263e-05</z>
 			</item>
 			<item>
-				<x>1.199252001e-04</x>
-				<y>9.201661305e-05</y>
-				<z>-2.918775426e-04</z>
+				<x>2.201085445e-04</x>
+				<y>1.426698291e-04</y>
+				<z>1.061884177e-04</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -188,14 +188,14 @@
 		<_gyro_raw>
 			<count>3</count>
 			<item>
-				<x>1.422469169e-01</x>
-				<y>2.116248012e-01</y>
-				<z>6.487120409e-04</z>
+				<x>-3.195126057e-01</x>
+				<y>1.221716084e-04</y>
+				<z>1.131425723e-01</z>
 			</item>
 			<item>
-				<x>3.395375311e-01</x>
-				<y>-3.270803392e-02</y>
-				<z>8.567056060e-01</z>
+				<x>1.929125786e-01</x>
+				<y>6.510066241e-02</y>
+				<z>-9.921889901e-01</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -213,7 +213,7 @@
 		<_new_accel_data>
 			<count>3</count>
 			<item>1</item>
-			<item>0</item>
+			<item>1</item>
 			<item>0</item>
 		</_new_accel_data>
 		<_new_gyro_data>
@@ -320,12 +320,12 @@
 			<count>3</count>
 			<item class_id="13" tracking_level="1" version="0" object_id="_5">
 				<initialised>1</initialised>
-				<b0>1.011473417e+00</b0>
-				<b1>-1.752620816e+00</b1>
-				<b2>9.885265827e-01</b2>
-				<a1>-1.752620816e+00</a1>
-				<a2>9.354802966e-01</a2>
-				<a0_inv>9.393907785e-01</a0_inv>
+				<b0>1.011474371e+00</b0>
+				<b1>-1.752577424e+00</b1>
+				<b2>9.885256290e-01</b2>
+				<a1>-1.752577424e+00</a1>
+				<a2>9.354749918e-01</a2>
+				<a0_inv>9.393861294e-01</a0_inv>
 				<ntchsig>
 					<x>0.000000000e+00</x>
 					<y>0.000000000e+00</y>
@@ -354,12 +354,12 @@
 			</item>
 			<item object_id="_6">
 				<initialised>1</initialised>
-				<b0>1.014626265e+00</b0>
-				<b1>-1.578408957e+00</b1>
-				<b2>9.853737354e-01</b2>
-				<a1>-1.578408957e+00</a1>
-				<a2>9.177503586e-01</a2>
-				<a0_inv>9.240012169e-01</a0_inv>
+				<b0>1.014624476e+00</b0>
+				<b1>-1.578526616e+00</b1>
+				<b2>9.853755236e-01</b2>
+				<a1>-1.578526616e+00</a1>
+				<a2>9.177604914e-01</a2>
+				<a0_inv>9.240098596e-01</a0_inv>
 				<ntchsig>
 					<x>0.000000000e+00</x>
 					<y>0.000000000e+00</y>
@@ -520,12 +520,12 @@
 			<item class_id="16" tracking_level="0" version="0">
 				<_filters class_id_reference="13" object_id="_8">
 					<initialised>1</initialised>
-					<b0>1.011473417e+00</b0>
-					<b1>-1.752620816e+00</b1>
-					<b2>9.885265827e-01</b2>
-					<a1>-1.752620816e+00</a1>
-					<a2>9.354802966e-01</a2>
-					<a0_inv>9.393907785e-01</a0_inv>
+					<b0>1.011474371e+00</b0>
+					<b1>-1.752577424e+00</b1>
+					<b2>9.885256290e-01</b2>
+					<a1>-1.752577424e+00</a1>
+					<a2>9.354749918e-01</a2>
+					<a0_inv>9.393861294e-01</a0_inv>
 					<ntchsig>
 						<x>0.000000000e+00</x>
 						<y>0.000000000e+00</y>
@@ -552,7 +552,7 @@
 						<z>0.000000000e+00</z>
 					</signal1>
 				</_filters>
-				<_sample_freq_hz>1.000015442e+03</_sample_freq_hz>
+				<_sample_freq_hz>9.999257812e+02</_sample_freq_hz>
 				<_notch_spread>7.812500000e-03</_notch_spread>
 				<_A>4.216965139e-01</_A>
 				<_Q>3.733332396e+00</_Q>
@@ -565,12 +565,12 @@
 			<item>
 				<_filters class_id_reference="13" object_id="_9">
 					<initialised>1</initialised>
-					<b0>1.014626265e+00</b0>
-					<b1>-1.578408957e+00</b1>
-					<b2>9.853737354e-01</b2>
-					<a1>-1.578408957e+00</a1>
-					<a2>9.177503586e-01</a2>
-					<a0_inv>9.240012169e-01</a0_inv>
+					<b0>1.014624476e+00</b0>
+					<b1>-1.578526616e+00</b1>
+					<b2>9.853755236e-01</b2>
+					<a1>-1.578526616e+00</a1>
+					<a2>9.177604914e-01</a2>
+					<a0_inv>9.240098596e-01</a0_inv>
 					<ntchsig>
 						<x>0.000000000e+00</x>
 						<y>0.000000000e+00</y>
@@ -597,7 +597,7 @@
 						<z>0.000000000e+00</z>
 					</signal1>
 				</_filters>
-				<_sample_freq_hz>7.601196899e+02</_sample_freq_hz>
+				<_sample_freq_hz>7.602298584e+02</_sample_freq_hz>
 				<_notch_spread>7.812500000e-03</_notch_spread>
 				<_A>4.216965139e-01</_A>
 				<_Q>3.733332396e+00</_Q>
@@ -624,14 +624,14 @@
 		<_gyro>
 			<count>3</count>
 			<item>
-				<x>2.273714199e-05</x>
-				<y>3.480790838e-05</y>
-				<z>5.765056267e-05</z>
+				<x>5.635449634e-05</x>
+				<y>1.035463210e-04</y>
+				<z>4.496791735e-05</z>
 			</item>
 			<item>
-				<x>1.235706586e-04</x>
-				<y>9.298037912e-05</y>
-				<z>-2.955831587e-04</z>
+				<x>2.183269098e-04</x>
+				<y>1.529516303e-04</y>
+				<z>1.192631898e-04</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -642,14 +642,14 @@
 		<_delta_angle>
 			<count>3</count>
 			<item>
-				<x>4.022537610e-07</x>
-				<y>1.362133730e-07</y>
-				<z>1.924473878e-07</z>
+				<x>3.097597130e-07</x>
+				<y>-2.725755621e-07</y>
+				<z>-1.548383466e-07</z>
 			</item>
 			<item>
-				<x>2.422141279e-07</x>
-				<y>5.903507940e-07</y>
-				<z>-4.832540981e-07</z>
+				<x>5.397920404e-07</x>
+				<y>1.037508241e-06</y>
+				<z>-1.613288987e-07</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -659,8 +659,8 @@
 		</_delta_angle>
 		<_delta_angle_dt>
 			<count>3</count>
-			<item>1.999969129e-03</item>
-			<item>2.631164622e-03</item>
+			<item>3.000222612e-03</item>
+			<item>2.630783245e-03</item>
 			<item>0.000000000e+00</item>
 		</_delta_angle_dt>
 		<_delta_angle_valid>
@@ -671,21 +671,21 @@
 		</_delta_angle_valid>
 		<_delta_angle_acc_dt>
 			<count>3</count>
-			<item>9.999845643e-04</item>
-			<item>1.315582311e-03</item>
+			<item>1.000074204e-03</item>
+			<item>1.315391622e-03</item>
 			<item>0.000000000e+00</item>
 		</_delta_angle_acc_dt>
 		<_delta_angle_acc>
 			<count>3</count>
 			<item>
-				<x>-7.631819443e-08</x>
-				<y>7.068288710e-08</y>
-				<z>1.221793013e-07</z>
+				<x>-9.675395063e-08</x>
+				<y>8.590707523e-08</y>
+				<z>1.151740463e-07</z>
 			</item>
 			<item>
-				<x>3.250994780e-07</x>
-				<y>6.498676726e-07</y>
-				<z>7.499140224e-07</z>
+				<x>-5.134446042e-07</x>
+				<y>1.547669939e-07</y>
+				<z>-7.244031508e-07</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -696,14 +696,14 @@
 		<_last_delta_angle>
 			<count>3</count>
 			<item>
-				<x>-7.631819443e-08</x>
-				<y>7.068288710e-08</y>
-				<z>1.221793013e-07</z>
+				<x>-9.675395063e-08</x>
+				<y>8.590707523e-08</y>
+				<z>1.151740463e-07</z>
 			</item>
 			<item>
-				<x>3.250994780e-07</x>
-				<y>6.498676726e-07</y>
-				<z>7.499140224e-07</z>
+				<x>-5.134446042e-07</x>
+				<y>1.547669513e-07</y>
+				<z>-7.244031508e-07</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -714,14 +714,14 @@
 		<_last_raw_gyro>
 			<count>3</count>
 			<item>
-				<x>-3.042879107e-04</x>
-				<y>-8.424483531e-05</y>
-				<z>2.436707728e-04</z>
+				<x>1.471382420e-04</x>
+				<y>1.716711413e-04</y>
+				<z>1.097099230e-04</z>
 			</item>
 			<item>
-				<x>1.322487078e-04</x>
-				<y>1.022824435e-03</y>
-				<z>2.267166710e-04</z>
+				<x>-9.863355663e-04</x>
+				<y>1.659132249e-04</y>
+				<z>-4.365507993e-05</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -1183,14 +1183,14 @@
 		</_accel_max_abs_offsets>
 		<_accel_raw_sample_rates>
 			<count>3</count>
-			<item>1.000015442e+03</item>
-			<item>7.999510498e+02</item>
+			<item>9.999257812e+02</item>
+			<item>7.999583130e+02</item>
 			<item>0.000000000e+00</item>
 		</_accel_raw_sample_rates>
 		<_gyro_raw_sample_rates>
 			<count>3</count>
-			<item>1.000015442e+03</item>
-			<item>7.601196899e+02</item>
+			<item>9.999257812e+02</item>
+			<item>7.602298584e+02</item>
 			<item>0.000000000e+00</item>
 		</_gyro_raw_sample_rates>
 		<_accel_over_sampling>
@@ -1207,38 +1207,38 @@
 		</_gyro_over_sampling>
 		<_accel_last_sample_us>
 			<count>3</count>
-			<item>5531953</item>
-			<item>5531120</item>
+			<item>6531553</item>
+			<item>6531553</item>
 			<item>0</item>
 		</_accel_last_sample_us>
 		<_gyro_last_sample_us>
 			<count>3</count>
-			<item>5531953</item>
-			<item>5531953</item>
+			<item>6531553</item>
+			<item>6531553</item>
 			<item>0</item>
 		</_gyro_last_sample_us>
 		<_sample_accel_count>
 			<count>3</count>
 			<item>776</item>
-			<item>620</item>
+			<item>619</item>
 			<item>0</item>
 		</_sample_accel_count>
 		<_sample_accel_start_us>
 			<count>3</count>
-			<item>4755597</item>
-			<item>4756430</item>
+			<item>5756030</item>
+			<item>5757696</item>
 			<item>0</item>
 		</_sample_accel_start_us>
 		<_sample_gyro_count>
 			<count>3</count>
 			<item>776</item>
-			<item>590</item>
+			<item>589</item>
 			<item>0</item>
 		</_sample_gyro_count>
 		<_sample_gyro_start_us>
 			<count>3</count>
-			<item>4755597</item>
-			<item>4756430</item>
+			<item>5756030</item>
+			<item>5756863</item>
 			<item>0</item>
 		</_sample_gyro_start_us>
 		<_temperature>
@@ -1466,10 +1466,10 @@
 		<_accel_wait_mask>3</_accel_wait_mask>
 		<_log_raw_bit>524288</_log_raw_bit>
 		<_delta_time>2.498999937e-03</_delta_time>
-		<_last_sample_usec>5531120</_last_sample_usec>
-		<_next_sample_usec>5533154</_next_sample_usec>
+		<_last_sample_usec>6530720</_last_sample_usec>
+		<_next_sample_usec>6533154</_next_sample_usec>
 		<_sample_period_usec>2500</_sample_period_usec>
-		<_last_update_usec>5531120</_last_update_usec>
+		<_last_update_usec>6530720</_last_update_usec>
 		<_gyro_healthy>
 			<count>3</count>
 			<item>1</item>
@@ -1506,22 +1506,22 @@
 				<_cutoff_freq>5.000000000e+00</_cutoff_freq>
 				<_filter class_id="21" tracking_level="0" version="0">
 					<_output>
-						<x>-1.464303583e-03</x>
-						<y>-5.439321976e-04</y>
-						<z>-9.817761421e+00</z>
+						<x>-1.251220121e-03</x>
+						<y>-3.288815496e-04</y>
+						<z>-9.817118645e+00</z>
 					</_output>
-					<alpha>3.045857325e-02</alpha>
+					<alpha>3.046122007e-02</alpha>
 				</_filter>
 			</item>
 			<item>
 				<_cutoff_freq>5.000000000e+00</_cutoff_freq>
 				<_filter>
 					<_output>
-						<x>9.475942934e-04</x>
-						<y>-7.281167782e-04</y>
-						<z>-9.816876411e+00</z>
+						<x>-6.390998606e-04</x>
+						<y>-1.057827321e-04</y>
+						<z>-9.818658829e+00</z>
 					</_output>
-					<alpha>3.778827563e-02</alpha>
+					<alpha>3.778794780e-02</alpha>
 				</_filter>
 			</item>
 		</_accel_vibe_floor_filter>
@@ -1531,22 +1531,22 @@
 				<_cutoff_freq>2.000000000e+00</_cutoff_freq>
 				<_filter>
 					<_output>
-						<x>1.693645208e-05</x>
-						<y>1.680014611e-05</y>
-						<z>1.464614434e-05</z>
+						<x>1.770131712e-05</x>
+						<y>1.629587859e-05</y>
+						<z>1.527197855e-05</z>
 					</_output>
-					<alpha>1.241022721e-02</alpha>
+					<alpha>1.241132617e-02</alpha>
 				</_filter>
 			</item>
 			<item>
 				<_cutoff_freq>2.000000000e+00</_cutoff_freq>
 				<_filter>
 					<_output>
-						<x>6.672161544e-05</x>
-						<y>6.019897774e-05</y>
-						<z>6.096095967e-05</z>
+						<x>6.397796824e-05</x>
+						<y>6.308325101e-05</y>
+						<z>5.732688442e-05</z>
 					</_output>
-					<alpha>1.546597108e-02</alpha>
+					<alpha>1.546583325e-02</alpha>
 				</_filter>
 			</item>
 		</_accel_vibe_filter>
@@ -1871,9 +1871,9 @@
 	<time_delta_mag>0</time_delta_mag>
 	<delayed_time_mag>0</delayed_time_mag>
 	<store_index_wind>3</store_index_wind>
-	<last_store_time_wind>5530</last_store_time_wind>
+	<last_store_time_wind>6530</last_store_time_wind>
 	<time_delta_wind>31</time_delta_wind>
-	<delayed_time_wind>5531</delayed_time_wind>
+	<delayed_time_wind>6531</delayed_time_wind>
 	<wind_start_delay_micros>1</wind_start_delay_micros>
 	<enable_gimbal>0</enable_gimbal>
 </_sitl_state>
