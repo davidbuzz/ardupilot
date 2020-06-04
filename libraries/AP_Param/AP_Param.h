@@ -130,13 +130,11 @@
 
 // without som sort of boost reference fist, the next ones errror
 #include <boost/regex.hpp>
-
 #include <boost/exception/exception.hpp>
 #include <boost/current_function.hpp>
 #if !defined( BOOST_THROW_EXCEPTION )
 #define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
 #endif
-
 // include headers that implement a archive in simple text format
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
@@ -561,7 +559,7 @@ public:
         ar & BOOST_SERIALIZATION_NVP(sentinal_offset);
      //ar & BOOST_SERIALIZATION_NVP(_group_level_shift); //static const
      //ar & BOOST_SERIALIZATION_NVP(_group_bits); //static const
-     ar & BOOST_SERIALIZATION_NVP(_sentinal_key);
+     //ar & BOOST_SERIALIZATION_NVP(_sentinal_key); // static const
      //ar & BOOST_SERIALIZATION_NVP(_sentinal_type );//static const
      //ar & BOOST_SERIALIZATION_NVP(_sentinal_group);//static const
      ar & BOOST_SERIALIZATION_NVP(_frame_type_flags);

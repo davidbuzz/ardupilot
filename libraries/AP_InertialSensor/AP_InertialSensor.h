@@ -31,6 +31,17 @@ typedef float* GyroWindow;
 #include <Filter/NotchFilter.h>
 #include <Filter/HarmonicNotchFilter.h>
 
+// without som sort of boost reference fist, the next ones errror
+#include <boost/regex.hpp>
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 class AP_InertialSensor_Backend;
 class AuxiliaryBus;
 class AP_AHRS;
@@ -394,6 +405,171 @@ public:
     };
     BatchSampler batchsampler{*this};
 
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+
+
+    //ar & BOOST_SERIALIZATION_NVP(_backends);
+
+// #0  0x00007ffff7bb33c7 in boost::serialization::extended_type_info::operator==(boost::serialization::extended_type_info const&) const () from /usr/lib/x86_64-linux-gnu/libboost_serialization.so.1.65.1 #1  0x00005555556b5be9 in void boost::archive::detail::save_pointer_type<boost::archive::text_oarchive>::polymorphic::save<AP_InertialSensor_Backend>(boost::archive::text_oarchive&, AP_InertialSensor_Backend&) ()
+
+    ar & BOOST_SERIALIZATION_NVP(_gyro_count);
+    ar & BOOST_SERIALIZATION_NVP(_accel_count);
+    ar & BOOST_SERIALIZATION_NVP(_backend_count);
+
+    ar & BOOST_SERIALIZATION_NVP(_sample_rate);
+    ar & BOOST_SERIALIZATION_NVP(_loop_delta_t);
+    ar & BOOST_SERIALIZATION_NVP(_loop_delta_t_max);
+
+    ar & BOOST_SERIALIZATION_NVP(_accel);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_delta_velocity);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_delta_velocity_dt);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_delta_velocity_valid);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_delta_velocity_acc);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_delta_velocity_acc_dt);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_filter);//[INS_MAX_INSTANCES]; ////error: ‘class LowPassFilter2p<Vector3<float> >’ has no member named ‘serialize’
+    ar & BOOST_SERIALIZATION_NVP(_gyro_filter);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_accel_filtered);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_gyro_filtered);//[INS_MAX_INSTANCES]; 
+
+#if HAL_WITH_DSP
+    // todo buzz 
+    ar & BOOST_SERIALIZATION_NVP(_gyro_raw);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_circular_buffer_idx);//[INS_MAX_INSTANCES];
+    //ar & BOOST_SERIALIZATION_NVP(_gyro_window);//[INS_MAX_INSTANCES][XYZ_AXIS_COUNT]; //error: request for member ‘serialize’ in ‘t’, which is of non-class type ‘float’
+    ar & BOOST_SERIALIZATION_NVP(_gyro_window_size);
+#endif
+    ar & BOOST_SERIALIZATION_NVP(_new_accel_data);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_new_gyro_data);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_notch_filter); //error: ‘class NotchFilterParams’ has no member named ‘serialize’
+    ar & BOOST_SERIALIZATION_NVP(_gyro_notch_filter);//[INS_MAX_INSTANCES]; 
+
+    ar & BOOST_SERIALIZATION_NVP(_harmonic_notch_filter);  //error: ‘class HarmonicNotchFilterParams’ has no member named ‘serialize’
+    ar & BOOST_SERIALIZATION_NVP(_gyro_harmonic_notch_filter);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_calculated_harmonic_notch_freq_hz);
+
+    ar & BOOST_SERIALIZATION_NVP(_gyro);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_delta_angle);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_delta_angle_dt);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_delta_angle_valid);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_delta_angle_acc_dt);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_delta_angle_acc);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_last_delta_angle);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_last_raw_gyro);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_sensor_rate_sampling_enabled);
+    ar & BOOST_SERIALIZATION_NVP(_gyro_sensor_rate_sampling_enabled);
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_raw_sampling_multiplier);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_gyro_raw_sampling_multiplier);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_id);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_gyro_id);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_scale);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_accel_offset);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_gyro_offset);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_pos);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_max_abs_offsets);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_raw_sample_rates);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_gyro_raw_sample_rates);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_over_sampling);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_gyro_over_sampling);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_last_sample_us);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_gyro_last_sample_us);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_sample_accel_count);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_sample_accel_start_us);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_sample_gyro_count);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_sample_gyro_start_us);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_temperature);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_filter_cutoff);
+    ar & BOOST_SERIALIZATION_NVP(_gyro_filter_cutoff);
+    ar & BOOST_SERIALIZATION_NVP(_gyro_cal_timing);
+
+    ar & BOOST_SERIALIZATION_NVP(_use);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_fast_sampling_mask);
+
+    ar & BOOST_SERIALIZATION_NVP(_enable_mask);
+    
+    ar & BOOST_SERIALIZATION_NVP(_board_orientation);
+    ar & BOOST_SERIALIZATION_NVP(_custom_rotation);
+
+    ar & BOOST_SERIALIZATION_NVP(_gyro_orientation);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_accel_orientation);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_gyro_cal_ok);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_accel_id_ok);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_primary_gyro);
+    ar & BOOST_SERIALIZATION_NVP(_primary_accel);
+
+    ar & BOOST_SERIALIZATION_NVP(_gyro_wait_mask);
+    ar & BOOST_SERIALIZATION_NVP(_accel_wait_mask);
+
+    ar & BOOST_SERIALIZATION_NVP(_log_raw_bit);
+
+    //ar & BOOST_SERIALIZATION_NVP((bool&)_have_sample);//:1; //  internal compiler error: in finish_expr_stmt, at cp/semantics.c:678
+    //ar & BOOST_SERIALIZATION_NVP((bool&)_hil_mode);//:1;
+    //ar & BOOST_SERIALIZATION_NVP((bool&)_calibrating);//:1;
+    //ar & BOOST_SERIALIZATION_NVP((bool&)_backends_detected);//:1;
+
+    ar & BOOST_SERIALIZATION_NVP(_delta_time);
+
+    ar & BOOST_SERIALIZATION_NVP(_last_sample_usec);
+    ar & BOOST_SERIALIZATION_NVP(_next_sample_usec);
+    ar & BOOST_SERIALIZATION_NVP(_sample_period_usec);
+    ar & BOOST_SERIALIZATION_NVP(_last_update_usec);
+
+    ar & BOOST_SERIALIZATION_NVP(_gyro_healthy);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_accel_healthy);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_error_count);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_gyro_error_count);//[INS_MAX_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_clip_count);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_accel_vibe_floor_filter);//[INS_VIBRATION_CHECK_INSTANCES]; //error: ‘class LowPassFilter<Vector3<float> >’ has no member named ‘serialize’
+    ar & BOOST_SERIALIZATION_NVP(_accel_vibe_filter);//[INS_VIBRATION_CHECK_INSTANCES];
+
+    ar & BOOST_SERIALIZATION_NVP(_still_threshold);
+
+    ar & BOOST_SERIALIZATION_NVP(_acc_body_aligned);
+    ar & BOOST_SERIALIZATION_NVP(_trim_option);
+
+    //ar & BOOST_SERIALIZATION_NVP(_singleton);
+    ar & BOOST_SERIALIZATION_NVP(_acal);
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_calibrator);
+
+    ar & BOOST_SERIALIZATION_NVP(_trim_pitch);
+    ar & BOOST_SERIALIZATION_NVP(_trim_roll);
+    ar & BOOST_SERIALIZATION_NVP(_new_trim);
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_cal_requires_reboot);
+
+    ar & BOOST_SERIALIZATION_NVP(_accel_startup_error_count);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_gyro_startup_error_count);//[INS_MAX_INSTANCES];
+    ar & BOOST_SERIALIZATION_NVP(_startup_error_counts_set);
+    ar & BOOST_SERIALIZATION_NVP(_startup_ms);
+
+    ar & BOOST_SERIALIZATION_NVP(imu_kill_mask);
+
+    }
 private:
     // load backend drivers
     bool _add_backend(AP_InertialSensor_Backend *backend);
@@ -600,6 +776,16 @@ private:
     struct PeakHoldState {
         float accel_peak_hold_neg_x;
         uint32_t accel_peak_hold_neg_x_age;
+
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+
+        ar & BOOST_SERIALIZATION_NVP(accel_peak_hold_neg_x);
+        ar & BOOST_SERIALIZATION_NVP(accel_peak_hold_neg_x_age);
+
+        }
+
     } _peak_hold_state;
 
     // threshold for detecting stillness
@@ -610,6 +796,14 @@ private:
      */
     struct {
         float delta_time;
+
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+
+        ar & BOOST_SERIALIZATION_NVP(delta_time);
+        }
+
     } _hil {};
 
     // Trim options

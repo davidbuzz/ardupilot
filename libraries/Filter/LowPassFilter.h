@@ -47,6 +47,18 @@
 #include <AP_Math/AP_Math.h>
 #include "FilterClass.h"
 
+// without som sort of boost reference fist, the next ones errror
+#include <boost/regex.hpp>
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
+
 // DigitalLPF implements the filter math
 template <class T>
 class DigitalLPF {
@@ -61,6 +73,18 @@ public:
     // get latest filtered value from filter (equal to the value returned by latest call to apply method)
     const T &get() const;
     void reset(T value);
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+    // buzz todo
+    ar & BOOST_SERIALIZATION_NVP(_output);
+    ar & BOOST_SERIALIZATION_NVP(alpha);
+    }
 
 private:
     T _output;
@@ -86,6 +110,19 @@ public:
     const T &get() const;
     void reset(T value);
     void reset(void) { reset(T()); }
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+    // buzz todo
+    ar & BOOST_SERIALIZATION_NVP(_cutoff_freq);
+    ar & BOOST_SERIALIZATION_NVP(_filter);
+    }
+
     
 protected:
     float _cutoff_freq;

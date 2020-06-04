@@ -21,6 +21,19 @@
 
 #define HNF_MAX_HARMONICS 8
 
+// without som sort of boost reference fist, the next ones errror
+#include <boost/regex.hpp>
+
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
+
 /*
   a filter that manages a set of notch filters targetted at a fundamental center frequency
   and multiples of that fundamental frequency
@@ -39,6 +52,29 @@ public:
     T apply(const T &sample);
     // reset each of the underlying filters
     void reset();
+
+ 
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+
+    ar & BOOST_SERIALIZATION_NVP(_filters);
+    ar & BOOST_SERIALIZATION_NVP(_sample_freq_hz);
+    ar & BOOST_SERIALIZATION_NVP(_notch_spread);
+    ar & BOOST_SERIALIZATION_NVP(_A);
+    ar & BOOST_SERIALIZATION_NVP(_Q);
+    ar & BOOST_SERIALIZATION_NVP(_harmonics);
+    ar & BOOST_SERIALIZATION_NVP(_double_notch);
+    ar & BOOST_SERIALIZATION_NVP(_num_filters);
+    ar & BOOST_SERIALIZATION_NVP(_num_enabled_filters);
+    ar & BOOST_SERIALIZATION_NVP(_initialised);
+
+
+    } 
 
 private:
     // underlying bank of notch filters
@@ -92,6 +128,19 @@ public:
     // notch dynamic tracking mode
     HarmonicNotchDynamicMode tracking_mode(void) const { return HarmonicNotchDynamicMode(_tracking_mode.get()); }
     static const struct AP_Param::GroupInfo var_info[];
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+    ar & BOOST_SERIALIZATION_NVP(_harmonics);
+    ar & BOOST_SERIALIZATION_NVP(_reference);
+    ar & BOOST_SERIALIZATION_NVP(_tracking_mode);
+    ar & BOOST_SERIALIZATION_NVP(_options);
+    } 
 
 private:
     // notch harmonics

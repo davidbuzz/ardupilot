@@ -4,6 +4,18 @@
 #include "AccelCalibrator.h"
 #include "AP_Vehicle/AP_Vehicle_Type.h"
 
+// without som sort of boost reference fist, the next ones errror
+#include <boost/regex.hpp>
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
+
 #define AP_ACCELCAL_MAX_NUM_CLIENTS 4
 class GCS_MAVLINK;
 class AP_AccelCal_Client;
@@ -35,6 +47,33 @@ public:
     static void register_client(AP_AccelCal_Client* client);
 
     void handleMessage(const mavlink_message_t &msg);
+
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+    // buzz todo
+    //ar & BOOST_SERIALIZATION_NVP(_gcs); //error: invalid use of incomplete type ‘class GCS_MAVLINK’    BOOST_STATIC_CONSTANT(bool, value = BOOST_IS_ABSTRACT(T));
+    ar & BOOST_SERIALIZATION_NVP(_use_gcs_snoop);
+    ar & BOOST_SERIALIZATION_NVP(_waiting_for_mavlink_ack);
+    ar & BOOST_SERIALIZATION_NVP(_last_position_request_ms);
+    ar & BOOST_SERIALIZATION_NVP(_step);
+    ar & BOOST_SERIALIZATION_NVP(_status);
+    ar & BOOST_SERIALIZATION_NVP(_last_result);
+
+    ar & BOOST_SERIALIZATION_NVP(_num_clients);
+    ar & BOOST_SERIALIZATION_NVP(_clients);//[AP_ACCELCAL_MAX_NUM_CLIENTS];
+
+    ar & BOOST_SERIALIZATION_NVP(_started);
+    ar & BOOST_SERIALIZATION_NVP(_saving);
+
+    ar & BOOST_SERIALIZATION_NVP(_num_active_calibrators);
+
+    }
 
 private:
     GCS_MAVLINK *_gcs;

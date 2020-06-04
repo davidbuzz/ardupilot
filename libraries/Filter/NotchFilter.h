@@ -26,6 +26,18 @@
 #include <AP_Param/AP_Param.h>
 
 
+// without som sort of boost reference fist, the next ones errror
+#include <boost/regex.hpp>
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
+
 template <class T>
 class NotchFilter {
 public:
@@ -37,6 +49,31 @@ public:
 
     // calculate attenuation and quality from provided center frequency and bandwidth
     static void calculate_A_and_Q(float center_freq_hz, float bandwidth_hz, float attenuation_dB, float& A, float& Q); 
+
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+    ar & BOOST_SERIALIZATION_NVP(initialised);
+
+    ar & BOOST_SERIALIZATION_NVP(b0);
+    ar & BOOST_SERIALIZATION_NVP(b1);
+    ar & BOOST_SERIALIZATION_NVP(b2);
+    ar & BOOST_SERIALIZATION_NVP(a1);
+    ar & BOOST_SERIALIZATION_NVP(a2);
+    ar & BOOST_SERIALIZATION_NVP(a0_inv);
+
+    ar & BOOST_SERIALIZATION_NVP(ntchsig);
+    ar & BOOST_SERIALIZATION_NVP(ntchsig1);
+    ar & BOOST_SERIALIZATION_NVP(ntchsig2);
+    ar & BOOST_SERIALIZATION_NVP(signal2);
+    ar & BOOST_SERIALIZATION_NVP(signal1);
+
+    } 
 
 private:
 
@@ -57,7 +94,20 @@ public:
     float bandwidth_hz(void) const { return _bandwidth_hz; }
     float attenuation_dB(void) const { return _attenuation_dB; }
     uint8_t enabled(void) const { return _enable; }
-    
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+    ar & BOOST_SERIALIZATION_NVP(_enable);
+    ar & BOOST_SERIALIZATION_NVP(_center_freq_hz);
+    ar & BOOST_SERIALIZATION_NVP(_bandwidth_hz);
+    ar & BOOST_SERIALIZATION_NVP(_attenuation_dB);
+    }    
+
 protected:
     AP_Int8 _enable;
     AP_Float _center_freq_hz;

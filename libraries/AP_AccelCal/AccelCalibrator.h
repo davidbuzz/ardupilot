@@ -15,6 +15,18 @@
 #include <AP_Math/AP_Math.h>
 #include <AP_Math/vectorN.h>
 
+// without som sort of boost reference fist, the next ones errror
+#include <boost/regex.hpp>
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
+
 #define ACCEL_CAL_MAX_NUM_PARAMS 9
 #define ACCEL_CAL_TOLERANCE 0.1
 #define MAX_ITERATIONS  50
@@ -84,12 +96,57 @@ public:
         Vector3f offset;
         Vector3f diag;
         Vector3f offdiag;
+
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+        ar & BOOST_SERIALIZATION_NVP(offset);
+        ar & BOOST_SERIALIZATION_NVP(diag);
+        ar & BOOST_SERIALIZATION_NVP(offdiag);
+        }
+
     };
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+
+    //ar & BOOST_SERIALIZATION_NVP(xxx);
+    // buzz todo
+
+    ar & BOOST_SERIALIZATION_NVP(_conf_num_samples);
+    ar & BOOST_SERIALIZATION_NVP(_conf_sample_time);
+    ar & BOOST_SERIALIZATION_NVP(_conf_fit_type);
+    ar & BOOST_SERIALIZATION_NVP(_conf_tolerance);
+
+    ar & BOOST_SERIALIZATION_NVP(_status);
+    ar & BOOST_SERIALIZATION_NVP(_sample_buffer);
+    ar & BOOST_SERIALIZATION_NVP(_samples_collected);
+    ar & BOOST_SERIALIZATION_NVP(_param);
+    ar & BOOST_SERIALIZATION_NVP(_fitness);
+    ar & BOOST_SERIALIZATION_NVP(_last_samp_frag_collected_ms);
+    ar & BOOST_SERIALIZATION_NVP(_min_sample_dist);
+
+    }
 
 private:
     struct AccelSample {
         Vector3f delta_velocity;
         float delta_time;
+
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+        //ar & BOOST_SERIALIZATION_NVP(xxx);
+        // buzz todo
+        ar & BOOST_SERIALIZATION_NVP(delta_velocity);
+        ar & BOOST_SERIALIZATION_NVP(delta_time);
+        }
+
     };
     typedef    VectorN<float, ACCEL_CAL_MAX_NUM_PARAMS> VectorP;
 
@@ -101,7 +158,18 @@ private:
         {
             static_assert(sizeof(*this) == sizeof(struct param_t),
                           "Invalid union members: sizes do not match");
+
         }
+
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+        //ar & BOOST_SERIALIZATION_NVP(xxx);
+        // buzz todo
+        ar & BOOST_SERIALIZATION_NVP(s);
+        ar & BOOST_SERIALIZATION_NVP(a);
+        }
+
     };
 
     //configuration

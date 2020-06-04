@@ -28,6 +28,18 @@
 
 #include "AP_InertialSensor.h"
 
+// without som sort of boost reference fist, the next ones errror
+#include <boost/regex.hpp>
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
+
 class AuxiliaryBus;
 class AP_Logger;
 
@@ -114,6 +126,36 @@ public:
 protected:
     // access to frontend
     AP_InertialSensor &_imu;
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+    //  buzz todo
+    //    AP_InertialSensor &_imu;
+    //     HAL_Semaphore _sem;
+
+    ar & BOOST_SERIALIZATION_NVP(_clip_limit);// = 15.5f * GRAVITY_MSS;
+    ar & BOOST_SERIALIZATION_NVP(_id);
+
+    ar & BOOST_SERIALIZATION_NVP(_last_accel_filter_hz);
+    ar & BOOST_SERIALIZATION_NVP(_last_gyro_filter_hz);
+    ar & BOOST_SERIALIZATION_NVP(_last_notch_center_freq_hz);
+    ar & BOOST_SERIALIZATION_NVP(_last_notch_bandwidth_hz);
+    ar & BOOST_SERIALIZATION_NVP(_last_notch_attenuation_dB);
+
+    ar & BOOST_SERIALIZATION_NVP(_last_harmonic_notch_center_freq_hz);
+    ar & BOOST_SERIALIZATION_NVP(_last_harmonic_notch_bandwidth_hz);
+    ar & BOOST_SERIALIZATION_NVP(_last_harmonic_notch_attenuation_dB);
+
+    ar & BOOST_SERIALIZATION_NVP(_last_circular_buffer_idx);
+    ar & BOOST_SERIALIZATION_NVP(_num_gyro_samples);
+    ar & BOOST_SERIALIZATION_NVP(_last_gyro_window);// [INS_MAX_GYRO_WINDOW_SAMPLES]; // The maximum we need to store is gyro-rate / loop-rate
+
+    }
 
     // semaphore for access to shared frontend data
     HAL_Semaphore _sem;
@@ -314,6 +356,7 @@ protected:
     // note that each backend is also expected to have a static detect()
     // function which instantiates an instance of the backend sensor
     // driver if the sensor is available
+
 
 private:
 

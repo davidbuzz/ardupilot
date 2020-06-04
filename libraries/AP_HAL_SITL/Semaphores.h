@@ -19,7 +19,6 @@
 #include <boost/archive/text_iarchive.hpp>
 
 
-
 class HALSITL::Semaphore : public AP_HAL::Semaphore {
 public:
     Semaphore();

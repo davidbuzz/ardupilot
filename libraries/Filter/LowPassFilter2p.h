@@ -18,6 +18,17 @@
 #include <cmath>
 #include <inttypes.h>
 
+// without som sort of boost reference fist, the next ones errror
+#include <boost/regex.hpp>
+#include <boost/exception/exception.hpp>
+#include <boost/current_function.hpp>
+#if !defined( BOOST_THROW_EXCEPTION )
+#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+#endif
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 
 /// @file   LowPassFilter2p.h
 /// @brief  A class to implement a second order low pass filter
@@ -40,6 +51,19 @@ public:
     T apply(const T &sample, const struct biquad_params &params);
     void reset();
     static void compute_params(float sample_freq, float cutoff_freq, biquad_params &ret);
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+    // buzz todo
+    ar & BOOST_SERIALIZATION_NVP(_delay_element_1);
+    ar & BOOST_SERIALIZATION_NVP(_delay_element_2);
+    }
+
     
 private:
     T _delay_element_1;
@@ -59,6 +83,19 @@ public:
     float get_sample_freq(void) const;
     T apply(const T &sample);
     void reset(void);
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+
+    // buzz todo
+    //ar & BOOST_SERIALIZATION_NVP(_params);
+    //ar & BOOST_SERIALIZATION_NVP(_filter);
+    }
 
 protected:
     struct DigitalBiquadFilter<T>::biquad_params _params;
