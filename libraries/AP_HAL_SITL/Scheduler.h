@@ -6,6 +6,8 @@
 #include <sys/time.h>
 #include <pthread.h>
 
+#include <SITL/Serialize.h>
+
 #define SITL_SCHEDULER_MAX_TIMER_PROCS 8
 
 /* Scheduler implementation: */
@@ -67,6 +69,41 @@ public:
     // a couple of helper functions to cope with SITL's time stepping
     bool semaphore_wait_hack_required();
 
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+  // todo buzz
+
+    //ar & BOOST_SERIALIZATION_NVP(_sitlState);
+    ar & BOOST_SERIALIZATION_NVP(_nested_atomic_ctr);
+    //ar & BOOST_SERIALIZATION_NVP(_failsafe);
+
+    //ar & BOOST_SERIALIZATION_NVP(_timer_event_missed);
+    //ar & BOOST_SERIALIZATION_NVP(_timer_proc);//[SITL_SCHEDULER_MAX_TIMER_PROCS];
+    //ar & BOOST_SERIALIZATION_NVP(_io_proc);//[SITL_SCHEDULER_MAX_TIMER_PROCS];
+    ar & BOOST_SERIALIZATION_NVP(_num_timer_procs);
+    ar & BOOST_SERIALIZATION_NVP(_num_io_procs);
+    ar & BOOST_SERIALIZATION_NVP(_in_timer_proc);
+    ar & BOOST_SERIALIZATION_NVP(_in_io_proc);
+
+    ar & BOOST_SERIALIZATION_NVP(_in_semaphore_take_wait);
+    
+    ar & BOOST_SERIALIZATION_NVP(_initialized);
+    ar & BOOST_SERIALIZATION_NVP(_stopped_clock_usec);
+    ar & BOOST_SERIALIZATION_NVP(_last_io_run);
+    //ar & BOOST_SERIALIZATION_NVP(_main_ctx);
+
+    ar & BOOST_SERIALIZATION_NVP(_thread_sem);
+
+    ar & BOOST_SERIALIZATION_NVP(threads);
+    //ar & BOOST_SERIALIZATION_NVP(stackfill);
+
+    }
 private:
     SITL_State *_sitlState;
     uint8_t _nested_atomic_ctr;
@@ -105,6 +142,25 @@ private:
         void *stack;
         const uint8_t *stack_min;
         const char *name;
+
+        friend class boost::serialization::access;
+        // When the class Archive corresponds to an output archive, the
+        // & operator is defined similar to <<.  Likewise, when the class Archive
+        // is a type of input archive the & operator is defined similar to >>.
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+      // todo buzz
+
+        ar & BOOST_SERIALIZATION_NVP(next);
+        //ar & BOOST_SERIALIZATION_NVP(f);  // error: ‘class Functor<void>’ has no member named ‘serialize’
+        //ar & BOOST_SERIALIZATION_NVP(attr); // error: ‘union pthread_attr_t’ has no member named ‘serialize’
+        ar & BOOST_SERIALIZATION_NVP(stack_size);
+        //ar & BOOST_SERIALIZATION_NVP(stack);
+        //ar & BOOST_SERIALIZATION_NVP(stack_min);
+        //ar & BOOST_SERIALIZATION_NVP(name);
+
+        }
     };
     static struct thread_attr *threads;
     static const uint8_t stackfill = 0xEB;

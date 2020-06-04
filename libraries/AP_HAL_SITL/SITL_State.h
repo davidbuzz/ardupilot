@@ -142,7 +142,7 @@ private:
         
          ar & BOOST_SERIALIZATION_NVP(_barometer);//‘class AP_Baro’ has no member named ‘serialize’
         ar & BOOST_SERIALIZATION_NVP(_ins);
-        //ar & BOOST_SERIALIZATION_NVP(_scheduler);
+        ar & BOOST_SERIALIZATION_NVP(_scheduler);
         ar & BOOST_SERIALIZATION_NVP(_compass); //‘class Compass’ has no member named ‘serialize’
         //ar & BOOST_SERIALIZATION_NVP(_terrain);
        
@@ -165,14 +165,14 @@ private:
 
         ar &  BOOST_SERIALIZATION_NVP(store_index_mag);
         ar &  BOOST_SERIALIZATION_NVP(last_store_time_mag);
-      //  ar & BOOST_SERIALIZATION_NVP(buffer_mag);  //‘class VectorN<HALSITL::SITL_State::readings_mag, 250>’ has no member named ‘serialize’
+        ar & BOOST_SERIALIZATION_NVP(buffer_mag);  //‘class VectorN<HALSITL::SITL_State::readings_mag, 250>’ has no member named ‘serialize’
         ar &  BOOST_SERIALIZATION_NVP(time_delta_mag);
         ar &  BOOST_SERIALIZATION_NVP(delayed_time_mag);
 
         ar &  BOOST_SERIALIZATION_NVP(store_index_wind);
         ar &  BOOST_SERIALIZATION_NVP(last_store_time_wind);
-        //ar & BOOST_SERIALIZATION_NVP(buffer_wind);
-       // ar & BOOST_SERIALIZATION_NVP(buffer_wind_2);//‘class VectorN<HALSITL::SITL_State::readings_wind, 50>’ has no member named ‘serialize’
+        ar & BOOST_SERIALIZATION_NVP(buffer_wind);
+        ar & BOOST_SERIALIZATION_NVP(buffer_wind_2);//‘class VectorN<HALSITL::SITL_State::readings_wind, 50>’ has no member named ‘serialize’
         ar &  BOOST_SERIALIZATION_NVP(time_delta_wind);
         ar &  BOOST_SERIALIZATION_NVP(delayed_time_wind);
         ar &  BOOST_SERIALIZATION_NVP(wind_start_delay_micros);
@@ -294,6 +294,18 @@ private:
     struct readings_mag {
         uint32_t time;
         Vector3f data;
+
+        friend class boost::serialization::access;
+        // When the class Archive corresponds to an output archive, the
+        // & operator is defined similar to <<.  Likewise, when the class Archive
+        // is a type of input archive the & operator is defined similar to >>.
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+            ar & BOOST_SERIALIZATION_NVP(time);
+            ar & BOOST_SERIALIZATION_NVP(data);
+        }
+
     };
     uint8_t store_index_mag;
     uint32_t last_store_time_mag;
@@ -305,6 +317,17 @@ private:
     struct readings_wind {
         uint32_t time;
         float data;
+
+        friend class boost::serialization::access;
+        // When the class Archive corresponds to an output archive, the
+        // & operator is defined similar to <<.  Likewise, when the class Archive
+        // is a type of input archive the & operator is defined similar to >>.
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+            ar & BOOST_SERIALIZATION_NVP(time);
+            ar & BOOST_SERIALIZATION_NVP(data);
+        }
     };
     uint8_t store_index_wind;
     uint32_t last_store_time_wind;
