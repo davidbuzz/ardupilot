@@ -177,9 +177,18 @@ public:
       ar & BOOST_SERIALIZATION_NVP(name); 
       ar & BOOST_SERIALIZATION_NVP(offset); 
 
-      ar & BOOST_SERIALIZATION_NVP(group_info); 
+    // how to get group info pointer, see .cpp file
+    if (flags & AP_PARAM_FLAG_INFO_POINTER) {
+        //handle group_info_ptr
+        ar & BOOST_SERIALIZATION_NVP(group_info_ptr); 
+    } else {
+      //handle  group_info;
+      ar & BOOST_SERIALIZATION_NVP(group_info);
+    }
+
+      //ar & BOOST_SERIALIZATION_NVP(group_info); 
         // when  AP_PARAM_FLAG_POINTER | AP_PARAM_FLAG_INFO_POINTER:
-      ar & BOOST_SERIALIZATION_NVP(group_info_ptr); 
+      //ar & BOOST_SERIALIZATION_NVP(group_info_ptr); 
       ar & BOOST_SERIALIZATION_NVP(def_value); 
 
       ar & BOOST_SERIALIZATION_NVP(flags); 
@@ -199,23 +208,24 @@ public:
         };
         uint16_t flags;
 
- template<class Archive>
-    void serialize(Archive & ar, const unsigned int version)
-    {
-    // todo buzz impl
-      ar & BOOST_SERIALIZATION_NVP(type); 
-      //ar & BOOST_SERIALIZATION_NVP(name);  //const
-      ar & BOOST_SERIALIZATION_NVP(key); 
-      //ar & BOOST_SERIALIZATION_NVP(ptr); error const void ptr
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+        // todo buzz impl
+          ar & BOOST_SERIALIZATION_NVP(type); 
+          //ar & BOOST_SERIALIZATION_NVP(name);  //const
+          ar & BOOST_SERIALIZATION_NVP(key); 
+          //ar & BOOST_SERIALIZATION_NVP(ptr); error const void ptr
 
-      //ar & BOOST_SERIALIZATION_NVP(group_info); const
-        // when  AP_PARAM_FLAG_POINTER | AP_PARAM_FLAG_INFO_POINTER:
-      //ar & BOOST_SERIALIZATION_NVP(group_info_ptr); const
-      //ar & BOOST_SERIALIZATION_NVP(def_value);  const
+          //ar & BOOST_SERIALIZATION_NVP(*group_info); //const
+            // when  AP_PARAM_FLAG_POINTER | AP_PARAM_FLAG_INFO_POINTER:
+          //ar & BOOST_SERIALIZATION_NVP(**group_info_ptr); //const
 
-      ar & BOOST_SERIALIZATION_NVP(flags); 
+          ar & BOOST_SERIALIZATION_NVP(def_value);  //ok
 
-    }
+          ar & BOOST_SERIALIZATION_NVP(flags); 
+
+        }
 
     };
     struct ConversionInfo {
@@ -713,15 +723,16 @@ private:
 
 
     std::string _param_magic((char*)param_magic,8); // works if not null termianted annd know length
-    std::string _param_magic_h(string_to_hex(_param_magic));
-    ar & BOOST_SERIALIZATION_NVP(_param_magic_h);
+    std::string _param_magic_hex(string_to_hex(_param_magic));
+    ar & BOOST_SERIALIZATION_NVP(_param_magic_hex);
 
     //ar & BOOST_SERIALIZATION_NVP((short unsigned int&)max_length);
     //ar & BOOST_SERIALIZATION_NVP( (volatile short unsigned int&)length); // avoid  error: cannot bind packed field
 
     std::string _data((char*)data,AP_PARAM_MAX_EMBEDDED_PARAM);
-    ar & BOOST_SERIALIZATION_NVP(_data); // char array, again, won't unserialise properly
-    //ar & BOOST_SERIALIZATION_NVP((volatile char[AP_PARAM_MAX_EMBEDDED_PARAM])data);
+    std::string _data_hex(string_to_hex(_data));
+    ar & BOOST_SERIALIZATION_NVP(_data_hex); // char array, again, won't unserialise properly
+
 
   }
 
