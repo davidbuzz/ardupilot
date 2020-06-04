@@ -130,7 +130,7 @@ private:
 
         //ar & BOOST_SERIALIZATION_NVP(_uart_path); // char * ?
 
-        //ar & BOOST_SERIALIZATION_NVP(_gps_data); // ‘struct HALSITL::SITL_State::gps_data’ has no member named ‘serialize’
+        ar & BOOST_SERIALIZATION_NVP(_gps_data); // ‘struct HALSITL::SITL_State::gps_data’ has no member named ‘serialize’
 
         ar & BOOST_SERIALIZATION_NVP(_vehicle);
         ar &  BOOST_SERIALIZATION_NVP(_framerate);
@@ -214,6 +214,20 @@ private:
         double speedD;
         double yaw;
         bool have_lock;
+
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+            ar & BOOST_SERIALIZATION_NVP( latitude);
+            ar & BOOST_SERIALIZATION_NVP( longitude);
+            ar & BOOST_SERIALIZATION_NVP( altitude);
+            ar & BOOST_SERIALIZATION_NVP( speedN);
+            ar & BOOST_SERIALIZATION_NVP( speedE);
+            ar & BOOST_SERIALIZATION_NVP( speedD);
+            ar & BOOST_SERIALIZATION_NVP( yaw);
+            ar & BOOST_SERIALIZATION_NVP( have_lock);
+        }
+
     };
 
 #define MAX_GPS_DELAY 100
@@ -295,7 +309,7 @@ private:
         uint32_t time;
         Vector3f data;
 
-        friend class boost::serialization::access;
+        //friend class boost::serialization::access;
         // When the class Archive corresponds to an output archive, the
         // & operator is defined similar to <<.  Likewise, when the class Archive
         // is a type of input archive the & operator is defined similar to >>.
