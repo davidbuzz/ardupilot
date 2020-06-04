@@ -17,6 +17,8 @@
 #include "SIM_ToneAlarm.h"
 #include "SIM_EFI_MegaSquirt.h"
 
+#include <SITL/Serialize.h>
+
 namespace SITL {
 
 enum class LedLayout {
@@ -62,7 +64,53 @@ struct sitl_fdm {
         // data from simulated laser scanner, if available
         struct vector3f_array points;
         struct float_array ranges;
+
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+        // buzz todo
+         //  ar & BOOST_SERIALIZATION_NVP( state);   //struct sitl_fdm
+          ar & BOOST_SERIALIZATION_NVP( points);
+          ar & BOOST_SERIALIZATION_NVP( ranges);
+        }
+
     } scanner;
+
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+
+        ar & BOOST_SERIALIZATION_NVP(timestamp_us);
+        ar & BOOST_SERIALIZATION_NVP(home);
+        ar & BOOST_SERIALIZATION_NVP(latitude);
+        ar & BOOST_SERIALIZATION_NVP(longitude);
+        ar & BOOST_SERIALIZATION_NVP(altitude); 
+        ar & BOOST_SERIALIZATION_NVP(heading);  
+        ar & BOOST_SERIALIZATION_NVP(speedN);
+        ar & BOOST_SERIALIZATION_NVP(speedE);
+        ar & BOOST_SERIALIZATION_NVP(speedD);
+        ar & BOOST_SERIALIZATION_NVP(xAccel);
+        ar & BOOST_SERIALIZATION_NVP(yAccel);
+        ar & BOOST_SERIALIZATION_NVP(zAccel);
+        ar & BOOST_SERIALIZATION_NVP(rollRate);
+        ar & BOOST_SERIALIZATION_NVP(pitchRate);
+        ar & BOOST_SERIALIZATION_NVP(yawRate);
+        ar & BOOST_SERIALIZATION_NVP(rollDeg);
+        ar & BOOST_SERIALIZATION_NVP(pitchDeg);
+        ar & BOOST_SERIALIZATION_NVP(yawDeg);
+        ar & BOOST_SERIALIZATION_NVP(quaternion);
+        ar & BOOST_SERIALIZATION_NVP(airspeed);
+        ar & BOOST_SERIALIZATION_NVP(battery_voltage);
+        ar & BOOST_SERIALIZATION_NVP(battery_current);
+        ar & BOOST_SERIALIZATION_NVP(num_motors);
+        ar & BOOST_SERIALIZATION_NVP(rpm);
+        ar & BOOST_SERIALIZATION_NVP(rcin_chan_count);
+        ar & BOOST_SERIALIZATION_NVP(rcin);
+        ar & BOOST_SERIALIZATION_NVP(range);
+        ar & BOOST_SERIALIZATION_NVP(bodyMagField);
+        ar & BOOST_SERIALIZATION_NVP(angAccel); 
+
+    }
 };
 
 // number of rc output channels
@@ -108,6 +156,169 @@ public:
         GPS_TYPE_NOVA  = 8,
         GPS_TYPE_SBP2   = 9,
     };
+
+   friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+    // buzz todo
+
+       ar & BOOST_SERIALIZATION_NVP( state);   //struct sitl_fdm
+
+       ar & BOOST_SERIALIZATION_NVP(update_rate_hz);
+
+       ar & BOOST_SERIALIZATION_NVP(throttle);
+       ar & BOOST_SERIALIZATION_NVP(height_agl);
+    
+       // buzz todo 
+       //ar & BOOST_SERIALIZATION_NVP(var_info); //static const struct AP_Param::GroupInfo 
+       //ar & BOOST_SERIALIZATION_NVP(var_info2);
+       //ar & BOOST_SERIALIZATION_NVP(var_info3);
+
+       ar & BOOST_SERIALIZATION_NVP(ahrs_rotation);
+       ar & BOOST_SERIALIZATION_NVP(ahrs_rotation_inv);
+       ar & BOOST_SERIALIZATION_NVP(baro_noise);  
+       ar & BOOST_SERIALIZATION_NVP(baro_drift);  
+       ar & BOOST_SERIALIZATION_NVP(baro_glitch); 
+       ar & BOOST_SERIALIZATION_NVP(gyro_noise);  
+       ar & BOOST_SERIALIZATION_NVP(gyro_scale);  
+       ar & BOOST_SERIALIZATION_NVP(accel_noise); 
+       ar & BOOST_SERIALIZATION_NVP(accel2_noise); 
+       ar & BOOST_SERIALIZATION_NVP(accel_bias); 
+       ar & BOOST_SERIALIZATION_NVP(accel2_bias); 
+       ar & BOOST_SERIALIZATION_NVP(arspd_noise);  
+       ar & BOOST_SERIALIZATION_NVP(arspd_fail);   
+       ar & BOOST_SERIALIZATION_NVP(arspd2_fail);   
+       ar & BOOST_SERIALIZATION_NVP(arspd_fail_pressure); 
+       ar & BOOST_SERIALIZATION_NVP(arspd_fail_pitot_pressure); 
+       ar & BOOST_SERIALIZATION_NVP(arspd2_fail_pressure); 
+       ar & BOOST_SERIALIZATION_NVP(arspd2_fail_pitot_pressure); 
+       ar & BOOST_SERIALIZATION_NVP(gps_noise); 
+       ar & BOOST_SERIALIZATION_NVP(gps_lock_time); 
+       ar & BOOST_SERIALIZATION_NVP(gps_alt_offset); 
+       ar & BOOST_SERIALIZATION_NVP(mag_noise);   
+       ar & BOOST_SERIALIZATION_NVP(mag_mot);  
+       ar & BOOST_SERIALIZATION_NVP(mag_ofs);  
+       ar & BOOST_SERIALIZATION_NVP(mag_diag);  
+       ar & BOOST_SERIALIZATION_NVP(mag_offdiag);  
+       ar & BOOST_SERIALIZATION_NVP(mag_orient);   
+       ar & BOOST_SERIALIZATION_NVP(servo_speed); 
+       ar & BOOST_SERIALIZATION_NVP(sonar_glitch);
+       ar & BOOST_SERIALIZATION_NVP(sonar_noise); 
+       ar & BOOST_SERIALIZATION_NVP(sonar_scale); 
+       ar & BOOST_SERIALIZATION_NVP(drift_speed); 
+       ar & BOOST_SERIALIZATION_NVP(drift_time);  
+       ar & BOOST_SERIALIZATION_NVP(engine_mul);  
+       ar & BOOST_SERIALIZATION_NVP(engine_fail); 
+       ar & BOOST_SERIALIZATION_NVP(gps_disable); 
+       ar & BOOST_SERIALIZATION_NVP(gps2_enable); 
+       ar & BOOST_SERIALIZATION_NVP(gps_delay);   
+       ar & BOOST_SERIALIZATION_NVP(gps_type);
+       ar & BOOST_SERIALIZATION_NVP(gps_byteloss);
+       ar & BOOST_SERIALIZATION_NVP(gps_numsats); 
+       ar & BOOST_SERIALIZATION_NVP(gps_glitch);
+       ar & BOOST_SERIALIZATION_NVP(gps_hertz);   
+       ar & BOOST_SERIALIZATION_NVP(batt_voltage); 
+       ar & BOOST_SERIALIZATION_NVP(accel_fail);  
+       ar & BOOST_SERIALIZATION_NVP(rc_fail);     
+       ar & BOOST_SERIALIZATION_NVP(rc_chancount); 
+       ar & BOOST_SERIALIZATION_NVP(baro_disable); 
+       ar & BOOST_SERIALIZATION_NVP(float_exception); 
+       ar & BOOST_SERIALIZATION_NVP(flow_enable); 
+       ar & BOOST_SERIALIZATION_NVP(flow_rate); 
+       ar & BOOST_SERIALIZATION_NVP(flow_delay); 
+       ar & BOOST_SERIALIZATION_NVP(terrain_enable); 
+       ar & BOOST_SERIALIZATION_NVP(pin_mask); 
+       ar & BOOST_SERIALIZATION_NVP(speedup); 
+       ar & BOOST_SERIALIZATION_NVP(odom_enable); 
+       ar & BOOST_SERIALIZATION_NVP(telem_baudlimit_enable); 
+       ar & BOOST_SERIALIZATION_NVP(flow_noise); 
+       ar & BOOST_SERIALIZATION_NVP(baro_count); 
+       ar & BOOST_SERIALIZATION_NVP(gps_hdg_enabled);
+       ar & BOOST_SERIALIZATION_NVP(loop_delay); 
+       ar & BOOST_SERIALIZATION_NVP(mag_scaling); 
+       ar & BOOST_SERIALIZATION_NVP(mag_devid);
+       ar & BOOST_SERIALIZATION_NVP(buoyancy); 
+
+       ar & BOOST_SERIALIZATION_NVP(efi_type);
+       ar & BOOST_SERIALIZATION_NVP(wind_speed_active);
+       ar & BOOST_SERIALIZATION_NVP(wind_direction_active);
+       ar & BOOST_SERIALIZATION_NVP(wind_dir_z_active);
+       ar & BOOST_SERIALIZATION_NVP(wind_speed);
+       ar & BOOST_SERIALIZATION_NVP(wind_direction);
+       ar & BOOST_SERIALIZATION_NVP(wind_turbulance);
+       ar & BOOST_SERIALIZATION_NVP(gps_drift_alt);
+       ar & BOOST_SERIALIZATION_NVP(wind_dir_z);
+       ar & BOOST_SERIALIZATION_NVP(wind_type); 
+       ar & BOOST_SERIALIZATION_NVP(wind_type_alt);
+       ar & BOOST_SERIALIZATION_NVP(wind_type_coef);
+
+       ar & BOOST_SERIALIZATION_NVP(baro_delay); 
+       ar & BOOST_SERIALIZATION_NVP(mag_delay); 
+       ar & BOOST_SERIALIZATION_NVP(wind_delay); 
+
+       ar & BOOST_SERIALIZATION_NVP(adsb_plane_count);
+       ar & BOOST_SERIALIZATION_NVP(adsb_radius_m);
+       ar & BOOST_SERIALIZATION_NVP(adsb_altitude_m);
+       ar & BOOST_SERIALIZATION_NVP(adsb_tx);
+
+       ar & BOOST_SERIALIZATION_NVP(mag_anomaly_ned); 
+       ar & BOOST_SERIALIZATION_NVP(mag_anomaly_hgt); 
+
+       ar & BOOST_SERIALIZATION_NVP(imu_pos_offset);     
+       ar & BOOST_SERIALIZATION_NVP(gps_pos_offset);
+       ar & BOOST_SERIALIZATION_NVP(rngfnd_pos_offset); 
+       ar & BOOST_SERIALIZATION_NVP(optflow_pos_offset); 
+       ar & BOOST_SERIALIZATION_NVP(vicon_pos_offset);   
+       ar & BOOST_SERIALIZATION_NVP(temp_start);
+       ar & BOOST_SERIALIZATION_NVP(temp_flight);
+       ar & BOOST_SERIALIZATION_NVP(temp_tconst);
+       ar & BOOST_SERIALIZATION_NVP(temp_baro_factor);
+
+       ar & BOOST_SERIALIZATION_NVP(thermal_scenario);
+       ar & BOOST_SERIALIZATION_NVP(arspd_signflip);
+       ar & BOOST_SERIALIZATION_NVP(wow_pin);
+       ar & BOOST_SERIALIZATION_NVP(vibe_freq);
+       ar & BOOST_SERIALIZATION_NVP(vibe_motor);
+       ar & BOOST_SERIALIZATION_NVP(vibe_motor_scale);
+       ar & BOOST_SERIALIZATION_NVP(ins_noise_throttle_min);
+
+       ar & BOOST_SERIALIZATION_NVP(gyro_fail_mask);
+       ar & BOOST_SERIALIZATION_NVP(accel_fail_mask);
+
+
+       ar & BOOST_SERIALIZATION_NVP(gnd_behav);
+
+
+       ar & BOOST_SERIALIZATION_NVP(_safety_switch_state);
+
+       ar & BOOST_SERIALIZATION_NVP(irlock_port);
+
+       //ar & BOOST_SERIALIZATION_NVP(sprayer_sim);
+
+       //ar & BOOST_SERIALIZATION_NVP(gripper_sim);
+       //ar & BOOST_SERIALIZATION_NVP(gripper_epm_sim);
+
+       //ar & BOOST_SERIALIZATION_NVP(parachute_sim);
+       //ar & BOOST_SERIALIZATION_NVP(buzzer_sim);
+       //ar & BOOST_SERIALIZATION_NVP(tonealarm_sim);
+       //ar & BOOST_SERIALIZATION_NVP(precland_sim);
+
+        // buzz todo
+       //ar & BOOST_SERIALIZATION_NVP(efi_ms);
+
+       ar & BOOST_SERIALIZATION_NVP(led_layout);
+
+       ar & BOOST_SERIALIZATION_NVP(vicon_glitch);  
+       ar & BOOST_SERIALIZATION_NVP(vicon_fail);         
+       ar & BOOST_SERIALIZATION_NVP(vicon_yaw);        
+       ar & BOOST_SERIALIZATION_NVP(vicon_yaw_error);  
+
+    }
+
 
     struct sitl_fdm state;
 

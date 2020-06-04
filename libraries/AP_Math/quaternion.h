@@ -23,6 +23,8 @@
 #endif
 #include <math.h>
 
+#include <SITL/Serialize.h>
+
 class Quaternion {
 public:
     float        q1, q2, q3, q4;
@@ -54,6 +56,19 @@ public:
         q2 = _q2;
         q3 = _q3;
         q4 = _q4;
+    }
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+      ar & BOOST_SERIALIZATION_NVP(q1);
+      ar & BOOST_SERIALIZATION_NVP(q2);
+      ar & BOOST_SERIALIZATION_NVP(q3);
+      ar & BOOST_SERIALIZATION_NVP(q4);
     }
 
     // check if any elements are NAN

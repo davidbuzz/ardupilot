@@ -147,7 +147,7 @@ private:
         ar & BOOST_SERIALIZATION_NVP(_terrain);
        
         //ar &  BOOST_SERIALIZATION_NVP(_sitl_rc_in); // cant serialize SocketAPM 
-        // ar & BOOST_SERIALIZATION_NVP(_sitl);  //‘class SITL::SITL’ has no member named ‘serialize’
+        ar & BOOST_SERIALIZATION_NVP(_sitl);  //‘class SITL::SITL’ has no member named ‘serialize’
         ar &  BOOST_SERIALIZATION_NVP(_rcin_port);
         ar &  BOOST_SERIALIZATION_NVP(_fg_view_port);
         ar &  BOOST_SERIALIZATION_NVP(_irlock_port);
