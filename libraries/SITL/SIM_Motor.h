@@ -20,6 +20,8 @@
 
 #include "SIM_Aircraft.h"
 
+#include <SITL/Serialize.h>
+
 namespace SITL {
 
 /*
@@ -68,6 +70,32 @@ public:
         pitch_min(_pitch_min),
         pitch_max(_pitch_max)
     {}
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+
+    ar & BOOST_SERIALIZATION_NVP(angle);
+    ar & BOOST_SERIALIZATION_NVP(yaw_factor);
+    ar & BOOST_SERIALIZATION_NVP(servo);
+    ar & BOOST_SERIALIZATION_NVP(display_order);
+    ar & BOOST_SERIALIZATION_NVP(roll_servo);
+    ar & BOOST_SERIALIZATION_NVP(roll_min);
+    ar & BOOST_SERIALIZATION_NVP(roll_max);
+    ar & BOOST_SERIALIZATION_NVP(pitch_servo);
+    ar & BOOST_SERIALIZATION_NVP(pitch_min);
+    ar & BOOST_SERIALIZATION_NVP(pitch_max);
+    ar & BOOST_SERIALIZATION_NVP(servo_rate);
+    ar & BOOST_SERIALIZATION_NVP(last_change_usec);
+    ar & BOOST_SERIALIZATION_NVP(last_roll_value);
+    ar & BOOST_SERIALIZATION_NVP(last_pitch_value);
+
+    }
+
 
     void calculate_forces(const struct sitl_input &input,
                           float thrust_scale,

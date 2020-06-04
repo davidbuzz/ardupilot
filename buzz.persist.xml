@@ -2024,14 +2024,14 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>12411</_parent_pid>
-	<_update_count>5440</_update_count>
+	<_parent_pid>11584</_parent_pid>
+	<_update_count>6641</_update_count>
 	<_barometer class_id="2" tracking_level="1" version="0" object_id="_1">
 		<_num_drivers>1</_num_drivers>
 		<_num_sensors>1</_num_sensors>
 		<_primary>0</_primary>
 		<_log_baro_bit>128</_log_baro_bit>
-		<_alt_offset class_id="3" tracking_level="0" version="0">
+		<_alt_offset class_id="3" tracking_level="1" version="0" object_id="_2">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data class_id="4" tracking_level="0" version="0">
@@ -2048,13 +2048,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem class_id="6" tracking_level="0" version="0"></_count_sem>
-			<_var_info class_id="7" tracking_level="1" version="0" object_id="_2">
+			<_var_info class_id="7" tracking_level="1" version="0" object_id="_3">
 				<type>2</type>
 				<key>0</key>
 				<def_value>0.000000000e+00</def_value>
 				<flags>0</flags>
 			</_var_info>
-			<param_overrides class_id="8" tracking_level="1" version="0" object_id="_3"></param_overrides>
+			<param_overrides class_id="8" tracking_level="1" version="0" object_id="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -2067,7 +2067,7 @@
 		<_guessed_ground_temperature>2.553483200e+01</_guessed_ground_temperature>
 		<_last_notify_ms>0</_last_notify_ms>
 	</_barometer>
-	<_ins class_id="9" tracking_level="1" version="0" object_id="_4">
+	<_ins class_id="9" tracking_level="1" version="0" object_id="_5">
 		<_gyro_count>2</_gyro_count>
 		<_accel_count>2</_accel_count>
 		<_backend_count>2</_backend_count>
@@ -2077,14 +2077,14 @@
 		<_accel>
 			<count>3</count>
 			<item class_id="10" tracking_level="0" version="0">
-				<x>-1.115153893e-03</x>
-				<y>-5.648902152e-04</y>
-				<z>-9.816761017e+00</z>
+				<x>-1.965583768e-03</x>
+				<y>6.933213444e-04</y>
+				<z>-9.818060875e+00</z>
 			</item>
 			<item>
-				<x>-9.585917724e-05</x>
-				<y>-1.799860038e-03</y>
-				<z>-9.816353798e+00</z>
+				<x>6.200327771e-04</x>
+				<y>-1.945773955e-03</y>
+				<z>-9.816456795e+00</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -2095,14 +2095,14 @@
 		<_delta_velocity>
 			<count>3</count>
 			<item>
-				<x>4.469323358e-06</x>
-				<y>2.212062782e-06</y>
-				<z>-2.945845015e-02</z>
+				<x>1.396007974e-06</x>
+				<y>-1.266221079e-05</y>
+				<z>-1.963881217e-02</z>
 			</item>
 			<item>
-				<x>-2.997057527e-05</x>
-				<y>1.550351044e-05</y>
-				<z>-2.456054464e-02</z>
+				<x>9.888394743e-06</x>
+				<y>-2.291541932e-06</y>
+				<z>-2.455551922e-02</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -2112,8 +2112,8 @@
 		</_delta_velocity>
 		<_delta_velocity_dt>
 			<count>3</count>
-			<item>3.000367200e-03</item>
-			<item>2.500181319e-03</item>
+			<item>1.999969129e-03</item>
+			<item>2.500152914e-03</item>
 			<item>0.000000000e+00</item>
 		</_delta_velocity_dt>
 		<_delta_velocity_valid>
@@ -2125,14 +2125,14 @@
 		<_delta_velocity_acc>
 			<count>3</count>
 			<item>
-				<x>-5.687900739e-06</x>
-				<y>-1.147429089e-06</y>
-				<z>-9.816332720e-03</z>
+				<x>-3.994208782e-06</x>
+				<y>-8.144753338e-06</y>
+				<z>-9.818104096e-03</z>
 			</item>
 			<item>
-				<x>1.094383697e-05</x>
-				<y>2.810285650e-06</y>
-				<z>-1.228020526e-02</z>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -2142,8 +2142,8 @@
 		</_delta_velocity_acc>
 		<_delta_velocity_acc_dt>
 			<count>3</count>
-			<item>1.000122400e-03</item>
-			<item>1.250090660e-03</item>
+			<item>9.999845643e-04</item>
+			<item>0.000000000e+00</item>
 			<item>0.000000000e+00</item>
 		</_delta_velocity_acc_dt>
 		<_accel_filter>
@@ -2161,14 +2161,14 @@
 		<_accel_filtered>
 			<count>3</count>
 			<item>
-				<x>-1.125263749e-03</x>
-				<y>-6.527018850e-04</y>
-				<z>-9.816700935e+00</z>
+				<x>-2.002134919e-03</x>
+				<y>5.289050168e-04</y>
+				<z>-9.818166733e+00</z>
 			</item>
 			<item>
-				<x>-5.911585176e-04</x>
-				<y>-1.461380860e-03</y>
-				<z>-9.816889763e+00</z>
+				<x>6.200327771e-04</x>
+				<y>-1.945773955e-03</y>
+				<z>-9.816456795e+00</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -2179,14 +2179,14 @@
 		<_gyro_filtered>
 			<count>3</count>
 			<item>
-				<x>4.782231554e-05</x>
-				<y>2.183534343e-05</y>
-				<z>1.010935557e-05</z>
+				<x>2.749698069e-05</x>
+				<y>2.871300967e-05</y>
+				<z>5.849250010e-05</z>
 			</item>
 			<item>
-				<x>1.420002518e-04</x>
-				<y>-6.863141607e-05</y>
-				<z>-4.748212450e-05</z>
+				<x>1.199252001e-04</x>
+				<y>9.201661305e-05</y>
+				<z>-2.918775426e-04</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -2197,14 +2197,14 @@
 		<_gyro_raw>
 			<count>3</count>
 			<item>
-				<x>1.370387245e-02</x>
-				<y>-1.164612696e-01</y>
-				<z>-1.379673928e-01</z>
+				<x>1.422469169e-01</x>
+				<y>2.116248012e-01</y>
+				<z>6.487120409e-04</z>
 			</item>
 			<item>
-				<x>1.077886969e-01</x>
-				<y>2.733622193e-01</y>
-				<z>-1.146659493e+00</z>
+				<x>3.395375311e-01</x>
+				<y>-3.270803392e-02</y>
+				<z>8.567056060e-01</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -2222,7 +2222,7 @@
 		<_new_accel_data>
 			<count>3</count>
 			<item>1</item>
-			<item>1</item>
+			<item>0</item>
 			<item>0</item>
 		</_new_accel_data>
 		<_new_gyro_data>
@@ -2232,7 +2232,7 @@
 			<item>0</item>
 		</_new_gyro_data>
 		<_notch_filter class_id="12" tracking_level="0" version="0">
-			<_enable class_id="13" tracking_level="0" version="0">
+			<_enable class_id="13" tracking_level="1" version="0" object_id="_6">
 				<sentinal_offset>467</sentinal_offset>
 				<_frame_type_flags>1</_frame_type_flags>
 				<param_defaults_data>
@@ -2249,13 +2249,13 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
 			</_enable>
-			<_center_freq_hz>
+			<_center_freq_hz object_id="_7">
 				<sentinal_offset>467</sentinal_offset>
 				<_frame_type_flags>1</_frame_type_flags>
 				<param_defaults_data>
@@ -2272,13 +2272,13 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
 			</_center_freq_hz>
-			<_bandwidth_hz>
+			<_bandwidth_hz object_id="_8">
 				<sentinal_offset>467</sentinal_offset>
 				<_frame_type_flags>1</_frame_type_flags>
 				<param_defaults_data>
@@ -2295,13 +2295,13 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
 			</_bandwidth_hz>
-			<_attenuation_dB>
+			<_attenuation_dB object_id="_9">
 				<sentinal_offset>467</sentinal_offset>
 				<_frame_type_flags>1</_frame_type_flags>
 				<param_defaults_data>
@@ -2318,8 +2318,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -2327,14 +2327,14 @@
 		</_notch_filter>
 		<_gyro_notch_filter>
 			<count>3</count>
-			<item class_id="14" tracking_level="1" version="0" object_id="_5">
+			<item class_id="14" tracking_level="1" version="0" object_id="_10">
 				<initialised>1</initialised>
-				<b0>1.011474848e+00</b0>
-				<b1>-1.752554059e+00</b1>
-				<b2>9.885251522e-01</b2>
-				<a1>-1.752554059e+00</a1>
-				<a2>9.354721904e-01</a2>
-				<a0_inv>9.393836260e-01</a0_inv>
+				<b0>1.011473417e+00</b0>
+				<b1>-1.752620816e+00</b1>
+				<b2>9.885265827e-01</b2>
+				<a1>-1.752620816e+00</a1>
+				<a2>9.354802966e-01</a2>
+				<a0_inv>9.393907785e-01</a0_inv>
 				<ntchsig>
 					<x>0.000000000e+00</x>
 					<y>0.000000000e+00</y>
@@ -2361,14 +2361,14 @@
 					<z>0.000000000e+00</z>
 				</signal1>
 			</item>
-			<item object_id="_6">
+			<item object_id="_11">
 				<initialised>1</initialised>
-				<b0>1.014625907e+00</b0>
-				<b1>-1.578430772e+00</b1>
-				<b2>9.853740335e-01</b2>
-				<a1>-1.578430772e+00</a1>
-				<a2>9.177522659e-01</a2>
-				<a0_inv>9.240028262e-01</a0_inv>
+				<b0>1.014626265e+00</b0>
+				<b1>-1.578408957e+00</b1>
+				<b2>9.853737354e-01</b2>
+				<a1>-1.578408957e+00</a1>
+				<a2>9.177503586e-01</a2>
+				<a0_inv>9.240012169e-01</a0_inv>
 				<ntchsig>
 					<x>0.000000000e+00</x>
 					<y>0.000000000e+00</y>
@@ -2395,7 +2395,7 @@
 					<z>0.000000000e+00</z>
 				</signal1>
 			</item>
-			<item object_id="_7">
+			<item object_id="_12">
 				<initialised>0</initialised>
 				<b0>0.000000000e+00</b0>
 				<b1>0.000000000e+00</b1>
@@ -2431,7 +2431,7 @@
 			</item>
 		</_gyro_notch_filter>
 		<_harmonic_notch_filter class_id="15" tracking_level="0" version="0">
-			<_harmonics>
+			<_harmonics object_id="_13">
 				<sentinal_offset>467</sentinal_offset>
 				<_frame_type_flags>1</_frame_type_flags>
 				<param_defaults_data>
@@ -2448,13 +2448,13 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
 			</_harmonics>
-			<_reference>
+			<_reference object_id="_14">
 				<sentinal_offset>467</sentinal_offset>
 				<_frame_type_flags>1</_frame_type_flags>
 				<param_defaults_data>
@@ -2471,13 +2471,13 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
 			</_reference>
-			<_tracking_mode>
+			<_tracking_mode object_id="_15">
 				<sentinal_offset>467</sentinal_offset>
 				<_frame_type_flags>1</_frame_type_flags>
 				<param_defaults_data>
@@ -2494,8 +2494,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -2517,8 +2517,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -2527,14 +2527,14 @@
 		<_gyro_harmonic_notch_filter>
 			<count>3</count>
 			<item class_id="17" tracking_level="0" version="0">
-				<_filters class_id_reference="14" object_id="_8">
+				<_filters class_id_reference="14" object_id="_16">
 					<initialised>1</initialised>
-					<b0>1.011474848e+00</b0>
-					<b1>-1.752554059e+00</b1>
-					<b2>9.885251522e-01</b2>
-					<a1>-1.752554059e+00</a1>
-					<a2>9.354721904e-01</a2>
-					<a0_inv>9.393836260e-01</a0_inv>
+					<b0>1.011473417e+00</b0>
+					<b1>-1.752620816e+00</b1>
+					<b2>9.885265827e-01</b2>
+					<a1>-1.752620816e+00</a1>
+					<a2>9.354802966e-01</a2>
+					<a0_inv>9.393907785e-01</a0_inv>
 					<ntchsig>
 						<x>0.000000000e+00</x>
 						<y>0.000000000e+00</y>
@@ -2561,7 +2561,7 @@
 						<z>0.000000000e+00</z>
 					</signal1>
 				</_filters>
-				<_sample_freq_hz>9.998776245e+02</_sample_freq_hz>
+				<_sample_freq_hz>1.000015442e+03</_sample_freq_hz>
 				<_notch_spread>7.812500000e-03</_notch_spread>
 				<_A>4.216965139e-01</_A>
 				<_Q>3.733332396e+00</_Q>
@@ -2572,14 +2572,14 @@
 				<_initialised>1</_initialised>
 			</item>
 			<item>
-				<_filters class_id_reference="14" object_id="_9">
+				<_filters class_id_reference="14" object_id="_17">
 					<initialised>1</initialised>
-					<b0>1.014625907e+00</b0>
-					<b1>-1.578430772e+00</b1>
-					<b2>9.853740335e-01</b2>
-					<a1>-1.578430772e+00</a1>
-					<a2>9.177522659e-01</a2>
-					<a0_inv>9.240028262e-01</a0_inv>
+					<b0>1.014626265e+00</b0>
+					<b1>-1.578408957e+00</b1>
+					<b2>9.853737354e-01</b2>
+					<a1>-1.578408957e+00</a1>
+					<a2>9.177503586e-01</a2>
+					<a0_inv>9.240012169e-01</a0_inv>
 					<ntchsig>
 						<x>0.000000000e+00</x>
 						<y>0.000000000e+00</y>
@@ -2606,7 +2606,7 @@
 						<z>0.000000000e+00</z>
 					</signal1>
 				</_filters>
-				<_sample_freq_hz>7.601401367e+02</_sample_freq_hz>
+				<_sample_freq_hz>7.601196899e+02</_sample_freq_hz>
 				<_notch_spread>7.812500000e-03</_notch_spread>
 				<_A>4.216965139e-01</_A>
 				<_Q>3.733332396e+00</_Q>
@@ -2633,14 +2633,14 @@
 		<_gyro>
 			<count>3</count>
 			<item>
-				<x>4.745732076e-05</x>
-				<y>1.836254523e-05</y>
-				<z>9.409858649e-06</z>
+				<x>2.273714199e-05</x>
+				<y>3.480790838e-05</y>
+				<z>5.765056267e-05</z>
 			</item>
 			<item>
-				<x>1.316897542e-04</x>
-				<y>-5.169295764e-05</y>
-				<z>-4.478314167e-06</z>
+				<x>1.235706586e-04</x>
+				<y>9.298037912e-05</y>
+				<z>-2.955831587e-04</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -2651,14 +2651,14 @@
 		<_delta_angle>
 			<count>3</count>
 			<item>
-				<x>4.027278351e-07</x>
-				<y>1.668668261e-07</y>
-				<z>-6.774861561e-09</z>
+				<x>4.022537610e-07</x>
+				<y>1.362133730e-07</y>
+				<z>1.924473878e-07</z>
 			</item>
 			<item>
-				<x>9.577971127e-08</x>
-				<y>-9.477212615e-08</y>
-				<z>-1.447536988e-06</z>
+				<x>2.422141279e-07</x>
+				<y>5.903507940e-07</y>
+				<z>-4.832540981e-07</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -2668,8 +2668,8 @@
 		</_delta_angle>
 		<_delta_angle_dt>
 			<count>3</count>
-			<item>3.000367200e-03</item>
-			<item>1.315546921e-03</item>
+			<item>1.999969129e-03</item>
+			<item>2.631164622e-03</item>
 			<item>0.000000000e+00</item>
 		</_delta_angle_dt>
 		<_delta_angle_valid>
@@ -2680,21 +2680,21 @@
 		</_delta_angle_valid>
 		<_delta_angle_acc_dt>
 			<count>3</count>
-			<item>1.000122400e-03</item>
-			<item>1.315546921e-03</item>
+			<item>9.999845643e-04</item>
+			<item>1.315582311e-03</item>
 			<item>0.000000000e+00</item>
 		</_delta_angle_acc_dt>
 		<_delta_angle_acc>
 			<count>3</count>
 			<item>
-				<x>4.176725810e-08</x>
-				<y>2.794468479e-08</y>
-				<z>-2.156752004e-07</z>
+				<x>-7.631819443e-08</x>
+				<y>7.068288710e-08</y>
+				<z>1.221793013e-07</z>
 			</item>
 			<item>
-				<x>8.906941389e-07</x>
-				<y>-9.060186557e-08</y>
-				<z>-1.045266231e-06</z>
+				<x>3.250994780e-07</x>
+				<y>6.498676726e-07</y>
+				<z>7.499140224e-07</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -2705,14 +2705,14 @@
 		<_last_delta_angle>
 			<count>3</count>
 			<item>
-				<x>4.176725454e-08</x>
-				<y>2.794468301e-08</y>
-				<z>-2.156752004e-07</z>
+				<x>-7.631819443e-08</x>
+				<y>7.068288710e-08</y>
+				<z>1.221793013e-07</z>
 			</item>
 			<item>
-				<x>8.906941389e-07</x>
-				<y>-9.060176609e-08</y>
-				<z>-1.045266231e-06</z>
+				<x>3.250994780e-07</x>
+				<y>6.498676726e-07</y>
+				<z>7.499140224e-07</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -2723,14 +2723,14 @@
 		<_last_raw_gyro>
 			<count>3</count>
 			<item>
-				<x>6.891461089e-05</x>
-				<y>1.800416649e-04</y>
-				<z>-2.842108370e-04</z>
+				<x>-3.042879107e-04</x>
+				<y>-8.424483531e-05</y>
+				<z>2.436707728e-04</z>
 			</item>
 			<item>
-				<x>1.239191392e-03</x>
-				<y>-4.291710211e-04</y>
-				<z>-3.666461853e-04</z>
+				<x>1.322487078e-04</x>
+				<y>1.022824435e-03</y>
+				<z>2.267166710e-04</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -2771,8 +2771,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -2794,8 +2794,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -2817,8 +2817,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -2843,8 +2843,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -2866,8 +2866,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -2889,8 +2889,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -2915,8 +2915,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -2938,8 +2938,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -2961,8 +2961,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -2987,8 +2987,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -3010,8 +3010,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -3033,8 +3033,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -3059,8 +3059,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -3082,8 +3082,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -3105,8 +3105,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -3131,8 +3131,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -3154,8 +3154,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -3177,8 +3177,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -3192,14 +3192,14 @@
 		</_accel_max_abs_offsets>
 		<_accel_raw_sample_rates>
 			<count>3</count>
-			<item>9.998776245e+02</item>
-			<item>7.999420166e+02</item>
+			<item>1.000015442e+03</item>
+			<item>7.999510498e+02</item>
 			<item>0.000000000e+00</item>
 		</_accel_raw_sample_rates>
 		<_gyro_raw_sample_rates>
 			<count>3</count>
-			<item>9.998776245e+02</item>
-			<item>7.601401367e+02</item>
+			<item>1.000015442e+03</item>
+			<item>7.601196899e+02</item>
 			<item>0.000000000e+00</item>
 		</_gyro_raw_sample_rates>
 		<_accel_over_sampling>
@@ -3216,38 +3216,38 @@
 		</_gyro_over_sampling>
 		<_accel_last_sample_us>
 			<count>3</count>
-			<item>4531520</item>
-			<item>4531520</item>
+			<item>5531953</item>
+			<item>5531120</item>
 			<item>0</item>
 		</_accel_last_sample_us>
 		<_gyro_last_sample_us>
 			<count>3</count>
-			<item>4531520</item>
-			<item>4531520</item>
+			<item>5531953</item>
+			<item>5531953</item>
 			<item>0</item>
 		</_gyro_last_sample_us>
 		<_sample_accel_count>
 			<count>3</count>
-			<item>777</item>
-			<item>621</item>
+			<item>776</item>
+			<item>620</item>
 			<item>0</item>
 		</_sample_accel_count>
 		<_sample_accel_start_us>
 			<count>3</count>
-			<item>3755164</item>
-			<item>3755164</item>
+			<item>4755597</item>
+			<item>4756430</item>
 			<item>0</item>
 		</_sample_accel_start_us>
 		<_sample_gyro_count>
 			<count>3</count>
-			<item>777</item>
+			<item>776</item>
 			<item>590</item>
 			<item>0</item>
 		</_sample_gyro_count>
 		<_sample_gyro_start_us>
 			<count>3</count>
-			<item>3755164</item>
-			<item>3755164</item>
+			<item>4755597</item>
+			<item>4756430</item>
 			<item>0</item>
 		</_sample_gyro_start_us>
 		<_temperature>
@@ -3273,8 +3273,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -3296,13 +3296,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_gyro_filter_cutoff>
-		<_gyro_cal_timing>
+		<_gyro_cal_timing object_id="_18">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3319,15 +3319,15 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_gyro_cal_timing>
 		<_use>
 			<count>3</count>
-			<item>
+			<item object_id="_19">
 				<sentinal_offset>467</sentinal_offset>
 				<_frame_type_flags>1</_frame_type_flags>
 				<param_defaults_data>
@@ -3344,13 +3344,13 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
 			</item>
-			<item>
+			<item object_id="_20">
 				<sentinal_offset>467</sentinal_offset>
 				<_frame_type_flags>1</_frame_type_flags>
 				<param_defaults_data>
@@ -3367,13 +3367,13 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
 			</item>
-			<item>
+			<item object_id="_21">
 				<sentinal_offset>467</sentinal_offset>
 				<_frame_type_flags>1</_frame_type_flags>
 				<param_defaults_data>
@@ -3390,14 +3390,14 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
 			</item>
 		</_use>
-		<_fast_sampling_mask>
+		<_fast_sampling_mask object_id="_22">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3414,13 +3414,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_fast_sampling_mask>
-		<_enable_mask>
+		<_enable_mask object_id="_23">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3437,8 +3437,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -3475,10 +3475,10 @@
 		<_accel_wait_mask>3</_accel_wait_mask>
 		<_log_raw_bit>524288</_log_raw_bit>
 		<_delta_time>2.498999937e-03</_delta_time>
-		<_last_sample_usec>4530687</_last_sample_usec>
-		<_next_sample_usec>4533154</_next_sample_usec>
+		<_last_sample_usec>5531120</_last_sample_usec>
+		<_next_sample_usec>5533154</_next_sample_usec>
 		<_sample_period_usec>2500</_sample_period_usec>
-		<_last_update_usec>4530687</_last_update_usec>
+		<_last_update_usec>5531120</_last_update_usec>
 		<_gyro_healthy>
 			<count>3</count>
 			<item>1</item>
@@ -3515,22 +3515,22 @@
 				<_cutoff_freq>5.000000000e+00</_cutoff_freq>
 				<_filter class_id="22" tracking_level="0" version="0">
 					<_output>
-						<x>-1.114401734e-03</x>
-						<y>-4.332866811e-04</y>
-						<z>-9.817177773e+00</z>
+						<x>-1.464303583e-03</x>
+						<y>-5.439321976e-04</y>
+						<z>-9.817761421e+00</z>
 					</_output>
-					<alpha>3.046264313e-02</alpha>
+					<alpha>3.045857325e-02</alpha>
 				</_filter>
 			</item>
 			<item>
 				<_cutoff_freq>5.000000000e+00</_cutoff_freq>
 				<_filter>
 					<_output>
-						<x>-6.323255948e-04</x>
-						<y>-5.176733830e-04</y>
-						<z>-9.817165375e+00</z>
+						<x>9.475942934e-04</x>
+						<y>-7.281167782e-04</y>
+						<z>-9.816876411e+00</z>
 					</_output>
-					<alpha>3.778868914e-02</alpha>
+					<alpha>3.778827563e-02</alpha>
 				</_filter>
 			</item>
 		</_accel_vibe_floor_filter>
@@ -3540,26 +3540,26 @@
 				<_cutoff_freq>2.000000000e+00</_cutoff_freq>
 				<_filter>
 					<_output>
-						<x>1.565712773e-05</x>
-						<y>1.645571319e-05</y>
-						<z>1.512440213e-05</z>
+						<x>1.693645208e-05</x>
+						<y>1.680014611e-05</y>
+						<z>1.464614434e-05</z>
 					</_output>
-					<alpha>1.241191756e-02</alpha>
+					<alpha>1.241022721e-02</alpha>
 				</_filter>
 			</item>
 			<item>
 				<_cutoff_freq>2.000000000e+00</_cutoff_freq>
 				<_filter>
 					<_output>
-						<x>5.912132838e-05</x>
-						<y>6.805908924e-05</y>
-						<z>6.367871538e-05</z>
+						<x>6.672161544e-05</x>
+						<y>6.019897774e-05</y>
+						<z>6.096095967e-05</z>
 					</_output>
-					<alpha>1.546614431e-02</alpha>
+					<alpha>1.546597108e-02</alpha>
 				</_filter>
 			</item>
 		</_accel_vibe_filter>
-		<_still_threshold>
+		<_still_threshold object_id="_24">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3576,13 +3576,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_still_threshold>
-		<_acc_body_aligned>
+		<_acc_body_aligned object_id="_25">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3599,13 +3599,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_acc_body_aligned>
-		<_trim_option>
+		<_trim_option object_id="_26">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3622,8 +3622,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -3650,7 +3650,7 @@
 		<_startup_ms>1757</_startup_ms>
 		<imu_kill_mask>0</imu_kill_mask>
 	</_ins>
-	<_scheduler class_id="25" tracking_level="1" version="0" object_id="_10">
+	<_scheduler class_id="25" tracking_level="1" version="0" object_id="_27">
 		<_nested_atomic_ctr>0</_nested_atomic_ctr>
 		<_num_timer_procs>4</_num_timer_procs>
 		<_num_io_procs>4</_num_io_procs>
@@ -3658,20 +3658,20 @@
 		<_in_io_proc>0</_in_io_proc>
 		<_in_semaphore_take_wait>0</_in_semaphore_take_wait>
 		<_initialized>1</_initialized>
-		<_stopped_clock_usec>4531520</_stopped_clock_usec>
-		<_last_io_run>4526522</_last_io_run>
+		<_stopped_clock_usec>5531953</_stopped_clock_usec>
+		<_last_io_run>5522790</_last_io_run>
 		<_thread_sem></_thread_sem>
-		<threads class_id="26" tracking_level="1" version="0" object_id="_11">
+		<threads class_id="26" tracking_level="1" version="0" object_id="_28">
 			<next class_id="-1"></next>
 			<stack_size>5372</stack_size>
 		</threads>
 	</_scheduler>
-	<_compass class_id="27" tracking_level="1" version="0" object_id="_12">
+	<_compass class_id="27" tracking_level="1" version="0" object_id="_29">
 		<_compass_cal_autoreboot>0</_compass_cal_autoreboot>
 		<_cal_complete_requires_reboot>0</_cal_complete_requires_reboot>
 		<_cal_has_run>0</_cal_has_run>
 		<_backend_count>1</_backend_count>
-		<_enabled>
+		<_enabled object_id="_30">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3688,15 +3688,15 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_enabled>
 		<_compass_count>3</_compass_count>
 		<_unreg_compass_count>3</_unreg_compass_count>
-		<_learn>
+		<_learn object_id="_31">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3713,13 +3713,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_learn>
-		<_declination>
+		<_declination object_id="_32">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3736,13 +3736,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_declination>
-		<_auto_declination>
+		<_auto_declination object_id="_33">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3759,15 +3759,15 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_auto_declination>
 		<_null_init_done>0</_null_init_done>
 		<_log_bit>8192</_log_bit>
-		<_motor_comp_type>
+		<_motor_comp_type object_id="_34">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3784,13 +3784,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_motor_comp_type>
-		<_rotate_auto>
+		<_rotate_auto object_id="_35">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3807,13 +3807,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_rotate_auto>
-		<_custom_roll>
+		<_custom_roll object_id="_36">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3830,13 +3830,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_custom_roll>
-		<_custom_pitch>
+		<_custom_pitch object_id="_37">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3853,13 +3853,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_custom_pitch>
-		<_custom_yaw>
+		<_custom_yaw object_id="_38">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3876,16 +3876,16 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_custom_yaw>
 		<_thr>0.000000000e+00</_thr>
 	</_compass>
-	<_terrain class_id="28" tracking_level="1" version="0" object_id="_13">
-		<enable>
+	<_terrain class_id="28" tracking_level="1" version="0" object_id="_39">
+		<enable object_id="_40">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -3902,8 +3902,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -3925,8 +3925,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -3948,14 +3948,14 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</options>
 		<cache_size>12</cache_size>
-		<cache class_id="29" tracking_level="1" version="0" object_id="_14"></cache>
+		<cache class_id="29" tracking_level="1" version="0" object_id="_41"></cache>
 		<disk_io_state>0</disk_io_state>
 		<disk_block></disk_block>
 		<last_request_time_ms>
@@ -3989,9 +3989,9 @@
 		<last_rally_spacing>100</last_rally_spacing>
 		<memory_alloc_failed>0</memory_alloc_failed>
 	</_terrain>
-	<_sitl class_id="32" tracking_level="1" version="0" object_id="_15">
+	<_sitl class_id="32" tracking_level="1" version="0" object_id="_42">
 		<state class_id="33" tracking_level="0" version="0">
-			<timestamp_us>4531520</timestamp_us>
+			<timestamp_us>5531953</timestamp_us>
 			<home>
 				<alt>31000</alt>
 				<lat>-275830000</lat>
@@ -4009,7 +4009,7 @@
 			<zAccel>-9.80665016174316406e+00</zAccel>
 			<rollRate>0.00000000000000000e+00</rollRate>
 			<pitchRate>0.00000000000000000e+00</pitchRate>
-			<yawRate>0.00000000000000000e+00</yawRate>
+			<yawRate>-5.12264159624464810e-05</yawRate>
 			<rollDeg>0.00000000000000000e+00</rollDeg>
 			<pitchDeg>0.00000000000000000e+00</pitchDeg>
 			<yawDeg>9.69999923706054688e+01</yawDeg>
@@ -4065,7 +4065,7 @@
 		<update_rate_hz>1200</update_rate_hz>
 		<throttle>0.000000000e+00</throttle>
 		<height_agl>2.855527954e+02</height_agl>
-		<ahrs_rotation class_id="20" tracking_level="1" version="0" object_id="_16">
+		<ahrs_rotation class_id="20" tracking_level="1" version="0" object_id="_43">
 			<a>
 				<x>1.000000000e+00</x>
 				<y>0.000000000e+00</y>
@@ -4082,7 +4082,7 @@
 				<z>1.000000000e+00</z>
 			</c>
 		</ahrs_rotation>
-		<ahrs_rotation_inv object_id="_17">
+		<ahrs_rotation_inv object_id="_44">
 			<a>
 				<x>1.000000000e+00</x>
 				<y>0.000000000e+00</y>
@@ -4099,7 +4099,7 @@
 				<z>1.000000000e+00</z>
 			</c>
 		</ahrs_rotation_inv>
-		<baro_noise>
+		<baro_noise object_id="_45">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4116,13 +4116,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</baro_noise>
-		<baro_drift>
+		<baro_drift object_id="_46">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4139,13 +4139,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</baro_drift>
-		<baro_glitch>
+		<baro_glitch object_id="_47">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4162,13 +4162,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</baro_glitch>
-		<gyro_noise>
+		<gyro_noise object_id="_48">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4185,8 +4185,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -4208,13 +4208,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</gyro_scale>
-		<accel_noise>
+		<accel_noise object_id="_49">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4231,13 +4231,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</accel_noise>
-		<accel2_noise>
+		<accel2_noise object_id="_50">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4254,8 +4254,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -4277,8 +4277,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -4300,13 +4300,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</accel2_bias>
-		<arspd_noise>
+		<arspd_noise object_id="_51">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4323,13 +4323,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</arspd_noise>
-		<arspd_fail>
+		<arspd_fail object_id="_52">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4346,13 +4346,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</arspd_fail>
-		<arspd2_fail>
+		<arspd2_fail object_id="_53">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4369,13 +4369,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</arspd2_fail>
-		<arspd_fail_pressure>
+		<arspd_fail_pressure object_id="_54">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4392,13 +4392,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</arspd_fail_pressure>
-		<arspd_fail_pitot_pressure>
+		<arspd_fail_pitot_pressure object_id="_55">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4415,13 +4415,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</arspd_fail_pitot_pressure>
-		<arspd2_fail_pressure>
+		<arspd2_fail_pressure object_id="_56">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4438,13 +4438,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</arspd2_fail_pressure>
-		<arspd2_fail_pitot_pressure>
+		<arspd2_fail_pitot_pressure object_id="_57">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4461,13 +4461,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</arspd2_fail_pitot_pressure>
-		<gps_noise>
+		<gps_noise object_id="_58">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4484,8 +4484,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -4507,8 +4507,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -4530,13 +4530,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</gps_alt_offset>
-		<mag_noise>
+		<mag_noise object_id="_59">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4553,8 +4553,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -4576,8 +4576,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -4599,8 +4599,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -4622,8 +4622,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -4645,13 +4645,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</mag_offdiag>
-		<mag_orient>
+		<mag_orient object_id="_60">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4668,13 +4668,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</mag_orient>
-		<servo_speed>
+		<servo_speed object_id="_61">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4691,13 +4691,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</servo_speed>
-		<sonar_glitch>
+		<sonar_glitch object_id="_62">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4714,13 +4714,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</sonar_glitch>
-		<sonar_noise>
+		<sonar_noise object_id="_63">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4737,13 +4737,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</sonar_noise>
-		<sonar_scale>
+		<sonar_scale object_id="_64">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4760,13 +4760,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</sonar_scale>
-		<drift_speed>
+		<drift_speed object_id="_65">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4783,13 +4783,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</drift_speed>
-		<drift_time>
+		<drift_time object_id="_66">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4806,13 +4806,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</drift_time>
-		<engine_mul>
+		<engine_mul object_id="_67">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4829,13 +4829,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</engine_mul>
-		<engine_fail>
+		<engine_fail object_id="_68">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4852,13 +4852,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</engine_fail>
-		<gps_disable>
+		<gps_disable object_id="_69">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4875,13 +4875,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</gps_disable>
-		<gps2_enable>
+		<gps2_enable object_id="_70">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4898,13 +4898,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</gps2_enable>
-		<gps_delay>
+		<gps_delay object_id="_71">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4921,15 +4921,15 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</gps_delay>
 		<gps_type>
 			<count>2</count>
-			<item>
+			<item object_id="_72">
 				<sentinal_offset>467</sentinal_offset>
 				<_frame_type_flags>1</_frame_type_flags>
 				<param_defaults_data>
@@ -4946,13 +4946,13 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
 			</item>
-			<item>
+			<item object_id="_73">
 				<sentinal_offset>467</sentinal_offset>
 				<_frame_type_flags>1</_frame_type_flags>
 				<param_defaults_data>
@@ -4969,14 +4969,14 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
 			</item>
 		</gps_type>
-		<gps_byteloss>
+		<gps_byteloss object_id="_74">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -4993,13 +4993,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</gps_byteloss>
-		<gps_numsats>
+		<gps_numsats object_id="_75">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5016,8 +5016,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -5041,8 +5041,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -5064,14 +5064,14 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
 			</item>
 		</gps_glitch>
-		<gps_hertz>
+		<gps_hertz object_id="_76">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5088,13 +5088,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</gps_hertz>
-		<batt_voltage>
+		<batt_voltage object_id="_77">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5111,13 +5111,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</batt_voltage>
-		<accel_fail>
+		<accel_fail object_id="_78">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5134,13 +5134,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</accel_fail>
-		<rc_fail>
+		<rc_fail object_id="_79">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5157,13 +5157,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</rc_fail>
-		<rc_chancount>
+		<rc_chancount object_id="_80">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5180,13 +5180,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</rc_chancount>
-		<baro_disable>
+		<baro_disable object_id="_81">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5203,13 +5203,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</baro_disable>
-		<float_exception>
+		<float_exception object_id="_82">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5226,13 +5226,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</float_exception>
-		<flow_enable>
+		<flow_enable object_id="_83">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5249,8 +5249,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -5272,13 +5272,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</flow_rate>
-		<flow_delay>
+		<flow_delay object_id="_84">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5295,13 +5295,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</flow_delay>
-		<terrain_enable>
+		<terrain_enable object_id="_85">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5318,8 +5318,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -5341,13 +5341,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</pin_mask>
-		<speedup>
+		<speedup object_id="_86">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5364,13 +5364,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</speedup>
-		<odom_enable>
+		<odom_enable object_id="_87">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5387,13 +5387,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</odom_enable>
-		<telem_baudlimit_enable>
+		<telem_baudlimit_enable object_id="_88">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5410,13 +5410,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</telem_baudlimit_enable>
-		<flow_noise>
+		<flow_noise object_id="_89">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5433,13 +5433,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</flow_noise>
-		<baro_count>
+		<baro_count object_id="_90">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5456,15 +5456,15 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</baro_count>
 		<gps_hdg_enabled>
 			<count>2</count>
-			<item>
+			<item object_id="_91">
 				<sentinal_offset>467</sentinal_offset>
 				<_frame_type_flags>1</_frame_type_flags>
 				<param_defaults_data>
@@ -5481,13 +5481,13 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
 			</item>
-			<item>
+			<item object_id="_92">
 				<sentinal_offset>467</sentinal_offset>
 				<_frame_type_flags>1</_frame_type_flags>
 				<param_defaults_data>
@@ -5504,8 +5504,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -5528,13 +5528,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</loop_delay>
-		<mag_scaling>
+		<mag_scaling object_id="_93">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5551,8 +5551,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -5576,8 +5576,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -5599,8 +5599,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -5622,8 +5622,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -5645,8 +5645,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -5668,8 +5668,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -5691,8 +5691,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -5714,8 +5714,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -5737,14 +5737,14 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
 			</item>
 		</mag_devid>
-		<buoyancy>
+		<buoyancy object_id="_94">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5761,13 +5761,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</buoyancy>
-		<efi_type>
+		<efi_type object_id="_95">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5784,16 +5784,16 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</efi_type>
 		<wind_speed_active>0.000000000e+00</wind_speed_active>
-		<wind_direction_active>0.000000000e+00</wind_direction_active>
+		<wind_direction_active>1.799998169e+02</wind_direction_active>
 		<wind_dir_z_active>0.000000000e+00</wind_dir_z_active>
-		<wind_speed>
+		<wind_speed object_id="_96">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5810,13 +5810,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</wind_speed>
-		<wind_direction>
+		<wind_direction object_id="_97">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5833,13 +5833,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</wind_direction>
-		<wind_turbulance>
+		<wind_turbulance object_id="_98">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5856,13 +5856,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</wind_turbulance>
-		<gps_drift_alt>
+		<gps_drift_alt object_id="_99">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5879,13 +5879,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</gps_drift_alt>
-		<wind_dir_z>
+		<wind_dir_z object_id="_100">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5902,13 +5902,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</wind_dir_z>
-		<wind_type>
+		<wind_type object_id="_101">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5925,13 +5925,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</wind_type>
-		<wind_type_alt>
+		<wind_type_alt object_id="_102">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5948,13 +5948,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</wind_type_alt>
-		<wind_type_coef>
+		<wind_type_coef object_id="_103">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -5971,8 +5971,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -5994,8 +5994,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6017,8 +6017,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6040,8 +6040,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6063,13 +6063,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</adsb_plane_count>
-		<adsb_radius_m>
+		<adsb_radius_m object_id="_104">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6086,13 +6086,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</adsb_radius_m>
-		<adsb_altitude_m>
+		<adsb_altitude_m object_id="_105">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6109,13 +6109,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</adsb_altitude_m>
-		<adsb_tx>
+		<adsb_tx object_id="_106">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6132,8 +6132,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6155,13 +6155,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</mag_anomaly_ned>
-		<mag_anomaly_hgt>
+		<mag_anomaly_hgt object_id="_107">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6178,8 +6178,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6201,8 +6201,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6226,8 +6226,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6249,8 +6249,8 @@
 				<_count_marker>20</_count_marker>
 				<_count_marker_done>20</_count_marker_done>
 				<_count_sem></_count_sem>
-				<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-				<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 				<num_param_overrides>79</num_param_overrides>
 				<num_read_only>0</num_read_only>
 				<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6273,8 +6273,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6296,8 +6296,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6319,13 +6319,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</vicon_pos_offset>
-		<temp_start>
+		<temp_start object_id="_108">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6342,13 +6342,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</temp_start>
-		<temp_flight>
+		<temp_flight object_id="_109">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6365,13 +6365,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</temp_flight>
-		<temp_tconst>
+		<temp_tconst object_id="_110">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6388,13 +6388,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</temp_tconst>
-		<temp_baro_factor>
+		<temp_baro_factor object_id="_111">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6411,13 +6411,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</temp_baro_factor>
-		<thermal_scenario>
+		<thermal_scenario object_id="_112">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6434,13 +6434,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</thermal_scenario>
-		<arspd_signflip>
+		<arspd_signflip object_id="_113">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6457,13 +6457,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</arspd_signflip>
-		<wow_pin>
+		<wow_pin object_id="_114">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6480,8 +6480,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6503,13 +6503,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</vibe_freq>
-		<vibe_motor>
+		<vibe_motor object_id="_115">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6526,13 +6526,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</vibe_motor>
-		<vibe_motor_scale>
+		<vibe_motor_scale object_id="_116">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6549,13 +6549,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</vibe_motor_scale>
-		<ins_noise_throttle_min>
+		<ins_noise_throttle_min object_id="_117">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6572,13 +6572,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</ins_noise_throttle_min>
-		<gyro_fail_mask>
+		<gyro_fail_mask object_id="_118">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6595,13 +6595,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</gyro_fail_mask>
-		<accel_fail_mask>
+		<accel_fail_mask object_id="_119">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6618,13 +6618,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</accel_fail_mask>
-		<gnd_behav>
+		<gnd_behav object_id="_120">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6641,13 +6641,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</gnd_behav>
-		<_safety_switch_state>
+		<_safety_switch_state object_id="_121">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6664,14 +6664,14 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</_safety_switch_state>
 		<irlock_port>9005</irlock_port>
-		<led_layout>
+		<led_layout object_id="_122">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6688,8 +6688,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6711,13 +6711,13 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
 		</vicon_glitch>
-		<vicon_fail>
+		<vicon_fail object_id="_123">
 			<sentinal_offset>467</sentinal_offset>
 			<_frame_type_flags>1</_frame_type_flags>
 			<param_defaults_data>
@@ -6734,8 +6734,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6757,8 +6757,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6780,8 +6780,8 @@
 			<_count_marker>20</_count_marker>
 			<_count_marker_done>20</_count_marker_done>
 			<_count_sem></_count_sem>
-			<_var_info class_id_reference="7" object_id_reference="_2"></_var_info>
-			<param_overrides class_id_reference="8" object_id_reference="_3"></param_overrides>
+			<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+			<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
 			<num_param_overrides>79</num_param_overrides>
 			<num_read_only>0</num_read_only>
 			<_hide_disabled_groups>1</_hide_disabled_groups>
@@ -6800,12 +6800,224 @@
 	<time_delta_mag>0</time_delta_mag>
 	<delayed_time_mag>0</delayed_time_mag>
 	<store_index_wind>3</store_index_wind>
-	<last_store_time_wind>4530</last_store_time_wind>
+	<last_store_time_wind>5530</last_store_time_wind>
 	<buffer_wind class_id="36" tracking_level="0" version="0"></buffer_wind>
 	<buffer_wind_2></buffer_wind_2>
 	<time_delta_wind>31</time_delta_wind>
-	<delayed_time_wind>4531</delayed_time_wind>
+	<delayed_time_wind>5531</delayed_time_wind>
 	<wind_start_delay_micros>1</wind_start_delay_micros>
+	<sitl_model class_id="37" tracking_level="1" version="0" object_id="_124">
+		<Aircraft class_id="38" tracking_level="0" version="0">
+			<home_is_set>1</home_is_set>
+			<ground_level>3.100000000e+02</ground_level>
+			<home_yaw>9.700000000e+01</home_yaw>
+			<frame_height>1.000000015e-01</frame_height>
+			<dcm object_id="_125">
+				<a>
+					<x>-1.218692884e-01</x>
+					<y>-9.925461411e-01</y>
+					<z>0.000000000e+00</z>
+				</a>
+				<b>
+					<x>9.925461411e-01</x>
+					<y>-1.218692884e-01</y>
+					<z>0.000000000e+00</z>
+				</b>
+				<c>
+					<x>-0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>1.000000000e+00</z>
+				</c>
+			</dcm>
+			<gyro>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</gyro>
+			<gyro_prev>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</gyro_prev>
+			<ang_accel>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</ang_accel>
+			<velocity_ef>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</velocity_ef>
+			<wind_ef>
+				<x>-0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</wind_ef>
+			<velocity_air_ef>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</velocity_air_ef>
+			<velocity_air_bf>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</velocity_air_bf>
+			<position>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>-1.000061035e-01</z>
+			</position>
+			<mass>1.500000000e+00</mass>
+			<external_payload_mass>0.000000000e+00</external_payload_mass>
+			<accel_body>
+				<x>0.000000000e+00</x>
+				<y>-0.000000000e+00</y>
+				<z>-9.806650162e+00</z>
+			</accel_body>
+			<airspeed>0.000000000e+00</airspeed>
+			<airspeed_pitot>0.000000000e+00</airspeed_pitot>
+			<battery_voltage>1.260000038e+01</battery_voltage>
+			<battery_current>0.000000000e+00</battery_current>
+			<num_motors>4</num_motors>
+			<rpm>
+				<count>12</count>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+			</rpm>
+			<rcin_chan_count>0</rcin_chan_count>
+			<rcin>
+				<count>8</count>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+			</rcin>
+			<range>-1.000000000e+00</range>
+			<turbulence_azimuth>0.000000000e+00</turbulence_azimuth>
+			<turbulence_horizontal_speed>0.000000000e+00</turbulence_horizontal_speed>
+			<turbulence_vertical_speed>0.000000000e+00</turbulence_vertical_speed>
+			<mag_bf>
+				<x>1.573405838e+01</x>
+				<y>-2.652873840e+02</y>
+				<z>-4.607303772e+02</z>
+			</mag_bf>
+			<time_now_us>5531953</time_now_us>
+			<gyro_noise>1.745329238e-03</gyro_noise>
+			<accel_noise>3.000000119e-01</accel_noise>
+			<rate_hz>1.200000000e+03</rate_hz>
+			<achieved_rate_hz>1.157785034e+03</achieved_rate_hz>
+			<target_speedup>1.000000000e+00</target_speedup>
+			<frame_time_us>833</frame_time_us>
+			<scaled_frame_time_us>7.597494507e+02</scaled_frame_time_us>
+			<last_wall_time_us>1591277920566862</last_wall_time_us>
+			<instance>0</instance>
+			<use_time_sync>1</use_time_sync>
+			<last_speedup>1.000000000e+00</last_speedup>
+			<ahrs_orientation class_id_reference="13" object_id="_126">
+				<sentinal_offset>467</sentinal_offset>
+				<_frame_type_flags>1</_frame_type_flags>
+				<param_defaults_data>
+					<_magic_str>PARMDEF</_magic_str>
+					<_param_magic_hex>5537F4A0385D485B</_param_magic_hex>
+					<_data_hex>0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</_data_hex>
+				</param_defaults_data>
+				<_storage>
+					<type>0</type>
+					<total_size>4096</total_size>
+				</_storage>
+				<_num_vars>101</_num_vars>
+				<_parameter_count>1217</_parameter_count>
+				<_count_marker>20</_count_marker>
+				<_count_marker_done>20</_count_marker_done>
+				<_count_sem></_count_sem>
+				<_var_info class_id_reference="7" object_id_reference="_3"></_var_info>
+				<param_overrides class_id_reference="8" object_id_reference="_4"></param_overrides>
+				<num_param_overrides>79</num_param_overrides>
+				<num_read_only>0</num_read_only>
+				<_hide_disabled_groups>1</_hide_disabled_groups>
+			</ahrs_orientation>
+			<last_imu_rotation>0</last_imu_rotation>
+			<custom_roll class_id="-1"></custom_roll>
+			<custom_pitch class_id="-1"></custom_pitch>
+			<custom_yaw class_id="-1"></custom_yaw>
+			<use_smoothing>1</use_smoothing>
+			<terrain class_id_reference="28" object_id_reference="_39"></terrain>
+			<last_time_us>5531953</last_time_us>
+			<frame_counter>1</frame_counter>
+			<last_ground_contact_ms>0</last_ground_contact_ms>
+			<min_sleep_time>5000</min_sleep_time>
+			<servo_filter>
+				<count>4</count>
+				<item class_id="39" tracking_level="0" version="0">
+					<_cutoff_freq>0.000000000e+00</_cutoff_freq>
+					<_filter class_id="40" tracking_level="0" version="0">
+						<_output>0.000000000e+00</_output>
+						<alpha>1.000000000e+00</alpha>
+					</_filter>
+				</item>
+				<item>
+					<_cutoff_freq>0.000000000e+00</_cutoff_freq>
+					<_filter>
+						<_output>0.000000000e+00</_output>
+						<alpha>1.000000000e+00</alpha>
+					</_filter>
+				</item>
+				<item>
+					<_cutoff_freq>0.000000000e+00</_cutoff_freq>
+					<_filter>
+						<_output>0.000000000e+00</_output>
+						<alpha>1.000000000e+00</alpha>
+					</_filter>
+				</item>
+				<item>
+					<_cutoff_freq>0.000000000e+00</_cutoff_freq>
+					<_filter>
+						<_output>0.000000000e+00</_output>
+						<alpha>1.000000000e+00</alpha>
+					</_filter>
+				</item>
+			</servo_filter>
+		</Aircraft>
+		<frame class_id="41" tracking_level="1" version="0" object_id="_127">
+			<num_motors>4</num_motors>
+			<motors class_id="42" tracking_level="1" version="0" object_id="_128">
+				<angle>9.000000000e+01</angle>
+				<yaw_factor>1.000000000e+00</yaw_factor>
+				<servo>0</servo>
+				<display_order>2</display_order>
+				<roll_servo>-1</roll_servo>
+				<roll_min>0.000000000e+00</roll_min>
+				<roll_max>0.000000000e+00</roll_max>
+				<pitch_servo>-1</pitch_servo>
+				<pitch_min>0.000000000e+00</pitch_min>
+				<pitch_max>0.000000000e+00</pitch_max>
+				<servo_rate>2.399999946e-01</servo_rate>
+				<last_change_usec>5531120</last_change_usec>
+				<last_roll_value>0.000000000e+00</last_roll_value>
+				<last_pitch_value>0.000000000e+00</last_pitch_value>
+			</motors>
+			<terminal_velocity>1.500000000e+01</terminal_velocity>
+			<terminal_rotation_rate>2.513274193e+01</terminal_rotation_rate>
+			<thrust_scale>7.210772514e+00</thrust_scale>
+			<motor_offset>0</motor_offset>
+		</frame>
+	</sitl_model>
 	<enable_gimbal>0</enable_gimbal>
 </_sitl_state>
 </boost_serialization>

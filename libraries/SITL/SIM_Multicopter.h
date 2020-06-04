@@ -22,6 +22,8 @@
 #include "SIM_Motor.h"
 #include "SIM_Frame.h"
 
+#include <SITL/Serialize.h>
+
 namespace SITL {
 
 /*
@@ -44,10 +46,21 @@ public:
         return new MultiCopter(frame_str);
     }
 
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+      ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Aircraft); 
+
+      ar & BOOST_SERIALIZATION_NVP(frame);
+    }
+
+
 protected:
     // calculate rotational and linear accelerations
     void calculate_forces(const struct sitl_input &input, Vector3f &rot_accel, Vector3f &body_accel);
-    Frame *frame;
+    Frame * frame;
 };
 
 }

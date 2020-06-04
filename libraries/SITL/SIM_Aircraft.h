@@ -31,6 +31,8 @@
 #include "SIM_Buzzer.h"
 #include <Filter/Filter.h>
 
+#include <SITL/Serialize.h>
+
 namespace SITL {
 
 /*
@@ -141,6 +143,105 @@ public:
     void set_gripper_epm(Gripper_EPM *_gripper_epm) { gripper_epm = _gripper_epm; }
     void set_precland(SIM_Precland *_precland);
 
+    friend class boost::serialization::access;
+
+
+
+   // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+template<class Archive>
+void serialize(Archive & ar, const unsigned int version)
+{
+
+    //ar & BOOST_SERIALIZATION_NVP(sitl);
+    //ar & BOOST_SERIALIZATION_NVP(home);
+    ar & BOOST_SERIALIZATION_NVP(home_is_set);
+    //ar & BOOST_SERIALIZATION_NVP(location); const ? 
+
+    ar & BOOST_SERIALIZATION_NVP( ground_level);
+    ar & BOOST_SERIALIZATION_NVP( home_yaw);
+    ar & BOOST_SERIALIZATION_NVP( frame_height);
+    ar & BOOST_SERIALIZATION_NVP( dcm);
+    ar & BOOST_SERIALIZATION_NVP( gyro);
+    ar & BOOST_SERIALIZATION_NVP( gyro_prev);
+    ar & BOOST_SERIALIZATION_NVP( ang_accel);
+    ar & BOOST_SERIALIZATION_NVP( velocity_ef);
+    ar & BOOST_SERIALIZATION_NVP( wind_ef);
+    ar & BOOST_SERIALIZATION_NVP( velocity_air_ef);
+    ar & BOOST_SERIALIZATION_NVP( velocity_air_bf);
+    ar & BOOST_SERIALIZATION_NVP( position);
+    ar & BOOST_SERIALIZATION_NVP( mass);
+    ar & BOOST_SERIALIZATION_NVP( external_payload_mass);
+    ar & BOOST_SERIALIZATION_NVP( accel_body);
+    ar & BOOST_SERIALIZATION_NVP( airspeed);
+    ar & BOOST_SERIALIZATION_NVP( airspeed_pitot);
+    ar & BOOST_SERIALIZATION_NVP( battery_voltage);
+    ar & BOOST_SERIALIZATION_NVP( battery_current);
+    ar & BOOST_SERIALIZATION_NVP( num_motors);
+    ar & BOOST_SERIALIZATION_NVP( rpm);
+    ar & BOOST_SERIALIZATION_NVP( rcin_chan_count);
+    ar & BOOST_SERIALIZATION_NVP( rcin);
+    ar & BOOST_SERIALIZATION_NVP( range);
+    ar & BOOST_SERIALIZATION_NVP( turbulence_azimuth);
+    ar & BOOST_SERIALIZATION_NVP( turbulence_horizontal_speed);
+    ar & BOOST_SERIALIZATION_NVP( turbulence_vertical_speed);
+    ar & BOOST_SERIALIZATION_NVP( mag_bf);
+    ar & BOOST_SERIALIZATION_NVP( time_now_us);
+
+    ar & BOOST_SERIALIZATION_NVP( gyro_noise);
+    ar & BOOST_SERIALIZATION_NVP( accel_noise);
+    ar & BOOST_SERIALIZATION_NVP( rate_hz);
+    ar & BOOST_SERIALIZATION_NVP( achieved_rate_hz);
+    ar & BOOST_SERIALIZATION_NVP( target_speedup);
+    ar & BOOST_SERIALIZATION_NVP( frame_time_us);
+    ar & BOOST_SERIALIZATION_NVP( scaled_frame_time_us);
+    ar & BOOST_SERIALIZATION_NVP( last_wall_time_us);
+    ar & BOOST_SERIALIZATION_NVP( instance);
+    //ar & BOOST_SERIALIZATION_NVP(autotest_dir);
+    //ar & BOOST_SERIALIZATION_NVP(frame);
+    ar & BOOST_SERIALIZATION_NVP( use_time_sync);
+    ar & BOOST_SERIALIZATION_NVP( last_speedup);
+    //ar & BOOST_SERIALIZATION_NVP(config_);
+
+    ar & BOOST_SERIALIZATION_NVP(ahrs_orientation);
+    ar & BOOST_SERIALIZATION_NVP(last_imu_rotation);
+    ar & BOOST_SERIALIZATION_NVP( custom_roll);
+    ar & BOOST_SERIALIZATION_NVP( custom_pitch);
+    ar & BOOST_SERIALIZATION_NVP( custom_yaw);
+
+
+    ar & BOOST_SERIALIZATION_NVP( use_smoothing);
+
+    ar & BOOST_SERIALIZATION_NVP(terrain);
+
+    ar & BOOST_SERIALIZATION_NVP( last_time_us);
+    ar & BOOST_SERIALIZATION_NVP( frame_counter);
+    ar & BOOST_SERIALIZATION_NVP( last_ground_contact_ms);
+    ar & BOOST_SERIALIZATION_NVP( min_sleep_time);
+
+    ar & BOOST_SERIALIZATION_NVP( servo_filter);
+
+    // buzz todo
+    //ar & BOOST_SERIALIZATION_NVP(buzzer);
+    //ar & BOOST_SERIALIZATION_NVP(sprayer);
+    //ar & BOOST_SERIALIZATION_NVP(gripper);
+    //ar & BOOST_SERIALIZATION_NVP(gripper_epm);
+    //ar & BOOST_SERIALIZATION_NVP(parachute);
+    //ar & BOOST_SERIALIZATION_NVP(precland);
+
+
+    // todo buzz
+    // from multicopter class
+    //ar & BOOST_SERIALIZATION_NVP(frame);
+
+}
+
+//template MultiCopter::serialize<boost::archive::text_iarchive>;
+//template MultiCopter::serialize<boost::archive::text_oarchive>;
+//template MultiCopter::serialize<boost::archive::xml_iarchive>;
+//template void MultiCopter::serialize<boost::archive::xml_oarchive>;
+
 protected:
     SITL *sitl;
     Location home;
@@ -176,6 +277,13 @@ protected:
         // data from simulated laser scanner, if available
         struct vector3f_array points;
         struct float_array ranges;
+
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+          ar & BOOST_SERIALIZATION_NVP(points);
+          ar & BOOST_SERIALIZATION_NVP(ranges);
+        }
     } scanner;
     
     // Wind Turbulence simulated Data
@@ -289,6 +397,20 @@ private:
         Vector3f velocity_ef;
         uint64_t last_update_us;
         Location location;
+    
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+            ar & BOOST_SERIALIZATION_NVP( enabled);
+            ar & BOOST_SERIALIZATION_NVP( accel_body);
+            ar & BOOST_SERIALIZATION_NVP(gyro);
+            ar & BOOST_SERIALIZATION_NVP(rotation_b2e);
+            ar & BOOST_SERIALIZATION_NVP(position);
+            ar & BOOST_SERIALIZATION_NVP(velocity_ef);
+            ar & BOOST_SERIALIZATION_NVP(last_update_us);
+            //ar & BOOST_SERIALIZATION_NVP(location);
+        }
+
     } smoothing;
 
     LowPassFilterFloat servo_filter[4];
@@ -300,5 +422,8 @@ private:
     Parachute *parachute;
     SIM_Precland *precland;
 };
+
+BOOST_SERIALIZATION_ASSUME_ABSTRACT( Aircraft );
+
 
 } // namespace SITL

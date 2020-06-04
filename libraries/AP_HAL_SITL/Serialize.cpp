@@ -6,12 +6,18 @@
 // with thanks to https://stackoverflow.com/questions/3381614/c-convert-string-to-hexadecimal-and-vice-versa
 //#include <stdexcept>
 
+#include <stdexcept>
+#include <iostream>
+#include <boost/exception/diagnostic_information.hpp>
+
 
 namespace boost
 {
-void throw_exception( std::exception const & e ){
-// unimpl
-}
+    void throw_exception( std::exception const & e ){
+
+        std::cerr << boost::diagnostic_information( e ) << std::endl;
+
+    }
 }
 
 std::string string_to_hex(const std::string& input)

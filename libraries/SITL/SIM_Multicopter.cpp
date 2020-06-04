@@ -19,6 +19,8 @@
 #include "SIM_Multicopter.h"
 #include <AP_Motors/AP_Motors.h>
 
+#include <SITL/Serialize.h>
+
 #include <stdio.h>
 
 using namespace SITL;
@@ -80,4 +82,5 @@ void MultiCopter::update(const struct sitl_input &input)
     // update magnetic field
     update_mag_field_bf();
 }
+
 

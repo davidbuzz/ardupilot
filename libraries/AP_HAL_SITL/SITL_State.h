@@ -38,6 +38,9 @@
 #include <SITL/SIM_RF_NMEA.h>
 #include <SITL/SIM_RF_MAVLink.h>
 
+#include <SITL/SIM_Multicopter.h>
+
+
 #include <SITL/SIM_Frsky_D.h>
 // #include <SITL/SIM_Frsky_SPort.h>
 // #include <SITL/SIM_Frsky_SPortPassthrough.h>
@@ -130,7 +133,7 @@ private:
 
         //ar & BOOST_SERIALIZATION_NVP(_uart_path); // char * ?
 
-        ar & BOOST_SERIALIZATION_NVP(_gps_data); // ‘struct HALSITL::SITL_State::gps_data’ has no member named ‘serialize’
+        ar & BOOST_SERIALIZATION_NVP(_gps_data); 
 
         ar & BOOST_SERIALIZATION_NVP(_vehicle);
         ar &  BOOST_SERIALIZATION_NVP(_framerate);
@@ -140,14 +143,14 @@ private:
         ar &  BOOST_SERIALIZATION_NVP(_update_count);
 
         
-         ar & BOOST_SERIALIZATION_NVP(_barometer);//‘class AP_Baro’ has no member named ‘serialize’
+        ar & BOOST_SERIALIZATION_NVP(_barometer);
         ar & BOOST_SERIALIZATION_NVP(_ins);
         ar & BOOST_SERIALIZATION_NVP(_scheduler);
-        ar & BOOST_SERIALIZATION_NVP(_compass); //‘class Compass’ has no member named ‘serialize’
+        ar & BOOST_SERIALIZATION_NVP(_compass); 
         ar & BOOST_SERIALIZATION_NVP(_terrain);
        
         //ar &  BOOST_SERIALIZATION_NVP(_sitl_rc_in); // cant serialize SocketAPM 
-        ar & BOOST_SERIALIZATION_NVP(_sitl);  //‘class SITL::SITL’ has no member named ‘serialize’
+        ar & BOOST_SERIALIZATION_NVP(_sitl);  
         ar &  BOOST_SERIALIZATION_NVP(_rcin_port);
         ar &  BOOST_SERIALIZATION_NVP(_fg_view_port);
         ar &  BOOST_SERIALIZATION_NVP(_irlock_port);
@@ -177,8 +180,12 @@ private:
         ar &  BOOST_SERIALIZATION_NVP(delayed_time_wind);
         ar &  BOOST_SERIALIZATION_NVP(wind_start_delay_micros);
 
-        //ar & BOOST_SERIALIZATION_NVP(sitl_model); //scary polymorphic pointer that causes boost to segfault. 
+        ar.template register_type<SITL::MultiCopter>();
+
+        ar & BOOST_SERIALIZATION_NVP(sitl_model); //scary polymorphic pointer that causes boost to segfault. 
 //boost::archive::detail::save_pointer_type<boost::archive::text_oarchive>::polymorphic::save<SITL::Aircraft> (ar=..., t=...)
+// 
+// std::exception::what: unregistered class - derived class not registered or exported
 
 
         ar & BOOST_SERIALIZATION_NVP(enable_gimbal);
@@ -351,8 +358,9 @@ private:
     uint32_t delayed_time_wind;
     uint32_t wind_start_delay_micros;
 
-    // internal SITL model
+    // internal SITL model. SITL namespace, 'Aircraft::' class.
     SITL::Aircraft *sitl_model;
+    //SITL::MultiCopter *sitl_model;
 
     // simulated gimbal
     bool enable_gimbal;

@@ -34,6 +34,8 @@
 #include <AP_Param/AP_Param.h>
 #include <AP_Declination/AP_Declination.h>
 
+#include <SITL/Serialize.h>
+
 using namespace SITL;
 
 /*
@@ -86,6 +88,15 @@ Aircraft::Aircraft(const char *frame_str) :
 
     terrain = reinterpret_cast<AP_Terrain *>(AP_Param::find_object("TERRAIN_"));
 }
+
+
+
+//template Plane::serialize<boost::archive::text_iarchive>;
+//template Plane::serialize<boost::archive::text_oarchive>;
+
+//template Plane::serialize<boost::archive::xml_iarchive>;
+//template Plane::serialize<boost::archive::xml_oarchive>;
+
 
 void Aircraft::set_start_location(const Location &start_loc, const float start_yaw)
 {
