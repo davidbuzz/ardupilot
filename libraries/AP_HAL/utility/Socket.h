@@ -29,6 +29,8 @@
 #include <arpa/inet.h>
 #include <sys/select.h>
 
+#include <SITL/Serialize.h>
+
 class SocketAPM {
 public:
     SocketAPM(bool _datagram);
@@ -61,6 +63,26 @@ public:
     // accept a new connection. Only valid for TCP connections after
     // listen has been used. A new socket is returned
     SocketAPM *accept(uint32_t timeout_ms);
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
+        ar & BOOST_SERIALIZATION_NVP(datagram);
+        //ar & BOOST_SERIALIZATION_NVP(in_addr);
+        ar & BOOST_SERIALIZATION_NVP(fd);
+
+        // we also serialise relevant bits of the socket here instead of trying to mess with the insides of sockaddr_in
+        ar & BOOST_SERIALIZATION_NVP(in_addr.sin_family);
+        ar & BOOST_SERIALIZATION_NVP(in_addr.sin_port); //port
+        ar & BOOST_SERIALIZATION_NVP(in_addr.sin_zero);
+        ar & BOOST_SERIALIZATION_NVP(in_addr.sin_addr.s_addr); //ip
+
+    }
 
 private:
     bool datagram;

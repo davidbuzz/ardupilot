@@ -30,6 +30,9 @@
 
 #include "float.h"
 
+#include "vartypes.h"
+
+
 #include <string> // for std::string used in serialize
 
 #include <SITL/Serialize.h>
@@ -133,17 +136,6 @@
 
 
 
-enum ap_var_type {
-    AP_PARAM_NONE    = 0,
-    AP_PARAM_INT8,
-    AP_PARAM_INT16,
-    AP_PARAM_INT32,
-    AP_PARAM_FLOAT,
-    AP_PARAM_VECTOR3F,
-    AP_PARAM_GROUP
-};
-
-
 
 
 /// Base class for variables.
@@ -211,11 +203,14 @@ public:
         template<class Archive>
         void serialize(Archive & ar, const unsigned int version)
         {
-        // todo buzz impl
-          ar & BOOST_SERIALIZATION_NVP(type); 
-          //ar & BOOST_SERIALIZATION_NVP(name);  //const
-          ar & BOOST_SERIALIZATION_NVP(key); 
-          //ar & BOOST_SERIALIZATION_NVP(ptr); error const void ptr
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
+            // todo buzz impl
+            ar & BOOST_SERIALIZATION_NVP(type); 
+
+            //ar & BOOST_SERIALIZATION_NVP(name);  //const
+            
+            ar & BOOST_SERIALIZATION_NVP(key); 
+            //ar & BOOST_SERIALIZATION_NVP(ptr); error const void ptr
 
            // how to get group info pointer, see .cpp file
             if (flags & AP_PARAM_FLAG_INFO_POINTER) {
@@ -226,14 +221,14 @@ public:
               //ar & BOOST_SERIALIZATION_NVP(group_info);
             }
 
-              //ar & BOOST_SERIALIZATION_NVP(group_info); 
-                // when  AP_PARAM_FLAG_POINTER | AP_PARAM_FLAG_INFO_POINTER:
-              //ar & BOOST_SERIALIZATION_NVP(group_info_ptr); 
+            //ar & BOOST_SERIALIZATION_NVP(group_info); 
+            // when  AP_PARAM_FLAG_POINTER | AP_PARAM_FLAG_INFO_POINTER:
+            //ar & BOOST_SERIALIZATION_NVP(group_info_ptr); 
 
 
-          ar & BOOST_SERIALIZATION_NVP(def_value);  //ok
+            ar & BOOST_SERIALIZATION_NVP(def_value);  //ok
 
-          ar & BOOST_SERIALIZATION_NVP(flags); 
+            ar & BOOST_SERIALIZATION_NVP(flags); 
 
         }
 
@@ -244,10 +239,11 @@ public:
         enum ap_var_type type; // AP_PARAM_*
         const char *new_name;
 
- template<class Archive>
+    template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
-    // todo buzz impl
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
+        // todo buzz impl
     }
 
     };
@@ -257,12 +253,13 @@ public:
         const char *name;   // parameter name
         float value;        // parameter value
 
-         template<class Archive>
+            template<class Archive>
             void serialize(Archive & ar, const unsigned int version)
             {
+                ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
 
-              //ar & BOOST_SERIALIZATION_NVP(name);  const
-              ar & BOOST_SERIALIZATION_NVP(value); 
+                //ar & BOOST_SERIALIZATION_NVP(name);  const
+                ar & BOOST_SERIALIZATION_NVP(value); 
 
             }
 
@@ -595,39 +592,47 @@ public:
     static AP_Param *get_singleton() { return _singleton; }
 
 
- template<class Archive>
+    template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
-        ar & BOOST_SERIALIZATION_NVP(sentinal_offset);
-     //ar & BOOST_SERIALIZATION_NVP(_group_level_shift); //static const
-     //ar & BOOST_SERIALIZATION_NVP(_group_bits); //static const
-     //ar & BOOST_SERIALIZATION_NVP(_sentinal_key); // static const
-     //ar & BOOST_SERIALIZATION_NVP(_sentinal_type );//static const
-     //ar & BOOST_SERIALIZATION_NVP(_sentinal_group);//static const
-     ar & BOOST_SERIALIZATION_NVP(_frame_type_flags);
-     ar & BOOST_SERIALIZATION_NVP(param_defaults_data); //error: ‘struct AP_Param::param_defaults_struct’ has no member named ‘serialize’
+        ::printf("AP_PARAM -> %s\n", __PRETTY_FUNCTION__);
 
 
-    ar & BOOST_SERIALIZATION_NVP( _storage);
-    ar & BOOST_SERIALIZATION_NVP(  _num_vars);
-    ar & BOOST_SERIALIZATION_NVP( _parameter_count);
-    ar & BOOST_SERIALIZATION_NVP( _count_marker);
-    ar & BOOST_SERIALIZATION_NVP( _count_marker_done);
-    ar & BOOST_SERIALIZATION_NVP( _count_sem);
-    ar & BOOST_SERIALIZATION_NVP( _var_info);
 
-        ar & BOOST_SERIALIZATION_NVP( param_overrides);
-        ar & BOOST_SERIALIZATION_NVP(  num_param_overrides);
-        ar & BOOST_SERIALIZATION_NVP( num_read_only);
+
+
+
+        //ok-but-busy ar & BOOST_SERIALIZATION_NVP(sentinal_offset);
+        //ar & BOOST_SERIALIZATION_NVP(_group_level_shift); //static const
+        //ar & BOOST_SERIALIZATION_NVP(_group_bits); //static const
+        //ar & BOOST_SERIALIZATION_NVP(_sentinal_key); // static const
+        //ar & BOOST_SERIALIZATION_NVP(_sentinal_type );//static const
+        //ar & BOOST_SERIALIZATION_NVP(_sentinal_group);//static const
+        //ok-but-busy ar & BOOST_SERIALIZATION_NVP(_frame_type_flags);
+        //     ar & BOOST_SERIALIZATION_NVP(param_defaults_data); //error: ‘struct AP_Param::param_defaults_struct’ has no member named ‘serialize’
+
+
+        //ok-but-busy ar & BOOST_SERIALIZATION_NVP( _storage);
+
+        //ok-but-busy ar & BOOST_SERIALIZATION_NVP(  _num_vars);
+        //ok-but-busy ar & BOOST_SERIALIZATION_NVP( _parameter_count);
+        //ok-but-busy ar & BOOST_SERIALIZATION_NVP( _count_marker);
+        //ok-but-busy ar & BOOST_SERIALIZATION_NVP( _count_marker_done);
+        //ok-but-busy ar & BOOST_SERIALIZATION_NVP( _count_sem);
+        //  ar & BOOST_SERIALIZATION_NVP( _var_info);
+
+        //ok-but-busy ar & BOOST_SERIALIZATION_NVP( param_overrides);
+        //ok-but-busy ar & BOOST_SERIALIZATION_NVP(  num_param_overrides);
+        //ok-but-busy ar & BOOST_SERIALIZATION_NVP( num_read_only);
 
     // statics:
         //ar & BOOST_SERIALIZATION_NVP(  k_EEPROM_magic0 );//static const
         //ar & BOOST_SERIALIZATION_NVP(  k_EEPROM_magic1);//static const
         //ar & BOOST_SERIALIZATION_NVP(  k_EEPROM_revision ); //static const
-        ar & BOOST_SERIALIZATION_NVP(  _hide_disabled_groups );
+        //ok-but-busy ar & BOOST_SERIALIZATION_NVP(  _hide_disabled_groups );
 
-  // ar & BOOST_SERIALIZATION_NVP(  save_queue);
-  // ar & BOOST_SERIALIZATION_NVP(  registered_save_handler);
+        // ar & BOOST_SERIALIZATION_NVP(  save_queue);
+        // ar & BOOST_SERIALIZATION_NVP(  registered_save_handler);
 
     }
 
@@ -697,12 +702,14 @@ private:
     template<class Archive>
     void save(Archive & ar, const unsigned int version) const
     {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
         std::string label = labels[static_cast<int>(a_)];
         ar & boost::serialization::make_nvp("label", label);
     }
     template<class Archive>
     void load(Archive & ar, const unsigned int version)
     {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
         std::string label ;
         ar & boost::serialization::make_nvp("label", label);
         a_ = static_cast<e_fruit>(std::find(labels.begin(), labels.end(), label) - labels.begin());
@@ -864,10 +871,11 @@ private:
         float value;
         bool read_only; // param is marked @READONLY
 
- template<class Archive>
+    template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
-    // todo buzz impl
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
+        // todo buzz impl
     }
 
     };
@@ -901,268 +909,10 @@ namespace AP {
     AP_Param *param();
 };
 
-/// Template class for scalar variables.
-///
-/// Objects of this type have a value, and can be treated in many ways as though they
-/// were the value.
-///
-/// @tparam T			The scalar type of the variable
-/// @tparam PT			The AP_PARAM_* type
-///
-template<typename T, ap_var_type PT>
-class AP_ParamT : public AP_Param
-{
-public:
-    static const ap_var_type        vtype = PT;
-
-    /// Value getter
-    ///
-    const T &get(void) const {
-        return _value;
-    }
-
-    /// Value setter
-    ///
-    void set(const T &v) {
-        _value = v;
-    }
-
-    // set a parameter that is an ENABLE param
-    void set_enable(const T &v) {
-        if (v != _value) {
-            invalidate_count();
-        }
-        _value = v;
-    }
-    
-    /// Sets if the parameter is unconfigured
-    ///
-    void set_default(const T &v) {
-        if (!configured()) {
-            set(v);
-        }
-    }
-
-    /// Value setter - set value, tell GCS
-    ///
-    void set_and_notify(const T &v) {
-// We do want to compare each value, even floats, since it being the same here
-// is the result of previously setting it.
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wfloat-equal"
-        if (v != _value) {
-#pragma GCC diagnostic pop
-            set(v);
-            notify();
-        }
-    }
-
-    /// Combined set and save
-    ///
-    void set_and_save(const T &v) {
-        bool force = fabsf((float)(_value - v)) < FLT_EPSILON;
-        set(v);
-        save(force);
-    }
-
-    /// Combined set and save, but only does the save if the value if
-    /// different from the current ram value, thus saving us a
-    /// scan(). This should only be used where we have not set() the
-    /// value separately, as otherwise the value in EEPROM won't be
-    /// updated correctly.
-    void set_and_save_ifchanged(const T &v) {
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wfloat-equal"
-        if (v == _value) {
-#pragma GCC diagnostic pop
-            return;
-        }
-        set(v);
-        save(true);
-    }
-
-    /// Conversion to T returns a reference to the value.
-    ///
-    /// This allows the class to be used in many situations where the value would be legal.
-    ///
-    operator const T &() const {
-        return _value;
-    }
-
-    /// Copy assignment from T is equivalent to ::set.
-    ///
-    AP_ParamT<T,PT>& operator= (const T &v) {
-        _value = v;
-        return *this;
-    }
-
-    /// bit ops on parameters
-    ///
-    AP_ParamT<T,PT>& operator |=(const T &v) {
-        _value |= v;
-        return *this;
-    }
-
-    AP_ParamT<T,PT>& operator &=(const T &v) {
-        _value &= v;
-        return *this;
-    }
-
-    AP_ParamT<T,PT>& operator +=(const T &v) {
-        _value += v;
-        return *this;
-    }
-
-    AP_ParamT<T,PT>& operator -=(const T &v) {
-        _value -= v;
-        return *this;
-    }
-
-    /// AP_ParamT types can implement AP_Param::cast_to_float
-    ///
-    float cast_to_float(void) const {
-        return (float)_value;
-    }
-
-protected:
-    T _value;
-};
 
 
-/// Template class for non-scalar variables.
-///
-/// Objects of this type have a value, and can be treated in many ways as though they
-/// were the value.
-///
-/// @tparam T			The scalar type of the variable
-/// @tparam PT			AP_PARAM_* type
-///
-template<typename T, ap_var_type PT>
-class AP_ParamV : public AP_Param
-{
-public:
 
-    static const ap_var_type        vtype = PT;
+#include "AP_ParamT.h"
 
-    /// Value getter
-    ///
-    const T &get(void) const {
-        return _value;
-    }
+#include "vartemplates.h"
 
-    /// Value setter
-    ///
-    void set(const T &v) {
-        _value = v;
-    }
-
-    /// Value setter - set value, tell GCS
-    ///
-    void set_and_notify(const T &v) {
-        if (v != _value) {
-            set(v);
-            notify();
-        }
-    }
-
-    /// Combined set and save
-    ///
-    void set_and_save(const T &v) {
-        bool force = (_value != v);
-        set(v);
-        save(force);
-    }
-
-    /// Conversion to T returns a reference to the value.
-    ///
-    /// This allows the class to be used in many situations where the value would be legal.
-    ///
-    operator const T &() const {
-        return _value;
-    }
-
-    /// Copy assignment from T is equivalent to ::set.
-    ///
-    AP_ParamV<T,PT>& operator=(const T &v) {
-        _value = v;
-        return *this;
-    }
-
-protected:
-    T        _value;
-};
-
-
-/// Template class for array variables.
-///
-/// Objects created using this template behave like arrays of the type T,
-/// but are stored like single variables.
-///
-/// @tparam T           The scalar type of the variable
-/// @tparam N           number of elements
-/// @tparam PT          the AP_PARAM_* type
-///
-template<typename T, uint8_t N, ap_var_type PT>
-class AP_ParamA : public AP_Param
-{
-public:
-
-    static const ap_var_type vtype = PT;
-
-    /// Array operator accesses members.
-    ///
-    /// @note It would be nice to range-check i here, but then what would we return?
-    ///
-    const T & operator[](uint8_t i) {
-        return _value[i];
-    }
-
-    const T & operator[](int8_t i) {
-        return _value[(uint8_t)i];
-    }
-
-    /// Value getter
-    ///
-    /// @note   Returns zero for index values out of range.
-    ///
-    T get(uint8_t i) const {
-        if (i < N) {
-            return _value[i];
-        } else {
-            return (T)0;
-        }
-    }
-
-    /// Value setter
-    ///
-    /// @note   Attempts to set an index out of range are discarded.
-    ///
-    void  set(uint8_t i, const T &v) {
-        if (i < N) {
-            _value[i] = v;
-        }
-    }
-
-protected:
-    T _value[N];
-};
-
-
-/// Convenience macro for defining instances of the AP_ParamT template.
-///
-// declare a scalar type
-// _t is the base type
-// _suffix is the suffix on the AP_* type name
-// _pt is the enum ap_var_type type
-#define AP_PARAMDEF(_t, _suffix, _pt)   typedef AP_ParamT<_t, _pt> AP_ ## _suffix;
-AP_PARAMDEF(float, Float, AP_PARAM_FLOAT);    // defines AP_Float
-AP_PARAMDEF(int8_t, Int8, AP_PARAM_INT8);     // defines AP_Int8
-AP_PARAMDEF(int16_t, Int16, AP_PARAM_INT16);  // defines AP_Int16
-AP_PARAMDEF(int32_t, Int32, AP_PARAM_INT32);  // defines AP_Int32
-
-// declare a non-scalar type
-// this is used in AP_Math.h
-// _t is the base type
-// _suffix is the suffix on the AP_* type name
-// _pt is the enum ap_var_type type
-#define AP_PARAMDEFV(_t, _suffix, _pt)   typedef AP_ParamV<_t, _pt> AP_ ## _suffix;

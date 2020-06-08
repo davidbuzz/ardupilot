@@ -125,20 +125,21 @@ public:
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
-      // todo buzz
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
+        // todo buzz
 
         //ar & BOOST_SERIALIZATION_NVP(_terrain);
 
-       // these seem to crash with 'Invalid XML tag name'
-       //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)relative_alt);// bitfields cast to uint8_t then the 'const' tell the compiler we are only reading it 
-       //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)loiter_ccw );
-       //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)terrain_alt);
-       //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)origin_alt);
-       //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)loiter_xtrack);
+        // these seem to crash with 'Invalid XML tag name'
+        //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)relative_alt);// bitfields cast to uint8_t then the 'const' tell the compiler we are only reading it 
+        //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)loiter_ccw );
+        //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)terrain_alt);
+        //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)origin_alt);
+        //ar & BOOST_SERIALIZATION_NVP((const uint8_t&)loiter_xtrack);
 
-       ar & BOOST_SERIALIZATION_NVP(alt);
-       ar & BOOST_SERIALIZATION_NVP(lat);
-       ar & BOOST_SERIALIZATION_NVP(lng);
+        ar & BOOST_SERIALIZATION_NVP(alt);
+        ar & BOOST_SERIALIZATION_NVP(lat);
+        ar & BOOST_SERIALIZATION_NVP(lng);
 
 
     }

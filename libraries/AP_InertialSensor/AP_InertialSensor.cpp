@@ -1463,7 +1463,10 @@ check_sample:
             for (uint8_t i=0; i<_backend_count; i++) {
                 // this is normally a nop, but can be used by backends
                 // that don't accumulate samples on a timer
-                _backends[i]->accumulate();
+
+                if (_backends[i] != nullptr){
+                    _backends[i]->accumulate();
+                }
             }
 
             for (uint8_t i=0; i<_gyro_count; i++) {

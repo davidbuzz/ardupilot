@@ -61,9 +61,10 @@ public:
     // erase whole of storage
     static void erase(void);
 
- template<class Archive>
+    template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
         ar & BOOST_SERIALIZATION_NVP(layout);
    
     }
@@ -77,7 +78,7 @@ private:
   template <typename Archive>
   void serialize(Archive& ar, const unsigned int version)
   {
-    ar & type;
+    //ar & type;
     ar & offset;
     ar & length;
   }
@@ -114,10 +115,11 @@ public:
     void write_uint16(uint16_t loc, uint16_t value) const;
     void write_uint32(uint16_t loc, uint32_t value) const;
 
- template<class Archive>
+    template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
-        ar & BOOST_SERIALIZATION_NVP(type);
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
+        //ar & BOOST_SERIALIZATION_NVP(type);
         ar & BOOST_SERIALIZATION_NVP(total_size);
    
     }

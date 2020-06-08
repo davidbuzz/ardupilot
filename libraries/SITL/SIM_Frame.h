@@ -33,6 +33,7 @@ public:
     const char *name;
     uint8_t num_motors;
     Motor *motors;
+    Frame() {}
 
     Frame(const char *_name,
           uint8_t _num_motors,
@@ -48,8 +49,9 @@ public:
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
 
-      // ar & BOOST_SERIALIZATION_NVP(name);
+        // ar & BOOST_SERIALIZATION_NVP(name);
         ar & BOOST_SERIALIZATION_NVP( num_motors);
         ar & BOOST_SERIALIZATION_NVP(motors);
         ar & BOOST_SERIALIZATION_NVP( terminal_velocity);

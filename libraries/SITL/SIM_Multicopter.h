@@ -31,6 +31,7 @@ namespace SITL {
  */
 class MultiCopter : public Aircraft {
 public:
+    MultiCopter();
     MultiCopter(const char *frame_str);
 
     /* update model by one time step */
@@ -51,6 +52,8 @@ public:
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
+      ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
+      
       ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Aircraft); 
 
       ar & BOOST_SERIALIZATION_NVP(frame);

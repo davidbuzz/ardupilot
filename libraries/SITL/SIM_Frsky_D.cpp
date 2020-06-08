@@ -66,7 +66,7 @@ void Frsky_D::update()
             break;
         case State::WANT_BYTE1:
         case State::WANT_BYTE2: {
-            uint8_t byte;
+            uint8_t byte = 0;
             uint8_t consume = 1;
             if (_buffer[0] == 0x5D) {
                 // byte-stuffed
@@ -92,6 +92,7 @@ void Frsky_D::update()
             case State::WANT_ID:
             case State::WANT_START_STOP_D:
                 AP_HAL::panic("Should not get here");
+                break;
             case State::WANT_BYTE1:
                 _data = byte;
                 _state = State::WANT_BYTE2;

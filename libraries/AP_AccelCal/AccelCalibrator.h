@@ -91,9 +91,10 @@ public:
         template<class Archive>
         void serialize(Archive & ar, const unsigned int version)
         {
-        ar & BOOST_SERIALIZATION_NVP(offset);
-        ar & BOOST_SERIALIZATION_NVP(diag);
-        ar & BOOST_SERIALIZATION_NVP(offdiag);
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);    
+            ar & BOOST_SERIALIZATION_NVP(offset);
+            ar & BOOST_SERIALIZATION_NVP(diag);
+            ar & BOOST_SERIALIZATION_NVP(offdiag);
         }
 
     };
@@ -105,22 +106,22 @@ public:
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);  
+        //ar & BOOST_SERIALIZATION_NVP(xxx);
+        // buzz todo
 
-    //ar & BOOST_SERIALIZATION_NVP(xxx);
-    // buzz todo
+        ar & BOOST_SERIALIZATION_NVP(_conf_num_samples);
+        ar & BOOST_SERIALIZATION_NVP(_conf_sample_time);
+        ar & BOOST_SERIALIZATION_NVP(_conf_fit_type);
+        ar & BOOST_SERIALIZATION_NVP(_conf_tolerance);
 
-    ar & BOOST_SERIALIZATION_NVP(_conf_num_samples);
-    ar & BOOST_SERIALIZATION_NVP(_conf_sample_time);
-    ar & BOOST_SERIALIZATION_NVP(_conf_fit_type);
-    ar & BOOST_SERIALIZATION_NVP(_conf_tolerance);
-
-    ar & BOOST_SERIALIZATION_NVP(_status);
-    ar & BOOST_SERIALIZATION_NVP(_sample_buffer);
-    ar & BOOST_SERIALIZATION_NVP(_samples_collected);
-    ar & BOOST_SERIALIZATION_NVP(_param);
-    ar & BOOST_SERIALIZATION_NVP(_fitness);
-    ar & BOOST_SERIALIZATION_NVP(_last_samp_frag_collected_ms);
-    ar & BOOST_SERIALIZATION_NVP(_min_sample_dist);
+        ar & BOOST_SERIALIZATION_NVP(_status);
+        ar & BOOST_SERIALIZATION_NVP(_sample_buffer);
+        ar & BOOST_SERIALIZATION_NVP(_samples_collected);
+    //    ar & BOOST_SERIALIZATION_NVP(_param);
+        ar & BOOST_SERIALIZATION_NVP(_fitness);
+        ar & BOOST_SERIALIZATION_NVP(_last_samp_frag_collected_ms);
+        ar & BOOST_SERIALIZATION_NVP(_min_sample_dist);
 
     }
 
@@ -132,10 +133,11 @@ private:
         template<class Archive>
         void serialize(Archive & ar, const unsigned int version)
         {
-        //ar & BOOST_SERIALIZATION_NVP(xxx);
-        // buzz todo
-        ar & BOOST_SERIALIZATION_NVP(delta_velocity);
-        ar & BOOST_SERIALIZATION_NVP(delta_time);
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
+            //ar & BOOST_SERIALIZATION_NVP(xxx);
+            // buzz todo
+            ar & BOOST_SERIALIZATION_NVP(delta_velocity);
+            ar & BOOST_SERIALIZATION_NVP(delta_time);
         }
 
     };
@@ -155,10 +157,11 @@ private:
         template<class Archive>
         void serialize(Archive & ar, const unsigned int version)
         {
-        //ar & BOOST_SERIALIZATION_NVP(xxx);
-        // buzz todo
-        ar & BOOST_SERIALIZATION_NVP(s);
-        ar & BOOST_SERIALIZATION_NVP(a);
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
+            //ar & BOOST_SERIALIZATION_NVP(xxx);
+            // buzz todo
+            ar & BOOST_SERIALIZATION_NVP(s);
+            ar & BOOST_SERIALIZATION_NVP(a);
         }
 
     };

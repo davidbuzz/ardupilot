@@ -46,6 +46,8 @@ public:
     uint64_t last_change_usec;
     float last_roll_value, last_pitch_value;
 
+    Motor(){} // todo buzz for boost
+
     Motor(uint8_t _servo, float _angle, float _yaw_factor, uint8_t _display_order) :
         servo(_servo), // what servo output drives this motor
         angle(_angle), // angle in degrees from front
@@ -78,21 +80,22 @@ public:
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
+      ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
 
-    ar & BOOST_SERIALIZATION_NVP(angle);
-    ar & BOOST_SERIALIZATION_NVP(yaw_factor);
-    ar & BOOST_SERIALIZATION_NVP(servo);
-    ar & BOOST_SERIALIZATION_NVP(display_order);
-    ar & BOOST_SERIALIZATION_NVP(roll_servo);
-    ar & BOOST_SERIALIZATION_NVP(roll_min);
-    ar & BOOST_SERIALIZATION_NVP(roll_max);
-    ar & BOOST_SERIALIZATION_NVP(pitch_servo);
-    ar & BOOST_SERIALIZATION_NVP(pitch_min);
-    ar & BOOST_SERIALIZATION_NVP(pitch_max);
-    ar & BOOST_SERIALIZATION_NVP(servo_rate);
-    ar & BOOST_SERIALIZATION_NVP(last_change_usec);
-    ar & BOOST_SERIALIZATION_NVP(last_roll_value);
-    ar & BOOST_SERIALIZATION_NVP(last_pitch_value);
+      ar & BOOST_SERIALIZATION_NVP(angle);
+      ar & BOOST_SERIALIZATION_NVP(yaw_factor);
+      ar & BOOST_SERIALIZATION_NVP(servo);
+      ar & BOOST_SERIALIZATION_NVP(display_order);
+      ar & BOOST_SERIALIZATION_NVP(roll_servo);
+      ar & BOOST_SERIALIZATION_NVP(roll_min);
+      ar & BOOST_SERIALIZATION_NVP(roll_max);
+      ar & BOOST_SERIALIZATION_NVP(pitch_servo);
+      ar & BOOST_SERIALIZATION_NVP(pitch_min);
+      ar & BOOST_SERIALIZATION_NVP(pitch_max);
+      ar & BOOST_SERIALIZATION_NVP(servo_rate);
+      ar & BOOST_SERIALIZATION_NVP(last_change_usec);
+      ar & BOOST_SERIALIZATION_NVP(last_roll_value);
+      ar & BOOST_SERIALIZATION_NVP(last_pitch_value);
 
     }
 

@@ -38,8 +38,6 @@
 #include <SITL/SIM_RF_NMEA.h>
 #include <SITL/SIM_RF_MAVLink.h>
 
-#include <SITL/SIM_Multicopter.h>
-
 
 #include <SITL/SIM_Frsky_D.h>
 // #include <SITL/SIM_Frsky_SPort.h>
@@ -49,6 +47,8 @@
 
 #include <SITL/Serialize.h>
 
+#include <SITL/SIM_Multicopter.h>
+#include <SITL/SIM_Plane.h>
 
 class HAL_SITL;
 
@@ -121,6 +121,7 @@ private:
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
         ar & BOOST_SERIALIZATION_NVP(output_ready);
         ar & BOOST_SERIALIZATION_NVP(new_rc_input);
         ar & BOOST_SERIALIZATION_NVP(sonar_pin_value);    // pin 0
@@ -133,7 +134,8 @@ private:
 
         //ar & BOOST_SERIALIZATION_NVP(_uart_path); // char * ?
 
-        ar & BOOST_SERIALIZATION_NVP(_gps_data); 
+        //ok, but for now we don't need 100 gps queue:
+        // ar & BOOST_SERIALIZATION_NVP(_gps_data); 
 
         ar & BOOST_SERIALIZATION_NVP(_vehicle);
         ar &  BOOST_SERIALIZATION_NVP(_framerate);
@@ -143,13 +145,13 @@ private:
         ar &  BOOST_SERIALIZATION_NVP(_update_count);
 
         
-        ar & BOOST_SERIALIZATION_NVP(_barometer);
+//        ar & BOOST_SERIALIZATION_NVP(_barometer);
         ar & BOOST_SERIALIZATION_NVP(_ins);
-        ar & BOOST_SERIALIZATION_NVP(_scheduler);
+//        ar & BOOST_SERIALIZATION_NVP(_scheduler);
         ar & BOOST_SERIALIZATION_NVP(_compass); 
-        ar & BOOST_SERIALIZATION_NVP(_terrain);
+//        ar & BOOST_SERIALIZATION_NVP(_terrain);
        
-        //ar &  BOOST_SERIALIZATION_NVP(_sitl_rc_in); // cant serialize SocketAPM 
+        ar &  BOOST_SERIALIZATION_NVP(_sitl_rc_in);
         ar & BOOST_SERIALIZATION_NVP(_sitl);  
         ar &  BOOST_SERIALIZATION_NVP(_rcin_port);
         ar &  BOOST_SERIALIZATION_NVP(_fg_view_port);
@@ -225,6 +227,7 @@ private:
         template<class Archive>
         void serialize(Archive & ar, const unsigned int version)
         {
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
             ar & BOOST_SERIALIZATION_NVP( latitude);
             ar & BOOST_SERIALIZATION_NVP( longitude);
             ar & BOOST_SERIALIZATION_NVP( altitude);
@@ -323,6 +326,7 @@ private:
         template<class Archive>
         void serialize(Archive & ar, const unsigned int version)
         {
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
             ar & BOOST_SERIALIZATION_NVP(time);
             ar & BOOST_SERIALIZATION_NVP(data);
         }
@@ -346,6 +350,7 @@ private:
         template<class Archive>
         void serialize(Archive & ar, const unsigned int version)
         {
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
             ar & BOOST_SERIALIZATION_NVP(time);
             ar & BOOST_SERIALIZATION_NVP(data);
         }

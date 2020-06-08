@@ -3,6 +3,10 @@
 
 #include "RingBuffer.h"
 
+ByteBuffer::ByteBuffer(){
+    buf = nullptr;
+    size = 0;
+}
 ByteBuffer::ByteBuffer(uint32_t _size)
 {
     buf = (uint8_t*)calloc(1, _size);

@@ -77,31 +77,32 @@ public:
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
-  // todo buzz
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
+        // todo buzz
 
-    //ar & BOOST_SERIALIZATION_NVP(_sitlState);
-    ar & BOOST_SERIALIZATION_NVP(_nested_atomic_ctr);
-    //ar & BOOST_SERIALIZATION_NVP(_failsafe);
+        //ar & BOOST_SERIALIZATION_NVP(_sitlState);
+        ar & BOOST_SERIALIZATION_NVP(_nested_atomic_ctr);
+        //ar & BOOST_SERIALIZATION_NVP(_failsafe);
 
-    //ar & BOOST_SERIALIZATION_NVP(_timer_event_missed);
-    //ar & BOOST_SERIALIZATION_NVP(_timer_proc);//[SITL_SCHEDULER_MAX_TIMER_PROCS];
-    //ar & BOOST_SERIALIZATION_NVP(_io_proc);//[SITL_SCHEDULER_MAX_TIMER_PROCS];
-    ar & BOOST_SERIALIZATION_NVP(_num_timer_procs);
-    ar & BOOST_SERIALIZATION_NVP(_num_io_procs);
-    ar & BOOST_SERIALIZATION_NVP(_in_timer_proc);
-    ar & BOOST_SERIALIZATION_NVP(_in_io_proc);
+        //ar & BOOST_SERIALIZATION_NVP(_timer_event_missed);
+        //ar & BOOST_SERIALIZATION_NVP(_timer_proc);//[SITL_SCHEDULER_MAX_TIMER_PROCS];
+        //ar & BOOST_SERIALIZATION_NVP(_io_proc);//[SITL_SCHEDULER_MAX_TIMER_PROCS];
+        ar & BOOST_SERIALIZATION_NVP(_num_timer_procs);
+        ar & BOOST_SERIALIZATION_NVP(_num_io_procs);
+        ar & BOOST_SERIALIZATION_NVP(_in_timer_proc);
+        ar & BOOST_SERIALIZATION_NVP(_in_io_proc);
 
-    ar & BOOST_SERIALIZATION_NVP(_in_semaphore_take_wait);
-    
-    ar & BOOST_SERIALIZATION_NVP(_initialized);
-    ar & BOOST_SERIALIZATION_NVP(_stopped_clock_usec);
-    ar & BOOST_SERIALIZATION_NVP(_last_io_run);
-    //ar & BOOST_SERIALIZATION_NVP(_main_ctx);
+        ar & BOOST_SERIALIZATION_NVP(_in_semaphore_take_wait);
+        
+        ar & BOOST_SERIALIZATION_NVP(_initialized);
+        ar & BOOST_SERIALIZATION_NVP(_stopped_clock_usec);
+        ar & BOOST_SERIALIZATION_NVP(_last_io_run);
+        //ar & BOOST_SERIALIZATION_NVP(_main_ctx);
 
-    ar & BOOST_SERIALIZATION_NVP(_thread_sem);
+        ar & BOOST_SERIALIZATION_NVP(_thread_sem);
 
-    ar & BOOST_SERIALIZATION_NVP(threads);
-    //ar & BOOST_SERIALIZATION_NVP(stackfill);
+        ar & BOOST_SERIALIZATION_NVP(threads);
+        //ar & BOOST_SERIALIZATION_NVP(stackfill);
 
     }
 private:
@@ -150,15 +151,16 @@ private:
         template<class Archive>
         void serialize(Archive & ar, const unsigned int version)
         {
-      // todo buzz
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
+            // todo buzz
 
-        ar & BOOST_SERIALIZATION_NVP(next);
-        //ar & BOOST_SERIALIZATION_NVP(f);  // error: ‘class Functor<void>’ has no member named ‘serialize’
-        //ar & BOOST_SERIALIZATION_NVP(attr); // error: ‘union pthread_attr_t’ has no member named ‘serialize’
-        ar & BOOST_SERIALIZATION_NVP(stack_size);
-        //ar & BOOST_SERIALIZATION_NVP(stack);
-        //ar & BOOST_SERIALIZATION_NVP(stack_min);
-        //ar & BOOST_SERIALIZATION_NVP(name);
+            ar & BOOST_SERIALIZATION_NVP(next);
+            //ar & BOOST_SERIALIZATION_NVP(f);  // error: ‘class Functor<void>’ has no member named ‘serialize’
+            //ar & BOOST_SERIALIZATION_NVP(attr); // error: ‘union pthread_attr_t’ has no member named ‘serialize’
+            ar & BOOST_SERIALIZATION_NVP(stack_size);
+            //ar & BOOST_SERIALIZATION_NVP(stack);
+            //ar & BOOST_SERIALIZATION_NVP(stack_min);
+            //ar & BOOST_SERIALIZATION_NVP(name);
 
         }
     };

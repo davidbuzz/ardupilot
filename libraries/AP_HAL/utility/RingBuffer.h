@@ -9,6 +9,7 @@
  */
 class ByteBuffer {
 public:
+    ByteBuffer();//default constructor for serialize/deserialize only
     ByteBuffer(uint32_t size);
     ~ByteBuffer(void);
 
@@ -83,6 +84,22 @@ public:
      * Committer must inform how many bytes were actually written in 'len'.
      */
     bool commit(uint32_t len);
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
+        //ar & BOOST_SERIALIZATION_NVP(buf);
+        ar & BOOST_SERIALIZATION_NVP(size);
+        ar & BOOST_SERIALIZATION_NVP((uint32_t&)head);
+        ar & BOOST_SERIALIZATION_NVP((uint32_t&)tail);
+
+
+    }
 
 private:
     uint8_t *buf;
@@ -243,16 +260,32 @@ private:
  */
 template <class T>
 class ObjectBuffer_TS {
+    uint32_t size;
 public:
     ObjectBuffer_TS(uint32_t _size) {
         // we set size to 1 more than requested as the byte buffer
         // gives one less byte than requested. We round up to a full
         // multiple of the object size so that we always get aligned
         // elements, which makes the readptr() method possible
-        buffer = new ByteBuffer(((_size+1) * sizeof(T)));
+        size = ((_size+1) * sizeof(T));
+        buffer = new ByteBuffer(size);
     }
     ~ObjectBuffer_TS(void) {
         delete buffer;
+    }
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
+        ar & BOOST_SERIALIZATION_NVP(size);
+        ar & BOOST_SERIALIZATION_NVP(buffer);
+        ar & BOOST_SERIALIZATION_NVP(sem);
+
     }
 
     // Discards the buffer content, emptying it.

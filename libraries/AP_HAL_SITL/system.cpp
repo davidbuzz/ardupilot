@@ -35,14 +35,14 @@ void panic(const char *errormsg, ...)
     va_end(ap);
     printf("\n");
 
-    dump_stack_trace();
+    //dump_stack_trace();
 
     if (getenv("SITL_PANIC_EXIT")) {
         // this is used on the autotest server to prevent us waiting
         // 10 hours for a timeout
-        exit(1);
+       // exit(1);
     }
-    for(;;);
+    //for(;;);
 }
 
 // partly flogged from: https://github.com/tridge/junkcode/blob/master/segv_handler/segv_handler.c

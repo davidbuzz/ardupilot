@@ -339,6 +339,7 @@ int SITL_State::sim_fd(const char *name, const char *arg)
     }
 
     AP_HAL::panic("unknown simulated device: %s", name);
+    return 0;
 }
 int SITL_State::sim_fd_write(const char *name)
 {
@@ -419,6 +420,7 @@ int SITL_State::sim_fd_write(const char *name)
         return frsky_d->write_fd();
     }
     AP_HAL::panic("unknown simulated device: %s", name);
+    return 0;
 }
 
 #ifndef HIL_MODE

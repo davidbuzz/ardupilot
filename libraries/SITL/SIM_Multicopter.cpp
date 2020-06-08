@@ -25,6 +25,13 @@
 
 using namespace SITL;
 
+MultiCopter::MultiCopter() :
+    Aircraft(),
+    frame(nullptr)
+{
+    // for boost
+}
+
 MultiCopter::MultiCopter(const char *frame_str) :
     Aircraft(frame_str),
     frame(nullptr)

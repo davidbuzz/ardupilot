@@ -348,9 +348,10 @@ public:
                                  float lat_deg, float lon_deg);
 
 
- template<class Archive>
+    template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
 
         ar &  BOOST_SERIALIZATION_NVP(_compass_cal_autoreboot);
         ar &  BOOST_SERIALIZATION_NVP(_cal_complete_requires_reboot);

@@ -40,6 +40,8 @@ namespace SITL {
  */
 class Aircraft {
 public:
+    Aircraft();// for boost
+
     Aircraft(const char *frame_str);
 
     // called directly after constructor:
@@ -144,15 +146,13 @@ public:
     void set_precland(SIM_Precland *_precland);
 
     friend class boost::serialization::access;
-
-
-
    // When the class Archive corresponds to an output archive, the
     // & operator is defined similar to <<.  Likewise, when the class Archive
     // is a type of input archive the & operator is defined similar to >>.
 template<class Archive>
 void serialize(Archive & ar, const unsigned int version)
 {
+    ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
 
     //ar & BOOST_SERIALIZATION_NVP(sitl);
     //ar & BOOST_SERIALIZATION_NVP(home);
@@ -167,7 +167,7 @@ void serialize(Archive & ar, const unsigned int version)
     ar & BOOST_SERIALIZATION_NVP( gyro_prev);
     ar & BOOST_SERIALIZATION_NVP( ang_accel);
     ar & BOOST_SERIALIZATION_NVP( velocity_ef);
-    ar & BOOST_SERIALIZATION_NVP( wind_ef);
+    ar &     BOOST_SERIALIZATION_NVP( wind_ef);
     ar & BOOST_SERIALIZATION_NVP( velocity_air_ef);
     ar & BOOST_SERIALIZATION_NVP( velocity_air_bf);
     ar & BOOST_SERIALIZATION_NVP( position);
@@ -189,8 +189,8 @@ void serialize(Archive & ar, const unsigned int version)
     ar & BOOST_SERIALIZATION_NVP( mag_bf);
     ar & BOOST_SERIALIZATION_NVP( time_now_us);
 
-    ar & BOOST_SERIALIZATION_NVP( gyro_noise);
-    ar & BOOST_SERIALIZATION_NVP( accel_noise);
+    //ar & BOOST_SERIALIZATION_NVP( gyro_noise); const
+    //ar & BOOST_SERIALIZATION_NVP( accel_noise); const
     ar & BOOST_SERIALIZATION_NVP( rate_hz);
     ar & BOOST_SERIALIZATION_NVP( achieved_rate_hz);
     ar & BOOST_SERIALIZATION_NVP( target_speedup);
@@ -213,12 +213,12 @@ void serialize(Archive & ar, const unsigned int version)
 
     ar & BOOST_SERIALIZATION_NVP( use_smoothing);
 
-    ar & BOOST_SERIALIZATION_NVP(terrain);
+    //ar & BOOST_SERIALIZATION_NVP(terrain);  error: no matching function for call to ‘AP_Terrain::AP_Terrain()’
 
     ar & BOOST_SERIALIZATION_NVP( last_time_us);
     ar & BOOST_SERIALIZATION_NVP( frame_counter);
     ar & BOOST_SERIALIZATION_NVP( last_ground_contact_ms);
-    ar & BOOST_SERIALIZATION_NVP( min_sleep_time);
+    //ar & BOOST_SERIALIZATION_NVP( min_sleep_time); const
 
     ar & BOOST_SERIALIZATION_NVP( servo_filter);
 
@@ -281,8 +281,9 @@ protected:
         template<class Archive>
         void serialize(Archive & ar, const unsigned int version)
         {
-          ar & BOOST_SERIALIZATION_NVP(points);
-          ar & BOOST_SERIALIZATION_NVP(ranges);
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
+            ar & BOOST_SERIALIZATION_NVP(points);
+            ar & BOOST_SERIALIZATION_NVP(ranges);
         }
     } scanner;
     
@@ -401,6 +402,7 @@ private:
         template<class Archive>
         void serialize(Archive & ar, const unsigned int version)
         {
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
             ar & BOOST_SERIALIZATION_NVP( enabled);
             ar & BOOST_SERIALIZATION_NVP( accel_body);
             ar & BOOST_SERIALIZATION_NVP(gyro);
@@ -423,7 +425,7 @@ private:
     SIM_Precland *precland;
 };
 
-BOOST_SERIALIZATION_ASSUME_ABSTRACT( Aircraft );
+//BOOST_SERIALIZATION_ASSUME_ABSTRACT( Aircraft );
 
 
 } // namespace SITL

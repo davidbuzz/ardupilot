@@ -211,7 +211,10 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
     setup_signal_handlers();
 
     uint32_t last_watchdog_save = AP_HAL::millis();
-    uint32_t last_persist = AP_HAL::millis();
+
+    uint32_t last_persist_save = AP_HAL::millis(); //save
+    uint32_t last_persist_load = AP_HAL::millis(); //load
+    uint8_t persist_state = 0; // start at 0, move to 1 on save, then to 2 on write
 
     while (!HALSITL::Scheduler::_should_reboot) {
         if (HALSITL::Scheduler::_should_exit) {
@@ -229,31 +232,40 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
             watchdog_save((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4);
         }
 
-        if (now - last_persist >= 1000 ) {
-            // save persistent data every 1000ms
-            last_persist = now;
 
-            // try to persist the sitl instance..
-            std::ofstream ofs("buzz.persist");
-            // save data to archive
-            {
-                ::printf("serialised some of sitl to buzz.persist\n");
-                boost::archive::text_oarchive oa(ofs);
-                // write class instance to archive
-                oa << _sitl_state;
-            	// archive and stream closed when destructors are called
-            }
+        // hardcode 1 persist on startup
+        if ((now - last_persist_save >= 500 ) && (persist_state == 0)) {
+            // save persistent data every 1000ms
+            last_persist_save = now;
+            persist_state = 1;
+
             std::ofstream ofs2("buzz.persist.xml");
             {
-                ::printf("serialised some of sitl to buzz.persist.xml\n");
+                ::printf("Serialised some of sitl to buzz.persist.xml\n");
                 boost::archive::xml_oarchive oa(ofs2);
                 assert(ofs2.good());
                 // write class instance to archive
                 oa << BOOST_SERIALIZATION_NVP(_sitl_state);
             	// archive and stream closed when destructors are called
             }
+        }
+        
 
+        // hardcode 1 load 10 secs after save
+        if ((now - last_persist_load >= 91000 ) && (persist_state == 1)) {
+            // save persistent data every 1000ms
+            last_persist_save = now;
+            persist_state = 2;
 
+            std::ifstream ifs2("buzz.persist.xml");
+            {
+                ::printf("DE-Serialised some of sitl to buzz.persist.xml\n");
+                boost::archive::xml_iarchive ia(ifs2);
+                assert(ifs2.good());
+                // read class instance to archive
+                ia >> BOOST_SERIALIZATION_NVP(*_sitl_state);
+            	// archive and stream closed when destructors are called
+            }
         }
 
         if (using_watchdog) {

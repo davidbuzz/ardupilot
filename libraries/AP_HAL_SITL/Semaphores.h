@@ -16,9 +16,10 @@ public:
     bool take(uint32_t timeout_ms) override;
     bool take_nonblocking() override;
 
- template<class Archive>
+    template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
         //ar & BOOST_SERIALIZATION_NVP(_lock); buzz todo error: ‘union pthread_mutex_t’ has no member named ‘serialize’
     }
 protected:

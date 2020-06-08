@@ -9,6 +9,7 @@
 #include "SITL_State.h"
 
 #include <SITL/Serialize.h>
+#include <stdio.h>
 
 class HAL_SITL : public AP_HAL::HAL {
 public:
@@ -24,6 +25,7 @@ private:
     //template<class Archive>
     //void serialize(Archive & ar, const unsigned int version)
     //{
+        //::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
         //ar & _sitl_state;
         //ar & minutes;
         //ar & seconds;

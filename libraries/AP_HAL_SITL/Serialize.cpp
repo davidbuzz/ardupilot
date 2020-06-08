@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <boost/exception/diagnostic_information.hpp>
+#include <stdio.h>
 
 
 namespace boost
