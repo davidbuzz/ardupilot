@@ -3,7 +3,7 @@
 <boost_serialization signature="serialization::archive" version="15">
 <_sitl_state class_id="0" tracking_level="1" version="0" object_id="_0">
 	<output_ready>1</output_ready>
-	<new_rc_input>0</new_rc_input>
+	<new_rc_input>1</new_rc_input>
 	<sonar_pin_value>1023</sonar_pin_value>
 	<airspeed_pin_value>503</airspeed_pin_value>
 	<airspeed_2_pin_value>503</airspeed_2_pin_value>
@@ -15,8 +15,8 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>957</_parent_pid>
-	<_update_count>3640</_update_count>
+	<_parent_pid>3844</_parent_pid>
+	<_update_count>3653</_update_count>
 	<_ins class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_gyro_count>2</_gyro_count>
 		<_accel_count>2</_accel_count>
@@ -27,14 +27,14 @@
 		<_accel>
 			<count>3</count>
 			<item class_id="2" tracking_level="0" version="0">
-				<x>-4.532285384e-04</x>
-				<y>-4.992804606e-04</y>
-				<z>-9.817213058e+00</z>
+				<x>-1.000805855e+00</x>
+				<y>0.000000000e+00</y>
+				<z>-9.818730354e+00</z>
 			</item>
 			<item>
-				<x>1.720353728e-03</x>
-				<y>-3.292647190e-03</y>
-				<z>-9.820524216e+00</z>
+				<x>-6.414451636e-04</x>
+				<y>0.000000000e+00</y>
+				<z>-9.818453789e+00</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -45,14 +45,14 @@
 		<_delta_velocity>
 			<count>3</count>
 			<item>
-				<x>8.124676242e-06</x>
-				<y>-1.076065837e-05</y>
-				<z>-1.963306591e-02</z>
+				<x>-1.995860832e-03</x>
+				<y>0.000000000e+00</y>
+				<z>-1.963696256e-02</z>
 			</item>
 			<item>
-				<x>3.551730742e-06</x>
-				<y>-8.871129467e-07</y>
-				<z>-2.455468103e-02</z>
+				<x>-7.869266483e-06</x>
+				<y>0.000000000e+00</y>
+				<z>-2.454888448e-02</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -75,9 +75,9 @@
 		<_delta_velocity_acc>
 			<count>3</count>
 			<item>
-				<x>9.283976965e-07</x>
-				<y>2.361220368e-06</y>
-				<z>-9.817104787e-03</z>
+				<x>-1.007275539e-03</x>
+				<y>0.000000000e+00</y>
+				<z>-9.824080393e-03</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -111,14 +111,14 @@
 		<_accel_filtered>
 			<count>3</count>
 			<item>
-				<x>-3.503398621e-04</x>
-				<y>-5.141106085e-04</y>
-				<z>-9.817121506e+00</z>
+				<x>-1.000790596e+00</x>
+				<y>0.000000000e+00</y>
+				<z>-9.818813324e+00</z>
 			</item>
 			<item>
-				<x>1.720353728e-03</x>
-				<y>-3.292647190e-03</y>
-				<z>-9.820524216e+00</z>
+				<x>-6.414451636e-04</x>
+				<y>0.000000000e+00</y>
+				<z>-9.818453789e+00</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -129,14 +129,14 @@
 		<_gyro_filtered>
 			<count>3</count>
 			<item>
-				<x>2.513321988e-06</x>
-				<y>5.207218237e-06</y>
-				<z>5.494375728e-05</z>
+				<x>3.970614489e-05</x>
+				<y>8.948153118e-05</y>
+				<z>1.022062206e-04</z>
 			</item>
 			<item>
-				<x>-1.028907263e-05</x>
-				<y>2.171508677e-04</y>
-				<z>4.432838250e-05</z>
+				<x>4.471876309e-05</x>
+				<y>4.929788702e-05</y>
+				<z>4.950810398e-05</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -147,14 +147,14 @@
 		<_gyro_raw>
 			<count>3</count>
 			<item>
-				<x>-2.657932639e-01</x>
-				<y>-3.083282411e-01</y>
-				<z>2.728830278e-01</z>
+				<x>2.443855256e-01</x>
+				<y>-1.871998459e-01</y>
+				<z>-9.985800087e-02</z>
 			</item>
 			<item>
-				<x>3.125801682e-01</x>
-				<y>2.420202494e-01</y>
-				<z>-2.543769777e-01</z>
+				<x>-2.024094164e-01</x>
+				<y>-1.782775968e-01</y>
+				<z>8.309879899e-01</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -182,10 +182,18 @@
 			<item>0</item>
 		</_new_gyro_data>
 		<_notch_filter class_id="4" tracking_level="0" version="0">
-			<_enable class_id="5" tracking_level="1" version="0" object_id="_2"></_enable>
-			<_center_freq_hz class_id="6" tracking_level="1" version="0" object_id="_3"></_center_freq_hz>
-			<_bandwidth_hz object_id="_4"></_bandwidth_hz>
-			<_attenuation_dB object_id="_5"></_attenuation_dB>
+			<_enable class_id="5" tracking_level="1" version="0" object_id="_2">
+				<_value>0</_value>
+			</_enable>
+			<_center_freq_hz class_id="6" tracking_level="1" version="0" object_id="_3">
+				<_value>8.000000000e+01</_value>
+			</_center_freq_hz>
+			<_bandwidth_hz object_id="_4">
+				<_value>2.000000000e+01</_value>
+			</_bandwidth_hz>
+			<_attenuation_dB object_id="_5">
+				<_value>1.500000000e+01</_value>
+			</_attenuation_dB>
 		</_notch_filter>
 		<_gyro_notch_filter>
 			<count>3</count>
@@ -293,10 +301,18 @@
 			</item>
 		</_gyro_notch_filter>
 		<_harmonic_notch_filter class_id="8" tracking_level="0" version="0">
-			<_harmonics object_id="_9"></_harmonics>
-			<_reference object_id="_10"></_reference>
-			<_tracking_mode object_id="_11"></_tracking_mode>
-			<_options class_id="9" tracking_level="0" version="0"></_options>
+			<_harmonics object_id="_9">
+				<_value>3</_value>
+			</_harmonics>
+			<_reference object_id="_10">
+				<_value>0.000000000e+00</_value>
+			</_reference>
+			<_tracking_mode object_id="_11">
+				<_value>1</_value>
+			</_tracking_mode>
+			<_options class_id="9" tracking_level="0" version="0">
+				<_value>0</_value>
+			</_options>
 		</_harmonic_notch_filter>
 		<_gyro_harmonic_notch_filter>
 			<count>3</count>
@@ -407,14 +423,14 @@
 		<_gyro>
 			<count>3</count>
 			<item>
-				<x>8.308653605e-07</x>
-				<y>9.634075468e-06</y>
-				<z>4.882675421e-05</z>
+				<x>3.829215348e-05</x>
+				<y>9.397260874e-05</y>
+				<z>9.533630509e-05</z>
 			</item>
 			<item>
-				<x>1.715273174e-05</x>
-				<y>2.044427383e-04</y>
-				<z>4.689873458e-05</z>
+				<x>5.342800432e-05</x>
+				<y>8.572099614e-05</y>
+				<z>3.657690104e-05</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -425,14 +441,14 @@
 		<_delta_angle>
 			<count>3</count>
 			<item>
-				<x>-1.531820004e-08</x>
-				<y>-2.495325759e-07</y>
-				<z>2.536527290e-07</z>
+				<x>2.435121189e-07</x>
+				<y>-2.034218198e-07</y>
+				<z>2.395809133e-07</z>
 			</item>
 			<item>
-				<x>-9.218579180e-07</x>
-				<y>1.864997103e-06</y>
-				<z>4.354796772e-07</z>
+				<x>-3.650705196e-07</x>
+				<y>-1.271534302e-06</y>
+				<z>1.466477073e-07</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -461,14 +477,14 @@
 		<_delta_angle_acc>
 			<count>3</count>
 			<item>
-				<x>-2.587154881e-07</x>
-				<y>-3.081557622e-07</y>
-				<z>9.994050743e-08</z>
+				<x>1.808836316e-07</x>
+				<y>-2.400557833e-07</y>
+				<z>5.288448790e-08</z>
 			</item>
 			<item>
-				<x>5.336195272e-07</x>
-				<y>6.469637981e-08</y>
-				<z>-3.027320759e-07</z>
+				<x>4.337273651e-08</x>
+				<y>-2.746988343e-07</y>
+				<z>2.007836883e-07</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -479,14 +495,14 @@
 		<_last_delta_angle>
 			<count>3</count>
 			<item>
-				<x>-2.587154881e-07</x>
-				<y>-3.081557622e-07</y>
-				<z>9.994050743e-08</z>
+				<x>1.808836316e-07</x>
+				<y>-2.400557833e-07</y>
+				<z>5.288449145e-08</z>
 			</item>
 			<item>
-				<x>5.336195272e-07</x>
-				<y>6.469636560e-08</y>
-				<z>-3.027320190e-07</z>
+				<x>4.337274007e-08</x>
+				<y>-2.746988343e-07</y>
+				<z>2.007836741e-07</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -497,14 +513,14 @@
 		<_last_raw_gyro>
 			<count>3</count>
 			<item>
-				<x>-2.340245119e-04</x>
-				<y>-2.875500359e-04</y>
-				<z>-9.105636855e-05</z>
+				<x>1.011970089e-04</x>
+				<y>-2.804966352e-04</y>
+				<z>2.122182486e-04</z>
 			</item>
 			<item>
-				<x>4.778686853e-04</x>
-				<y>-1.596778748e-04</y>
-				<z>-1.889664127e-04</z>
+				<x>2.817155037e-04</x>
+				<y>-2.274849685e-04</y>
+				<z>-5.807204871e-04</z>
 			</item>
 			<item>
 				<x>0.000000000e+00</x>
@@ -528,39 +544,123 @@
 		</_gyro_raw_sampling_multiplier>
 		<_accel_id>
 			<count>3</count>
-			<item class_id="11" tracking_level="0" version="0"></item>
-			<item></item>
-			<item></item>
+			<item class_id="11" tracking_level="0" version="0">
+				<_value>2753028</_value>
+			</item>
+			<item>
+				<_value>2753036</_value>
+			</item>
+			<item>
+				<_value>0</_value>
+			</item>
 		</_accel_id>
 		<_gyro_id>
 			<count>3</count>
-			<item></item>
-			<item></item>
-			<item></item>
+			<item>
+				<_value>2752772</_value>
+			</item>
+			<item>
+				<_value>2752780</_value>
+			</item>
+			<item>
+				<_value>0</_value>
+			</item>
 		</_gyro_id>
 		<_accel_scale>
 			<count>3</count>
-			<item class_id="12" tracking_level="0" version="0"></item>
-			<item></item>
-			<item></item>
+			<item class_id="12" tracking_level="0" version="0">
+				<_value>
+					<x>1.001000047e+00</x>
+					<y>0.000000000e+00</y>
+					<z>1.001000047e+00</z>
+				</_value>
+			</item>
+			<item>
+				<_value>
+					<x>1.001000047e+00</x>
+					<y>0.000000000e+00</y>
+					<z>1.001000047e+00</z>
+				</_value>
+			</item>
+			<item>
+				<_value>
+					<x>1.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>1.000000000e+00</z>
+				</_value>
+			</item>
 		</_accel_scale>
 		<_accel_offset>
 			<count>3</count>
-			<item></item>
-			<item></item>
-			<item></item>
+			<item>
+				<_value>
+					<x>1.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>1.000000047e-03</z>
+				</_value>
+			</item>
+			<item>
+				<_value>
+					<x>1.000000047e-03</x>
+					<y>0.000000000e+00</y>
+					<z>1.000000047e-03</z>
+				</_value>
+			</item>
+			<item>
+				<_value>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_value>
+			</item>
 		</_accel_offset>
 		<_gyro_offset>
 			<count>3</count>
-			<item></item>
-			<item></item>
-			<item></item>
+			<item>
+				<_value>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_value>
+			</item>
+			<item>
+				<_value>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_value>
+			</item>
+			<item>
+				<_value>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_value>
+			</item>
 		</_gyro_offset>
 		<_accel_pos>
 			<count>3</count>
-			<item></item>
-			<item></item>
-			<item></item>
+			<item>
+				<_value>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_value>
+			</item>
+			<item>
+				<_value>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_value>
+			</item>
+			<item>
+				<_value>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_value>
+			</item>
 		</_accel_pos>
 		<_accel_max_abs_offsets>
 			<count>3</count>
@@ -594,14 +694,14 @@
 		</_gyro_over_sampling>
 		<_accel_last_sample_us>
 			<count>3</count>
-			<item>3032120</item>
-			<item>3031287</item>
+			<item>3042949</item>
+			<item>3042116</item>
 			<item>0</item>
 		</_accel_last_sample_us>
 		<_gyro_last_sample_us>
 			<count>3</count>
-			<item>3032120</item>
-			<item>3032120</item>
+			<item>3042949</item>
+			<item>3042949</item>
 			<item>0</item>
 		</_gyro_last_sample_us>
 		<_sample_accel_count>
@@ -612,8 +712,8 @@
 		</_sample_accel_count>
 		<_sample_accel_start_us>
 			<count>3</count>
-			<item>2753898</item>
-			<item>2753898</item>
+			<item>2764727</item>
+			<item>2764727</item>
 			<item>0</item>
 		</_sample_accel_start_us>
 		<_sample_gyro_count>
@@ -624,8 +724,8 @@
 		</_sample_gyro_count>
 		<_sample_gyro_start_us>
 			<count>3</count>
-			<item>2753898</item>
-			<item>2754731</item>
+			<item>2764727</item>
+			<item>2765560</item>
 			<item>0</item>
 		</_sample_gyro_start_us>
 		<_temperature>
@@ -634,17 +734,33 @@
 			<item>2.300000000e+01</item>
 			<item>0.000000000e+00</item>
 		</_temperature>
-		<_accel_filter_cutoff></_accel_filter_cutoff>
-		<_gyro_filter_cutoff></_gyro_filter_cutoff>
-		<_gyro_cal_timing object_id="_14"></_gyro_cal_timing>
+		<_accel_filter_cutoff>
+			<_value>20</_value>
+		</_accel_filter_cutoff>
+		<_gyro_filter_cutoff>
+			<_value>20</_value>
+		</_gyro_filter_cutoff>
+		<_gyro_cal_timing object_id="_14">
+			<_value>1</_value>
+		</_gyro_cal_timing>
 		<_use>
 			<count>3</count>
-			<item object_id="_15"></item>
-			<item object_id="_16"></item>
-			<item object_id="_17"></item>
+			<item object_id="_15">
+				<_value>1</_value>
+			</item>
+			<item object_id="_16">
+				<_value>1</_value>
+			</item>
+			<item object_id="_17">
+				<_value>1</_value>
+			</item>
 		</_use>
-		<_fast_sampling_mask object_id="_18"></_fast_sampling_mask>
-		<_enable_mask object_id="_19"></_enable_mask>
+		<_fast_sampling_mask object_id="_18">
+			<_value>1</_value>
+		</_fast_sampling_mask>
+		<_enable_mask object_id="_19">
+			<_value>127</_value>
+		</_enable_mask>
 		<_board_orientation>0</_board_orientation>
 		<_custom_rotation class_id="-1"></_custom_rotation>
 		<_gyro_orientation>
@@ -677,10 +793,10 @@
 		<_accel_wait_mask>3</_accel_wait_mask>
 		<_log_raw_bit>524288</_log_raw_bit>
 		<_delta_time>2.498999937e-03</_delta_time>
-		<_last_sample_usec>3031287</_last_sample_usec>
-		<_next_sample_usec>3033154</_next_sample_usec>
+		<_last_sample_usec>3042116</_last_sample_usec>
+		<_next_sample_usec>3043983</_next_sample_usec>
 		<_sample_period_usec>2500</_sample_period_usec>
-		<_last_update_usec>3031287</_last_update_usec>
+		<_last_update_usec>3042116</_last_update_usec>
 		<_gyro_healthy>
 			<count>3</count>
 			<item>1</item>
@@ -717,9 +833,9 @@
 				<_cutoff_freq>5.000000000e+00</_cutoff_freq>
 				<_filter class_id="15" tracking_level="0" version="0">
 					<_output>
-						<x>-5.684988573e-04</x>
-						<y>-8.992645890e-04</y>
-						<z>-9.817438126e+00</z>
+						<x>-1.001156569e+00</x>
+						<y>0.000000000e+00</y>
+						<z>-9.818121910e+00</z>
 					</_output>
 					<alpha>3.046158329e-02</alpha>
 				</_filter>
@@ -728,9 +844,9 @@
 				<_cutoff_freq>5.000000000e+00</_cutoff_freq>
 				<_filter>
 					<_output>
-						<x>-3.475339618e-04</x>
-						<y>-2.364298794e-03</y>
-						<z>-9.818380356e+00</z>
+						<x>-1.400465728e-03</x>
+						<y>0.000000000e+00</y>
+						<z>-9.817478180e+00</z>
 					</_output>
 					<alpha>3.778920323e-02</alpha>
 				</_filter>
@@ -742,9 +858,9 @@
 				<_cutoff_freq>2.000000000e+00</_cutoff_freq>
 				<_filter>
 					<_output>
-						<x>1.567425534e-05</x>
-						<y>1.648532634e-05</y>
-						<z>1.812529626e-05</z>
+						<x>1.356028224e-05</x>
+						<y>0.000000000e+00</y>
+						<z>1.618439092e-05</z>
 					</_output>
 					<alpha>1.241147798e-02</alpha>
 				</_filter>
@@ -753,17 +869,23 @@
 				<_cutoff_freq>2.000000000e+00</_cutoff_freq>
 				<_filter>
 					<_output>
-						<x>6.210992433e-05</x>
-						<y>5.539667472e-05</y>
-						<z>5.212095857e-05</z>
+						<x>7.094039029e-05</x>
+						<y>0.000000000e+00</y>
+						<z>5.072345812e-05</z>
 					</_output>
 					<alpha>1.546635758e-02</alpha>
 				</_filter>
 			</item>
 		</_accel_vibe_filter>
-		<_still_threshold object_id="_20"></_still_threshold>
-		<_acc_body_aligned object_id="_21"></_acc_body_aligned>
-		<_trim_option object_id="_22"></_trim_option>
+		<_still_threshold object_id="_20">
+			<_value>2.500000000e+00</_value>
+		</_still_threshold>
+		<_acc_body_aligned object_id="_21">
+			<_value>2</_value>
+		</_acc_body_aligned>
+		<_trim_option object_id="_22">
+			<_value>1</_value>
+		</_trim_option>
 		<_acal class_id="-1"></_acal>
 		<_accel_calibrator class_id="-1"></_accel_calibrator>
 		<_trim_pitch>0.000000000e+00</_trim_pitch>
@@ -783,7 +905,7 @@
 			<item>0</item>
 		</_gyro_startup_error_count>
 		<_startup_error_counts_set>0</_startup_error_counts_set>
-		<_startup_ms>1757</_startup_ms>
+		<_startup_ms>1768</_startup_ms>
 		<imu_kill_mask>0</imu_kill_mask>
 	</_ins>
 	<_compass class_id="18" tracking_level="1" version="0" object_id="_23">
@@ -791,19 +913,37 @@
 		<_cal_complete_requires_reboot>0</_cal_complete_requires_reboot>
 		<_cal_has_run>0</_cal_has_run>
 		<_backend_count>1</_backend_count>
-		<_enabled object_id="_24"></_enabled>
+		<_enabled object_id="_24">
+			<_value>1</_value>
+		</_enabled>
 		<_compass_count>3</_compass_count>
 		<_unreg_compass_count>3</_unreg_compass_count>
-		<_learn object_id="_25"></_learn>
-		<_declination object_id="_26"></_declination>
-		<_auto_declination object_id="_27"></_auto_declination>
+		<_learn object_id="_25">
+			<_value>0</_value>
+		</_learn>
+		<_declination object_id="_26">
+			<_value>1.814129800e-01</_value>
+		</_declination>
+		<_auto_declination object_id="_27">
+			<_value>1</_value>
+		</_auto_declination>
 		<_null_init_done>0</_null_init_done>
 		<_log_bit>8192</_log_bit>
-		<_motor_comp_type object_id="_28"></_motor_comp_type>
-		<_rotate_auto object_id="_29"></_rotate_auto>
-		<_custom_roll object_id="_30"></_custom_roll>
-		<_custom_pitch object_id="_31"></_custom_pitch>
-		<_custom_yaw object_id="_32"></_custom_yaw>
+		<_motor_comp_type object_id="_28">
+			<_value>0</_value>
+		</_motor_comp_type>
+		<_rotate_auto object_id="_29">
+			<_value>2</_value>
+		</_rotate_auto>
+		<_custom_roll object_id="_30">
+			<_value>0.000000000e+00</_value>
+		</_custom_roll>
+		<_custom_pitch object_id="_31">
+			<_value>0.000000000e+00</_value>
+		</_custom_pitch>
+		<_custom_yaw object_id="_32">
+			<_value>0.000000000e+00</_value>
+		</_custom_yaw>
 		<_thr>0.000000000e+00</_thr>
 	</_compass>
 	<_sitl_rc_in class_id="19" tracking_level="0" version="0">
@@ -826,7 +966,7 @@
 	</_sitl_rc_in>
 	<_sitl class_id="20" tracking_level="1" version="0" object_id="_33">
 		<state class_id="21" tracking_level="0" version="0">
-			<timestamp_us>3032120</timestamp_us>
+			<timestamp_us>3042949</timestamp_us>
 			<home class_id="22" tracking_level="0" version="0">
 				<alt>31000</alt>
 				<lat>-275830000</lat>
@@ -844,7 +984,7 @@
 			<zAccel>-9.80665016174316406e+00</zAccel>
 			<rollRate>0.00000000000000000e+00</rollRate>
 			<pitchRate>0.00000000000000000e+00</pitchRate>
-			<yawRate>0.00000000000000000e+00</yawRate>
+			<yawRate>-5.12264159624464810e-05</yawRate>
 			<rollDeg>0.00000000000000000e+00</rollDeg>
 			<pitchDeg>0.00000000000000000e+00</pitchDeg>
 			<yawDeg>9.69999923706054688e+01</yawDeg>
@@ -934,141 +1074,442 @@
 				<z>1.000000000e+00</z>
 			</c>
 		</ahrs_rotation_inv>
-		<baro_noise object_id="_36"></baro_noise>
-		<baro_drift object_id="_37"></baro_drift>
-		<baro_glitch object_id="_38"></baro_glitch>
-		<gyro_noise object_id="_39"></gyro_noise>
-		<gyro_scale></gyro_scale>
-		<accel_noise object_id="_40"></accel_noise>
-		<accel2_noise object_id="_41"></accel2_noise>
-		<accel_bias></accel_bias>
-		<accel2_bias></accel2_bias>
-		<arspd_noise object_id="_42"></arspd_noise>
-		<arspd_fail object_id="_43"></arspd_fail>
-		<arspd2_fail object_id="_44"></arspd2_fail>
-		<arspd_fail_pressure object_id="_45"></arspd_fail_pressure>
-		<arspd_fail_pitot_pressure object_id="_46"></arspd_fail_pitot_pressure>
-		<arspd2_fail_pressure object_id="_47"></arspd2_fail_pressure>
-		<arspd2_fail_pitot_pressure object_id="_48"></arspd2_fail_pitot_pressure>
-		<gps_noise object_id="_49"></gps_noise>
-		<gps_lock_time></gps_lock_time>
-		<gps_alt_offset></gps_alt_offset>
-		<mag_noise object_id="_50"></mag_noise>
-		<mag_mot></mag_mot>
-		<mag_ofs></mag_ofs>
-		<mag_diag></mag_diag>
-		<mag_offdiag></mag_offdiag>
-		<mag_orient object_id="_51"></mag_orient>
-		<servo_speed object_id="_52"></servo_speed>
-		<sonar_glitch object_id="_53"></sonar_glitch>
-		<sonar_noise object_id="_54"></sonar_noise>
-		<sonar_scale object_id="_55"></sonar_scale>
-		<drift_speed object_id="_56"></drift_speed>
-		<drift_time object_id="_57"></drift_time>
-		<engine_mul object_id="_58"></engine_mul>
-		<engine_fail object_id="_59"></engine_fail>
-		<gps_disable object_id="_60"></gps_disable>
-		<gps2_enable object_id="_61"></gps2_enable>
-		<gps_delay object_id="_62"></gps_delay>
+		<baro_noise object_id="_36">
+			<_value>0.000000000e+00</_value>
+		</baro_noise>
+		<baro_drift object_id="_37">
+			<_value>0.000000000e+00</_value>
+		</baro_drift>
+		<baro_glitch object_id="_38">
+			<_value>0.000000000e+00</_value>
+		</baro_glitch>
+		<gyro_noise object_id="_39">
+			<_value>0.000000000e+00</_value>
+		</gyro_noise>
+		<gyro_scale>
+			<_value>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_value>
+		</gyro_scale>
+		<accel_noise object_id="_40">
+			<_value>0.000000000e+00</_value>
+		</accel_noise>
+		<accel2_noise object_id="_41">
+			<_value>0.000000000e+00</_value>
+		</accel2_noise>
+		<accel_bias>
+			<_value>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_value>
+		</accel_bias>
+		<accel2_bias>
+			<_value>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_value>
+		</accel2_bias>
+		<arspd_noise object_id="_42">
+			<_value>5.000000000e-01</_value>
+		</arspd_noise>
+		<arspd_fail object_id="_43">
+			<_value>0.000000000e+00</_value>
+		</arspd_fail>
+		<arspd2_fail object_id="_44">
+			<_value>0.000000000e+00</_value>
+		</arspd2_fail>
+		<arspd_fail_pressure object_id="_45">
+			<_value>0.000000000e+00</_value>
+		</arspd_fail_pressure>
+		<arspd_fail_pitot_pressure object_id="_46">
+			<_value>0.000000000e+00</_value>
+		</arspd_fail_pitot_pressure>
+		<arspd2_fail_pressure object_id="_47">
+			<_value>0.000000000e+00</_value>
+		</arspd2_fail_pressure>
+		<arspd2_fail_pitot_pressure object_id="_48">
+			<_value>0.000000000e+00</_value>
+		</arspd2_fail_pitot_pressure>
+		<gps_noise object_id="_49">
+			<_value>0.000000000e+00</_value>
+		</gps_noise>
+		<gps_lock_time>
+			<_value>0</_value>
+		</gps_lock_time>
+		<gps_alt_offset>
+			<_value>0</_value>
+		</gps_alt_offset>
+		<mag_noise object_id="_50">
+			<_value>0.000000000e+00</_value>
+		</mag_noise>
+		<mag_mot>
+			<_value>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_value>
+		</mag_mot>
+		<mag_ofs>
+			<_value>
+				<x>5.000000000e+00</x>
+				<y>1.300000000e+01</y>
+				<z>-1.800000000e+01</z>
+			</_value>
+		</mag_ofs>
+		<mag_diag>
+			<_value>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_value>
+		</mag_diag>
+		<mag_offdiag>
+			<_value>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_value>
+		</mag_offdiag>
+		<mag_orient object_id="_51">
+			<_value>0</_value>
+		</mag_orient>
+		<servo_speed object_id="_52">
+			<_value>1.400000006e-01</_value>
+		</servo_speed>
+		<sonar_glitch object_id="_53">
+			<_value>0.000000000e+00</_value>
+		</sonar_glitch>
+		<sonar_noise object_id="_54">
+			<_value>0.000000000e+00</_value>
+		</sonar_noise>
+		<sonar_scale object_id="_55">
+			<_value>1.212119961e+01</_value>
+		</sonar_scale>
+		<drift_speed object_id="_56">
+			<_value>5.000000075e-02</_value>
+		</drift_speed>
+		<drift_time object_id="_57">
+			<_value>5.000000000e+00</_value>
+		</drift_time>
+		<engine_mul object_id="_58">
+			<_value>1.000000000e+00</_value>
+		</engine_mul>
+		<engine_fail object_id="_59">
+			<_value>0</_value>
+		</engine_fail>
+		<gps_disable object_id="_60">
+			<_value>0</_value>
+		</gps_disable>
+		<gps2_enable object_id="_61">
+			<_value>0</_value>
+		</gps2_enable>
+		<gps_delay object_id="_62">
+			<_value>1</_value>
+		</gps_delay>
 		<gps_type>
 			<count>2</count>
-			<item object_id="_63"></item>
-			<item object_id="_64"></item>
+			<item object_id="_63">
+				<_value>1</_value>
+			</item>
+			<item object_id="_64">
+				<_value>1</_value>
+			</item>
 		</gps_type>
-		<gps_byteloss object_id="_65"></gps_byteloss>
-		<gps_numsats object_id="_66"></gps_numsats>
+		<gps_byteloss object_id="_65">
+			<_value>0.000000000e+00</_value>
+		</gps_byteloss>
+		<gps_numsats object_id="_66">
+			<_value>10</_value>
+		</gps_numsats>
 		<gps_glitch>
 			<count>2</count>
-			<item></item>
-			<item></item>
+			<item>
+				<_value>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_value>
+			</item>
+			<item>
+				<_value>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_value>
+			</item>
 		</gps_glitch>
-		<gps_hertz object_id="_67"></gps_hertz>
-		<batt_voltage object_id="_68"></batt_voltage>
-		<accel_fail object_id="_69"></accel_fail>
-		<rc_fail object_id="_70"></rc_fail>
-		<rc_chancount object_id="_71"></rc_chancount>
-		<baro_disable object_id="_72"></baro_disable>
-		<float_exception object_id="_73"></float_exception>
-		<flow_enable object_id="_74"></flow_enable>
-		<flow_rate></flow_rate>
-		<flow_delay object_id="_75"></flow_delay>
-		<terrain_enable object_id="_76"></terrain_enable>
-		<pin_mask></pin_mask>
-		<speedup object_id="_77"></speedup>
-		<odom_enable object_id="_78"></odom_enable>
-		<telem_baudlimit_enable object_id="_79"></telem_baudlimit_enable>
-		<flow_noise object_id="_80"></flow_noise>
-		<baro_count object_id="_81"></baro_count>
+		<gps_hertz object_id="_67">
+			<_value>5</_value>
+		</gps_hertz>
+		<batt_voltage object_id="_68">
+			<_value>1.260000038e+01</_value>
+		</batt_voltage>
+		<accel_fail object_id="_69">
+			<_value>0.000000000e+00</_value>
+		</accel_fail>
+		<rc_fail object_id="_70">
+			<_value>0</_value>
+		</rc_fail>
+		<rc_chancount object_id="_71">
+			<_value>16</_value>
+		</rc_chancount>
+		<baro_disable object_id="_72">
+			<_value>0</_value>
+		</baro_disable>
+		<float_exception object_id="_73">
+			<_value>1</_value>
+		</float_exception>
+		<flow_enable object_id="_74">
+			<_value>0</_value>
+		</flow_enable>
+		<flow_rate>
+			<_value>10</_value>
+		</flow_rate>
+		<flow_delay object_id="_75">
+			<_value>0</_value>
+		</flow_delay>
+		<terrain_enable object_id="_76">
+			<_value>1</_value>
+		</terrain_enable>
+		<pin_mask>
+			<_value>0</_value>
+		</pin_mask>
+		<speedup object_id="_77">
+			<_value>1.000000000e+00</_value>
+		</speedup>
+		<odom_enable object_id="_78">
+			<_value>0</_value>
+		</odom_enable>
+		<telem_baudlimit_enable object_id="_79">
+			<_value>0</_value>
+		</telem_baudlimit_enable>
+		<flow_noise object_id="_80">
+			<_value>5.000000075e-02</_value>
+		</flow_noise>
+		<baro_count object_id="_81">
+			<_value>1</_value>
+		</baro_count>
 		<gps_hdg_enabled>
 			<count>2</count>
-			<item object_id="_82"></item>
-			<item object_id="_83"></item>
+			<item object_id="_82">
+				<_value>0</_value>
+			</item>
+			<item object_id="_83">
+				<_value>0</_value>
+			</item>
 		</gps_hdg_enabled>
-		<loop_delay></loop_delay>
-		<mag_scaling object_id="_84"></mag_scaling>
+		<loop_delay>
+			<_value>0</_value>
+		</loop_delay>
+		<mag_scaling object_id="_84">
+			<_value>1.000000000e+00</_value>
+		</mag_scaling>
 		<mag_devid>
 			<count>8</count>
-			<item></item>
-			<item></item>
-			<item></item>
-			<item></item>
-			<item></item>
-			<item></item>
-			<item></item>
-			<item></item>
+			<item>
+				<_value>97539</_value>
+			</item>
+			<item>
+				<_value>131874</_value>
+			</item>
+			<item>
+				<_value>263178</_value>
+			</item>
+			<item>
+				<_value>97283</_value>
+			</item>
+			<item>
+				<_value>97795</_value>
+			</item>
+			<item>
+				<_value>98051</_value>
+			</item>
+			<item>
+				<_value>0</_value>
+			</item>
+			<item>
+				<_value>0</_value>
+			</item>
 		</mag_devid>
-		<buoyancy object_id="_85"></buoyancy>
-		<efi_type object_id="_86"></efi_type>
+		<buoyancy object_id="_85">
+			<_value>1.000000000e+00</_value>
+		</buoyancy>
+		<efi_type object_id="_86">
+			<_value>0</_value>
+		</efi_type>
 		<wind_speed_active>0.000000000e+00</wind_speed_active>
 		<wind_direction_active>0.000000000e+00</wind_direction_active>
 		<wind_dir_z_active>0.000000000e+00</wind_dir_z_active>
-		<wind_speed object_id="_87"></wind_speed>
-		<wind_direction object_id="_88"></wind_direction>
-		<wind_turbulance object_id="_89"></wind_turbulance>
-		<gps_drift_alt object_id="_90"></gps_drift_alt>
-		<wind_dir_z object_id="_91"></wind_dir_z>
-		<wind_type object_id="_92"></wind_type>
-		<wind_type_alt object_id="_93"></wind_type_alt>
-		<wind_type_coef object_id="_94"></wind_type_coef>
-		<baro_delay></baro_delay>
-		<mag_delay></mag_delay>
-		<wind_delay></wind_delay>
-		<adsb_plane_count></adsb_plane_count>
-		<adsb_radius_m object_id="_95"></adsb_radius_m>
-		<adsb_altitude_m object_id="_96"></adsb_altitude_m>
-		<adsb_tx object_id="_97"></adsb_tx>
-		<mag_anomaly_ned></mag_anomaly_ned>
-		<mag_anomaly_hgt object_id="_98"></mag_anomaly_hgt>
-		<imu_pos_offset></imu_pos_offset>
+		<wind_speed object_id="_87">
+			<_value>0.000000000e+00</_value>
+		</wind_speed>
+		<wind_direction object_id="_88">
+			<_value>1.800000000e+02</_value>
+		</wind_direction>
+		<wind_turbulance object_id="_89">
+			<_value>0.000000000e+00</_value>
+		</wind_turbulance>
+		<gps_drift_alt object_id="_90">
+			<_value>0.000000000e+00</_value>
+		</gps_drift_alt>
+		<wind_dir_z object_id="_91">
+			<_value>0.000000000e+00</_value>
+		</wind_dir_z>
+		<wind_type object_id="_92">
+			<_value>0</_value>
+		</wind_type>
+		<wind_type_alt object_id="_93">
+			<_value>6.000000000e+01</_value>
+		</wind_type_alt>
+		<wind_type_coef object_id="_94">
+			<_value>9.999999776e-03</_value>
+		</wind_type_coef>
+		<baro_delay>
+			<_value>0</_value>
+		</baro_delay>
+		<mag_delay>
+			<_value>0</_value>
+		</mag_delay>
+		<wind_delay>
+			<_value>0</_value>
+		</wind_delay>
+		<adsb_plane_count>
+			<_value>-1</_value>
+		</adsb_plane_count>
+		<adsb_radius_m object_id="_95">
+			<_value>1.000000000e+04</_value>
+		</adsb_radius_m>
+		<adsb_altitude_m object_id="_96">
+			<_value>1.000000000e+03</_value>
+		</adsb_altitude_m>
+		<adsb_tx object_id="_97">
+			<_value>0</_value>
+		</adsb_tx>
+		<mag_anomaly_ned>
+			<_value>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_value>
+		</mag_anomaly_ned>
+		<mag_anomaly_hgt object_id="_98">
+			<_value>1.000000000e+00</_value>
+		</mag_anomaly_hgt>
+		<imu_pos_offset>
+			<_value>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_value>
+		</imu_pos_offset>
 		<gps_pos_offset>
 			<count>2</count>
-			<item></item>
-			<item></item>
+			<item>
+				<_value>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_value>
+			</item>
+			<item>
+				<_value>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_value>
+			</item>
 		</gps_pos_offset>
-		<rngfnd_pos_offset></rngfnd_pos_offset>
-		<optflow_pos_offset></optflow_pos_offset>
-		<vicon_pos_offset></vicon_pos_offset>
-		<temp_start object_id="_99"></temp_start>
-		<temp_flight object_id="_100"></temp_flight>
-		<temp_tconst object_id="_101"></temp_tconst>
-		<temp_baro_factor object_id="_102"></temp_baro_factor>
-		<thermal_scenario object_id="_103"></thermal_scenario>
-		<arspd_signflip object_id="_104"></arspd_signflip>
-		<wow_pin object_id="_105"></wow_pin>
-		<vibe_freq></vibe_freq>
-		<vibe_motor object_id="_106"></vibe_motor>
-		<vibe_motor_scale object_id="_107"></vibe_motor_scale>
-		<ins_noise_throttle_min object_id="_108"></ins_noise_throttle_min>
-		<gyro_fail_mask object_id="_109"></gyro_fail_mask>
-		<accel_fail_mask object_id="_110"></accel_fail_mask>
-		<gnd_behav object_id="_111"></gnd_behav>
-		<_safety_switch_state object_id="_112"></_safety_switch_state>
+		<rngfnd_pos_offset>
+			<_value>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_value>
+		</rngfnd_pos_offset>
+		<optflow_pos_offset>
+			<_value>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_value>
+		</optflow_pos_offset>
+		<vicon_pos_offset>
+			<_value>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_value>
+		</vicon_pos_offset>
+		<temp_start object_id="_99">
+			<_value>2.500000000e+01</_value>
+		</temp_start>
+		<temp_flight object_id="_100">
+			<_value>3.500000000e+01</_value>
+		</temp_flight>
+		<temp_tconst object_id="_101">
+			<_value>3.000000000e+01</_value>
+		</temp_tconst>
+		<temp_baro_factor object_id="_102">
+			<_value>0.000000000e+00</_value>
+		</temp_baro_factor>
+		<arspd_signflip object_id="_103">
+			<_value>0</_value>
+		</arspd_signflip>
+		<wow_pin object_id="_104">
+			<_value>-1</_value>
+		</wow_pin>
+		<vibe_freq>
+			<_value>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_value>
+		</vibe_freq>
+		<vibe_motor object_id="_105">
+			<_value>0.000000000e+00</_value>
+		</vibe_motor>
+		<vibe_motor_scale object_id="_106">
+			<_value>1.000000000e+00</_value>
+		</vibe_motor_scale>
+		<ins_noise_throttle_min object_id="_107">
+			<_value>1.000000015e-01</_value>
+		</ins_noise_throttle_min>
+		<gyro_fail_mask object_id="_108">
+			<_value>0</_value>
+		</gyro_fail_mask>
+		<accel_fail_mask object_id="_109">
+			<_value>0</_value>
+		</accel_fail_mask>
+		<gnd_behav object_id="_110">
+			<_value>-1</_value>
+		</gnd_behav>
+		<_safety_switch_state object_id="_111">
+			<_value>0</_value>
+		</_safety_switch_state>
 		<irlock_port>9005</irlock_port>
-		<led_layout object_id="_113"></led_layout>
-		<vicon_glitch></vicon_glitch>
-		<vicon_fail object_id="_114"></vicon_fail>
-		<vicon_yaw></vicon_yaw>
-		<vicon_yaw_error></vicon_yaw_error>
+		<led_layout object_id="_112">
+			<_value>0</_value>
+		</led_layout>
+		<vicon_glitch>
+			<_value>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_value>
+		</vicon_glitch>
+		<vicon_fail object_id="_113">
+			<_value>0</_value>
+		</vicon_fail>
+		<vicon_yaw>
+			<_value>0</_value>
+		</vicon_yaw>
+		<vicon_yaw_error>
+			<_value>0</_value>
+		</vicon_yaw_error>
 	</_sitl>
 	<_rcin_port>5501</_rcin_port>
 	<_fg_view_port>5503</_fg_view_port>
@@ -1082,20 +1523,20 @@
 	<buffer_mag class_id="24" tracking_level="0" version="0"></buffer_mag>
 	<time_delta_mag>0</time_delta_mag>
 	<delayed_time_mag>0</delayed_time_mag>
-	<store_index_wind>3</store_index_wind>
-	<last_store_time_wind>3030</last_store_time_wind>
+	<store_index_wind>6</store_index_wind>
+	<last_store_time_wind>3040</last_store_time_wind>
 	<buffer_wind class_id="25" tracking_level="0" version="0"></buffer_wind>
 	<buffer_wind_2></buffer_wind_2>
-	<time_delta_wind>32</time_delta_wind>
-	<delayed_time_wind>3032</delayed_time_wind>
+	<time_delta_wind>62</time_delta_wind>
+	<delayed_time_wind>3042</delayed_time_wind>
 	<wind_start_delay_micros>1</wind_start_delay_micros>
-	<sitl_model class_id="26" tracking_level="1" version="0" object_id="_115">
+	<sitl_model class_id="26" tracking_level="1" version="0" object_id="_114">
 		<Aircraft class_id="27" tracking_level="0" version="0">
 			<home_is_set>1</home_is_set>
 			<ground_level>3.100000000e+02</ground_level>
 			<home_yaw>9.700000000e+01</home_yaw>
 			<frame_height>1.000000015e-01</frame_height>
-			<dcm object_id="_116">
+			<dcm object_id="_115">
 				<a>
 					<x>-1.218692884e-01</x>
 					<y>-9.925461411e-01</y>
@@ -1200,24 +1641,26 @@
 				<y>-2.652873840e+02</y>
 				<z>-4.607303772e+02</z>
 			</mag_bf>
-			<time_now_us>3032120</time_now_us>
+			<time_now_us>3042949</time_now_us>
 			<rate_hz>1.200000000e+03</rate_hz>
-			<achieved_rate_hz>1.150666016e+03</achieved_rate_hz>
+			<achieved_rate_hz>1.154969849e+03</achieved_rate_hz>
 			<target_speedup>1.000000000e+00</target_speedup>
 			<frame_time_us>833</frame_time_us>
-			<scaled_frame_time_us>8.489862061e+02</scaled_frame_time_us>
-			<last_wall_time_us>1591612857866799</last_wall_time_us>
+			<scaled_frame_time_us>8.156810913e+02</scaled_frame_time_us>
+			<last_wall_time_us>1591686010553303</last_wall_time_us>
 			<instance>0</instance>
 			<use_time_sync>1</use_time_sync>
 			<last_speedup>1.000000000e+00</last_speedup>
-			<ahrs_orientation class_id_reference="5" object_id="_117"></ahrs_orientation>
+			<ahrs_orientation class_id_reference="5" object_id="_116">
+				<_value>0</_value>
+			</ahrs_orientation>
 			<last_imu_rotation>0</last_imu_rotation>
 			<custom_roll class_id="-1"></custom_roll>
 			<custom_pitch class_id="-1"></custom_pitch>
 			<custom_yaw class_id="-1"></custom_yaw>
 			<use_smoothing>1</use_smoothing>
-			<last_time_us>3032120</last_time_us>
-			<frame_counter>0</frame_counter>
+			<last_time_us>3042949</last_time_us>
+			<frame_counter>13</frame_counter>
 			<last_ground_contact_ms>0</last_ground_contact_ms>
 			<servo_filter>
 				<count>4</count>
@@ -1251,9 +1694,9 @@
 				</item>
 			</servo_filter>
 		</Aircraft>
-		<frame class_id="30" tracking_level="1" version="0" object_id="_118">
+		<frame class_id="30" tracking_level="1" version="0" object_id="_117">
 			<num_motors>4</num_motors>
-			<motors class_id="31" tracking_level="1" version="0" object_id="_119">
+			<motors class_id="31" tracking_level="1" version="0" object_id="_118">
 				<angle>9.000000000e+01</angle>
 				<yaw_factor>1.000000000e+00</yaw_factor>
 				<servo>0</servo>
@@ -1265,7 +1708,7 @@
 				<pitch_min>0.000000000e+00</pitch_min>
 				<pitch_max>0.000000000e+00</pitch_max>
 				<servo_rate>2.399999946e-01</servo_rate>
-				<last_change_usec>3031287</last_change_usec>
+				<last_change_usec>3042116</last_change_usec>
 				<last_roll_value>0.000000000e+00</last_roll_value>
 				<last_pitch_value>0.000000000e+00</last_pitch_value>
 			</motors>

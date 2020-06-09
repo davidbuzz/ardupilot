@@ -38,28 +38,6 @@
 
 using namespace SITL;
 
-Aircraft::Aircraft() :
-    ground_level(0.0f),
-    frame_height(0.0f),
-    dcm(),
-    gyro(),
-    gyro_prev(),
-    ang_accel(),
-    velocity_ef(),
-    mass(0.0f),
-    accel_body(0.0f, 0.0f, -GRAVITY_MSS),
-    time_now_us(0),
-    gyro_noise(radians(0.1f)),
-    accel_noise(0.3f),
-    rate_hz(1200.0f),
-    autotest_dir(nullptr),
-    frame("x"),// assume x ifnot told otherwise, buzz todo
-    num_motors(1),
-    min_sleep_time(5000)
-{
- // for boost
-}
-
 /*
   parent class for all simulator types
  */
@@ -110,6 +88,9 @@ Aircraft::Aircraft(const char *frame_str) :
 
     terrain = reinterpret_cast<AP_Terrain *>(AP_Param::find_object("TERRAIN_"));
 }
+
+// // todo buzz for boost
+Aircraft::Aircraft() : Aircraft::Aircraft("x") { }
 
 
 
