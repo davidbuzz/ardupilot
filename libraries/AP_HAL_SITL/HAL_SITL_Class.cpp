@@ -252,7 +252,7 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
         
 
         // hardcode 1 load 10 secs after save
-        if ((now - last_persist_load >= 91000 ) && (persist_state == 1)) {
+        if ((now - last_persist_load >= 31000 ) && (persist_state == 1)) {
             // save persistent data every 1000ms
             last_persist_save = now;
             persist_state = 2;

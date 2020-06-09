@@ -22,6 +22,14 @@ class AP_ParamT : public AP_Param
 {
 public:
     static const ap_var_type        vtype = PT;
+    //bool is_empty_constructor = false;
+
+    // only boost uses this during de-serialize, and we want it to default to zero, not random ram
+    AP_ParamT() { 
+        ::printf("AP_Param-T used_empty_constructor TRUE");
+        _value = 0;
+        used_empty_constructor = true;
+        }
 
     /// Value getter
     ///
@@ -40,7 +48,7 @@ public:
     void serialize(Archive & ar, const unsigned int version)
     {
                 // method 1 : invoke base class serialization
-        boost::serialization::base_object<AP_Param>(*this);
+        //boost::serialization::base_object<AP_Param>(*this);
         // method 2 : explicitly register base/derived relationship
         //boost::serialization::void_cast_register<base, derived>();
         
@@ -112,7 +120,13 @@ public:
     /// Copy assignment from T is equivalent to ::set.
     ///
     AP_ParamT<T,PT>& operator= (const T &v) {
-        _value = v;
+        if ( used_empty_constructor == true) { 
+            _value = 0; 
+            ::printf("AP_Param-T used_empty_constructor ZEROd and set FALSE");
+            used_empty_constructor=false;
+        } else { 
+            _value = v;
+        }
         return *this;
     }
 
@@ -212,7 +226,14 @@ public:
     /// Copy assignment from T is equivalent to ::set.
     ///
     AP_ParamV<T,PT>& operator=(const T &v) {
-        _value = v;
+
+        if ( used_empty_constructor == true) { 
+            _value =  (T) 0; 
+            ::printf("AP_Param-VVV used_empty_constructor ZEROd and set FALSE");
+            used_empty_constructor=false;
+        } else { 
+            _value = v;
+        }
         return *this;
     }
 
@@ -262,7 +283,10 @@ public:
     /// @note   Returns zero for index values out of range.
     ///
     T get(uint8_t i) const {
-        if (used_empty_constructor) { return 0;}
+        if (used_empty_constructor) { 
+            ::printf("AP_Param-AAA just returned 0");
+            return 0;
+            }
         if (i < N) {
             return _value[i];
         } else {

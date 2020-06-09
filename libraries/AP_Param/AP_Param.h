@@ -271,6 +271,8 @@ public:
     // wrong version is found
     static bool setup();
 
+    bool used_empty_constructor = false;
+
     // constructor with var_info
     AP_Param(const struct Info *info)
     {
@@ -283,13 +285,14 @@ public:
             AP_HAL::panic("AP_Param must be singleton");
         }
         _singleton = this;
+        ::printf("AP_Param used_empty_constructor FALSE");
         used_empty_constructor = false;
     }
 
-    bool used_empty_constructor = false;
 
     // empty constructor
     AP_Param() {
+        ::printf("AP_Param used_empty_constructor TRUE");
         used_empty_constructor = true;
     }
 
