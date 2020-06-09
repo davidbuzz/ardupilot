@@ -90,7 +90,7 @@ Aircraft::Aircraft(const char *frame_str) :
 }
 
 // // todo buzz for boost
-Aircraft::Aircraft() : Aircraft::Aircraft("x") { }
+Aircraft::Aircraft() : Aircraft::Aircraft("x") { accel_body.x = 0.0f;accel_body.y =0.0f;accel_body.z = -GRAVITY_MSS; }
 
 
 

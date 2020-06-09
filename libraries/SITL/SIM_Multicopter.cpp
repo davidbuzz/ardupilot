@@ -73,6 +73,7 @@ void MultiCopter::update(const struct sitl_input &input)
     update_wind(input);
 
     Vector3f rot_accel;
+    rot_accel.x=0;rot_accel.y=0;rot_accel.z=0;// zero needed as its a stack var
 
     calculate_forces(input, rot_accel, accel_body);
 
