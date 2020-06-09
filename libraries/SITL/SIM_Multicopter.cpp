@@ -59,7 +59,7 @@ MultiCopter::MultiCopter(const char *frame_str) :
 void MultiCopter::calculate_forces(const struct sitl_input &input, Vector3f &rot_accel, Vector3f &body_accel)
 {
     frame->calculate_forces(*this, input, rot_accel, body_accel, rpm);
-
+   // buzz todo check rot_accel.x here before passing it in...
     add_shove_forces(rot_accel, body_accel);
     add_twist_forces(rot_accel);
 }
@@ -77,10 +77,22 @@ void MultiCopter::update(const struct sitl_input &input)
 
     calculate_forces(input, rot_accel, accel_body);
 
+    // buzz todo remove this defensive programming...
+    if (isnan(rot_accel.x) || isinf(rot_accel.x)) {
+            rot_accel.x=0;rot_accel.y=0;rot_accel.z=-GRAVITY_MSS; 
+    }
+    // buzz todo remove this defensive programming...
+    if (isnan(accel_body.x) || isinf(accel_body.x)) {
+            accel_body.x=0;accel_body.y=0;accel_body.z=-GRAVITY_MSS; 
+    }
     // estimate voltage and current
     frame->current_and_voltage(input, battery_voltage, battery_current);
 
     update_dynamics(rot_accel);
+    // buzz todo remove this defensive programming...
+    if (isnan(rot_accel.x) || isinf(rot_accel.x)) {
+            rot_accel.x=0;rot_accel.y=0;rot_accel.z=-GRAVITY_MSS; 
+    }
     update_external_payload(input);
 
     // update lat/lon/altitude
