@@ -49,6 +49,7 @@ public:
     {
       ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
       // buzz todo
+      //don't use abstract classes:
       //ar & BOOST_SERIALIZATION_NVP(_gcs); //error: invalid use of incomplete type ‘class GCS_MAVLINK’    BOOST_STATIC_CONSTANT(bool, value = BOOST_IS_ABSTRACT(T));
       ar & BOOST_SERIALIZATION_NVP(_use_gcs_snoop);
       ar & BOOST_SERIALIZATION_NVP(_waiting_for_mavlink_ack);
