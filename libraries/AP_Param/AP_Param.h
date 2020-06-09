@@ -160,7 +160,8 @@ public:
         };
         uint16_t flags;
 
- template<class Archive>
+    friend class boost::serialization::access;
+    template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
     // todo buzz impl

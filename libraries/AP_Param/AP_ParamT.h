@@ -35,6 +35,18 @@ public:
         _value = v;
     }
 
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+                // method 1 : invoke base class serialization
+        boost::serialization::base_object<AP_Param>(*this);
+        // method 2 : explicitly register base/derived relationship
+        //boost::serialization::void_cast_register<base, derived>();
+        
+      ar & BOOST_SERIALIZATION_NVP(_value);
+    }
+
     // set a parameter that is an ENABLE param
     void set_enable(const T &v) {
         if (v != _value) {
@@ -165,6 +177,13 @@ public:
         _value = v;
     }
 
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+      ar & BOOST_SERIALIZATION_NVP(_value);
+    }
+
     /// Value setter - set value, tell GCS
     ///
     void set_and_notify(const T &v) {
@@ -229,6 +248,13 @@ public:
 
     const T & operator[](int8_t i) {
         return _value[(uint8_t)i];
+    }
+
+    friend class boost::serialization::access;
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+      ar & BOOST_SERIALIZATION_NVP(_value);
     }
 
     /// Value getter
