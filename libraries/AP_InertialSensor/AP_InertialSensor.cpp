@@ -1318,7 +1318,9 @@ void AP_InertialSensor::update(void)
             _delta_angle_valid[i] = false;
         }
         for (uint8_t i=0; i<_backend_count; i++) {
+            if (_backends[i] != nullptr){// doesn't fix the backend/s going missing, but stops it being a crash buzz todo
             _backends[i]->update();
+            }
         }
 
         // clear accumulators
