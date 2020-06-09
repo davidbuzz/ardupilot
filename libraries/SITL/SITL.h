@@ -68,8 +68,6 @@ struct sitl_fdm {
         template<class Archive>
         void serialize(Archive & ar, const unsigned int version)
         {
-        // buzz todo
-         //  ar & BOOST_SERIALIZATION_NVP( state);   //struct sitl_fdm
           ar & BOOST_SERIALIZATION_NVP( points);
           ar & BOOST_SERIALIZATION_NVP( ranges);
         }

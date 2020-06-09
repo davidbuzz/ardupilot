@@ -72,7 +72,6 @@ public:
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
-    // buzz todo
     ar & BOOST_SERIALIZATION_NVP(_output);
     ar & BOOST_SERIALIZATION_NVP(alpha);
     }
