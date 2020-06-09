@@ -278,7 +278,7 @@ public:
        ar & BOOST_SERIALIZATION_NVP(temp_tconst);
        ar & BOOST_SERIALIZATION_NVP(temp_baro_factor);
 
-       ar & BOOST_SERIALIZATION_NVP(thermal_scenario);
+//       ar & BOOST_SERIALIZATION_NVP(thermal_scenario); // throws sigsegv exception on LOAD-from-xml, no idea why, buzz todo
        ar & BOOST_SERIALIZATION_NVP(arspd_signflip);
        ar & BOOST_SERIALIZATION_NVP(wow_pin);
        ar & BOOST_SERIALIZATION_NVP(vibe_freq);

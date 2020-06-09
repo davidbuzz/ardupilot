@@ -876,6 +876,7 @@ void Aircraft::add_shove_forces(Vector3f &rot_accel, Vector3f &body_accel)
 
 float Aircraft::get_local_updraft(Vector3f currentPos)
 {
+    return (float)0.0;
      int8_t  scenario = sitl->thermal_scenario;
 
     #define MAX_THERMALS 10
