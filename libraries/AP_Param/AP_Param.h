@@ -282,10 +282,15 @@ public:
             AP_HAL::panic("AP_Param must be singleton");
         }
         _singleton = this;
+        used_empty_constructor = false;
     }
 
+    bool used_empty_constructor = false;
+
     // empty constructor
-    AP_Param() {}
+    AP_Param() {
+        used_empty_constructor = true;
+    }
 
     // a token used for first()/next() state
     typedef struct {

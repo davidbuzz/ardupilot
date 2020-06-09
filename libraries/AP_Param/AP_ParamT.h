@@ -4,6 +4,7 @@
 
 #include "vartypes.h"
 
+#include <SITL/Serialize.h>
 
 
 //class AP_Param;
@@ -235,6 +236,7 @@ public:
     /// @note   Returns zero for index values out of range.
     ///
     T get(uint8_t i) const {
+        if (used_empty_constructor) { return 0;}
         if (i < N) {
             return _value[i];
         } else {
