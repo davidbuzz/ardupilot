@@ -26,7 +26,7 @@ public:
 
     // only boost uses this during de-serialize, and we want it to default to zero, not random ram
     AP_ParamT() { 
-        ::printf("AP_Param-T used_empty_constructor TRUE");
+        ::printf("AP_Param-T used_empty_constructor TRUE\n");
         _value = 0;
         used_empty_constructor = true;
         }
@@ -122,7 +122,7 @@ public:
     AP_ParamT<T,PT>& operator= (const T &v) {
         if ( used_empty_constructor == true) { 
             _value = 0; 
-            ::printf("AP_Param-T used_empty_constructor ZEROd and set FALSE");
+            ::printf("AP_Param-T used_empty_constructor ZEROd and set FALSE\n");
             used_empty_constructor=false;
         } else { 
             _value = v;
@@ -228,8 +228,8 @@ public:
     AP_ParamV<T,PT>& operator=(const T &v) {
 
         if ( used_empty_constructor == true) { 
-            _value =  (T) (float)0; 
-            ::printf("AP_Param-VVV used_empty_constructor ZEROd and set FALSE");
+            //_value = (Vector3<float>)0.0; 
+            ::printf("AP_Param-VVV used_empty_constructor ZEROd and set FALSE\n");
             used_empty_constructor=false;
         } else { 
             _value = v;
@@ -284,7 +284,7 @@ public:
     ///
     T get(uint8_t i) const {
         if (used_empty_constructor) { 
-            ::printf("AP_Param-AAA just returned 0");
+            ::printf("AP_Param-AAA just returned 0\n");
             return 0;
             }
         if (i < N) {

@@ -282,17 +282,17 @@ public:
         _num_vars = i;
 
         if (_singleton != nullptr) {
-            AP_HAL::panic("AP_Param must be singleton");
+            AP_HAL::panic("AP_Param must be singleton\n");
         }
         _singleton = this;
-        ::printf("AP_Param used_empty_constructor FALSE");
+        ::printf("AP_Param used_empty_constructor FALSE\n");
         used_empty_constructor = false;
     }
 
 
     // empty constructor
     AP_Param() {
-        ::printf("AP_Param used_empty_constructor TRUE");
+        ::printf("AP_Param used_empty_constructor TRUE\n");
         used_empty_constructor = true;
     }
 
