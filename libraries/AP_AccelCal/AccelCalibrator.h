@@ -107,8 +107,6 @@ public:
     void serialize(Archive & ar, const unsigned int version)
     {
         ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);  
-        //ar & BOOST_SERIALIZATION_NVP(xxx);
-        // buzz todo
 
         ar & BOOST_SERIALIZATION_NVP(_conf_num_samples);
         ar & BOOST_SERIALIZATION_NVP(_conf_sample_time);
@@ -118,7 +116,7 @@ public:
         ar & BOOST_SERIALIZATION_NVP(_status);
         ar & BOOST_SERIALIZATION_NVP(_sample_buffer);
         ar & BOOST_SERIALIZATION_NVP(_samples_collected);
-    //    ar & BOOST_SERIALIZATION_NVP(_param);
+        ar & BOOST_SERIALIZATION_NVP(_param.s); // _param is a union, but 's' is the element we choose to serialize
         ar & BOOST_SERIALIZATION_NVP(_fitness);
         ar & BOOST_SERIALIZATION_NVP(_last_samp_frag_collected_ms);
         ar & BOOST_SERIALIZATION_NVP(_min_sample_dist);
@@ -134,8 +132,6 @@ private:
         void serialize(Archive & ar, const unsigned int version)
         {
             ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
-            //ar & BOOST_SERIALIZATION_NVP(xxx);
-            // buzz todo
             ar & BOOST_SERIALIZATION_NVP(delta_velocity);
             ar & BOOST_SERIALIZATION_NVP(delta_time);
         }
@@ -144,7 +140,7 @@ private:
     typedef    VectorN<float, ACCEL_CAL_MAX_NUM_PARAMS> VectorP;
 
     union param_u {
-        struct param_t s;
+        struct param_t s; // its a union, so long as we serialize one of these, it works. this param_t serialises 
         VectorN<float, ACCEL_CAL_MAX_NUM_PARAMS> a;
 
         param_u() : a{}
@@ -152,16 +148,6 @@ private:
             static_assert(sizeof(*this) == sizeof(struct param_t),
                           "Invalid union members: sizes do not match");
 
-        }
-
-        template<class Archive>
-        void serialize(Archive & ar, const unsigned int version)
-        {
-            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);
-            //ar & BOOST_SERIALIZATION_NVP(xxx);
-            // buzz todo
-            ar & BOOST_SERIALIZATION_NVP(s);
-            ar & BOOST_SERIALIZATION_NVP(a);
         }
 
     };
