@@ -228,7 +228,7 @@ public:
     AP_ParamV<T,PT>& operator=(const T &v) {
 
         if ( used_empty_constructor == true) { 
-            _value =  (T) 0; 
+            _value =  (T) (float)0; 
             ::printf("AP_Param-VVV used_empty_constructor ZEROd and set FALSE");
             used_empty_constructor=false;
         } else { 
