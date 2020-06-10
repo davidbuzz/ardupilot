@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SITL/SITL.h>
+#include <SITL/Serialize.h>
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
 #include "AP_InertialSensor.h"
@@ -30,6 +31,11 @@ public:
     void serialize(Archive & ar, const unsigned int version)
     {
 
+        // this registers the 'base' class but can, sometimes, also force the base class serialize() instead
+        // of the local on we have here
+        //ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AP_InertialSensor_Backend);
+        // this says to use the local serialize() function here, not the base one
+        //ar & boost::serialization::make_nvp("AP_InertialSensor_Backend", static_cast<AP_InertialSensor_Backend &>(*this));
 
        // ar & BOOST_SERIALIZATION_NVP(gyro_sample_hz);//const
        // ar & BOOST_SERIALIZATION_NVP(accel_sample_hz);//const

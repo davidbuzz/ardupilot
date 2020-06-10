@@ -34,6 +34,7 @@ typedef float* GyroWindow;
 #include <SITL/Serialize.h>
 
 class AP_InertialSensor_Backend;
+class AP_InertialSensor_SITL;  // for boost
 class AuxiliaryBus;
 class AP_AHRS;
 
@@ -404,8 +405,21 @@ public:
     void serialize(Archive & ar, const unsigned int version)
     {
 
+        // this registers the 'base' class of "_backends" variable but can, sometimes, also force the base class serialize() instead
+        // of the local on we have here
+        //ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AP_InertialSensor_Backend);
+        // this says to use the local serialize() function here, not the base one
+        // also the [0] and [1] mean we backup and restore precisely 2 backends, no more, no less., buzz todo fix this 
+        // and finally, these method both seem to work.. (with and without asterisk )
+        ar & boost::serialization::make_nvp("backend1", static_cast<AP_InertialSensor_Backend &>(*_backends[0]));
+        ar & boost::serialization::make_nvp("backend2", static_cast<AP_InertialSensor_Backend &>(*_backends[1]));
 
-    ar & BOOST_SERIALIZATION_NVP(_backends);
+    //AP_InertialSensor_SITL x; // error: ‘AP_InertialSensor_SITL x’ has incomplete type - buzz probably needs more #includes
+    //x = _backends[1]; 
+    //ar & boost::serialization::make_nvp("AP_InertialSensor_SITL", static_cast<AP_InertialSensor_SITL &>((&x)));
+
+
+    //ar & BOOST_SERIALIZATION_NVP(_backends); no worky
 
 // #0  0x00007ffff7bb33c7 in boost::serialization::extended_type_info::operator==(boost::serialization::extended_type_info const&) const () from /usr/lib/x86_64-linux-gnu/libboost_serialization.so.1.65.1 #1  0x00005555556b5be9 in void boost::archive::detail::save_pointer_type<boost::archive::text_oarchive>::polymorphic::save<AP_InertialSensor_Backend>(boost::archive::text_oarchive&, AP_InertialSensor_Backend&) ()
 
@@ -827,6 +841,8 @@ private:
 
     uint8_t imu_kill_mask;
 };
+
+
 
 namespace AP {
     AP_InertialSensor &ins();

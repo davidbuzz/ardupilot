@@ -12,6 +12,10 @@
 
 const extern AP_HAL::HAL& hal;
 
+//AP_InertialSensor_Backend::AP_InertialSensor_Backend() {
+   // _imu = ...; // buzz todo fix this constrcutor
+//}
+
 AP_InertialSensor_Backend::AP_InertialSensor_Backend(AP_InertialSensor &imu) :
     _imu(imu)
 {

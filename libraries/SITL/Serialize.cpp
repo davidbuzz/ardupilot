@@ -16,6 +16,10 @@ namespace boost
 {
     void throw_exception( std::exception const & e ){
 
+        ::printf("buzz boost throw from impl:\n");
+
+        //std::cerr << e.what() << std::endl;
+
         // true means verbose
         std::cerr << boost::diagnostic_information( e , true) << std::endl;
 

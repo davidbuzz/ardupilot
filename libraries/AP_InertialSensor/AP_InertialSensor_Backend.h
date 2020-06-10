@@ -37,6 +37,7 @@ class AP_Logger;
 class AP_InertialSensor_Backend
 {
 public:
+    AP_InertialSensor_Backend(); // for boost todo buzz fix this impl
     AP_InertialSensor_Backend(AP_InertialSensor &imu);
     AP_InertialSensor_Backend(const AP_InertialSensor_Backend &that) = delete;
 
@@ -125,7 +126,7 @@ public:
         //ar & BOOST_SERIALIZATION_NVP(_imu); // link from backend back to fron doesn't need serializing
         //ar & BOOST_SERIALIZATION_NVP(_sem);
 
-        ar & BOOST_SERIALIZATION_NVP(_clip_limit);// = 15.5f * GRAVITY_MSS;
+        ar & BOOST_SERIALIZATION_NVP(_clip_limit);// = 15.5f * GRAVITY_MSS; // throws issue with deserializing float atm
         ar & BOOST_SERIALIZATION_NVP(_id);
 
         ar & BOOST_SERIALIZATION_NVP(_last_accel_filter_hz);
@@ -141,7 +142,7 @@ public:
         ar & BOOST_SERIALIZATION_NVP(_last_circular_buffer_idx);
         ar & BOOST_SERIALIZATION_NVP(_num_gyro_samples);
         ar & BOOST_SERIALIZATION_NVP(_last_gyro_window);// [INS_MAX_GYRO_WINDOW_SAMPLES]; // The maximum we need to store is gyro-rate / loop-rate
-
+        
     }
 
 protected:
@@ -356,3 +357,4 @@ private:
     void log_gyro_raw(uint8_t instance, const uint64_t sample_us, const Vector3f &gryo);
 
 };
+BOOST_SERIALIZATION_ASSUME_ABSTRACT( AP_InertialSensor_Backend );
