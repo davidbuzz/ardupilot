@@ -104,7 +104,7 @@ bool Location::get_alt_cm(AltFrame desired_frame, int32_t &ret_alt_cm) const
 {
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
     if (!initialised()) {
-        AP_HAL::panic("Should not be called on invalid location");
+        AP_HAL::panic("Should not be called on invalid location");//buzz todo this line gets triggered x10ish during accelcalsimple after load
     }
 #endif
     Location::AltFrame frame = get_alt_frame();
