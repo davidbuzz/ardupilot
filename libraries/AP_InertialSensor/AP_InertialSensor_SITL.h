@@ -22,6 +22,29 @@ public:
     // detect the sensor
     static AP_InertialSensor_Backend *detect(AP_InertialSensor &imu, const uint16_t sample_rates[]);
 
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+
+
+       // ar & BOOST_SERIALIZATION_NVP(gyro_sample_hz);//const
+       // ar & BOOST_SERIALIZATION_NVP(accel_sample_hz);//const
+        ar & BOOST_SERIALIZATION_NVP(gyro_instance);
+        ar & BOOST_SERIALIZATION_NVP(accel_instance);
+        ar & BOOST_SERIALIZATION_NVP(next_gyro_sample);
+        ar & BOOST_SERIALIZATION_NVP(next_accel_sample);
+        ar & BOOST_SERIALIZATION_NVP(gyro_time);
+        ar & BOOST_SERIALIZATION_NVP(accel_time);
+        ar & BOOST_SERIALIZATION_NVP(gyro_motor_phase);
+        ar & BOOST_SERIALIZATION_NVP(accel_motor_phase);
+        ar & BOOST_SERIALIZATION_NVP(bus_id);
+
+
+    }
 private:
     bool init_sensor(void);
     void timer_update();

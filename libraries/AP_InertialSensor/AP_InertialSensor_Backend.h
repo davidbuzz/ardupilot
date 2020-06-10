@@ -114,10 +114,6 @@ public:
         DEVTYPE_INS_ADIS1647X = 0x31,
     };
 
-protected:
-    // access to frontend
-    AP_InertialSensor &_imu;
-
     friend class boost::serialization::access;
     // When the class Archive corresponds to an output archive, the
     // & operator is defined similar to <<.  Likewise, when the class Archive
@@ -125,28 +121,32 @@ protected:
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
-    //  buzz todo
-    //    AP_InertialSensor &_imu;
-    //     HAL_Semaphore _sem;
+        //  buzz todo
+        ar & BOOST_SERIALIZATION_NVP(_imu);
+        ar & BOOST_SERIALIZATION_NVP(_sem);
 
-    ar & BOOST_SERIALIZATION_NVP(_clip_limit);// = 15.5f * GRAVITY_MSS;
-    ar & BOOST_SERIALIZATION_NVP(_id);
+        ar & BOOST_SERIALIZATION_NVP(_clip_limit);// = 15.5f * GRAVITY_MSS;
+        ar & BOOST_SERIALIZATION_NVP(_id);
 
-    ar & BOOST_SERIALIZATION_NVP(_last_accel_filter_hz);
-    ar & BOOST_SERIALIZATION_NVP(_last_gyro_filter_hz);
-    ar & BOOST_SERIALIZATION_NVP(_last_notch_center_freq_hz);
-    ar & BOOST_SERIALIZATION_NVP(_last_notch_bandwidth_hz);
-    ar & BOOST_SERIALIZATION_NVP(_last_notch_attenuation_dB);
+        ar & BOOST_SERIALIZATION_NVP(_last_accel_filter_hz);
+        ar & BOOST_SERIALIZATION_NVP(_last_gyro_filter_hz);
+        ar & BOOST_SERIALIZATION_NVP(_last_notch_center_freq_hz);
+        ar & BOOST_SERIALIZATION_NVP(_last_notch_bandwidth_hz);
+        ar & BOOST_SERIALIZATION_NVP(_last_notch_attenuation_dB);
 
-    ar & BOOST_SERIALIZATION_NVP(_last_harmonic_notch_center_freq_hz);
-    ar & BOOST_SERIALIZATION_NVP(_last_harmonic_notch_bandwidth_hz);
-    ar & BOOST_SERIALIZATION_NVP(_last_harmonic_notch_attenuation_dB);
+        ar & BOOST_SERIALIZATION_NVP(_last_harmonic_notch_center_freq_hz);
+        ar & BOOST_SERIALIZATION_NVP(_last_harmonic_notch_bandwidth_hz);
+        ar & BOOST_SERIALIZATION_NVP(_last_harmonic_notch_attenuation_dB);
 
-    ar & BOOST_SERIALIZATION_NVP(_last_circular_buffer_idx);
-    ar & BOOST_SERIALIZATION_NVP(_num_gyro_samples);
-    ar & BOOST_SERIALIZATION_NVP(_last_gyro_window);// [INS_MAX_GYRO_WINDOW_SAMPLES]; // The maximum we need to store is gyro-rate / loop-rate
+        ar & BOOST_SERIALIZATION_NVP(_last_circular_buffer_idx);
+        ar & BOOST_SERIALIZATION_NVP(_num_gyro_samples);
+        ar & BOOST_SERIALIZATION_NVP(_last_gyro_window);// [INS_MAX_GYRO_WINDOW_SAMPLES]; // The maximum we need to store is gyro-rate / loop-rate
 
     }
+
+protected:
+    // access to frontend
+    AP_InertialSensor &_imu;
 
     // semaphore for access to shared frontend data
     HAL_Semaphore _sem;
