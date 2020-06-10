@@ -16,7 +16,8 @@ namespace boost
 {
     void throw_exception( std::exception const & e ){
 
-        std::cerr << boost::diagnostic_information( e ) << std::endl;
+        // true means verbose
+        std::cerr << boost::diagnostic_information( e , true) << std::endl;
 
     }
 }

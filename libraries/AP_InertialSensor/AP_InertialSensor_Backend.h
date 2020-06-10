@@ -122,8 +122,8 @@ public:
     void serialize(Archive & ar, const unsigned int version)
     {
         //  buzz todo
-        ar & BOOST_SERIALIZATION_NVP(_imu);
-        ar & BOOST_SERIALIZATION_NVP(_sem);
+        //ar & BOOST_SERIALIZATION_NVP(_imu); // link from backend back to fron doesn't need serializing
+        //ar & BOOST_SERIALIZATION_NVP(_sem);
 
         ar & BOOST_SERIALIZATION_NVP(_clip_limit);// = 15.5f * GRAVITY_MSS;
         ar & BOOST_SERIALIZATION_NVP(_id);
