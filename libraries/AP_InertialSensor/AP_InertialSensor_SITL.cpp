@@ -7,6 +7,14 @@
 
 const extern AP_HAL::HAL& hal;
 
+// buzz todo
+AP_InertialSensor_SITL::AP_InertialSensor_SITL(AP_InertialSensor &imu) :
+    AP_InertialSensor_Backend(imu),
+    gyro_sample_hz(1000),
+    accel_sample_hz(1000) // 1000,1000 are INS_SITL_SENSOR_A values if not given.
+{
+}
+
 AP_InertialSensor_SITL::AP_InertialSensor_SITL(AP_InertialSensor &imu, const uint16_t sample_rates[]) :
     AP_InertialSensor_Backend(imu),
     gyro_sample_hz(sample_rates[0]),

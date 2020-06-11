@@ -14,6 +14,7 @@ const uint16_t INS_SITL_SENSOR_B[] = { 760, 800 };
 class AP_InertialSensor_SITL : public AP_InertialSensor_Backend
 {
 public:
+    AP_InertialSensor_SITL(AP_InertialSensor &imu);// use INS_SITL_SENSOR_A and INS_SITL_SENSOR_B if not given
     AP_InertialSensor_SITL(AP_InertialSensor &imu, const uint16_t sample_rates[]);
 
     /* update accel and gyro state */

@@ -33,8 +33,11 @@ typedef float* GyroWindow;
 
 #include <SITL/Serialize.h>
 
+//#include "AP_InertialSensor_SITL.h"
+
+
 class AP_InertialSensor_Backend;
-class AP_InertialSensor_SITL;  // for boost
+//class AP_InertialSensor_SITL;  // for boost
 class AuxiliaryBus;
 class AP_AHRS;
 

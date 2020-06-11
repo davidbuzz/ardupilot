@@ -28,6 +28,7 @@
 
 #include "AP_InertialSensor.h"
 
+
 #include <SITL/Serialize.h>
 #include <boost/serialization/split_member.hpp>
 
@@ -38,7 +39,7 @@ class AP_Logger;
 class AP_InertialSensor_Backend
 {
 public:
-    AP_InertialSensor_Backend(); // for boost todo buzz fix this impl
+    //AP_InertialSensor_Backend(); // for boost todo buzz fix this impl
     AP_InertialSensor_Backend(AP_InertialSensor &imu);
     AP_InertialSensor_Backend(const AP_InertialSensor_Backend &that) = delete;
 
