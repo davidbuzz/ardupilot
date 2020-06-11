@@ -96,6 +96,8 @@ uint16_t Motor::update_servo(uint16_t demand, uint64_t time_usec, float &last_va
     if (servo_rate <= 0) {
         return demand;
     }
+    if ( servo_rate < 0.000000000001) {servo_rate = 0.000000000001;} // be sure its no where near epislon() or ...e-52
+
     if (servo_type == SERVO_RETRACT) {
         // handle retract servos
         if (demand > 1700) {
@@ -109,6 +111,7 @@ uint16_t Motor::update_servo(uint16_t demand, uint64_t time_usec, float &last_va
     demand = constrain_int16(demand, 1000, 2000);
     float dt = (time_usec - last_change_usec) * 1.0e-6f;
     // assume servo moves through 90 degrees over 1000 to 2000
+    // catch divide-by-zero before it gets to the next line in 'dt'
     float max_change = 1000 * (dt / servo_rate) * 60.0f / 90.0f;
     last_value = constrain_float(demand, last_value-max_change, last_value+max_change);
     return uint16_t(last_value+0.5);
