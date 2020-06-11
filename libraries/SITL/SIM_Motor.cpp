@@ -58,6 +58,11 @@ void Motor::calculate_forces(const struct sitl_input &input,
             roll = constrain_float(roll_max + (2000-servoval)*0.001*(roll_min-roll_max), roll_max, roll_min);
         }
     }
+    // prevent nan or -nan in these floats, as that causes error in constrain_float
+    if ( isnan(pitch_min)) { pitch_min = 0;}
+    if ( isnan(pitch_max)) { pitch_max = 0;}
+    if ( isnan(roll_min)) { roll_min = 0;}
+    if ( isnan(roll_max)) { roll_max = 0;}
     if (pitch_servo >= 0) {
         uint16_t servoval = update_servo(input.servos[pitch_servo+motor_offset], now, last_pitch_value);
         if (pitch_min < pitch_max) {

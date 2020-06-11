@@ -36,9 +36,11 @@ public:
 
     // support for tilting motors
     int8_t roll_servo = -1;
-    float roll_min, roll_max;
+    float roll_min = 0.0;
+    float roll_max = 0.0;
     int8_t pitch_servo = -1;
-    float pitch_min, pitch_max;
+    float pitch_min = 0.0;
+    float pitch_max = 0.0;
 
     // support for servo slew rate
     enum {SERVO_NORMAL, SERVO_RETRACT} servo_type;
