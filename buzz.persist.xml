@@ -15,123 +15,9 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>19085</_parent_pid>
+	<_parent_pid>20501</_parent_pid>
 	<_update_count>3653</_update_count>
 	<_ins class_id="1" tracking_level="1" version="0" object_id="_1">
-		<backend1 class_id="2" tracking_level="0" version="0">
-			<_clip_limit>1.520030823e+02</_clip_limit>
-			<_id>-1</_id>
-			<_last_accel_filter_hz>20</_last_accel_filter_hz>
-			<_last_gyro_filter_hz>20</_last_gyro_filter_hz>
-			<_last_notch_center_freq_hz>8.000000000e+01</_last_notch_center_freq_hz>
-			<_last_notch_bandwidth_hz>2.000000000e+01</_last_notch_bandwidth_hz>
-			<_last_notch_attenuation_dB>1.500000000e+01</_last_notch_attenuation_dB>
-			<_last_harmonic_notch_center_freq_hz>8.000000000e+01</_last_harmonic_notch_center_freq_hz>
-			<_last_harmonic_notch_bandwidth_hz>2.000000000e+01</_last_harmonic_notch_bandwidth_hz>
-			<_last_harmonic_notch_attenuation_dB>1.500000000e+01</_last_harmonic_notch_attenuation_dB>
-			<_last_circular_buffer_idx>0</_last_circular_buffer_idx>
-			<_num_gyro_samples>7</_num_gyro_samples>
-			<_last_gyro_window>
-				<count>8</count>
-				<item class_id="3" tracking_level="0" version="0">
-					<x>1.544805169e-01</x>
-					<y>2.352881134e-01</y>
-					<z>-8.499488235e-03</z>
-				</item>
-				<item>
-					<x>-3.636940569e-02</x>
-					<y>8.591521531e-03</y>
-					<z>1.519525945e-01</z>
-				</item>
-				<item>
-					<x>2.659565955e-02</x>
-					<y>7.493630797e-02</y>
-					<z>2.066422105e-01</z>
-				</item>
-				<item>
-					<x>-1.264857315e-02</x>
-					<y>-1.561579108e-01</y>
-					<z>2.896655202e-01</z>
-				</item>
-				<item>
-					<x>1.125261039e-01</x>
-					<y>-1.911430433e-02</y>
-					<z>1.298036724e-01</z>
-				</item>
-				<item>
-					<x>2.443855256e-01</x>
-					<y>-1.871998459e-01</y>
-					<z>-9.985800087e-02</z>
-				</item>
-				<item>
-					<x>9.492279589e-02</x>
-					<y>-2.631058395e-01</y>
-					<z>1.990607232e-01</z>
-				</item>
-				<item>
-					<x>-1.577006578e-01</x>
-					<y>-3.782511689e-03</y>
-					<z>4.726925790e-01</z>
-				</item>
-			</_last_gyro_window>
-		</backend1>
-		<backend2>
-			<_clip_limit>1.520030823e+02</_clip_limit>
-			<_id>-1</_id>
-			<_last_accel_filter_hz>20</_last_accel_filter_hz>
-			<_last_gyro_filter_hz>20</_last_gyro_filter_hz>
-			<_last_notch_center_freq_hz>8.000000000e+01</_last_notch_center_freq_hz>
-			<_last_notch_bandwidth_hz>2.000000000e+01</_last_notch_bandwidth_hz>
-			<_last_notch_attenuation_dB>1.500000000e+01</_last_notch_attenuation_dB>
-			<_last_harmonic_notch_center_freq_hz>8.000000000e+01</_last_harmonic_notch_center_freq_hz>
-			<_last_harmonic_notch_bandwidth_hz>2.000000000e+01</_last_harmonic_notch_bandwidth_hz>
-			<_last_harmonic_notch_attenuation_dB>1.500000000e+01</_last_harmonic_notch_attenuation_dB>
-			<_last_circular_buffer_idx>0</_last_circular_buffer_idx>
-			<_num_gyro_samples>5</_num_gyro_samples>
-			<_last_gyro_window>
-				<count>8</count>
-				<item>
-					<x>3.140692115e-01</x>
-					<y>3.521564603e-01</y>
-					<z>6.024282575e-01</z>
-				</item>
-				<item>
-					<x>2.395897061e-01</x>
-					<y>-2.596136332e-01</y>
-					<z>1.026812010e-03</z>
-				</item>
-				<item>
-					<x>-2.788440883e-01</x>
-					<y>-6.875147820e-01</y>
-					<z>-3.114640415e-01</z>
-				</item>
-				<item>
-					<x>-2.024094164e-01</x>
-					<y>-1.782775968e-01</y>
-					<z>8.309879899e-01</z>
-				</item>
-				<item>
-					<x>2.642491460e-01</x>
-					<y>-2.133809030e-01</y>
-					<z>-5.447158217e-01</z>
-				</item>
-				<item>
-					<x>-9.091628790e-01</x>
-					<y>2.896821201e-01</y>
-					<z>-9.707807302e-01</z>
-				</item>
-				<item>
-					<x>-5.460450649e-01</x>
-					<y>-4.701135755e-01</y>
-					<z>1.387317777e-01</z>
-				</item>
-				<item>
-					<x>6.345393658e-01</x>
-					<y>-2.388222665e-01</y>
-					<z>-8.730801940e-02</z>
-				</item>
-			</_last_gyro_window>
-		</backend2>
 		<_gyro_count>2</_gyro_count>
 		<_accel_count>2</_accel_count>
 		<_backend_count>2</_backend_count>
@@ -140,7 +26,7 @@
 		<_loop_delta_t_max>2.499999851e-02</_loop_delta_t_max>
 		<_accel>
 			<count>3</count>
-			<item>
+			<item class_id="2" tracking_level="0" version="0">
 				<x>-1.000805855e+00</x>
 				<y>0.000000000e+00</y>
 				<z>-9.818730354e+00</z>
@@ -212,7 +98,7 @@
 		</_delta_velocity_acc_dt>
 		<_accel_filter>
 			<count>3</count>
-			<item class_id="4" tracking_level="0" version="0"></item>
+			<item class_id="3" tracking_level="0" version="0"></item>
 			<item></item>
 			<item></item>
 		</_accel_filter>
@@ -295,11 +181,11 @@
 			<item>1</item>
 			<item>0</item>
 		</_new_gyro_data>
-		<_notch_filter class_id="5" tracking_level="0" version="0">
-			<_enable class_id="6" tracking_level="1" version="0" object_id="_2">
+		<_notch_filter class_id="4" tracking_level="0" version="0">
+			<_enable class_id="5" tracking_level="1" version="0" object_id="_2">
 				<_value>0</_value>
 			</_enable>
-			<_center_freq_hz class_id="7" tracking_level="1" version="0" object_id="_3">
+			<_center_freq_hz class_id="6" tracking_level="1" version="0" object_id="_3">
 				<_value>8.000000000e+01</_value>
 			</_center_freq_hz>
 			<_bandwidth_hz object_id="_4">
@@ -311,7 +197,7 @@
 		</_notch_filter>
 		<_gyro_notch_filter>
 			<count>3</count>
-			<item class_id="8" tracking_level="1" version="0" object_id="_6">
+			<item class_id="7" tracking_level="1" version="0" object_id="_6">
 				<initialised>1</initialised>
 				<b0>1.011474490e+00</b0>
 				<b1>-1.752571464e+00</b1>
@@ -414,7 +300,7 @@
 				</signal1>
 			</item>
 		</_gyro_notch_filter>
-		<_harmonic_notch_filter class_id="9" tracking_level="0" version="0">
+		<_harmonic_notch_filter class_id="8" tracking_level="0" version="0">
 			<_harmonics object_id="_9">
 				<_value>3</_value>
 			</_harmonics>
@@ -424,14 +310,14 @@
 			<_tracking_mode object_id="_11">
 				<_value>1</_value>
 			</_tracking_mode>
-			<_options class_id="10" tracking_level="0" version="0">
+			<_options class_id="9" tracking_level="0" version="0">
 				<_value>0</_value>
 			</_options>
 		</_harmonic_notch_filter>
 		<_gyro_harmonic_notch_filter>
 			<count>3</count>
-			<item class_id="11" tracking_level="0" version="0">
-				<_filters class_id_reference="8" object_id="_12">
+			<item class_id="10" tracking_level="0" version="0">
+				<_filters class_id_reference="7" object_id="_12">
 					<initialised>1</initialised>
 					<b0>1.011474490e+00</b0>
 					<b1>-1.752571464e+00</b1>
@@ -476,7 +362,7 @@
 				<_initialised>1</_initialised>
 			</item>
 			<item>
-				<_filters class_id_reference="8" object_id="_13">
+				<_filters class_id_reference="7" object_id="_13">
 					<initialised>1</initialised>
 					<b0>1.014628172e+00</b0>
 					<b1>-1.578289032e+00</b1>
@@ -658,7 +544,7 @@
 		</_gyro_raw_sampling_multiplier>
 		<_accel_id>
 			<count>3</count>
-			<item class_id="12" tracking_level="0" version="0">
+			<item class_id="11" tracking_level="0" version="0">
 				<_value>2753028</_value>
 			</item>
 			<item>
@@ -682,7 +568,7 @@
 		</_gyro_id>
 		<_accel_scale>
 			<count>3</count>
-			<item class_id="13" tracking_level="0" version="0">
+			<item class_id="12" tracking_level="0" version="0">
 				<_value>
 					<x>1.001000047e+00</x>
 					<y>0.000000000e+00</y>
@@ -943,9 +829,9 @@
 		</_accel_clip_count>
 		<_accel_vibe_floor_filter>
 			<count>2</count>
-			<item class_id="15" tracking_level="0" version="0">
+			<item class_id="14" tracking_level="0" version="0">
 				<_cutoff_freq>5.000000000e+00</_cutoff_freq>
-				<_filter class_id="16" tracking_level="0" version="0">
+				<_filter class_id="15" tracking_level="0" version="0">
 					<_output>
 						<x>-1.001156569e+00</x>
 						<y>0.000000000e+00</y>
@@ -1022,7 +908,7 @@
 		<_startup_ms>1768</_startup_ms>
 		<imu_kill_mask>0</imu_kill_mask>
 	</_ins>
-	<_compass class_id="19" tracking_level="1" version="0" object_id="_23">
+	<_compass class_id="18" tracking_level="1" version="0" object_id="_23">
 		<_compass_cal_autoreboot>0</_compass_cal_autoreboot>
 		<_cal_complete_requires_reboot>0</_cal_complete_requires_reboot>
 		<_cal_has_run>0</_cal_has_run>
@@ -1060,7 +946,7 @@
 		</_custom_yaw>
 		<_thr>0.000000000e+00</_thr>
 	</_compass>
-	<_sitl_rc_in class_id="20" tracking_level="0" version="0">
+	<_sitl_rc_in class_id="19" tracking_level="0" version="0">
 		<datagram>1</datagram>
 		<fd>4</fd>
 		<in_addr.sin_family>0</in_addr.sin_family>
@@ -1078,10 +964,10 @@
 		</in_addr.sin_zero>
 		<in_addr.sin_addr.s_addr>0</in_addr.sin_addr.s_addr>
 	</_sitl_rc_in>
-	<_sitl class_id="21" tracking_level="1" version="0" object_id="_33">
-		<state class_id="22" tracking_level="0" version="0">
+	<_sitl class_id="20" tracking_level="1" version="0" object_id="_33">
+		<state class_id="21" tracking_level="0" version="0">
 			<timestamp_us>3042949</timestamp_us>
-			<home class_id="23" tracking_level="0" version="0">
+			<home class_id="22" tracking_level="0" version="0">
 				<alt>31000</alt>
 				<lat>-275830000</lat>
 				<lng>1529732000</lng>
@@ -1102,7 +988,7 @@
 			<rollDeg>0.00000000000000000e+00</rollDeg>
 			<pitchDeg>0.00000000000000000e+00</pitchDeg>
 			<yawDeg>9.69999923706054688e+01</yawDeg>
-			<quaternion class_id="24" tracking_level="0" version="0">
+			<quaternion class_id="23" tracking_level="0" version="0">
 				<q1>6.626200676e-01</q1>
 				<q2>0.000000000e+00</q2>
 				<q3>0.000000000e+00</q3>
@@ -1154,7 +1040,7 @@
 		<update_rate_hz>1200</update_rate_hz>
 		<throttle>0.000000000e+00</throttle>
 		<height_agl>2.855527954e+02</height_agl>
-		<ahrs_rotation class_id="14" tracking_level="1" version="0" object_id="_34">
+		<ahrs_rotation class_id="13" tracking_level="1" version="0" object_id="_34">
 			<a>
 				<x>1.000000000e+00</x>
 				<y>0.000000000e+00</y>
@@ -1634,18 +1520,18 @@
 	<_use_fg_view>1</_use_fg_view>
 	<store_index_mag>0</store_index_mag>
 	<last_store_time_mag>0</last_store_time_mag>
-	<buffer_mag class_id="25" tracking_level="0" version="0"></buffer_mag>
+	<buffer_mag class_id="24" tracking_level="0" version="0"></buffer_mag>
 	<time_delta_mag>0</time_delta_mag>
 	<delayed_time_mag>0</delayed_time_mag>
 	<store_index_wind>6</store_index_wind>
 	<last_store_time_wind>3040</last_store_time_wind>
-	<buffer_wind class_id="26" tracking_level="0" version="0"></buffer_wind>
+	<buffer_wind class_id="25" tracking_level="0" version="0"></buffer_wind>
 	<buffer_wind_2></buffer_wind_2>
 	<time_delta_wind>62</time_delta_wind>
 	<delayed_time_wind>3042</delayed_time_wind>
 	<wind_start_delay_micros>1</wind_start_delay_micros>
-	<sitl_model class_id="27" tracking_level="1" version="0" object_id="_114">
-		<Aircraft class_id="28" tracking_level="0" version="0">
+	<sitl_model class_id="26" tracking_level="1" version="0" object_id="_114">
+		<Aircraft class_id="27" tracking_level="0" version="0">
 			<home_is_set>1</home_is_set>
 			<ground_level>3.100000000e+02</ground_level>
 			<home_yaw>9.700000000e+01</home_yaw>
@@ -1757,15 +1643,15 @@
 			</mag_bf>
 			<time_now_us>3042949</time_now_us>
 			<rate_hz>1.200000000e+03</rate_hz>
-			<achieved_rate_hz>1.163117188e+03</achieved_rate_hz>
+			<achieved_rate_hz>1.173827515e+03</achieved_rate_hz>
 			<target_speedup>1.000000000e+00</target_speedup>
 			<frame_time_us>833</frame_time_us>
-			<scaled_frame_time_us>7.620332642e+02</scaled_frame_time_us>
-			<last_wall_time_us>1591781528032470</last_wall_time_us>
+			<scaled_frame_time_us>7.666214600e+02</scaled_frame_time_us>
+			<last_wall_time_us>1591837187218078</last_wall_time_us>
 			<instance>0</instance>
 			<use_time_sync>1</use_time_sync>
 			<last_speedup>1.000000000e+00</last_speedup>
-			<ahrs_orientation class_id_reference="6" object_id="_116">
+			<ahrs_orientation class_id_reference="5" object_id="_116">
 				<_value>0</_value>
 			</ahrs_orientation>
 			<last_imu_rotation>0</last_imu_rotation>
@@ -1778,9 +1664,9 @@
 			<last_ground_contact_ms>0</last_ground_contact_ms>
 			<servo_filter>
 				<count>4</count>
-				<item class_id="29" tracking_level="0" version="0">
+				<item class_id="28" tracking_level="0" version="0">
 					<_cutoff_freq>0.000000000e+00</_cutoff_freq>
-					<_filter class_id="30" tracking_level="0" version="0">
+					<_filter class_id="29" tracking_level="0" version="0">
 						<_output>0.000000000e+00</_output>
 						<alpha>1.000000000e+00</alpha>
 					</_filter>
@@ -1808,9 +1694,9 @@
 				</item>
 			</servo_filter>
 		</Aircraft>
-		<frame class_id="31" tracking_level="1" version="0" object_id="_117">
+		<frame class_id="30" tracking_level="1" version="0" object_id="_117">
 			<num_motors>4</num_motors>
-			<motors class_id="32" tracking_level="1" version="0" object_id="_118">
+			<motors class_id="31" tracking_level="1" version="0" object_id="_118">
 				<angle>9.000000000e+01</angle>
 				<yaw_factor>1.000000000e+00</yaw_factor>
 				<servo>0</servo>

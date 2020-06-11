@@ -30,6 +30,11 @@ public:
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);    
+
+         // invoke serialization of the base class 
+        //ar >> boost::serialization::base_object<AP_InertialSensor_Backend>(*this);
+
 
         // this registers the 'base' class but can, sometimes, also force the base class serialize() instead
         // of the local on we have here
