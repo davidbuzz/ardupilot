@@ -66,6 +66,9 @@
 #include <AP_Parachute/AP_Parachute.h>
 #include <AC_Sprayer/AC_Sprayer.h>
 
+#include <SITL/Serialize.h>
+
+
 // Configuration
 #include "defines.h"
 #include "config.h"
@@ -227,6 +230,18 @@ public:
     friend class ModeAutorotate;
 
     Copter(void);
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        //ar & BOOST_SERIALIZATION_NVP(aparm); 
+        // todo buzz add the rest of the private copter vars here... 
+    }
 
 private:
 

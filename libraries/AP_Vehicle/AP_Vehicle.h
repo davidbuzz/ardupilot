@@ -41,6 +41,9 @@
 #include <AP_GyroFFT/AP_GyroFFT.h>
 #include <AP_VisualOdom/AP_VisualOdom.h>
 
+#include <SITL/Serialize.h>
+
+
 class AP_Vehicle : public AP_HAL::HAL::Callbacks {
 
 public:
@@ -174,6 +177,19 @@ public:
     // get target location (for use by scripting)
     virtual bool get_target_location(Location& target_loc) { return false; }
     
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        //ar & BOOST_SERIALIZATION_NVP(BoardConfig); 
+        //ar & BOOST_SERIALIZATION_NVP(G_Dt); 
+        // todo buzz add the rest of the private ap-vehice vars here... 
+    } 
+
 protected:
 
     virtual void init_ardupilot() = 0;
