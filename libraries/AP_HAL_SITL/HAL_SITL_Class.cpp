@@ -29,6 +29,9 @@
 
 #include <SITL/Serialize.h>
 
+// as far to the bottom as we can to leave the other headers in their existing order
+#include <../../ArduCopter/Copter.h> // for boost 
+
 using namespace HALSITL;
 
 static Storage sitlStorage;
@@ -246,6 +249,7 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
                 assert(ofs2.good());
                 // write class instance to archive
                 oa << BOOST_SERIALIZATION_NVP(_sitl_state);
+                oa << BOOST_SERIALIZATION_NVP(callbacks); 
             	// archive and stream closed when destructors are called
             }
         }
@@ -284,8 +288,9 @@ void HAL_SITL::actually_reboot()
 }
 
 const AP_HAL::HAL& AP_HAL::get_HAL() {
-    static const HAL_SITL hal;
-    return hal;
+    static const HAL_SITL xhal;
+    return xhal;
 }
 
 #endif  // CONFIG_HAL_BOARD == HAL_BOARD_SITL
+
