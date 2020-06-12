@@ -239,6 +239,7 @@ public:
     void serialize(Archive & ar, const unsigned int version) 
     { 
         ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        //ar & boost::serialization::base_object<AP_Vehicle>(*this);
         ar & BOOST_SERIALIZATION_NVP(ekfYawReset_ms); 
         // todo buzz add the rest of the private copter vars here... 
     }

@@ -185,6 +185,8 @@ public:
     void serialize(Archive & ar, const unsigned int version) 
     { 
         ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        // in this case vehicle doesn't call the base object as its defined as virtual by BOOST_SERIALIZATION_ASSUME_ABSTRACT in AP_HAL/HAL.h
+        //ar & boost::serialization::base_object<AP_HAL::HAL::Callbacks>(*this);
         //ar & BOOST_SERIALIZATION_NVP(BoardConfig); 
         ar & BOOST_SERIALIZATION_NVP(G_Dt); 
         // todo buzz add the rest of the private ap-vehice vars here... 
