@@ -3,6 +3,8 @@
 #include <fstream>
 #include <string>
 
+#define BOOST_ENABLE_ASSERT_HANDLER true
+#include <boost/assert.hpp>
 // without some sort of boost reference first, the next ones errror
 #include <boost/regex.hpp>
 #include <boost/exception/exception.hpp>
@@ -10,6 +12,11 @@
 #include <boost/current_function.hpp>
 #include <errno.h>
 #include <boost/exception/all.hpp>
+
+namespace boost
+{
+  void assertion_failed(char const * expr, char const * function, char const * file, long line);
+}
 
 #if !defined( BOOST_THROW_EXCEPTION )
 //#define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)

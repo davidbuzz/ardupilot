@@ -24,6 +24,14 @@ namespace boost
         std::cerr << boost::diagnostic_information( e , true) << std::endl;
 
     }
+
+
+    void assertion_failed(char const * expr, char const * function, char const * file, long line){
+
+          ::printf(" %s %s %s %ld\n",expr,function,file,line);
+
+    }
+
 }
 
 std::string string_to_hex(const std::string& input)
