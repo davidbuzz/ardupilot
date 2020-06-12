@@ -88,6 +88,7 @@ public:
         virtual void setup() = 0;
         virtual void loop() = 0;
 
+        float unused = 0.0;
    
         friend class boost::serialization::access; 
         // When the class Archive corresponds to an output archive, the 
@@ -97,7 +98,7 @@ public:
         void serialize(Archive & ar, const unsigned int version) 
         { 
             ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
-            //ar & BOOST_SERIALIZATION_NVP(aparm); 
+            ar & BOOST_SERIALIZATION_NVP(unused); 
             // todo buzz add the rest of the private ap-vehice vars here... 
         } 
     }; 

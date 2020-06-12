@@ -186,7 +186,7 @@ public:
     { 
         ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
         //ar & BOOST_SERIALIZATION_NVP(BoardConfig); 
-        //ar & BOOST_SERIALIZATION_NVP(G_Dt); 
+        ar & BOOST_SERIALIZATION_NVP(G_Dt); 
         // todo buzz add the rest of the private ap-vehice vars here... 
     } 
 
