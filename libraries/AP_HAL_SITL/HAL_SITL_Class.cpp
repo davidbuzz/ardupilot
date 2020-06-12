@@ -249,6 +249,11 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
                 assert(ofs2.good());
                 // write class instance to archive
                 //oa << BOOST_SERIALIZATION_NVP(_sitl_state);
+
+                oa.template register_type<AP_HAL::HAL::Callbacks>(); 
+                oa.template register_type<AP_Vehicle>(); 
+                oa.template register_type<Copter>();
+
                 oa << BOOST_SERIALIZATION_NVP(callbacks); 
             	// archive and stream closed when destructors are called
             }
