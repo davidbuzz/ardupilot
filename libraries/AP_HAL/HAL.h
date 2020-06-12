@@ -17,6 +17,7 @@ class AP_Param;
 #if HAL_WITH_UAVCAN
 #include "CAN.h"
 #endif
+#include <SITL/Serialize.h>
 
 
 class AP_HAL::HAL {
@@ -86,7 +87,22 @@ public:
     struct Callbacks {
         virtual void setup() = 0;
         virtual void loop() = 0;
-    };
+
+   
+        friend class boost::serialization::access; 
+        // When the class Archive corresponds to an output archive, the 
+        // & operator is defined similar to <<.  Likewise, when the class Archive 
+        // is a type of input archive the & operator is defined similar to >>. 
+        template<class Archive> 
+        void serialize(Archive & ar, const unsigned int version) 
+        { 
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+            //ar & BOOST_SERIALIZATION_NVP(aparm); 
+            // todo buzz add the rest of the private ap-vehice vars here... 
+        } 
+    }; 
+    BOOST_SERIALIZATION_ASSUME_ABSTRACT(Callbacks); 
+ 
 
     struct FunCallbacks : public Callbacks {
         FunCallbacks(void (*setup_fun)(void), void (*loop_fun)(void));
