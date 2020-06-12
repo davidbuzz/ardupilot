@@ -2,9 +2,8 @@
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
 
-#include "AP_HAL_SITL.h"
-#include "AP_HAL_SITL_Namespace.h"
-#include "HAL_SITL_Class.h"
+#include "SITL_State.h"
+
 #include "UARTDriver.h"
 #include "Scheduler.h"
 
@@ -21,9 +20,8 @@
 
 extern const AP_HAL::HAL& hal;
 
-using namespace HALSITL;
 
-void SITL_State::_set_param_default(const char *parm)
+void HALSITL::SITL_State::_set_param_default(const char *parm)
 {
     char *pdup = strdup(parm);
     char *p = strchr(pdup, '=');
@@ -59,7 +57,7 @@ void SITL_State::_set_param_default(const char *parm)
 /*
   setup for SITL handling
  */
-void SITL_State::_sitl_setup(const char *home_str)
+void HALSITL::SITL_State::_sitl_setup(const char *home_str)
 {
     _home_str = home_str;
 
@@ -118,7 +116,7 @@ void SITL_State::_sitl_setup(const char *home_str)
 /*
   setup a SITL FDM listening UDP port
  */
-void SITL_State::_setup_fdm(void)
+void HALSITL::SITL_State::_setup_fdm(void)
 {
     if (!_sitl_rc_in.reuseaddress()) {
         fprintf(stderr, "SITL: socket reuseaddress failed on RC in port: %d - %s\n", _rcin_port, strerror(errno));
@@ -147,7 +145,7 @@ void SITL_State::_setup_fdm(void)
 /*
   step the FDM by one time step
  */
-void SITL_State::_fdm_input_step(void)
+void HALSITL::SITL_State::_fdm_input_step(void)
 {
     static uint32_t last_pwm_input = 0;
 
@@ -202,7 +200,7 @@ void SITL_State::_fdm_input_step(void)
 }
 
 
-void SITL_State::wait_clock(uint64_t wait_time_usec)
+void HALSITL::SITL_State::wait_clock(uint64_t wait_time_usec)
 {
     while (AP_HAL::micros64() < wait_time_usec) {
         if (hal.scheduler->in_main_thread() ||
@@ -229,7 +227,7 @@ void SITL_State::wait_clock(uint64_t wait_time_usec)
 }
 
 #define streq(a, b) (!strcmp(a, b))
-int SITL_State::sim_fd(const char *name, const char *arg)
+int HALSITL::SITL_State::sim_fd(const char *name, const char *arg)
 {
     if (streq(name, "vicon")) {
         if (vicon != nullptr) {
@@ -341,7 +339,7 @@ int SITL_State::sim_fd(const char *name, const char *arg)
     AP_HAL::panic("unknown simulated device: %s", name);
     return 0;
 }
-int SITL_State::sim_fd_write(const char *name)
+int HALSITL::SITL_State::sim_fd_write(const char *name)
 {
     if (streq(name, "vicon")) {
         if (vicon == nullptr) {
@@ -427,7 +425,7 @@ int SITL_State::sim_fd_write(const char *name)
 /*
   check for a SITL RC input packet
  */
-void SITL_State::_check_rc_input(void)
+void HALSITL::SITL_State::_check_rc_input(void)
 {
     uint32_t count = 0;
     while (_read_rc_sitl_input()) {
@@ -439,7 +437,7 @@ void SITL_State::_check_rc_input(void)
     }
 }
 
-bool SITL_State::_read_rc_sitl_input()
+bool HALSITL::SITL_State::_read_rc_sitl_input()
 {
     struct pwm_packet {
         uint16_t pwm[16];
@@ -483,7 +481,7 @@ bool SITL_State::_read_rc_sitl_input()
 /*
   output current state to flightgear
  */
-void SITL_State::_output_to_flightgear(void)
+void HALSITL::SITL_State::_output_to_flightgear(void)
 {
     SITL::FGNetFDM fdm {};
     const SITL::sitl_fdm &sfdm = _sitl->state;
@@ -518,7 +516,7 @@ void SITL_State::_output_to_flightgear(void)
 /*
   get FDM input from a local model
  */
-void SITL_State::_fdm_input_local(void)
+void HALSITL::SITL_State::_fdm_input_local(void)
 {
     struct sitl_input input;
 
@@ -631,7 +629,7 @@ void SITL_State::_fdm_input_local(void)
 /*
   create sitl_input structure for sending to FDM
  */
-void SITL_State::_simulator_servos(struct sitl_input &input)
+void HALSITL::SITL_State::_simulator_servos(struct sitl_input &input)
 {
     static uint32_t last_update_usec;
 
@@ -802,7 +800,7 @@ void SITL_State::_simulator_servos(struct sitl_input &input)
     current2_pin_value = ((_current * 0.25f / 17.0f) / 5.0f) * 1024;
 }
 
-void SITL_State::init(int argc, char * const argv[])
+void HALSITL::SITL_State::init(int argc, char * const argv[])
 {
     pwm_input[0] = pwm_input[1] = pwm_input[3] = 1500;
     pwm_input[4] = pwm_input[7] = 1800;
@@ -815,7 +813,7 @@ void SITL_State::init(int argc, char * const argv[])
 /*
   set height above the ground in meters
  */
-void SITL_State::set_height_agl(void)
+void HALSITL::SITL_State::set_height_agl(void)
 {
     static float home_alt = -1;
 
