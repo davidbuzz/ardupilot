@@ -248,7 +248,7 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
                 boost::archive::xml_oarchive oa(ofs2);
                 assert(ofs2.good());
                 // write class instance to archive
-                oa << BOOST_SERIALIZATION_NVP(_sitl_state);
+                //oa << BOOST_SERIALIZATION_NVP(_sitl_state);
                 oa << BOOST_SERIALIZATION_NVP(callbacks); 
             	// archive and stream closed when destructors are called
             }
@@ -267,7 +267,7 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
                 boost::archive::xml_iarchive ia(ifs2);
                 assert(ifs2.good());
                 // read class instance to archive
-                ia >> BOOST_SERIALIZATION_NVP(*_sitl_state);
+                //ia >> BOOST_SERIALIZATION_NVP(*_sitl_state);
             	// archive and stream closed when destructors are called
             }
         }
