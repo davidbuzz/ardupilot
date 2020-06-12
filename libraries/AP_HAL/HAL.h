@@ -103,7 +103,7 @@ public:
             // todo buzz add the rest of the private ap-vehice vars here... 
         } 
     }; 
-    BOOST_SERIALIZATION_ASSUME_ABSTRACT(Callbacks); 
+    //BxxOOST_SERIALIZATION_ASSUME_ABSTRACT(Callbacks); 
  
 
     struct FunCallbacks : public Callbacks {
