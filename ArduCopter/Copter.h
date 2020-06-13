@@ -273,13 +273,15 @@ public:
         ar & BOOST_SERIALIZATION_NVP( ekfYawReset_ms);
         ar & BOOST_SERIALIZATION_NVP( ekf_primary_core);
 
-        //ar & BOOST_SERIALIZATION_NVP( ap); //error: ‘union Copter::ap_t’ has no member named ‘serialize’
+        // 'ap' is an ap_t union of 32 boolean bits that can be referenced individially by name, or together
+        // as a single 32 bit ap.value
+        ar & BOOST_SERIALIZATION_NVP( ap.value); //error: ‘union Copter::ap_t’ has no member named ‘serialize’
 
         ar & BOOST_SERIALIZATION_NVP(control_mode);
         ar & BOOST_SERIALIZATION_NVP( control_mode_reason);
         ar & BOOST_SERIALIZATION_NVP(prev_control_mode);
 
-        //ar & BOOST_SERIALIZATION_NVP( rcmap); // no serialise yet
+        ar & BOOST_SERIALIZATION_NVP( rcmap); // no serialise yet
         ar & BOOST_SERIALIZATION_NVP( arming_altitude_m);
 
         //ar & BOOST_SERIALIZATION_NVP(motors); // ap_motors_multicopter class error
