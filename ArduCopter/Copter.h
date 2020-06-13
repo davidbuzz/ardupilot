@@ -256,7 +256,7 @@ public:
         ar & BOOST_SERIALIZATION_NVP(channel_throttle);
         ar & BOOST_SERIALIZATION_NVP(channel_yaw);
 
-        //ar & BOOST_SERIALIZATION_NVP( logger); // no serialise yet
+        //ar & BOOST_SERIALIZATION_NVP( logger); // error: ‘class AP_Logger’ has no member named ‘serialize’
         ar & BOOST_SERIALIZATION_NVP(flight_modes);
        // ar & BOOST_SERIALIZATION_NVP(num_flight_modes); //const
 #if RPM_ENABLED == ENABLED
@@ -266,7 +266,7 @@ public:
 //#if CONFIG_HAL_BOARD == HAL_BOARD_SITL
 //      ar & BOOST_SERIALIZATION_NVP(sitl);
 //#endif
-       // ar & BOOST_SERIALIZATION_NVP( arming); // no serialise yet
+        ar & BOOST_SERIALIZATION_NVP( arming); // error: ‘class AP_Arming_Copter’ has no member named ‘serialize’
 #if OPTFLOW == ENABLED
         //ar & BOOST_SERIALIZATION_NVP( optflow);// no serialise yet
 #endif

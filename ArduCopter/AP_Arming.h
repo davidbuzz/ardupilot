@@ -26,6 +26,23 @@ public:
     bool disarm(AP_Arming::Method method) override;
     bool arm(AP_Arming::Method method, bool do_arming_checks=true) override;
 
+    float unused = 0.0;
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AP_Arming);
+        // todo buzz add the rest of the private copter vars here...
+
+        // Global parameters are all contained within the 'g' and 'g2' classes.
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
+
 protected:
 
     bool pre_arm_checks(bool display_failure) override;

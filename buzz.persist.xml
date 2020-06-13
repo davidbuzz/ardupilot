@@ -15,7 +15,7 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>24785</_parent_pid>
+	<_parent_pid>5016</_parent_pid>
 	<_update_count>3653</_update_count>
 	<_ins class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_gyro_count>2</_gyro_count>
@@ -1643,11 +1643,11 @@
 			</mag_bf>
 			<time_now_us>3042949</time_now_us>
 			<rate_hz>1.200000000e+03</rate_hz>
-			<achieved_rate_hz>1.174076782e+03</achieved_rate_hz>
+			<achieved_rate_hz>1.149962891e+03</achieved_rate_hz>
 			<target_speedup>1.000000000e+00</target_speedup>
 			<frame_time_us>833</frame_time_us>
-			<scaled_frame_time_us>7.620332642e+02</scaled_frame_time_us>
-			<last_wall_time_us>1592036728128264</last_wall_time_us>
+			<scaled_frame_time_us>7.995217285e+02</scaled_frame_time_us>
+			<last_wall_time_us>1592090443412508</last_wall_time_us>
 			<instance>0</instance>
 			<use_time_sync>1</use_time_sync>
 			<last_speedup>1.000000000e+00</last_speedup>
@@ -2063,6 +2063,49 @@
 		<unused>0.000000000e+00</unused>
 	</channel_yaw>
 	<flight_modes class_id_reference="5" object_id_reference="_131"></flight_modes>
+	<arming class_id="39" tracking_level="0" version="0">
+		<AP_Arming class_id="40" tracking_level="0" version="0">
+			<require object_id="_179">
+				<_value>1</_value>
+			</require>
+			<checks_to_perform>
+				<_value>1</_value>
+			</checks_to_perform>
+			<accel_error_threshold object_id="_180">
+				<_value>7.500000000e-01</_value>
+			</accel_error_threshold>
+			<_rudder_arming object_id="_181">
+				<_value>2</_value>
+			</_rudder_arming>
+			<_required_mission_items>
+				<_value>0</_value>
+			</_required_mission_items>
+			<armed>0</armed>
+			<last_accel_pass_ms>
+				<count>3</count>
+				<item>0</item>
+				<item>0</item>
+				<item>0</item>
+			</last_accel_pass_ms>
+			<last_gyro_pass_ms>
+				<count>3</count>
+				<item>0</item>
+				<item>0</item>
+				<item>0</item>
+			</last_gyro_pass_ms>
+			<aux_auth_state>
+				<count>3</count>
+				<item>0</item>
+				<item>0</item>
+				<item>0</item>
+			</aux_auth_state>
+			<aux_auth_count>0</aux_auth_count>
+			<aux_auth_fail_msg_source>0</aux_auth_fail_msg_source>
+			<aux_auth_error>0</aux_auth_error>
+			<aux_auth_sem class_id="41" tracking_level="0" version="0"></aux_auth_sem>
+		</AP_Arming>
+		<unused>0.000000000e+00</unused>
+	</arming>
 	<ekfYawReset_ms>0</ekfYawReset_ms>
 	<ekf_primary_core>0</ekf_primary_core>
 	<control_mode>0</control_mode>
@@ -2105,7 +2148,7 @@
 	<auto_trim_counter>0</auto_trim_counter>
 	<last_radio_update_ms>3029</last_radio_update_ms>
 	<esc_calibration_notify_update_ms>0</esc_calibration_notify_update_ms>
-	<param_loader class_id="39" tracking_level="0" version="0"></param_loader>
+	<param_loader class_id="42" tracking_level="0" version="0"></param_loader>
 </callbacks>
 </boost_serialization>
 
