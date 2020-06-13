@@ -8,6 +8,19 @@ class RC_Channel_Copter : public RC_Channel
 {
 
 public:
+    float unused = 0.0;
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);   
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(RC_Channel);
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
 
 protected:
 

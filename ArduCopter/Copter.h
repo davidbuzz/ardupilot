@@ -247,10 +247,15 @@ public:
         //ar & BOOST_SERIALIZATION_NVP(g);
         //ar & BOOST_SERIALIZATION_NVP(g2);
         ar & BOOST_SERIALIZATION_NVP(command_ack_counter);
-        //ar & BOOST_SERIALIZATION_NVP(channel_roll);
-        //ar & BOOST_SERIALIZATION_NVP(channel_pitch);
-        //ar & BOOST_SERIALIZATION_NVP(channel_throttle);
-        //ar & BOOST_SERIALIZATION_NVP(channel_yaw);
+
+        ar.template register_type<RC_Channel>(); 
+        ar.template register_type<RC_Channel_Copter>(); 
+        
+        ar & BOOST_SERIALIZATION_NVP(channel_roll);
+        ar & BOOST_SERIALIZATION_NVP(channel_pitch);
+        ar & BOOST_SERIALIZATION_NVP(channel_throttle);
+        ar & BOOST_SERIALIZATION_NVP(channel_yaw);
+
         //ar & BOOST_SERIALIZATION_NVP( logger); // no serialise yet
         ar & BOOST_SERIALIZATION_NVP(flight_modes);
        // ar & BOOST_SERIALIZATION_NVP(num_flight_modes); //const

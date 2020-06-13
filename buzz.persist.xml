@@ -15,7 +15,7 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>2146</_parent_pid>
+	<_parent_pid>5017</_parent_pid>
 	<_update_count>3653</_update_count>
 	<_ins class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_gyro_count>2</_gyro_count>
@@ -1643,11 +1643,11 @@
 			</mag_bf>
 			<time_now_us>3042949</time_now_us>
 			<rate_hz>1.200000000e+03</rate_hz>
-			<achieved_rate_hz>1.151717163e+03</achieved_rate_hz>
+			<achieved_rate_hz>1.167320679e+03</achieved_rate_hz>
 			<target_speedup>1.000000000e+00</target_speedup>
 			<frame_time_us>833</frame_time_us>
-			<scaled_frame_time_us>8.107992554e+02</scaled_frame_time_us>
-			<last_wall_time_us>1592032161467202</last_wall_time_us>
+			<scaled_frame_time_us>7.605099487e+02</scaled_frame_time_us>
+			<last_wall_time_us>1592034848082580</last_wall_time_us>
 			<instance>0</instance>
 			<use_time_sync>1</use_time_sync>
 			<last_speedup>1.000000000e+00</last_speedup>
@@ -1728,7 +1728,127 @@
 		<G_Dt>2.499999944e-03</G_Dt>
 	</AP_Vehicle>
 	<command_ack_counter>0</command_ack_counter>
-	<flight_modes class_id_reference="5" object_id="_122">
+	<channel_roll class_id="36" tracking_level="1" version="0" object_id="_122">
+		<RC_Channel class_id="35" tracking_level="1" version="0" object_id="_123">
+			<option>
+				<_value>0</_value>
+			</option>
+			<radio_in>1500</radio_in>
+			<control_in>0</control_in>
+			<radio_min>
+				<_value>1000</_value>
+			</radio_min>
+			<radio_trim>
+				<_value>1500</_value>
+			</radio_trim>
+			<radio_max>
+				<_value>2000</_value>
+			</radio_max>
+			<reversed object_id="_124">
+				<_value>0</_value>
+			</reversed>
+			<dead_zone>
+				<_value>20</_value>
+			</dead_zone>
+			<type_in>0</type_in>
+			<high_in>4500</high_in>
+			<ch_in>0</ch_in>
+			<override_value>0</override_value>
+			<last_override_time>0</last_override_time>
+		</RC_Channel>
+		<unused>0.000000000e+00</unused>
+	</channel_roll>
+	<channel_pitch class_id_reference="36" object_id="_125">
+		<RC_Channel object_id="_126">
+			<option>
+				<_value>0</_value>
+			</option>
+			<radio_in>1500</radio_in>
+			<control_in>0</control_in>
+			<radio_min>
+				<_value>1000</_value>
+			</radio_min>
+			<radio_trim>
+				<_value>1500</_value>
+			</radio_trim>
+			<radio_max>
+				<_value>2000</_value>
+			</radio_max>
+			<reversed object_id="_127">
+				<_value>0</_value>
+			</reversed>
+			<dead_zone>
+				<_value>20</_value>
+			</dead_zone>
+			<type_in>0</type_in>
+			<high_in>4500</high_in>
+			<ch_in>1</ch_in>
+			<override_value>0</override_value>
+			<last_override_time>0</last_override_time>
+		</RC_Channel>
+		<unused>0.000000000e+00</unused>
+	</channel_pitch>
+	<channel_throttle class_id_reference="36" object_id="_128">
+		<RC_Channel object_id="_129">
+			<option>
+				<_value>0</_value>
+			</option>
+			<radio_in>1000</radio_in>
+			<control_in>0</control_in>
+			<radio_min>
+				<_value>1000</_value>
+			</radio_min>
+			<radio_trim>
+				<_value>1500</_value>
+			</radio_trim>
+			<radio_max>
+				<_value>2000</_value>
+			</radio_max>
+			<reversed object_id="_130">
+				<_value>0</_value>
+			</reversed>
+			<dead_zone>
+				<_value>30</_value>
+			</dead_zone>
+			<type_in>1</type_in>
+			<high_in>1000</high_in>
+			<ch_in>2</ch_in>
+			<override_value>0</override_value>
+			<last_override_time>0</last_override_time>
+		</RC_Channel>
+		<unused>0.000000000e+00</unused>
+	</channel_throttle>
+	<channel_yaw class_id_reference="36" object_id="_131">
+		<RC_Channel object_id="_132">
+			<option>
+				<_value>0</_value>
+			</option>
+			<radio_in>1500</radio_in>
+			<control_in>0</control_in>
+			<radio_min>
+				<_value>1000</_value>
+			</radio_min>
+			<radio_trim>
+				<_value>1500</_value>
+			</radio_trim>
+			<radio_max>
+				<_value>2000</_value>
+			</radio_max>
+			<reversed object_id="_133">
+				<_value>0</_value>
+			</reversed>
+			<dead_zone>
+				<_value>20</_value>
+			</dead_zone>
+			<type_in>0</type_in>
+			<high_in>4500</high_in>
+			<ch_in>3</ch_in>
+			<override_value>0</override_value>
+			<last_override_time>0</last_override_time>
+		</RC_Channel>
+		<unused>0.000000000e+00</unused>
+	</channel_yaw>
+	<flight_modes class_id_reference="5" object_id="_134">
 		<_value>7</_value>
 	</flight_modes>
 	<ekfYawReset_ms>0</ekfYawReset_ms>
@@ -1773,7 +1893,7 @@
 	<auto_trim_counter>0</auto_trim_counter>
 	<last_radio_update_ms>3029</last_radio_update_ms>
 	<esc_calibration_notify_update_ms>0</esc_calibration_notify_update_ms>
-	<param_loader class_id="35" tracking_level="0" version="0"></param_loader>
+	<param_loader class_id="37" tracking_level="0" version="0"></param_loader>
 </callbacks>
 </boost_serialization>
 

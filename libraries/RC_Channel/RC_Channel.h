@@ -5,6 +5,9 @@
 #include <AP_Common/AP_Common.h>
 #include <AP_Param/AP_Param.h>
 
+#include <SITL/Serialize.h>
+
+
 #define NUM_RC_CHANNELS 16
 
 /// @class	RC_Channel
@@ -20,6 +23,31 @@ public:
         RC_CHANNEL_TYPE_ANGLE = 0,
         RC_CHANNEL_TYPE_RANGE = 1,
     };
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);    
+        ar & BOOST_SERIALIZATION_NVP(option);
+        ar & BOOST_SERIALIZATION_NVP(radio_in);
+        ar & BOOST_SERIALIZATION_NVP(control_in);
+        ar & BOOST_SERIALIZATION_NVP(radio_min);
+        ar & BOOST_SERIALIZATION_NVP(radio_trim);
+        ar & BOOST_SERIALIZATION_NVP(radio_max);
+        ar & BOOST_SERIALIZATION_NVP(reversed);
+        ar & BOOST_SERIALIZATION_NVP(dead_zone);
+        ar & BOOST_SERIALIZATION_NVP(type_in);
+        ar & BOOST_SERIALIZATION_NVP(high_in);
+        ar & BOOST_SERIALIZATION_NVP(ch_in);
+        ar & BOOST_SERIALIZATION_NVP(override_value);
+        ar & BOOST_SERIALIZATION_NVP(last_override_time);
+        
+        // todo buzz add the rest of the private copter vars here...
+    }
 
     // setup the control preferences
     void        set_range(uint16_t high);
