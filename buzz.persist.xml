@@ -15,7 +15,7 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>13420</_parent_pid>
+	<_parent_pid>24785</_parent_pid>
 	<_update_count>3653</_update_count>
 	<_ins class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_gyro_count>2</_gyro_count>
@@ -1643,11 +1643,11 @@
 			</mag_bf>
 			<time_now_us>3042949</time_now_us>
 			<rate_hz>1.200000000e+03</rate_hz>
-			<achieved_rate_hz>1.145738770e+03</achieved_rate_hz>
+			<achieved_rate_hz>1.174076782e+03</achieved_rate_hz>
 			<target_speedup>1.000000000e+00</target_speedup>
 			<frame_time_us>833</frame_time_us>
-			<scaled_frame_time_us>8.238828125e+02</scaled_frame_time_us>
-			<last_wall_time_us>1592035745037941</last_wall_time_us>
+			<scaled_frame_time_us>7.620332642e+02</scaled_frame_time_us>
+			<last_wall_time_us>1592036728128264</last_wall_time_us>
 			<instance>0</instance>
 			<use_time_sync>1</use_time_sync>
 			<last_speedup>1.000000000e+00</last_speedup>
@@ -1891,9 +1891,59 @@
 			<_value>3.000000119e-01</_value>
 		</acro_rp_expo>
 	</g>
+	<g2 class_id="36" tracking_level="0" version="0">
+		<wp_navalt_min object_id="_155">
+			<_value>0.000000000e+00</_value>
+		</wp_navalt_min>
+		<throw_nextmode object_id="_156">
+			<_value>18</_value>
+		</throw_nextmode>
+		<throw_type object_id="_157">
+			<_value>0</_value>
+		</throw_type>
+		<gndeffect_comp_enabled object_id="_158">
+			<_value>1</_value>
+		</gndeffect_comp_enabled>
+		<sysid_enforce object_id="_159">
+			<_value>0</_value>
+		</sysid_enforce>
+		<dev_options>
+			<_value>0</_value>
+		</dev_options>
+		<acro_y_expo object_id="_160">
+			<_value>0.000000000e+00</_value>
+		</acro_y_expo>
+		<acro_thr_mid object_id="_161">
+			<_value>0.000000000e+00</_value>
+		</acro_thr_mid>
+		<frame_class object_id="_162">
+			<_value>1</_value>
+		</frame_class>
+		<pilot_speed_dn>
+			<_value>0</_value>
+		</pilot_speed_dn>
+		<land_alt_low>
+			<_value>1000</_value>
+		</land_alt_low>
+		<tuning_min object_id="_163">
+			<_value>0.000000000e+00</_value>
+		</tuning_min>
+		<tuning_max object_id="_164">
+			<_value>0.000000000e+00</_value>
+		</tuning_max>
+		<fs_vibe_enabled object_id="_165">
+			<_value>1</_value>
+		</fs_vibe_enabled>
+		<fs_options>
+			<_value>0</_value>
+		</fs_options>
+		<zigzag_auto_pump_enabled object_id="_166">
+			<_value>0</_value>
+		</zigzag_auto_pump_enabled>
+	</g2>
 	<command_ack_counter>0</command_ack_counter>
-	<channel_roll class_id="37" tracking_level="1" version="0" object_id="_155">
-		<RC_Channel class_id="36" tracking_level="1" version="0" object_id="_156">
+	<channel_roll class_id="38" tracking_level="1" version="0" object_id="_167">
+		<RC_Channel class_id="37" tracking_level="1" version="0" object_id="_168">
 			<option>
 				<_value>0</_value>
 			</option>
@@ -1908,7 +1958,7 @@
 			<radio_max>
 				<_value>2000</_value>
 			</radio_max>
-			<reversed object_id="_157">
+			<reversed object_id="_169">
 				<_value>0</_value>
 			</reversed>
 			<dead_zone>
@@ -1922,8 +1972,8 @@
 		</RC_Channel>
 		<unused>0.000000000e+00</unused>
 	</channel_roll>
-	<channel_pitch class_id_reference="37" object_id="_158">
-		<RC_Channel object_id="_159">
+	<channel_pitch class_id_reference="38" object_id="_170">
+		<RC_Channel object_id="_171">
 			<option>
 				<_value>0</_value>
 			</option>
@@ -1938,7 +1988,7 @@
 			<radio_max>
 				<_value>2000</_value>
 			</radio_max>
-			<reversed object_id="_160">
+			<reversed object_id="_172">
 				<_value>0</_value>
 			</reversed>
 			<dead_zone>
@@ -1952,8 +2002,8 @@
 		</RC_Channel>
 		<unused>0.000000000e+00</unused>
 	</channel_pitch>
-	<channel_throttle class_id_reference="37" object_id="_161">
-		<RC_Channel object_id="_162">
+	<channel_throttle class_id_reference="38" object_id="_173">
+		<RC_Channel object_id="_174">
 			<option>
 				<_value>0</_value>
 			</option>
@@ -1968,7 +2018,7 @@
 			<radio_max>
 				<_value>2000</_value>
 			</radio_max>
-			<reversed object_id="_163">
+			<reversed object_id="_175">
 				<_value>0</_value>
 			</reversed>
 			<dead_zone>
@@ -1982,8 +2032,8 @@
 		</RC_Channel>
 		<unused>0.000000000e+00</unused>
 	</channel_throttle>
-	<channel_yaw class_id_reference="37" object_id="_164">
-		<RC_Channel object_id="_165">
+	<channel_yaw class_id_reference="38" object_id="_176">
+		<RC_Channel object_id="_177">
 			<option>
 				<_value>0</_value>
 			</option>
@@ -1998,7 +2048,7 @@
 			<radio_max>
 				<_value>2000</_value>
 			</radio_max>
-			<reversed object_id="_166">
+			<reversed object_id="_178">
 				<_value>0</_value>
 			</reversed>
 			<dead_zone>
@@ -2055,7 +2105,7 @@
 	<auto_trim_counter>0</auto_trim_counter>
 	<last_radio_update_ms>3029</last_radio_update_ms>
 	<esc_calibration_notify_update_ms>0</esc_calibration_notify_update_ms>
-	<param_loader class_id="38" tracking_level="0" version="0"></param_loader>
+	<param_loader class_id="39" tracking_level="0" version="0"></param_loader>
 </callbacks>
 </boost_serialization>
 

@@ -562,6 +562,85 @@ public:
         ar & BOOST_SERIALIZATION_NVP(wp_navalt_min);
         // buzz todo add the rest of the private copter vars here...
 
+        
+
+      //  ar & BOOST_SERIALIZATION_NVP(button_ptr);
+#if STATS_ENABLED == ENABLED
+      //  ar & BOOST_SERIALIZATION_NVP(stats);
+#endif
+#if GRIPPER_ENABLED
+        //ar & BOOST_SERIALIZATION_NVP(gripper);
+#endif
+#if MODE_THROW_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP(throw_nextmode);
+        ar & BOOST_SERIALIZATION_NVP(throw_type);
+#endif
+        ar & BOOST_SERIALIZATION_NVP(gndeffect_comp_enabled);
+       // ar & BOOST_SERIALIZATION_NVP(temp_calibration);
+#if BEACON_ENABLED == ENABLED
+      //  ar & BOOST_SERIALIZATION_NVP(beacon);
+#endif
+#if PROXIMITY_ENABLED == ENABLED
+       // ar & BOOST_SERIALIZATION_NVP(proximity);
+#endif
+        ar & BOOST_SERIALIZATION_NVP(sysid_enforce);
+#if ADVANCED_FAILSAFE == ENABLED
+        ar & BOOST_SERIALIZATION_NVP(afs);
+#endif
+        ar & BOOST_SERIALIZATION_NVP(dev_options);
+        ar & BOOST_SERIALIZATION_NVP(acro_y_expo);
+#if MODE_ACRO_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP(acro_thr_mid);
+#endif
+        ar & BOOST_SERIALIZATION_NVP(frame_class);
+      //  ar & BOOST_SERIALIZATION_NVP(rc_channels);
+     //   ar & BOOST_SERIALIZATION_NVP(servo_channels);
+#if MODE_SMARTRTL_ENABLED == ENABLED
+      //  ar & BOOST_SERIALIZATION_NVP(smart_rtl);
+#endif
+#if WINCH_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP(wheel_encoder);
+        ar & BOOST_SERIALIZATION_NVP(winch);
+#endif
+        ar & BOOST_SERIALIZATION_NVP(pilot_speed_dn);
+        ar & BOOST_SERIALIZATION_NVP(land_alt_low);
+#if TOY_MODE_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP(toy_mode);
+#endif
+#if OPTFLOW == ENABLED
+       // ar & BOOST_SERIALIZATION_NVP(mode_flowhold_ptr);
+#endif
+#if MODE_FOLLOW_ENABLED == ENABLED
+      //  ar & BOOST_SERIALIZATION_NVP(follow);
+#endif
+#ifdef USER_PARAMS_ENABLED
+        ar & BOOST_SERIALIZATION_NVP(user_parameters);
+#endif
+#if AUTOTUNE_ENABLED == ENABLED
+        //ar & BOOST_SERIALIZATION_NVP(autotune_ptr);
+#endif
+#ifdef ENABLE_SCRIPTING
+     //   ar & BOOST_SERIALIZATION_NVP(scripting);
+#endif 
+        ar & BOOST_SERIALIZATION_NVP(tuning_min);
+        ar & BOOST_SERIALIZATION_NVP(tuning_max);
+#if AC_OAPATHPLANNER_ENABLED == ENABLED
+     //   ar & BOOST_SERIALIZATION_NVP(oa);
+#endif
+#if MODE_SYSTEMID_ENABLED == ENABLED
+     //   ar & BOOST_SERIALIZATION_NVP(mode_systemid_ptr);
+#endif
+        ar & BOOST_SERIALIZATION_NVP(fs_vibe_enabled);
+        ar & BOOST_SERIALIZATION_NVP(fs_options);
+#if MODE_AUTOROTATE_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP(arot);
+#endif
+#if MODE_ZIGZAG_ENABLED == ENABLED && SPRAYER_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP(zigzag_auto_pump_enabled);
+#endif
+
+        
+
     }
 
     // altitude at which nav control can start in takeoff

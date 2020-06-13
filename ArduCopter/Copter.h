@@ -242,10 +242,10 @@ public:
         ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AP_Vehicle);
         // todo buzz add the rest of the private copter vars here...
 
-  // Global parameters are all contained within the 'g' class.
-        // AP_ParamT not serializing properly from here right now
+        // Global parameters are all contained within the 'g' and 'g2' classes.
         ar & BOOST_SERIALIZATION_NVP(g);
-        //ar & BOOST_SERIALIZATION_NVP(g2);
+        ar & BOOST_SERIALIZATION_NVP(g2);
+
         ar & BOOST_SERIALIZATION_NVP(command_ack_counter);
 
         ar.template register_type<RC_Channel>(); 
