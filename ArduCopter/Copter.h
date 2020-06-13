@@ -244,13 +244,13 @@ public:
 
   // Global parameters are all contained within the 'g' class.
         // AP_ParamT not serializing properly from here right now
-        //ar & BOOST_SERIALIZATION_NVP(g);
+        ar & BOOST_SERIALIZATION_NVP(g);
         //ar & BOOST_SERIALIZATION_NVP(g2);
         ar & BOOST_SERIALIZATION_NVP(command_ack_counter);
 
         ar.template register_type<RC_Channel>(); 
         ar.template register_type<RC_Channel_Copter>(); 
-        
+
         ar & BOOST_SERIALIZATION_NVP(channel_roll);
         ar & BOOST_SERIALIZATION_NVP(channel_pitch);
         ar & BOOST_SERIALIZATION_NVP(channel_throttle);

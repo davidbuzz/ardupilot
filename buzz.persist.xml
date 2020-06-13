@@ -15,7 +15,7 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>5017</_parent_pid>
+	<_parent_pid>13420</_parent_pid>
 	<_update_count>3653</_update_count>
 	<_ins class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_gyro_count>2</_gyro_count>
@@ -1643,11 +1643,11 @@
 			</mag_bf>
 			<time_now_us>3042949</time_now_us>
 			<rate_hz>1.200000000e+03</rate_hz>
-			<achieved_rate_hz>1.167320679e+03</achieved_rate_hz>
+			<achieved_rate_hz>1.145738770e+03</achieved_rate_hz>
 			<target_speedup>1.000000000e+00</target_speedup>
 			<frame_time_us>833</frame_time_us>
-			<scaled_frame_time_us>7.605099487e+02</scaled_frame_time_us>
-			<last_wall_time_us>1592034848082580</last_wall_time_us>
+			<scaled_frame_time_us>8.238828125e+02</scaled_frame_time_us>
+			<last_wall_time_us>1592035745037941</last_wall_time_us>
 			<instance>0</instance>
 			<use_time_sync>1</use_time_sync>
 			<last_speedup>1.000000000e+00</last_speedup>
@@ -1727,9 +1727,173 @@
 		</AP_HAL_HAL_Callbacks>
 		<G_Dt>2.499999944e-03</G_Dt>
 	</AP_Vehicle>
+	<g class_id="35" tracking_level="0" version="0">
+		<format_version>
+			<_value>120</_value>
+		</format_version>
+		<sysid_this_mav>
+			<_value>1</_value>
+		</sysid_this_mav>
+		<sysid_my_gcs>
+			<_value>255</_value>
+		</sysid_my_gcs>
+		<telem_delay object_id="_122">
+			<_value>0</_value>
+		</telem_delay>
+		<throttle_filt object_id="_123">
+			<_value>0.000000000e+00</_value>
+		</throttle_filt>
+		<throttle_behavior>
+			<_value>0</_value>
+		</throttle_behavior>
+		<pilot_takeoff_alt object_id="_124">
+			<_value>0.000000000e+00</_value>
+		</pilot_takeoff_alt>
+		<rtl_altitude>
+			<_value>1500</_value>
+		</rtl_altitude>
+		<rtl_speed_cms>
+			<_value>0</_value>
+		</rtl_speed_cms>
+		<rtl_cone_slope object_id="_125">
+			<_value>3.000000000e+00</_value>
+		</rtl_cone_slope>
+		<rangefinder_gain object_id="_126">
+			<_value>8.000000119e-01</_value>
+		</rangefinder_gain>
+		<failsafe_gcs object_id="_127">
+			<_value>0</_value>
+		</failsafe_gcs>
+		<gps_hdop_good>
+			<_value>140</_value>
+		</gps_hdop_good>
+		<super_simple object_id="_128">
+			<_value>0</_value>
+		</super_simple>
+		<rtl_alt_final>
+			<_value>0</_value>
+		</rtl_alt_final>
+		<rtl_climb_min>
+			<_value>0</_value>
+		</rtl_climb_min>
+		<wp_yaw_behavior object_id="_129">
+			<_value>2</_value>
+		</wp_yaw_behavior>
+		<poshold_brake_rate>
+			<_value>8</_value>
+		</poshold_brake_rate>
+		<poshold_brake_angle_max>
+			<_value>3000</_value>
+		</poshold_brake_angle_max>
+		<rtl_loiter_time>
+			<_value>5000</_value>
+		</rtl_loiter_time>
+		<land_speed>
+			<_value>50</_value>
+		</land_speed>
+		<land_speed_high>
+			<_value>0</_value>
+		</land_speed_high>
+		<pilot_speed_up>
+			<_value>250</_value>
+		</pilot_speed_up>
+		<pilot_accel_z>
+			<_value>250</_value>
+		</pilot_accel_z>
+		<failsafe_throttle object_id="_130">
+			<_value>1</_value>
+		</failsafe_throttle>
+		<failsafe_throttle_value>
+			<_value>975</_value>
+		</failsafe_throttle_value>
+		<throttle_deadzone>
+			<_value>100</_value>
+		</throttle_deadzone>
+		<flight_mode1 object_id="_131">
+			<_value>7</_value>
+		</flight_mode1>
+		<flight_mode2 object_id="_132">
+			<_value>9</_value>
+		</flight_mode2>
+		<flight_mode3 object_id="_133">
+			<_value>6</_value>
+		</flight_mode3>
+		<flight_mode4 object_id="_134">
+			<_value>3</_value>
+		</flight_mode4>
+		<flight_mode5 object_id="_135">
+			<_value>5</_value>
+		</flight_mode5>
+		<flight_mode6 object_id="_136">
+			<_value>0</_value>
+		</flight_mode6>
+		<simple_modes object_id="_137">
+			<_value>0</_value>
+		</simple_modes>
+		<flight_mode_chan object_id="_138">
+			<_value>5</_value>
+		</flight_mode_chan>
+		<log_bitmask>
+			<_value>176126</_value>
+		</log_bitmask>
+		<esc_calibrate object_id="_139">
+			<_value>0</_value>
+		</esc_calibrate>
+		<radio_tuning object_id="_140">
+			<_value>0</_value>
+		</radio_tuning>
+		<frame_type object_id="_141">
+			<_value>0</_value>
+		</frame_type>
+		<disarm_delay object_id="_142">
+			<_value>10</_value>
+		</disarm_delay>
+		<land_repositioning object_id="_143">
+			<_value>1</_value>
+		</land_repositioning>
+		<fs_ekf_action object_id="_144">
+			<_value>1</_value>
+		</fs_ekf_action>
+		<fs_crash_check object_id="_145">
+			<_value>1</_value>
+		</fs_crash_check>
+		<fs_ekf_thresh object_id="_146">
+			<_value>8.000000119e-01</_value>
+		</fs_ekf_thresh>
+		<gcs_pid_mask>
+			<_value>0</_value>
+		</gcs_pid_mask>
+		<throw_motor_start object_id="_147">
+			<_value>0</_value>
+		</throw_motor_start>
+		<rtl_alt_type object_id="_148">
+			<_value>0</_value>
+		</rtl_alt_type>
+		<rc_speed>
+			<_value>490</_value>
+		</rc_speed>
+		<acro_rp_p object_id="_149">
+			<_value>4.500000000e+00</_value>
+		</acro_rp_p>
+		<acro_yaw_p object_id="_150">
+			<_value>4.500000000e+00</_value>
+		</acro_yaw_p>
+		<acro_balance_roll object_id="_151">
+			<_value>1.000000000e+00</_value>
+		</acro_balance_roll>
+		<acro_balance_pitch object_id="_152">
+			<_value>1.000000000e+00</_value>
+		</acro_balance_pitch>
+		<acro_trainer object_id="_153">
+			<_value>2</_value>
+		</acro_trainer>
+		<acro_rp_expo object_id="_154">
+			<_value>3.000000119e-01</_value>
+		</acro_rp_expo>
+	</g>
 	<command_ack_counter>0</command_ack_counter>
-	<channel_roll class_id="36" tracking_level="1" version="0" object_id="_122">
-		<RC_Channel class_id="35" tracking_level="1" version="0" object_id="_123">
+	<channel_roll class_id="37" tracking_level="1" version="0" object_id="_155">
+		<RC_Channel class_id="36" tracking_level="1" version="0" object_id="_156">
 			<option>
 				<_value>0</_value>
 			</option>
@@ -1744,7 +1908,7 @@
 			<radio_max>
 				<_value>2000</_value>
 			</radio_max>
-			<reversed object_id="_124">
+			<reversed object_id="_157">
 				<_value>0</_value>
 			</reversed>
 			<dead_zone>
@@ -1758,8 +1922,8 @@
 		</RC_Channel>
 		<unused>0.000000000e+00</unused>
 	</channel_roll>
-	<channel_pitch class_id_reference="36" object_id="_125">
-		<RC_Channel object_id="_126">
+	<channel_pitch class_id_reference="37" object_id="_158">
+		<RC_Channel object_id="_159">
 			<option>
 				<_value>0</_value>
 			</option>
@@ -1774,7 +1938,7 @@
 			<radio_max>
 				<_value>2000</_value>
 			</radio_max>
-			<reversed object_id="_127">
+			<reversed object_id="_160">
 				<_value>0</_value>
 			</reversed>
 			<dead_zone>
@@ -1788,8 +1952,8 @@
 		</RC_Channel>
 		<unused>0.000000000e+00</unused>
 	</channel_pitch>
-	<channel_throttle class_id_reference="36" object_id="_128">
-		<RC_Channel object_id="_129">
+	<channel_throttle class_id_reference="37" object_id="_161">
+		<RC_Channel object_id="_162">
 			<option>
 				<_value>0</_value>
 			</option>
@@ -1804,7 +1968,7 @@
 			<radio_max>
 				<_value>2000</_value>
 			</radio_max>
-			<reversed object_id="_130">
+			<reversed object_id="_163">
 				<_value>0</_value>
 			</reversed>
 			<dead_zone>
@@ -1818,8 +1982,8 @@
 		</RC_Channel>
 		<unused>0.000000000e+00</unused>
 	</channel_throttle>
-	<channel_yaw class_id_reference="36" object_id="_131">
-		<RC_Channel object_id="_132">
+	<channel_yaw class_id_reference="37" object_id="_164">
+		<RC_Channel object_id="_165">
 			<option>
 				<_value>0</_value>
 			</option>
@@ -1834,7 +1998,7 @@
 			<radio_max>
 				<_value>2000</_value>
 			</radio_max>
-			<reversed object_id="_133">
+			<reversed object_id="_166">
 				<_value>0</_value>
 			</reversed>
 			<dead_zone>
@@ -1848,9 +2012,7 @@
 		</RC_Channel>
 		<unused>0.000000000e+00</unused>
 	</channel_yaw>
-	<flight_modes class_id_reference="5" object_id="_134">
-		<_value>7</_value>
-	</flight_modes>
+	<flight_modes class_id_reference="5" object_id_reference="_131"></flight_modes>
 	<ekfYawReset_ms>0</ekfYawReset_ms>
 	<ekf_primary_core>0</ekf_primary_core>
 	<control_mode>0</control_mode>
@@ -1893,7 +2055,7 @@
 	<auto_trim_counter>0</auto_trim_counter>
 	<last_radio_update_ms>3029</last_radio_update_ms>
 	<esc_calibration_notify_update_ms>0</esc_calibration_notify_update_ms>
-	<param_loader class_id="37" tracking_level="0" version="0"></param_loader>
+	<param_loader class_id="38" tracking_level="0" version="0"></param_loader>
 </callbacks>
 </boost_serialization>
 

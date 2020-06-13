@@ -388,6 +388,64 @@ public:
         ar & BOOST_SERIALIZATION_NVP(format_version);
         // buzz todo add the rest of the private copter vars here...
 
+        ar & BOOST_SERIALIZATION_NVP(sysid_this_mav);
+        ar & BOOST_SERIALIZATION_NVP(sysid_my_gcs);
+        ar & BOOST_SERIALIZATION_NVP(telem_delay);
+        ar & BOOST_SERIALIZATION_NVP(throttle_filt);
+        ar & BOOST_SERIALIZATION_NVP(throttle_behavior);
+        ar & BOOST_SERIALIZATION_NVP(pilot_takeoff_alt);
+        ar & BOOST_SERIALIZATION_NVP(rtl_altitude);
+        ar & BOOST_SERIALIZATION_NVP(rtl_speed_cms);
+        ar & BOOST_SERIALIZATION_NVP(rtl_cone_slope);
+        #if RANGEFINDER_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP(rangefinder_gain);
+        #endif
+        ar & BOOST_SERIALIZATION_NVP(failsafe_gcs);
+        ar & BOOST_SERIALIZATION_NVP(gps_hdop_good);
+        ar & BOOST_SERIALIZATION_NVP( super_simple);
+        ar & BOOST_SERIALIZATION_NVP(rtl_alt_final);
+        ar & BOOST_SERIALIZATION_NVP(rtl_climb_min);
+        ar & BOOST_SERIALIZATION_NVP(wp_yaw_behavior);
+        ar & BOOST_SERIALIZATION_NVP(poshold_brake_rate); 
+        ar & BOOST_SERIALIZATION_NVP(poshold_brake_angle_max);
+        ar & BOOST_SERIALIZATION_NVP(rtl_loiter_time);
+        ar & BOOST_SERIALIZATION_NVP(land_speed);
+        ar & BOOST_SERIALIZATION_NVP(land_speed_high);
+        ar & BOOST_SERIALIZATION_NVP(pilot_speed_up);
+        ar & BOOST_SERIALIZATION_NVP(pilot_accel_z); 
+        ar & BOOST_SERIALIZATION_NVP( failsafe_throttle);
+        ar & BOOST_SERIALIZATION_NVP(failsafe_throttle_value);
+        ar & BOOST_SERIALIZATION_NVP(throttle_deadzone);
+        ar & BOOST_SERIALIZATION_NVP(flight_mode1);
+        ar & BOOST_SERIALIZATION_NVP(flight_mode2);
+        ar & BOOST_SERIALIZATION_NVP(flight_mode3);
+        ar & BOOST_SERIALIZATION_NVP(flight_mode4);
+        ar & BOOST_SERIALIZATION_NVP(flight_mode5);
+        ar & BOOST_SERIALIZATION_NVP(flight_mode6);
+        ar & BOOST_SERIALIZATION_NVP(simple_modes);
+        ar & BOOST_SERIALIZATION_NVP(flight_mode_chan);
+        ar & BOOST_SERIALIZATION_NVP(log_bitmask);
+        ar & BOOST_SERIALIZATION_NVP(esc_calibrate);
+        ar & BOOST_SERIALIZATION_NVP(radio_tuning);
+        ar & BOOST_SERIALIZATION_NVP(frame_type);
+        ar & BOOST_SERIALIZATION_NVP(disarm_delay);
+        ar & BOOST_SERIALIZATION_NVP(land_repositioning);
+        ar & BOOST_SERIALIZATION_NVP(fs_ekf_action);
+        ar & BOOST_SERIALIZATION_NVP(fs_crash_check);
+        ar & BOOST_SERIALIZATION_NVP(fs_ekf_thresh);
+        ar & BOOST_SERIALIZATION_NVP(gcs_pid_mask);
+        #if MODE_THROW_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP(throw_motor_start);
+        #endif
+        ar & BOOST_SERIALIZATION_NVP(rtl_alt_type);
+        ar & BOOST_SERIALIZATION_NVP(rc_speed);
+        ar & BOOST_SERIALIZATION_NVP(acro_rp_p);
+        ar & BOOST_SERIALIZATION_NVP(acro_yaw_p);
+        ar & BOOST_SERIALIZATION_NVP(acro_balance_roll);
+        ar & BOOST_SERIALIZATION_NVP(acro_balance_pitch);
+        ar & BOOST_SERIALIZATION_NVP(acro_trainer);
+        ar & BOOST_SERIALIZATION_NVP(acro_rp_expo);
+
     }
 
     AP_Int16        format_version;
