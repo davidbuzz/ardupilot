@@ -179,6 +179,19 @@ public:
     void set_imu_temp(float current_temp_c);
 #endif
 
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);    
+        ar & BOOST_SERIALIZATION_NVP(vehicleSerialNumber);
+        ar & BOOST_SERIALIZATION_NVP(pwm_count);
+        // todo buzz add the rest of the private ap-board-config vars here...
+    }
+
 private:
     static AP_BoardConfig *_singleton;
     

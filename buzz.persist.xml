@@ -8,7 +8,53 @@
 		</AP_HAL_HAL_Callbacks>
 		<G_Dt>2.499999944e-03</G_Dt>
 	</AP_Vehicle>
+	<command_ack_counter>0</command_ack_counter>
+	<flight_modes class_id="3" tracking_level="1" version="0" object_id="_3">
+		<_value>7</_value>
+	</flight_modes>
 	<ekfYawReset_ms>0</ekfYawReset_ms>
+	<ekf_primary_core>0</ekf_primary_core>
+	<control_mode>0</control_mode>
+	<control_mode_reason>1</control_mode_reason>
+	<prev_control_mode>0</prev_control_mode>
+	<arming_altitude_m>0.000000000e+00</arming_altitude_m>
+	<_home_bearing>0</_home_bearing>
+	<_home_distance>0</_home_distance>
+	<simple_cos_yaw>1.000000000e+00</simple_cos_yaw>
+	<simple_sin_yaw>0.000000000e+00</simple_sin_yaw>
+	<super_simple_last_bearing>0</super_simple_last_bearing>
+	<super_simple_cos_yaw>1.000000000e+00</super_simple_cos_yaw>
+	<super_simple_sin_yaw>0.000000000e+00</super_simple_sin_yaw>
+	<initial_armed_bearing>0</initial_armed_bearing>
+	<baro_alt>0</baro_alt>
+	<land_accel_ef_filter class_id="4" tracking_level="0" version="0">
+		<_cutoff_freq>1.000000000e+00</_cutoff_freq>
+		<_filter class_id="5" tracking_level="0" version="0">
+			<_output class_id="6" tracking_level="0" version="0">
+				<x>-1.252106726e-01</x>
+				<y>2.243584022e-02</y>
+				<z>-4.623947293e-02</z>
+			</_output>
+			<alpha>1.546503976e-02</alpha>
+		</_filter>
+	</land_accel_ef_filter>
+	<rc_throttle_control_in_filter class_id="7" tracking_level="0" version="0">
+		<_cutoff_freq>1.000000000e+00</_cutoff_freq>
+		<_filter class_id="8" tracking_level="0" version="0">
+			<_output>0.000000000e+00</_output>
+			<alpha>1.116352230e-01</alpha>
+		</_filter>
+	</rc_throttle_control_in_filter>
+	<current_loc class_id="9" tracking_level="0" version="0">
+		<alt>0</alt>
+		<lat>-275830000</lat>
+		<lng>1529732000</lng>
+	</current_loc>
+	<arm_time_ms>0</arm_time_ms>
+	<auto_trim_counter>0</auto_trim_counter>
+	<last_radio_update_ms>3029</last_radio_update_ms>
+	<esc_calibration_notify_update_ms>0</esc_calibration_notify_update_ms>
+	<param_loader class_id="10" tracking_level="0" version="0"></param_loader>
 </callbacks>
 </boost_serialization>
 

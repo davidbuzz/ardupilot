@@ -240,8 +240,187 @@ public:
     { 
         ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
         ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AP_Vehicle);
-        ar & BOOST_SERIALIZATION_NVP(ekfYawReset_ms); 
-        // todo buzz add the rest of the private copter vars here... 
+        // todo buzz add the rest of the private copter vars here...
+
+  // Global parameters are all contained within the 'g' class.
+        // AP_ParamT not serializing properly from here right now
+        //ar & BOOST_SERIALIZATION_NVP(g);
+        //ar & BOOST_SERIALIZATION_NVP(g2);
+        ar & BOOST_SERIALIZATION_NVP(command_ack_counter);
+        //ar & BOOST_SERIALIZATION_NVP(channel_roll);
+        //ar & BOOST_SERIALIZATION_NVP(channel_pitch);
+        //ar & BOOST_SERIALIZATION_NVP(channel_throttle);
+        //ar & BOOST_SERIALIZATION_NVP(channel_yaw);
+        //ar & BOOST_SERIALIZATION_NVP( logger); // no serialise yet
+        ar & BOOST_SERIALIZATION_NVP(flight_modes);
+       // ar & BOOST_SERIALIZATION_NVP(num_flight_modes); //const
+#if RPM_ENABLED == ENABLED
+        //ar & BOOST_SERIALIZATION_NVP( rpm_sensor);// no serialise yet
+#endif
+       //ar & BOOST_SERIALIZATION_NVP(ahrs_view);//error: ‘class AP_AHRS_View’ has no member named ‘serialize’
+//#if CONFIG_HAL_BOARD == HAL_BOARD_SITL
+//      ar & BOOST_SERIALIZATION_NVP(sitl);
+//#endif
+       // ar & BOOST_SERIALIZATION_NVP( arming); // no serialise yet
+#if OPTFLOW == ENABLED
+        //ar & BOOST_SERIALIZATION_NVP( optflow);// no serialise yet
+#endif
+        ar & BOOST_SERIALIZATION_NVP( ekfYawReset_ms);
+        ar & BOOST_SERIALIZATION_NVP( ekf_primary_core);
+
+        //ar & BOOST_SERIALIZATION_NVP( ap); //error: ‘union Copter::ap_t’ has no member named ‘serialize’
+
+        ar & BOOST_SERIALIZATION_NVP(control_mode);
+        ar & BOOST_SERIALIZATION_NVP( control_mode_reason);
+        ar & BOOST_SERIALIZATION_NVP(prev_control_mode);
+
+        //ar & BOOST_SERIALIZATION_NVP( rcmap); // no serialise yet
+        ar & BOOST_SERIALIZATION_NVP( arming_altitude_m);
+
+        //ar & BOOST_SERIALIZATION_NVP(motors); // ap_motors_multicopter class error
+        //ar & BOOST_SERIALIZATION_NVP(motors_var_info); const
+
+        ar & BOOST_SERIALIZATION_NVP( _home_bearing);
+        ar & BOOST_SERIALIZATION_NVP( _home_distance);
+
+        ar & BOOST_SERIALIZATION_NVP( simple_cos_yaw);
+        ar & BOOST_SERIALIZATION_NVP( simple_sin_yaw);
+        ar & BOOST_SERIALIZATION_NVP( super_simple_last_bearing);
+        ar & BOOST_SERIALIZATION_NVP( super_simple_cos_yaw);
+        ar & BOOST_SERIALIZATION_NVP( super_simple_sin_yaw);
+
+        ar & BOOST_SERIALIZATION_NVP( initial_armed_bearing);
+
+        ar & BOOST_SERIALIZATION_NVP( baro_alt);
+        ar & BOOST_SERIALIZATION_NVP( land_accel_ef_filter);
+        ar & BOOST_SERIALIZATION_NVP( rc_throttle_control_in_filter);
+
+        ar & BOOST_SERIALIZATION_NVP( current_loc);
+        //ar & BOOST_SERIALIZATION_NVP( inertial_nav);  // no serialise yet
+
+        //ar & BOOST_SERIALIZATION_NVP( attitude_control); //error: ‘class AC_AttitudeControl_Multi’ has no member named ‘serialize’
+        //ar & BOOST_SERIALIZATION_NVP( pos_control); //error: ‘class AC_PosControl’ has no member named ‘serialize’
+        //ar & BOOST_SERIALIZATION_NVP( wp_nav); //error: ‘class AC_WPNav’ has no member named ‘serialize’
+        //ar & BOOST_SERIALIZATION_NVP( loiter_nav); error: ‘class AC_Loiter’ has no member named ‘serialize’
+
+#if MODE_CIRCLE_ENABLED == ENABLED
+        //ar & BOOST_SERIALIZATION_NVP( circle_nav); //error: ‘class AC_Circle’ has no member named ‘serialize’
+#endif
+        ar & BOOST_SERIALIZATION_NVP( arm_time_ms);
+        ar & BOOST_SERIALIZATION_NVP( auto_trim_counter);
+#if CAMERA == ENABLED
+        //ar & BOOST_SERIALIZATION_NVP(camera); // no serialise yet
+#endif
+#if MOUNT == ENABLED
+        //ar & BOOST_SERIALIZATION_NVP( camera_mount); // no serialise yet
+#endif
+#if AC_FENCE == ENABLED
+        //ar & BOOST_SERIALIZATION_NVP( fence);//class AC_Fence’ has no member named ‘serialize’
+#endif
+#if AC_AVOID_ENABLED == ENABLED
+        //ar & BOOST_SERIALIZATION_NVP( avoid);//error: ‘class AC_Avoid’ has no member named ‘serialize’
+#endif
+#if AC_RALLY == ENABLED
+        //ar & BOOST_SERIALIZATION_NVP( rally); // error: ‘class AP_Rally_Copter’ has no member named ‘serialize
+#endif
+#if SPRAYER_ENABLED == ENABLED
+        //ar & BOOST_SERIALIZATION_NVP( sprayer); // error: ‘class AC_Sprayer’ has no member named ‘serialize’
+#endif
+#if PARACHUTE == ENABLED
+        //ar & BOOST_SERIALIZATION_NVP( parachute);//error: ‘class AP_Parachute’ has no member named ‘serialize’
+#endif
+/*
+        ar & BOOST_SERIALIZATION_NVP( landinggear);
+#if AP_TERRAIN_AVAILABLE && AC_TERRAIN && MODE_AUTO_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( terrain);
+#endif
+#if PRECISION_LANDING == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( precland);
+#endif
+#if FRAME_CONFIG == HELI_FRAME
+        ar & BOOST_SERIALIZATION_NVP( input_manager);
+#endif
+#if ADSB_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( adsb);
+        ar & BOOST_SERIALIZATION_NVP( avoidance_adsb);
+#endif
+   */
+        ar & BOOST_SERIALIZATION_NVP( last_radio_update_ms);
+        ar & BOOST_SERIALIZATION_NVP( esc_calibration_notify_update_ms);
+        ar & BOOST_SERIALIZATION_NVP( param_loader);
+        //ar & BOOST_SERIALIZATION_NVP( flightmode); // error polymorphic save of <Mode> failed.
+     
+#if MODE_ACRO_ENABLED == ENABLED
+        //ar & BOOST_SERIALIZATION_NVP( mode_acro); //error: ‘class ModeAcro’ has no member named ‘serialize’
+#endif
+/*
+        ar & BOOST_SERIALIZATION_NVP( mode_althold);
+#if MODE_AUTO_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_auto);
+#endif
+#if AUTOTUNE_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( autotune);
+        ar & BOOST_SERIALIZATION_NVP( mode_autotune);
+#endif
+#if MODE_BRAKE_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_brake);
+#endif
+#if MODE_CIRCLE_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_circle);
+#endif
+#if MODE_DRIFT_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_drift);
+#endif
+#if MODE_FLIP_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_flip);
+#endif
+#if MODE_FOLLOW_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_follow);
+#endif
+#if MODE_GUIDED_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_guided);
+#endif
+        ar & BOOST_SERIALIZATION_NVP( mode_land);
+#if MODE_LOITER_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_loiter);
+#endif
+#if MODE_POSHOLD_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_poshold);
+#endif
+#if MODE_RTL_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_rtl);
+#endif
+        ar & BOOST_SERIALIZATION_NVP( mode_stabilize);
+#endif
+#if MODE_SPORT_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_sport);
+#endif
+#if MODE_SYSTEMID_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_systemid);
+#endif
+#if ADSB_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_avoid_adsb);
+#endif
+#if MODE_THROW_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_throw);
+#endif
+#if MODE_GUIDED_NOGPS_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_guided_nogps);
+#endif
+#if MODE_SMARTRTL_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_smartrtl);
+#endif
+#if !HAL_MINIMIZE_FEATURES && OPTFLOW == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_flowhold);
+#endif
+#if MODE_ZIGZAG_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_zigzag);
+#endif
+#if MODE_AUTOROTATE_ENABLED == ENABLED
+        ar & BOOST_SERIALIZATION_NVP( mode_autorotate);
+#endif
+*/
+
     }
 
 private:
@@ -985,6 +1164,10 @@ private:
 public:
     void failsafe_check();      // failsafe.cpp
 };
+
+//BOOST_CLASS_TYPE_INFO(Copter,  extended_type_info_typeid<Copter>);
+//BOOST_CLASS_EXPORT(Copter);
+
 
 extern Copter copter;
 

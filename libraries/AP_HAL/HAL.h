@@ -101,10 +101,9 @@ public:
             ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
             ar & BOOST_SERIALIZATION_NVP(unused); 
             // todo buzz add the rest of the private ap-vehice vars here... 
+
         } 
     }; 
-    //BxxOOST_SERIALIZATION_ASSUME_ABSTRACT(Callbacks); 
- 
 
     struct FunCallbacks : public Callbacks {
         FunCallbacks(void (*setup_fun)(void), void (*loop_fun)(void));

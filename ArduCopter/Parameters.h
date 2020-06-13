@@ -376,6 +376,20 @@ public:
         // 511: reserved
     };
 
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);    
+        ar & BOOST_SERIALIZATION_NVP(format_version);
+        // buzz todo add the rest of the private copter vars here...
+
+    }
+
     AP_Int16        format_version;
 
     // Telemetry control
@@ -478,6 +492,19 @@ public:
 
     // var_info for holding Parameter information
     static const struct AP_Param::GroupInfo var_info[];
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);    
+        ar & BOOST_SERIALIZATION_NVP(wp_navalt_min);
+        // buzz todo add the rest of the private copter vars here...
+
+    }
 
     // altitude at which nav control can start in takeoff
     AP_Float wp_navalt_min;

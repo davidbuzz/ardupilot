@@ -88,6 +88,7 @@ HAL_SITL::HAL_SITL() :
     _sitl_state(&sitlState)
 {}
 
+
 static char *new_argv[100];
 
 /*
@@ -249,6 +250,7 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
                 assert(ofs2.good());
                 // write class instance to archive
                 //oa << BOOST_SERIALIZATION_NVP(_sitl_state);
+                //oa << BOOST_SERIALIZATION_NVP(scheduler);
 
                 oa.template register_type<AP_HAL::HAL::Callbacks>(); 
                 oa.template register_type<AP_Vehicle>(); 

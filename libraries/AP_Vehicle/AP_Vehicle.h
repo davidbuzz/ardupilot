@@ -128,6 +128,16 @@ public:
      */
     struct MultiCopter {
         AP_Int16 angle_max;
+
+        // When the class Archive corresponds to an output archive, the
+        // & operator is defined similar to <<.  Likewise, when the class Archive
+        // is a type of input archive the & operator is defined similar to >>.
+        template<class Archive>
+        void serialize(Archive & ar, const unsigned int version)
+        {
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);    
+            //ar & BOOST_SERIALIZATION_NVP(angle_max);
+        }
     };
 
     void get_common_scheduler_tasks(const AP_Scheduler::Task*& tasks, uint8_t& num_tasks);
@@ -274,6 +284,8 @@ private:
 
     static AP_Vehicle *_singleton;
 };
+
+//BOOST_IS_ABSTRACT(AP_Vehicle);
 
 namespace AP {
     AP_Vehicle *vehicle();
