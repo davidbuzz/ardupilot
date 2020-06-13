@@ -38,6 +38,23 @@ public:
 
     static const struct AP_Param::GroupInfo var_info[];
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_NVP(_ch_roll);
+        ar & BOOST_SERIALIZATION_NVP(_ch_pitch);
+        ar & BOOST_SERIALIZATION_NVP(_ch_yaw);
+        ar & BOOST_SERIALIZATION_NVP(_ch_throttle);
+        ar & BOOST_SERIALIZATION_NVP(_ch_forward);
+        ar & BOOST_SERIALIZATION_NVP(_ch_lateral);
+    
+    }
+
 private:
     // channel mappings
     AP_Int8 _ch_roll;

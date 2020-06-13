@@ -280,8 +280,7 @@ public:
         ar & BOOST_SERIALIZATION_NVP(control_mode);
         ar & BOOST_SERIALIZATION_NVP( control_mode_reason);
         ar & BOOST_SERIALIZATION_NVP(prev_control_mode);
-
-        ar & BOOST_SERIALIZATION_NVP( rcmap); // no serialise yet
+        ar & BOOST_SERIALIZATION_NVP( rcmap); //error: ‘class RCMapper’ has no member named ‘serialize’
         ar & BOOST_SERIALIZATION_NVP( arming_altitude_m);
 
         //ar & BOOST_SERIALIZATION_NVP(motors); // ap_motors_multicopter class error

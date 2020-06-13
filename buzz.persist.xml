@@ -15,7 +15,7 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>7338</_parent_pid>
+	<_parent_pid>10028</_parent_pid>
 	<_update_count>3653</_update_count>
 	<_ins class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_gyro_count>2</_gyro_count>
@@ -1643,11 +1643,11 @@
 			</mag_bf>
 			<time_now_us>3042949</time_now_us>
 			<rate_hz>1.200000000e+03</rate_hz>
-			<achieved_rate_hz>1.157684082e+03</achieved_rate_hz>
+			<achieved_rate_hz>1.166028320e+03</achieved_rate_hz>
 			<target_speedup>1.000000000e+00</target_speedup>
 			<frame_time_us>833</frame_time_us>
-			<scaled_frame_time_us>8.305035400e+02</scaled_frame_time_us>
-			<last_wall_time_us>1592090801978819</last_wall_time_us>
+			<scaled_frame_time_us>7.620332642e+02</scaled_frame_time_us>
+			<last_wall_time_us>1592091077836637</last_wall_time_us>
 			<instance>0</instance>
 			<use_time_sync>1</use_time_sync>
 			<last_speedup>1.000000000e+00</last_speedup>
@@ -2112,6 +2112,26 @@
 	<control_mode>0</control_mode>
 	<control_mode_reason>1</control_mode_reason>
 	<prev_control_mode>0</prev_control_mode>
+	<rcmap class_id="42" tracking_level="0" version="0">
+		<_ch_roll object_id="_182">
+			<_value>1</_value>
+		</_ch_roll>
+		<_ch_pitch object_id="_183">
+			<_value>2</_value>
+		</_ch_pitch>
+		<_ch_yaw object_id="_184">
+			<_value>4</_value>
+		</_ch_yaw>
+		<_ch_throttle object_id="_185">
+			<_value>3</_value>
+		</_ch_throttle>
+		<_ch_forward object_id="_186">
+			<_value>6</_value>
+		</_ch_forward>
+		<_ch_lateral object_id="_187">
+			<_value>7</_value>
+		</_ch_lateral>
+	</rcmap>
 	<arming_altitude_m>0.000000000e+00</arming_altitude_m>
 	<_home_bearing>0</_home_bearing>
 	<_home_distance>0</_home_distance>
@@ -2149,7 +2169,7 @@
 	<auto_trim_counter>0</auto_trim_counter>
 	<last_radio_update_ms>3029</last_radio_update_ms>
 	<esc_calibration_notify_update_ms>0</esc_calibration_notify_update_ms>
-	<param_loader class_id="42" tracking_level="0" version="0"></param_loader>
+	<param_loader class_id="43" tracking_level="0" version="0"></param_loader>
 </callbacks>
 </boost_serialization>
 
