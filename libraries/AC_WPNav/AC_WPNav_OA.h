@@ -33,6 +33,23 @@ public:
     /// run the wp controller
     bool update_wpnav() override;
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AC_WPNav); 
+        
+        //ar & BOOST_SERIALIZATION_NVP(_oa_state); // buzz todo we probably want this OA state to serialize/unserialize
+        ar & BOOST_SERIALIZATION_NVP(_origin_oabak);
+        ar & BOOST_SERIALIZATION_NVP(_destination_oabak);
+        ar & BOOST_SERIALIZATION_NVP(_oa_destination);
+        
+    }
+
 protected:
 
     // oa path planning variables

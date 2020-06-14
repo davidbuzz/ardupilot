@@ -242,6 +242,53 @@ public:
 
     static const struct AP_Param::GroupInfo var_info[];
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        // no base class
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+ 
+        ar & BOOST_SERIALIZATION_NVP(_flags.value); // bitfield-as-union
+        ar & BOOST_SERIALIZATION_NVP(_terrain);
+        ar & BOOST_SERIALIZATION_NVP(_wp_speed_cms);
+        ar & BOOST_SERIALIZATION_NVP(_wp_speed_up_cms);
+        ar & BOOST_SERIALIZATION_NVP(_wp_speed_down_cms);
+        ar & BOOST_SERIALIZATION_NVP(_wp_radius_cm);
+        ar & BOOST_SERIALIZATION_NVP(_wp_accel_cmss);
+        ar & BOOST_SERIALIZATION_NVP(_wp_accel_z_cmss);
+        ar & BOOST_SERIALIZATION_NVP(_wp_last_update);
+        ar & BOOST_SERIALIZATION_NVP(_wp_desired_speed_xy_cms);
+        ar & BOOST_SERIALIZATION_NVP(_origin);
+        ar & BOOST_SERIALIZATION_NVP(_destination);
+        ar & BOOST_SERIALIZATION_NVP(_pos_delta_unit);
+        ar & BOOST_SERIALIZATION_NVP(_track_error_xy);
+        ar & BOOST_SERIALIZATION_NVP(_track_length);
+        ar & BOOST_SERIALIZATION_NVP(_track_length_xy);
+        ar & BOOST_SERIALIZATION_NVP(_track_desired);
+        ar & BOOST_SERIALIZATION_NVP(_limited_speed_xy_cms);
+        ar & BOOST_SERIALIZATION_NVP(_track_accel);
+        ar & BOOST_SERIALIZATION_NVP(_track_speed);
+        ar & BOOST_SERIALIZATION_NVP(_track_leash_length);
+        ar & BOOST_SERIALIZATION_NVP(_slow_down_dist);
+        ar & BOOST_SERIALIZATION_NVP(_spline_time);
+        ar & BOOST_SERIALIZATION_NVP(_spline_time_scale);
+        ar & BOOST_SERIALIZATION_NVP(_spline_origin_vel);
+        ar & BOOST_SERIALIZATION_NVP(_spline_destination_vel);
+        ar & BOOST_SERIALIZATION_NVP(_hermite_spline_solution);
+        ar & BOOST_SERIALIZATION_NVP(_spline_vel_scaler);
+        ar & BOOST_SERIALIZATION_NVP(_yaw);
+        ar & BOOST_SERIALIZATION_NVP(_terrain_alt);
+        ar & BOOST_SERIALIZATION_NVP(_rangefinder_available);
+        ar & BOOST_SERIALIZATION_NVP(_rangefinder_use);
+        ar & BOOST_SERIALIZATION_NVP(_rangefinder_healthy);
+        ar & BOOST_SERIALIZATION_NVP(_rangefinder_alt_cm);
+        
+    }
+
 protected:
 
     // segment types, either straight or spine
@@ -250,8 +297,9 @@ protected:
         SEGMENT_SPLINE = 1
     };
 
-    // flags structure
-    struct wpnav_flags {
+    // flags structure read individually or together using .value
+    typedef union { 
+    struct  {
         uint8_t reached_destination     : 1;    // true if we have reached the destination
         uint8_t fast_waypoint           : 1;    // true if we should ignore the waypoint radius and consider the waypoint complete once the intermediate target has reached the waypoint
         uint8_t slowing_down            : 1;    // true when target point is slowing down before reaching the destination
@@ -259,7 +307,10 @@ protected:
         uint8_t new_wp_destination      : 1;    // true if we have just received a new destination.  allows us to freeze the position controller's xy feed forward
         SegmentType segment_type        : 1;    // active segment is either straight or spline
         uint8_t wp_yaw_set              : 1;    // true if yaw target has been set
-    } _flags;
+    };
+    uint8_t value; 
+    } wpnav_flags; 
+    wpnav_flags _flags; 
 
     /// calc_slow_down_distance - calculates distance before waypoint that target point should begin to slow-down assuming it is traveling at full speed
     void calc_slow_down_distance(float speed_cms, float accel_cmss);

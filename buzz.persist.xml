@@ -15,7 +15,7 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>25461</_parent_pid>
+	<_parent_pid>5263</_parent_pid>
 	<_update_count>3653</_update_count>
 	<_ins class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_gyro_count>2</_gyro_count>
@@ -1643,11 +1643,11 @@
 			</mag_bf>
 			<time_now_us>3042949</time_now_us>
 			<rate_hz>1.200000000e+03</rate_hz>
-			<achieved_rate_hz>1.166946777e+03</achieved_rate_hz>
+			<achieved_rate_hz>1.175920288e+03</achieved_rate_hz>
 			<target_speedup>1.000000000e+00</target_speedup>
 			<frame_time_us>833</frame_time_us>
-			<scaled_frame_time_us>7.620332642e+02</scaled_frame_time_us>
-			<last_wall_time_us>1592102111865569</last_wall_time_us>
+			<scaled_frame_time_us>7.605099487e+02</scaled_frame_time_us>
+			<last_wall_time_us>1592104066748915</last_wall_time_us>
 			<instance>0</instance>
 			<use_time_sync>1</use_time_sync>
 			<last_speedup>1.000000000e+00</last_speedup>
@@ -3004,11 +3004,164 @@
 		<_ekf_z_reset_ms>0</_ekf_z_reset_ms>
 		<_vibe_comp_enabled>0</_vibe_comp_enabled>
 	</pos_control>
+	<wp_nav class_id="59" tracking_level="1" version="0" object_id="_277">
+		<AC_WPNav class_id="58" tracking_level="1" version="0" object_id="_278">
+			<_flags.value>0</_flags.value>
+			<_terrain class_id="60" tracking_level="1" version="0" object_id="_279">
+				<enable object_id="_280">
+					<_value>1</_value>
+				</enable>
+				<grid_spacing>
+					<_value>100</_value>
+				</grid_spacing>
+				<options>
+					<_value>0</_value>
+				</options>
+				<cache_size>12</cache_size>
+				<cache class_id="61" tracking_level="1" version="0" object_id="_281"></cache>
+				<disk_io_state>0</disk_io_state>
+				<disk_block></disk_block>
+				<last_request_time_ms>
+					<count>6</count>
+					<item>0</item>
+					<item>0</item>
+					<item>0</item>
+					<item>0</item>
+					<item>0</item>
+					<item>0</item>
+				</last_request_time_ms>
+				<timer_setup>1</timer_setup>
+				<file_lat_degrees>-28</file_lat_degrees>
+				<file_lon_degrees>152</file_lon_degrees>
+				<io_failure>0</io_failure>
+				<directory_created>1</directory_created>
+				<home_height>0.000000000e+00</home_height>
+				<home_loc>
+					<alt>0</alt>
+					<lat>0</lat>
+					<lng>0</lng>
+				</home_loc>
+				<have_current_loc_height>1</have_current_loc_height>
+				<last_current_loc_height>2.454720306e+01</last_current_loc_height>
+				<next_mission_index>0</next_mission_index>
+				<next_mission_pos>0</next_mission_pos>
+				<last_mission_change_ms>1763</last_mission_change_ms>
+				<last_mission_spacing>100</last_mission_spacing>
+				<next_rally_index>0</next_rally_index>
+				<last_rally_change_ms>4294967295</last_rally_change_ms>
+				<last_rally_spacing>100</last_rally_spacing>
+				<memory_alloc_failed>0</memory_alloc_failed>
+			</_terrain>
+			<_wp_speed_cms object_id="_282">
+				<_value>5.000000000e+02</_value>
+			</_wp_speed_cms>
+			<_wp_speed_up_cms object_id="_283">
+				<_value>2.500000000e+02</_value>
+			</_wp_speed_up_cms>
+			<_wp_speed_down_cms object_id="_284">
+				<_value>1.500000000e+02</_value>
+			</_wp_speed_down_cms>
+			<_wp_radius_cm object_id="_285">
+				<_value>0.000000000e+00</_value>
+			</_wp_radius_cm>
+			<_wp_accel_cmss object_id="_286">
+				<_value>0.000000000e+00</_value>
+			</_wp_accel_cmss>
+			<_wp_accel_z_cmss object_id="_287">
+				<_value>1.000000000e+02</_value>
+			</_wp_accel_z_cmss>
+			<_wp_last_update>0</_wp_last_update>
+			<_wp_desired_speed_xy_cms>0.000000000e+00</_wp_desired_speed_xy_cms>
+			<_origin>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_origin>
+			<_destination>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_destination>
+			<_pos_delta_unit>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_pos_delta_unit>
+			<_track_error_xy>0.000000000e+00</_track_error_xy>
+			<_track_length>0.000000000e+00</_track_length>
+			<_track_length_xy>0.000000000e+00</_track_length_xy>
+			<_track_desired>0.000000000e+00</_track_desired>
+			<_limited_speed_xy_cms>0.000000000e+00</_limited_speed_xy_cms>
+			<_track_accel>0.000000000e+00</_track_accel>
+			<_track_speed>0.000000000e+00</_track_speed>
+			<_track_leash_length>0.000000000e+00</_track_leash_length>
+			<_slow_down_dist>0.000000000e+00</_slow_down_dist>
+			<_spline_time>0.000000000e+00</_spline_time>
+			<_spline_time_scale>0.000000000e+00</_spline_time_scale>
+			<_spline_origin_vel>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_spline_origin_vel>
+			<_spline_destination_vel>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_spline_destination_vel>
+			<_hermite_spline_solution>
+				<count>4</count>
+				<item>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</item>
+				<item>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</item>
+				<item>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</item>
+				<item>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</item>
+			</_hermite_spline_solution>
+			<_spline_vel_scaler>0.000000000e+00</_spline_vel_scaler>
+			<_yaw>0.000000000e+00</_yaw>
+			<_terrain_alt>0</_terrain_alt>
+			<_rangefinder_available>0</_rangefinder_available>
+			<_rangefinder_use object_id="_288">
+				<_value>1</_value>
+			</_rangefinder_use>
+			<_rangefinder_healthy>0</_rangefinder_healthy>
+			<_rangefinder_alt_cm>0.000000000e+00</_rangefinder_alt_cm>
+		</AC_WPNav>
+		<_origin_oabak>
+			<x>0.000000000e+00</x>
+			<y>0.000000000e+00</y>
+			<z>0.000000000e+00</z>
+		</_origin_oabak>
+		<_destination_oabak>
+			<x>0.000000000e+00</x>
+			<y>0.000000000e+00</y>
+			<z>0.000000000e+00</z>
+		</_destination_oabak>
+		<_oa_destination>
+			<alt>0</alt>
+			<lat>0</lat>
+			<lng>0</lng>
+		</_oa_destination>
+	</wp_nav>
 	<arm_time_ms>0</arm_time_ms>
 	<auto_trim_counter>0</auto_trim_counter>
 	<last_radio_update_ms>3029</last_radio_update_ms>
 	<esc_calibration_notify_update_ms>0</esc_calibration_notify_update_ms>
-	<param_loader class_id="58" tracking_level="0" version="0"></param_loader>
+	<param_loader class_id="63" tracking_level="0" version="0"></param_loader>
 </callbacks>
 </boost_serialization>
 
