@@ -4,6 +4,9 @@
 
 #include "AP_Motors_Class.h"
 
+#include <SITL/Serialize.h> 
+
+
 #ifndef AP_MOTORS_DENSITY_COMP
 #define AP_MOTORS_DENSITY_COMP 1
 #endif
@@ -95,6 +98,52 @@ public:
     
     // var_info for holding Parameter information
     static const struct AP_Param::GroupInfo        var_info[];
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AP_Motors);
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+
+        ar & BOOST_SERIALIZATION_NVP(_yaw_headroom);
+        ar & BOOST_SERIALIZATION_NVP(_thrust_curve_expo);
+        ar & BOOST_SERIALIZATION_NVP(_slew_up_time);
+        ar & BOOST_SERIALIZATION_NVP(_slew_dn_time);
+        ar & BOOST_SERIALIZATION_NVP(_safe_time);
+        ar & BOOST_SERIALIZATION_NVP(_spin_min);
+        ar & BOOST_SERIALIZATION_NVP(_spin_max);
+        ar & BOOST_SERIALIZATION_NVP(_spin_arm);
+        ar & BOOST_SERIALIZATION_NVP(_batt_voltage_max);
+        ar & BOOST_SERIALIZATION_NVP(_batt_voltage_min);
+        ar & BOOST_SERIALIZATION_NVP(_batt_current_max);
+        ar & BOOST_SERIALIZATION_NVP(_batt_current_time_constant);
+        ar & BOOST_SERIALIZATION_NVP(_batt_idx);
+        ar & BOOST_SERIALIZATION_NVP(_pwm_min);
+        ar & BOOST_SERIALIZATION_NVP(_pwm_max);
+        ar & BOOST_SERIALIZATION_NVP(_throttle_hover);
+        ar & BOOST_SERIALIZATION_NVP(_throttle_hover_learn);
+        ar & BOOST_SERIALIZATION_NVP(_disarm_disable_pwm);
+        ar & BOOST_SERIALIZATION_NVP(_yaw_servo_angle_max_deg);
+        ar & BOOST_SERIALIZATION_NVP(_spool_up_time);
+        ar & BOOST_SERIALIZATION_NVP(_boost_scale);
+        ar & BOOST_SERIALIZATION_NVP( motor_enabled);
+        ar & BOOST_SERIALIZATION_NVP(_throttle_radio_min);
+        ar & BOOST_SERIALIZATION_NVP(_throttle_radio_max);
+        ar & BOOST_SERIALIZATION_NVP(_spin_up_ratio);
+        ar & BOOST_SERIALIZATION_NVP(_batt_voltage_filt);
+        ar & BOOST_SERIALIZATION_NVP(_lift_max);
+        ar & BOOST_SERIALIZATION_NVP(_throttle_limit);
+        ar & BOOST_SERIALIZATION_NVP(_throttle_thrust_max);
+        ar & BOOST_SERIALIZATION_NVP(_disarm_safe_timer);
+       // ar & BOOST_SERIALIZATION_NVP(_thrust_compensation_callback); //error: ‘class Functor<void, float*, unsigned char>’ has no member named ‘serialize’
+        ar & BOOST_SERIALIZATION_NVP(_actuator);
+
+        
+    }
 
 protected:
 

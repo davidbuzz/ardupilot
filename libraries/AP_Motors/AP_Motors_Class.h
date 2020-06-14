@@ -5,6 +5,8 @@
 #include <AP_Notify/AP_Notify.h>      // Notify library
 #include <SRV_Channel/SRV_Channel.h>
 #include <Filter/Filter.h>         // filter library
+#include <SITL/Serialize.h> 
+
 
 // offsets for motors in motor_out and _motor_filtered arrays
 #define AP_MOTORS_MOT_1 0U
@@ -198,6 +200,44 @@ public:
                     PWM_TYPE_DSHOT600   = 6,
                     PWM_TYPE_DSHOT1200  = 7};
     pwm_type            get_pwm_type(void) const { return (pwm_type)_pwm_type.get(); }
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        //ar & BOOST_SERIALIZATION_NVP(_flags.value); // bitfield wrapped in union for simplicity
+        ar & BOOST_SERIALIZATION_NVP(_loop_rate);
+        ar & BOOST_SERIALIZATION_NVP(_speed_hz);
+        ar & BOOST_SERIALIZATION_NVP(_roll_in);
+        ar & BOOST_SERIALIZATION_NVP(_roll_in_ff);
+        ar & BOOST_SERIALIZATION_NVP(_pitch_in);
+        ar & BOOST_SERIALIZATION_NVP(_pitch_in_ff);
+        ar & BOOST_SERIALIZATION_NVP(_yaw_in);
+        ar & BOOST_SERIALIZATION_NVP(_yaw_in_ff);
+        ar & BOOST_SERIALIZATION_NVP(_throttle_in);
+        ar & BOOST_SERIALIZATION_NVP(_throttle_out);
+        ar & BOOST_SERIALIZATION_NVP(_forward_in);
+        ar & BOOST_SERIALIZATION_NVP(_lateral_in);
+        ar & BOOST_SERIALIZATION_NVP(_throttle_avg_max);
+        ar & BOOST_SERIALIZATION_NVP(_throttle_filter);
+        ar & BOOST_SERIALIZATION_NVP(_spool_desired);
+        ar & BOOST_SERIALIZATION_NVP(_spool_state);
+        ar & BOOST_SERIALIZATION_NVP(_air_density_ratio);
+        ar & BOOST_SERIALIZATION_NVP(_motor_fast_mask);
+        ar & BOOST_SERIALIZATION_NVP(_roll_radio_passthrough);
+        ar & BOOST_SERIALIZATION_NVP(_pitch_radio_passthrough);
+        ar & BOOST_SERIALIZATION_NVP(_throttle_radio_passthrough);
+        ar & BOOST_SERIALIZATION_NVP(_yaw_radio_passthrough);
+        ar & BOOST_SERIALIZATION_NVP(_pwm_type);
+        ar & BOOST_SERIALIZATION_NVP(_thrust_boost);
+        ar & BOOST_SERIALIZATION_NVP(_thrust_balanced);
+        ar & BOOST_SERIALIZATION_NVP(_thrust_boost_ratio);
+        
+    }
     
 protected:
     // output functions that should be overloaded by child classes
@@ -216,12 +256,17 @@ protected:
     // save parameters as part of disarming
     virtual void save_params_on_disarm() {}
 
-    // flag bitmask
-    struct AP_Motors_flags {
-        uint8_t armed              : 1;    // 0 if disarmed, 1 if armed
-        uint8_t interlock          : 1;    // 1 if the motor interlock is enabled (i.e. motors run), 0 if disabled (motors don't run)
-        uint8_t initialised_ok     : 1;    // 1 if initialisation was successful
-    } _flags;
+    // flag bitmask, can be accessed individually or using .value
+    typedef union {
+        struct {
+            uint8_t armed              : 1;    // 0 if disarmed, 1 if armed
+            uint8_t interlock          : 1;    // 1 if the motor interlock is enabled (i.e. motors run), 0 if disabled (motors don't run)
+            uint8_t initialised_ok     : 1;    // 1 if initialisation was successful
+        };
+        uint8_t value;
+    } _flags_t;
+
+    _flags_t _flags;
 
     // internal variables
     uint16_t            _loop_rate;                 // rate in Hz at which output() function is called (normally 400hz)

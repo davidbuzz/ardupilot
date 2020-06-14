@@ -15,7 +15,7 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>10028</_parent_pid>
+	<_parent_pid>31076</_parent_pid>
 	<_update_count>3653</_update_count>
 	<_ins class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_gyro_count>2</_gyro_count>
@@ -1643,11 +1643,11 @@
 			</mag_bf>
 			<time_now_us>3042949</time_now_us>
 			<rate_hz>1.200000000e+03</rate_hz>
-			<achieved_rate_hz>1.166028320e+03</achieved_rate_hz>
+			<achieved_rate_hz>1.175853516e+03</achieved_rate_hz>
 			<target_speedup>1.000000000e+00</target_speedup>
 			<frame_time_us>833</frame_time_us>
 			<scaled_frame_time_us>7.620332642e+02</scaled_frame_time_us>
-			<last_wall_time_us>1592091077836637</last_wall_time_us>
+			<last_wall_time_us>1592095712369480</last_wall_time_us>
 			<instance>0</instance>
 			<use_time_sync>1</use_time_sync>
 			<last_speedup>1.000000000e+00</last_speedup>
@@ -2133,6 +2133,246 @@
 		</_ch_lateral>
 	</rcmap>
 	<arming_altitude_m>0.000000000e+00</arming_altitude_m>
+	<motors class_id="45" tracking_level="1" version="0" object_id="_188">
+		<AP_MotorsMulticopter class_id="44" tracking_level="1" version="0" object_id="_189">
+			<AP_Motors class_id="43" tracking_level="1" version="0" object_id="_190">
+				<_loop_rate>400</_loop_rate>
+				<_speed_hz>490</_speed_hz>
+				<_roll_in>0.000000000e+00</_roll_in>
+				<_roll_in_ff>0.000000000e+00</_roll_in_ff>
+				<_pitch_in>0.000000000e+00</_pitch_in>
+				<_pitch_in_ff>0.000000000e+00</_pitch_in_ff>
+				<_yaw_in>0.000000000e+00</_yaw_in>
+				<_yaw_in_ff>0.000000000e+00</_yaw_in_ff>
+				<_throttle_in>0.000000000e+00</_throttle_in>
+				<_throttle_out>0.000000000e+00</_throttle_out>
+				<_forward_in>0.000000000e+00</_forward_in>
+				<_lateral_in>0.000000000e+00</_lateral_in>
+				<_throttle_avg_max>9.315008670e-02</_throttle_avg_max>
+				<_throttle_filter>
+					<_cutoff_freq>0.000000000e+00</_cutoff_freq>
+					<_filter>
+						<_output>0.000000000e+00</_output>
+						<alpha>1.000000000e+00</alpha>
+					</_filter>
+				</_throttle_filter>
+				<_spool_desired>0</_spool_desired>
+				<_spool_state>0</_spool_state>
+				<_air_density_ratio>9.291056991e-01</_air_density_ratio>
+				<_motor_fast_mask>15</_motor_fast_mask>
+				<_roll_radio_passthrough>0.000000000e+00</_roll_radio_passthrough>
+				<_pitch_radio_passthrough>0.000000000e+00</_pitch_radio_passthrough>
+				<_throttle_radio_passthrough>0.000000000e+00</_throttle_radio_passthrough>
+				<_yaw_radio_passthrough>0.000000000e+00</_yaw_radio_passthrough>
+				<_pwm_type object_id="_191">
+					<_value>0</_value>
+				</_pwm_type>
+				<_thrust_boost>0</_thrust_boost>
+				<_thrust_balanced>1</_thrust_balanced>
+				<_thrust_boost_ratio>0.000000000e+00</_thrust_boost_ratio>
+			</AP_Motors>
+			<_yaw_headroom>
+				<_value>200</_value>
+			</_yaw_headroom>
+			<_thrust_curve_expo object_id="_192">
+				<_value>5.000000000e-01</_value>
+			</_thrust_curve_expo>
+			<_slew_up_time object_id="_193">
+				<_value>0.000000000e+00</_value>
+			</_slew_up_time>
+			<_slew_dn_time object_id="_194">
+				<_value>0.000000000e+00</_value>
+			</_slew_dn_time>
+			<_safe_time object_id="_195">
+				<_value>1.000000000e+00</_value>
+			</_safe_time>
+			<_spin_min object_id="_196">
+				<_value>1.500000060e-01</_value>
+			</_spin_min>
+			<_spin_max object_id="_197">
+				<_value>9.499999881e-01</_value>
+			</_spin_max>
+			<_spin_arm object_id="_198">
+				<_value>1.000000015e-01</_value>
+			</_spin_arm>
+			<_batt_voltage_max object_id="_199">
+				<_value>0.000000000e+00</_value>
+			</_batt_voltage_max>
+			<_batt_voltage_min object_id="_200">
+				<_value>0.000000000e+00</_value>
+			</_batt_voltage_min>
+			<_batt_current_max object_id="_201">
+				<_value>0.000000000e+00</_value>
+			</_batt_current_max>
+			<_batt_current_time_constant object_id="_202">
+				<_value>5.000000000e+00</_value>
+			</_batt_current_time_constant>
+			<_batt_idx object_id="_203">
+				<_value>0</_value>
+			</_batt_idx>
+			<_pwm_min>
+				<_value>0</_value>
+			</_pwm_min>
+			<_pwm_max>
+				<_value>0</_value>
+			</_pwm_max>
+			<_throttle_hover object_id="_204">
+				<_value>3.600000143e-01</_value>
+			</_throttle_hover>
+			<_throttle_hover_learn object_id="_205">
+				<_value>2</_value>
+			</_throttle_hover_learn>
+			<_disarm_disable_pwm object_id="_206">
+				<_value>0</_value>
+			</_disarm_disable_pwm>
+			<_yaw_servo_angle_max_deg object_id="_207">
+				<_value>3.000000000e+01</_value>
+			</_yaw_servo_angle_max_deg>
+			<_spool_up_time object_id="_208">
+				<_value>5.000000000e-01</_value>
+			</_spool_up_time>
+			<_boost_scale object_id="_209">
+				<_value>0.000000000e+00</_value>
+			</_boost_scale>
+			<motor_enabled>
+				<count>12</count>
+				<item>1</item>
+				<item>1</item>
+				<item>1</item>
+				<item>1</item>
+				<item>0</item>
+				<item>0</item>
+				<item>0</item>
+				<item>0</item>
+				<item>0</item>
+				<item>0</item>
+				<item>0</item>
+				<item>0</item>
+			</motor_enabled>
+			<_throttle_radio_min>1000</_throttle_radio_min>
+			<_throttle_radio_max>2000</_throttle_radio_max>
+			<_spin_up_ratio>0.000000000e+00</_spin_up_ratio>
+			<_batt_voltage_filt>
+				<_cutoff_freq>5.000000000e-01</_cutoff_freq>
+				<_filter>
+					<_output>1.000000000e+00</_output>
+					<alpha>1.000000000e+00</alpha>
+				</_filter>
+			</_batt_voltage_filt>
+			<_lift_max>1.000000000e+00</_lift_max>
+			<_throttle_limit>1.000000000e+00</_throttle_limit>
+			<_throttle_thrust_max>0.000000000e+00</_throttle_thrust_max>
+			<_disarm_safe_timer>0.000000000e+00</_disarm_safe_timer>
+			<_actuator>
+				<count>12</count>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+				<item>0.000000000e+00</item>
+			</_actuator>
+		</AP_MotorsMulticopter>
+		<_roll_factor>
+			<count>12</count>
+			<item>-5.000000000e-01</item>
+			<item>5.000000000e-01</item>
+			<item>-2.185569414e-08</item>
+			<item>5.962440319e-09</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+		</_roll_factor>
+		<_pitch_factor>
+			<count>12</count>
+			<item>-2.185569414e-08</item>
+			<item>-2.185569414e-08</item>
+			<item>5.000000000e-01</item>
+			<item>-5.000000000e-01</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+		</_pitch_factor>
+		<_yaw_factor>
+			<count>12</count>
+			<item>5.000000000e-01</item>
+			<item>5.000000000e-01</item>
+			<item>-5.000000000e-01</item>
+			<item>-5.000000000e-01</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+		</_yaw_factor>
+		<_thrust_rpyt_out>
+			<count>12</count>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+		</_thrust_rpyt_out>
+		<_test_order>
+			<count>12</count>
+			<item>2</item>
+			<item>4</item>
+			<item>1</item>
+			<item>3</item>
+			<item>0</item>
+			<item>0</item>
+			<item>0</item>
+			<item>0</item>
+			<item>0</item>
+			<item>0</item>
+			<item>0</item>
+			<item>0</item>
+		</_test_order>
+		<_last_frame_class>1</_last_frame_class>
+		<_last_frame_type>0</_last_frame_type>
+		<_thrust_rpyt_out_filt>
+			<count>12</count>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+			<item>0.000000000e+00</item>
+		</_thrust_rpyt_out_filt>
+		<_motor_lost_index>0</_motor_lost_index>
+	</motors>
 	<_home_bearing>0</_home_bearing>
 	<_home_distance>0</_home_distance>
 	<simple_cos_yaw>1.000000000e+00</simple_cos_yaw>
@@ -2169,7 +2409,7 @@
 	<auto_trim_counter>0</auto_trim_counter>
 	<last_radio_update_ms>3029</last_radio_update_ms>
 	<esc_calibration_notify_update_ms>0</esc_calibration_notify_update_ms>
-	<param_loader class_id="43" tracking_level="0" version="0"></param_loader>
+	<param_loader class_id="46" tracking_level="0" version="0"></param_loader>
 </callbacks>
 </boost_serialization>
 

@@ -55,6 +55,28 @@ public:
     // using copter motors for forward flight
     float               get_roll_factor(uint8_t i) override { return _roll_factor[i]; }
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AP_MotorsMulticopter);
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+
+        ar & BOOST_SERIALIZATION_NVP(_roll_factor);
+        ar & BOOST_SERIALIZATION_NVP(_pitch_factor);
+        ar & BOOST_SERIALIZATION_NVP(_yaw_factor);
+        ar & BOOST_SERIALIZATION_NVP(_thrust_rpyt_out);
+        ar & BOOST_SERIALIZATION_NVP(_test_order);
+        ar & BOOST_SERIALIZATION_NVP(_last_frame_class);
+        ar & BOOST_SERIALIZATION_NVP(_last_frame_type);
+        ar & BOOST_SERIALIZATION_NVP(_thrust_rpyt_out_filt);
+        ar & BOOST_SERIALIZATION_NVP(_motor_lost_index);
+        
+    }
+
 protected:
     // output - sends commands to the motors
     void                output_armed_stabilizing() override;

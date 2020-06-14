@@ -283,7 +283,11 @@ public:
         ar & BOOST_SERIALIZATION_NVP( rcmap); //error: ‘class RCMapper’ has no member named ‘serialize’
         ar & BOOST_SERIALIZATION_NVP( arming_altitude_m);
 
-        //ar & BOOST_SERIALIZATION_NVP(motors); // ap_motors_multicopter class error
+
+        ar.template register_type<AP_Motors>(); 
+        ar.template register_type<AP_MotorsMulticopter>(); 
+        ar.template register_type<AP_MotorsMatrix>(); // buzz todo support other motor types like tri, heli, single, coax etc, see system.cpp
+        ar & BOOST_SERIALIZATION_NVP(motors); // AP_MotorsMulticopter exception
         //ar & BOOST_SERIALIZATION_NVP(motors_var_info); const
 
         ar & BOOST_SERIALIZATION_NVP( _home_bearing);
