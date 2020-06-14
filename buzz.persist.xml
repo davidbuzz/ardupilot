@@ -15,7 +15,7 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>26869</_parent_pid>
+	<_parent_pid>410</_parent_pid>
 	<_update_count>3653</_update_count>
 	<_ins class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_gyro_count>2</_gyro_count>
@@ -1643,11 +1643,11 @@
 			</mag_bf>
 			<time_now_us>3042949</time_now_us>
 			<rate_hz>1.200000000e+03</rate_hz>
-			<achieved_rate_hz>1.170788940e+03</achieved_rate_hz>
+			<achieved_rate_hz>1.182468994e+03</achieved_rate_hz>
 			<target_speedup>1.000000000e+00</target_speedup>
 			<frame_time_us>833</frame_time_us>
-			<scaled_frame_time_us>7.635595703e+02</scaled_frame_time_us>
-			<last_wall_time_us>1592097968648155</last_wall_time_us>
+			<scaled_frame_time_us>7.620332642e+02</scaled_frame_time_us>
+			<last_wall_time_us>1592098847104818</last_wall_time_us>
 			<instance>0</instance>
 			<use_time_sync>1</use_time_sync>
 			<last_speedup>1.000000000e+00</last_speedup>
@@ -2622,11 +2622,115 @@
 			<_last_body_odm_update_ms>0</_last_body_odm_update_ms>
 		</_ahrs_ekf>
 	</inertial_nav>
+	<attitude_control class_id="50" tracking_level="1" version="0" object_id="_214">
+		<_pid_rate_roll class_id="51" tracking_level="0" version="0">
+			<_kp object_id="_215">
+				<_value>0.000000000e+00</_value>
+			</_kp>
+			<_ki object_id="_216">
+				<_value>0.000000000e+00</_value>
+			</_ki>
+			<_kd object_id="_217">
+				<_value>0.000000000e+00</_value>
+			</_kd>
+			<_kff object_id="_218">
+				<_value>0.000000000e+00</_value>
+			</_kff>
+			<_kimax object_id="_219">
+				<_value>0.000000000e+00</_value>
+			</_kimax>
+			<_filt_T_hz object_id="_220">
+				<_value>2.000000000e+01</_value>
+			</_filt_T_hz>
+			<_filt_E_hz object_id="_221">
+				<_value>0.000000000e+00</_value>
+			</_filt_E_hz>
+			<_filt_D_hz object_id="_222">
+				<_value>2.000000000e+01</_value>
+			</_filt_D_hz>
+			<_dt>2.499999944e-03</_dt>
+			<_integrator>0.000000000e+00</_integrator>
+			<_target>2.777141631e-01</_target>
+			<_error>2.776758671e-01</_error>
+			<_derivative>1.999712884e-01</_derivative>
+		</_pid_rate_roll>
+		<_pid_rate_pitch>
+			<_kp object_id="_223">
+				<_value>0.000000000e+00</_value>
+			</_kp>
+			<_ki object_id="_224">
+				<_value>0.000000000e+00</_value>
+			</_ki>
+			<_kd object_id="_225">
+				<_value>0.000000000e+00</_value>
+			</_kd>
+			<_kff object_id="_226">
+				<_value>0.000000000e+00</_value>
+			</_kff>
+			<_kimax object_id="_227">
+				<_value>0.000000000e+00</_value>
+			</_kimax>
+			<_filt_T_hz object_id="_228">
+				<_value>2.000000000e+01</_value>
+			</_filt_T_hz>
+			<_filt_E_hz object_id="_229">
+				<_value>0.000000000e+00</_value>
+			</_filt_E_hz>
+			<_filt_D_hz object_id="_230">
+				<_value>2.000000000e+01</_value>
+			</_filt_D_hz>
+			<_dt>2.499999944e-03</_dt>
+			<_integrator>0.000000000e+00</_integrator>
+			<_target>1.395142198e+00</_target>
+			<_error>1.395048261e+00</_error>
+			<_derivative>-4.476296715e-03</_derivative>
+		</_pid_rate_pitch>
+		<_pid_rate_yaw>
+			<_kp object_id="_231">
+				<_value>0.000000000e+00</_value>
+			</_kp>
+			<_ki object_id="_232">
+				<_value>0.000000000e+00</_value>
+			</_ki>
+			<_kd object_id="_233">
+				<_value>0.000000000e+00</_value>
+			</_kd>
+			<_kff object_id="_234">
+				<_value>0.000000000e+00</_value>
+			</_kff>
+			<_kimax object_id="_235">
+				<_value>0.000000000e+00</_value>
+			</_kimax>
+			<_filt_T_hz object_id="_236">
+				<_value>2.000000000e+01</_value>
+			</_filt_T_hz>
+			<_filt_E_hz object_id="_237">
+				<_value>2.500000000e+00</_value>
+			</_filt_E_hz>
+			<_filt_D_hz object_id="_238">
+				<_value>0.000000000e+00</_value>
+			</_filt_D_hz>
+			<_dt>2.499999944e-03</_dt>
+			<_integrator>0.000000000e+00</_integrator>
+			<_target>2.928857692e-02</_target>
+			<_error>2.621820569e-02</_error>
+			<_derivative>4.673153162e-02</_derivative>
+		</_pid_rate_yaw>
+		<_thr_mix_man object_id="_239">
+			<_value>1.000000015e-01</_value>
+		</_thr_mix_man>
+		<_thr_mix_min object_id="_240">
+			<_value>1.000000015e-01</_value>
+		</_thr_mix_min>
+		<_thr_mix_max object_id="_241">
+			<_value>5.000000000e-01</_value>
+		</_thr_mix_max>
+	</attitude_control>
 	<arm_time_ms>0</arm_time_ms>
 	<auto_trim_counter>0</auto_trim_counter>
 	<last_radio_update_ms>3029</last_radio_update_ms>
 	<esc_calibration_notify_update_ms>0</esc_calibration_notify_update_ms>
-	<param_loader class_id="50" tracking_level="0" version="0"></param_loader>
+	<param_loader class_id="52" tracking_level="0" version="0"></param_loader>
 </callbacks>
 </boost_serialization>
 

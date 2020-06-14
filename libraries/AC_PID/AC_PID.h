@@ -108,6 +108,32 @@ public:
     // parameter var table
     static const struct AP_Param::GroupInfo var_info[];
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_NVP( _kp);
+        ar & BOOST_SERIALIZATION_NVP( _ki);
+        ar & BOOST_SERIALIZATION_NVP( _kd);
+        ar & BOOST_SERIALIZATION_NVP( _kff);
+        ar & BOOST_SERIALIZATION_NVP( _kimax);
+        ar & BOOST_SERIALIZATION_NVP( _filt_T_hz);
+        ar & BOOST_SERIALIZATION_NVP( _filt_E_hz);
+        ar & BOOST_SERIALIZATION_NVP( _filt_D_hz);
+        //ar & BOOST_SERIALIZATION_NVP( _flags._reset_filter); low priority bitfield buzz todo
+        ar & BOOST_SERIALIZATION_NVP( _dt);
+        ar & BOOST_SERIALIZATION_NVP( _integrator);
+        ar & BOOST_SERIALIZATION_NVP( _target);
+        ar & BOOST_SERIALIZATION_NVP( _error);
+        ar & BOOST_SERIALIZATION_NVP( _derivative);
+        //ar & BOOST_SERIALIZATION_NVP(_pid_info); // buzz todo low priority logger
+
+    }
+
 protected:
 
     // parameters
