@@ -308,10 +308,62 @@ public:
 
     static const struct AP_Param::GroupInfo var_info[];
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        // no base class
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        
+        ar & BOOST_SERIALIZATION_NVP(_flags.value); // bitfield
+        ar & BOOST_SERIALIZATION_NVP(_limit.value); // bitfield
+        ar & BOOST_SERIALIZATION_NVP(_accel_xy_filt_hz);
+        ar & BOOST_SERIALIZATION_NVP(_lean_angle_max);
+        ar & BOOST_SERIALIZATION_NVP(_p_pos_z);
+        ar & BOOST_SERIALIZATION_NVP(_p_vel_z);
+        ar & BOOST_SERIALIZATION_NVP(_pid_accel_z);
+        ar & BOOST_SERIALIZATION_NVP(_p_pos_xy);
+        ar & BOOST_SERIALIZATION_NVP(_pid_vel_xy);
+        ar & BOOST_SERIALIZATION_NVP(_dt);
+        ar & BOOST_SERIALIZATION_NVP(_last_update_xy_us);
+        ar & BOOST_SERIALIZATION_NVP(_last_update_z_us);
+        ar & BOOST_SERIALIZATION_NVP(_speed_down_cms);
+        ar & BOOST_SERIALIZATION_NVP(_speed_up_cms);
+        ar & BOOST_SERIALIZATION_NVP(_speed_cms);
+        ar & BOOST_SERIALIZATION_NVP(_accel_z_cms);
+        ar & BOOST_SERIALIZATION_NVP(_accel_last_z_cms);
+        ar & BOOST_SERIALIZATION_NVP(_accel_cms);
+        ar & BOOST_SERIALIZATION_NVP(_leash);
+        ar & BOOST_SERIALIZATION_NVP(_leash_down_z);
+        ar & BOOST_SERIALIZATION_NVP(_leash_up_z);
+        ar & BOOST_SERIALIZATION_NVP(_vel_z_control_ratio);
+        ar & BOOST_SERIALIZATION_NVP(_roll_target);
+        ar & BOOST_SERIALIZATION_NVP(_pitch_target);
+        ar & BOOST_SERIALIZATION_NVP(_pos_target);
+        ar & BOOST_SERIALIZATION_NVP(_pos_error);
+        ar & BOOST_SERIALIZATION_NVP(_vel_desired);
+        ar & BOOST_SERIALIZATION_NVP(_vel_target);
+        ar & BOOST_SERIALIZATION_NVP(_vel_error);
+        ar & BOOST_SERIALIZATION_NVP(_vel_last);
+        ar & BOOST_SERIALIZATION_NVP(_accel_desired);
+        ar & BOOST_SERIALIZATION_NVP(_accel_target);
+        ar & BOOST_SERIALIZATION_NVP(_accel_error);
+        ar & BOOST_SERIALIZATION_NVP(_vehicle_horiz_vel);
+        ar & BOOST_SERIALIZATION_NVP(_vel_error_filter);
+        ar & BOOST_SERIALIZATION_NVP(_accel_target_filter);
+        ar & BOOST_SERIALIZATION_NVP(_ekf_xy_reset_ms);
+        ar & BOOST_SERIALIZATION_NVP(_ekf_z_reset_ms);
+        ar & BOOST_SERIALIZATION_NVP(_vibe_comp_enabled);
+    }
+
 protected:
 
-    // general purpose flags
-    struct poscontrol_flags {
+    // general purpose flags read individually or together using .value
+    typedef union { 
+    struct  {
             uint16_t recalc_leash_z     : 1;    // 1 if we should recalculate the z axis leash length
             uint16_t recalc_leash_xy    : 1;    // 1 if we should recalculate the xy axis leash length
             uint16_t reset_desired_vel_to_pos   : 1;    // 1 if we should reset the rate_to_accel_xy step
@@ -320,16 +372,23 @@ protected:
             uint16_t freeze_ff_z        : 1;    // 1 used to freeze velocity to accel feed forward for one iteration
             uint16_t use_desvel_ff_z    : 1;    // 1 to use z-axis desired velocity as feed forward into velocity step
             uint16_t vehicle_horiz_vel_override : 1; // 1 if we should use _vehicle_horiz_vel as our velocity process variable for one timestep
-    } _flags;
+    };
+    uint16_t value; 
+    } poscontrol_flags; 
+    poscontrol_flags _flags; 
 
-    // limit flags structure
-    struct poscontrol_limit_flags {
+    // limit flags structure read individually or together using .value
+    typedef union { 
+    struct  {
         uint8_t pos_up      : 1;    // 1 if we have hit the vertical position leash limit while going up
         uint8_t pos_down    : 1;    // 1 if we have hit the vertical position leash limit while going down
         uint8_t vel_up      : 1;    // 1 if we have hit the vertical velocity limit going up
         uint8_t vel_down    : 1;    // 1 if we have hit the vertical velocity limit going down
         uint8_t accel_xy    : 1;    // 1 if we have hit the horizontal accel limit
-    } _limit;
+    };
+    uint8_t value; 
+    } poscontrol_limit_flags; 
+    poscontrol_limit_flags _limit; 
 
     ///
     /// z controller private methods

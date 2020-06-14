@@ -315,7 +315,8 @@ public:
         ar.template register_type<AC_AttitudeControl>();  // base class has useful things in it.
         ar.template register_type<AC_AttitudeControl_Multi>();
         ar & BOOST_SERIALIZATION_NVP( attitude_control); //error: ‘class AC_AttitudeControl_Multi’ has no member named ‘serialize’
-        //ar & BOOST_SERIALIZATION_NVP( pos_control); //error: ‘class AC_PosControl’ has no member named ‘serialize’
+
+        ar & BOOST_SERIALIZATION_NVP( pos_control); //error: ‘class AC_PosControl’ has no member named ‘serialize’
         //ar & BOOST_SERIALIZATION_NVP( wp_nav); //error: ‘class AC_WPNav’ has no member named ‘serialize’
         //ar & BOOST_SERIALIZATION_NVP( loiter_nav); error: ‘class AC_Loiter’ has no member named ‘serialize’
 
