@@ -68,6 +68,27 @@ public:
 
     // parameter var table
     static const struct AP_Param::GroupInfo        var_info[];
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_NVP( _kp);
+        ar & BOOST_SERIALIZATION_NVP( _ki);
+        ar & BOOST_SERIALIZATION_NVP( _imax);
+        ar & BOOST_SERIALIZATION_NVP( _filt_hz);
+        ar & BOOST_SERIALIZATION_NVP( _flags.value);//bits
+        ar & BOOST_SERIALIZATION_NVP( _dt);
+        ar & BOOST_SERIALIZATION_NVP(_integrator );
+        ar & BOOST_SERIALIZATION_NVP(  _input    );                       
+        ar & BOOST_SERIALIZATION_NVP(  _filt_alpha    );                       
+
+
+
+    }
 
 protected:
 
@@ -80,10 +101,14 @@ protected:
     AP_Float        _imax;
     AP_Float        _filt_hz;                   // PID Input filter frequency in Hz
 
-    // flags
-    struct ac_pid_flags {
+    // flags read individually or together using .value 
+    typedef union {  
+    struct  {
         bool        _reset_filter : 1;    // true when input filter should be reset during next call to set_input
-    } _flags;
+     }; 
+    uint16_t value;  
+    } ac_pid_flags;  
+    ac_pid_flags _flags;
 
     // internal variables
     float           _dt;            // timestep in seconds

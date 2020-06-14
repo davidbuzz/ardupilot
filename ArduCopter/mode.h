@@ -92,6 +92,25 @@ public:
         return pos_control->get_desired_velocity();
     }
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        
+        //ar & BOOST_SERIALIZATION_NVP(xxx);
+        ar & BOOST_SERIALIZATION_NVP(G_Dt);
+        ar & BOOST_SERIALIZATION_NVP(takeoff);
+        ar & BOOST_SERIALIZATION_NVP(auto_takeoff_no_nav_active);
+        ar & BOOST_SERIALIZATION_NVP(auto_takeoff_no_nav_alt_cm);
+        ar & BOOST_SERIALIZATION_NVP(auto_yaw);
+
+
+        }
+
 protected:
 
     // navigation support functions
@@ -156,6 +175,24 @@ protected:
         bool triggered(float target_climb_rate) const;
 
         bool running() const { return _running; }
+
+        friend class boost::serialization::access; 
+        // When the class Archive corresponds to an output archive, the 
+        // & operator is defined similar to <<.  Likewise, when the class Archive 
+        // is a type of input archive the & operator is defined similar to >>.
+        template<class Archive> 
+        void serialize(Archive & ar, const unsigned int version) 
+        { 
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+            //ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+            ar & BOOST_SERIALIZATION_NVP( _running);
+            ar & BOOST_SERIALIZATION_NVP( max_speed);
+            ar & BOOST_SERIALIZATION_NVP( alt_delta);
+            ar & BOOST_SERIALIZATION_NVP( start_ms);
+
+        }
+
+
     private:
         bool _running;
         float max_speed;
@@ -202,6 +239,26 @@ public:
                            float turn_rate_dps,
                            int8_t direction,
                            bool relative_angle);
+
+        friend class boost::serialization::access; 
+        // When the class Archive corresponds to an output archive, the 
+        // & operator is defined similar to <<.  Likewise, when the class Archive 
+        // is a type of input archive the & operator is defined similar to >>.
+        template<class Archive> 
+        void serialize(Archive & ar, const unsigned int version) 
+        { 
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+            //ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+            ar & BOOST_SERIALIZATION_NVP( _mode);
+            ar & BOOST_SERIALIZATION_NVP( roi);
+            ar & BOOST_SERIALIZATION_NVP(  _roi_yaw);
+            ar & BOOST_SERIALIZATION_NVP(  _fixed_yaw);
+            ar & BOOST_SERIALIZATION_NVP(  _fixed_yaw_slewrate);
+            ar & BOOST_SERIALIZATION_NVP(  _look_ahead_yaw);
+            ar & BOOST_SERIALIZATION_NVP(  _rate_cds);
+            ar & BOOST_SERIALIZATION_NVP(  roi_yaw_counter);
+
+        }
 
     private:
 
@@ -272,6 +329,19 @@ public:
     bool allows_arming(bool from_gcs) const override { return true; };
     bool is_autopilot() const override { return false; }
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
+
 protected:
 
     const char *name() const override { return "ACRO"; }
@@ -297,6 +367,19 @@ public:
     void run() override;
     void virtual_flybar( float &roll_out, float &pitch_out, float &yaw_out, float pitch_leak, float roll_leak);
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
+
 protected:
 private:
 };
@@ -318,6 +401,19 @@ public:
     bool is_autopilot() const override { return false; }
     bool has_user_takeoff(bool must_navigate) const override {
         return !must_navigate;
+    }
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
     }
 
 protected:
@@ -379,6 +475,30 @@ public:
         FUNCTOR_BIND_MEMBER(&ModeAuto::start_command, bool, const AP_Mission::Mission_Command &),
         FUNCTOR_BIND_MEMBER(&ModeAuto::verify_command, bool, const AP_Mission::Mission_Command &),
         FUNCTOR_BIND_MEMBER(&ModeAuto::exit_mission, void)};
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        //ar & BOOST_SERIALIZATION_NVP(unused);
+        
+        ar & BOOST_SERIALIZATION_NVP(loiter_time_max);
+        ar & BOOST_SERIALIZATION_NVP(loiter_time);
+        //ar & BOOST_SERIALIZATION_NVP(loiter_to_alt); struct with bitfields, todo buzz
+        ar & BOOST_SERIALIZATION_NVP(nav_delay_time_max_ms);
+        ar & BOOST_SERIALIZATION_NVP(nav_delay_time_start_ms);
+        ar & BOOST_SERIALIZATION_NVP(condition_value);
+        ar & BOOST_SERIALIZATION_NVP(condition_start);
+        ar & BOOST_SERIALIZATION_NVP(state);
+        ar & BOOST_SERIALIZATION_NVP(nav_payload_place);
+
+    }
 
 protected:
 
@@ -502,6 +622,25 @@ private:
         float descend_throttle_level;
         float descend_start_altitude;
         float descend_max; // centimetres
+
+        friend class boost::serialization::access; 
+        // When the class Archive corresponds to an output archive, the 
+        // & operator is defined similar to <<.  Likewise, when the class Archive 
+        // is a type of input archive the & operator is defined similar to >>.
+        template<class Archive> 
+        void serialize(Archive & ar, const unsigned int version) 
+        { 
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+            ar & BOOST_SERIALIZATION_NVP(state);
+            ar & BOOST_SERIALIZATION_NVP(hover_start_timestamp);
+            ar & BOOST_SERIALIZATION_NVP(hover_throttle_level);
+            ar & BOOST_SERIALIZATION_NVP(descend_start_timestamp);
+            ar & BOOST_SERIALIZATION_NVP(place_start_timestamp);
+            ar & BOOST_SERIALIZATION_NVP(descend_throttle_level);
+            ar & BOOST_SERIALIZATION_NVP(descend_start_altitude);
+            ar & BOOST_SERIALIZATION_NVP(descend_max);
+        }
+
     } nav_payload_place;
 };
 
@@ -514,6 +653,19 @@ class AutoTune : public AC_AutoTune
 public:
     bool init() override;
     void run() override;
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
 
 protected:
     bool start(void) override;
@@ -542,6 +694,19 @@ public:
     void stop();
     void reset();
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
+
 protected:
 
     const char *name() const override { return "AUTOTUNE"; }
@@ -565,6 +730,19 @@ public:
     bool is_autopilot() const override { return false; }
 
     void timeout_to_loiter_ms(uint32_t timeout_ms);
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
 
 protected:
 
@@ -594,6 +772,19 @@ public:
     bool has_manual_throttle() const override { return false; }
     bool allows_arming(bool from_gcs) const override { return false; };
     bool is_autopilot() const override { return true; }
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
 
 protected:
 
@@ -625,6 +816,19 @@ public:
     bool allows_arming(bool from_gcs) const override { return true; };
     bool is_autopilot() const override { return false; }
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
+
 protected:
 
     const char *name() const override { return "DRIFT"; }
@@ -650,6 +854,20 @@ public:
     bool has_manual_throttle() const override { return false; }
     bool allows_arming(bool from_gcs) const override { return false; };
     bool is_autopilot() const override { return false; }
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
+        // buzz too add more here
+    }
 
 protected:
 
@@ -700,6 +918,36 @@ public:
     }
 
     static const struct AP_Param::GroupInfo var_info[];
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+
+        ar & BOOST_SERIALIZATION_NVP(flow_filter);
+        ar & BOOST_SERIALIZATION_NVP(flow_max);
+        ar & BOOST_SERIALIZATION_NVP(flow_pi_xy);
+        ar & BOOST_SERIALIZATION_NVP(flow_filter_hz);
+        ar & BOOST_SERIALIZATION_NVP(flow_min_quality);
+        ar & BOOST_SERIALIZATION_NVP(brake_rate_dps);
+        ar & BOOST_SERIALIZATION_NVP(quality_filtered);
+        ar & BOOST_SERIALIZATION_NVP(log_counter);
+        ar & BOOST_SERIALIZATION_NVP(limited);
+        ar & BOOST_SERIALIZATION_NVP(xy_I);
+        ar & BOOST_SERIALIZATION_NVP(delta_velocity_ne);
+        ar & BOOST_SERIALIZATION_NVP(last_flow_rate_rps);
+        ar & BOOST_SERIALIZATION_NVP(last_flow_ms);
+        ar & BOOST_SERIALIZATION_NVP(last_ins_height);
+        ar & BOOST_SERIALIZATION_NVP(height_offset);
+        ar & BOOST_SERIALIZATION_NVP(braking);
+        ar & BOOST_SERIALIZATION_NVP(last_stick_input_ms);
+        
+    }
 
 protected:
     const char *name() const override { return "FLOWHOLD"; }
@@ -803,6 +1051,19 @@ public:
     void angle_control_start();
     void angle_control_run();
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(guided_mode);
+    }
+
 protected:
 
     const char *name() const override { return "GUIDED"; }
@@ -844,6 +1105,19 @@ public:
     bool allows_arming(bool from_gcs) const override { return from_gcs; }
     bool is_autopilot() const override { return true; }
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
+
 protected:
 
     const char *name() const override { return "GUIDED_NOGPS"; }
@@ -871,6 +1145,19 @@ public:
     bool is_landing() const override { return true; };
 
     void do_not_use_GPS();
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
 
 protected:
 
@@ -902,6 +1189,18 @@ public:
 #if PRECISION_LANDING == ENABLED
     void set_precision_loiter_enabled(bool value) { _precision_loiter_enabled = value; }
 #endif
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(_precision_loiter_enabled);
+    }
 
 protected:
 
@@ -939,6 +1238,44 @@ public:
     bool allows_arming(bool from_gcs) const override { return true; };
     bool is_autopilot() const override { return false; }
     bool has_user_takeoff(bool must_navigate) const override { return true; }
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+
+        ar & BOOST_SERIALIZATION_NVP(roll_mode);
+        ar & BOOST_SERIALIZATION_NVP(pitch_mode);
+        //ar & BOOST_SERIALIZATION_NVP((uint8_t&)braking_time_updated_roll);// buzz todo single bit
+        //ar & BOOST_SERIALIZATION_NVP((uint8_t&)braking_time_updated_pitch); // buzz todo single bit
+        ar & BOOST_SERIALIZATION_NVP(pilot_roll);
+        ar & BOOST_SERIALIZATION_NVP(pilot_pitch);
+        ar & BOOST_SERIALIZATION_NVP(brake_gain);
+        ar & BOOST_SERIALIZATION_NVP(brake_roll);
+        ar & BOOST_SERIALIZATION_NVP(brake_pitch);
+        ar & BOOST_SERIALIZATION_NVP(brake_timeout_roll);
+        ar & BOOST_SERIALIZATION_NVP(brake_timeout_pitch);
+        ar & BOOST_SERIALIZATION_NVP(brake_angle_max_roll);
+        ar & BOOST_SERIALIZATION_NVP(brake_angle_max_pitch);
+        ar & BOOST_SERIALIZATION_NVP(brake_to_loiter_timer);
+        ar & BOOST_SERIALIZATION_NVP(controller_to_pilot_timer_roll);
+        ar & BOOST_SERIALIZATION_NVP(controller_to_pilot_timer_pitch);
+        ar & BOOST_SERIALIZATION_NVP(controller_final_roll);
+        ar & BOOST_SERIALIZATION_NVP(controller_final_pitch);
+        ar & BOOST_SERIALIZATION_NVP(wind_comp_ef);
+        ar & BOOST_SERIALIZATION_NVP(wind_comp_roll);
+        ar & BOOST_SERIALIZATION_NVP(wind_comp_pitch);
+        ar & BOOST_SERIALIZATION_NVP(wind_comp_start_timer);
+        ar & BOOST_SERIALIZATION_NVP(wind_comp_timer);
+        ar & BOOST_SERIALIZATION_NVP(roll);
+        ar & BOOST_SERIALIZATION_NVP(pitch);
+
+    }
 
 protected:
 
@@ -1051,6 +1388,24 @@ public:
     };
     ModeRTL::RTLAltType get_alt_type() const;
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        
+        ar & BOOST_SERIALIZATION_NVP(_state);
+        ar & BOOST_SERIALIZATION_NVP(_state_complete);
+        ar & BOOST_SERIALIZATION_NVP(rtl_path);
+        ar & BOOST_SERIALIZATION_NVP(_loiter_start_time);
+        ar & BOOST_SERIALIZATION_NVP(terrain_following_allowed);
+        
+    }
+
 protected:
 
     const char *name() const override { return "RTL"; }
@@ -1088,6 +1443,21 @@ private:
         Location return_target;
         Location descent_target;
         bool land;
+
+        friend class boost::serialization::access; 
+        // When the class Archive corresponds to an output archive, the 
+        // & operator is defined similar to <<.  Likewise, when the class Archive 
+        // is a type of input archive the & operator is defined similar to >>.
+        template<class Archive> 
+        void serialize(Archive & ar, const unsigned int version) 
+        { 
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+            ar & BOOST_SERIALIZATION_NVP(origin_point);
+            ar & BOOST_SERIALIZATION_NVP(climb_target);
+            ar & BOOST_SERIALIZATION_NVP(return_target);
+            ar & BOOST_SERIALIZATION_NVP(descent_target);
+            ar & BOOST_SERIALIZATION_NVP(land);
+        }
     } rtl_path;
 
     // return target alt type
@@ -1120,6 +1490,18 @@ public:
 
     void save_position();
     void exit();
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(smart_rtl_state);
+    }
 
 protected:
 
@@ -1160,6 +1542,21 @@ public:
         return !must_navigate;
     }
 
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
+
+
 protected:
 
     const char *name() const override { return "SPORT"; }
@@ -1183,6 +1580,19 @@ public:
     bool allows_arming(bool from_gcs) const override { return true; };
     bool is_autopilot() const override { return false; }
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
+
 protected:
 
     const char *name() const override { return "STABILIZE"; }
@@ -1201,6 +1611,19 @@ public:
 
     bool init(bool ignore_checks) override;
     void run() override;
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
 
 protected:
 
@@ -1225,6 +1648,32 @@ public:
     void set_magnitude(float input) { waveform_magnitude = input; }
 
     static const struct AP_Param::GroupInfo var_info[];
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+
+        ar & BOOST_SERIALIZATION_NVP(axis);
+        ar & BOOST_SERIALIZATION_NVP(waveform_magnitude);
+        ar & BOOST_SERIALIZATION_NVP(frequency_start);
+        ar & BOOST_SERIALIZATION_NVP(frequency_stop);
+        ar & BOOST_SERIALIZATION_NVP(time_fade_in);
+        ar & BOOST_SERIALIZATION_NVP(time_record);
+        ar & BOOST_SERIALIZATION_NVP(time_fade_out);
+        ar & BOOST_SERIALIZATION_NVP(att_bf_feedforward);
+        ar & BOOST_SERIALIZATION_NVP(waveform_time);
+        ar & BOOST_SERIALIZATION_NVP(waveform_sample);
+        ar & BOOST_SERIALIZATION_NVP(waveform_freq_rads);
+        ar & BOOST_SERIALIZATION_NVP(time_const_freq);
+        ar & BOOST_SERIALIZATION_NVP(log_subsample);
+    }
+
 
 protected:
 
@@ -1295,6 +1744,26 @@ public:
         ThrowType_Drop = 1
     };
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+
+        ar & BOOST_SERIALIZATION_NVP(stage);
+        ar & BOOST_SERIALIZATION_NVP(prev_stage);
+        ar & BOOST_SERIALIZATION_NVP(last_log_ms);
+        ar & BOOST_SERIALIZATION_NVP(nextmode_attempted);
+        ar & BOOST_SERIALIZATION_NVP(free_fall_start_ms);
+        ar & BOOST_SERIALIZATION_NVP(free_fall_start_velz);
+
+    }
+
+
 protected:
 
     const char *name() const override { return "THROW"; }
@@ -1342,6 +1811,20 @@ public:
 
     bool set_velocity(const Vector3f& velocity_neu);
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    float unused = 0.0;
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(unused);
+    }
+
+
 protected:
 
     const char *name() const override { return "AVOID_ADSB"; }
@@ -1366,6 +1849,19 @@ public:
     bool has_manual_throttle() const override { return false; }
     bool allows_arming(bool from_gcs) const override { return false; }
     bool is_autopilot() const override { return true; }
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+        ar & BOOST_SERIALIZATION_NVP(last_log_ms);
+    }
+
 
 protected:
 
@@ -1401,6 +1897,23 @@ public:
 
     // return manual control to the pilot
     void return_to_manual_control(bool maintain_target);
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+
+        ar & BOOST_SERIALIZATION_NVP(dest_A);
+        ar & BOOST_SERIALIZATION_NVP(dest_B);
+        ar & BOOST_SERIALIZATION_NVP(reach_wp_time_ms);
+
+    }
+
 
 protected:
 
@@ -1444,6 +1957,32 @@ public:
 
     static const struct AP_Param::GroupInfo  var_info[];
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Mode); 
+
+        ar & BOOST_SERIALIZATION_NVP(_initial_rpm);
+        ar & BOOST_SERIALIZATION_NVP(_target_head_speed);
+        ar & BOOST_SERIALIZATION_NVP(_desired_v_z);
+        ar & BOOST_SERIALIZATION_NVP(_pitch_target);
+        ar & BOOST_SERIALIZATION_NVP(_entry_time_start_ms);
+        ar & BOOST_SERIALIZATION_NVP(_hs_decay);
+        ar & BOOST_SERIALIZATION_NVP(_bail_time);
+        ar & BOOST_SERIALIZATION_NVP(_bail_time_start_ms);
+        ar & BOOST_SERIALIZATION_NVP(_target_climb_rate_adjust);
+        ar & BOOST_SERIALIZATION_NVP(_target_pitch_adjust);
+        ar & BOOST_SERIALIZATION_NVP(_flags.value); 
+        ar & BOOST_SERIALIZATION_NVP(_msg_flags.value);
+        
+    }
+
+
 protected:
 
     const char *name() const override { return "AUTOROTATE"; }
@@ -1476,22 +2015,32 @@ private:
         INTO_WIND,
         NEAREST_RALLY} nav_pos_switch;
 
-    // --- Internal flags ---
-    struct controller_flags {
-            bool entry_initial             : 1;
-            bool ss_glide_initial          : 1;
-            bool flare_initial             : 1;
-            bool touch_down_initial        : 1;
-            bool straight_ahead_initial    : 1;
-            bool level_initial             : 1;
-            bool break_initial             : 1;
-            bool bail_out_initial          : 1;
-            bool bad_rpm                   : 1;
-    } _flags;
+    // --- Internal flags ---  read individually or together using .value 
+    typedef union {  
+    struct  {
+            uint16_t entry_initial             : 1;
+            uint16_t ss_glide_initial          : 1;
+            uint16_t flare_initial             : 1;
+            uint16_t touch_down_initial        : 1;
+            uint16_t straight_ahead_initial    : 1;
+            uint16_t level_initial             : 1;
+            uint16_t break_initial             : 1;
+            uint16_t bail_out_initial          : 1;
+            uint16_t bad_rpm                   : 1;
+    }; 
+    uint16_t value;  
+    } controller_flags;  
+    controller_flags _flags;
 
-    struct message_flags {
+
+    typedef union {  
+    struct  {
             bool bad_rpm                   : 1;
-    } _msg_flags;
+    };
+    uint8_t value;  
+    } message_flags;
+    message_flags _msg_flags;
+
 
     //--- Internal functions ---
     void warning_message(uint8_t message_n);    //Handles output messages to the terminal

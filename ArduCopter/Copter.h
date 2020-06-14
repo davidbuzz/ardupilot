@@ -369,7 +369,39 @@ public:
         ar & BOOST_SERIALIZATION_NVP( last_radio_update_ms);
         ar & BOOST_SERIALIZATION_NVP( esc_calibration_notify_update_ms);
         ar & BOOST_SERIALIZATION_NVP( param_loader);
-        //ar & BOOST_SERIALIZATION_NVP( flightmode); // error polymorphic save of <Mode> failed.
+
+        ar.template register_type<Mode>();
+        ar.template register_type<ModeAcro>();
+        #if FRAME_CONFIG == HELI_FRAME
+        ar.template register_type<ModeAcro_Heli>();
+        ar.template register_type<ModeStabilize_Heli>();
+        #endif
+        ar.template register_type<ModeAltHold>();
+        ar.template register_type<ModeAuto>();
+        ar.template register_type<ModeAutoTune>();
+        ar.template register_type<ModeAvoidADSB>();
+        ar.template register_type<ModeBrake>();
+        ar.template register_type<ModeCircle>();
+        ar.template register_type<ModeDrift>();
+        ar.template register_type<ModeFlip>();
+        ar.template register_type<ModeFlowHold>();
+        ar.template register_type<ModeFollow>();
+        ar.template register_type<ModeGuided>();
+        ar.template register_type<ModeLand>();
+        ar.template register_type<ModeLoiter>();
+        ar.template register_type<ModePosHold>();
+        ar.template register_type<ModeRTL>();
+        ar.template register_type<ModeSmartRTL>();
+        ar.template register_type<ModeSport>();
+        ar.template register_type<ModeStabilize>();
+        ar.template register_type<ModeSystemId>();
+        ar.template register_type<ModeThrow>();
+        ar.template register_type<ModeZigZag>();
+        #if MODE_AUTOROTATE_ENABLED == ENABLED
+        ar.template register_type<ModeAutorotate>();
+        #endif
+        ar & BOOST_SERIALIZATION_NVP( flightmode);
+         // error polymorphic save of <Mode> failed.
      
 #if MODE_ACRO_ENABLED == ENABLED
         //ar & BOOST_SERIALIZATION_NVP( mode_acro); //error: ‘class ModeAcro’ has no member named ‘serialize’

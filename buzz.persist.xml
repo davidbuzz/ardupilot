@@ -15,7 +15,7 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>10054</_parent_pid>
+	<_parent_pid>11972</_parent_pid>
 	<_update_count>3653</_update_count>
 	<_ins class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_gyro_count>2</_gyro_count>
@@ -1643,11 +1643,11 @@
 			</mag_bf>
 			<time_now_us>3042949</time_now_us>
 			<rate_hz>1.200000000e+03</rate_hz>
-			<achieved_rate_hz>1.147874023e+03</achieved_rate_hz>
+			<achieved_rate_hz>1.165755737e+03</achieved_rate_hz>
 			<target_speedup>1.000000000e+00</target_speedup>
 			<frame_time_us>833</frame_time_us>
-			<scaled_frame_time_us>8.107992554e+02</scaled_frame_time_us>
-			<last_wall_time_us>1592104521690586</last_wall_time_us>
+			<scaled_frame_time_us>7.620332642e+02</scaled_frame_time_us>
+			<last_wall_time_us>1592108935875750</last_wall_time_us>
 			<instance>0</instance>
 			<use_time_sync>1</use_time_sync>
 			<last_speedup>1.000000000e+00</last_speedup>
@@ -3200,6 +3200,34 @@
 	<last_radio_update_ms>3029</last_radio_update_ms>
 	<esc_calibration_notify_update_ms>0</esc_calibration_notify_update_ms>
 	<param_loader class_id="64" tracking_level="0" version="0"></param_loader>
+	<flightmode class_id="84" tracking_level="1" version="0" object_id="_296">
+		<Mode class_id="65" tracking_level="1" version="0" object_id="_297">
+			<G_Dt>2.499999944e-03</G_Dt>
+			<takeoff class_id="88" tracking_level="0" version="0">
+				<_running>0</_running>
+				<max_speed>0.000000000e+00</max_speed>
+				<alt_delta>0.000000000e+00</alt_delta>
+				<start_ms>0</start_ms>
+			</takeoff>
+			<auto_takeoff_no_nav_active>0</auto_takeoff_no_nav_active>
+			<auto_takeoff_no_nav_alt_cm>0.000000000e+00</auto_takeoff_no_nav_alt_cm>
+			<auto_yaw class_id="89" tracking_level="0" version="0">
+				<_mode>1</_mode>
+				<roi>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</roi>
+				<_roi_yaw>0.000000000e+00</_roi_yaw>
+				<_fixed_yaw>0</_fixed_yaw>
+				<_fixed_yaw_slewrate>0</_fixed_yaw_slewrate>
+				<_look_ahead_yaw>0.000000000e+00</_look_ahead_yaw>
+				<_rate_cds>0.000000000e+00</_rate_cds>
+				<roi_yaw_counter>0</roi_yaw_counter>
+			</auto_yaw>
+		</Mode>
+		<unused>0.000000000e+00</unused>
+	</flightmode>
 </callbacks>
 </boost_serialization>
 
