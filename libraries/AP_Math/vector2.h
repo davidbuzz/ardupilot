@@ -32,6 +32,9 @@
 #include <cmath>
 #include <AP_Common/AP_Common.h>
 
+#include <SITL/Serialize.h>
+
+
 template <typename T>
 struct Vector2
 {
@@ -46,6 +49,19 @@ struct Vector2
     constexpr Vector2<T>(const T x0, const T y0)
         : x(x0)
         , y(y0) {}
+
+
+    friend class boost::serialization::access;
+    // When the class Archive corresponds to an output archive, the
+    // & operator is defined similar to <<.  Likewise, when the class Archive
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version)
+    {
+
+    ar & BOOST_SERIALIZATION_NVP(x);
+    ar & BOOST_SERIALIZATION_NVP(y);
+    }
 
     // function call operator
     void operator ()(const T x0, const T y0)

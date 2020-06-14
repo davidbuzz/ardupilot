@@ -15,7 +15,7 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>31076</_parent_pid>
+	<_parent_pid>26869</_parent_pid>
 	<_update_count>3653</_update_count>
 	<_ins class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_gyro_count>2</_gyro_count>
@@ -1643,11 +1643,11 @@
 			</mag_bf>
 			<time_now_us>3042949</time_now_us>
 			<rate_hz>1.200000000e+03</rate_hz>
-			<achieved_rate_hz>1.175853516e+03</achieved_rate_hz>
+			<achieved_rate_hz>1.170788940e+03</achieved_rate_hz>
 			<target_speedup>1.000000000e+00</target_speedup>
 			<frame_time_us>833</frame_time_us>
-			<scaled_frame_time_us>7.620332642e+02</scaled_frame_time_us>
-			<last_wall_time_us>1592095712369480</last_wall_time_us>
+			<scaled_frame_time_us>7.635595703e+02</scaled_frame_time_us>
+			<last_wall_time_us>1592097968648155</last_wall_time_us>
 			<instance>0</instance>
 			<use_time_sync>1</use_time_sync>
 			<last_speedup>1.000000000e+00</last_speedup>
@@ -2405,11 +2405,228 @@
 		<lat>-275830000</lat>
 		<lng>1529732000</lng>
 	</current_loc>
+	<inertial_nav class_id="46" tracking_level="1" version="0" object_id="_210">
+		<_relpos_cm>
+			<x>0.000000000e+00</x>
+			<y>0.000000000e+00</y>
+			<z>0.000000000e+00</z>
+		</_relpos_cm>
+		<_velocity_cm>
+			<x>0.000000000e+00</x>
+			<y>0.000000000e+00</y>
+			<z>-0.000000000e+00</z>
+		</_velocity_cm>
+		<_ahrs_ekf class_id="47" tracking_level="0" version="0">
+			<AP_AHRS_DCM class_id="48" tracking_level="0" version="0">
+				<_ki>8.700000122e-03</_ki>
+				<_ki_yaw>9.999999776e-03</_ki_yaw>
+				<_dcm_matrix object_id="_211">
+					<a>
+						<x>-9.939921498e-01</x>
+						<y>4.146940634e-02</y>
+						<z>1.012920365e-01</z>
+					</a>
+					<b>
+						<x>-4.166596010e-02</x>
+						<y>-9.991315603e-01</y>
+						<z>1.753265242e-04</z>
+					</b>
+					<c>
+						<x>1.012113243e-01</x>
+						<y>-4.046156071e-03</y>
+						<z>9.948567152e-01</z>
+					</c>
+				</_dcm_matrix>
+				<_body_dcm_matrix object_id="_212">
+					<a>
+						<x>-9.939921498e-01</x>
+						<y>4.146940634e-02</y>
+						<z>1.012920365e-01</z>
+					</a>
+					<b>
+						<x>-4.166596010e-02</x>
+						<y>-9.991315603e-01</y>
+						<z>1.753265242e-04</z>
+					</b>
+					<c>
+						<x>1.012113243e-01</x>
+						<y>-4.046156071e-03</y>
+						<z>9.948567152e-01</z>
+					</c>
+				</_body_dcm_matrix>
+				<_omega_P>
+					<x>4.353316035e-03</x>
+					<y>-4.594800703e-04</y>
+					<z>-4.447125830e-04</z>
+				</_omega_P>
+				<_omega_yaw_P>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>1.974603832e-01</z>
+				</_omega_yaw_P>
+				<_omega_I>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_omega_I>
+				<_omega_I_sum>
+					<x>5.272704129e-06</x>
+					<y>-1.048600780e-06</y>
+					<z>6.324694259e-04</z>
+				</_omega_I_sum>
+				<_omega_I_sum_time>4.831410646e-01</_omega_I_sum_time>
+				<_omega>
+					<x>-2.432140900e-05</x>
+					<y>-2.951092611e-04</y>
+					<z>7.727663615e-05</z>
+				</_omega>
+				<_ra_delay_buffer>
+					<count>3</count>
+					<item>
+						<x>0.000000000e+00</x>
+						<y>0.000000000e+00</y>
+						<z>0.000000000e+00</z>
+					</item>
+					<item>
+						<x>0.000000000e+00</x>
+						<y>0.000000000e+00</y>
+						<z>0.000000000e+00</z>
+					</item>
+					<item>
+						<x>0.000000000e+00</x>
+						<y>0.000000000e+00</y>
+						<z>0.000000000e+00</z>
+					</item>
+				</_ra_delay_buffer>
+				<_renorm_val_sum>6.030000000e+02</_renorm_val_sum>
+				<_renorm_val_count>603</_renorm_val_count>
+				<_error_rp>6.406002045e-01</_error_rp>
+				<_error_yaw>3.014385402e-01</_error_yaw>
+				<_gps_last_update>2989</_gps_last_update>
+				<_ra_sum>
+					<count>3</count>
+					<item>
+						<x>1.878880994e-06</x>
+						<y>7.944235695e-04</y>
+						<z>-1.973088086e-01</z>
+					</item>
+					<item>
+						<x>-1.987475529e-02</x>
+						<y>-2.663275882e-05</y>
+						<z>-1.952669919e-01</z>
+					</item>
+					<item>
+						<x>0.000000000e+00</x>
+						<y>0.000000000e+00</y>
+						<z>0.000000000e+00</z>
+					</item>
+				</_ra_sum>
+				<_last_velocity>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_last_velocity>
+				<_ra_deltat>1.999199949e-02</_ra_deltat>
+				<_ra_sum_start>2989</_ra_sum_start>
+				<_last_declination>1.814129800e-01</_last_declination>
+				<_mag_earth class_id="49" tracking_level="0" version="0">
+					<x>9.835897684e-01</x>
+					<y>1.804195493e-01</y>
+				</_mag_earth>
+				<_have_gps_lock>1</_have_gps_lock>
+				<_last_lat>-275830000</_last_lat>
+				<_last_lng>1529732000</_last_lng>
+				<_position_offset_north>0.000000000e+00</_position_offset_north>
+				<_position_offset_east>0.000000000e+00</_position_offset_east>
+				<_have_position>1</_have_position>
+				<_last_fuse>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_last_fuse>
+				<_last_vel>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_last_vel>
+				<_last_wind_time>0</_last_wind_time>
+				<_last_airspeed>0.000000000e+00</_last_airspeed>
+				<_last_consistent_heading>0</_last_consistent_heading>
+				<_wind>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</_wind>
+				<_imu1_weight>1.000000000e+00</_imu1_weight>
+				<_last_failure_ms>0</_last_failure_ms>
+				<_last_startup_ms>2541</_last_startup_ms>
+			</AP_AHRS_DCM>
+			<_force_ekf>0</_force_ekf>
+			<_dcm_matrix object_id="_213">
+				<a>
+					<x>1.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</a>
+				<b>
+					<x>0.000000000e+00</x>
+					<y>1.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</b>
+				<c>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>1.000000000e+00</z>
+				</c>
+			</_dcm_matrix>
+			<_dcm_attitude>
+				<x>-4.067051690e-03</x>
+				<y>-1.013849229e-01</y>
+				<z>-3.099699497e+00</z>
+			</_dcm_attitude>
+			<_gyro_drift>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_gyro_drift>
+			<_gyro_estimate>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_gyro_estimate>
+			<_accel_ef_ekf>
+				<count>3</count>
+				<item>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</item>
+				<item>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</item>
+				<item>
+					<x>0.000000000e+00</x>
+					<y>0.000000000e+00</y>
+					<z>0.000000000e+00</z>
+				</item>
+			</_accel_ef_ekf>
+			<_accel_ef_ekf_blended>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_accel_ef_ekf_blended>
+			<start_time_ms>2541</start_time_ms>
+			<_ekf_flags>1</_ekf_flags>
+			<_last_body_odm_update_ms>0</_last_body_odm_update_ms>
+		</_ahrs_ekf>
+	</inertial_nav>
 	<arm_time_ms>0</arm_time_ms>
 	<auto_trim_counter>0</auto_trim_counter>
 	<last_radio_update_ms>3029</last_radio_update_ms>
 	<esc_calibration_notify_update_ms>0</esc_calibration_notify_update_ms>
-	<param_loader class_id="46" tracking_level="0" version="0"></param_loader>
+	<param_loader class_id="50" tracking_level="0" version="0"></param_loader>
 </callbacks>
 </boost_serialization>
 

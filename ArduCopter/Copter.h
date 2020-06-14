@@ -306,7 +306,10 @@ public:
         ar & BOOST_SERIALIZATION_NVP( rc_throttle_control_in_filter);
 
         ar & BOOST_SERIALIZATION_NVP( current_loc);
-        //ar & BOOST_SERIALIZATION_NVP( inertial_nav);  // no serialise yet
+
+        //ar.template register_type<AP_InertialNav>(); //virtual
+        ar.template register_type<AP_InertialNav_NavEKF>(); 
+        ar & BOOST_SERIALIZATION_NVP( inertial_nav);  //error: ‘class AP_InertialNav_NavEKF’ has no member named ‘serialize’
 
         //ar & BOOST_SERIALIZATION_NVP( attitude_control); //error: ‘class AC_AttitudeControl_Multi’ has no member named ‘serialize’
         //ar & BOOST_SERIALIZATION_NVP( pos_control); //error: ‘class AC_PosControl’ has no member named ‘serialize’

@@ -337,6 +337,32 @@ private:
     bool _ekf3_started;
     void update_EKF3(void);
 #endif
+
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AP_AHRS_DCM);
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+
+        ar & BOOST_SERIALIZATION_NVP( _force_ekf);
+        ar & BOOST_SERIALIZATION_NVP( _dcm_matrix);
+        ar & BOOST_SERIALIZATION_NVP( _dcm_attitude);
+        ar & BOOST_SERIALIZATION_NVP( _gyro_drift);
+        ar & BOOST_SERIALIZATION_NVP( _gyro_estimate);
+        ar & BOOST_SERIALIZATION_NVP( _accel_ef_ekf);
+        ar & BOOST_SERIALIZATION_NVP( _accel_ef_ekf_blended);
+        ar & BOOST_SERIALIZATION_NVP( start_time_ms);
+        ar & BOOST_SERIALIZATION_NVP( _ekf_flags);
+        #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
+            ar & BOOST_SERIALIZATION_NVP( _last_body_odm_update_ms);
+        #endif
+        
+    }
+
     bool _force_ekf;
     
     // rotation from vehicle body to NED frame

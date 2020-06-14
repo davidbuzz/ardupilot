@@ -67,6 +67,21 @@ public:
      */
     float       get_velocity_z() const override;
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        //ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AP_InertialNav);// AP_InertialNav is virtual
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+
+        ar & BOOST_SERIALIZATION_NVP(_relpos_cm);
+        ar & BOOST_SERIALIZATION_NVP(_velocity_cm);
+        ar & BOOST_SERIALIZATION_NVP(_ahrs_ekf); //error: ‘class AP_AHRS_NavEKF’ has no member named ‘serialize’
+    }
+
 private:
     Vector3f _relpos_cm;   // NEU
     Vector3f _velocity_cm; // NEU

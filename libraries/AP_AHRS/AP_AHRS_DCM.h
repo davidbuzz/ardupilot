@@ -107,6 +107,56 @@ public:
 
     bool get_velocity_NED(Vector3f &vec) const override;
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        //ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AP_AHRS); //AP_AHRS is virtual
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+
+        ar & BOOST_SERIALIZATION_NVP(_ki);
+        ar & BOOST_SERIALIZATION_NVP(_ki_yaw);        
+        ar & BOOST_SERIALIZATION_NVP(_dcm_matrix);
+        ar & BOOST_SERIALIZATION_NVP(_body_dcm_matrix);
+        ar & BOOST_SERIALIZATION_NVP(_omega_P);
+        ar & BOOST_SERIALIZATION_NVP(_omega_yaw_P);
+        ar & BOOST_SERIALIZATION_NVP(_omega_I);
+        ar & BOOST_SERIALIZATION_NVP(_omega_I_sum);
+        ar & BOOST_SERIALIZATION_NVP(_omega_I_sum_time);
+        ar & BOOST_SERIALIZATION_NVP(_omega);
+        ar & BOOST_SERIALIZATION_NVP(_ra_delay_buffer);
+        ar & BOOST_SERIALIZATION_NVP(_renorm_val_sum);
+        ar & BOOST_SERIALIZATION_NVP(_renorm_val_count);
+        ar & BOOST_SERIALIZATION_NVP(_error_rp);
+        ar & BOOST_SERIALIZATION_NVP(_error_yaw);
+        ar & BOOST_SERIALIZATION_NVP(_gps_last_update);
+        ar & BOOST_SERIALIZATION_NVP(_ra_sum);
+        ar & BOOST_SERIALIZATION_NVP(_last_velocity);
+        ar & BOOST_SERIALIZATION_NVP(_ra_deltat);
+        ar & BOOST_SERIALIZATION_NVP(_ra_sum_start);
+        ar & BOOST_SERIALIZATION_NVP(_last_declination);
+        ar & BOOST_SERIALIZATION_NVP(_mag_earth);  //error: ‘struct Vector2<float>’ has no member named ‘serialize’
+        ar & BOOST_SERIALIZATION_NVP(_have_gps_lock);
+        ar & BOOST_SERIALIZATION_NVP(_last_lat);
+        ar & BOOST_SERIALIZATION_NVP(_last_lng);
+        ar & BOOST_SERIALIZATION_NVP(_position_offset_north);
+        ar & BOOST_SERIALIZATION_NVP(_position_offset_east);
+        ar & BOOST_SERIALIZATION_NVP(_have_position);
+        ar & BOOST_SERIALIZATION_NVP(_last_fuse);
+        ar & BOOST_SERIALIZATION_NVP(_last_vel);
+        ar & BOOST_SERIALIZATION_NVP(_last_wind_time);
+        ar & BOOST_SERIALIZATION_NVP(_last_airspeed);
+        ar & BOOST_SERIALIZATION_NVP(_last_consistent_heading);
+        ar & BOOST_SERIALIZATION_NVP(_wind);
+        ar & BOOST_SERIALIZATION_NVP(_imu1_weight);
+        ar & BOOST_SERIALIZATION_NVP(_last_failure_ms);
+        ar & BOOST_SERIALIZATION_NVP(_last_startup_ms);
+
+    }
+
 private:
     float _ki;
     float _ki_yaw;
