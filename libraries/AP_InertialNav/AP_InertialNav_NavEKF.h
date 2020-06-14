@@ -74,7 +74,7 @@ public:
     template<class Archive> 
     void serialize(Archive & ar, const unsigned int version) 
     { 
-        //ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AP_InertialNav);// AP_InertialNav is virtual
+        //ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AP_InertialNav);// AP_InertialNav is virtual and has no private vars to speak of
         ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
 
         ar & BOOST_SERIALIZATION_NVP(_relpos_cm);
