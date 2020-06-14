@@ -327,6 +327,49 @@ public:
     // User settable parameters
     static const struct AP_Param::GroupInfo var_info[];
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>. 
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        ar & BOOST_SERIALIZATION_NVP(_slew_yaw);
+        ar & BOOST_SERIALIZATION_NVP(_ang_vel_roll_max);
+        ar & BOOST_SERIALIZATION_NVP(_ang_vel_pitch_max);
+        ar & BOOST_SERIALIZATION_NVP(_ang_vel_yaw_max);
+        ar & BOOST_SERIALIZATION_NVP(_accel_roll_max);
+        ar & BOOST_SERIALIZATION_NVP(_accel_pitch_max);
+        ar & BOOST_SERIALIZATION_NVP(_accel_yaw_max);
+        ar & BOOST_SERIALIZATION_NVP(_rate_bf_ff_enabled);
+        ar & BOOST_SERIALIZATION_NVP(_angle_boost_enabled);
+        ar & BOOST_SERIALIZATION_NVP(_p_angle_roll);
+        ar & BOOST_SERIALIZATION_NVP(_p_angle_pitch);
+        ar & BOOST_SERIALIZATION_NVP(_p_angle_yaw);
+        ar & BOOST_SERIALIZATION_NVP(_angle_limit_tc);
+        ar & BOOST_SERIALIZATION_NVP(_input_tc);
+        ar & BOOST_SERIALIZATION_NVP(_dt);
+        ar & BOOST_SERIALIZATION_NVP(_attitude_target_euler_angle);
+        ar & BOOST_SERIALIZATION_NVP(_attitude_target_euler_rate);
+        ar & BOOST_SERIALIZATION_NVP(_attitude_target_quat);
+        ar & BOOST_SERIALIZATION_NVP(_attitude_target_ang_vel);
+        ar & BOOST_SERIALIZATION_NVP(_rate_target_ang_vel);
+        ar & BOOST_SERIALIZATION_NVP(_rate_sysid_ang_vel);
+        ar & BOOST_SERIALIZATION_NVP(_actuator_sysid);
+        ar & BOOST_SERIALIZATION_NVP(_attitude_ang_error);
+        ar & BOOST_SERIALIZATION_NVP(_thrust_angle);
+        ar & BOOST_SERIALIZATION_NVP(_thrust_error_angle);
+        ar & BOOST_SERIALIZATION_NVP(_throttle_in);
+        ar & BOOST_SERIALIZATION_NVP(_angle_boost);
+        ar & BOOST_SERIALIZATION_NVP(_use_sqrt_controller);
+        ar & BOOST_SERIALIZATION_NVP(_althold_lean_angle_max);
+        ar & BOOST_SERIALIZATION_NVP(_throttle_rpy_mix_desired);
+        ar & BOOST_SERIALIZATION_NVP(_throttle_rpy_mix);
+        ar & BOOST_SERIALIZATION_NVP(_feedforward_scalar );
+        
+    }
+
 protected:
 
     // Update rate_target_ang_vel using attitude_error_rot_vec_rad

@@ -15,7 +15,7 @@
 	<_framerate>200</_framerate>
 	<_instance>0</_instance>
 	<_base_port>5760</_base_port>
-	<_parent_pid>410</_parent_pid>
+	<_parent_pid>8686</_parent_pid>
 	<_update_count>3653</_update_count>
 	<_ins class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_gyro_count>2</_gyro_count>
@@ -1643,11 +1643,11 @@
 			</mag_bf>
 			<time_now_us>3042949</time_now_us>
 			<rate_hz>1.200000000e+03</rate_hz>
-			<achieved_rate_hz>1.182468994e+03</achieved_rate_hz>
+			<achieved_rate_hz>1.144663940e+03</achieved_rate_hz>
 			<target_speedup>1.000000000e+00</target_speedup>
 			<frame_time_us>833</frame_time_us>
-			<scaled_frame_time_us>7.620332642e+02</scaled_frame_time_us>
-			<last_wall_time_us>1592098847104818</last_wall_time_us>
+			<scaled_frame_time_us>7.963284912e+02</scaled_frame_time_us>
+			<last_wall_time_us>1592099755352979</last_wall_time_us>
 			<instance>0</instance>
 			<use_time_sync>1</use_time_sync>
 			<last_speedup>1.000000000e+00</last_speedup>
@@ -2622,30 +2622,132 @@
 			<_last_body_odm_update_ms>0</_last_body_odm_update_ms>
 		</_ahrs_ekf>
 	</inertial_nav>
-	<attitude_control class_id="50" tracking_level="1" version="0" object_id="_214">
-		<_pid_rate_roll class_id="51" tracking_level="0" version="0">
-			<_kp object_id="_215">
+	<attitude_control class_id="51" tracking_level="1" version="0" object_id="_214">
+		<AC_AttitudeControl class_id="50" tracking_level="1" version="0" object_id="_215">
+			<_slew_yaw object_id="_216">
+				<_value>6.000000000e+03</_value>
+			</_slew_yaw>
+			<_ang_vel_roll_max object_id="_217">
+				<_value>0.000000000e+00</_value>
+			</_ang_vel_roll_max>
+			<_ang_vel_pitch_max object_id="_218">
+				<_value>0.000000000e+00</_value>
+			</_ang_vel_pitch_max>
+			<_ang_vel_yaw_max object_id="_219">
+				<_value>0.000000000e+00</_value>
+			</_ang_vel_yaw_max>
+			<_accel_roll_max object_id="_220">
+				<_value>1.100000000e+05</_value>
+			</_accel_roll_max>
+			<_accel_pitch_max object_id="_221">
+				<_value>1.100000000e+05</_value>
+			</_accel_pitch_max>
+			<_accel_yaw_max object_id="_222">
+				<_value>2.700000000e+04</_value>
+			</_accel_yaw_max>
+			<_rate_bf_ff_enabled object_id="_223">
+				<_value>1</_value>
+			</_rate_bf_ff_enabled>
+			<_angle_boost_enabled object_id="_224">
+				<_value>1</_value>
+			</_angle_boost_enabled>
+			<_p_angle_roll class_id="52" tracking_level="0" version="0">
+				<_kp object_id="_225">
+					<_value>0.000000000e+00</_value>
+				</_kp>
+			</_p_angle_roll>
+			<_p_angle_pitch>
+				<_kp object_id="_226">
+					<_value>0.000000000e+00</_value>
+				</_kp>
+			</_p_angle_pitch>
+			<_p_angle_yaw>
+				<_kp object_id="_227">
+					<_value>0.000000000e+00</_value>
+				</_kp>
+			</_p_angle_yaw>
+			<_angle_limit_tc object_id="_228">
+				<_value>1.000000000e+00</_value>
+			</_angle_limit_tc>
+			<_input_tc object_id="_229">
+				<_value>1.500000060e-01</_value>
+			</_input_tc>
+			<_dt>2.499999944e-03</_dt>
+			<_attitude_target_euler_angle>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>-3.099699497e+00</z>
+			</_attitude_target_euler_angle>
+			<_attitude_target_euler_rate>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_attitude_target_euler_rate>
+			<_attitude_target_quat>
+				<q1>2.094509453e-02</q1>
+				<q2>0.000000000e+00</q2>
+				<q3>0.000000000e+00</q3>
+				<q4>-9.997806549e-01</q4>
+			</_attitude_target_quat>
+			<_attitude_target_ang_vel>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_attitude_target_ang_vel>
+			<_rate_target_ang_vel>
+				<x>2.789596915e-01</x>
+				<y>1.395154595e+00</y>
+				<z>2.940852754e-02</z>
+			</_rate_target_ang_vel>
+			<_rate_sysid_ang_vel>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_rate_sysid_ang_vel>
+			<_actuator_sysid>
+				<x>0.000000000e+00</x>
+				<y>0.000000000e+00</y>
+				<z>0.000000000e+00</z>
+			</_actuator_sysid>
+			<_attitude_ang_error>
+				<q1>-9.987133741e-01</q1>
+				<q2>-2.030911623e-03</q2>
+				<q3>-5.067065358e-02</q3>
+				<q4>-1.030266285e-04</q4>
+			</_attitude_ang_error>
+			<_thrust_angle>1.014662459e-01</_thrust_angle>
+			<_thrust_error_angle>1.014662459e-01</_thrust_error_angle>
+			<_throttle_in>0.000000000e+00</_throttle_in>
+			<_angle_boost>0.000000000e+00</_angle_boost>
+			<_use_sqrt_controller>1</_use_sqrt_controller>
+			<_althold_lean_angle_max>0.000000000e+00</_althold_lean_angle_max>
+			<_throttle_rpy_mix_desired>1.000000015e-01</_throttle_rpy_mix_desired>
+			<_throttle_rpy_mix>2.587502301e-01</_throttle_rpy_mix>
+			<_feedforward_scalar>1.000000000e+00</_feedforward_scalar>
+		</AC_AttitudeControl>
+		<_pid_rate_roll class_id="53" tracking_level="0" version="0">
+			<_kp object_id="_230">
 				<_value>0.000000000e+00</_value>
 			</_kp>
-			<_ki object_id="_216">
+			<_ki object_id="_231">
 				<_value>0.000000000e+00</_value>
 			</_ki>
-			<_kd object_id="_217">
+			<_kd object_id="_232">
 				<_value>0.000000000e+00</_value>
 			</_kd>
-			<_kff object_id="_218">
+			<_kff object_id="_233">
 				<_value>0.000000000e+00</_value>
 			</_kff>
-			<_kimax object_id="_219">
+			<_kimax object_id="_234">
 				<_value>0.000000000e+00</_value>
 			</_kimax>
-			<_filt_T_hz object_id="_220">
+			<_filt_T_hz object_id="_235">
 				<_value>2.000000000e+01</_value>
 			</_filt_T_hz>
-			<_filt_E_hz object_id="_221">
+			<_filt_E_hz object_id="_236">
 				<_value>0.000000000e+00</_value>
 			</_filt_E_hz>
-			<_filt_D_hz object_id="_222">
+			<_filt_D_hz object_id="_237">
 				<_value>2.000000000e+01</_value>
 			</_filt_D_hz>
 			<_dt>2.499999944e-03</_dt>
@@ -2655,28 +2757,28 @@
 			<_derivative>1.999712884e-01</_derivative>
 		</_pid_rate_roll>
 		<_pid_rate_pitch>
-			<_kp object_id="_223">
+			<_kp object_id="_238">
 				<_value>0.000000000e+00</_value>
 			</_kp>
-			<_ki object_id="_224">
+			<_ki object_id="_239">
 				<_value>0.000000000e+00</_value>
 			</_ki>
-			<_kd object_id="_225">
+			<_kd object_id="_240">
 				<_value>0.000000000e+00</_value>
 			</_kd>
-			<_kff object_id="_226">
+			<_kff object_id="_241">
 				<_value>0.000000000e+00</_value>
 			</_kff>
-			<_kimax object_id="_227">
+			<_kimax object_id="_242">
 				<_value>0.000000000e+00</_value>
 			</_kimax>
-			<_filt_T_hz object_id="_228">
+			<_filt_T_hz object_id="_243">
 				<_value>2.000000000e+01</_value>
 			</_filt_T_hz>
-			<_filt_E_hz object_id="_229">
+			<_filt_E_hz object_id="_244">
 				<_value>0.000000000e+00</_value>
 			</_filt_E_hz>
-			<_filt_D_hz object_id="_230">
+			<_filt_D_hz object_id="_245">
 				<_value>2.000000000e+01</_value>
 			</_filt_D_hz>
 			<_dt>2.499999944e-03</_dt>
@@ -2686,28 +2788,28 @@
 			<_derivative>-4.476296715e-03</_derivative>
 		</_pid_rate_pitch>
 		<_pid_rate_yaw>
-			<_kp object_id="_231">
+			<_kp object_id="_246">
 				<_value>0.000000000e+00</_value>
 			</_kp>
-			<_ki object_id="_232">
+			<_ki object_id="_247">
 				<_value>0.000000000e+00</_value>
 			</_ki>
-			<_kd object_id="_233">
+			<_kd object_id="_248">
 				<_value>0.000000000e+00</_value>
 			</_kd>
-			<_kff object_id="_234">
+			<_kff object_id="_249">
 				<_value>0.000000000e+00</_value>
 			</_kff>
-			<_kimax object_id="_235">
+			<_kimax object_id="_250">
 				<_value>0.000000000e+00</_value>
 			</_kimax>
-			<_filt_T_hz object_id="_236">
+			<_filt_T_hz object_id="_251">
 				<_value>2.000000000e+01</_value>
 			</_filt_T_hz>
-			<_filt_E_hz object_id="_237">
+			<_filt_E_hz object_id="_252">
 				<_value>2.500000000e+00</_value>
 			</_filt_E_hz>
-			<_filt_D_hz object_id="_238">
+			<_filt_D_hz object_id="_253">
 				<_value>0.000000000e+00</_value>
 			</_filt_D_hz>
 			<_dt>2.499999944e-03</_dt>
@@ -2716,13 +2818,13 @@
 			<_error>2.621820569e-02</_error>
 			<_derivative>4.673153162e-02</_derivative>
 		</_pid_rate_yaw>
-		<_thr_mix_man object_id="_239">
+		<_thr_mix_man object_id="_254">
 			<_value>1.000000015e-01</_value>
 		</_thr_mix_man>
-		<_thr_mix_min object_id="_240">
+		<_thr_mix_min object_id="_255">
 			<_value>1.000000015e-01</_value>
 		</_thr_mix_min>
-		<_thr_mix_max object_id="_241">
+		<_thr_mix_max object_id="_256">
 			<_value>5.000000000e-01</_value>
 		</_thr_mix_max>
 	</attitude_control>
@@ -2730,7 +2832,7 @@
 	<auto_trim_counter>0</auto_trim_counter>
 	<last_radio_update_ms>3029</last_radio_update_ms>
 	<esc_calibration_notify_update_ms>0</esc_calibration_notify_update_ms>
-	<param_loader class_id="52" tracking_level="0" version="0"></param_loader>
+	<param_loader class_id="54" tracking_level="0" version="0"></param_loader>
 </callbacks>
 </boost_serialization>
 

@@ -89,7 +89,7 @@ public:
     void serialize(Archive & ar, const unsigned int version) 
     { 
         ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
-        //ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AC_AttitudeControl);//virtual
+            ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AC_AttitudeControl);//virtual, but has lots of private vars so we get them
             ar & BOOST_SERIALIZATION_NVP(_pid_rate_roll);
             ar & BOOST_SERIALIZATION_NVP(_pid_rate_pitch);
             ar & BOOST_SERIALIZATION_NVP(_pid_rate_yaw);

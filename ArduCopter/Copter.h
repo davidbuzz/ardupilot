@@ -312,6 +312,7 @@ public:
         ar & BOOST_SERIALIZATION_NVP( inertial_nav);  //error: ‘class AP_InertialNav_NavEKF’ has no member named ‘serialize’
 
         //AC_AttitudeControl is virtual
+        ar.template register_type<AC_AttitudeControl>();
         ar.template register_type<AC_AttitudeControl_Multi>();
         ar & BOOST_SERIALIZATION_NVP( attitude_control); //error: ‘class AC_AttitudeControl_Multi’ has no member named ‘serialize’
         //ar & BOOST_SERIALIZATION_NVP( pos_control); //error: ‘class AC_PosControl’ has no member named ‘serialize’
