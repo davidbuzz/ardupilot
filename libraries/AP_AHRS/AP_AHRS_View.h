@@ -172,6 +172,34 @@ public:
         return ahrs.get_error_yaw();
     }
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
+        
+        ar & BOOST_SERIALIZATION_NVP(roll);
+        ar & BOOST_SERIALIZATION_NVP(pitch);
+        ar & BOOST_SERIALIZATION_NVP(yaw);
+        ar & BOOST_SERIALIZATION_NVP(roll_sensor);
+        ar & BOOST_SERIALIZATION_NVP(pitch_sensor);
+        ar & BOOST_SERIALIZATION_NVP(yaw_sensor);
+
+        //ar.template register_type<AP_AHRS>(); 
+        //ar & BOOST_SERIALIZATION_NVP(ahrs); // serializer things this is a 'pointer conflict' between AP_AHRS and AP_AHRS_View https://www.boost.org/doc/libs/1_37_0/libs/serialization/doc/exceptions.html#pointer_conflict
+        ar & BOOST_SERIALIZATION_NVP(rot_view);
+        ar & BOOST_SERIALIZATION_NVP(rot_view_T);
+        ar & BOOST_SERIALIZATION_NVP(rot_body_to_ned);
+        ar & BOOST_SERIALIZATION_NVP(gyro);
+        ar & BOOST_SERIALIZATION_NVP(trig);
+        ar & BOOST_SERIALIZATION_NVP(y_angle);
+        ar & BOOST_SERIALIZATION_NVP(_pitch_trim_deg);
+
+    }
+
     float roll;
     float pitch;
     float yaw;
@@ -197,6 +225,19 @@ private:
         float sin_roll;
         float sin_pitch;
         float sin_yaw;
+
+        template<class Archive> 
+        void serialize(Archive & ar, const unsigned int version) 
+        { 
+            ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);                 
+            ar & BOOST_SERIALIZATION_NVP(cos_roll);
+            ar & BOOST_SERIALIZATION_NVP(cos_pitch);
+            ar & BOOST_SERIALIZATION_NVP(cos_yaw);
+            ar & BOOST_SERIALIZATION_NVP(sin_roll);
+            ar & BOOST_SERIALIZATION_NVP(sin_pitch);
+            ar & BOOST_SERIALIZATION_NVP(sin_yaw);
+        }
+
     } trig;
 
     float y_angle;

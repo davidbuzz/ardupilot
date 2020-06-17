@@ -114,7 +114,7 @@ public:
     template<class Archive> 
     void serialize(Archive & ar, const unsigned int version) 
     { 
-        //ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AP_AHRS); //AP_AHRS is virtual
+        //ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(AP_AHRS); //AP_AHRS is virtual, but buzz todo maybe relevant
         ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);     
 
         ar & BOOST_SERIALIZATION_NVP(_ki);

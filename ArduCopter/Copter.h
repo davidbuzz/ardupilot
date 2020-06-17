@@ -262,7 +262,8 @@ public:
 #if RPM_ENABLED == ENABLED
         //ar & BOOST_SERIALIZATION_NVP( rpm_sensor);// no serialise yet
 #endif
-       //ar & BOOST_SERIALIZATION_NVP(ahrs_view);//error: ‘class AP_AHRS_View’ has no member named ‘serialize’
+       ar & BOOST_SERIALIZATION_NVP(ahrs_view);//error: ‘class AP_AHRS_View’ has no member named ‘serialize’
+       
 //#if CONFIG_HAL_BOARD == HAL_BOARD_SITL
 //      ar & BOOST_SERIALIZATION_NVP(sitl);
 //#endif

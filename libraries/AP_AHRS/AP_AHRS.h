@@ -193,6 +193,64 @@ public:
     // request EKF yaw reset to try and avoid the need for an EKF lane switch or failsafe
     virtual void request_yaw_reset(void) {}
 
+    friend class boost::serialization::access; 
+    // When the class Archive corresponds to an output archive, the 
+    // & operator is defined similar to <<.  Likewise, when the class Archive 
+    // is a type of input archive the & operator is defined similar to >>.
+    template<class Archive> 
+    void serialize(Archive & ar, const unsigned int version) 
+    { 
+        ::printf("serializing -> %s\n", __PRETTY_FUNCTION__);             
+        ar & BOOST_SERIALIZATION_NVP(roll);
+        ar & BOOST_SERIALIZATION_NVP(pitch);
+        ar & BOOST_SERIALIZATION_NVP(yaw);
+        ar & BOOST_SERIALIZATION_NVP(roll_sensor);
+        ar & BOOST_SERIALIZATION_NVP(pitch_sensor);
+        ar & BOOST_SERIALIZATION_NVP(yaw_sensor);
+        ar & BOOST_SERIALIZATION_NVP(_vehicle_class);
+        ar & BOOST_SERIALIZATION_NVP(_kp_yaw);
+        ar & BOOST_SERIALIZATION_NVP(_kp);
+        ar & BOOST_SERIALIZATION_NVP(gps_gain);
+        ar & BOOST_SERIALIZATION_NVP(beta);
+        ar & BOOST_SERIALIZATION_NVP(_gps_use);
+        ar & BOOST_SERIALIZATION_NVP(_wind_max);
+        ar & BOOST_SERIALIZATION_NVP(_board_orientation);
+        ar & BOOST_SERIALIZATION_NVP(_gps_minsats);
+        ar & BOOST_SERIALIZATION_NVP(_gps_delay);
+        ar & BOOST_SERIALIZATION_NVP(_ekf_type);
+        ar & BOOST_SERIALIZATION_NVP(_custom_roll);
+        ar & BOOST_SERIALIZATION_NVP(_custom_pitch);
+        ar & BOOST_SERIALIZATION_NVP(_custom_yaw);
+        ar & BOOST_SERIALIZATION_NVP(_custom_rotation);
+        ar & BOOST_SERIALIZATION_NVP(_flags.value);
+        ar & BOOST_SERIALIZATION_NVP(_compass_last_update);
+        ar & BOOST_SERIALIZATION_NVP(_trim);
+        ar & BOOST_SERIALIZATION_NVP(_last_trim);
+        ar & BOOST_SERIALIZATION_NVP(_rotation_autopilot_body_to_vehicle_body);
+        ar & BOOST_SERIALIZATION_NVP(_rotation_vehicle_body_to_autopilot_body);
+        ar & BOOST_SERIALIZATION_NVP(_gyro_drift_limit);
+        ar & BOOST_SERIALIZATION_NVP(_accel_ef);
+        ar & BOOST_SERIALIZATION_NVP(_accel_ef_blended);
+        ar & BOOST_SERIALIZATION_NVP(_lp);
+        ar & BOOST_SERIALIZATION_NVP(_hp);
+        ar & BOOST_SERIALIZATION_NVP(_lastGndVelADS);
+        ar & BOOST_SERIALIZATION_NVP( _home);
+        //ar & BOOST_SERIALIZATION_NVP((uint8_t&)_home_is_set); bitfield buzz todo
+        //ar & BOOST_SERIALIZATION_NVP((uint8_t&)_home_locked);
+        ar & BOOST_SERIALIZATION_NVP(_cos_roll);
+        ar & BOOST_SERIALIZATION_NVP(_cos_pitch);
+        ar & BOOST_SERIALIZATION_NVP(_cos_yaw);
+        ar & BOOST_SERIALIZATION_NVP(_sin_roll);
+        ar & BOOST_SERIALIZATION_NVP(_sin_pitch);
+        ar & BOOST_SERIALIZATION_NVP(_sin_yaw);
+        ar & BOOST_SERIALIZATION_NVP(_active_accel_instance);
+        ar & BOOST_SERIALIZATION_NVP(_view);
+        ar & BOOST_SERIALIZATION_NVP(_AOA);
+        ar & BOOST_SERIALIZATION_NVP(_SSA);
+        ar & BOOST_SERIALIZATION_NVP(_last_AOA_update_ms);
+
+    }
+
     // Euler angles (radians)
     float roll;
     float pitch;
@@ -601,12 +659,16 @@ protected:
     Matrix3f _custom_rotation;
 
     // flags structure
-    struct ahrs_flags {
+    typedef union {
+    struct  {
         uint8_t have_initial_yaw        : 1;    // whether the yaw value has been intialised with a reference
         uint8_t fly_forward             : 1;    // 1 if we can assume the aircraft will be flying forward on its X axis
         uint8_t correct_centrifugal     : 1;    // 1 if we should correct for centrifugal forces (allows arducopter to turn this off when motors are disarmed)
         uint8_t wind_estimation         : 1;    // 1 if we should do wind estimation
-    } _flags;
+    };
+    uint8_t value;
+    } ahrs_flags;
+    ahrs_flags  _flags;
 
     // calculate sin/cos of roll/pitch/yaw from rotation
     void calc_trig(const Matrix3f &rot,
