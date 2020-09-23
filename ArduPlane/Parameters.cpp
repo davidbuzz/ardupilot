@@ -1271,6 +1271,11 @@ const AP_Param::GroupInfo ParametersG2::var_info[] = {
     // @User: Standard
     AP_GROUPINFO("RTL_CLIMB_MIN", 27, ParametersG2, rtl_climb_min, 0),
 
+#if OFFBOARD_GUIDED == ENABLED
+    // @Path: ../libraries/AC_PID/AC_PID.cpp
+    AP_SUBGROUPINFO(guidedHeading, "GUIDED_", 28, ParametersG2, AC_PID),
+#endif // OFFBOARD_GUIDED == ENABLED
+
     AP_GROUPEND
 };
 
