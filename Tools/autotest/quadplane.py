@@ -181,6 +181,71 @@ class AutoTestQuadPlane(AutoTest):
             "QAutoTune": "See https://github.com/ArduPilot/ardupilot/issues/10411",
         }
 
+    def test_pilot_yaw(self):
+        self.takeoff(10, mode="QLOITER")
+        self.set_parameter("STICK_MIXING", 0)
+        self.set_rc(4, 1700)
+        for mode in "QLOITER", "QHOVER":
+            self.wait_heading(45)
+            self.wait_heading(90)
+            self.wait_heading(180)
+            self.wait_heading(275)
+        self.set_rc(4, 1500)
+        self.do_RTL()
+
+    def CPUFailsafe(self):
+        '''In lockup Plane should copy RC inputs to RC outputs'''
+        self.plane_CPUFailsafe()
+
+    def test_qassist(self):
+        # find a motor peak
+        self.takeoff(10, mode="QHOVER")
+        self.set_rc(3, 1800)
+        self.change_mode("FBWA")
+        thr_min_pwm = self.get_parameter("Q_THR_MIN_PWM")
+        self.progress("Waiting for motors to stop (transition completion)")
+        self.wait_servo_channel_value(5,
+                                      thr_min_pwm,
+                                      timeout=30,
+                                      comparator=operator.eq)
+        self.delay_sim_time(5)
+        self.wait_servo_channel_value(5,
+                                      thr_min_pwm,
+                                      timeout=30,
+                                      comparator=operator.eq)
+        self.progress("Stopping forward motor to kill airspeed below limit")
+        self.set_rc(3, 1000)
+        self.progress("Waiting for qassist to kick in")
+        self.wait_servo_channel_value(5, 1400, timeout=30, comparator=operator.gt)
+        self.progress("Move forward again, check qassist stops")
+        self.set_rc(3, 1800)
+        self.progress("Checking qassist stops")
+        self.wait_servo_channel_value(5,
+                                      thr_min_pwm,
+                                      timeout=30,
+                                      comparator=operator.eq)
+        self.set_rc(3, 1500)
+
+        self.context_push()
+        self.progress("Rolling over hard")
+        self.set_rc(1, 1000)
+        self.wait_roll(-65, 5)
+        self.progress("Killing servo outputs to force qassist to help")
+        self.set_parameter("SERVO1_MIN", 1480)
+        self.set_parameter("SERVO1_MAX", 1480)
+        self.set_parameter("SERVO1_TRIM", 1480)
+        self.progress("Trying to roll over hard the other way")
+        self.set_rc(1, 2000)
+        self.progress("Waiting for qassist (angle) to kick in")
+        self.wait_servo_channel_value(5, 1100, timeout=30, comparator=operator.gt)
+        self.wait_roll(85, 5)
+        self.context_pop()
+
+        self.change_mode("RTL")
+        self.delay_sim_time(20)
+        self.change_mode("QRTL")
+        self.wait_disarmed(timeout=300)
+
     def tests(self):
         '''return list of all tests'''
         m = os.path.join(testdir, "ArduPlane-Missions/Dalby-OBC2016.txt")
