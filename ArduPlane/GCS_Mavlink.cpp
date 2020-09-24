@@ -791,42 +791,37 @@ MAV_RESULT GCS_MAVLINK_Plane::handle_command_int_do_reposition(const mavlink_com
     return MAV_RESULT_FAILED;
 }
 
+
 // these are GUIDED mode commands that are RATE or slew enabled, so you can have more powerful control than default controls.
 MAV_RESULT GCS_MAVLINK_Plane::handle_command_int_guided_slew_commands(const mavlink_command_int_t &packet)
 {
-
-
-  ::printf("GCS_MAVLINK_Plane::handle_command_int_guided_slew_commands .. slew packet recieved:%d\n",packet.command);
-
   switch(packet.command) {
-    
 
 #if OFFBOARD_GUIDED == ENABLED
     case MAV_CMD_GUIDED_CHANGE_SPEED: {
-        // command is only valid in guided
+        // command is only valid in guided mode
         if (plane.control_mode != &plane.mode_guided) {
-            gcs().send_text(MAV_SEVERITY_WARNING,"TEMPORARILY_REJECTED - not in guided mode.");
-            return MAV_RESULT_TEMPORARILY_REJECTED;
+            gcs().send_text(MAV_SEVERITY_WARNING,"TEMPORARILY_REJECTED - not in guided mode."); 
+            return MAV_RESULT_FAILED;
         }
 
          // only airspeed commands are supported right now...
         if (int(packet.param1) != SPEED_TYPE_AIRSPEED) {  // since SPEED_TYPE is int in range 0-1 and packet.param1 is a *float* this works.
-            ::printf("unsupported packet.param1 in cmd-guided-change-speed:%f\n",packet.param1);
-            return MAV_RESULT_UNSUPPORTED;
+            return MAV_RESULT_DENIED;
         }
 
          // reject airspeeds that are outside of the tuning envelope
         if (packet.param2 > plane.aparm.airspeed_max || packet.param2 < plane.aparm.airspeed_min) {
-            gcs().send_text(MAV_SEVERITY_WARNING,"FAILED - not inside tuning envelope.");
-            return MAV_RESULT_FAILED;
+            gcs().send_text(MAV_SEVERITY_WARNING,"FAILED - not inside tuning envelope."); 
+            return MAV_RESULT_DENIED;
         }
 
-         // reject duplicate airspeeds
+         // no need to process any new packet/s with the
+         //  same airspeed any further, if we are already doing it.
         float new_target_airspeed_cm = packet.param2 * 100;
-//        if (new_target_airspeed_cm == plane.guided_state.target_airspeed_cm) {
-        if ( fabs(new_target_airspeed_cm - plane.guided_state.target_airspeed_cm)<0.001) { // compare if two floats are 'the same'
-            gcs().send_text(MAV_SEVERITY_WARNING,"dup arspd request");
-            return MAV_RESULT_TEMPORARILY_REJECTED;
+        if ( is_equal(new_target_airspeed_cm,plane.guided_state.target_airspeed_cm)) { 
+            gcs().send_text(MAV_SEVERITY_WARNING,"dup arspd request"); 
+            return MAV_RESULT_ACCEPTED;
         }
         plane.guided_state.target_airspeed_cm = new_target_airspeed_cm;
         plane.guided_state.target_airspeed_time_ms = AP_HAL::millis();
@@ -842,22 +837,21 @@ MAV_RESULT GCS_MAVLINK_Plane::handle_command_int_guided_slew_commands(const mavl
         if (plane.guided_state.target_airspeed_cm < plane.target_airspeed_cm) {
             plane.guided_state.target_airspeed_accel *= -1.0f;
         }
-        ::printf("ACCEPTED spd:%f -> %f\n",packet.param2,packet.param3);
-        gcs().send_text(MAV_SEVERITY_WARNING,"ACCEPTED spd");
+        gcs().send_text(MAV_SEVERITY_WARNING,"ACCEPTED spd"); 
         return MAV_RESULT_ACCEPTED;
     }
 
      case MAV_CMD_GUIDED_CHANGE_ALTITUDE: {
         // command is only valid in guided
         if (plane.control_mode != &plane.mode_guided) {
-            gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED - not in guided mode");
-            return MAV_RESULT_TEMPORARILY_REJECTED;
+            gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED - not in guided mode"); 
+            return MAV_RESULT_FAILED;
         }
 
-        // command is only valid if alt is non-zero
-        if (  packet.z < 0.0001 ) {
-            gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED - alt of zero or less not supported: %f\n", packet.z);
-            return MAV_RESULT_TEMPORARILY_REJECTED;
+        // disallow default value of -1 and dangerous value of zero
+        if (is_equal(packet.z, -1.0f) || is_equal(packet.z, 0.0f)){
+            gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED - alt of zero or less not supported: %f\n", packet.z); 
+            return MAV_RESULT_DENIED;
         }
          // the requested alt data might be relative or absolute
         float new_target_alt = packet.z * 100;
@@ -865,36 +859,35 @@ MAV_RESULT GCS_MAVLINK_Plane::handle_command_int_guided_slew_commands(const mavl
 
          // only global/relative/terrain frames are supported
         switch(packet.frame) {
-        case MAV_FRAME_GLOBAL_RELATIVE_ALT: {
-            // a target alt of zero or greater is theoretically allowed
-            if   (fabs(plane.guided_state.target_alt - new_target_alt_rel)<0.001 ) { // compare two floats as near-enough
-                // reject duplicate altitude change requests
-                gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED - dup rel-alt request");
-                return MAV_RESULT_TEMPORARILY_REJECTED;
+            case MAV_FRAME_GLOBAL_RELATIVE_ALT: {
+                if (is_equal(plane.guided_state.target_alt,new_target_alt_rel) ) { // compare two floats as near-enough
+                    gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED - dup rel-alt request"); 
+                    // no need to process any new packet/s with the same ALT any further, if we are already doing it.
+                    return MAV_RESULT_ACCEPTED;
+                }
+                plane.guided_state.target_alt = new_target_alt_rel;
+                break;
             }
-            plane.guided_state.target_alt = packet.z * 100 + plane.home.alt;
-            break;
-        }
-        case MAV_FRAME_GLOBAL: {
-            if   (fabs(plane.guided_state.target_alt - new_target_alt)<0.001 ) {  // compare two floats as near-enough
-                // reject duplicate altitude change requests
-                gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED - dup abs-alt request");
-                return MAV_RESULT_TEMPORARILY_REJECTED;
+            case MAV_FRAME_GLOBAL: {
+                if (is_equal(plane.guided_state.target_alt,new_target_alt) ) {  // compare two floats as near-enough
+                    gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED - dup abs-alt request"); 
+                    // no need to process any new packet/s with the same ALT any further, if we are already doing it.
+                    return MAV_RESULT_ACCEPTED;
+                }
+                plane.guided_state.target_alt = new_target_alt;
+                break;
             }
-            plane.guided_state.target_alt = packet.z * 100;
-            break;
-        }
-        default:
-            // this wasn't a mission_item, so no forms of frame nacks are supported, MAV_RESULT_UNSUPPORED is the best we can do
-            gcs().send_text(MAV_SEVERITY_WARNING,"UNSUPPORTED");
-            return MAV_RESULT_UNSUPPORTED;
+            default:
+                //  MAV_RESULT_DENIED  means Command is invalid (is supported but has invalid parameters).
+                gcs().send_text(MAV_SEVERITY_WARNING,"UNSUPPORTED"); 
+                return MAV_RESULT_DENIED;
         }
 
-         plane.guided_state.target_alt_frame = packet.frame;
+        plane.guided_state.target_alt_frame = packet.frame;
         plane.guided_state.last_target_alt = plane.current_loc.alt; // FIXME: Reference frame is not corrected for here
         plane.guided_state.target_alt_time_ms = AP_HAL::millis();
 
-         if (is_zero(packet.param3)) {
+        if (is_zero(packet.param3)) {
             // the user wanted /maximum acceleration, pick a large value as close enough
             plane.guided_state.target_alt_accel = 1000.0;
         } else {
@@ -905,54 +898,53 @@ MAV_RESULT GCS_MAVLINK_Plane::handle_command_int_guided_slew_commands(const mavl
         if (plane.guided_state.target_alt < plane.current_loc.alt) {
             plane.guided_state.target_alt_accel *= -1.0f;
         }
-        ::printf("ACCEPTED alt:%f -> %f\n",packet.z,packet.param3);
-        gcs().send_text(MAV_SEVERITY_WARNING,"ACCEPTED alt");
+        gcs().send_text(MAV_SEVERITY_WARNING,"ACCEPTED alt"); 
         return MAV_RESULT_ACCEPTED;
     }
 
      case MAV_CMD_GUIDED_CHANGE_HEADING: {
 
-        // command is only valid in guided
+        // command is only valid in guided mode
         if (plane.control_mode != &plane.mode_guided) {
-            gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED - not in guided mode");
-            return MAV_RESULT_TEMPORARILY_REJECTED;
+            gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED - not in guided mode"); 
+            return MAV_RESULT_FAILED;
         }
 
-         // don't accept packets out a [0-360) degree range
+         // don't accept packets outside of [0-360] degree range
         if (packet.param2 < 0.0f || packet.param2 >= 360.0f) {
-            gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED - packet.param2 out of range 0-359.9");
-            return MAV_RESULT_TEMPORARILY_REJECTED;
+            gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED - packet.param2 out of range 0-359.9"); 
+            return MAV_RESULT_DENIED;
         }
 
-         float new_target_heading = radians(wrap_180(packet.param2));
+        float new_target_heading = radians(wrap_180(packet.param2));
 
-         // reject duplicate heading requests if our target-heading has been set to anything except it's default value of -1
-        if (( plane.guided_state.target_heading > -0.001 ) && (fabs(new_target_heading - plane.guided_state.target_heading)<0.001)) { // compare two floats as near-enough
-            gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED - dup heading request");
-            return MAV_RESULT_TEMPORARILY_REJECTED;
+        // if packet is requesting us to go to the heading we are already going to, we-re already on it.
+        if ( (is_equal(new_target_heading,plane.guided_state.target_heading))) { // compare two floats as near-enough
+            gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED - dup heading request"); 
+            return MAV_RESULT_ACCEPTED;
         }
 
-         if ( int(packet.param1) == HEADING_TYPE_COURSE_OVER_GROUND) { // compare as nearest int
+        // course over ground
+        if ( int(packet.param1) == HEADING_TYPE_COURSE_OVER_GROUND) { // compare as nearest int
             plane.guided_state.target_heading_type = GUIDED_HEADING_COG;
             plane.prev_WP_loc = plane.current_loc;
-            gcs().send_text(MAV_SEVERITY_WARNING,"COURSE_OVER_GROUND");
-        }
-        else if (int(packet.param1) == HEADING_TYPE_HEADING) { // compare as nearest int
+            gcs().send_text(MAV_SEVERITY_WARNING,"COURSE_OVER_GROUND"); 
+        // normal vehicle heading
+        } else if (int(packet.param1) == HEADING_TYPE_HEADING) { // compare as nearest int
             plane.guided_state.target_heading_type = GUIDED_HEADING_HEADING;
-            gcs().send_text(MAV_SEVERITY_WARNING,"HEADING");
+            gcs().send_text(MAV_SEVERITY_WARNING,"HEADING"); 
         } else {
-            // unknown heading track type
-            gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED");
-            return MAV_RESULT_TEMPORARILY_REJECTED;
+            //  MAV_RESULT_DENIED  means Command is invalid (is supported but has invalid parameters).
+            gcs().send_text(MAV_SEVERITY_WARNING,"REJECTED"); 
+            return MAV_RESULT_DENIED;
         }
 
-         plane.g2.guidedHeading.reset_I();
+        plane.g2.guidedHeading.reset_I();
 
-         plane.guided_state.target_heading = new_target_heading;
+        plane.guided_state.target_heading = new_target_heading;
         plane.guided_state.target_heading_accel_limit = MAX(packet.param3, 0.05f);
         plane.guided_state.target_heading_time_ms = AP_HAL::millis();
-        ::printf("ACCEPTED hdg:%f -> %f\n",packet.param2,packet.param3);
-        gcs().send_text(MAV_SEVERITY_WARNING,"ACCEPTED hdg");
+        gcs().send_text(MAV_SEVERITY_WARNING,"ACCEPTED hdg"); 
         return MAV_RESULT_ACCEPTED;
     }
 #endif // OFFBOARD_GUIDED == ENABLED
@@ -964,6 +956,7 @@ MAV_RESULT GCS_MAVLINK_Plane::handle_command_int_guided_slew_commands(const mavl
 
 }
 
+
 MAV_RESULT GCS_MAVLINK_Plane::handle_command_int_packet(const mavlink_command_int_t &packet)
 {
 
@@ -974,13 +967,12 @@ MAV_RESULT GCS_MAVLINK_Plane::handle_command_int_packet(const mavlink_command_in
     case MAV_CMD_DO_REPOSITION:
         return handle_command_int_do_reposition(packet);
 
-    // special 'slew-enabled' guided commands here... for speed,alt, and direction commands
+   // special 'slew-enabled' guided commands here... for speed,alt, and direction commands
     case MAV_CMD_GUIDED_CHANGE_SPEED:
-        return handle_command_int_guided_slew_commands(packet);
     case MAV_CMD_GUIDED_CHANGE_ALTITUDE:
-        return handle_command_int_guided_slew_commands(packet);
     case MAV_CMD_GUIDED_CHANGE_HEADING:
         return handle_command_int_guided_slew_commands(packet);
+
 
     default:
         return GCS_MAVLINK::handle_command_int_packet(packet);

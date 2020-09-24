@@ -37,9 +37,12 @@ void Plane::adjust_altitude_target()
         uint32_t now = AP_HAL::millis();
         float delta = 1e-3f * (now - guided_state.target_alt_time_ms);
         guided_state.target_alt_time_ms = now;
-        float delta_amt = 100 * delta * guided_state.target_alt_accel;
+        // determine delta accurately as a float
+        float delta_amt_f = delta * guided_state.target_alt_accel;
+        // then scale x100 to match last_target_alt and convert to a signed int32_t as it may be negative
+        int32_t delta_amt_i = (int32_t)(100.0 * delta_amt_f); 
         Location temp {};
-        temp.alt = guided_state.last_target_alt + delta_amt;
+        temp.alt = guided_state.last_target_alt + delta_amt_i; // ...to avoid floats here, 
         if (is_positive(guided_state.target_alt_accel)) {
             temp.alt = MIN(guided_state.target_alt, temp.alt);
         } else {

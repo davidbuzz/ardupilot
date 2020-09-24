@@ -588,7 +588,7 @@ void Plane::calc_nav_roll()
             millis() - plane.guided_state.last_forced_rpy_ms.x < 3000) {
         commanded_roll = plane.guided_state.forced_rpy_cd.x;
 #if OFFBOARD_GUIDED == ENABLED
-    // guided_state.target_heading is radians at this point between equivalent of -180 and 180 degrees ( it also defaults to -1 )
+    // guided_state.target_heading is radians at this point between -pi and pi ( defaults to -4 )
     } else if ((control_mode == &mode_guided) && (guided_state.target_heading_type != GUIDED_HEADING_NONE) ) {
         uint32_t tnow = AP_HAL::millis();
         float delta = (tnow - guided_state.target_heading_time_ms) * 1e-3f;
