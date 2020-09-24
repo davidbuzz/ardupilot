@@ -303,18 +303,91 @@ const struct LogStructure Plane::log_structure[] = {
       "QTUN", "Qffffffeccf", "TimeUS,ThI,ABst,ThO,ThH,DAlt,Alt,BAlt,DCRt,CRt,TMix", "s----mmmnn-", "F----00000-" },
     { LOG_AOA_SSA_MSG, sizeof(log_AOA_SSA),
       "AOA", "Qff", "TimeUS,AOA,SSA", "sdd", "F00" },
-    { LOG_PIQR_MSG, sizeof(log_PID), \
-      "PIQR", PID_FMT,  PID_LABELS, PID_UNITS, PID_MULTS },  \
-    { LOG_PIQP_MSG, sizeof(log_PID), \
-      "PIQP", PID_FMT,  PID_LABELS, PID_UNITS, PID_MULTS }, \
-    { LOG_PIQY_MSG, sizeof(log_PID), \
-      "PIQY", PID_FMT,  PID_LABELS, PID_UNITS, PID_MULTS }, \
-    { LOG_PIQA_MSG, sizeof(log_PID), \
-      "PIQA", PID_FMT,  PID_LABELS, PID_UNITS, PID_MULTS }, \
-    { LOG_PIDG_MSG, sizeof(log_PID), \
-      "PIDG", PID_FMT,  PID_LABELS, PID_UNITS, PID_MULTS }, \
-    { LOG_AETR_MSG, sizeof(log_AETR), \
-      "AETR", "Qhhhhh",  "TimeUS,Ail,Elev,Thr,Rudd,Flap", "s-----", "F-----" },  \
+
+// @LoggerMessage: PIQR,PIQP,PIQY,PIQA
+// @Description: QuadPlane Proportional/Integral/Derivative gain values for Roll/Pitch/Yaw/Z
+// @Field: TimeUS: Time since system startup
+// @Field: Tar: desired value
+// @Field: Act: achieved value
+// @Field: Err: error between target and achieved
+// @Field: P: proportional part of PID
+// @Field: I: integral part of PID
+// @Field: D: derivative part of PID
+// @Field: FF: controller feed-forward portion of response
+// @Field: Dmod: scaler applied to D gain to reduce limit cycling
+    { LOG_PIQR_MSG, sizeof(log_PID),
+      "PIQR", PID_FMT,  PID_LABELS, PID_UNITS, PID_MULTS },
+    { LOG_PIQP_MSG, sizeof(log_PID),
+      "PIQP", PID_FMT,  PID_LABELS, PID_UNITS, PID_MULTS },
+    { LOG_PIQY_MSG, sizeof(log_PID),
+      "PIQY", PID_FMT,  PID_LABELS, PID_UNITS, PID_MULTS },
+    { LOG_PIQA_MSG, sizeof(log_PID),
+      "PIQA", PID_FMT,  PID_LABELS, PID_UNITS, PID_MULTS },
+
+// @LoggerMessage: PIDG
+// @Description: Plane Proportional/Integral/Derivative gain values for Heading when using COMMAND_INT control.
+// @Field: TimeUS: Time since system startup
+// @Field: Tar: desired value
+// @Field: Act: achieved value
+// @Field: Err: error between target and achieved
+// @Field: P: proportional part of PID
+// @Field: I: integral part of PID
+// @Field: D: derivative part of PID
+// @Field: FF: controller feed-forward portion of response
+// @Field: Dmod: scaler applied to D gain to reduce limit cycling
+    { LOG_PIDG_MSG, sizeof(log_PID),
+      "PIDG", PID_FMT,  PID_LABELS, PID_UNITS, PID_MULTS },
+
+// @LoggerMessage: AETR
+// @Description: Normalised pre-mixer control surface outputs
+// @Field: TimeUS: Time since system startup
+// @Field: Ail: Pre-mixer value for aileron output (between -4500 to 4500)
+// @Field: Elev: Pre-mixer value for elevator output (between -4500 to 4500)
+// @Field: Thr: Pre-mixer value for throttle output (between -4500 to 4500)
+// @Field: Rudd: Pre-mixer value for rudder output (between -4500 to 4500)
+// @Field: Flap: Pre-mixer value for flaps output (between -4500 to 4500)
+    { LOG_AETR_MSG, sizeof(log_AETR),
+      "AETR", "Qhhhhh",  "TimeUS,Ail,Elev,Thr,Rudd,Flap", "s-----", "F-----" },
+
+// @LoggerMessage: OFG
+// @Description: OFfboard-Guided - an advanced version of GUIDED for companion computers that includes rate/s.  
+// @Field: TimeUS: Time since system startup
+// @Field: Arsp:  target airspeed cm
+// @Field: ArspA:  target airspeed accel
+// @Field: Alt:  target alt
+// @Field: AltA: target alt accel
+// @Field: AltF: target alt frame
+// @Field: Hdg:  target heading
+// @Field: HdgA: target heading lim
+    { LOG_OFG_MSG, sizeof(log_OFG_Guided),     
+      "OFG", "QffffBff",    "TimeUS,Arsp,ArspA,Alt,AltA,AltF,Hdg,HdgA", "s-------", "F-------" }, 
+
+// @LoggerMessage: CMDI
+// @Description: Generic CommandInt message logger(CMDI) 
+// @Field: TimeUS: Time since system startup
+// @Field: CId:  command id
+// @Field: TSys: target system
+// @Field: TCmp: target component
+// @Field: cur:  current
+// @Field: cont: autocontinue
+// @Field: Prm1: parameter 1
+// @Field: Prm2: parameter 2
+// @Field: Prm3: parameter 3
+// @Field: Prm4: parameter 4
+// @Field: Lat: target latitude
+// @Field: Lng: target longitude
+// @Field: Alt: target altitude
+// @Field: F:   frame
+    { LOG_CMDI_MSG, sizeof(log_CMDI),     
+      "CMDI", "QHBBBBffffiifB",    "TimeUS,CId,TSys,TCmp,cur,cont,Prm1,Prm2,Prm3,Prm4,Lat,Lng,Alt,F", "s---------DUm-", "F---------GGB-" }, 
+// these next three are same format as log_CMDI just each a different name for Heading,Speed and Alt COMMAND_INTs
+    { LOG_CMDS_MSG, sizeof(log_CMDI),     
+      "CMDS", "QHBBBBffffiifB",    "TimeUS,CId,TSys,TCmp,cur,cont,Prm1,Prm2,Prm3,Prm4,Lat,Lng,Alt,F", "s---------DUm-", "F---------GGB-" }, 
+    { LOG_CMDA_MSG, sizeof(log_CMDI),     
+      "CMDA", "QHBBBBffffiifB",    "TimeUS,CId,TSys,TCmp,cur,cont,Prm1,Prm2,Prm3,Prm4,Lat,Lng,Alt,F", "s---------DUm-", "F---------GGB-" }, 
+    { LOG_CMDH_MSG, sizeof(log_CMDI),     
+      "CMDH", "QHBBBBffffiifB",    "TimeUS,CId,TSys,TCmp,cur,cont,Prm1,Prm2,Prm3,Prm4,Lat,Lng,Alt,F", "s---------DUm-", "F---------GGB-" }, 
+
 };
 
 void Plane::Log_Write_Vehicle_Startup_Messages()
