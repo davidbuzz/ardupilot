@@ -1,0 +1,15 @@
+
+https://swarminglogic.com/article/2014_11_crosscompile
+https://stackoverflow.com/questions/38786014/how-to-compile-executable-for-windows-with-gcc-with-linux-subsystem
+
+sudo apt-get install g++-mingw-w64 mingw-w64-{tools,x86-64-dev}
+
+#32bit windows exe:
+buzz has this building a arduplane.exe!
+CXX=i686-w64-mingw32-g++ CC=i686-w64-mingw32-gcc ./waf configure 
+CXX=i686-w64-mingw32-g++ CC=i686-w64-mingw32-gcc ./waf --target bin/arduplane
+
+#64bit windows exe:
+buzz has not even tried this.
+CXX=x86_64-w64-mingw32-g++ CC=x86_64-w64-mingw32-gcc ./waf configure 
+CXX=x86_64-w64-mingw32-g++ CC=x86_64-w64-mingw32-gcc ./waf --target bin/arduplane

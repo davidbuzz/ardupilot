@@ -146,6 +146,10 @@ def check_librt(cfg, env):
     if cfg.env.DEST_OS == 'darwin':
         return True
 
+    #if cfg.env.CXX == 'i686-w64-mingw32-g++':
+    #    print("boop")
+    return False
+
     ret = cfg.check(
         compiler='cxx',
         fragment='''

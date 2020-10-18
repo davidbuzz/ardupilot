@@ -431,10 +431,33 @@ class sitl(Board):
             'm',
         ]
 
-        cfg.check_librt(env)
+
+        # windows target does not use rt, uses -lws2_32 -lpthread instead
+        if env.CXX != 'i686-w64-mingw32-g++':
+            cfg.check_librt(env)
+    
         cfg.check_feenableexcept()
 
+        # we also need this tacked to the beginning or end, unmollested.. , lets use the beginning
+        env.LINKFLAGS += ['-static-libgcc',]
+        env.LINKFLAGS += ['-static-libstdc++',]
+
+
+        # add them at hte beginnning of the command
         env.LINKFLAGS += ['-pthread',]
+        env.LINKFLAGS += ['-lpthread',]
+        env.LINKFLAGS += ['-lws2_32',]
+        env.LINKFLAGS += ['-lwsock32',]
+
+        # and again, adds the near the end of the commmand after a '-Wl,-Bstatic'
+        # essentially giving :  '-Wl,-Bstatic' '-lws2_32' '-lwsock32' -lpthread 
+        # this doesn't wrk, as they get put at the beginning, not the end of the SHLIB list.
+        #env.STLIB += ['ws2_32',]
+        #env.STLIB += ['wsock32',]
+        #env.STLIB += ['pthread',]
+
+        # this is a terrible, but working hack to get them to show up at the END of the static section, right before the dynamic marker
+        env.SHLIB_MARKER = ['-lws2_32', '-lwsock32', '-lpthread', '-Wl,-Bdynamic']
 
         if cfg.env.DEBUG and 'clang++' in cfg.env.COMPILER_CXX and cfg.options.asan:
              env.LINKFLAGS += ['-fsanitize=address']
@@ -478,6 +501,7 @@ class sitl(Board):
             env.LIB += [
                 'winmm',
             ]
+
 
         if Utils.unversioned_sys_platform() == 'cygwin':
             env.CXXFLAGS += ['-DCYGWIN_BUILD']
