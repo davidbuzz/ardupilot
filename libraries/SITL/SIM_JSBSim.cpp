@@ -27,6 +27,11 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#ifdef _WIN32
+#define O_CLOEXEC 0
+#define pipe(fds) _pipe(fds, 5000, _O_BINARY)
+#endif
+
 #include <AP_HAL/AP_HAL.h>
 
 extern const AP_HAL::HAL& hal;

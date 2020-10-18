@@ -25,6 +25,10 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+#ifdef _WIN32
+#define O_CLOEXEC 0
+#define pipe(fds) _pipe(fds, 5000, _O_BINARY)
+#endif
 using namespace SITL;
 
 SerialDevice::SerialDevice()

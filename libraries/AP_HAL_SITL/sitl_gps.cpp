@@ -31,6 +31,10 @@
 #include <fcntl.h>
 
 #ifdef _WIN32
+#define pipe(fds) _pipe(fds, 5000, _O_BINARY)
+#endif
+
+#ifdef _WIN32
 #define random rand 
 #define O_CLOEXEC 0
 #endif
