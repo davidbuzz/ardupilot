@@ -139,8 +139,11 @@ void EFI_MegaSquirt::send_table(void)
     uint16_t len = htobe16(table_size+1);
     uint8_t outbuf[1+table_size];
     outbuf[0] = 0;
+#ifndef _WIN32
     swab(table_offset+(const uint8_t *)&table7, &outbuf[1], table_size);
-
+#else
+    swab(table_offset+(char *)&table7, (char *)&outbuf[1], table_size);
+#endif
     sock.send(&len, sizeof(len));
     sock.send(outbuf, sizeof(outbuf));
     uint32_t crc = htobe32(CRC32_MS(outbuf, sizeof(outbuf)));
