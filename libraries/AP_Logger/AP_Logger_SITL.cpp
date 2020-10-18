@@ -25,6 +25,63 @@
 
 extern const AP_HAL::HAL& hal;
 
+#ifdef _WIN32
+#define O_CLOEXEC 0
+
+#include <windows.h>
+//https://gist.github.com/przemoc/fbf2bfb11af0d9cd58726c200e4d133e 
+ssize_t pread(int fd, void *buf, size_t count, long long offset)
+{
+  OVERLAPPED o = {0,0,0,0,0};
+  HANDLE fh = (HANDLE)_get_osfhandle(fd);
+  uint64_t off = offset;
+  DWORD bytes;
+  BOOL ret;
+
+  if (fh == INVALID_HANDLE_VALUE) {
+    errno = EBADF;
+    return -1;
+  }
+
+  o.Offset = off & 0xffffffff;
+  o.OffsetHigh = (off >> 32) & 0xffffffff;
+
+  ret = ReadFile(fh, buf, (DWORD)count, &bytes, &o);
+  if (!ret) {
+    errno = EIO;
+    return -1;
+  }
+
+  return (ssize_t)bytes;
+}
+
+ssize_t pwrite(int fd, const void *buf, size_t count, long long offset)
+{
+  OVERLAPPED o = {0,0,0,0,0};
+  HANDLE fh = (HANDLE)_get_osfhandle(fd);
+  uint64_t off = offset;
+  DWORD bytes;
+  BOOL ret;
+
+  if (fh == INVALID_HANDLE_VALUE) {
+    errno = EBADF;
+    return -1;
+  }
+
+  o.Offset = off & 0xffffffff;
+  o.OffsetHigh = (off >> 32) & 0xffffffff;
+
+  ret = WriteFile(fh, buf, (DWORD)count, &bytes, &o);
+  if (!ret) {
+    errno = EIO;
+    return -1;
+  }
+
+  return (ssize_t)bytes;
+}
+
+#endif
+
 void AP_Logger_SITL::Init()
 {
     if (flash_fd == 0) {
