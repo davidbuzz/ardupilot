@@ -192,8 +192,11 @@ bool JSBSim::start_JSBSim(void)
         return false;
     }
 
+#ifndef _WIN32
+
     int p[2];
     int devnull = open("/dev/null", O_RDWR|O_CLOEXEC);
+
     if (pipe(p) != 0) {
         AP_HAL::panic("Unable to create pipe");
     }
@@ -256,6 +259,8 @@ bool JSBSim::start_JSBSim(void)
     started_jsbsim = true;
     check_stdout();
     close(devnull);
+
+#endif
     return true;
 }
 

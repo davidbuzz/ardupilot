@@ -125,6 +125,8 @@ bool SocketAPM::reuseaddress(void)
  */
 bool SocketAPM::set_blocking(bool blocking)
 {
+
+#ifndef _WIN32
     int fcntl_ret;
     if (blocking) {
         fcntl_ret = fcntl(fd, F_SETFL, fcntl(fd, F_GETFL, 0) & ~O_NONBLOCK);
@@ -132,6 +134,19 @@ bool SocketAPM::set_blocking(bool blocking)
         fcntl_ret = fcntl(fd, F_SETFL, fcntl(fd, F_GETFL, 0) | O_NONBLOCK);
     }
     return fcntl_ret != -1;
+#else
+    // windows todo https://docs.microsoft.com/en-us/windows/win32/api/winsock/nf-winsock-ioctlsocket
+    int iResult;
+    u_long iMode = 0; // 0  means blocking
+    if ( ! blocking ) {
+        iMode =  1; // non-zero means non-blocking
+    }
+    //FIONBIO enables or disables the blocking mode for the  socket based on the numerical value of iMode.
+    iResult = ioctlsocket(fd, FIONBIO, &iMode);
+    //todo error check iResult
+    iResult = iResult; // to stop 'unused warning
+    return blocking;
+#endif
 }
 
 /*

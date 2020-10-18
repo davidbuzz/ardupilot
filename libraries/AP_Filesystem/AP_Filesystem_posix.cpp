@@ -78,7 +78,11 @@ int32_t AP_Filesystem_Posix::write(int fd, const void *buf, uint32_t count)
 
 int AP_Filesystem_Posix::fsync(int fd)
 {
-    return ::fsync(fd);
+        #ifndef _WIN32
+        return ::fsync(fd);
+        #else
+        return 0; // zero mean no error
+        #endif
 }
 
 int32_t AP_Filesystem_Posix::lseek(int fd, int32_t offset, int seek_from)
@@ -133,23 +137,35 @@ int AP_Filesystem_Posix::closedir(void *dirp)
 // return free disk space in bytes
 int64_t AP_Filesystem_Posix::disk_free(const char *path)
 {
+
+    #ifndef _WIN32
     path = map_filename(path);
     struct statfs stats;
     if (::statfs(path, &stats) < 0) {
         return -1;
     }
     return (((int64_t)stats.f_bavail) * stats.f_bsize);
+    #else
+    //todo maybe use https://stackoverflow.com/questions/3520220/check-disk-fullness on windows?
+    return 999999;
+    #endif
 }
 
 // return total disk space in bytes
 int64_t AP_Filesystem_Posix::disk_space(const char *path)
 {
+
+    #ifndef _WIN32
     path = map_filename(path);
     struct statfs stats;
     if (::statfs(path, &stats) < 0) {
         return -1;
     }
     return (((int64_t)stats.f_blocks) * stats.f_bsize);
+    #else
+    //todo maybe use https://stackoverflow.com/questions/3520220/check-disk-fullness on windows?
+    return 999999;
+    #endif
 }
 
 
