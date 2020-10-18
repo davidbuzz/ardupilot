@@ -150,7 +150,7 @@ void AP_CANTester_KDECAN::loop(void)
                 }
                 case START_ENUM_OBJ_ADDR: {
                     _esc_info[i].enum_timeout = AP_HAL::micros64() + be16toh(*((be16_t*) &(recv_frame.data[0]))) * 1000;
-                    gcs().send_text(MAV_SEVERITY_ALERT, "KDECANTester: Starting enumeration for ESC %d, timeout %" PRIu64 "\n", i, _esc_info[i].enum_timeout);
+                    //gcs().send_text(MAV_SEVERITY_ALERT, "KDECANTester: Starting enumeration for ESC %d, timeout %" PRIu64 "\n", i, _esc_info[i].enum_timeout);
                     i++;
                     continue;
                 }
