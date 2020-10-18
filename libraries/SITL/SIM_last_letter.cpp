@@ -50,6 +50,8 @@ last_letter::last_letter(const char *_frame_str) :
  */
 void last_letter::start_last_letter(void)
 {
+
+#ifndef _WIN32
     pid_t child_pid = fork();
     if (child_pid == 0) {
       // in child
@@ -69,6 +71,7 @@ void last_letter::start_last_letter(void)
       }
       exit(1);
     }
+#endif
 }
 
 /*

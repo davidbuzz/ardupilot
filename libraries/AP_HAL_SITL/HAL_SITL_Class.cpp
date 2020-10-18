@@ -131,6 +131,7 @@ static bool watchdog_load(uint32_t *data, uint32_t nwords)
 /*
   implement watchdoh reset via SIGALRM
  */
+#ifndef _WIN32
 static void sig_alrm(int signum)
 {
     static char env[] = "SITL_WATCHDOG_RESET=1";
@@ -138,6 +139,7 @@ static void sig_alrm(int signum)
     printf("GOT SIGALRM\n");
     execv(new_argv[0], new_argv);
 }
+#endif
 
 void HAL_SITL::exit_signal_handler(int signum)
 {
@@ -146,11 +148,13 @@ void HAL_SITL::exit_signal_handler(int signum)
 
 void HAL_SITL::setup_signal_handlers() const
 {
+#ifndef _WIN32
     struct sigaction sa = { };
 
     sa.sa_flags = SA_NOCLDSTOP;
     sa.sa_handler = HAL_SITL::exit_signal_handler;
     sigaction(SIGTERM, &sa, NULL);
+#endif
 }
 
 /*
@@ -216,8 +220,10 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
 
     bool using_watchdog = AP_BoardConfig::watchdog_enabled();
     if (using_watchdog) {
+#ifndef _WIN32
         signal(SIGALRM, sig_alrm);
         alarm(2);
+#endif
     }
     setup_signal_handlers();
 
@@ -239,10 +245,12 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
             watchdog_save((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4);
         }
 
+#ifndef _WIN32
         if (using_watchdog) {
             // note that this only works for a speedup of 1
             alarm(2);
         }
+#endif
     }
 
     actually_reboot();

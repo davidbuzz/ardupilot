@@ -226,7 +226,9 @@ size_t UARTDriver::write(const uint8_t *buffer, size_t size)
             _connected = false;
         }
         // these have no effect
+        #ifndef _WIN32
         tcdrain(_fd);
+        #endif
     } else {
         _writebuffer.write(buffer, size);
     }
@@ -241,7 +243,7 @@ size_t UARTDriver::write(const uint8_t *buffer, size_t size)
 void UARTDriver::_tcp_start_connection(uint16_t port, bool wait_for_connection)
 {
     int one=1;
-    int ret;
+    int ret = 0;
 
     if (_connected) {
         return;
@@ -280,7 +282,9 @@ void UARTDriver::_tcp_start_connection(uint16_t port, bool wait_for_connection)
             fprintf(stderr, "socket failed - %s\n", strerror(errno));
             exit(1);
         }
+#ifndef _WIN32
         ret = fcntl(_listen_fd, F_SETFD, FD_CLOEXEC);
+#endif
         if (ret == -1) {
             fprintf(stderr, "fcntl failed on setting FD_CLOEXEC - %s\n", strerror(errno));
             exit(1);
@@ -339,7 +343,7 @@ void UARTDriver::_tcp_start_client(const char *address, uint16_t port)
 {
     int one=1;
     struct sockaddr_in sockaddr;
-    int ret;
+    int ret = 0;
 
     if (_connected) {
         return;
@@ -365,7 +369,9 @@ void UARTDriver::_tcp_start_client(const char *address, uint16_t port)
         fprintf(stderr, "socket failed - %s\n", strerror(errno));
         exit(1);
     }
+#ifndef _WIN32
     ret = fcntl(_fd, F_SETFD, FD_CLOEXEC);
+#endif
     if (ret == -1) {
         fprintf(stderr, "fcntl failed on setting FD_CLOEXEC - %s\n", strerror(errno));
         exit(1);
@@ -384,7 +390,9 @@ void UARTDriver::_tcp_start_client(const char *address, uint16_t port)
 
     setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
     setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
+#ifndef _WIN32
     fcntl(_fd, F_SETFD, FD_CLOEXEC);
+#endif
     _connected = true;
 }
 
@@ -395,7 +403,7 @@ void UARTDriver::_tcp_start_client(const char *address, uint16_t port)
 void UARTDriver::_udp_start_client(const char *address, uint16_t port)
 {
     struct sockaddr_in sockaddr;
-    int ret;
+    int ret =0;
 
     if (_connected) {
         return;
@@ -421,7 +429,9 @@ void UARTDriver::_udp_start_client(const char *address, uint16_t port)
         fprintf(stderr, "socket failed - %s\n", strerror(errno));
         exit(1);
     }
+#ifndef _WIN32
     ret = fcntl(_fd, F_SETFD, FD_CLOEXEC);
+#endif
     if (ret == -1) {
         fprintf(stderr, "fcntl failed on setting FD_CLOEXEC - %s\n", strerror(errno));
         exit(1);
@@ -453,6 +463,7 @@ void UARTDriver::_udp_start_multicast(const char *address, uint16_t port)
         return;
     }
 
+#ifndef _WIN32
     // establish the listening port
     struct sockaddr_in sockaddr;
     int ret;
@@ -507,6 +518,7 @@ void UARTDriver::_udp_start_multicast(const char *address, uint16_t port)
 
     // now start the outgoing connection as an ordinary UDP connection
     _udp_start_client(address, port);
+#endif
 }
 
 
@@ -515,6 +527,7 @@ void UARTDriver::_udp_start_multicast(const char *address, uint16_t port)
  */
 void UARTDriver::_uart_start_connection(void)
 {
+#ifndef _WIN32
     struct termios t {};
     if (!_connected) {
         _fd = ::open(_uart_path, O_RDWR | O_CLOEXEC);
@@ -557,6 +570,7 @@ void UARTDriver::_uart_start_connection(void)
 
     _connected = true;
     _use_send_recv = false;
+#endif
 }
 
 /*
@@ -571,11 +585,13 @@ void UARTDriver::_check_connection(void)
     if (_select_check(_listen_fd)) {
         _fd = accept(_listen_fd, nullptr, nullptr);
         if (_fd != -1) {
-            int one = 1;
             _connected = true;
+#ifndef _WIN32
+            int one = 1;
             setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
             setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
             fcntl(_fd, F_SETFD, FD_CLOEXEC);
+#endif
             fprintf(stdout, "New connection on serial port %u\n", _portNumber);
         }
     }
@@ -607,8 +623,10 @@ bool UARTDriver::_select_check(int fd)
 
 void UARTDriver::_set_nonblocking(int fd)
 {
+#ifndef _WIN32
     unsigned v = fcntl(fd, F_GETFL, 0);
     fcntl(fd, F_SETFL, v | O_NONBLOCK);
+#endif
 }
 
 bool UARTDriver::set_unbuffered_writes(bool on) {
@@ -616,6 +634,7 @@ bool UARTDriver::set_unbuffered_writes(bool on) {
         return false;
     }
     _unbuffered_writes = on;
+#ifndef _WIN32
 
     // this has no effect
     unsigned v = fcntl(_fd, F_GETFL, 0);
@@ -624,6 +643,7 @@ bool UARTDriver::set_unbuffered_writes(bool on) {
     fcntl(_fd, F_SETFL | F_NOCACHE, v | O_SYNC);
 #else
     fcntl(_fd, F_SETFL, v | O_DIRECT | O_SYNC);
+#endif
 #endif
     return _unbuffered_writes;
 }
@@ -790,7 +810,7 @@ ssize_t UARTDriver::get_system_outqueue_length() const
         return 0;
     }
 
-#if defined(__CYGWIN__) || defined(__CYGWIN64__) || defined(CYGWIN_BUILD)
+#if defined(__CYGWIN__) || defined(__CYGWIN64__) || defined(CYGWIN_BUILD)|| defined(_WIN32)
     return 0;
 #elif defined(__APPLE__) && defined(__MACH__)
     return 0;

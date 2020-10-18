@@ -66,7 +66,7 @@ void SITL_State::_sitl_setup(const char *home_str)
 {
     _home_str = home_str;
 
-#if !defined(__CYGWIN__) && !defined(__CYGWIN64__)
+#if !defined(__CYGWIN__) && !defined(__CYGWIN64__) && !defined(_WIN32)
     _parent_pid = getppid();
 #endif
 
@@ -154,10 +154,14 @@ void SITL_State::_fdm_input_step(void)
 
     _fdm_input_local();
 
+#ifndef _WIN32
     /* make sure we die if our parent dies */
     if (kill(_parent_pid, 0) != 0) {
         exit(1);
     }
+#else
+// buzz todo
+#endif
 
     if (_scheduler->interrupts_are_blocked() || _sitl == nullptr) {
         return;

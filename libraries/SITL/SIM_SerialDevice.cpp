@@ -42,13 +42,14 @@ SerialDevice::SerialDevice()
     fd_their_end = tmp[0];
 
     // close file descriptors on exec:
+#ifndef _WIN32
     fcntl(fd_my_end, F_SETFD, FD_CLOEXEC);
     fcntl(fd_their_end, F_SETFD, FD_CLOEXEC);
 
     // make sure we don't screw the simulation up by blocking:
     fcntl(fd_my_end, F_SETFL, fcntl(fd_my_end, F_GETFL, 0) | O_NONBLOCK);
     fcntl(fd_their_end, F_SETFL, fcntl(fd_their_end, F_GETFL, 0) | O_NONBLOCK);
-
+#endif
 
     // pipe for device to read from:
     if (pipe(tmp) == -1) {
@@ -57,6 +58,7 @@ SerialDevice::SerialDevice()
     read_fd_my_end    = tmp[0];
     read_fd_their_end = tmp[1];
 
+#ifndef _WIN32
     // close file descriptors on exec:
     fcntl(read_fd_my_end, F_SETFD, FD_CLOEXEC);
     fcntl(read_fd_their_end, F_SETFD, FD_CLOEXEC);
@@ -64,6 +66,7 @@ SerialDevice::SerialDevice()
     // make sure we don't screw the simulation up by blocking:
     fcntl(read_fd_my_end, F_SETFL, fcntl(fd_my_end, F_GETFL, 0) | O_NONBLOCK);
     fcntl(read_fd_their_end, F_SETFL, fcntl(fd_their_end, F_GETFL, 0) | O_NONBLOCK);
+#endif
 
 }
 

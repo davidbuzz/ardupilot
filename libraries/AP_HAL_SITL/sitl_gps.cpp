@@ -59,7 +59,9 @@ static struct gps_state {
  */
 ssize_t SITL_State::gps_read(int fd, void *buf, size_t count)
 {
-#ifdef FIONREAD
+
+#ifndef _WIN32
+#ifdef FIONREAD 
     // use FIONREAD to get exact value if possible
     int num_ready;
     while (ioctl(fd, FIONREAD, &num_ready) == 0 && num_ready > 3000) {
@@ -69,6 +71,7 @@ ssize_t SITL_State::gps_read(int fd, void *buf, size_t count)
             break;
         }
     }
+#endif
 #endif
     return read(fd, buf, count);
 }
@@ -86,8 +89,10 @@ int SITL_State::gps_pipe(uint8_t idx)
     gps_state[idx].gps_fd    = fd[1];
     gps_state[idx].client_fd = fd[0];
     gps_state[idx].last_update = AP_HAL::millis();
+    #ifndef _WIN32
     fcntl(fd[0], F_SETFD, FD_CLOEXEC);
     fcntl(fd[1], F_SETFD, FD_CLOEXEC);
+    #endif
     HALSITL::UARTDriver::_set_nonblocking(gps_state[idx].gps_fd);
     HALSITL::UARTDriver::_set_nonblocking(fd[0]);
     return gps_state[idx].client_fd;

@@ -59,7 +59,9 @@ void Storage::_storage_open(void)
         return;
     }
 
+#ifndef _WIN32
     fcntl(log_fd, F_SETFD, FD_CLOEXEC);
+#endif
 
     int ret = read(log_fd, _buffer, HAL_STORAGE_SIZE);
     if (ret < 0) {

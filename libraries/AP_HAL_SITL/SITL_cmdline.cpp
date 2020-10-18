@@ -157,6 +157,8 @@ static const struct {
 
 void SITL_State::_set_signal_handlers(void) const
 {
+
+#ifndef _WIN32
     struct sigaction sa_fpe = {};
     sigemptyset(&sa_fpe.sa_mask);
     sa_fpe.sa_handler = _sig_fpe;
@@ -171,7 +173,7 @@ void SITL_State::_set_signal_handlers(void) const
     sigemptyset(&sa_segv.sa_mask);
     sa_segv.sa_handler = _sig_segv;
     sigaction(SIGSEGV, &sa_segv, nullptr);
-
+#endif
 }
 
 void SITL_State::_parse_command_line(int argc, char * const argv[])

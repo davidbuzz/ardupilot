@@ -315,9 +315,11 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
     if (!a->f) {
         goto failed;
     }
+#ifndef _WIN32
     if (posix_memalign(&a->stack, 4096, alloc_stack) != 0) {
         goto failed;
     }
+#endif
     if (!a->stack) {
         goto failed;
     }

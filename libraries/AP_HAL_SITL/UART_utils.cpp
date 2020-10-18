@@ -50,6 +50,7 @@ bool HALSITL::UARTDriver::set_speed(int speed)
     if (_fd < 0) {
         return false;
     }
+#ifndef _WIN32
 #ifdef USE_TERMIOS
     struct termios t;
     tcgetattr(_fd, &t);
@@ -74,6 +75,7 @@ bool HALSITL::UARTDriver::set_speed(int speed)
         return false;
     }
 #endif
+#endif
 
     return true;
 }
@@ -83,6 +85,7 @@ void HALSITL::UARTDriver::configure_parity(uint8_t v)
     if (_fd < 0) {
         return;
     }
+#ifndef _WIN32
 #ifdef USE_TERMIOS
     struct termios t;
 
@@ -113,6 +116,7 @@ void HALSITL::UARTDriver::configure_parity(uint8_t v)
 #else
     ioctl(_fd, TCSETS2, &t);
 #endif
+#endif
 }
 
 void HALSITL::UARTDriver::set_stop_bits(int n)
@@ -120,6 +124,7 @@ void HALSITL::UARTDriver::set_stop_bits(int n)
     if (_fd < 0) {
         return;
     }
+#ifndef _WIN32
 #ifdef USE_TERMIOS
     struct termios t;
 
@@ -142,6 +147,7 @@ void HALSITL::UARTDriver::set_stop_bits(int n)
     tcsetattr(_fd, TCSANOW, &t);
 #else
     ioctl(_fd, TCSETS2, &t);
+#endif
 #endif
 }
 
