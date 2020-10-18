@@ -58,7 +58,7 @@ public:
     enum safety_state safety_switch_state(void) override;
 
     bool trap() const override {
-#if defined(__CYGWIN__) || defined(__CYGWIN64__)
+#if defined(__CYGWIN__) || defined(__CYGWIN64__) || defined(_WIN32)
         return false;
 #else
         if (kill(0, SIGTRAP) == -1) {

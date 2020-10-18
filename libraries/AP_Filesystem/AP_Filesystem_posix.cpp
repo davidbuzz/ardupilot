@@ -54,7 +54,11 @@ int AP_Filesystem_Posix::open(const char *fname, int flags)
 {
     fname = map_filename(fname);
     // we automatically add O_CLOEXEC as we always want it for ArduPilot FS usage
+    #ifndef _WIN32
     return ::open(fname, flags | O_CLOEXEC, 0644);
+    #else
+    return ::open(fname, flags , 0644);
+    #endif
 }
 
 int AP_Filesystem_Posix::close(int fd)
@@ -103,7 +107,11 @@ int AP_Filesystem_Posix::unlink(const char *pathname)
 int AP_Filesystem_Posix::mkdir(const char *pathname)
 {
     pathname = map_filename(pathname);
+    #ifndef _WIN32
     return ::mkdir(pathname, 0775);
+    #else
+    return ::mkdir(pathname); // windows no have posix perms
+    #endif
 }
 
 void *AP_Filesystem_Posix::opendir(const char *pathname)

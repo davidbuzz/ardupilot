@@ -711,7 +711,15 @@ void UARTDriver::_timer_tick(void)
             // keep as a single UDP packet
             uint8_t tmpbuf[n];
             _writebuffer.peekbytes(tmpbuf, n);
+#ifdef _WIN32
+#define MSG_DONTWAIT 0
+#endif
+
+#ifndef _WIN32
             ssize_t ret = send(_fd, tmpbuf, n, MSG_DONTWAIT);
+#else
+            ssize_t ret = send(_fd, (const char*)tmpbuf, n, MSG_DONTWAIT);
+#endif
             if (ret > 0) {
                 _writebuffer.advance(ret);
             }
@@ -737,7 +745,11 @@ void UARTDriver::_timer_tick(void)
                     _connected = false;
                 }
             } else {
+#ifndef _WIN32
                 nwritten = send(_fd, readptr, navail, MSG_DONTWAIT);
+#else
+                nwritten = send(_fd, (const char *)readptr, navail, MSG_DONTWAIT);
+#endif
             }
             if (nwritten > 0) {
                 _writebuffer.advance(nwritten);
