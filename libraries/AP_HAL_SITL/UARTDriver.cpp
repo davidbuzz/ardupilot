@@ -291,10 +291,17 @@ void UARTDriver::_tcp_start_connection(uint16_t port, bool wait_for_connection)
         }
 
         /* we want to be able to re-use ports quickly */
+#ifndef _WIN32
         if (setsockopt(_listen_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) == -1) {
             fprintf(stderr, "setsockopt failed: %s\n", strerror(errno));
             exit(1);
         }
+#else
+        if (setsockopt(_listen_fd, SOL_SOCKET, SO_REUSEADDR, (const char*)&one, sizeof(one)) == -1) {
+            fprintf(stderr, "setsockopt failed: %s\n", strerror(errno));
+            exit(1);
+        }
+#endif
 
         fprintf(stderr, "bind port %u for %u\n",
                 (unsigned)ntohs(_listen_sockaddr.sin_port),
@@ -327,9 +334,15 @@ void UARTDriver::_tcp_start_connection(uint16_t port, bool wait_for_connection)
             fprintf(stderr, "accept() error - %s", strerror(errno));
             exit(1);
         }
+#ifndef _WIN32
         setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
         setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
         fcntl(_fd, F_SETFD, FD_CLOEXEC);
+#else
+        setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, (const char*)&one, sizeof(one));
+        setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, (const char*)&one, sizeof(one));
+
+#endif
         _connected = true;
         fprintf(stdout, "Connection on serial port %u\n", (unsigned)ntohs(_listen_sockaddr.sin_port));
     }
@@ -378,7 +391,11 @@ void UARTDriver::_tcp_start_client(const char *address, uint16_t port)
     }
 
     /* we want to be able to re-use ports quickly */
+#ifndef _WIN32
     setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
+#else
+    setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, (const char*)&one, sizeof(one));
+#endif
 
     ret = connect(_fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
     if (ret == -1) {
@@ -388,8 +405,15 @@ void UARTDriver::_tcp_start_client(const char *address, uint16_t port)
         exit(1);
     }
 
+#ifndef _WIN32
     setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
     setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
+#else
+    setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, (const char*)&one, sizeof(one));
+    setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, (const char*)&one, sizeof(one));
+#endif
+
+
 #ifndef _WIN32
     fcntl(_fd, F_SETFD, FD_CLOEXEC);
 #endif
@@ -552,8 +576,9 @@ void UARTDriver::_uart_start_connection(void)
     // set non-blocking
     int flags = fcntl(_fd, F_GETFL, 0);
     flags = flags | O_NONBLOCK;
+#ifndef _WIN32
     fcntl(_fd, F_SETFL, flags);
-
+#endif
     // disable LF -> CR/LF
     tcgetattr(_fd, &t);
     t.c_iflag &= ~(BRKINT | ICRNL | IMAXBEL | IXON | IXOFF);
@@ -725,7 +750,10 @@ void UARTDriver::_timer_tick(void)
         return;
     }
     space = MIN(space, max_bytes);
-    
+
+#ifdef _WIN32
+    typedef int socklen_t;
+#endif    
     char buf[space];
     ssize_t nread = 0;
     if (_mc_fd >= 0) {

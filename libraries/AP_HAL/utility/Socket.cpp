@@ -21,6 +21,17 @@
 
 #include "Socket.h"
 
+#ifdef _WIN32
+#define F_GETFL 0
+#define F_SETFL 0
+#define F_SETFD 0
+#define FD_CLOEXEC 0
+#endif
+
+#ifdef _WIN32
+typedef int socklen_t;
+#endif
+
 /*
   constructor
  */
@@ -33,10 +44,16 @@ SocketAPM::SocketAPM(bool _datagram, int _fd) :
     datagram(_datagram),
     fd(_fd)
 {
+#ifndef _WIN32
     fcntl(fd, F_SETFD, FD_CLOEXEC);
+#endif
     if (!datagram) {
         int one = 1;
+        #ifndef _WIN32
         setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
+        #else
+        setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, (const char*)&one, sizeof(one));
+        #endif
     }
 }
 
@@ -95,8 +112,13 @@ bool SocketAPM::bind(const char *address, uint16_t port)
 bool SocketAPM::reuseaddress(void)
 {
     int one = 1;
+        #ifndef _WIN32
     return (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) != -1);
+        #else
+    return (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (const char*)&one, sizeof(one)) != -1);
+        #endif
 }
+
 
 /*
   set blocking state
@@ -117,7 +139,11 @@ bool SocketAPM::set_blocking(bool blocking)
  */
 bool SocketAPM::set_cloexec()
 {
+#ifndef _WIN32
     return (fcntl(fd, F_SETFD, FD_CLOEXEC) != -1);
+#else
+    return 0;// buzz todo
+#endif
 }
 
 /*
@@ -125,7 +151,11 @@ bool SocketAPM::set_cloexec()
  */
 ssize_t SocketAPM::send(const void *buf, size_t size)
 {
+#ifndef _WIN32
     return ::send(fd, buf, size, 0);
+#else
+    return ::send(fd, (const char*)buf, size, 0);
+#endif
 }
 
 /*
@@ -135,7 +165,11 @@ ssize_t SocketAPM::sendto(const void *buf, size_t size, const char *address, uin
 {
     struct sockaddr_in sockaddr;
     make_sockaddr(address, port, sockaddr);
+#ifndef _WIN32
     return ::sendto(fd, buf, size, 0, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
+#else
+    return ::sendto(fd, (const char*)buf, size, 0, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
+#endif
 }
 
 /*
@@ -147,7 +181,12 @@ ssize_t SocketAPM::recv(void *buf, size_t size, uint32_t timeout_ms)
         return -1;
     }
     socklen_t len = sizeof(in_addr);
-    return ::recvfrom(fd, buf, size, MSG_DONTWAIT, (sockaddr *)&in_addr, &len);
+    #ifndef _WIN32
+    return ::recvfrom(fd, buf, size, MSG_DONTWAIT, (sockaddr *)&in_addr, &len);// MSG_DONTWAIT means non-blocking
+    #else
+        set_blocking(false);
+        return ::recvfrom(fd, (char*)buf, size, 0, (sockaddr *)&in_addr, &len);
+    #endif
 }
 
 /*
@@ -230,7 +269,11 @@ SocketAPM *SocketAPM::accept(uint32_t timeout_ms)
     }
     // turn off nagle for lower latency
     int one = 1;
+    #ifndef _WIN32
     setsockopt(newfd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
+    #else
+    setsockopt(newfd, IPPROTO_TCP, TCP_NODELAY, (const char*)&one, sizeof(one));
+    #endif
     return new SocketAPM(false, newfd);
 }
 
