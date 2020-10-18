@@ -120,7 +120,9 @@
 // usually contain details of the template instantiation so you can
 // see how the actual size differs from the expected size.
 template<typename s, size_t s_size, size_t t> struct _assert_storage_size {
+    #ifndef _WIN32
     static_assert(s_size == t, "wrong size");
+    #endif
 };
 template<typename s, size_t t> struct assert_storage_size {
     _assert_storage_size<s, sizeof(s), t> _member;

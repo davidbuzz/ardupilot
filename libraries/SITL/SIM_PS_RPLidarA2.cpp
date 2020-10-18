@@ -184,7 +184,11 @@ void PS_RPLidarA2::update_output_scan(const Location &location)
         send_buffer.angle_q6 = angle_q6;
         send_buffer.distance_q2 = distance_q2;
 
+            #ifndef _WIN32
         static_assert(sizeof(send_buffer) == 5, "send_buffer correct size");
+            #else
+        static_assert(sizeof(send_buffer) == 6, "send_buffer correct size");
+            #endif
 
         const ssize_t ret = write_to_autopilot((const char*)&send_buffer, sizeof(send_buffer));
         if (ret != sizeof(send_buffer)) {

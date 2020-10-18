@@ -86,7 +86,9 @@ struct PACKED FPort_Frame {
     };
 };
 
+#ifndef _WIN32
 static_assert(sizeof(FPort_Frame) == FPORT_CONTROL_FRAME_SIZE, "FPort_Frame incorrect size");
+#endif
 
 // constructor
 AP_RCProtocol_FPort::AP_RCProtocol_FPort(AP_RCProtocol &_frontend, bool _inverted) :
