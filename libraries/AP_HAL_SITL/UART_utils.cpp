@@ -19,19 +19,29 @@
 
 #include "UARTDriver.h"
 
-#if defined(__CYGWIN__) || defined(__CYGWIN64__) || defined(__APPLE__)
+#if defined(__CYGWIN__) || defined(__CYGWIN64__) || defined(__APPLE__) 
 #define USE_TERMIOS
 #endif
 
-#ifdef USE_TERMIOS
+
+#ifdef USE_TERMIOS 
 #include <termios.h>
 #else
+#ifndef _WIN32
 #include <asm/ioctls.h>
 #include <asm/termbits.h>
 #endif
+#endif
+
+#ifndef _WIN32
+#include "mingw-termios.h"
+#define USE_TERMIOS
+#endif
 
 #include <string.h>
+#ifndef _WIN32
 #include <sys/ioctl.h>
+#endif
 #include <sys/stat.h>
 #include <sys/types.h>
 

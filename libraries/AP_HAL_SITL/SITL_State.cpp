@@ -13,7 +13,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <errno.h>
+
+#ifndef _WIN32
 #include <sys/select.h>
+#endif
 
 #include <AP_Param/AP_Param.h>
 #include <SITL/SIM_JSBSim.h>

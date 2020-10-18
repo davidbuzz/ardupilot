@@ -22,12 +22,20 @@
 
 #include <fcntl.h>
 #include <unistd.h>
+
+#ifndef _WIN32
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/tcp.h>
 #include <arpa/inet.h>
 #include <sys/select.h>
+#else
+#include <winsock2.h>
+#include <windows.h>
+#endif
+
+
 
 class SocketAPM {
 public:

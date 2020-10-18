@@ -18,7 +18,9 @@
 
 #include "SIM_Morse.h"
 
+#ifndef _WIN32
 #include <arpa/inet.h>
+#endif
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>

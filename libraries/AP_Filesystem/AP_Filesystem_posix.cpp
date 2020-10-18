@@ -23,7 +23,9 @@
 #if defined(__APPLE__)
 #include <sys/mount.h>
 #else
+#ifndef _WIN32
 #include <sys/vfs.h>
+#endif
 #endif
 #include <utime.h>
 

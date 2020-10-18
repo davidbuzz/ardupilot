@@ -32,15 +32,18 @@
 
 #include <AP_HAL/CANIface.h>
 
+#ifndef _WIN32
 #include <linux/can.h>
+#endif
 
 #include <string>
 #include <queue>
 #include <memory>
 #include <map>
 #include <unordered_set>
+#ifndef _WIN32
 #include <poll.h>
-
+#endif
 namespace HALSITL {
 
 enum class SocketCanError

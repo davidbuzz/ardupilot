@@ -10,10 +10,18 @@
 #include "RCInput.h"
 
 #include <sys/types.h>
+#ifndef _WIN32
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/udp.h>
 #include <arpa/inet.h>
+#else
+#include <winsock2.h>
+#include <windows.h>
+#endif
+
+
+
 #include <vector>
 
 #include <AP_Baro/AP_Baro.h>

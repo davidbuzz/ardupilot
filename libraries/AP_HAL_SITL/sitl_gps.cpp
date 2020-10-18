@@ -19,7 +19,9 @@
 #include "UARTDriver.h"
 #include <AP_GPS/AP_GPS.h>
 #include <AP_GPS/AP_GPS_UBLOX.h>
+#ifndef _WIN32
 #include <sys/ioctl.h>
+#endif
 #include <unistd.h>
 #include <time.h>
 #include <stdio.h>

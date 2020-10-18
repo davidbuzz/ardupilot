@@ -19,7 +19,9 @@
 #include "SIM_AirSim.h"
 
 #include <stdio.h>
+#ifndef _WIN32
 #include <arpa/inet.h>
+#endif
 #include <errno.h>
 
 #include <AP_HAL/AP_HAL.h>

@@ -32,10 +32,13 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+#ifndef _WIN32
 #include <sys/socket.h>
 #include <sys/ioctl.h>
 #include <net/if.h>
 #include <linux/can/raw.h>
+#endif
+
 #include <cstring>
 #include "Scheduler.h"
 #include <AP_CANManager/AP_CANManager.h>
