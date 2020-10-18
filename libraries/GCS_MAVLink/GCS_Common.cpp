@@ -5014,7 +5014,7 @@ bool GCS_MAVLINK::mavlink_coordinate_frame_to_location_alt_frame(const MAV_FRAME
         return true;
     case MAV_FRAME_GLOBAL:
     case MAV_FRAME_GLOBAL_INT:
-        frame = Location::AltFrame::ABSOLUTE;
+        frame = Location::AltFrame::_ABSOLUTE;
         return true;
     default:
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL

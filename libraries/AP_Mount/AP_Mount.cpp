@@ -620,7 +620,7 @@ void AP_Mount::handle_global_position_int(const mavlink_message_t &msg)
         _state._target_sysid_location.lng = packet.lon;
         // global_position_int.alt is *UP*, so is location.
         _state._target_sysid_location.set_alt_cm(packet.alt*0.1,
-                                                 Location::AltFrame::ABSOLUTE);
+                                                 Location::AltFrame::_ABSOLUTE);
         _state._target_sysid_location_set = true;
     }
 }

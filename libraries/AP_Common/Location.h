@@ -6,6 +6,14 @@ class AP_Terrain;
 
 #define LOCATION_ALT_MAX_M  83000   // maximum altitude (in meters) that can be fit into Location structure's alt field
 
+    /// enumeration of possible altitude types
+    enum class AltFrame {
+        _ABSOLUTE = 0,
+        ABOVE_HOME = 1,
+        ABOVE_ORIGIN = 2,
+        ABOVE_TERRAIN = 3
+    };
+
 class Location
 {
 public:
@@ -23,7 +31,7 @@ public:
 
     /// enumeration of possible altitude types
     enum class AltFrame {
-        ABSOLUTE = 0,
+        _ABSOLUTE = 0,
         ABOVE_HOME = 1,
         ABOVE_ORIGIN = 2,
         ABOVE_TERRAIN = 3

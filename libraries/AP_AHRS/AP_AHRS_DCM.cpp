@@ -56,7 +56,7 @@ void AP_AHRS_DCM::load_watchdog_home()
     if (hal.util->was_watchdog_reset() && (pd.home_lat != 0 || pd.home_lon != 0)) {
         _home.lat = pd.home_lat;
         _home.lng = pd.home_lon;
-        _home.set_alt_cm(pd.home_alt_cm, Location::AltFrame::ABSOLUTE);
+        _home.set_alt_cm(pd.home_alt_cm, Location::AltFrame::_ABSOLUTE);
         _home_is_set = true;
         _home_locked = true;
         gcs().send_text(MAV_SEVERITY_INFO, "Restored watchdog home");
@@ -1093,7 +1093,7 @@ bool AP_AHRS_DCM::set_home(const Location &loc)
     // accessed directly by the vehicles and they may not be rigorous
     // in checking the frame type.
     Location tmp = loc;
-    if (!tmp.change_alt_frame(Location::AltFrame::ABSOLUTE)) {
+    if (!tmp.change_alt_frame(Location::AltFrame::_ABSOLUTE)) {
         return false;
     }
 

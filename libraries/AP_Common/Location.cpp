@@ -55,7 +55,7 @@ void Location::set_alt_cm(int32_t alt_cm, AltFrame frame)
     terrain_alt = false;
     origin_alt = false;
     switch (frame) {
-        case AltFrame::ABSOLUTE:
+        case AltFrame::_ABSOLUTE:
             // do nothing
             break;
         case AltFrame::ABOVE_HOME:
@@ -96,7 +96,7 @@ Location::AltFrame Location::get_alt_frame() const
     if (relative_alt) {
         return AltFrame::ABOVE_HOME;
     }
-    return AltFrame::ABSOLUTE;
+    return AltFrame::_ABSOLUTE;
 }
 
 /// get altitude in desired frame
@@ -132,7 +132,7 @@ bool Location::get_alt_cm(AltFrame desired_frame, int32_t &ret_alt_cm) const
     // convert alt to absolute
     int32_t alt_abs = 0;
     switch (frame) {
-        case AltFrame::ABSOLUTE:
+        case AltFrame::_ABSOLUTE:
             alt_abs = alt;
             break;
         case AltFrame::ABOVE_HOME:
@@ -158,7 +158,7 @@ bool Location::get_alt_cm(AltFrame desired_frame, int32_t &ret_alt_cm) const
 
     // convert absolute to desired frame
     switch (desired_frame) {
-        case AltFrame::ABSOLUTE:
+        case AltFrame::_ABSOLUTE:
             ret_alt_cm = alt_abs;
             return true;
         case AltFrame::ABOVE_HOME:

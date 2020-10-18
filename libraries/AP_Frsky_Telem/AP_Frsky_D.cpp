@@ -8,16 +8,16 @@
 /*
   send 1 byte and do byte stuffing
 */
-void AP_Frsky_D::send_byte(uint8_t byte)
+void AP_Frsky_D::send_byte(uint8_t _byte)
 {
-    if (byte == START_STOP_D) {
+    if (_byte == START_STOP_D) {
         _port->write(0x5D);
         _port->write(0x3E);
-    } else if (byte == BYTESTUFF_D) {
+    } else if (_byte == BYTESTUFF_D) {
         _port->write(0x5D);
         _port->write(0x3D);
     } else {
-        _port->write(byte);
+        _port->write(_byte);
     }
 }
 

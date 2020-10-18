@@ -51,7 +51,7 @@ private:
         518752066,
         146487830,
         0,
-        Location::AltFrame::ABSOLUTE
+        Location::AltFrame::_ABSOLUTE
     };
 };
 

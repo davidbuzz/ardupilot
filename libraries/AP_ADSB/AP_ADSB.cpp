@@ -33,6 +33,7 @@
 #include <AP_Baro/AP_Baro.h>
 #include <AP_AHRS/AP_AHRS.h>
 
+#include <AP_Common/Location.h>
 
 #define VEHICLE_TIMEOUT_MS              5000   // if no updates in this time, drop it from the list
 #define ADSB_VEHICLE_LIST_SIZE_DEFAULT  25
@@ -361,11 +362,12 @@ void AP_ADSB::determine_furthest_aircraft(void)
  */
 Location AP_ADSB::get_location(const adsb_vehicle_t &vehicle) const
 {
+
     const Location loc = Location(
         vehicle.info.lat,
         vehicle.info.lon,
         vehicle.info.altitude * 0.1f,
-        Location::AltFrame::ABSOLUTE);
+        Location::AltFrame::_ABSOLUTE);
 
     return loc;
 }

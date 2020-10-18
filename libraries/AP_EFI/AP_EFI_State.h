@@ -41,7 +41,7 @@ enum class Engine_State : uint8_t {
 enum class Crankshaft_Sensor_Status : uint8_t {
     NOT_SUPPORTED = 0,
     OK            = 1,
-    ERROR         = 2
+    _ERROR         = 2
 };
 
 enum class Temperature_Status : uint8_t {

@@ -66,7 +66,7 @@ void Frsky_D::update()
             break;
         case State::WANT_BYTE1:
         case State::WANT_BYTE2: {
-            uint8_t byte;
+            uint8_t _byte;
             uint8_t consume = 1;
             if (_buffer[0] == 0x5D) {
                 // byte-stuffed
@@ -74,15 +74,15 @@ void Frsky_D::update()
                     return;
                 }
                 if (_buffer[1] == 0x3E) {
-                    byte = START_STOP_D;
+                    _byte = START_STOP_D;
                 } else if (_buffer[1] == 0x3D) {
-                    byte = BYTESTUFF_D;
+                    _byte = BYTESTUFF_D;
                 } else {
                     AP_HAL::panic("Unknown stuffed byte");
                 }
                 consume = 2;
             } else {
-                byte = _buffer[0];
+                _byte = _buffer[0];
             }
 
             memcpy(&_buffer[0], &_buffer[consume], _buflen-consume);
@@ -93,11 +93,11 @@ void Frsky_D::update()
             case State::WANT_START_STOP_D:
                 AP_HAL::panic("Should not get here");
             case State::WANT_BYTE1:
-                _data = byte;
+                _data = _byte;
                 _state = State::WANT_BYTE2;
                 break;
             case State::WANT_BYTE2:
-                _data |= byte << 8;
+                _data |= _byte << 8;
                 handle_data(_id, _data);
                 _state = State::WANT_START_STOP_D;
                 break;
