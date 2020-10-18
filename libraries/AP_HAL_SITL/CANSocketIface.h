@@ -143,7 +143,9 @@ private:
 
     bool _wasInPendingLoopbackSet(const AP_HAL::CANFrame& frame);
 
+#ifndef _WIN32
     bool _checkHWFilters(const can_frame& frame) const;
+#endif
 
     bool _hasReadyTx() const;
 
@@ -153,7 +155,9 @@ private:
 
     int _openSocket(const std::string& iface_name);
 
+#ifndef _WIN32
     void _updateDownStatusFromPollResult(const pollfd& pfd);
+#endif
 
     uint32_t _bitrate;
 
@@ -170,13 +174,16 @@ private:
     AP_HAL::EventHandle *_evt_handle;
     static CANSocketEventSource evt_can_socket[HAL_NUM_CAN_IFACES];
 
+#ifndef _WIN32
     pollfd _pollfd;
+#endif
     std::map<SocketCanError, uint64_t> _errors;
     std::priority_queue<CanTxItem> _tx_queue;
     std::queue<CanRxItem> _rx_queue;
     std::unordered_multiset<uint32_t> _pending_loopback_ids;
+#ifndef _WIN32
     std::vector<can_filter> _hw_filters_container;
-
+#endif
     struct {
         uint32_t tx_requests;
         uint32_t tx_full;

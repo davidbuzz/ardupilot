@@ -50,6 +50,7 @@ using namespace HALSITL;
 
 CANIface::CANSocketEventSource CANIface::evt_can_socket[HAL_NUM_CAN_IFACES];
 
+#ifndef _WIN32
 static can_frame makeSocketCanFrame(const AP_HAL::CANFrame& uavcan_frame)
 {
     can_frame sockcan_frame { uavcan_frame.id& AP_HAL::CANFrame::MaskExtID, uavcan_frame.dlc, { } };
@@ -80,7 +81,7 @@ static AP_HAL::CANFrame makeUavcanFrame(const can_frame& sockcan_frame)
     }
     return uavcan_frame;
 }
-
+#endif
 bool CANIface::is_initialized() const
 {
     return _initialized;
@@ -89,14 +90,15 @@ bool CANIface::is_initialized() const
 int CANIface::_openSocket(const std::string& iface_name)
 {
     errno = 0;
-
+    int ret = 0;
+#ifndef _WIN32
     int s = socket(PF_CAN, SOCK_RAW, CAN_RAW);
     if (s < 0) {
         return s;
     }
-
+    ret = s;
     std::shared_ptr<void> defer(&s, [](int* fd) { if (*fd >= 0) close(*fd); });
-    const int ret = s;
+
 
     // Detect the iface index
     auto ifr = ifreq();
@@ -147,6 +149,7 @@ int CANIface::_openSocket(const std::string& iface_name)
         }
     }
     s = -1;
+#endif
     return ret;
 }
 
@@ -219,6 +222,8 @@ bool CANIface::configureFilters(const CanFilterConfig* const filter_configs,
     if (filter_configs == nullptr || mode_ != FilteredMode) {
         return false;
     }
+
+#ifndef _WIN32
     _hw_filters_container.clear();
     _hw_filters_container.resize(num_configs);
 
@@ -239,7 +244,7 @@ bool CANIface::configureFilters(const CanFilterConfig* const filter_configs,
             _hw_filters_container[i].can_mask |= CAN_RTR_FLAG;
         }
     }
-
+#endif
     return true;
 }
 
@@ -323,7 +328,7 @@ bool CANIface::_pollRead()
 int CANIface::_write(const AP_HAL::CANFrame& frame) const
 {
     errno = 0;
-
+#ifndef _WIN32
     const can_frame sockcan_frame = makeSocketCanFrame(frame);
 
     const int res = write(_fd, &sockcan_frame, sizeof(sockcan_frame));
@@ -336,12 +341,14 @@ int CANIface::_write(const AP_HAL::CANFrame& frame) const
     if (res != sizeof(sockcan_frame)) {
         return -1;
     }
+#endif
     return 1;
 }
 
 
 int CANIface::_read(AP_HAL::CANFrame& frame, uint64_t& timestamp_us, bool& loopback) const
 {
+#ifndef _WIN32
     auto iov = iovec();
     auto sockcan_frame = can_frame();
     iov.iov_base = &sockcan_frame;
@@ -374,6 +381,7 @@ int CANIface::_read(AP_HAL::CANFrame& frame, uint64_t& timestamp_us, bool& loopb
     /*
      * Timestamp
      */
+#endif
     timestamp_us = AP_HAL::native_micros64();
     return 1;
 }
@@ -381,10 +389,12 @@ int CANIface::_read(AP_HAL::CANFrame& frame, uint64_t& timestamp_us, bool& loopb
 // Might block forever, only to be used for testing
 void CANIface::flush_tx()
 {
+#ifndef _WIN32
     do {
         _updateDownStatusFromPollResult(_pollfd);
         _poll(true, true);
     } while(!_tx_queue.empty() && !_down);
+#endif
 }
 
 void CANIface::clear_rx()
@@ -415,6 +425,7 @@ bool CANIface::_wasInPendingLoopbackSet(const AP_HAL::CANFrame& frame)
     return false;
 }
 
+#ifndef _WIN32
 bool CANIface::_checkHWFilters(const can_frame& frame) const
 {
     if (!_hw_filters_container.empty()) {
@@ -428,7 +439,9 @@ bool CANIface::_checkHWFilters(const can_frame& frame) const
         return true;
     }
 }
+#endif
 
+#ifndef _WIN32
 void CANIface::_updateDownStatusFromPollResult(const pollfd& pfd)
 {
     if (!_down && (pfd.revents & POLLERR)) {
@@ -441,6 +454,7 @@ void CANIface::_updateDownStatusFromPollResult(const pollfd& pfd)
         Debug("Iface %d is dead; error %d", _fd, error);
     }
 }
+#endif
 
 bool CANIface::init(const uint32_t bitrate, const OperatingMode mode)
 {
@@ -466,6 +480,8 @@ bool CANIface::init(const uint32_t bitrate, const OperatingMode mode)
 bool CANIface::select(bool &read_select, bool &write_select,
                         const AP_HAL::CANFrame* const pending_tx, uint64_t blocking_deadline)
 {
+
+#ifndef _WIN32
     // Detecting whether we need to block at all
     bool need_block = !write_select;    // Write queue is infinite
 
@@ -502,6 +518,8 @@ bool CANIface::select(bool &read_select, bool &write_select,
         read_select = false;
     }
 
+#endif
+
     // Return value is irrelevant as long as it's non-negative
     return true;
 }
@@ -519,6 +537,7 @@ bool CANIface::CANSocketEventSource::wait(uint64_t duration, AP_HAL::EventHandle
     if (evt_handle == nullptr) {
         return false;
     }
+#ifndef _WIN32
     pollfd pollfds[HAL_NUM_CAN_IFACES] {};
     uint8_t pollfd_iface_map[HAL_NUM_CAN_IFACES] {};
     unsigned long int num_pollfds = 0;
@@ -564,6 +583,8 @@ bool CANIface::CANSocketEventSource::wait(uint64_t duration, AP_HAL::EventHandle
         const bool poll_write = pollfds[i].revents & POLLOUT;
         _ifaces[pollfd_iface_map[i]]->_poll(poll_read, poll_write);
     }
+
+#endif
     return true;
 }
 
