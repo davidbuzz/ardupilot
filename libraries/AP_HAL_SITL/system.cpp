@@ -49,6 +49,8 @@ void panic(const char *errormsg, ...)
 // partly flogged from: https://github.com/tridge/junkcode/blob/master/segv_handler/segv_handler.c
 void dump_stack_trace()
 {
+
+#ifndef _WIN32
     // find dumpstack command:
     const char *dumpstack = "dumpstack.sh"; // if we can't find it trust in PATH
     struct stat statbuf;
@@ -68,6 +70,7 @@ void dump_stack_trace()
 	char progname[100];
 	char *p;
 	int n;
+
 
 	n = readlink("/proc/self/exe", progname, sizeof(progname)-1);
 	if (n == -1) {
@@ -125,6 +128,7 @@ void dump_stack_trace()
         }
     }
     close(fd);
+#endif
 }
 
 uint32_t micros()
