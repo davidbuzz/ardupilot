@@ -64,7 +64,11 @@ extern const AP_HAL::HAL &hal;
 #define SPL06_PRESSURE_OVERSAMPLING            8
 #define SPL06_TEMPERATURE_OVERSAMPLING         8
 
+#ifndef _WIN32
 #define SPL06_OVERSAMPLING_TO_REG_VALUE(n)     (ffs(n)-1)
+#else 
+#define SPL06_OVERSAMPLING_TO_REG_VALUE(n) 1
+#endif
 
 AP_Baro_SPL06::AP_Baro_SPL06(AP_Baro &baro, AP_HAL::OwnPtr<AP_HAL::Device> dev)
     : AP_Baro_Backend(baro)
