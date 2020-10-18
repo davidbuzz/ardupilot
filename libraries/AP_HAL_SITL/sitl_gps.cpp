@@ -28,6 +28,11 @@
 #include <sys/types.h>
 #include <fcntl.h>
 
+#ifdef _WIN32
+#define random rand 
+#define O_CLOEXEC 0
+#endif
+
 #pragma GCC diagnostic ignored "-Wunused-result"
 
 using namespace HALSITL;

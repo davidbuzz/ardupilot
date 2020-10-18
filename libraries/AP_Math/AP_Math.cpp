@@ -308,7 +308,11 @@ uint16_t get_random16(void)
 // generate a random float between -1 and 1, for use in SITL
 float rand_float(void)
 {
+#ifndef _WIN32
     return ((((unsigned)random()) % 2000000) - 1.0e6) / 1.0e6;
+#else
+    return ((((unsigned)rand()) % 2000000) - 1.0e6) / 1.0e6;
+#endif
 }
 
 Vector3f rand_vec3f(void)

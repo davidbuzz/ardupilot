@@ -24,6 +24,11 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+
+#ifdef _WIN32
+        #define random rand 
+#endif
+
 using namespace SITL;
 
 Vicon::Vicon() :
@@ -77,7 +82,11 @@ void Vicon::update_vicon_position_estimate(const Location &loc,
     // calculate a random time offset to the time sent in the message
     // simulates a time difference between the remote computer and autopilot
     if (time_offset_us == 0) {
+#ifndef _WIN32
         time_offset_us = (unsigned(random()) % 7000) * 1000000ULL;
+#else
+        time_offset_us = (unsigned(rand()) % 7000) * 1000000ULL;
+#endif
         printf("time_offset_us %llu\n", (long long unsigned)time_offset_us);
     }
 
