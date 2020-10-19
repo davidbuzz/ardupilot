@@ -218,10 +218,10 @@ size_t UARTDriver::write(const uint8_t *buffer, size_t size)
         const ssize_t nwritten = ::write(fd, buffer, size);
         if (nwritten == -1 && errno != EAGAIN && _uart_path) {
             if (_fd_write != -1) {
-                close(_fd_write);
+                //close(_fd_write);
                 _fd_write = -1;
             }
-            close(_fd);
+            //close(_fd); error: ‘close_used_without_including_unistd_h’ was not declared in this scope
             _fd = -1;
             _connected = false;
         }
@@ -261,7 +261,7 @@ void UARTDriver::_tcp_start_connection(uint16_t port, bool wait_for_connection)
     }
 
     if (_fd != -1) {
-        close(_fd);
+        //close(_fd);
     }
 
     if (_listen_fd == -1) {
@@ -365,7 +365,7 @@ void UARTDriver::_tcp_start_client(const char *address, uint16_t port)
     _use_send_recv = true;
     
     if (_fd != -1) {
-        close(_fd);
+        //close(_fd);
     }
 
     memset(&sockaddr,0,sizeof(sockaddr));
@@ -436,7 +436,7 @@ void UARTDriver::_udp_start_client(const char *address, uint16_t port)
     _use_send_recv = true;
     
     if (_fd != -1) {
-        close(_fd);
+        //close(_fd);
     }
 
     memset(&sockaddr,0,sizeof(sockaddr));
@@ -737,10 +737,10 @@ void UARTDriver::_timer_tick(void)
                 nwritten = ::write(fd, readptr, navail);
                 if (nwritten == -1 && errno != EAGAIN && _uart_path) {
                     if (_fd_write != -1){
-                        close(_fd_write);
+                        //close(_fd_write);
                         _fd_write = -1;
                     }
-                    close(_fd);
+                    //close(_fd);
                     _fd = -1;
                     _connected = false;
                 }
@@ -798,7 +798,7 @@ void UARTDriver::_timer_tick(void)
         int fd = _console?0:_fd;
         nread = ::read(fd, buf, space);
         if (nread == -1 && errno != EAGAIN && _uart_path) {
-            close(_fd);
+            //close(_fd);
             _fd = -1;
             _connected = false;
         }
@@ -806,7 +806,7 @@ void UARTDriver::_timer_tick(void)
         nread = recv(_fd, buf, space, MSG_DONTWAIT);
         if (nread <= 0 && !_is_udp) {
             // the socket has reached EOF
-            close(_fd);
+            //close(_fd);
             _fd = -1;
             _connected = false;
             fprintf(stdout, "Closed connection on serial port %u\n", _portNumber);

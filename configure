@@ -5225,11 +5225,16 @@ fi
   # Code from module extensions:
   # Code from module extern-inline:
   # Code from module fd-hook:
+  # Code from module getpeername:
   # Code from module include_next:
+  # Code from module listen:
   # Code from module msvc-inval:
   # Code from module msvc-nothrow:
+  # Code from module recv:
+  # Code from module recvfrom:
   # Code from module select:
   # Code from module send:
+  # Code from module sendto:
   # Code from module setsockopt:
   # Code from module signal-h:
   # Code from module snippet/arg-nonnull:
@@ -7940,6 +7945,62 @@ $as_echo "#define GNULIB_TEST_DUP2 1" >>confdefs.h
 
 
 
+  if test "$ac_cv_header_winsock2_h" = yes; then
+
+
+
+
+
+
+
+
+  gl_LIBOBJS="$gl_LIBOBJS getpeername.$ac_objext"
+
+  fi
+
+
+
+
+
+          GNULIB_GETPEERNAME=1
+
+
+
+
+
+$as_echo "#define GNULIB_TEST_GETPEERNAME 1" >>confdefs.h
+
+
+
+
+  if test "$ac_cv_header_winsock2_h" = yes; then
+
+
+
+
+
+
+
+
+  gl_LIBOBJS="$gl_LIBOBJS listen.$ac_objext"
+
+  fi
+
+
+
+
+
+          GNULIB_LISTEN=1
+
+
+
+
+
+$as_echo "#define GNULIB_TEST_LISTEN 1" >>confdefs.h
+
+
+
+
   if test $HAVE_MSVC_INVALID_PARAMETER_HANDLER = 1; then
 
 
@@ -7970,6 +8031,62 @@ $as_echo "#define GNULIB_TEST_DUP2 1" >>confdefs.h
 cat >>confdefs.h <<_ACEOF
 #define GNULIB_MSVC_NOTHROW 1
 _ACEOF
+
+
+
+  if test "$ac_cv_header_winsock2_h" = yes; then
+
+
+
+
+
+
+
+
+  gl_LIBOBJS="$gl_LIBOBJS recv.$ac_objext"
+
+  fi
+
+
+
+
+
+          GNULIB_RECV=1
+
+
+
+
+
+$as_echo "#define GNULIB_TEST_RECV 1" >>confdefs.h
+
+
+
+
+  if test "$ac_cv_header_winsock2_h" = yes; then
+
+
+
+
+
+
+
+
+  gl_LIBOBJS="$gl_LIBOBJS recvfrom.$ac_objext"
+
+  fi
+
+
+
+
+
+          GNULIB_RECVFROM=1
+
+
+
+
+
+$as_echo "#define GNULIB_TEST_RECVFROM 1" >>confdefs.h
+
 
 
 
@@ -8179,6 +8296,34 @@ $as_echo "#define GNULIB_TEST_SELECT 1" >>confdefs.h
 
 
 $as_echo "#define GNULIB_TEST_SEND 1" >>confdefs.h
+
+
+
+
+  if test "$ac_cv_header_winsock2_h" = yes; then
+
+
+
+
+
+
+
+
+  gl_LIBOBJS="$gl_LIBOBJS sendto.$ac_objext"
+
+  fi
+
+
+
+
+
+          GNULIB_SENDTO=1
+
+
+
+
+
+$as_echo "#define GNULIB_TEST_SENDTO 1" >>confdefs.h
 
 
 

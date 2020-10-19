@@ -34,17 +34,36 @@
 #  --doc-base=doc \
 #  --tests-base=tests \
 #  --aux-dir=. \
-#  --gnu-make \
 #  --no-conditional-dependencies \
 #  --no-libtool \
 #  --macro-prefix=gl \
 #  bind \
+#  connect \
+#  listen \
+#  recv \
+#  recvfrom \
+#  select \
+#  send \
+#  sendto \
+#  setsockopt \
+#  socket \
+#  sys_select \
 #  sys_socket
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
 gl_MODULES([
   bind
+  connect
+  listen
+  recv
+  recvfrom
+  select
+  send
+  sendto
+  setsockopt
+  socket
+  sys_select
   sys_socket
 ])
 gl_AVOID([])

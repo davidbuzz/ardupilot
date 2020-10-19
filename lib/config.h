@@ -17,11 +17,26 @@
 /* Define to 1 when the gnulib module dup2 should be tested. */
 #define GNULIB_TEST_DUP2 1
 
+/* Define to 1 when the gnulib module getpeername should be tested. */
+#define GNULIB_TEST_GETPEERNAME 1
+
+/* Define to 1 when the gnulib module listen should be tested. */
+#define GNULIB_TEST_LISTEN 1
+
+/* Define to 1 when the gnulib module recv should be tested. */
+#define GNULIB_TEST_RECV 1
+
+/* Define to 1 when the gnulib module recvfrom should be tested. */
+#define GNULIB_TEST_RECVFROM 1
+
 /* Define to 1 when the gnulib module select should be tested. */
 #define GNULIB_TEST_SELECT 1
 
 /* Define to 1 when the gnulib module send should be tested. */
 #define GNULIB_TEST_SEND 1
+
+/* Define to 1 when the gnulib module sendto should be tested. */
+#define GNULIB_TEST_SENDTO 1
 
 /* Define to 1 when the gnulib module setsockopt should be tested. */
 #define GNULIB_TEST_SETSOCKOPT 1

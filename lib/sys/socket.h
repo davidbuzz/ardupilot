@@ -897,7 +897,7 @@ _GL_WARN_ON_USE (bind, "bind is not always POSIX compliant - "
 # endif
 #endif
 
-#if 0
+#if 1
 # if 1
 #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
 #   undef getpeername
@@ -993,7 +993,7 @@ _GL_WARN_ON_USE (getsockopt, "getsockopt is not always POSIX compliant - "
 # endif
 #endif
 
-#if 0
+#if 1
 # if 1
 #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
 #   undef listen
@@ -1016,7 +1016,7 @@ _GL_WARN_ON_USE (listen, "listen is not always POSIX compliant - "
 # endif
 #endif
 
-#if 0
+#if 1
 # if 1
 #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
 #   undef recv
@@ -1073,7 +1073,7 @@ _GL_WARN_ON_USE (send, "send is not always POSIX compliant - "
 # endif
 #endif
 
-#if 0
+#if 1
 # if 1
 #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
 #   undef recvfrom
@@ -1108,7 +1108,7 @@ _GL_WARN_ON_USE (recvfrom, "recvfrom is not always POSIX compliant - "
 # endif
 #endif
 
-#if 0
+#if 1
 # if 1
 #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
 #   undef sendto

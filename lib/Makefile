@@ -48,8 +48,12 @@
 #  --macro-prefix=gl \
 #  bind \
 #  connect \
+#  listen \
+#  recv \
+#  recvfrom \
 #  select \
 #  send \
+#  sendto \
 #  setsockopt \
 #  socket \
 #  sys_select \
@@ -189,11 +193,14 @@ depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/alloca.Po ./$(DEPDIR)/bind.Po \
 	./$(DEPDIR)/connect.Po ./$(DEPDIR)/dup2.Po \
-	./$(DEPDIR)/fd-hook.Po ./$(DEPDIR)/msvc-inval.Po \
-	./$(DEPDIR)/msvc-nothrow.Po ./$(DEPDIR)/select.Po \
-	./$(DEPDIR)/send.Po ./$(DEPDIR)/setsockopt.Po \
-	./$(DEPDIR)/socket.Po ./$(DEPDIR)/sockets.Po \
-	./$(DEPDIR)/sys_socket.Po ./$(DEPDIR)/unistd.Po
+	./$(DEPDIR)/fd-hook.Po ./$(DEPDIR)/getpeername.Po \
+	./$(DEPDIR)/listen.Po ./$(DEPDIR)/msvc-inval.Po \
+	./$(DEPDIR)/msvc-nothrow.Po ./$(DEPDIR)/recv.Po \
+	./$(DEPDIR)/recvfrom.Po ./$(DEPDIR)/select.Po \
+	./$(DEPDIR)/send.Po ./$(DEPDIR)/sendto.Po \
+	./$(DEPDIR)/setsockopt.Po ./$(DEPDIR)/socket.Po \
+	./$(DEPDIR)/sockets.Po ./$(DEPDIR)/sys_socket.Po \
+	./$(DEPDIR)/unistd.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -342,7 +349,7 @@ GNULIB_GETLOGIN_R = 0
 GNULIB_GETOPT_POSIX = 0
 GNULIB_GETPAGESIZE = 0
 GNULIB_GETPASS = 0
-GNULIB_GETPEERNAME = 0
+GNULIB_GETPEERNAME = 1
 GNULIB_GETSOCKNAME = 0
 GNULIB_GETSOCKOPT = 0
 GNULIB_GETTIMEOFDAY = 0
@@ -352,7 +359,7 @@ GNULIB_ISATTY = 0
 GNULIB_LCHOWN = 0
 GNULIB_LINK = 0
 GNULIB_LINKAT = 0
-GNULIB_LISTEN = 0
+GNULIB_LISTEN = 1
 GNULIB_LSEEK = 0
 GNULIB_PIPE = 0
 GNULIB_PIPE2 = 0
@@ -364,12 +371,12 @@ GNULIB_RAISE = 0
 GNULIB_READ = 0
 GNULIB_READLINK = 0
 GNULIB_READLINKAT = 0
-GNULIB_RECV = 0
-GNULIB_RECVFROM = 0
+GNULIB_RECV = 1
+GNULIB_RECVFROM = 1
 GNULIB_RMDIR = 0
 GNULIB_SELECT = 1
 GNULIB_SEND = 1
-GNULIB_SENDTO = 0
+GNULIB_SENDTO = 1
 GNULIB_SETHOSTNAME = 0
 GNULIB_SETSOCKOPT = 1
 GNULIB_SHUTDOWN = 0
@@ -584,8 +591,8 @@ datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-gl_LIBOBJS =  bind.o connect.o dup2.o msvc-inval.o msvc-nothrow.o select.o send.o setsockopt.o socket.o
-gl_LTLIBOBJS =  bind.lo connect.lo dup2.lo msvc-inval.lo msvc-nothrow.lo select.lo send.lo setsockopt.lo socket.lo
+gl_LIBOBJS =  bind.o connect.o dup2.o getpeername.o listen.o msvc-inval.o msvc-nothrow.o recv.o recvfrom.o select.o send.o sendto.o setsockopt.o socket.o
+gl_LTLIBOBJS =  bind.lo connect.lo dup2.lo getpeername.lo listen.lo msvc-inval.lo msvc-nothrow.lo recv.lo recvfrom.lo select.lo send.lo sendto.lo setsockopt.lo socket.lo
 gltests_LIBOBJS = 
 gltests_LTLIBOBJS = 
 gltests_WITNESS = IN_ARDUMINGW_GNULIB_TESTS
@@ -624,12 +631,14 @@ noinst_HEADERS =
 noinst_LIBRARIES = libgnu.a
 noinst_LTLIBRARIES = 
 EXTRA_DIST = alloca.c alloca.in.h bind.c w32sock.h connect.c w32sock.h \
-	dup2.c errno.in.h fd-hook.h msvc-inval.c msvc-inval.h \
-	msvc-nothrow.c msvc-nothrow.h select.c send.c w32sock.h \
-	setsockopt.c w32sock.h signal.in.h arg-nonnull.h c++defs.h \
-	warn-on-use.h socket.c w32sock.h w32sock.h stdalign.in.h \
-	stddef.in.h sys_select.in.h sys_socket.in.h sys_time.in.h \
-	sys_types.in.h sys_uio.in.h unistd.in.h
+	dup2.c errno.in.h fd-hook.h getpeername.c w32sock.h listen.c \
+	w32sock.h msvc-inval.c msvc-inval.h msvc-nothrow.c \
+	msvc-nothrow.h recv.c w32sock.h recvfrom.c w32sock.h select.c \
+	send.c w32sock.h sendto.c w32sock.h setsockopt.c w32sock.h \
+	signal.in.h arg-nonnull.h c++defs.h warn-on-use.h socket.c \
+	w32sock.h w32sock.h stdalign.in.h stddef.in.h sys_select.in.h \
+	sys_socket.in.h sys_time.in.h sys_types.in.h sys_uio.in.h \
+	unistd.in.h
 BUILT_SOURCES = $(ALLOCA_H) $(ERRNO_H) signal.h $(STDALIGN_H) \
 	$(STDDEF_H) sys/select.h sys/socket.h sys/time.h sys/types.h \
 	sys/uio.h unistd.h
@@ -649,8 +658,9 @@ AM_CFLAGS =
 libgnu_a_SOURCES = fd-hook.c sockets.h sockets.c sys_socket.c unistd.c
 libgnu_a_LIBADD = $(gl_LIBOBJS) 
 libgnu_a_DEPENDENCIES = $(gl_LIBOBJS) 
-EXTRA_libgnu_a_SOURCES = alloca.c bind.c connect.c dup2.c msvc-inval.c \
-	msvc-nothrow.c select.c send.c setsockopt.c socket.c
+EXTRA_libgnu_a_SOURCES = alloca.c bind.c connect.c dup2.c \
+	getpeername.c listen.c msvc-inval.c msvc-nothrow.c recv.c \
+	recvfrom.c select.c send.c sendto.c setsockopt.c socket.c
 
 # Use this preprocessor expression to decide whether #include_next works.
 # Do not rely on a 'configure'-time test for this, since the expression
@@ -751,10 +761,15 @@ include ./$(DEPDIR)/bind.Po # am--include-marker
 include ./$(DEPDIR)/connect.Po # am--include-marker
 include ./$(DEPDIR)/dup2.Po # am--include-marker
 include ./$(DEPDIR)/fd-hook.Po # am--include-marker
+include ./$(DEPDIR)/getpeername.Po # am--include-marker
+include ./$(DEPDIR)/listen.Po # am--include-marker
 include ./$(DEPDIR)/msvc-inval.Po # am--include-marker
 include ./$(DEPDIR)/msvc-nothrow.Po # am--include-marker
+include ./$(DEPDIR)/recv.Po # am--include-marker
+include ./$(DEPDIR)/recvfrom.Po # am--include-marker
 include ./$(DEPDIR)/select.Po # am--include-marker
 include ./$(DEPDIR)/send.Po # am--include-marker
+include ./$(DEPDIR)/sendto.Po # am--include-marker
 include ./$(DEPDIR)/setsockopt.Po # am--include-marker
 include ./$(DEPDIR)/socket.Po # am--include-marker
 include ./$(DEPDIR)/sockets.Po # am--include-marker
@@ -991,10 +1006,15 @@ distclean: distclean-recursive
 	-rm -f ./$(DEPDIR)/connect.Po
 	-rm -f ./$(DEPDIR)/dup2.Po
 	-rm -f ./$(DEPDIR)/fd-hook.Po
+	-rm -f ./$(DEPDIR)/getpeername.Po
+	-rm -f ./$(DEPDIR)/listen.Po
 	-rm -f ./$(DEPDIR)/msvc-inval.Po
 	-rm -f ./$(DEPDIR)/msvc-nothrow.Po
+	-rm -f ./$(DEPDIR)/recv.Po
+	-rm -f ./$(DEPDIR)/recvfrom.Po
 	-rm -f ./$(DEPDIR)/select.Po
 	-rm -f ./$(DEPDIR)/send.Po
+	-rm -f ./$(DEPDIR)/sendto.Po
 	-rm -f ./$(DEPDIR)/setsockopt.Po
 	-rm -f ./$(DEPDIR)/socket.Po
 	-rm -f ./$(DEPDIR)/sockets.Po
@@ -1050,10 +1070,15 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f ./$(DEPDIR)/connect.Po
 	-rm -f ./$(DEPDIR)/dup2.Po
 	-rm -f ./$(DEPDIR)/fd-hook.Po
+	-rm -f ./$(DEPDIR)/getpeername.Po
+	-rm -f ./$(DEPDIR)/listen.Po
 	-rm -f ./$(DEPDIR)/msvc-inval.Po
 	-rm -f ./$(DEPDIR)/msvc-nothrow.Po
+	-rm -f ./$(DEPDIR)/recv.Po
+	-rm -f ./$(DEPDIR)/recvfrom.Po
 	-rm -f ./$(DEPDIR)/select.Po
 	-rm -f ./$(DEPDIR)/send.Po
+	-rm -f ./$(DEPDIR)/sendto.Po
 	-rm -f ./$(DEPDIR)/setsockopt.Po
 	-rm -f ./$(DEPDIR)/socket.Po
 	-rm -f ./$(DEPDIR)/sockets.Po

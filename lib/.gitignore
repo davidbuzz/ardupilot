@@ -33,3 +33,7 @@
 /setsockopt.c
 /connect.c
 /sendto.c
+/getpeername.c
+/recv.c
+/recvfrom.c
+/listen.c
