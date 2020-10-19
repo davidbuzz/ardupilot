@@ -153,7 +153,7 @@ int CANIface::_openSocket(const std::string& iface_name)
     return ret;
 }
 
-int16_t CANIface::send(const AP_HAL::CANFrame& frame, const uint64_t tx_deadline,
+int16_t CANIface::xsend(const AP_HAL::CANFrame& frame, const uint64_t tx_deadline,
                        const CANIface::CanIOFlags flags)
 {
     CanTxItem tx_item {};
@@ -477,7 +477,7 @@ bool CANIface::init(const uint32_t bitrate, const OperatingMode mode)
     return _initialized;
 }
 
-bool CANIface::select(bool &read_select, bool &write_select,
+bool CANIface::xselect(bool &read_select, bool &write_select,
                         const AP_HAL::CANFrame* const pending_tx, uint64_t blocking_deadline)
 {
 

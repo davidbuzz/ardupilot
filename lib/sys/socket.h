@@ -833,7 +833,7 @@ _GL_WARN_ON_USE (connect, "connect is not always POSIX compliant - "
 # endif
 #endif
 
-#if 0
+#if 1
 # if 1
 #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
 #   undef accept

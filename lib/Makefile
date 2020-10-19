@@ -46,6 +46,7 @@
 #  --no-conditional-dependencies \
 #  --no-libtool \
 #  --macro-prefix=gl \
+#  accept \
 #  bind \
 #  connect \
 #  listen \
@@ -191,8 +192,8 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/alloca.Po ./$(DEPDIR)/bind.Po \
-	./$(DEPDIR)/connect.Po ./$(DEPDIR)/dup2.Po \
+am__depfiles_remade = ./$(DEPDIR)/accept.Po ./$(DEPDIR)/alloca.Po \
+	./$(DEPDIR)/bind.Po ./$(DEPDIR)/connect.Po ./$(DEPDIR)/dup2.Po \
 	./$(DEPDIR)/fd-hook.Po ./$(DEPDIR)/getpeername.Po \
 	./$(DEPDIR)/listen.Po ./$(DEPDIR)/msvc-inval.Po \
 	./$(DEPDIR)/msvc-nothrow.Po ./$(DEPDIR)/recv.Po \
@@ -318,7 +319,7 @@ EOVERFLOW_HIDDEN = 0
 EOVERFLOW_VALUE = 
 ERRNO_H = errno.h
 EXEEXT = .exe
-GNULIB_ACCEPT = 0
+GNULIB_ACCEPT = 1
 GNULIB_ACCEPT4 = 0
 GNULIB_ACCESS = 0
 GNULIB_BIND = 1
@@ -591,8 +592,8 @@ datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-gl_LIBOBJS =  bind.o connect.o dup2.o getpeername.o listen.o msvc-inval.o msvc-nothrow.o recv.o recvfrom.o select.o send.o sendto.o setsockopt.o socket.o
-gl_LTLIBOBJS =  bind.lo connect.lo dup2.lo getpeername.lo listen.lo msvc-inval.lo msvc-nothrow.lo recv.lo recvfrom.lo select.lo send.lo sendto.lo setsockopt.lo socket.lo
+gl_LIBOBJS =  accept.o bind.o connect.o dup2.o getpeername.o listen.o msvc-inval.o msvc-nothrow.o recv.o recvfrom.o select.o send.o sendto.o setsockopt.o socket.o
+gl_LTLIBOBJS =  accept.lo bind.lo connect.lo dup2.lo getpeername.lo listen.lo msvc-inval.lo msvc-nothrow.lo recv.lo recvfrom.lo select.lo send.lo sendto.lo setsockopt.lo socket.lo
 gltests_LIBOBJS = 
 gltests_LTLIBOBJS = 
 gltests_WITNESS = IN_ARDUMINGW_GNULIB_TESTS
@@ -630,15 +631,15 @@ SUBDIRS =
 noinst_HEADERS = 
 noinst_LIBRARIES = libgnu.a
 noinst_LTLIBRARIES = 
-EXTRA_DIST = alloca.c alloca.in.h bind.c w32sock.h connect.c w32sock.h \
-	dup2.c errno.in.h fd-hook.h getpeername.c w32sock.h listen.c \
-	w32sock.h msvc-inval.c msvc-inval.h msvc-nothrow.c \
-	msvc-nothrow.h recv.c w32sock.h recvfrom.c w32sock.h select.c \
-	send.c w32sock.h sendto.c w32sock.h setsockopt.c w32sock.h \
-	signal.in.h arg-nonnull.h c++defs.h warn-on-use.h socket.c \
-	w32sock.h w32sock.h stdalign.in.h stddef.in.h sys_select.in.h \
-	sys_socket.in.h sys_time.in.h sys_types.in.h sys_uio.in.h \
-	unistd.in.h
+EXTRA_DIST = accept.c w32sock.h alloca.c alloca.in.h bind.c w32sock.h \
+	connect.c w32sock.h dup2.c errno.in.h fd-hook.h getpeername.c \
+	w32sock.h listen.c w32sock.h msvc-inval.c msvc-inval.h \
+	msvc-nothrow.c msvc-nothrow.h recv.c w32sock.h recvfrom.c \
+	w32sock.h select.c send.c w32sock.h sendto.c w32sock.h \
+	setsockopt.c w32sock.h signal.in.h arg-nonnull.h c++defs.h \
+	warn-on-use.h socket.c w32sock.h w32sock.h stdalign.in.h \
+	stddef.in.h sys_select.in.h sys_socket.in.h sys_time.in.h \
+	sys_types.in.h sys_uio.in.h unistd.in.h
 BUILT_SOURCES = $(ALLOCA_H) $(ERRNO_H) signal.h $(STDALIGN_H) \
 	$(STDDEF_H) sys/select.h sys/socket.h sys/time.h sys/types.h \
 	sys/uio.h unistd.h
@@ -658,7 +659,7 @@ AM_CFLAGS =
 libgnu_a_SOURCES = fd-hook.c sockets.h sockets.c sys_socket.c unistd.c
 libgnu_a_LIBADD = $(gl_LIBOBJS) 
 libgnu_a_DEPENDENCIES = $(gl_LIBOBJS) 
-EXTRA_libgnu_a_SOURCES = alloca.c bind.c connect.c dup2.c \
+EXTRA_libgnu_a_SOURCES = accept.c alloca.c bind.c connect.c dup2.c \
 	getpeername.c listen.c msvc-inval.c msvc-nothrow.c recv.c \
 	recvfrom.c select.c send.c sendto.c setsockopt.c socket.c
 
@@ -756,6 +757,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/accept.Po # am--include-marker
 include ./$(DEPDIR)/alloca.Po # am--include-marker
 include ./$(DEPDIR)/bind.Po # am--include-marker
 include ./$(DEPDIR)/connect.Po # am--include-marker
@@ -1001,7 +1003,8 @@ clean-am: clean-generic clean-noinstLIBRARIES clean-noinstLTLIBRARIES \
 	mostlyclean-am
 
 distclean: distclean-recursive
-		-rm -f ./$(DEPDIR)/alloca.Po
+		-rm -f ./$(DEPDIR)/accept.Po
+	-rm -f ./$(DEPDIR)/alloca.Po
 	-rm -f ./$(DEPDIR)/bind.Po
 	-rm -f ./$(DEPDIR)/connect.Po
 	-rm -f ./$(DEPDIR)/dup2.Po
@@ -1065,7 +1068,8 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-recursive
-		-rm -f ./$(DEPDIR)/alloca.Po
+		-rm -f ./$(DEPDIR)/accept.Po
+	-rm -f ./$(DEPDIR)/alloca.Po
 	-rm -f ./$(DEPDIR)/bind.Po
 	-rm -f ./$(DEPDIR)/connect.Po
 	-rm -f ./$(DEPDIR)/dup2.Po

@@ -37,6 +37,7 @@
 #  --no-conditional-dependencies \
 #  --no-libtool \
 #  --macro-prefix=gl \
+#  accept \
 #  bind \
 #  connect \
 #  listen \
@@ -53,6 +54,7 @@
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
 gl_MODULES([
+  accept
   bind
   connect
   listen

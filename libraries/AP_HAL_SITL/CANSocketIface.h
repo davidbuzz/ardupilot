@@ -72,7 +72,7 @@ public:
 
     // Put frame into Tx FIFO returns negative on error, 0 on buffer full, 
     // 1 on successfully pushing a frame into FIFO
-    int16_t send(const AP_HAL::CANFrame& frame, uint64_t tx_deadline,
+    int16_t xsend(const AP_HAL::CANFrame& frame, uint64_t tx_deadline,
                  CanIOFlags flags) override;
 
     // Receive frame from Rx Buffer, returns negative on error, 0 on nothing available, 
@@ -107,7 +107,7 @@ public:
      * Select Method                          *
      * ****************************************/
     // wait until selected event is available, false when timed out waiting else true
-    bool select(bool &read, bool &write,
+    bool xselect(bool &read, bool &write,
                 const AP_HAL::CANFrame* const pending_tx,
                 uint64_t blocking_deadline) override;
     

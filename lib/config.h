@@ -8,6 +8,9 @@
    whether the gnulib module msvc-nothrow shall be considered present. */
 #define GNULIB_MSVC_NOTHROW 1
 
+/* Define to 1 when the gnulib module accept should be tested. */
+#define GNULIB_TEST_ACCEPT 1
+
 /* Define to 1 when the gnulib module bind should be tested. */
 #define GNULIB_TEST_BIND 1
 
