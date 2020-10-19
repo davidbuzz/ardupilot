@@ -26,10 +26,10 @@
     Functor<rettype, ## __VA_ARGS__> name
 
 #define FUNCTOR_BIND(obj, func, rettype, ...) \
-    Functor<rettype, ## __VA_ARGS__>::bind<std::remove_reference<decltype(*obj)>::type, func>(obj)
+    Functor<rettype, ## __VA_ARGS__>::xxbind<std::remove_reference<decltype(*obj)>::type, func>(obj)
 
 #define FUNCTOR_BIND_MEMBER(func, rettype, ...) \
-    Functor<rettype, ## __VA_ARGS__>::bind<std::remove_reference<decltype(*this)>::type, func>(this)
+    Functor<rettype, ## __VA_ARGS__>::xxbind<std::remove_reference<decltype(*this)>::type, func>(this)
 
 template <class RetType, class... Args>
 class Functor
@@ -72,7 +72,7 @@ public:
     }
 
     template<class T, RetType (T::*method)(Args...)>
-    static constexpr Functor bind(T *obj)
+    static constexpr Functor xxbind(T *obj)
     {
         return { obj, method_wrapper<T, method> };
     }
