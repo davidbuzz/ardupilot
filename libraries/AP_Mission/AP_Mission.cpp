@@ -612,11 +612,9 @@ union PackedContent {
 
 };
 
-#ifndef _WIN32
+// on ming we need to use -mno-ms-bitfields see https://stackoverflow.com/questions/24015852/struct-packing-and-alignment-with-mingw
+// as attribute packed is broken on mingw32 compilers. 
 assert_storage_size<PackedContent, 12> assert_storage_size_PackedContent;
-#else
-assert_storage_size<PackedContent, 13> assert_storage_size_PackedContent; // buzz todo no ide why ming/windows needs an extra byte
-#endif
 
 /// load_cmd_from_storage - load command from storage
 ///     true is return if successful

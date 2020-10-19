@@ -431,10 +431,16 @@ class sitl(Board):
             'm',
         ]
 
-
-        # windows target does not use rt, uses -lws2_32 -lpthread instead
-        if env.CXX != 'i686-w64-mingw32-g++':
+        if ( 'x86_64-w64-mingw32-g++' in cfg.env.CXX  ) or ( 'i686-w64-mingw32-g++' in cfg.env.CXX ):
+            env.CXXFLAGS += [
+            '-mno-ms-bitfields' # without this mingw targetting windows builds uses a packing format not compatible with the normal gcc one.
+            ];
+        else:
+            # skip this for mingw builds...
             cfg.check_librt(env)
+
+        #print("ENV:",str(env.table));
+        #print("CFG ENV",str(cfg.env.table));
     
         cfg.check_feenableexcept()
 
