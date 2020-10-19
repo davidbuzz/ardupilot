@@ -118,7 +118,7 @@ void AP_KDECAN::init(uint8_t driver_index, bool enable_filters)
 
     AP_HAL::CANFrame frame { (id.value | AP_HAL::CANFrame::FlagEFF), nullptr, 0 };
 
-    if(!_can_iface->send(frame, AP_HAL::micros() + 1000000, 0)) {
+    if(!_can_iface->xsend(frame, AP_HAL::micros() + 1000000, 0)) {
         debug_can(AP_CANManager::LOG_DEBUG, "couldn't send discovery message");
         return;
     }
@@ -246,13 +246,13 @@ void AP_KDECAN::loop()
                     // wait for write space to be available
                     read_select = false;
                     write_select = true;
-                    select_ret = _can_iface->select(read_select, write_select, &frame, timeout);
+                    select_ret = _can_iface->xselect(read_select, write_select, &frame, timeout);
 
                     if (select_ret && write_select) {
                         now = AP_HAL::micros64();
                         timeout = now + ENUMERATION_TIMEOUT_MS * 1000;
 
-                        int8_t res = _can_iface->send(frame, timeout, 0);
+                        int8_t res = _can_iface->xsend(frame, timeout, 0);
 
                         if (res == 1) {
                             enumeration_start = now;
@@ -282,7 +282,7 @@ void AP_KDECAN::loop()
                     // wait for read data to be available
                     read_select = true;
                     write_select = false;
-                    select_ret = _can_iface->select(read_select, write_select, nullptr, timeout);
+                    select_ret = _can_iface->xselect(read_select, write_select, nullptr, timeout);
 
                     if (select_ret && read_select) {
                         AP_HAL::CANFrame recv_frame;
@@ -320,12 +320,12 @@ void AP_KDECAN::loop()
                                 AP_HAL::CANFrame send_frame { (id.value | AP_HAL::CANFrame::FlagEFF), (uint8_t*) &recv_frame.data, recv_frame.dlc };
                                 read_select = false;
                                 write_select = true;
-                                select_ret = _can_iface->select(read_select, write_select, &send_frame, timeout);
+                                select_ret = _can_iface->xselect(read_select, write_select, &send_frame, timeout);
 
                                 if (select_ret && write_select) {
                                     timeout = enumeration_start + ENUMERATION_TIMEOUT_MS * 1000;
 
-                                    res = _can_iface->send(send_frame, timeout, 0);
+                                    res = _can_iface->xsend(send_frame, timeout, 0);
 
                                     if (res == 1) {
                                         enumeration_esc_num++;
@@ -360,12 +360,12 @@ void AP_KDECAN::loop()
                     // wait for write space to be available
                     read_select = false;
                     write_select = true;
-                    select_ret = _can_iface->select(read_select, read_select, &frame, timeout);
+                    select_ret = _can_iface->xselect(read_select, read_select, &frame, timeout);
 
                     if (select_ret && write_select) {
                         timeout = enumeration_start + ENUMERATION_TIMEOUT_MS * 1000;
 
-                        int8_t res = _can_iface->send(frame, timeout, 0);
+                        int8_t res = _can_iface->xsend(frame, timeout, 0);
 
                         if (res == 1) {
                             enumeration_start = 0;
@@ -424,7 +424,7 @@ void AP_KDECAN::loop()
         read_select = true;
         write_select = try_write;
         // Immediately check if rx buffer not empty
-        select_ret = _can_iface->select(read_select, write_select, &empty_frame, timeout);
+        select_ret = _can_iface->xselect(read_select, write_select, &empty_frame, timeout);
         if (select_ret && read_select) {
             AP_HAL::CANFrame frame;
             uint64_t rx_time;
@@ -525,7 +525,7 @@ void AP_KDECAN::loop()
                         timeout = pwm_last_sent + SET_PWM_TIMEOUT_US;
                     }
 
-                    int16_t res = _can_iface->send(frame, timeout, 0);
+                    int16_t res = _can_iface->xsend(frame, timeout, 0);
                     if (res == 1) {
                         if (esc_num == 0) {
                             pwm_last_sent = now;
@@ -552,7 +552,7 @@ void AP_KDECAN::loop()
 
                 AP_HAL::CANFrame frame { (id.value | AP_HAL::CANFrame::FlagEFF), nullptr, 0 };
                 timeout = now + TELEMETRY_TIMEOUT_US;
-                int16_t res = _can_iface->send(frame, timeout, 0);
+                int16_t res = _can_iface->xsend(frame, timeout, 0);
                 if (res == 1) {
                     telemetry_last_request = now;
                 } else if (res == 0) {

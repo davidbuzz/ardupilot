@@ -386,7 +386,7 @@ bool AP_ToshibaCAN::write_frame(AP_HAL::CANFrame &out_frame, uint64_t timeout)
     bool write_select = true;
     bool ret;
     do {
-        ret = _can_iface->select(read_select, write_select, &out_frame, timeout);
+        ret = _can_iface->xselect(read_select, write_select, &out_frame, timeout);
         if (!ret || !write_select) {
             // delay if no space is available to send
             hal.scheduler->delay_microseconds(50);
@@ -394,7 +394,7 @@ bool AP_ToshibaCAN::write_frame(AP_HAL::CANFrame &out_frame, uint64_t timeout)
     } while (!ret || !write_select);
 
     // send frame and return success
-    return (_can_iface->send(out_frame, timeout, AP_HAL::CANIface::AbortOnError) == 1);
+    return (_can_iface->xsend(out_frame, timeout, AP_HAL::CANIface::AbortOnError) == 1);
 }
 
 // read frame on CAN bus, returns true on success
@@ -403,7 +403,7 @@ bool AP_ToshibaCAN::read_frame(AP_HAL::CANFrame &recv_frame, uint64_t timeout)
     // wait for space in buffer to read
     bool read_select = true;
     bool write_select = false;
-    int ret = _can_iface->select(read_select, write_select, nullptr, timeout);
+    int ret = _can_iface->xselect(read_select, write_select, nullptr, timeout);
     if (!ret || !read_select) {
         // return false if no data is available to read
         return false;

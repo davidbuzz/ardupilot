@@ -38,7 +38,7 @@ public:
 
 protected:
 
-    void send() override;
+    void qsend() override;
 
 private:
 

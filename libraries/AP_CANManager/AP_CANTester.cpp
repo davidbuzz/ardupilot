@@ -121,14 +121,14 @@ bool CANTester::write_frame(uint8_t iface, AP_HAL::CANFrame &out_frame, uint64_t
     bool read_select = false;
     bool write_select = true;
     out_frame.id += iface; // distinguish between multiple ifaces
-    bool ret = _can_ifaces[iface]->select(read_select, write_select, &out_frame, AP_HAL::native_micros64() + timeout);
+    bool ret = _can_ifaces[iface]->xselect(read_select, write_select, &out_frame, AP_HAL::native_micros64() + timeout);
     if (!ret || !write_select) {
         return false;
     }
     uint64_t deadline = AP_HAL::native_micros64() + 2000000;
     // hal.console->printf("%x TDEAD: %lu\n", out_frame.id, deadline);
     // send frame and return success
-    return (_can_ifaces[iface]->send(out_frame, deadline, AP_HAL::CANIface::AbortOnError) == 1);
+    return (_can_ifaces[iface]->xsend(out_frame, deadline, AP_HAL::CANIface::AbortOnError) == 1);
 }
 
 // read frame on CAN bus, returns true on success
@@ -141,7 +141,7 @@ bool CANTester::read_frame(uint8_t iface, AP_HAL::CANFrame &recv_frame, uint64_t
     // wait for space in buffer to read
     bool read_select = true;
     bool write_select = false;
-    bool ret = _can_ifaces[iface]->select(read_select, write_select, nullptr, AP_HAL::native_micros64() + timeout);
+    bool ret = _can_ifaces[iface]->xselect(read_select, write_select, nullptr, AP_HAL::native_micros64() + timeout);
     if (!ret || !read_select) {
         // return false if no data is available to read
         return false;
@@ -389,9 +389,9 @@ bool CANTester::test_busoff_recovery()
             break;
         }
         //Spam the bus with same frame
-        _can_ifaces[0]->send(bo_frame, AP_HAL::native_micros64()+1000, 0);
+        _can_ifaces[0]->xsend(bo_frame, AP_HAL::native_micros64()+1000, 0);
         _can_ifaces[1]->receive(bo_frame, timestamp, flags);
-        _can_ifaces[1]->send(bo_frame, AP_HAL::native_micros64()+1000, 0);
+        _can_ifaces[1]->xsend(bo_frame, AP_HAL::native_micros64()+1000, 0);
         _can_ifaces[0]->receive(bo_frame, timestamp, flags);
         bus_off_detected = _can_ifaces[0]->is_busoff() || _can_ifaces[1]->is_busoff();
         hal.scheduler->delay_microseconds(50);
@@ -404,9 +404,9 @@ bool CANTester::test_busoff_recovery()
     hal.scheduler->delay(1000);
     gcs().send_text(MAV_SEVERITY_ERROR, "Running Loopback test.");
     //Send Dummy Frames to clear the error
-    _can_ifaces[0]->send(bo_frame, AP_HAL::native_micros64(), 0);
+    _can_ifaces[0]->xsend(bo_frame, AP_HAL::native_micros64(), 0);
     bo_frame.id += 1;
-    _can_ifaces[1]->send(bo_frame, AP_HAL::native_micros64(), 0);
+    _can_ifaces[1]->xsend(bo_frame, AP_HAL::native_micros64(), 0);
     //Clear the CAN bus Rx Buffer
     hal.scheduler->delay(1000);
     _can_ifaces[0]->clear_rx();

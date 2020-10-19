@@ -48,7 +48,7 @@ int16_t CanIface::send(const CanFrame& frame, MonotonicTime tx_deadline, CanIOFl
     if (can_iface_ == UAVCAN_NULLPTR) {
         return -1;
     }
-    return can_iface_->send(AP_HAL::CANFrame(frame.id, frame.data, frame.dlc), tx_deadline.toUSec(), flags);
+    return can_iface_->xsend(AP_HAL::CANFrame(frame.id, frame.data, frame.dlc), tx_deadline.toUSec(), flags);
 }
 
 /**
@@ -201,13 +201,13 @@ CanSelectMasks CanIfaceMgr::makeSelectMasks(const CanSelectMasks in_mask, const 
             continue;
         }
         if (pending_tx[i] == UAVCAN_NULLPTR) {
-            if (iface->can_iface_->select(read, write, nullptr, 0)) {
+            if (iface->can_iface_->xselect(read, write, nullptr, 0)) {
                 msk.read  |= (read ? 1 : 0) << i;
                 msk.write |= (write ? 1 : 0) << i;
             }
         } else {
             AP_HAL::CANFrame frame {pending_tx[i]->id, pending_tx[i]->data, pending_tx[i]->dlc};
-            if (iface->can_iface_->select(read, write, &frame, 0)) {
+            if (iface->can_iface_->xselect(read, write, &frame, 0)) {
                 msk.read  |= (read ? 1 : 0) << i;
                 msk.write |= (write ? 1 : 0) << i;
             }

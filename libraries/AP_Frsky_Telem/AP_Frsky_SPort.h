@@ -9,7 +9,7 @@ public:
 
     using AP_Frsky_Backend::AP_Frsky_Backend;
 
-    void send() override;
+    void qsend() override;
 
 protected:
 

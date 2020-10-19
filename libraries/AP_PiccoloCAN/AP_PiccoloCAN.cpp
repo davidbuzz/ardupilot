@@ -214,13 +214,13 @@ bool AP_PiccoloCAN::write_frame(AP_HAL::CANFrame &out_frame, uint64_t timeout)
     bool write_select = true;
     bool ret;
     do {
-        ret = _can_iface->select(read_select, write_select, &out_frame, timeout);
+        ret = _can_iface->xselect(read_select, write_select, &out_frame, timeout);
         if (!ret || !write_select) {
             hal.scheduler->delay_microseconds(50);
         }
     } while (!ret || !write_select);
 
-    return (_can_iface->send(out_frame, timeout, AP_HAL::CANIface::AbortOnError) == 1);
+    return (_can_iface->xsend(out_frame, timeout, AP_HAL::CANIface::AbortOnError) == 1);
 }
 
 // read frame on CAN bus, returns true on succses
@@ -232,7 +232,7 @@ bool AP_PiccoloCAN::read_frame(AP_HAL::CANFrame &recv_frame, uint64_t timeout)
     }
     bool read_select = true;
     bool write_select = false;
-    bool ret = _can_iface->select(read_select, write_select, nullptr, timeout);
+    bool ret = _can_iface->xselect(read_select, write_select, nullptr, timeout);
     if (!ret || !read_select) {
         // No frame available
         return false;

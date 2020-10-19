@@ -192,7 +192,7 @@ void AP_Frsky_SPort_Passthrough::process_packet(uint8_t idx)
  * send telemetry data
  * for FrSky SPort Passthrough (OpenTX) protocol (X-receivers)
  */
-void AP_Frsky_SPort_Passthrough::send(void)
+void AP_Frsky_SPort_Passthrough::qsend(void)
 {
     int16_t numc;
     numc = _port->available();

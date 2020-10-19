@@ -118,10 +118,10 @@ public:
     void flush_tx() override;
     void clear_rx() override;
     bool is_initialized() const override;
-    bool select(bool &read, bool &write,
+    bool xselect(bool &read, bool &write,
                 const AP_HAL::CANFrame* const pending_tx,
                 uint64_t blocking_deadline) override;
-    int16_t send(const AP_HAL::CANFrame& frame, uint64_t tx_deadline,
+    int16_t xsend(const AP_HAL::CANFrame& frame, uint64_t tx_deadline,
                  AP_HAL::CANIface::CanIOFlags flags) override;
 
     int16_t receive(AP_HAL::CANFrame& out_frame, uint64_t& rx_time,

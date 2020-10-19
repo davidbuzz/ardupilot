@@ -8,7 +8,7 @@
  * send telemetry data
  * for FrSky SPort protocol (X-receivers)
  */
-void AP_Frsky_SPort::send(void)
+void AP_Frsky_SPort::qsend(void)
 {
     int16_t numc;
     numc = _port->available();

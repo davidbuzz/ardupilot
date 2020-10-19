@@ -40,7 +40,7 @@ void AP_Frsky_D::send_uint16(uint16_t id, uint16_t data)
  * a second frame (frame2) is sent every second (1000ms) with gps position data, and ahrs.yaw_sensor heading (instead of GPS heading)
  * for FrSky D protocol (D-receivers)
  */
-void AP_Frsky_D::send(void)
+void AP_Frsky_D::qsend(void)
 {
     const AP_BattMonitor &_battery = AP::battery();
     uint32_t now = AP_HAL::millis();

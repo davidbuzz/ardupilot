@@ -11,7 +11,7 @@ public:
 
 protected:
 
-    void send() override;
+    void qsend() override;
     uint32_t initial_baud() const override
     {
         return 9600;

@@ -13,7 +13,7 @@ public:
     virtual ~AP_Frsky_Backend()  {}
 
     virtual bool init();
-    virtual void send() = 0;
+    virtual void qsend() = 0;
 
     // SPort is at 57600, D overrides this
     virtual uint32_t initial_baud() const

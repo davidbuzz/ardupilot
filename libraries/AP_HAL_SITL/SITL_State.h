@@ -11,11 +11,12 @@
 
 #include <sys/types.h>
 #ifndef _WIN32
-#include <sys/socket.h>
+
 #include <netinet/in.h>
 #include <netinet/udp.h>
 #include <arpa/inet.h>
 #else
+#include <sys/socket.h>
 #include <winsock2.h>
 #include <windows.h>
 #endif

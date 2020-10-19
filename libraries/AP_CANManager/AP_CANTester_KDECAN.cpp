@@ -74,7 +74,7 @@ void AP_CANTester_KDECAN::loop(void)
     AP_HAL::CANFrame empty_frame { (0 | AP_HAL::CANFrame::FlagEFF), nullptr, 0 };
     bool read_select = true;
     bool write_select = false;
-    bool select_ret = _can_iface->select(read_select, write_select, nullptr, AP_HAL::micros64() + 1000);
+    bool select_ret = _can_iface->xselect(read_select, write_select, nullptr, AP_HAL::micros64() + 1000);
 
     if (select_ret && read_select) {
         AP_HAL::CANFrame recv_frame;
@@ -180,11 +180,11 @@ void AP_CANTester_KDECAN::loop(void)
                 res_frame.id = (_esc_info[i].node_id << 16) | object_address | AP_HAL::CANFrame::FlagEFF;
                 read_select = false;
                 write_select = true;
-                select_ret = _can_iface->select(read_select, write_select, &res_frame, AP_HAL::micros64() + 1000);
+                select_ret = _can_iface->xselect(read_select, write_select, &res_frame, AP_HAL::micros64() + 1000);
                 if (!select_ret) {
                     break;
                 }
-                int16_t res2 = _can_iface->send(res_frame, AP_HAL::micros64() + 500000, 0);
+                int16_t res2 = _can_iface->xsend(res_frame, AP_HAL::micros64() + 500000, 0);
                 if (res2 == 1) {
                     i++;
                 } else {
@@ -221,7 +221,7 @@ bool AP_CANTester_KDECAN::send_enumeration(uint8_t num)
         AP_HAL::CANFrame res_frame { (_esc_info[num].node_id << 16) | START_ENUM_OBJ_ADDR | AP_HAL::CANFrame::FlagEFF,
                                      mcu,
                                      8 };
-        int16_t res = _can_iface->send(res_frame, AP_HAL::micros64() + 1000, 0);
+        int16_t res = _can_iface->xsend(res_frame, AP_HAL::micros64() + 1000, 0);
         if (res == 1) {
             return true;
         }

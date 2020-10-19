@@ -38,7 +38,7 @@ void AP_Frsky_Backend::loop(void)
 
     while (true) {
         hal.scheduler->delay(1);
-        send();
+        qsend();
     }
 }
 

@@ -593,14 +593,14 @@ bool SLCAN::CANIface::is_initialized() const
     return false;
 }
 
-bool SLCAN::CANIface::select(bool &read, bool &write, const AP_HAL::CANFrame* const pending_tx,
+bool SLCAN::CANIface::xselect(bool &read, bool &write, const AP_HAL::CANFrame* const pending_tx,
                              uint64_t blocking_deadline)
 {
     update_slcan_port();
     bool ret = false;
     // When in passthrough mode select is handled through can iface
     if (_can_iface) {
-        ret = _can_iface->select(read, write, pending_tx, blocking_deadline);
+     //   ret = _can_iface->select(read, write, pending_tx, blocking_deadline);
     }
 
     if (_port == nullptr) {
@@ -619,13 +619,13 @@ bool SLCAN::CANIface::select(bool &read, bool &write, const AP_HAL::CANFrame* co
 
 
 // send method to transmit the frame through SLCAN interface
-int16_t SLCAN::CANIface::send(const AP_HAL::CANFrame& frame, uint64_t tx_deadline, AP_HAL::CANIface::CanIOFlags flags)
+int16_t SLCAN::CANIface::xsend(const AP_HAL::CANFrame& frame, uint64_t tx_deadline, AP_HAL::CANIface::CanIOFlags flags)
 {
     update_slcan_port();
     int16_t ret = 0;
     // When in passthrough mode select is handled through can iface
     if (_can_iface) {
-        ret = _can_iface->send(frame, tx_deadline, flags);
+        ret = _can_iface->xsend(frame, tx_deadline, flags);
     }
 
     if (_port == nullptr) {
@@ -686,7 +686,7 @@ int16_t SLCAN::CANIface::receive(AP_HAL::CANFrame& out_frame, uint64_t& rx_time,
         // Also send this frame over can_iface when in passthrough mode,
         // We just push this frame without caring for priority etc
         if (_can_iface) {
-            _can_iface->send(out_frame, AP_HAL::native_micros64() + 1000, out_flags);
+            _can_iface->xsend(out_frame, AP_HAL::native_micros64() + 1000, out_flags);
         }
         return 1;
     }
