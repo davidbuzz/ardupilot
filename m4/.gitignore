@@ -31,3 +31,6 @@
 /stddef_h.m4
 /unistd_h.m4
 /wchar_t.m4
+/gethostname.m4
+/gettimeofday.m4
+/close.m4

@@ -48,6 +48,7 @@
 #  --macro-prefix=gl \
 #  accept \
 #  bind \
+#  close \
 #  connect \
 #  gethostname \
 #  getsockname \
@@ -144,8 +145,8 @@ subdir = lib
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/absolute-header.m4 $(top_srcdir)/m4/alloca.m4 \
-	$(top_srcdir)/m4/dup2.m4 $(top_srcdir)/m4/errno_h.m4 \
-	$(top_srcdir)/m4/extensions.m4 \
+	$(top_srcdir)/m4/close.m4 $(top_srcdir)/m4/dup2.m4 \
+	$(top_srcdir)/m4/errno_h.m4 $(top_srcdir)/m4/extensions.m4 \
 	$(top_srcdir)/m4/extern-inline.m4 \
 	$(top_srcdir)/m4/gethostname.m4 \
 	$(top_srcdir)/m4/gettimeofday.m4 \
@@ -199,7 +200,8 @@ DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/accept.Po ./$(DEPDIR)/alloca.Po \
-	./$(DEPDIR)/bind.Po ./$(DEPDIR)/connect.Po ./$(DEPDIR)/dup2.Po \
+	./$(DEPDIR)/bind.Po ./$(DEPDIR)/close.Po \
+	./$(DEPDIR)/connect.Po ./$(DEPDIR)/dup2.Po \
 	./$(DEPDIR)/fd-hook.Po ./$(DEPDIR)/gethostname.Po \
 	./$(DEPDIR)/getpeername.Po ./$(DEPDIR)/getsockname.Po \
 	./$(DEPDIR)/gettimeofday.Po ./$(DEPDIR)/listen.Po \
@@ -333,7 +335,7 @@ GNULIB_ACCESS = 0
 GNULIB_BIND = 1
 GNULIB_CHDIR = 0
 GNULIB_CHOWN = 0
-GNULIB_CLOSE = 0
+GNULIB_CLOSE = 1
 GNULIB_CONNECT = 1
 GNULIB_COPY_FILE_RANGE = 0
 GNULIB_DUP = 0
@@ -527,7 +529,7 @@ PRAGMA_SYSTEM_HEADER = #pragma GCC system_header
 RANLIB = x86_64-w64-mingw32-ranlib
 REPLACE_ACCESS = 0
 REPLACE_CHOWN = 0
-REPLACE_CLOSE = 0
+REPLACE_CLOSE = 1
 REPLACE_DUP = 0
 REPLACE_DUP2 = 1
 REPLACE_FACCESSAT = 0
@@ -600,8 +602,8 @@ datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-gl_LIBOBJS =  accept.o bind.o connect.o dup2.o gethostname.o getpeername.o getsockname.o gettimeofday.o listen.o msvc-inval.o msvc-nothrow.o recv.o recvfrom.o select.o send.o sendto.o setsockopt.o socket.o
-gl_LTLIBOBJS =  accept.lo bind.lo connect.lo dup2.lo gethostname.lo getpeername.lo getsockname.lo gettimeofday.lo listen.lo msvc-inval.lo msvc-nothrow.lo recv.lo recvfrom.lo select.lo send.lo sendto.lo setsockopt.lo socket.lo
+gl_LIBOBJS =  accept.o bind.o close.o connect.o dup2.o gethostname.o getpeername.o getsockname.o gettimeofday.o listen.o msvc-inval.o msvc-nothrow.o recv.o recvfrom.o select.o send.o sendto.o setsockopt.o socket.o
+gl_LTLIBOBJS =  accept.lo bind.lo close.lo connect.lo dup2.lo gethostname.lo getpeername.lo getsockname.lo gettimeofday.lo listen.lo msvc-inval.lo msvc-nothrow.lo recv.lo recvfrom.lo select.lo send.lo sendto.lo setsockopt.lo socket.lo
 gltests_LIBOBJS = 
 gltests_LTLIBOBJS = 
 gltests_WITNESS = IN_ARDUMINGW_GNULIB_TESTS
@@ -640,15 +642,15 @@ noinst_HEADERS =
 noinst_LIBRARIES = libgnu.a
 noinst_LTLIBRARIES = 
 EXTRA_DIST = accept.c w32sock.h alloca.c alloca.in.h bind.c w32sock.h \
-	connect.c w32sock.h dup2.c errno.in.h fd-hook.h gethostname.c \
-	w32sock.h getpeername.c w32sock.h getsockname.c w32sock.h \
-	gettimeofday.c listen.c w32sock.h msvc-inval.c msvc-inval.h \
-	msvc-nothrow.c msvc-nothrow.h recv.c w32sock.h recvfrom.c \
-	w32sock.h select.c send.c w32sock.h sendto.c w32sock.h \
-	setsockopt.c w32sock.h signal.in.h arg-nonnull.h c++defs.h \
-	warn-on-use.h socket.c w32sock.h w32sock.h stdalign.in.h \
-	stddef.in.h sys_select.in.h sys_socket.in.h sys_time.in.h \
-	sys_types.in.h sys_uio.in.h unistd.in.h
+	close.c connect.c w32sock.h dup2.c errno.in.h fd-hook.h \
+	gethostname.c w32sock.h getpeername.c w32sock.h getsockname.c \
+	w32sock.h gettimeofday.c listen.c w32sock.h msvc-inval.c \
+	msvc-inval.h msvc-nothrow.c msvc-nothrow.h recv.c w32sock.h \
+	recvfrom.c w32sock.h select.c send.c w32sock.h sendto.c \
+	w32sock.h setsockopt.c w32sock.h signal.in.h arg-nonnull.h \
+	c++defs.h warn-on-use.h socket.c w32sock.h w32sock.h \
+	stdalign.in.h stddef.in.h sys_select.in.h sys_socket.in.h \
+	sys_time.in.h sys_types.in.h sys_uio.in.h unistd.in.h
 BUILT_SOURCES = $(ALLOCA_H) $(ERRNO_H) signal.h $(STDALIGN_H) \
 	$(STDDEF_H) sys/select.h sys/socket.h sys/time.h sys/types.h \
 	sys/uio.h unistd.h
@@ -668,10 +670,10 @@ AM_CFLAGS =
 libgnu_a_SOURCES = fd-hook.c sockets.h sockets.c sys_socket.c unistd.c
 libgnu_a_LIBADD = $(gl_LIBOBJS) 
 libgnu_a_DEPENDENCIES = $(gl_LIBOBJS) 
-EXTRA_libgnu_a_SOURCES = accept.c alloca.c bind.c connect.c dup2.c \
-	gethostname.c getpeername.c getsockname.c gettimeofday.c \
-	listen.c msvc-inval.c msvc-nothrow.c recv.c recvfrom.c \
-	select.c send.c sendto.c setsockopt.c socket.c
+EXTRA_libgnu_a_SOURCES = accept.c alloca.c bind.c close.c connect.c \
+	dup2.c gethostname.c getpeername.c getsockname.c \
+	gettimeofday.c listen.c msvc-inval.c msvc-nothrow.c recv.c \
+	recvfrom.c select.c send.c sendto.c setsockopt.c socket.c
 
 # Use this preprocessor expression to decide whether #include_next works.
 # Do not rely on a 'configure'-time test for this, since the expression
@@ -770,6 +772,7 @@ distclean-compile:
 include ./$(DEPDIR)/accept.Po # am--include-marker
 include ./$(DEPDIR)/alloca.Po # am--include-marker
 include ./$(DEPDIR)/bind.Po # am--include-marker
+include ./$(DEPDIR)/close.Po # am--include-marker
 include ./$(DEPDIR)/connect.Po # am--include-marker
 include ./$(DEPDIR)/dup2.Po # am--include-marker
 include ./$(DEPDIR)/fd-hook.Po # am--include-marker
@@ -1019,6 +1022,7 @@ distclean: distclean-recursive
 		-rm -f ./$(DEPDIR)/accept.Po
 	-rm -f ./$(DEPDIR)/alloca.Po
 	-rm -f ./$(DEPDIR)/bind.Po
+	-rm -f ./$(DEPDIR)/close.Po
 	-rm -f ./$(DEPDIR)/connect.Po
 	-rm -f ./$(DEPDIR)/dup2.Po
 	-rm -f ./$(DEPDIR)/fd-hook.Po
@@ -1087,6 +1091,7 @@ maintainer-clean: maintainer-clean-recursive
 		-rm -f ./$(DEPDIR)/accept.Po
 	-rm -f ./$(DEPDIR)/alloca.Po
 	-rm -f ./$(DEPDIR)/bind.Po
+	-rm -f ./$(DEPDIR)/close.Po
 	-rm -f ./$(DEPDIR)/connect.Po
 	-rm -f ./$(DEPDIR)/dup2.Po
 	-rm -f ./$(DEPDIR)/fd-hook.Po

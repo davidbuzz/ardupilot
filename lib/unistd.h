@@ -103,7 +103,7 @@
      && (defined _WIN32 && ! defined __CYGWIN__))
 # include <io.h>     /* mingw32, mingw64 */
 # include <direct.h> /* mingw64, MSVC 9 */
-#elif (0 || 0 || 1 || 0 \
+#elif (1 || 0 || 1 || 0 \
        || 0 || 0 || 0 || 0 \
        || defined GNULIB_POSIXCHECK) \
       && (defined _WIN32 && ! defined __CYGWIN__)
@@ -852,8 +852,8 @@ _GL_WARN_ON_USE (chown, "chown fails to follow symlinks on some systems and "
 #endif
 
 
-#if 0
-# if 0
+#if 1
+# if 1
 /* Automatically included by modules that need a replacement for close.  */
 #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
 #   undef close

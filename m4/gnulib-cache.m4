@@ -39,6 +39,7 @@
 #  --macro-prefix=gl \
 #  accept \
 #  bind \
+#  close \
 #  connect \
 #  gethostname \
 #  getsockname \
@@ -60,6 +61,7 @@ gl_LOCAL_DIR([])
 gl_MODULES([
   accept
   bind
+  close
   connect
   gethostname
   getsockname

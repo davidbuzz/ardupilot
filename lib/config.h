@@ -18,6 +18,9 @@
 /* Define to 1 when the gnulib module bind should be tested. */
 #define GNULIB_TEST_BIND 1
 
+/* Define to 1 when the gnulib module close should be tested. */
+#define GNULIB_TEST_CLOSE 1
+
 /* Define to 1 when the gnulib module connect should be tested. */
 #define GNULIB_TEST_CONNECT 1
 
