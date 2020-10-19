@@ -39,7 +39,7 @@
 
 #include <sys/types.h>
 
-#include <sys/time.h>
+//#include <sys/time.h>
 
 #include "UARTDriver.h"
 #include "SITL_State.h"

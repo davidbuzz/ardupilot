@@ -318,7 +318,7 @@ void lua_scripts::repl_cleanup (void) {
     if (terminal.session) {
         terminal.session = false;
         if (terminal.output_fd != -1) {
-            AP::FS().close(terminal.output_fd);
+            //AP::FS().close(terminal.output_fd);
             terminal.output_fd = -1;
             AP::FS().unlink(REPL_DIRECTORY "/in");
             AP::FS().unlink(REPL_DIRECTORY "/out");

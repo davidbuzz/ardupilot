@@ -10,6 +10,9 @@
 
 #include "Scheduler.h"
 
+//#include <sys/time.h>
+#include <time.h>
+
 extern const AP_HAL::HAL& hal;
 
 using HALSITL::Scheduler;
@@ -22,7 +25,11 @@ static struct {
 
 void init()
 {
+#ifndef _WIN32
     gettimeofday(&state.start_time, nullptr);
+#else
+    mingw_gettimeofday(&state.start_time, nullptr);
+#endif
 }
 
 void panic(const char *errormsg, ...)
@@ -159,7 +166,11 @@ uint64_t micros64()
 
     struct timeval tp;
 
+#ifndef _WIN32
     gettimeofday(&tp, nullptr);
+#else
+    mingw_gettimeofday(&tp, nullptr);
+#endif
 
     uint64_t ret = 1.0e6 * ((tp.tv_sec + (tp.tv_usec * 1.0e-6)) -
                             (state.start_time.tv_sec +
@@ -177,7 +188,11 @@ uint64_t millis64()
 
     struct timeval tp;
 
+#ifndef _WIN32
     gettimeofday(&tp, nullptr);
+#else
+    mingw_gettimeofday(&tp, nullptr);
+#endif
 
     uint64_t ret = 1.0e3*((tp.tv_sec + (tp.tv_usec*1.0e-6)) -
                           (state.start_time.tv_sec +
@@ -208,7 +223,11 @@ uint16_t native_millis16()
 uint64_t native_micros64()
 {
     struct timeval tp;
+#ifndef _WIN32
     gettimeofday(&tp, nullptr);
+#else
+    mingw_gettimeofday(&tp, nullptr);
+#endif
     uint64_t ret = 1.0e6 * ((tp.tv_sec + (tp.tv_usec * 1.0e-6)) -
                             (state.start_time.tv_sec +
                              (state.start_time.tv_usec * 1.0e-6)));
@@ -219,7 +238,11 @@ uint64_t native_millis64()
 {
     struct timeval tp;
 
+#ifndef _WIN32
     gettimeofday(&tp, nullptr);
+#else
+    mingw_gettimeofday(&tp, nullptr);
+#endif
     uint64_t ret = 1.0e3*((tp.tv_sec + (tp.tv_usec*1.0e-6)) -
                           (state.start_time.tv_sec +
                            (state.start_time.tv_usec*1.0e-6)));

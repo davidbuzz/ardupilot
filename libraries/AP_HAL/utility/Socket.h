@@ -16,12 +16,13 @@
   simple socket handling class for systems with BSD socket API
  */
 #pragma once
+#include <unistd.h>// needs to be up high here before hal
 
 #include <AP_HAL/AP_HAL.h>
 #if HAL_OS_SOCKETS
 
 #include <fcntl.h>
-#include <unistd.h>
+//#include <unistd.h>
 
 #ifndef _WIN32
 #include <sys/ioctl.h>

@@ -62,7 +62,7 @@ void AP_SerialLED::set_RGB(uint8_t chan, int8_t led, uint8_t red, uint8_t green,
 }
 
 // trigger sending of LED changes to LEDs
-void AP_SerialLED::send(uint8_t chan)
+void AP_SerialLED::Lsend(uint8_t chan)
 {
     if (chan >= 1 && chan <= 16) {
         hal.rcout->serial_led_send(chan-1);

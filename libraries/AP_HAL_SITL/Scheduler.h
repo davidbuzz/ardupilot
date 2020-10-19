@@ -3,7 +3,9 @@
 #include <AP_HAL/AP_HAL.h>
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
 #include "AP_HAL_SITL_Namespace.h"
+#ifndef _WIN32
 #include <sys/time.h>
+#endif
 #include <pthread.h>
 
 #define SITL_SCHEDULER_MAX_TIMER_PROCS 8

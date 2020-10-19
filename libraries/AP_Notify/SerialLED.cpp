@@ -61,7 +61,7 @@ bool SerialLED::hw_set_rgb(uint8_t red, uint8_t green, uint8_t blue)
 
     for (uint16_t chan=0; chan<16; chan++) {
         if ((1U<<chan) & enable_mask) {
-            led->send(chan+1);
+            led->Lsend(chan+1);
         }
     }
 

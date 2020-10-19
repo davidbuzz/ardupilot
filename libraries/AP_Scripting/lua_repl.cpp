@@ -109,7 +109,7 @@ int lua_scripts::pushline(lua_State *L, int firstline) {
         if (input_fd != -1) {
             AP::FS().lseek(input_fd, terminal.input_offset, SEEK_SET);
             ssize_t read_bytes = AP::FS().read(input_fd, buffer, ARRAY_SIZE(buffer) - 1);
-            AP::FS().close(input_fd);
+            //AP::FS().close(input_fd);
             if (read_bytes > 0) {
                 // locate the first newline
                 char * newline_chr = strchr(buffer, '\n');

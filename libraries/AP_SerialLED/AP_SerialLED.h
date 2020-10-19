@@ -38,7 +38,7 @@ public:
     void set_RGB(uint8_t chan, int8_t led, uint8_t red, uint8_t green, uint8_t blue);
     
     // trigger sending of LED changes to LEDs
-    void send(uint8_t chan);
+    void Lsend(uint8_t chan);
 
     // singleton support
     static AP_SerialLED *get_singleton(void) {
