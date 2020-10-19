@@ -28,6 +28,7 @@
 #define F_SETFL 0
 #define F_SETFD 0
 #define FD_CLOEXEC 0
+#include "../../../lib/nonblocking.h" //its not fcntl but its got a windwos impl
 #endif
 
 #ifdef _WIN32
@@ -114,14 +115,14 @@ bool SocketAPM::bind(const char *address, uint16_t port)
 bool SocketAPM::reuseaddress(void)
 {
 
-    return false;// hack to allow it
+   // return false;// hack to allow it
 
     int one = 1;
-        #ifndef _WIN32
+ //       #ifndef _WIN32
     return (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) != -1);
-        #else
-    return (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (const char*)&one, sizeof(one)) != -1);
-        #endif
+ //       #else
+ //   return (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (const char*)&one, sizeof(one)) != -1);
+  //      #endif
 
 }
 
@@ -140,7 +141,13 @@ bool SocketAPM::set_blocking(bool blocking)
         fcntl_ret = fcntl(fd, F_SETFL, fcntl(fd, F_GETFL, 0) | O_NONBLOCK);
     }
     return fcntl_ret != -1;
+
 #else
+    int fcntl_ret = set_nonblocking_flag (fd, blocking);
+    return fcntl_ret != -1;
+#endif
+
+/*
     // windows todo https://docs.microsoft.com/en-us/windows/win32/api/winsock/nf-winsock-ioctlsocket
     int iResult;
     u_long iMode = 0; // 0  means blocking
@@ -152,7 +159,7 @@ bool SocketAPM::set_blocking(bool blocking)
     //todo error check iResult
     iResult = iResult; // to stop 'unused warning
     return blocking;
-#endif
+*/
 }
 
 /*
@@ -163,7 +170,7 @@ bool SocketAPM::set_cloexec()
 #ifndef _WIN32
     return (fcntl(fd, F_SETFD, FD_CLOEXEC) != -1);
 #else
-    return 0;// buzz todo
+    return true;// buzz todo
 #endif
 }
 

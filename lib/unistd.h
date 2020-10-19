@@ -1335,7 +1335,7 @@ _GL_WARN_ON_USE (getdomainname, "getdomainname is unportable - "
 #endif
 
 
-#if 0
+#if 1
 /* Return the maximum number of file descriptors in the current process.
    In POSIX, this is same as sysconf (_SC_OPEN_MAX).  */
 # if 0
@@ -1346,7 +1346,7 @@ _GL_WARN_ON_USE (getdomainname, "getdomainname is unportable - "
 _GL_FUNCDECL_RPL (getdtablesize, int, (void));
 _GL_CXXALIAS_RPL (getdtablesize, int, (void));
 # else
-#  if !1
+#  if !0
 _GL_FUNCDECL_SYS (getdtablesize, int, (void));
 #  endif
 /* Need to cast, because on AIX, the parameter list is

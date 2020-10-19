@@ -326,6 +326,7 @@ void UARTDriver::_tcp_start_connection(uint16_t port, bool wait_for_connection)
         fflush(stdout);
     }
 
+    //wait_for_connection = false; // buzz hack
     if (wait_for_connection) {
         fprintf(stdout, "Waiting for connection ....\n");
         fflush(stdout);

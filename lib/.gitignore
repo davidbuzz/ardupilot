@@ -42,3 +42,14 @@
 /getsockname.c
 /gettimeofday.c
 /close.c
+/fcntl.c
+/fcntl.in.h
+/getdtablesize.c
+/ioctl.c
+/nonblocking.c
+/nonblocking.h
+/stdbool.in.h
+/stdio-read.c
+/stdio-write.c
+/stdio.in.h
+/sys_ioctl.in.h

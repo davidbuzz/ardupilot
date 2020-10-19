@@ -41,10 +41,13 @@
 #  bind \
 #  close \
 #  connect \
+#  fcntl \
+#  fcntl-h \
 #  gethostname \
 #  getsockname \
 #  gettimeofday \
 #  listen \
+#  nonblocking \
 #  recv \
 #  recvfrom \
 #  select \
@@ -63,10 +66,13 @@ gl_MODULES([
   bind
   close
   connect
+  fcntl
+  fcntl-h
   gethostname
   getsockname
   gettimeofday
   listen
+  nonblocking
   recv
   recvfrom
   select

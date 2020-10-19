@@ -4,13 +4,32 @@
 /* Define to 1 if using 'alloca.c'. */
 /* #undef C_ALLOCA */
 
+/* Define this to 1 if F_DUPFD behavior does not match POSIX */
+/* #undef FCNTL_DUPFD_BUGGY */
+
 /* Define this to 'void' or 'struct timezone' to match the system's
    declaration of the second argument to gettimeofday. */
 #define GETTIMEOFDAY_TIMEZONE void
 
 /* Define to a C preprocessor expression that evaluates to 1 or 0, depending
+   whether the gnulib module fscanf shall be considered present. */
+#define GNULIB_FSCANF 1
+
+/* Define to a C preprocessor expression that evaluates to 1 or 0, depending
    whether the gnulib module msvc-nothrow shall be considered present. */
 #define GNULIB_MSVC_NOTHROW 1
+
+/* Define to a C preprocessor expression that evaluates to 1 or 0, depending
+   whether the gnulib module nonblocking shall be considered present. */
+#define GNULIB_NONBLOCKING 1
+
+/* Define to 1 if printf and friends should be labeled with attribute
+   "__gnu_printf__" instead of "__printf__" */
+#define GNULIB_PRINTF_ATTRIBUTE_FLAVOR_GNU 1
+
+/* Define to a C preprocessor expression that evaluates to 1 or 0, depending
+   whether the gnulib module scanf shall be considered present. */
+#define GNULIB_SCANF 1
 
 /* Define to 1 when the gnulib module accept should be tested. */
 #define GNULIB_TEST_ACCEPT 1
@@ -27,6 +46,12 @@
 /* Define to 1 when the gnulib module dup2 should be tested. */
 #define GNULIB_TEST_DUP2 1
 
+/* Define to 1 when the gnulib module fcntl should be tested. */
+#define GNULIB_TEST_FCNTL 1
+
+/* Define to 1 when the gnulib module getdtablesize should be tested. */
+#define GNULIB_TEST_GETDTABLESIZE 1
+
 /* Define to 1 when the gnulib module gethostname should be tested. */
 #define GNULIB_TEST_GETHOSTNAME 1
 
@@ -39,8 +64,14 @@
 /* Define to 1 when the gnulib module gettimeofday should be tested. */
 #define GNULIB_TEST_GETTIMEOFDAY 1
 
+/* Define to 1 when the gnulib module ioctl should be tested. */
+#define GNULIB_TEST_IOCTL 1
+
 /* Define to 1 when the gnulib module listen should be tested. */
 #define GNULIB_TEST_LISTEN 1
+
+/* Define to 1 when the gnulib module nonblocking should be tested. */
+#define GNULIB_TEST_NONBLOCKING 1
 
 /* Define to 1 when the gnulib module recv should be tested. */
 #define GNULIB_TEST_RECV 1
@@ -71,6 +102,16 @@
    */
 /* #undef HAVE_ALLOCA_H */
 
+/* Define to 1 if you have the declaration of `getdtablesize', and to 0 if you
+   don't. */
+#define HAVE_DECL_GETDTABLESIZE 0
+
+/* Define to 1 if you have the `fcntl' function. */
+/* #undef HAVE_FCNTL */
+
+/* Define to 1 if you have the `getdtablesize' function. */
+/* #undef HAVE_GETDTABLESIZE */
+
 /* Define to 1 if you have the `gethostname' function. */
 /* #undef HAVE_GETHOSTNAME */
 
@@ -79,6 +120,9 @@
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
+
+/* Define to 1 if you have the `ioctl' function. */
+/* #undef HAVE_IOCTL */
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
@@ -120,6 +164,12 @@
 /* Define to 1 if `ss_family' is a member of `struct sockaddr_storage'. */
 #define HAVE_STRUCT_SOCKADDR_STORAGE_SS_FAMILY 1
 
+/* Define to 1 if you have the `symlink' function. */
+/* #undef HAVE_SYMLINK */
+
+/* Define to 1 if you have the <sys/ioctl.h> header file. */
+/* #undef HAVE_SYS_IOCTL_H */
+
 /* Define to 1 if you have the <sys/param.h> header file. */
 #define HAVE_SYS_PARAM_H 1
 
@@ -153,14 +203,29 @@
 /* Define to 1 if you have the <winsock2.h> header file. */
 #define HAVE_WINSOCK2_H 1
 
+/* Define to 1 if O_NOATIME works. */
+#define HAVE_WORKING_O_NOATIME 0
+
+/* Define to 1 if O_NOFOLLOW works. */
+#define HAVE_WORKING_O_NOFOLLOW 0
+
 /* Define to 1 if you have the <ws2tcpip.h> header file. */
 #define HAVE_WS2TCPIP_H 1
+
+/* Define to 1 if the system has the type `_Bool'. */
+#define HAVE__BOOL 1
 
 /* Define to 1 if you have the `_set_invalid_parameter_handler' function. */
 #define HAVE__SET_INVALID_PARAMETER_HANDLER 1
 
 /* Define HOST_NAME_MAX when <limits.h> does not define it. */
 #define HOST_NAME_MAX 256
+
+/* Use GNU style printf and scanf.  */
+#ifndef __USE_MINGW_ANSI_STDIO
+# define __USE_MINGW_ANSI_STDIO 1
+#endif
+
 
 /* Name of package */
 #define PACKAGE "ardumingw"
@@ -193,6 +258,10 @@
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
+
+/* Define to the prefix of C symbols at the assembler and linker level, either
+   an underscore or empty. */
+#define USER_LABEL_PREFIX 
 
 /* Enable extensions on AIX 3, Interix.  */
 #ifndef _ALL_SOURCE

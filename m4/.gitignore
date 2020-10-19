@@ -34,3 +34,13 @@
 /gethostname.m4
 /gettimeofday.m4
 /close.m4
+/fcntl-o.m4
+/fcntl.m4
+/fcntl_h.m4
+/getdtablesize.m4
+/asm-underscore.m4
+/ioctl.m4
+/nonblocking.m4
+/stdbool.m4
+/stdio_h.m4
+/sys_ioctl_h.m4
