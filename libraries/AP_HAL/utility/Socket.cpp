@@ -143,7 +143,7 @@ bool SocketAPM::set_blocking(bool blocking)
     return fcntl_ret != -1;
 
 #else
-    int fcntl_ret = set_nonblocking_flag (fd, blocking);
+    int fcntl_ret = set_nonblocking_flag(fd, blocking);
     return fcntl_ret != -1;
 #endif
 
@@ -179,11 +179,9 @@ bool SocketAPM::set_cloexec()
  */
 ssize_t SocketAPM::send(const void *buf, size_t size)
 {
-#ifndef _WIN32
+
     return ::send(fd, buf, size, 0);
-#else
-    return ::send(fd, (const char*)buf, size, 0);
-#endif
+
 }
 
 /*
@@ -193,11 +191,9 @@ ssize_t SocketAPM::sendto(const void *buf, size_t size, const char *address, uin
 {
     struct sockaddr_in sockaddr;
     make_sockaddr(address, port, sockaddr);
-#ifndef _WIN32
+
     return ::sendto(fd, buf, size, 0, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
-#else
-    return ::sendto(fd, (const char*)buf, size, 0, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
-#endif
+
 }
 
 /*
