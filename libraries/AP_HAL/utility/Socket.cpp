@@ -111,12 +111,16 @@ bool SocketAPM::bind(const char *address, uint16_t port)
  */
 bool SocketAPM::reuseaddress(void)
 {
+
+    return false;// hack to allow it
+
     int one = 1;
         #ifndef _WIN32
     return (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) != -1);
         #else
     return (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (const char*)&one, sizeof(one)) != -1);
         #endif
+
 }
 
 

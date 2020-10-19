@@ -25,12 +25,17 @@
 
 #ifndef _WIN32
 #include <sys/ioctl.h>
-#include <sys/socket.h>
+
 #include <netinet/in.h>
 #include <netinet/tcp.h>
 #include <arpa/inet.h>
 #include <sys/select.h>
 #else
+// output from:  x86_64-w64-mingw32-gcc -dM -E -std=gnu99 nul.c   | grep __STDC_VERSION__
+#define __STDC_VERSION__ 199901L
+#include "../../lib/config.h"
+#include <sys/socket.h>
+
 #include <winsock2.h>
 #include <windows.h>
 #endif

@@ -16,3 +16,56 @@ CXX=x86_64-w64-mingw32-g++ CC=x86_64-w64-mingw32-gcc ./waf --target bin/arduplan
 
 # and a simple way to run the windows exe under linux:
 wine build/sitl/bin/arduplane.exe --model plane
+
+
+
+---------------------------------
+# gnulib includes portable versions of sys.socket.h and friends
+$ git clone git://git.sv.gnu.org/gnulib.git
+http://www.gnu.org/software/gnulib/manual/gnulib.html#Gnulib-Basics
+./gnulib/gnulib-tool --gnu-make --import sys_socket bind
+
+sudo apt-get install libconfig-dev
+
+# we've made a minimal autoconf/automake setup just for gnulib....
+aclocal -I m4 ; autoheader ; automake --add-missing ; autoconf
+# target linux:
+./configure
+make
+# also see lib/libgnu.a
+
+file lib/sys_socket.o
+lib/sys_socket.o: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), with debug_info, not stripped
+
+
+
+make distclean
+# target ming:
+CXX=x86_64-w64-mingw32-g++ CC=x86_64-w64-mingw32-gcc ./configure --host=x86_64-w64-mingw32
+make
+
+file lib/sys_socket.o
+lib/sys_socket.o: Intel amd64 COFF object file, no line number info, not stripped, 13 sections, symbol offset=0x5300, 30 symbols
+
+
+---------------------------------
+
+cp lib/libgnu.a build/sitl/lib/
+
+
+cd build/sitl
+
+'x86_64-w64-mingw32-g++' '-Wl,--gc-sections' '-static-libgcc' '-static-libstdc++' '-pthread' '-lpthread' '-lws2_32' '-lwsock32' '-Wl,--enable-auto-import' '-Wl,--enable-auto-import' 'ArduPlane/AP_Arming.cpp.34.o' 'ArduPlane/ArduPlane.cpp.34.o' 'ArduPlane/Attitude.cpp.34.o' 'ArduPlane/GCS_Mavlink.cpp.34.o' 'ArduPlane/GCS_Plane.cpp.34.o' 'ArduPlane/Log.cpp.34.o' 'ArduPlane/Parameters.cpp.34.o' 'ArduPlane/Plane.cpp.34.o' 'ArduPlane/RC_Channel.cpp.34.o' 'ArduPlane/afs_plane.cpp.34.o' 'ArduPlane/altitude.cpp.34.o' 'ArduPlane/avoidance_adsb.cpp.34.o' 'ArduPlane/commands.cpp.34.o' 'ArduPlane/commands_logic.cpp.34.o' 'ArduPlane/control_modes.cpp.34.o' 'ArduPlane/ekf_check.cpp.34.o' 'ArduPlane/events.cpp.34.o' 'ArduPlane/failsafe.cpp.34.o' 'ArduPlane/geofence.cpp.34.o' 'ArduPlane/is_flying.cpp.34.o' 'ArduPlane/mode.cpp.34.o' 'ArduPlane/mode_acro.cpp.34.o' 'ArduPlane/mode_auto.cpp.34.o' 'ArduPlane/mode_autotune.cpp.34.o' 'ArduPlane/mode_avoidADSB.cpp.34.o' 'ArduPlane/mode_circle.cpp.34.o' 'ArduPlane/mode_cruise.cpp.34.o' 'ArduPlane/mode_fbwa.cpp.34.o' 'ArduPlane/mode_fbwb.cpp.34.o' 'ArduPlane/mode_guided.cpp.34.o' 'ArduPlane/mode_initializing.cpp.34.o' 'ArduPlane/mode_loiter.cpp.34.o' 'ArduPlane/mode_manual.cpp.34.o' 'ArduPlane/mode_qacro.cpp.34.o' 'ArduPlane/mode_qautotune.cpp.34.o' 'ArduPlane/mode_qhover.cpp.34.o' 'ArduPlane/mode_qland.cpp.34.o' 'ArduPlane/mode_qloiter.cpp.34.o' 'ArduPlane/mode_qrtl.cpp.34.o' 'ArduPlane/mode_qstabilize.cpp.34.o' 'ArduPlane/mode_rtl.cpp.34.o' 'ArduPlane/mode_stabilize.cpp.34.o' 'ArduPlane/mode_takeoff.cpp.34.o' 'ArduPlane/mode_thermal.cpp.34.o' 'ArduPlane/mode_training.cpp.34.o' 'ArduPlane/motor_test.cpp.34.o' 'ArduPlane/navigation.cpp.34.o' 'ArduPlane/parachute.cpp.34.o' 'ArduPlane/qautotune.cpp.34.o' 'ArduPlane/quadplane.cpp.34.o' 'ArduPlane/radio.cpp.34.o' 'ArduPlane/reverse_thrust.cpp.34.o' 'ArduPlane/sensors.cpp.34.o' 'ArduPlane/servos.cpp.34.o' 'ArduPlane/soaring.cpp.34.o' 'ArduPlane/system.cpp.34.o' 'ArduPlane/tailsitter.cpp.34.o' 'ArduPlane/takeoff.cpp.34.o' 'ArduPlane/tiltrotor.cpp.34.o' 'ArduPlane/tuning.cpp.34.o' '-obin/arduplane.exe' '-Wl,-Bstatic' '-Llib' '-lArduPlane_libs' '-lws2_32' '-lwsock32' '-lpthread' '-Wl,-Bdynamic' '-lm'
+
+---------------------------------
+
+#add this lib's headers to the -I search path
+cd libraries
+
+ln -s ../lib/sys .
+
+
+
+
+
+

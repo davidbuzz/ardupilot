@@ -457,7 +457,8 @@ class sitl(Board):
         #env.STLIB += ['pthread',]
 
         # this is a terrible, but working hack to get them to show up at the END of the static section, right before the dynamic marker
-        env.SHLIB_MARKER = ['-lws2_32', '-lwsock32', '-lpthread', '-Wl,-Bdynamic']
+        # and includes an even more terrible hack to link with libgnu.a copied from the gnulib folder...  cp lib/libgnu.a build/sitl/lib/
+        env.SHLIB_MARKER = ['-lgnu', '-lws2_32', '-lwsock32', '-lpthread', '-Wl,-Bdynamic']
 
         if cfg.env.DEBUG and 'clang++' in cfg.env.COMPILER_CXX and cfg.options.asan:
              env.LINKFLAGS += ['-fsanitize=address']

@@ -1,0 +1,16 @@
+/Makefile.am
+/arg-nonnull.h
+/c++defs.h
+/errno.in.h
+/stdalign.in.h
+/sys_socket.c
+/sys_socket.in.h
+/sys_types.in.h
+/sys_uio.in.h
+/warn-on-use.h
+/bind.c
+/msvc-inval.c
+/msvc-inval.h
+/msvc-nothrow.c
+/msvc-nothrow.h
+/w32sock.h
