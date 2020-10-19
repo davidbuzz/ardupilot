@@ -226,7 +226,7 @@ size_t UARTDriver::write(const uint8_t *buffer, size_t size)
             _connected = false;
         }
         // these have no effect
-        #ifndef _WIN32
+        #ifndef _WIN32 //tcdrain() in gnulib isn't implemented on mingw
         tcdrain(_fd);
         #endif
     } else {

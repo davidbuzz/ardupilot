@@ -208,7 +208,7 @@ ssize_t SocketAPM::recv(void *buf, size_t size, uint32_t timeout_ms)
     #ifndef _WIN32
     return ::recvfrom(fd, buf, size, MSG_DONTWAIT, (sockaddr *)&in_addr, &len);// MSG_DONTWAIT means non-blocking
     #else
-        set_blocking(false);
+        set_blocking(false); //ming doesnt have MSG_DONTWAIT, but set_blocking() uses set_nonblocking_flag() from gnulib which works
         return ::recvfrom(fd, (char*)buf, size, 0, (sockaddr *)&in_addr, &len);
     #endif
 }
