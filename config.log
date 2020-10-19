@@ -208,59 +208,59 @@ configure:4553: result: x86_64-w64-mingw32-ar
 configure:4628: checking for x86_64-w64-mingw32-ranlib
 configure:4644: found /usr/bin/x86_64-w64-mingw32-ranlib
 configure:4655: result: x86_64-w64-mingw32-ranlib
-configure:4749: checking for x86_64-w64-mingw32-ranlib
-configure:4776: result: x86_64-w64-mingw32-ranlib
-configure:4899: checking build system type
-configure:4913: result: x86_64-pc-linux-gnu
-configure:4933: checking host system type
-configure:4946: result: x86_64-w64-mingw32
-configure:4966: checking for ANSI C header files
-configure:4986: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:4986: $? = 0
-configure:5070: result: yes
-configure:5083: checking for sys/types.h
-configure:5083: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:5083: $? = 0
-configure:5083: result: yes
-configure:5083: checking for sys/stat.h
-configure:5083: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:5083: $? = 0
-configure:5083: result: yes
-configure:5083: checking for stdlib.h
-configure:5083: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:5083: $? = 0
-configure:5083: result: yes
-configure:5083: checking for string.h
-configure:5083: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:5083: $? = 0
-configure:5083: result: yes
-configure:5083: checking for memory.h
-configure:5083: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:5083: $? = 0
-configure:5083: result: yes
-configure:5083: checking for strings.h
-configure:5083: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:5083: $? = 0
-configure:5083: result: yes
-configure:5083: checking for inttypes.h
-configure:5083: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:5083: $? = 0
-configure:5083: result: yes
-configure:5083: checking for stdint.h
-configure:5083: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:5083: $? = 0
-configure:5083: result: yes
-configure:5083: checking for unistd.h
-configure:5083: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:5083: $? = 0
-configure:5083: result: yes
-configure:5101: checking for sys/socket.h
-configure:5101: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:4748: checking for x86_64-w64-mingw32-ranlib
+configure:4775: result: x86_64-w64-mingw32-ranlib
+configure:4898: checking build system type
+configure:4912: result: x86_64-pc-linux-gnu
+configure:4932: checking host system type
+configure:4945: result: x86_64-w64-mingw32
+configure:4965: checking for ANSI C header files
+configure:4985: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:4985: $? = 0
+configure:5069: result: yes
+configure:5082: checking for sys/types.h
+configure:5082: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5082: $? = 0
+configure:5082: result: yes
+configure:5082: checking for sys/stat.h
+configure:5082: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5082: $? = 0
+configure:5082: result: yes
+configure:5082: checking for stdlib.h
+configure:5082: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5082: $? = 0
+configure:5082: result: yes
+configure:5082: checking for string.h
+configure:5082: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5082: $? = 0
+configure:5082: result: yes
+configure:5082: checking for memory.h
+configure:5082: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5082: $? = 0
+configure:5082: result: yes
+configure:5082: checking for strings.h
+configure:5082: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5082: $? = 0
+configure:5082: result: yes
+configure:5082: checking for inttypes.h
+configure:5082: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5082: $? = 0
+configure:5082: result: yes
+configure:5082: checking for stdint.h
+configure:5082: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5082: $? = 0
+configure:5082: result: yes
+configure:5082: checking for unistd.h
+configure:5082: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5082: $? = 0
+configure:5082: result: yes
+configure:5100: checking for sys/socket.h
+configure:5100: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
 conftest.c:55:10: fatal error: sys/socket.h: No such file or directory
    55 | #include <sys/socket.h>
       |          ^~~~~~~~~~~~~~
 compilation terminated.
-configure:5101: $? = 1
+configure:5100: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "ardumingw"
@@ -317,14 +317,14 @@ configure: failed program was:
 | #endif
 | 
 | #include <sys/socket.h>
-configure:5101: result: no
-configure:5101: checking for sys/uio.h
-configure:5101: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5100: result: no
+configure:5100: checking for sys/uio.h
+configure:5100: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
 conftest.c:55:10: fatal error: sys/uio.h: No such file or directory
    55 | #include <sys/uio.h>
       |          ^~~~~~~~~~~
 compilation terminated.
-configure:5101: $? = 1
+configure:5100: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "ardumingw"
@@ -381,34 +381,34 @@ configure: failed program was:
 | #endif
 | 
 | #include <sys/uio.h>
-configure:5101: result: no
-configure:5118: checking ws2tcpip.h usability
-configure:5118: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:5118: $? = 0
-configure:5118: result: yes
-configure:5118: checking ws2tcpip.h presence
-configure:5118: x86_64-w64-mingw32-gcc -E  conftest.c
-configure:5118: $? = 0
-configure:5118: result: yes
-configure:5118: checking for ws2tcpip.h
-configure:5118: result: yes
-configure:5132: checking whether the preprocessor supports include_next
-configure:5170: x86_64-w64-mingw32-gcc -c -g -O2  -Iconftestd1b -Iconftestd2 conftest.c >&5
-configure:5170: $? = 0
-configure:5191: result: yes
-configure:5213: checking whether source code line length is unlimited
-configure:5236: result: yes
-configure:5245: checking for C/C++ restrict keyword
-configure:5272: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:5272: $? = 0
-configure:5280: result: __restrict
-configure:5305: checking whether <sys/socket.h> is self-contained
-configure:5322: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5100: result: no
+configure:5117: checking ws2tcpip.h usability
+configure:5117: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5117: $? = 0
+configure:5117: result: yes
+configure:5117: checking ws2tcpip.h presence
+configure:5117: x86_64-w64-mingw32-gcc -E  conftest.c
+configure:5117: $? = 0
+configure:5117: result: yes
+configure:5117: checking for ws2tcpip.h
+configure:5117: result: yes
+configure:5131: checking whether the preprocessor supports include_next
+configure:5169: x86_64-w64-mingw32-gcc -c -g -O2  -Iconftestd1b -Iconftestd2 conftest.c >&5
+configure:5169: $? = 0
+configure:5190: result: yes
+configure:5212: checking whether source code line length is unlimited
+configure:5235: result: yes
+configure:5244: checking for C/C++ restrict keyword
+configure:5271: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5271: $? = 0
+configure:5279: result: __restrict
+configure:5304: checking whether <sys/socket.h> is self-contained
+configure:5321: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
 conftest.c:23:10: fatal error: sys/socket.h: No such file or directory
    23 | #include <sys/socket.h>
       |          ^~~~~~~~~~~~~~
 compilation terminated.
-configure:5322: $? = 1
+configure:5321: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "ardumingw"
@@ -440,16 +440,16 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:5330: result: no
-configure:5478: checking for struct sockaddr_storage
-configure:5478: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:5478: $? = 0
-configure:5478: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5329: result: no
+configure:5477: checking for struct sockaddr_storage
+configure:5477: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5477: $? = 0
+configure:5477: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
 conftest.c: In function 'main':
 conftest.c:39:38: error: expected expression before ')' token
    39 | if (sizeof ((struct sockaddr_storage)))
       |                                      ^
-configure:5478: $? = 1
+configure:5477: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "ardumingw"
@@ -494,15 +494,15 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:5478: result: yes
-configure:5499: checking for sa_family_t
-configure:5499: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5477: result: yes
+configure:5498: checking for sa_family_t
+configure:5498: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
 conftest.c: In function 'main':
 conftest.c:40:13: error: 'sa_family_t' undeclared (first use in this function)
    40 | if (sizeof (sa_family_t))
       |             ^~~~~~~~~~~
 conftest.c:40:13: note: each undeclared identifier is reported only once for each function it appears in
-configure:5499: $? = 1
+configure:5498: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "ardumingw"
@@ -548,48 +548,48 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:5499: result: no
-configure:5528: checking for struct sockaddr_storage.ss_family
-configure:5528: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:5528: $? = 0
-configure:5528: result: yes
-configure:5560: checking winsock2.h usability
-configure:5560: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:5560: $? = 0
-configure:5560: result: yes
-configure:5560: checking winsock2.h presence
-configure:5560: x86_64-w64-mingw32-gcc -E  conftest.c
-configure:5560: $? = 0
-configure:5560: result: yes
-configure:5560: checking for winsock2.h
-configure:5560: result: yes
-configure:5589: checking for complete errno.h
-configure:5662: result: no
-configure:5751: checking for EMULTIHOP value
-configure:5806: result: no
-configure:5822: checking for ENOLINK value
-configure:5877: result: yes
-configure:5893: checking for EOVERFLOW value
-configure:5948: result: yes
-configure:5972: checking for _set_invalid_parameter_handler
-configure:5972: x86_64-w64-mingw32-gcc -o conftest.exe -g -O2   conftest.c  >&5
-configure:5972: $? = 0
-configure:5972: result: yes
-configure:6006: checking for winsock2.h
-configure:6006: result: yes
-configure:6027: checking for WSAStartup
-configure:6055: x86_64-w64-mingw32-gcc -o conftest.exe -g -O2   conftest.c  -lws2_32 >&5
-configure:6055: $? = 0
-configure:6065: result: yes
-configure:6188: checking for pid_t
-configure:6188: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:6188: $? = 0
-configure:6188: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5498: result: no
+configure:5527: checking for struct sockaddr_storage.ss_family
+configure:5527: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5527: $? = 0
+configure:5527: result: yes
+configure:5559: checking winsock2.h usability
+configure:5559: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:5559: $? = 0
+configure:5559: result: yes
+configure:5559: checking winsock2.h presence
+configure:5559: x86_64-w64-mingw32-gcc -E  conftest.c
+configure:5559: $? = 0
+configure:5559: result: yes
+configure:5559: checking for winsock2.h
+configure:5559: result: yes
+configure:5588: checking for complete errno.h
+configure:5661: result: no
+configure:5750: checking for EMULTIHOP value
+configure:5805: result: no
+configure:5821: checking for ENOLINK value
+configure:5876: result: yes
+configure:5892: checking for EOVERFLOW value
+configure:5947: result: yes
+configure:5971: checking for _set_invalid_parameter_handler
+configure:5971: x86_64-w64-mingw32-gcc -o conftest.exe -g -O2   conftest.c  >&5
+configure:5971: $? = 0
+configure:5971: result: yes
+configure:6005: checking for winsock2.h
+configure:6005: result: yes
+configure:6026: checking for WSAStartup
+configure:6054: x86_64-w64-mingw32-gcc -o conftest.exe -g -O2   conftest.c  -lws2_32 >&5
+configure:6054: $? = 0
+configure:6064: result: yes
+configure:6187: checking for pid_t
+configure:6187: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:6187: $? = 0
+configure:6187: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
 conftest.c: In function 'main':
 conftest.c:67:20: error: expected expression before ')' token
    67 | if (sizeof ((pid_t)))
       |                    ^
-configure:6188: $? = 1
+configure:6187: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "ardumingw"
@@ -662,16 +662,16 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:6188: result: yes
-configure:6224: checking for mode_t
-configure:6224: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:6224: $? = 0
-configure:6224: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:6187: result: yes
+configure:6223: checking for mode_t
+configure:6223: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:6223: $? = 0
+configure:6223: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
 conftest.c: In function 'main':
 conftest.c:66:21: error: expected expression before ')' token
    66 | if (sizeof ((mode_t)))
       |                     ^
-configure:6224: $? = 1
+configure:6223: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "ardumingw"
@@ -743,16 +743,16 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:6224: result: yes
-configure:6422: checking for socklen_t
-configure:6422: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:6422: $? = 0
-configure:6422: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:6223: result: yes
+configure:6421: checking for socklen_t
+configure:6421: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:6421: $? = 0
+configure:6421: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
 conftest.c: In function 'main':
 conftest.c:48:24: error: expected expression before ')' token
    48 | if (sizeof ((socklen_t)))
       |                        ^
-configure:6422: $? = 1
+configure:6421: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "ardumingw"
@@ -806,18 +806,18 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:6422: result: yes
-configure:6485: checking for ssize_t
-configure:6502: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:6502: $? = 0
-configure:6509: result: yes
-configure:6518: checking for working stdalign.h
-configure:6563: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
-configure:6563: $? = 0
-configure:6570: result: yes
-configure:6822: checking that generated files are newer than configure
-configure:6828: result: done
-configure:6895: creating ./config.status
+configure:6421: result: yes
+configure:6484: checking for ssize_t
+configure:6501: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:6501: $? = 0
+configure:6508: result: yes
+configure:6517: checking for working stdalign.h
+configure:6562: x86_64-w64-mingw32-gcc -c -g -O2  conftest.c >&5
+configure:6562: $? = 0
+configure:6569: result: yes
+configure:6821: checking that generated files are newer than configure
+configure:6827: result: done
+configure:6894: creating ./config.status
 
 ## ---------------------- ##
 ## Running config.status. ##
@@ -837,6 +837,7 @@ on buzz-metabox
 config.status:933: creating Makefile
 config.status:933: creating lib/Makefile
 config.status:933: creating lib/config.h
+config.status:1114: lib/config.h is unchanged
 config.status:1162: executing depfiles commands
 config.status:1239: cd lib       && sed -e '/# am--include-marker/d' Makefile         | make -f - am--depfiles
 make: Nothing to be done for 'am--depfiles'.

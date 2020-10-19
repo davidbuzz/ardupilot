@@ -23,7 +23,7 @@ wine build/sitl/bin/arduplane.exe --model plane
 # gnulib includes portable versions of sys.socket.h and friends
 $ git clone git://git.sv.gnu.org/gnulib.git
 http://www.gnu.org/software/gnulib/manual/gnulib.html#Gnulib-Basics
-./gnulib/gnulib-tool --gnu-make --import sys_socket bind
+./gnulib/gnulib-tool --gnu-make --import sys_socket bind sys_select
 
 sudo apt-get install libconfig-dev
 
