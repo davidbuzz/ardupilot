@@ -1,12 +1,41 @@
 /* lib/config.h.  Generated from config.h.in by configure.  */
 /* lib/config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Define to 1 if using 'alloca.c'. */
+/* #undef C_ALLOCA */
+
 /* Define to a C preprocessor expression that evaluates to 1 or 0, depending
    whether the gnulib module msvc-nothrow shall be considered present. */
 #define GNULIB_MSVC_NOTHROW 1
 
 /* Define to 1 when the gnulib module bind should be tested. */
 #define GNULIB_TEST_BIND 1
+
+/* Define to 1 when the gnulib module connect should be tested. */
+#define GNULIB_TEST_CONNECT 1
+
+/* Define to 1 when the gnulib module dup2 should be tested. */
+#define GNULIB_TEST_DUP2 1
+
+/* Define to 1 when the gnulib module select should be tested. */
+#define GNULIB_TEST_SELECT 1
+
+/* Define to 1 when the gnulib module send should be tested. */
+#define GNULIB_TEST_SEND 1
+
+/* Define to 1 when the gnulib module setsockopt should be tested. */
+#define GNULIB_TEST_SETSOCKOPT 1
+
+/* Define to 1 when the gnulib module socket should be tested. */
+#define GNULIB_TEST_SOCKET 1
+
+/* Define to 1 if you have 'alloca' after including <alloca.h>, a header that
+   may be supplied by this distribution. */
+#define HAVE_ALLOCA 1
+
+/* Define to 1 if you have <alloca.h> and it should be used (not on Ultrix).
+   */
+/* #undef HAVE_ALLOCA_H */
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
@@ -21,8 +50,14 @@
 /* Define to 1 if the system has the type `sa_family_t'. */
 /* #undef HAVE_SA_FAMILY_T */
 
+/* Define to 1 if you have the `setdtablesize' function. */
+/* #undef HAVE_SETDTABLESIZE */
+
 /* Define to 1 if you have the `shutdown' function. */
 /* #undef HAVE_SHUTDOWN */
+
+/* Define to 1 if the system has the type `sigset_t'. */
+/* #undef HAVE_SIGSET_T */
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
@@ -42,11 +77,17 @@
 /* Define to 1 if `ss_family' is a member of `struct sockaddr_storage'. */
 #define HAVE_STRUCT_SOCKADDR_STORAGE_SS_FAMILY 1
 
+/* Define to 1 if you have the <sys/select.h> header file. */
+/* #undef HAVE_SYS_SELECT_H */
+
 /* Define to 1 if you have the <sys/socket.h> header file. */
 /* #undef HAVE_SYS_SOCKET_H */
 
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
+
+/* Define to 1 if you have the <sys/time.h> header file. */
+#define HAVE_SYS_TIME_H 1
 
 /* Define to 1 if you have the <sys/types.h> header file. */
 #define HAVE_SYS_TYPES_H 1
@@ -56,6 +97,9 @@
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1
+
+/* Define if you have the 'wchar_t' type. */
+#define HAVE_WCHAR_T 1
 
 /* Define to 1 if you have the <winsock2.h> header file. */
 #define HAVE_WINSOCK2_H 1
@@ -87,8 +131,89 @@
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "0.1"
 
+/* If using the C implementation of alloca, define if you know the
+   direction of stack growth for your system; otherwise it will be
+   automatically deduced at runtime.
+        STACK_DIRECTION > 0 => grows toward higher addresses
+        STACK_DIRECTION < 0 => grows toward lower addresses
+        STACK_DIRECTION = 0 => direction of growth unknown */
+/* #undef STACK_DIRECTION */
+
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
+
+/* Enable extensions on AIX 3, Interix.  */
+#ifndef _ALL_SOURCE
+# define _ALL_SOURCE 1
+#endif
+/* Enable general extensions on macOS.  */
+#ifndef _DARWIN_C_SOURCE
+# define _DARWIN_C_SOURCE 1
+#endif
+/* Enable GNU extensions on systems that have them.  */
+#ifndef _GNU_SOURCE
+# define _GNU_SOURCE 1
+#endif
+/* Enable NetBSD extensions on NetBSD.  */
+#ifndef _NETBSD_SOURCE
+# define _NETBSD_SOURCE 1
+#endif
+/* Enable OpenBSD extensions on NetBSD.  */
+#ifndef _OPENBSD_SOURCE
+# define _OPENBSD_SOURCE 1
+#endif
+/* Enable threading extensions on Solaris.  */
+#ifndef _POSIX_PTHREAD_SEMANTICS
+# define _POSIX_PTHREAD_SEMANTICS 1
+#endif
+/* Enable extensions specified by ISO/IEC TS 18661-5:2014.  */
+#ifndef __STDC_WANT_IEC_60559_ATTRIBS_EXT__
+# define __STDC_WANT_IEC_60559_ATTRIBS_EXT__ 1
+#endif
+/* Enable extensions specified by ISO/IEC TS 18661-1:2014.  */
+#ifndef __STDC_WANT_IEC_60559_BFP_EXT__
+# define __STDC_WANT_IEC_60559_BFP_EXT__ 1
+#endif
+/* Enable extensions specified by ISO/IEC TS 18661-2:2015.  */
+#ifndef __STDC_WANT_IEC_60559_DFP_EXT__
+# define __STDC_WANT_IEC_60559_DFP_EXT__ 1
+#endif
+/* Enable extensions specified by ISO/IEC TS 18661-4:2015.  */
+#ifndef __STDC_WANT_IEC_60559_FUNCS_EXT__
+# define __STDC_WANT_IEC_60559_FUNCS_EXT__ 1
+#endif
+/* Enable extensions specified by ISO/IEC TS 18661-3:2015.  */
+#ifndef __STDC_WANT_IEC_60559_TYPES_EXT__
+# define __STDC_WANT_IEC_60559_TYPES_EXT__ 1
+#endif
+/* Enable extensions specified by ISO/IEC TR 24731-2:2010.  */
+#ifndef __STDC_WANT_LIB_EXT2__
+# define __STDC_WANT_LIB_EXT2__ 1
+#endif
+/* Enable extensions specified by ISO/IEC 24747:2009.  */
+#ifndef __STDC_WANT_MATH_SPEC_FUNCS__
+# define __STDC_WANT_MATH_SPEC_FUNCS__ 1
+#endif
+/* Enable extensions on HP NonStop.  */
+#ifndef _TANDEM_SOURCE
+# define _TANDEM_SOURCE 1
+#endif
+/* Enable X/Open extensions if necessary.  HP-UX 11.11 defines
+   mbstate_t only if _XOPEN_SOURCE is defined to 500, regardless of
+   whether compiling with -Ae or -D_HPUX_SOURCE=1.  */
+#ifndef _XOPEN_SOURCE
+/* # undef _XOPEN_SOURCE */
+#endif
+/* Enable X/Open compliant socket functions that do not require linking
+   with -lxnet on HP-UX 11.11.  */
+#ifndef _HPUX_ALT_XOPEN_SOCKET_API
+# define _HPUX_ALT_XOPEN_SOCKET_API 1
+#endif
+/* Enable general extensions on Solaris.  */
+#ifndef __EXTENSIONS__
+# define __EXTENSIONS__ 1
+#endif
+
 
 /* Version number of package */
 #define VERSION "0.1"
@@ -104,6 +229,12 @@
 # define _GL_GNUC_PREREQ(major, minor) 0
 #endif
 
+
+/* Define to 1 if on MINIX. */
+/* #undef _MINIX */
+
+/* Define to 1 to make NetBSD features available. MINIX 3 needs this. */
+#define _NETBSD_SOURCE 1
 
 /* The _Noreturn keyword of C11.  */
 #ifndef _Noreturn
@@ -135,9 +266,16 @@
 #endif
 
 
+/* Define to 2 if the system does not provide POSIX.1 features except with
+   this defined. */
+/* #undef _POSIX_1_SOURCE */
+
 /* Define to 1 in order to get the POSIX compatible declarations of socket
    functions. */
 /* #undef _POSIX_PII_SOCKET */
+
+/* Define to 1 if you need to in order for 'stat' and other things to work. */
+/* #undef _POSIX_SOURCE */
 
 /* For standard stat data types on VMS. */
 #define _USE_STD_STAT 1
@@ -483,6 +621,15 @@
 # define _GL_INLINE_HEADER_END
 #endif
 
+/* Define to `int' if <sys/types.h> doesn't define. */
+#define gid_t int
+
+/* Define to `__inline__' or `__inline' if that's what the C compiler
+   calls it, or to nothing if 'inline' is not supported under any name.  */
+#ifndef __cplusplus
+/* #undef inline */
+#endif
+
 /* Work around a bug in Apple GCC 4.0.1 build 5465: In C99 mode, it supports
    the ISO C 99 semantics of 'extern inline' (unlike the GNU C semantics of
    earlier versions), but does not display it by setting __GNUC_STDC_INLINE__.
@@ -530,8 +677,14 @@
 # define __restrict__
 #endif
 
+/* Define to `unsigned int' if <sys/types.h> does not define. */
+/* #undef size_t */
+
 /* type to use in place of socklen_t if not defined */
 /* #undef socklen_t */
 
 /* Define as a signed type of the same size as size_t. */
 /* #undef ssize_t */
+
+/* Define to `int' if <sys/types.h> doesn't define. */
+#define uid_t int

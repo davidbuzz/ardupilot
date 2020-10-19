@@ -16,6 +16,8 @@
 #include <netinet/udp.h>
 #include <arpa/inet.h>
 #else
+#define __STDC_VERSION__ 199901L
+#include "../../lib/config.h"
 #include <sys/socket.h>
 #include <winsock2.h>
 #include <windows.h>

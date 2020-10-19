@@ -23,7 +23,9 @@ wine build/sitl/bin/arduplane.exe --model plane
 # gnulib includes portable versions of sys.socket.h and friends
 $ git clone git://git.sv.gnu.org/gnulib.git
 http://www.gnu.org/software/gnulib/manual/gnulib.html#Gnulib-Basics
-./gnulib/gnulib-tool --gnu-make --import sys_socket bind sys_select
+
+./gnulib/gnulib-tool  --import sys_socket bind sys_select
+# do not use --gnu-make
 
 sudo apt-get install libconfig-dev
 
@@ -64,6 +66,12 @@ cd libraries
 
 ln -s ../lib/sys .
 
+
+------------------------
+
+wrap it all together.
+
+./gnulib/gnulib-tool --import sys_socket bind sys_select ; aclocal ; aclocal -I m4 ; autoheader ; automake --add-missing ; autoconf ; CXX=x86_64-w64-mingw32-g++ CC=x86_64-w64-mingw32-gcc ./configure --host=x86_64-w64-mingw32 ; make ; cp lib/libgnu.a build/sitl/lib/ ; CXX=x86_64-w64-mingw32-g++ CC=x86_64-w64-mingw32-gcc ./waf --target bin/arduplane -v
 
 
 

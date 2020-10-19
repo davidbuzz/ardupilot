@@ -90,19 +90,25 @@ host_triplet = x86_64-w64-mingw32
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
-	$(top_srcdir)/m4/absolute-header.m4 \
-	$(top_srcdir)/m4/errno_h.m4 $(top_srcdir)/m4/extern-inline.m4 \
+	$(top_srcdir)/m4/absolute-header.m4 $(top_srcdir)/m4/alloca.m4 \
+	$(top_srcdir)/m4/dup2.m4 $(top_srcdir)/m4/errno_h.m4 \
+	$(top_srcdir)/m4/extensions.m4 \
+	$(top_srcdir)/m4/extern-inline.m4 \
 	$(top_srcdir)/m4/gnulib-common.m4 \
 	$(top_srcdir)/m4/gnulib-comp.m4 \
 	$(top_srcdir)/m4/include_next.m4 \
 	$(top_srcdir)/m4/msvc-inval.m4 \
 	$(top_srcdir)/m4/msvc-nothrow.m4 $(top_srcdir)/m4/off_t.m4 \
-	$(top_srcdir)/m4/pid_t.m4 $(top_srcdir)/m4/socketlib.m4 \
-	$(top_srcdir)/m4/socklen.m4 $(top_srcdir)/m4/ssize_t.m4 \
-	$(top_srcdir)/m4/stdalign.m4 $(top_srcdir)/m4/sys_socket_h.m4 \
-	$(top_srcdir)/m4/sys_types_h.m4 $(top_srcdir)/m4/sys_uio_h.m4 \
-	$(top_srcdir)/m4/warn-on-use.m4 $(top_srcdir)/m4/zzgnulib.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/pid_t.m4 $(top_srcdir)/m4/select.m4 \
+	$(top_srcdir)/m4/signal_h.m4 $(top_srcdir)/m4/socketlib.m4 \
+	$(top_srcdir)/m4/sockets.m4 $(top_srcdir)/m4/socklen.m4 \
+	$(top_srcdir)/m4/ssize_t.m4 $(top_srcdir)/m4/stdalign.m4 \
+	$(top_srcdir)/m4/stddef_h.m4 $(top_srcdir)/m4/sys_select_h.m4 \
+	$(top_srcdir)/m4/sys_socket_h.m4 \
+	$(top_srcdir)/m4/sys_time_h.m4 $(top_srcdir)/m4/sys_types_h.m4 \
+	$(top_srcdir)/m4/sys_uio_h.m4 $(top_srcdir)/m4/unistd_h.m4 \
+	$(top_srcdir)/m4/warn-on-use.m4 $(top_srcdir)/m4/wchar_t.m4 \
+	$(top_srcdir)/m4/zzgnulib.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
@@ -215,6 +221,8 @@ am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
 ACLOCAL = ${SHELL} /home/buzz/ardupilot/missing aclocal-1.16
+ALLOCA = 
+ALLOCA_H = alloca.h
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
 AR = x86_64-w64-mingw32-ar
@@ -245,27 +253,153 @@ ERRNO_H = errno.h
 EXEEXT = .exe
 GNULIB_ACCEPT = 0
 GNULIB_ACCEPT4 = 0
+GNULIB_ACCESS = 0
 GNULIB_BIND = 1
-GNULIB_CONNECT = 0
+GNULIB_CHDIR = 0
+GNULIB_CHOWN = 0
+GNULIB_CLOSE = 0
+GNULIB_CONNECT = 1
+GNULIB_COPY_FILE_RANGE = 0
+GNULIB_DUP = 0
+GNULIB_DUP2 = 1
+GNULIB_DUP3 = 0
+GNULIB_ENVIRON = 0
+GNULIB_EUIDACCESS = 0
+GNULIB_FACCESSAT = 0
+GNULIB_FCHDIR = 0
+GNULIB_FCHOWNAT = 0
+GNULIB_FDATASYNC = 0
+GNULIB_FSYNC = 0
+GNULIB_FTRUNCATE = 0
+GNULIB_GETCWD = 0
+GNULIB_GETDOMAINNAME = 0
+GNULIB_GETDTABLESIZE = 0
+GNULIB_GETENTROPY = 0
+GNULIB_GETGROUPS = 0
+GNULIB_GETHOSTNAME = 0
+GNULIB_GETLOGIN = 0
+GNULIB_GETLOGIN_R = 0
+GNULIB_GETOPT_POSIX = 0
+GNULIB_GETPAGESIZE = 0
+GNULIB_GETPASS = 0
 GNULIB_GETPEERNAME = 0
 GNULIB_GETSOCKNAME = 0
 GNULIB_GETSOCKOPT = 0
+GNULIB_GETTIMEOFDAY = 0
+GNULIB_GETUSERSHELL = 0
+GNULIB_GROUP_MEMBER = 0
+GNULIB_ISATTY = 0
+GNULIB_LCHOWN = 0
+GNULIB_LINK = 0
+GNULIB_LINKAT = 0
 GNULIB_LISTEN = 0
+GNULIB_LSEEK = 0
+GNULIB_PIPE = 0
+GNULIB_PIPE2 = 0
+GNULIB_PREAD = 0
+GNULIB_PSELECT = 0
+GNULIB_PTHREAD_SIGMASK = 0
+GNULIB_PWRITE = 0
+GNULIB_RAISE = 0
+GNULIB_READ = 0
+GNULIB_READLINK = 0
+GNULIB_READLINKAT = 0
 GNULIB_RECV = 0
 GNULIB_RECVFROM = 0
-GNULIB_SEND = 0
+GNULIB_RMDIR = 0
+GNULIB_SELECT = 1
+GNULIB_SEND = 1
 GNULIB_SENDTO = 0
-GNULIB_SETSOCKOPT = 0
+GNULIB_SETHOSTNAME = 0
+GNULIB_SETSOCKOPT = 1
 GNULIB_SHUTDOWN = 0
-GNULIB_SOCKET = 0
+GNULIB_SIGACTION = 0
+GNULIB_SIGNAL_H_SIGPIPE = 0
+GNULIB_SIGPROCMASK = 0
+GNULIB_SLEEP = 0
+GNULIB_SOCKET = 1
+GNULIB_SYMLINK = 0
+GNULIB_SYMLINKAT = 0
+GNULIB_TRUNCATE = 0
+GNULIB_TTYNAME_R = 0
+GNULIB_UNISTD_H_NONBLOCKING = 0
+GNULIB_UNISTD_H_SIGPIPE = 0
+GNULIB_UNLINK = 0
+GNULIB_UNLINKAT = 0
+GNULIB_USLEEP = 0
+GNULIB_WRITE = 0
 GREP = /bin/grep
 HAVE_ACCEPT4 = 1
+HAVE_ALLOCA_H = 0
+HAVE_CHOWN = 1
+HAVE_COPY_FILE_RANGE = 1
+HAVE_DECL_ENVIRON = 1
+HAVE_DECL_FCHDIR = 1
+HAVE_DECL_FDATASYNC = 1
+HAVE_DECL_GETDOMAINNAME = 1
+HAVE_DECL_GETLOGIN = 1
+HAVE_DECL_GETLOGIN_R = 1
+HAVE_DECL_GETPAGESIZE = 1
+HAVE_DECL_GETUSERSHELL = 1
+HAVE_DECL_SETHOSTNAME = 1
+HAVE_DECL_TRUNCATE = 1
+HAVE_DECL_TTYNAME_R = 1
+HAVE_DUP3 = 1
+HAVE_EUIDACCESS = 1
+HAVE_FACCESSAT = 1
+HAVE_FCHDIR = 1
+HAVE_FCHOWNAT = 1
+HAVE_FDATASYNC = 1
+HAVE_FSYNC = 1
+HAVE_FTRUNCATE = 1
+HAVE_GETDTABLESIZE = 1
+HAVE_GETENTROPY = 1
+HAVE_GETGROUPS = 1
+HAVE_GETHOSTNAME = 1
+HAVE_GETLOGIN = 1
+HAVE_GETPAGESIZE = 1
+HAVE_GETPASS = 1
+HAVE_GETTIMEOFDAY = 1
+HAVE_GROUP_MEMBER = 1
+HAVE_LCHOWN = 1
+HAVE_LINK = 1
+HAVE_LINKAT = 1
+HAVE_MAX_ALIGN_T = 1
 HAVE_MSVC_INVALID_PARAMETER_HANDLER = 1
+HAVE_OS_H = 0
+HAVE_PIPE = 1
+HAVE_PIPE2 = 1
+HAVE_POSIX_SIGNALBLOCKING = 1
+HAVE_PREAD = 1
+HAVE_PSELECT = 1
+HAVE_PTHREAD_SIGMASK = 1
+HAVE_PWRITE = 1
+HAVE_RAISE = 1
+HAVE_READLINK = 1
+HAVE_READLINKAT = 1
 HAVE_SA_FAMILY_T = 0
+HAVE_SETHOSTNAME = 1
+HAVE_SIGACTION = 1
+HAVE_SIGHANDLER_T = 0
+HAVE_SIGINFO_T = 1
+HAVE_SIGSET_T = 0
+HAVE_SLEEP = 1
+HAVE_STRUCT_SIGACTION_SA_SIGACTION = 1
 HAVE_STRUCT_SOCKADDR_STORAGE = 1
 HAVE_STRUCT_SOCKADDR_STORAGE_SS_FAMILY = 1
+HAVE_STRUCT_TIMEVAL = 1
+HAVE_SYMLINK = 1
+HAVE_SYMLINKAT = 1
+HAVE_SYS_PARAM_H = 0
+HAVE_SYS_SELECT_H = 0
 HAVE_SYS_SOCKET_H = 0
+HAVE_SYS_TIME_H = 1
 HAVE_SYS_UIO_H = 0
+HAVE_TYPE_VOLATILE_SIG_ATOMIC_T = 1
+HAVE_UNISTD_H = 1
+HAVE_UNLINKAT = 1
+HAVE_USLEEP = 1
+HAVE_WCHAR_T = 1
 HAVE_WINSOCK2_H = 1
 HAVE_WS2TCPIP_H = 1
 INCLUDE_NEXT = include_next
@@ -281,17 +415,28 @@ LIBGNU_LTLIBDEPS =
 LIBOBJS = 
 LIBS = 
 LIBSOCKET = -lws2_32
+LIB_SELECT = -lws2_32
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/buzz/ardupilot/missing makeinfo
 MKDIR_P = /bin/mkdir -p
 NEXT_AS_FIRST_DIRECTIVE_ERRNO_H = <errno.h>
+NEXT_AS_FIRST_DIRECTIVE_SIGNAL_H = <signal.h>
+NEXT_AS_FIRST_DIRECTIVE_STDDEF_H = 
+NEXT_AS_FIRST_DIRECTIVE_SYS_SELECT_H = <sys/select.h>
 NEXT_AS_FIRST_DIRECTIVE_SYS_SOCKET_H = <sys/socket.h>
+NEXT_AS_FIRST_DIRECTIVE_SYS_TIME_H = <sys/time.h>
 NEXT_AS_FIRST_DIRECTIVE_SYS_TYPES_H = <sys/types.h>
 NEXT_AS_FIRST_DIRECTIVE_SYS_UIO_H = <sys/uio.h>
+NEXT_AS_FIRST_DIRECTIVE_UNISTD_H = <unistd.h>
 NEXT_ERRNO_H = <errno.h>
+NEXT_SIGNAL_H = <signal.h>
+NEXT_STDDEF_H = 
+NEXT_SYS_SELECT_H = <sys/select.h>
 NEXT_SYS_SOCKET_H = <sys/socket.h>
+NEXT_SYS_TIME_H = <sys/time.h>
 NEXT_SYS_TYPES_H = <sys/types.h>
 NEXT_SYS_UIO_H = <sys/uio.h>
+NEXT_UNISTD_H = <unistd.h>
 OBJEXT = o
 PACKAGE = ardumingw
 PACKAGE_BUGREPORT = 
@@ -304,10 +449,56 @@ PATH_SEPARATOR = :
 PRAGMA_COLUMNS = 
 PRAGMA_SYSTEM_HEADER = #pragma GCC system_header
 RANLIB = x86_64-w64-mingw32-ranlib
+REPLACE_ACCESS = 0
+REPLACE_CHOWN = 0
+REPLACE_CLOSE = 0
+REPLACE_DUP = 0
+REPLACE_DUP2 = 1
+REPLACE_FACCESSAT = 0
+REPLACE_FCHOWNAT = 0
+REPLACE_FTRUNCATE = 0
+REPLACE_GETCWD = 0
+REPLACE_GETDOMAINNAME = 0
+REPLACE_GETDTABLESIZE = 0
+REPLACE_GETGROUPS = 0
+REPLACE_GETLOGIN_R = 0
+REPLACE_GETPAGESIZE = 0
+REPLACE_GETPASS = 0
+REPLACE_GETTIMEOFDAY = 0
+REPLACE_ISATTY = 0
+REPLACE_LCHOWN = 0
+REPLACE_LINK = 0
+REPLACE_LINKAT = 0
+REPLACE_LSEEK = 0
+REPLACE_NULL = 0
+REPLACE_PREAD = 0
+REPLACE_PSELECT = 0
+REPLACE_PTHREAD_SIGMASK = 0
+REPLACE_PWRITE = 0
+REPLACE_RAISE = 0
+REPLACE_READ = 0
+REPLACE_READLINK = 0
+REPLACE_READLINKAT = 0
+REPLACE_RMDIR = 0
+REPLACE_SELECT = 1
+REPLACE_SLEEP = 0
+REPLACE_STRUCT_TIMEVAL = 1
+REPLACE_SYMLINK = 0
+REPLACE_SYMLINKAT = 0
+REPLACE_TRUNCATE = 0
+REPLACE_TTYNAME_R = 0
+REPLACE_UNLINK = 0
+REPLACE_UNLINKAT = 0
+REPLACE_USLEEP = 0
+REPLACE_WRITE = 0
 SET_MAKE = 
 SHELL = /bin/bash
 STDALIGN_H = 
+STDDEF_H = 
 STRIP = x86_64-w64-mingw32-strip
+UNISTD_H_HAVE_SYS_RANDOM_H = 0
+UNISTD_H_HAVE_WINSOCK2_H = 1
+UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS = 1
 VERSION = 0.1
 WINDOWS_64_BIT_OFF_T = 0
 WINDOWS_STAT_INODES = 0
@@ -333,8 +524,8 @@ datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-gl_LIBOBJS =  bind.o msvc-inval.o msvc-nothrow.o
-gl_LTLIBOBJS =  bind.lo msvc-inval.lo msvc-nothrow.lo
+gl_LIBOBJS =  bind.o connect.o dup2.o msvc-inval.o msvc-nothrow.o select.o send.o setsockopt.o socket.o
+gl_LTLIBOBJS =  bind.lo connect.lo dup2.lo msvc-inval.lo msvc-nothrow.lo select.lo send.lo setsockopt.lo socket.lo
 gltests_LIBOBJS = 
 gltests_LTLIBOBJS = 
 gltests_WITNESS = IN_ARDUMINGW_GNULIB_TESTS

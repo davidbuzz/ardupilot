@@ -21,6 +21,8 @@
 
 #include "Socket.h"
 
+#include <unistd.h>
+
 #ifdef _WIN32
 #define F_GETFL 0
 #define F_SETFL 0
@@ -60,7 +62,7 @@ SocketAPM::SocketAPM(bool _datagram, int _fd) :
 SocketAPM::~SocketAPM()
 {
     if (fd != -1) {
-        ::close(fd);
+        //::close(fd); error: ‘::close_used_without_including_unistd_h’ has not been declared
         fd = -1;
     }
 }
