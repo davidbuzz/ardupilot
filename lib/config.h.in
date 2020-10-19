@@ -3,6 +3,10 @@
 /* Define to 1 if using 'alloca.c'. */
 #undef C_ALLOCA
 
+/* Define this to 'void' or 'struct timezone' to match the system's
+   declaration of the second argument to gettimeofday. */
+#undef GETTIMEOFDAY_TIMEZONE
+
 /* Define to a C preprocessor expression that evaluates to 1 or 0, depending
    whether the gnulib module msvc-nothrow shall be considered present. */
 #undef GNULIB_MSVC_NOTHROW
@@ -19,8 +23,17 @@
 /* Define to 1 when the gnulib module dup2 should be tested. */
 #undef GNULIB_TEST_DUP2
 
+/* Define to 1 when the gnulib module gethostname should be tested. */
+#undef GNULIB_TEST_GETHOSTNAME
+
 /* Define to 1 when the gnulib module getpeername should be tested. */
 #undef GNULIB_TEST_GETPEERNAME
+
+/* Define to 1 when the gnulib module getsockname should be tested. */
+#undef GNULIB_TEST_GETSOCKNAME
+
+/* Define to 1 when the gnulib module gettimeofday should be tested. */
+#undef GNULIB_TEST_GETTIMEOFDAY
 
 /* Define to 1 when the gnulib module listen should be tested. */
 #undef GNULIB_TEST_LISTEN
@@ -54,6 +67,12 @@
    */
 #undef HAVE_ALLOCA_H
 
+/* Define to 1 if you have the `gethostname' function. */
+#undef HAVE_GETHOSTNAME
+
+/* Define to 1 if you have the `gettimeofday' function. */
+#undef HAVE_GETTIMEOFDAY
+
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
@@ -63,6 +82,9 @@
 /* Define to 1 on MSVC platforms that have the "invalid parameter handler"
    concept. */
 #undef HAVE_MSVC_INVALID_PARAMETER_HANDLER
+
+/* Define to 1 if you have the <netdb.h> header file. */
+#undef HAVE_NETDB_H
 
 /* Define to 1 if the system has the type `sa_family_t'. */
 #undef HAVE_SA_FAMILY_T
@@ -94,6 +116,9 @@
 /* Define to 1 if `ss_family' is a member of `struct sockaddr_storage'. */
 #undef HAVE_STRUCT_SOCKADDR_STORAGE_SS_FAMILY
 
+/* Define to 1 if you have the <sys/param.h> header file. */
+#undef HAVE_SYS_PARAM_H
+
 /* Define to 1 if you have the <sys/select.h> header file. */
 #undef HAVE_SYS_SELECT_H
 
@@ -112,6 +137,9 @@
 /* Define to 1 if you have the <sys/uio.h> header file. */
 #undef HAVE_SYS_UIO_H
 
+/* Define to 1 if you have the `uname' function. */
+#undef HAVE_UNAME
+
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
@@ -126,6 +154,9 @@
 
 /* Define to 1 if you have the `_set_invalid_parameter_handler' function. */
 #undef HAVE__SET_INVALID_PARAMETER_HANDLER
+
+/* Define HOST_NAME_MAX when <limits.h> does not define it. */
+#undef HOST_NAME_MAX
 
 /* Name of package */
 #undef PACKAGE

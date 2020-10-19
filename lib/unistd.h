@@ -42,7 +42,7 @@
 #endif
 
 /* Get all possible declarations of gethostname().  */
-#if 0 && 1 \
+#if 1 && 1 \
   && !defined _GL_INCLUDING_WINSOCK2_H
 # define _GL_INCLUDING_WINSOCK2_H
 # include <winsock2.h>
@@ -114,7 +114,7 @@
    NonStop Kernel declares gethostname in <netdb.h>, not in <unistd.h>.  */
 /* But avoid namespace pollution on glibc systems.  */
 #if ((0 && (defined _AIX || defined __osf__)) \
-     || (0 && defined __TANDEM)) \
+     || (1 && defined __TANDEM)) \
     && !defined __GLIBC__
 # include <netdb.h>
 #endif
@@ -666,7 +666,7 @@ _GL_INLINE_HEADER_BEGIN
 
 /* Hide some function declarations from <winsock2.h>.  */
 
-#if 0 && 1
+#if 1 && 1
 # if !defined _GL_SYS_SOCKET_H
 #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
 #   undef socket
@@ -1408,7 +1408,7 @@ _GL_WARN_ON_USE (getgroups, "getgroups is unportable - "
 #endif
 
 
-#if 0
+#if 1
 /* Return the standard host name of the machine.
    WARNING! The host name may or may not be fully qualified.
 
@@ -1425,7 +1425,7 @@ _GL_FUNCDECL_RPL (gethostname, int, (char *name, size_t len)
                                     _GL_ARG_NONNULL ((1)));
 _GL_CXXALIAS_RPL (gethostname, int, (char *name, size_t len));
 # else
-#  if !1
+#  if !0
 _GL_FUNCDECL_SYS (gethostname, int, (char *name, size_t len)
                                     _GL_ARG_NONNULL ((1)));
 #  endif

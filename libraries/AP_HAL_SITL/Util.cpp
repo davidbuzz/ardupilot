@@ -36,7 +36,7 @@ bool HALSITL::Util::get_system_id_unformatted(uint8_t buf[], uint8_t &len)
             continue;
         }
         ssize_t ret = read(fd, buf, len);
-        close(fd);
+        //close(fd);
         if (ret <= 0) {
             continue;
         }
@@ -53,7 +53,7 @@ bool HALSITL::Util::get_system_id_unformatted(uint8_t buf[], uint8_t &len)
         len = strnlen(cbuf, len);
         return true;
     }
-
+#ifndef _WIN32
     // fallback to hostname
     if (gethostname(cbuf, len) != 0) {
         // use a default name so this always succeeds. Without it we can't
@@ -61,6 +61,7 @@ bool HALSITL::Util::get_system_id_unformatted(uint8_t buf[], uint8_t &len)
         strncpy(cbuf, "sitl-unknown", len);
     }
     len = strnlen(cbuf, len);
+#endif
     return true;
 }
 

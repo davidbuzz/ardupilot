@@ -94,6 +94,8 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/dup2.m4 $(top_srcdir)/m4/errno_h.m4 \
 	$(top_srcdir)/m4/extensions.m4 \
 	$(top_srcdir)/m4/extern-inline.m4 \
+	$(top_srcdir)/m4/gethostname.m4 \
+	$(top_srcdir)/m4/gettimeofday.m4 \
 	$(top_srcdir)/m4/gnulib-common.m4 \
 	$(top_srcdir)/m4/gnulib-comp.m4 \
 	$(top_srcdir)/m4/include_next.m4 \
@@ -251,6 +253,7 @@ EOVERFLOW_HIDDEN = @EOVERFLOW_HIDDEN@
 EOVERFLOW_VALUE = @EOVERFLOW_VALUE@
 ERRNO_H = @ERRNO_H@
 EXEEXT = @EXEEXT@
+GETHOSTNAME_LIB = @GETHOSTNAME_LIB@
 GNULIB_ACCEPT = @GNULIB_ACCEPT@
 GNULIB_ACCEPT4 = @GNULIB_ACCEPT4@
 GNULIB_ACCESS = @GNULIB_ACCESS@

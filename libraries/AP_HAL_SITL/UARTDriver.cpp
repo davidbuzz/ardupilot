@@ -763,9 +763,9 @@ void UARTDriver::_timer_tick(void)
     }
     space = MIN(space, max_bytes);
 
-#ifdef _WIN32
-    typedef int socklen_t;
-#endif    
+//#ifdef _WIN32
+//    typedef int socklen_t;
+//#endif    
     char buf[space];
     ssize_t nread = 0;
     if (_mc_fd >= 0) {

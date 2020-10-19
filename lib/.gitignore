@@ -38,3 +38,6 @@
 /recvfrom.c
 /listen.c
 /accept.c
+/gethostname.c
+/getsockname.c
+/gettimeofday.c

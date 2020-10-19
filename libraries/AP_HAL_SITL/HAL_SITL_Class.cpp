@@ -7,6 +7,8 @@
 #include <signal.h>
 #include <stdio.h>
 
+#include <unistd.h>
+
 #include "AP_HAL_SITL.h"
 #include "AP_HAL_SITL_Namespace.h"
 #include "HAL_SITL_Class.h"
@@ -109,7 +111,7 @@ static bool watchdog_save(const uint32_t *data, uint32_t nwords)
         if (::write(fd, data, nwords*4) == (ssize_t)(nwords*4)) {
             ret = true;
         }
-        ::close(fd);
+        //::close(fd);
     }
     return ret;
 }
@@ -123,7 +125,7 @@ static bool watchdog_load(uint32_t *data, uint32_t nwords)
     bool ret = false;
     if (fd != -1) {
         ret = (::read(fd, data, nwords*4) == (ssize_t)(nwords*4));
-        ::close(fd);
+        //::close(fd);
     }
     return ret;
 }

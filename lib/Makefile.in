@@ -49,6 +49,9 @@
 #  accept \
 #  bind \
 #  connect \
+#  gethostname \
+#  getsockname \
+#  gettimeofday \
 #  listen \
 #  recv \
 #  recvfrom \
@@ -58,7 +61,8 @@
 #  setsockopt \
 #  socket \
 #  sys_select \
-#  sys_socket
+#  sys_socket \
+#  unistd
 
 
 
@@ -143,6 +147,8 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/dup2.m4 $(top_srcdir)/m4/errno_h.m4 \
 	$(top_srcdir)/m4/extensions.m4 \
 	$(top_srcdir)/m4/extern-inline.m4 \
+	$(top_srcdir)/m4/gethostname.m4 \
+	$(top_srcdir)/m4/gettimeofday.m4 \
 	$(top_srcdir)/m4/gnulib-common.m4 \
 	$(top_srcdir)/m4/gnulib-comp.m4 \
 	$(top_srcdir)/m4/include_next.m4 \
@@ -194,14 +200,15 @@ depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/accept.Po ./$(DEPDIR)/alloca.Po \
 	./$(DEPDIR)/bind.Po ./$(DEPDIR)/connect.Po ./$(DEPDIR)/dup2.Po \
-	./$(DEPDIR)/fd-hook.Po ./$(DEPDIR)/getpeername.Po \
-	./$(DEPDIR)/listen.Po ./$(DEPDIR)/msvc-inval.Po \
-	./$(DEPDIR)/msvc-nothrow.Po ./$(DEPDIR)/recv.Po \
-	./$(DEPDIR)/recvfrom.Po ./$(DEPDIR)/select.Po \
-	./$(DEPDIR)/send.Po ./$(DEPDIR)/sendto.Po \
-	./$(DEPDIR)/setsockopt.Po ./$(DEPDIR)/socket.Po \
-	./$(DEPDIR)/sockets.Po ./$(DEPDIR)/sys_socket.Po \
-	./$(DEPDIR)/unistd.Po
+	./$(DEPDIR)/fd-hook.Po ./$(DEPDIR)/gethostname.Po \
+	./$(DEPDIR)/getpeername.Po ./$(DEPDIR)/getsockname.Po \
+	./$(DEPDIR)/gettimeofday.Po ./$(DEPDIR)/listen.Po \
+	./$(DEPDIR)/msvc-inval.Po ./$(DEPDIR)/msvc-nothrow.Po \
+	./$(DEPDIR)/recv.Po ./$(DEPDIR)/recvfrom.Po \
+	./$(DEPDIR)/select.Po ./$(DEPDIR)/send.Po \
+	./$(DEPDIR)/sendto.Po ./$(DEPDIR)/setsockopt.Po \
+	./$(DEPDIR)/socket.Po ./$(DEPDIR)/sockets.Po \
+	./$(DEPDIR)/sys_socket.Po ./$(DEPDIR)/unistd.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -319,6 +326,7 @@ EOVERFLOW_HIDDEN = @EOVERFLOW_HIDDEN@
 EOVERFLOW_VALUE = @EOVERFLOW_VALUE@
 ERRNO_H = @ERRNO_H@
 EXEEXT = @EXEEXT@
+GETHOSTNAME_LIB = @GETHOSTNAME_LIB@
 GNULIB_ACCEPT = @GNULIB_ACCEPT@
 GNULIB_ACCEPT4 = @GNULIB_ACCEPT4@
 GNULIB_ACCESS = @GNULIB_ACCESS@
@@ -632,8 +640,9 @@ noinst_HEADERS =
 noinst_LIBRARIES = libgnu.a
 noinst_LTLIBRARIES = 
 EXTRA_DIST = accept.c w32sock.h alloca.c alloca.in.h bind.c w32sock.h \
-	connect.c w32sock.h dup2.c errno.in.h fd-hook.h getpeername.c \
-	w32sock.h listen.c w32sock.h msvc-inval.c msvc-inval.h \
+	connect.c w32sock.h dup2.c errno.in.h fd-hook.h gethostname.c \
+	w32sock.h getpeername.c w32sock.h getsockname.c w32sock.h \
+	gettimeofday.c listen.c w32sock.h msvc-inval.c msvc-inval.h \
 	msvc-nothrow.c msvc-nothrow.h recv.c w32sock.h recvfrom.c \
 	w32sock.h select.c send.c w32sock.h sendto.c w32sock.h \
 	setsockopt.c w32sock.h signal.in.h arg-nonnull.h c++defs.h \
@@ -660,8 +669,9 @@ libgnu_a_SOURCES = fd-hook.c sockets.h sockets.c sys_socket.c unistd.c
 libgnu_a_LIBADD = $(gl_LIBOBJS) @ALLOCA@
 libgnu_a_DEPENDENCIES = $(gl_LIBOBJS) @ALLOCA@
 EXTRA_libgnu_a_SOURCES = accept.c alloca.c bind.c connect.c dup2.c \
-	getpeername.c listen.c msvc-inval.c msvc-nothrow.c recv.c \
-	recvfrom.c select.c send.c sendto.c setsockopt.c socket.c
+	gethostname.c getpeername.c getsockname.c gettimeofday.c \
+	listen.c msvc-inval.c msvc-nothrow.c recv.c recvfrom.c \
+	select.c send.c sendto.c setsockopt.c socket.c
 
 # Use this preprocessor expression to decide whether #include_next works.
 # Do not rely on a 'configure'-time test for this, since the expression
@@ -763,7 +773,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/connect.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dup2.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/fd-hook.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gethostname.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/getpeername.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/getsockname.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gettimeofday.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/listen.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/msvc-inval.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/msvc-nothrow.Po@am__quote@ # am--include-marker
@@ -1009,7 +1022,10 @@ distclean: distclean-recursive
 	-rm -f ./$(DEPDIR)/connect.Po
 	-rm -f ./$(DEPDIR)/dup2.Po
 	-rm -f ./$(DEPDIR)/fd-hook.Po
+	-rm -f ./$(DEPDIR)/gethostname.Po
 	-rm -f ./$(DEPDIR)/getpeername.Po
+	-rm -f ./$(DEPDIR)/getsockname.Po
+	-rm -f ./$(DEPDIR)/gettimeofday.Po
 	-rm -f ./$(DEPDIR)/listen.Po
 	-rm -f ./$(DEPDIR)/msvc-inval.Po
 	-rm -f ./$(DEPDIR)/msvc-nothrow.Po
@@ -1074,7 +1090,10 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f ./$(DEPDIR)/connect.Po
 	-rm -f ./$(DEPDIR)/dup2.Po
 	-rm -f ./$(DEPDIR)/fd-hook.Po
+	-rm -f ./$(DEPDIR)/gethostname.Po
 	-rm -f ./$(DEPDIR)/getpeername.Po
+	-rm -f ./$(DEPDIR)/getsockname.Po
+	-rm -f ./$(DEPDIR)/gettimeofday.Po
 	-rm -f ./$(DEPDIR)/listen.Po
 	-rm -f ./$(DEPDIR)/msvc-inval.Po
 	-rm -f ./$(DEPDIR)/msvc-nothrow.Po

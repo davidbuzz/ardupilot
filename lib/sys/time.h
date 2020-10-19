@@ -585,8 +585,8 @@ struct timeval
 }
 #endif
 
-#if 0
-# if 0
+#if 1
+# if 1
 #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
 #   undef gettimeofday
 #   define gettimeofday rpl_gettimeofday

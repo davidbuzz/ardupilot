@@ -40,6 +40,9 @@
 #  accept \
 #  bind \
 #  connect \
+#  gethostname \
+#  getsockname \
+#  gettimeofday \
 #  listen \
 #  recv \
 #  recvfrom \
@@ -49,7 +52,8 @@
 #  setsockopt \
 #  socket \
 #  sys_select \
-#  sys_socket
+#  sys_socket \
+#  unistd
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
@@ -57,6 +61,9 @@ gl_MODULES([
   accept
   bind
   connect
+  gethostname
+  getsockname
+  gettimeofday
   listen
   recv
   recvfrom
@@ -67,6 +74,7 @@ gl_MODULES([
   socket
   sys_select
   sys_socket
+  unistd
 ])
 gl_AVOID([])
 gl_SOURCE_BASE([lib])
