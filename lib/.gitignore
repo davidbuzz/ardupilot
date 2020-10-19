@@ -32,3 +32,4 @@
 /socket.c
 /setsockopt.c
 /connect.c
+/sendto.c

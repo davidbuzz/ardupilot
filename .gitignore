@@ -132,3 +132,9 @@ segv_*out
 persistent.dat
 dumpstack_*out
 build.tmp.binaries/
+
+autom4te\.cache/
+
+lib/\.deps/
+
+config\.log
