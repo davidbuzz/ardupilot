@@ -641,14 +641,6 @@ WINDOWS_STAT_INODES
 WINDOWS_64_BIT_OFF_T
 NEXT_AS_FIRST_DIRECTIVE_SYS_TYPES_H
 NEXT_SYS_TYPES_H
-NEXT_AS_FIRST_DIRECTIVE_SYS_TIME_H
-NEXT_SYS_TIME_H
-REPLACE_STRUCT_TIMEVAL
-REPLACE_GETTIMEOFDAY
-HAVE_SYS_TIME_H
-HAVE_STRUCT_TIMEVAL
-HAVE_GETTIMEOFDAY
-GNULIB_GETTIMEOFDAY
 NEXT_AS_FIRST_DIRECTIVE_STDDEF_H
 NEXT_STDDEF_H
 GL_GENERATE_STDDEF_H_FALSE
@@ -688,7 +680,15 @@ REPLACE_PSELECT
 HAVE_PSELECT
 GNULIB_SELECT
 GNULIB_PSELECT
-HAVE_MSVC_INVALID_PARAMETER_HANDLER
+NEXT_AS_FIRST_DIRECTIVE_SYS_TIME_H
+NEXT_SYS_TIME_H
+REPLACE_STRUCT_TIMEVAL
+REPLACE_GETTIMEOFDAY
+HAVE_SYS_TIME_H
+HAVE_STRUCT_TIMEVAL
+HAVE_GETTIMEOFDAY
+GNULIB_GETTIMEOFDAY
+GETHOSTNAME_LIB
 EOVERFLOW_VALUE
 EOVERFLOW_HIDDEN
 ENOLINK_VALUE
@@ -700,6 +700,7 @@ GL_GENERATE_ERRNO_H_TRUE
 ERRNO_H
 NEXT_AS_FIRST_DIRECTIVE_ERRNO_H
 NEXT_ERRNO_H
+HAVE_MSVC_INVALID_PARAMETER_HANDLER
 HAVE_ALLOCA_H
 GL_GENERATE_ALLOCA_H_FALSE
 GL_GENERATE_ALLOCA_H_TRUE
@@ -2641,8 +2642,11 @@ fi
 
 as_fn_append ac_header_list " sys/socket.h"
 as_fn_append ac_func_list " _set_invalid_parameter_handler"
-as_fn_append ac_header_list " sys/select.h"
+as_fn_append ac_header_list " sys/param.h"
+as_fn_append ac_header_list " netdb.h"
 as_fn_append ac_header_list " sys/time.h"
+as_fn_append ac_func_list " gettimeofday"
+as_fn_append ac_header_list " sys/select.h"
 as_fn_append ac_header_list " sys/uio.h"
 as_fn_append ac_header_list " unistd.h"
 # Check that the precious variables saved in the cache have kept the same
@@ -5220,13 +5224,17 @@ fi
   # Code from module alloca:
   # Code from module alloca-opt:
   # Code from module bind:
+  # Code from module close:
   # Code from module connect:
   # Code from module dup2:
   # Code from module errno:
   # Code from module extensions:
   # Code from module extern-inline:
   # Code from module fd-hook:
+  # Code from module gethostname:
   # Code from module getpeername:
+  # Code from module getsockname:
+  # Code from module gettimeofday:
   # Code from module include_next:
   # Code from module listen:
   # Code from module msvc-inval:
@@ -6269,6 +6277,35 @@ _ACEOF
 
 fi
 
+
+
+
+  for ac_func in $ac_func_list
+do :
+  as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
+ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"
+if eval test \"x\$"$as_ac_var"\" = x"yes"; then :
+  cat >>confdefs.h <<_ACEOF
+#define `$as_echo "HAVE_$ac_func" | $as_tr_cpp` 1
+_ACEOF
+
+fi
+done
+
+
+
+
+
+  if test $ac_cv_func__set_invalid_parameter_handler = yes; then
+    HAVE_MSVC_INVALID_PARAMETER_HANDLER=1
+
+$as_echo "#define HAVE_MSVC_INVALID_PARAMETER_HANDLER 1" >>confdefs.h
+
+  else
+    HAVE_MSVC_INVALID_PARAMETER_HANDLER=0
+  fi
+
+
 gl_mda_defines='
 #if defined _WIN32 && !defined __CYGWIN__
 #define access    _access
@@ -6706,30 +6743,216 @@ $as_echo "$gl_cv_header_errno_h_EOVERFLOW" >&6; }
 
 
 
-  for ac_func in $ac_func_list
+
+
+  GNULIB_GETTIMEOFDAY=0;
+    HAVE_GETTIMEOFDAY=1;
+  HAVE_STRUCT_TIMEVAL=1;
+  HAVE_SYS_TIME_H=1;
+  REPLACE_GETTIMEOFDAY=0;
+  REPLACE_STRUCT_TIMEVAL=0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     if test $gl_cv_have_include_next = yes; then
+       gl_cv_next_sys_time_h='<'sys/time.h'>'
+     else
+       { $as_echo "$as_me:${as_lineno-$LINENO}: checking absolute name of <sys/time.h>" >&5
+$as_echo_n "checking absolute name of <sys/time.h>... " >&6; }
+if ${gl_cv_next_sys_time_h+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+
+             if test $ac_cv_header_sys_time_h = yes; then
+
+
+
+
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <sys/time.h>
+_ACEOF
+                case "$host_os" in
+    aix*) gl_absname_cpp="$ac_cpp -C" ;;
+    *)    gl_absname_cpp="$ac_cpp" ;;
+  esac
+
+  case "$host_os" in
+    mingw*)
+                                          gl_dirsep_regex='[/\\]'
+      ;;
+    *)
+      gl_dirsep_regex='\/'
+      ;;
+  esac
+      gl_make_literal_regex_sed='s,[]$^\\.*/[],\\&,g'
+  gl_header_literal_regex=`echo 'sys/time.h' \
+                           | sed -e "$gl_make_literal_regex_sed"`
+  gl_absolute_header_sed="/${gl_dirsep_regex}${gl_header_literal_regex}/"'{
+      s/.*"\(.*'"${gl_dirsep_regex}${gl_header_literal_regex}"'\)".*/\1/
+      s|^/[^/]|//&|
+      p
+      q
+    }'
+
+        gl_cv_absolute_sys_time_h=`(eval "$gl_absname_cpp conftest.$ac_ext") 2>&5 |
+  sed -n "$gl_absolute_header_sed"`
+
+           gl_header=$gl_cv_absolute_sys_time_h
+           gl_cv_next_sys_time_h='"'$gl_header'"'
+          else
+               gl_cv_next_sys_time_h='<'sys/time.h'>'
+             fi
+
+
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $gl_cv_next_sys_time_h" >&5
+$as_echo "$gl_cv_next_sys_time_h" >&6; }
+     fi
+     NEXT_SYS_TIME_H=$gl_cv_next_sys_time_h
+
+     if test $gl_cv_have_include_next = yes || test $gl_cv_have_include_next = buggy; then
+       # INCLUDE_NEXT_AS_FIRST_DIRECTIVE='include_next'
+       gl_next_as_first_directive='<'sys/time.h'>'
+     else
+       # INCLUDE_NEXT_AS_FIRST_DIRECTIVE='include'
+       gl_next_as_first_directive=$gl_cv_next_sys_time_h
+     fi
+     NEXT_AS_FIRST_DIRECTIVE_SYS_TIME_H=$gl_next_as_first_directive
+
+
+
+
+
+  if test $ac_cv_header_sys_time_h != yes; then
+    HAVE_SYS_TIME_H=0
+  fi
+
+
+
+
+
+  if test $ac_cv_header_sys_socket_h != yes; then
+                    for ac_header in winsock2.h
 do :
-  as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
-ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"
-if eval test \"x\$"$as_ac_var"\" = x"yes"; then :
+  ac_fn_c_check_header_mongrel "$LINENO" "winsock2.h" "ac_cv_header_winsock2_h" "$ac_includes_default"
+if test "x$ac_cv_header_winsock2_h" = xyes; then :
   cat >>confdefs.h <<_ACEOF
-#define `$as_echo "HAVE_$ac_func" | $as_tr_cpp` 1
+#define HAVE_WINSOCK2_H 1
 _ACEOF
 
 fi
+
 done
 
-
-
-
-
-  if test $ac_cv_func__set_invalid_parameter_handler = yes; then
-    HAVE_MSVC_INVALID_PARAMETER_HANDLER=1
-
-$as_echo "#define HAVE_MSVC_INVALID_PARAMETER_HANDLER 1" >>confdefs.h
-
-  else
-    HAVE_MSVC_INVALID_PARAMETER_HANDLER=0
   fi
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    HAVE_WINSOCK2_H=1
+    UNISTD_H_HAVE_WINSOCK2_H=1
+    SYS_IOCTL_H_HAVE_WINSOCK2_H=1
+  else
+    HAVE_WINSOCK2_H=0
+  fi
+
+
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for struct timeval" >&5
+$as_echo_n "checking for struct timeval... " >&6; }
+if ${gl_cv_sys_struct_timeval+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#if HAVE_SYS_TIME_H
+             #include <sys/time.h>
+            #endif
+            #include <time.h>
+            #if HAVE_WINSOCK2_H
+            # include <winsock2.h>
+            #endif
+
+int
+main ()
+{
+static struct timeval x; x.tv_sec = x.tv_usec;
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"; then :
+  gl_cv_sys_struct_timeval=yes
+else
+  gl_cv_sys_struct_timeval=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $gl_cv_sys_struct_timeval" >&5
+$as_echo "$gl_cv_sys_struct_timeval" >&6; }
+  if test $gl_cv_sys_struct_timeval != yes; then
+    HAVE_STRUCT_TIMEVAL=0
+  else
+                            { $as_echo "$as_me:${as_lineno-$LINENO}: checking for wide-enough struct timeval.tv_sec member" >&5
+$as_echo_n "checking for wide-enough struct timeval.tv_sec member... " >&6; }
+if ${gl_cv_sys_struct_timeval_tv_sec+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#if HAVE_SYS_TIME_H
+               #include <sys/time.h>
+              #endif
+              #include <time.h>
+              #if HAVE_WINSOCK2_H
+              # include <winsock2.h>
+              #endif
+
+int
+main ()
+{
+static struct timeval x;
+              typedef int verify_tv_sec_type[
+                sizeof (time_t) <= sizeof x.tv_sec ? 1 : -1
+              ];
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"; then :
+  gl_cv_sys_struct_timeval_tv_sec=yes
+else
+  gl_cv_sys_struct_timeval_tv_sec=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $gl_cv_sys_struct_timeval_tv_sec" >&5
+$as_echo "$gl_cv_sys_struct_timeval_tv_sec" >&6; }
+    if test $gl_cv_sys_struct_timeval_tv_sec != yes; then
+      REPLACE_STRUCT_TIMEVAL=1
+    fi
+  fi
+
+
+
+
+
+
+
+
 
 
 
@@ -7328,212 +7551,6 @@ $as_echo "#define HAVE_WCHAR_T 1" >>confdefs.h
   fi
 
 
-  GNULIB_GETTIMEOFDAY=0;
-    HAVE_GETTIMEOFDAY=1;
-  HAVE_STRUCT_TIMEVAL=1;
-  HAVE_SYS_TIME_H=1;
-  REPLACE_GETTIMEOFDAY=0;
-  REPLACE_STRUCT_TIMEVAL=0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     if test $gl_cv_have_include_next = yes; then
-       gl_cv_next_sys_time_h='<'sys/time.h'>'
-     else
-       { $as_echo "$as_me:${as_lineno-$LINENO}: checking absolute name of <sys/time.h>" >&5
-$as_echo_n "checking absolute name of <sys/time.h>... " >&6; }
-if ${gl_cv_next_sys_time_h+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-
-             if test $ac_cv_header_sys_time_h = yes; then
-
-
-
-
-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-#include <sys/time.h>
-_ACEOF
-                case "$host_os" in
-    aix*) gl_absname_cpp="$ac_cpp -C" ;;
-    *)    gl_absname_cpp="$ac_cpp" ;;
-  esac
-
-  case "$host_os" in
-    mingw*)
-                                          gl_dirsep_regex='[/\\]'
-      ;;
-    *)
-      gl_dirsep_regex='\/'
-      ;;
-  esac
-      gl_make_literal_regex_sed='s,[]$^\\.*/[],\\&,g'
-  gl_header_literal_regex=`echo 'sys/time.h' \
-                           | sed -e "$gl_make_literal_regex_sed"`
-  gl_absolute_header_sed="/${gl_dirsep_regex}${gl_header_literal_regex}/"'{
-      s/.*"\(.*'"${gl_dirsep_regex}${gl_header_literal_regex}"'\)".*/\1/
-      s|^/[^/]|//&|
-      p
-      q
-    }'
-
-        gl_cv_absolute_sys_time_h=`(eval "$gl_absname_cpp conftest.$ac_ext") 2>&5 |
-  sed -n "$gl_absolute_header_sed"`
-
-           gl_header=$gl_cv_absolute_sys_time_h
-           gl_cv_next_sys_time_h='"'$gl_header'"'
-          else
-               gl_cv_next_sys_time_h='<'sys/time.h'>'
-             fi
-
-
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $gl_cv_next_sys_time_h" >&5
-$as_echo "$gl_cv_next_sys_time_h" >&6; }
-     fi
-     NEXT_SYS_TIME_H=$gl_cv_next_sys_time_h
-
-     if test $gl_cv_have_include_next = yes || test $gl_cv_have_include_next = buggy; then
-       # INCLUDE_NEXT_AS_FIRST_DIRECTIVE='include_next'
-       gl_next_as_first_directive='<'sys/time.h'>'
-     else
-       # INCLUDE_NEXT_AS_FIRST_DIRECTIVE='include'
-       gl_next_as_first_directive=$gl_cv_next_sys_time_h
-     fi
-     NEXT_AS_FIRST_DIRECTIVE_SYS_TIME_H=$gl_next_as_first_directive
-
-
-
-
-
-  if test $ac_cv_header_sys_time_h != yes; then
-    HAVE_SYS_TIME_H=0
-  fi
-
-
-
-
-
-  if test $ac_cv_header_sys_socket_h != yes; then
-                    for ac_header in winsock2.h
-do :
-  ac_fn_c_check_header_mongrel "$LINENO" "winsock2.h" "ac_cv_header_winsock2_h" "$ac_includes_default"
-if test "x$ac_cv_header_winsock2_h" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_WINSOCK2_H 1
-_ACEOF
-
-fi
-
-done
-
-  fi
-  if test "$ac_cv_header_winsock2_h" = yes; then
-    HAVE_WINSOCK2_H=1
-    UNISTD_H_HAVE_WINSOCK2_H=1
-    SYS_IOCTL_H_HAVE_WINSOCK2_H=1
-  else
-    HAVE_WINSOCK2_H=0
-  fi
-
-
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for struct timeval" >&5
-$as_echo_n "checking for struct timeval... " >&6; }
-if ${gl_cv_sys_struct_timeval+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-#if HAVE_SYS_TIME_H
-             #include <sys/time.h>
-            #endif
-            #include <time.h>
-            #if HAVE_WINSOCK2_H
-            # include <winsock2.h>
-            #endif
-
-int
-main ()
-{
-static struct timeval x; x.tv_sec = x.tv_usec;
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"; then :
-  gl_cv_sys_struct_timeval=yes
-else
-  gl_cv_sys_struct_timeval=no
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $gl_cv_sys_struct_timeval" >&5
-$as_echo "$gl_cv_sys_struct_timeval" >&6; }
-  if test $gl_cv_sys_struct_timeval != yes; then
-    HAVE_STRUCT_TIMEVAL=0
-  else
-                            { $as_echo "$as_me:${as_lineno-$LINENO}: checking for wide-enough struct timeval.tv_sec member" >&5
-$as_echo_n "checking for wide-enough struct timeval.tv_sec member... " >&6; }
-if ${gl_cv_sys_struct_timeval_tv_sec+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-#if HAVE_SYS_TIME_H
-               #include <sys/time.h>
-              #endif
-              #include <time.h>
-              #if HAVE_WINSOCK2_H
-              # include <winsock2.h>
-              #endif
-
-int
-main ()
-{
-static struct timeval x;
-              typedef int verify_tv_sec_type[
-                sizeof (time_t) <= sizeof x.tv_sec ? 1 : -1
-              ];
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"; then :
-  gl_cv_sys_struct_timeval_tv_sec=yes
-else
-  gl_cv_sys_struct_timeval_tv_sec=no
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $gl_cv_sys_struct_timeval_tv_sec" >&5
-$as_echo "$gl_cv_sys_struct_timeval_tv_sec" >&6; }
-    if test $gl_cv_sys_struct_timeval_tv_sec != yes; then
-      REPLACE_STRUCT_TIMEVAL=1
-    fi
-  fi
-
-
-
-
-
-
 
 ac_fn_c_check_type "$LINENO" "mode_t" "ac_cv_type_mode_t" "$ac_includes_default"
 if test "x$ac_cv_type_mode_t" = xyes; then :
@@ -7790,6 +7807,75 @@ $as_echo "#define GNULIB_TEST_BIND 1" >>confdefs.h
 
 
 
+
+
+
+    if test $HAVE_MSVC_INVALID_PARAMETER_HANDLER = 1; then
+      REPLACE_CLOSE=1
+    fi
+
+
+
+
+
+
+  if test $ac_cv_header_sys_socket_h != yes; then
+                    for ac_header in winsock2.h
+do :
+  ac_fn_c_check_header_mongrel "$LINENO" "winsock2.h" "ac_cv_header_winsock2_h" "$ac_includes_default"
+if test "x$ac_cv_header_winsock2_h" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_WINSOCK2_H 1
+_ACEOF
+
+fi
+
+done
+
+  fi
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    HAVE_WINSOCK2_H=1
+    UNISTD_H_HAVE_WINSOCK2_H=1
+    SYS_IOCTL_H_HAVE_WINSOCK2_H=1
+  else
+    HAVE_WINSOCK2_H=0
+  fi
+
+
+    if test $UNISTD_H_HAVE_WINSOCK2_H = 1; then
+                        REPLACE_CLOSE=1
+    fi
+
+
+
+  if test $REPLACE_CLOSE = 1; then
+
+
+
+
+
+
+
+
+  gl_LIBOBJS="$gl_LIBOBJS close.$ac_objext"
+
+  fi
+
+
+
+
+
+          GNULIB_CLOSE=1
+
+
+
+
+
+$as_echo "#define GNULIB_TEST_CLOSE 1" >>confdefs.h
+
+
+
+
   if test "$ac_cv_header_winsock2_h" = yes; then
 
 
@@ -7974,6 +8060,199 @@ $as_echo "#define GNULIB_TEST_DUP2 1" >>confdefs.h
 
 
 
+
+
+
+
+
+  if test $ac_cv_header_sys_socket_h != yes; then
+                    for ac_header in winsock2.h
+do :
+  ac_fn_c_check_header_mongrel "$LINENO" "winsock2.h" "ac_cv_header_winsock2_h" "$ac_includes_default"
+if test "x$ac_cv_header_winsock2_h" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_WINSOCK2_H 1
+_ACEOF
+
+fi
+
+done
+
+  fi
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    HAVE_WINSOCK2_H=1
+    UNISTD_H_HAVE_WINSOCK2_H=1
+    SYS_IOCTL_H_HAVE_WINSOCK2_H=1
+  else
+    HAVE_WINSOCK2_H=0
+  fi
+
+
+
+        GETHOSTNAME_LIB=
+  for ac_func in gethostname
+do :
+  ac_fn_c_check_func "$LINENO" "gethostname" "ac_cv_func_gethostname"
+if test "x$ac_cv_func_gethostname" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_GETHOSTNAME 1
+_ACEOF
+
+else
+
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for gethostname in winsock2.h and -lws2_32" >&5
+$as_echo_n "checking for gethostname in winsock2.h and -lws2_32... " >&6; }
+if ${gl_cv_w32_gethostname+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  gl_cv_w32_gethostname=no
+       gl_save_LIBS="$LIBS"
+       LIBS="$LIBS -lws2_32"
+       cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+#ifdef HAVE_WINSOCK2_H
+#include <winsock2.h>
+#endif
+#include <stddef.h>
+
+int
+main ()
+{
+gethostname(NULL, 0);
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  gl_cv_w32_gethostname=yes
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+       LIBS="$gl_save_LIBS"
+
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $gl_cv_w32_gethostname" >&5
+$as_echo "$gl_cv_w32_gethostname" >&6; }
+    if test "$gl_cv_w32_gethostname" = "yes"; then
+      GETHOSTNAME_LIB="-lws2_32"
+    fi
+
+fi
+done
+
+
+
+  if test "$ac_cv_func_gethostname" = no; then
+    HAVE_GETHOSTNAME=0
+  fi
+
+
+
+
+
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for HOST_NAME_MAX" >&5
+$as_echo_n "checking for HOST_NAME_MAX... " >&6; }
+if ${gl_cv_decl_HOST_NAME_MAX+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+
+    gl_cv_decl_HOST_NAME_MAX=
+    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+#include <limits.h>
+#ifdef HOST_NAME_MAX
+lucky
+#endif
+
+_ACEOF
+if (eval "$ac_cpp conftest.$ac_ext") 2>&5 |
+  $EGREP "lucky" >/dev/null 2>&1; then :
+  gl_cv_decl_HOST_NAME_MAX=yes
+fi
+rm -f conftest*
+
+    if test -z "$gl_cv_decl_HOST_NAME_MAX"; then
+            if test "$gl_cv_w32_gethostname" = yes; then
+                gl_cv_decl_HOST_NAME_MAX=256
+      else
+        if ac_fn_c_compute_int "$LINENO" "MAXHOSTNAMELEN" "gl_cv_decl_HOST_NAME_MAX"        "
+#include <sys/types.h>
+#if HAVE_SYS_PARAM_H
+# include <sys/param.h>
+#endif
+#if HAVE_SYS_SOCKET_H
+# include <sys/socket.h>
+#endif
+#if HAVE_NETDB_H
+# include <netdb.h>
+#endif
+"; then :
+
+else
+                        gl_cv_decl_HOST_NAME_MAX=256
+
+fi
+
+      fi
+    fi
+
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $gl_cv_decl_HOST_NAME_MAX" >&5
+$as_echo "$gl_cv_decl_HOST_NAME_MAX" >&6; }
+  if test "$gl_cv_decl_HOST_NAME_MAX" != yes; then
+
+cat >>confdefs.h <<_ACEOF
+#define HOST_NAME_MAX $gl_cv_decl_HOST_NAME_MAX
+_ACEOF
+
+  fi
+
+
+  if test $HAVE_GETHOSTNAME = 0; then
+
+
+
+
+
+
+
+
+  gl_LIBOBJS="$gl_LIBOBJS gethostname.$ac_objext"
+
+
+  if test "$gl_cv_w32_gethostname" != "yes"; then
+    for ac_func in uname
+do :
+  ac_fn_c_check_func "$LINENO" "uname" "ac_cv_func_uname"
+if test "x$ac_cv_func_uname" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_UNAME 1
+_ACEOF
+
+fi
+done
+
+  fi
+
+  fi
+
+
+
+
+
+          GNULIB_GETHOSTNAME=1
+
+
+
+
+
+$as_echo "#define GNULIB_TEST_GETHOSTNAME 1" >>confdefs.h
+
+
+
+
   if test "$ac_cv_header_winsock2_h" = yes; then
 
 
@@ -7998,6 +8277,146 @@ $as_echo "#define GNULIB_TEST_DUP2 1" >>confdefs.h
 
 
 $as_echo "#define GNULIB_TEST_GETPEERNAME 1" >>confdefs.h
+
+
+
+
+  if test "$ac_cv_header_winsock2_h" = yes; then
+
+
+
+
+
+
+
+
+  gl_LIBOBJS="$gl_LIBOBJS getsockname.$ac_objext"
+
+  fi
+
+
+
+
+
+          GNULIB_GETSOCKNAME=1
+
+
+
+
+
+$as_echo "#define GNULIB_TEST_GETSOCKNAME 1" >>confdefs.h
+
+
+
+
+
+
+
+
+
+
+  gl_gettimeofday_timezone=void
+  if test $ac_cv_func_gettimeofday != yes; then
+    HAVE_GETTIMEOFDAY=0
+  else
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for gettimeofday with POSIX signature" >&5
+$as_echo_n "checking for gettimeofday with POSIX signature... " >&6; }
+if ${gl_cv_func_gettimeofday_posix_signature+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <sys/time.h>
+              struct timeval c;
+              int gettimeofday (struct timeval *restrict, void *restrict);
+
+int
+main ()
+{
+/* glibc uses struct timezone * rather than the POSIX void *
+                 if _GNU_SOURCE is defined.  However, since the only portable
+                 use of gettimeofday uses NULL as the second parameter, and
+                 since the glibc definition is actually more typesafe, it is
+                 not worth wrapping this to get a compliant signature.  */
+              int (*f) (struct timeval *restrict, void *restrict)
+                = gettimeofday;
+              int x = f (&c, 0);
+              return !(x | c.tv_sec | c.tv_usec);
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"; then :
+  gl_cv_func_gettimeofday_posix_signature=yes
+else
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <sys/time.h>
+int gettimeofday (struct timeval *restrict, struct timezone *restrict);
+
+int
+main ()
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"; then :
+  gl_cv_func_gettimeofday_posix_signature=almost
+else
+  gl_cv_func_gettimeofday_posix_signature=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $gl_cv_func_gettimeofday_posix_signature" >&5
+$as_echo "$gl_cv_func_gettimeofday_posix_signature" >&6; }
+    if test $gl_cv_func_gettimeofday_posix_signature = almost; then
+      gl_gettimeofday_timezone='struct timezone'
+    elif test $gl_cv_func_gettimeofday_posix_signature != yes; then
+      REPLACE_GETTIMEOFDAY=1
+    fi
+        if test $REPLACE_STRUCT_TIMEVAL = 1; then
+      REPLACE_GETTIMEOFDAY=1
+    fi
+            case "$host_os" in
+      mingw*) REPLACE_GETTIMEOFDAY=1 ;;
+    esac
+  fi
+
+cat >>confdefs.h <<_ACEOF
+#define GETTIMEOFDAY_TIMEZONE $gl_gettimeofday_timezone
+_ACEOF
+
+
+  if test $HAVE_GETTIMEOFDAY = 0 || test $REPLACE_GETTIMEOFDAY = 1; then
+
+
+
+
+
+
+
+
+  gl_LIBOBJS="$gl_LIBOBJS gettimeofday.$ac_objext"
+
+    :
+  fi
+
+
+
+
+
+          GNULIB_GETTIMEOFDAY=1
+
+
+
+
+
+$as_echo "#define GNULIB_TEST_GETTIMEOFDAY 1" >>confdefs.h
 
 
 

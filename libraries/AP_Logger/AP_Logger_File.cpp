@@ -250,7 +250,7 @@ uint16_t AP_Logger_File::find_oldest_log()
             }
         }
     }
-    AP::FS().closedir(d);
+    //AP::FS().closedir(d);
     _cached_oldest_log = current_oldest_log;
 
     return current_oldest_log;
@@ -536,7 +536,7 @@ uint16_t AP_Logger_File::find_last_log()
         if (AP::FS().read(fd, buf, sizeof(buf)-1) > 0) {
             ret = strtol(buf, NULL, 10);
         }
-        AP::FS().close(fd);
+        //AP::FS().close(fd);
     }
     return ret;
 }
@@ -629,7 +629,7 @@ int16_t AP_Logger_File::get_log_data(const uint16_t list_entry, const uint16_t p
     }
 
     if (_read_fd != -1 && log_num != _read_fd_log_num) {
-        AP::FS().close(_read_fd);
+        //AP::FS().close(_read_fd);
         _read_fd = -1;
     }
     if (_read_fd == -1) {
@@ -658,7 +658,7 @@ int16_t AP_Logger_File::get_log_data(const uint16_t list_entry, const uint16_t p
 
     if (ofs != _read_offset) {
         if (AP::FS().lseek(_read_fd, ofs, SEEK_SET) == (off_t)-1) {
-            AP::FS().close(_read_fd);
+            //AP::FS().close(_read_fd);
             _read_fd = -1;
             return -1;
         }
@@ -725,7 +725,8 @@ void AP_Logger_File::stop_logging(void)
     if (_write_fd != -1) {
         int fd = _write_fd;
         _write_fd = -1;
-        AP::FS().close(fd);
+        fd = fd;
+        //AP::FS().close(fd);
     }
     if (have_sem) {
         write_fd_semaphore.give();
@@ -756,7 +757,7 @@ void AP_Logger_File::start_new_log(void)
     start_new_log_reset_variables();
 
     if (_read_fd != -1) {
-        AP::FS().close(_read_fd);
+        //AP::FS().close(_read_fd);
         _read_fd = -1;
     }
 
@@ -828,7 +829,7 @@ void AP_Logger_File::start_new_log(void)
     snprintf(buf, sizeof(buf), "%u\r\n", (unsigned)log_num);
     const ssize_t to_write = strlen(buf);
     const ssize_t written = AP::FS().write(fd, buf, to_write);
-    AP::FS().close(fd);
+    //AP::FS().close(fd);
 
     if (written < to_write) {
         return;
@@ -936,7 +937,7 @@ void AP_Logger_File::_io_timer(void)
             // failures caused by directory listing
             hal.util->perf_count(_perf_errors);
             last_io_operation = "close";
-            AP::FS().close(_write_fd);
+            //AP::FS().close(_write_fd);
             last_io_operation = "";
             _write_fd = -1;
             _initialised = false;

@@ -61,7 +61,7 @@ protected:
     bool StartNewLogOK() const override;
 
 private:
-    int _write_fd;
+    int _write_fd = -1;
     char *_write_filename;
     uint32_t _last_write_ms;
 #if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS

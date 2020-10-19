@@ -41,3 +41,4 @@
 /gethostname.c
 /getsockname.c
 /gettimeofday.c
+/close.c
