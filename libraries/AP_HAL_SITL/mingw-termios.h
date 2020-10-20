@@ -1,3 +1,8 @@
+// nearlly from https://github.com/chjchoi/kai/tree/master/project/linux-cortexm-1.9.0/A2F/gdb-2011.03/cs-cygwin-wrapper
+
+// maybe a better one would be... https://github.com/ChristianVisintin/termiWin right now only supports one serial port at a time.
+//
+//
 /* Replacement termios.h for MinGW32.
 
    Copyright (C) 2008 CodeSourcery, Inc.
@@ -18,19 +23,32 @@
 #ifndef MINGW_TERMIOS_H
 #define MINGW_TERMIOS_H
 
-typedef unsigned char cc_t;
-typedef unsigned int tcflag_t;
+//termios2 and speed_t and a few extra bits added from https://elixir.bootlin.com/linux/v3.4/source/arch/arm/include/asm/termbits.h#L18
+typedef unsigned char	cc_t;
+typedef unsigned int	speed_t;
+typedef unsigned int	tcflag_t;
 
-#define NCCS 18
-
-struct termios2
-{
-  tcflag_t c_iflag;
-  tcflag_t c_oflag;
-  tcflag_t c_cflag;
-  tcflag_t c_lflag;
-  cc_t c_cc[NCCS];
+#define NCCS 19
+struct termios {
+	tcflag_t c_iflag;		/* input mode flags */
+	tcflag_t c_oflag;		/* output mode flags */
+	tcflag_t c_cflag;		/* control mode flags */
+	tcflag_t c_lflag;		/* local mode flags */
+	cc_t c_line;			/* line discipline */
+	cc_t c_cc[NCCS];		/* control characters */
 };
+
+struct termios2 {
+	tcflag_t c_iflag;		/* input mode flags */
+	tcflag_t c_oflag;		/* output mode flags */
+	tcflag_t c_cflag;		/* control mode flags */
+	tcflag_t c_lflag;		/* local mode flags */
+	cc_t c_line;			/* line discipline */
+	cc_t c_cc[NCCS];		/* control characters */
+	speed_t c_ispeed;		/* input speed */
+	speed_t c_ospeed;		/* output speed */
+};
+
 
 #define VEOF 0
 #define VEOL 1
@@ -63,6 +81,12 @@ struct termios2
 #define IXOFF 0x200
 #define IXON 0x400
 #define PARMRK 0x800
+
+// extras
+#define ECHOCTL	0x01000
+#define ECHOKE	0x04000
+#define IMAXBEL	0x20000
+#define CRTSCTS	  020000000000		/* flow control */
 
 #define OPOST 0x1
 #define ONLCR 0x2
