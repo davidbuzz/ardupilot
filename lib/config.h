@@ -191,6 +191,9 @@
 /* Define to 1 if you have the <sys/uio.h> header file. */
 /* #undef HAVE_SYS_UIO_H */
 
+/* Define to 1 if you have the <termios.h> header file. */
+/* #undef HAVE_TERMIOS_H */
+
 /* Define to 1 if you have the `uname' function. */
 /* #undef HAVE_UNAME */
 

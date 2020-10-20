@@ -66,6 +66,7 @@
 #  socket \
 #  sys_select \
 #  sys_socket \
+#  termios \
 #  unistd
 
 
@@ -171,9 +172,10 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/sys_select_h.m4 \
 	$(top_srcdir)/m4/sys_socket_h.m4 \
 	$(top_srcdir)/m4/sys_time_h.m4 $(top_srcdir)/m4/sys_types_h.m4 \
-	$(top_srcdir)/m4/sys_uio_h.m4 $(top_srcdir)/m4/unistd_h.m4 \
-	$(top_srcdir)/m4/warn-on-use.m4 $(top_srcdir)/m4/wchar_t.m4 \
-	$(top_srcdir)/m4/zzgnulib.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/sys_uio_h.m4 $(top_srcdir)/m4/termios_h.m4 \
+	$(top_srcdir)/m4/unistd_h.m4 $(top_srcdir)/m4/warn-on-use.m4 \
+	$(top_srcdir)/m4/wchar_t.m4 $(top_srcdir)/m4/zzgnulib.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(noinst_HEADERS) \
@@ -459,6 +461,7 @@ GNULIB_STDIO_H_NONBLOCKING = @GNULIB_STDIO_H_NONBLOCKING@
 GNULIB_STDIO_H_SIGPIPE = @GNULIB_STDIO_H_SIGPIPE@
 GNULIB_SYMLINK = @GNULIB_SYMLINK@
 GNULIB_SYMLINKAT = @GNULIB_SYMLINKAT@
+GNULIB_TCGETSID = @GNULIB_TCGETSID@
 GNULIB_TMPFILE = @GNULIB_TMPFILE@
 GNULIB_TRUNCATE = @GNULIB_TRUNCATE@
 GNULIB_TTYNAME_R = @GNULIB_TTYNAME_R@
@@ -499,6 +502,7 @@ HAVE_DECL_GETUSERSHELL = @HAVE_DECL_GETUSERSHELL@
 HAVE_DECL_OBSTACK_PRINTF = @HAVE_DECL_OBSTACK_PRINTF@
 HAVE_DECL_SETHOSTNAME = @HAVE_DECL_SETHOSTNAME@
 HAVE_DECL_SNPRINTF = @HAVE_DECL_SNPRINTF@
+HAVE_DECL_TCGETSID = @HAVE_DECL_TCGETSID@
 HAVE_DECL_TRUNCATE = @HAVE_DECL_TRUNCATE@
 HAVE_DECL_TTYNAME_R = @HAVE_DECL_TTYNAME_R@
 HAVE_DECL_VSNPRINTF = @HAVE_DECL_VSNPRINTF@
@@ -562,6 +566,7 @@ HAVE_SYS_SELECT_H = @HAVE_SYS_SELECT_H@
 HAVE_SYS_SOCKET_H = @HAVE_SYS_SOCKET_H@
 HAVE_SYS_TIME_H = @HAVE_SYS_TIME_H@
 HAVE_SYS_UIO_H = @HAVE_SYS_UIO_H@
+HAVE_TERMIOS_H = @HAVE_TERMIOS_H@
 HAVE_TYPE_VOLATILE_SIG_ATOMIC_T = @HAVE_TYPE_VOLATILE_SIG_ATOMIC_T@
 HAVE_UNISTD_H = @HAVE_UNISTD_H@
 HAVE_UNLINKAT = @HAVE_UNLINKAT@
@@ -600,6 +605,7 @@ NEXT_AS_FIRST_DIRECTIVE_SYS_SOCKET_H = @NEXT_AS_FIRST_DIRECTIVE_SYS_SOCKET_H@
 NEXT_AS_FIRST_DIRECTIVE_SYS_TIME_H = @NEXT_AS_FIRST_DIRECTIVE_SYS_TIME_H@
 NEXT_AS_FIRST_DIRECTIVE_SYS_TYPES_H = @NEXT_AS_FIRST_DIRECTIVE_SYS_TYPES_H@
 NEXT_AS_FIRST_DIRECTIVE_SYS_UIO_H = @NEXT_AS_FIRST_DIRECTIVE_SYS_UIO_H@
+NEXT_AS_FIRST_DIRECTIVE_TERMIOS_H = @NEXT_AS_FIRST_DIRECTIVE_TERMIOS_H@
 NEXT_AS_FIRST_DIRECTIVE_UNISTD_H = @NEXT_AS_FIRST_DIRECTIVE_UNISTD_H@
 NEXT_ERRNO_H = @NEXT_ERRNO_H@
 NEXT_FCNTL_H = @NEXT_FCNTL_H@
@@ -612,6 +618,7 @@ NEXT_SYS_SOCKET_H = @NEXT_SYS_SOCKET_H@
 NEXT_SYS_TIME_H = @NEXT_SYS_TIME_H@
 NEXT_SYS_TYPES_H = @NEXT_SYS_TYPES_H@
 NEXT_SYS_UIO_H = @NEXT_SYS_UIO_H@
+NEXT_TERMIOS_H = @NEXT_TERMIOS_H@
 NEXT_UNISTD_H = @NEXT_UNISTD_H@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
@@ -790,10 +797,12 @@ EXTRA_DIST = accept.c w32sock.h alloca.c alloca.in.h bind.c w32sock.h \
 	signal.in.h arg-nonnull.h c++defs.h warn-on-use.h socket.c \
 	w32sock.h w32sock.h stdalign.in.h stdbool.in.h stddef.in.h \
 	stdio.in.h sys_ioctl.in.h sys_select.in.h sys_socket.in.h \
-	sys_time.in.h sys_types.in.h sys_uio.in.h unistd.in.h
+	sys_time.in.h sys_types.in.h sys_uio.in.h termios.in.h \
+	unistd.in.h
 BUILT_SOURCES = $(ALLOCA_H) $(ERRNO_H) fcntl.h signal.h $(STDALIGN_H) \
 	$(STDBOOL_H) $(STDDEF_H) stdio.h sys/ioctl.h sys/select.h \
-	sys/socket.h sys/time.h sys/types.h sys/uio.h unistd.h
+	sys/socket.h sys/time.h sys/types.h sys/uio.h termios.h \
+	unistd.h
 SUFFIXES = 
 MOSTLYCLEANFILES = core *.stackdump alloca.h alloca.h-t errno.h \
 	errno.h-t fcntl.h fcntl.h-t signal.h signal.h-t stdalign.h \
@@ -801,7 +810,7 @@ MOSTLYCLEANFILES = core *.stackdump alloca.h alloca.h-t errno.h \
 	stdio.h-t sys/ioctl.h sys/ioctl.h-t sys/select.h \
 	sys/select.h-t sys/socket.h sys/socket.h-t sys/time.h \
 	sys/time.h-t sys/types.h sys/types.h-t sys/uio.h sys/uio.h-t \
-	unistd.h unistd.h-t
+	termios.h termios.h-t unistd.h unistd.h-t
 MOSTLYCLEANDIRS = sys sys sys sys
 CLEANFILES = 
 DISTCLEANFILES = 
@@ -1711,6 +1720,25 @@ sys/uio.h: sys_uio.in.h $(top_builddir)/config.status
 	      < $(srcdir)/sys_uio.in.h; \
 	} > $@-t && \
 	mv -f $@-t $@
+
+# We need the following in order to create <termios.h> when the system
+# version does not have all declarations.
+termios.h: termios.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(WARN_ON_USE_H)
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
+	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
+	      -e 's|@''NEXT_TERMIOS_H''@|$(NEXT_TERMIOS_H)|g' \
+	      -e 's/@''GNULIB_TCGETSID''@/$(GNULIB_TCGETSID)/g' \
+	      -e 's|@''HAVE_DECL_TCGETSID''@|$(HAVE_DECL_TCGETSID)|g' \
+	      -e 's|@''HAVE_TERMIOS_H''@|$(HAVE_TERMIOS_H)|g' \
+	      -e '/definitions of _GL_FUNCDECL_RPL/r $(CXXDEFS_H)' \
+	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)' \
+	    < $(srcdir)/termios.in.h; \
+	} > $@-t && \
+	mv $@-t $@
 
 # We need the following in order to create an empty placeholder for
 # <unistd.h> when the system doesn't have one.
