@@ -32,7 +32,7 @@ public:
     // update i2c state
     void update(const class Aircraft &aircraft);
 
-    int ioctl(uint8_t ioctl_type, void *data);
+    int _ioctl(uint8_t ioctl_type, void *data);
 
     // the following must be identical to AP_HAL_SITL/I2CDevice.h
 #define I2C_M_RD 1

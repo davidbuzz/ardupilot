@@ -86,7 +86,7 @@ int I2C::ioctl_rdwr(i2c_rdwr_ioctl_data *data)
     return ret;
 }
 
-int I2C::ioctl(uint8_t ioctl_type, void *data)
+int I2C::_ioctl(uint8_t ioctl_type, void *data)
 {
     switch ((IOCtlType) ioctl_type) {
     case IOCtlType::RDWR:
