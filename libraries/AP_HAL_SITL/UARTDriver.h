@@ -29,6 +29,9 @@ public:
     void begin(uint32_t b, uint16_t rxS, uint16_t txS) override;
     void end() override;
     void flush() override;
+    void _close() override;
+    void _close(int fd) override;
+    int _fcntl(int fd, int cmd, int flags ) override;
     bool is_initialized() override {
         return true;
     }

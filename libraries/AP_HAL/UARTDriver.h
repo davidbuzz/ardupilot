@@ -34,6 +34,9 @@ public:
     virtual void begin(uint32_t baud, uint16_t rxSpace, uint16_t txSpace) = 0;
     virtual void end() = 0;
     virtual void flush() = 0;
+    virtual void _close() = 0;
+    virtual void _close(int fd) = 0;
+    virtual int _fcntl(int fd, int cmd, int flags ) = 0;
     virtual bool is_initialized() = 0;
     virtual void set_blocking_writes(bool blocking) = 0;
     virtual bool tx_pending() = 0;
