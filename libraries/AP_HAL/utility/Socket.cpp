@@ -35,6 +35,9 @@
 typedef int socklen_t;
 #endif
 
+
+extern const AP_HAL::HAL& hal;
+
 /*
   constructor
  */
@@ -47,8 +50,12 @@ SocketAPM::SocketAPM(bool _datagram, int _fd) :
     datagram(_datagram),
     fd(_fd)
 {
-#ifndef _WIN32
-    fcntl(fd, F_SETFD, FD_CLOEXEC);
+
+#ifndef _WIN32  
+//FD_CLOEXEC bit set means the file descriptor will automatically be closed during a successful execve(2).
+// because ardupilot only does an execv() as part of a reboot() or a watchdog (that actually does a reboot()), simply 
+// making sure we call close() prior to the exec() call is pretty easy to ensure, and so this FD_CLOEXEC is unneeded
+    fcntl(fd, F_SETFD, FD_CLOEXEC); 
 #endif
     if (!datagram) {
         int one = 1;
@@ -60,10 +67,12 @@ SocketAPM::SocketAPM(bool _datagram, int _fd) :
     }
 }
 
+
 SocketAPM::~SocketAPM()
 {
     if (fd != -1) {
-        //::close(fd); error: ‘::close_used_without_including_unistd_h’ has not been declared
+        hal.console->printf("DSocketAPM desconstructed.\n");
+        //::close(fd); //error: ‘::close_used_without_including_unistd_h’ has not been declared
         fd = -1;
     }
 }

@@ -36,10 +36,10 @@
 #define __STDC_VERSION__ 199901L
 #endif
 #include "../../lib/config.h"
+#include <winsock2.h>// must b first
+#include <windows.h> // must b 2nd
 #include <sys/socket.h>
 #include <sys/select.h>
-#include <winsock2.h>
-#include <windows.h>
 #endif
 
 
