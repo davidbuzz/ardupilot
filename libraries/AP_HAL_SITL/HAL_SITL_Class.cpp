@@ -260,6 +260,22 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
 
 void HAL_SITL::actually_reboot()
 {
+    //_sitl_state->...scheduler ...
+    //HALSITL::Scheduler::
+
+    // manually check each of the uart drivers and clse their file descriptors.. as windows has no functioning fcntl()
+    #ifdef _WIN32
+    ::printf( "flushing uarts/ports\n");
+    const AP_HAL::HAL& hal = AP_HAL::get_HAL();
+    hal.uartA->_close();
+    hal.uartB->_close();
+    hal.uartC->_close();
+    hal.uartD->_close();
+    hal.uartE->_close();
+    hal.uartF->_close();
+    hal.uartG->_close();
+    hal.uartH->_close();
+    #endif
     execv(new_argv[0], new_argv);
     AP_HAL::panic("PANIC: REBOOT FAILED: %s", strerror(errno));
 }
