@@ -31,7 +31,7 @@
 #include <netinet/tcp.h>
 #include <arpa/inet.h>
 #else
-// output from:  x86_64-w64-mingw32-gcc -dM -E -std=gnu99 nul.c   | grep __STDC_VERSION__
+// output from:  touch nul.c ; x86_64-w64-mingw32-gcc -dM -E -std=gnu99 nul.c   | grep __STDC_VERSION__
 #ifndef __STDC_VERSION__
 #define __STDC_VERSION__ 199901L
 #endif

@@ -48,6 +48,7 @@
 #  gettimeofday \
 #  listen \
 #  nonblocking \
+#  open \
 #  recv \
 #  recvfrom \
 #  select \
@@ -73,6 +74,7 @@ gl_MODULES([
   gettimeofday
   listen
   nonblocking
+  open
   recv
   recvfrom
   select

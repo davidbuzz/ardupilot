@@ -1,6 +1,21 @@
 /* lib/config.h.  Generated from config.h.in by configure.  */
 /* lib/config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Define to the number of bits in type 'ptrdiff_t'. */
+/* #undef BITSIZEOF_PTRDIFF_T */
+
+/* Define to the number of bits in type 'sig_atomic_t'. */
+/* #undef BITSIZEOF_SIG_ATOMIC_T */
+
+/* Define to the number of bits in type 'size_t'. */
+/* #undef BITSIZEOF_SIZE_T */
+
+/* Define to the number of bits in type 'wchar_t'. */
+/* #undef BITSIZEOF_WCHAR_T */
+
+/* Define to the number of bits in type 'wint_t'. */
+/* #undef BITSIZEOF_WINT_T */
+
 /* Define to 1 if using 'alloca.c'. */
 /* #undef C_ALLOCA */
 
@@ -37,6 +52,9 @@
 /* Define to 1 when the gnulib module bind should be tested. */
 #define GNULIB_TEST_BIND 1
 
+/* Define to 1 when the gnulib module cloexec should be tested. */
+#define GNULIB_TEST_CLOEXEC 1
+
 /* Define to 1 when the gnulib module close should be tested. */
 #define GNULIB_TEST_CLOSE 1
 
@@ -48,6 +66,9 @@
 
 /* Define to 1 when the gnulib module fcntl should be tested. */
 #define GNULIB_TEST_FCNTL 1
+
+/* Define to 1 when the gnulib module fstat should be tested. */
+#define GNULIB_TEST_FSTAT 1
 
 /* Define to 1 when the gnulib module getdtablesize should be tested. */
 #define GNULIB_TEST_GETDTABLESIZE 1
@@ -73,6 +94,9 @@
 /* Define to 1 when the gnulib module nonblocking should be tested. */
 #define GNULIB_TEST_NONBLOCKING 1
 
+/* Define to 1 when the gnulib module open should be tested. */
+#define GNULIB_TEST_OPEN 1
+
 /* Define to 1 when the gnulib module recv should be tested. */
 #define GNULIB_TEST_RECV 1
 
@@ -93,6 +117,9 @@
 
 /* Define to 1 when the gnulib module socket should be tested. */
 #define GNULIB_TEST_SOCKET 1
+
+/* Define to 1 when the gnulib module stat should be tested. */
+#define GNULIB_TEST_STAT 1
 
 /* Define to 1 if you have 'alloca' after including <alloca.h>, a header that
    may be supplied by this distribution. */
@@ -124,6 +151,15 @@
 /* Define to 1 if you have the `ioctl' function. */
 /* #undef HAVE_IOCTL */
 
+/* Define to 1 if you have the <limits.h> header file. */
+#define HAVE_LIMITS_H 1
+
+/* Define to 1 if the system has the type 'long long int'. */
+#define HAVE_LONG_LONG_INT 1
+
+/* Define to 1 if you have the `lstat' function. */
+/* #undef HAVE_LSTAT */
+
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
 
@@ -137,11 +173,23 @@
 /* Define to 1 if the system has the type `sa_family_t'. */
 /* #undef HAVE_SA_FAMILY_T */
 
+/* Define to 1 if you have the <sdkddkver.h> header file. */
+#define HAVE_SDKDDKVER_H 1
+
 /* Define to 1 if you have the `setdtablesize' function. */
 /* #undef HAVE_SETDTABLESIZE */
 
 /* Define to 1 if you have the `shutdown' function. */
 /* #undef HAVE_SHUTDOWN */
+
+/* Define to 1 if 'sig_atomic_t' is a signed integer type. */
+/* #undef HAVE_SIGNED_SIG_ATOMIC_T */
+
+/* Define to 1 if 'wchar_t' is a signed integer type. */
+/* #undef HAVE_SIGNED_WCHAR_T */
+
+/* Define to 1 if 'wint_t' is a signed integer type. */
+/* #undef HAVE_SIGNED_WINT_T */
 
 /* Define to 1 if the system has the type `sigset_t'. */
 /* #undef HAVE_SIGSET_T */
@@ -164,8 +212,35 @@
 /* Define to 1 if `ss_family' is a member of `struct sockaddr_storage'. */
 #define HAVE_STRUCT_SOCKADDR_STORAGE_SS_FAMILY 1
 
+/* Define to 1 if `st_atimensec' is a member of `struct stat'. */
+/* #undef HAVE_STRUCT_STAT_ST_ATIMENSEC */
+
+/* Define to 1 if `st_atimespec.tv_nsec' is a member of `struct stat'. */
+/* #undef HAVE_STRUCT_STAT_ST_ATIMESPEC_TV_NSEC */
+
+/* Define to 1 if `st_atim.st__tim.tv_nsec' is a member of `struct stat'. */
+/* #undef HAVE_STRUCT_STAT_ST_ATIM_ST__TIM_TV_NSEC */
+
+/* Define to 1 if `st_atim.tv_nsec' is a member of `struct stat'. */
+/* #undef HAVE_STRUCT_STAT_ST_ATIM_TV_NSEC */
+
+/* Define to 1 if `st_birthtimensec' is a member of `struct stat'. */
+/* #undef HAVE_STRUCT_STAT_ST_BIRTHTIMENSEC */
+
+/* Define to 1 if `st_birthtimespec.tv_nsec' is a member of `struct stat'. */
+/* #undef HAVE_STRUCT_STAT_ST_BIRTHTIMESPEC_TV_NSEC */
+
+/* Define to 1 if `st_birthtim.tv_nsec' is a member of `struct stat'. */
+/* #undef HAVE_STRUCT_STAT_ST_BIRTHTIM_TV_NSEC */
+
 /* Define to 1 if you have the `symlink' function. */
 /* #undef HAVE_SYMLINK */
+
+/* Define to 1 if you have the <sys/bitypes.h> header file. */
+/* #undef HAVE_SYS_BITYPES_H */
+
+/* Define to 1 if you have the <sys/inttypes.h> header file. */
+/* #undef HAVE_SYS_INTTYPES_H */
 
 /* Define to 1 if you have the <sys/ioctl.h> header file. */
 /* #undef HAVE_SYS_IOCTL_H */
@@ -197,11 +272,20 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1
 
+/* Define to 1 if the system has the type 'unsigned long long int'. */
+#define HAVE_UNSIGNED_LONG_LONG_INT 1
+
+/* Define to 1 if you have the <wchar.h> header file. */
+#define HAVE_WCHAR_H 1
+
 /* Define if you have the 'wchar_t' type. */
 #define HAVE_WCHAR_T 1
 
 /* Define to 1 if you have the <winsock2.h> header file. */
 #define HAVE_WINSOCK2_H 1
+
+/* Define if you have the 'wint_t' type. */
+#define HAVE_WINT_T 1
 
 /* Define to 1 if O_NOATIME works. */
 #define HAVE_WORKING_O_NOATIME 0
@@ -221,11 +305,17 @@
 /* Define HOST_NAME_MAX when <limits.h> does not define it. */
 #define HOST_NAME_MAX 256
 
+/* If malloc(0) is != NULL, define this to 1. Otherwise define this to 0. */
+#define MALLOC_0_IS_NONNULL 0
+
 /* Use GNU style printf and scanf.  */
 #ifndef __USE_MINGW_ANSI_STDIO
 # define __USE_MINGW_ANSI_STDIO 1
 #endif
 
+
+/* Define to 1 if open() fails to recognize a trailing slash. */
+/* #undef OPEN_TRAILING_SLASH_BUG */
 
 /* Name of package */
 #define PACKAGE "ardumingw"
@@ -248,6 +338,26 @@
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "0.1"
 
+/* Define to the type that is the result of default argument promotions of
+   type mode_t. */
+#define PROMOTED_MODE_T int
+
+/* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
+   'ptrdiff_t'. */
+/* #undef PTRDIFF_T_SUFFIX */
+
+/* Define to 1 if stat needs help when passed a file name with a trailing
+   slash */
+/* #undef REPLACE_FUNC_STAT_FILE */
+
+/* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
+   'sig_atomic_t'. */
+/* #undef SIG_ATOMIC_T_SUFFIX */
+
+/* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
+   'size_t'. */
+/* #undef SIZE_T_SUFFIX */
+
 /* If using the C implementation of alloca, define if you know the
    direction of stack growth for your system; otherwise it will be
    automatically deduced at runtime.
@@ -256,8 +366,15 @@
         STACK_DIRECTION = 0 => direction of growth unknown */
 /* #undef STACK_DIRECTION */
 
+/* Define to 1 if the `S_IS*' macros in <sys/stat.h> do not work properly. */
+/* #undef STAT_MACROS_BROKEN */
+
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
+
+/* Define to 1 if the type of the st_atim member of a struct stat is struct
+   timespec. */
+/* #undef TYPEOF_STRUCT_STAT_ST_ATIM_IS_STRUCT_TIMESPEC */
 
 /* Define to the prefix of C symbols at the assembler and linker level, either
    an underscore or empty. */
@@ -339,8 +456,19 @@
 /* Version number of package */
 #define VERSION "0.1"
 
+/* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
+   'wchar_t'. */
+/* #undef WCHAR_T_SUFFIX */
+
 /* Define if WSAStartup is needed. */
 #define WINDOWS_SOCKETS 1
+
+/* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
+   'wint_t'. */
+/* #undef WINT_T_SUFFIX */
+
+/* Number of bits in a file offset, on hosts where this is settable. */
+#define _FILE_OFFSET_BITS 64
 
 /* True if the compiler says it groks GNU C version MAJOR.MINOR.  */
 #if defined __GNUC__ && defined __GNUC_MINOR__
@@ -350,6 +478,9 @@
 # define _GL_GNUC_PREREQ(major, minor) 0
 #endif
 
+
+/* Define for large files, on AIX-style hosts. */
+/* #undef _LARGE_FILES */
 
 /* Define to 1 if on MINIX. */
 /* #undef _MINIX */
@@ -400,6 +531,12 @@
 
 /* For standard stat data types on VMS. */
 #define _USE_STD_STAT 1
+
+/* Define to 1 if the system <stdint.h> predates C++11. */
+/* #undef __STDC_CONSTANT_MACROS */
+
+/* Define to 1 if the system <stdint.h> predates C++11. */
+/* #undef __STDC_LIMIT_MACROS */
 
 /* The _GL_ASYNC_SAFE marker should be attached to functions that are
    signal handlers (for signals other than SIGABRT, SIGPIPE) or can be
@@ -779,6 +916,9 @@
 
 /* Define to `int' if <sys/types.h> does not define. */
 /* #undef mode_t */
+
+/* Define to the type of st_nlink in struct stat, or a supertype. */
+#define nlink_t int
 
 /* Define as a signed integer type capable of holding a process identifier. */
 /* #undef pid_t */

@@ -1,12 +1,11 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-/* Like <fcntl.h>, but with non-working flags defined to 0.
+/* Provide a more complete sys/stat.h header file.
+   Copyright (C) 2005-2020 Free Software Foundation, Inc.
 
-   Copyright (C) 2006-2020 Free Software Foundation, Inc.
-
-   This program is free software: you can redistribute it and/or modify
+   This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 3 of the License, or
-   (at your option) any later version.
+   the Free Software Foundation; either version 3, or (at your option)
+   any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,71 +13,41 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+   along with this program; if not, see <https://www.gnu.org/licenses/>.  */
 
-/* written by Paul Eggert */
+/* Written by Eric Blake, Paul Eggert, and Jim Meyering.  */
+
+/* This file is supposed to be used on platforms where <sys/stat.h> is
+   incomplete.  It is intended to provide definitions and prototypes
+   needed by an application.  Start with what the system provides.  */
 
 #if __GNUC__ >= 3
 #pragma GCC system_header
 #endif
 
 
-#if defined __need_system_fcntl_h
+#if defined __need_system_sys_stat_h
 /* Special invocation convention.  */
 
-/* Needed before <sys/stat.h>.
-   May also define off_t to a 64-bit type on native Windows.  */
-#include <sys/types.h>
-/* On some systems other than glibc, <sys/stat.h> is a prerequisite of
-   <fcntl.h>.  On glibc systems, we would like to avoid namespace pollution.
-   But on glibc systems, <fcntl.h> includes <sys/stat.h> inside an
-   extern "C" { ... } block, which leads to errors in C++ mode with the
-   overridden <sys/stat.h> from gnulib.  These errors are known to be gone
-   with g++ version >= 4.3.  */
-#if !(defined __GLIBC__ || defined __UCLIBC__) || (defined __cplusplus && defined GNULIB_NAMESPACE && (defined __ICC || !(__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3))))
-# include <sys/stat.h>
-#endif
-#include_next <fcntl.h>
-
-/* Native Windows platforms declare open(), creat() in <io.h>.  */
-#if (0 || 1 || defined GNULIB_POSIXCHECK) \
-    && (defined _WIN32 && ! defined __CYGWIN__)
-# include <io.h>
-#endif
+#include_next <sys/stat.h>
 
 #else
 /* Normal invocation convention.  */
 
-#ifndef _GL_FCNTL_H
+#ifndef _GL_SYS_STAT_H
 
-/* Needed before <sys/stat.h>.
+/* Get nlink_t.
    May also define off_t to a 64-bit type on native Windows.  */
 #include <sys/types.h>
-/* On some systems other than glibc, <sys/stat.h> is a prerequisite of
-   <fcntl.h>.  On glibc systems, we would like to avoid namespace pollution.
-   But on glibc systems, <fcntl.h> includes <sys/stat.h> inside an
-   extern "C" { ... } block, which leads to errors in C++ mode with the
-   overridden <sys/stat.h> from gnulib.  These errors are known to be gone
-   with g++ version >= 4.3.  */
-#if !(defined __GLIBC__ || defined __UCLIBC__) || (defined __cplusplus && defined GNULIB_NAMESPACE && (defined __ICC || !(__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3))))
-# include <sys/stat.h>
-#endif
+
+/* Get struct timespec.  */
+#include <time.h>
+
 /* The include_next requires a split double-inclusion guard.  */
-#include_next <fcntl.h>
+#include_next <sys/stat.h>
 
-/* Native Windows platforms declare open(), creat() in <io.h>.  */
-#if (0 || 1 || defined GNULIB_POSIXCHECK) \
-    && (defined _WIN32 && ! defined __CYGWIN__)
-# include <io.h>
-#endif
-
-#ifndef _GL_FCNTL_H
-#define _GL_FCNTL_H
-
-#ifndef __GLIBC__ /* Avoid namespace pollution on glibc systems.  */
-# include <unistd.h>
-#endif
-
+#ifndef _GL_SYS_STAT_H
+#define _GL_SYS_STAT_H
 
 /* The definitions of _GL_FUNCDECL_RPL etc. are copied here.  */
 /* C++ compatible function declaration macros.
@@ -584,332 +553,802 @@ _GL_WARN_EXTERN_C int _gl_warn_on_use
 # endif
 #endif
 
+/* Before doing "#define mknod rpl_mknod" below, we need to include all
+   headers that may declare mknod().  OS/2 kLIBC declares mknod() in
+   <unistd.h>, not in <sys/stat.h>.  */
+#ifdef __KLIBC__
+# include <unistd.h>
+#endif
 
-/* Declare overridden functions.  */
+/* Before doing "#define mkdir rpl_mkdir" below, we need to include all
+   headers that may declare mkdir().  Native Windows platforms declare mkdir
+   in <io.h> and/or <direct.h>, not in <sys/stat.h>.  */
+#if defined _WIN32 && ! defined __CYGWIN__
+# include <io.h>     /* mingw32, mingw64 */
+# include <direct.h> /* mingw64, MSVC 9 */
+#endif
 
+/* Native Windows platforms declare umask() in <io.h>.  */
+#if 0 && (defined _WIN32 && ! defined __CYGWIN__)
+# include <io.h>
+#endif
+
+/* Large File Support on native Windows.  */
+#if 1
+# define stat _stati64
+#endif
+
+/* Optionally, override 'struct stat' on native Windows.  */
 #if 0
-# if 0
-#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#   undef creat
-#   define creat rpl_creat
-#  endif
-_GL_FUNCDECL_RPL (creat, int, (const char *filename, mode_t mode)
-                             _GL_ARG_NONNULL ((1)));
-_GL_CXXALIAS_RPL (creat, int, (const char *filename, mode_t mode));
-# elif defined _WIN32 && !defined __CYGWIN__
-#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#   undef creat
-#   define creat _creat
-#  endif
-_GL_CXXALIAS_MDA (creat, int, (const char *filename, mode_t mode));
-# else
-_GL_CXXALIAS_SYS (creat, int, (const char *filename, mode_t mode));
-# endif
-_GL_CXXALIASWARN (creat);
-#elif defined GNULIB_POSIXCHECK
-# undef creat
-/* Assume creat is always declared.  */
-_GL_WARN_ON_USE (creat, "creat is not always POSIX compliant - "
-                 "use gnulib module creat for portability");
-#elif defined _WIN32 && !defined __CYGWIN__
-# undef creat
-# define creat _creat
-#endif
 
-#if 1
-# if 0
-#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#   undef fcntl
-#   define fcntl rpl_fcntl
-#  endif
-_GL_FUNCDECL_RPL (fcntl, int, (int fd, int action, ...));
-_GL_CXXALIAS_RPL (fcntl, int, (int fd, int action, ...));
-#  if !GNULIB_defined_rpl_fcntl
-#   define GNULIB_defined_rpl_fcntl 1
-#  endif
-# else
-#  if !0
-_GL_FUNCDECL_SYS (fcntl, int, (int fd, int action, ...));
-#   if !GNULIB_defined_fcntl
-#    define GNULIB_defined_fcntl 1
-#   endif
-#  endif
-_GL_CXXALIAS_SYS (fcntl, int, (int fd, int action, ...));
-# endif
-_GL_CXXALIASWARN (fcntl);
-#elif defined GNULIB_POSIXCHECK
-# undef fcntl
-# if HAVE_RAW_DECL_FCNTL
-_GL_WARN_ON_USE (fcntl, "fcntl is not always POSIX compliant - "
-                 "use gnulib module fcntl for portability");
-# endif
-#endif
-
-#if 1
+# undef stat
 # if 1
-#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#   undef open
-#   define open rpl_open
-#  endif
-_GL_FUNCDECL_RPL (open, int, (const char *filename, int flags, ...)
-                             _GL_ARG_NONNULL ((1)));
-_GL_CXXALIAS_RPL (open, int, (const char *filename, int flags, ...));
-# elif defined _WIN32 && !defined __CYGWIN__
-#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#   undef open
-#   define open _open
-#  endif
-_GL_CXXALIAS_MDA (open, int, (const char *filename, int flags, ...));
+#  define stat rpl_stat
 # else
-_GL_CXXALIAS_SYS (open, int, (const char *filename, int flags, ...));
+   /* Provoke a clear link error if stat() is used as a function and
+      module 'stat' is not in use.  */
+#  define stat stat_used_without_requesting_gnulib_module_stat
 # endif
-/* On HP-UX 11, in C++ mode, open() is defined as an inline function with a
-   default argument.  _GL_CXXALIASWARN does not work in this case.  */
-# if !defined __hpux
-_GL_CXXALIASWARN (open);
+
+# if !GNULIB_defined_struct_stat
+struct stat
+{
+  dev_t st_dev;
+  ino_t st_ino;
+  mode_t st_mode;
+  nlink_t st_nlink;
+#  if 0
+  uid_t st_uid;
+#  else /* uid_t is not defined by default on native Windows.  */
+  short st_uid;
+#  endif
+#  if 0
+  gid_t st_gid;
+#  else /* gid_t is not defined by default on native Windows.  */
+  short st_gid;
+#  endif
+  dev_t st_rdev;
+  off_t st_size;
+#  if 0
+  blksize_t st_blksize;
+  blkcnt_t st_blocks;
+#  endif
+
+#  if 0
+  struct timespec st_atim;
+  struct timespec st_mtim;
+  struct timespec st_ctim;
+#  else
+  time_t st_atime;
+  time_t st_mtime;
+  time_t st_ctime;
+#  endif
+};
+#  if 0
+#   define st_atime st_atim.tv_sec
+#   define st_mtime st_mtim.tv_sec
+#   define st_ctime st_ctim.tv_sec
+    /* Indicator, for gnulib internal purposes.  */
+#   define _GL_WINDOWS_STAT_TIMESPEC 1
+#  endif
+#  define GNULIB_defined_struct_stat 1
 # endif
-#elif defined GNULIB_POSIXCHECK
-# undef open
-/* Assume open is always declared.  */
-_GL_WARN_ON_USE (open, "open is not always POSIX compliant - "
-                 "use gnulib module open for portability");
-#elif defined _WIN32 && !defined __CYGWIN__
-# undef open
-# define open _open
+
+/* Other possible values of st_mode.  */
+# if 0
+#  define _S_IFBLK  0x6000
+# endif
+# if 0
+#  define _S_IFLNK  0xA000
+# endif
+# if 0
+#  define _S_IFSOCK 0xC000
+# endif
+
 #endif
+
+#ifndef S_IFIFO
+# ifdef _S_IFIFO
+#  define S_IFIFO _S_IFIFO
+# endif
+#endif
+
+#ifndef S_IFMT
+# define S_IFMT 0170000
+#endif
+
+#if STAT_MACROS_BROKEN
+# undef S_ISBLK
+# undef S_ISCHR
+# undef S_ISDIR
+# undef S_ISFIFO
+# undef S_ISLNK
+# undef S_ISNAM
+# undef S_ISMPB
+# undef S_ISMPC
+# undef S_ISNWK
+# undef S_ISREG
+# undef S_ISSOCK
+#endif
+
+#ifndef S_ISBLK
+# ifdef S_IFBLK
+#  define S_ISBLK(m) (((m) & S_IFMT) == S_IFBLK)
+# else
+#  define S_ISBLK(m) 0
+# endif
+#endif
+
+#ifndef S_ISCHR
+# ifdef S_IFCHR
+#  define S_ISCHR(m) (((m) & S_IFMT) == S_IFCHR)
+# else
+#  define S_ISCHR(m) 0
+# endif
+#endif
+
+#ifndef S_ISDIR
+# ifdef S_IFDIR
+#  define S_ISDIR(m) (((m) & S_IFMT) == S_IFDIR)
+# else
+#  define S_ISDIR(m) 0
+# endif
+#endif
+
+#ifndef S_ISDOOR /* Solaris 2.5 and up */
+# define S_ISDOOR(m) 0
+#endif
+
+#ifndef S_ISFIFO
+# ifdef S_IFIFO
+#  define S_ISFIFO(m) (((m) & S_IFMT) == S_IFIFO)
+# else
+#  define S_ISFIFO(m) 0
+# endif
+#endif
+
+#ifndef S_ISLNK
+# ifdef S_IFLNK
+#  define S_ISLNK(m) (((m) & S_IFMT) == S_IFLNK)
+# else
+#  define S_ISLNK(m) 0
+# endif
+#endif
+
+#ifndef S_ISMPB /* V7 */
+# ifdef S_IFMPB
+#  define S_ISMPB(m) (((m) & S_IFMT) == S_IFMPB)
+#  define S_ISMPC(m) (((m) & S_IFMT) == S_IFMPC)
+# else
+#  define S_ISMPB(m) 0
+#  define S_ISMPC(m) 0
+# endif
+#endif
+
+#ifndef S_ISMPX /* AIX */
+# define S_ISMPX(m) 0
+#endif
+
+#ifndef S_ISNAM /* Xenix */
+# ifdef S_IFNAM
+#  define S_ISNAM(m) (((m) & S_IFMT) == S_IFNAM)
+# else
+#  define S_ISNAM(m) 0
+# endif
+#endif
+
+#ifndef S_ISNWK /* HP/UX */
+# ifdef S_IFNWK
+#  define S_ISNWK(m) (((m) & S_IFMT) == S_IFNWK)
+# else
+#  define S_ISNWK(m) 0
+# endif
+#endif
+
+#ifndef S_ISPORT /* Solaris 10 and up */
+# define S_ISPORT(m) 0
+#endif
+
+#ifndef S_ISREG
+# ifdef S_IFREG
+#  define S_ISREG(m) (((m) & S_IFMT) == S_IFREG)
+# else
+#  define S_ISREG(m) 0
+# endif
+#endif
+
+#ifndef S_ISSOCK
+# ifdef S_IFSOCK
+#  define S_ISSOCK(m) (((m) & S_IFMT) == S_IFSOCK)
+# else
+#  define S_ISSOCK(m) 0
+# endif
+#endif
+
+
+#ifndef S_TYPEISMQ
+# define S_TYPEISMQ(p) 0
+#endif
+
+#ifndef S_TYPEISTMO
+# define S_TYPEISTMO(p) 0
+#endif
+
+
+#ifndef S_TYPEISSEM
+# ifdef S_INSEM
+#  define S_TYPEISSEM(p) (S_ISNAM ((p)->st_mode) && (p)->st_rdev == S_INSEM)
+# else
+#  define S_TYPEISSEM(p) 0
+# endif
+#endif
+
+#ifndef S_TYPEISSHM
+# ifdef S_INSHD
+#  define S_TYPEISSHM(p) (S_ISNAM ((p)->st_mode) && (p)->st_rdev == S_INSHD)
+# else
+#  define S_TYPEISSHM(p) 0
+# endif
+#endif
+
+/* high performance ("contiguous data") */
+#ifndef S_ISCTG
+# define S_ISCTG(p) 0
+#endif
+
+/* Cray DMF (data migration facility): off line, with data  */
+#ifndef S_ISOFD
+# define S_ISOFD(p) 0
+#endif
+
+/* Cray DMF (data migration facility): off line, with no data  */
+#ifndef S_ISOFL
+# define S_ISOFL(p) 0
+#endif
+
+/* 4.4BSD whiteout */
+#ifndef S_ISWHT
+# define S_ISWHT(m) 0
+#endif
+
+/* If any of the following are undefined,
+   define them to their de facto standard values.  */
+#if !S_ISUID
+# define S_ISUID 04000
+#endif
+#if !S_ISGID
+# define S_ISGID 02000
+#endif
+
+/* S_ISVTX is a common extension to POSIX.  */
+#ifndef S_ISVTX
+# define S_ISVTX 01000
+#endif
+
+#if !S_IRUSR && S_IREAD
+# define S_IRUSR S_IREAD
+#endif
+#if !S_IRUSR
+# define S_IRUSR 00400
+#endif
+#if !S_IRGRP
+# define S_IRGRP (S_IRUSR >> 3)
+#endif
+#if !S_IROTH
+# define S_IROTH (S_IRUSR >> 6)
+#endif
+
+#if !S_IWUSR && S_IWRITE
+# define S_IWUSR S_IWRITE
+#endif
+#if !S_IWUSR
+# define S_IWUSR 00200
+#endif
+#if !S_IWGRP
+# define S_IWGRP (S_IWUSR >> 3)
+#endif
+#if !S_IWOTH
+# define S_IWOTH (S_IWUSR >> 6)
+#endif
+
+#if !S_IXUSR && S_IEXEC
+# define S_IXUSR S_IEXEC
+#endif
+#if !S_IXUSR
+# define S_IXUSR 00100
+#endif
+#if !S_IXGRP
+# define S_IXGRP (S_IXUSR >> 3)
+#endif
+#if !S_IXOTH
+# define S_IXOTH (S_IXUSR >> 6)
+#endif
+
+#if !S_IRWXU
+# define S_IRWXU (S_IRUSR | S_IWUSR | S_IXUSR)
+#endif
+#if !S_IRWXG
+# define S_IRWXG (S_IRGRP | S_IWGRP | S_IXGRP)
+#endif
+#if !S_IRWXO
+# define S_IRWXO (S_IROTH | S_IWOTH | S_IXOTH)
+#endif
+
+/* S_IXUGO is a common extension to POSIX.  */
+#if !S_IXUGO
+# define S_IXUGO (S_IXUSR | S_IXGRP | S_IXOTH)
+#endif
+
+#ifndef S_IRWXUGO
+# define S_IRWXUGO (S_IRWXU | S_IRWXG | S_IRWXO)
+#endif
+
+/* Macros for futimens and utimensat.  */
+#ifndef UTIME_NOW
+# define UTIME_NOW (-1)
+# define UTIME_OMIT (-2)
+#endif
+
+
+#if defined _WIN32 && !defined __CYGWIN__
+# undef chmod
+# define chmod _chmod
+#endif
+
 
 #if 0
 # if 0
 #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#   undef openat
-#   define openat rpl_openat
+#   undef fchmodat
+#   define fchmodat rpl_fchmodat
 #  endif
-_GL_FUNCDECL_RPL (openat, int,
-                  (int fd, char const *file, int flags, /* mode_t mode */ ...)
+_GL_FUNCDECL_RPL (fchmodat, int,
+                  (int fd, char const *file, mode_t mode, int flag)
                   _GL_ARG_NONNULL ((2)));
-_GL_CXXALIAS_RPL (openat, int,
-                  (int fd, char const *file, int flags, /* mode_t mode */ ...));
+_GL_CXXALIAS_RPL (fchmodat, int,
+                  (int fd, char const *file, mode_t mode, int flag));
 # else
 #  if !1
-_GL_FUNCDECL_SYS (openat, int,
-                  (int fd, char const *file, int flags, /* mode_t mode */ ...)
+_GL_FUNCDECL_SYS (fchmodat, int,
+                  (int fd, char const *file, mode_t mode, int flag)
                   _GL_ARG_NONNULL ((2)));
 #  endif
-_GL_CXXALIAS_SYS (openat, int,
-                  (int fd, char const *file, int flags, /* mode_t mode */ ...));
+_GL_CXXALIAS_SYS (fchmodat, int,
+                  (int fd, char const *file, mode_t mode, int flag));
 # endif
-_GL_CXXALIASWARN (openat);
+_GL_CXXALIASWARN (fchmodat);
 #elif defined GNULIB_POSIXCHECK
-# undef openat
-# if HAVE_RAW_DECL_OPENAT
-_GL_WARN_ON_USE (openat, "openat is not portable - "
+# undef fchmodat
+# if HAVE_RAW_DECL_FCHMODAT
+_GL_WARN_ON_USE (fchmodat, "fchmodat is not portable - "
                  "use gnulib module openat for portability");
 # endif
 #endif
 
 
-/* Fix up the FD_* macros, only known to be missing on mingw.  */
-
-#ifndef FD_CLOEXEC
-# define FD_CLOEXEC 1
-#endif
-
-/* Fix up the supported F_* macros.  Intentionally leave other F_*
-   macros undefined.  Only known to be missing on mingw.  */
-
-#ifndef F_DUPFD_CLOEXEC
-# define F_DUPFD_CLOEXEC 0x40000000
-/* Witness variable: 1 if gnulib defined F_DUPFD_CLOEXEC, 0 otherwise.  */
-# define GNULIB_defined_F_DUPFD_CLOEXEC 1
-#else
-# define GNULIB_defined_F_DUPFD_CLOEXEC 0
-#endif
-
-#ifndef F_DUPFD
-# define F_DUPFD 1
-#endif
-
-#ifndef F_GETFD
-# define F_GETFD 2
-#endif
-
-/* Fix up the O_* macros.  */
-
-/* AIX 7.1 with XL C 12.1 defines O_CLOEXEC, O_NOFOLLOW, and O_TTY_INIT
-   to values outside 'int' range, so omit these misdefinitions.
-   But avoid namespace pollution on non-AIX systems.  */
-#ifdef _AIX
-# include <limits.h>
-# if defined O_CLOEXEC && ! (INT_MIN <= O_CLOEXEC && O_CLOEXEC <= INT_MAX)
-#  undef O_CLOEXEC
-# endif
-# if defined O_NOFOLLOW && ! (INT_MIN <= O_NOFOLLOW && O_NOFOLLOW <= INT_MAX)
-#  undef O_NOFOLLOW
-# endif
-# if defined O_TTY_INIT && ! (INT_MIN <= O_TTY_INIT && O_TTY_INIT <= INT_MAX)
-#  undef O_TTY_INIT
-# endif
-#endif
-
-#if !defined O_DIRECT && defined O_DIRECTIO
-/* Tru64 spells it 'O_DIRECTIO'.  */
-# define O_DIRECT O_DIRECTIO
-#endif
-
-#if !defined O_CLOEXEC && defined O_NOINHERIT
-/* Mingw spells it 'O_NOINHERIT'.  */
-# define O_CLOEXEC O_NOINHERIT
-#endif
-
-#ifndef O_CLOEXEC
-# define O_CLOEXEC 0x40000000 /* Try to not collide with system O_* flags.  */
-# define GNULIB_defined_O_CLOEXEC 1
-#else
-# define GNULIB_defined_O_CLOEXEC 0
-#endif
-
-#ifndef O_DIRECT
-# define O_DIRECT 0
-#endif
-
-#ifndef O_DIRECTORY
-# define O_DIRECTORY 0
-#endif
-
-#ifndef O_DSYNC
-# define O_DSYNC 0
-#endif
-
-#ifndef O_EXEC
-# define O_EXEC O_RDONLY /* This is often close enough in older systems.  */
-#endif
-
-#ifndef O_IGNORE_CTTY
-# define O_IGNORE_CTTY 0
-#endif
-
-#ifndef O_NDELAY
-# define O_NDELAY 0
-#endif
-
-#ifndef O_NOATIME
-# define O_NOATIME 0
-#endif
-
-#ifndef O_NONBLOCK
-# define O_NONBLOCK O_NDELAY
-#endif
-
-/* If the gnulib module 'nonblocking' is in use, guarantee a working non-zero
-   value of O_NONBLOCK.  Otherwise, O_NONBLOCK is defined (above) to O_NDELAY
-   or to 0 as fallback.  */
 #if 1
-# if O_NONBLOCK
-#  define GNULIB_defined_O_NONBLOCK 0
+# if 1
+#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#   undef fstat
+#   define fstat rpl_fstat
+#  endif
+_GL_FUNCDECL_RPL (fstat, int, (int fd, struct stat *buf) _GL_ARG_NONNULL ((2)));
+_GL_CXXALIAS_RPL (fstat, int, (int fd, struct stat *buf));
 # else
-#  define GNULIB_defined_O_NONBLOCK 1
-#  undef O_NONBLOCK
-#  define O_NONBLOCK 0x40000000
+_GL_CXXALIAS_SYS (fstat, int, (int fd, struct stat *buf));
+# endif
+# if __GLIBC__ >= 2
+_GL_CXXALIASWARN (fstat);
+# endif
+#elif 0
+# undef fstat
+# define fstat fstat_used_without_requesting_gnulib_module_fstat
+#elif 1
+/* Above, we define stat to _stati64.  */
+# define fstat _fstati64
+#elif defined GNULIB_POSIXCHECK
+# undef fstat
+# if HAVE_RAW_DECL_FSTAT
+_GL_WARN_ON_USE (fstat, "fstat has portability problems - "
+                 "use gnulib module fstat for portability");
 # endif
 #endif
 
-#ifndef O_NOCTTY
-# define O_NOCTTY 0
-#endif
 
-#ifndef O_NOFOLLOW
-# define O_NOFOLLOW 0
-#endif
-
-#ifndef O_NOLINK
-# define O_NOLINK 0
-#endif
-
-#ifndef O_NOLINKS
-# define O_NOLINKS 0
-#endif
-
-#ifndef O_NOTRANS
-# define O_NOTRANS 0
-#endif
-
-#ifndef O_RSYNC
-# define O_RSYNC 0
-#endif
-
-#ifndef O_SEARCH
-# define O_SEARCH O_RDONLY /* This is often close enough in older systems.  */
-#endif
-
-#ifndef O_SYNC
-# define O_SYNC 0
-#endif
-
-#ifndef O_TTY_INIT
-# define O_TTY_INIT 0
-#endif
-
-#if ~O_ACCMODE & (O_RDONLY | O_WRONLY | O_RDWR | O_EXEC | O_SEARCH)
-# undef O_ACCMODE
-# define O_ACCMODE (O_RDONLY | O_WRONLY | O_RDWR | O_EXEC | O_SEARCH)
-#endif
-
-/* For systems that distinguish between text and binary I/O.
-   O_BINARY is usually declared in fcntl.h  */
-#if !defined O_BINARY && defined _O_BINARY
-  /* For MSC-compatible compilers.  */
-# define O_BINARY _O_BINARY
-# define O_TEXT _O_TEXT
-#endif
-
-#if defined __BEOS__ || defined __HAIKU__
-  /* BeOS 5 and Haiku have O_BINARY and O_TEXT, but they have no effect.  */
-# undef O_BINARY
-# undef O_TEXT
-#endif
-
-#ifndef O_BINARY
-# define O_BINARY 0
-# define O_TEXT 0
-#endif
-
-/* Fix up the AT_* macros.  */
-
-/* Work around a bug in Solaris 9 and 10: AT_FDCWD is positive.  Its
-   value exceeds INT_MAX, so its use as an int doesn't conform to the
-   C standard, and GCC and Sun C complain in some cases.  If the bug
-   is present, undef AT_FDCWD here, so it can be redefined below.  */
-#if 0 < AT_FDCWD && AT_FDCWD == 0xffd19553
-# undef AT_FDCWD
-#endif
-
-/* Use the same bit pattern as Solaris 9, but with the proper
-   signedness.  The bit pattern is important, in case this actually is
-   Solaris with the above workaround.  */
-#ifndef AT_FDCWD
-# define AT_FDCWD (-3041965)
-#endif
-
-/* Use the same values as Solaris 9.  This shouldn't matter, but
-   there's no real reason to differ.  */
-#ifndef AT_SYMLINK_NOFOLLOW
-# define AT_SYMLINK_NOFOLLOW 4096
-#endif
-
-#ifndef AT_REMOVEDIR
-# define AT_REMOVEDIR 1
-#endif
-
-/* Solaris 9 lacks these two, so just pick unique values.  */
-#ifndef AT_SYMLINK_FOLLOW
-# define AT_SYMLINK_FOLLOW 2
-#endif
-
-#ifndef AT_EACCESS
-# define AT_EACCESS 4
+#if 0
+# if 0
+#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#   undef fstatat
+#   define fstatat rpl_fstatat
+#  endif
+_GL_FUNCDECL_RPL (fstatat, int,
+                  (int fd, char const *restrict name, struct stat *restrict st,
+                   int flags)
+                  _GL_ARG_NONNULL ((2, 3)));
+_GL_CXXALIAS_RPL (fstatat, int,
+                  (int fd, char const *restrict name, struct stat *restrict st,
+                   int flags));
+# else
+#  if !1
+_GL_FUNCDECL_SYS (fstatat, int,
+                  (int fd, char const *restrict name, struct stat *restrict st,
+                   int flags)
+                  _GL_ARG_NONNULL ((2, 3)));
+#  endif
+_GL_CXXALIAS_SYS (fstatat, int,
+                  (int fd, char const *restrict name, struct stat *restrict st,
+                   int flags));
+# endif
+_GL_CXXALIASWARN (fstatat);
+#elif 0
+# undef fstatat
+# define fstatat fstatat_used_without_requesting_gnulib_module_fstatat
+#elif defined GNULIB_POSIXCHECK
+# undef fstatat
+# if HAVE_RAW_DECL_FSTATAT
+_GL_WARN_ON_USE (fstatat, "fstatat is not portable - "
+                 "use gnulib module openat for portability");
+# endif
 #endif
 
 
-#endif /* _GL_FCNTL_H */
-#endif /* _GL_FCNTL_H */
+#if 0
+/* Use the rpl_ prefix also on Solaris <= 9, because on Solaris 9 our futimens
+   implementation relies on futimesat, which on Solaris 10 makes an invocation
+   to futimens that is meant to invoke the libc's futimens(), not gnulib's
+   futimens().  */
+# if 0 || (!1 && defined __sun)
+#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#   undef futimens
+#   define futimens rpl_futimens
+#  endif
+_GL_FUNCDECL_RPL (futimens, int, (int fd, struct timespec const times[2]));
+_GL_CXXALIAS_RPL (futimens, int, (int fd, struct timespec const times[2]));
+# else
+#  if !1
+_GL_FUNCDECL_SYS (futimens, int, (int fd, struct timespec const times[2]));
+#  endif
+_GL_CXXALIAS_SYS (futimens, int, (int fd, struct timespec const times[2]));
+# endif
+# if 1
+_GL_CXXALIASWARN (futimens);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef futimens
+# if HAVE_RAW_DECL_FUTIMENS
+_GL_WARN_ON_USE (futimens, "futimens is not portable - "
+                 "use gnulib module futimens for portability");
+# endif
+#endif
+
+
+#if 0
+# if !1
+_GL_FUNCDECL_SYS (getumask, mode_t, (void));
+# endif
+_GL_CXXALIAS_SYS (getumask, mode_t, (void));
+# if 1
+_GL_CXXALIASWARN (getumask);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef getumask
+# if HAVE_RAW_DECL_GETUMASK
+_GL_WARN_ON_USE (getumask, "getumask is not portable - "
+                 "use gnulib module getumask for portability");
+# endif
+#endif
+
+
+#if 0
+/* Change the mode of FILENAME to MODE, without dereferencing it if FILENAME
+   denotes a symbolic link.  */
+# if !1 || defined __hpux
+_GL_FUNCDECL_SYS (lchmod, int, (const char *filename, mode_t mode)
+                               _GL_ARG_NONNULL ((1)));
+# endif
+_GL_CXXALIAS_SYS (lchmod, int, (const char *filename, mode_t mode));
+_GL_CXXALIASWARN (lchmod);
+#elif defined GNULIB_POSIXCHECK
+# undef lchmod
+# if HAVE_RAW_DECL_LCHMOD
+_GL_WARN_ON_USE (lchmod, "lchmod is unportable - "
+                 "use gnulib module lchmod for portability");
+# endif
+#endif
+
+
+#if 0
+# if ! 1
+/* mingw does not support symlinks, therefore it does not have lstat.  But
+   without links, stat does just fine.  */
+#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#   define lstat stat
+#  endif
+_GL_CXXALIAS_RPL_1 (lstat, stat, int,
+                    (const char *restrict name, struct stat *restrict buf));
+# elif 0
+#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#   undef lstat
+#   define lstat rpl_lstat
+#  endif
+_GL_FUNCDECL_RPL (lstat, int,
+                  (const char *restrict name, struct stat *restrict buf)
+                  _GL_ARG_NONNULL ((1, 2)));
+_GL_CXXALIAS_RPL (lstat, int,
+                  (const char *restrict name, struct stat *restrict buf));
+# else
+_GL_CXXALIAS_SYS (lstat, int,
+                  (const char *restrict name, struct stat *restrict buf));
+# endif
+# if 1
+_GL_CXXALIASWARN (lstat);
+# endif
+#elif 0
+# undef lstat
+# define lstat lstat_used_without_requesting_gnulib_module_lstat
+#elif defined GNULIB_POSIXCHECK
+# undef lstat
+# if HAVE_RAW_DECL_LSTAT
+_GL_WARN_ON_USE (lstat, "lstat is unportable - "
+                 "use gnulib module lstat for portability");
+# endif
+#endif
+
+
+#if 0
+# if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#  undef mkdir
+#  define mkdir rpl_mkdir
+# endif
+_GL_FUNCDECL_RPL (mkdir, int, (char const *name, mode_t mode)
+                              _GL_ARG_NONNULL ((1)));
+_GL_CXXALIAS_RPL (mkdir, int, (char const *name, mode_t mode));
+#else
+/* mingw's _mkdir() function has 1 argument, but we pass 2 arguments.
+   Additionally, it declares _mkdir (and depending on compile flags, an
+   alias mkdir), only in the nonstandard includes <direct.h> and <io.h>,
+   which are included above.  */
+# if defined _WIN32 && ! defined __CYGWIN__
+
+#  if !GNULIB_defined_rpl_mkdir
+static int
+rpl_mkdir (char const *name, mode_t mode)
+{
+  return _mkdir (name);
+}
+#   define GNULIB_defined_rpl_mkdir 1
+#  endif
+
+#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#   define mkdir rpl_mkdir
+#  endif
+_GL_CXXALIAS_RPL (mkdir, int, (char const *name, mode_t mode));
+# else
+_GL_CXXALIAS_SYS (mkdir, int, (char const *name, mode_t mode));
+# endif
+#endif
+_GL_CXXALIASWARN (mkdir);
+
+
+#if 0
+# if !1
+_GL_FUNCDECL_SYS (mkdirat, int, (int fd, char const *file, mode_t mode)
+                                _GL_ARG_NONNULL ((2)));
+# endif
+_GL_CXXALIAS_SYS (mkdirat, int, (int fd, char const *file, mode_t mode));
+_GL_CXXALIASWARN (mkdirat);
+#elif defined GNULIB_POSIXCHECK
+# undef mkdirat
+# if HAVE_RAW_DECL_MKDIRAT
+_GL_WARN_ON_USE (mkdirat, "mkdirat is not portable - "
+                 "use gnulib module openat for portability");
+# endif
+#endif
+
+
+#if 0
+# if 0
+#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#   undef mkfifo
+#   define mkfifo rpl_mkfifo
+#  endif
+_GL_FUNCDECL_RPL (mkfifo, int, (char const *file, mode_t mode)
+                               _GL_ARG_NONNULL ((1)));
+_GL_CXXALIAS_RPL (mkfifo, int, (char const *file, mode_t mode));
+# else
+#  if !1
+_GL_FUNCDECL_SYS (mkfifo, int, (char const *file, mode_t mode)
+                               _GL_ARG_NONNULL ((1)));
+#  endif
+_GL_CXXALIAS_SYS (mkfifo, int, (char const *file, mode_t mode));
+# endif
+_GL_CXXALIASWARN (mkfifo);
+#elif defined GNULIB_POSIXCHECK
+# undef mkfifo
+# if HAVE_RAW_DECL_MKFIFO
+_GL_WARN_ON_USE (mkfifo, "mkfifo is not portable - "
+                 "use gnulib module mkfifo for portability");
+# endif
+#endif
+
+
+#if 0
+# if !1
+_GL_FUNCDECL_SYS (mkfifoat, int, (int fd, char const *file, mode_t mode)
+                                 _GL_ARG_NONNULL ((2)));
+# endif
+_GL_CXXALIAS_SYS (mkfifoat, int, (int fd, char const *file, mode_t mode));
+_GL_CXXALIASWARN (mkfifoat);
+#elif defined GNULIB_POSIXCHECK
+# undef mkfifoat
+# if HAVE_RAW_DECL_MKFIFOAT
+_GL_WARN_ON_USE (mkfifoat, "mkfifoat is not portable - "
+                 "use gnulib module mkfifoat for portability");
+# endif
+#endif
+
+
+#if 0
+# if 0
+#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#   undef mknod
+#   define mknod rpl_mknod
+#  endif
+_GL_FUNCDECL_RPL (mknod, int, (char const *file, mode_t mode, dev_t dev)
+                              _GL_ARG_NONNULL ((1)));
+_GL_CXXALIAS_RPL (mknod, int, (char const *file, mode_t mode, dev_t dev));
+# else
+#  if !1
+_GL_FUNCDECL_SYS (mknod, int, (char const *file, mode_t mode, dev_t dev)
+                              _GL_ARG_NONNULL ((1)));
+#  endif
+/* Need to cast, because on OSF/1 5.1, the third parameter is '...'.  */
+_GL_CXXALIAS_SYS_CAST (mknod, int, (char const *file, mode_t mode, dev_t dev));
+# endif
+_GL_CXXALIASWARN (mknod);
+#elif defined GNULIB_POSIXCHECK
+# undef mknod
+# if HAVE_RAW_DECL_MKNOD
+_GL_WARN_ON_USE (mknod, "mknod is not portable - "
+                 "use gnulib module mknod for portability");
+# endif
+#endif
+
+
+#if 0
+# if !1
+_GL_FUNCDECL_SYS (mknodat, int,
+                  (int fd, char const *file, mode_t mode, dev_t dev)
+                  _GL_ARG_NONNULL ((2)));
+# endif
+_GL_CXXALIAS_SYS (mknodat, int,
+                  (int fd, char const *file, mode_t mode, dev_t dev));
+_GL_CXXALIASWARN (mknodat);
+#elif defined GNULIB_POSIXCHECK
+# undef mknodat
+# if HAVE_RAW_DECL_MKNODAT
+_GL_WARN_ON_USE (mknodat, "mknodat is not portable - "
+                 "use gnulib module mkfifoat for portability");
+# endif
+#endif
+
+
+#if 1
+# if 1
+#  if !0
+    /* We can't use the object-like #define stat rpl_stat, because of
+       struct stat.  This means that rpl_stat will not be used if the user
+       does (stat)(a,b).  Oh well.  */
+#   if defined _AIX && defined stat && defined _LARGE_FILES
+     /* With _LARGE_FILES defined, AIX (only) defines stat to stat64,
+        so we have to replace stat64() instead of stat(). */
+#    undef stat64
+#    define stat64(name, st) rpl_stat (name, st)
+#   elif 1
+     /* Above, we define stat to _stati64.  */
+#    if defined __MINGW32__ && defined _stati64
+#     ifndef _USE_32BIT_TIME_T
+       /* The system headers define _stati64 to _stat64.  */
+#      undef _stat64
+#      define _stat64(name, st) rpl_stat (name, st)
+#     endif
+#    elif defined _MSC_VER && defined _stati64
+#     ifdef _USE_32BIT_TIME_T
+       /* The system headers define _stati64 to _stat32i64.  */
+#      undef _stat32i64
+#      define _stat32i64(name, st) rpl_stat (name, st)
+#     else
+       /* The system headers define _stati64 to _stat64.  */
+#      undef _stat64
+#      define _stat64(name, st) rpl_stat (name, st)
+#     endif
+#    else
+#     undef _stati64
+#     define _stati64(name, st) rpl_stat (name, st)
+#    endif
+#   elif defined __MINGW32__ && defined stat
+#    ifdef _USE_32BIT_TIME_T
+      /* The system headers define stat to _stat32i64.  */
+#     undef _stat32i64
+#     define _stat32i64(name, st) rpl_stat (name, st)
+#    else
+      /* The system headers define stat to _stat64.  */
+#     undef _stat64
+#     define _stat64(name, st) rpl_stat (name, st)
+#    endif
+#   elif defined _MSC_VER && defined stat
+#    ifdef _USE_32BIT_TIME_T
+      /* The system headers define stat to _stat32.  */
+#     undef _stat32
+#     define _stat32(name, st) rpl_stat (name, st)
+#    else
+      /* The system headers define stat to _stat64i32.  */
+#     undef _stat64i32
+#     define _stat64i32(name, st) rpl_stat (name, st)
+#    endif
+#   else /* !(_AIX || __MINGW32__ || _MSC_VER) */
+#    undef stat
+#    define stat(name, st) rpl_stat (name, st)
+#   endif /* !_LARGE_FILES */
+#  endif /* !0 */
+_GL_EXTERN_C int stat (const char *restrict name, struct stat *restrict buf)
+                      _GL_ARG_NONNULL ((1, 2));
+# endif
+#elif 0
+/* see above:
+  #define stat stat_used_without_requesting_gnulib_module_stat
+ */
+#elif defined GNULIB_POSIXCHECK
+# undef stat
+# if HAVE_RAW_DECL_STAT
+_GL_WARN_ON_USE (stat, "stat is unportable - "
+                 "use gnulib module stat for portability");
+# endif
+#endif
+
+
+#if defined _WIN32 && !defined __CYGWIN__
+# undef umask
+# define umask _umask
+#endif
+
+
+#if 0
+/* Use the rpl_ prefix also on Solaris <= 9, because on Solaris 9 our utimensat
+   implementation relies on futimesat, which on Solaris 10 makes an invocation
+   to utimensat that is meant to invoke the libc's utimensat(), not gnulib's
+   utimensat().  */
+# if 0 || (!1 && defined __sun)
+#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#   undef utimensat
+#   define utimensat rpl_utimensat
+#  endif
+_GL_FUNCDECL_RPL (utimensat, int, (int fd, char const *name,
+                                   struct timespec const times[2], int flag)
+                                  _GL_ARG_NONNULL ((2)));
+_GL_CXXALIAS_RPL (utimensat, int, (int fd, char const *name,
+                                   struct timespec const times[2], int flag));
+# else
+#  if !1
+_GL_FUNCDECL_SYS (utimensat, int, (int fd, char const *name,
+                                   struct timespec const times[2], int flag)
+                                  _GL_ARG_NONNULL ((2)));
+#  endif
+_GL_CXXALIAS_SYS (utimensat, int, (int fd, char const *name,
+                                   struct timespec const times[2], int flag));
+# endif
+# if 1
+_GL_CXXALIASWARN (utimensat);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef utimensat
+# if HAVE_RAW_DECL_UTIMENSAT
+_GL_WARN_ON_USE (utimensat, "utimensat is not portable - "
+                 "use gnulib module utimensat for portability");
+# endif
+#endif
+
+
+#endif /* _GL_SYS_STAT_H */
+#endif /* _GL_SYS_STAT_H */
 #endif

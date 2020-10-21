@@ -95,7 +95,7 @@ bool SocketAPM::connect(const char *address, uint16_t port)
     struct sockaddr_in sockaddr;
     make_sockaddr(address, port, sockaddr);
 
-    if (::connect(fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr)) != 0) {
+    if (gnulib::connect(fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr)) != 0) {
         return false;
     }
     return true;
@@ -109,7 +109,8 @@ bool SocketAPM::bind(const char *address, uint16_t port)
     struct sockaddr_in sockaddr;
     make_sockaddr(address, port, sockaddr);
 
-    if (::bind(fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr)) != 0) {
+    if (gnulib::bind(fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr)) != 0) {
+        
         return false;
     }
     return true;
@@ -126,8 +127,9 @@ bool SocketAPM::reuseaddress(void)
 
     int one = 1;
 
-    return (gnulib::setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) != -1);
+    return true;
 
+    return (gnulib::setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) != -1);
 
 }
 
@@ -211,10 +213,10 @@ ssize_t SocketAPM::recv(void *buf, size_t size, uint32_t timeout_ms)
     }
     socklen_t len = sizeof(in_addr);
     #ifndef _WIN32
-    return ::recvfrom(fd, buf, size, MSG_DONTWAIT, (sockaddr *)&in_addr, &len);// MSG_DONTWAIT means non-blocking
+    return gnulib::recvfrom(fd, buf, size, MSG_DONTWAIT, (sockaddr *)&in_addr, &len);// MSG_DONTWAIT means non-blocking
     #else
         set_blocking(false); //ming doesnt have MSG_DONTWAIT, but set_blocking() uses set_nonblocking_flag() from gnulib which works
-        return ::recvfrom(fd, (char*)buf, size, 0, (sockaddr *)&in_addr, &len);
+        return gnulib::recvfrom(fd, (char*)buf, size, 0, (sockaddr *)&in_addr, &len);
     #endif
 }
 
@@ -279,7 +281,7 @@ bool SocketAPM::pollout(uint32_t timeout_ms)
  */
 bool SocketAPM::listen(uint16_t backlog)
 {
-    return ::listen(fd, (int)backlog) == 0;
+    return gnulib::listen(fd, (int)backlog) == 0;
 }
 
 /*
@@ -292,7 +294,7 @@ SocketAPM *SocketAPM::accept(uint32_t timeout_ms)
         return nullptr;
     }
 
-    int newfd = ::accept(fd, nullptr, nullptr);
+    int newfd = gnulib::accept(fd, nullptr, nullptr);
     if (newfd == -1) {
         return nullptr;
     }

@@ -423,7 +423,7 @@ void UARTDriver::_tcp_start_client(const char *address, uint16_t port)
     /* we want to be able to re-use ports quickly */
     gnulib::setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
 
-    ret = connect(_fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
+    ret = gnulib::connect(_fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
     if (ret == -1) {
         fprintf(stderr, "connect failed on port %u - %s\n",
                 (unsigned)ntohs(sockaddr.sin_port),
@@ -485,7 +485,7 @@ void UARTDriver::_udp_start_client(const char *address, uint16_t port)
     int one = 1;
     gnulib::setsockopt(_fd,SOL_SOCKET,SO_BROADCAST,(char *)&one,sizeof(one));
 
-    ret = connect(_fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
+    ret = gnulib::connect(_fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
     if (ret == -1) {
         fprintf(stderr, "udp connect failed on port %u - %s\n",
                 (unsigned)ntohs(sockaddr.sin_port),
@@ -625,7 +625,7 @@ void UARTDriver::_check_connection(void)
         return;
     }
     if (_select_check(_listen_fd)) {
-        _fd = accept(_listen_fd, nullptr, nullptr);
+        _fd = gnulib::accept(_listen_fd, nullptr, nullptr);
         if (_fd != -1) {
             _connected = true;
 

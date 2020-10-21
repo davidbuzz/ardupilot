@@ -1,8 +1,8 @@
 #!/bin/bash
 
-./gnulib/gnulib-tool --import sys_socket bind sys_select send select socket setsockopt connect close sendto recv recvfrom listen accept unistd gethostname getsockname gettimeofday fcntl-h  fcntl nonblocking
+./gnulib/gnulib-tool --import sys_socket bind sys_select send select socket setsockopt connect open close sendto recv recvfrom listen accept unistd gethostname getsockname gettimeofday fcntl-h  fcntl nonblocking 
 #...consider the ‘nonblocking’ module, that is an indicator that all I/O functions should handle non-blocking file descriptors – something that, is not enabled by default.
-#unused things from previous line: termios 
+#unused things from previous line: termios stat / read write open 
 
 # target and rebuild gnulib for ming:
  aclocal 

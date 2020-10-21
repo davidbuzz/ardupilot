@@ -57,6 +57,7 @@
 #  gettimeofday \
 #  listen \
 #  nonblocking \
+#  open \
 #  recv \
 #  recvfrom \
 #  select \
@@ -149,31 +150,40 @@ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/00gnulib.m4 \
 	$(top_srcdir)/m4/absolute-header.m4 $(top_srcdir)/m4/alloca.m4 \
 	$(top_srcdir)/m4/asm-underscore.m4 $(top_srcdir)/m4/close.m4 \
-	$(top_srcdir)/m4/dup2.m4 $(top_srcdir)/m4/errno_h.m4 \
-	$(top_srcdir)/m4/extensions.m4 \
+	$(top_srcdir)/m4/dup2.m4 $(top_srcdir)/m4/eealloc.m4 \
+	$(top_srcdir)/m4/errno_h.m4 $(top_srcdir)/m4/extensions.m4 \
 	$(top_srcdir)/m4/extern-inline.m4 $(top_srcdir)/m4/fcntl-o.m4 \
 	$(top_srcdir)/m4/fcntl.m4 $(top_srcdir)/m4/fcntl_h.m4 \
-	$(top_srcdir)/m4/getdtablesize.m4 \
+	$(top_srcdir)/m4/fstat.m4 $(top_srcdir)/m4/getdtablesize.m4 \
 	$(top_srcdir)/m4/gethostname.m4 \
 	$(top_srcdir)/m4/gettimeofday.m4 \
 	$(top_srcdir)/m4/gnulib-common.m4 \
 	$(top_srcdir)/m4/gnulib-comp.m4 \
 	$(top_srcdir)/m4/include_next.m4 $(top_srcdir)/m4/ioctl.m4 \
+	$(top_srcdir)/m4/largefile.m4 $(top_srcdir)/m4/limits-h.m4 \
+	$(top_srcdir)/m4/malloca.m4 $(top_srcdir)/m4/mode_t.m4 \
 	$(top_srcdir)/m4/msvc-inval.m4 \
-	$(top_srcdir)/m4/msvc-nothrow.m4 \
+	$(top_srcdir)/m4/msvc-nothrow.m4 $(top_srcdir)/m4/multiarch.m4 \
 	$(top_srcdir)/m4/nonblocking.m4 $(top_srcdir)/m4/off_t.m4 \
-	$(top_srcdir)/m4/pid_t.m4 $(top_srcdir)/m4/select.m4 \
-	$(top_srcdir)/m4/signal_h.m4 $(top_srcdir)/m4/socketlib.m4 \
-	$(top_srcdir)/m4/sockets.m4 $(top_srcdir)/m4/socklen.m4 \
-	$(top_srcdir)/m4/ssize_t.m4 $(top_srcdir)/m4/stdalign.m4 \
+	$(top_srcdir)/m4/open-cloexec.m4 \
+	$(top_srcdir)/m4/open-slash.m4 $(top_srcdir)/m4/open.m4 \
+	$(top_srcdir)/m4/pathmax.m4 $(top_srcdir)/m4/pid_t.m4 \
+	$(top_srcdir)/m4/select.m4 $(top_srcdir)/m4/signal_h.m4 \
+	$(top_srcdir)/m4/socketlib.m4 $(top_srcdir)/m4/sockets.m4 \
+	$(top_srcdir)/m4/socklen.m4 $(top_srcdir)/m4/ssize_t.m4 \
+	$(top_srcdir)/m4/stat-time.m4 $(top_srcdir)/m4/stat.m4 \
+	$(top_srcdir)/m4/std-gnu11.m4 $(top_srcdir)/m4/stdalign.m4 \
 	$(top_srcdir)/m4/stdbool.m4 $(top_srcdir)/m4/stddef_h.m4 \
-	$(top_srcdir)/m4/stdio_h.m4 $(top_srcdir)/m4/sys_ioctl_h.m4 \
+	$(top_srcdir)/m4/stdint.m4 $(top_srcdir)/m4/stdio_h.m4 \
+	$(top_srcdir)/m4/sys_ioctl_h.m4 \
 	$(top_srcdir)/m4/sys_select_h.m4 \
 	$(top_srcdir)/m4/sys_socket_h.m4 \
-	$(top_srcdir)/m4/sys_time_h.m4 $(top_srcdir)/m4/sys_types_h.m4 \
-	$(top_srcdir)/m4/sys_uio_h.m4 $(top_srcdir)/m4/unistd_h.m4 \
+	$(top_srcdir)/m4/sys_stat_h.m4 $(top_srcdir)/m4/sys_time_h.m4 \
+	$(top_srcdir)/m4/sys_types_h.m4 $(top_srcdir)/m4/sys_uio_h.m4 \
+	$(top_srcdir)/m4/time_h.m4 $(top_srcdir)/m4/unistd_h.m4 \
 	$(top_srcdir)/m4/warn-on-use.m4 $(top_srcdir)/m4/wchar_t.m4 \
-	$(top_srcdir)/m4/zzgnulib.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/wint_t.m4 $(top_srcdir)/m4/zzgnulib.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(noinst_HEADERS) \
@@ -190,8 +200,9 @@ am__v_AR_0 = @echo "  AR      " $@;
 am__v_AR_1 = 
 libgnu_a_AR = $(AR) $(ARFLAGS)
 am__DEPENDENCIES_1 =
-am_libgnu_a_OBJECTS = fd-hook.$(OBJEXT) nonblocking.$(OBJEXT) \
-	sockets.$(OBJEXT) sys_socket.$(OBJEXT) unistd.$(OBJEXT)
+am_libgnu_a_OBJECTS = cloexec.$(OBJEXT) fd-hook.$(OBJEXT) \
+	malloca.$(OBJEXT) nonblocking.$(OBJEXT) sockets.$(OBJEXT) \
+	stat-time.$(OBJEXT) sys_socket.$(OBJEXT) unistd.$(OBJEXT)
 libgnu_a_OBJECTS = $(am_libgnu_a_OBJECTS)
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
@@ -209,20 +220,24 @@ DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/accept.Po ./$(DEPDIR)/alloca.Po \
-	./$(DEPDIR)/bind.Po ./$(DEPDIR)/close.Po \
-	./$(DEPDIR)/connect.Po ./$(DEPDIR)/dup2.Po \
-	./$(DEPDIR)/fcntl.Po ./$(DEPDIR)/fd-hook.Po \
+	./$(DEPDIR)/bind.Po ./$(DEPDIR)/cloexec.Po \
+	./$(DEPDIR)/close.Po ./$(DEPDIR)/connect.Po \
+	./$(DEPDIR)/dup2.Po ./$(DEPDIR)/fcntl.Po \
+	./$(DEPDIR)/fd-hook.Po ./$(DEPDIR)/fstat.Po \
 	./$(DEPDIR)/getdtablesize.Po ./$(DEPDIR)/gethostname.Po \
 	./$(DEPDIR)/getpeername.Po ./$(DEPDIR)/getsockname.Po \
 	./$(DEPDIR)/gettimeofday.Po ./$(DEPDIR)/ioctl.Po \
-	./$(DEPDIR)/listen.Po ./$(DEPDIR)/msvc-inval.Po \
-	./$(DEPDIR)/msvc-nothrow.Po ./$(DEPDIR)/nonblocking.Po \
+	./$(DEPDIR)/listen.Po ./$(DEPDIR)/malloca.Po \
+	./$(DEPDIR)/msvc-inval.Po ./$(DEPDIR)/msvc-nothrow.Po \
+	./$(DEPDIR)/nonblocking.Po ./$(DEPDIR)/open.Po \
 	./$(DEPDIR)/recv.Po ./$(DEPDIR)/recvfrom.Po \
 	./$(DEPDIR)/select.Po ./$(DEPDIR)/send.Po \
 	./$(DEPDIR)/sendto.Po ./$(DEPDIR)/setsockopt.Po \
 	./$(DEPDIR)/socket.Po ./$(DEPDIR)/sockets.Po \
-	./$(DEPDIR)/stdio-read.Po ./$(DEPDIR)/stdio-write.Po \
-	./$(DEPDIR)/sys_socket.Po ./$(DEPDIR)/unistd.Po
+	./$(DEPDIR)/stat-time.Po ./$(DEPDIR)/stat-w32.Po \
+	./$(DEPDIR)/stat.Po ./$(DEPDIR)/stdio-read.Po \
+	./$(DEPDIR)/stdio-write.Po ./$(DEPDIR)/sys_socket.Po \
+	./$(DEPDIR)/unistd.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -314,6 +329,7 @@ ALLOCA =
 ALLOCA_H = alloca.h
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
+APPLE_UNIVERSAL_BUILD = 0
 AR = x86_64-w64-mingw32-ar
 ARFLAGS = cr
 ASM_SYMBOL_PREFIX = ""
@@ -321,6 +337,11 @@ AUTOCONF = ${SHELL} /home/buzz/ardupilot/missing autoconf
 AUTOHEADER = ${SHELL} /home/buzz/ardupilot/missing autoheader
 AUTOMAKE = ${SHELL} /home/buzz/ardupilot/missing automake-1.16
 AWK = gawk
+BITSIZEOF_PTRDIFF_T = 
+BITSIZEOF_SIG_ATOMIC_T = 
+BITSIZEOF_SIZE_T = 
+BITSIZEOF_WCHAR_T = 
+BITSIZEOF_WINT_T = 
 CC = x86_64-w64-mingw32-gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
@@ -352,6 +373,7 @@ GNULIB_CLOSE = 1
 GNULIB_CONNECT = 1
 GNULIB_COPY_FILE_RANGE = 0
 GNULIB_CREAT = 0
+GNULIB_CTIME = 0
 GNULIB_DPRINTF = 0
 GNULIB_DUP = 0
 GNULIB_DUP2 = 1
@@ -360,6 +382,7 @@ GNULIB_ENVIRON = 0
 GNULIB_EUIDACCESS = 0
 GNULIB_FACCESSAT = 0
 GNULIB_FCHDIR = 0
+GNULIB_FCHMODAT = 0
 GNULIB_FCHOWNAT = 0
 GNULIB_FCLOSE = 0
 GNULIB_FCNTL = 1
@@ -379,10 +402,13 @@ GNULIB_FREOPEN = 0
 GNULIB_FSCANF = 1
 GNULIB_FSEEK = 0
 GNULIB_FSEEKO = 0
+GNULIB_FSTAT = 1
+GNULIB_FSTATAT = 0
 GNULIB_FSYNC = 0
 GNULIB_FTELL = 0
 GNULIB_FTELLO = 0
 GNULIB_FTRUNCATE = 0
+GNULIB_FUTIMENS = 0
 GNULIB_FWRITE = 1
 GNULIB_GETC = 1
 GNULIB_GETCHAR = 1
@@ -403,20 +429,33 @@ GNULIB_GETPEERNAME = 1
 GNULIB_GETSOCKNAME = 1
 GNULIB_GETSOCKOPT = 0
 GNULIB_GETTIMEOFDAY = 1
+GNULIB_GETUMASK = 0
 GNULIB_GETUSERSHELL = 0
 GNULIB_GROUP_MEMBER = 0
 GNULIB_IOCTL = 1
 GNULIB_ISATTY = 0
+GNULIB_LCHMOD = 0
 GNULIB_LCHOWN = 0
 GNULIB_LINK = 0
 GNULIB_LINKAT = 0
 GNULIB_LISTEN = 1
+GNULIB_LOCALTIME = 0
 GNULIB_LSEEK = 0
+GNULIB_LSTAT = 0
+GNULIB_MKDIRAT = 0
+GNULIB_MKFIFO = 0
+GNULIB_MKFIFOAT = 0
+GNULIB_MKNOD = 0
+GNULIB_MKNODAT = 0
+GNULIB_MKTIME = 0
+GNULIB_NANOSLEEP = 0
 GNULIB_NONBLOCKING = 1
 GNULIB_OBSTACK_PRINTF = 0
 GNULIB_OBSTACK_PRINTF_POSIX = 0
-GNULIB_OPEN = 0
+GNULIB_OPEN = 1
 GNULIB_OPENAT = 0
+GNULIB_OVERRIDES_STRUCT_STAT = 0
+GNULIB_OVERRIDES_WINT_T = 1
 GNULIB_PCLOSE = 0
 GNULIB_PERROR = 0
 GNULIB_PIPE = 0
@@ -455,18 +494,26 @@ GNULIB_SLEEP = 0
 GNULIB_SNPRINTF = 0
 GNULIB_SOCKET = 1
 GNULIB_SPRINTF_POSIX = 0
+GNULIB_STAT = 1
 GNULIB_STDIO_H_NONBLOCKING = 1
 GNULIB_STDIO_H_SIGPIPE = 0
+GNULIB_STRFTIME = 0
+GNULIB_STRPTIME = 0
 GNULIB_SYMLINK = 0
 GNULIB_SYMLINKAT = 0
+GNULIB_TIMEGM = 0
+GNULIB_TIME_R = 0
+GNULIB_TIME_RZ = 0
 GNULIB_TMPFILE = 0
 GNULIB_TRUNCATE = 0
 GNULIB_TTYNAME_R = 0
+GNULIB_TZSET = 0
 GNULIB_UNISTD_H_NONBLOCKING = 1
 GNULIB_UNISTD_H_SIGPIPE = 0
 GNULIB_UNLINK = 0
 GNULIB_UNLINKAT = 0
 GNULIB_USLEEP = 0
+GNULIB_UTIMENSAT = 0
 GNULIB_VASPRINTF = 0
 GNULIB_VDPRINTF = 0
 GNULIB_VFPRINTF = 1
@@ -481,6 +528,7 @@ GNULIB_WRITE = 0
 GREP = /bin/grep
 HAVE_ACCEPT4 = 1
 HAVE_ALLOCA_H = 0
+HAVE_C99_STDINT_H = 1
 HAVE_CHOWN = 1
 HAVE_COPY_FILE_RANGE = 1
 HAVE_DECL_ENVIRON = 1
@@ -496,6 +544,7 @@ HAVE_DECL_GETLOGIN = 1
 HAVE_DECL_GETLOGIN_R = 1
 HAVE_DECL_GETPAGESIZE = 1
 HAVE_DECL_GETUSERSHELL = 1
+HAVE_DECL_LOCALTIME_R = 1
 HAVE_DECL_OBSTACK_PRINTF = 1
 HAVE_DECL_SETHOSTNAME = 1
 HAVE_DECL_SNPRINTF = 1
@@ -507,13 +556,16 @@ HAVE_DUP3 = 1
 HAVE_EUIDACCESS = 1
 HAVE_FACCESSAT = 1
 HAVE_FCHDIR = 1
+HAVE_FCHMODAT = 1
 HAVE_FCHOWNAT = 1
 HAVE_FCNTL = 0
 HAVE_FDATASYNC = 1
 HAVE_FSEEKO = 1
+HAVE_FSTATAT = 1
 HAVE_FSYNC = 1
 HAVE_FTELLO = 1
 HAVE_FTRUNCATE = 1
+HAVE_FUTIMENS = 1
 HAVE_GETDTABLESIZE = 0
 HAVE_GETENTROPY = 1
 HAVE_GETGROUPS = 1
@@ -522,12 +574,22 @@ HAVE_GETLOGIN = 1
 HAVE_GETPAGESIZE = 1
 HAVE_GETPASS = 1
 HAVE_GETTIMEOFDAY = 1
+HAVE_GETUMASK = 1
 HAVE_GROUP_MEMBER = 1
+HAVE_INTTYPES_H = 1
+HAVE_LCHMOD = 1
 HAVE_LCHOWN = 1
 HAVE_LINK = 1
 HAVE_LINKAT = 1
+HAVE_LSTAT = 1
 HAVE_MAX_ALIGN_T = 1
+HAVE_MKDIRAT = 1
+HAVE_MKFIFO = 1
+HAVE_MKFIFOAT = 1
+HAVE_MKNOD = 1
+HAVE_MKNODAT = 1
 HAVE_MSVC_INVALID_PARAMETER_HANDLER = 1
+HAVE_NANOSLEEP = 1
 HAVE_OPENAT = 1
 HAVE_OS_H = 0
 HAVE_PCLOSE = 1
@@ -548,26 +610,38 @@ HAVE_SETHOSTNAME = 1
 HAVE_SIGACTION = 1
 HAVE_SIGHANDLER_T = 0
 HAVE_SIGINFO_T = 1
+HAVE_SIGNED_SIG_ATOMIC_T = 
+HAVE_SIGNED_WCHAR_T = 
+HAVE_SIGNED_WINT_T = 
 HAVE_SIGSET_T = 0
 HAVE_SLEEP = 1
+HAVE_STDINT_H = 1
+HAVE_STRPTIME = 1
 HAVE_STRUCT_SIGACTION_SA_SIGACTION = 1
 HAVE_STRUCT_SOCKADDR_STORAGE = 1
 HAVE_STRUCT_SOCKADDR_STORAGE_SS_FAMILY = 1
 HAVE_STRUCT_TIMEVAL = 1
 HAVE_SYMLINK = 1
 HAVE_SYMLINKAT = 1
+HAVE_SYS_BITYPES_H = 0
+HAVE_SYS_INTTYPES_H = 0
 HAVE_SYS_IOCTL_H = 0
 HAVE_SYS_PARAM_H = 0
 HAVE_SYS_SELECT_H = 0
 HAVE_SYS_SOCKET_H = 0
 HAVE_SYS_TIME_H = 1
+HAVE_SYS_TYPES_H = 1
 HAVE_SYS_UIO_H = 0
+HAVE_TIMEGM = 1
+HAVE_TIMEZONE_T = 0
 HAVE_TYPE_VOLATILE_SIG_ATOMIC_T = 1
 HAVE_UNISTD_H = 1
 HAVE_UNLINKAT = 1
 HAVE_USLEEP = 1
+HAVE_UTIMENSAT = 1
 HAVE_VASPRINTF = 1
 HAVE_VDPRINTF = 1
+HAVE_WCHAR_H = 1
 HAVE_WCHAR_T = 1
 HAVE_WINSOCK2_H = 1
 HAVE_WS2TCPIP_H = 1
@@ -586,32 +660,41 @@ LIBOBJS =
 LIBS = 
 LIBSOCKET = -lws2_32
 LIB_SELECT = -lws2_32
+LIMITS_H = limits.h
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/buzz/ardupilot/missing makeinfo
 MKDIR_P = /bin/mkdir -p
 NEXT_AS_FIRST_DIRECTIVE_ERRNO_H = <errno.h>
 NEXT_AS_FIRST_DIRECTIVE_FCNTL_H = <fcntl.h>
+NEXT_AS_FIRST_DIRECTIVE_LIMITS_H = <limits.h>
 NEXT_AS_FIRST_DIRECTIVE_SIGNAL_H = <signal.h>
 NEXT_AS_FIRST_DIRECTIVE_STDDEF_H = 
+NEXT_AS_FIRST_DIRECTIVE_STDINT_H = <stdint.h>
 NEXT_AS_FIRST_DIRECTIVE_STDIO_H = <stdio.h>
 NEXT_AS_FIRST_DIRECTIVE_SYS_IOCTL_H = <sys/ioctl.h>
 NEXT_AS_FIRST_DIRECTIVE_SYS_SELECT_H = <sys/select.h>
 NEXT_AS_FIRST_DIRECTIVE_SYS_SOCKET_H = <sys/socket.h>
+NEXT_AS_FIRST_DIRECTIVE_SYS_STAT_H = <sys/stat.h>
 NEXT_AS_FIRST_DIRECTIVE_SYS_TIME_H = <sys/time.h>
 NEXT_AS_FIRST_DIRECTIVE_SYS_TYPES_H = <sys/types.h>
 NEXT_AS_FIRST_DIRECTIVE_SYS_UIO_H = <sys/uio.h>
+NEXT_AS_FIRST_DIRECTIVE_TIME_H = <time.h>
 NEXT_AS_FIRST_DIRECTIVE_UNISTD_H = <unistd.h>
 NEXT_ERRNO_H = <errno.h>
 NEXT_FCNTL_H = <fcntl.h>
+NEXT_LIMITS_H = <limits.h>
 NEXT_SIGNAL_H = <signal.h>
 NEXT_STDDEF_H = 
+NEXT_STDINT_H = <stdint.h>
 NEXT_STDIO_H = <stdio.h>
 NEXT_SYS_IOCTL_H = <sys/ioctl.h>
 NEXT_SYS_SELECT_H = <sys/select.h>
 NEXT_SYS_SOCKET_H = <sys/socket.h>
+NEXT_SYS_STAT_H = <sys/stat.h>
 NEXT_SYS_TIME_H = <sys/time.h>
 NEXT_SYS_TYPES_H = <sys/types.h>
 NEXT_SYS_UIO_H = <sys/uio.h>
+NEXT_TIME_H = <time.h>
 NEXT_UNISTD_H = <unistd.h>
 OBJEXT = o
 PACKAGE = ardumingw
@@ -624,15 +707,19 @@ PACKAGE_VERSION = 0.1
 PATH_SEPARATOR = :
 PRAGMA_COLUMNS = 
 PRAGMA_SYSTEM_HEADER = #pragma GCC system_header
+PTHREAD_H_DEFINES_STRUCT_TIMESPEC = 0
+PTRDIFF_T_SUFFIX = 
 RANLIB = x86_64-w64-mingw32-ranlib
 REPLACE_ACCESS = 0
 REPLACE_CHOWN = 0
 REPLACE_CLOSE = 1
 REPLACE_CREAT = 0
+REPLACE_CTIME = GNULIB_PORTCHECK
 REPLACE_DPRINTF = 0
 REPLACE_DUP = 0
 REPLACE_DUP2 = 1
 REPLACE_FACCESSAT = 0
+REPLACE_FCHMODAT = 0
 REPLACE_FCHOWNAT = 0
 REPLACE_FCLOSE = 0
 REPLACE_FCNTL = 0
@@ -644,9 +731,12 @@ REPLACE_FPURGE = 0
 REPLACE_FREOPEN = 0
 REPLACE_FSEEK = 0
 REPLACE_FSEEKO = 0
+REPLACE_FSTAT = 1
+REPLACE_FSTATAT = 0
 REPLACE_FTELL = 0
 REPLACE_FTELLO = 0
 REPLACE_FTRUNCATE = 0
+REPLACE_FUTIMENS = 0
 REPLACE_GETCWD = 0
 REPLACE_GETDELIM = 0
 REPLACE_GETDOMAINNAME = 0
@@ -657,15 +747,24 @@ REPLACE_GETLOGIN_R = 0
 REPLACE_GETPAGESIZE = 0
 REPLACE_GETPASS = 0
 REPLACE_GETTIMEOFDAY = 1
+REPLACE_GMTIME = 0
 REPLACE_IOCTL = 0
 REPLACE_ISATTY = 0
 REPLACE_LCHOWN = 0
 REPLACE_LINK = 0
 REPLACE_LINKAT = 0
+REPLACE_LOCALTIME = 0
+REPLACE_LOCALTIME_R = GNULIB_PORTCHECK
 REPLACE_LSEEK = 0
+REPLACE_LSTAT = 0
+REPLACE_MKDIR = 0
+REPLACE_MKFIFO = 0
+REPLACE_MKNOD = 0
+REPLACE_MKTIME = GNULIB_PORTCHECK
+REPLACE_NANOSLEEP = GNULIB_PORTCHECK
 REPLACE_NULL = 0
 REPLACE_OBSTACK_PRINTF = 0
-REPLACE_OPEN = 0
+REPLACE_OPEN = 1
 REPLACE_OPENAT = 0
 REPLACE_PERROR = 0
 REPLACE_POPEN = 0
@@ -686,17 +785,22 @@ REPLACE_SELECT = 1
 REPLACE_SLEEP = 0
 REPLACE_SNPRINTF = 0
 REPLACE_SPRINTF = 0
+REPLACE_STAT = 1
 REPLACE_STDIO_READ_FUNCS = 1
 REPLACE_STDIO_WRITE_FUNCS = 1
+REPLACE_STRFTIME = GNULIB_PORTCHECK
 REPLACE_STRUCT_TIMEVAL = 1
 REPLACE_SYMLINK = 0
 REPLACE_SYMLINKAT = 0
+REPLACE_TIMEGM = GNULIB_PORTCHECK
 REPLACE_TMPFILE = 0
 REPLACE_TRUNCATE = 0
 REPLACE_TTYNAME_R = 0
+REPLACE_TZSET = GNULIB_PORTCHECK
 REPLACE_UNLINK = 0
 REPLACE_UNLINKAT = 0
 REPLACE_USLEEP = 0
+REPLACE_UTIMENSAT = 0
 REPLACE_VASPRINTF = 0
 REPLACE_VDPRINTF = 0
 REPLACE_VFPRINTF = 0
@@ -706,18 +810,28 @@ REPLACE_VSPRINTF = 0
 REPLACE_WRITE = 0
 SET_MAKE = 
 SHELL = /bin/bash
+SIG_ATOMIC_T_SUFFIX = 
+SIZE_T_SUFFIX = 
 STDALIGN_H = 
 STDBOOL_H = 
 STDDEF_H = 
+STDINT_H = stdint.h
 STRIP = x86_64-w64-mingw32-strip
 SYS_IOCTL_H_HAVE_WINSOCK2_H = 1
 SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS = 1
+SYS_TIME_H_DEFINES_STRUCT_TIMESPEC = 0
+TIME_H_DEFINES_STRUCT_TIMESPEC = 1
+UNISTD_H_DEFINES_STRUCT_TIMESPEC = 0
 UNISTD_H_HAVE_SYS_RANDOM_H = 0
 UNISTD_H_HAVE_WINSOCK2_H = 1
 UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS = 1
 VERSION = 0.1
+WCHAR_T_SUFFIX = 
 WINDOWS_64_BIT_OFF_T = 0
+WINDOWS_64_BIT_ST_SIZE = 1
 WINDOWS_STAT_INODES = 0
+WINDOWS_STAT_TIMESPEC = 0
+WINT_T_SUFFIX = 
 abs_builddir = /home/buzz/ardupilot/lib
 abs_srcdir = /home/buzz/ardupilot/lib
 abs_top_builddir = /home/buzz/ardupilot
@@ -740,8 +854,8 @@ datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-gl_LIBOBJS =  accept.o bind.o close.o connect.o dup2.o fcntl.o getdtablesize.o gethostname.o getpeername.o getsockname.o gettimeofday.o ioctl.o listen.o msvc-inval.o msvc-nothrow.o recv.o recvfrom.o select.o send.o sendto.o setsockopt.o socket.o stdio-read.o stdio-write.o
-gl_LTLIBOBJS =  accept.lo bind.lo close.lo connect.lo dup2.lo fcntl.lo getdtablesize.lo gethostname.lo getpeername.lo getsockname.lo gettimeofday.lo ioctl.lo listen.lo msvc-inval.lo msvc-nothrow.lo recv.lo recvfrom.lo select.lo send.lo sendto.lo setsockopt.lo socket.lo stdio-read.lo stdio-write.lo
+gl_LIBOBJS =  accept.o bind.o close.o connect.o dup2.o fcntl.o fstat.o getdtablesize.o gethostname.o getpeername.o getsockname.o gettimeofday.o ioctl.o listen.o msvc-inval.o msvc-nothrow.o open.o recv.o recvfrom.o select.o send.o sendto.o setsockopt.o socket.o stat.o stat-w32.o stdio-read.o stdio-write.o
+gl_LTLIBOBJS =  accept.lo bind.lo close.lo connect.lo dup2.lo fcntl.lo fstat.lo getdtablesize.lo gethostname.lo getpeername.lo getsockname.lo gettimeofday.lo ioctl.lo listen.lo msvc-inval.lo msvc-nothrow.lo open.lo recv.lo recvfrom.lo select.lo send.lo sendto.lo setsockopt.lo socket.lo stat.lo stat-w32.lo stdio-read.lo stdio-write.lo
 gltests_LIBOBJS = 
 gltests_LTLIBOBJS = 
 gltests_WITNESS = IN_ARDUMINGW_GNULIB_TESTS
@@ -780,44 +894,51 @@ noinst_HEADERS =
 noinst_LIBRARIES = libgnu.a
 noinst_LTLIBRARIES = 
 EXTRA_DIST = accept.c w32sock.h alloca.c alloca.in.h bind.c w32sock.h \
-	close.c connect.c w32sock.h dup2.c errno.in.h fcntl.c \
-	fcntl.in.h fd-hook.h getdtablesize.c gethostname.c w32sock.h \
+	cloexec.h close.c connect.c w32sock.h dup2.c errno.in.h \
+	fcntl.c fcntl.in.h fd-hook.h filename.h fstat.c stat-w32.c \
+	stat-w32.h getdtablesize.c gethostname.c w32sock.h \
 	getpeername.c w32sock.h getsockname.c w32sock.h gettimeofday.c \
-	ioctl.c w32sock.h listen.c w32sock.h msvc-inval.c msvc-inval.h \
-	msvc-nothrow.c msvc-nothrow.h nonblocking.h stdio-read.c \
-	stdio-write.c recv.c w32sock.h recvfrom.c w32sock.h select.c \
+	intprops.h ioctl.c w32sock.h limits.in.h listen.c w32sock.h \
+	malloca.h msvc-inval.c msvc-inval.h msvc-nothrow.c \
+	msvc-nothrow.h nonblocking.h stdio-read.c stdio-write.c open.c \
+	pathmax.h recv.c w32sock.h recvfrom.c w32sock.h select.c \
 	send.c w32sock.h sendto.c w32sock.h setsockopt.c w32sock.h \
 	signal.in.h arg-nonnull.h c++defs.h warn-on-use.h socket.c \
-	w32sock.h w32sock.h stdalign.in.h stdbool.in.h stddef.in.h \
-	stdio.in.h sys_ioctl.in.h sys_select.in.h sys_socket.in.h \
-	sys_time.in.h sys_types.in.h sys_uio.in.h unistd.in.h
-BUILT_SOURCES = $(ALLOCA_H) $(ERRNO_H) fcntl.h signal.h $(STDALIGN_H) \
-	$(STDBOOL_H) $(STDDEF_H) stdio.h sys/ioctl.h sys/select.h \
-	sys/socket.h sys/time.h sys/types.h sys/uio.h unistd.h
+	w32sock.h w32sock.h stat-w32.c stat-w32.h stat.c stat-time.h \
+	stdalign.in.h stdbool.in.h stddef.in.h stdint.in.h stdio.in.h \
+	sys_ioctl.in.h sys_select.in.h sys_socket.in.h sys_stat.in.h \
+	sys_time.in.h sys_types.in.h sys_uio.in.h time.in.h \
+	unistd.in.h verify.h xalloc-oversized.h
+BUILT_SOURCES = $(ALLOCA_H) $(ERRNO_H) fcntl.h $(LIMITS_H) signal.h \
+	$(STDALIGN_H) $(STDBOOL_H) $(STDDEF_H) $(STDINT_H) stdio.h \
+	sys/ioctl.h sys/select.h sys/socket.h sys/stat.h sys/time.h \
+	sys/types.h sys/uio.h time.h unistd.h
 SUFFIXES = 
 MOSTLYCLEANFILES = core *.stackdump alloca.h alloca.h-t errno.h \
-	errno.h-t fcntl.h fcntl.h-t signal.h signal.h-t stdalign.h \
-	stdalign.h-t stdbool.h stdbool.h-t stddef.h stddef.h-t stdio.h \
-	stdio.h-t sys/ioctl.h sys/ioctl.h-t sys/select.h \
-	sys/select.h-t sys/socket.h sys/socket.h-t sys/time.h \
+	errno.h-t fcntl.h fcntl.h-t limits.h limits.h-t signal.h \
+	signal.h-t stdalign.h stdalign.h-t stdbool.h stdbool.h-t \
+	stddef.h stddef.h-t stdint.h stdint.h-t stdio.h stdio.h-t \
+	sys/ioctl.h sys/ioctl.h-t sys/select.h sys/select.h-t \
+	sys/socket.h sys/socket.h-t sys/stat.h sys/stat.h-t sys/time.h \
 	sys/time.h-t sys/types.h sys/types.h-t sys/uio.h sys/uio.h-t \
-	unistd.h unistd.h-t
-MOSTLYCLEANDIRS = sys sys sys sys
+	time.h time.h-t unistd.h unistd.h-t
+MOSTLYCLEANDIRS = sys sys sys sys sys
 CLEANFILES = 
 DISTCLEANFILES = 
 MAINTAINERCLEANFILES = 
 # No GNU Make output.
 AM_CPPFLAGS = 
 AM_CFLAGS = 
-libgnu_a_SOURCES = fd-hook.c nonblocking.c sockets.h sockets.c \
-	sys_socket.c unistd.c
+libgnu_a_SOURCES = cloexec.c fd-hook.c malloca.c nonblocking.c \
+	sockets.h sockets.c stat-time.c sys_socket.c unistd.c
 libgnu_a_LIBADD = $(gl_LIBOBJS) 
 libgnu_a_DEPENDENCIES = $(gl_LIBOBJS) 
 EXTRA_libgnu_a_SOURCES = accept.c alloca.c bind.c close.c connect.c \
-	dup2.c fcntl.c getdtablesize.c gethostname.c getpeername.c \
-	getsockname.c gettimeofday.c ioctl.c listen.c msvc-inval.c \
-	msvc-nothrow.c stdio-read.c stdio-write.c recv.c recvfrom.c \
-	select.c send.c sendto.c setsockopt.c socket.c
+	dup2.c fcntl.c fstat.c stat-w32.c getdtablesize.c \
+	gethostname.c getpeername.c getsockname.c gettimeofday.c \
+	ioctl.c listen.c msvc-inval.c msvc-nothrow.c stdio-read.c \
+	stdio-write.c open.c recv.c recvfrom.c select.c send.c \
+	sendto.c setsockopt.c socket.c stat-w32.c stat.c
 
 # Use this preprocessor expression to decide whether #include_next works.
 # Do not rely on a 'configure'-time test for this, since the expression
@@ -916,11 +1037,13 @@ distclean-compile:
 include ./$(DEPDIR)/accept.Po # am--include-marker
 include ./$(DEPDIR)/alloca.Po # am--include-marker
 include ./$(DEPDIR)/bind.Po # am--include-marker
+include ./$(DEPDIR)/cloexec.Po # am--include-marker
 include ./$(DEPDIR)/close.Po # am--include-marker
 include ./$(DEPDIR)/connect.Po # am--include-marker
 include ./$(DEPDIR)/dup2.Po # am--include-marker
 include ./$(DEPDIR)/fcntl.Po # am--include-marker
 include ./$(DEPDIR)/fd-hook.Po # am--include-marker
+include ./$(DEPDIR)/fstat.Po # am--include-marker
 include ./$(DEPDIR)/getdtablesize.Po # am--include-marker
 include ./$(DEPDIR)/gethostname.Po # am--include-marker
 include ./$(DEPDIR)/getpeername.Po # am--include-marker
@@ -928,9 +1051,11 @@ include ./$(DEPDIR)/getsockname.Po # am--include-marker
 include ./$(DEPDIR)/gettimeofday.Po # am--include-marker
 include ./$(DEPDIR)/ioctl.Po # am--include-marker
 include ./$(DEPDIR)/listen.Po # am--include-marker
+include ./$(DEPDIR)/malloca.Po # am--include-marker
 include ./$(DEPDIR)/msvc-inval.Po # am--include-marker
 include ./$(DEPDIR)/msvc-nothrow.Po # am--include-marker
 include ./$(DEPDIR)/nonblocking.Po # am--include-marker
+include ./$(DEPDIR)/open.Po # am--include-marker
 include ./$(DEPDIR)/recv.Po # am--include-marker
 include ./$(DEPDIR)/recvfrom.Po # am--include-marker
 include ./$(DEPDIR)/select.Po # am--include-marker
@@ -939,6 +1064,9 @@ include ./$(DEPDIR)/sendto.Po # am--include-marker
 include ./$(DEPDIR)/setsockopt.Po # am--include-marker
 include ./$(DEPDIR)/socket.Po # am--include-marker
 include ./$(DEPDIR)/sockets.Po # am--include-marker
+include ./$(DEPDIR)/stat-time.Po # am--include-marker
+include ./$(DEPDIR)/stat-w32.Po # am--include-marker
+include ./$(DEPDIR)/stat.Po # am--include-marker
 include ./$(DEPDIR)/stdio-read.Po # am--include-marker
 include ./$(DEPDIR)/stdio-write.Po # am--include-marker
 include ./$(DEPDIR)/sys_socket.Po # am--include-marker
@@ -1172,11 +1300,13 @@ distclean: distclean-recursive
 		-rm -f ./$(DEPDIR)/accept.Po
 	-rm -f ./$(DEPDIR)/alloca.Po
 	-rm -f ./$(DEPDIR)/bind.Po
+	-rm -f ./$(DEPDIR)/cloexec.Po
 	-rm -f ./$(DEPDIR)/close.Po
 	-rm -f ./$(DEPDIR)/connect.Po
 	-rm -f ./$(DEPDIR)/dup2.Po
 	-rm -f ./$(DEPDIR)/fcntl.Po
 	-rm -f ./$(DEPDIR)/fd-hook.Po
+	-rm -f ./$(DEPDIR)/fstat.Po
 	-rm -f ./$(DEPDIR)/getdtablesize.Po
 	-rm -f ./$(DEPDIR)/gethostname.Po
 	-rm -f ./$(DEPDIR)/getpeername.Po
@@ -1184,9 +1314,11 @@ distclean: distclean-recursive
 	-rm -f ./$(DEPDIR)/gettimeofday.Po
 	-rm -f ./$(DEPDIR)/ioctl.Po
 	-rm -f ./$(DEPDIR)/listen.Po
+	-rm -f ./$(DEPDIR)/malloca.Po
 	-rm -f ./$(DEPDIR)/msvc-inval.Po
 	-rm -f ./$(DEPDIR)/msvc-nothrow.Po
 	-rm -f ./$(DEPDIR)/nonblocking.Po
+	-rm -f ./$(DEPDIR)/open.Po
 	-rm -f ./$(DEPDIR)/recv.Po
 	-rm -f ./$(DEPDIR)/recvfrom.Po
 	-rm -f ./$(DEPDIR)/select.Po
@@ -1195,6 +1327,9 @@ distclean: distclean-recursive
 	-rm -f ./$(DEPDIR)/setsockopt.Po
 	-rm -f ./$(DEPDIR)/socket.Po
 	-rm -f ./$(DEPDIR)/sockets.Po
+	-rm -f ./$(DEPDIR)/stat-time.Po
+	-rm -f ./$(DEPDIR)/stat-w32.Po
+	-rm -f ./$(DEPDIR)/stat.Po
 	-rm -f ./$(DEPDIR)/stdio-read.Po
 	-rm -f ./$(DEPDIR)/stdio-write.Po
 	-rm -f ./$(DEPDIR)/sys_socket.Po
@@ -1247,11 +1382,13 @@ maintainer-clean: maintainer-clean-recursive
 		-rm -f ./$(DEPDIR)/accept.Po
 	-rm -f ./$(DEPDIR)/alloca.Po
 	-rm -f ./$(DEPDIR)/bind.Po
+	-rm -f ./$(DEPDIR)/cloexec.Po
 	-rm -f ./$(DEPDIR)/close.Po
 	-rm -f ./$(DEPDIR)/connect.Po
 	-rm -f ./$(DEPDIR)/dup2.Po
 	-rm -f ./$(DEPDIR)/fcntl.Po
 	-rm -f ./$(DEPDIR)/fd-hook.Po
+	-rm -f ./$(DEPDIR)/fstat.Po
 	-rm -f ./$(DEPDIR)/getdtablesize.Po
 	-rm -f ./$(DEPDIR)/gethostname.Po
 	-rm -f ./$(DEPDIR)/getpeername.Po
@@ -1259,9 +1396,11 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f ./$(DEPDIR)/gettimeofday.Po
 	-rm -f ./$(DEPDIR)/ioctl.Po
 	-rm -f ./$(DEPDIR)/listen.Po
+	-rm -f ./$(DEPDIR)/malloca.Po
 	-rm -f ./$(DEPDIR)/msvc-inval.Po
 	-rm -f ./$(DEPDIR)/msvc-nothrow.Po
 	-rm -f ./$(DEPDIR)/nonblocking.Po
+	-rm -f ./$(DEPDIR)/open.Po
 	-rm -f ./$(DEPDIR)/recv.Po
 	-rm -f ./$(DEPDIR)/recvfrom.Po
 	-rm -f ./$(DEPDIR)/select.Po
@@ -1270,6 +1409,9 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f ./$(DEPDIR)/setsockopt.Po
 	-rm -f ./$(DEPDIR)/socket.Po
 	-rm -f ./$(DEPDIR)/sockets.Po
+	-rm -f ./$(DEPDIR)/stat-time.Po
+	-rm -f ./$(DEPDIR)/stat-w32.Po
+	-rm -f ./$(DEPDIR)/stat.Po
 	-rm -f ./$(DEPDIR)/stdio-read.Po
 	-rm -f ./$(DEPDIR)/stdio-write.Po
 	-rm -f ./$(DEPDIR)/sys_socket.Po
@@ -1374,6 +1516,22 @@ fcntl.h: fcntl.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) 
 	} > $@-t && \
 	mv $@-t $@
 
+# We need the following in order to create <limits.h> when the system
+# doesn't have one that is compatible with GNU.
+limits.h: limits.in.h $(top_builddir)/config.status
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
+	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+	      -e 's|@''PRAGMA_COLUMNS''@||g' \
+	      -e 's|@''NEXT_LIMITS_H''@|$(NEXT_LIMITS_H)|g' \
+	      < $(srcdir)/limits.in.h; \
+	} > $@-t && \
+	mv $@-t $@
+#limits.h: $(top_builddir)/config.status
+#	rm -f $@
+
 # We need the following in order to create <signal.h> when the system
 # doesn't have a complete one.
 signal.h: signal.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
@@ -1447,6 +1605,44 @@ stdbool.h: $(top_builddir)/config.status
 #	mv $@-t $@
 stddef.h: $(top_builddir)/config.status
 	rm -f $@
+
+# We need the following in order to create <stdint.h> when the system
+# doesn't have one that works with the given compiler.
+stdint.h: stdint.in.h $(top_builddir)/config.status
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+	      -e 's/@''HAVE_STDINT_H''@/$(HAVE_STDINT_H)/g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+	      -e 's|@''PRAGMA_COLUMNS''@||g' \
+	      -e 's|@''NEXT_STDINT_H''@|$(NEXT_STDINT_H)|g' \
+	      -e 's/@''HAVE_C99_STDINT_H''@/$(HAVE_C99_STDINT_H)/g' \
+	      -e 's/@''HAVE_SYS_TYPES_H''@/$(HAVE_SYS_TYPES_H)/g' \
+	      -e 's/@''HAVE_INTTYPES_H''@/$(HAVE_INTTYPES_H)/g' \
+	      -e 's/@''HAVE_SYS_INTTYPES_H''@/$(HAVE_SYS_INTTYPES_H)/g' \
+	      -e 's/@''HAVE_SYS_BITYPES_H''@/$(HAVE_SYS_BITYPES_H)/g' \
+	      -e 's/@''HAVE_WCHAR_H''@/$(HAVE_WCHAR_H)/g' \
+	      -e 's/@''APPLE_UNIVERSAL_BUILD''@/$(APPLE_UNIVERSAL_BUILD)/g' \
+	      -e 's/@''BITSIZEOF_PTRDIFF_T''@/$(BITSIZEOF_PTRDIFF_T)/g' \
+	      -e 's/@''PTRDIFF_T_SUFFIX''@/$(PTRDIFF_T_SUFFIX)/g' \
+	      -e 's/@''BITSIZEOF_SIG_ATOMIC_T''@/$(BITSIZEOF_SIG_ATOMIC_T)/g' \
+	      -e 's/@''HAVE_SIGNED_SIG_ATOMIC_T''@/$(HAVE_SIGNED_SIG_ATOMIC_T)/g' \
+	      -e 's/@''SIG_ATOMIC_T_SUFFIX''@/$(SIG_ATOMIC_T_SUFFIX)/g' \
+	      -e 's/@''BITSIZEOF_SIZE_T''@/$(BITSIZEOF_SIZE_T)/g' \
+	      -e 's/@''SIZE_T_SUFFIX''@/$(SIZE_T_SUFFIX)/g' \
+	      -e 's/@''BITSIZEOF_WCHAR_T''@/$(BITSIZEOF_WCHAR_T)/g' \
+	      -e 's/@''HAVE_SIGNED_WCHAR_T''@/$(HAVE_SIGNED_WCHAR_T)/g' \
+	      -e 's/@''WCHAR_T_SUFFIX''@/$(WCHAR_T_SUFFIX)/g' \
+	      -e 's/@''BITSIZEOF_WINT_T''@/$(BITSIZEOF_WINT_T)/g' \
+	      -e 's/@''HAVE_SIGNED_WINT_T''@/$(HAVE_SIGNED_WINT_T)/g' \
+	      -e 's/@''WINT_T_SUFFIX''@/$(WINT_T_SUFFIX)/g' \
+	      -e 's/@''GNULIB_OVERRIDES_WINT_T''@/$(GNULIB_OVERRIDES_WINT_T)/g' \
+	      < $(srcdir)/stdint.in.h; \
+	} > $@-t && \
+	mv $@-t $@
+#stdint.h: $(top_builddir)/config.status
+#	rm -f $@
 
 # We need the following in order to create <stdio.h> when the system
 # doesn't have one that works with the given compiler.
@@ -1654,6 +1850,63 @@ sys/socket.h: sys_socket.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(WARN_
 	} > $@-t && \
 	mv -f $@-t $@
 
+# We need the following in order to create <sys/stat.h> when the system
+# has one that is incomplete.
+sys/stat.h: sys_stat.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
+	$(AM_V_at)$(MKDIR_P) sys
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+	      -e 's|@''PRAGMA_COLUMNS''@||g' \
+	      -e 's|@''NEXT_SYS_STAT_H''@|$(NEXT_SYS_STAT_H)|g' \
+	      -e 's|@''WINDOWS_64_BIT_ST_SIZE''@|$(WINDOWS_64_BIT_ST_SIZE)|g' \
+	      -e 's|@''WINDOWS_STAT_TIMESPEC''@|$(WINDOWS_STAT_TIMESPEC)|g' \
+	      -e 's/@''GNULIB_FCHMODAT''@/$(GNULIB_FCHMODAT)/g' \
+	      -e 's/@''GNULIB_FSTAT''@/$(GNULIB_FSTAT)/g' \
+	      -e 's/@''GNULIB_FSTATAT''@/$(GNULIB_FSTATAT)/g' \
+	      -e 's/@''GNULIB_FUTIMENS''@/$(GNULIB_FUTIMENS)/g' \
+	      -e 's/@''GNULIB_GETUMASK''@/$(GNULIB_GETUMASK)/g' \
+	      -e 's/@''GNULIB_LCHMOD''@/$(GNULIB_LCHMOD)/g' \
+	      -e 's/@''GNULIB_LSTAT''@/$(GNULIB_LSTAT)/g' \
+	      -e 's/@''GNULIB_MKDIRAT''@/$(GNULIB_MKDIRAT)/g' \
+	      -e 's/@''GNULIB_MKFIFO''@/$(GNULIB_MKFIFO)/g' \
+	      -e 's/@''GNULIB_MKFIFOAT''@/$(GNULIB_MKFIFOAT)/g' \
+	      -e 's/@''GNULIB_MKNOD''@/$(GNULIB_MKNOD)/g' \
+	      -e 's/@''GNULIB_MKNODAT''@/$(GNULIB_MKNODAT)/g' \
+	      -e 's/@''GNULIB_STAT''@/$(GNULIB_STAT)/g' \
+	      -e 's/@''GNULIB_UTIMENSAT''@/$(GNULIB_UTIMENSAT)/g' \
+	      -e 's/@''GNULIB_OVERRIDES_STRUCT_STAT''@/$(GNULIB_OVERRIDES_STRUCT_STAT)/g' \
+	      -e 's|@''HAVE_FCHMODAT''@|$(HAVE_FCHMODAT)|g' \
+	      -e 's|@''HAVE_FSTATAT''@|$(HAVE_FSTATAT)|g' \
+	      -e 's|@''HAVE_FUTIMENS''@|$(HAVE_FUTIMENS)|g' \
+	      -e 's|@''HAVE_GETUMASK''@|$(HAVE_GETUMASK)|g' \
+	      -e 's|@''HAVE_LCHMOD''@|$(HAVE_LCHMOD)|g' \
+	      -e 's|@''HAVE_LSTAT''@|$(HAVE_LSTAT)|g' \
+	      -e 's|@''HAVE_MKDIRAT''@|$(HAVE_MKDIRAT)|g' \
+	      -e 's|@''HAVE_MKFIFO''@|$(HAVE_MKFIFO)|g' \
+	      -e 's|@''HAVE_MKFIFOAT''@|$(HAVE_MKFIFOAT)|g' \
+	      -e 's|@''HAVE_MKNOD''@|$(HAVE_MKNOD)|g' \
+	      -e 's|@''HAVE_MKNODAT''@|$(HAVE_MKNODAT)|g' \
+	      -e 's|@''HAVE_UTIMENSAT''@|$(HAVE_UTIMENSAT)|g' \
+	      -e 's|@''REPLACE_FCHMODAT''@|$(REPLACE_FCHMODAT)|g' \
+	      -e 's|@''REPLACE_FSTAT''@|$(REPLACE_FSTAT)|g' \
+	      -e 's|@''REPLACE_FSTATAT''@|$(REPLACE_FSTATAT)|g' \
+	      -e 's|@''REPLACE_FUTIMENS''@|$(REPLACE_FUTIMENS)|g' \
+	      -e 's|@''REPLACE_LSTAT''@|$(REPLACE_LSTAT)|g' \
+	      -e 's|@''REPLACE_MKDIR''@|$(REPLACE_MKDIR)|g' \
+	      -e 's|@''REPLACE_MKFIFO''@|$(REPLACE_MKFIFO)|g' \
+	      -e 's|@''REPLACE_MKNOD''@|$(REPLACE_MKNOD)|g' \
+	      -e 's|@''REPLACE_STAT''@|$(REPLACE_STAT)|g' \
+	      -e 's|@''REPLACE_UTIMENSAT''@|$(REPLACE_UTIMENSAT)|g' \
+	      -e '/definitions of _GL_FUNCDECL_RPL/r $(CXXDEFS_H)' \
+	      -e '/definition of _GL_ARG_NONNULL/r $(ARG_NONNULL_H)' \
+	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)' \
+	      < $(srcdir)/sys_stat.in.h; \
+	} > $@-t && \
+	mv $@-t $@
+
 # We need the following in order to create <sys/time.h> when the system
 # doesn't have one that works with the given compiler.
 sys/time.h: sys_time.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
@@ -1711,6 +1964,51 @@ sys/uio.h: sys_uio.in.h $(top_builddir)/config.status
 	      < $(srcdir)/sys_uio.in.h; \
 	} > $@-t && \
 	mv -f $@-t $@
+
+# We need the following in order to create <time.h> when the system
+# doesn't have one that works with the given compiler.
+time.h: time.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
+	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+	      -e 's|@''PRAGMA_COLUMNS''@||g' \
+	      -e 's|@''NEXT_TIME_H''@|$(NEXT_TIME_H)|g' \
+	      -e 's/@''GNULIB_CTIME''@/$(GNULIB_CTIME)/g' \
+	      -e 's/@''GNULIB_LOCALTIME''@/$(GNULIB_LOCALTIME)/g' \
+	      -e 's/@''GNULIB_MKTIME''@/$(GNULIB_MKTIME)/g' \
+	      -e 's/@''GNULIB_NANOSLEEP''@/$(GNULIB_NANOSLEEP)/g' \
+	      -e 's/@''GNULIB_STRFTIME''@/$(GNULIB_STRFTIME)/g' \
+	      -e 's/@''GNULIB_STRPTIME''@/$(GNULIB_STRPTIME)/g' \
+	      -e 's/@''GNULIB_TIMEGM''@/$(GNULIB_TIMEGM)/g' \
+	      -e 's/@''GNULIB_TIME_R''@/$(GNULIB_TIME_R)/g' \
+	      -e 's/@''GNULIB_TIME_RZ''@/$(GNULIB_TIME_RZ)/g' \
+	      -e 's/@''GNULIB_TZSET''@/$(GNULIB_TZSET)/g' \
+	      -e 's|@''HAVE_DECL_LOCALTIME_R''@|$(HAVE_DECL_LOCALTIME_R)|g' \
+	      -e 's|@''HAVE_NANOSLEEP''@|$(HAVE_NANOSLEEP)|g' \
+	      -e 's|@''HAVE_STRPTIME''@|$(HAVE_STRPTIME)|g' \
+	      -e 's|@''HAVE_TIMEGM''@|$(HAVE_TIMEGM)|g' \
+	      -e 's|@''HAVE_TIMEZONE_T''@|$(HAVE_TIMEZONE_T)|g' \
+	      -e 's|@''REPLACE_CTIME''@|$(REPLACE_CTIME)|g' \
+	      -e 's|@''REPLACE_GMTIME''@|$(REPLACE_GMTIME)|g' \
+	      -e 's|@''REPLACE_LOCALTIME''@|$(REPLACE_LOCALTIME)|g' \
+	      -e 's|@''REPLACE_LOCALTIME_R''@|$(REPLACE_LOCALTIME_R)|g' \
+	      -e 's|@''REPLACE_MKTIME''@|$(REPLACE_MKTIME)|g' \
+	      -e 's|@''REPLACE_NANOSLEEP''@|$(REPLACE_NANOSLEEP)|g' \
+	      -e 's|@''REPLACE_STRFTIME''@|$(REPLACE_STRFTIME)|g' \
+	      -e 's|@''REPLACE_TIMEGM''@|$(REPLACE_TIMEGM)|g' \
+	      -e 's|@''REPLACE_TZSET''@|$(REPLACE_TZSET)|g' \
+	      -e 's|@''PTHREAD_H_DEFINES_STRUCT_TIMESPEC''@|$(PTHREAD_H_DEFINES_STRUCT_TIMESPEC)|g' \
+	      -e 's|@''SYS_TIME_H_DEFINES_STRUCT_TIMESPEC''@|$(SYS_TIME_H_DEFINES_STRUCT_TIMESPEC)|g' \
+	      -e 's|@''TIME_H_DEFINES_STRUCT_TIMESPEC''@|$(TIME_H_DEFINES_STRUCT_TIMESPEC)|g' \
+	      -e 's|@''UNISTD_H_DEFINES_STRUCT_TIMESPEC''@|$(UNISTD_H_DEFINES_STRUCT_TIMESPEC)|g' \
+	      -e '/definitions of _GL_FUNCDECL_RPL/r $(CXXDEFS_H)' \
+	      -e '/definition of _GL_ARG_NONNULL/r $(ARG_NONNULL_H)' \
+	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)' \
+	      < $(srcdir)/time.in.h; \
+	} > $@-t && \
+	mv $@-t $@
 
 # We need the following in order to create an empty placeholder for
 # <unistd.h> when the system doesn't have one.

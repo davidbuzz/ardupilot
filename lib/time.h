@@ -1,12 +1,12 @@
 /* DO NOT EDIT! GENERATED AUTOMATICALLY! */
-/* Like <fcntl.h>, but with non-working flags defined to 0.
+/* A more-standard <time.h>.
 
-   Copyright (C) 2006-2020 Free Software Foundation, Inc.
+   Copyright (C) 2007-2020 Free Software Foundation, Inc.
 
-   This program is free software: you can redistribute it and/or modify
+   This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 3 of the License, or
-   (at your option) any later version.
+   the Free Software Foundation; either version 3, or (at your option)
+   any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,71 +14,40 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
-
-/* written by Paul Eggert */
+   along with this program; if not, see <https://www.gnu.org/licenses/>.  */
 
 #if __GNUC__ >= 3
 #pragma GCC system_header
 #endif
 
 
-#if defined __need_system_fcntl_h
-/* Special invocation convention.  */
+/* Don't get in the way of glibc when it includes time.h merely to
+   declare a few standard symbols, rather than to declare all the
+   symbols.  (However, skip this for MinGW as it treats __need_time_t
+   incompatibly.)  Also, Solaris 8 <time.h> eventually includes itself
+   recursively; if that is happening, just include the system <time.h>
+   without adding our own declarations.  */
+#if (((defined __need_time_t || defined __need_clock_t \
+       || defined __need_timespec)                     \
+      && !defined __MINGW32__)                         \
+     || defined _GL_TIME_H)
 
-/* Needed before <sys/stat.h>.
-   May also define off_t to a 64-bit type on native Windows.  */
-#include <sys/types.h>
-/* On some systems other than glibc, <sys/stat.h> is a prerequisite of
-   <fcntl.h>.  On glibc systems, we would like to avoid namespace pollution.
-   But on glibc systems, <fcntl.h> includes <sys/stat.h> inside an
-   extern "C" { ... } block, which leads to errors in C++ mode with the
-   overridden <sys/stat.h> from gnulib.  These errors are known to be gone
-   with g++ version >= 4.3.  */
-#if !(defined __GLIBC__ || defined __UCLIBC__) || (defined __cplusplus && defined GNULIB_NAMESPACE && (defined __ICC || !(__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3))))
-# include <sys/stat.h>
-#endif
-#include_next <fcntl.h>
-
-/* Native Windows platforms declare open(), creat() in <io.h>.  */
-#if (0 || 1 || defined GNULIB_POSIXCHECK) \
-    && (defined _WIN32 && ! defined __CYGWIN__)
-# include <io.h>
-#endif
+# include_next <time.h>
 
 #else
-/* Normal invocation convention.  */
 
-#ifndef _GL_FCNTL_H
+# define _GL_TIME_H
 
-/* Needed before <sys/stat.h>.
-   May also define off_t to a 64-bit type on native Windows.  */
-#include <sys/types.h>
-/* On some systems other than glibc, <sys/stat.h> is a prerequisite of
-   <fcntl.h>.  On glibc systems, we would like to avoid namespace pollution.
-   But on glibc systems, <fcntl.h> includes <sys/stat.h> inside an
-   extern "C" { ... } block, which leads to errors in C++ mode with the
-   overridden <sys/stat.h> from gnulib.  These errors are known to be gone
-   with g++ version >= 4.3.  */
-#if !(defined __GLIBC__ || defined __UCLIBC__) || (defined __cplusplus && defined GNULIB_NAMESPACE && (defined __ICC || !(__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3))))
-# include <sys/stat.h>
-#endif
-/* The include_next requires a split double-inclusion guard.  */
-#include_next <fcntl.h>
+/* mingw's <time.h> provides the functions asctime_r, ctime_r, gmtime_r,
+   localtime_r only if <unistd.h> or <pthread.h> has been included before.  */
+# if defined __MINGW32__
+#  include <unistd.h>
+# endif
 
-/* Native Windows platforms declare open(), creat() in <io.h>.  */
-#if (0 || 1 || defined GNULIB_POSIXCHECK) \
-    && (defined _WIN32 && ! defined __CYGWIN__)
-# include <io.h>
-#endif
+# include_next <time.h>
 
-#ifndef _GL_FCNTL_H
-#define _GL_FCNTL_H
-
-#ifndef __GLIBC__ /* Avoid namespace pollution on glibc systems.  */
-# include <unistd.h>
-#endif
-
+/* NetBSD 5.0 mis-defines NULL.  */
+# include <stddef.h>
 
 /* The definitions of _GL_FUNCDECL_RPL etc. are copied here.  */
 /* C++ compatible function declaration macros.
@@ -584,332 +553,320 @@ _GL_WARN_EXTERN_C int _gl_warn_on_use
 # endif
 #endif
 
+/* Some systems don't define struct timespec (e.g., AIX 4.1).
+   Or they define it with the wrong member names or define it in <sys/time.h>
+   (e.g., FreeBSD circa 1997).  Stock Mingw prior to 3.0 does not define it,
+   but the pthreads-win32 library defines it in <pthread.h>.  */
+# if ! 1
+#  if 0
+#   include <sys/time.h>
+#  elif 0
+#   include <pthread.h>
+#  elif 0
+#   include <unistd.h>
+#  else
 
-/* Declare overridden functions.  */
-
-#if 0
-# if 0
-#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#   undef creat
-#   define creat rpl_creat
-#  endif
-_GL_FUNCDECL_RPL (creat, int, (const char *filename, mode_t mode)
-                             _GL_ARG_NONNULL ((1)));
-_GL_CXXALIAS_RPL (creat, int, (const char *filename, mode_t mode));
-# elif defined _WIN32 && !defined __CYGWIN__
-#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#   undef creat
-#   define creat _creat
-#  endif
-_GL_CXXALIAS_MDA (creat, int, (const char *filename, mode_t mode));
-# else
-_GL_CXXALIAS_SYS (creat, int, (const char *filename, mode_t mode));
-# endif
-_GL_CXXALIASWARN (creat);
-#elif defined GNULIB_POSIXCHECK
-# undef creat
-/* Assume creat is always declared.  */
-_GL_WARN_ON_USE (creat, "creat is not always POSIX compliant - "
-                 "use gnulib module creat for portability");
-#elif defined _WIN32 && !defined __CYGWIN__
-# undef creat
-# define creat _creat
-#endif
-
-#if 1
-# if 0
-#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#   undef fcntl
-#   define fcntl rpl_fcntl
-#  endif
-_GL_FUNCDECL_RPL (fcntl, int, (int fd, int action, ...));
-_GL_CXXALIAS_RPL (fcntl, int, (int fd, int action, ...));
-#  if !GNULIB_defined_rpl_fcntl
-#   define GNULIB_defined_rpl_fcntl 1
-#  endif
-# else
-#  if !0
-_GL_FUNCDECL_SYS (fcntl, int, (int fd, int action, ...));
-#   if !GNULIB_defined_fcntl
-#    define GNULIB_defined_fcntl 1
+#   ifdef __cplusplus
+extern "C" {
 #   endif
-#  endif
-_GL_CXXALIAS_SYS (fcntl, int, (int fd, int action, ...));
-# endif
-_GL_CXXALIASWARN (fcntl);
-#elif defined GNULIB_POSIXCHECK
-# undef fcntl
-# if HAVE_RAW_DECL_FCNTL
-_GL_WARN_ON_USE (fcntl, "fcntl is not always POSIX compliant - "
-                 "use gnulib module fcntl for portability");
-# endif
-#endif
 
-#if 1
-# if 1
-#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#   undef open
-#   define open rpl_open
-#  endif
-_GL_FUNCDECL_RPL (open, int, (const char *filename, int flags, ...)
-                             _GL_ARG_NONNULL ((1)));
-_GL_CXXALIAS_RPL (open, int, (const char *filename, int flags, ...));
-# elif defined _WIN32 && !defined __CYGWIN__
-#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#   undef open
-#   define open _open
-#  endif
-_GL_CXXALIAS_MDA (open, int, (const char *filename, int flags, ...));
-# else
-_GL_CXXALIAS_SYS (open, int, (const char *filename, int flags, ...));
-# endif
-/* On HP-UX 11, in C++ mode, open() is defined as an inline function with a
-   default argument.  _GL_CXXALIASWARN does not work in this case.  */
-# if !defined __hpux
-_GL_CXXALIASWARN (open);
-# endif
-#elif defined GNULIB_POSIXCHECK
-# undef open
-/* Assume open is always declared.  */
-_GL_WARN_ON_USE (open, "open is not always POSIX compliant - "
-                 "use gnulib module open for portability");
-#elif defined _WIN32 && !defined __CYGWIN__
-# undef open
-# define open _open
-#endif
+#   if !GNULIB_defined_struct_timespec
+#    undef timespec
+#    define timespec rpl_timespec
+struct timespec
+{
+  time_t tv_sec;
+  long int tv_nsec;
+};
+#    define GNULIB_defined_struct_timespec 1
+#   endif
 
-#if 0
+#   ifdef __cplusplus
+}
+#   endif
+
+#  endif
+# endif
+
+# if !GNULIB_defined_struct_time_t_must_be_integral
+/* https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/sys_types.h.html
+   requires time_t to be an integer type, even though C99 permits floating
+   point.  We don't know of any implementation that uses floating
+   point, and it is much easier to write code that doesn't have to
+   worry about that corner case, so we force the issue.  */
+struct __time_t_must_be_integral {
+  unsigned int __floating_time_t_unsupported : (time_t) 1;
+};
+#  define GNULIB_defined_struct_time_t_must_be_integral 1
+# endif
+
+/* Sleep for at least RQTP seconds unless interrupted,  If interrupted,
+   return -1 and store the remaining time into RMTP.  See
+   <https://pubs.opengroup.org/onlinepubs/9699919799/functions/nanosleep.html>.  */
 # if 0
-#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
-#   undef openat
-#   define openat rpl_openat
+#  if GNULIB_PORTCHECK
+#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#    define nanosleep rpl_nanosleep
+#   endif
+_GL_FUNCDECL_RPL (nanosleep, int,
+                  (struct timespec const *__rqtp, struct timespec *__rmtp)
+                  _GL_ARG_NONNULL ((1)));
+_GL_CXXALIAS_RPL (nanosleep, int,
+                  (struct timespec const *__rqtp, struct timespec *__rmtp));
+#  else
+#   if ! 1
+_GL_FUNCDECL_SYS (nanosleep, int,
+                  (struct timespec const *__rqtp, struct timespec *__rmtp)
+                  _GL_ARG_NONNULL ((1)));
+#   endif
+_GL_CXXALIAS_SYS (nanosleep, int,
+                  (struct timespec const *__rqtp, struct timespec *__rmtp));
 #  endif
-_GL_FUNCDECL_RPL (openat, int,
-                  (int fd, char const *file, int flags, /* mode_t mode */ ...)
-                  _GL_ARG_NONNULL ((2)));
-_GL_CXXALIAS_RPL (openat, int,
-                  (int fd, char const *file, int flags, /* mode_t mode */ ...));
-# else
-#  if !1
-_GL_FUNCDECL_SYS (openat, int,
-                  (int fd, char const *file, int flags, /* mode_t mode */ ...)
-                  _GL_ARG_NONNULL ((2)));
+_GL_CXXALIASWARN (nanosleep);
+# endif
+
+/* Initialize time conversion information.  */
+# if 0
+#  if GNULIB_PORTCHECK
+#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#    undef tzset
+#    define tzset rpl_tzset
+#   endif
+_GL_FUNCDECL_RPL (tzset, void, (void));
+_GL_CXXALIAS_RPL (tzset, void, (void));
+#  elif defined _WIN32 && !defined __CYGWIN__
+#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#    undef tzset
+#    define tzset _tzset
+#   endif
+_GL_CXXALIAS_MDA (tzset, void, (void));
+#  else
+_GL_CXXALIAS_SYS (tzset, void, (void));
 #  endif
-_GL_CXXALIAS_SYS (openat, int,
-                  (int fd, char const *file, int flags, /* mode_t mode */ ...));
+_GL_CXXALIASWARN (tzset);
+# elif defined _WIN32 && !defined __CYGWIN__
+#  undef tzset
+#  define tzset _tzset
 # endif
-_GL_CXXALIASWARN (openat);
-#elif defined GNULIB_POSIXCHECK
-# undef openat
-# if HAVE_RAW_DECL_OPENAT
-_GL_WARN_ON_USE (openat, "openat is not portable - "
-                 "use gnulib module openat for portability");
+
+/* Return the 'time_t' representation of TP and normalize TP.  */
+# if 0
+#  if GNULIB_PORTCHECK
+#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#    define mktime rpl_mktime
+#   endif
+_GL_FUNCDECL_RPL (mktime, time_t, (struct tm *__tp) _GL_ARG_NONNULL ((1)));
+_GL_CXXALIAS_RPL (mktime, time_t, (struct tm *__tp));
+#  else
+_GL_CXXALIAS_SYS (mktime, time_t, (struct tm *__tp));
+#  endif
+#  if __GLIBC__ >= 2
+_GL_CXXALIASWARN (mktime);
+#  endif
 # endif
-#endif
 
-
-/* Fix up the FD_* macros, only known to be missing on mingw.  */
-
-#ifndef FD_CLOEXEC
-# define FD_CLOEXEC 1
-#endif
-
-/* Fix up the supported F_* macros.  Intentionally leave other F_*
-   macros undefined.  Only known to be missing on mingw.  */
-
-#ifndef F_DUPFD_CLOEXEC
-# define F_DUPFD_CLOEXEC 0x40000000
-/* Witness variable: 1 if gnulib defined F_DUPFD_CLOEXEC, 0 otherwise.  */
-# define GNULIB_defined_F_DUPFD_CLOEXEC 1
-#else
-# define GNULIB_defined_F_DUPFD_CLOEXEC 0
-#endif
-
-#ifndef F_DUPFD
-# define F_DUPFD 1
-#endif
-
-#ifndef F_GETFD
-# define F_GETFD 2
-#endif
-
-/* Fix up the O_* macros.  */
-
-/* AIX 7.1 with XL C 12.1 defines O_CLOEXEC, O_NOFOLLOW, and O_TTY_INIT
-   to values outside 'int' range, so omit these misdefinitions.
-   But avoid namespace pollution on non-AIX systems.  */
-#ifdef _AIX
-# include <limits.h>
-# if defined O_CLOEXEC && ! (INT_MIN <= O_CLOEXEC && O_CLOEXEC <= INT_MAX)
-#  undef O_CLOEXEC
+/* Convert TIMER to RESULT, assuming local time and UTC respectively.  See
+   <https://pubs.opengroup.org/onlinepubs/9699919799/functions/localtime_r.html> and
+   <https://pubs.opengroup.org/onlinepubs/9699919799/functions/gmtime_r.html>.  */
+# if 0
+#  if GNULIB_PORTCHECK
+#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#    undef localtime_r
+#    define localtime_r rpl_localtime_r
+#   endif
+_GL_FUNCDECL_RPL (localtime_r, struct tm *, (time_t const *restrict __timer,
+                                             struct tm *restrict __result)
+                                            _GL_ARG_NONNULL ((1, 2)));
+_GL_CXXALIAS_RPL (localtime_r, struct tm *, (time_t const *restrict __timer,
+                                             struct tm *restrict __result));
+#  else
+#   if ! 1
+_GL_FUNCDECL_SYS (localtime_r, struct tm *, (time_t const *restrict __timer,
+                                             struct tm *restrict __result)
+                                            _GL_ARG_NONNULL ((1, 2)));
+#   endif
+_GL_CXXALIAS_SYS (localtime_r, struct tm *, (time_t const *restrict __timer,
+                                             struct tm *restrict __result));
+#  endif
+#  if 1
+_GL_CXXALIASWARN (localtime_r);
+#  endif
+#  if GNULIB_PORTCHECK
+#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#    undef gmtime_r
+#    define gmtime_r rpl_gmtime_r
+#   endif
+_GL_FUNCDECL_RPL (gmtime_r, struct tm *, (time_t const *restrict __timer,
+                                          struct tm *restrict __result)
+                                         _GL_ARG_NONNULL ((1, 2)));
+_GL_CXXALIAS_RPL (gmtime_r, struct tm *, (time_t const *restrict __timer,
+                                          struct tm *restrict __result));
+#  else
+#   if ! 1
+_GL_FUNCDECL_SYS (gmtime_r, struct tm *, (time_t const *restrict __timer,
+                                          struct tm *restrict __result)
+                                         _GL_ARG_NONNULL ((1, 2)));
+#   endif
+_GL_CXXALIAS_SYS (gmtime_r, struct tm *, (time_t const *restrict __timer,
+                                          struct tm *restrict __result));
+#  endif
+#  if 1
+_GL_CXXALIASWARN (gmtime_r);
+#  endif
 # endif
-# if defined O_NOFOLLOW && ! (INT_MIN <= O_NOFOLLOW && O_NOFOLLOW <= INT_MAX)
-#  undef O_NOFOLLOW
+
+/* Convert TIMER to RESULT, assuming local time and UTC respectively.  See
+   <https://pubs.opengroup.org/onlinepubs/9699919799/functions/localtime.html> and
+   <https://pubs.opengroup.org/onlinepubs/9699919799/functions/gmtime.html>.  */
+# if 0 || 0
+#  if 0
+#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#    undef localtime
+#    define localtime rpl_localtime
+#   endif
+_GL_FUNCDECL_RPL (localtime, struct tm *, (time_t const *__timer)
+                                          _GL_ARG_NONNULL ((1)));
+_GL_CXXALIAS_RPL (localtime, struct tm *, (time_t const *__timer));
+#  else
+_GL_CXXALIAS_SYS (localtime, struct tm *, (time_t const *__timer));
+#  endif
+#  if __GLIBC__ >= 2
+_GL_CXXALIASWARN (localtime);
+#  endif
 # endif
-# if defined O_TTY_INIT && ! (INT_MIN <= O_TTY_INIT && O_TTY_INIT <= INT_MAX)
-#  undef O_TTY_INIT
+
+# if 0 || 0
+#  if 0
+#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#    undef gmtime
+#    define gmtime rpl_gmtime
+#   endif
+_GL_FUNCDECL_RPL (gmtime, struct tm *, (time_t const *__timer)
+                                       _GL_ARG_NONNULL ((1)));
+_GL_CXXALIAS_RPL (gmtime, struct tm *, (time_t const *__timer));
+#  else
+_GL_CXXALIAS_SYS (gmtime, struct tm *, (time_t const *__timer));
+#  endif
+_GL_CXXALIASWARN (gmtime);
 # endif
-#endif
 
-#if !defined O_DIRECT && defined O_DIRECTIO
-/* Tru64 spells it 'O_DIRECTIO'.  */
-# define O_DIRECT O_DIRECTIO
-#endif
-
-#if !defined O_CLOEXEC && defined O_NOINHERIT
-/* Mingw spells it 'O_NOINHERIT'.  */
-# define O_CLOEXEC O_NOINHERIT
-#endif
-
-#ifndef O_CLOEXEC
-# define O_CLOEXEC 0x40000000 /* Try to not collide with system O_* flags.  */
-# define GNULIB_defined_O_CLOEXEC 1
-#else
-# define GNULIB_defined_O_CLOEXEC 0
-#endif
-
-#ifndef O_DIRECT
-# define O_DIRECT 0
-#endif
-
-#ifndef O_DIRECTORY
-# define O_DIRECTORY 0
-#endif
-
-#ifndef O_DSYNC
-# define O_DSYNC 0
-#endif
-
-#ifndef O_EXEC
-# define O_EXEC O_RDONLY /* This is often close enough in older systems.  */
-#endif
-
-#ifndef O_IGNORE_CTTY
-# define O_IGNORE_CTTY 0
-#endif
-
-#ifndef O_NDELAY
-# define O_NDELAY 0
-#endif
-
-#ifndef O_NOATIME
-# define O_NOATIME 0
-#endif
-
-#ifndef O_NONBLOCK
-# define O_NONBLOCK O_NDELAY
-#endif
-
-/* If the gnulib module 'nonblocking' is in use, guarantee a working non-zero
-   value of O_NONBLOCK.  Otherwise, O_NONBLOCK is defined (above) to O_NDELAY
-   or to 0 as fallback.  */
-#if 1
-# if O_NONBLOCK
-#  define GNULIB_defined_O_NONBLOCK 0
-# else
-#  define GNULIB_defined_O_NONBLOCK 1
-#  undef O_NONBLOCK
-#  define O_NONBLOCK 0x40000000
+/* Parse BUF as a timestamp, assuming FORMAT specifies its layout, and store
+   the resulting broken-down time into TM.  See
+   <https://pubs.opengroup.org/onlinepubs/9699919799/functions/strptime.html>.  */
+# if 0
+#  if ! 1
+_GL_FUNCDECL_SYS (strptime, char *, (char const *restrict __buf,
+                                     char const *restrict __format,
+                                     struct tm *restrict __tm)
+                                    _GL_ARG_NONNULL ((1, 2, 3)));
+#  endif
+_GL_CXXALIAS_SYS (strptime, char *, (char const *restrict __buf,
+                                     char const *restrict __format,
+                                     struct tm *restrict __tm));
+_GL_CXXALIASWARN (strptime);
 # endif
-#endif
 
-#ifndef O_NOCTTY
-# define O_NOCTTY 0
-#endif
+/* Convert *TP to a date and time string.  See
+   <https://pubs.opengroup.org/onlinepubs/9699919799/functions/ctime.html>.  */
+# if 0
+#  if GNULIB_PORTCHECK
+#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#    define ctime rpl_ctime
+#   endif
+_GL_FUNCDECL_RPL (ctime, char *, (time_t const *__tp)
+                                 _GL_ARG_NONNULL ((1)));
+_GL_CXXALIAS_RPL (ctime, char *, (time_t const *__tp));
+#  else
+_GL_CXXALIAS_SYS (ctime, char *, (time_t const *__tp));
+#  endif
+#  if __GLIBC__ >= 2
+_GL_CXXALIASWARN (ctime);
+#  endif
+# endif
 
-#ifndef O_NOFOLLOW
-# define O_NOFOLLOW 0
-#endif
+/* Convert *TP to a date and time string.  See
+   <https://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html>.  */
+# if 0
+#  if GNULIB_PORTCHECK
+#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#    define strftime rpl_strftime
+#   endif
+_GL_FUNCDECL_RPL (strftime, size_t,
+                  (char *restrict __buf, size_t __bufsize,
+                   const char *restrict __fmt, const struct tm *restrict __tp)
+                  _GL_ARG_NONNULL ((1, 3, 4)));
+_GL_CXXALIAS_RPL (strftime, size_t,
+                  (char *restrict __buf, size_t __bufsize,
+                   const char *restrict __fmt, const struct tm *restrict __tp));
+#  else
+_GL_CXXALIAS_SYS (strftime, size_t,
+                  (char *restrict __buf, size_t __bufsize,
+                   const char *restrict __fmt, const struct tm *restrict __tp));
+#  endif
+#  if __GLIBC__ >= 2
+_GL_CXXALIASWARN (strftime);
+#  endif
+# endif
 
-#ifndef O_NOLINK
-# define O_NOLINK 0
-#endif
+# if defined _GNU_SOURCE && 0 && ! 0
+typedef struct tm_zone *timezone_t;
+_GL_FUNCDECL_SYS (tzalloc, timezone_t, (char const *__name));
+_GL_CXXALIAS_SYS (tzalloc, timezone_t, (char const *__name));
+_GL_FUNCDECL_SYS (tzfree, void, (timezone_t __tz));
+_GL_CXXALIAS_SYS (tzfree, void, (timezone_t __tz));
+_GL_FUNCDECL_SYS (localtime_rz, struct tm *,
+                  (timezone_t __tz, time_t const *restrict __timer,
+                   struct tm *restrict __result) _GL_ARG_NONNULL ((2, 3)));
+_GL_CXXALIAS_SYS (localtime_rz, struct tm *,
+                  (timezone_t __tz, time_t const *restrict __timer,
+                   struct tm *restrict __result));
+_GL_FUNCDECL_SYS (mktime_z, time_t,
+                  (timezone_t __tz, struct tm *restrict __result)
+                  _GL_ARG_NONNULL ((2)));
+_GL_CXXALIAS_SYS (mktime_z, time_t,
+                  (timezone_t __tz, struct tm *restrict __result));
+# endif
 
-#ifndef O_NOLINKS
-# define O_NOLINKS 0
-#endif
+/* Convert TM to a time_t value, assuming UTC.  */
+# if 0
+#  if GNULIB_PORTCHECK
+#   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#    undef timegm
+#    define timegm rpl_timegm
+#   endif
+_GL_FUNCDECL_RPL (timegm, time_t, (struct tm *__tm) _GL_ARG_NONNULL ((1)));
+_GL_CXXALIAS_RPL (timegm, time_t, (struct tm *__tm));
+#  else
+#   if ! 1
+_GL_FUNCDECL_SYS (timegm, time_t, (struct tm *__tm) _GL_ARG_NONNULL ((1)));
+#   endif
+_GL_CXXALIAS_SYS (timegm, time_t, (struct tm *__tm));
+#  endif
+_GL_CXXALIASWARN (timegm);
+# endif
 
-#ifndef O_NOTRANS
-# define O_NOTRANS 0
-#endif
+/* Encourage applications to avoid unsafe functions that can overrun
+   buffers when given outlandish struct tm values.  Portable
+   applications should use strftime (or even sprintf) instead.  */
+# if defined GNULIB_POSIXCHECK
+#  undef asctime
+_GL_WARN_ON_USE (asctime, "asctime can overrun buffers in some cases - "
+                 "better use strftime (or even sprintf) instead");
+# endif
+# if defined GNULIB_POSIXCHECK
+#  undef asctime_r
+_GL_WARN_ON_USE (asctime_r, "asctime_r can overrun buffers in some cases - "
+                 "better use strftime (or even sprintf) instead");
+# endif
+# if defined GNULIB_POSIXCHECK
+#  undef ctime
+_GL_WARN_ON_USE (ctime, "ctime can overrun buffers in some cases - "
+                 "better use strftime (or even sprintf) instead");
+# endif
+# if defined GNULIB_POSIXCHECK
+#  undef ctime_r
+_GL_WARN_ON_USE (ctime_r, "ctime_r can overrun buffers in some cases - "
+                 "better use strftime (or even sprintf) instead");
+# endif
 
-#ifndef O_RSYNC
-# define O_RSYNC 0
-#endif
-
-#ifndef O_SEARCH
-# define O_SEARCH O_RDONLY /* This is often close enough in older systems.  */
-#endif
-
-#ifndef O_SYNC
-# define O_SYNC 0
-#endif
-
-#ifndef O_TTY_INIT
-# define O_TTY_INIT 0
-#endif
-
-#if ~O_ACCMODE & (O_RDONLY | O_WRONLY | O_RDWR | O_EXEC | O_SEARCH)
-# undef O_ACCMODE
-# define O_ACCMODE (O_RDONLY | O_WRONLY | O_RDWR | O_EXEC | O_SEARCH)
-#endif
-
-/* For systems that distinguish between text and binary I/O.
-   O_BINARY is usually declared in fcntl.h  */
-#if !defined O_BINARY && defined _O_BINARY
-  /* For MSC-compatible compilers.  */
-# define O_BINARY _O_BINARY
-# define O_TEXT _O_TEXT
-#endif
-
-#if defined __BEOS__ || defined __HAIKU__
-  /* BeOS 5 and Haiku have O_BINARY and O_TEXT, but they have no effect.  */
-# undef O_BINARY
-# undef O_TEXT
-#endif
-
-#ifndef O_BINARY
-# define O_BINARY 0
-# define O_TEXT 0
-#endif
-
-/* Fix up the AT_* macros.  */
-
-/* Work around a bug in Solaris 9 and 10: AT_FDCWD is positive.  Its
-   value exceeds INT_MAX, so its use as an int doesn't conform to the
-   C standard, and GCC and Sun C complain in some cases.  If the bug
-   is present, undef AT_FDCWD here, so it can be redefined below.  */
-#if 0 < AT_FDCWD && AT_FDCWD == 0xffd19553
-# undef AT_FDCWD
-#endif
-
-/* Use the same bit pattern as Solaris 9, but with the proper
-   signedness.  The bit pattern is important, in case this actually is
-   Solaris with the above workaround.  */
-#ifndef AT_FDCWD
-# define AT_FDCWD (-3041965)
-#endif
-
-/* Use the same values as Solaris 9.  This shouldn't matter, but
-   there's no real reason to differ.  */
-#ifndef AT_SYMLINK_NOFOLLOW
-# define AT_SYMLINK_NOFOLLOW 4096
-#endif
-
-#ifndef AT_REMOVEDIR
-# define AT_REMOVEDIR 1
-#endif
-
-/* Solaris 9 lacks these two, so just pick unique values.  */
-#ifndef AT_SYMLINK_FOLLOW
-# define AT_SYMLINK_FOLLOW 2
-#endif
-
-#ifndef AT_EACCESS
-# define AT_EACCESS 4
-#endif
-
-
-#endif /* _GL_FCNTL_H */
-#endif /* _GL_FCNTL_H */
 #endif
