@@ -191,9 +191,6 @@
 /* Define to 1 if you have the <sys/uio.h> header file. */
 /* #undef HAVE_SYS_UIO_H */
 
-/* Define to 1 if you have the <termios.h> header file. */
-/* #undef HAVE_TERMIOS_H */
-
 /* Define to 1 if you have the `uname' function. */
 /* #undef HAVE_UNAME */
 
@@ -812,3 +809,5 @@
 
 /* Define to `int' if <sys/types.h> doesn't define. */
 #define uid_t int
+#define GNULIB_NAMESPACE  gnulib
+

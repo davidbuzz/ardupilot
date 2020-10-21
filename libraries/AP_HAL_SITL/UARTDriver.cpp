@@ -331,7 +331,7 @@ void UARTDriver::_tcp_start_connection(uint16_t port, bool wait_for_connection)
         }
 
         /* we want to be able to re-use ports quickly */
-        if (setsockopt(_listen_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) == -1) {
+        if (gnulib::setsockopt(_listen_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) == -1) {
             fprintf(stderr, "setsockopt failed: %s\n", strerror(errno));
             exit(1);
         }
@@ -369,8 +369,8 @@ void UARTDriver::_tcp_start_connection(uint16_t port, bool wait_for_connection)
             exit(1);
         }
 
-        setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
-        setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
+        gnulib::setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
+        gnulib::setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
         _fcntl(_fd, F_SETFD, FD_CLOEXEC);
 
         _connected = true;
@@ -421,7 +421,7 @@ void UARTDriver::_tcp_start_client(const char *address, uint16_t port)
     }
 
     /* we want to be able to re-use ports quickly */
-    setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
+    gnulib::setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
 
     ret = connect(_fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
     if (ret == -1) {
@@ -432,8 +432,8 @@ void UARTDriver::_tcp_start_client(const char *address, uint16_t port)
     }
 
 
-    setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
-    setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
+    gnulib::setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
+    gnulib::setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
 
     _fcntl(_fd, F_SETFD, FD_CLOEXEC);
 
@@ -483,7 +483,7 @@ void UARTDriver::_udp_start_client(const char *address, uint16_t port)
 
     // try to setup for broadcast, this may fail if insufficient privileges
     int one = 1;
-    setsockopt(_fd,SOL_SOCKET,SO_BROADCAST,(char *)&one,sizeof(one));
+    gnulib::setsockopt(_fd,SOL_SOCKET,SO_BROADCAST,(char *)&one,sizeof(one));
 
     ret = connect(_fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
     if (ret == -1) {
@@ -532,7 +532,7 @@ void UARTDriver::_udp_start_multicast(const char *address, uint16_t port)
         exit(1);
     }
     int one = 1;
-    if (setsockopt(_mc_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) == -1) {
+    if (gnulib::setsockopt(_mc_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) == -1) {
         fprintf(stderr, "setsockopt failed: %s\n", strerror(errno));
         exit(1);
     }
@@ -552,7 +552,7 @@ void UARTDriver::_udp_start_multicast(const char *address, uint16_t port)
     mreq.imr_multiaddr.s_addr = inet_addr(address);
     mreq.imr_interface.s_addr = htonl(INADDR_ANY);
 
-    ret = setsockopt(_mc_fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq));
+    ret = gnulib::setsockopt(_mc_fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq));
     if (ret == -1) {
         fprintf(stderr, "multicast membership add failed on port %u - %s\n",
                 (unsigned)ntohs(sockaddr.sin_port),
@@ -630,8 +630,8 @@ void UARTDriver::_check_connection(void)
             _connected = true;
 
             int one = 1;
-            setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
-            setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
+            gnulib::setsockopt(_fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
+            gnulib::setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one));
             _fcntl(_fd, F_SETFD, FD_CLOEXEC);
 
             fprintf(stdout, "New connection on serial port %u\n", _portNumber);
@@ -657,7 +657,7 @@ bool UARTDriver::_select_check(int fd)
     tv.tv_sec = 0;
     tv.tv_usec = 0;
 
-    if (select(fd+1, &fds, nullptr, nullptr, &tv) == 1) {
+    if (gnulib::select(fd+1, &fds, nullptr, nullptr, &tv) == 1) {
         return true;
     }
     return false;
@@ -730,7 +730,7 @@ void UARTDriver::_timer_tick(void)
             uint8_t tmpbuf[n];
             _writebuffer.peekbytes(tmpbuf, n);
 
-            ssize_t ret = send(_fd, tmpbuf, n, MSG_DONTWAIT);
+            ssize_t ret = gnulib::send(_fd, tmpbuf, n, MSG_DONTWAIT);
 
             if (ret > 0) {
                 _writebuffer.advance(ret);
@@ -757,7 +757,7 @@ void UARTDriver::_timer_tick(void)
                     _connected = false;
                 }
             } else {
-                nwritten = send(_fd, readptr, navail, MSG_DONTWAIT);
+                nwritten = gnulib::send(_fd, readptr, navail, MSG_DONTWAIT);
             }
             if (nwritten > 0) {
                 _writebuffer.advance(nwritten);

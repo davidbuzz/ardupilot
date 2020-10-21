@@ -57,7 +57,6 @@
 #  socket \
 #  sys_select \
 #  sys_socket \
-#  termios \
 #  unistd
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
@@ -83,7 +82,6 @@ gl_MODULES([
   socket
   sys_select
   sys_socket
-  termios
   unistd
 ])
 gl_AVOID([])

@@ -59,11 +59,9 @@ SocketAPM::SocketAPM(bool _datagram, int _fd) :
 #endif
     if (!datagram) {
         int one = 1;
-        #ifndef _WIN32
-        setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
-        #else
-        setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, (const char*)&one, sizeof(one));
-        #endif
+
+        gnulib::setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
+
     }
 }
 
@@ -127,11 +125,9 @@ bool SocketAPM::reuseaddress(void)
    // return false;// hack to allow it
 
     int one = 1;
- //       #ifndef _WIN32
-    return (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) != -1);
- //       #else
- //   return (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (const char*)&one, sizeof(one)) != -1);
-  //      #endif
+
+    return (gnulib::setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) != -1);
+
 
 }
 
@@ -189,7 +185,7 @@ bool SocketAPM::set_cloexec()
 ssize_t SocketAPM::send(const void *buf, size_t size)
 {
 
-    return ::send(fd, buf, size, 0);
+    return gnulib::send(fd, buf, size, 0);
 
 }
 
@@ -201,7 +197,7 @@ ssize_t SocketAPM::sendto(const void *buf, size_t size, const char *address, uin
     struct sockaddr_in sockaddr;
     make_sockaddr(address, port, sockaddr);
 
-    return ::sendto(fd, buf, size, 0, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
+    return gnulib::sendto(fd, buf, size, 0, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
 
 }
 
@@ -234,7 +230,7 @@ void SocketAPM::last_recv_address(const char *&ip_addr, uint16_t &port)
 void SocketAPM::set_broadcast(void)
 {
     int one = 1;
-    setsockopt(fd,SOL_SOCKET,SO_BROADCAST,(char *)&one,sizeof(one));
+    gnulib::setsockopt(fd,SOL_SOCKET,SO_BROADCAST,(char *)&one,sizeof(one));
 }
 
 /*
@@ -251,7 +247,7 @@ bool SocketAPM::pollin(uint32_t timeout_ms)
     tv.tv_sec = timeout_ms / 1000;
     tv.tv_usec = (timeout_ms % 1000) * 1000UL;
 
-    if (select(fd+1, &fds, nullptr, nullptr, &tv) != 1) {
+    if (gnulib::select(fd+1, &fds, nullptr, nullptr, &tv) != 1) {
         return false;
     }
     return true;
@@ -272,7 +268,7 @@ bool SocketAPM::pollout(uint32_t timeout_ms)
     tv.tv_sec = timeout_ms / 1000;
     tv.tv_usec = (timeout_ms % 1000) * 1000UL;
 
-    if (select(fd+1, nullptr, &fds, nullptr, &tv) != 1) {
+    if (gnulib::select(fd+1, nullptr, &fds, nullptr, &tv) != 1) {
         return false;
     }
     return true;
@@ -302,11 +298,9 @@ SocketAPM *SocketAPM::accept(uint32_t timeout_ms)
     }
     // turn off nagle for lower latency
     int one = 1;
-    #ifndef _WIN32
-    setsockopt(newfd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
-    #else
-    setsockopt(newfd, IPPROTO_TCP, TCP_NODELAY, (const char*)&one, sizeof(one));
-    #endif
+
+    gnulib::setsockopt(newfd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
+
     return new SocketAPM(false, newfd);
 }
 

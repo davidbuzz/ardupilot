@@ -325,7 +325,7 @@ CC = x86_64-w64-mingw32-gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
 CPP = x86_64-w64-mingw32-gcc -E
-CPPFLAGS = 
+CPPFLAGS = -DGNULIB_NAMESPACE=gnulib
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
