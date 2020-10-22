@@ -17,10 +17,10 @@ public:
 
     // read from device
     // this will retry RAMTRON_RETRIES times until two successive reads return the same data
-    bool read(uint32_t offset, uint8_t * const buf, uint32_t size);
+    bool Rread(uint32_t offset, uint8_t * const buf, uint32_t size);
 
     // write to device
-    bool write(uint32_t offset, uint8_t const * const buf, uint32_t size);
+    bool Rwrite(uint32_t offset, uint8_t const * const buf, uint32_t size);
 
 private:
     AP_HAL::OwnPtr<AP_HAL::SPIDevice> dev;
@@ -43,7 +43,7 @@ private:
     // perform a single device initialisation
     bool _init(void);
     // perform a single device read
-    bool _read(uint32_t offset, uint8_t * const buf, uint32_t size);
+    //bool _read(uint32_t offset, uint8_t * const buf, uint32_t size);
 
     void send_offset(uint8_t cmd, uint32_t offset) const;
 };

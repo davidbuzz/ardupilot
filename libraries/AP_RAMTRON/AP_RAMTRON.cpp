@@ -110,7 +110,7 @@ void AP_RAMTRON::send_offset(uint8_t cmd, uint32_t offset) const
 }
 
 // read from device
-bool AP_RAMTRON::read(uint32_t offset, uint8_t *buf, uint32_t size)
+bool AP_RAMTRON::Rread(uint32_t offset, uint8_t *buf, uint32_t size)
 {
     // Don't allow reads outside of the FRAM memory.
     // NOTE: The FRAM devices will wrap back to address 0x0000 if they read past
@@ -122,7 +122,7 @@ bool AP_RAMTRON::read(uint32_t offset, uint8_t *buf, uint32_t size)
     }
     const uint8_t maxread = 128;
     while (size > maxread) {
-        if (!read(offset, buf, maxread)) {
+        if (!Rread(offset, buf, maxread)) {
             return false;
         }
         offset += maxread;
@@ -167,7 +167,7 @@ bool AP_RAMTRON::read(uint32_t offset, uint8_t *buf, uint32_t size)
 }
 
 // write to device
-bool AP_RAMTRON::write(uint32_t offset, const uint8_t *buf, uint32_t size)
+bool AP_RAMTRON::Rwrite(uint32_t offset, const uint8_t *buf, uint32_t size)
 {
     // Don't allow writes outside of the FRAM memory.
     // NOTE: The FRAM devices will wrap back to address 0x0000 if they write past
