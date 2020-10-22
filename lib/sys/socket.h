@@ -756,8 +756,8 @@ rpl_fd_isset (SOCKET fd, fd_set * set)
 #   undef close
 #   define close close_used_without_including_unistd_h
 #  elif !defined __clang__
-    _GL_WARN_ON_USE (close,
-                     "close() used without including <unistd.h>");
+  //  _GL_WARN_ON_USE (close,
+  //                   "close() used without including <unistd.h>");
 #  endif
 #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
 #   undef gethostname

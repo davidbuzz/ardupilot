@@ -949,3 +949,5 @@
 
 /* Define to `int' if <sys/types.h> doesn't define. */
 #define uid_t int
+#define GNULIB_NAMESPACE  gnulib
+

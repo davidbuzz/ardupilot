@@ -60,7 +60,7 @@ SocketAPM::SocketAPM(bool _datagram, int _fd) :
     if (!datagram) {
         int one = 1;
 
-        gnulib::setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
+        setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
 
     }
 }
@@ -95,7 +95,7 @@ bool SocketAPM::connect(const char *address, uint16_t port)
     struct sockaddr_in sockaddr;
     make_sockaddr(address, port, sockaddr);
 
-    if (gnulib::connect(fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr)) != 0) {
+    if (::connect(fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr)) != 0) {
         return false;
     }
     return true;
