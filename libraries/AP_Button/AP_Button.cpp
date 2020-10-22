@@ -140,7 +140,7 @@ uint8_t AP_Button::get_mask(void)
         if (pin[i] == -1) {
             continue;
         }
-        mask |= hal.gpio->read(pin[i]) << i;
+        mask |= hal.gpio->Gread(pin[i]) << i;
     }
     return mask;
 }
@@ -191,7 +191,7 @@ void AP_Button::setup_pins(void)
         }
         hal.gpio->pinMode(pin[i], HAL_GPIO_INPUT);
         // setup pullup
-        hal.gpio->write(pin[i], 1);
+        hal.gpio->Gwrite(pin[i], 1);
     }
 }
 

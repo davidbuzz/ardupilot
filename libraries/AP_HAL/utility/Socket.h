@@ -38,8 +38,8 @@
 #include "../../lib/config.h"
 #include <winsock2.h>// must b first
 #include <windows.h> // must b 2nd
-#include <sys/socket.h>
-#include <sys/select.h>
+#include "../../lib/sys/socket.h"
+#include "../../lib/sys/select.h"
 #endif
 
 

@@ -406,7 +406,7 @@ void AP_Camera::feedback_pin_isr(uint8_t pin, bool high, uint32_t timestamp_us)
  */
 void AP_Camera::feedback_pin_timer(void)
 {
-    uint8_t pin_state = hal.gpio->read(_feedback_pin);
+    uint8_t pin_state = hal.gpio->Gread(_feedback_pin);
     uint8_t trigger_polarity = _feedback_polarity==0?0:1;
     if (pin_state == trigger_polarity &&
         _last_pin_state != trigger_polarity) {
@@ -432,7 +432,7 @@ void AP_Camera::setup_feedback_callback(void)
 
     // enable pullup/pulldown
     uint8_t trigger_polarity = _feedback_polarity==0?0:1;
-    hal.gpio->write(_feedback_pin, !trigger_polarity);
+    hal.gpio->Gwrite(_feedback_pin, !trigger_polarity);
 
     if (hal.gpio->attach_interrupt(_feedback_pin, FUNCTOR_BIND_MEMBER(&AP_Camera::feedback_pin_isr, void, uint8_t, bool, uint32_t),
                                    trigger_polarity?AP_HAL::GPIO::INTERRUPT_RISING:AP_HAL::GPIO::INTERRUPT_FALLING)) {

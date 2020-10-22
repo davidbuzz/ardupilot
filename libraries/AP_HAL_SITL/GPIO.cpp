@@ -22,7 +22,7 @@ void GPIO::pinMode(uint8_t pin, uint8_t output)
     }
 }
 
-uint8_t GPIO::read(uint8_t pin)
+uint8_t GPIO::Gread(uint8_t pin)
 {
     if (!_sitlState->_sitl) {
         return 0;
@@ -37,7 +37,7 @@ uint8_t GPIO::read(uint8_t pin)
     return static_cast<uint16_t>((mask & (1U << pin)) ? 1 : 0);
 }
 
-void GPIO::write(uint8_t pin, uint8_t value)
+void GPIO::Gwrite(uint8_t pin, uint8_t value)
 {
     if (!_sitlState->_sitl) {
         return;
@@ -68,7 +68,7 @@ void GPIO::write(uint8_t pin, uint8_t value)
 
 void GPIO::toggle(uint8_t pin)
 {
-    write(pin, !read(pin));
+    Gwrite(pin, !read(pin));
 }
 
 /* Alternative interface: */
@@ -95,16 +95,16 @@ void DigitalSource::mode(uint8_t output)
 
 uint8_t DigitalSource::read()
 {
-    return hal.gpio->read(_pin);
+    return hal.gpio->Gread(_pin);
 }
 
 void DigitalSource::write(uint8_t value)
 {
     value = static_cast<uint8_t>(value ? 1 : 0);
-    return hal.gpio->write(_pin, value);
+    return hal.gpio->Gwrite(_pin, value);
 }
 
 void DigitalSource::toggle()
 {
-    return hal.gpio->write(_pin, !hal.gpio->read(_pin));
+    return hal.gpio->Gwrite(_pin, !hal.gpio->read(_pin));
 }

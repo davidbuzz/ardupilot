@@ -20,6 +20,19 @@
 
 #pragma once
 
+#ifdef _WIN32
+//---win32
+#ifndef __STDC_VERSION__
+#define __STDC_VERSION__ 199901L
+#endif
+#include "../../lib/config.h"
+#include "../../lib/sys/socket.h"
+#include <winsock2.h>
+#include <windows.h>
+//---win32
+#endif
+
+
 #include <stdint.h>
 #include <stdlib.h>
 #include <type_traits>

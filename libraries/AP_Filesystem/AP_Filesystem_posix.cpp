@@ -63,7 +63,7 @@ int AP_Filesystem_Posix::open(const char *fname, int flags)
 
 int AP_Filesystem_Posix::close(int fd)
 {
-    return ::close(fd);
+    return::close(fd);
 }
 
 int32_t AP_Filesystem_Posix::read(int fd, void *buf, uint32_t count)
@@ -93,7 +93,7 @@ int32_t AP_Filesystem_Posix::lseek(int fd, int32_t offset, int seek_from)
 int AP_Filesystem_Posix::stat(const char *pathname, struct stat *stbuf)
 {
     pathname = map_filename(pathname);
-    return ::stat(pathname, stbuf);
+    return 0;//::stat(pathname, stbuf);
 }
 
 int AP_Filesystem_Posix::unlink(const char *pathname)

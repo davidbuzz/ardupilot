@@ -50,8 +50,8 @@ public:
     // optional interface on some boards
     virtual void    pinMode(uint8_t pin, uint8_t output, uint8_t alt) {};
 
-    virtual uint8_t read(uint8_t pin) = 0;
-    virtual void    write(uint8_t pin, uint8_t value) = 0;
+    virtual uint8_t Gread(uint8_t pin) = 0;
+    virtual void    Gwrite(uint8_t pin, uint8_t value) = 0;
     virtual void    toggle(uint8_t pin) = 0;
 
     /* Alternative interface: */

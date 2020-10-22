@@ -200,7 +200,7 @@ AP_AdvancedFailsafe::check(uint32_t last_heartbeat_ms, bool geofence_breached, u
     // receiver
     if (_manual_pin != -1) {
         hal.gpio->pinMode(_manual_pin, HAL_GPIO_OUTPUT);
-        hal.gpio->write(_manual_pin, mode==AFS_MANUAL);
+        hal.gpio->Gwrite(_manual_pin, mode==AFS_MANUAL);
     }
 
     uint32_t now = AP_HAL::millis();
@@ -298,13 +298,13 @@ AP_AdvancedFailsafe::check(uint32_t last_heartbeat_ms, bool geofence_breached, u
     if (_heartbeat_pin != -1 && (_terminate_pin != -1 || !_terminate)) {
         _heartbeat_pin_value = !_heartbeat_pin_value;
         hal.gpio->pinMode(_heartbeat_pin, HAL_GPIO_OUTPUT);
-        hal.gpio->write(_heartbeat_pin, _heartbeat_pin_value);
+        hal.gpio->Gwrite(_heartbeat_pin, _heartbeat_pin_value);
     }    
 
     // set the terminate pin
     if (_terminate_pin != -1) {
         hal.gpio->pinMode(_terminate_pin, HAL_GPIO_OUTPUT);
-        hal.gpio->write(_terminate_pin, _terminate?1:0);
+        hal.gpio->Gwrite(_terminate_pin, _terminate?1:0);
     }    
 }
 
@@ -322,7 +322,7 @@ AP_AdvancedFailsafe::heartbeat(void)
     if (_heartbeat_pin != -1 && (_terminate_pin != -1 || !_terminate)) {
         _heartbeat_pin_value = !_heartbeat_pin_value;
         hal.gpio->pinMode(_heartbeat_pin, HAL_GPIO_OUTPUT);
-        hal.gpio->write(_heartbeat_pin, _heartbeat_pin_value);
+        hal.gpio->Gwrite(_heartbeat_pin, _heartbeat_pin_value);
     }    
 }
 

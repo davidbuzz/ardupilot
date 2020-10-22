@@ -366,7 +366,7 @@ int AP_Filesystem_Param::stat(const char *name, struct stat *stbuf)
         errno = ENOENT;
         return -1;
     }
-    memset(stbuf, 0, sizeof(*stbuf));
+    ::memset(stbuf, 0, sizeof(*stbuf));
     // give fixed size to avoid needing to scan entire file
     stbuf->st_size = 1024*1024;
     return 0;
