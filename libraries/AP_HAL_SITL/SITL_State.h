@@ -19,10 +19,10 @@
 #ifndef __STDC_VERSION__
 #define __STDC_VERSION__ 199901L
 #endif
-#include "../../lib/config.h"
-#include <sys/socket.h>
-#include <winsock2.h>
-#include <windows.h>
+//#include "../../lib/config.h"
+//#include <sys/socket.h>
+//#include <winsock2.h>
+//#include <windows.h>
 #endif
 
 

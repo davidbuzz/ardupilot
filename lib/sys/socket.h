@@ -763,8 +763,8 @@ rpl_fd_isset (SOCKET fd, fd_set * set)
 #   undef gethostname
 #   define gethostname gethostname_used_without_including_unistd_h
 #  else
-    _GL_WARN_ON_USE (gethostname,
-                     "gethostname() used without including <unistd.h>");
+  //  _GL_WARN_ON_USE (gethostname,
+  //                   "gethostname() used without including <unistd.h>");
 #  endif
 # endif
 # if !defined _GL_SYS_SELECT_H
@@ -772,8 +772,8 @@ rpl_fd_isset (SOCKET fd, fd_set * set)
 #   undef select
 #   define select select_used_without_including_sys_select_h
 #  else
-    _GL_WARN_ON_USE (select,
-                     "select() used without including <sys/select.h>");
+  //  _GL_WARN_ON_USE (select,
+  //                   "select() used without including <sys/select.h>");
 #  endif
 # endif
 #endif

@@ -698,7 +698,8 @@ _GL_INLINE_HEADER_BEGIN
 #   undef shutdown
 #   define shutdown            shutdown_used_without_including_sys_socket_h
 #  else
-    _GL_WARN_ON_USE (socket,
+
+/*   _GL_WARN_ON_USE (socket,
                      "socket() used without including <sys/socket.h>");
     _GL_WARN_ON_USE (connect,
                      "connect() used without including <sys/socket.h>");
@@ -726,6 +727,8 @@ _GL_INLINE_HEADER_BEGIN
                      "setsockopt() used without including <sys/socket.h>");
     _GL_WARN_ON_USE (shutdown,
                      "shutdown() used without including <sys/socket.h>");
+
+*/
 #  endif
 # endif
 # if !defined _GL_SYS_SELECT_H
@@ -733,8 +736,8 @@ _GL_INLINE_HEADER_BEGIN
 #   undef select
 #   define select              select_used_without_including_sys_select_h
 #  else
-    _GL_WARN_ON_USE (select,
-                     "select() used without including <sys/select.h>");
+  //  _GL_WARN_ON_USE (select,
+  //                   "select() used without including <sys/select.h>");
 #  endif
 # endif
 #endif
