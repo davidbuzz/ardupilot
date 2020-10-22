@@ -83,11 +83,11 @@ void AP_RCProtocol_ST24::process_pulse(uint32_t width_s0, uint32_t width_s1)
     }
 }
 
-void AP_RCProtocol_ST24::_process_byte(uint8_t byte)
+void AP_RCProtocol_ST24::_process_byte(uint8_t _byte)
 {
     switch (_decode_state) {
     case ST24_DECODE_STATE_UNSYNCED:
-        if (byte == ST24_STX1) {
+        if (_byte == ST24_STX1) {
             _decode_state = ST24_DECODE_STATE_GOT_STX1;
 
         }
@@ -95,7 +95,7 @@ void AP_RCProtocol_ST24::_process_byte(uint8_t byte)
         break;
 
     case ST24_DECODE_STATE_GOT_STX1:
-        if (byte == ST24_STX2) {
+        if (_byte == ST24_STX2) {
             _decode_state = ST24_DECODE_STATE_GOT_STX2;
 
         } else {
@@ -107,8 +107,8 @@ void AP_RCProtocol_ST24::_process_byte(uint8_t byte)
     case ST24_DECODE_STATE_GOT_STX2:
 
         /* ensure no data overflow failure or hack is possible */
-        if (byte > 8 && (unsigned)byte <= sizeof(_rxpacket.length) + sizeof(_rxpacket.type) + sizeof(_rxpacket.st24_data)) {
-            _rxpacket.length = byte;
+        if (_byte > 8 && (unsigned)_byte <= sizeof(_rxpacket.length) + sizeof(_rxpacket.type) + sizeof(_rxpacket.st24_data)) {
+            _rxpacket.length = _byte;
             _rxlen = 0;
             _decode_state = ST24_DECODE_STATE_GOT_LEN;
 
@@ -119,13 +119,13 @@ void AP_RCProtocol_ST24::_process_byte(uint8_t byte)
         break;
 
     case ST24_DECODE_STATE_GOT_LEN:
-        _rxpacket.type = byte;
+        _rxpacket.type = _byte;
         _rxlen++;
         _decode_state = ST24_DECODE_STATE_GOT_TYPE;
         break;
 
     case ST24_DECODE_STATE_GOT_TYPE:
-        _rxpacket.st24_data[_rxlen - 1] = byte;
+        _rxpacket.st24_data[_rxlen - 1] = _byte;
         _rxlen++;
 
         if (_rxlen == (_rxpacket.length - 1)) {
@@ -135,7 +135,7 @@ void AP_RCProtocol_ST24::_process_byte(uint8_t byte)
         break;
 
     case ST24_DECODE_STATE_GOT_DATA:
-        _rxpacket.crc8 = byte;
+        _rxpacket.crc8 = _byte;
         _rxlen++;
 
         log_data(AP_RCProtocol::ST24, AP_HAL::micros(), (const uint8_t *)&_rxpacket, _rxlen+3);
@@ -226,10 +226,10 @@ void AP_RCProtocol_ST24::_process_byte(uint8_t byte)
     }
 }
 
-void AP_RCProtocol_ST24::process_byte(uint8_t byte, uint32_t baudrate)
+void AP_RCProtocol_ST24::process_byte(uint8_t _byte, uint32_t baudrate)
 {
     if (baudrate != 115200) {
         return;
     }
-    _process_byte(byte);
+    _process_byte(_byte);
 }

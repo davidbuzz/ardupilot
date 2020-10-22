@@ -43,7 +43,7 @@ SoftSerial::SoftSerial(uint32_t _baudrate, serial_config _config) :
   process a pulse made up of a width of values at high voltage
   followed by a width at low voltage
  */
-bool SoftSerial::process_pulse(uint32_t width_high, uint32_t width_low, uint8_t &byte)
+bool SoftSerial::process_pulse(uint32_t width_high, uint32_t width_low, uint8_t &_byte)
 {
     // convert to bit widths, allowing for a half bit error
     uint16_t bits_high = ((width_high+half_bit)*baudrate) / 1000000;
@@ -70,44 +70,44 @@ bool SoftSerial::process_pulse(uint32_t width_high, uint32_t width_low, uint8_t 
         bits_high = 0;
     }
 
-    state.byte |= ((1U<<bits_high)-1) << state.bit_ofs;
+    state._byte |= ((1U<<bits_high)-1) << state.bit_ofs;
 
     state.bit_ofs += bits_high + bits_low;
 
     if (state.bit_ofs >= byte_width) {
         // check start bit
-        if ((state.byte & 1) != 0) {
+        if ((state._byte & 1) != 0) {
             goto reset;
         }
         // check stop bits
-        if ((state.byte & stop_mask) != stop_mask) {
+        if ((state._byte & stop_mask) != stop_mask) {
             goto reset;
         }
         if (config == SERIAL_CONFIG_8E2I) {
             // check parity
-            if (__builtin_parity((state.byte>>1)&0xFF) != (state.byte&0x200)>>9) {
+            if (__builtin_parity((state._byte>>1)&0xFF) != (state._byte&0x200)>>9) {
                 goto reset;
             }
         }
 
-        byte = ((state.byte>>1) & 0xFF);
-        state.byte >>= byte_width;
+        _byte = ((state._byte>>1) & 0xFF);
+        state._byte >>= byte_width;
         state.bit_ofs -= byte_width;
         if (state.bit_ofs > byte_width) {
-            state.byte = 0;
+            state._byte = 0;
             state.bit_ofs = bits_low;
         }
         // swallow idle bits
-        while (state.bit_ofs > 0 && (state.byte & 1)) {
+        while (state.bit_ofs > 0 && (state._byte & 1)) {
             state.bit_ofs--;
-            state.byte >>= 1;
+            state._byte >>= 1;
         }
         return true;
     }
     return false;
 
 reset:
-    state.byte = 0;
+    state._byte = 0;
     state.bit_ofs = 0;
 
     return false;

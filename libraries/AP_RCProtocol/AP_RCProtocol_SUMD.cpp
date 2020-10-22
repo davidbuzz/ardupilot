@@ -79,7 +79,7 @@ void AP_RCProtocol_SUMD::process_pulse(uint32_t width_s0, uint32_t width_s1)
     }
 }
 
-void AP_RCProtocol_SUMD::_process_byte(uint32_t timestamp_us, uint8_t byte)
+void AP_RCProtocol_SUMD::_process_byte(uint32_t timestamp_us, uint8_t _byte)
 {
     if (timestamp_us - last_packet_us > 5000U) {
         _decode_state = SUMD_DECODE_STATE_UNSYNCED;
@@ -89,43 +89,43 @@ void AP_RCProtocol_SUMD::_process_byte(uint32_t timestamp_us, uint8_t byte)
 #ifdef SUMD_DEBUG
         hal.console->printf(" SUMD_DECODE_STATE_UNSYNCED \n") ;
 #endif
-        if (byte == SUMD_HEADER_ID) {
-            _rxpacket.header = byte;
+        if (_byte == SUMD_HEADER_ID) {
+            _rxpacket.header = _byte;
             _sumd = true;
             _rxlen = 0;
             _crc16 = 0x0000;
             _crc8 = 0x00;
             _crcOK = false;
-            _crc16 = crc_xmodem_update(_crc16, byte);
-            _crc8 = sumd_crc8(_crc8, byte);
+            _crc16 = crc_xmodem_update(_crc16, _byte);
+            _crc8 = sumd_crc8(_crc8, _byte);
             _decode_state = SUMD_DECODE_STATE_GOT_HEADER;
 
 #ifdef SUMD_DEBUG
-            hal.console->printf(" SUMD_DECODE_STATE_GOT_HEADER: %x \n", byte) ;
+            hal.console->printf(" SUMD_DECODE_STATE_GOT_HEADER: %x \n", _byte) ;
 #endif
             last_packet_us = timestamp_us;
         }
         break;
 
     case SUMD_DECODE_STATE_GOT_HEADER:
-        if (byte == SUMD_ID_SUMD || byte == SUMD_ID_SUMH) {
-            _rxpacket.status = byte;
+        if (_byte == SUMD_ID_SUMD || _byte == SUMD_ID_SUMH) {
+            _rxpacket.status = _byte;
 
-            if (byte == SUMD_ID_SUMH) {
+            if (_byte == SUMD_ID_SUMH) {
                 _sumd = false;
             }
 
             if (_sumd) {
-                _crc16 = crc_xmodem_update(_crc16, byte);
+                _crc16 = crc_xmodem_update(_crc16, _byte);
 
             } else {
-                _crc8 = sumd_crc8(_crc8, byte);
+                _crc8 = sumd_crc8(_crc8, _byte);
             }
 
             _decode_state = SUMD_DECODE_STATE_GOT_STATE;
 
 #ifdef SUMD_DEBUG
-            hal.console->printf(" SUMD_DECODE_STATE_GOT_STATE: %x \n", byte) ;
+            hal.console->printf(" SUMD_DECODE_STATE_GOT_STATE: %x \n", _byte) ;
 #endif
 
         } else {
@@ -135,21 +135,21 @@ void AP_RCProtocol_SUMD::_process_byte(uint32_t timestamp_us, uint8_t byte)
         break;
 
     case SUMD_DECODE_STATE_GOT_STATE:
-        if (byte >= 2 && byte <= SUMD_MAX_CHANNELS) {
-            _rxpacket.length = byte;
+        if (_byte >= 2 && _byte <= SUMD_MAX_CHANNELS) {
+            _rxpacket.length = _byte;
 
             if (_sumd) {
-                _crc16 = crc_xmodem_update(_crc16, byte);
+                _crc16 = crc_xmodem_update(_crc16, _byte);
 
             } else {
-                _crc8 = sumd_crc8(_crc8, byte);
+                _crc8 = sumd_crc8(_crc8, _byte);
             }
 
             _rxlen++;
             _decode_state = SUMD_DECODE_STATE_GOT_LEN;
 
 #ifdef SUMD_DEBUG
-            hal.console->printf(" SUMD_DECODE_STATE_GOT_LEN: %x (%d) \n", byte, byte) ;
+            hal.console->printf(" SUMD_DECODE_STATE_GOT_LEN: %x (%d) \n", _byte, _byte) ;
 #endif
 
         } else {
@@ -159,20 +159,20 @@ void AP_RCProtocol_SUMD::_process_byte(uint32_t timestamp_us, uint8_t byte)
         break;
 
     case SUMD_DECODE_STATE_GOT_LEN:
-        _rxpacket.sumd_data[_rxlen] = byte;
+        _rxpacket.sumd_data[_rxlen] = _byte;
 
         if (_sumd) {
-            _crc16 = crc_xmodem_update(_crc16, byte);
+            _crc16 = crc_xmodem_update(_crc16, _byte);
 
         } else {
-            _crc8 = sumd_crc8(_crc8, byte);
+            _crc8 = sumd_crc8(_crc8, _byte);
         }
 
         _rxlen++;
 
         if (_rxlen <= ((_rxpacket.length * 2))) {
 #ifdef SUMD_DEBUG
-            hal.console->printf(" SUMD_DECODE_STATE_GOT_DATA[%d]: %x\n", _rxlen - 2, byte) ;
+            hal.console->printf(" SUMD_DECODE_STATE_GOT_DATA[%d]: %x\n", _rxlen - 2, _byte) ;
 #endif
 
         } else {
@@ -187,10 +187,10 @@ void AP_RCProtocol_SUMD::_process_byte(uint32_t timestamp_us, uint8_t byte)
         break;
 
     case SUMD_DECODE_STATE_GOT_DATA:
-        _rxpacket.crc16_high = byte;
+        _rxpacket.crc16_high = _byte;
 
 #ifdef SUMD_DEBUG
-        hal.console->printf(" SUMD_DECODE_STATE_GOT_CRC16[1]: %x   [%x]\n", byte, ((_crc16 >> 8) & 0xff)) ;
+        hal.console->printf(" SUMD_DECODE_STATE_GOT_CRC16[1]: %x   [%x]\n", _byte, ((_crc16 >> 8) & 0xff)) ;
 #endif
 
         if (_sumd) {
@@ -203,10 +203,10 @@ void AP_RCProtocol_SUMD::_process_byte(uint32_t timestamp_us, uint8_t byte)
         break;
 
     case SUMD_DECODE_STATE_GOT_CRC16_BYTE_1:
-        _rxpacket.crc16_low = byte;
+        _rxpacket.crc16_low = _byte;
 
 #ifdef SUMD_DEBUG
-        hal.console->printf(" SUMD_DECODE_STATE_GOT_CRC16[2]: %x   [%x]\n", byte, (_crc16 & 0xff)) ;
+        hal.console->printf(" SUMD_DECODE_STATE_GOT_CRC16[2]: %x   [%x]\n", _byte, (_crc16 & 0xff)) ;
 #endif
 
         _decode_state = SUMD_DECODE_STATE_GOT_CRC16_BYTE_2;
@@ -214,10 +214,10 @@ void AP_RCProtocol_SUMD::_process_byte(uint32_t timestamp_us, uint8_t byte)
         break;
 
     case SUMD_DECODE_STATE_GOT_CRC16_BYTE_2:
-        _rxpacket.telemetry = byte;
+        _rxpacket.telemetry = _byte;
 
 #ifdef SUMD_DEBUG
-        hal.console->printf(" SUMD_DECODE_STATE_GOT_SUMH_TELEMETRY: %x\n", byte) ;
+        hal.console->printf(" SUMD_DECODE_STATE_GOT_SUMH_TELEMETRY: %x\n", _byte) ;
 #endif
 
         _decode_state = SUMD_DECODE_STATE_GOT_CRC;
@@ -226,10 +226,10 @@ void AP_RCProtocol_SUMD::_process_byte(uint32_t timestamp_us, uint8_t byte)
 
     case SUMD_DECODE_STATE_GOT_CRC:
         if (_sumd) {
-            _rxpacket.crc16_low = byte;
+            _rxpacket.crc16_low = _byte;
 
 #ifdef SUMD_DEBUG
-            hal.console->printf(" SUMD_DECODE_STATE_GOT_CRC[2]: %x   [%x]\n\n", byte, (_crc16 & 0xff)) ;
+            hal.console->printf(" SUMD_DECODE_STATE_GOT_CRC[2]: %x   [%x]\n\n", _byte, (_crc16 & 0xff)) ;
 #endif
 
             if (_crc16 == (uint16_t)(_rxpacket.crc16_high << 8) + _rxpacket.crc16_low) {
@@ -237,10 +237,10 @@ void AP_RCProtocol_SUMD::_process_byte(uint32_t timestamp_us, uint8_t byte)
             }
 
         } else {
-            _rxpacket.crc8 = byte;
+            _rxpacket.crc8 = _byte;
 
 #ifdef SUMD_DEBUG
-            hal.console->printf(" SUMD_DECODE_STATE_GOT_CRC8_SUMH: %x   [%x]\n\n", byte, _crc8) ;
+            hal.console->printf(" SUMD_DECODE_STATE_GOT_CRC8_SUMH: %x   [%x]\n\n", _byte, _crc8) ;
 #endif
 
             if (_crc8 == _rxpacket.crc8) {
@@ -325,10 +325,10 @@ void AP_RCProtocol_SUMD::_process_byte(uint32_t timestamp_us, uint8_t byte)
     }
 }
 
-void AP_RCProtocol_SUMD::process_byte(uint8_t byte, uint32_t baudrate)
+void AP_RCProtocol_SUMD::process_byte(uint8_t _byte, uint32_t baudrate)
 {
     if (baudrate != 115200) {
         return;
     }
-    _process_byte(AP_HAL::micros(), byte);
+    _process_byte(AP_HAL::micros(), _byte);
 }

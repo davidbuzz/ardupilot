@@ -45,7 +45,7 @@ private:
     uint32_t byte_timestamp_us;
 
     struct {
-        uint32_t byte;
+        uint32_t _byte;
         uint16_t bit_ofs;
     } state;
 };

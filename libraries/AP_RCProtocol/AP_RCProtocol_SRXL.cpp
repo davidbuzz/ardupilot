@@ -173,13 +173,13 @@ int AP_RCProtocol_SRXL::srxl_channels_get_v5(uint16_t max_values, uint8_t *num_v
     return 0;
 }
 
-void AP_RCProtocol_SRXL::_process_byte(uint32_t timestamp_us, uint8_t byte)
+void AP_RCProtocol_SRXL::_process_byte(uint32_t timestamp_us, uint8_t _byte)
 {
     /*----------------------------------------distinguish different srxl variants at the beginning of each frame---------------------------------------------- */
     /* Check if we have a new begin of a frame --> indicators: Time gap in datastream + SRXL header 0xA<VARIANT>*/
     if ((timestamp_us - last_data_us) >= SRXL_MIN_FRAMESPACE_US) {
         /* Now detect SRXL variant based on header */
-        switch (byte) {
+        switch (_byte) {
         case SRXL_HEADER_V1:
             frame_len_full = SRXL_FRAMELEN_V1;
             frame_header = SRXL_HEADER_V1;
@@ -208,8 +208,8 @@ void AP_RCProtocol_SRXL::_process_byte(uint32_t timestamp_us, uint8_t byte)
     /*--------------------------------------------collect all data from stream and decode-------------------------------------------------------*/
     switch (decode_state) {
     case STATE_NEW:   /* buffer header byte and prepare for frame reception and decoding */
-        buffer[0U]=byte;
-        crc_fmu = crc_xmodem_update(0U,byte);
+        buffer[0U]=_byte;
+        crc_fmu = crc_xmodem_update(0U,_byte);
         buflen = 1U;
         decode_state_next = STATE_COLLECT;
         break;
@@ -223,11 +223,11 @@ void AP_RCProtocol_SRXL::_process_byte(uint32_t timestamp_us, uint8_t byte)
             frame_header = SRXL_HEADER_NOT_IMPL;
             return;
         }
-        buffer[buflen] = byte;
+        buffer[buflen] = _byte;
         buflen++;
         /* CRC not over last 2 frame bytes as these bytes inhabitate the crc */
         if (buflen <= (frame_len_full-2)) {
-            crc_fmu = crc_xmodem_update(crc_fmu,byte);
+            crc_fmu = crc_xmodem_update(crc_fmu,_byte);
         }
         if (buflen == frame_len_full) {
             log_data(AP_RCProtocol::SRXL, timestamp_us, buffer, buflen);
@@ -274,10 +274,10 @@ void AP_RCProtocol_SRXL::_process_byte(uint32_t timestamp_us, uint8_t byte)
 /*
   process a byte provided by a uart
  */
-void AP_RCProtocol_SRXL::process_byte(uint8_t byte, uint32_t baudrate)
+void AP_RCProtocol_SRXL::process_byte(uint8_t _byte, uint32_t baudrate)
 {
     if (baudrate != 115200) {
         return;
     }
-    _process_byte(AP_HAL::micros(), byte);
+    _process_byte(AP_HAL::micros(), _byte);
 }
