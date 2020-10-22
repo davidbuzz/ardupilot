@@ -25,7 +25,7 @@ public:
     int close(int fd) override;
     int32_t read(int fd, void *buf, uint32_t count) override;
     int32_t lseek(int fd, int32_t offset, int whence) override;
-    int stat(const char *pathname, struct stat *stbuf) override;
+    int Fstat(const char *pathname, struct Fstat *stbuf) override;
 
 private:
     // only allow up to 4 files at a time

@@ -66,7 +66,7 @@ public:
     int32_t write(int fd, const void *buf, uint32_t count);
     int fsync(int fd);
     int32_t lseek(int fd, int32_t offset, int whence);
-    int stat(const char *pathname, struct stat *stbuf);
+    int Fstat(const char *pathname, struct Fstat *stbuf);
     int unlink(const char *pathname);
     int mkdir(const char *pathname);
 

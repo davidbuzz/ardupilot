@@ -360,7 +360,7 @@ int32_t AP_Filesystem_Param::lseek(int fd, int32_t offset, int seek_from)
     return r.file_ofs;
 }
 
-int AP_Filesystem_Param::stat(const char *name, struct stat *stbuf)
+int AP_Filesystem_Param::Fstat(const char *name, struct Fstat *stbuf)
 {
     if (!check_file_name(name)) {
         errno = ENOENT;

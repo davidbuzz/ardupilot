@@ -145,7 +145,7 @@ int32_t AP_Filesystem_Sys::lseek(int fd, int32_t offset, int seek_from)
     return r.file_ofs;
 }
 
-int AP_Filesystem_Sys::stat(const char *name, struct stat *stbuf)
+int AP_Filesystem_Sys::Fstat(const char *name, struct Fstat *stbuf)
 {
     ::memset(stbuf, 0, sizeof(*stbuf));
     // give fixed size, EOF on read gives real size

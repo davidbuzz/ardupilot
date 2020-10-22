@@ -33,7 +33,7 @@ public:
     int32_t write(int fd, const void *buf, uint32_t count) override;
     int fsync(int fd) override;
     int32_t lseek(int fd, int32_t offset, int whence) override;
-    int stat(const char *pathname, struct stat *stbuf) override;
+    int Fstat(const char *pathname, struct Fstat *stbuf) override;
     int unlink(const char *pathname) override;
     int mkdir(const char *pathname) override;
     void *opendir(const char *pathname) override;

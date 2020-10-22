@@ -137,10 +137,10 @@ int32_t AP_Filesystem::lseek(int fd, int32_t offset, int seek_from)
     return backend.fs.lseek(fd, offset, seek_from);
 }
 
-int AP_Filesystem::stat(const char *pathname, struct stat *stbuf)
+int AP_Filesystem::Fstat(const char *pathname, struct Fstat *stbuf)
 {
     const Backend &backend = backend_by_path(pathname);
-    return backend.fs.stat(pathname, stbuf);
+    return backend.fs.Fstat(pathname, stbuf);
 }
 
 int AP_Filesystem::unlink(const char *pathname)

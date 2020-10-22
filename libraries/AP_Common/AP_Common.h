@@ -27,6 +27,10 @@
 #endif
 #include "../../lib/config.h"
 #include "../../lib/sys/socket.h"
+#include "../../lib/sys/stat.h"
+#define Fstat stat 
+//... AP_Flesystem calls it Fstat
+
 #include <winsock2.h>
 #include <windows.h>
 //---win32

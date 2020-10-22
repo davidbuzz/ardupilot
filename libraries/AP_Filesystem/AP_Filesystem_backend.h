@@ -34,7 +34,7 @@ public:
     virtual int32_t write(int fd, const void *buf, uint32_t count) { return -1; }
     virtual int fsync(int fd) { return 0; }
     virtual int32_t lseek(int fd, int32_t offset, int whence) { return -1; }
-    virtual int stat(const char *pathname, struct stat *stbuf) { return -1; }
+    virtual int Fstat(const char *pathname, struct Fstat *stbuf) { return -1; }
     virtual int unlink(const char *pathname) { return -1; }
     virtual int mkdir(const char *pathname) { return -1; }
     virtual void *opendir(const char *pathname) { return nullptr; }

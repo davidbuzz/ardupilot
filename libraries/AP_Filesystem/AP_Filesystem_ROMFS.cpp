@@ -113,7 +113,7 @@ int32_t AP_Filesystem_ROMFS::lseek(int fd, int32_t offset, int seek_from)
     return file[fd].ofs;
 }
 
-int AP_Filesystem_ROMFS::stat(const char *name, struct stat *stbuf)
+int AP_Filesystem_ROMFS::Fstat(const char *name, struct Fstat *stbuf)
 {
     uint32_t size;
     const uint8_t *data = AP_ROMFS::find_decompress(name, size);

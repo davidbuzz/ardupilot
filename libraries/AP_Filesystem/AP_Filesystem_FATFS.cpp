@@ -599,7 +599,7 @@ static time_t fat_time_to_unix(uint16_t date, uint16_t time)
     return unix;
 }
 
-int AP_Filesystem_FATFS::stat(const char *name, struct stat *buf)
+int AP_Filesystem_FATFS::Fstat(const char *name, struct Fstat *buf)
 {
     FILINFO info;
     int res;

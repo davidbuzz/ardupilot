@@ -63,7 +63,7 @@ int AP_Filesystem_Posix::open(const char *fname, int flags)
 
 int AP_Filesystem_Posix::close(int fd)
 {
-    return::close(fd);
+    return close(fd); // no :: so we can pickup the gnulib one, maybe?
 }
 
 int32_t AP_Filesystem_Posix::read(int fd, void *buf, uint32_t count)
@@ -90,7 +90,7 @@ int32_t AP_Filesystem_Posix::lseek(int fd, int32_t offset, int seek_from)
     return ::lseek(fd, offset, seek_from);
 }
 
-int AP_Filesystem_Posix::stat(const char *pathname, struct stat *stbuf)
+int AP_Filesystem_Posix::Fstat(const char *pathname, struct Fstat *stbuf)
 {
     pathname = map_filename(pathname);
     return 0;//::stat(pathname, stbuf);
@@ -110,12 +110,12 @@ int AP_Filesystem_Posix::unlink(const char *pathname)
 
 int AP_Filesystem_Posix::mkdir(const char *pathname)
 {
-    pathname = map_filename(pathname);
-    #ifndef _WIN32
+    //pathname = map_filename(pathname);
+    //#ifndef _WIN32
     return ::mkdir(pathname, 0775);
-    #else
-    return ::mkdir(pathname); // windows no have posix perms
-    #endif
+    //#else
+    //return ::mkdir(pathname); // windows no have posix perms
+    //#endif
 }
 
 void *AP_Filesystem_Posix::opendir(const char *pathname)
