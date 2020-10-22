@@ -134,9 +134,9 @@ void AP_RangeFinder_HC_SR04::update(void)
         // gcs().send_text(MAV_SEVERITY_INFO, "Ping!");
         // raise stop pin for n-microseconds
         hal.gpio->pinMode(trigger_pin, HAL_GPIO_OUTPUT);
-        hal.gpio->write(trigger_pin, 1);
+        hal.gpio->Gwrite(trigger_pin, 1);
         hal.scheduler->delay_microseconds(10);
-        hal.gpio->write(trigger_pin, 0);
+        hal.gpio->Gwrite(trigger_pin, 0);
     }
 }
 

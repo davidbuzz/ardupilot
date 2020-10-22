@@ -156,14 +156,14 @@ AP_SBusOut::update()
 
 #if SBUS_DEBUG
     hal.gpio->pinMode(55, HAL_GPIO_OUTPUT);
-    hal.gpio->write(55, 1);
+    hal.gpio->Gwrite(55, 1);
 #endif
 
     sbus1_uart->write(buffer, sizeof(buffer));
 
 #if SBUS_DEBUG
     hal.gpio->pinMode(55, HAL_GPIO_OUTPUT);
-    hal.gpio->write(55, 0);
+    hal.gpio->Gwrite(55, 0);
 #endif
 }
 

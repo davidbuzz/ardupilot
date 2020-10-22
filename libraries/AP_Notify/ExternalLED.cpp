@@ -32,10 +32,10 @@ bool ExternalLED::init(void)
     hal.gpio->pinMode(EXTERNAL_LED_MOTOR2, HAL_GPIO_OUTPUT);
 
     // turn leds off
-    hal.gpio->write(EXTERNAL_LED_ARMED, HAL_GPIO_LED_OFF);
-    hal.gpio->write(EXTERNAL_LED_GPS, HAL_GPIO_LED_OFF);
-    hal.gpio->write(EXTERNAL_LED_MOTOR1, HAL_GPIO_LED_OFF);
-    hal.gpio->write(EXTERNAL_LED_MOTOR2, HAL_GPIO_LED_OFF);
+    hal.gpio->Gwrite(EXTERNAL_LED_ARMED, HAL_GPIO_LED_OFF);
+    hal.gpio->Gwrite(EXTERNAL_LED_GPS, HAL_GPIO_LED_OFF);
+    hal.gpio->Gwrite(EXTERNAL_LED_MOTOR1, HAL_GPIO_LED_OFF);
+    hal.gpio->Gwrite(EXTERNAL_LED_MOTOR2, HAL_GPIO_LED_OFF);
     return true;
 }
 
@@ -208,7 +208,7 @@ void ExternalLED::armed_led(bool on_off)
 {
     if (_flags.armedled_on != on_off) {
         _flags.armedled_on = on_off;
-        hal.gpio->write(EXTERNAL_LED_ARMED, _flags.armedled_on);
+        hal.gpio->Gwrite(EXTERNAL_LED_ARMED, _flags.armedled_on);
     }
 }
 
@@ -217,7 +217,7 @@ void ExternalLED::gps_led(bool on_off)
 {
     if (_flags.gpsled_on != on_off) {
         _flags.gpsled_on = on_off;
-        hal.gpio->write(EXTERNAL_LED_GPS, _flags.gpsled_on);
+        hal.gpio->Gwrite(EXTERNAL_LED_GPS, _flags.gpsled_on);
     }
 }
 
@@ -226,7 +226,7 @@ void ExternalLED::motor_led1(bool on_off)
 {
     if (_flags.motorled1_on != on_off) {
         _flags.motorled1_on = on_off;
-        hal.gpio->write(EXTERNAL_LED_MOTOR1, _flags.motorled1_on);
+        hal.gpio->Gwrite(EXTERNAL_LED_MOTOR1, _flags.motorled1_on);
     }
 }
 
@@ -235,7 +235,7 @@ void ExternalLED::motor_led2(bool on_off)
 {
     if (_flags.motorled2_on != on_off) {
         _flags.motorled2_on = on_off;
-        hal.gpio->write(EXTERNAL_LED_MOTOR2, _flags.motorled2_on);
+        hal.gpio->Gwrite(EXTERNAL_LED_MOTOR2, _flags.motorled2_on);
     }
 }
 #else

@@ -43,17 +43,17 @@ bool PixRacerLED::hw_init(void)
     hal.gpio->pinMode(HAL_GPIO_B_LED_PIN, HAL_GPIO_OUTPUT);
     hal.gpio->pinMode(HAL_GPIO_C_LED_PIN, HAL_GPIO_OUTPUT);
 #endif
-    hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
-    hal.gpio->write(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_OFF);
-    hal.gpio->write(HAL_GPIO_C_LED_PIN, HAL_GPIO_LED_OFF);
+    hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
+    hal.gpio->Gwrite(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_OFF);
+    hal.gpio->Gwrite(HAL_GPIO_C_LED_PIN, HAL_GPIO_LED_OFF);
     return true;
 }
 
 bool PixRacerLED::hw_set_rgb(uint8_t r, uint8_t g, uint8_t b)
 {
-    hal.gpio->write(HAL_GPIO_A_LED_PIN, (r > 0)?HAL_GPIO_LED_ON:HAL_GPIO_LED_OFF);
-    hal.gpio->write(HAL_GPIO_B_LED_PIN, (g > 0)?HAL_GPIO_LED_ON:HAL_GPIO_LED_OFF);
-    hal.gpio->write(HAL_GPIO_C_LED_PIN, (b > 0)?HAL_GPIO_LED_ON:HAL_GPIO_LED_OFF);
+    hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, (r > 0)?HAL_GPIO_LED_ON:HAL_GPIO_LED_OFF);
+    hal.gpio->Gwrite(HAL_GPIO_B_LED_PIN, (g > 0)?HAL_GPIO_LED_ON:HAL_GPIO_LED_OFF);
+    hal.gpio->Gwrite(HAL_GPIO_C_LED_PIN, (b > 0)?HAL_GPIO_LED_ON:HAL_GPIO_LED_OFF);
     return true;
 }
 

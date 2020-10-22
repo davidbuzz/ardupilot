@@ -368,9 +368,9 @@ void AP_RCProtocol_DSM::update(void)
         break;
 
     case BIND_STATE1:
-        hal.gpio->write(HAL_GPIO_SPEKTRUM_PWR, !HAL_SPEKTRUM_PWR_ENABLED);
+        hal.gpio->Gwrite(HAL_GPIO_SPEKTRUM_PWR, !HAL_SPEKTRUM_PWR_ENABLED);
         hal.gpio->pinMode(HAL_GPIO_SPEKTRUM_RC, 1);
-        hal.gpio->write(HAL_GPIO_SPEKTRUM_RC, 1);
+        hal.gpio->Gwrite(HAL_GPIO_SPEKTRUM_RC, 1);
         bind_last_ms = AP_HAL::millis();
         bind_state = BIND_STATE2;
         break;
@@ -378,7 +378,7 @@ void AP_RCProtocol_DSM::update(void)
     case BIND_STATE2: {
         uint32_t now = AP_HAL::millis();
         if (now - bind_last_ms > 500) {
-            hal.gpio->write(HAL_GPIO_SPEKTRUM_PWR, HAL_SPEKTRUM_PWR_ENABLED);
+            hal.gpio->Gwrite(HAL_GPIO_SPEKTRUM_PWR, HAL_SPEKTRUM_PWR_ENABLED);
             bind_last_ms = now;
             bind_state = BIND_STATE3;
         }
@@ -393,9 +393,9 @@ void AP_RCProtocol_DSM::update(void)
             const uint8_t num_pulses = 9;
             for (uint8_t i=0; i<num_pulses; i++) {
                 hal.scheduler->delay_microseconds(120);
-                hal.gpio->write(HAL_GPIO_SPEKTRUM_RC, 0);
+                hal.gpio->Gwrite(HAL_GPIO_SPEKTRUM_RC, 0);
                 hal.scheduler->delay_microseconds(120);
-                hal.gpio->write(HAL_GPIO_SPEKTRUM_RC, 1);
+                hal.gpio->Gwrite(HAL_GPIO_SPEKTRUM_RC, 1);
             }
             bind_last_ms = now;
             bind_state = BIND_STATE4;

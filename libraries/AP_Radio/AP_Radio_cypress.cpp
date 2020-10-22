@@ -289,9 +289,9 @@ bool AP_Radio_cypress::reset(void)
      */
 #if defined(HAL_GPIO_RADIO_RESET)
     hal.scheduler->expect_delay_ms(2000); // avoid main-loop-delay internal error
-    hal.gpio->write(HAL_GPIO_RADIO_RESET, 1);
+    hal.gpio->Gwrite(HAL_GPIO_RADIO_RESET, 1);
     hal.scheduler->delay(500);
-    hal.gpio->write(HAL_GPIO_RADIO_RESET, 0);
+    hal.gpio->Gwrite(HAL_GPIO_RADIO_RESET, 0);
     hal.scheduler->delay(500);
 #endif
     radio_init();

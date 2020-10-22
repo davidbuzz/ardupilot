@@ -141,13 +141,13 @@ void AP_Relay::set(const uint8_t instance, const bool value)
         return;
     }
     hal.gpio->pinMode(_pin[instance], HAL_GPIO_OUTPUT);
-    hal.gpio->write(_pin[instance], value);
+    hal.gpio->Gwrite(_pin[instance], value);
 }
 
 void AP_Relay::toggle(uint8_t instance)
 {
     if (instance < AP_RELAY_NUM_RELAYS && _pin[instance] != -1) {
-        bool ison = hal.gpio->read(_pin[instance]);
+        bool ison = hal.gpio->Gread(_pin[instance]);
         set(instance, !ison);
     }
 }

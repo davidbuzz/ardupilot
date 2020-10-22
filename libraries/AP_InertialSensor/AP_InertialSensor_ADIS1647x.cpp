@@ -44,7 +44,7 @@
 
 #define TIMING_DEBUG 0
 #if TIMING_DEBUG
-#define DEBUG_SET_PIN(n,v) hal.gpio->write(52+n, v)
+#define DEBUG_SET_PIN(n,v) hal.gpio->Gwrite(52+n, v)
 #define DEBUG_TOGGLE_PIN(n) hal.gpio->toggle(52+n)
 #else
 #define DEBUG_SET_PIN(n,v)

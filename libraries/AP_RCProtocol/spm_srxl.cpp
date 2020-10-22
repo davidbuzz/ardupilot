@@ -622,36 +622,36 @@ static void srxlSend(SrxlBus* pBus, SRXL_CMD srxlCmd, uint8_t replyID)
     {
         pBus->srxlOut.header.packetType = SRXL_BIND_ID;
         pBus->srxlOut.header.length = sizeof(SrxlBindPacket);
-        pBus->srxlOut.bind.request = SRXL_BIND_REQ_ENTER;
-        pBus->srxlOut.bind.deviceID = replyID;
-        pBus->srxlOut.bind.data.type = DSMX_11MS;
-        pBus->srxlOut.bind.data.options = (replyID != 0xFF) ? SRXL_BIND_OPT_TELEM_TX_ENABLE | SRXL_BIND_OPT_BIND_TX_ENABLE : 0;
-        pBus->srxlOut.bind.data.guid = 0;
-        pBus->srxlOut.bind.data.uid = 0;
+        pBus->srxlOut._bind.request = SRXL_BIND_REQ_ENTER;
+        pBus->srxlOut._bind.deviceID = replyID;
+        pBus->srxlOut._bind.data.type = DSMX_11MS;
+        pBus->srxlOut._bind.data.options = (replyID != 0xFF) ? SRXL_BIND_OPT_TELEM_TX_ENABLE | SRXL_BIND_OPT_BIND_TX_ENABLE : 0;
+        pBus->srxlOut._bind.data.guid = 0;
+        pBus->srxlOut._bind.data.uid = 0;
     }
     else if(srxlCmd == SRXL_CMD_REQ_BIND)
     {
         pBus->srxlOut.header.packetType = SRXL_BIND_ID;
         pBus->srxlOut.header.length = sizeof(SrxlBindPacket);
-        pBus->srxlOut.bind.request = SRXL_BIND_REQ_STATUS;
-        pBus->srxlOut.bind.deviceID = replyID;
-        memset(&(pBus->srxlOut.bind.data), 0, sizeof(SrxlBindData));
+        pBus->srxlOut._bind.request = SRXL_BIND_REQ_STATUS;
+        pBus->srxlOut._bind.deviceID = replyID;
+        memset(&(pBus->srxlOut._bind.data), 0, sizeof(SrxlBindData));
     }
     else if(srxlCmd == SRXL_CMD_SET_BIND)
     {
         pBus->srxlOut.header.packetType = SRXL_BIND_ID;
         pBus->srxlOut.header.length = sizeof(SrxlBindPacket);
-        pBus->srxlOut.bind.request = SRXL_BIND_REQ_SET_BIND;
-        pBus->srxlOut.bind.deviceID = replyID;
-        pBus->srxlOut.bind.data = srxlBindInfo;
+        pBus->srxlOut._bind.request = SRXL_BIND_REQ_SET_BIND;
+        pBus->srxlOut._bind.deviceID = replyID;
+        pBus->srxlOut._bind.data = srxlBindInfo;
     }
     else if(srxlCmd == SRXL_CMD_BIND_INFO)
     {
         pBus->srxlOut.header.packetType = SRXL_BIND_ID;
         pBus->srxlOut.header.length = sizeof(SrxlBindPacket);
-        pBus->srxlOut.bind.request = SRXL_BIND_REQ_BOUND_DATA;
-        pBus->srxlOut.bind.deviceID = replyID;
-        pBus->srxlOut.bind.data = srxlBindInfo;
+        pBus->srxlOut._bind.request = SRXL_BIND_REQ_BOUND_DATA;
+        pBus->srxlOut._bind.deviceID = replyID;
+        pBus->srxlOut._bind.data = srxlBindInfo;
     }
 
     // Compute CRC over entire SRXL packet (excluding the 2 CRC bytes at the end)
@@ -903,18 +903,18 @@ bool srxlParsePacket(uint8_t busIndex, uint8_t* packet, uint8_t length)
         if(length < sizeof(SrxlBindPacket))
             return false;
 
-        SrxlBindPacket* pBindInfo = &(pRx->bind);
+        SrxlBindPacket* pBindInfo = &(pRx->_bind);
 
         // If this is a bound data report
         if(pBindInfo->request == SRXL_BIND_REQ_BOUND_DATA)
         {
-            // Call the user-defined callback -- if returns true, bind all other receivers
+            // Call the user-defined callback -- if returns true, _bind all other receivers
             SrxlFullID boundID;
             boundID.deviceID = pBindInfo->deviceID;
             boundID.busIndex = busIndex;
             if(srxlOnBind(boundID, pBindInfo->data))
             {
-                // Update the bind info
+                // Update the _bind info
                 srxlBindInfo.type = pBindInfo->data.type;
                 if(pBindInfo->data.options & SRXL_BIND_OPT_TELEM_TX_ENABLE)
                 {
@@ -926,7 +926,7 @@ bool srxlParsePacket(uint8_t busIndex, uint8_t* packet, uint8_t length)
                 srxlBindInfo.guid = pBindInfo->data.guid;
                 srxlBindInfo.uid = pBindInfo->data.uid;
 
-                // Try to set bind info for all other receivers on other buses to match it
+                // Try to set _bind info for all other receivers on other buses to match it
                 uint8_t b;
                 for(b = 0; b < SRXL_NUM_OF_BUSES; ++b)
                 {
@@ -936,7 +936,7 @@ bool srxlParsePacket(uint8_t busIndex, uint8_t* packet, uint8_t length)
                 }
             }
         }
-        // If this bind packet is directed at us
+        // If this _bind packet is directed at us
         else if(pBindInfo->deviceID == pBus->fullID.deviceID || pBindInfo->deviceID == 0xFF)
         {
             // Check for Enter Bind Mode (only valid if sent to a specific receiver)
@@ -952,10 +952,10 @@ bool srxlParsePacket(uint8_t busIndex, uint8_t* packet, uint8_t length)
             }
             else if(pBindInfo->request == SRXL_BIND_REQ_STATUS && srxlThisDev.pRcvr)
             {
-                // TODO: Fill in data if we didn't just bind?
+                // TODO: Fill in data if we didn't just _bind?
                 pBus->txFlags.reportBindInfo = 1;
             }
-            // Handle set bind info request
+            // Handle set _bind info request
             else if(pBindInfo->request == SRXL_BIND_REQ_SET_BIND)
             {
                 srxlBindInfo = pBindInfo->data;

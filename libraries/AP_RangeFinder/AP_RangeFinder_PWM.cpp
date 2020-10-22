@@ -92,7 +92,7 @@ void AP_RangeFinder_PWM::update(void)
         if (oor) {
             if (!was_out_of_range) {
                 // we are above the power saving range. Disable the sensor
-                hal.gpio->write(params.stop_pin, false);
+                hal.gpio->Gwrite(params.stop_pin, false);
                 set_status(RangeFinder::Status::NoData);
                 state.distance_cm = 0;
                 state.voltage_mv = 0;
@@ -102,7 +102,7 @@ void AP_RangeFinder_PWM::update(void)
         }
         // re-enable the sensor:
         if (!oor && was_out_of_range) {
-            hal.gpio->write(params.stop_pin, true);
+            hal.gpio->Gwrite(params.stop_pin, true);
             was_out_of_range = oor;
         }
     }

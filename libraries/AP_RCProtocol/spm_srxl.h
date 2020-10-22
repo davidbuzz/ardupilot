@@ -351,7 +351,7 @@ typedef struct SrxlControlPacket
 typedef union
 {
     SrxlHeader          header;
-    SrxlBindPacket      bind;
+    SrxlBindPacket      _bind;
     SrxlHandshakePacket handshake;
     SrxlTelemetryPacket telemetry;
     SrxlRssiPacket      rssi;

@@ -59,7 +59,7 @@ void AP_WheelEncoder_Quadrature::update_pin(uint8_t &pin,
                 AP_HAL::GPIO::INTERRUPT_BOTH)) {
             gcs().send_text(MAV_SEVERITY_WARNING, "WEnc: Failed to attach to pin %u", pin);
         }
-        pin_value = hal.gpio->read(pin);
+        pin_value = hal.gpio->Gread(pin);
     }
 }
 

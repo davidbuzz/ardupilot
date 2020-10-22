@@ -106,5 +106,5 @@ void DigitalSource::write(uint8_t value)
 
 void DigitalSource::toggle()
 {
-    return hal.gpio->Gwrite(_pin, !hal.gpio->read(_pin));
+    return hal.gpio->Gwrite(_pin, !hal.gpio->Gread(_pin));
 }
