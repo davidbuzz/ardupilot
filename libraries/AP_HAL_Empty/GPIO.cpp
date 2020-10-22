@@ -12,11 +12,11 @@ void GPIO::init()
 void GPIO::pinMode(uint8_t pin, uint8_t output)
 {}
 
-uint8_t GPIO::read(uint8_t pin) {
+uint8_t GPIO::Gread(uint8_t pin) {
     return 0;
 }
 
-void GPIO::write(uint8_t pin, uint8_t value)
+void GPIO::Gwrite(uint8_t pin, uint8_t value)
 {}
 
 void GPIO::toggle(uint8_t pin)

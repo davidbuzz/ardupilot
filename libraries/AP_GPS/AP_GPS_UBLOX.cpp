@@ -534,7 +534,7 @@ AP_GPS_UBLOX::_request_port(void)
 // attempts to avoid this when possible.
 //
 bool
-AP_GPS_UBLOX::read(void)
+AP_GPS_UBLOX::_read(void)
 {
     uint8_t data;
     int16_t numc;

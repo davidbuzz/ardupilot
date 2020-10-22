@@ -98,7 +98,7 @@ bool RTCM3_Parser::parse(void)
 }
 
 // read in one byte, return true if a full packet is available
-bool RTCM3_Parser::read(uint8_t byte)
+bool RTCM3_Parser::_read(uint8_t byte)
 {
     clear_packet();
 
@@ -181,7 +181,7 @@ int main(int argc, const char *argv[])
     RTCM3_Parser parser {};
     uint8_t b;
     while (::read(fd, &b, 1) == 1) {
-        if (parser.read(b)) {
+        if (parser._read(b)) {
             const uint8_t *bytes;
             printf("packet len %u ID %u\n", parser.get_len(bytes), parser.get_id());
         }

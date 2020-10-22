@@ -109,7 +109,7 @@ bool SocketAPM::bind(const char *address, uint16_t port)
     struct sockaddr_in sockaddr;
     make_sockaddr(address, port, sockaddr);
 
-    if (gnulib::bind(fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr)) != 0) {
+    if (::bind(fd, (struct sockaddr *)&sockaddr, sizeof(sockaddr)) != 0) {
         
         return false;
     }
@@ -127,9 +127,7 @@ bool SocketAPM::reuseaddress(void)
 
     int one = 1;
 
-    return true;
-
-    return (gnulib::setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) != -1);
+    return (::setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) != -1);
 
 }
 
@@ -187,7 +185,7 @@ bool SocketAPM::set_cloexec()
 ssize_t SocketAPM::send(const void *buf, size_t size)
 {
 
-    return gnulib::send(fd, buf, size, 0);
+    return ::send(fd, buf, size, 0);
 
 }
 
@@ -199,7 +197,7 @@ ssize_t SocketAPM::sendto(const void *buf, size_t size, const char *address, uin
     struct sockaddr_in sockaddr;
     make_sockaddr(address, port, sockaddr);
 
-    return gnulib::sendto(fd, buf, size, 0, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
+    return ::sendto(fd, buf, size, 0, (struct sockaddr *)&sockaddr, sizeof(sockaddr));
 
 }
 
@@ -213,10 +211,10 @@ ssize_t SocketAPM::recv(void *buf, size_t size, uint32_t timeout_ms)
     }
     socklen_t len = sizeof(in_addr);
     #ifndef _WIN32
-    return gnulib::recvfrom(fd, buf, size, MSG_DONTWAIT, (sockaddr *)&in_addr, &len);// MSG_DONTWAIT means non-blocking
+    return ::recvfrom(fd, buf, size, MSG_DONTWAIT, (sockaddr *)&in_addr, &len);// MSG_DONTWAIT means non-blocking
     #else
         set_blocking(false); //ming doesnt have MSG_DONTWAIT, but set_blocking() uses set_nonblocking_flag() from gnulib which works
-        return gnulib::recvfrom(fd, (char*)buf, size, 0, (sockaddr *)&in_addr, &len);
+        return ::recvfrom(fd, (char*)buf, size, 0, (sockaddr *)&in_addr, &len);
     #endif
 }
 
@@ -232,7 +230,7 @@ void SocketAPM::last_recv_address(const char *&ip_addr, uint16_t &port)
 void SocketAPM::set_broadcast(void)
 {
     int one = 1;
-    gnulib::setsockopt(fd,SOL_SOCKET,SO_BROADCAST,(char *)&one,sizeof(one));
+    ::setsockopt(fd,SOL_SOCKET,SO_BROADCAST,(char *)&one,sizeof(one));
 }
 
 /*
@@ -249,7 +247,7 @@ bool SocketAPM::pollin(uint32_t timeout_ms)
     tv.tv_sec = timeout_ms / 1000;
     tv.tv_usec = (timeout_ms % 1000) * 1000UL;
 
-    if (gnulib::select(fd+1, &fds, nullptr, nullptr, &tv) != 1) {
+    if (::select(fd+1, &fds, nullptr, nullptr, &tv) != 1) {
         return false;
     }
     return true;
@@ -270,7 +268,7 @@ bool SocketAPM::pollout(uint32_t timeout_ms)
     tv.tv_sec = timeout_ms / 1000;
     tv.tv_usec = (timeout_ms % 1000) * 1000UL;
 
-    if (gnulib::select(fd+1, nullptr, &fds, nullptr, &tv) != 1) {
+    if (::select(fd+1, nullptr, &fds, nullptr, &tv) != 1) {
         return false;
     }
     return true;
@@ -281,7 +279,7 @@ bool SocketAPM::pollout(uint32_t timeout_ms)
  */
 bool SocketAPM::listen(uint16_t backlog)
 {
-    return gnulib::listen(fd, (int)backlog) == 0;
+    return ::listen(fd, (int)backlog) == 0;
 }
 
 /*
@@ -294,14 +292,14 @@ SocketAPM *SocketAPM::accept(uint32_t timeout_ms)
         return nullptr;
     }
 
-    int newfd = gnulib::accept(fd, nullptr, nullptr);
+    int newfd = ::accept(fd, nullptr, nullptr);
     if (newfd == -1) {
         return nullptr;
     }
     // turn off nagle for lower latency
     int one = 1;
 
-    gnulib::setsockopt(newfd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
+    ::setsockopt(newfd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one));
 
     return new SocketAPM(false, newfd);
 }

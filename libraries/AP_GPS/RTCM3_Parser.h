@@ -22,7 +22,7 @@
 class RTCM3_Parser {
 public:
     // process one byte, return true if packet found
-    bool read(uint8_t b);
+    bool _read(uint8_t b);
 
     // reset internal state
     void reset(void);

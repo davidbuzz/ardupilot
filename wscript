@@ -340,6 +340,7 @@ def configure(cfg):
 
     cfg.env.prepend_value('INCLUDES', [
         cfg.srcnode.abspath() + '/libraries/',
+        #cfg.srcnode.abspath() + '/lib/',
     ])
 
     cfg.find_program('rsync', mandatory=False)

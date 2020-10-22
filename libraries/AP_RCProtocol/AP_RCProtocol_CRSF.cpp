@@ -59,9 +59,9 @@ extern const AP_HAL::HAL& hal;
 // #define CRSF_DEBUG
 #ifdef CRSF_DEBUG
 # define debug(fmt, args...)	hal.console->printf("CRSF: " fmt "\n", ##args)
-static const char* get_frame_type(uint8_t byte)
+static const char* get_frame_type(uint8_t _byte)
 {
-    switch(byte) {
+    switch(_byte) {
     case AP_RCProtocol_CRSF::CRSF_FRAMETYPE_GPS:
         return "GPS";
     case AP_RCProtocol_CRSF::CRSF_FRAMETYPE_BATTERY_SENSOR:
@@ -138,9 +138,9 @@ void AP_RCProtocol_CRSF::process_pulse(uint32_t width_s0, uint32_t width_s1)
     }
 }
 
-void AP_RCProtocol_CRSF::_process_byte(uint32_t timestamp_us, uint8_t byte)
+void AP_RCProtocol_CRSF::_process_byte(uint32_t timestamp_us, uint8_t _byte)
 {
-    //debug("process_byte(0x%x)", byte);
+    //debug("process_byte(0x%x)", _byte);
     // we took too long decoding, start again - the RX will only send complete frames so this is unlikely to fail
     if (_frame_ofs > 0 && (timestamp_us - _start_frame_time_us) > CRSF_MAX_FRAME_TIME_US) {
         _frame_ofs = 0;
@@ -158,7 +158,7 @@ void AP_RCProtocol_CRSF::_process_byte(uint32_t timestamp_us, uint8_t byte)
         _start_frame_time_us = timestamp_us;
     }
 
-    add_to_buffer(_frame_ofs++, byte);
+    add_to_buffer(_frame_ofs++, _byte);
 
     // need a header to get the length
     if (_frame_ofs < CSRF_HEADER_LEN) {
@@ -363,13 +363,13 @@ void AP_RCProtocol_CRSF::process_link_stats_frame(const void* data)
 }
 
 // process a byte provided by a uart
-void AP_RCProtocol_CRSF::process_byte(uint8_t byte, uint32_t baudrate)
+void AP_RCProtocol_CRSF::process_byte(uint8_t _byte, uint32_t baudrate)
 {
     // reject RC data if we have been configured for standalone mode
     if (baudrate != CRSF_BAUDRATE || _uart) {
         return;
     }
-    _process_byte(AP_HAL::micros(), byte);
+    _process_byte(AP_HAL::micros(), _byte);
 }
 
 // start the uart if we have one

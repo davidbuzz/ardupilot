@@ -68,7 +68,7 @@ void GPIO::Gwrite(uint8_t pin, uint8_t value)
 
 void GPIO::toggle(uint8_t pin)
 {
-    Gwrite(pin, !read(pin));
+    Gwrite(pin, !Gread(pin));
 }
 
 /* Alternative interface: */

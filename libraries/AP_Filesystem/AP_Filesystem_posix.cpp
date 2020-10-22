@@ -112,7 +112,7 @@ int AP_Filesystem_Posix::mkdir(const char *pathname)
 {
     //pathname = map_filename(pathname);
     //#ifndef _WIN32
-    return gnulib::mkdir(pathname, 0775);
+    return ::mkdir(pathname, 0775);
     //#else
     //return ::mkdir(pathname); // windows no have posix perms
     //#endif

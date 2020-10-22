@@ -67,10 +67,10 @@ AP_RCProtocol_SRXL2::~AP_RCProtocol_SRXL2() {
     _singleton = nullptr;
 }
 
-void AP_RCProtocol_SRXL2::_process_byte(uint32_t timestamp_us, uint8_t byte)
+void AP_RCProtocol_SRXL2::_process_byte(uint32_t timestamp_us, uint8_t _byte)
 {
     if (_decode_state == STATE_IDLE) {
-        switch (byte) {
+        switch (_byte) {
         case SPEKTRUM_SRXL_ID:
             _decode_state = STATE_NEW;
             break;
@@ -85,13 +85,13 @@ void AP_RCProtocol_SRXL2::_process_byte(uint32_t timestamp_us, uint8_t byte)
 
     switch (_decode_state) {
     case STATE_NEW:  // buffer header byte and prepare for frame reception and decoding
-        _buffer[0U]=byte;
+        _buffer[0U]=_byte;
         _buflen = 1U;
         _decode_state_next = STATE_COLLECT;
         break;
 
     case STATE_COLLECT: // receive all bytes. After reception decode frame and provide rc channel information to FMU
-        _buffer[_buflen] = byte;
+        _buffer[_buflen] = _byte;
         _buflen++;
 
         // need a header to get the length
@@ -223,12 +223,12 @@ void AP_RCProtocol_SRXL2::start_bind(void)
 }
 
 // process a byte provided by a uart
-void AP_RCProtocol_SRXL2::process_byte(uint8_t byte, uint32_t baudrate)
+void AP_RCProtocol_SRXL2::process_byte(uint8_t _byte, uint32_t baudrate)
 {
     if (baudrate != 115200) {
         return;
     }
-    _process_byte(AP_HAL::micros(), byte);
+    _process_byte(AP_HAL::micros(), _byte);
 }
 
 // send data to the uart

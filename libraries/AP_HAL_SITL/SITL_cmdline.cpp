@@ -209,7 +209,7 @@ void SITL_State::_parse_command_line(int argc, char * const argv[])
     // Set default start time to the real system time.
     // This will be overwritten if argument provided.
     static struct timeval first_tv;
-    gnulib::gettimeofday(&first_tv, nullptr);
+    ::gettimeofday(&first_tv, nullptr);
     time_t start_time_UTC = first_tv.tv_sec;
 
     enum long_options {

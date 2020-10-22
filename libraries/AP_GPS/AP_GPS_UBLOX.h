@@ -112,7 +112,7 @@ public:
     ~AP_GPS_UBLOX() override;
 
     // Methods
-    bool read() override;
+    bool _read() override;
 
     AP_GPS::GPS_Status highest_supported_status(void) override { return AP_GPS::GPS_OK_FIX_3D_RTK_FIXED; }
 

@@ -145,7 +145,7 @@ void AP_RCProtocol::process_pulse_list(const uint32_t *widths, uint16_t n, bool 
     }
 }
 
-bool AP_RCProtocol::process_byte(uint8_t byte, uint32_t baudrate)
+bool AP_RCProtocol::process_byte(uint8_t _byte, uint32_t baudrate)
 {
     uint32_t now = AP_HAL::millis();
     bool searching = (now - _last_input_ms >= 200);
@@ -165,7 +165,7 @@ bool AP_RCProtocol::process_byte(uint8_t byte, uint32_t baudrate)
     }
     // first try current protocol
     if (_detected_protocol != AP_RCProtocol::NONE && !searching) {
-        backend[_detected_protocol]->process_byte(byte, baudrate);
+        backend[_detected_protocol]->process_byte(_byte, baudrate);
         if (backend[_detected_protocol]->new_input()) {
             _new_input = true;
             _last_input_ms = now;
@@ -181,7 +181,7 @@ bool AP_RCProtocol::process_byte(uint8_t byte, uint32_t baudrate)
             }
             const uint32_t frame_count = backend[i]->get_rc_frame_count();
             const uint32_t input_count = backend[i]->get_rc_input_count();
-            backend[i]->process_byte(byte, baudrate);
+            backend[i]->process_byte(_byte, baudrate);
             const uint32_t frame_count2 = backend[i]->get_rc_frame_count();
             if (frame_count2 > frame_count) {
                 if (requires_3_frames((rcprotocol_t)i) && frame_count2 < 3) {
