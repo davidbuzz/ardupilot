@@ -138,3 +138,5 @@ autom4te\.cache/
 lib/\.deps/
 
 config\.log
+
+testdir/lib/\.deps/

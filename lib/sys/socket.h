@@ -622,7 +622,7 @@ struct sockaddr_storage
 /* Get struct iovec.  */
 /* But avoid namespace pollution on glibc systems.  */
 #if ! defined __GLIBC__
-# include <sys/uio.h>
+# include "uio.h"
 #endif
 
 #if 0
