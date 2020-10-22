@@ -147,7 +147,7 @@ void Buzzer::on(bool turn_on)
     _flags.on = turn_on;
 
     // pull pin high or low
-    hal.gpio->write(_pin, _flags.on? HAL_BUZZER_ON : HAL_BUZZER_OFF);
+    hal.gpio->Gwrite(_pin, _flags.on? HAL_BUZZER_ON : HAL_BUZZER_OFF);
 }
 
 /// play_pattern - plays the defined buzzer pattern

@@ -32,8 +32,8 @@ bool AP_BoardLED2::init(void)
     hal.gpio->pinMode(HAL_GPIO_B_LED_PIN, HAL_GPIO_OUTPUT);
 
     // turn all lights off
-    hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
-    hal.gpio->write(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_OFF);
+    hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
+    hal.gpio->Gwrite(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_OFF);
     
     _sat_cnt=0;
     save_trim_counter = 0;
@@ -59,7 +59,7 @@ void AP_BoardLED2::update(void)
     // initialising
     if (AP_Notify::flags.initialising) {
         // blink LEDs A at 8Hz (full cycle) during initialisation
-        hal.gpio->write(HAL_GPIO_A_LED_PIN, (counter2 & 1) ? HAL_GPIO_LED_ON : HAL_GPIO_LED_OFF);
+        hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, (counter2 & 1) ? HAL_GPIO_LED_ON : HAL_GPIO_LED_OFF);
         return;
     }
 
@@ -73,13 +73,13 @@ void AP_BoardLED2::update(void)
     if (AP_Notify::flags.save_trim || AP_Notify::flags.esc_calibration) {
         switch(save_trim_counter) {
             case 0:
-                hal.gpio->write(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_OFF);
-                hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON);
+                hal.gpio->Gwrite(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_OFF);
+                hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON);
                 break;
 
             case 1:
-                hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
-                hal.gpio->write(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_ON);
+                hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
+                hal.gpio->Gwrite(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_ON);
                 break;
 
             default:
@@ -92,13 +92,13 @@ void AP_BoardLED2::update(void)
     if(AP_Notify::flags.compass_cal_running){ // compass calibration
         switch(save_trim_counter) {
         case 0:
-            hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON); // short blinks by both LEDs
-            hal.gpio->write(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_ON);
+            hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON); // short blinks by both LEDs
+            hal.gpio->Gwrite(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_ON);
             break;
         case 1:
         case 2:
-            hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
-            hal.gpio->write(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_OFF);
+            hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
+            hal.gpio->Gwrite(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_OFF);
             break;
         case 3:
         case 4:
@@ -118,7 +118,7 @@ void AP_BoardLED2::update(void)
     if(AP_Notify::events.autotune_complete){
         switch(save_trim_counter) {
         case 0:
-            hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON); // short darkening
+            hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON); // short darkening
             break;
         case 1:
         case 2:
@@ -126,7 +126,7 @@ void AP_BoardLED2::update(void)
         case 4:
         case 5:
         case 6:
-            hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
+            hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
             break;
         case 7:
             break;
@@ -141,20 +141,20 @@ void AP_BoardLED2::update(void)
     if(AP_Notify::events.autotune_failed){
         switch(save_trim_counter) {
         case 0:
-            hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON); // short double darkening
+            hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON); // short double darkening
             break;
         case 1:
-            hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
+            hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
             break;
         case 2:
         case 3:
-            hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON); 
+            hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON); 
             break;
         case 4:
         case 5:
         case 6:
         case 7:
-            hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
+            hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
             break;
         default:
             // reset counter to restart the sequence
@@ -177,7 +177,7 @@ void AP_BoardLED2::update(void)
                 }
             } else {
                 // ARM led solid
-                hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON);
+                hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON);
             }
         }else{
             if ((counter2 & 0x2) == 0) {
@@ -191,13 +191,13 @@ void AP_BoardLED2::update(void)
                     case 1:
                     case 2:
                     case 3:
-                        hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON);
+                        hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON);
                         break;
                     case 4:
                     case 5:
                     case 6:
                     case 7:
-                        hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
+                        hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
                         break;
                     default:
                         // reset counter to restart the sequence
@@ -209,23 +209,23 @@ void AP_BoardLED2::update(void)
                 switch(arm_counter) {
                     case 0:
                     case 1:
-                        hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON);
+                        hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON);
                         break;
     
                     case 2:
-                        hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
+                        hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
                         break;
                     
                     
                     case 3:
                     case 4:
-                        hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON);
+                        hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_ON);
                         break;
     
                     case 5:
                     case 6:
                     case 7: // add one tick to do period be a multiple of the second
-                        hal.gpio->write(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
+                        hal.gpio->Gwrite(HAL_GPIO_A_LED_PIN, HAL_GPIO_LED_OFF);
                         break;
     
                     default:
@@ -240,7 +240,7 @@ void AP_BoardLED2::update(void)
         case 0:
         case 1:
             // no GPS attached or no lock - be dark
-            hal.gpio->write(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_OFF);
+            hal.gpio->Gwrite(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_OFF);
             break;
 
         case 2: // 2d lock
@@ -252,7 +252,7 @@ void AP_BoardLED2::update(void)
             uint16_t sats = AP_Notify::flags.gps_num_sats;
     
             if(_sat_cnt<8) { // pause between pulses
-                hal.gpio->write(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_OFF);
+                hal.gpio->Gwrite(HAL_GPIO_B_LED_PIN, HAL_GPIO_LED_OFF);
             } else if(_sat_cnt< (8 + (sats-6)*2) ) {
                 hal.gpio->toggle(HAL_GPIO_B_LED_PIN); // 2Hz
             } else {

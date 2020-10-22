@@ -86,14 +86,14 @@ void AP_LandingGear::init()
     if (_pin_deployed != -1) {
         hal.gpio->pinMode(_pin_deployed, HAL_GPIO_INPUT);
         // set pullup/pulldown to default to non-deployed state
-        hal.gpio->write(_pin_deployed, !_pin_deployed_polarity);
+        hal.gpio->Gwrite(_pin_deployed, !_pin_deployed_polarity);
         log_wow_state(wow_state_current);
     }
 
     if (_pin_weight_on_wheels != -1) {
         hal.gpio->pinMode(_pin_weight_on_wheels, HAL_GPIO_INPUT);
         // set pullup/pulldown to default to flying state
-        hal.gpio->write(_pin_weight_on_wheels, !_pin_weight_on_wheels_polarity);
+        hal.gpio->Gwrite(_pin_weight_on_wheels, !_pin_weight_on_wheels_polarity);
         log_wow_state(wow_state_current);
     }
 
@@ -162,7 +162,7 @@ bool AP_LandingGear::deployed()
     if (_pin_deployed == -1) {
         return _deployed;
     } else {
-        return hal.gpio->read(_pin_deployed) == _pin_deployed_polarity ? true : false;
+        return hal.gpio->Gread(_pin_deployed) == _pin_deployed_polarity ? true : false;
     }
 }
 
@@ -200,7 +200,7 @@ void AP_LandingGear::update(float height_above_ground_m)
         last_wow_event_ms = 0;
         wow_state_current = LG_WOW_UNKNOWN;
     } else {
-        LG_WOW_State wow_state_new = hal.gpio->read(_pin_weight_on_wheels) == _pin_weight_on_wheels_polarity ? LG_WOW : LG_NO_WOW;
+        LG_WOW_State wow_state_new = hal.gpio->Gread(_pin_weight_on_wheels) == _pin_weight_on_wheels_polarity ? LG_WOW : LG_NO_WOW;
 
         if (wow_state_new != wow_state_current) {
             // we changed states, lets note the time.
