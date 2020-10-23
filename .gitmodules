@@ -19,3 +19,6 @@
 [submodule "modules/libcanard"]
 	path = modules/libcanard
 	url = git://github.com/ArduPilot/libcanard.git
+[submodule "gnulib"]
+	path = gnulib
+	url = git://github.com/coreutils/gnulib.git
