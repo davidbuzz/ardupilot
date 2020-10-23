@@ -447,6 +447,7 @@ class sitl(Board):
         # we also need this tacked to the beginning or end, unmollested.. , lets use the beginning
         env.LINKFLAGS += ['-static-libgcc',]
         env.LINKFLAGS += ['-static-libstdc++',]
+        env.LINKFLAGS += ['-static',]
 
 
         # add them at hte beginnning of the command
@@ -454,6 +455,7 @@ class sitl(Board):
         env.LINKFLAGS += ['-lpthread',]
         env.LINKFLAGS += ['-lws2_32',]
         env.LINKFLAGS += ['-lwsock32',]
+        env.LINKFLAGS += ['-lpsapi',]
 
         # and again, adds the near the end of the commmand after a '-Wl,-Bstatic'
         # essentially giving :  '-Wl,-Bstatic' '-lws2_32' '-lwsock32' -lpthread 
@@ -464,7 +466,7 @@ class sitl(Board):
 
         # this is a terrible, but working hack to get them to show up at the END of the static section, right before the dynamic marker
         # and includes an even more terrible hack to link with libgnu.a copied from the gnulib folder...  cp lib/libgnu.a build/sitl/lib/
-        env.SHLIB_MARKER = ['-lgnu', '-lws2_32', '-lwsock32', '-lpthread', '-Wl,-Bdynamic']
+        env.SHLIB_MARKER = ['-lpsapi', '-lgnu', '-lws2_32', '-lwsock32', '-lpthread', '-Wl,-Bdynamic']
 
         if cfg.env.DEBUG and 'clang++' in cfg.env.COMPILER_CXX and cfg.options.asan:
              env.LINKFLAGS += ['-fsanitize=address']

@@ -653,6 +653,7 @@ uint8_t AP_Param::type_size(enum ap_var_type type)
         return 3*4;
     }
     Debug("unknown type %d\n", type);
+    AP_HAL::dump_stack_trace();
     return 0;
 }
 

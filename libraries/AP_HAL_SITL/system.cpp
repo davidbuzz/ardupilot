@@ -13,6 +13,10 @@
 //#include <sys/time.h>
 #include <time.h>
 
+#ifdef _win32
+#include <dbghelp.h>
+#endif
+
 extern const AP_HAL::HAL& hal;
 
 using HALSITL::Scheduler;
@@ -52,6 +56,18 @@ void panic(const char *errormsg, ...)
     }
     for(;;);
 }
+
+
+#ifdef _WIN32
+
+#include <windows.h>
+
+
+
+
+//....
+
+#endif //win32
 
 // partly flogged from: https://github.com/tridge/junkcode/blob/master/segv_handler/segv_handler.c
 void dump_stack_trace()
@@ -135,6 +151,32 @@ void dump_stack_trace()
         }
     }
     close(fd);
+
+#else
+
+/*https://docs.microsoft.com/en-us/windows/win32/api/dbghelp/nf-dbghelp-stackwalk
+#if !defined(_IMAGEHLP_SOURCE_) && defined(_IMAGEHLP64)
+#define StackWalk StackWalk64
+#else
+BOOL
+IMAGEAPI
+StackWalk(
+    DWORD MachineType,
+    __in HANDLE hProcess,
+    __in HANDLE hThread,
+    __inout LPSTACKFRAME StackFrame,
+    __inout PVOID ContextRecord,
+    __in_opt PREAD_PROCESS_MEMORY_ROUTINE ReadMemoryRoutine,
+    __in_opt PFUNCTION_TABLE_ACCESS_ROUTINE FunctionTableAccessRoutine,
+    __in_opt PGET_MODULE_BASE_ROUTINE GetModuleBaseRoutine,
+    __in_opt PTRANSLATE_ADDRESS_ROUTINE TranslateAddress
+    );
+
+#endif
+*/
+
+
+
 #endif
 }
 

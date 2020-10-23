@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!-- saved from url=(0239)chrome-untrusted://new-tab-page/custom_background_image?url=https%3A%2F%2Flh4.googleusercontent.com%2Fproxy%2FhxSc80h6Htq3U-4ze-TX8Esb54ecWL6g_BbINw2tSAM4ZM7iA4XOSHrPfgCjki87-ZusKhCnd-NDKHAXf4j-zi1IxUD-ddsEY6G81w%3Dw3840-h2160-p-k-no-nd-mv -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <style>
+      html,
+      body,
+      #image,
+      #gradient {
+        height: 100%;
+        width: 100%;
+      }
+
+      #image,
+      #gradient {
+        position: fixed;
+        top: 0;
+      }
+
+      body {
+        margin: 0;
+        opacity: 0;
+        transition: opacity 700ms;
+      }
+
+      body[shown] {
+        opacity: 1;
+      }
+
+      #image {
+        background-image: url(https://lh4.googleusercontent.com/proxy/hxSc80h6Htq3U-4ze-TX8Esb54ecWL6g_BbINw2tSAM4ZM7iA4XOSHrPfgCjki87-ZusKhCnd-NDKHAXf4j-zi1IxUD-ddsEY6G81w=w3840-h2160-p-k-no-nd-mv);
+        background-position: center center;
+        background-repeat: no-repeat no-repeat;
+        background-size: cover;
+      }
+
+      #gradient {
+        background: radial-gradient(transparent 50%, black),
+            linear-gradient(transparent, black);
+        opacity: .2;
+      }
+    </style>
+  </head>
+  <body shown="">
+    <script src="chrome-untrusted://new-tab-page/background_image.js"></script>
+    <!-- The img tag purely exists to capture the load event. -->
+    <img src="https://lh4.googleusercontent.com/proxy/hxSc80h6Htq3U-4ze-TX8Esb54ecWL6g_BbINw2tSAM4ZM7iA4XOSHrPfgCjki87-ZusKhCnd-NDKHAXf4j-zi1IxUD-ddsEY6G81w=w3840-h2160-p-k-no-nd-mv" onload="onImageLoad()" hidden="">
+    <div id="image"></div>
+    <div id="gradient"></div>
+  
+
+</body></html>

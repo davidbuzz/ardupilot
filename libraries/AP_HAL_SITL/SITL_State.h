@@ -11,16 +11,11 @@
 
 #include <sys/types.h>
 #ifndef _WIN32
-
+#include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/udp.h>
 #include <arpa/inet.h>
 #else
-#ifndef __STDC_VERSION__
-#define __STDC_VERSION__ 199901L
-#endif
-#include "../../lib/config.h"
-#include <sys/socket.h>
 #include <winsock2.h>
 #include <windows.h>
 #endif

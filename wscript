@@ -365,7 +365,7 @@ def configure(cfg):
     cfg.write_config_header(os.path.join(cfg.variant, 'ap_config.h'))
 
     # add in generated flags
-    cfg.env.CXXFLAGS += ['-include', 'ap_config.h']
+    cfg.env.CXXFLAGS += ['-include', 'ap_config.h', '-static']
 
     _collect_autoconfig_files(cfg)
 
