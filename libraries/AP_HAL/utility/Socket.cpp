@@ -35,6 +35,9 @@
 typedef int socklen_t;
 #endif
 
+#include <AP_HAL_SITL/mingw-helpers.h> 
+extern const MingW mm;
+
 
 extern const AP_HAL::HAL& hal;
 
@@ -279,6 +282,11 @@ bool SocketAPM::pollout(uint32_t timeout_ms)
  */
 bool SocketAPM::listen(uint16_t backlog)
 {
+
+
+uint16_t bb=0;
+mm.thingy( bb);
+
     return ::listen(fd, (int)backlog) == 0;
 }
 

@@ -31,6 +31,7 @@
 
 #include "UARTDriver.h" // must be b4 termios
 
+
 #ifndef _WIN32
 #include <sys/ioctl.h>
 #include <netinet/in.h>
@@ -39,6 +40,7 @@
 #include <sys/select.h>
 #include <termios.h>
 #else
+#include <AP_HAL_SITL/mingw-helpers.h> 
 #include "mingw-termios.h" //termios in gnulib doesnt have the 'struct termios'
 //  we don't use them on win32, they just need to exist.
 #define MSG_DONTWAIT 0
@@ -62,6 +64,8 @@
 
 extern const AP_HAL::HAL& hal;
 
+extern const MingW mm;
+
 using namespace HALSITL;
 
 bool UARTDriver::_console;
@@ -70,6 +74,7 @@ bool UARTDriver::_console;
 
 void UARTDriver::begin(uint32_t baud, uint16_t rxSpace, uint16_t txSpace)
 {
+
     if (_portNumber >= ARRAY_SIZE(_sitlState->_uart_path)) {
         AP_HAL::panic("port number out of range; you may need to extend _sitlState->_uart_path");
     }

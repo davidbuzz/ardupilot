@@ -77,5 +77,10 @@ or for latest...
 
 ./runme.sh 
 
+.. or without messing up the tweaked headers...
+
+
+tail -3 runme.sh |sh
+
 
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./gnulib/gnulib-tool --import sys_socket bind sys_select send select socket setsockopt connect open close sendto recv recvfrom listen accept unistd gethostname getsockname gettimeofday fcntl-h  fcntl nonblocking 
+#./gnulib/gnulib-tool --import sys_socket bind sys_select send select socket setsockopt connect open close sendto recv recvfrom listen accept unistd gethostname getsockname gettimeofday fcntl-h  fcntl nonblocking 
 #memset read write open stat
 
 #./gnulib/gnulib-tool --dir testdir --import sys_socket bind sys_select send select socket setsockopt connect open close sendto recv recvfrom listen accept unistd gethostname getsockname gettimeofday fcntl-h  fcntl nonblocking 
