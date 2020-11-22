@@ -538,6 +538,89 @@ class sitl_periph_gps(sitl):
         ]
 
 
+
+class esp32(Board):
+    abstract = True
+    toolchain = 'xtensa-esp32-elf'
+    def configure_env(self, cfg, env):
+        def expand_path(p):
+            print("USING EXPRESSIF IDF:"+str(env.idf))
+            return cfg.root.find_dir(env.IDF+p).abspath()
+        try:
+            env.IDF = os.environ['IDF_PATH'] 
+        except:
+            env.IDF = cfg.srcnode.abspath()+"/modules/esp_idf"
+
+        super(esp32, self).configure_env(cfg, env)
+        cfg.load('esp32')
+        env.DEFINES.update(
+            CONFIG_HAL_BOARD = 'HAL_BOARD_ESP32'
+        )
+
+
+
+        # drop lua on esp32, explicitly.
+        env.DEFINES.update(
+            ENABLE_SCRIPTING = 0,
+            ENABLE_HEAP = 1,
+            )
+
+
+        env.AP_LIBRARIES += [
+            'AP_HAL_ESP32',
+        ]
+
+        env.CFLAGS += [
+            '-fno-inline-functions',
+        ]
+
+        env.CXXFLAGS += ['-mlongcalls',
+                         '-Os',
+                         '-g',
+                         '-ffunction-sections',
+                         '-fdata-sections',
+                         '-fno-exceptions',
+                         '-fno-rtti',
+                         '-nostdlib',
+                         '-fstrict-volatile-bitfields',
+                         '-Wno-sign-compare',
+                         '-fno-inline-functions',
+                         '-DCYGWIN_BUILD']
+        #env.CXXFLAGS.remove('-Wundef')
+        env.CXXFLAGS.remove('-Werror=shadow')
+        env.INCLUDES += [
+                cfg.srcnode.find_dir('libraries/AP_HAL_ESP32/boards').abspath(),
+            ]
+        env.AP_PROGRAM_AS_STLIB = True
+        #if cfg.options.enable_profile:
+        #    env.CXXFLAGS += ['-pg',
+        #                     '-DENABLE_PROFILE=1']
+    def build(self, bld):
+        super(esp32, self).build(bld)
+        bld.load('esp32')
+
+class esp32buzz(esp32):
+    def configure_env(self, cfg, env):
+        super(esp32buzz, self).configure_env(cfg, env)
+        env.DEFINES.update(
+            CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_ESP32_BUZZ'
+        )
+
+class esp32diy(esp32):
+    def configure_env(self, cfg, env):
+        super(esp32diy, self).configure_env(cfg, env)
+        env.DEFINES.update(
+            CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_ESP32_DIY'
+        )
+
+class esp32icarus(esp32):
+    def configure_env(self, cfg, env):
+        super(esp32icarus, self).configure_env(cfg, env)
+        env.DEFINES.update(
+            CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_ESP32_ICARUS'
+        )
+
+
 class chibios(Board):
     abstract = True
     toolchain = 'arm-none-eabi'
