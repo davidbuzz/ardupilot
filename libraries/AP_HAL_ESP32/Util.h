@@ -32,7 +32,7 @@ public:
        largest free block of memory able to be allocated with the given capabilities.
        , which in this case is "Memory must be able to run executable code"
      */
-     virtual uint32_t available_memory(void) override {
+     uint32_t available_memory(void) override {
     	 return heap_caps_get_largest_free_block(MALLOC_CAP_DEFAULT);
      }
 

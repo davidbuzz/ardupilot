@@ -44,6 +44,8 @@ extern const AP_HAL::HAL& hal;
 #else
 #define debug(fmt, args ...)  do {printf("MPU: " fmt "\n", ## args); } while(0)
 #endif
+#else
+#define debug(fmt, args ...)  do { } while(0)
 #endif
 
 /*

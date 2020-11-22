@@ -1,3 +1,4 @@
+#include <AP_HAL/AP_HAL.h>
 #include <AP_HAL/utility/sparse-endian.h>
 #include <AP_InternalError/AP_InternalError.h>
 

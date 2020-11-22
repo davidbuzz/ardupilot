@@ -28,6 +28,10 @@
 #define PROBE_MAG_IMU_I2C(driver, imudev, bus, addr, args ...) ADD_BACKEND(DRIVER_ ##driver, AP_Compass_ ## driver::probe_ ## imudev(GET_I2C_DEVICE(bus,addr),##args))
 //------------------------------------
 
+
+//#define CONFIG_HAL_BOARD 12
+//#define HAL_BOARD_ESP32 12
+
 //INS choices: 
 #define HAL_INS_DEFAULT HAL_INS_MPU9250_SPI
 //#define HAL_INS_MPU9250_NAME "MPU9250"
@@ -46,7 +50,7 @@
 //#define HAL_BARO_ANALOG_PIN (6)
 
 // MAG/COMPASS choices:
-#define HAL_COMPASS_DEFAULT HAL_COMPASS_AK8963_MPU9250
+//#define HAL_COMPASS_DEFAULT HAL_COMPASS_AK8963_MPU9250
 // or others:
 //#define HAL_COMPASS_ICM20948_I2C_ADDR (0x68)
 //#define HAL_COMPASS_AK09916_I2C_BUS 0
@@ -66,6 +70,7 @@
 
 // ADC is available on lots of pints on the esp32, but adc2 cant co-exist with wifi we choose to allow ADC on :
 //#define HAL_DISABLE_ADC_DRIVER 1
+#define TRUE 1
 #define HAL_USE_ADC TRUE
 
 // the pin number, the gain/multiplier associated with it, the ardupilot name for the pin in parameter/s.
@@ -172,6 +177,43 @@
 #define HAL_LOGGING_BACKENDS_DEFAULT 2
 
 
+
+#define HAL_NUM_CAN_IFACES 0
+#define HAL_MEM_CLASS HAL_MEM_CLASS_300
+
+
+#define __LITTLE_ENDIAN  1234
+#define __BYTE_ORDER     __LITTLE_ENDIAN
+
+// whenver u get ... error: "xxxxxxx" is not defined, evaluates to 0 [-Werror=undef]  just define it below as 0
+#define CONFIG_SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY 0
+#define XCHAL_ERRATUM_453 0
+#define CONFIG_FREERTOS_CORETIMER_0 0
+#define CONFIG_FREERTOS_CHECK_STACKOVERFLOW_NONE 0
+#define CONFIG_FREERTOS_CHECK_STACKOVERFLOW_PTRVAL 0
+#define CONFIG_FREERTOS_ENABLE_STATIC_TASK_CLEAN_UP 0
+#define CONFIG_FREERTOS_USE_TICKLESS_IDLE 0
+#define CONFIG_SYSVIEW_ENABLE 0
+#define CONFIG_SPI_FLASH_DANGEROUS_WRITE_ALLOWED 0
+#define CONFIG_SPI_FLASH_ENABLE_COUNTERS 0
+#define USE_LIBC_REALLOC 0
+#define CONFIG_LWIP_DHCP_RESTORE_LAST_IP 0
+#define CONFIG_LWIP_STATS 0
+#define CONFIG_LWIP_PPP_SUPPORT 0
+#define CONFIG_LWIP_STATS 0
+#define CONFIG_ESP32_WIFI_CSI_ENABLED 0
+//#define CONFIG_ESP32_WIFI_AMPDU_RX_ENABLED 0
+//#define CONFIG_ESP32_WIFI_AMPDU_TX_ENABLED 0
+#define CONFIG_ESP32_WIFI_NVS_ENABLED 0
+#define CONFIG_NEWLIB_NANO_FORMAT 0
+//#define CONFIG_ESP32_WIFI_TASK_PINNED_TO_CORE_1 0
+#define CONFIG_LWIP_IP4_REASSEMBLY 0
+#define CONFIG_LWIP_IP6_REASSEMBLY 0
+#define CONFIG_LWIP_STATS 0
+#define LWIP_COMPAT_SOCKET_INET 0
+#define LWIP_COMPAT_SOCKET_ADDR 0
+#define CONFIG_ESP32_WIFI_TX_BA_WIN 0
+#define CONFIG_ESP32_WIFI_RX_BA_WIN 0
 
 
 

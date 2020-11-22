@@ -558,21 +558,15 @@ class esp32(Board):
         )
 
 
-
-        # drop lua on esp32, explicitly.
-        env.DEFINES.update(
-            ENABLE_SCRIPTING = 0,
-            ENABLE_HEAP = 1,
-            )
-
-
         env.AP_LIBRARIES += [
             'AP_HAL_ESP32',
         ]
 
         env.CFLAGS += [
             '-fno-inline-functions',
+            '-mlongcalls',
         ]
+        env.CFLAGS.remove('-Werror=undef')
 
         env.CXXFLAGS += ['-mlongcalls',
                          '-Os',
@@ -585,9 +579,12 @@ class esp32(Board):
                          '-fstrict-volatile-bitfields',
                          '-Wno-sign-compare',
                          '-fno-inline-functions',
+                         '-mlongcalls',
                          '-DCYGWIN_BUILD']
-        #env.CXXFLAGS.remove('-Wundef')
+        env.CXXFLAGS.remove('-Werror=undef')
         env.CXXFLAGS.remove('-Werror=shadow')
+
+
         env.INCLUDES += [
                 cfg.srcnode.find_dir('libraries/AP_HAL_ESP32/boards').abspath(),
             ]

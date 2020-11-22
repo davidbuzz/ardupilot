@@ -2644,6 +2644,9 @@ void GCS_MAVLINK::send_vfr_hud()
  */
 MAV_RESULT GCS_MAVLINK::handle_preflight_reboot(const mavlink_command_long_t &packet)
 {
+#ifdef HAL_ESP32_WIFI 
+return MAV_RESULT_UNSUPPORTED;
+#else
     if (is_equal(packet.param1, 42.0f) &&
         is_equal(packet.param2, 24.0f) &&
         is_equal(packet.param3, 71.0f)) {
@@ -2687,6 +2690,7 @@ MAV_RESULT GCS_MAVLINK::handle_preflight_reboot(const mavlink_command_long_t &pa
     const bool hold_in_bootloader = is_equal(packet.param1, 3.0f);
 
     AP::vehicle()->reboot(hold_in_bootloader);  // not expected to return
+#endif
 
     return MAV_RESULT_FAILED;
 }
