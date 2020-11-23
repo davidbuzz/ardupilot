@@ -11,76 +11,86 @@
  *
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Code by Andrew Tridgell and Siddharth Bharat Purohit and David "Buzz" Bussenschutt
  */
-
 #pragma once
 
 #include <AP_HAL/AP_HAL.h>
 #include "HAL_ESP32_Namespace.h"
-
-#include <esp_timer.h>
-#include <multi_heap.h>
-
-//see components/heap/include/esp_heas_cap.h
+#include "AP_HAL_ESP32.h"
 
 class ESP32::Util : public AP_HAL::Util {
 public:
+    static Util *from(AP_HAL::Util *util) {
+        return static_cast<Util*>(util);
+    }
+
     bool run_debug_shell(AP_HAL::BetterStream *stream) override { return false; }
+    uint32_t available_memory() override;
 
-    /**
-       how much free memory do we have in bytes.  on esp32 this returns the
-       largest free block of memory able to be allocated with the given capabilities.
-       , which in this case is "Memory must be able to run executable code"
-     */
-     uint32_t available_memory(void) override {
-    	 return heap_caps_get_largest_free_block(MALLOC_CAP_DEFAULT);
-     }
-
-    uint64_t get_hw_rtc() const override
-	{
-		return esp_timer_get_time();
-	}
+    // Special Allocation Routines
+    void *malloc_type(size_t size, AP_HAL::Util::Memory_Type mem_type) override;
+    void free_type(void *ptr, size_t size, AP_HAL::Util::Memory_Type mem_type) override;
 
 #ifdef ENABLE_HEAP
-    // heap functions, if all block of the heap are freed the heap area can be
-	// used normally
-    void *allocate_heap_memory(size_t size) override {
-		void *buf = malloc(size);
-		if (buf == nullptr) {
-			return nullptr;
-		}
-
-		multi_heap_handle_t *heap = (multi_heap_handle_t *)malloc(sizeof(multi_heap_handle_t));
-		if (heap != nullptr) {
-			auto hp = multi_heap_register(buf, size);
-			memcpy(heap, &hp, sizeof(multi_heap_handle_t));
-		}
-
-		return heap;
-	}
-    void *heap_realloc(void *heap, void *ptr, size_t new_size) override
-	{
-		if (heap == nullptr) {
-			return nullptr;
-		}
-
-		return multi_heap_realloc(*(multi_heap_handle_t *)heap, ptr, new_size);
-	}
+    // heap functions, note that a heap once alloc'd cannot be dealloc'd
+    virtual void *allocate_heap_memory(size_t size) override;
+    virtual void *heap_realloc(void *heap, void *ptr, size_t new_size) override;
+    virtual void *std_realloc(void *ptr, size_t new_size) override;
 #endif // ENABLE_HEAP
 
-	/*
-	   get safety switch state
-	   */
-	   /*
-	Util::safety_state safety_switch_state(void) override
-	{
-#if HAL_USE_PWM == TRUE
-		return ((RCOutput *)hal.rcout)->_safety_switch_state();
-#else
-		return SAFETY_NONE;
+    /*
+      return state of safety switch, if applicable
+     */
+    enum safety_state safety_switch_state(void) override;
+
+    // get system ID as a string
+    bool get_system_id(char buf[40]) override;
+    bool get_system_id_unformatted(uint8_t buf[], uint8_t &len) override;
+
+#ifdef HAL_PWM_ALARM
+    bool toneAlarm_init() override;
+    void toneAlarm_set_buzzer_tone(float frequency, float volume, uint32_t duration_ms) override;
 #endif
-	}
-	*/
 
+    // return true if the reason for the reboot was a watchdog reset
+    bool was_watchdog_reset() const override;
 
+#if CH_DBG_ENABLE_STACK_CHECK == TRUE
+    // request information on running threads
+    size_t thread_info(char *buf, size_t bufsize) override;
+#endif
+    
+private:
+#ifdef HAL_PWM_ALARM
+    struct ToneAlarmPwmGroup {
+        pwmchannel_t chan;
+        PWMConfig pwm_cfg;
+        PWMDriver* pwm_drv;
+    };
+
+    static ToneAlarmPwmGroup _toneAlarm_pwm_group;
+#endif
+
+    /*
+      set HW RTC in UTC microseconds
+     */
+    void set_hw_rtc(uint64_t time_utc_usec) override;
+
+    /*
+      get system clock in UTC microseconds
+     */
+    uint64_t get_hw_rtc() const override;
+#if !defined(HAL_NO_FLASH_SUPPORT) && !defined(HAL_NO_ROMFS_SUPPORT)
+    FlashBootloader flash_bootloader() override;
+#endif
+
+#ifdef ENABLE_HEAP
+   // static memory_heap_t scripting_heap;
+#endif // ENABLE_HEAP
+
+    // stm32F4 and F7 have 20 total RTC backup registers. We use the first one for boot type
+    // flags, so 19 available for persistent data
+    static_assert(sizeof(persistent_data) <= 19*4, "watchdog persistent data too large");
 };

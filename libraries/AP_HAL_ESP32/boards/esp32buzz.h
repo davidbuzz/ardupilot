@@ -109,6 +109,11 @@
 
 #define HAL_ESP32_WIFI 1
 
+// see boards.py
+#ifndef ENABLE_HEAP
+#define ENABLE_HEAP 0
+#endif
+
 #define WIFI_SSID "ardupilot123"
 #define WIFI_PWD "ardupilot123"
 

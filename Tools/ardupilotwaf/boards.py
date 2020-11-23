@@ -557,6 +557,10 @@ class esp32(Board):
             CONFIG_HAL_BOARD = 'HAL_BOARD_ESP32'
         )
 
+        env.DEFINES.update(
+            ENABLE_HEAP = 0,
+        )
+
 
         env.AP_LIBRARIES += [
             'AP_HAL_ESP32',
