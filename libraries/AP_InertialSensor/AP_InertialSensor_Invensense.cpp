@@ -37,16 +37,19 @@ extern const AP_HAL::HAL& hal;
 #endif
 #endif
 
-#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
-#ifdef DEBUG_INS
+//#ifdef DEBUG_INS
+
+//#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
 // hal.console can be accessed from bus threads on ChibiOS
-#define debug(fmt, args ...)  do {hal.console->printf("MPU: " fmt "\n", ## args); } while(0)
-#else
+//#define debug(fmt, args ...)  do {hal.console->printf("MPU: " fmt "\n", ## args); } while(0)
+//#else
 #define debug(fmt, args ...)  do {printf("MPU: " fmt "\n", ## args); } while(0)
-#endif
-#else
-#define debug(fmt, args ...)  do { } while(0)
-#endif
+//#endif
+
+//#else
+//#define debug(fmt, args ...)  do { } while(0)
+
+//#endif
 
 /*
   EXT_SYNC allows for frame synchronisation with an external device
@@ -642,7 +645,7 @@ void AP_InertialSensor_Invensense::_read_fifo()
     }
 
     if (need_reset) {
-        //debug("fifo reset n_samples %u", bytes_read/MPU_SAMPLE_SIZE);
+        debug("fifo reset n_samples %u", bytes_read/MPU_SAMPLE_SIZE);
         _fifo_reset(false);
     }
     

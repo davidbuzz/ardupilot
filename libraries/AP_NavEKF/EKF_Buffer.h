@@ -41,7 +41,7 @@ public:
 
 private:
     const uint8_t elsize;
-    void *buffer;
+    void *buffer = nullptr;
     uint8_t _size, _head, _tail, _new_data;
 
     uint32_t &time_ms(uint8_t idx);
@@ -127,7 +127,7 @@ public:
 
 protected:
     const uint8_t elsize;
-    void *buffer;
+    void *buffer = nullptr;
     uint8_t _size,_oldest,_youngest;
     bool _filled;
 

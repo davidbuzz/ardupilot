@@ -255,10 +255,15 @@ Currently used debugger is called a 'TIAO USB Multi Protocol Adapter' which is a
 - [x] Custom boards build
 - [x] Perfomance optimization
 
+### Known Bugs
+- [ ] SdCard mounts but ardupilot logging to SD does not
+- [ ] PWM output driver works, but it appears that throttle supression when disarmed does not.
+
+
 ### Future development
 - [ ] Pin remapping via parameters
 - [ ] GPIO driver
-- [ ] AnalogIn driver
+- [ ] AnalogIn driver - partial progress
 - [ ] DShot driver / 4way pass / esc telemetry / ws2812b led
 - [ ] INA219 driver
 - [ ] GSD

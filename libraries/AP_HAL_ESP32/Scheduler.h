@@ -14,7 +14,7 @@
  */
 
 #pragma once
-
+#include <AP_Param/AP_Param.h>
 #include <AP_HAL/AP_HAL.h>
 #include "HAL_ESP32_Namespace.h"
 
@@ -42,12 +42,17 @@ public:
     bool     in_main_thread() const override;
     void     system_initialized() override;
 
+    void     print_stats(void) ; 
+    uint16_t get_loop_rate_hz(void);
+    AP_Int16 _active_loop_rate_hz;
+    AP_Int16 _loop_rate_hz;
+
 	static void thread_create_trampoline(void *ctx);
     bool thread_create(AP_HAL::MemberProc, const char *name, uint32_t stack_size, priority_base base, int8_t priority) override;
 
-    static const int SPI_PRIORITY = 21;
-    static const int MAIN_PRIO = 20;
-    static const int I2C_PRIORITY = 25;
+    static const int SPI_PRIORITY = 40; // if your primary imu is spi, this should be above the i2c value, spi is better.
+    static const int MAIN_PRIO = 10;
+    static const int I2C_PRIORITY = 5; // if your primary imu is i2c, this should be above the spi value, i2c is not preferred.
     static const int TIMER_PRIO = 15;
     static const int RCIN_PRIO = 10;
     static const int WIFI_PRIO = 7;

@@ -6,6 +6,7 @@
 #include "EKF_Buffer.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 // constructor
 ekf_ring_buffer::ekf_ring_buffer(uint8_t _elsize) :
@@ -15,7 +16,11 @@ ekf_ring_buffer::ekf_ring_buffer(uint8_t _elsize) :
 bool ekf_ring_buffer::init(uint8_t size)
 {
     if (buffer) {
-        free(buffer);
+
+   // printf("ekf buffer-----------------------------------------0x%p\n", (void *)buffer);
+    
+
+       // free(buffer); /// assert(heap != NULL && "free() target pointer is outside heap areas"); from heap_caps.c heap_caps_free(..)
     }
     buffer = calloc(size, elsize);
     if (buffer == nullptr) {

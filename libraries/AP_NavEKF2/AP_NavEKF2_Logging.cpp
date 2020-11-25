@@ -318,12 +318,12 @@ void NavEKF2::Log_Write()
 
 void NavEKF2::Log_Write_GSF(uint8_t _core, uint64_t time_us) const
 {
-    float yaw_composite;
-    float yaw_composite_variance;
+    float yaw_composite = 0.0f;
+    float yaw_composite_variance = 0.0f;
     float yaw[N_MODELS_EKFGSF];
     float ivn[N_MODELS_EKFGSF];
     float ive[N_MODELS_EKFGSF];
-    float wgt[N_MODELS_EKFGSF];
+   float wgt[N_MODELS_EKFGSF];
 
         // @LoggerMessage: NKY0
         // @Description: EKF2 Yaw Estimator States
@@ -342,7 +342,12 @@ void NavEKF2::Log_Write_GSF(uint8_t _core, uint64_t time_us) const
         // @Field: W3: Weighting applied to yaw estimate from individual EKF filter 3
         // @Field: W4: Weighting applied to yaw estimate from individual EKF filter 4
 
-    if (getDataEKFGSF(_core, yaw_composite, yaw_composite_variance, yaw, ivn, ive, wgt)) {
+yaw_composite=yaw_composite;
+yaw_composite_variance=yaw_composite_variance;
+//yaw=yaw;
+  if (getDataEKFGSF(_core, yaw_composite, yaw_composite_variance, yaw, ivn, ive, wgt)) {
+
+  /*
         AP::logger().Write("NKY0",
                         "TimeUS,C,YC,YCS,Y0,Y1,Y2,Y3,Y4,W0,W1,W2,W3,W4",
                         "s#rrrrrrr-----",
@@ -362,7 +367,7 @@ void NavEKF2::Log_Write_GSF(uint8_t _core, uint64_t time_us) const
                         wgt[2],
                         wgt[3],
                         wgt[4]);
-
+*/
         // @LoggerMessage: NKY1
         // @Description: EKF2 Yaw Estimator Innovations
         // @Field: TimeUS: Time since system startup

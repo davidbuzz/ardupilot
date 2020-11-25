@@ -1,0 +1,21 @@
+
+Decoding stack results
+0x40088860: invoke_abort at /home/buzz/ardupilot/modules/esp_idf/components/esp32/panic.c line 157
+0x40088bc9: abort at /home/buzz/ardupilot/modules/esp_idf/components/esp32/panic.c line 172
+
+0x401b75cf: __assert_func at /builds/idf/crosstool-NG/.build/xtensa-esp32-elf/src/newlib/newlib/libc/stdlib/assert.c line 62
+
+0x40082dae: heap_caps_free at /home/buzz/ardupilot/modules/esp_idf/components/heap/heap_caps.c line 252
+0x4008fc2d: free at /home/buzz/ardupilot/modules/esp_idf/components/newlib/heap.c line 47
+0x401ac996: ekf_ring_buffer::init(unsigned char) at ../../libraries/AP_NavEKF/EKF_Buffer.cpp line 18
+0x4017f888: NavEKF2_core::setup_core(unsigned char, unsigned char) at ../../libraries/AP_NavEKF/EKF_Buffer.h line 66
+0x4010349e: NavEKF2::InitialiseFilter() at ../../libraries/AP_NavEKF2/AP_NavEKF2.cpp line 687
+0x400e8413: AP_AHRS_NavEKF::update_EKF2() at ../../libraries/AP_AHRS/AP_AHRS_NavEKF.cpp line 209
+0x400e8876: AP_AHRS_NavEKF::update(bool) at ../../libraries/AP_AHRS/AP_AHRS_NavEKF.cpp line 137
+0x400d4e14: Plane::ahrs_update() at ../../ArduPlane/ArduPlane.cpp line 143
+0x400d4eb1: Functor ::method_wrapper (void*) at ../../libraries/AP_HAL/utility/functor.h line 85
+0x4010cf7a: AP_Scheduler::run(unsigned int) at ../../libraries/AP_HAL/utility/functor.h line 52
+0x4010d5c9: AP_Scheduler::loop() at ../../libraries/AP_Scheduler/AP_Scheduler.cpp line 339
+0x4011119e: AP_Vehicle::loop() at ../../libraries/AP_Vehicle/AP_Vehicle.cpp line 139
+0x40083136: ESP32::Scheduler::_main_thread(void*) at ../../libraries/AP_HAL_ESP32/Scheduler.cpp line 560
+

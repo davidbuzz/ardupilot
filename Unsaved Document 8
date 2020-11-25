@@ -1,0 +1,34 @@
+// class 300
+
+Heap summary for capabilities 0x00000000:
+  At 0x3ffae6e0 len 6432 free 0 allocated 6304 min_free 0
+    largest_free_block 0 alloc_blocks 24 free_blocks 0 total_blocks 24
+  At 0x3ffc5fb0 len 106576 free 0 allocated 105104 min_free 0
+    largest_free_block 0 alloc_blocks 360 free_blocks 0 total_blocks 360
+  At 0x3ffe0440 len 15072 free 28 allocated 14872 min_free 0
+    largest_free_block 28 alloc_blocks 34 free_blocks 1 total_blocks 35
+  At 0x3ffe4350 len 113840 free 58448 allocated 55288 min_free 56748
+    largest_free_block 58448 alloc_blocks 17 free_blocks 1 total_blocks 18
+  At 0x40094764 len 47260 free 47224 allocated 0 min_free 47216
+    largest_free_block 47224 alloc_blocks 0 free_blocks 1 total_blocks 1
+  Totals:
+    free 105780 allocated 181500 min_free 103964 largest_free_block 58544
+
+
+// class 192
+
+
+Heap summary for capabilities 0x00000000:
+  At 0x3ffae6e0 len 6432 free 0 allocated 6304 min_free 0
+    largest_free_block 0 alloc_blocks 24 free_blocks 0 total_blocks 24
+  At 0x3ffc5f60 len 106656 free 4 allocated 105120 min_free 4
+    largest_free_block 4 alloc_blocks 374 free_blocks 1 total_blocks 375
+  At 0x3ffe0440 len 15072 free 352 allocated 14580 min_free 132
+    largest_free_block 352 alloc_blocks 26 free_blocks 1 total_blocks 27
+  At 0x3ffe4350 len 113840 free 59776 allocated 54016 min_free 59052
+    largest_free_block 59776 alloc_blocks 3 free_blocks 1 total_blocks 4
+  At 0x40094764 len 47260 free 47224 allocated 0 min_free 47216
+    largest_free_block 47224 alloc_blocks 0 free_blocks 1 total_blocks 1
+  Totals:
+    free 107356 allocated 180020 min_free 106404 largest_free_block 59776
+

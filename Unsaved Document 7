@@ -1,0 +1,18 @@
+#0  0x401ac6d3 in EKFGSF_yaw::update (this=0x3ffffff8, delAng=..., delVel=..., delAngDT=0.0190000013, delVelDT=0.0180000011, runEKF=false, TAS=15.4731636) at ../../libraries/AP_NavEKF/EKFGSF_yaw.cpp:37
+37	{
+[Current thread is 1 (<main task>)]
+(gdb) bt
+#0  0x401ac6d3 in EKFGSF_yaw::update (this=0x3ffffff8, delAng=..., delVel=..., delAngDT=0.0190000013, delVelDT=0.0180000011, runEKF=false, TAS=15.4731636) at ../../libraries/AP_NavEKF/EKFGSF_yaw.cpp:37
+#1  0x401778ca in NavEKF2_core::runYawEstimatorPrediction (this=0x3ffe436c) at ../../libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp:554
+#2  0x4018439d in NavEKF2_core::UpdateFilter (this=0x3ffe436c, predict=true) at ../../libraries/AP_NavEKF2/AP_NavEKF2_core.cpp:569
+#3  0x401044c5 in NavEKF2::UpdateFilter (this=0x3ffb65e0 <plane+7680>) at ../../libraries/AP_NavEKF2/AP_NavEKF2.cpp:770
+#4  0x400e83af in AP_AHRS_NavEKF::update_EKF2 (this=0x3ffb6308 <plane+6952>) at ../../libraries/AP_AHRS/AP_AHRS_NavEKF.cpp:213
+#5  0x400e8879 in AP_AHRS_NavEKF::update (this=0x3ffb6308 <plane+6952>, skip_ins_update=false) at ../../libraries/AP_AHRS/AP_AHRS_NavEKF.cpp:137
+#6  0x400d4e17 in Plane::ahrs_update (this=0x3ffb47e0 <plane>) at ../../ArduPlane/ArduPlane.cpp:143
+#7  0x400d4eb4 in Functor<void>::method_wrapper<Plane, &Plane::ahrs_update> (obj=0x3ffb47e0 <plane>) at ../../libraries/AP_HAL/utility/functor.h:85
+#8  0x4010cf7d in Functor<void>::operator() (this=0x3f403a7c <Plane::scheduler_tasks>) at ../../libraries/AP_HAL/utility/functor.h:52
+#9  AP_Scheduler::run (this=0x3ffb4820 <plane+64>, time_available=19984) at ../../libraries/AP_Scheduler/AP_Scheduler.cpp:211
+#10 0x4010d5cc in AP_Scheduler::loop (this=0x3ffb4820 <plane+64>) at ../../libraries/AP_Scheduler/AP_Scheduler.cpp:339
+#11 0x401111a1 in AP_Vehicle::loop (this=0x3ffb47e0 <plane>) at ../../libraries/AP_Vehicle/AP_Vehicle.cpp:139
+#12 0x40083139 in ESP32::Scheduler::_main_thread (arg=0x3ffba984 <schedulerInstance>) at ../../libraries/AP_HAL_ESP32/Scheduler.cpp:560
+

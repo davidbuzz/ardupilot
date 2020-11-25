@@ -489,8 +489,17 @@ void Scheduler::_uart_thread(void *arg)
     }
 }
 
+
+    // get the active main loop rate
+uint16_t Scheduler::get_loop_rate_hz(void) {
+        if (_active_loop_rate_hz == 0) {
+            _active_loop_rate_hz = _loop_rate_hz;
+        }
+        return _active_loop_rate_hz;
+}
+
 // once every 60 seconds, print some stats...
-void print_stats()
+void Scheduler::print_stats(void)
 {
     static int64_t last_run = 0;
     if (AP_HAL::millis64() - last_run > 60000) {
@@ -500,6 +509,8 @@ void print_stats()
         heap_caps_print_heap_info(0);
         last_run = AP_HAL::millis64();
     }
+
+   // printf("loop_rate_hz: %d",get_loop_rate_hz());
 }
 
 #include <AP_AHRS/AP_AHRS.h>
@@ -560,7 +571,7 @@ printf("%s:%d 777\n", __PRETTY_FUNCTION__, __LINE__);
         sched->callbacks->loop();
         sched->delay_microseconds(250);
 
-        print_stats(); // only runs every 60 seconds.
+        sched->print_stats(); // only runs every 60 seconds.
     }
 }
 
