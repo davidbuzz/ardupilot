@@ -68,8 +68,6 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
     xTaskCreate(_rcin_thread, "APM_RCIN", RCIN_SS, this, RCIN_PRIO, &_rcin_task_handle);
     xTaskCreate(_uart_thread, "APM_UART", UART_SS, this, UART_PRIO, &_uart_task_handle);
     xTaskCreate(_io_thread, "APM_IO", IO_SS, this, IO_PRIO, &_io_task_handle);
-  //  xTaskCreate(test_esc, "APM_TEST", IO_SS, this, IO_PRIO, nullptr);
-  //  xTaskCreate(set_position, "APM_POS", IO_SS, this, IO_PRIO, nullptr);
     xTaskCreate(_storage_thread, "APM_STORAGE", STORAGE_SS, this, STORAGE_PRIO, &_storage_task_handle); //no actual flash writes without this, storage kinda appears to work, but does an erase on every boot and params don't persist over reset etc.
 
  //   xTaskCreate(_print_profile, "APM_PROFILE", IO_SS, this, IO_PRIO, nullptr);
@@ -299,94 +297,6 @@ void Scheduler::_rcin_thread(void *arg)
     }
 }
 
-
-//static const char* TAG = "MOTOR";
-
-static const int nothing[4] = {1500, 1500, 1500, 1500};
-static const int down[4] =    {1500, 1500, 1570, 1570};
-static const int forward[4] = {1415, 1415, 1500, 1500};
-static const int right[4] =   {1570, 1415, 1500, 1500};
-static const int left[4] =    {1415, 1570, 1500, 1500};
-
-
-static const struct Inst {
-	const int* a;
-	long t;
-} ins[] = {
-        {nothing, 3000},
-	{down,    3000},
-	{forward, 10000},
-	{right,   3000},
-	{forward, 5000},
-	{right,   3000},
-	{forward, 8000},
-	{down,    3000},
-	{left,    3000},
-	{forward, 5000},
-	{left,    3000},
-	{forward, 8000},
-        {nothing, 10000},
-};
-
-void Scheduler::test_esc(void* arg)
-{
-    Scheduler *sched = (Scheduler *)arg;
-    /*
-    while (true)
-    {
-	int value[4];
-	for (int i = 0; i < 4; i++)
-	    value[i] = hal.rcout->read_last_sent(i);
-
-	printf("%d,%d,%d,%d,\n", value[0], value[1], value[2], value[3]);
-	sched->delay(5000);
-    }
-    return;
-    */
-    sched->delay_microseconds(1000);
-
-	hal.rcout->force_safety_off();
-    for (int k = 0; k < 5; k++)
-    {
-		for (int i = 0; i < 4; i++)
-		{
-			for (size_t j = 0; j < 300; j++)
-			{
-				hal.rcout->write(i, 1600);
-				sched->delay(10);
-			}
-			hal.rcout->write(i, 1500);
-
-		}
-		sched->delay(5000);
-	}
-	hal.rcout->force_safety_on();
-
-/*
-    long n = 0;
-    for (size_t i = 0; i < ARRAY_SIZE(ins); n++)
-    {
-		if (n > ins[i].t)
-		{
-			i++;
-			n = 0;
-			printf("Changing action to: %d.\n", i);
-		}
-
-		for (int j = 0; j < 4; ++j)
-			hal.rcout->write(j, ins[i].a[j]);
-
-		sched->delay_microseconds(1000);
-    }
-	*/
-
-    while (true)
-    {
-	    sched->delay_microseconds(1000);
-    }
-
-}
-
 void Scheduler::_run_io(void)
 {
 #ifdef SCHEDULERDEBUG 
@@ -512,35 +422,6 @@ void Scheduler::print_stats(void)
 
    // printf("loop_rate_hz: %d",get_loop_rate_hz());
 }
-
-#include <AP_AHRS/AP_AHRS.h>
-void Scheduler::set_position(void* arg)
-{
-    Scheduler *sched = (Scheduler *)arg;
-	while(!_initialized)
-	{
-        sched->delay_microseconds(1000);
-	}
-	sched->delay_microseconds(5000);
-
-
-    AP_AHRS &ahrs = AP::ahrs();
-	Location ekf_origin {};
-    ekf_origin.lat = 0.0000001;
-    ekf_origin.lng = 0.0000001;
-    ekf_origin.alt = 0.1;
-
-    if (ahrs.set_origin(ekf_origin)) {
-		printf("Set ekf origin");
-		//gcs().send_text(MAV_SEVERITY_INFO, "Set ekf origin to 0");
-	}
-
-	while (true)
-	{
-        sched->delay_microseconds(10000);
-	}
-}
-
 
 void IRAM_ATTR Scheduler::_main_thread(void *arg)
 {
