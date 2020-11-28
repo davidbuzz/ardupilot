@@ -223,7 +223,7 @@ void mount_sdcard_spi()
         sdcard_running = false;
     }
 }
-void mount_sdcard(){ mount_sdcard_mmc(); }
+void mount_sdcard(){ mount_sdcard_spi(); }
 #endif // end spi
 
 
