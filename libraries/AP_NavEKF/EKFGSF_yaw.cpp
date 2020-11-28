@@ -36,7 +36,7 @@ void EKFGSF_yaw::update(const Vector3f &delAng,
                         float TAS)
 {
 
-    abort();
+//    abort();
 
     // copy to class variables
     delta_angle = delAng;
