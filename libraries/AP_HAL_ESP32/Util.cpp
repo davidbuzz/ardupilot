@@ -32,6 +32,7 @@
 #include <string.h>
 #include "esp_log.h"
 #include "esp_system.h"
+#include "esp_heap_caps.h"
 
 
 extern const AP_HAL::HAL& hal;
@@ -69,20 +70,24 @@ D/IRAM is RAM which can be used as either Instruction or Data RAM.
 //The ESP-IDF malloc() implementation internally calls heap_caps_malloc(size, MALLOC_CAP_8BIT) in order to allocate DRAM that is byte-addressable.
 
 //For most purposes, the standard libc malloc() and free() functions can be used for heap allocation without any special consideration.
+	return malloc(size);
 
-    //if (mem_type == AP_HAL::Util::MEM_DMA_SAFE) {
-        return malloc(size);
+/*
+    if (mem_type == AP_HAL::Util::MEM_DMA_SAFE) {
+        return heap_caps_malloc(size, MALLOC_CAP_DMA);
     //} else if (mem_type == AP_HAL::Util::MEM_FAST) {
-    //    return malloc_fastmem(size);
-    //} else {
-    //    return calloc(1, size);
-    //}
+     //   return heap_caps_malloc(size, MALLOC_CAP_32BIT); //WARNING 32bit memory cannot use unless 32bit access
+    } else {
+		return heap_caps_calloc(1, size, MALLOC_CAP_8BIT);
+    }
+	*/
+
 }
 
 void Util::free_type(void *ptr, size_t size, AP_HAL::Util::Memory_Type mem_type)
 {
     if (ptr != NULL) {
-        free(ptr);
+        heap_caps_free(ptr);
     }
 }
 
@@ -91,12 +96,27 @@ void Util::free_type(void *ptr, size_t size, AP_HAL::Util::Memory_Type mem_type)
 
 void *Util::allocate_heap_memory(size_t size)
 {
-    void *buf = malloc(size);
-    if (buf == nullptr) {
+	void *buf = malloc(size);
+	if (buf == nullptr) {
+		return nullptr;
+	}
+
+	multi_heap_handle_t *heap = (multi_heap_handle_t *)malloc(sizeof(multi_heap_handle_t));
+	if (heap != nullptr) {
+		auto hp = multi_heap_register(buf, size);
+		memcpy(heap, &hp, sizeof(multi_heap_handle_t));
+	}
+
+	return heap;
+}
+
+void *Util::heap_realloc(void *heap, void *ptr, size_t new_size)
+{
+    if (heap == nullptr) {
         return nullptr;
     }
-    return buf;
 
+    return multi_heap_realloc(*(multi_heap_handle_t *)heap, ptr, new_size);
 }
 
 /*
@@ -120,15 +140,6 @@ void *Util::std_realloc(void *addr, size_t size)
     return new_mem;
 }
 
-void *Util::heap_realloc(void *heap, void *ptr, size_t new_size)
-{
-    if (heap == nullptr) {
-        return nullptr;
-    }
-
-    return std_realloc( ptr,  new_size);
-
-}
 #endif // ENABLE_HEAP
 
 
