@@ -49,7 +49,7 @@
 
 #define HAL_BARO_PROBE_LIST PROBE_BARO_I2C(BMP280, 0, 0x77)
 
-#define HAL_ESP32_WIFI 1
+#define HAL_ESP32_WIFI 2 //To define tcp wifi
 
 //TODO RCOUT config
 #define HAL_ESP32_RCOUT {GPIO_NUM_15, GPIO_NUM_2, GPIO_NUM_0, GPIO_NUM_4}

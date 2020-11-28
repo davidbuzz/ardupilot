@@ -39,9 +39,11 @@ static Empty::UARTDriver uartADriver;
 static ESP32::UARTDriver cons(0);
 static ESP32::UARTDriver uartBDriver(1);
 #ifdef HAL_ESP32_WIFI
-static ESP32::WiFiDriver uartCDriver;
-#elif defined HAL_ESP32_WIFI_UDP
-static ESP32::WiFiUdpDriver uartCDriver;
+	#if HAL_ESP32_WIFI == 1
+	static ESP32::WiFiDriver uartCDriver;
+	#elif HAL_ESP32_WIFI == 2
+	static ESP32::WiFiUdpDriver uartCDriver;
+	#endif
 #else
 static Empty::UARTDriver uartCDriver;
 #endif
