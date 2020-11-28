@@ -24,9 +24,9 @@
 #include <AP_ROMFS/AP_ROMFS.h>
 #include "SdCard.h"
 
-#include <esp_timer.h> 
-#include <multi_heap.h> 
-#include <esp_heap_caps.h> 
+#include <esp_timer.h>
+#include <multi_heap.h>
+#include <esp_heap_caps.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -44,7 +44,7 @@ using namespace ESP32;
 */
 uint32_t Util::available_memory(void)
 {
-    return heap_caps_get_largest_free_block(MALLOC_CAP_DEFAULT); 
+    return heap_caps_get_largest_free_block(MALLOC_CAP_DEFAULT);
 
 }
 
@@ -66,7 +66,7 @@ IRAM (Instruction RAM) usually holds executable data only. If accessed as generi
 D/IRAM is RAM which can be used as either Instruction or Data RAM.
 */
 
-//The ESP-IDF malloc() implementation internally calls heap_caps_malloc(size, MALLOC_CAP_8BIT) in order to allocate DRAM that is byte-addressable. 
+//The ESP-IDF malloc() implementation internally calls heap_caps_malloc(size, MALLOC_CAP_8BIT) in order to allocate DRAM that is byte-addressable.
 
 //For most purposes, the standard libc malloc() and free() functions can be used for heap allocation without any special consideration.
 
@@ -125,7 +125,7 @@ void *Util::heap_realloc(void *heap, void *ptr, size_t new_size)
     if (heap == nullptr) {
         return nullptr;
     }
-   
+
     return std_realloc( ptr,  new_size);
 
 }
@@ -182,7 +182,7 @@ void Util::set_hw_rtc(uint64_t time_utc_usec)
 */
 uint64_t Util::get_hw_rtc() const
 {
-    return esp_timer_get_time(); 
+    return esp_timer_get_time();
 }
 
 #if !defined(HAL_NO_FLASH_SUPPORT) && !defined(HAL_NO_ROMFS_SUPPORT)
@@ -196,7 +196,7 @@ uint64_t Util::get_hw_rtc() const
 
 Util::FlashBootloader Util::flash_bootloader()
 {
-//    ....esp32 too 
+//    ....esp32 too
     return FlashBootloader::FAIL;
 }
 #endif // !HAL_NO_FLASH_SUPPORT && !HAL_NO_ROMFS_SUPPORT
@@ -272,7 +272,7 @@ size_t Util::thread_info(char *buf, size_t bufsize)
     //    char buffer[1024];
     //    vTaskGetRunTimeStats(buffer);
     //    snprintf(buf, bufsize,"\n\n%s\n", buffer);
- 
+
     // total = ..
 
   return total;
