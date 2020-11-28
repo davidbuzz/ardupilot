@@ -48,8 +48,8 @@
 # define Debug(fmt, args ...)
 #endif
 
-// we are limited to using adc1, and it supports 8 channels max, on gpio, in this order: 
-// ADC1_CH0=D36,ADC1_CH1=D37,ADC1_CH2=D38,ADC1_CH3=D39,ADC1_CH4=D32,ADC1_CH5=D33,ADC1_CH6=D34,ADC1_CH7=D35 
+// we are limited to using adc1, and it supports 8 channels max, on gpio, in this order:
+// ADC1_CH0=D36,ADC1_CH1=D37,ADC1_CH2=D38,ADC1_CH3=D39,ADC1_CH4=D32,ADC1_CH5=D33,ADC1_CH6=D34,ADC1_CH7=D35
 // this driver will only configure the ADCs from a subset of these that the board exposes on pins.
 
 
@@ -71,23 +71,23 @@ const AnalogIn::pin_info AnalogIn::pin_config[] = HAL_ESP32_ADC_PINS;
 
 static const adc_atten_t atten = ADC_ATTEN_DB_11;
 
-//ardupin is the ardupilot assigned number, starting from 1-8(max) 
-// 'pin' and _pin is a macro like 'ADC1_GPIO35_CHANNEL' from board config .h 
-AnalogSource::AnalogSource(int16_t ardupin,int16_t pin,float scaler, float initial_value, uint8_t unit) : 
+//ardupin is the ardupilot assigned number, starting from 1-8(max)
+// 'pin' and _pin is a macro like 'ADC1_GPIO35_CHANNEL' from board config .h
+AnalogSource::AnalogSource(int16_t ardupin,int16_t pin,float scaler, float initial_value, uint8_t unit) :
 
 	_unit(unit),
-    _ardupin(ardupin), 
-    _pin(pin), 
-    _scaler(scaler), 
+    _ardupin(ardupin),
+    _pin(pin),
+    _scaler(scaler),
 	_value(initial_value),
 	_latest_value(initial_value),
 	_sum_count(0),
 	_sum_value(0)
 {
-  printf("AnalogIn: adding ardupin:%d-> which is adc1_offset:%d\n", _ardupin,_pin); 
+  printf("AnalogIn: adding ardupin:%d-> which is adc1_offset:%d\n", _ardupin,_pin);
 
     // init the pin now if possible, otherwise doo it later from set_pin
-    if ( _ardupin != ANALOG_INPUT_NONE ) { 
+    if ( _ardupin != ANALOG_INPUT_NONE ) {
 
     // dertermine actial gpio from adc offset and configure it
 	gpio_num_t gpio;
@@ -111,7 +111,7 @@ AnalogSource::AnalogSource(int16_t ardupin,int16_t pin,float scaler, float initi
 
 float AnalogSource::read_average()
 {
-    if ( _ardupin == ANALOG_INPUT_NONE )  return 0.0f; 
+    if ( _ardupin == ANALOG_INPUT_NONE )  return 0.0f;
 
 	WITH_SEMAPHORE(_semaphore);
 
@@ -175,9 +175,9 @@ void AnalogSource::set_pin(uint8_t ardupin)
     }
 
     int8_t pinconfig_offset = AnalogIn::find_pinconfig(ardupin);
-    if (pinconfig_offset == -1 ) { 
+    if (pinconfig_offset == -1 ) {
         hal.console->printf("AnalogIn: sorry set_pin() can't determine ADC1 offset from ardupin : %d \n",ardupin);
-        return ;     
+        return ;
     }
 
     int16_t newgpioAdcPin = AnalogIn::pin_config[(uint8_t)pinconfig_offset].channel;
@@ -227,7 +227,7 @@ void AnalogSource::set_pin(uint8_t ardupin)
    */
 void AnalogSource::_add_value()
 {
-    if ( _ardupin == ANALOG_INPUT_NONE )  return; 
+    if ( _ardupin == ANALOG_INPUT_NONE )  return;
 
 	WITH_SEMAPHORE(_semaphore);
 
@@ -317,11 +317,11 @@ int8_t AnalogIn::find_pinconfig(int16_t ardupin)
         }
     }
     // can't find a match in definitons
-    return -1; 
+    return -1;
 
 }
 
-// 
+//
 AP_HAL::AnalogSource *AnalogIn::channel(int16_t ardupin)
 {
     int8_t pinconfig_offset = find_pinconfig(ardupin);
@@ -329,11 +329,11 @@ AP_HAL::AnalogSource *AnalogIn::channel(int16_t ardupin)
     int16_t gpioAdcPin = -1;
     float scaler = -1;
 
-    if ((ardupin != ANALOG_INPUT_NONE) && (pinconfig_offset == -1 )) { 
+    if ((ardupin != ANALOG_INPUT_NONE) && (pinconfig_offset == -1 )) {
         hal.console->printf("AnalogIn: sorry channel() can't determine ADC1 offset from ardupin : %d \n",ardupin);
         ardupin = ANALOG_INPUT_NONE; // default it to this not terrible value and allow to continue
-    } 
-    // although ANALOG_INPUT_NONE=255 is not a valid pin, we let it through here as 
+    }
+    // although ANALOG_INPUT_NONE=255 is not a valid pin, we let it through here as
     //  a special case, so that it can be changed with set_pin(..) later.
     if (ardupin != ANALOG_INPUT_NONE) {
         gpioAdcPin = pin_config[(uint8_t)pinconfig_offset].channel;
@@ -343,16 +343,16 @@ AP_HAL::AnalogSource *AnalogIn::channel(int16_t ardupin)
 	for (uint8_t j = 0; j < ANALOG_MAX_CHANNELS; j++) {
 		if (_channels[j] == nullptr) {
 			_channels[j] = new AnalogSource(ardupin,gpioAdcPin, scaler,0.0f,1);
-            
+
             if (ardupin != ANALOG_INPUT_NONE) {
             	hal.console->printf("AnalogIn: channel:%d attached to ardupin:%d at adc1_offset:%d on gpio:%d\n",\
-                    j ,ardupin, gpioAdcPin, _channels[j]->_gpio); 
+                    j ,ardupin, gpioAdcPin, _channels[j]->_gpio);
             }
 
             if (ardupin == ANALOG_INPUT_NONE) {
-            	hal.console->printf("AnalogIn: channel:%d created but using delayed adc and gpio pin configuration\n",j ); 
+            	hal.console->printf("AnalogIn: channel:%d created but using delayed adc and gpio pin configuration\n",j );
             }
-            
+
 			return _channels[j];
 		}
 	}
