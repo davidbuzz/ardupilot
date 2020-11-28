@@ -23,6 +23,7 @@
 #include "I2CDevice.h"
 #include <AP_HAL_ESP32/UARTDriver.h>
 #include "WiFiDriver.h"
+#include "WiFiUdpDriver.h"
 #include "RCInput.h"
 #include "RCOutput.h"
 #include "Storage.h"
@@ -39,6 +40,8 @@ static ESP32::UARTDriver cons(0);
 static ESP32::UARTDriver uartBDriver(1);
 #ifdef HAL_ESP32_WIFI
 static ESP32::WiFiDriver uartCDriver;
+#elif defined HAL_ESP32_WIFI_UDP
+static ESP32::WiFiUdpDriver uartCDriver;
 #else
 static Empty::UARTDriver uartCDriver;
 #endif

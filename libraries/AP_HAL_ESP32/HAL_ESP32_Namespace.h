@@ -3,6 +3,7 @@
 namespace ESP32 {
 	class UARTDriver;
 	class WiFiDriver;
+    class WiFiUdpDriver;
 	class Scheduler;
 	class EEPROMStorage;
 	class AnalogIn;
