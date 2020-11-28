@@ -137,11 +137,12 @@ void *Util::heap_realloc(void *heap, void *ptr, size_t new_size)
  */
 Util::safety_state Util::safety_switch_state(void)
 {
-#if HAL_USE_PWM == TRUE
-    return ((RCOutput *)hal.rcout)->_safety_switch_state();
-#else
+
+//#if HAL_USE_PWM == TRUE
+ //   return ((RCOutput *)hal.rcout)->_safety_switch_state();
+//#else
     return SAFETY_NONE;
-#endif
+//#endif
 }
 
 #ifdef HAL_PWM_ALARM
