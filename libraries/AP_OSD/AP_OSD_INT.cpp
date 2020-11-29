@@ -49,7 +49,7 @@ AP_OSD_Backend *AP_OSD_INT::probe(AP_OSD &osd)
 void AP_OSD_INT::flush() {
     if (initialized) {
         for (int iy = 0; iy < AP_OSD_INT::video_y; iy++) {
-            for (int ix = 0; ix < AP_OSD_INT::video_x / 32; ix++) {
+            for (int ix = 0; ix < AP_OSD_INT::video_x / 32 -1; ix++) {
                 frame_levl[iy][ix] = frame[iy][ix];
                 uint32_t mask = frame[iy][ix] | (frame[iy][ix] << 1)
                         | (frame[iy][ix] >> 1);
