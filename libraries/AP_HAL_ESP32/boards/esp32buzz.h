@@ -107,7 +107,8 @@
 
 #define HAL_BARO_PROBE_LIST PROBE_BARO_SPI(BMP280, "bmp280")
 
-#define HAL_ESP32_WIFI 1
+// use udp, not tcp...  client needs to connect as UDPCL in missionplanner etc to 192.168.4.1 port 14550
+#define HAL_ESP32_WIFI 2
 
 // see boards.py
 #ifndef ENABLE_HEAP
