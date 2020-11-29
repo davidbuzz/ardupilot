@@ -157,7 +157,7 @@ static const char *TAG = "SD...";
     // Please check its source code and implement error recovery when developing
     // production applications.
     sdmmc_card_t* card;
-    esp_err_t ret = esp_vfs_fat_sdmmc_mount("/sdcard", &host, &slot_config, &mount_config, &card);
+    esp_err_t ret = esp_vfs_fat_sdmmc_mount("/SDCARD", &host, &slot_config, &mount_config, &card);
 
 
     if (ret == ESP_OK) {
