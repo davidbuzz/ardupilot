@@ -32,7 +32,7 @@ def configure(cfg):
     env.AP_PROGRAM_FEATURES += ['esp32_ap_program']
 
     try:
-        env.IDF = os.environ['IDF_PATH'] 
+        env.IDF = os.environ['IDF_PATH']
     except:
         env.IDF = cfg.srcnode.abspath()+"/modules/esp_idf"
     print("USING EXPRESSIF IDF:"+str(env.IDF))
@@ -46,7 +46,7 @@ def configure(cfg):
     cfg.env.prepend_value('INCLUDES', parse_inc_dir(result))
 
     try:
-        env.DEFAULT_PARAMETERS = os.environ['DEFAULT_PARAMETERS'] 
+        env.DEFAULT_PARAMETERS = os.environ['DEFAULT_PARAMETERS']
     except:
         env.DEFAULT_PARAMETERS = cfg.srcnode.abspath()+"/libraries/AP_HAL_ESP32/boards/defaults.parm"
     print("USING DEFAULT_PARAMETERS:"+str(env.DEFAULT_PARAMETERS))
@@ -142,12 +142,12 @@ class generate_apj(Task.Task):
         #f.write(json.dumps(d, indent=4))
         #f.close()
 
-#python ./modules/esp_idf/components/esptool_py/esptool/esptool.py 
-#--chip esp32 --port /dev/ttyUSB0 --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dio 
-#--flash_freq 80m --flash_size detect 
-#0xf000 ./build/esp32buzz/idf-plane/ota_data_initial.bin 
-#0x1000 ./build/esp32buzz/idf-plane/bootloader/bootloader.bin 
-#0x20000 ./build/esp32buzz/idf-plane/arduplane.bin 
+#python ./modules/esp_idf/components/esptool_py/esptool/esptool.py
+#--chip esp32 --port /dev/ttyUSB0 --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dio
+#--flash_freq 80m --flash_size detect
+#0xf000 ./build/esp32buzz/idf-plane/ota_data_initial.bin
+#0x1000 ./build/esp32buzz/idf-plane/bootloader/bootloader.bin
+#0x20000 ./build/esp32buzz/idf-plane/arduplane.bin
 #0x8000 ./build/esp32buzz/idf-plane/partitions.bin
 class upload_fw(Task.Task):
     color='BLUE'
@@ -156,20 +156,16 @@ class upload_fw(Task.Task):
         upload_tools = self.env.get_flat('UPLOAD_TOOLS')
         upload_port = self.generator.bld.options.upload_port
         src = self.inputs[0]
-  
-        _et = "../../modules/esp_idf/components/esptool_py/esptool/esptool.py"
-        _otai = "../../build/esp32buzz/idf-plane/ota_data_initial.bin"
-        _bl = "../../build/esp32buzz/idf-plane/bootloader/bootloader.bin"
-        #_bin = "../../build/esp32buzz/idf-plane/arduplane.bin"
-        _prt = "../../build/esp32buzz/idf-plane/partitions.bin"
 
         idf_type = str(src).split('/')[-2]; # the /idf-plane/ part of src .. or copter, or sub etc
 
-        # we only get passed one path+file so this adjusts the above defines to match what is passed.
-        _bl = _bl.split('/'); _bl[4] = idf_type; _bl = '/'.join(_bl);
-        _otai = _otai.split('/'); _otai[4] = idf_type; _otai = '/'.join(_otai);
-        _prt = _prt.split('/'); _prt[4] = idf_type; _prt = '/'.join(_prt);
-        
+        _et = str(self.get_cwd()) + "/../../modules/esp_idf/components/esptool_py/esptool/esptool.py"
+        _otai = str(self.get_cwd()) + "/" + idf_type + "/ota_data_initial.bin"
+        _bl = str(self.get_cwd()) + "/" + idf_type + "/bootloader/bootloader.bin"
+        #_bin = "../../build/esp32buzz/idf-plane/arduplane.bin"
+        _prt = str(self.get_cwd()) + "/" + idf_type + "/partitions.bin"
+
+
         # taken from esp_idf's 'make flash' output and lowered the baud rate a bit for reliability.
         # we left out --port /dev/ttyUSB0  because it can autodetect
         cmd = "{} {} --chip esp32 --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 80m --flash_size detect 0xf000 {} 0x1000 {} 0x20000 {} 0x8000 {}".format(self.env.get_flat('PYTHON'),_et,  _otai, _bl, src, _prt)
