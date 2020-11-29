@@ -101,6 +101,8 @@
 
 //#define INSEDEBUG 1
 
+//#define STORAGEDEBUG 1
+
 #define HAL_INS_PROBE_LIST PROBE_IMU_SPI( Invensense, HAL_INS_MPU9250_NAME, ROTATION_NONE)
 //#define HAL_INS_PROBE_LIST PROBE_IMU_SPI( Invensense, HAL_INS_MPU9250_NAME, ROTATION_ROLL_180)
 
@@ -109,6 +111,14 @@
 
 // use udp, not tcp...  client needs to connect as UDPCL in missionplanner etc to 192.168.4.1 port 14550
 #define HAL_ESP32_WIFI 2
+
+// tip: if u are ok getting mavlink-over-tcp or mavlink-over-udp and want to disable mavlink-over-serial-usb
+//then set ardupilot parameter SERIAL0_PROTOCOL = 0 and reboot.
+// u also will/may want..
+//LOG_BACKEND_TYPE 1
+//LOG_DISARMED 1
+//SERIAL0_PROTOCOL 0
+
 
 // see boards.py
 #ifndef ENABLE_HEAP
