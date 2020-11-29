@@ -33,6 +33,7 @@
 #include "esp_log.h"
 #include "esp_system.h"
 #include "esp_heap_caps.h"
+#include "esp_system.h"
 
 
 extern const AP_HAL::HAL& hal;
@@ -149,11 +150,11 @@ void *Util::std_realloc(void *addr, size_t size)
 Util::safety_state Util::safety_switch_state(void)
 {
 
-//#if HAL_USE_PWM == TRUE
- //   return ((RCOutput *)hal.rcout)->_safety_switch_state();
-//#else
+#if HAL_USE_PWM == TRUE
+    return ((RCOutput *)hal.rcout)->_safety_switch_state();
+#else
     return SAFETY_NONE;
-//#endif
+#endif
 }
 
 #ifdef HAL_PWM_ALARM
@@ -262,7 +263,12 @@ bool Util::get_system_id_unformatted(uint8_t buf[], uint8_t &len)
 // return true if the reason for the reboot was a watchdog reset
 bool Util::was_watchdog_reset() const
 {
-    return false; // stm32_was_watchdog_reset();
+	esp_reset_reason_t reason = esp_reset_reason();
+
+	return reason == ESP_RST_PANIC
+			|| reason == ESP_RST_PANIC
+			|| reason == ESP_RST_TASK_WDT
+			|| reason == ESP_RST_WDT;
 }
 
 #if CH_DBG_ENABLE_STACK_CHECK == TRUE

@@ -21,10 +21,13 @@
 #include <AP_Common/AP_Common.h>
 #include <AP_HAL/AP_HAL.h>
 #include <AP_Math/AP_Math.h>
+#include <AP_BoardConfig/AP_BoardConfig.h>
 
 #include "driver/rtc_io.h"
 
 #include <stdio.h>
+
+extern const AP_HAL::HAL& hal;
 
 using namespace ESP32;
 
@@ -49,8 +52,8 @@ void RCOutput::init()
 
 
     //32 and 33 are special as they dont default to gpio, but can be if u disable their rtc setup:
-    rtc_gpio_deinit(GPIO_NUM_32); 
-    rtc_gpio_deinit(GPIO_NUM_33); 
+    rtc_gpio_deinit(GPIO_NUM_32);
+    rtc_gpio_deinit(GPIO_NUM_33);
 
 printf("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo\n");
 	printf("RCOutput::init() - channels available: %d \n",(int)MAX_CHANNELS);
@@ -208,22 +211,139 @@ void RCOutput::push()
 		return;
 	}
 
+    bool safety_on = hal.util->safety_switch_state() == AP_HAL::Util::SAFETY_DISARMED;
+
 	for (uint8_t i = 0; i < MAX_CHANNELS; i++)
 	{
 		if ((1U<<i) & _pending_mask)
 		{
-			write_int(i, _pending[i]);
+			uint32_t period_us = _pending[i];
+
+			// If safety is on and safety mask not bypassing
+			if (safety_on && !(safety_mask & (1U<<(i)))) {
+				// safety is on, overwride pwm
+				period_us = safe_pwm[i];
+			}
+			write_int(i, period_us);
 		}
 	}
 
 	_corked = false;
 }
 
+void RCOutput::timer_tick(void)
+{
+    safety_update();
+}
+
 void RCOutput::write_int(uint8_t chan, uint16_t period_us)
 {
 	if (chan >= MAX_CHANNELS)
 		return;
+
+    bool safety_on = hal.util->safety_switch_state() == AP_HAL::Util::SAFETY_DISARMED;
+	if (safety_on && !(safety_mask & (1U<<(chan)))) {
+		// safety is on, overwride pwm
+		period_us = safe_pwm[chan];
+	}
+
 	pwm_out &out = pwm_group_list[chan];
 	mcpwm_set_duty_in_us(out.unit_num, out.timer_num, out.op, period_us);
 }
 
+/*
+  get safety switch state for Util.cpp
+ */
+AP_HAL::Util::safety_state RCOutput::_safety_switch_state(void)
+{
+    if (!hal.util->was_watchdog_reset()) {
+        hal.util->persistent_data.safety_state = safety_state;
+    }
+    return safety_state;
+}
+
+/*
+  force the safety switch on, disabling PWM output from the IO board
+*/
+bool RCOutput::force_safety_on(void)
+{
+    safety_state = AP_HAL::Util::SAFETY_DISARMED;
+    return true;
+}
+
+/*
+  force the safety switch off, enabling PWM output from the IO board
+*/
+void RCOutput::force_safety_off(void)
+{
+    safety_state = AP_HAL::Util::SAFETY_ARMED;
+}
+
+/*
+  set PWM to send to a set of channels when the safety switch is
+  in the safe state
+*/
+void RCOutput::set_safety_pwm(uint32_t chmask, uint16_t period_us)
+{
+    for (uint8_t i=0; i<16; i++) {
+        if (chmask & (1U<<i)) {
+            safe_pwm[i] = period_us;
+        }
+    }
+}
+
+/*
+  update safety state
+ */
+void RCOutput::safety_update(void)
+{
+    uint32_t now = AP_HAL::millis();
+    if (now - safety_update_ms < 100) {
+        // update safety at 10Hz
+        return;
+    }
+    safety_update_ms = now;
+
+    AP_BoardConfig *boardconfig = AP_BoardConfig::get_singleton();
+
+    if (boardconfig) {
+        // remember mask of channels to allow with safety on
+        safety_mask = boardconfig->get_safety_mask();
+    }
+
+#ifdef HAL_GPIO_PIN_SAFETY_IN
+	//TODO replace palReadLine
+    // handle safety button
+    bool safety_pressed = palReadLine(HAL_GPIO_PIN_SAFETY_IN);
+    if (safety_pressed) {
+        AP_BoardConfig *brdconfig = AP_BoardConfig::get_singleton();
+        if (safety_press_count < 255) {
+            safety_press_count++;
+        }
+        if (brdconfig && brdconfig->safety_button_handle_pressed(safety_press_count)) {
+            if (safety_state ==AP_HAL::Util::SAFETY_ARMED) {
+                safety_state = AP_HAL::Util::SAFETY_DISARMED;
+            } else {
+                safety_state = AP_HAL::Util::SAFETY_ARMED;
+            }
+        }
+    } else {
+        safety_press_count = 0;
+    }
+#endif
+
+#ifdef HAL_GPIO_PIN_LED_SAFETY
+    led_counter = (led_counter+1) % 16;
+    const uint16_t led_pattern = safety_state==AP_HAL::Util::SAFETY_DISARMED?0x5500:0xFFFF;
+    palWriteLine(HAL_GPIO_PIN_LED_SAFETY, (led_pattern & (1U << led_counter))?0:1);
+	//TODO replace palReadwrite
+#endif
+}
+
+/*
+  set PWM to send to a set of channels if the FMU firmware dies
+*/
+void RCOutput::set_failsafe_pwm(uint32_t chmask, uint16_t period_us)
+{
+//RIP (not the pointer)
+}

@@ -55,6 +55,41 @@ namespace ESP32 {
 
 		void set_default_rate(uint16_t rate_hz) override;
 
+		/*
+		   force the safety switch on, disabling PWM output from the IO board
+		   */
+		bool force_safety_on() override;
+
+		/*
+		   force the safety switch off, enabling PWM output from the IO board
+		   */
+		void force_safety_off() override;
+
+		/*
+		   set PWM to send to a set of channels when the safety switch is
+		   in the safe state
+		   */
+		void set_safety_pwm(uint32_t chmask, uint16_t period_us) override;
+
+		/*
+		   get safety switch state, used by Util.cpp
+		   */
+		AP_HAL::Util::safety_state _safety_switch_state();
+
+		/*
+		   set PWM to send to a set of channels if the FMU firmware dies
+		   */
+		void set_failsafe_pwm(uint32_t chmask, uint16_t period_us) override;
+
+		/*
+		   set safety mask for IOMCU
+		   */
+		void set_safety_mask(uint16_t mask) { safety_mask = mask; }
+
+
+		void timer_tick() override;
+
+
 	private:
 		struct pwm_out {
 			int gpio_num;
@@ -74,7 +109,22 @@ namespace ESP32 {
 		uint16_t _pending[12]; //Max channel with 2 unit MCPWM
 		uint32_t _pending_mask;
 
+		uint16_t safe_pwm[16]; // pwm to use when safety is on
+
 		uint16_t _max_channels;
+
+		// safety switch state
+		AP_HAL::Util::safety_state safety_state;
+		uint32_t safety_update_ms;
+		uint8_t led_counter;
+		int8_t safety_button_counter;
+		uint8_t safety_press_count; // 0.1s units
+
+		// mask of channels to allow when safety on
+		uint16_t safety_mask;
+
+		// update safety switch and LED
+		void safety_update(void);
 
 
 		bool _initialized;
