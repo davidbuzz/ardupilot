@@ -179,8 +179,9 @@
 #define HAL_BOARD_STORAGE_DIRECTORY "/SDCARD/APM/STORAGE"
 #define HAL_OS_POSIX_IO 1
 
-#define HAL_LOGGING_BACKENDS_DEFAULT 2
-
+// this becomes the default value for the ardupilot param LOG_BACKEND_TYPE, which most ppl want to be 1, for log-to-flash
+// setting to 2 means log-over-mavlink to a companion computer etc.
+#define HAL_LOGGING_BACKENDS_DEFAULT 1
 
 
 #define HAL_NUM_CAN_IFACES 0
