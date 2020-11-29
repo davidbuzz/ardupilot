@@ -260,6 +260,7 @@ bool Util::get_system_id_unformatted(uint8_t buf[], uint8_t &len)
 // return true if the reason for the reboot was a watchdog reset
 bool Util::was_watchdog_reset() const
 {
+	return false;
 	esp_reset_reason_t reason = esp_reset_reason();
 
 	return reason == ESP_RST_PANIC
