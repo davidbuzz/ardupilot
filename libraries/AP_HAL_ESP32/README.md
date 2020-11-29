@@ -248,26 +248,27 @@ Currently used debugger is called a 'TIAO USB Multi Protocol Adapter' which is a
 - [x] Storage
 - [X] OTA update of the fw
 - [X] SdCard
-- [ ] Buzzer
 - [x] Mavlink on console/usb as well as wifi.
+- [x] UDP mavlink over wifi
+- [x] TCP mavlink over wifi (choose tcp or udp at compile time , not both)
 - [x] parameter storage in a esp32 flash partition area
-
 - [x] Custom boards build
 - [x] Perfomance optimization
+- [x] SdCard mounts but ardupilot logging to SD does not
+- [x] waf can upload to your board with --upload now
 
 ### Known Bugs
-- [ ] SdCard mounts but ardupilot logging to SD does not
 - [ ] PWM output driver works, but it appears that throttle supression when disarmed does not.
-
+- [ ] AnalogIn driver - partial progress not really tested or documented
 
 ### Future development
 - [ ] Pin remapping via parameters
 - [ ] GPIO driver
-- [ ] AnalogIn driver - partial progress
 - [ ] DShot driver / 4way pass / esc telemetry / ws2812b led
 - [ ] INA219 driver
 - [ ] GSD
-- [ ] UDP mavlink over wifi, preferably automatically sent to client/s when they connect. - better for poor links and resilience.
+- [ ] UDP mavlink over wifi does not automatically stream to client/s when they connect to wifi AP. 
+- [ ] Buzzer
 
 ### analysing a 'coredump' from the uart...
 
