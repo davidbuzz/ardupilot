@@ -71,9 +71,8 @@ D/IRAM is RAM which can be used as either Instruction or Data RAM.
 //The ESP-IDF malloc() implementation internally calls heap_caps_malloc(size, MALLOC_CAP_8BIT) in order to allocate DRAM that is byte-addressable.
 
 //For most purposes, the standard libc malloc() and free() functions can be used for heap allocation without any special consideration.
-	return malloc(size);
+//	return malloc(size);
 
-/*
     if (mem_type == AP_HAL::Util::MEM_DMA_SAFE) {
         return heap_caps_malloc(size, MALLOC_CAP_DMA);
     //} else if (mem_type == AP_HAL::Util::MEM_FAST) {
@@ -81,8 +80,6 @@ D/IRAM is RAM which can be used as either Instruction or Data RAM.
     } else {
 		return heap_caps_calloc(1, size, MALLOC_CAP_8BIT);
     }
-	*/
-
 }
 
 void Util::free_type(void *ptr, size_t size, AP_HAL::Util::Memory_Type mem_type)
