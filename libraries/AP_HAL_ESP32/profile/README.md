@@ -12,3 +12,28 @@
 2. Use them to produce `functions.list` by the script `LinkerScriptGenerator.kt` (modify paths and limits inside)
 3. Place file `functions.list` to the `target/copter/main` folder
 
+
+# how to build LinkerScriptGenerator.kt
+
+$ sudo snap install --classic kotlin
+
+# build
+kotlinc LinkerScriptGenerator.kt -d generator.jar
+
+# collect up profiling file into this folder... as per above.
+
+# files that the kotlin tool expects to find in this folder:
+        "ardusub.map",
+        "PROF000.TXT",
+
+# file/s it will create in this folder:
+        "functions.list"
+
+
+cp ../../../build/esp32buzz/idf-plane/arduplane.map ardusub.map
+touch PROF000.TXT
+
+#run:
+java -jar generator.jar
+
+
