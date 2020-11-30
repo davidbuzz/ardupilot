@@ -303,6 +303,19 @@ select-frame 5
 
 ctrl-c to exit gdb
 
+# storage tips - not generally needed, as u can update params with missionplanenner over mavlink etc.
+
+
+# determine offset and size of 'storage' partition in flash
+parttool.py --partition-table-file partitions.csv get_partition_info --partition-name storage
+>0x3e0000 0x20000
+
+# then backup ardupilot 'storage' area (its a partition, see partitions.csv) to a file on disk:
+esptool.py read_flash 0x3e0000 0x20000 storage.bin
+
+# restore the storage.bin to your device... basiclly the same flash command as used in esp32.py but different offset and file:
+esptool.py --chip esp32 --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 80m --flash_size detect 0x3e0000 storage.bin
+
 
 ### example log of boot messages:
  
