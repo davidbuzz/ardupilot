@@ -20,9 +20,15 @@ def parse_inc_dir(lines):
         if line.startswith('INCLUDES: '):
             return line.replace('INCLUDES: ', '').split()
 
+
+
 def configure(cfg):
+
     def srcpath(path):
         return cfg.srcnode.make_node(path).abspath()
+    def bldpath(path):
+        return srcpath('build')
+
     cfg.find_program('make', var='MAKE')
     env = cfg.env
     env.AP_HAL_PLANE = srcpath('libraries/AP_HAL_ESP32/targets/plane')
@@ -30,6 +36,10 @@ def configure(cfg):
     env.AP_HAL_ROVER = srcpath('libraries/AP_HAL_ESP32/targets/rover')
     env.AP_HAL_SUB = srcpath('libraries/AP_HAL_ESP32/targets/sub')
     env.AP_PROGRAM_FEATURES += ['esp32_ap_program']
+
+    env.BUILDROOT = bldpath('')
+    env.SRCROOT = srcpath('')
+    env.APJ_TOOL = srcpath('Tools/scripts/apj_tool.py')
 
     try:
         env.IDF = os.environ['IDF_PATH']
@@ -56,18 +66,66 @@ class set_default_parameters(Task.Task):
     color='CYAN'
     always_run = True
     def keyword(self):
-        return "apj_tool"
+        return "setting default params"
     def run(self):
-        rel_default_parameters = self.env.get_flat('DEFAULT_PARAMETERS').replace("'", "")
-        abs_default_parameters = os.path.join(self.env.SRCROOT, rel_default_parameters)
-        apj_tool = self.env.APJ_TOOL
-        sys.path.append(os.path.dirname(apj_tool))
-        from apj_tool import embedded_defaults
-        defaults = embedded_defaults(self.inputs[0].abspath())
-        print("QQQQQQQQQ"+defaults)
-        if defaults.find():
-            defaults.set_file(abs_default_parameters)
-            defaults.save()
+
+        # TODO: disabled this task outright as apjtool appears to destroy checksums and/or the esp32 partition table
+        # TIP:  if u do try this, afterwards, be sure to 'rm -rf build/esp32buzz/idf-plane/*.bin' and re-run waf
+        return
+
+        # (752) esp_image: Checksum failed. Calculated 0xd3 read 0xa3
+        # (752) boot: OTA app partition slot 0 is not bootable
+        # (753) esp_image: image at 0x200000 has invalid magic byte
+        # (759) boot_comm: mismatch chip ID, expected 0, found 65535
+        # (766) boot_comm: can't run on lower chip revision, expected 1, found 255
+        # (773) esp_image: image at 0x200000 has invalid SPI mode 255
+        # (779) esp_image: image at 0x200000 has invalid SPI size 15
+        # (786) boot: OTA app partition slot 1 is not bootable
+        # (792) boot: No bootable app partitions in the partition table
+
+
+        # skip task if nothing to do.
+        if not self.env.DEFAULT_PARAMETERS:
+            return
+
+        default_parameters = self.env.get_flat('DEFAULT_PARAMETERS').replace("'", "")
+        #print("apj defaults file:"+str(default_parameters))
+
+        _bin = str(self.inputs[0])
+
+        # paranoia check  before and after apj_tool to see if file hash has changed... 
+        cmd = "shasum -b {0}".format( _bin )
+        result = subprocess.check_output(cmd, shell=True)
+        prehash = str(result).split(' ')[0][2:]
+        
+        cmd = "{1} {2} --set-file {3}".format(self.env.SRCROOT, self.env.APJ_TOOL, _bin, default_parameters )
+        print(cmd)
+        result = subprocess.check_output(cmd, shell=True)
+        if not isinstance(result, str):
+            result = result.decode()
+        for i in str(result).split('\n'):
+            print("\t"+i)
+        
+        # paranoia check  before and after apj_tool to see if file hash has changed... 
+        cmd = "shasum -b {0}".format( _bin )
+        result = subprocess.check_output(cmd, shell=True)
+        posthash = str(result).split(' ')[0][2:]
+
+        # display --show output, helpful.
+        cmd = "{1} {2} --show ".format(self.env.SRCROOT, self.env.APJ_TOOL, _bin )
+        print(cmd)
+        result = subprocess.check_output(cmd, shell=True)
+        if not isinstance(result, str):
+            result = result.decode()
+        for i in str(result).split('\n'):
+            print("\t"+i)
+
+        # were embedded params updated in .bin?
+        if prehash == posthash:
+            print("Embedded params in .bin unchanged (probably already up-to-date)")
+        else:
+            print("Embedded params in .bin UPDATED")
+
 
 class build_esp32_image_plane(Task.Task):
     '''build an esp32 image'''
@@ -75,7 +133,7 @@ class build_esp32_image_plane(Task.Task):
     run_str="export IDF_PATH=\"${IDF}\"; cd ${AP_HAL_PLANE}&&'${MAKE}' BATCH_BUILD=1 2>/dev/null >/dev/null"
     always_run = True
     def keyword(self):
-        return "Generating"
+        return "Generating (and building IDF)"
     def __str__(self):
         return self.outputs[0].path_from(self.generator.bld.bldnode)
 
@@ -85,7 +143,7 @@ class build_esp32_image_copter(Task.Task):
     run_str="export IDF_PATH=\"${IDF}\"; cd ${AP_HAL_COPTER}&&'${MAKE}' BATCH_BUILD=1"
     always_run = True
     def keyword(self):
-        return "Generating"
+        return "Generating (and building IDF)"
     def __str__(self):
         return self.outputs[0].path_from(self.generator.bld.bldnode)
 
@@ -95,7 +153,7 @@ class build_esp32_image_rover(Task.Task):
     run_str="export IDF_PATH=\"${IDF}\"; cd ${AP_HAL_ROVER}&&'${MAKE}' V=1"
     always_run = True
     def keyword(self):
-        return "Generating"
+        return "Generating (and building IDF)"
     def __str__(self):
         return self.outputs[0].path_from(self.generator.bld.bldnode)
 
@@ -105,53 +163,15 @@ class build_esp32_image_sub(Task.Task):
     run_str="export IDF_PATH=\"${IDF}\"; cd ${AP_HAL_SUB}&&'${MAKE}' V=1"
     always_run = True
     def keyword(self):
-        return "Generating"
+        return "Generating (and building IDF)"
     def __str__(self):
         return self.outputs[0].path_from(self.generator.bld.bldnode)
 
-class generate_apj(Task.Task):
-    '''generate an apj firmware file'''
-    color='CYAN'
-    always_run = True
-    def keyword(self):
-        return "apj_gen"
-    def run(self):
-        import json, time, base64, zlib
-        img = open(self.inputs[0].abspath(),'rb').read()
-        d = {
-            "board_id": int(self.env.APJ_BOARD_ID),
-            "magic": "APJFWv1",
-            "description": "Firmware for a %s board" % self.env.APJ_BOARD_TYPE,
-            "image": base64.b64encode(zlib.compress(img,9)).decode('utf-8'),
-            "summary": self.env.BOARD,
-            "version": "0.1",
-            "image_size": len(img),
-            "flash_total": int(self.env.FLASH_TOTAL),
-            "flash_free": int(self.env.FLASH_TOTAL) - len(img),
-            "git_identity": self.generator.bld.git_head_hash(short=True),
-            "board_revision": 0,
-            "USBID": self.env.USBID
-        }
-        if self.env.build_dates:
-            # we omit build_time when we don't have build_dates so that apj
-            # file is idential for same git hash and compiler
-            d["build_time"] = int(time.time())
-        apj_file = self.outputs[0].abspath()
-        print("apj..."+str(apj_file))
-        #f = open(apj_file, "w")
-        #f.write(json.dumps(d, indent=4))
-        #f.close()
-
-#python ./modules/esp_idf/components/esptool_py/esptool/esptool.py
-#--chip esp32 --port /dev/ttyUSB0 --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dio
-#--flash_freq 80m --flash_size detect
-#0xf000 ./build/esp32buzz/idf-plane/ota_data_initial.bin
-#0x1000 ./build/esp32buzz/idf-plane/bootloader/bootloader.bin
-#0x20000 ./build/esp32buzz/idf-plane/arduplane.bin
-#0x8000 ./build/esp32buzz/idf-plane/partitions.bin
 class upload_fw(Task.Task):
     color='BLUE'
     always_run = True
+    def keyword(self):
+        return "Uploading"
     def run(self):
         upload_tools = self.env.get_flat('UPLOAD_TOOLS')
         upload_port = self.generator.bld.options.upload_port
@@ -165,21 +185,18 @@ class upload_fw(Task.Task):
         #_bin = "../../build/esp32buzz/idf-plane/arduplane.bin"
         _prt = str(self.get_cwd()) + "/" + idf_type + "/partitions.bin"
 
-
         # taken from esp_idf's 'make flash' output and lowered the baud rate a bit for reliability.
         # we left out --port /dev/ttyUSB0  because it can autodetect
         cmd = "{} {} --chip esp32 --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 80m --flash_size detect 0xf000 {} 0x1000 {} 0x20000 {} 0x8000 {}".format(self.env.get_flat('PYTHON'),_et,  _otai, _bl, src, _prt)
         if upload_port is not None:
             cmd = cmd.replace("esp32 ","esp32 --port %s " % upload_port,1)
-        print(cmd)
+        print("\n"+cmd)
         return self.exec_command(cmd)
 
     def exec_command(self, cmd, **kw):
         kw['stdout'] = sys.stdout
         return super(upload_fw, self).exec_command(cmd, **kw)
 
-    def keyword(self):
-        return "Uploading"
 
 
 
@@ -230,15 +247,14 @@ def esp32_firmware(self):
         self.generate_bin_task.set_run_after(self.link_task)
 
 
-    # not quite working yet.
-    #if self.env.DEFAULT_PARAMETERS:
-    #    default_params_task = self.create_task('set_default_parameters',
-    #                                           src=img_out2)
-    #    default_params_task.set_run_after(self.generate_bin_task)
+    # tool that can update the default params in a .bin or .apj
+    self.default_params_task = self.create_task('set_default_parameters',
+                                               src=img_out2)
+    self.default_params_task.set_run_after(self.generate_bin_task)
 
-
+    # optional upload is last
     if self.bld.options.upload:
         _upload_task = self.create_task('upload_fw', src=img_out2 )
-        _upload_task.set_run_after(self.generate_bin_task)
+        _upload_task.set_run_after(self.default_params_task)
 
 
