@@ -47,11 +47,12 @@ static ESP32::UARTDriver uartBDriver(1);
 #else
 static Empty::UARTDriver uartCDriver;
 #endif
-static Empty::UARTDriver uartDDriver;//uartDDriver(1);
+static ESP32::UARTDriver uartDDriver(2);
 static Empty::UARTDriver uartEDriver;
 static Empty::UARTDriver uartFDriver;
 static Empty::UARTDriver uartGDriver;
 static Empty::UARTDriver uartHDriver;
+static Empty::UARTDriver uartIDriver;
 
 static Empty::DSP dspDriver;
 
@@ -83,6 +84,7 @@ HAL_ESP32::HAL_ESP32() :
         &uartFDriver, //Extra 1
         &uartGDriver, //Extra 2
         &uartHDriver, //Extra 3
+        &uartIDriver, //Extra 4
         &i2cDeviceManager,
         &spiDeviceManager,
         &analogIn,
