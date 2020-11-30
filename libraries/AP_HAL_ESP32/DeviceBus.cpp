@@ -33,7 +33,9 @@ extern const AP_HAL::HAL& hal;
 DeviceBus::DeviceBus(uint8_t _thread_priority) :
     thread_priority(_thread_priority), semaphore()
 {
+#ifdef BUSDEBUG
 printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
 }
 
 /*
@@ -41,7 +43,9 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 */
 void IRAM_ATTR DeviceBus::bus_thread(void *arg)
 {
+#ifdef BUSDEBUG
 printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     struct DeviceBus *binfo = (struct DeviceBus *)arg;
 
     while (true) {
@@ -93,7 +97,9 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 
 AP_HAL::Device::PeriodicHandle DeviceBus::register_periodic_callback(uint32_t period_usec, AP_HAL::Device::PeriodicCb cb, AP_HAL::Device *_hal_device)
 {
+#ifdef BUSDEBUG
 printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     if (!thread_started) {
         thread_started = true;
         hal_device = _hal_device;
@@ -112,7 +118,9 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
         default:
             break;
         }
-printf("%s:%d BUS thread start\n", __PRETTY_FUNCTION__, __LINE__);
+#ifdef BUSDEBUG
+printf("%s:%d Thread Start\n", __PRETTY_FUNCTION__, __LINE__);
+#endif
         xTaskCreate(DeviceBus::bus_thread, name, Scheduler::DEVICE_SS,
                     this, thread_priority, &bus_thread_handle);
     }
