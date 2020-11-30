@@ -99,10 +99,11 @@
 
 #define HAL_INS_MPU9250_NAME "mpu9250"
 
+// uncommenting one or more of these will give more console debug in certain areas..
 //#define INSEDEBUG 1
-
 //#define STORAGEDEBUG 1
 //#define SCHEDDEBUG 1
+//#define FSDEBUG 1
 
 #define HAL_INS_PROBE_LIST PROBE_IMU_SPI( Invensense, HAL_INS_MPU9250_NAME, ROTATION_NONE)
 //#define HAL_INS_PROBE_LIST PROBE_IMU_SPI( Invensense, HAL_INS_MPU9250_NAME, ROTATION_ROLL_180)
@@ -110,7 +111,7 @@
 
 #define HAL_BARO_PROBE_LIST PROBE_BARO_SPI(BMP280, "bmp280")
 
-// use udp, not tcp...  client needs to connect as UDPCL in missionplanner etc to 192.168.4.1 port 14550
+// 2 use udp, 1 use tcp...  for udp,client needs to connect as UDPCL in missionplanner etc to 192.168.4.1 port 14550
 #define HAL_ESP32_WIFI 2
 
 // tip: if u are ok getting mavlink-over-tcp or mavlink-over-udp and want to disable mavlink-over-serial-usb
@@ -130,8 +131,7 @@
 #define WIFI_PWD "ardupilot123"
 
 //RCOUT which pins are used?
-//#define HAL_ESP32_RCOUT {GPIO_NUM_15, GPIO_NUM_2, GPIO_NUM_0, GPIO_NUM_4}
-// or
+
 #define HAL_ESP32_RCOUT { GPIO_NUM_25,GPIO_NUM_27, GPIO_NUM_33, GPIO_NUM_32, GPIO_NUM_22, GPIO_NUM_21 } 
 
 // SPI BUS setup, including gpio, dma, etc
@@ -150,30 +150,16 @@
 //I2C bus list
 #define HAL_ESP32_I2C_BUSES \
 	{.port=I2C_NUM_0, .sda=GPIO_NUM_13, .scl=GPIO_NUM_12, .speed=400*KHZ, .internal=true}
-
-//	{.port=I2C_NUM_1, .sda=GPIO_NUM_22, .scl=GPIO_NUM_23, .speed=400*KHZ, .internal=true}
 //#define HAL_ESP32_I2C_BUSES {} // using this embty block appears to cause crashes?
-// todo properly setup the Analog and RCIN here as well...
 
-
-// buzz old hardcoded setup:
-// GPIO36
-//#define HAL_BATT_VOLT_PIN (0)
-//#define HAL_BATT_VOLT_SCALE (18.1)
-//GPIO 32
-//#define HAL_BATT_CURR_PIN (4)
-//#define HAL_BATT_CURR_SCALE (36)
 
 // rcin on what pin?
 #define HAL_ESP32_RCIN GPIO_NUM_4
-//
 
 
 //HARDWARE UARTS
-    
 #define HAL_ESP32_UART_DEVICES \
   {.port=UART_NUM_0, .rx=GPIO_NUM_3, .tx=GPIO_NUM_1 },{.port=UART_NUM_1, .rx=GPIO_NUM_16, .tx=GPIO_NUM_17 }
-//	{.port=UART_NUM_2, .rx=GPIO_NUM_34, .tx=GPIO_NUM_25 }
 
 #define HAVE_FILESYSTEM_SUPPORT 1
 
@@ -182,7 +168,6 @@
 #define HAL_ESP32_SDMMC 1
 // and spi is more flexible pinouts....  dont forget vspi/hspi should be selected to NOT conflict with SPI_BUSES above
 //#define HAL_ESP32_SDSPI {.host=VSPI_HOST, .dma_ch=2, .mosi=GPIO_NUM_2, .miso=GPIO_NUM_15, .sclk=GPIO_NUM_14, .cs=GPIO_NUM_21}
-//#define HAL_ESP32_SDSPI {.host=HSPI_HOST, .dma_ch=2, .mosi=GPIO_NUM_2, .miso=GPIO_NUM_15, .sclk=GPIO_NUM_14, .cs=GPIO_NUM_33}
 
 #define HAL_ESP32_SDCARD 1
 #define LOGGER_MAVLINK_SUPPORT 1
