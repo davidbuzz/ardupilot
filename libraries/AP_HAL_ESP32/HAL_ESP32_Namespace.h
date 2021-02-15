@@ -14,8 +14,10 @@ namespace ESP32 {
 	class Util;
 	class Semaphore;
 	class Semaphore_Recursive;
+    class EventSource;
 	class GPIO;
 	class DigitalSource;
 	class Storage;
 	class RmtSigReader;
+    class CANIface;
 }  // namespace ESP32

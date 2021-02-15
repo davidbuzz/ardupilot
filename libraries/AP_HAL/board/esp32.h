@@ -25,7 +25,7 @@
 #include <AP_HAL_ESP32/Semaphores.h>
 #define HAL_Semaphore ESP32::Semaphore
 
-#define HAL_NUM_CAN_IFACES 0
+#define HAL_NUM_CAN_IFACES 1
 #define HAL_MEM_CLASS HAL_MEM_CLASS_192
 
 

@@ -35,6 +35,7 @@ def configure(cfg):
     env.AP_HAL_COPTER = srcpath('libraries/AP_HAL_ESP32/targets/copter')
     env.AP_HAL_ROVER = srcpath('libraries/AP_HAL_ESP32/targets/rover')
     env.AP_HAL_SUB = srcpath('libraries/AP_HAL_ESP32/targets/sub')
+    env.AP_HAL_PERIPH = srcpath('libraries/AP_HAL_ESP32/targets/periph')
     env.AP_PROGRAM_FEATURES += ['esp32_ap_program']
 
     env.BUILDROOT = bldpath('')
@@ -167,6 +168,17 @@ class build_esp32_image_sub(Task.Task):
     def __str__(self):
         return self.outputs[0].path_from(self.generator.bld.bldnode)
 
+class build_esp32_image_periph(Task.Task):
+    '''build an esp32 image'''
+    color='CYAN'
+    run_str="export IDF_PATH=\"${IDF}\"; cd ${AP_HAL_PERIPH}&&'${MAKE}' V=1"
+    always_run = True
+    def keyword(self):
+        return "Generating (and building IDF)"
+    def __str__(self):
+        return self.outputs[0].path_from(self.generator.bld.bldnode)
+
+
 class upload_fw(Task.Task):
     color='BLUE'
     always_run = True
@@ -208,6 +220,7 @@ def esp32_firmware(self):
     bin_target = self.bld.bldnode.find_or_declare('bin/' + link_output.change_ext('.bin').name)
     apj_target = self.bld.bldnode.find_or_declare('bin/' + link_output.change_ext('.apj').name)
 
+    img_out2 = False
 
     if str(self.link_task.outputs[0]).endswith('libarduplane.a'):
         #build final image
@@ -246,14 +259,37 @@ def esp32_firmware(self):
         self.generate_bin_task = self.create_task('build_esp32_image_sub', src=src_in, tgt=img_out)
         self.generate_bin_task.set_run_after(self.link_task)
 
+    #print("self.link_task.outputs:"+str(self.link_task.outputs[0]))
+    #if str(self.link_task.outputs[0]).endswith('libUAVCAN_sniffer.a'):
+    #    #build final image
+    #    src_in = [self.bld.bldnode.find_or_declare('lib/libArduCopter_libs.a'),
+    #              self.bld.bldnode.find_or_declare('lib/bin/libarducopter.a')]
+    #    img_out = self.bld.bldnode.find_or_declare('idf-copter/arducopter.elf')
+    #    img_out2 = self.bld.bldnode.find_or_declare('idf-copter/UAVCAN_sniffer.bin')
+    #    #img_out2 = img_out
+    #    self.generate_bin_task = self.create_task('build_esp32_image_copter', src=src_in, tgt=img_out)
+    #    self.generate_bin_task.set_run_after(self.link_task)
+
+    
+    #build/esp32buzz/lib/bin/libAP_Periph.a
+
+    if str(self.link_task.outputs[0]).endswith('libAP_Periph.a'):
+        #build final image
+        src_in = [self.bld.bldnode.find_or_declare('lib/libAP_Periph_libs.a'),
+                  self.bld.bldnode.find_or_declare('lib/bin/libAP_Periph.a')]
+        img_out = self.bld.bldnode.find_or_declare('idf-periph/AP_Periph.elf')
+        img_out2 = self.bld.bldnode.find_or_declare('idf-periph/AP_Periph.bin')
+        self.generate_bin_task = self.create_task('build_esp32_image_periph', src=src_in, tgt=img_out)
+        self.generate_bin_task.set_run_after(self.link_task)
 
     # tool that can update the default params in a .bin or .apj
-    self.default_params_task = self.create_task('set_default_parameters',
+    if img_out2:
+      self.default_params_task = self.create_task('set_default_parameters',
                                                src=img_out2)
-    self.default_params_task.set_run_after(self.generate_bin_task)
+      self.default_params_task.set_run_after(self.generate_bin_task)
 
-    # optional upload is last
-    if self.bld.options.upload:
+      # optional upload is last
+      if self.bld.options.upload:
         _upload_task = self.create_task('upload_fw', src=img_out2 )
         _upload_task.set_run_after(self.default_params_task)
 

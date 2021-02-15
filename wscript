@@ -375,6 +375,8 @@ def configure(cfg):
     # source absolute path.
     cfg.env.prepend_value('DEFINES', [
         'SKETCHBOOK="' + cfg.srcnode.abspath() + '"',
+        'APJ_BOARD_ID=2020', # buzz hack for AP_Periph
+        'HAL_CAN_DEFAULT_NODE_ID=99',
     ])
 
     # Always use system extensions

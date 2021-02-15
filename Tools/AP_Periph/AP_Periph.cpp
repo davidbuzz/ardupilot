@@ -38,10 +38,10 @@ void loop();
 
 const AP_HAL::HAL& hal = AP_HAL::get_HAL();
 
-#if CONFIG_HAL_BOARD == HAL_BOARD_SITL
+
 void stm32_watchdog_init() {}
 void stm32_watchdog_pat() {}
-#endif
+
 
 void setup(void)
 {

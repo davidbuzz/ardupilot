@@ -26,13 +26,13 @@
 #include <uavcan/protocol/file/BeginFirmwareUpdate.h>
 #include <uavcan/protocol/param/GetSet.h>
 #include <uavcan/protocol/param/ExecuteOpcode.h>
-#include <uavcan/equipment/ahrs/MagneticFieldStrength.h>
-#include <uavcan/equipment/gnss/Fix.h>
-#include <uavcan/equipment/gnss/Fix2.h>
+//#include <uavcan/equipment/ahrs/MagneticFieldStrength.h>
+//#include <uavcan/equipment/gnss/Fix.h>
+//#include <uavcan/equipment/gnss/Fix2.h>
 #include <uavcan/equipment/gnss/Auxiliary.h>
 #include <uavcan/equipment/air_data/StaticPressure.h>
 #include <uavcan/equipment/air_data/StaticTemperature.h>
-#include <uavcan/equipment/air_data/RawAirData.h>
+//#include <uavcan/equipment/air_data/RawAirData.h>
 #include <uavcan/equipment/indication/BeepCommand.h>
 #include <uavcan/equipment/indication/LightsCommand.h>
 #include <uavcan/equipment/range_sensor/Measurement.h>
@@ -70,6 +70,8 @@ extern AP_Periph_FW periph;
 #define HAL_CAN_POOL_SIZE 4000
 #endif
 
+void stm32_watchdog_pat() {}
+
 static CanardInstance canard;
 static uint32_t canard_memory_pool[HAL_CAN_POOL_SIZE/sizeof(uint32_t)];
 #ifndef HAL_CAN_DEFAULT_NODE_ID
@@ -90,6 +92,8 @@ static uint8_t transfer_id;
 static ChibiOS::CANIface can_iface(0);
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
 static HALSITL::CANIface can_iface(0);
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+static ESP32::CANIface can_iface();
 #endif
 /*
  * Variables used for dynamic node ID allocation.
@@ -806,19 +810,19 @@ static void processTx(void)
         memcpy(txmsg.data, txf->data, 8);
         txmsg.id = (txf->id | AP_HAL::CANFrame::FlagEFF);
         // push message with 1s timeout        
-        if (can_iface.send(txmsg, AP_HAL::native_micros64() + 1000000, 0) > 0) {
-            canardPopTxQueue(&canard);
-            fail_count = 0;
-        } else {
+        //if (can_iface.send(txmsg, AP_HAL::native_micros64() + 1000000, 0) > 0) {
+        //    canardPopTxQueue(&canard);
+        //    fail_count = 0;
+        //} else {
             // just exit and try again later. If we fail 8 times in a row
             // then start discarding to prevent the pool filling up
             if (fail_count < 8) {
                 fail_count++;
             } else {
-                canardPopTxQueue(&canard);
+               //canardPopTxQueue(&canard);
             }
             return;
-        }
+        //}
     }
 }
 
@@ -827,21 +831,21 @@ static void processRx(void)
     AP_HAL::CANFrame rxmsg;
     while (true) {
         bool read_select = true;
-        bool write_select = false;
-        can_iface.select(read_select, write_select, nullptr, 0);
+        //bool write_select = false;
+        //can_iface.select(read_select, write_select, nullptr, 0);
         if (!read_select) {
             break;
         }
         CanardCANFrame rx_frame {};
 
         //palToggleLine(HAL_GPIO_PIN_LED);
-        uint64_t timestamp;
-        AP_HAL::CANIface::CanIOFlags flags;
-        can_iface.receive(rxmsg, timestamp, flags);
+        //uint64_t timestamp;
+        //AP_HAL::CANIface::CanIOFlags flags;
+        //can_iface.receive(rxmsg, timestamp, flags);
         memcpy(rx_frame.data, rxmsg.data, 8);
         rx_frame.data_len = rxmsg.dlc;
         rx_frame.id = rxmsg.id;
-        canardHandleRxFrame(&canard, &rx_frame, timestamp);
+        //canardHandleRxFrame(&canard, &rx_frame, timestamp);
     }
 }
 
@@ -1044,7 +1048,7 @@ void AP_Periph_FW::can_start()
         PreferredNodeID = g.can_node;
     }
 
-    can_iface.init(1000000, AP_HAL::CANIface::NormalMode);
+    //can_iface.init(1000000, AP_HAL::CANIface::NormalMode);
 
     canardInit(&canard, (uint8_t *)canard_memory_pool, sizeof(canard_memory_pool),
                onTransferReceived, shouldAcceptTransfer, NULL);

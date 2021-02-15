@@ -1,3 +1,11 @@
+buzz notes - build AP_Periph for esp32 - builds but can utterly broken
+
+rm -rf build/
+./waf configure --board=esp32buzz --debug
+./waf AP_Periph -v
+
+
+
 Release 1.1.0 14th May 2020
 ---------------------------
 
