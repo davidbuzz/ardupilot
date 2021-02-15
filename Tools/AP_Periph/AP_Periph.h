@@ -20,6 +20,9 @@
 //#include <AP_RangeFinder/AP_RangeFinder.h>
 //#include <AP_MSP/AP_MSP.h>
 //#include <AP_MSP/msp.h>
+
+//#include <AP_RCProtocol/AP_RCProtocol.h>
+
 #include "../AP_Bootloader/app_comms.h"
 #include "hwing_esc.h"
 

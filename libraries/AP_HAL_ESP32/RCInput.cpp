@@ -20,6 +20,12 @@
 
 using namespace ESP32;
 
+#ifdef HAL_BUILD_AP_PERIPH
+#undef HAL_ESP32_RCIN
+#endif
+
+#undef HAL_ESP32_RCIN
+
 void RCInput::init()
 {
     if (_init) {
@@ -91,6 +97,9 @@ void RCInput::_timer_tick(void)
     while (sig_reader.read(width_s0, width_s1)) {
         rcin_prot.process_pulse(width_s0, width_s1);
     }
+
+   // AP_RCProtocol &rcprot = AP::RC();
+
 
     const char *rc_protocol = nullptr;
     if (rcin_prot.new_input()) {
