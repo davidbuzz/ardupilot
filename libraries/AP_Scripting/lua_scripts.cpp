@@ -18,7 +18,9 @@
 #include <GCS_MAVLink/GCS.h>
 #include "AP_Scripting.h"
 
+#if ENABLE_SCRIPTING == 1
 #include <AP_Scripting/lua_generated_bindings.h>
+#endif
 
 extern const AP_HAL::HAL& hal;
 

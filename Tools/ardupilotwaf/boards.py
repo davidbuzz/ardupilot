@@ -52,17 +52,17 @@ class Board:
              (cfg.env.BOARD_FLASH_SIZE > 1024))):
 
             env.DEFINES.update(
-                ENABLE_SCRIPTING = 1,
-                LUA_32BITS = 1,
+                #ENABLE_SCRIPTING = 1,
+                #LUA_32BITS = 1,
                 )
 
             env.AP_LIBRARIES += [
-                'AP_Scripting',
-                'AP_Scripting/lua/src',
+                #'AP_Scripting',
+                #'AP_Scripting/lua/src',
                 ]
 
-        else:
-            cfg.options.disable_scripting = True
+        #else:
+        cfg.options.disable_scripting = True
 
         # allow GCS disable for AP_DAL example
         if cfg.options.no_gcs:

@@ -6,7 +6,10 @@
 #include "lua_bindings.h"
 
 #include "lua_boxed_numerics.h"
+
+#if ENABLE_SCRIPTING == 1
 #include <AP_Scripting/lua_generated_bindings.h>
+#endif
 
 extern const AP_HAL::HAL& hal;
 

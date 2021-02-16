@@ -4,7 +4,10 @@
 
 
 #include "lua_scripts.h"
+
+#if ENABLE_SCRIPTING == 1
 #include <AP_Scripting/lua_generated_bindings.h>
+#endif
 
 #include "lua/src/lua.h"
 #include "lua/src/lauxlib.h"

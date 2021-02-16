@@ -162,20 +162,20 @@
 #define HAL_ESP32_UART_DEVICES \
   {.port=UART_NUM_0, .rx=GPIO_NUM_3, .tx=GPIO_NUM_1 },{.port=UART_NUM_1, .rx=GPIO_NUM_16, .tx=GPIO_NUM_17 }
 
-#define HAVE_FILESYSTEM_SUPPORT 1
+//#define HAVE_FILESYSTEM_SUPPORT 1
 
 // Do u want to use mmc or spi mode for the sd card, this is board specific ,
 //  as mmc uses specific pins but is quicker,
-#define HAL_ESP32_SDMMC 1
+//#define HAL_ESP32_SDMMC 1
 // and spi is more flexible pinouts....  dont forget vspi/hspi should be selected to NOT conflict with SPI_BUSES above
 //#define HAL_ESP32_SDSPI {.host=VSPI_HOST, .dma_ch=2, .mosi=GPIO_NUM_2, .miso=GPIO_NUM_15, .sclk=GPIO_NUM_14, .cs=GPIO_NUM_21}
 
-#define HAL_ESP32_SDCARD 1
-#define LOGGER_MAVLINK_SUPPORT 1
-#define HAL_BOARD_LOG_DIRECTORY "/SDCARD/APM/LOGS"
-#define HAL_BOARD_TERRAIN_DIRECTORY "/SDCARD/APM/TERRAIN"
-#define HAL_BOARD_STORAGE_DIRECTORY "/SDCARD/APM/STORAGE"
-#define HAL_OS_POSIX_IO 1
+//#define HAL_ESP32_SDCARD 1
+//#define LOGGER_MAVLINK_SUPPORT 1
+//#define HAL_BOARD_LOG_DIRECTORY "/SDCARD/APM/LOGS"
+//#define HAL_BOARD_TERRAIN_DIRECTORY "/SDCARD/APM/TERRAIN"
+//#define HAL_BOARD_STORAGE_DIRECTORY "/SDCARD/APM/STORAGE"
+//#define HAL_OS_POSIX_IO 1
 
 // this becomes the default value for the ardupilot param LOG_BACKEND_TYPE, which most ppl want to be 1, for log-to-flash
 // setting to 2 means log-over-mavlink to a companion computer etc.

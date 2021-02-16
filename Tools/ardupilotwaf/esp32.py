@@ -47,7 +47,7 @@ def configure(cfg):
         'HAL_CAN_DEFAULT_NODE_ID=0',
         'HAL_NO_GCS=1',
         'AP_AIRSPEED_AUTOCAL_ENABLE=0',
-        'ENABLE_SCRIPTING=0',
+        'DISABLE_SCRIPTING=1',
         'HAL_BUILD_AP_PERIPH=1',
     ])
 
