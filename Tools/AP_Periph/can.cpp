@@ -75,7 +75,7 @@ extern AP_Periph_FW periph;
 #endif
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
-void stm32_watchdog_pat() {}
+//void stm32_watchdog_pat() {}
 #endif
 
 
@@ -808,6 +808,11 @@ static bool shouldAcceptTransfer(const CanardInstance* ins,
 
 static void processTx(void)
 {
+
+#ifdef SCHEDDEBUG
+printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
     static uint8_t fail_count;
    // for (const CanardCANFrame* txf = NULL; (txf = canardPeekTxQueue(&canard)) != NULL;) {
         AP_HAL::CANFrame txmsg {};
@@ -833,6 +838,11 @@ static void processTx(void)
 
 static void processRx(void)
 {
+
+#ifdef SCHEDDEBUG
+printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
     AP_HAL::CANFrame rxmsg;
     while (true) {
         bool read_select = true;
@@ -851,13 +861,15 @@ static void processRx(void)
         rx_frame.data_len = rxmsg.dlc;
         rx_frame.id = rxmsg.id;
         //canardHandleRxFrame(&canard, &rx_frame, timestamp);
+
+        break; // hack by buzz
     }
 }
 
 static uint16_t pool_peak_percent(void)
 {
     //const CanardPoolAllocatorStatistics stats = canardGetPoolAllocatorStatistics(&canard);
-    const uint16_t peak_percent = 95;// (uint16_t)(100U * stats.peak_usage_blocks / stats.capacity_blocks);
+    const uint16_t peak_percent = 50;// (uint16_t)(100U * stats.peak_usage_blocks / stats.capacity_blocks);
     return peak_percent;
 }
 
@@ -866,6 +878,10 @@ static uint16_t pool_peak_percent(void)
  */
 static void process1HzTasks(uint64_t timestamp_usec)
 {
+#ifdef SCHEDDEBUG
+printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
     /*
      * Purging transfers that are no longer transmitted. This will occasionally free up some memory.
      */
@@ -911,6 +927,11 @@ static void process1HzTasks(uint64_t timestamp_usec)
 
 #if !defined(HAL_NO_FLASH_SUPPORT) && !defined(HAL_NO_ROMFS_SUPPORT)
     if (periph.g.flash_bootloader.get()) {
+
+#ifdef SCHEDDEBUG
+printf("ZZZzz %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
         periph.g.flash_bootloader.set_and_save_ifchanged(0);
         hal.scheduler->delay(1000);
         AP_HAL::Util::FlashBootloader res = hal.util->flash_bootloader();
@@ -936,14 +957,14 @@ static void process1HzTasks(uint64_t timestamp_usec)
         while (true) ;
     }
 #endif
-#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
-    if (AP_HAL::native_millis() > 30000) {
-        // use RTC to mark that we have been running fine for
-        // 30s. This is used along with watchdog resets to ensure the
-        // user has a chance to load a fixed firmware
-        set_fast_reboot(RTC_BOOT_FWOK);
-    }
-#endif
+//#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
+//    if (AP_HAL::native_millis() > 30000) {
+//        // use RTC to mark that we have been running fine for
+//        // 30s. This is used along with watchdog resets to ensure the
+//        // user has a chance to load a fixed firmware
+//        set_fast_reboot(RTC_BOOT_FWOK);
+//    }
+//#endif
 }
 
 
@@ -1161,6 +1182,9 @@ void AP_Periph_FW::hwesc_telem_update()
 
 void AP_Periph_FW::can_update()
 {
+#ifdef SCHEDDEBUG
+printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     static uint32_t last_1Hz_ms;
     uint32_t now = AP_HAL::native_millis();
     if (now - last_1Hz_ms >= 1000) {
@@ -1169,27 +1193,27 @@ void AP_Periph_FW::can_update()
     }
     can_mag_update();
     can_gps_update();
-    can_battery_update();
-    can_baro_update();
-    can_airspeed_update();
-    can_rangefinder_update();
+    //can_battery_update();
+    //can_baro_update();
+    //can_airspeed_update();
+    //can_rangefinder_update();
 #ifdef HAL_PERIPH_ENABLE_BUZZER
-    can_buzzer_update();
+    //can_buzzer_update();
 #endif
 #ifdef HAL_GPIO_PIN_SAFE_LED
-    can_safety_LED_update();
+    //can_safety_LED_update();
 #endif
 #ifdef HAL_GPIO_PIN_SAFE_BUTTON
-    can_safety_button_update();
+    //can_safety_button_update();
 #endif
 #ifdef HAL_PERIPH_ENABLE_PWM_HARDPOINT
-    pwm_hardpoint_update();
+    //pwm_hardpoint_update();
 #endif
 #ifdef HAL_PERIPH_ENABLE_HWESC
-    hwesc_telem_update();
+    //hwesc_telem_update();
 #endif
 #ifdef HAL_PERIPH_ENABLE_MSP
-    msp_sensor_update();
+    //msp_sensor_update();
 #endif
 
     processTx();

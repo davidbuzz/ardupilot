@@ -62,12 +62,12 @@ public:
 
     static const int TIMER_SS = 4096;
     static const int MAIN_SS = 4096;
-    static const int RCIN_SS = 4096;
+    static const int RCIN_SS = 0;
     static const int WIFI_SS = 4096;
-    static const int UART_SS = 1024;
+    static const int UART_SS = 4096;
     static const int DEVICE_SS = 4096;
-    static const int IO_SS = 4096;
-    static const int STORAGE_SS = 4096;
+    static const int IO_SS = 0;
+    static const int STORAGE_SS = 0;
 
 private:
     AP_HAL::HAL::Callbacks *callbacks;

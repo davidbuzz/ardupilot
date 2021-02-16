@@ -46,8 +46,9 @@ void stm32_watchdog_pat() {}
 #endif
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
-//void stm32_watchdog_init() {}
-//void stm32_watchdog_pat() {}
+void stm32_watchdog_init() {}
+void stm32_watchdog_pat() { esp_task_wdt_reset(); }   
+//Each subscribed task must periodically call esp_task_wdt_reset() to reset the TWDT
 #endif
 
 void setup(void)
@@ -78,20 +79,20 @@ void AP_Periph_FW::init()
     // setup by the bootloader, but if not then enable now
     //stm32_watchdog_init();
 
-    //stm32_watchdog_pat();
+    stm32_watchdog_pat();
 
     hal.uartA->begin(AP_SERIALMANAGER_CONSOLE_BAUD, 32, 32);
     hal.uartB->begin(115200, 128, 256);
 
     load_parameters();
 
-    //stm32_watchdog_pat();
+    stm32_watchdog_pat();
 
     can_start();
 
     serial_manager.init();
 
-    //stm32_watchdog_pat();
+    stm32_watchdog_pat();
 
 #ifdef HAL_BOARD_AP_PERIPH_ZUBAXGNSS
     // setup remapping register for ZubaxGNSS
@@ -227,12 +228,17 @@ static void update_rainbow()
 
 void AP_Periph_FW::update()
 {
+
+#ifdef SCHEDDEBUG
+printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
     static uint32_t last_led_ms;
     uint32_t now = AP_HAL::native_millis();
     if (now - last_led_ms > 1000) {
         last_led_ms = now;
 #ifdef HAL_GPIO_PIN_LED
-        palToggleLine(HAL_GPIO_PIN_LED);
+        //palToggleLine(HAL_GPIO_PIN_LED);
 #endif
 #if 0
 #ifdef HAL_PERIPH_ENABLE_GPS
@@ -252,25 +258,25 @@ void AP_Periph_FW::update()
         show_stack_usage();
 #endif
 #ifdef HAL_PERIPH_NEOPIXEL_COUNT
-        hal.rcout->set_serial_led_num_LEDs(HAL_PERIPH_NEOPIXEL_CHAN, HAL_PERIPH_NEOPIXEL_COUNT, AP_HAL::RCOutput::MODE_NEOPIXEL);
+        //hal.rcout->set_serial_led_num_LEDs(HAL_PERIPH_NEOPIXEL_CHAN, HAL_PERIPH_NEOPIXEL_COUNT, AP_HAL::RCOutput::MODE_NEOPIXEL);
 #endif
     }
 
 #ifdef HAL_PERIPH_ENABLE_BATTERY
     if (now - battery.last_read_ms >= 100) {
         // update battery at 10Hz
-        battery.last_read_ms = now;
-        battery.lib.read();
+        //battery.last_read_ms = now;
+        //battery.lib.read();
     }
 #endif
 
     can_update();
     hal.scheduler->delay(1);
 #if defined(HAL_PERIPH_NEOPIXEL_COUNT) && HAL_PERIPH_NEOPIXEL_COUNT == 8
-    update_rainbow();
+    //update_rainbow();
 #endif
 #ifdef HAL_PERIPH_ENABLE_ADSB
-    adsb_update();
+    //adsb_update();
 #endif
 }
 

@@ -11,6 +11,8 @@
 #undef HAL_PERIPH_ENABLE_HWESC
 #undef HAL_PERIPH_ENABLE_GPS
 
+#undef HAL_PERIPH_NEOPIXEL_COUNT
+
 #include <AP_HAL/AP_HAL.h>
 #include <AP_Param/AP_Param.h>
 
@@ -44,11 +46,19 @@
 //#include <AP_RCProtocol/AP_RCProtocol.h>
 
 #include "../AP_Bootloader/app_comms.h"
-#include "hwing_esc.h"
+//#include "hwing_esc.h"
 
 #if defined(HAL_PERIPH_NEOPIXEL_COUNT) || defined(HAL_PERIPH_ENABLE_NCP5623_LED)
 #define AP_PERIPH_HAVE_LED
 #endif
+
+
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "soc/rtc_wdt.h"
+#include "esp_int_wdt.h"  //Interrupt Watchdog Timer
+#include "esp_task_wdt.h" //Task Watchdog Timer (TWDT)
+
 
 #include "Parameters.h"
 
