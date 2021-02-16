@@ -133,7 +133,7 @@ AP_UAVCAN::esc_data AP_UAVCAN::_escs_data[];
 HAL_Semaphore AP_UAVCAN::_telem_sem;
 
 
-AP_UAVCAN::AP_UAVCAN() :
+AP_UAVCAN::AP_UAVCAN() : 
     _node_allocator()
 {
     AP_Param::setup_object_defaults(this, var_info);

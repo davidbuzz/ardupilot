@@ -9,17 +9,36 @@
 #undef HAL_PERIPH_ENABLE_AIRSPEED
 #undef HAL_PERIPH_ENABLE_RANGEFINDER
 #undef HAL_PERIPH_ENABLE_HWESC
+#undef HAL_PERIPH_ENABLE_GPS
 
 #include <AP_HAL/AP_HAL.h>
 #include <AP_Param/AP_Param.h>
+
+//#include <GCS_MAVLink/GCS.h>
+
+//#include <GCS_MAVLink/GCS_Dummy.h>
+
+//#include <AP_RCProtocol/AP_RCProtocol.h>
+//#include <AP_SerialManager/AP_SerialManager.h>
+
 #include <AP_GPS/AP_GPS.h>
-//#include <AP_Compass/AP_Compass.h>
+#include <AP_Compass/AP_Compass.h>
 //#include <AP_Baro/AP_Baro.h>
 //#include <AP_BattMonitor/AP_BattMonitor.h>
 //#include <AP_Airspeed/AP_Airspeed.h>
 //#include <AP_RangeFinder/AP_RangeFinder.h>
 //#include <AP_MSP/AP_MSP.h>
 //#include <AP_MSP/msp.h>
+
+//GCS_Dummy gcs;
+
+//GCS_Dummy &gcs();
+//GCS_Dummy GCS;
+
+//GCS_Dummy &gcs();
+
+//#include "../../modules/libcanard/canard.h"
+#include <canard.h>
 
 //#include <AP_RCProtocol/AP_RCProtocol.h>
 
@@ -33,6 +52,10 @@
 #include "Parameters.h"
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
+void stm32_watchdog_init();
+void stm32_watchdog_pat();
+#endif
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
 void stm32_watchdog_init();
 void stm32_watchdog_pat();
 #endif

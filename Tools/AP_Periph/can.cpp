@@ -59,6 +59,10 @@
 #include <AP_HAL_SITL/CANSocketIface.h>
 #endif
 
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+#include <AP_HAL_ESP32/CANIface.h>
+#endif
+
 
 #include "i2c.h"
 #include <utility>
@@ -70,7 +74,9 @@ extern AP_Periph_FW periph;
 #define HAL_CAN_POOL_SIZE 4000
 #endif
 
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
 void stm32_watchdog_pat() {}
+#endif
 
 static CanardInstance canard;
 static uint32_t canard_memory_pool[HAL_CAN_POOL_SIZE/sizeof(uint32_t)];
@@ -93,7 +99,7 @@ static ChibiOS::CANIface can_iface(0);
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
 static HALSITL::CANIface can_iface(0);
 #elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
-static ESP32::CANIface can_iface();
+//static ESP32::CANIface can_iface();
 #endif
 /*
  * Variables used for dynamic node ID allocation.
@@ -444,10 +450,10 @@ static void handle_allocation_response(CanardInstance* ins, CanardRxTransfer* tr
 /*
   fix value of a float for canard float16 format
  */
-static void fix_float16(float &f)
-{
-    *(uint16_t *)&f = canardConvertNativeFloatToFloat16(f);
-}
+//static void fix_float16(float &f)
+//{
+  //  *(uint16_t *)&f = canardConvertNativeFloatToFloat16(f);
+//}
 
 
 #ifdef HAL_PERIPH_ENABLE_BUZZER

@@ -44,18 +44,14 @@
 #include <cassert>
 #include <cstring>
 #include <AP_Math/AP_Math.h>
-//# include <hal.h>
+//#include <hal.h>
 #include <AP_CANManager/AP_CANManager.h>
 
 #include "CANIface.h"
 
-/* STM32F3's only CAN inteface does not have a number. */
 #define CAN1_TX_IRQ_Handler      STM32_CAN1_TX_HANDLER
 #define CAN1_RX0_IRQ_Handler     STM32_CAN1_RX0_HANDLER
 #define CAN1_RX1_IRQ_Handler     STM32_CAN1_RX1_HANDLER
-#define CAN2_TX_IRQ_Handler      STM32_CAN2_TX_HANDLER
-#define CAN2_RX0_IRQ_Handler     STM32_CAN2_RX0_HANDLER
-#define CAN2_RX1_IRQ_Handler     STM32_CAN2_RX1_HANDLER
 
 
 #if HAL_MAX_CAN_PROTOCOL_DRIVERS
@@ -75,7 +71,8 @@ extern AP_HAL::HAL& hal;
 
 using namespace ESP32;
 
-constexpr bxcan::CanType* const CANIface::Can[];
+//constexpr bxcan::CanType* const CANIface::Can[];
+
 static ESP32::CANIface* can_ifaces[HAL_NUM_CAN_IFACES] = {nullptr};
 
 static inline void handleTxInterrupt(uint8_t iface_index)
@@ -106,15 +103,6 @@ static inline void handleRxInterrupt(uint8_t iface_index, uint8_t fifo_index)
     }
 }
 
-/*
- * CANIface
- */
-const uint32_t CANIface::TSR_ABRQx[CANIface::NumTxMailboxes] = {
-    bxcan::TSR_ABRQ0,
-    bxcan::TSR_ABRQ1,
-    bxcan::TSR_ABRQ2
-};
-
 
 CANIface::CANIface(uint8_t index) :
     self_index_(index),
@@ -124,7 +112,7 @@ CANIface::CANIface(uint8_t index) :
     if (index >= HAL_NUM_CAN_IFACES) {
         AP_HAL::panic("Bad CANIface index.");
     } else {
-        can_ = Can[index];
+       // can_ = Can[index];
     }
 }
 
@@ -282,49 +270,49 @@ int16_t CANIface::send(const AP_HAL::CANFrame& frame, uint64_t tx_deadline,
      *  - It takes CPU time. Not just CPU time, but critical section time, which is expensive.
      */
 
-    CriticalSectionLocker lock;
+    //CriticalSectionLocker lock;
 
     /*
      * Seeking for an empty slot
      */
     uint8_t txmailbox = 0xFF;
-    if ((can_->TSR & bxcan::TSR_TME0) == bxcan::TSR_TME0) {
-        txmailbox = 0;
-    } else if ((can_->TSR & bxcan::TSR_TME1) == bxcan::TSR_TME1) {
-        txmailbox = 1;
-    } else if ((can_->TSR & bxcan::TSR_TME2) == bxcan::TSR_TME2) {
-        txmailbox = 2;
-    } else {
-        PERF_STATS(stats.tx_rejected);
-        return 0;       // No transmission for you.
-    }
+    //if ((can_->TSR & bxcan::TSR_TME0) == bxcan::TSR_TME0) {   // is Transmit Mailbox 0 Empty ? 
+    //    txmailbox = 0;
+    //} //else if ((can_->TSR & bxcan::TSR_TME1) == bxcan::TSR_TME1) {
+    //    txmailbox = 1;
+    //} else if ((can_->TSR & bxcan::TSR_TME2) == bxcan::TSR_TME2) {
+    //    txmailbox = 2;
+    //} else {
+      //  PERF_STATS(stats.tx_rejected);
+     //   return 0;       // No transmission for you.
+    //}
 
     /*
      * Setting up the mailbox
      */
-    bxcan::TxMailboxType& mb = can_->TxMailbox[txmailbox];
+    //bxcan::TxMailboxType& mb = can_->TxMailbox[txmailbox];
     if (frame.isExtended()) {
-        mb.TIR = ((frame.id & AP_HAL::CANFrame::MaskExtID) << 3) | bxcan::TIR_IDE;
+        //mb.TIR = ((frame.id & AP_HAL::CANFrame::MaskExtID) << 3) | bxcan::TIR_IDE;
     } else {
-        mb.TIR = ((frame.id & AP_HAL::CANFrame::MaskStdID) << 21);
+        //mb.TIR = ((frame.id & AP_HAL::CANFrame::MaskStdID) << 21);
     }
 
     if (frame.isRemoteTransmissionRequest()) {
-        mb.TIR |= bxcan::TIR_RTR;
+       // mb.TIR |= bxcan::TIR_RTR;
     }
 
-    mb.TDTR = frame.dlc;
+ //   mb.TDTR = frame.dlc;
 
-    mb.TDHR = (uint32_t(frame.data[7]) << 24) |
-              (uint32_t(frame.data[6]) << 16) |
-              (uint32_t(frame.data[5]) << 8)  |
-              (uint32_t(frame.data[4]) << 0);
-    mb.TDLR = (uint32_t(frame.data[3]) << 24) |
-              (uint32_t(frame.data[2]) << 16) |
-              (uint32_t(frame.data[1]) << 8)  |
-              (uint32_t(frame.data[0]) << 0);
+  //  mb.TDHR = (uint32_t(frame.data[7]) << 24) |
+   //           (uint32_t(frame.data[6]) << 16) |
+    //          (uint32_t(frame.data[5]) << 8)  |
+      //        (uint32_t(frame.data[4]) << 0);
+   // mb.TDLR = (uint32_t(frame.data[3]) << 24) |
+     //         (uint32_t(frame.data[2]) << 16) |
+       //       (uint32_t(frame.data[1]) << 8)  |
+         //     (uint32_t(frame.data[0]) << 0);
 
-    mb.TIR |= bxcan::TIR_TXRQ;  // Go.
+    //mb.TIR |= bxcan::TIR_TXRQ;  // Go.
 
     /*
      * Registering the pending transmission so we can track its deadline and loopback it as needed
@@ -356,72 +344,7 @@ int16_t CANIface::receive(AP_HAL::CANFrame& out_frame, uint64_t& out_timestamp_u
 bool CANIface::configureFilters(const CanFilterConfig* filter_configs,
                                 uint16_t num_configs)
 {
-    if (mode_ != FilteredMode) {
-        return false;
-    }
-    if (num_configs <= NumFilters && filter_configs != nullptr) {
-        CriticalSectionLocker lock;
-
-        can_->FMR |= bxcan::FMR_FINIT;
-
-        // Slave (CAN2) gets half of the filters
-        can_->FMR &= ~0x00003F00UL;
-        can_->FMR |= static_cast<uint32_t>(NumFilters) << 8;
-
-        can_->FFA1R = 0x0AAAAAAA; // FIFO's are interleaved between filters
-        can_->FM1R = 0; // Identifier Mask mode
-        can_->FS1R = 0x7ffffff; // Single 32-bit for all
-
-        const uint8_t filter_start_index = (self_index_ == 0) ? 0 : NumFilters;
-
-        if (num_configs == 0) {
-            can_->FilterRegister[filter_start_index].FR1 = 0;
-            can_->FilterRegister[filter_start_index].FR2 = 0;
-            can_->FA1R = 1 << filter_start_index;
-        } else {
-            for (uint8_t i = 0; i < NumFilters; i++) {
-                if (i < num_configs) {
-                    uint32_t id   = 0;
-                    uint32_t mask = 0;
-
-                    const CanFilterConfig* const cfg = filter_configs + i;
-
-                    if ((cfg->id & AP_HAL::CANFrame::FlagEFF) || !(cfg->mask & AP_HAL::CANFrame::FlagEFF)) {
-                        id   = (cfg->id   & AP_HAL::CANFrame::MaskExtID) << 3;
-                        mask = (cfg->mask & AP_HAL::CANFrame::MaskExtID) << 3;
-                        id |= bxcan::RIR_IDE;
-                    } else {
-                        id   = (cfg->id   & AP_HAL::CANFrame::MaskStdID) << 21;  // Regular std frames, nothing fancy.
-                        mask = (cfg->mask & AP_HAL::CANFrame::MaskStdID) << 21;  // Boring.
-                    }
-
-                    if (cfg->id & AP_HAL::CANFrame::FlagRTR) {
-                        id |= bxcan::RIR_RTR;
-                    }
-
-                    if (cfg->mask & AP_HAL::CANFrame::FlagEFF) {
-                        mask |= bxcan::RIR_IDE;
-                    }
-
-                    if (cfg->mask & AP_HAL::CANFrame::FlagRTR) {
-                        mask |= bxcan::RIR_RTR;
-                    }
-
-                    can_->FilterRegister[filter_start_index + i].FR1 = id;
-                    can_->FilterRegister[filter_start_index + i].FR2 = mask;
-
-                    can_->FA1R |= (1 << (filter_start_index + i));
-                } else {
-                    can_->FA1R &= ~(1 << (filter_start_index + i));
-                }
-            }
-        }
-
-        can_->FMR &= ~bxcan::FMR_FINIT;
-
-        return true;
-    }
-
+    //todo not impl on esp32
     return false;
 }
 #endif
@@ -430,7 +353,7 @@ bool CANIface::waitMsrINakBitStateChange(bool target_state)
 {
     const unsigned Timeout = 1000;
     for (unsigned wait_ack = 0; wait_ack < Timeout; wait_ack++) {
-        const bool state = (can_->MSR & bxcan::MSR_INAK) != 0;
+        const bool state = target_state; // todo not impl
         if (state == target_state) {
             return true;
         }
@@ -441,7 +364,7 @@ bool CANIface::waitMsrINakBitStateChange(bool target_state)
 
 void CANIface::handleTxMailboxInterrupt(uint8_t mailbox_index, bool txok, const uint64_t timestamp_us)
 {
-    if (mailbox_index > NumTxMailboxes) {
+    if (mailbox_index > 3) {
         return;
     }
 
@@ -454,76 +377,61 @@ void CANIface::handleTxMailboxInterrupt(uint8_t mailbox_index, bool txok, const 
         rx_item.frame = txi.frame;
         rx_item.timestamp_us = timestamp_us;
         rx_item.flags = AP_HAL::CANIface::Loopback;
-        PERF_STATS(stats.tx_loopback);
+       // PERF_STATS(stats.tx_loopback);
         rx_queue_.push(rx_item);
     }
 
     if (txok && !txi.pushed) {
         txi.pushed = true;
-        PERF_STATS(stats.tx_success);
+       // PERF_STATS(stats.tx_success);
     }
 }
 
 void CANIface::handleTxInterrupt(const uint64_t utc_usec)
 {
     // TXOK == false means that there was a hardware failure
-    if (can_->TSR & bxcan::TSR_RQCP0) {
-        const bool txok = can_->TSR & bxcan::TSR_TXOK0;
-        can_->TSR = bxcan::TSR_RQCP0;
+   // if (can_->TSR )//& bxcan::TSR_RQCP0) {
+        const bool txok = 0; //can_->TSR & bxcan::TSR_TXOK0;
+     //   can_->TSR = bxcan::TSR_RQCP0;
         handleTxMailboxInterrupt(0, txok, utc_usec);
-    }
-    if (can_->TSR & bxcan::TSR_RQCP1) {
-        const bool txok = can_->TSR & bxcan::TSR_TXOK1;
-        can_->TSR = bxcan::TSR_RQCP1;
-        handleTxMailboxInterrupt(1, txok, utc_usec);
-    }
-    if (can_->TSR & bxcan::TSR_RQCP2) {
-        const bool txok = can_->TSR & bxcan::TSR_TXOK2;
-        can_->TSR = bxcan::TSR_RQCP2;
-        handleTxMailboxInterrupt(2, txok, utc_usec);
-    }
+   // }
+   //...
 
-#if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
-    if (event_handle_ != nullptr) {
-        PERF_STATS(stats.num_events);
-     //   evt_src_.signalI(1 << self_index_);
-    }
-#endif
     pollErrorFlagsFromISR();
 }
 
 void CANIface::handleRxInterrupt(uint8_t fifo_index, uint64_t timestamp_us)
 {
-    volatile uint32_t* const rfr_reg = (fifo_index == 0) ? &can_->RF0R : &can_->RF1R;
-    if ((*rfr_reg & bxcan::RFR_FMP_MASK) == 0) {
-        return;
-    }
+  //  volatile uint32_t* const rfr_reg = (fifo_index == 0) ? &can_->RF0R : &can_->RF1R;
+ //   if ((*rfr_reg & bxcan::RFR_FMP_MASK) == 0) {
+   //     return;
+   // }
 
     /*
      * Register overflow as a hardware error
      */
-    if ((*rfr_reg & bxcan::RFR_FOVR) != 0) {
-        PERF_STATS(stats.rx_errors);
-    }
+ //   if ((*rfr_reg & bxcan::RFR_FOVR) != 0) {
+   //     PERF_STATS(stats.rx_errors);
+   // }
 
     /*
      * Read the frame contents
      */
     AP_HAL::CANFrame frame;
-    const bxcan::RxMailboxType& rf = can_->RxMailbox[fifo_index];
+   // const bxcan::RxMailboxType& rf = can_->RxMailbox[fifo_index];
 
-    if ((rf.RIR & bxcan::RIR_IDE) == 0) {
-        frame.id = AP_HAL::CANFrame::MaskStdID & (rf.RIR >> 21);
-    } else {
-        frame.id = AP_HAL::CANFrame::MaskExtID & (rf.RIR >> 3);
-        frame.id |= AP_HAL::CANFrame::FlagEFF;
-    }
+//    if ((rf.RIR & bxcan::RIR_IDE) == 0) {
+ //       frame.id = AP_HAL::CANFrame::MaskStdID & (rf.RIR >> 21);
+ //   } else {
+     //   frame.id = AP_HAL::CANFrame::MaskExtID & (rf.RIR >> 3);
+     //   frame.id |= AP_HAL::CANFrame::FlagEFF;
+ //   }
 
-    if ((rf.RIR & bxcan::RIR_RTR) != 0) {
-        frame.id |= AP_HAL::CANFrame::FlagRTR;
-    }
+  //  if ((rf.RIR & bxcan::RIR_RTR) != 0) {
+   //     frame.id |= AP_HAL::CANFrame::FlagRTR;
+  //  }
 
-    frame.dlc = rf.RDTR & 15;
+  /*  frame.dlc = rf.RDTR & 15;
 
     frame.data[0] = uint8_t(0xFF & (rf.RDLR >> 0));
     frame.data[1] = uint8_t(0xFF & (rf.RDLR >> 8));
@@ -533,8 +441,8 @@ void CANIface::handleRxInterrupt(uint8_t fifo_index, uint64_t timestamp_us)
     frame.data[5] = uint8_t(0xFF & (rf.RDHR >> 8));
     frame.data[6] = uint8_t(0xFF & (rf.RDHR >> 16));
     frame.data[7] = uint8_t(0xFF & (rf.RDHR >> 24));
-
-    *rfr_reg = bxcan::RFR_RFOM | bxcan::RFR_FOVR | bxcan::RFR_FULL;  // Release FIFO entry we just read
+*/
+  //  *rfr_reg = bxcan::RFR_RFOM | bxcan::RFR_FOVR | bxcan::RFR_FULL;  // Release FIFO entry we just read
 
     /*
      * Store with timeout into the FIFO buffer and signal update event
@@ -544,35 +452,29 @@ void CANIface::handleRxInterrupt(uint8_t fifo_index, uint64_t timestamp_us)
     rx_item.timestamp_us = timestamp_us;
     rx_item.flags = 0;
     if (rx_queue_.push(rx_item)) {
-        PERF_STATS(stats.rx_received);
+       // PERF_STATS(stats.rx_received);
     } else {
-        PERF_STATS(stats.rx_overflow);
+       // PERF_STATS(stats.rx_overflow);
     }
 
     had_activity_ = true;
 
-#if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
-    if (event_handle_ != nullptr) {
-        PERF_STATS(stats.num_events);
-    //    evt_src_.signalI(1 << self_index_);
-    }
-#endif
     pollErrorFlagsFromISR();
 }
 
 void CANIface::pollErrorFlagsFromISR()
 {
-    const uint8_t lec = uint8_t((can_->ESR & bxcan::ESR_LEC_MASK) >> bxcan::ESR_LEC_SHIFT);
+    const uint8_t lec = uint8_t(0);//(can_->ESR & bxcan::ESR_LEC_MASK) >> bxcan::ESR_LEC_SHIFT);
     if (lec != 0) {
-        can_->ESR = 0;
+    //    can_->ESR = 0;
 
         // Serving abort requests
-        for (int i = 0; i < NumTxMailboxes; i++) {
+        for (int i = 0; i < 3; i++) {
             CanTxItem& txi = pending_tx_[i];
             if (txi.aborted && txi.abort_on_error) {
-                can_->TSR = TSR_ABRQx[i];
+           //     can_->TSR = TSR_ABRQx[i];
                 txi.aborted = true;
-                PERF_STATS(stats.tx_abort);
+               // PERF_STATS(stats.tx_abort);
             }
         }
     }
@@ -581,15 +483,15 @@ void CANIface::pollErrorFlagsFromISR()
 void CANIface::discardTimedOutTxMailboxes(uint64_t current_time)
 {
     CriticalSectionLocker lock;
-    for (int i = 0; i < NumTxMailboxes; i++) {
+    for (int i = 0; i < 3; i++) {
         CanTxItem& txi = pending_tx_[i];
         if (txi.aborted || !txi.setup) {
             continue;
         }
         if (txi.deadline < current_time) {
-            can_->TSR = TSR_ABRQx[i];  // Goodnight sweet transmission
+       //     can_->TSR = TSR_ABRQx[i];  // Goodnight sweet transmission
             pending_tx_[i].aborted = true;
-            PERF_STATS(stats.tx_timedout);
+           // PERF_STATS(stats.tx_timedout);
         }
     }
 }
@@ -614,8 +516,8 @@ bool CANIface::canAcceptNewTxFrame(const AP_HAL::CANFrame& frame) const
      *  - The priority of the new frame is higher than priority of all TX mailboxes.
      */
     {
-        static const uint32_t TME = bxcan::TSR_TME0 | bxcan::TSR_TME1 | bxcan::TSR_TME2;
-        const uint32_t tme = can_->TSR & TME;
+        static const uint32_t TME = 0;//bxcan::TSR_TME0 | bxcan::TSR_TME1 | bxcan::TSR_TME2;
+        const uint32_t tme = 0;//can_->TSR & TME;
 
         if (tme == TME) {   // All TX mailboxes are free (as in freedom).
             return true;
@@ -631,7 +533,7 @@ bool CANIface::canAcceptNewTxFrame(const AP_HAL::CANFrame& frame) const
      */
     CriticalSectionLocker lock;
 
-    for (int mbx = 0; mbx < NumTxMailboxes; mbx++) {
+    for (int mbx = 0; mbx < 3; mbx++) {
         if (!(pending_tx_[mbx].pushed || pending_tx_[mbx].aborted) && !frame.priorityHigherThan(pending_tx_[mbx].frame)) {
             return false;       // There's a mailbox whose priority is higher or equal the priority of the new frame.
         }
@@ -650,22 +552,14 @@ bool CANIface::isRxBufferEmpty() const
 uint32_t CANIface::getErrorCount() const
 {
     CriticalSectionLocker lock;
-    return stats.num_busoff_err +
-           stats.rx_errors +
-           stats.rx_overflow +
-           stats.tx_rejected +
-           stats.tx_abort +
-           stats.tx_timedout;
+    return 0;//stats.num_busoff_err +
+           //stats.rx_errors +
+           //stats.rx_overflow +
+           //stats.tx_rejected +
+           //stats.tx_abort +
+           //stats.tx_timedout;
 }
 
-//ESP32::EventSource CANIface::evt_src_;
-bool CANIface::set_event_handle(AP_HAL::EventHandle* handle)
-{
-    CriticalSectionLocker lock;
-    event_handle_ = handle;
-   // event_handle_->set_source(&evt_src_);
-    return event_handle_->register_event(1 << self_index_);
-}
 
 #endif // #if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
 
@@ -700,20 +594,6 @@ bool CANIface::select(bool &read, bool &write,
         return true;
     }
 
-#if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
-    // we don't support blocking select in AP_Periph and bootloader
-    while (time < blocking_deadline) {
-        if (event_handle_ == nullptr) {
-            break;
-        }
-        event_handle_->wait(blocking_deadline - time); // Block until timeout expires or any iface updates
-        checkAvailable(read, write, pending_tx);  // Check what we got
-        if ((read && in_read) || (write && in_write)) {
-            return true;
-        }
-        time = AP_HAL::micros();
-    }
-#endif // #if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
     return true;
 }
 
@@ -748,13 +628,7 @@ void CANIface::initOnce(bool enable_irq)
      //       nvicEnableVector(CAN1_RX0_IRQn, CORTEX_MAX_KERNEL_PRIORITY);
      //       nvicEnableVector(CAN1_RX1_IRQn, CORTEX_MAX_KERNEL_PRIORITY);
         }
-# if HAL_NUM_CAN_IFACES > 1
-        else if (self_index_ == 1) {
-            nvicEnableVector(CAN2_TX_IRQn,  CORTEX_MAX_KERNEL_PRIORITY);
-            nvicEnableVector(CAN2_RX0_IRQn, CORTEX_MAX_KERNEL_PRIORITY);
-            nvicEnableVector(CAN2_RX1_IRQn, CORTEX_MAX_KERNEL_PRIORITY);
-        }
-# endif
+
         irq_init_ = true;
     }
 }
@@ -802,15 +676,15 @@ bool CANIface::init(const uint32_t bitrate, const CANIface::OperatingMode mode)
     {
         CriticalSectionLocker lock;
 
-        can_->MCR &= ~bxcan::MCR_SLEEP; // Exit sleep mode
-        can_->MCR |= bxcan::MCR_INRQ;   // Request init
+     //   can_->MCR &= ~bxcan::MCR_SLEEP; // Exit sleep mode
+     //   can_->MCR |= bxcan::MCR_INRQ;   // Request init
 
-        can_->IER = 0;                  // Disable interrupts while initialization is in progress
+     //   can_->IER = 0;                  // Disable interrupts while initialization is in progress
     }
 
     if (!waitMsrINakBitStateChange(true)) {
         Debug("MSR INAK not set");
-        can_->MCR = bxcan::MCR_RESET;
+      //  can_->MCR = bxcan::MCR_RESET;
         return false;
     }
 
@@ -819,7 +693,7 @@ bool CANIface::init(const uint32_t bitrate, const CANIface::OperatingMode mode)
      */
     rx_queue_.clear();
 
-    for (uint32_t i=0; i < NumTxMailboxes; i++) {
+    for (uint32_t i=0; i < 3; i++) {
         pending_tx_[i] = CanTxItem();
     }
     had_activity_ = false;
@@ -829,7 +703,7 @@ bool CANIface::init(const uint32_t bitrate, const CANIface::OperatingMode mode)
      */
     Timings timings;
     if (!computeTimings(bitrate, timings)) {
-        can_->MCR = bxcan::MCR_RESET;
+       // can_->MCR = bxcan::MCR_RESET;
         return false;
     }
     Debug("Timings: presc=%u sjw=%u bs1=%u bs2=%u",
@@ -838,23 +712,23 @@ bool CANIface::init(const uint32_t bitrate, const CANIface::OperatingMode mode)
     /*
      * Hardware initialization (the hardware has already confirmed initialization mode, see above)
      */
-    can_->MCR = bxcan::MCR_ABOM | bxcan::MCR_AWUM | bxcan::MCR_INRQ;  // RM page 648
+   // can_->MCR = bxcan::MCR_ABOM | bxcan::MCR_AWUM | bxcan::MCR_INRQ;  // RM page 648
 
-    can_->BTR = ((timings.sjw & 3U)  << 24) |
-                ((timings.bs1 & 15U) << 16) |
-                ((timings.bs2 & 7U)  << 20) |
-                (timings.prescaler & 1023U) |
-                ((mode == SilentMode) ? bxcan::BTR_SILM : 0);
+  //  can_->BTR = ((timings.sjw & 3U)  << 24) |
+  //              ((timings.bs1 & 15U) << 16) |
+  //              ((timings.bs2 & 7U)  << 20) |
+  //              (timings.prescaler & 1023U) |
+  //              ((mode == SilentMode) ? bxcan::BTR_SILM : 0);
 
-    can_->IER = bxcan::IER_TMEIE |   // TX mailbox empty
-                bxcan::IER_FMPIE0 |  // RX FIFO 0 is not empty
-                bxcan::IER_FMPIE1;   // RX FIFO 1 is not empty
+  //  can_->IER = bxcan::IER_TMEIE |   // TX mailbox empty
+   //             bxcan::IER_FMPIE0 |  // RX FIFO 0 is not empty
+     //           bxcan::IER_FMPIE1;   // RX FIFO 1 is not empty
 
-    can_->MCR &= ~bxcan::MCR_INRQ;   // Leave init mode
+  //  can_->MCR &= ~bxcan::MCR_INRQ;   // Leave init mode
 
     if (!waitMsrINakBitStateChange(false)) {
         Debug("MSR INAK not cleared");
-        can_->MCR = bxcan::MCR_RESET;
+      //  can_->MCR = bxcan::MCR_RESET;
         return false;
     }
 
@@ -862,68 +736,27 @@ bool CANIface::init(const uint32_t bitrate, const CANIface::OperatingMode mode)
      * Default filter configuration
      */
     if (self_index_ == 0) {
-        can_->FMR |= bxcan::FMR_FINIT;
+        //can_->FMR |= bxcan::FMR_FINIT;
 
-        can_->FMR &= 0xFFFFC0F1;
-        can_->FMR |= static_cast<uint32_t>(NumFilters) << 8;  // Slave (CAN2) gets half of the filters
+    //    can_->FMR &= 0xFFFFC0F1;
+    //    can_->FMR |= static_cast<uint32_t>(NumFilters) << 8;  // Slave (CAN2) gets half of the filters
 
-        can_->FFA1R = 0;                           // All assigned to FIFO0 by default
-        can_->FM1R = 0;                            // Indentifier Mask mode
+    //    can_->FFA1R = 0;                           // All assigned to FIFO0 by default
+    //    can_->FM1R = 0;                            // Indentifier Mask mode
 
-#if HAL_NUM_CAN_IFACES > 1
-        can_->FS1R = 0x7ffffff;                    // Single 32-bit for all
-        can_->FilterRegister[0].FR1 = 0;          // CAN1 accepts everything
-        can_->FilterRegister[0].FR2 = 0;
-        can_->FilterRegister[NumFilters].FR1 = 0; // CAN2 accepts everything
-        can_->FilterRegister[NumFilters].FR2 = 0;
-        can_->FA1R = 1 | (1 << NumFilters);        // One filter per each iface
-#else
-        can_->FS1R = 0x1fff;
-        can_->FilterRegister[0].FR1 = 0;
-        can_->FilterRegister[0].FR2 = 0;
-        can_->FA1R = 1;
-#endif
+    //    can_->FS1R = 0x1fff;
+    //    can_->FilterRegister[0].FR1 = 0;
+    //    can_->FilterRegister[0].FR2 = 0;
+    //    can_->FA1R = 1;
 
-        can_->FMR &= ~bxcan::FMR_FINIT;
+
+        //can_->FMR &= ~bxcan::FMR_FINIT;
     }
     initialised_ = true;
 
     return true;
 }
 
-#if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
-uint32_t CANIface::get_stats(char* data, uint32_t max_size)
-{
-    if (data == nullptr) {
-        return 0;
-    }
-    CriticalSectionLocker lock;
-/*    uint32_t ret = snprintf(data, max_size,
-                            "tx_requests:    %lu\n"
-                            "tx_rejected:    %lu\n"
-                            "tx_success:     %lu\n"
-                            "tx_timedout:    %lu\n"
-                            "tx_abort:       %lu\n"
-                            "rx_received:    %lu\n"
-                            "rx_overflow:    %lu\n"
-                            "rx_errors:      %lu\n"
-                            "num_busoff_err: %lu\n"
-                            "num_events:     %lu\n",
-                            stats.tx_requests,
-                            stats.tx_rejected,
-                            stats.tx_success,
-                            stats.tx_timedout,
-                            stats.tx_abort,
-                            stats.rx_received,
-                            stats.rx_overflow,
-                            stats.rx_errors,
-                            stats.num_busoff_err,
-                            stats.num_events);
-    memset(&stats, 0, sizeof(stats)); 
-    return ret;*/
-    return 0;
-}
-#endif
 
 /*
  * Interrupt handlers
@@ -957,45 +790,6 @@ extern "C"
     }
 */
 
-#if HAL_NUM_CAN_IFACES > 1
-
-#if !defined(CAN2_TX_IRQ_Handler)
-# error "Misconfigured build1"
-#endif
-
-#if !defined(CAN2_RX0_IRQ_Handler)
-# error "Misconfigured build2"
-#endif
-
-#if !defined(CAN2_RX1_IRQ_Handler)
-# error "Misconfigured build3"
-#endif
-
-    CH_IRQ_HANDLER(CAN2_TX_IRQ_Handler);
-    CH_IRQ_HANDLER(CAN2_TX_IRQ_Handler)
-    {
-        CH_IRQ_PROLOGUE();
-        handleTxInterrupt(1);
-        CH_IRQ_EPILOGUE();
-    }
-
-    CH_IRQ_HANDLER(CAN2_RX0_IRQ_Handler);
-    CH_IRQ_HANDLER(CAN2_RX0_IRQ_Handler)
-    {
-        CH_IRQ_PROLOGUE();
-        handleRxInterrupt(1, 0);
-        CH_IRQ_EPILOGUE();
-    }
-
-    CH_IRQ_HANDLER(CAN2_RX1_IRQ_Handler);
-    CH_IRQ_HANDLER(CAN2_RX1_IRQ_Handler)
-    {
-        CH_IRQ_PROLOGUE();
-        handleRxInterrupt(1, 1);
-        CH_IRQ_EPILOGUE();
-    }
-
-# endif
 
 } // extern "C"
 

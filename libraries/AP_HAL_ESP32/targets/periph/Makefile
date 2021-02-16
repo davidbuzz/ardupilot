@@ -17,5 +17,5 @@ endif
 include $(IDF_PATH)/make/project.mk
 
 showinc:
-	echo INCLUDES: /home/silvanosky/esp/esp-idf/components/newlib/include $(COMPONENT_INCLUDES)
+	echo INCLUDES: $(COMPONENT_INCLUDES)
 

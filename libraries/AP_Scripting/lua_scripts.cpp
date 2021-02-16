@@ -43,7 +43,9 @@ void lua_scripts::hook(lua_State *L, lua_Debug *ar) {
 }
 
 int lua_scripts::atpanic(lua_State *L) {
+#ifndef HAL_NO_GCS
     gcs().send_text(MAV_SEVERITY_CRITICAL, "Lua: Panic: %s", lua_tostring(L, -1));
+#endif
     hal.console->printf("Lua: Panic: %s\n", lua_tostring(L, -1));
     printf("Lua: Panic: %s\n", lua_tostring(L, -1));
     longjmp(panic_jmp, 1);
@@ -54,21 +56,29 @@ lua_scripts::script_info *lua_scripts::load_script(lua_State *L, char *filename)
     if (int error = luaL_loadfile(L, filename)) {
         switch (error) {
             case LUA_ERRSYNTAX:
+#ifndef HAL_NO_GCS
                 gcs().send_text(MAV_SEVERITY_CRITICAL, "Lua: Syntax error in %s", filename);
                 gcs().send_text(MAV_SEVERITY_CRITICAL, "Lua: Error: %s", lua_tostring(L, -1));
+#endif
                 lua_pop(L, lua_gettop(L));
                 return nullptr;
             case LUA_ERRMEM:
+#ifndef HAL_NO_GCS
                 gcs().send_text(MAV_SEVERITY_CRITICAL, "Lua: Insufficent memory loading %s", filename);
+#endif
                 lua_pop(L, lua_gettop(L));
                 return nullptr;
             case LUA_ERRFILE:
+#ifndef HAL_NO_GCS
                 gcs().send_text(MAV_SEVERITY_CRITICAL, "Lua: Unable to load the file: %s", lua_tostring(L, -1));
+#endif
                 hal.console->printf("Lua: File error: %s\n", lua_tostring(L, -1));
                 lua_pop(L, lua_gettop(L));
                 return nullptr;
             default:
+#ifndef HAL_NO_GCS
                 gcs().send_text(MAV_SEVERITY_CRITICAL, "Lua: Unknown error (%d) loading %s", error, filename);
+#endif
                 lua_pop(L, lua_gettop(L));
                 return nullptr;
         }
@@ -77,7 +87,9 @@ lua_scripts::script_info *lua_scripts::load_script(lua_State *L, char *filename)
     script_info *new_script = (script_info *)hal.util->heap_realloc(_heap, nullptr, sizeof(script_info));
     if (new_script == nullptr) {
         // No memory, shouldn't happen, we even attempted to do a GC
+#ifndef HAL_NO_GCS
         gcs().send_text(MAV_SEVERITY_CRITICAL, "Lua: Insufficent memory loading %s", filename);
+#endif
         lua_pop(L, 1); // we can't use the function we just loaded, so ditch it
         return nullptr;
     }
@@ -124,7 +136,9 @@ void lua_scripts::load_all_scripts_in_dir(lua_State *L, const char *dirname) {
 
     auto *d = AP::FS().opendir(dirname);
     if (d == nullptr) {
+#ifndef HAL_NO_GCS
         gcs().send_text(MAV_SEVERITY_INFO, "Lua: open directory (%s) failed", dirname);
+#endif
         return;
     }
 
@@ -193,11 +207,15 @@ void lua_scripts::run_next_script(lua_State *L) {
     if(lua_pcall(L, 0, LUA_MULTRET, 0)) {
         if (overtime) {
             // script has consumed an excessive amount of CPU time
+#ifndef HAL_NO_GCS
             gcs().send_text(MAV_SEVERITY_CRITICAL, "Lua: %s exceeded time limit", script->name);
+#endif
             remove_script(L, script);
         } else {
             hal.console->printf("Lua: Error: %s\n", lua_tostring(L, -1));
+#ifndef HAL_NO_GCS
             gcs().send_text(MAV_SEVERITY_INFO, "Lua: %s", lua_tostring(L, -1));
+#endif
             remove_script(L, script);
         }
         lua_pop(L, 1);
@@ -213,13 +231,17 @@ void lua_scripts::run_next_script(lua_State *L) {
                 {
                    // sanity check the return types
                    if (lua_type(L, -1) != LUA_TNUMBER) {
+#ifndef HAL_NO_GCS
                        gcs().send_text(MAV_SEVERITY_CRITICAL, "Lua: %s did not return a delay (0x%d)", script->name, lua_type(L, -1));
+#endif
                        lua_pop(L, 2);
                        remove_script(L, script);
                        return;
                    }
                    if (lua_type(L, -2) != LUA_TFUNCTION) {
+#ifndef HAL_NO_GCS
                        gcs().send_text(MAV_SEVERITY_CRITICAL, "Lua: %s did not return a function (0x%d)", script->name, lua_type(L, -2));
+#endif
                        lua_pop(L, 2);
                        remove_script(L, script);
                        return;
@@ -236,7 +258,9 @@ void lua_scripts::run_next_script(lua_State *L) {
                 }
             default:
                 {
+#ifndef HAL_NO_GCS
                     gcs().send_text(MAV_SEVERITY_CRITICAL, "Lua: %s returned bad result count (%d)", script->name, returned);
+#endif
                     remove_script(L, script);
                     // pop all the results we got that we didn't expect
                     lua_pop(L, returned);
@@ -332,7 +356,9 @@ void lua_scripts::run(void) {
     bool succeeded_initial_load = false;
 
     if (_heap == nullptr) {
+#ifndef HAL_NO_GCS
         gcs().send_text(MAV_SEVERITY_INFO, "Lua: Unable to allocate a heap");
+#endif
         return;
     }
 
@@ -357,7 +383,9 @@ void lua_scripts::run(void) {
     lua_state = lua_newstate(alloc, NULL);
     lua_State *L = lua_state;
     if (L == nullptr) {
+#ifndef HAL_NO_GCS
         gcs().send_text(MAV_SEVERITY_CRITICAL, "Lua: Couldn't allocate a lua state");
+#endif
         return;
     }
     lua_atpanic(L, atpanic);
@@ -376,7 +404,9 @@ void lua_scripts::run(void) {
         loaded = true;
     }
     if (!loaded) {
+#ifndef HAL_NO_GCS
         gcs().send_text(MAV_SEVERITY_CRITICAL, "Lua: All directory's disabled see SCR_DIR_DISABLE");
+#endif
     }
 
 #ifndef __clang_analyzer__
@@ -415,21 +445,28 @@ void lua_scripts::run(void) {
             }
 
             if (_debug_level > 1) {
+#ifndef HAL_NO_GCS
                 gcs().send_text(MAV_SEVERITY_DEBUG, "Lua: Running %s", scripts->name);
+#endif
             }
 
+#ifndef HAL_NO_GCS
             const int startMem = lua_gc(L, LUA_GCCOUNT, 0) * 1024 + lua_gc(L, LUA_GCCOUNTB, 0);
             const uint32_t loadEnd = AP_HAL::micros();
-
+#endif
             run_next_script(L);
 
+#ifndef HAL_NO_GCS
             const uint32_t runEnd = AP_HAL::micros();
             const int endMem = lua_gc(L, LUA_GCCOUNT, 0) * 1024 + lua_gc(L, LUA_GCCOUNTB, 0);
+#endif
             if (_debug_level > 1) {
+#ifndef HAL_NO_GCS
                 gcs().send_text(MAV_SEVERITY_DEBUG, "Lua: Time: %u Mem: %d + %d",
                                                     (unsigned int)(runEnd - loadEnd),
                                                     (int)endMem,
                                                     (int)(endMem - startMem));
+#endif
             }
 
             // garbage collect after each script, this shouldn't matter, but seems to resolve a memory leak
@@ -437,7 +474,9 @@ void lua_scripts::run(void) {
 
         } else {
             if (_debug_level > 0) {
+#ifndef HAL_NO_GCS
                 gcs().send_text(MAV_SEVERITY_DEBUG, "Lua: No scripts to run");
+#endif
             }
             hal.scheduler->delay(1000);
         }

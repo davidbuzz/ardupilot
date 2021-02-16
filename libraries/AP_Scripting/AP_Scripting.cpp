@@ -131,15 +131,19 @@ void AP_Scripting::init(void) {
     const char *dir_name = SCRIPTING_DIRECTORY;
     if (AP::FS().mkdir(dir_name)) {
         if (errno != EEXIST) {
+#ifndef HAL_NO_GCS
             gcs().send_text(MAV_SEVERITY_INFO, "Lua: failed to create (%s)", dir_name);
+#endif
             return;
         }
     }
 
     if (!hal.scheduler->thread_create(FUNCTOR_BIND_MEMBER(&AP_Scripting::thread, void),
                                       "Scripting", SCRIPTING_STACK_SIZE, AP_HAL::Scheduler::PRIORITY_SCRIPTING, 0)) {
+#ifndef HAL_NO_GCS
         gcs().send_text(MAV_SEVERITY_CRITICAL, "Could not create scripting stack (%d)", SCRIPTING_STACK_SIZE);
         gcs().send_text(MAV_SEVERITY_ERROR, "Scripting failed to start");
+#endif
         _init_failed = true;
     }
 }
@@ -168,7 +172,9 @@ bool AP_Scripting::repl_start(void) {
     if ((AP::FS().stat(REPL_DIRECTORY, &st) == -1) &&
         (AP::FS().unlink(REPL_DIRECTORY)  == -1) &&
         (errno != EEXIST)) {
+#ifndef HAL_NO_GCS
         gcs().send_text(MAV_SEVERITY_INFO, "Unable to delete old REPL %s", strerror(errno));
+#endif
     }
 
     // create a new folder
@@ -180,7 +186,9 @@ bool AP_Scripting::repl_start(void) {
     // make the output pointer
     terminal.output_fd = AP::FS().open(REPL_OUT, O_WRONLY|O_CREAT|O_TRUNC);
     if (terminal.output_fd == -1) {
+#ifndef HAL_NO_GCS
         gcs().send_text(MAV_SEVERITY_INFO, "Unable to make new REPL");
+#endif
         return false;
     }
 
@@ -196,7 +204,9 @@ void AP_Scripting::repl_stop(void) {
 void AP_Scripting::thread(void) {
     lua_scripts *lua = new lua_scripts(_script_vm_exec_count, _script_heap_size, _debug_level, terminal);
     if (lua == nullptr || !lua->heap_allocated()) {
+#ifndef HAL_NO_GCS
         gcs().send_text(MAV_SEVERITY_CRITICAL, "Unable to allocate scripting memory");
+#endif
         delete lua;
         _init_failed = true;
         return;
@@ -204,7 +214,9 @@ void AP_Scripting::thread(void) {
     lua->run();
 
     // only reachable if the lua backend has died for any reason
+#ifndef HAL_NO_GCS
     gcs().send_text(MAV_SEVERITY_CRITICAL, "Scripting has stopped");
+#endif
 }
 
 AP_Scripting *AP_Scripting::_singleton = nullptr;

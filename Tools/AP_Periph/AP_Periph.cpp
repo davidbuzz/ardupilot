@@ -29,6 +29,7 @@
 #include <AP_HAL_ChibiOS/hwdef/common/watchdog.h>
 #endif
 
+
 extern const AP_HAL::HAL &hal;
 
 AP_Periph_FW periph;
@@ -39,9 +40,10 @@ void loop();
 const AP_HAL::HAL& hal = AP_HAL::get_HAL();
 
 
+#if CONFIG_HAL_BOARD == HAL_BOARD_SITL
 void stm32_watchdog_init() {}
 void stm32_watchdog_pat() {}
-
+#endif
 
 void setup(void)
 {

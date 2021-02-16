@@ -42,6 +42,15 @@ def configure(cfg):
     env.SRCROOT = srcpath('')
     env.APJ_TOOL = srcpath('Tools/scripts/apj_tool.py')
 
+    cfg.env.prepend_value('DEFINES', [
+        'APJ_BOARD_ID=2020', # buzz hacks for AP_Periph
+        'HAL_CAN_DEFAULT_NODE_ID=0',
+        'HAL_NO_GCS=1',
+        'AP_AIRSPEED_AUTOCAL_ENABLE=0',
+        'ENABLE_SCRIPTING=0',
+        'HAL_BUILD_AP_PERIPH=1',
+    ])
+
     try:
         env.IDF = os.environ['IDF_PATH']
     except:
@@ -277,8 +286,11 @@ def esp32_firmware(self):
         #build final image
         src_in = [self.bld.bldnode.find_or_declare('lib/libAP_Periph_libs.a'),
                   self.bld.bldnode.find_or_declare('lib/bin/libAP_Periph.a')]
-        img_out = self.bld.bldnode.find_or_declare('idf-periph/AP_Periph.elf')
-        img_out2 = self.bld.bldnode.find_or_declare('idf-periph/AP_Periph.bin')
+                  #self.bld.bldnode.find_or_declare('Tools/AP_Periph/liblibcanard.a')]
+                  #self.bld.bldnode.find_or_declare('idf-periph/main/libmain.a')]
+
+        img_out = self.bld.bldnode.find_or_declare('idf-periph/arduperiph.elf')
+        img_out2 = self.bld.bldnode.find_or_declare('idf-periph/arduperiph.bin')
         self.generate_bin_task = self.create_task('build_esp32_image_periph', src=src_in, tgt=img_out)
         self.generate_bin_task.set_run_after(self.link_task)
 

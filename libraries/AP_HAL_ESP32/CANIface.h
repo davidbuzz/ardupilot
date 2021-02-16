@@ -42,13 +42,18 @@
 
 #include "AP_HAL_ESP32.h"
 
+//#include <FreeRTOS.h>
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+
 #if HAL_NUM_CAN_IFACES
-#include "bxcan.hpp"
-#include "EventSource.h"
+//#include "bxcan.hpp"
+//#include "EventSource.h"
 
 #ifndef HAL_CAN_RX_QUEUE_SIZE
 #define HAL_CAN_RX_QUEUE_SIZE 128
 #endif
+
 
 static_assert(HAL_CAN_RX_QUEUE_SIZE <= 254, "Invalid CAN Rx queue size");
 
@@ -64,14 +69,15 @@ class ESP32::CANIface : public AP_HAL::CANIface
     static constexpr unsigned long RTR       = (0x20000000U); // Remote Transmission Request
     static constexpr unsigned long DLC_MASK  = (0x000F0000U); // Data Length Code
 
+
     struct CriticalSectionLocker {
         CriticalSectionLocker()
         {
-            //chSysSuspend();
+            portDISABLE_INTERRUPTS();       
         }
         ~CriticalSectionLocker()
         {
-            //chSysEnable();
+            portENABLE_INTERRUPTS();
         }
     };
 
@@ -89,23 +95,16 @@ class ESP32::CANIface : public AP_HAL::CANIface
         { }
     };
 
-    enum { NumTxMailboxes = 3 };
-    enum { NumFilters = 14 };
-    static const uint32_t TSR_ABRQx[NumTxMailboxes];
-
-    ESP32::bxcan::CanType* can_;
+    //ESP32::bxcan::CanType* can_;
 
     CanRxItem rx_buffer[HAL_CAN_RX_QUEUE_SIZE];
     ByteBuffer rx_bytebuffer_;
     ObjectBuffer<CanRxItem> rx_queue_;
-    CanTxItem pending_tx_[NumTxMailboxes];
+    CanTxItem pending_tx_[16];
     bool irq_init_:1;
     bool initialised_:1;
     bool had_activity_:1;
-#ifndef HAL_BUILD_AP_PERIPH
-    AP_HAL::EventHandle* event_handle_;
-    static long evt_src_;
-#endif
+
     const uint8_t self_index_;
 
     bool computeTimings(uint32_t target_bitrate, Timings& out_timings);
@@ -133,21 +132,6 @@ class ESP32::CANIface : public AP_HAL::CANIface
 
     void initOnce(bool enable_irq);
 
-#if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
-    struct {
-        uint32_t tx_requests;
-        uint32_t tx_rejected;
-        uint32_t tx_success;
-        uint32_t tx_timedout;
-        uint32_t tx_loopback;
-        uint32_t tx_abort;
-        uint32_t rx_received;
-        uint32_t rx_overflow;
-        uint32_t rx_errors;
-        uint32_t num_busoff_err;
-        uint32_t num_events;
-    } stats;
-#endif
 
 public:
     /******************************************
@@ -185,7 +169,7 @@ public:
     // Get number of Filter configurations
     uint16_t getNumFilters() const override
     {
-        return NumFilters;
+        return 0;
     }
 
     // Get total number of Errors discovered
@@ -207,14 +191,7 @@ public:
                 const AP_HAL::CANFrame* const pending_tx,
                 uint64_t blocking_deadline) override;
     
-#if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
-    // setup event handle for waiting on events
-    bool set_event_handle(AP_HAL::EventHandle* handle) override;
 
-    // fetch stats text and return the size of the same,
-    // results available via @SYS/can0_stats.txt or @SYS/can1_stats.txt 
-    uint32_t get_stats(char* data, uint32_t max_size) override;
-#endif
     /************************************
      * Methods used inside interrupt    *
      ************************************/
@@ -226,13 +203,10 @@ public:
     void pollErrorFlagsFromISR(void);
 
     // CAN Peripheral register structure
-    static constexpr bxcan::CanType* const Can[HAL_NUM_CAN_IFACES] = {
-        reinterpret_cast<bxcan::CanType*>(uintptr_t(0x40006400U))
-#if HAL_NUM_CAN_IFACES > 1
-        ,
-        reinterpret_cast<bxcan::CanType*>(uintptr_t(0x40006800U))
-#endif
-    };
+    //static constexpr bxcan::CanType* const Can[HAL_NUM_CAN_IFACES] = {
+    //    reinterpret_cast<bxcan::CanType*>(uintptr_t(0x40006400U)) todo this is not esp32 
+    //};
+
 };
 #endif //HAL_NUM_CAN_IFACES
 
