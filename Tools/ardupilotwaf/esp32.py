@@ -285,8 +285,8 @@ def esp32_firmware(self):
     if str(self.link_task.outputs[0]).endswith('libAP_Periph.a'):
         #build final image
         src_in = [self.bld.bldnode.find_or_declare('lib/libAP_Periph_libs.a'),
-                  self.bld.bldnode.find_or_declare('lib/bin/libAP_Periph.a')]
-                  #self.bld.bldnode.find_or_declare('Tools/AP_Periph/liblibcanard.a')]
+                  self.bld.bldnode.find_or_declare('lib/bin/libAP_Periph.a'),
+                  self.bld.bldnode.find_or_declare('Tools/AP_Periph/liblibcanard.a')]
                   #self.bld.bldnode.find_or_declare('idf-periph/main/libmain.a')]
 
         img_out = self.bld.bldnode.find_or_declare('idf-periph/arduperiph.elf')

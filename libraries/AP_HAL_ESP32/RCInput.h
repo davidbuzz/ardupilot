@@ -18,7 +18,7 @@
 #include "AP_HAL_ESP32.h"
 #include "Semaphores.h"
 #include "RmtSigReader.h"
-#include <AP_RCProtocol/AP_RCProtocol.h>
+//#include <AP_RCProtocol/AP_RCProtocol.h>
 
 
 #ifndef RC_INPUT_MAX_CHANNELS
@@ -43,6 +43,6 @@ private:
     uint32_t _rcin_timestamp_last_signal;
     bool _init;
     const char *last_protocol;
-    AP_RCProtocol rcin_prot;
+    //AP_RCProtocol rcin_prot;
     ESP32::RmtSigReader sig_reader;
 };

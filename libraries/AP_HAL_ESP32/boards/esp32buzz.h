@@ -155,7 +155,7 @@
 
 
 // rcin on what pin?
-#define HAL_ESP32_RCIN GPIO_NUM_4
+//#define HAL_ESP32_RCIN GPIO_NUM_4
 
 
 //HARDWARE UARTS

@@ -45,6 +45,11 @@ void stm32_watchdog_init() {}
 void stm32_watchdog_pat() {}
 #endif
 
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+//void stm32_watchdog_init() {}
+//void stm32_watchdog_pat() {}
+#endif
+
 void setup(void)
 {
     periph.init();
@@ -71,22 +76,22 @@ void AP_Periph_FW::init()
     
     // always run with watchdog enabled. This should have already been
     // setup by the bootloader, but if not then enable now
-    stm32_watchdog_init();
+    //stm32_watchdog_init();
 
-    stm32_watchdog_pat();
+    //stm32_watchdog_pat();
 
     hal.uartA->begin(AP_SERIALMANAGER_CONSOLE_BAUD, 32, 32);
     hal.uartB->begin(115200, 128, 256);
 
     load_parameters();
 
-    stm32_watchdog_pat();
+    //stm32_watchdog_pat();
 
     can_start();
 
     serial_manager.init();
 
-    stm32_watchdog_pat();
+    //stm32_watchdog_pat();
 
 #ifdef HAL_BOARD_AP_PERIPH_ZUBAXGNSS
     // setup remapping register for ZubaxGNSS
