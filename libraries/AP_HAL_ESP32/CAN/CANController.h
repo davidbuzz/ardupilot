@@ -14,8 +14,8 @@ public:
   virtual void end();
 
   int beginPacket(int id, int dlc = -1, bool rtr = false);
-  int beginExtendedPacket(long id, int dlc = -1, bool rtr = false);
-  virtual int endPacket();
+  int beginExtendedPacket(unsigned long id, int dlc = -1, bool rtr = false);
+  int endPacket();
 
   virtual int parsePacket();
   long packetId();

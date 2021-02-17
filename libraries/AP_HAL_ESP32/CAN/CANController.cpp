@@ -3,6 +3,9 @@
 
 #include "CANController.h"
 
+#include <stdio.h>
+// WARNING 'printf' in this file doesnt work... needs to be ::printf
+
 CANControllerClass::CANControllerClass() :
   _onReceive(NULL),
 
@@ -71,16 +74,19 @@ int CANControllerClass::beginPacket(int id, int dlc, bool rtr)
   return 1;
 }
 
-int CANControllerClass::beginExtendedPacket(long id, int dlc, bool rtr)
+int CANControllerClass::beginExtendedPacket(unsigned long id, int dlc, bool rtr)
 {
-  if (id < 0 || id > 0x1FFFFFFF) {
-    return 0;
+  if ( id > 0x1FFFFFFF) {
+    ::printf("CANControllerClass::beginExtendedPacket .. id outside range 0x%lx \n",id);
+    //return 0;
   }
 
   if (dlc > 8) {
+    ::printf("CANControllerClass::beginExtendedPacket .. dlc > 8\n");
     return 0;
   }
 
+   ::printf("CANControllerClass::beginExtendedPacket .. _packetBegun = true;");
   _packetBegun = true;
   _txId = id;
   _txExtended = true;
@@ -96,8 +102,12 @@ int CANControllerClass::beginExtendedPacket(long id, int dlc, bool rtr)
 int CANControllerClass::endPacket()
 {
   if (!_packetBegun) {
+    ::printf("CANControllerClass::endPacket ..\n");
     return 0;
   }
+
+  ::printf("CANControllerClass::endPacket xxxxxaaaa\n");
+
   _packetBegun = false;
 
   if (_txDlc >= 0) {

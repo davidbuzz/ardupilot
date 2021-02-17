@@ -23,7 +23,8 @@ public:
   int begin(long baudRate) override;
   virtual void end() override;
 
-  virtual int endPacket() override;
+  int endPacket();
+  //int endPacketZ();
 
   virtual int parsePacket() override;
 

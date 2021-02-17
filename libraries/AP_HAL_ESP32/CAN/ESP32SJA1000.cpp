@@ -14,6 +14,9 @@
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
 
+#include <stdio.h>
+// WARNING 'printf' in this file doesnt work... needs to be ::printf
+
 typedef uint8_t byte;
 
 #define REG_BASE                   0x3ff6b000
@@ -174,14 +177,25 @@ void yield()
     vPortYield();
 }
 
+//int ESP32SJA1000Class::endPacketZ()
+//{
+//::printf("endPacket=11111111\n");
+//return 0;
+//}
+
+// returns 0 on failure, 1 on success
 int ESP32SJA1000Class::endPacket()
 {
+   ::printf("endPacket entered...\n");
+
   if (!CANControllerClass::endPacket()) {
+        ::printf("endPacket aborted\n");
     return 0;
   }
 
   // wait for TX buffer to free
   while ((readRegister(REG_SR) & 0x04) != 0x04) {
+        ::printf("endPacket yield, tx buffer \n");
     yield();
   }
 
@@ -219,10 +233,14 @@ int ESP32SJA1000Class::endPacket()
   while ((readRegister(REG_SR) & 0x08) != 0x08) {
     if (readRegister(REG_ECC) == 0xd9) {
       modifyRegister(REG_CMR, 0x1f, 0x02); // error, abort
+
+    ::printf("endPacket tx-in-progress \n");
       return 0;
     }
     yield();
   }
+
+  ::printf("endPacket send OK!!!!!!!!!\n");
 
   return 1;
 }
