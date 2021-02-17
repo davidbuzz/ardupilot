@@ -1088,11 +1088,9 @@ void AP_Periph_FW::can_start()
 printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
 
-
     if (g.can_node >= 0 && g.can_node < 128) {
         PreferredNodeID = g.can_node;
     }
-
 
   // CAN.setPins(rx, tx); // rx=D4 and tx = D5 by default
 

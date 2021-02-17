@@ -64,6 +64,11 @@ class Board:
         #else:
         cfg.options.disable_scripting = True
 
+        # hack in buzzs esp32 can driver folder
+        env.AP_LIBRARIES += [
+            'AP_HAL_ESP32/CAN',
+            ]
+
         # allow GCS disable for AP_DAL example
         if cfg.options.no_gcs:
             env.CXXFLAGS += ['-DHAL_NO_GCS=1']

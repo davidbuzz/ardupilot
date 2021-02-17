@@ -3,11 +3,18 @@
 
 //#ifdef ARDUINO_ARCH_ESP32
 
-#include "esp_intr.h"
+//#include "esp_intr.h" - depreciated in 4.0 idf use this instead:
+#include "esp_intr_alloc.h"
+
 #include "soc/dport_reg.h"
 #include "driver/gpio.h"
 
 #include "ESP32SJA1000.h"
+
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+
+typedef uint8_t byte;
 
 #define REG_BASE                   0x3ff6b000
 
@@ -160,6 +167,11 @@ void ESP32SJA1000Class::end()
   DPORT_CLEAR_PERI_REG_MASK(DPORT_PERIP_CLK_EN_REG, DPORT_CAN_CLK_EN);
 
   CANControllerClass::end();
+}
+
+void yield()
+{
+    vPortYield();
 }
 
 int ESP32SJA1000Class::endPacket()
