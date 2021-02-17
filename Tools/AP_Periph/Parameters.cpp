@@ -111,6 +111,11 @@ const AP_Param::Info AP_Periph_FW::var_info[] = {
 
 void AP_Periph_FW::load_parameters(void)
 {
+
+#ifdef SCHEDDEBUG
+printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
     AP_Param::setup_sketch_defaults();
 
     if (!AP_Param::check_var_info()) {

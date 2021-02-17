@@ -460,10 +460,10 @@ static void handle_allocation_response(CanardInstance* ins, CanardRxTransfer* tr
 /*
   fix value of a float for canard float16 format
  */
-//static void fix_float16(float &f)
-//{
-  //  *(uint16_t *)&f = canardConvertNativeFloatToFloat16(f);
-//}
+static void fix_float16(float &f)
+{
+    *(uint16_t *)&f = canardConvertNativeFloatToFloat16(f);
+}
 
 
 #ifdef HAL_PERIPH_ENABLE_BUZZER
@@ -911,13 +911,13 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 
             CAN.read_done(); // makes available() return false on next call unless we get new data from the wire.
 
-            printf(" .. after CAN.read_done");
+            //printf(" .. after CAN.read_done");
 
             uint64_t timestamp = AP_HAL::micros64(); // todo, this should really be set during arrival interupt
 
             canardHandleRxFrame(&canard, &rx_frame, timestamp);
         }
-      printf("\n");
+      //printf("\n");
     }
 
     printf("\n");
