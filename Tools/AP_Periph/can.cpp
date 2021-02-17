@@ -85,8 +85,9 @@ extern AP_Periph_FW periph;
 #endif
 
 
-//static CanardInstance canard;
-//static uint32_t canard_memory_pool[HAL_CAN_POOL_SIZE/sizeof(uint32_t)];
+static CanardInstance canard;
+
+static uint32_t canard_memory_pool[HAL_CAN_POOL_SIZE/sizeof(uint32_t)];
 #ifndef HAL_CAN_DEFAULT_NODE_ID
 #define HAL_CAN_DEFAULT_NODE_ID CANARD_BROADCAST_NODE_ID
 #endif
@@ -859,23 +860,23 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
     //Serial.print("Received ");
 
     if (CAN.packetExtended()) {
-      //Serial.print("extended ");
+      printf("extended ");
     }
 
     if (CAN.packetRtr()) {
       // Remote transmission request, packet contains no data
-      //Serial.print("RTR ");
+      printf("RTR ");
     }
 
-    //Serial.print("packet with id 0x");
-    //Serial.print(CAN.packetId(), HEX);
+    printf("packet with id 0x");
+    printf("%ld",CAN.packetId());
 
     if (CAN.packetRtr()) {
-      //Serial.print(" and requested length ");
-      //Serial.println(CAN.packetDlc());
+      printf(" and requested length ");
+      printf("%d",CAN.packetDlc());
     } else {
-      //Serial.print(" and length ");
-      //Serial.println(packetSize);
+      printf(" and length ");
+      printf("%d",packetSize);
 
       // only print packet data for non-RTR packets
       //while (CAN.available()) {
@@ -887,16 +888,22 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 
             CanardCANFrame rx_frame {};
             memcpy(rx_frame.data,CAN._rxData,8);// copy 8 bytes of packet data in one go.
-            CAN.read_done();
 
-            //uint64_t timestamp;
-            // set timestamp?
-            //canardHandleRxFrame(&canard, &rx_frame, timestamp);
+            rx_frame.data_len = CAN.packetDlc();
+            rx_frame.id = CAN.packetId();
+
+            CAN.read_done(); // makes available() return false on next call unless we get new data from the wire.
+
+            printf(" .. after CAN.read_done");
+
+            uint64_t timestamp = AP_HAL::micros64(); // todo, this should really be set during arrival interupt
+
+            canardHandleRxFrame(&canard, &rx_frame, timestamp);
         }
-      //Serial.println();
+      printf("\n");
     }
 
-    //Serial.println();
+    printf("\n");
   }
 
 //------------------
@@ -1203,8 +1210,8 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 
     //can_iface.init(1000000, AP_HAL::CANIface::NormalMode);
 
-    //canardInit(&canard, (uint8_t *)canard_memory_pool, sizeof(canard_memory_pool),
-    //           onTransferReceived, shouldAcceptTransfer, NULL);
+    canardInit(&canard, (uint8_t *)canard_memory_pool, sizeof(canard_memory_pool),
+               onTransferReceived, shouldAcceptTransfer, NULL);
 
     if (PreferredNodeID != CANARD_BROADCAST_NODE_ID) {
        // canardSetLocalNodeID(&canard, PreferredNodeID);

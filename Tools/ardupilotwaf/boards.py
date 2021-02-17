@@ -66,7 +66,8 @@ class Board:
 
         # hack in buzzs esp32 can driver folder
         env.AP_LIBRARIES += [
-            'AP_HAL_ESP32/CAN',
+            'AP_HAL_ESP32/CAN',     # or buzzs can driver folder link fails
+            '../modules/libcanard', # or libcanard link fails
             ]
 
         # allow GCS disable for AP_DAL example
