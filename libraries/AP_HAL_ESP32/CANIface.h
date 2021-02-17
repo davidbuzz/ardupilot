@@ -46,6 +46,8 @@
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
 
+#include "CAN/CAN.h"
+
 #if HAL_NUM_CAN_IFACES
 //#include "bxcan.hpp"
 //#include "EventSource.h"
@@ -54,7 +56,7 @@
 #define HAL_CAN_RX_QUEUE_SIZE 128
 #endif
 
-#include "CAN/CAN.h"
+
 
 static_assert(HAL_CAN_RX_QUEUE_SIZE <= 254, "Invalid CAN Rx queue size");
 

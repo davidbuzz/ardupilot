@@ -60,7 +60,13 @@
 #endif
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
-#include <AP_HAL_ESP32/CANIface.h>
+//#include <AP_HAL_ESP32/CANIface.h>
+
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+
+#include <AP_HAL_ESP32/CAN/CAN.h>
+
 #endif
 
 
@@ -100,7 +106,7 @@ static ChibiOS::CANIface can_iface(0);
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
 static HALSITL::CANIface can_iface(0);
 #elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
-static ESP32::CANIface can_iface(0);
+//static ESP32::CANIface can_iface(0);
 #endif
 /*
  * Variables used for dynamic node ID allocation.
@@ -974,6 +980,11 @@ printf("ZZZzz %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
  */
 static void can_wait_node_id(void)
 {
+
+#ifdef SCHEDDEBUG
+printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
     uint8_t node_id_allocation_transfer_id = 0;
     const uint32_t led_pattern = 0xAAAA;
     uint8_t led_idx = 0;
@@ -1073,11 +1084,26 @@ void AP_Periph_FW::can_start()
   //  node_status.mode = UAVCAN_PROTOCOL_NODESTATUS_MODE_INITIALIZATION;
   //  node_status.uptime_sec = AP_HAL::native_millis() / 1000U;
 
+#ifdef SCHEDDEBUG
+printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
+
     if (g.can_node >= 0 && g.can_node < 128) {
         PreferredNodeID = g.can_node;
     }
 
-    can_iface.init(1000000, AP_HAL::CANIface::NormalMode);
+
+  // CAN.setPins(rx, tx); // rx=D4 and tx = D5 by default
+
+  // start the CAN bus at 1000 kbps which is what ardupilot and uavcan use
+  if (!CAN.begin(1000E3)) { // one of 1000E3, 500E3, 250E3, 200E3, 125E3, 100E3, 80E3, 50E3, 40E3, 20E3, 10E3, 5E3
+    printf("Starting buzz-CAN failed!");
+    while (1);
+  }
+
+
+    //can_iface.init(1000000, AP_HAL::CANIface::NormalMode);
 
     //canardInit(&canard, (uint8_t *)canard_memory_pool, sizeof(canard_memory_pool),
     //           onTransferReceived, shouldAcceptTransfer, NULL);

@@ -1,10 +1,13 @@
 // Copyright (c) Sandeep Mistry. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifdef ARDUINO_ARCH_ESP32
+//#ifdef ARDUINO_ARCH_ESP32
 
 #ifndef ESP32_SJA1000_H
 #define ESP32_SJA1000_H
+
+//#include <include/driver/gpio.h>
+#include "driver/gpio.h"
 
 #include "CANController.h"
 
@@ -17,24 +20,24 @@ public:
   ESP32SJA1000Class();
   virtual ~ESP32SJA1000Class();
 
-  virtual int begin(long baudRate);
-  virtual void end();
+  int begin(long baudRate) override;
+  virtual void end() override;
 
-  virtual int endPacket();
+  virtual int endPacket() override;
 
-  virtual int parsePacket();
+  virtual int parsePacket() override;
 
-  virtual void onReceive(void(*callback)(int));
+  virtual void onReceive(void(*callback)(int)) override;
 
   using CANControllerClass::filter;
-  virtual int filter(int id, int mask);
+  virtual int filter(int id, int mask) override;
   using CANControllerClass::filterExtended;
-  virtual int filterExtended(long id, long mask);
+  virtual int filterExtended(long id, long mask) override;
 
-  virtual int observe();
-  virtual int loopback();
-  virtual int sleep();
-  virtual int wakeup();
+  virtual int observe() override;
+  virtual int loopback() override;
+  virtual int sleep() override;
+  virtual int wakeup() override;
 
   void setPins(int rx, int tx);
 
@@ -62,4 +65,4 @@ extern ESP32SJA1000Class CAN;
 
 #endif
 
-#endif
+//#endif

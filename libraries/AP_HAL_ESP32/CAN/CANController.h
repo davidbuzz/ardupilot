@@ -4,7 +4,8 @@
 #ifndef CAN_CONTROLLER_H
 #define CAN_CONTROLLER_H
 
-#include <Arduino.h>
+//#include <Arduino.h>
+#include "../Stream.h"
 
 class CANControllerClass : public Stream {
 
@@ -23,14 +24,14 @@ public:
   int packetDlc();
 
   // from Print
-  virtual size_t write(uint8_t byte);
-  virtual size_t write(const uint8_t *buffer, size_t size);
+  virtual size_t write(uint8_t byte) override;
+  virtual size_t write(const uint8_t *buffer, size_t size) override;
 
   // from Stream
-  virtual int available();
-  virtual int read();
-  virtual int peek();
-  virtual void flush();
+  virtual int available() override;
+  virtual int read() override;
+  virtual int peek() override;
+  virtual void flush() override;
 
   virtual void onReceive(void(*callback)(int));
 
