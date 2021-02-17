@@ -815,9 +815,9 @@ static bool shouldAcceptTransfer(const CanardInstance* ins,
 static void processTx(void)
 {
 
-#ifdef SCHEDDEBUG
-printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#ifdef SCHEDDEBUG
+//printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+//#endif
 
     static uint8_t fail_count;
    // for (const CanardCANFrame* txf = NULL; (txf = canardPeekTxQueue(&canard)) != NULL;) {
@@ -845,11 +845,62 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 static void processRx(void)
 {
 
+
+ // try to parse packet
+  int packetSize = CAN.parsePacket();
+
+  if (packetSize) {
+
 #ifdef SCHEDDEBUG
 printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
 
-    AP_HAL::CANFrame rxmsg;
+    // received a packet
+    //Serial.print("Received ");
+
+    if (CAN.packetExtended()) {
+      //Serial.print("extended ");
+    }
+
+    if (CAN.packetRtr()) {
+      // Remote transmission request, packet contains no data
+      //Serial.print("RTR ");
+    }
+
+    //Serial.print("packet with id 0x");
+    //Serial.print(CAN.packetId(), HEX);
+
+    if (CAN.packetRtr()) {
+      //Serial.print(" and requested length ");
+      //Serial.println(CAN.packetDlc());
+    } else {
+      //Serial.print(" and length ");
+      //Serial.println(packetSize);
+
+      // only print packet data for non-RTR packets
+      //while (CAN.available()) {
+        //Serial.print((char)CAN.read());
+      //}
+
+      // todo, check that .available == 8 ?
+      if (CAN.available() ) {
+
+            CanardCANFrame rx_frame {};
+            memcpy(rx_frame.data,CAN._rxData,8);// copy 8 bytes of packet data in one go.
+            CAN.read_done();
+
+            //uint64_t timestamp;
+            // set timestamp?
+            //canardHandleRxFrame(&canard, &rx_frame, timestamp);
+        }
+      //Serial.println();
+    }
+
+    //Serial.println();
+  }
+
+//------------------
+  /*  AP_HAL::CANFrame rxmsg;
     while (true) {
         bool read_select = true;
         //bool write_select = false;
@@ -863,13 +914,14 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
         //uint64_t timestamp;
         //AP_HAL::CANIface::CanIOFlags flags;
         //can_iface.receive(rxmsg, timestamp, flags);
-        memcpy(rx_frame.data, rxmsg.data, 8);
+        memcpy(rx_frame.data, rxmsg.data, 8); // dst, src, num
         rx_frame.data_len = rxmsg.dlc;
         rx_frame.id = rxmsg.id;
         //canardHandleRxFrame(&canard, &rx_frame, timestamp);
 
         break; // hack by buzz
     }
+*/
 }
 
 static uint16_t pool_peak_percent(void)
@@ -1078,6 +1130,49 @@ node_id_allocation_transfer_id=node_id_allocation_transfer_id;//hack
    // printf("Dynamic node ID allocation complete [%d]\n", canardGetLocalNodeID(&canard));
 }
 
+// bythe time this is called, we know that parsePacket has parsed it, and as a result CAN._rxData[8] array is populated
+void onReceive(int packetSize) {
+
+#ifdef SCHEDDEBUG
+//printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
+  // received a packet
+  //printf("Received \n");
+
+  if (CAN.packetExtended()) {
+    //printf("extended ");
+  }
+
+  if (CAN.packetRtr()) {
+    // Remote transmission request, packet contains no data
+    //printf("RTR ");
+  }
+
+  //printf("packet with id 0x");
+  //printf("0x%8lx",CAN.packetId());  // gives us 11-bit or 29 bit id
+
+  if (CAN.packetRtr()) {
+    //printf(" and requested length ");
+    //printf("0x%8x",CAN.packetDlc());
+   // printf("\n");
+  } else {
+   // printf(" and length ");
+   // printf("0x%8x",packetSize);
+   // printf("\n");
+    // only print packet data for non-RTR packets
+   // int i=0;
+   // uint8_t _rxData2[8] = {0,0,0,0,0,0,0,0};
+   // while (CAN.available()) {
+   //     _rxData2[i++] = CAN.read();
+   // }
+   // zzzzzzzzzzzzzzzzz
+  //  printf("\n");
+  }
+
+ // printf("\n");
+}
+
 void AP_Periph_FW::can_start()
 {
   //  node_status.health = UAVCAN_PROTOCOL_NODESTATUS_HEALTH_OK;
@@ -1092,14 +1187,19 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
         PreferredNodeID = g.can_node;
     }
 
+//CAN.  is a singleton ESP32SJA1000Class instance that inherits from CANControllerClass and from Stream
+
   // CAN.setPins(rx, tx); // rx=D4 and tx = D5 by default
 
   // start the CAN bus at 1000 kbps which is what ardupilot and uavcan use
   if (!CAN.begin(1000E3)) { // one of 1000E3, 500E3, 250E3, 200E3, 125E3, 100E3, 80E3, 50E3, 40E3, 20E3, 10E3, 5E3
-    printf("Starting buzz-CAN failed!");
+    printf("Starting buzz-CAN failed!\n");
     while (1);
   }
 
+    //CAN.onReceive(onReceive);
+
+    printf("Starting buzz-CAN succeeded!\n");
 
     //can_iface.init(1000000, AP_HAL::CANIface::NormalMode);
 
@@ -1204,10 +1304,11 @@ void AP_Periph_FW::hwesc_telem_update()
 #endif // HAL_PERIPH_ENABLE_HWESC
 
 
+// this is called at the full task/scheduler loop rate from ap_periph.update()
 void AP_Periph_FW::can_update()
 {
 #ifdef SCHEDDEBUG
-printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+//printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     static uint32_t last_1Hz_ms;
     uint32_t now = AP_HAL::native_millis();

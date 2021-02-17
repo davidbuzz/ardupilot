@@ -53,11 +53,17 @@ void stm32_watchdog_pat() { esp_task_wdt_reset(); }
 
 void setup(void)
 {
+#ifdef SCHEDDEBUG
+printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     periph.init();
 }
 
 void loop(void)
 {
+//#ifdef SCHEDDEBUG
+//printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+//#endif
     periph.update();
 }
 
@@ -74,7 +80,10 @@ const struct app_descriptor app_descriptor;
 
 void AP_Periph_FW::init()
 {
-    
+#ifdef SCHEDDEBUG
+printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
     // always run with watchdog enabled. This should have already been
     // setup by the bootloader, but if not then enable now
     //stm32_watchdog_init();
@@ -225,12 +234,12 @@ static void update_rainbow()
 #endif
 
 
-
+// this is the main 'periph' loop() function that is called repeatedly as-fast as the scheduler can.
 void AP_Periph_FW::update()
 {
 
 #ifdef SCHEDDEBUG
-printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+//printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
 
     static uint32_t last_led_ms;

@@ -33,6 +33,7 @@ public:
   virtual int peek() override;
   virtual void flush() override;
 
+  void read_done();
   virtual void onReceive(void(*callback)(int));
 
   virtual int filter(int id) { return filter(id, 0x7ff); }
@@ -44,6 +45,9 @@ public:
   virtual int loopback();
   virtual int sleep();
   virtual int wakeup();
+
+  // normally protected, but its easier to memcpy from as public
+  uint8_t _rxData[8];
 
 protected:
   CANControllerClass();
@@ -66,7 +70,7 @@ protected:
   int _rxDlc;
   int _rxLength;
   int _rxIndex;
-  uint8_t _rxData[8];
+
 };
 
 #endif

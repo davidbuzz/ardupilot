@@ -176,6 +176,21 @@ int CANControllerClass::peek()
   return _rxData[_rxIndex];
 }
 
+// if you don't read() it one byte at a time, call this after 
+void CANControllerClass::read_done()
+{
+    _rxIndex = 0;
+    _rxLength = 0;
+    _rxData[0] = 0;
+    _rxData[1] = 0;
+    _rxData[2] = 0;
+    _rxData[3] = 0;
+    _rxData[4] = 0;
+    _rxData[5] = 0;
+    _rxData[6] = 0;
+    _rxData[7] = 0;
+}
+
 void CANControllerClass::flush()
 {
 }
