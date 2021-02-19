@@ -77,16 +77,16 @@ int CANControllerClass::beginPacket(int id, int dlc, bool rtr)
 int CANControllerClass::beginExtendedPacket(unsigned long id, int dlc, bool rtr)
 {
   if ( id > 0x1FFFFFFF) {
-    ::printf("CANControllerClass::beginExtendedPacket .. id outside range 0x%lx \n",id);
-    //return 0;
-  }
-
-  if (dlc > 8) {
-    ::printf("CANControllerClass::beginExtendedPacket .. dlc > 8\n");
+    //::printf("CANControllerClass::beginExtendedPacket .. id outside range 0x%lx \n",id);
     return 0;
   }
 
-   ::printf("CANControllerClass::beginExtendedPacket .. _packetBegun = true;");
+  if (dlc > 8) {
+    //::printf("CANControllerClass::beginExtendedPacket .. dlc > 8\n");
+    return 0;
+  }
+
+   //::printf("CANControllerClass::beginExtendedPacket .. _packetBegun = true;");
   _packetBegun = true;
   _txId = id;
   _txExtended = true;
@@ -102,11 +102,11 @@ int CANControllerClass::beginExtendedPacket(unsigned long id, int dlc, bool rtr)
 int CANControllerClass::endPacket()
 {
   if (!_packetBegun) {
-    ::printf("CANControllerClass::endPacket ..\n");
+    //::printf("CANControllerClass::endPacket ..\n");
     return 0;
   }
 
-  ::printf("CANControllerClass::endPacket xxxxxaaaa\n");
+  //::printf("CANControllerClass::endPacket xxxxxaaaa\n");
 
   _packetBegun = false;
 

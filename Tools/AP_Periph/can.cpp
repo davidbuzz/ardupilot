@@ -64,6 +64,7 @@
 
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
+#include "esp_system.h"
 
 #include <AP_HAL_ESP32/CAN/CAN.h>
 
@@ -132,13 +133,21 @@ static uint16_t get_random_range(uint16_t range)
 
 
 /*
-  get cpu unique ID
+  get cpu unique ID - must be precisely 16 bytes long
  */
-static void readUniqueID(uint8_t* out_uid)
+static void readUniqueID(uint8_t* out_uid )
 {
     uint8_t len = UAVCAN_PROTOCOL_DYNAMIC_NODE_ID_ALLOCATION_UNIQUE_ID_MAX_LENGTH;
     memset(out_uid, 0, len);
     hal.util->get_system_id_unformatted(out_uid, len);
+
+    printf("readUniqueID %d %d %d %d  %d %d %d %d  %d %d %d %d %d %d %d %d\n", 
+    out_uid[0], out_uid[1], out_uid[2], out_uid[3], 
+    out_uid[4], out_uid[5], out_uid[6], out_uid[7], 
+    out_uid[8], out_uid[9], out_uid[10], out_uid[11],
+    out_uid[12], out_uid[13], out_uid[14], out_uid[15]
+  );
+
 }
 
 
@@ -166,6 +175,7 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
     crc[0] = app_descriptor.image_crc1;
     crc[1] = app_descriptor.image_crc2;
 
+    printf("%s:%d readUniqueID PKT ID\n", __PRETTY_FUNCTION__, __LINE__);
     readUniqueID(pkt.hardware_version.unique_id);
 
     // use hw major/minor for APJ_BOARD_ID so we know what fw is
@@ -430,11 +440,17 @@ static void handle_allocation_response(CanardInstance* ins, CanardRxTransfer* tr
 
     // Obtaining the local unique ID
     uint8_t my_unique_id[UAVCAN_PROTOCOL_DYNAMIC_NODE_ID_ALLOCATION_UNIQUE_ID_MAX_LENGTH];
+    printf("%s:%d readUniqueID SYS ID\n", __PRETTY_FUNCTION__, __LINE__);
     readUniqueID(my_unique_id);
 
-    // Matching the received UID against the local one
+    // Matching the received UID against the local one, first 6 only.
     if (memcmp(received_unique_id, my_unique_id, received_unique_id_len) != 0) {
-        printf("Mismatching allocation response\n");
+        printf("---------------------------------------\nMismatching allocation response: len:%d\n", received_unique_id_len);
+        printf("Mismatching allocation response: rec:%d %d %d %d %d %d %d %d %d %d %d %d my: %d %d %d %d %d %d %d %d %d %d %d %d\n",
+            received_unique_id[0],received_unique_id[1],received_unique_id[2],received_unique_id[3],received_unique_id[4],received_unique_id[5],
+            received_unique_id[6],received_unique_id[7],received_unique_id[8],received_unique_id[9],received_unique_id[10],received_unique_id[11],
+             my_unique_id[0],my_unique_id[1],my_unique_id[2],my_unique_id[3],my_unique_id[4],my_unique_id[5],
+             my_unique_id[6],my_unique_id[7],my_unique_id[8],my_unique_id[9],my_unique_id[10],my_unique_id[11]);
         node_id_allocation_unique_id_offset = 0;
         return;         // No match, return
     }
@@ -444,15 +460,21 @@ static void handle_allocation_response(CanardInstance* ins, CanardRxTransfer* tr
         node_id_allocation_unique_id_offset = received_unique_id_len;
         send_next_node_id_allocation_request_at_ms -= UAVCAN_PROTOCOL_DYNAMIC_NODE_ID_ALLOCATION_MIN_REQUEST_PERIOD_MS;
 
-        printf("Matching allocation response: %d\n", received_unique_id_len);
+        printf("Matching allocation response: len:%d\n", received_unique_id_len);
+
+        if (canardGetLocalNodeID(&canard) == CANARD_BROADCAST_NODE_ID)
+        {
+            PreferredNodeID = 12; // todo buzz hack to force the id to complete
+            canardSetLocalNodeID(ins,PreferredNodeID);//todo
+        }
     } else {
         // Allocation complete - copying the allocated node ID from the message
         uint8_t allocated_node_id = 0;
         (void) canardDecodeScalar(transfer, 0, 7, false, &allocated_node_id);
         assert(allocated_node_id <= 127);
 
-        canardSetLocalNodeID(ins, allocated_node_id);
         printf("Node ID allocated: %d\n", allocated_node_id);
+        canardSetLocalNodeID(ins, allocated_node_id);
     }
 }
 
@@ -675,8 +697,12 @@ total_size=total_size;
 static void onTransferReceived(CanardInstance* ins,
                                CanardRxTransfer* transfer)
 {
+#ifdef SCHEDDEBUG
+//printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
 #ifdef HAL_GPIO_PIN_LED_CAN1
-    palToggleLine(HAL_GPIO_PIN_LED_CAN1);
+    //palToggleLine(HAL_GPIO_PIN_LED_CAN1);
 #endif
 
     /*
@@ -686,6 +712,7 @@ static void onTransferReceived(CanardInstance* ins,
     if (canardGetLocalNodeID(ins) == CANARD_BROADCAST_NODE_ID) {
         if (transfer->transfer_type == CanardTransferTypeBroadcast &&
             transfer->data_type_id == UAVCAN_PROTOCOL_DYNAMIC_NODE_ID_ALLOCATION_ID) {
+            printf("%s:%d handle_allocation_response\n", __PRETTY_FUNCTION__, __LINE__);
             handle_allocation_response(ins, transfer);
         }
         return;
@@ -693,11 +720,13 @@ static void onTransferReceived(CanardInstance* ins,
 
     switch (transfer->data_type_id) {
     case UAVCAN_PROTOCOL_GETNODEINFO_ID:
+        printf("%s:%d handle_get_node_info\n", __PRETTY_FUNCTION__, __LINE__);
         handle_get_node_info(ins, transfer);
         break;
 
     case UAVCAN_PROTOCOL_FILE_BEGINFIRMWAREUPDATE_ID:
         handle_begin_firmware_update(ins, transfer);
+
         break;
 
     case UAVCAN_PROTOCOL_RESTARTNODE_ID:
@@ -707,10 +736,14 @@ static void onTransferReceived(CanardInstance* ins,
         NVIC_SystemReset();
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
         HAL_SITL::actually_reboot();
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+        printf("%s:%d esp_restart\n", __PRETTY_FUNCTION__, __LINE__);
+        esp_restart();
 #endif
         break;
 
     case UAVCAN_PROTOCOL_PARAM_GETSET_ID:
+        printf("%s:%d handle_param_getset\n", __PRETTY_FUNCTION__, __LINE__);
         handle_param_getset(ins, transfer);
         break;
 
@@ -758,10 +791,19 @@ static bool shouldAcceptTransfer(const CanardInstance* ins,
                                  CanardTransferType transfer_type,
                                  uint8_t source_node_id)
 {
+#ifdef SCHEDDEBUG
+//printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
+//return true;// hack from buzz to allow all thru
+
     (void)source_node_id;
 
     if (canardGetLocalNodeID(ins) == CANARD_BROADCAST_NODE_ID)
     {
+
+
+
         /*
          * If we're in the process of allocation of dynamic node ID, accept only relevant transfers.
          */
@@ -769,10 +811,15 @@ static bool shouldAcceptTransfer(const CanardInstance* ins,
             (data_type_id == UAVCAN_PROTOCOL_DYNAMIC_NODE_ID_ALLOCATION_ID))
         {
             *out_data_type_signature = UAVCAN_PROTOCOL_DYNAMIC_NODE_ID_ALLOCATION_SIGNATURE;
+            //printf("%s:%d transfer_type == CanardTransferTypeBroadcast YES\n", __PRETTY_FUNCTION__, __LINE__);
             return true;
         }
+        //printf("%s:%d transfer_type == CanardTransferTypeBroadcast NO\n", __PRETTY_FUNCTION__, __LINE__);
         return false;
     }
+
+
+    //printf("%s:%d data_type_id:%d\n", __PRETTY_FUNCTION__, __LINE__,data_type_id);
 
     switch (data_type_id) {
     case UAVCAN_PROTOCOL_GETNODEINFO_ID:
@@ -814,6 +861,7 @@ static bool shouldAcceptTransfer(const CanardInstance* ins,
         break;
     }
 
+    printf("%s:%d ACCEPT FALSE. data_type_id:%d\n", __PRETTY_FUNCTION__, __LINE__,data_type_id);
     return false;
 }
 
@@ -827,7 +875,7 @@ static void processTx(void)
     static uint8_t fail_count;
     for (const CanardCANFrame* txf = NULL; (txf = canardPeekTxQueue(&canard)) != NULL;) {
 
-            ::printf("YYYY\n");
+            //::printf("YYYY\n");
 
             //static const uint32_t FlagEFF = 1U << 31;  //1000 0000 0000 0000 0000 0000 0000 0000
 
@@ -837,21 +885,19 @@ static void processTx(void)
 
             CAN.write(txf->data,8);
 
-            ::printf("ZZZZ %d %d %d %d %d %d %d %d \n",(txf->data)[0],(txf->data)[1],(txf->data)[2],(txf->data)[3],(txf->data)[4],(txf->data)[5],(txf->data)[6],(txf->data)[7]);
-
             unsigned int r = CAN.endPacket();
 
             if ( r ) { // 1 means successful
 
-
-                ::printf("qqqqq\n");
+            ::printf("TTTT %d %d %d %d %d %d %d %d \n",(txf->data)[0],(txf->data)[1],(txf->data)[2],(txf->data)[3],(txf->data)[4],(txf->data)[5],(txf->data)[6],(txf->data)[7]);
+                //::printf("qqqqq\n");
 
                 canardPopTxQueue(&canard);
                 fail_count = 0;
 
             } else {
 
-                ::printf("mmmm\n");
+                //::printf("mmmm\n");
 
                 // just exit and try again later. If we fail 8 times in a row
                 // then start discarding to prevent the pool filling up
@@ -878,6 +924,8 @@ static void processRx(void)
 printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
 
+::printf("RRRR %d %d %d %d %d %d %d %d \n",(CAN._rxData)[0],(CAN._rxData)[1],(CAN._rxData)[2],(CAN._rxData)[3],(CAN._rxData)[4],(CAN._rxData)[5],(CAN._rxData)[6],(CAN._rxData)[7]);
+
     // received a packet
     //Serial.print("Received ");
 
@@ -897,17 +945,17 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
       printf(" and requested length ");
       printf("%d",CAN.packetDlc());
     } else {
-      printf(" and length ");
-      printf("%d",packetSize);
+      printf(" and length %d \n",packetSize);
 
+    }
       // todo, check that .available == 8 ?
-      if (CAN.available() ) {
+    //if (CAN.available() ) {
 
             CanardCANFrame rx_frame {};
             memcpy(rx_frame.data,CAN._rxData,8);// copy 8 bytes of packet data in one go.
 
             rx_frame.data_len = CAN.packetDlc();
-            rx_frame.id = CAN.packetId();
+            rx_frame.id = CAN.packetId() | (1UL << 31U) ; //put eff back into id, as canard library expects it
 
             CAN.read_done(); // makes available() return false on next call unless we get new data from the wire.
 
@@ -915,12 +963,12 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 
             uint64_t timestamp = AP_HAL::micros64(); // todo, this should really be set during arrival interupt
 
-            canardHandleRxFrame(&canard, &rx_frame, timestamp);
-        }
+            int x = canardHandleRxFrame(&canard, &rx_frame, timestamp);
+            printf(" canardHandleRxFrame %d \n",x);
+    // }
       //printf("\n");
-    }
+  //  }
 
-    printf("\n");
   }
 
 //------------------
@@ -1116,6 +1164,7 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
         }
 
         uint8_t my_unique_id[UAVCAN_PROTOCOL_DYNAMIC_NODE_ID_ALLOCATION_UNIQUE_ID_MAX_LENGTH];
+        printf("%s:%d readUniqueID SYS2 ID\n", __PRETTY_FUNCTION__, __LINE__);
         readUniqueID(my_unique_id);
 
         static const uint8_t MaxLenOfUniqueIDInRequest = 6;
@@ -1125,13 +1174,18 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
             uid_size = MaxLenOfUniqueIDInRequest;
         }
 
+        printf("%s:%d readUniqueID SYS3 ID uid_size:%d\n", __PRETTY_FUNCTION__, __LINE__,uid_size);
+
         // Paranoia time
         assert(node_id_allocation_unique_id_offset < UAVCAN_PROTOCOL_DYNAMIC_NODE_ID_ALLOCATION_UNIQUE_ID_MAX_LENGTH);
         assert(uid_size <= MaxLenOfUniqueIDInRequest);
         assert(uid_size > 0);
         assert((uid_size + node_id_allocation_unique_id_offset) <= UAVCAN_PROTOCOL_DYNAMIC_NODE_ID_ALLOCATION_UNIQUE_ID_MAX_LENGTH);
 
+
         memmove(&allocation_request[1], &my_unique_id[node_id_allocation_unique_id_offset], uid_size);
+
+        printf("%s:%d readUniqueID SYS3 ID uid_size:%d\n", __PRETTY_FUNCTION__, __LINE__,uid_size);
 
 //node_id_allocation_transfer_id=node_id_allocation_transfer_id;//hack
         // Broadcasting the request
@@ -1166,11 +1220,14 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
 
     if (g.can_node >= 0 && g.can_node < 128) {
-        //PreferredNodeID = g.can_node;
-        PreferredNodeID = 12; // hack to hardcode  id
+        PreferredNodeID = g.can_node;
+        //PreferredNodeID = 12; // todo hack to hardcode  id
 
         printf("PreferredNodeID %d \n", PreferredNodeID );
     }
+
+
+show_all_params();
 
 //CAN.  is a singleton ESP32SJA1000Class instance that inherits from CANControllerClass and from Stream
 

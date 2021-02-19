@@ -1,0 +1,232 @@
+diff --git a/canard.c b/canard.c
+index 0f4e095..56bef6b 100644
+--- a/canard.c
++++ b/canard.c
+@@ -24,10 +24,14 @@
+  * Documentation: http://uavcan.org/Implementations/Libcanard
+  */
+ 
++//#include <AP_HAL/AP_HAL.h>
++#include <stdio.h>
++
+ #include "canard_internals.h"
+ #include <string.h>
+ 
+ 
++
+ #undef MIN
+ #undef MAX
+ #define MIN(a, b)   (((a) < (b)) ? (a) : (b))
+@@ -114,6 +118,8 @@ void canardSetLocalNodeID(CanardInstance* ins, uint8_t self_node_id)
+ {
+     CANARD_ASSERT(ins != NULL);
+ 
++    //printf("%s:%d self_node_id:%d\n", __PRETTY_FUNCTION__, __LINE__,self_node_id);
++
+     if ((ins->node_id == CANARD_BROADCAST_NODE_ID) &&
+         (self_node_id >= CANARD_MIN_NODE_ID) &&
+         (self_node_id <= CANARD_MAX_NODE_ID))
+@@ -255,19 +261,48 @@ int16_t canardHandleRxFrame(CanardInstance* ins, const CanardCANFrame* frame, ui
+                                         (uint8_t)CANARD_BROADCAST_NODE_ID :
+                                         DEST_ID_FROM_ID(frame->id);
+ 
++
++//printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
++
++
+     // TODO: This function should maintain statistics of transfer errors and such.
+ 
++    if ((frame->id & CANARD_CAN_FRAME_EFF) == 0 )
++    {
++        //printf("%s:%d CANARD_ERROR_RX_INCOMPATIBLE_PACKET1\n", __PRETTY_FUNCTION__, __LINE__);
++        //return -CANARD_ERROR_RX_INCOMPATIBLE_PACKET;
++    }
++    if ((frame->id & CANARD_CAN_FRAME_RTR) != 0 )
++    {
++        //printf("%s:%d CANARD_ERROR_RX_INCOMPATIBLE_PACKET2\n", __PRETTY_FUNCTION__, __LINE__);
++        //return -CANARD_ERROR_RX_INCOMPATIBLE_PACKET;
++    }
++    if ( (frame->id & CANARD_CAN_FRAME_ERR) != 0 )
++    {
++        //printf("%s:%d CANARD_ERROR_RX_INCOMPATIBLE_PACKET3\n", __PRETTY_FUNCTION__, __LINE__);
++        //return -CANARD_ERROR_RX_INCOMPATIBLE_PACKET;
++    }
++    if ( (frame->data_len < 1))
++    {
++        //printf("%s:%d CANARD_ERROR_RX_INCOMPATIBLE_PACKET4\n", __PRETTY_FUNCTION__, __LINE__);
++        //return -CANARD_ERROR_RX_INCOMPATIBLE_PACKET;
++    }
++
+     if ((frame->id & CANARD_CAN_FRAME_EFF) == 0 ||
+         (frame->id & CANARD_CAN_FRAME_RTR) != 0 ||
+         (frame->id & CANARD_CAN_FRAME_ERR) != 0 ||
+         (frame->data_len < 1))
+     {
++        ////printf("%s:%d CANARD_ERROR_RX_INCOMPATIBLE_PACKET\n", __PRETTY_FUNCTION__, __LINE__);
+         return -CANARD_ERROR_RX_INCOMPATIBLE_PACKET;
+     }
+ 
+     if (transfer_type != CanardTransferTypeBroadcast &&
+         destination_node_id != canardGetLocalNodeID(ins))
+     {
++
++//printf("%s:%d CANARD_ERROR_RX_WRONG_ADDRESS\n", __PRETTY_FUNCTION__, __LINE__);
++
+         return -CANARD_ERROR_RX_WRONG_ADDRESS;
+     }
+ 
+@@ -283,6 +318,9 @@ int16_t canardHandleRxFrame(CanardInstance* ins, const CanardCANFrame* frame, ui
+ 
+     if (IS_START_OF_TRANSFER(tail_byte))
+     {
++
++//printf("%s:%d IS_START_OF_TRANSFER\n", __PRETTY_FUNCTION__, __LINE__);
++
+         uint64_t data_type_signature = 0;
+ 
+         if (ins->should_accept(ins, &data_type_signature, data_type_id, transfer_type, source_node_id))
+@@ -291,6 +329,9 @@ int16_t canardHandleRxFrame(CanardInstance* ins, const CanardCANFrame* frame, ui
+ 
+             if(rx_state == NULL)
+             {
++
++//printf("%s:%d CANARD_ERROR_OUT_OF_MEMORY\n", __PRETTY_FUNCTION__, __LINE__);
++
+                 return -CANARD_ERROR_OUT_OF_MEMORY;
+             }
+ 
+@@ -298,15 +339,24 @@ int16_t canardHandleRxFrame(CanardInstance* ins, const CanardCANFrame* frame, ui
+         }
+         else
+         {
++
++//printf("%s:%d CANARD_ERROR_RX_NOT_WANTED\n", __PRETTY_FUNCTION__, __LINE__);
++
+             return -CANARD_ERROR_RX_NOT_WANTED;
+         }
+     }
+     else
+     {
++
++//printf("%s:%d IS _NOT_ START_OF_TRANSFER\n", __PRETTY_FUNCTION__, __LINE__);
++
+         rx_state = findRxState(ins->rx_states, transfer_descriptor);
+ 
+         if (rx_state == NULL)
+         {
++
++//printf("%s:%d CANARD_ERROR_RX_MISSED_START\n", __PRETTY_FUNCTION__, __LINE__);
++
+             return -CANARD_ERROR_RX_MISSED_START;
+         }
+     }
+@@ -333,12 +383,18 @@ int16_t canardHandleRxFrame(CanardInstance* ins, const CanardCANFrame* frame, ui
+         if (!IS_START_OF_TRANSFER(tail_byte))
+         {
+             rx_state->transfer_id++;
++
++//printf("%s:%d CANARD_ERROR_RX_MISSED_START\n", __PRETTY_FUNCTION__, __LINE__);
++
+             return -CANARD_ERROR_RX_MISSED_START;
+         }
+     }
+ 
+     if (IS_START_OF_TRANSFER(tail_byte) && IS_END_OF_TRANSFER(tail_byte)) // single frame transfer
+     {
++
++//printf("%s:%d CanardRxTransfer1...\n", __PRETTY_FUNCTION__, __LINE__);
++
+         rx_state->timestamp_usec = timestamp_usec;
+         CanardRxTransfer rx_transfer = {
+             .timestamp_usec = timestamp_usec,
+@@ -354,16 +410,25 @@ int16_t canardHandleRxFrame(CanardInstance* ins, const CanardCANFrame* frame, ui
+         ins->on_reception(ins, &rx_transfer);
+ 
+         prepareForNextTransfer(rx_state);
++
++//printf("%s:%d CANARD_OK3\n", __PRETTY_FUNCTION__, __LINE__);
++
+         return CANARD_OK;
+     }
+ 
+     if (TOGGLE_BIT(tail_byte) != rx_state->next_toggle)
+     {
++
++//printf("%s:%d CANARD_ERROR_RX_WRONG_TOGGLE\n", __PRETTY_FUNCTION__, __LINE__);
++
+         return -CANARD_ERROR_RX_WRONG_TOGGLE;
+     }
+ 
+     if (TRANSFER_ID_FROM_TAIL_BYTE(tail_byte) != rx_state->transfer_id)
+     {
++
++//printf("%s:%d CANARD_ERROR_RX_UNEXPECTED_TID\n", __PRETTY_FUNCTION__, __LINE__);
++
+         return -CANARD_ERROR_RX_UNEXPECTED_TID;
+     }
+ 
+@@ -371,6 +436,9 @@ int16_t canardHandleRxFrame(CanardInstance* ins, const CanardCANFrame* frame, ui
+     {
+         if (frame->data_len <= 3)
+         {
++
++//printf("%s:%d CANARD_ERROR_RX_SHORT_FRAME\n", __PRETTY_FUNCTION__, __LINE__);
++
+             return -CANARD_ERROR_RX_SHORT_FRAME;
+         }
+ 
+@@ -382,6 +450,9 @@ int16_t canardHandleRxFrame(CanardInstance* ins, const CanardCANFrame* frame, ui
+         {
+             releaseStatePayload(ins, rx_state);
+             prepareForNextTransfer(rx_state);
++
++//printf("%s:%d CANARD_ERROR_OUT_OF_MEMORY\n", __PRETTY_FUNCTION__, __LINE__);
++
+             return CANARD_ERROR_OUT_OF_MEMORY;
+         }
+         rx_state->payload_crc = (uint16_t)(((uint16_t) frame->data[0]) | (uint16_t)((uint16_t) frame->data[1] << 8U));
+@@ -396,6 +467,9 @@ int16_t canardHandleRxFrame(CanardInstance* ins, const CanardCANFrame* frame, ui
+         {
+             releaseStatePayload(ins, rx_state);
+             prepareForNextTransfer(rx_state);
++
++//printf("%s:%d CANARD_ERROR_OUT_OF_MEMORY\n", __PRETTY_FUNCTION__, __LINE__);
++
+             return CANARD_ERROR_OUT_OF_MEMORY;
+         }
+         rx_state->calculated_crc = crcAdd((uint16_t)rx_state->calculated_crc,
+@@ -443,6 +517,8 @@ int16_t canardHandleRxFrame(CanardInstance* ins, const CanardCANFrame* frame, ui
+             }
+         }
+ 
++//printf("%s:%d CanardRxTransfer2...\n", __PRETTY_FUNCTION__, __LINE__);
++
+         CanardRxTransfer rx_transfer = {
+             .timestamp_usec = timestamp_usec,
+             .payload_head = rx_state->buffer_head,
+@@ -471,15 +547,25 @@ int16_t canardHandleRxFrame(CanardInstance* ins, const CanardCANFrame* frame, ui
+ 
+         if (rx_state->calculated_crc == rx_state->payload_crc)
+         {
++
++//printf("%s:%d CANARD_OK\n", __PRETTY_FUNCTION__, __LINE__);
++
+             return CANARD_OK;
+         }
+         else
+         {
++
++//printf("%s:%d CANARD_ERROR_RX_BAD_CRC\n", __PRETTY_FUNCTION__, __LINE__);
++
+             return CANARD_ERROR_RX_BAD_CRC;
+         }
+     }
+ 
+     rx_state->next_toggle = rx_state->next_toggle ? 0 : 1;
++
++
++//printf("%s:%d .CANARD_OK\n", __PRETTY_FUNCTION__, __LINE__);
++
+     return CANARD_OK;
+ }
+ 

@@ -252,7 +252,9 @@ bool Util::get_system_id_unformatted(uint8_t buf[], uint8_t &len)
         ret = esp_efuse_mac_get_default(base_mac_addr);
     }
 
-   memcpy(buf, (const void *)base_mac_addr, len);
+   memcpy(buf, (const void *)base_mac_addr, 6); //0-5
+   memcpy(buf+6, (const void *)base_mac_addr, 6); //6-11
+   memcpy(buf+12, (const void *)base_mac_addr, 4); //12-15
 
     return true;
 }

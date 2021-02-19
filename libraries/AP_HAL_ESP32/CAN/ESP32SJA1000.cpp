@@ -186,16 +186,16 @@ void yield()
 // returns 0 on failure, 1 on success
 int ESP32SJA1000Class::endPacket()
 {
-   ::printf("endPacket entered...\n");
+   //::printf("endPacket entered...\n");
 
   if (!CANControllerClass::endPacket()) {
-        ::printf("endPacket aborted\n");
+        //::printf("endPacket aborted\n");
     return 0;
   }
 
   // wait for TX buffer to free
   while ((readRegister(REG_SR) & 0x04) != 0x04) {
-        ::printf("endPacket yield, tx buffer \n");
+        //::printf("endPacket yield, tx buffer \n");
     yield();
   }
 
@@ -234,13 +234,13 @@ int ESP32SJA1000Class::endPacket()
     if (readRegister(REG_ECC) == 0xd9) {
       modifyRegister(REG_CMR, 0x1f, 0x02); // error, abort
 
-    ::printf("endPacket tx-in-progress \n");
+    //::printf("endPacket tx-in-progress \n");
       return 0;
     }
     yield();
   }
 
-  ::printf("endPacket send OK!!!!!!!!!\n");
+  //::printf("endPacket send OK!!!!!!!!!\n");
 
   return 1;
 }

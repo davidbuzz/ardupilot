@@ -134,4 +134,18 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 
     // Load all auto-loaded EEPROM variables
     AP_Param::load_all();
+
+    AP_Param::show_all(hal.uartA,true);
+
+}
+
+void AP_Periph_FW::show_all_params(void)
+{
+
+#ifdef SCHEDDEBUG
+printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
+  AP_Param::show_all(hal.uartA,true);
+
 }

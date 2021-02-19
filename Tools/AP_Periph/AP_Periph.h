@@ -91,6 +91,7 @@ public:
     void can_battery_update();
 
     void load_parameters();
+    void show_all_params();
 
     AP_SerialManager serial_manager;
 

@@ -33,7 +33,7 @@
 #define AP_MAX_NAME_SIZE 16
 
 // optionally enable debug code for dumping keys
-#define AP_PARAM_KEY_DUMP 0
+#define AP_PARAM_KEY_DUMP 1
 
 /*
   maximum size of embedded parameter file

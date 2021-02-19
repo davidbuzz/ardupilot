@@ -97,6 +97,8 @@ printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 
     stm32_watchdog_pat();
 
+    //g.show_all(hal.uartA,true);
+
     can_start();
 
     serial_manager.init();
