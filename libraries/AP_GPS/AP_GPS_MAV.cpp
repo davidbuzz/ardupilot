@@ -107,7 +107,7 @@ void AP_GPS_MAV::handle_msg(const mavlink_message_t &msg)
             const uint32_t now_ms = AP_HAL::millis();
 
             if (have_yaw) {
-                state.gps_yaw = wrap_360(packet.yaw*0.01);
+                state.gps_yaw = wrap_360(packet.yaw*0.01f);
                 state.gps_yaw_time_ms = now_ms;
                 state.have_gps_yaw = true;
                 state.gps_yaw_configured = true;

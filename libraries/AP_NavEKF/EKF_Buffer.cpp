@@ -15,8 +15,12 @@ ekf_ring_buffer::ekf_ring_buffer(uint8_t _elsize) :
 
 bool ekf_ring_buffer::init(uint8_t size)
 {
-    if (buffer) {
-        free(buffer);
+    if (buffer) {    
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+       //free(buffer); /// assert(heap != NULL && "free() target pointer is outside heap areas"); from heap_caps.c heap_caps_free(..)
+#else
+       free(buffer);
+#endif
     }
     buffer = calloc(size, elsize);
     if (buffer == nullptr) {

@@ -1,14 +1,14 @@
 #pragma once
 
 #include <stdarg.h>
+#include <AP_Common/AP_Common.h> // for FMT_PRINTF
 #include "AP_HAL_Namespace.h"
 
 class ExpandingString;
 
 class AP_HAL::Util {
 public:
-    int snprintf(char* str, size_t size,
-                 const char *format, ...) FMT_PRINTF(4, 5);
+    int snprintf(char* str, size_t size, const char *format, ...) FMT_PRINTF(4, 5);
 
     int vsnprintf(char* str, size_t size,
                   const char *format, va_list ap);

@@ -23,8 +23,8 @@
 extern const AP_HAL::HAL& hal;
 
 // queue of pending parameter requests and replies
-ObjectBuffer<GCS_MAVLINK::pending_param_request> GCS_MAVLINK::param_requests(20);
-ObjectBuffer<GCS_MAVLINK::pending_param_reply> GCS_MAVLINK::param_replies(5);
+ObjectBuffer<GCS_MAVLINK::pending_param_request> GCS_MAVLINK::param_requests(40);
+ObjectBuffer<GCS_MAVLINK::pending_param_reply> GCS_MAVLINK::param_replies(20);
 
 bool GCS_MAVLINK::param_timer_registered;
 
@@ -64,7 +64,7 @@ GCS_MAVLINK::queued_param_send()
     // when we don't have flow control we really need to keep the
     // param download very slow, or it tends to stall
     if (!have_flow_control() && count > 5) {
-        count = 5;
+        //count = 5;
     }
     if (async_replies_sent_count >= count) {
         return;

@@ -122,6 +122,8 @@ public:
     // end of a run()
     float load_average();
 
+    void print_stats(void) const  {}; 
+
     // get the active main loop rate
     uint16_t get_loop_rate_hz(void) {
         if (_active_loop_rate_hz == 0) {

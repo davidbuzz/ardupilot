@@ -151,6 +151,9 @@ void AP_InertialSensor_Invensensev2::_fifo_reset()
 
 bool AP_InertialSensor_Invensensev2::_has_auxiliary_bus()
 {
+#ifdef HAL_ESP32_WIFI
+    return true;
+#endif
     return _dev->bus_type() != AP_HAL::Device::BUS_TYPE_I2C;
 }
 

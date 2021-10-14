@@ -536,7 +536,16 @@ void NavEKF2_core::runYawEstimatorPrediction()
             trueAirspeed = 0.0f;
         }
 
-        yawEstimator->update(imuDataDelayed.delAng, imuDataDelayed.delVel, imuDataDelayed.delAngDT, imuDataDelayed.delVelDT, EKFGSF_run_filterbank, trueAirspeed);
+        if ( ! &imuDataDelayed.delAng ) imuDataDelayed.delAng ={0.0f,0.0f,0.0f};
+        if ( ! &imuDataDelayed.delVel  ) imuDataDelayed.delVel ={0.0f,0.0f,0.0f};
+        if ( ! &imuDataDelayed.delAngDT ) imuDataDelayed.delAngDT =0.0f;
+        if ( ! &imuDataDelayed.delVelDT ) imuDataDelayed.delVelDT =0.0f;
+
+        #if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+            trueAirspeed=trueAirspeed;
+        #else
+            yawEstimator->update(imuDataDelayed.delAng, imuDataDelayed.delVel, imuDataDelayed.delAngDT, imuDataDelayed.delVelDT, EKFGSF_run_filterbank, trueAirspeed);
+        #endif
     }
 }
 

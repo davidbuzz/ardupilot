@@ -189,7 +189,8 @@ static int pmain(lua_State* L)
  return 0;
 }
 
-int main(int argc, char* argv[])
+
+int ZZmain(int argc, char* argv[])
 {
  lua_State* L;
  int i=doargs(argc,argv);

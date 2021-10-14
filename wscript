@@ -173,6 +173,7 @@ submodules at specific revisions.
                  default=False,
                  help="Enables and sets up ONVIF camera control")
 
+
     g = opt.ap_groups['linux']
 
     linux_options = ('--prefix', '--destdir', '--bindir', '--libdir')

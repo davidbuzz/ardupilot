@@ -739,7 +739,7 @@ void AP_InertialSensor_Invensense::_read_fifo()
     }
 
     if (need_reset) {
-        //debug("fifo reset n_samples %u", bytes_read/MPU_SAMPLE_SIZE);
+        debug("fifo reset n_samples %u", bytes_read/MPU_SAMPLE_SIZE);
         _fifo_reset(false);
     }
     

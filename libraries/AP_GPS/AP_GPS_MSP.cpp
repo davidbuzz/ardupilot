@@ -80,7 +80,7 @@ void AP_GPS_MSP::handle_msp(const MSP::msp_gps_data_message_t &pkt)
     state.last_gps_time_ms = AP_HAL::millis();
 
     if (pkt.true_yaw != 65535) {
-        state.gps_yaw = wrap_360(pkt.true_yaw*0.01);
+        state.gps_yaw = wrap_360(pkt.true_yaw*0.01f);
         state.have_gps_yaw = true;
         state.gps_yaw_time_ms = state.last_gps_time_ms;
     }

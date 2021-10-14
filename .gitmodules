@@ -22,3 +22,6 @@
 [submodule "modules/gsoap"]
 	path = modules/gsoap
 	url = https://github.com/ArduPilot/gsoap
+[submodule "modules/esp_idf"]
+	path = modules/esp_idf
+	url = git://github.com/espressif/esp-idf.git
