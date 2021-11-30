@@ -34,3 +34,6 @@
 [submodule "modules/CrashDebug"]
 	path = modules/CrashDebug
 	url = https://github.com/adamgreen/CrashDebug
+[submodule "modules/ChibiOS-Contrib"]
+	path = modules/ChibiOS-Contrib
+	url = https://github.com/ChibiOS/ChibiOS-Contrib.git
