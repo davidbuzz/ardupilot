@@ -434,6 +434,7 @@ def configure(cfg):
     # see if there is a board specific make file
     if os.path.exists(mk_custom):
         env.BOARD_MK = mk_custom
+        print("ZZZZZZZZZZZUSING CUSTOM CHIBIOS .MK: %s" % mk_custom)
     else:
         env.BOARD_MK = mk_common
 

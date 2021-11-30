@@ -955,6 +955,7 @@ def write_mcu_config(f):
 
     # setup build variables
     for v in build_info.keys():
+        print("XXXXXXXXXXXXXXXXXXXXXX",v,build_info[v])
         build_flags.append('%s=%s' % (v, build_info[v]))
 
     # setup for bootloader build
@@ -2311,6 +2312,7 @@ def write_env_py(filename):
 
     # CHIBIOS_BUILD_FLAGS is passed to the ChibiOS makefile
     env_vars['CHIBIOS_BUILD_FLAGS'] = ' '.join(build_flags)
+    print(env_vars['CHIBIOS_BUILD_FLAGS'])
     pickle.dump(env_vars, open(filename, "wb"))
 
 
@@ -2573,6 +2575,7 @@ def add_apperiph_defaults(f):
 
 # process input file
 for fname in args.hwdef:
+    print(fname)
     process_file(fname)
 
 outdir = args.outdir

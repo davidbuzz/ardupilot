@@ -1,0 +1,285 @@
+##############################################################################
+# Teensy - specific version of ../common/chibios_board.mk 
+# the existance of this file here causes it to be used instead of the global one. 
+#
+
+# Compiler options here.
+ifeq ($(USE_OPT),)
+  USE_OPT = -g -fomit-frame-pointer -falign-functions=16
+endif
+
+# C specific options here (added to USE_OPT).
+ifeq ($(USE_COPT),)
+  USE_COPT = -Os
+endif
+
+# C++ specific options here (added to USE_OPT).
+ifeq ($(USE_CPPOPT),)
+  USE_CPPOPT = -fno-rtti -std=gnu++11
+endif
+
+# Enable this if you want the linker to remove unused code and data
+ifeq ($(USE_LINK_GC),)
+  USE_LINK_GC = yes
+endif
+
+# Linker extra options here.
+ifeq ($(USE_LDOPT),)
+  USE_LDOPT =
+endif
+
+# Enable this if you want link time optimizations (LTO)
+ifeq ($(USE_LTO),)
+  USE_LTO = no
+endif
+
+# If enabled, this option allows to compile the application in THUMB mode.
+ifeq ($(USE_THUMB),)
+  USE_THUMB = yes
+endif
+
+# Enable this if you want to see the full log while compiling.
+ifeq ($(USE_VERBOSE_COMPILE),)
+  USE_VERBOSE_COMPILE = no
+endif
+
+# If enabled, this option makes the build process faster by not compiling
+# modules not used in the current configuration.
+ifeq ($(USE_SMART_BUILD),)
+  USE_SMART_BUILD = no
+endif
+
+include $(CHIBIOS)/os/various/cpp_wrappers/chcpp.mk
+ifeq ($(USE_FATFS),yes)
+include $(CHIBIOS)/os/various/fatfs_bindings/fatfs.mk
+endif
+
+#
+# Build global options
+##############################################################################
+
+##############################################################################
+# Architecture or project specific options
+#
+HWDEF = $(AP_HAL)/hwdef
+# Stack size to be allocated to the Cortex-M process stack. This stack is
+# the stack used by the main() thread.
+ifeq ($(USE_PROCESS_STACKSIZE),)
+  USE_PROCESS_STACKSIZE = 0x400
+endif
+
+# Stack size to the allocated to the Cortex-M main/exceptions stack. This
+# stack is used for processing interrupts and exceptions.
+ifeq ($(USE_EXCEPTIONS_STACKSIZE),)
+  USE_EXCEPTIONS_STACKSIZE = 0x400
+endif
+
+# Enables the use of FPU (no, softfp, hard).
+ifeq ($(USE_FPU),)
+  USE_FPU = hard
+endif
+
+#
+# Architecture or project specific options
+##############################################################################
+
+##############################################################################
+# Project, sources and paths
+#
+
+# Define project name here
+PROJECT = ch
+
+# derived from
+#https://github.com/ChibiOS/ChibiOS-Contrib/blob/1127b5575e5ae784b1d5654220f35e0cb8aa8ca9/demos/MIMXRT1062/RT-TEENSY4_1/Makefile#L89
+
+CHIBIOS_CONTRIB = $(CHIBIOS)/../ChibiOS-Contrib
+
+include $(CHIBIOS)/os/license/license.mk
+
+
+# Imported source files and paths
+# Startup files.
+# include $(CHIBIOS_CONTRIB)/$(CHIBIOS_STARTUP_MK)
+include $(CHIBIOS_CONTRIB)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_MIMXRT1062.mk
+
+# HAL-OSAL files (optional).
+include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
+
+# include $(CHIBIOS_CONTRIB)/$(CHIBIOS_PLATFORM_MK)
+include $(CHIBIOS_CONTRIB)/os/hal/ports/MIMXRT1062/MIMXRT1062/platform.mk
+
+# include $(CHIBIOS_CONTRIB)/$(CHIBIOS_BOARD_MK)
+include $(CHIBIOS_CONTRIB)/os/hal/boards/PJRC_TEENSY_4_1/board.mk
+
+include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk
+# RTOS files (optional).
+include $(CHIBIOS)/os/rt/rt.mk
+include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v7m.mk
+# Other files (optional).
+# include $(CHIBIOS)/test/rt/test.mk
+include $(CHIBIOS_CONTRIB)/os/common/ports/ARMCMx/compilers/GCC/utils/fault_handlers_v7m.mk
+
+# include $(CHIBIOS)/test/lib/test.mk
+# include $(CHIBIOS)/test/rt/rt_test.mk
+# include $(CHIBIOS)/test/oslib/oslib_test.mk
+
+# for printf
+include $(CHIBIOS)/os/hal/lib/streams/streams.mk
+# shell?
+# include $(CHIBIOS)/os/various/shell/shell.mk
+
+
+ifeq ($(USE_FATFS),yes)
+include $(CHIBIOS)/os/various/cpp_wrappers/chcpp.mk
+include $(CHIBIOS)/os/various/fatfs_bindings/fatfs.mk
+endif
+
+# Define linker script file here
+LDSCRIPT= $(STARTUPLD_CONTRIB)/MIMXRT1062.ld
+
+# C sources that can be compiled in ARM or THUMB mode depending on the global
+# setting.
+
+CSRC = $(sort $(ALLCSRC))
+
+CSRC += $(HWDEF)/common/stubs.c \
+	   $(HWDEF)/common/board.c \
+	   $(HWDEF)/common/usbcfg.c \
+	   $(HWDEF)/common/usbcfg_dualcdc.c \
+	   $(HWDEF)/common/usbcfg_common.c \
+	   $(HWDEF)/common/flash.c \
+	   $(HWDEF)/common/malloc.c \
+	   $(HWDEF)/common/hrt.c \
+       $(HWDEF)/common/stm32_util.c \
+       $(HWDEF)/common/bouncebuffer.c \
+       $(HWDEF)/common/watchdog.c
+
+#	   $(TESTSRC) \
+#	   test.c
+ifneq ($(CRASHCATCHER),)
+LIBCC_CSRC = $(CRASHCATCHER)/Core/src/CrashCatcher.c \
+             $(HWDEF)/common/crashdump.c
+
+LIBCC_ASMXSRC = $(CRASHCATCHER)/Core/src/CrashCatcher_armv7m.S
+endif
+
+# C++ sources that can be compiled in ARM or THUMB mode depending on the global
+# setting.
+CPPSRC = $(sort $(ALLCPPSRC))
+
+# C sources to be compiled in ARM mode regardless of the global setting.
+# NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
+#       option that results in lower performance and larger code size.
+ACSRC =
+
+# C++ sources to be compiled in ARM mode regardless of the global setting.
+# NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
+#       option that results in lower performance and larger code size.
+ACPPSRC =
+
+# C sources to be compiled in THUMB mode regardless of the global setting.
+# NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
+#       option that results in lower performance and larger code size.
+TCSRC =
+
+# C sources to be compiled in THUMB mode regardless of the global setting.
+# NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
+#       option that results in lower performance and larger code size.
+TCPPSRC =
+
+# List ASM source files here
+ASMSRC = $(ALLASMSRC)
+ASMXSRC = $(ALLXASMSRC)
+
+INCDIR = $(CHIBIOS)/os/license \
+         $(ALLINC) $(HWDEF)/common
+
+ifneq ($(CRASHCATCHER),)
+INCDIR += $(CRASHCATCHER)/include
+endif
+#
+# Project, sources and paths
+##############################################################################
+
+##############################################################################
+# Compiler settings
+#
+#MCU  = cortex-m4 / cortex-m7
+
+
+#TRGT = arm-elf-
+TRGT = arm-none-eabi-
+CC   = $(TRGT)gcc
+CPPC = $(TRGT)g++
+# Enable loading with g++ only if you need C++ runtime support.
+# NOTE: You can use C++ even without C++ support if you are careful. C++
+#       runtime support makes code size explode.
+LD   = $(TRGT)gcc
+#LD   = $(TRGT)g++
+CP   = $(TRGT)objcopy
+AS   = $(TRGT)gcc -x assembler-with-cpp
+AR   = $(TRGT)ar
+OD   = $(TRGT)objdump
+SZ   = $(TRGT)size
+HEX  = $(CP) -O ihex
+BIN  = $(CP) -O binary
+SREC = $(CP) -O srec
+
+# ARM-specific options here
+AOPT =
+
+# THUMB-specific options here
+TOPT = -mthumb -DTHUMB
+
+# Define C warning options here
+CWARN = -Wall -Wextra -Wundef -Wstrict-prototypes 
+# Teensy drops -Werror 
+
+# Define C++ warning options here
+CPPWARN = -Wall -Wextra -Wundef 
+# Teensy drops -Werror
+
+#
+# Compiler settings
+##############################################################################
+
+##############################################################################
+# Start of user section
+#
+
+# List all user C define here, like -D_DEBUG=1
+UDEFS = $(ENV_UDEFS) $(FATFS_FLAGS) -DHAL_BOARD_NAME=\"$(HAL_BOARD_NAME)\" \
+        -DHAL_MAX_STACK_FRAME_SIZE=$(HAL_MAX_STACK_FRAME_SIZE)
+
+ifeq ($(ENABLE_ASSERTS),yes)
+ UDEFS += -DHAL_CHIBIOS_ENABLE_ASSERTS
+ ASXFLAGS += -DHAL_CHIBIOS_ENABLE_ASSERTS
+endif
+
+ifeq ($(ENABLE_MALLOC_GUARD),yes)
+ UDEFS += -DHAL_CHIBIOS_ENABLE_MALLOC_GUARD
+ ASXFLAGS += -DHAL_CHIBIOS_ENABLE_MALLOC_GUARD
+endif
+
+ifeq ($(ENABLE_STATS),yes)
+ UDEFS += -DHAL_ENABLE_THREAD_STATISTICS
+ ASXFLAGS += -DHAL_ENABLE_THREAD_STATISTICS
+endif
+
+# Define ASM defines here
+UADEFS =
+
+# List all user directories here
+UINCDIR =
+
+# List the user directory to look for the libraries here
+ULIBDIR =
+
+# List all user libraries here
+ULIBS =
+
+#
+# End of user defines
+##############################################################################
+include $(HWDEF)/common/chibios_common.mk

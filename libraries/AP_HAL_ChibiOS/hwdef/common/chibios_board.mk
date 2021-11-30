@@ -90,18 +90,23 @@ endif
 # Define project name here
 PROJECT = ch
 
+CHIBIOS_CONTRIB = $(CHIBIOS)/../ChibiOS-Contrib
+
 # Imported source files and paths
 # Startup files.
-include $(CHIBIOS)/$(CHIBIOS_STARTUP_MK)
+include $(CHIBIOS_CONTRIB)/$(CHIBIOS_STARTUP_MK)
+
 # HAL-OSAL files (optional).
-include $(CHIBIOS)/os/hal/hal.mk
-include $(CHIBIOS)/$(CHIBIOS_PLATFORM_MK)
+include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
+include $(CHIBIOS_CONTRIB)/$(CHIBIOS_PLATFORM_MK)
+include $(CHIBIOS_CONTRIB)/$(CHIBIOS_BOARD_MK)
 include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
 include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v7m.mk
 # Other files (optional).
 #include $(CHIBIOS)/test/rt/test.mk
+include $(CHIBIOS_CONTRIB)/os/common/ports/ARMCMx/compilers/GCC/utils/fault_handlers_v7m.mk
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk
 
 ifeq ($(USE_FATFS),yes)
