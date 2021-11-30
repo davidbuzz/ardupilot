@@ -380,6 +380,8 @@ def load_env_vars(env):
     if env.ENABLE_STATS:
         env.CHIBIOS_BUILD_FLAGS += ' ENABLE_STATS=yes'
 
+    #env.CHIBIOS_BUILD_FLAGS += ' MCU=STM32F7'
+
 
 def setup_optimization(env):
     '''setup optimization flags for build'''

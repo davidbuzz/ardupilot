@@ -371,16 +371,44 @@ ctrl-c to exit gdb
 
 # storage tips - not generally needed, as u can update params with missionplanenner over mavlink etc.
 
+# how to 'erase' all params and firmware from your chip...
+esptool.py --chip esp32 --before=default_reset --after=hard_reset erase_flash
+
 
 # determine offset and size of 'storage' partition in flash
-parttool.py --partition-table-file partitions.csv get_partition_info --partition-name storage
->0x3e0000 0x20000
+# ./modules/esp_idf/components/partition_table/parttool.py
+parttool.py --partition-table-file ./libraries/AP_HAL_ESP32/targets/partitions.csv  get_partition_info --partition-name storage
+0x210000 0x20000
+
 
 # then backup ardupilot 'storage' area (its a partition, see partitions.csv) to a file on disk:
-esptool.py read_flash 0x3e0000 0x20000 storage.bin
+# ./modules/esp_idf/components/esptool_py/esptool/esptool.py
+esptool.py read_flash 0x210000 0x20000 storage.bin
 
 # restore the storage.bin to your device... basiclly the same flash command as used in esp32.py but different offset and file:
 esptool.py --chip esp32 --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 80m --flash_size detect 0x3e0000 storage.bin
+
+
+# storage.bin appears to have some resemblance to eeprom.bin, some analysis to see similarities..
+# how to dump info about an eeprom.bin:
+cd ./libraries/AP_Param/tools/
+gcc eedump_apparam.c -o eedump_apparam
+./eedump_apparam  eeprom.bin
+
+# how to extract an eeprom.bin from inside the storage.bin, and check its headers are ok...
+dd if=storage.bin of=storage.skip6.eeprom bs=1 skip=6
+hexdump storage.skip6.eeprom | head -1
+0000000 4150 0006 0200 0000 0004 000d ffff 003f
+./libraries/AP_Param/tools/eedump_apparam storage.skip6.eeprom 
+Header OK
+...etc...
+
+#  how to get sitl to load the above storage.skip6.eeprom.bin as an eeprom.bin:
+cp storage.skip6.eeprom  eeprom.bin
+make a normal sitl:
+./waf configure
+./waf plane copter
+run sitl from same folder as 'speacial' eeprom.bin and it will try oto load it...
 
 
 ### example log of boot messages:

@@ -37,6 +37,9 @@
 // include generated config
 #include "hwdef.h"
 
+#define MIMXRT1062_MCUCONF
+#define HAL_USE_COMMUNITY           TRUE
+
 #if defined(STM32F1)
 #include "stm32f1_mcuconf.h"
 #elif defined(STM32F3)
