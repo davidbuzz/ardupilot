@@ -5,6 +5,7 @@
 #include "hal.h"
 #include "watchdog.h"
 #include "stm32_util.h"
+//#include <fsl_wdog.h>
 
 #ifndef IWDG_BASE
 #if defined(STM32H7)
@@ -14,12 +15,12 @@
 #elif defined(STM32F1) || defined(STM32F3)
 #define IWDG_BASE             0x40003000
 #else
-#error "Unsupported IWDG MCU config"
+//#error "Unsupported IWDG MCU config"
 #endif
 #endif
 
 #ifndef RCC_BASE
-#error "Unsupported IWDG RCC MCU config"
+//#error "Unsupported IWDG RCC MCU config"
 #endif
 
 /*
@@ -29,10 +30,10 @@
 #define WDG_RESET_STATUS (*(__IO uint32_t *)(RCC_BASE + 0xD0))
 #define WDG_RESET_CLEAR (1U<<16)
 #define WDG_RESET_IS_IWDG (1U<<26)
-#elif defined(STM32F7) || defined(STM32F4)
-#define WDG_RESET_STATUS (*(__IO uint32_t *)(RCC_BASE + 0x74))
-#define WDG_RESET_CLEAR (1U<<24)
-#define WDG_RESET_IS_IWDG (1U<<29)
+// #elif defined(STM32F7) || defined(STM32F4)
+// #define WDG_RESET_STATUS (*(__IO uint32_t *)(RCC_BASE + 0x74))
+// #define WDG_RESET_CLEAR (1U<<24)
+// #define WDG_RESET_IS_IWDG (1U<<29)
 #elif defined(STM32F1) || defined(STM32F3)
 #define WDG_RESET_STATUS (*(__IO uint32_t *)(RCC_BASE + 0x24))
 #define WDG_RESET_CLEAR (1U<<24)
@@ -41,6 +42,31 @@
 #define WDG_RESET_STATUS (*(__IO uint32_t *)(RCC_BASE + 0x94))
 #define WDG_RESET_CLEAR (1U<<23)
 #define WDG_RESET_IS_IWDG (1U<<29)
+#elif defined(__TEENSY4__)
+    //buzz todo
+    /** Peripheral RTWDOG base address */
+    //#define RTWDOG_BASE                              (0x400BC000u)
+    /** Peripheral RTWDOG base pointer */
+    //#define RTWDOG                                   ((RTWDOG_Type *)RTWDOG_BASE)
+    //https://github.com/zephyrproject-rtos/zephyr/blob/main/drivers/watchdog/wdt_mcux_imx_wdog.c  ?
+    //SDK -all ... fsl_wdog.c  
+    // static const struct mcux_wdog_config mcux_wdog_config = {
+    //   .base = (WDOG_Type *) DT_INST_REG_ADDR(0),
+    //   .irq_config_func = mcux_wdog_config_func,
+    // };
+    //  __I  uint16_t WRSR;                              /**< Watchdog Reset Status Register, offset: 0x4 */
+    // #define WDG_RESET_STATUS (WDOG_Type *) DT_INST_REG_ADDR(0).WRSR
+    // //TOUT = 1= Reset is the result of a WDOG timeout
+    // #define WDG_RESET_IS_IWDG WDOG_WRSR_TOUT(WDG_RESET_STATUS)
+    // //todo on this one...?
+    // #define WDG_RESET_CLEAR
+#define WDG_RESET_STATUS 0
+#define WDG_RESET_IS_IWDG 0
+#define WDG_RESET_CLEAR 0
+
+//#define WDG_RESET_STATUS (*(__IO uint32_t *)(RCC_BASE + 0x94))
+//#define WDG_RESET_CLEAR (1U<<23)
+//#define WDG_RESET_IS_IWDG (1U<<29)
 #else
 #error "Unsupported IWDG MCU config"
 #endif
@@ -88,9 +114,9 @@ void stm32_watchdog_pat(void)
  */
 void stm32_watchdog_save_reason(void)
 {
-    if (WDG_RESET_STATUS & WDG_RESET_IS_IWDG) {
-        was_watchdog_reset = true;
-    }
+    // if (WDG_RESET_STATUS & WDG_RESET_IS_IWDG) {
+    //     was_watchdog_reset = true;
+    // }
 }
 
 /*
@@ -98,7 +124,7 @@ void stm32_watchdog_save_reason(void)
  */
 void stm32_watchdog_clear_reason(void)
 {
-    WDG_RESET_STATUS = WDG_RESET_CLEAR;
+   // WDG_RESET_STATUS = WDG_RESET_CLEAR;
 }
 
 /*

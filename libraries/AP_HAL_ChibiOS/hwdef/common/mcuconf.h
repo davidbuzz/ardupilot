@@ -37,8 +37,14 @@
 // include generated config
 #include "hwdef.h"
 
+// buzz hacks:
 #define MIMXRT1062_MCUCONF
 #define HAL_USE_COMMUNITY           TRUE
+#define STM32F7 TRUE
+#define STM32_HAS_ADC TRUE
+#define STM32_ADC_SUPPORTS_PRESCALER FALSE
+#define STM32_ADC_SUPPORTS_OVERSAMPLING FALSE
+#define USE_HAL_I2C_FALLBACK TRUE
 
 #if defined(__TEENSY4__)
 #include "teensy4_mcuconf.h"

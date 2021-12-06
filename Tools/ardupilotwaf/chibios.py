@@ -380,8 +380,6 @@ def load_env_vars(env):
     if env.ENABLE_STATS:
         env.CHIBIOS_BUILD_FLAGS += ' ENABLE_STATS=yes'
 
-    #env.CHIBIOS_BUILD_FLAGS += ' MCU=STM32F7'
-
 
 def setup_optimization(env):
     '''setup optimization flags for build'''
@@ -436,7 +434,6 @@ def configure(cfg):
     # see if there is a board specific make file
     if os.path.exists(mk_custom):
         env.BOARD_MK = mk_custom
-        print("ZZZZZZZZZZZUSING CUSTOM CHIBIOS .MK: %s" % mk_custom)
     else:
         env.BOARD_MK = mk_common
 

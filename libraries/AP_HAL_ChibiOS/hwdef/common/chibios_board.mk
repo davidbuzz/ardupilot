@@ -90,7 +90,7 @@ endif
 # Define project name here
 PROJECT = ch
 
-CHIBIOS_CONTRIB = $(CHIBIOS)/../ChibiOS-Contrib
+# NOT  HERE! 
 
 # Imported source files and paths
 # Startup files.

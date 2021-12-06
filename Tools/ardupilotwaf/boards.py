@@ -244,7 +244,7 @@ class Board:
             '-Wno-reorder',
             '-Wno-redundant-decls',
             '-Wno-unknown-pragmas',
-            '-Wno-expansion-to-defined',
+            #'-Wno-expansion-to-defined',
             '-Werror=cast-align',
             '-Werror=attributes',
             '-Werror=format-security',

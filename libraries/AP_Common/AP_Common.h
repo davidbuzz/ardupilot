@@ -86,6 +86,7 @@
 #define LOWBYTE(i) ((uint8_t)(i))
 #define HIGHBYTE(i) ((uint8_t)(((uint16_t)(i))>>8))
 
+#undef ARRAY_SIZE
 #define ARRAY_SIZE(_arr) (sizeof(_arr) / sizeof(_arr[0]))
 
 #define UINT16_VALUE(hbyte, lbyte) (static_cast<uint16_t>(((hbyte)<<8)|(lbyte)))

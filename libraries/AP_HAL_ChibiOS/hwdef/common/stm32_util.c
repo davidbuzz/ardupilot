@@ -27,20 +27,20 @@ static int64_t utc_time_offset;
  */
 void stm32_timer_set_input_filter(stm32_tim_t *tim, uint8_t channel, uint8_t filter_mode)
 {
-    switch (channel) {
-    case 0:
-        tim->CCMR1 |= STM32_TIM_CCMR1_IC1F(filter_mode);
-        break;
-    case 1:
-        tim->CCMR1 |= STM32_TIM_CCMR1_IC2F(filter_mode);
-        break;
-    case 2:
-        tim->CCMR2 |= STM32_TIM_CCMR2_IC3F(filter_mode);
-        break;
-    case 3:
-        tim->CCMR2 |= STM32_TIM_CCMR2_IC4F(filter_mode);
-        break;
-    }
+    // switch (channel) {
+    // case 0:
+    //     tim->CCMR1 |= STM32_TIM_CCMR1_IC1F(filter_mode);
+    //     break;
+    // case 1:
+    //     tim->CCMR1 |= STM32_TIM_CCMR1_IC2F(filter_mode);
+    //     break;
+    // case 2:
+    //     tim->CCMR2 |= STM32_TIM_CCMR2_IC3F(filter_mode);
+    //     break;
+    // case 3:
+    //     tim->CCMR2 |= STM32_TIM_CCMR2_IC4F(filter_mode);
+    //     break;
+    // }
 }
 
 /*
@@ -48,32 +48,32 @@ void stm32_timer_set_input_filter(stm32_tim_t *tim, uint8_t channel, uint8_t fil
  */    
 void stm32_timer_set_channel_input(stm32_tim_t *tim, uint8_t channel, uint8_t input_source)
 {
-    switch (channel) {
-        case 0:
-            tim->CCER &= ~STM32_TIM_CCER_CC1E;
-            tim->CCMR1 &= ~STM32_TIM_CCMR1_CC1S_MASK;
-            tim->CCMR1 |= STM32_TIM_CCMR1_CC1S(input_source);
-            tim->CCER |= STM32_TIM_CCER_CC1E;
-            break;
-        case 1:
-            tim->CCER &= ~STM32_TIM_CCER_CC2E;
-            tim->CCMR1 &= ~STM32_TIM_CCMR1_CC2S_MASK;
-            tim->CCMR1 |= STM32_TIM_CCMR1_CC2S(input_source);
-            tim->CCER |= STM32_TIM_CCER_CC2E;
-            break;
-        case 2:
-            tim->CCER &= ~STM32_TIM_CCER_CC3E;
-            tim->CCMR2 &= ~STM32_TIM_CCMR2_CC3S_MASK;
-            tim->CCMR2 |= STM32_TIM_CCMR2_CC3S(input_source);
-            tim->CCER |= STM32_TIM_CCER_CC3E;
-            break;
-        case 3:
-            tim->CCER &= ~STM32_TIM_CCER_CC4E;
-            tim->CCMR2 &= ~STM32_TIM_CCMR2_CC4S_MASK;
-            tim->CCMR2 |= STM32_TIM_CCMR2_CC4S(input_source);
-            tim->CCER |= STM32_TIM_CCER_CC4E;
-            break;
-    }
+    // switch (channel) {
+    //     case 0:
+    //         tim->CCER &= ~STM32_TIM_CCER_CC1E;
+    //         tim->CCMR1 &= ~STM32_TIM_CCMR1_CC1S_MASK;
+    //         tim->CCMR1 |= STM32_TIM_CCMR1_CC1S(input_source);
+    //         tim->CCER |= STM32_TIM_CCER_CC1E;
+    //         break;
+    //     case 1:
+    //         tim->CCER &= ~STM32_TIM_CCER_CC2E;
+    //         tim->CCMR1 &= ~STM32_TIM_CCMR1_CC2S_MASK;
+    //         tim->CCMR1 |= STM32_TIM_CCMR1_CC2S(input_source);
+    //         tim->CCER |= STM32_TIM_CCER_CC2E;
+    //         break;
+    //     case 2:
+    //         tim->CCER &= ~STM32_TIM_CCER_CC3E;
+    //         tim->CCMR2 &= ~STM32_TIM_CCMR2_CC3S_MASK;
+    //         tim->CCMR2 |= STM32_TIM_CCMR2_CC3S(input_source);
+    //         tim->CCER |= STM32_TIM_CCER_CC3E;
+    //         break;
+    //     case 3:
+    //         tim->CCER &= ~STM32_TIM_CCER_CC4E;
+    //         tim->CCMR2 &= ~STM32_TIM_CCMR2_CC4S_MASK;
+    //         tim->CCMR2 |= STM32_TIM_CCMR2_CC4S(input_source);
+    //         tim->CCER |= STM32_TIM_CCER_CC4E;
+    //         break;
+    // }
 }
 
 #if CH_DBG_ENABLE_STACK_CHECK == TRUE && !defined(HAL_BOOTLOADER_BUILD)
@@ -214,45 +214,45 @@ uint32_t get_fattime()
 // get RTC backup registers starting at given idx
 void get_rtc_backup(uint8_t idx, uint32_t *v, uint8_t n)
 {
-    while (n--) {
-#if defined(STM32F1)
-        (void)idx;
-        __IO uint32_t *dr = (__IO uint32_t *)&BKP->DR1;
-        *v++ = (dr[n/2]&0xFFFF) | (dr[n/2+1]<<16);
-#elif defined(STM32G4)
-        *v++ = ((__IO uint32_t *)&TAMP->BKP0R)[idx++];
-#else
-        *v++ = ((__IO uint32_t *)&RTC->BKP0R)[idx++];
-#endif
-    }
+//     while (n--) {
+// #if defined(STM32F1)
+//         (void)idx;
+//         __IO uint32_t *dr = (__IO uint32_t *)&BKP->DR1;
+//         *v++ = (dr[n/2]&0xFFFF) | (dr[n/2+1]<<16);
+// #elif defined(STM32G4)
+//         *v++ = ((__IO uint32_t *)&TAMP->BKP0R)[idx++];
+// #else
+//         *v++ = ((__IO uint32_t *)&RTC->BKP0R)[idx++];
+// #endif
+//     }
 }
 
 // set n RTC backup registers starting at given idx
 void set_rtc_backup(uint8_t idx, const uint32_t *v, uint8_t n)
 {
-#if !defined(STM32F1)
-    if ((RCC->BDCR & RCC_BDCR_RTCEN) == 0) {
-        RCC->BDCR |= STM32_RTCSEL;
-        RCC->BDCR |= RCC_BDCR_RTCEN;
-    }
-#ifdef PWR_CR_DBP
-    PWR->CR |= PWR_CR_DBP;
-#else
-    PWR->CR1 |= PWR_CR1_DBP;
-#endif
-#endif
-    while (n--) {
-#if defined(STM32F1)
-        (void)idx;
-        __IO uint32_t *dr = (__IO uint32_t *)&BKP->DR1;
-        dr[n/2] =   (*v) & 0xFFFF;
-        dr[n/2+1] = (*v) >> 16;
-#elif defined(STM32G4)
-        ((__IO uint32_t *)&TAMP->BKP0R)[idx++] = *v++;
-#else
-        ((__IO uint32_t *)&RTC->BKP0R)[idx++] = *v++;
-#endif
-    }
+// #if !defined(STM32F1)
+//     if ((RCC->BDCR & RCC_BDCR_RTCEN) == 0) {
+//         RCC->BDCR |= STM32_RTCSEL;
+//         RCC->BDCR |= RCC_BDCR_RTCEN;
+//     }
+// #ifdef PWR_CR_DBP
+//     PWR->CR |= PWR_CR_DBP;
+// #else
+//     PWR->CR1 |= PWR_CR1_DBP;
+// #endif
+// #endif
+//     while (n--) {
+// #if defined(STM32F1)
+//         (void)idx;
+//         __IO uint32_t *dr = (__IO uint32_t *)&BKP->DR1;
+//         dr[n/2] =   (*v) & 0xFFFF;
+//         dr[n/2+1] = (*v) >> 16;
+// #elif defined(STM32G4)
+//         ((__IO uint32_t *)&TAMP->BKP0R)[idx++] = *v++;
+// #else
+//         ((__IO uint32_t *)&RTC->BKP0R)[idx++] = *v++;
+// #endif
+//     }
 }
 
 // see if RTC registers is setup for a fast reboot
@@ -342,19 +342,19 @@ void peripheral_power_enable(void)
  */
 iomode_t palReadLineMode(ioline_t line)
 {
-    ioportid_t port = PAL_PORT(line);
-    uint8_t pad = PAL_PAD(line);
-    iomode_t ret = 0;
-    ret |= (port->MODER >> (pad*2)) & 0x3;
-    ret |= ((port->OTYPER >> pad)&1) << 2;
-    ret |= ((port->OSPEEDR >> (pad*2))&3) << 3;
-    ret |= ((port->PUPDR >> (pad*2))&3) << 5;
-    if (pad < 8) {
-        ret |= ((port->AFRL >> (pad*4))&0xF) << 7;
-    } else {
-        ret |= ((port->AFRH >> ((pad-8)*4))&0xF) << 7;
-    }
-    return ret;
+    // ioportid_t port = PAL_PORT(line);
+    // uint8_t pad = PAL_PAD(line);
+    // iomode_t ret = 0;
+    // ret |= (port->MODER >> (pad*2)) & 0x3;
+    // ret |= ((port->OTYPER >> pad)&1) << 2;
+    // ret |= ((port->OSPEEDR >> (pad*2))&3) << 3;
+    // ret |= ((port->PUPDR >> (pad*2))&3) << 5;
+    // if (pad < 8) {
+    //     ret |= ((port->AFRL >> (pad*4))&0xF) << 7;
+    // } else {
+    //     ret |= ((port->AFRH >> ((pad-8)*4))&0xF) << 7;
+    // }
+    // return ret;
 }
 
 /*
@@ -364,7 +364,7 @@ void palLineSetPushPull(ioline_t line, enum PalPushPull pp)
 {
     ioportid_t port = PAL_PORT(line);
     uint8_t pad = PAL_PAD(line);
-    port->PUPDR = (port->PUPDR & ~(3<<(pad*2))) | (pp<<(pad*2));
+    //port->PUPDR = (port->PUPDR & ~(3<<(pad*2))) | (pp<<(pad*2));
 }
 
 #endif // F7, H7, F4
@@ -408,12 +408,12 @@ static void fault_send_bit(ioline_t line, uint8_t b)
  */
 static void fault_send_byte(ioline_t line, uint8_t b)
 {
-    fault_send_bit(line, 0); // start bit
-    for (uint8_t i=0; i<8; i++) {
-        uint8_t bit = (b & (1U<<i))?1:0;
-        fault_send_bit(line, bit);
-    }
-    fault_send_bit(line, 1); // stop bit
+    // fault_send_bit(line, 0); // start bit
+    // for (uint8_t i=0; i<8; i++) {
+    //     uint8_t bit = (b & (1U<<i))?1:0;
+    //     fault_send_bit(line, bit);
+    // }
+    // fault_send_bit(line, 1); // stop bit
 }
 
 /*
@@ -421,10 +421,10 @@ static void fault_send_byte(ioline_t line, uint8_t b)
  */
 static void fault_send_string(const char *str)
 {
-    while (*str) {
-        fault_send_byte(HAL_GPIO_PIN_FAULT, (uint8_t)*str++);
-    }
-    fault_send_byte(HAL_GPIO_PIN_FAULT, (uint8_t)'\n');
+    // while (*str) {
+    //     fault_send_byte(HAL_GPIO_PIN_FAULT, (uint8_t)*str++);
+    // }
+    // fault_send_byte(HAL_GPIO_PIN_FAULT, (uint8_t)'\n');
 }
 
 void fault_printf(const char *fmt, ...)
@@ -440,28 +440,28 @@ void fault_printf(const char *fmt, ...)
 
 void system_halt_hook(void)
 {
-#ifdef HAL_GPIO_PIN_FAULT
-    // optionally print the message on a fault pin
-    while (true) {
-        fault_printf("PANIC:%s\n", ch.dbg.panic_msg);
-        fault_printf("RA0:0x%08x\n", __builtin_return_address(0));
-    }
-#endif
+// #ifdef HAL_GPIO_PIN_FAULT
+//     // optionally print the message on a fault pin
+//     while (true) {
+//         fault_printf("PANIC:%s\n", ch.dbg.panic_msg);
+//         fault_printf("RA0:0x%08x\n", __builtin_return_address(0));
+//     }
+// #endif
 }
 
 // hook for stack overflow
 void stack_overflow(thread_t *tp)
 {
-#if !defined(HAL_BOOTLOADER_BUILD) && !defined(IOMCU_FW)
-    extern void AP_stack_overflow(const char *thread_name);
-    AP_stack_overflow(tp->name);
-    // if we get here then we are armed and got a stack overflow. We
-    // will report an internal error and keep trying to fly. We are
-    // quite likely to crash anyway due to memory corruption. The
-    // watchdog data should record the thread name and fault type
-#else
-    (void)tp;
-#endif
+// #if !defined(HAL_BOOTLOADER_BUILD) && !defined(IOMCU_FW)
+//     extern void AP_stack_overflow(const char *thread_name);
+//     AP_stack_overflow(tp->name);
+//     // if we get here then we are armed and got a stack overflow. We
+//     // will report an internal error and keep trying to fly. We are
+//     // quite likely to crash anyway due to memory corruption. The
+//     // watchdog data should record the thread name and fault type
+// #else
+//     (void)tp;
+// #endif
 }
 
 #if CH_DBG_ENABLE_STACK_CHECK == TRUE
@@ -471,50 +471,51 @@ void stack_overflow(thread_t *tp)
  */
 uint32_t stack_free(void *stack_base)
 {
-    const uint32_t *p = (uint32_t *)stack_base;
-    const uint32_t canary_word = 0x55555555;
-    while (*p == canary_word) {
-        p++;
-    }
-    return ((uint32_t)p) - (uint32_t)stack_base;
+    // const uint32_t *p = (uint32_t *)stack_base;
+    // const uint32_t canary_word = 0x55555555;
+    // while (*p == canary_word) {
+    //     p++;
+    // }
+    // return ((uint32_t)p) - (uint32_t)stack_base;
+    return 999;
 }
 #endif
 
 #if HAL_USE_HW_RNG && defined(RNG)
 static bool stm32_rand_generate(uint32_t *val)
 {
-    uint32_t error_bits = 0;
-    error_bits = RNG_SR_SEIS | RNG_SR_CEIS;
-    /* Check for error flags and if data is ready. */
-    if (((RNG->SR & error_bits) == 0) && ((RNG->SR & RNG_SR_DRDY) == RNG_SR_DRDY)) {
-        *val = RNG->DR;
-    } else {
-        return false;
-    }
+    // uint32_t error_bits = 0;
+    // error_bits = RNG_SR_SEIS | RNG_SR_CEIS;
+    // /* Check for error flags and if data is ready. */
+    // if (((RNG->SR & error_bits) == 0) && ((RNG->SR & RNG_SR_DRDY) == RNG_SR_DRDY)) {
+    //     *val = RNG->DR;
+    // } else {
+    //     return false;
+    // }
     return true;
 }
 
 bool stm32_rand_generate_blocking(unsigned char* output, unsigned int sz, uint32_t timeout_us)
 {
-    unsigned int i = 0;
-    uint32_t run_until = hrt_micros32() + timeout_us;
-    uint32_t val;
-    while ((i < sz) && (hrt_micros32() < run_until)) {
-        /* If not aligned or there is odd/remainder */
-        if( (i + sizeof(uint32_t)) > sz ||
-            ((uint32_t)&output[i] % sizeof(uint32_t)) != 0) {
-            /* Single byte at a time */
-            if (stm32_rand_generate(&val)) {
-                output[i] = val;
-                i++;
-            }
-        } else {
-            /* Use native 32 bit copy instruction */
-            if (stm32_rand_generate((uint32_t*)&output[i])) {
-                i += sizeof(uint32_t);
-            }
-        }
-    }
+     unsigned int i = 0;
+    // uint32_t run_until = hrt_micros32() + timeout_us;
+    // uint32_t val;
+    // while ((i < sz) && (hrt_micros32() < run_until)) {
+    //     /* If not aligned or there is odd/remainder */
+    //     if( (i + sizeof(uint32_t)) > sz ||
+    //         ((uint32_t)&output[i] % sizeof(uint32_t)) != 0) {
+    //         /* Single byte at a time */
+    //         if (stm32_rand_generate(&val)) {
+    //             output[i] = val;
+    //             i++;
+    //         }
+    //     } else {
+    //         /* Use native 32 bit copy instruction */
+    //         if (stm32_rand_generate((uint32_t*)&output[i])) {
+    //             i += sizeof(uint32_t);
+    //         }
+    //     }
+    // }
     return i >= sz;
 }
 
@@ -525,26 +526,26 @@ unsigned int stm32_rand_generate_nonblocking(unsigned char* output, unsigned int
     }
     unsigned int i = 0;
     uint32_t val;
-    while (i < sz) {
-        /* If not aligned or there is odd/remainder */
-        if( (i + sizeof(uint32_t)) > sz ||
-            ((uint32_t)&output[i] % sizeof(uint32_t)) != 0) {
-            /* Single byte at a time */
-            if (stm32_rand_generate(&val)) {
-                output[i] = val;
-                i++;
-            } else {
-                break;
-            }
-        } else {
-            /* Use native 32 bit copy instruction */
-            if (stm32_rand_generate((uint32_t*)&output[i])) {
-                i += sizeof(uint32_t);
-            } else {
-                break;
-            }
-        }
-    }
+    // while (i < sz) {
+    //     /* If not aligned or there is odd/remainder */
+    //     if( (i + sizeof(uint32_t)) > sz ||
+    //         ((uint32_t)&output[i] % sizeof(uint32_t)) != 0) {
+    //         /* Single byte at a time */
+    //         if (stm32_rand_generate(&val)) {
+    //             output[i] = val;
+    //             i++;
+    //         } else {
+    //             break;
+    //         }
+    //     } else {
+    //         /* Use native 32 bit copy instruction */
+    //         if (stm32_rand_generate((uint32_t*)&output[i])) {
+    //             i += sizeof(uint32_t);
+    //         } else {
+    //             break;
+    //         }
+    //     }
+    // }
     return i;
 }
 

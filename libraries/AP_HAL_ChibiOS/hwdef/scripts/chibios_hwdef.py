@@ -901,7 +901,8 @@ def write_mcu_config(f):
     f.write('\n// CPU serial number (12 bytes)\n')
     udid_start = get_mcu_config('UDID_START')
     if udid_start is None:
-        f.write('#define UDID_START UID_BASE\n\n')
+        #buzz hack f.write('#define UDID_START UID_BASE\n\n')
+        pass
     else:
         f.write('#define UDID_START 0x%08x\n\n' % udid_start)
 
@@ -1015,7 +1016,8 @@ def write_mcu_config(f):
         f.write('#define HAL_ROMFS_UNCOMPRESSED\n')
 
     if not args.bootloader:
-        f.write('''#define STM32_DMA_REQUIRED TRUE\n\n''')
+        #f.write('''#define STM32_DMA_REQUIRED TRUE\n\n''')
+        pass
 
 def write_ldscript(fname):
     '''write ldscript.ld for this board'''
