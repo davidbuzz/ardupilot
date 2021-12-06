@@ -55,15 +55,28 @@ https://www.pjrc.com/store/teensy40.html#memory_layout
 
 # MCU class and specific type - this tells it which python file in hwdef/scripts/xxx.py to run , ie Teensy4.py
 HAL_USE_COMMUNITY TRUE
+define HAL_USE_ADC FALSE
+define HAL_USE_I2C FALSE
+define HAL_USE_RTC FALSE
+define HAL_USE_SDC FALSE
+define HAL_USE_SPI FALSE
+define HAL_USE_PWM TRUE
+define HAL_USE_EICU FALSE
+
+define HAL_MINIMIZE_FEATURES 1
+
+define __TEENSY4__ 1
 
 MCU Teensy4 Teensy4
-STM32H7xx STM32H743xx
+#STM32H7xx STM32H743xx
 
 # board ID for firmware load
 APJ_BOARD_ID 1999
 
 # crystal frequency
 OSCILLATOR_HZ 24000000
+
+HAL_NO_FLASH_SUPPORT 1
 
 # 4.0 size:
 FLASH_SIZE_KB 2048
@@ -72,15 +85,16 @@ FLASH_SIZE_KB 2048
 env OPTIMIZE -O2
 
 # start on 2th sector (1st sector for bootloader)
-FLASH_RESERVE_START_KB 128
+#FLASH_RESERVE_START_KB 128
 
+#../../libraries/StorageManager/StorageManager.h:44:2: error: #error "Unsupported storage size"
 define HAL_STORAGE_SIZE 32768
 
 # USB setup
 USB_STRING_MANUFACTURER "Teensy4"
 
 # RC Input set for Interrupt not DMA
-PC7 TIM3_CH2 TIM3 RCININT PULLDOWN LOW
+#PC7 TIM3_CH2 TIM3 RCININT PULLDOWN LOW
 
 # GPIO(70) # also USART6_RX for serial RC
 
@@ -92,8 +106,8 @@ define HAL_GPIO_SPEKTRUM_PWR 70
 define HAL_SPEKTRUM_PWR_ENABLED 0
 
 # Spektrum RC Input pin, used as GPIO for bind for Satellite Receivers
-PB0 SPEKTRUM_RC INPUT PULLUP GPIO(71)
-define HAL_GPIO_SPEKTRUM_RC 71
+#PB0 SPEKTRUM_RC INPUT PULLUP GPIO(71)
+#define HAL_GPIO_SPEKTRUM_RC 71
 
 # Order of I2C buses
 I2C_ORDER I2C1
@@ -144,7 +158,7 @@ PE1 UART8_TX UART8
 PE0 UART8_RX UART8
 
 # RSSI Analog Input
-PC1 RSSI_IN ADC1
+#PC1 RSSI_IN ADC1
 
 # Safety Switch Input
 PC4 SAFETY_IN INPUT PULLDOWN
@@ -207,12 +221,12 @@ PB8 I2C1_SCL I2C1
 PB9 I2C1_SDA I2C1
 
 # microSD card
-PC8 SDMMC1_D0 SDMMC1
-PC9 SDMMC1_D1 SDMMC1
-PC10 SDMMC1_D2 SDMMC1
-PC11 SDMMC1_D3 SDMMC1
-PC12 SDMMC1_CK SDMMC1
-PD2 SDMMC1_CMD SDMMC1
+#PC8 SDMMC1_D0 SDMMC1
+#PC9 SDMMC1_D1 SDMMC1
+#PC10 SDMMC1_D2 SDMMC1
+#PC11 SDMMC1_D3 SDMMC1
+#PC12 SDMMC1_CK SDMMC1
+#PD2 SDMMC1_CMD SDMMC1
 
 # CS pins for SPI sensors. The labels for all CS pins need to
 # match the SPI device table later in this file.
@@ -274,7 +288,7 @@ define HAL_BOARD_TERRAIN_DIRECTORY "/APM/TERRAIN"
 define HAL_WITH_RAMTRON 1
 
 # Enable FAT filesystem support (needs a microSD defined via SDMMC).
-define HAL_OS_FATFS_IO 1
+#define HAL_OS_FATFS_IO 1
 
 # Control Zero has a TriColor LED, Red, Green, Blue
 define HAL_HAVE_PIXRACER_LED

@@ -40,7 +40,9 @@
 #define MIMXRT1062_MCUCONF
 #define HAL_USE_COMMUNITY           TRUE
 
-#if defined(STM32F1)
+#if defined(__TEENSY4__)
+#include "teensy4_mcuconf.h"
+#elif defined(STM32F1)
 #include "stm32f1_mcuconf.h"
 #elif defined(STM32F3)
 #include "stm32f3_mcuconf.h"
