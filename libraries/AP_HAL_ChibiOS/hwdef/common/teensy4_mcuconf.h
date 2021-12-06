@@ -111,6 +111,21 @@ typedef GPIO_Type * stm32_gpio_t;
 
 //typedef void* stm32_dma_stream_t
 
+// stm32_dma_stream_tcopied from stm32 hack, needs mods
+typedef struct {
+  //DMA_Stream_TypeDef    *stream;        /**< @brief Associated DMA stream.  */
+  volatile uint32_t     *ifcr;          /**< @brief Associated IFCR reg.    */
+#if (STM32_DMA_SUPPORTS_DMAMUX == TRUE) || defined(__DOXYGEN__)
+  //DMAMUX_Channel_TypeDef *mux;          /**< @brief Associated DMA mux.     */
+#else
+  uint8_t               dummy;          /**< @brief Filler.                 */
+#endif
+  uint8_t               shift;          /**< @brief Bits offset in xIFCR
+                                             register.                      */
+  uint8_t               selfindex;      /**< @brief Index to self in array. */
+  uint8_t               vector;         /**< @brief Associated IRQ vector.  */
+} stm32_dma_stream_t;
+
 // the avr-MEGA uses uint8_t as its pwm channel number... so can we.
 // see also ChibiOS-Contrib/os/hal/ports/MIMXRT1062/LLD/TIMv1/hal_pwm_lld.h as its defined the same way there
 typedef uint8_t pwmchannel_t;
