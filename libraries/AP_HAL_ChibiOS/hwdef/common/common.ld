@@ -37,7 +37,8 @@ REGION_ALIAS("BSS_RAM", ram0);
 REGION_ALIAS("HEAP_RAM", ram0);
 
 /* Flash region to be used for RAM(n) initialization data.*/
-REGION_ALIAS("RAM_INIT_FLASH_LMA", flash);
+REGION_ALIAS("RAM_INIT_FLASH_LMA", flash0);
+REGION_ALIAS("flash", flash0);
 
 __ram0_start__          = ORIGIN(ram0);
 __ram0_size__           = LENGTH(ram0);

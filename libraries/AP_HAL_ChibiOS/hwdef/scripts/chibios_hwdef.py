@@ -1067,12 +1067,59 @@ def write_ldscript(fname):
         f.write('''/* generated ldscript.ld */
 MEMORY
 {
-    flash : org = 0x%08x, len = %uK
-    ram0  : org = 0x%08x, len = %u
+  /*
+   * The top 64K of flash are unavailable:
+   *
+   * 60K are reserved for EEPROM emulation,
+   *  4K are special read-only memory containing a known-good blink program
+   *
+   * See also https://www.pjrc.com/store/teensy40.html#memory_layout
+   */
+  flash0   : org = 0x60000000, len = 1984K  /* FLASH */
+
+  /* NOTE: ram0, ram1 and ram2 can be configured to use various
+   * percentages of the available 512K of FlexRAM.
+   *
+   * The teensy linker script defines each with a 512k size.
+   *
+   * That is not safe to do with ChibiOS, where the full size
+   * of an individual entry (e.g. 512K for ram1) will be used
+   * in full, e.g. for the heap.
+   *
+   * We get around this limitation by allocating all 512K of
+   * FlexRAM as DTCM (ram0), and not using ram1 and ram2 at all.
+   *
+   * See also:
+   * IMXRT1060RM: Page 36 Table 3-1 System memory map (CM7)
+   */
+
+  /* Our startup code configures all of the flexram as DTCM. */
+  /* ram0: DTCM, general purpose only
+     2000_0000, up to 512KB */
+  ram0     : org = 0x20000000, len = 512k
+
+  /* Our startup code does not configure any ram1. */
+  /* Possible optimization: copy .text code into ram0 */
+  /* ram1: ITCM, can be TCM or general purpose
+     0000_0000, up to 512KB */
+  /* ram1     : org = 0x00000000, len = 512k */
+  ram1     : org = 0x00000000, len = 0
+
+  /* Our startup code does not configure any ram2. */
+  /* ram2: OCRAM (On-Chip RAM), general purpose but not TCM (slower)
+     2020_0000 Size: 512KB OCRAM2  */
+  /* ram2     : org = 0x20200000, len = 512k */
+  ram2     : org = 0x00000000, len = 0
+
+  ram3     : org = 0x00000000, len = 0
+  ram4     : org = 0x00000000, len = 0
+  ram5     : org = 0x00000000, len = 0
+  ram6     : org = 0x00000000, len = 0
+  ram7     : org = 0x00000000, len = 0
 }
 
 INCLUDE common.ld
-''' % (flash_base, flash_length, ram0_start, ram0_len))
+''' )
     else:
         if ext_flash_length > 32:
             error("We only support 24bit addressing over external flash")
@@ -1092,12 +1139,12 @@ INCLUDE common_extf.ld
 
 def copy_common_linkerscript(outdir, hwdef):
     dirpath = os.path.dirname(hwdef)
-    if not get_config('EXTERNAL_PROG_FLASH_MB', default=0, type=int) or args.bootloader:
-        shutil.copy(os.path.join(dirpath, "../common/common.ld"),
+    #if not get_config('EXTERNAL_PROG_FLASH_MB', default=0, type=int) or args.bootloader:
+    shutil.copy(os.path.join(dirpath, "../common/common.ld"),
                     os.path.join(outdir, "common.ld"))
-    else:
-        shutil.copy(os.path.join(dirpath, "../common/common_extf.ld"),
-                    os.path.join(outdir, "common_extf.ld"))
+    #else:
+    #    shutil.copy(os.path.join(dirpath, "../common/common_extf.ld"),
+    #                os.path.join(outdir, "common_extf.ld"))
 
 def get_USB_IDs():
     '''return tuple of USB VID/PID'''

@@ -135,7 +135,7 @@ include $(CHIBIOS)/os/various/cpp_wrappers/chcpp.mk
 include $(CHIBIOS)/os/various/fatfs_bindings/fatfs.mk
 endif
 
-# Define linker script file here
+# Define linker script file here - ie CHIBIOS_STARTUP_MK=../ChibiOS-Contrib/os/common/startup/ARMCMx/compilers/GCC/ld/MIMXRT1062.ld
 LDSCRIPT= $(STARTUPLD_CONTRIB)/MIMXRT1062.ld
 
 # C sources that can be compiled in ARM or THUMB mode depending on the global

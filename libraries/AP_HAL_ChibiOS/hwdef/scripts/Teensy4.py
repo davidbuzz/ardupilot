@@ -8,9 +8,12 @@ https://www.nxp.com/docs/en/nxp/data-sheets/IMXRT1060CEC.pdf
 
 # additional build information for ChibiOS-Contrib
 build = {
-    "CHIBIOS_STARTUP_MK"  : "os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32h7xx.mk",
-    "CHIBIOS_PLATFORM_MK" : "os/hal/ports/STM32/STM32H7xx/platform.mk",
-	"CHIBIOS_BOARD_MK" : "os/hal/boards/PJRC_TEENSY_4_1/board.mk"
+    # "CHIBIOS_STARTUP_MK"  : "os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32h7xx.mk",
+    # "CHIBIOS_PLATFORM_MK" : "os/hal/ports/STM32/STM32H7xx/platform.mk",
+	# "CHIBIOS_BOARD_MK" : "os/hal/boards/PJRC_TEENSY_4_1/board.mk"
+	"CHIBIOS_STARTUP_MK"  : "../ChibiOS-Contrib/os/common/startup/ARMCMx/compilers/GCC/ld/MIMXRT1062.ld",
+    "CHIBIOS_PLATFORM_MK" : "../ChibiOS-Contrib/os/hal/ports/MIMXRT1062/MIMXRT1062/platform.mk",
+	"CHIBIOS_BOARD_MK" : "../ChibiOS-Contrib/os/hal/boards/PJRC_TEENSY_4_1/board.mk"
     }
 
 # MCU parameters
