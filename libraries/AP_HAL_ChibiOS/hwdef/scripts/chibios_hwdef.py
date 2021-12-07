@@ -829,7 +829,7 @@ def write_mcu_config(f):
     flash_size = get_config('FLASH_SIZE_KB', type=int)
     f.write('#define BOARD_FLASH_SIZE %u\n' % flash_size)
     env_vars['BOARD_FLASH_SIZE'] = flash_size
-    f.write('#define CRT1_AREAS_NUMBER 1\n')
+    f.write('#define CRT1_AREAS_NUMBER 8\n')  # buzz hack teensy linker needs 8
 
     flash_reserve_start = get_config(
         'FLASH_RESERVE_START_KB', default=16, type=int)
