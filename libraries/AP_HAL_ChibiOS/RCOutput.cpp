@@ -44,9 +44,9 @@ extern AP_IOMCU iomcu;
 
 #define TELEM_IC_SAMPLE 16
 
-struct RCOutput::pwm_group RCOutput::pwm_group_list[] = { HAL_PWM_GROUPS };
+struct RCOutput::pwm_group RCOutput::pwm_group_list[] = { 3 }; //3? HAL_PWM_GROUPS
 struct RCOutput::irq_state RCOutput::irq;
-const uint8_t RCOutput::NUM_GROUPS = ARRAY_SIZE(RCOutput::pwm_group_list);
+const uint8_t RCOutput::NUM_GROUPS = 3;//ARRAY_SIZE(RCOutput::pwm_group_list);
 
 // event mask for triggering a PWM send
 static const eventmask_t EVT_PWM_SEND  = EVENT_MASK(11);
@@ -1099,7 +1099,10 @@ void RCOutput::trigger_groups(void)
             const uint8_t i = &group - pwm_group_list;
             if (trigger_groupmask & (1U<<i)) {
                 // this triggers pulse output for a channel group
+// buzz hack
+#ifdef STM32_TIM_EGR_UG
                 group.pwm_drv->tim->EGR = STM32_TIM_EGR_UG;
+#endif
             }
         }
     }
@@ -1202,7 +1205,10 @@ void RCOutput::dma_allocate(Shared_DMA *ctx)
     for (auto &group : pwm_group_list) {
         if (group.dma_handle == ctx && group.dma == nullptr) {
             chSysLock();
+            // needs stm32_dma.h
+#if STM32_DMA_SUPPORTS_DMAMUX
             group.dma = dmaStreamAllocI(group.dma_up_stream_id, 10, dma_up_irq_callback, &group);
+#endif
             chSysUnlock();
 #if STM32_DMA_SUPPORTS_DMAMUX
             if (group.dma) {
@@ -1221,7 +1227,9 @@ void RCOutput::dma_deallocate(Shared_DMA *ctx)
     for (auto &group : pwm_group_list) {
         if (group.dma_handle == ctx && group.dma != nullptr) {
             chSysLock();
+#if STM32_DMA_SUPPORTS_DMAMUX
             dmaStreamFreeI(group.dma);
+#endif
             group.dma = nullptr;
             chSysUnlock();
         }
@@ -1534,7 +1542,9 @@ void RCOutput::dma_up_irq_callback(void *p, uint32_t flags)
 {
     pwm_group *group = (pwm_group *)p;
     chSysLockFromISR();
+#if STM32_DMA_SUPPORTS_DMAMUX
     dmaStreamDisable(group->dma);
+#endif
     if (group->in_serial_dma && irq.waiter) {
         // tell the waiting process we've done the DMA
         chEvtSignalI(irq.waiter, serial_event_mask);
@@ -1554,7 +1564,9 @@ void RCOutput::dma_up_irq_callback(void *p, uint32_t flags)
 void RCOutput::dma_cancel(pwm_group& group)
 {
     chSysLock();
-    dmaStreamDisable(group.dma);
+#if STM32_DMA_SUPPORTS_DMAMUX
+    dmaStreamDisable(group->dma);
+#endif
 #ifdef HAL_WITH_BIDIR_DSHOT
     if (group.ic_dma_enabled()) {
         dmaStreamDisable(group.bdshot.ic_dma[group.bdshot.curr_telem_chan]);
@@ -1828,12 +1840,19 @@ uint16_t RCOutput::serial_read_bytes(uint8_t *buf, uint16_t len)
     pwm_group &group = *serial_group;
     const ioline_t line = group.pal_lines[group.serial.chan];
     // keep speed low to avoid noise when switching between input and output
+// buzz leaves this out on teensy ...
+#if defined(PAL_STM32_MODE_INPUT)
 #ifndef PAL_STM32_OSPEED_LOWEST
     // for GPIOv3
     uint32_t gpio_mode = PAL_STM32_MODE_INPUT | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_PUPDR_PULLUP | PAL_STM32_OSPEED_LOW;
 #else
     uint32_t gpio_mode = PAL_STM32_MODE_INPUT | PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_PUPDR_PULLUP | PAL_STM32_OSPEED_LOWEST;
 #endif
+#endif
+#if defined(__TEENSY4__)
+     uint32_t gpio_mode = 0; // buzz todo shuld this be 255 or bigger ?
+#endif
+
     // restore the line to what it was before
     iomode_t restore_mode = palReadLineMode(line);
     uint16_t i = 0;
@@ -1900,8 +1919,10 @@ void RCOutput::serial_end(void)
             serial_thread = nullptr;
         }
         irq.waiter = nullptr;
-        for (uint8_t i = 0; i < NUM_GROUPS; i++ ) {
-            pwm_group &group = pwm_group_list[i];
+        for (uint8_t i = 0; i < 3; i++ ) {//NUM_GROUPS
+            // pwm_group &group = pwm_group_list[i]; 
+            // buzz ../../libraries/AP_HAL_ChibiOS/RCOutput.cpp:1923:48: error: array subscript is above array bounds [-Werror=array-bounds]
+            pwm_group &group = pwm_group_list[0];
             // restore normal output
             if (group.pwm_started) {
                 pwmStop(group.pwm_drv);

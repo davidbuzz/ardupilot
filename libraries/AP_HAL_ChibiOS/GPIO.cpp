@@ -322,7 +322,7 @@ bool GPIO::attach_interrupt(uint8_t pin,
 
 bool GPIO::_attach_interruptI(ioline_t line, palcallback_t cb, void *p, uint8_t mode)
 {
-    uint32_t chmode = 0;
+    __attribute__((unused)) uint32_t chmode = 0;
     switch(mode) {
         case INTERRUPT_FALLING:
             chmode = PAL_EVENT_MODE_FALLING_EDGE;

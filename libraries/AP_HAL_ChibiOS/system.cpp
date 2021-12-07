@@ -37,11 +37,20 @@ static_assert(sizeof(systime_t) == 4, "expected 32 bit systime_t");
 #endif
 static_assert(sizeof(systime_t) == sizeof(sysinterval_t), "expected systime_t same size as sysinterval_t");
 
+// teensy..
+#define BOARD_XTAL0_CLK_HZ 24000000U /*!< Board xtal0 frequency in Hz */
+//teensy has  clock_config.h and clock_config.c as well
+// search for SKIP_SYSCLK_INIT and BOARD_BootClockRUN and 
+//  BOARD_BOOTCLOCKRUN_CORE_CLOCK   ?
+
 #if defined(HAL_EXPECTED_SYSCLOCK)
 #ifdef STM32_SYS_CK
 static_assert(HAL_EXPECTED_SYSCLOCK == STM32_SYS_CK, "unexpected STM32_SYS_CK value");
 #elif defined(STM32_HCLK)
 static_assert(HAL_EXPECTED_SYSCLOCK == STM32_HCLK, "unexpected STM32_HCLK value");
+#elif defined(__TEENSY4__)
+// todo buzz hack teensy4 , right now no clock defined 
+//#define  HAL_EXPECTED_SYSCLOCK  BOARD_BOOTCLOCKRUN_CORE_CLOCK
 #else
 #error "unknown system clock"
 #endif

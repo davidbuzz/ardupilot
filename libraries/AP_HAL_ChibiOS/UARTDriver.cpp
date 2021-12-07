@@ -408,9 +408,16 @@ void UARTDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
             sercfg.speed = _baudrate;
 
             // start with options from set_options()
-            sercfg.cr1 = _cr1_options;
-            sercfg.cr2 = _cr2_options;
-            sercfg.cr3 = _cr3_options;
+
+#if defined(USART_CR1_FIFOEN)
+            sercfg.cr1 = _cr1_options; // cr1 = fifo-enable/disable
+#endif
+#if defined(USART_CR2_STOP1_BITS) 
+            sercfg.cr2 = _cr2_options; // c22 = stop bits USART_CR2_STOP1_BITS and USART_CR2_STOP2_BITS
+#endif
+#if defined(USART_CR3_DMAR)
+            sercfg.cr3 = _cr3_options; //cr3 = dma rx and tx enable/disable bits
+#endif
 
 #ifndef HAL_UART_NODMA
             if (rx_dma_enabled) {
@@ -422,9 +429,11 @@ void UARTDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
             }
             sercfg.irq_cb = rx_irq_cb;
 #endif // HAL_UART_NODMA
+#if defined(USART_CR2_STOP1_BITS) 
             if (!(sercfg.cr2 & USART_CR2_STOP2_BITS)) {
                 sercfg.cr2 |= USART_CR2_STOP1_BITS;
             }
+#endif
             sercfg.ctx = (void*)this;
 
             sdStart((SerialDriver*)sdef.serial, &sercfg);
@@ -1178,7 +1187,10 @@ void UARTDriver::half_duplex_setup_tx(void)
         hd_tx_active = CHN_TRANSMISSION_END | CHN_OUTPUT_EMPTY;
         SerialDriver *sd = (SerialDriver*)(sdef.serial);
         sdStop(sd);
+
+#if defined(USART_CR3_DMAR)
         sercfg.cr3 &= ~USART_CR3_HDSEL;
+#endif
         sdStart(sd, &sercfg);
     }
 #endif
@@ -1317,7 +1329,9 @@ void UARTDriver::_tx_timer_tick(void)
             */
             SerialDriver *sd = (SerialDriver*)(sdef.serial);
             sdStop(sd);
+#if defined(USART_CR3_DMAR)
             sercfg.cr3 |= USART_CR3_HDSEL;
+#endif
             sdStart(sd, &sercfg);
         }
     }
@@ -1363,7 +1377,7 @@ void UARTDriver::set_flow_control(enum flow_control flowcontrol)
         return;
     }
 #if HAL_USE_SERIAL == TRUE
-    SerialDriver *sd = (SerialDriver*)(sdef.serial);
+    __attribute__((unused)) SerialDriver *sd = (SerialDriver*)(sdef.serial);
     _flow_control = (arts_line == 0) ? FLOW_CONTROL_DISABLE : flowcontrol;
     if (!is_initialized()) {
         // not ready yet, we just set variable for when we call begin
@@ -1380,11 +1394,15 @@ void UARTDriver::set_flow_control(enum flow_control flowcontrol)
         _rts_is_active = true;
         // disable hardware CTS support
         chSysLock();
+
+
+#if defined(USART_CR3_DMAR)
         if ((sd->usart->CR3 & (USART_CR3_CTSE | USART_CR3_RTSE)) != 0) {
             sd->usart->CR1 &= ~USART_CR1_UE;
             sd->usart->CR3 &= ~(USART_CR3_CTSE | USART_CR3_RTSE);
             sd->usart->CR1 |= USART_CR1_UE;
         }
+#endif
         chSysUnlock();
         break;
 
@@ -1402,6 +1420,7 @@ void UARTDriver::set_flow_control(enum flow_control flowcontrol)
         _rts_is_active = true;
         // enable hardware CTS support, disable RTS support as we do that in software
         chSysLock();
+#if defined(USART_CR3_DMAR)
         if ((sd->usart->CR3 & (USART_CR3_CTSE | USART_CR3_RTSE)) != USART_CR3_CTSE) {
             // CTSE and RTSE can only be written when uart is disabled
             sd->usart->CR1 &= ~USART_CR1_UE;
@@ -1409,6 +1428,7 @@ void UARTDriver::set_flow_control(enum flow_control flowcontrol)
             sd->usart->CR3 &= ~USART_CR3_RTSE;
             sd->usart->CR1 |= USART_CR1_UE;
         }
+#endif
         chSysUnlock();
         break;
     }
@@ -1457,6 +1477,7 @@ void UARTDriver::configure_parity(uint8_t v)
     // stop and start to take effect
     sdStop((SerialDriver*)sdef.serial);
 
+#if defined(USART_CR1_FIFOEN)
 #ifdef USART_CR1_M0
     // cope with F3 and F7 where there are 2 bits in CR1_M
     const uint32_t cr1_m0 = USART_CR1_M0;
@@ -1482,6 +1503,7 @@ void UARTDriver::configure_parity(uint8_t v)
         sercfg.cr1 &= ~USART_CR1_PS;
         break;
     }
+#endif
 
     sdStart((SerialDriver*)sdef.serial, &sercfg);
 
@@ -1520,7 +1542,7 @@ void UARTDriver::set_stop_bits(int n)
 #if HAL_USE_SERIAL
     // stop and start to take effect
     sdStop((SerialDriver*)sdef.serial);
-
+#if defined(USART_CR2_STOP1_BITS) 
     switch (n) {
     case 1:
         _cr2_options &= ~USART_CR2_STOP2_BITS;
@@ -1531,7 +1553,8 @@ void UARTDriver::set_stop_bits(int n)
         _cr2_options |= USART_CR2_STOP2_BITS;
         break;
     }
-    sercfg.cr2 = _cr2_options;
+    sercfg.cr2 = _cr2_options
+#endif
 
     sdStart((SerialDriver*)sdef.serial, &sercfg);
 #ifndef HAL_UART_NODMA
@@ -1609,10 +1632,18 @@ bool UARTDriver::set_options(uint16_t options)
     _last_options = options;
 
 #if HAL_USE_SERIAL == TRUE
-    SerialDriver *sd = (SerialDriver*)(sdef.serial);
+    __attribute__((unused)) SerialDriver *sd = (SerialDriver*)(sdef.serial);
+#if defined(USART_CR2_STOP1_BITS)
     uint32_t cr2 = sd->usart->CR2;
+#endif
+#if defined(USART_CR3_DMAR)
     uint32_t cr3 = sd->usart->CR3;
+#endif
+#ifndef HAL_UART_NODMA
     bool was_enabled = (sd->usart->CR1 & USART_CR1_UE);
+#else 
+    bool was_enabled = 0;
+#endif
 
     /*
       allow for RX, TX, RTS and CTS pins to be remapped via BRD_ALT_CONFIG
@@ -1636,40 +1667,51 @@ bool UARTDriver::set_options(uint16_t options)
     if ((options & OPTION_HDPLEX) && (options & (OPTION_TXINV|OPTION_RXINV)) != 0) {
         options |= OPTION_TXINV|OPTION_RXINV;
     }
-
     if (options & OPTION_RXINV) {
+#if defined(USART_CR2_STOP1_BITS)
         cr2 |= USART_CR2_RXINV;
         _cr2_options |= USART_CR2_RXINV;
+#endif
         if (rx_line != 0) {
             palLineSetPushPull(rx_line, PAL_PUSHPULL_PULLDOWN);
         }
     } else {
+#if defined(USART_CR2_STOP1_BITS)
         cr2 &= ~USART_CR2_RXINV;
         _cr2_options &= ~USART_CR2_RXINV;
+#endif
         if (rx_line != 0) {
             palLineSetPushPull(rx_line, PAL_PUSHPULL_PULLUP);
         }
     }
     if (options & OPTION_TXINV) {
+#if defined(USART_CR2_STOP1_BITS)
         cr2 |= USART_CR2_TXINV;
         _cr2_options |= USART_CR2_TXINV;
+#endif
         if (tx_line != 0) {
             palLineSetPushPull(tx_line, PAL_PUSHPULL_PULLDOWN);
         }
     } else {
+#if defined(USART_CR2_STOP1_BITS)
         cr2 &= ~USART_CR2_TXINV;
         _cr2_options &= ~USART_CR2_TXINV;
+#endif
         if (tx_line != 0) {
             palLineSetPushPull(tx_line, PAL_PUSHPULL_PULLUP);
         }
     }
     // F7 can also support swapping RX and TX pins
     if (options & OPTION_SWAP) {
+#if defined(USART_CR2_STOP1_BITS)
         cr2 |= USART_CR2_SWAP;
         _cr2_options |= USART_CR2_SWAP;
+#endif
     } else {
+#if defined(USART_CR2_STOP1_BITS)
         cr2 &= ~USART_CR2_SWAP;
         _cr2_options &= ~USART_CR2_SWAP;
+#endif
     }
 #else // STM32F4
     // F4 can do inversion by GPIO if enabled in hwdef.dat, using
@@ -1695,8 +1737,10 @@ bool UARTDriver::set_options(uint16_t options)
 
     // both F4 and F7 can do half-duplex
     if (options & OPTION_HDPLEX) {
+#if defined(USART_CR3_DMAR)
         cr3 |= USART_CR3_HDSEL;
         _cr3_options |= USART_CR3_HDSEL;
+#endif
         if (!half_duplex) {
             chEvtRegisterMaskWithFlags(chnGetEventSource((SerialDriver*)sdef.serial),
                                        &hd_listener,
@@ -1713,27 +1757,39 @@ bool UARTDriver::set_options(uint16_t options)
         // sharing the DMA channel
         rx_dma_enabled = tx_dma_enabled = false;
     } else {
+#if defined(USART_CR3_DMAR)
         cr3 &= ~USART_CR3_HDSEL;
-        _cr3_options &= ~USART_CR3_HDSEL;
+        _cr3_options &= ~USART_CR3_HDSEL
+#endif
     }
 
     set_pushpull(options);
 
+#if defined(USART_CR3_DMAR)
     if (sd->usart->CR2 == cr2 &&
         sd->usart->CR3 == cr3) {
         // no change
         return ret;
     }
+#endif
 
     if (was_enabled) {
+#if defined(USART_CR1_FIFOEN)
         sd->usart->CR1 &= ~USART_CR1_UE;
+#endif
     }
 
+#if defined(USART_CR2_STOP1_BITS)
     sd->usart->CR2 = cr2;
+#endif
+#if defined(USART_CR3_DMAR)
     sd->usart->CR3 = cr3;
+#endif
 
     if (was_enabled) {
+#if defined(USART_CR1_FIFOEN)
         sd->usart->CR1 |= USART_CR1_UE;
+#endif
     }
 #endif // HAL_USE_SERIAL == TRUE
     return ret;

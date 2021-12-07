@@ -852,7 +852,8 @@ def write_mcu_config(f):
             storage_flash_page = get_config('STORAGE_FLASH_PAGE', type=int)
             f.write('#define STORAGE_FLASH_PAGE %u\n' % storage_flash_page)
 
-    if flash_size >= 2048 and not args.bootloader:
+    #buzz hack turn off crashdump for teensy hacking
+    if 0: #flash_size >= 2048 and not args.bootloader:
         # lets pick a flash sector for Crash log
         f.write('#define HAL_CRASHDUMP_ENABLE 1\n')
         env_vars['ENABLE_CRASHDUMP'] = 1

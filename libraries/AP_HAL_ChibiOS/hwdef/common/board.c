@@ -40,11 +40,12 @@
 
 const PALConfig pal_default_config =
 {
-  {VAL_GPIOA_ODR, VAL_GPIOA_CRL, VAL_GPIOA_CRH},
-  {VAL_GPIOB_ODR, VAL_GPIOB_CRL, VAL_GPIOB_CRH},
-  {VAL_GPIOC_ODR, VAL_GPIOC_CRL, VAL_GPIOC_CRH},
-  {VAL_GPIOD_ODR, VAL_GPIOD_CRL, VAL_GPIOD_CRH},
-  {VAL_GPIOE_ODR, VAL_GPIOE_CRL, VAL_GPIOE_CRH},
+  // teensy's board.c in contrib etc  doesn't have anything here
+  // {VAL_GPIOA_ODR, VAL_GPIOA_CRL, VAL_GPIOA_CRH},
+  // {VAL_GPIOB_ODR, VAL_GPIOB_CRL, VAL_GPIOB_CRH},
+  // {VAL_GPIOC_ODR, VAL_GPIOC_CRL, VAL_GPIOC_CRH},
+  // {VAL_GPIOD_ODR, VAL_GPIOD_CRL, VAL_GPIOD_CRH},
+  // {VAL_GPIOE_ODR, VAL_GPIOE_CRL, VAL_GPIOE_CRH},
 };
 
 #else //Other than STM32F1/F3 series
@@ -258,8 +259,13 @@ void __early_init(void) {
 }
 
 void __late_init(void) {
+#if defined(__TEENSY4__)
+  MIMXRT1062_clock_init();
+  MIMXRT1062_MPU_init();
+#else
   halInit();
   chSysInit();
+#endif
 
   /*
    * Initialize RNG
