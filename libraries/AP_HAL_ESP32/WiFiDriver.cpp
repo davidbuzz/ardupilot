@@ -13,6 +13,10 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+#include <AP_HAL/AP_HAL.h>
+#include <stdio.h>
+
 #include <AP_HAL_ESP32/WiFiDriver.h>
 #include <AP_Math/AP_Math.h>
 #include <AP_HAL_ESP32/Scheduler.h>
@@ -22,14 +26,19 @@
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
 #include "esp_system.h"
-#include "esp_wifi.h"
-#include "esp_event_loop.h"
+#include <esp_wifi.h>
+//#include "esp_event_loop.h"
+#include "esp_event.h"
 #include "nvs_flash.h"
 
 #include "lwip/err.h"
 #include "lwip/sockets.h"
 #include "lwip/sys.h"
 #include "lwip/netdb.h"
+
+#include <AP_HAL/AP_HAL.h>
+#include <stdio.h>
+
 
 using namespace ESP32;
 
@@ -54,6 +63,7 @@ void WiFiDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 {
     if (_state == NOT_INITIALIZED) {
         initialize_wifi();
+        printf("making wifi task in ::begin");
         xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
         _readbuf.set_size(RX_BUF_SIZE);
         _writebuf.set_size(TX_BUF_SIZE);
@@ -132,14 +142,17 @@ bool WiFiDriver::start_listen()
     if (err != 0) {
         close(accept_socket);
         accept_socket = 0;
+        printf("Wifi driver: failed setup");
         return false;
     }
     err = listen(accept_socket, 5);
     if (err != 0) {
         close(accept_socket);
         accept_socket = -1;
+        printf("Wifi driver: also failed setup");
         return false;
     }
+    printf("Wifi driver: is now listening for TCP on port 5760");
     return true;
 
 }
@@ -152,6 +165,7 @@ bool WiFiDriver::try_accept()
     if (i != WIFI_MAX_CONNECTION) {
         socket_list[i] = accept(accept_socket, (struct sockaddr *)&sourceAddr, &addrLen);
         if (socket_list[i] >= 0) {
+            printf("Wifi driver: client connected on TCP on port 5760");
             fcntl(socket_list[i], F_SETFL, O_NONBLOCK);
             return true;
         }
@@ -211,31 +225,61 @@ bool WiFiDriver::write_data()
     return true;
 }
 
+
+static void wifi_event_handler(void* arg, esp_event_base_t event_base,
+                                    int32_t event_id, void* event_data)
+{
+    if (event_id == WIFI_EVENT_AP_STACONNECTED) {
+        wifi_event_ap_staconnected_t* event = (wifi_event_ap_staconnected_t*) event_data;
+        printf("station join, AID=%d", event->aid);
+    } else if (event_id == WIFI_EVENT_AP_STADISCONNECTED) {
+        wifi_event_ap_stadisconnected_t* event = (wifi_event_ap_stadisconnected_t*) event_data;
+        printf("station leave, AID=%d",  event->aid);
+    }
+}
+
+void wifi_init_softap(void)
+{
+    ESP_ERROR_CHECK(esp_netif_init());
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
+    esp_netif_create_default_wifi_ap();
+
+    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+
+    ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL));
+
+    wifi_config_t wifi_config = {
+        .ap = {
+            {.ssid = WIFI_SSID},
+            {.password = WIFI_PWD},
+            .ssid_len = strlen(WIFI_SSID),
+            .channel = 0,
+            .authmode = WIFI_AUTH_WPA_WPA2_PSK,
+            .ssid_hidden =0,
+            .max_connection = 4
+        },
+    };
+    if (strlen(WIFI_PWD) == 0) {
+        wifi_config.ap.authmode = WIFI_AUTH_OPEN;
+    }
+
+    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_AP));
+    ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_AP, &wifi_config));
+    ESP_ERROR_CHECK(esp_wifi_start());
+
+    printf("wifi_init_softap finished. SSID:%s password:%s",
+             WIFI_SSID, WIFI_PWD);
+}
+
+
 void WiFiDriver::initialize_wifi()
 {
-    tcpip_adapter_init();
+
     nvs_flash_init();
-    esp_event_loop_init(nullptr, nullptr);
-    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    esp_wifi_init(&cfg);
-    esp_wifi_set_storage(WIFI_STORAGE_FLASH);
-    wifi_config_t wifi_config;
-    memset(&wifi_config, 0, sizeof(wifi_config));
-#ifdef WIFI_SSID
-    strcpy((char *)wifi_config.ap.ssid, WIFI_SSID);
-#else
-    strcpy((char *)wifi_config.ap.ssid, "ardupilot");
-#endif
-#ifdef WIFI_PWD
-    strcpy((char *)wifi_config.ap.password, WIFI_PWD);
-#else
-    strcpy((char *)wifi_config.ap.password, "ardupilot1");
-#endif
-    wifi_config.ap.authmode = WIFI_AUTH_WPA_WPA2_PSK;
-    wifi_config.ap.max_connection = WIFI_MAX_CONNECTION;
-    esp_wifi_set_mode(WIFI_MODE_AP);
-    esp_wifi_set_config(WIFI_IF_AP, &wifi_config);
-    esp_wifi_start();
+
+    wifi_init_softap();
+
 }
 
 size_t WiFiDriver::write(uint8_t c)
@@ -261,6 +305,7 @@ void WiFiDriver::_wifi_thread(void *arg)
     WiFiDriver *self = (WiFiDriver *) arg;
     if (!self->start_listen()) {
         vTaskDelete(nullptr);
+        //printf("_wifi_thread gave up, deleted task. %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
     }
     while (true) {
         if (self->try_accept()) {

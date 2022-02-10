@@ -15,6 +15,10 @@
 
 #pragma once
 
+
+#include <AP_HAL/AP_HAL.h>
+#include <stdio.h>
+
 #include <AP_HAL/UARTDriver.h>
 #include <AP_HAL/utility/RingBuffer.h>
 #include <AP_HAL_ESP32/AP_HAL_ESP32.h>
@@ -24,9 +28,17 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+extern "C" {
+       #include <esp_wifi.h>
+}
+
 #ifndef WIFI_MAX_CONNECTION
 #define WIFI_MAX_CONNECTION 5
 #endif
+
+// defined elsewhere, in idf
+//esp_netif_t *sta_netif = NULL;
+//esp_netif_t *ap_netif = NULL;
 
 class ESP32::WiFiDriver : public AP_HAL::UARTDriver
 {
