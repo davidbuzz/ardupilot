@@ -100,7 +100,7 @@ void Scheduler::thread_create_trampoline(void *ctx)
 bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_t stack_size, priority_base base, int8_t priority)
 {
 #ifdef SCHEDDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    printf("Making thread:%s => \n%s:%d \n", name, __PRETTY_FUNCTION__, __LINE__);
 #endif
 
     // take a copy of the MemberProc, it is freed after thread exits
@@ -130,9 +130,9 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
     for (uint8_t i=0; i<ARRAY_SIZE(priority_map); i++) {
         if (priority_map[i].base == base) {
 #ifdef SCHEDDEBUG
-            printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
             thread_priority = constrain_int16(priority_map[i].p + priority, 1, 25);
+            printf("with priority =>%s:%d \n", name,thread_priority);
             break;
         }
     }
@@ -141,6 +141,7 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
     BaseType_t xReturned = xTaskCreate(thread_create_trampoline, name, stack_size, tproc, thread_priority, &xhandle);
     if (xReturned != pdPASS) {
         free(tproc);
+        printf("thread create failed. %d",(int)xReturned);
         return false;
     }
     return true;
