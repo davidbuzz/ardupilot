@@ -342,11 +342,15 @@ Save the log where coredump appears to a file, i'll call it core.txt
 ================= CORE DUMP START =================
 <body of base64-encoded core dump, save it to file on disk>
 ================= CORE DUMP END ===================
+```
 cat > core.txt
 ...
 ctrl-d
+```
+
 The CORE DUMP START and CORE DUMP END lines must not be included in core dump text file.
 
+```bash
 cp build/esp32buzz/idf-plane/arduplane.elf .
 espcoredump.py dbg_corefile arduplane.elf -c core.txt -t b64
 
@@ -361,30 +365,37 @@ info locals
 .. lists "All global and static variable names"..
  info args
 ..to list "Arguments of the current stack frame" (names and values)..
+```
 
-other things to sue..
+other things to see..
+```bash
 print varname
 ptype varname
 select-frame 5
-
+```
 ctrl-c to exit gdb
 
 # storage tips - not generally needed, as u can update params with missionplanenner over mavlink etc.
 
 
 # determine offset and size of 'storage' partition in flash
+```
 parttool.py --partition-table-file partitions.csv get_partition_info --partition-name storage
 >0x3e0000 0x20000
+```
 
 # then backup ardupilot 'storage' area (its a partition, see partitions.csv) to a file on disk:
+```
 esptool.py read_flash 0x3e0000 0x20000 storage.bin
+```
 
 # restore the storage.bin to your device... basiclly the same flash command as used in esp32.py but different offset and file:
+```
 esptool.py --chip esp32 --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 80m --flash_size detect 0x3e0000 storage.bin
-
+```
 
 ### example log of boot messages:
-
+```
 [22:51:20:226] ets Jun  8 2016 00:22:57
 [22:51:20:228]
 [22:51:20:228] rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
@@ -460,5 +471,5 @@ esptool.py --chip esp32 --baud 921600 --before default_reset --after hard_reset 
 [22:51:22:044] spi device constructed SPI:MPU9250:0:1
 [22:51:23:878] Sensor failure: INS: unable to initialise driver
 [22:51:26:878] Sensor failure: INS: unable to initialise driver
-
+```
 
