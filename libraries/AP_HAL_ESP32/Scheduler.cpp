@@ -23,7 +23,19 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-#include "soc/rtc_wdt.h"
+// https://github.com/espressif/esp-idf/issues/8038
+// https://github.com/espressif/esp-idf/blob/release/v4.4/components/hal/esp32s3/include/hal/rwdt_ll.h
+// known s3 header bug, workaround is to manually define the old names to match the new ones
+#if CONFIG_HAL_S3 == 1
+#include "soc/rtc_cntl_reg.h"
+#include "hal/rwdt_ll.h"
+#define RTC_WDT_STG_SEL_OFF RWDT_LL_STG_SEL_OFF
+#define RTC_WDT_STG_SEL_ON RWDT_LL_STG_SEL_ON
+#endif
+#ifndef  CONFIG_HAL_S3 
+#include "soc/rtc_wdt.h" //RTC_WDT_STG_SEL_OFF / RTC_WDT_STG_SEL_ON
+#endif
+
 #include "esp_int_wdt.h"
 #include "esp_task_wdt.h"
 

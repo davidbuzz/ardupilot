@@ -21,6 +21,9 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+#include "soc/rtc_cntl_reg.h" //s3
+
+
 #define ESP32_SCHEDULER_MAX_TIMER_PROCS 10
 #define ESP32_SCHEDULER_MAX_IO_PROCS 10
 

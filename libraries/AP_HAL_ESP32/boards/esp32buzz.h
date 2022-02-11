@@ -14,6 +14,8 @@
  */
 #pragma once
 
+ #include <soc/adc_channel.h>
+
 // make sensor selection clearer
 #define PROBE_IMU_I2C(driver, bus, addr, args ...) ADD_BACKEND(AP_InertialSensor_ ## driver::probe(*this,GET_I2C_DEVICE(bus, addr),##args))
 #define PROBE_IMU_SPI(driver, devname, args ...) ADD_BACKEND(AP_InertialSensor_ ## driver::probe(*this,hal.spi->get_device(devname),##args))
@@ -73,7 +75,6 @@
 #define HAL_USE_ADC TRUE
 
 // the pin number, the gain/multiplier associated with it, the ardupilot name for the pin in parameter/s.
-//
 // two different pin numbering schemes, both are ok, but only one at a time:
 #define HAL_ESP32_ADC_PINS_OPTION1 {\
 	{ADC1_GPIO35_CHANNEL, 11, 1},\
@@ -87,9 +88,25 @@
 	{ADC1_GPIO39_CHANNEL, 11, 39},\
 	{ADC1_GPIO36_CHANNEL, 11, 36}\
 }
+//s3
+#define HAL_ESP32_ADC_PINS_OPTION3 {\
+	{ADC1_GPIO1_CHANNEL, 11, 34},\
+	{ADC1_GPIO2_CHANNEL, 11, 35},\
+}
+	// {ADC1_GPIO3_CHANNEL, 11, 36},
+	// {ADC1_GPIO4_CHANNEL, 11, 37}
+	// {ADC1_GPIO5_CHANNEL, 11, 38}
+	// {ADC1_GPIO6_CHANNEL, 11, 49}
+	// {ADC1_GPIO7_CHANNEL, 11, 40}
+	// {ADC1_GPIO8_CHANNEL, 11, 41}
+	// {ADC1_GPIO9_CHANNEL, 11, 42}
+	// {ADC1_GPIO10_CHANNEL, 11, 43}
+
 // pick one:
 //#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION1
-#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION2
+//#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION2
+// this one is for esp32s3 , which only has ADC1_GPIOX_CHANNEL with X from 1-10
+#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION3
 
 
 
@@ -130,14 +147,21 @@
 #define WIFI_SSID "ardupilot123"
 #define WIFI_PWD "ardupilot123"
 
+// on esp32s3, some pins aren't defined, such as 'GPIO_NUM_23', just pick a different pin. disallowed:0,3, 22,23,24,25, 26,27,28,29,30,31,32. 45,46  esp32s3 - range 0-48. 
+// 22,23,24,25 - these are totally absent.
+//  26,27,28,29,30,31,32 - GPIO26-32 are usually used for SPI flash and PSRAM and not recommended for other uses.
+//  try to avoid 0,3,45,46 as GPIO0, GPIO3, GPIO45 and GPIO46 are strapping pins, and they might, in some cases be used, only if u are careful.
+// https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/api-reference/peripherals/gpio.html
+
+
 //RCOUT which pins are used?
 
-#define HAL_ESP32_RCOUT { GPIO_NUM_25,GPIO_NUM_27, GPIO_NUM_33, GPIO_NUM_32, GPIO_NUM_22, GPIO_NUM_21 }
+#define HAL_ESP32_RCOUT { GPIO_NUM_47,GPIO_NUM_37, GPIO_NUM_33, GPIO_NUM_42, GPIO_NUM_42, GPIO_NUM_21 }
 
 // SPI BUS setup, including gpio, dma, etc
 // note... we use 'SPI3' for the bmp280 and mpu9250
 #define HAL_ESP32_SPI_BUSES \
-    {.host=SPI3_HOST, .dma_ch=1, .mosi=GPIO_NUM_23, .miso=GPIO_NUM_19, .sclk=GPIO_NUM_18}
+    {.host=SPI3_HOST, .dma_ch=1, .mosi=GPIO_NUM_43, .miso=GPIO_NUM_19, .sclk=GPIO_NUM_18}
 // tip:  SPI0_HOST   - do not use, its reserved and wont work
 // tip:  SPI1_HOST   - do not use, its reserved and wont work
 // tip:  SPI2_HOST  is an alternative name for classic esp's HSPI
@@ -162,7 +186,7 @@
 
 //HARDWARE UARTS
 #define HAL_ESP32_UART_DEVICES \
-  {.port=UART_NUM_0, .rx=GPIO_NUM_3, .tx=GPIO_NUM_1 },{.port=UART_NUM_1, .rx=GPIO_NUM_16, .tx=GPIO_NUM_17 }
+  {.port=UART_NUM_0, .rx=GPIO_NUM_6, .tx=GPIO_NUM_7 },{.port=UART_NUM_1, .rx=GPIO_NUM_16, .tx=GPIO_NUM_17 }
 
 #define HAVE_FILESYSTEM_SUPPORT 1
 

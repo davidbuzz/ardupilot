@@ -564,6 +564,7 @@ void NavEKF3_core::send_status_report(mavlink_channel_t chan) const
     }
     if (!filterStatus.flags.initalized) {
         flags |= EKF_UNINITIALIZED;
+        //printf("EKF_UNINITIALIZED"); 
     }
     if (filterStatus.flags.gps_glitching) {
         flags |= (1<<15);
