@@ -26,6 +26,7 @@
 #include "driver/adc.h"
 #include "esp_adc_cal.h"
 #include "soc/adc_channel.h"
+#include "hal/misc.h"
 
 #if HAL_USE_ADC == TRUE && !defined(HAL_DISABLE_ADC_DRIVER)
 

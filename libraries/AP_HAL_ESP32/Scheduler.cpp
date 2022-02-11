@@ -25,9 +25,27 @@
 
 // https://github.com/espressif/esp-idf/issues/8038
 // https://github.com/espressif/esp-idf/blob/release/v4.4/components/hal/esp32s3/include/hal/rwdt_ll.h
-// known s3 header bug, workaround is to manually define the old names to match the new ones
 #if CONFIG_HAL_S3 == 1
 #include "soc/rtc_cntl_reg.h"
+// https://github.com/espressif/esp-idf/issues/5604
+#define chip_reset_width rwdt_ll_set_chip_reset_width
+#define HAL_FORCE_MODIFY_U32_REG_FIELD(base_reg, reg_field, field_val)    \
+{                                                           \
+    uint32_t temp_val = base_reg.val;                       \
+    typeof(base_reg) temp_reg;                              \
+    temp_reg.val = temp_val;                                \
+    temp_reg.reg_field = (field_val);                       \
+    (base_reg).val = temp_reg.val;                          \
+}
+
+#define HAL_FORCE_READ_U32_REG_FIELD(base_reg, reg_field) ({    \
+    uint32_t temp_val = base_reg.val;                       \
+    typeof(base_reg) temp_reg;                              \
+    temp_reg.val = temp_val;                                \
+    temp_reg.reg_field;                                     \
+})
+
+// known s3 header bug, workaround is to manually define the old names to match the new ones
 #include "hal/rwdt_ll.h"
 #define RTC_WDT_STG_SEL_OFF RWDT_LL_STG_SEL_OFF
 #define RTC_WDT_STG_SEL_ON RWDT_LL_STG_SEL_ON
