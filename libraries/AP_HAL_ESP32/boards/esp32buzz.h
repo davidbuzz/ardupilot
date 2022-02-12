@@ -30,18 +30,6 @@
 #define PROBE_MAG_IMU_I2C(driver, imudev, bus, addr, args ...) ADD_BACKEND(DRIVER_ ##driver, AP_Compass_ ## driver::probe_ ## imudev(GET_I2C_DEVICE(bus,addr),##args))
 //------------------------------------
 
-// linux esp32s3 udef rules needed for 'dfu'..
-// https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32s3/api-guides/dfu.html#udev-rule-linux-only
-/*
-
-sudo bash -l 
-root@buzz-metabox:/home/buzz/ardupilot# cat > /etc/udev/rules.d/40-dfuse.rules
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="00??", GROUP="plugdev", MODE="0666"
-root@buzz-metabox:/home/buzz/ardupilot# sudo udevadm trigger
-root@buzz-metabox:/home/buzz/ardupilot# 
-
-
-*/
 
 //#define CONFIG_HAL_BOARD 12
 //#define HAL_BOARD_ESP32 12
