@@ -267,7 +267,7 @@ This is how buzz has the GY91 wired ATM, but its probable that connecting extern
 |IO18|SCL|
 |IO26|CSB|
 
-## debugger connection
+## debugger connection for classic/original ESP32
 Currently used debugger is called a 'TIAO USB Multi Protocol Adapter' which is a red PCB with a bunch of jtag headers on it and doesn't cost too much. https://www.amazon.com/TIAO-Multi-Protocol-Adapter-JTAG-Serial/dp/B0156ML5LY
 
 |ESP32| 20PINJTAG|
@@ -279,6 +279,60 @@ Currently used debugger is called a 'TIAO USB Multi Protocol Adapter' which is a
 |3.3v | -- ( powered via usb, not programmer, or PIN1)|
 |GND  | GND(any of PIN4,PIN6,or PIN8 , all GND)|
 |EN   | TRST(PIN3)|
+
+## debugger setup for ESP32S3
+The esp32s3 is the new-kid on the block, and it has built-in JTAG debugging over its existing usb connection/s.   
+
+The 'S3' has TWO micro-usb ports...   you need to use the correct one! 
+
+On the 'ESP32-S3-DevKitM' , as an eample, one is labeled UART, and the other USB...   debugger only works on one of them.   
+
+On the 'DevKitM' we found we needed to use the 'USB' labeled one, which is the one nearest the 'RESET' button ( this board has two buttons ).
+
+Basic 'debugger' setup... you'll need TWO terminal windows to run the debugger... one for 'openocd' and another for 'gdb'....
+
+prerequisite:   we asume you have successfully compiled and flashed your esp32s3 with an ardupilot esp32 firmware compiled with --debug  and you know where the .elf for it is.
+typical locations for the .elf are:    
+
+initial setup, just do once, in either terminal:
+download this file : https://github.com/espressif/openocd-esp32/blob/master/contrib/60-openocd.rules
+save/copy it to udev :
+```
+sudo cp ~/Downloads/60-openocd.rules  /etc/udev/rules.d/60-openocd.rules
+```
+restart services and add your current user to the right groups:
+```
+sudo udevadm trigger
+sudo service udev restart
+sudo usermod -a -G dialout `whoami`
+sudo usermod -a -G plugdev `whoami`
+```
+
+
+terminal one:
+```
+cd ~/ardupilot 
+source ./modules/esp_idf/export.sh
+openocd -f board/esp32s3-builtin.cfg
+```
+
+terminal two / ... follow roughly these instructions:
+https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/api-guides/jtag-debugging/using-debugger.html#jtag-debugging-using-debugger-command-line
+run gdb, and then cut-n-paste the following lines into the gdb window:
+```
+source ./modules/esp_idf/export.sh
+xtensa-esp32-elf-gdb build/esp32buzz/esp-idf_build_s3/ardupilot.elf  [change to match where your .elf is, you might need to remove the _s3 bit]
+
+target remote :3333
+set remote hardware-watchpoint-limit 2
+mon reset halt
+flushregs
+thb app_main
+c 
+```
+
+... your debugger is running!, we  hope.
+
 
 ## SDCARD connection
 
