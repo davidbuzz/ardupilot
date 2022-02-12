@@ -30,6 +30,18 @@
 #define PROBE_MAG_IMU_I2C(driver, imudev, bus, addr, args ...) ADD_BACKEND(DRIVER_ ##driver, AP_Compass_ ## driver::probe_ ## imudev(GET_I2C_DEVICE(bus,addr),##args))
 //------------------------------------
 
+// linux esp32s3 udef rules needed for 'dfu'..
+// https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32s3/api-guides/dfu.html#udev-rule-linux-only
+/*
+
+sudo bash -l 
+root@buzz-metabox:/home/buzz/ardupilot# cat > /etc/udev/rules.d/40-dfuse.rules
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="00??", GROUP="plugdev", MODE="0666"
+root@buzz-metabox:/home/buzz/ardupilot# sudo udevadm trigger
+root@buzz-metabox:/home/buzz/ardupilot# 
+
+
+*/
 
 //#define CONFIG_HAL_BOARD 12
 //#define HAL_BOARD_ESP32 12
@@ -76,18 +88,18 @@
 
 // the pin number, the gain/multiplier associated with it, the ardupilot name for the pin in parameter/s.
 // two different pin numbering schemes, both are ok, but only one at a time:
-#define HAL_ESP32_ADC_PINS_OPTION1 {\
-	{ADC1_GPIO35_CHANNEL, 11, 1},\
-	{ADC1_GPIO34_CHANNEL, 11, 2},\
-	{ADC1_GPIO39_CHANNEL, 11, 3},\
-	{ADC1_GPIO36_CHANNEL, 11, 4}\
-}
-#define HAL_ESP32_ADC_PINS_OPTION2 {\
-	{ADC1_GPIO35_CHANNEL, 11, 35},\
-	{ADC1_GPIO34_CHANNEL, 11, 34},\
-	{ADC1_GPIO39_CHANNEL, 11, 39},\
-	{ADC1_GPIO36_CHANNEL, 11, 36}\
-}
+// #define HAL_ESP32_ADC_PINS_OPTION1 {\
+// 	{ADC1_GPIO35_CHANNEL, 11, 1},\
+// 	{ADC1_GPIO34_CHANNEL, 11, 2},\
+// 	{ADC1_GPIO39_CHANNEL, 11, 3},\
+// 	{ADC1_GPIO36_CHANNEL, 11, 4}\
+// }
+// #define HAL_ESP32_ADC_PINS_OPTION2 {\
+// 	{ADC1_GPIO35_CHANNEL, 11, 35},\
+// 	{ADC1_GPIO34_CHANNEL, 11, 34},\
+// 	{ADC1_GPIO39_CHANNEL, 11, 39},\
+// 	{ADC1_GPIO36_CHANNEL, 11, 36}\
+// }
 //s3
 #define HAL_ESP32_ADC_PINS_OPTION3 {\
 	{ADC1_GPIO1_CHANNEL, 11, 34},\
@@ -147,16 +159,17 @@
 #define WIFI_SSID "ardupilot123"
 #define WIFI_PWD "ardupilot123"
 
-// on esp32s3, some pins aren't defined, such as 'GPIO_NUM_23', just pick a different pin. disallowed:0,3, 22,23,24,25, 26,27,28,29,30,31,32. 45,46  esp32s3 - range 0-48. 
+// on esp32s3, some pins aren't defined, such as 'GPIO_NUM_23', just pick a different pin. disallowed:0,3, 22,23,24,25, 26,27,28,29,30,31,32, 39,40,41,42 , 45,46  esp32s3 - range 0-48. 
 // 22,23,24,25 - these are totally absent.
 //  26,27,28,29,30,31,32 - GPIO26-32 are usually used for SPI flash and PSRAM and not recommended for other uses.
 //  try to avoid 0,3,45,46 as GPIO0, GPIO3, GPIO45 and GPIO46 are strapping pins, and they might, in some cases be used, only if u are careful.
+//'JTAG communication will likely fail, if configuration of JTAG pins is changed by user application.' / GPIO39 GPIO40 GPIO41 GPIO42
 // https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/api-reference/peripherals/gpio.html
 
 
 //RCOUT which pins are used?
 
-#define HAL_ESP32_RCOUT { GPIO_NUM_47,GPIO_NUM_37, GPIO_NUM_33, GPIO_NUM_42, GPIO_NUM_42, GPIO_NUM_21 }
+#define HAL_ESP32_RCOUT { GPIO_NUM_47,GPIO_NUM_37, GPIO_NUM_33, GPIO_NUM_38, GPIO_NUM_36, GPIO_NUM_21 }
 
 // SPI BUS setup, including gpio, dma, etc
 // note... we use 'SPI3' for the bmp280 and mpu9250
