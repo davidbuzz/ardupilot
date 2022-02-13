@@ -162,7 +162,7 @@
 // SPI BUS setup, including gpio, dma, etc
 // note... we use 'SPI3' for the bmp280 and mpu9250
 #define HAL_ESP32_SPI_BUSES \
-    {.host=SPI3_HOST, .dma_ch=1, .mosi=GPIO_NUM_43, .miso=GPIO_NUM_19, .sclk=GPIO_NUM_18}
+    {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_43, .miso=GPIO_NUM_19, .sclk=GPIO_NUM_18}
 // tip:  SPI0_HOST   - do not use, its reserved and wont work
 // tip:  SPI1_HOST   - do not use, its reserved and wont work
 // tip:  SPI2_HOST  is an alternative name for classic esp's HSPI
@@ -171,7 +171,7 @@
 
 // SPI per-device setup, including speeds, etc.
 #define HAL_ESP32_SPI_DEVICES \
-    {.name="mpu9250", .bus=SPI_DMA_CH_AUTO, .device=0, .cs=GPIO_NUM_5,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
+    {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_5,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
 //    {.name= "bmp280", .bus=0, .device=1, .cs=GPIO_NUM_26, .mode = 3, .lspeed=1*MHZ, .hspeed=1*MHZ}, 
 //#define HAL_ESP32_SPI_DEVICES {}
 
