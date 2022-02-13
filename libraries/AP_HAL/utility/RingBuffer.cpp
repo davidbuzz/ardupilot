@@ -5,9 +5,11 @@
 
 ByteBuffer::ByteBuffer(uint32_t _size)
 {
-    buf = (uint8_t*)calloc(1, _size);
-    size = buf ? _size : 0;
-    external_buf = false;
+    if (_size != 0 ) {
+      buf = (uint8_t*)calloc(1, _size);
+      size = buf ? _size : 0;
+      external_buf = false;
+    }
 }
 
 ByteBuffer::~ByteBuffer(void)
