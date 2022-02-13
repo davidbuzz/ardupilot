@@ -488,7 +488,7 @@ void Scheduler::print_stats(void)
     static int64_t last_run = 0;
     if (AP_HAL::millis64() - last_run > 60000) {
         char buffer[1024];
-        vTaskGetRunTimeStats(buffer);
+        //vTaskGetRunTimeStats(buffer); // with reduced sdkconfig undefined reference to `vTaskGetRunTimeStats'
         printf("\n\n%s\n", buffer);
         heap_caps_print_heap_info(0);
         last_run = AP_HAL::millis64();
