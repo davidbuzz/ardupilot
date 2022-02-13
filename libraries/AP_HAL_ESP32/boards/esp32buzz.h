@@ -147,9 +147,10 @@
 #define WIFI_SSID "ardupilot123"
 #define WIFI_PWD "ardupilot123"
 
-// on esp32s3, some pins aren't defined, such as 'GPIO_NUM_23', just pick a different pin. disallowed:0,3, 19,20,  22,23,24,25, 26,27,28,29,30,31,32, 39,40,41,42 , 45,46  esp32s3 - range 0-48. 
+// on esp32s3, some pins aren't defined, such as 'GPIO_NUM_23', just pick a different pin. disallowed:0,3, 19,20,  22,23,24,25, 26,27,28,29,30,31,32, 39,40,41,42 , 43,44, 45,46  esp32s3 - range 0-48. 
 // 22,23,24,25 - these are totally absent.
 // 19,20  - these are D+/D- for the integrated USB port/peripheral that does CDC or OTG etc.   the 'USB' labled one near the reset button.
+// 43(tx),44(rx)  - these are D+/D- for the 'uart' port, that is not smart, these are also known as U0TXD,U0RXD the 'USB' labled one near the reset button.
 //  26,27,28,29,30,31,32 - GPIO26-32 are usually used for SPI flash and PSRAM and not recommended for other uses.
 //  try to avoid 0,3,45,46 as GPIO0, GPIO3, GPIO45 and GPIO46 are strapping pins, and they might, in some cases be used, only if u are careful.
 //'JTAG communication will likely fail, if configuration of JTAG pins is changed by user application.' / GPIO39 GPIO40 GPIO41 GPIO42
@@ -163,7 +164,7 @@
 // SPI BUS setup, including gpio, dma, etc
 // note... we use 'SPI3' for the bmp280 and mpu9250
 #define HAL_ESP32_SPI_BUSES \
-    {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_43, .miso=GPIO_NUM_48, .sclk=GPIO_NUM_18} 
+    {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_8, .miso=GPIO_NUM_48, .sclk=GPIO_NUM_18} 
 
 	//s3..
 	//'SPI2 has 6 CS lines. SPI3 has 3 CS lines. Each CS line can be used to drive one SPI slave.'
