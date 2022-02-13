@@ -79,7 +79,8 @@ warning: "CONFIG_SUPPORT_STATIC_ALLOCATION" is not defined
 this means your 'sdkconfig' file that the IDF relies on is perhaps a bit out of date or out of sync with your IDF.
 So double check you are using the correct IDF version ( buzz's branch uses v3.3 , sh83's probably does not.. and then if you are sure:
 ```
-cd build/esp32{BOARD}/esp-idf_build
+# yes, the 'build' folder....
+cd build/esp32{BOARD}/esp-idf_build  
 ninja menuconfig
 ```
 navigate to [save]  (tab,tab,tab,enter)
@@ -440,13 +441,22 @@ ctrl-c to exit gdb
 # storage tips - not generally needed, as u can update params with missionplanenner over mavlink etc.
 
 
-# determine offset and size of 'storage' partition in flash
+# determine offset and size of 'storage' partition in flash - depending on if you have 4Mb or 8Mb of flash, u can use '4m' or 8m' variant. 
+#   typcially the 'classic' esp32 will have 4m, and the esp32s3 will have 8m, but not always.
 ```
-parttool.py --partition-table-file partitions.csv get_partition_info --partition-name storage
+#optionally detect the amount of flash you have onboard:
+esptool.py flash_id
+..
+>Detected flash size: 8MB
+
+
+cd libraries/AP_HAL_ESP32/targets/
+parttool.py --partition-table-file partitions4m.csv get_partition_info --partition-name storage
 >0x3e0000 0x20000
+cd -
 ```
 
-# then backup ardupilot 'storage' area (its a partition, see partitions.csv) to a file on disk:
+# then backup ardupilot 'storage' area (its a partition, see partitions4m.csv) to a file on disk:
 ```
 esptool.py read_flash 0x3e0000 0x20000 storage.bin
 ```
