@@ -25,7 +25,15 @@ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 #or
 sudo pacman -S --needed gcc git make flex bison gperf python-pip cmake ninja ccache dfu-util libusb
 
+# for 'ninja menuconfig' to work:
+python -m pip install kconfiglib
 
+# for ardupilot's 'waf' to work
+python -m pip install empy
+python -m pip install pexpect
+```
+
+```
 cd ardupilot
 git submodule update --init --recursive
 # ensure the idf exists in modules/esp_idf (supports pre-existing submodules and/or cloning it for you)
