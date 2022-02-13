@@ -44,7 +44,7 @@
 //#define HAL_INS_ICM20XXX_I2C_ADDR (0x68)
 
 // BARO choices:
-#define HAL_BARO_DEFAULT HAL_BARO_BMP280_SPI
+#define HAL_BARO_DEFAULT HAL_BARO_BMP280_I2C
 #define HAL_BARO_BMP280_NAME "BMP280"
 // or one of these:
 //#define HAL_BARO_DEFAULT HAL_BARO_MS5837_I2C
@@ -171,8 +171,8 @@
 
 // SPI per-device setup, including speeds, etc.
 #define HAL_ESP32_SPI_DEVICES \
-    {.name= "bmp280", .bus=0, .device=0, .cs=GPIO_NUM_26, .mode = 3, .lspeed=1*MHZ, .hspeed=1*MHZ}, \
-    {.name="mpu9250", .bus=0, .device=1, .cs=GPIO_NUM_5,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
+    {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_5,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
+//    {.name= "bmp280", .bus=0, .device=1, .cs=GPIO_NUM_26, .mode = 3, .lspeed=1*MHZ, .hspeed=1*MHZ}, 
 //#define HAL_ESP32_SPI_DEVICES {}
 
 //I2C bus list
