@@ -171,7 +171,7 @@
 
 // SPI per-device setup, including speeds, etc.
 #define HAL_ESP32_SPI_DEVICES \
-    {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_5,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
+    {.name="mpu9250", .bus=SPI_DMA_CH_AUTO, .device=0, .cs=GPIO_NUM_5,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
 //    {.name= "bmp280", .bus=0, .device=1, .cs=GPIO_NUM_26, .mode = 3, .lspeed=1*MHZ, .hspeed=1*MHZ}, 
 //#define HAL_ESP32_SPI_DEVICES {}
 
