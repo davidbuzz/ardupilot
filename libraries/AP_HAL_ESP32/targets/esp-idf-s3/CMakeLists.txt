@@ -23,7 +23,9 @@ idf_build_process(esp32s3
                nvs_flash
                esptool_py
                app_update
+               
     SDKCONFIG ${CMAKE_CURRENT_LIST_DIR}/sdkconfig
+    SDKCONFIG_DEFAULTS ${CMAKE_CURRENT_LIST_DIR}/sdkconfig.defaults
     BUILD_DIR ${CMAKE_BINARY_DIR})
 
 set(elf_file ardupilot.elf)
