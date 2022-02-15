@@ -195,7 +195,8 @@
 
 //HARDWARE UARTS  esp32s3 uart0-5/6 , uart1 = 19/20
 #define HAL_ESP32_UART_DEVICES \
-  {.port=UART_NUM_0, .rx=GPIO_NUM_5, .tx=GPIO_NUM_6 },{.port=UART_NUM_1, .rx=GPIO_NUM_20, .tx=GPIO_NUM_19 }
+  {.port=UART_NUM_0, .rx=GPIO_NUM_5, .tx=GPIO_NUM_6 }
+  //,{.port=UART_NUM_1, .rx=GPIO_NUM_20, .tx=GPIO_NUM_19 } don't tryto use second uart when using gdb over usb
 
 #define HAVE_FILESYSTEM_SUPPORT 1
 
