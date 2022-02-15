@@ -179,7 +179,7 @@
 
 // SPI per-device setup, including speeds, etc.
 #define HAL_ESP32_SPI_DEVICES \
-    {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_5,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
+    {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_7,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
 //    {.name= "bmp280", .bus=0, .device=1, .cs=GPIO_NUM_26, .mode = 3, .lspeed=1*MHZ, .hspeed=1*MHZ}, 
 //#define HAL_ESP32_SPI_DEVICES {}
 
@@ -193,9 +193,9 @@
 #define HAL_ESP32_RCIN GPIO_NUM_4
 
 
-//HARDWARE UARTS
+//HARDWARE UARTS  esp32s3 uart0-5/6 , uart1 = 19/20
 #define HAL_ESP32_UART_DEVICES \
-  {.port=UART_NUM_0, .rx=GPIO_NUM_6, .tx=GPIO_NUM_7 },{.port=UART_NUM_1, .rx=GPIO_NUM_11, .tx=GPIO_NUM_17 }
+  {.port=UART_NUM_0, .rx=GPIO_NUM_5, .tx=GPIO_NUM_6 },{.port=UART_NUM_1, .rx=GPIO_NUM_20, .tx=GPIO_NUM_19 }
 
 #define HAVE_FILESYSTEM_SUPPORT 1
 
