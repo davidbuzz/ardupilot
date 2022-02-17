@@ -44,6 +44,10 @@ using namespace ESP32;
 
 extern const AP_HAL::HAL& hal;
 
+//#if CONFIG_IDF_TARGET_ESP32C3
+extern "C" void phy_bbpll_en_usb(bool en);
+//#endif
+
 WiFiDriver::WiFiDriver()
 {
     _state = NOT_INITIALIZED;
@@ -276,19 +280,25 @@ void wifi_init_softap(void)
 void WiFiDriver::initialize_wifi()
 {
 
-    nvs_flash_init();
+    nvs_flash_init(); // calls down to nvs_flash_init_partition ->  nvs::Storage::init -> nvs::Page::findItem -> ...cache_disable -> spi_flash_disable_interrupts_caches_and_other_cpu and locks up if no 'nvs' partition.
 
     wifi_init_softap();
+
+// Temporary fix to ensure that CDC+JTAG stay on on ESP32-C3
+// https://github.com/espressif/arduino-esp32/pull/6287/files
+    phy_bbpll_en_usb(true); //this brings the USB serial-jtag back to life. Suggest doing this immediately after wifi startup.
 
 }
 
 size_t WiFiDriver::write(uint8_t c)
 {
+    if (_state == NOT_INITIALIZED) { return 0; }
     return write(&c,1);
 }
 
 size_t WiFiDriver::write(const uint8_t *buffer, size_t size)
 {
+    if (_state == NOT_INITIALIZED) { return 0; }
     if (_state != CONNECTED) {
         return 0;
     }
