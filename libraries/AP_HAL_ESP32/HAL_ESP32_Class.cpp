@@ -35,12 +35,12 @@ static ESP32::UARTDriver cons(0);
 static Empty::UARTDriver uartBDriver;
 //#ifdef HAL_ESP32_WIFI
 // #if HAL_ESP32_WIFI == 1
-// static ESP32::WiFiDriver uartCDriver; //tcp, client should connect to 192.168.4.1 port 5760
+static ESP32::WiFiDriver uartCDriver; //tcp, client should connect to 192.168.4.1 port 5760
 // #elif HAL_ESP32_WIFI == 2
 // static ESP32::WiFiUdpDriver uartCDriver; //udp
 // #endif
 // #else
-static Empty::UARTDriver uartCDriver;
+//static Empty::UARTDriver uartCDriver;
 //#endif
 static Empty::UARTDriver uartDDriver;
 static Empty::UARTDriver uartEDriver;
