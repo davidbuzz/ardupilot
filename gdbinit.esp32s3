@@ -2,5 +2,8 @@ target remote :3333
 set remote hardware-watchpoint-limit 2
 mon reset halt
 flushregs
-#thb app_main
-
+thb app_main
+#thb AP_Logger_Backend::WritePrioritisedBlock
+#thb abort.c:46
+#thb RingBuffer.cpp:222
+c
