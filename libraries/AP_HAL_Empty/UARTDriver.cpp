@@ -3,6 +3,7 @@
 #include <AP_Common/ExpandingString.h>
 
 Empty::UARTDriver::UARTDriver() {}
+Empty::UARTDriver::UARTDriver(uint8_t id) {}
 
 void Empty::UARTDriver::begin(uint32_t b) {}
 void Empty::UARTDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS) {}

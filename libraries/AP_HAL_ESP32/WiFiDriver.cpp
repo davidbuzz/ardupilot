@@ -39,6 +39,8 @@
 #include <AP_HAL/AP_HAL.h>
 #include <stdio.h>
 
+#define TCP_PORT 5760
+
 
 using namespace ESP32;
 
@@ -48,7 +50,7 @@ extern const AP_HAL::HAL& hal;
 extern "C" void phy_bbpll_en_usb(bool en);
 //#endif
 
-WiFiDriver::WiFiDriver()
+WiFiDriver::WiFiDriver(uint8_t id)
 {
     _state = NOT_INITIALIZED;
     accept_socket = -1;
@@ -56,6 +58,7 @@ WiFiDriver::WiFiDriver()
     for (unsigned short i = 0; i < WIFI_MAX_CONNECTION; ++i) {
         socket_list[i] = -1;
     }
+    idx = id;
 }
 
 void WiFiDriver::begin(uint32_t b)
@@ -65,10 +68,16 @@ void WiFiDriver::begin(uint32_t b)
 
 void WiFiDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 {
+    #ifdef WIFIDEBUG
+    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    #endif
     if (_state == NOT_INITIALIZED) {
         initialize_wifi();
-        printf("making wifi task in ::begin");
-        xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
+        //printf("making wifi task in ::begin");
+        #ifdef WIFIDEBUG
+            printf("Making thread:%s => \n%s:%d \n", "APM_WIFI", __PRETTY_FUNCTION__, __LINE__);
+        #endif
+        xTaskCreate(_wifi_thread, "APM_WIFI2", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
         _readbuf.set_size(RX_BUF_SIZE);
         _writebuf.set_size(TX_BUF_SIZE);
         _state = INITIALIZED;
@@ -146,7 +155,7 @@ bool WiFiDriver::start_listen()
     struct sockaddr_in destAddr;
     destAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     destAddr.sin_family = AF_INET;
-    destAddr.sin_port = htons(5760);
+    destAddr.sin_port = htons(TCP_PORT);
     int err = bind(accept_socket, (struct sockaddr *)&destAddr, sizeof(destAddr));
     if (err != 0) {
         close(accept_socket);
@@ -161,7 +170,7 @@ bool WiFiDriver::start_listen()
         printf("Wifi driver: also failed setup");
         return false;
     }
-    printf("Wifi driver: is now listening for TCP on port 5760");
+    printf("Wifi driver: is now listening for TCP on port %d",TCP_PORT);
     return true;
 
 }
@@ -175,7 +184,7 @@ bool WiFiDriver::try_accept()
     if (i != WIFI_MAX_CONNECTION) {
         socket_list[i] = accept(accept_socket, (struct sockaddr *)&sourceAddr, &addrLen);
         if (socket_list[i] >= 0) {
-            printf("Wifi driver: client connected on TCP on port 5760");
+            printf("Wifi driver: client connected on TCP on port %d",TCP_PORT);
             fcntl(socket_list[i], F_SETFL, O_NONBLOCK);
             return true;
         }
@@ -238,7 +247,7 @@ bool WiFiDriver::write_data()
 }
 
 
-static void wifi_event_handler(void* arg, esp_event_base_t event_base,
+static void wifi_event_handler1(void* arg, esp_event_base_t event_base,
                                     int32_t event_id, void* event_data)
 {
     if (event_id == WIFI_EVENT_AP_STACONNECTED) {
@@ -250,7 +259,8 @@ static void wifi_event_handler(void* arg, esp_event_base_t event_base,
     }
 }
 
-void wifi_init_softap(void)
+
+void WiFiDriver::wifi_init_softap(void)
 {
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
@@ -259,7 +269,7 @@ void wifi_init_softap(void)
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_wifi_init(&cfg));
 
-    ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL));
+    ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler1, NULL));
 
     wifi_config_t wifi_config = {
         .ap = {
@@ -323,7 +333,7 @@ void WiFiDriver::_wifi_thread(void *arg)
     WiFiDriver *self = (WiFiDriver *) arg;
     if (!self->start_listen()) {
         vTaskDelete(nullptr);
-        //printf("_wifi_thread gave up, deleted task. %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+        hal.console->printf("_wifi_thread gave up, deleted task. %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
     }
     while (true) {
         if (self->try_accept()) {
@@ -341,10 +351,12 @@ void WiFiDriver::_wifi_thread(void *arg)
                 if (!self->_more_data) {
                     hal.scheduler->delay_microseconds(1000);
                 }
+                hal.console->printf("_wifi_thread read/write loop %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
             }
         }
         if (self->_state == NOT_INITIALIZED) {
           hal.scheduler->delay_microseconds(65534);
+          hal.console->printf("_wifi_thread NOT_INITIALIZED, delay %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
         }
     }
 }

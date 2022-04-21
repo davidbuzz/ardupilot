@@ -1433,7 +1433,7 @@ AP_InertialSensor::_init_gyro()
     AP_Notify::flags.initialising = true;
 
     // cold start
-    hal.console->printf("Init Gyro");
+    hal.console->printf("Init Gyro...\n");
 
     /*
       we do the gyro calibration with no board rotation. This avoids
@@ -1450,11 +1450,13 @@ AP_InertialSensor::_init_gyro()
         last_average[k].zero();
         converged[k] = false;
     }
+    hal.console->printf("Gyro2...\n");
 
     for(int8_t c = 0; c < 5; c++) {
         hal.scheduler->delay(5);
         update();
     }
+    hal.console->printf("Gyro3...\n");
 
 #if HAL_INS_TEMPERATURE_CAL_ENABLE
     // get start temperature. gyro cal usually happens when the board
@@ -1465,6 +1467,8 @@ AP_InertialSensor::_init_gyro()
         start_temperature[k] = get_temperature(k);
     }
 #endif
+    hal.console->printf("Gyro4...\n");
+
 
     // the strategy is to average 50 points over 0.5 seconds, then do it
     // again and see if the 2nd average is within a small margin of
@@ -1534,6 +1538,7 @@ AP_InertialSensor::_init_gyro()
             last_average[k] = gyro_avg[k];
         }
     }
+    hal.console->printf("Gyro5...\n");
 
     // we've kept the user waiting long enough - use the best pair we
     // found so far
@@ -1555,6 +1560,8 @@ AP_InertialSensor::_init_gyro()
 #endif
         }
     }
+        hal.console->printf("Gyro6...\n");
+
 
     // restore orientation
     _board_orientation = saved_orientation;
@@ -1703,6 +1710,9 @@ void AP_InertialSensor::wait_for_sample(void)
         return;
     }
 
+        //hal.console->printf("Gyro wait_for_sample...\n");
+
+
     uint32_t now = AP_HAL::micros();
 
     if (_next_sample_usec == 0 && _delta_time <= 0) {
@@ -1738,6 +1748,7 @@ void AP_InertialSensor::wait_for_sample(void)
         timing_printf("overshoot2 %u\n", (unsigned)(now-_next_sample_usec));
         _next_sample_usec = now + _sample_period_usec;
     }
+        //hal.console->printf("Gyro wait_for_sample2...\n");
 
 check_sample:
         // now we wait until we have the gyro and accel samples we need
@@ -1748,11 +1759,16 @@ check_sample:
         // IMUs to come in
         const uint8_t wait_per_loop = 100;
         const uint8_t wait_counter_limit = uint32_t(_loop_delta_t * 1.0e6) / (3*wait_per_loop);
+        //hal.console->printf("Gyro wait_for_sample3...\n");
 
-        while (true) {
+        static uint32_t giveup_eventually = 1000;
+
+        while (giveup_eventually > 0) {
+            giveup_eventually--;
             for (uint8_t i=0; i<_backend_count; i++) {
                 // this is normally a nop, but can be used by backends
                 // that don't accumulate samples on a timer
+               //hal.console->printf("%d-%d ",i,giveup_eventually);
                 _backends[i]->accumulate();
             }
 
@@ -1803,6 +1819,12 @@ check_sample:
             hal.scheduler->delay_microseconds_boost(wait_per_loop);
             wait_counter++;
         }
+        if (giveup_eventually <=0) {
+            _have_sample = true; // fake it
+            return;
+        }
+        hal.console->printf("Gyro wait_for_sample4...\n");
+
 
     now = AP_HAL::micros();
     _delta_time = (now - _last_sample_usec) * 1.0e-6f;

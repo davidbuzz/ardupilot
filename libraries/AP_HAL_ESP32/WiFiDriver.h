@@ -43,8 +43,7 @@ extern "C" {
 class ESP32::WiFiDriver : public AP_HAL::UARTDriver
 {
 public:
-    WiFiDriver();
-
+    WiFiDriver(uint8_t id);
     void begin(uint32_t b) override;
     void begin(uint32_t b, uint16_t rxS, uint16_t txS) override;
     void end() override;
@@ -75,6 +74,7 @@ private:
         INITIALIZED,
         CONNECTED
     };
+    uint8_t idx;
     const size_t TX_BUF_SIZE = 1024;
     const size_t RX_BUF_SIZE = 1024;
     uint8_t _buffer[32];
@@ -92,4 +92,5 @@ private:
     bool try_accept();
     static void _wifi_thread(void* arg);
     unsigned short available_socket();
+    void wifi_init_softap(void);
 };

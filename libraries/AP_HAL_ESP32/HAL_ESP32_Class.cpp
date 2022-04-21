@@ -29,26 +29,43 @@
 #include "AnalogIn.h"
 #include "Util.h"
 
+// // #if HAL_ESP32_WIFI == 1
+//...
+// // #elif HAL_ESP32_WIFI == 2
+//...
+// // #endif
 
-static Empty::UARTDriver uartADriver;
-static ESP32::UARTDriver cons(0);
-static Empty::UARTDriver uartBDriver;
-//#ifdef HAL_ESP32_WIFI
-// #if HAL_ESP32_WIFI == 1
-static ESP32::WiFiDriver uartCDriver; //tcp, client should connect to 192.168.4.1 port 5760
-// #elif HAL_ESP32_WIFI == 2
-// static ESP32::WiFiUdpDriver uartCDriver; //udp
-// #endif
-// #else
-//static Empty::UARTDriver uartCDriver;
-//#endif
-static Empty::UARTDriver uartDDriver;
-static Empty::UARTDriver uartEDriver;
-static Empty::UARTDriver uartFDriver;
-static Empty::UARTDriver uartGDriver;
-static Empty::UARTDriver uartHDriver;
-static Empty::UARTDriver uartIDriver;
-static Empty::UARTDriver uartJDriver;
+
+// cons = uartADriver(0)
+#define HAL_UARTA_DRIVER ESP32::UARTDriver    uartADriver(0)
+// gps
+#define HAL_UARTB_DRIVER ESP32::UARTDriver    uartBDriver(1)
+//tcp, client should connect to 192.168.4.1 port 5760:
+#define HAL_UARTC_DRIVER ESP32::WiFiDriver    uartCDriver(2) 
+//udp, client should connect as UDPCL to 192.168.4.1 port 14550
+//#define HAL_UARTD_DRIVER ESP32::WiFiUdpDriver uartDDriver(3) 
+#define HAL_UARTD_DRIVER Empty::UARTDriver    uartDDriver(3) 
+//telem on other uart, if u have one
+#define HAL_UARTE_DRIVER Empty::UARTDriver    uartEDriver(4) 
+//unused
+#define HAL_UARTF_DRIVER Empty::UARTDriver    uartFDriver(5)
+#define HAL_UARTG_DRIVER Empty::UARTDriver    uartGDriver(6)
+#define HAL_UARTH_DRIVER Empty::UARTDriver    uartHDriver(7)
+#define HAL_UARTI_DRIVER Empty::UARTDriver    uartIDriver(8)
+#define HAL_UARTJ_DRIVER Empty::UARTDriver    uartJDriver(9)
+
+
+static HAL_UARTA_DRIVER;
+static HAL_UARTB_DRIVER;
+static HAL_UARTC_DRIVER;
+static HAL_UARTD_DRIVER;
+static HAL_UARTE_DRIVER;
+static HAL_UARTF_DRIVER;
+static HAL_UARTG_DRIVER;
+static HAL_UARTH_DRIVER;
+static HAL_UARTI_DRIVER;
+static HAL_UARTJ_DRIVER;
+
 
 static Empty::DSP dspDriver;
 
@@ -72,7 +89,7 @@ extern const AP_HAL::HAL& hal;
 
 HAL_ESP32::HAL_ESP32() :
     AP_HAL::HAL(
-        &cons, //Console/mavlink
+        &uartADriver, //Console/mavlink
         &uartBDriver, //GPS 1
         &uartCDriver, //Telem 1
         &uartDDriver, //Telem 2
@@ -87,7 +104,7 @@ HAL_ESP32::HAL_ESP32() :
         nullptr,
         &analogIn,
         &storageDriver,
-        &cons,
+        &uartADriver,
         &gpioDriver,
         &rcinDriver,
         &rcoutDriver,

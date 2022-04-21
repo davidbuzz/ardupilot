@@ -40,10 +40,11 @@ extern const AP_HAL::HAL& hal;
 
 #define UDP_PORT 14550
 
-WiFiUdpDriver::WiFiUdpDriver()
+WiFiUdpDriver::WiFiUdpDriver(uint8_t id)
 {
     _state = NOT_INITIALIZED;
     accept_socket = -1;
+    idx = id;
 }
 
 void WiFiUdpDriver::begin(uint32_t b)
@@ -59,7 +60,7 @@ void WiFiUdpDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
             return;
         }
 
-        xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
+        xTaskCreate(_wifi_thread, "APM_WIFI1", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
         _readbuf.set_size(RX_BUF_SIZE);
         _writebuf.set_size(TX_BUF_SIZE);
         _state = INITIALIZED;
@@ -181,20 +182,20 @@ bool WiFiUdpDriver::write_data()
     return true;
 }
 
-
-static void wifi_event_handler(void* arg, esp_event_base_t event_base,
+static void wifi_event_handler2(void* arg, esp_event_base_t event_base,
                                     int32_t event_id, void* event_data)
 {
     if (event_id == WIFI_EVENT_AP_STACONNECTED) {
         wifi_event_ap_staconnected_t* event = (wifi_event_ap_staconnected_t*) event_data;
-        printf("station  join, AID=%d", event->aid);
+        printf("station join, AID=%d", event->aid);
     } else if (event_id == WIFI_EVENT_AP_STADISCONNECTED) {
         wifi_event_ap_stadisconnected_t* event = (wifi_event_ap_stadisconnected_t*) event_data;
-        printf("station  leave, AID=%d", event->aid);
+        printf("station leave, AID=%d", event->aid);
     }
 }
 
-void wifi_init_softap(void)
+
+void WiFiUdpDriver::wifi_init_softap(void)
 {
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
@@ -203,7 +204,7 @@ void wifi_init_softap(void)
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_wifi_init(&cfg));
 
-    ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL));
+    ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler2, NULL));
 
     wifi_config_t wifi_config = {
         .ap = {
@@ -227,6 +228,7 @@ void wifi_init_softap(void)
     printf("wifi_init_softap finished. SSID:%s password:%s",
              WIFI_SSID, WIFI_PWD);
 }
+
 
 void WiFiUdpDriver::initialize_wifi()
 {
