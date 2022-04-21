@@ -37,7 +37,7 @@
 #define HAL_ESP32_RCOUT {GPIO_NUM_9, GPIO_NUM_10, GPIO_NUM_27, GPIO_NUM_13, GPIO_NUM_22, GPIO_NUM_21}
 
 #define HAL_ESP32_SPI_BUSES \
-    {.host=VSPI_HOST, .dma_ch=1, .mosi=GPIO_NUM_23, .miso=GPIO_NUM_19, .sclk=GPIO_NUM_18}
+    {.host=VSPI_HOST, .dma_ch=SPI_DMA_CH1, .mosi=GPIO_NUM_23, .miso=GPIO_NUM_19, .sclk=GPIO_NUM_18}
 
 #define HAL_ESP32_SPI_DEVICES \
     {.name="MPU6000", .bus=0, .device=1, .cs=GPIO_NUM_5, .mode=0, .lspeed=1*MHZ, .hspeed=6*MHZ}

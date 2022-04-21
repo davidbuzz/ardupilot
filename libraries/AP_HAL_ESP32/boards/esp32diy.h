@@ -103,7 +103,7 @@
 
 
 #define HAL_ESP32_SDSPI \
-   {.host=VSPI_HOST, .dma_ch=1, .mosi=GPIO_NUM_19, .miso=GPIO_NUM_35, .sclk=GPIO_NUM_12, .cs=GPIO_NUM_21}
+   {.host=VSPI_HOST, .dma_ch=SPI_DMA_CH1, .mosi=GPIO_NUM_19, .miso=GPIO_NUM_35, .sclk=GPIO_NUM_12, .cs=GPIO_NUM_21}
 
 
 #define HAL_LOGGING_BACKENDS_DEFAULT 2

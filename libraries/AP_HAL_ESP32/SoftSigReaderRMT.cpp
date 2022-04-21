@@ -49,18 +49,12 @@ void SoftSigReaderRMT::init()
     rmt_config_t config;
     config.rmt_mode = RMT_MODE_RX;
     config.channel = RMT_CHANNEL_0;
-#if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_ICARUS
-    config.gpio_num = (gpio_num_t)36;
+#ifdef HAL_ESP32_RCIN
+    config.gpio_num = (gpio_num_t)HAL_ESP32_RCIN;
+#else
+    #error 'please define which pin the RC input is connected to with HAL_ESP32_RCIN in your esp32xxx.h'
 #endif
-#if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_DIY
-    config.gpio_num = (gpio_num_t)4;
-#endif
-#if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_BUZZ
-    config.gpio_num = (gpio_num_t)4;
-#endif
-#if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_S3BUZZ
-    config.gpio_num = (gpio_num_t)4; // not checked
-#endif
+
     config.clk_div = RMT_CLK_DIV;
     config.mem_block_num = 1;
     config.rx_config.filter_en = true;

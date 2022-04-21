@@ -204,7 +204,7 @@
 //  as mmc uses specific pins but is quicker,
 #define HAL_ESP32_SDMMC 1
 // and spi is more flexible pinouts....  dont forget SPI3/SPI2 should be selected to NOT conflict with SPI_BUSES above
-//#define HAL_ESP32_SDSPI {.host=SPI3_HOST, .dma_ch=2, .mosi=GPIO_NUM_2, .miso=GPIO_NUM_15, .sclk=GPIO_NUM_14, .cs=GPIO_NUM_21}
+//#define HAL_ESP32_SDSPI {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_2, .miso=GPIO_NUM_15, .sclk=GPIO_NUM_14, .cs=GPIO_NUM_21}
 
 #define HAL_ESP32_SDCARD 1
 #define LOGGER_MAVLINK_SUPPORT 1
