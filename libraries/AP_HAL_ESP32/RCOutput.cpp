@@ -27,6 +27,10 @@
 
 #include <stdio.h>
 
+# if CONFIG_HAL_S3 == 1
+#include "esp_sleep.h"
+#endif
+
 extern const AP_HAL::HAL& hal;
 
 using namespace ESP32;
@@ -52,8 +56,14 @@ void RCOutput::init()
 
 
     //32 and 33 are special as they dont default to gpio, but can be if u disable their rtc setup:
+
+
+# if CONFIG_HAL_S3 == 1
+    esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL); // no sleeping
+#else
     rtc_gpio_deinit(GPIO_NUM_32);
     rtc_gpio_deinit(GPIO_NUM_33);
+#endif
 
     printf("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo\n");
     printf("RCOutput::init() - channels available: %d \n",(int)MAX_CHANNELS);

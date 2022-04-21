@@ -116,11 +116,11 @@
 #define HAL_INS_MPU9250_NAME "mpu9250"
 
 // uncommenting one or more of these will give more console debug in certain areas..
-//#define INSEDEBUG 1
-//#define STORAGEDEBUG 1
+#define INSEDEBUG 1
+#define STORAGEDEBUG 1
 #define SCHEDDEBUG 1
-//#define FSDEBUG 1
-//#define BUSDEBUG 1
+#define FSDEBUG 1
+#define BUSDEBUG 1
 
 #define HAL_INS_PROBE_LIST PROBE_IMU_SPI( Invensense, HAL_INS_MPU9250_NAME, ROTATION_NONE)
 //#define HAL_INS_PROBE_LIST PROBE_IMU_SPI( Invensense, HAL_INS_MPU9250_NAME, ROTATION_ROLL_180)

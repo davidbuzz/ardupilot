@@ -20,7 +20,7 @@
 #if HAVE_FILESYSTEM_SUPPORT
 #if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
 
-#define FSDEBUG 0
+#define FSDEBUG 1
 
 #include <utime.h>
 

@@ -96,11 +96,13 @@ void WiFiDriver::set_blocking_writes(bool blocking)
 
 bool WiFiDriver::tx_pending()
 {
+    if (_state == NOT_INITIALIZED) { return 0; }
     return (_writebuf.available() > 0);
 }
 
 uint32_t WiFiDriver::available()
 {
+    if (_state == NOT_INITIALIZED) { return 0; }
     if (_state != CONNECTED) {
         return 0;
     }
@@ -109,6 +111,7 @@ uint32_t WiFiDriver::available()
 
 uint32_t WiFiDriver::txspace()
 {
+    if (_state == NOT_INITIALIZED) { return 0; }
     if (_state != CONNECTED) {
         return 0;
     }
@@ -119,6 +122,7 @@ uint32_t WiFiDriver::txspace()
 
 int16_t WiFiDriver::read()
 {
+    if (_state == NOT_INITIALIZED) { return -1; }
     if (_state != CONNECTED) {
         return -1;
     }
@@ -131,6 +135,7 @@ int16_t WiFiDriver::read()
 
 bool WiFiDriver::start_listen()
 {
+    if (_state == NOT_INITIALIZED) { return false; }
     accept_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (accept_socket < 0) {
         accept_socket = -1;
@@ -163,6 +168,7 @@ bool WiFiDriver::start_listen()
 
 bool WiFiDriver::try_accept()
 {
+    if (_state == NOT_INITIALIZED) { return false; }
     struct sockaddr_in sourceAddr;
     uint addrLen = sizeof(sourceAddr);
     short i = available_socket();
@@ -179,6 +185,7 @@ bool WiFiDriver::try_accept()
 
 bool WiFiDriver::read_data()
 {
+    if (_state == NOT_INITIALIZED) { return false; }
     for (unsigned short i = 0; i < WIFI_MAX_CONNECTION && socket_list[i] > -1; ++i) {
         int count = 0;
         do {
@@ -202,6 +209,7 @@ bool WiFiDriver::read_data()
 
 bool WiFiDriver::write_data()
 {
+    if (_state == NOT_INITIALIZED) { return false; }
     for (unsigned short i = 0; i < WIFI_MAX_CONNECTION && socket_list[i] > -1; ++i) {
         int count = 0;
         _write_mutex.take_blocking();
@@ -335,6 +343,9 @@ void WiFiDriver::_wifi_thread(void *arg)
                 }
             }
         }
+        if (self->_state == NOT_INITIALIZED) {
+          hal.scheduler->delay_microseconds(65534);
+        }
     }
 }
 
@@ -345,6 +356,7 @@ bool WiFiDriver::discard_input()
 
 unsigned short WiFiDriver::available_socket()
 {
+    if (_state == NOT_INITIALIZED) { return 0; }
     for (unsigned short i = 0; i < WIFI_MAX_CONNECTION; ++i)
         if (socket_list[i] == -1) {
             return i;
