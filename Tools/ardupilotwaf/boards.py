@@ -724,6 +724,8 @@ class esp32(Board):
             CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_ESP32_%s' %  tt.upper() ,
             ALLOW_DOUBLE_MATH_FUNCTIONS = '1',
         )
+        print('SUBTYPE:HAL_BOARD_SUBTYPE_ESP32_%s' %  tt.upper())
+        # make sure this subtype exists in AP_HAL/AP_HAL_Boards.h and AP_HAL/board/esp32.h
 
         env.AP_LIBRARIES += [
             'AP_HAL_ESP32',
@@ -800,6 +802,8 @@ class esp32s3(Board):
             CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_ESP32_%s' %  tt.upper() ,
             ALLOW_DOUBLE_MATH_FUNCTIONS = '1',
         )
+        print('SUBTYPE:HAL_BOARD_SUBTYPE_ESP32_%s' %  tt.upper())
+        # make sure this subtype exists in AP_HAL/AP_HAL_Boards.h and AP_HAL/board/esp32.h
 
         env.AP_LIBRARIES += [
             'AP_HAL_ESP32',
