@@ -56,6 +56,7 @@ uint64_t millis64()
 
 } // namespace AP_HAL
 
+// the main entry point of 'main' is hal.run().
 const AP_HAL::HAL& AP_HAL::get_HAL()
 {
     static const HAL_ESP32 hal;

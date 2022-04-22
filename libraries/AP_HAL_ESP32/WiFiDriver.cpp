@@ -52,6 +52,10 @@ extern "C" void phy_bbpll_en_usb(bool en);
 
 WiFiDriver::WiFiDriver(uint8_t id)
 {
+    #ifdef WIFIDEBUG
+    printf("%s:%d WiFiDriver constructed!\n", __PRETTY_FUNCTION__, __LINE__);
+    #endif
+
     _state = NOT_INITIALIZED;
     accept_socket = -1;
 

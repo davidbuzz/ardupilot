@@ -40,11 +40,14 @@
 #define HAL_UARTA_DRIVER ESP32::UARTDriver    uartADriver(0)
 // gps
 #define HAL_UARTB_DRIVER ESP32::UARTDriver    uartBDriver(1)
+// telem:
+#define HAL_UARTC_DRIVER ESP32::UARTDriver    uartCDriver(2)
 //tcp, client should connect to 192.168.4.1 port 5760:
-#define HAL_UARTC_DRIVER ESP32::WiFiDriver    uartCDriver(2) 
+#define HAL_UARTD_DRIVER ESP32::WiFiDriver    uartDDriver(3) 
 //udp, client should connect as UDPCL to 192.168.4.1 port 14550
 //#define HAL_UARTD_DRIVER ESP32::WiFiUdpDriver uartDDriver(3) 
-#define HAL_UARTD_DRIVER Empty::UARTDriver    uartDDriver(3) 
+
+
 //telem on other uart, if u have one
 #define HAL_UARTE_DRIVER Empty::UARTDriver    uartEDriver(4) 
 //unused
@@ -85,6 +88,7 @@ static ESP32::Util utilInstance;
 static Empty::OpticalFlow opticalFlowDriver;
 static Empty::Flash flashDriver;
 
+// the main entry point of 'main' is hal.run().
 extern const AP_HAL::HAL& hal;
 
 HAL_ESP32::HAL_ESP32() :
@@ -117,6 +121,7 @@ HAL_ESP32::HAL_ESP32() :
     )
 {}
 
+// the main entry point of 'main' is hal.run()... where we basically just run the scheduler's init()..
 void HAL_ESP32::run(int argc, char * const argv[], Callbacks* callbacks) const
 {
     ((ESP32::Scheduler *)hal.scheduler)->set_callbacks(callbacks);

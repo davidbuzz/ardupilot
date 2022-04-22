@@ -101,7 +101,7 @@ void Scheduler::init()
     xTaskCreate(_rcout_thread, "APM_RCOUT", RCOUT_SS, this, RCOUT_PRIO, &_rcout_task_handle);
     xTaskCreate(_rcin_thread, "APM_RCIN", RCIN_SS, this, RCIN_PRIO, &_rcin_task_handle);
     xTaskCreate(_uart_thread, "APM_UART", UART_SS, this, UART_PRIO, &_uart_task_handle);
-    xTaskCreate(_io_thread, "APM_IO", IO_SS, this, IO_PRIO, &_io_task_handle);
+    xTaskCreate(_io_thread, "APM_IO", IO_SS, this, IO_PRIO, &_io_task_handle); //SD is mounted by this thread when it starts.
     xTaskCreate(_storage_thread, "APM_STORAGE", STORAGE_SS, this, STORAGE_PRIO, &_storage_task_handle); //no actual flash writes without this, storage kinda appears to work, but does an erase on every boot and params don't persist over reset etc.
 
     //   xTaskCreate(_print_profile, "APM_PROFILE", IO_SS, this, IO_PRIO, nullptr);
@@ -500,7 +500,7 @@ void Scheduler::print_stats(void)
 void IRAM_ATTR Scheduler::_main_thread(void *arg)
 {
 //#ifdef SCHEDDEBUG
-    printf("%s:%d _main_thread start\n", __PRETTY_FUNCTION__, __LINE__);
+    printf("\n%s:%d _main_thread start\n", __PRETTY_FUNCTION__, __LINE__);
 //#endif
     Scheduler *sched = (Scheduler *)arg;
     hal.serial(0)->begin(115200); // console on cdc USB
