@@ -176,14 +176,23 @@
 
 // s3: has 3 real uarts, were using 2 atm
 // https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/api-reference/peripherals/uart.html
-// according to hAL_ESP32_Class.cpp, we use TWO real UARTS right now: 0=zero=console=usb, and 1=one=gps
+//
+// "the USB Serial/JTAG Controller is a fixed function device, implemented entirely in hardware. 
+//  This means it cannot be reconfigured to perform any function other than to provide a serial channel and JTAG debugging functionality."
+//
+// according to hAL_ESP32_Class.cpp, we use one fake (USB/jtag) and TWO real UARTS right now: 
+//0=zero=console=labeled-USB-cdc-jtag(fake)
+//1=one=gps(real) 5/6
+//2=usb-labeled-UART-with-cp2102 for mavlink(real) 39/40
+//
 //  {.port=UART_NUM_0, .rx=GPIO_NUM_19, .tx=GPIO_NUM_20 },
 #define HAL_ESP32_UART_DEVICES \
   {.port=UART_NUM_1, .rx=GPIO_NUM_5, .tx=GPIO_NUM_6 },\
   {.port=UART_NUM_2, .rx=GPIO_NUM_40, .tx=GPIO_NUM_39 }
   // on devkit-m board, micro pins 19/20 are routed to USB port labeled 'USB' ( and used for flash/debug etc)
   // on devkit-m board, micro pins U0RXD(40)/U0TXD(39) are routed via a cp2102 chip eventually to USB port labeled 'UART'
-  //tip: don't try to use pin 19/20 as uart pins as messes with using gdb over usb
+  //tip: we don't try to reconfigure pins 19/20 as uart above as IDF gets it right and can with using gdb over usb if we touch it
+  //tip: S3 release/v4.4 docs are WRONG and mention pins 18/19, but its really 19/20 and correct on S3 'master' docs
 
 #define HAVE_FILESYSTEM_SUPPORT 1
 

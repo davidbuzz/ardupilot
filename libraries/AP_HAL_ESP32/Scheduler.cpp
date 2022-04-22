@@ -503,11 +503,12 @@ void IRAM_ATTR Scheduler::_main_thread(void *arg)
     printf("%s:%d _main_thread start\n", __PRETTY_FUNCTION__, __LINE__);
 //#endif
     Scheduler *sched = (Scheduler *)arg;
-    hal.serial(0)->begin(115200); // console
+    hal.serial(0)->begin(115200); // console on cdc USB
     hal.serial(1)->begin(57600); //gps
-    hal.serial(2)->begin(115200); // wifi tcp
-    //hal.serial(3)->begin(115200); // wifi udp
-    //hal.serial(4)->begin(115200); // telem on other uart, if u have one?
+    hal.serial(2)->begin(115200); // other usb-UART with cp2102 on it
+    hal.serial(3)->begin(115200); // wifi tcp
+    //hal.serial(4)->begin(115200); // wifi udp
+    //hal.serial(5)->begin(115200); // telem on other uart, if u have one?
     // 5- onwards are 'Empty' on esp32
 
 #ifndef HAL_DISABLE_ADC_DRIVER
