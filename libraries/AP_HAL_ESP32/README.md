@@ -86,11 +86,10 @@ ESP32S3:
 cd build/esp32{BOARD}/esp-idf_build_s3  
 ninja menuconfig
 ```
-navigate to [save]  (tab,tab,tab,enter)
-press [tab] then [ok] to update the sdkconfig file
+navigate to [save]  (arrows to navigate, 'esc' or 'q' to quit, 's' to save)
 'config written' press [enter] to exit this dialog
-press [tab] then enter on the [exit]  box to exit the app
-done.    the 'sdkconfig' file in this folder should have been updated
+press esc or 'q' to exit the app
+done.    the 'sdkconfig' file in the libraries/AP_HAL_ESP32/targets/esp-idf-s3/ folder should have been updated, using the defaults found in sdkconfig.defaults
 cd ../../../..
 
 After any sort of sdkconfig ot sdkconfig.defaults changes, you need to 'rm -rf 'build' , and re-run from ./waf configure ... ' in order for those changes to properly take effect.
