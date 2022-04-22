@@ -75,38 +75,18 @@
 #define HAL_USE_ADC TRUE
 
 // the pin number, the gain/multiplier associated with it, the ardupilot name for the pin in parameter/s.
-// two different pin numbering schemes, both are ok, but only one at a time:
-// #define HAL_ESP32_ADC_PINS_OPTION1 {
-// 	{ADC1_GPIO35_CHANNEL, 11, 1},
-// 	{ADC1_GPIO34_CHANNEL, 11, 2},
-// 	{ADC1_GPIO39_CHANNEL, 11, 3},
-// 	{ADC1_GPIO36_CHANNEL, 11, 4}
-// }
-// #define HAL_ESP32_ADC_PINS_OPTION2 {
-// 	{ADC1_GPIO35_CHANNEL, 11, 35},
-// 	{ADC1_GPIO34_CHANNEL, 11, 34},
-// 	{ADC1_GPIO39_CHANNEL, 11, 39},
-// 	{ADC1_GPIO36_CHANNEL, 11, 36}
-// }
-//s3
-#define HAL_ESP32_ADC_PINS_OPTION3 {\
-	{ADC1_GPIO1_CHANNEL, 11, 34},\
-	{ADC1_GPIO2_CHANNEL, 11, 35},\
-}
-	// {ADC1_GPIO3_CHANNEL, 11, 36},
-	// {ADC1_GPIO4_CHANNEL, 11, 37}
-	// {ADC1_GPIO5_CHANNEL, 11, 38}
-	// {ADC1_GPIO6_CHANNEL, 11, 49}
-	// {ADC1_GPIO7_CHANNEL, 11, 40}
-	// {ADC1_GPIO8_CHANNEL, 11, 41}
-	// {ADC1_GPIO9_CHANNEL, 11, 42}
-	// {ADC1_GPIO10_CHANNEL, 11, 43}
+// different pin numbering schemes, both are ok, but only one at a time:
 
-// pick one:
-//#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION1
-//#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION2
+//s3
+#define HAL_ESP32_ADC_PINS_OPTION1 {\
+	{ADC1_GPIO1_CHANNEL, 11, 35},\
+	{ADC1_GPIO2_CHANNEL, 11, 34},\
+	{ADC1_GPIO3_CHANNEL, 11, 10},\
+	{ADC1_GPIO4_CHANNEL, 11, 11},\
+}
+
 // this one is for esp32s3 , which only has ADC1_GPIOX_CHANNEL with X from 1-10
-#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION3
+#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION1
 
 
 
@@ -148,7 +128,8 @@
 #define WIFI_SSID "ardupilot123"
 #define WIFI_PWD "ardupilot123"
 
-// on esp32s3, some pins aren't defined, such as 'GPIO_NUM_23', just pick a different pin. disallowed:0,3, 19,20,  22,23,24,25, 26,27,28,29,30,31,32, 39,40,41,42 , 43,44, 45,46  esp32s3 - range 0-48. 
+// on esp32s3, some pins aren't defined, such as 'GPIO_NUM_23', just pick a different pin. 
+// disallowed:0,3, 19,20,  22,23,24,25, 26,27,28,29,30,31,32, 39,40,41,42 , 43,44, 45,46  esp32s3 - range 0-48. 
 // 22,23,24,25 - these are totally absent.
 // 19,20  - these are D+/D- for the integrated USB port/peripheral that does CDC or OTG etc.   the 'USB' labled one near the reset button.
 // 43(u0tx),44(u0rx) , also has 15(u0rts),16(u0cts) - these are D+/D- for the 'uart' port, that is not smart, and the flow control lines, these are also known as U0TXD,U0RXD the 'USB' labled one near the reset button.
@@ -180,8 +161,8 @@
 
 // SPI per-device setup, including speeds, etc.
 #define HAL_ESP32_SPI_DEVICES \
-    {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_7,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
-//    {.name= "bmp280", .bus=0, .device=1, .cs=GPIO_NUM_26, .mode = 3, .lspeed=1*MHZ, .hspeed=1*MHZ}, 
+    {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_9,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ},\
+    {.name= "bmp280", .bus=0, .device=1, .cs=GPIO_NUM_7, .mode = 3, .lspeed=1*MHZ, .hspeed=1*MHZ}
 //#define HAL_ESP32_SPI_DEVICES {}
 
 //I2C bus list
@@ -193,11 +174,16 @@
 // rcin on what pin?
 #define HAL_ESP32_RCIN GPIO_NUM_4
 
-
-//HARDWARE UARTS  esp32s3 uart0-5/6 , uart1 = 19/20
+// s3: has 3 real uarts, were using 2 atm
+// https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/api-reference/peripherals/uart.html
+// according to hAL_ESP32_Class.cpp, we use TWO real UARTS right now: 0=zero=console=usb, and 1=one=gps
+//  {.port=UART_NUM_0, .rx=GPIO_NUM_19, .tx=GPIO_NUM_20 },
 #define HAL_ESP32_UART_DEVICES \
-  {.port=UART_NUM_0, .rx=GPIO_NUM_5, .tx=GPIO_NUM_6 }
-  //,{.port=UART_NUM_1, .rx=GPIO_NUM_20, .tx=GPIO_NUM_19 } don't tryto use second uart when using gdb over usb
+  {.port=UART_NUM_1, .rx=GPIO_NUM_5, .tx=GPIO_NUM_6 },\
+  {.port=UART_NUM_2, .rx=GPIO_NUM_40, .tx=GPIO_NUM_39 }
+  // on devkit-m board, micro pins 19/20 are routed to USB port labeled 'USB' ( and used for flash/debug etc)
+  // on devkit-m board, micro pins U0RXD(40)/U0TXD(39) are routed via a cp2102 chip eventually to USB port labeled 'UART'
+  //tip: don't try to use pin 19/20 as uart pins as messes with using gdb over usb
 
 #define HAVE_FILESYSTEM_SUPPORT 1
 

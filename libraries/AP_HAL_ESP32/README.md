@@ -80,7 +80,10 @@ this means your 'sdkconfig' file that the IDF relies on is perhaps a bit out of 
 So double check you are using the correct IDF version ( buzz's branch uses v3.3 , sh83's probably does not.. and then if you are sure:
 ```
 # yes, the 'build' folder....
+ESP32 classic:
 cd build/esp32{BOARD}/esp-idf_build  
+ESP32S3:
+cd build/esp32{BOARD}/esp-idf_build_s3  
 ninja menuconfig
 ```
 navigate to [save]  (tab,tab,tab,enter)
@@ -123,7 +126,10 @@ ESPTOOL_BAUD=921600
 
 You can find more info here : [ESPTOOL](https://github.com/espressif/esptool)
 
+classic ESP32:
 You can also find the cmake esp-idf project at `libraries/AP_HAL_ESP32/targets/esp-idf` for idf.py command. But see next section to understand how ardupilot is compiled on ESP32.
+ESP32S3:
+You can also find the cmake esp-idf project at `libraries/AP_HAL_ESP32/targets/esp-idf-s3` for idf.py command. But see next section to understand how ardupilot is compiled on ESP32.
 
 ---
 OLD
@@ -157,37 +163,55 @@ After flashing the esp32 , u can connect with a terminal app of your preference 
 
 ### Console/usb/boot-messages/mavlink telem aka serial0/uart0:
 
-| ESP32 | CP2102 |
-| ---   | ---    |
-| GPIO3 | UART_TX |  AKA UART0_RX |
-| GPIO1 | UART_RX |  AKA UART0_TX |
+tip: no mavlink on ESP32S3, just console msgs and debug info.
+
+| ESP32S3        | ESP32 | CP2102 |
+| ---            | ---   | ---    |
+| 'USB'/GPIO19   | GPIO3 | UART_TX |  AKA UART0_RX |
+| 'USB'/GPIO20   | GPIO1 | UART_RX |  AKA UART0_TX |
 
 ### GPS aka serial1/uart1:
 
-| ESP32       | GPS       |
-| ---         | ---       |
-| GPIO17 (TX) | GPS (RX)  |
-| GPIO16 (RX) | GPS (TX)  |
-| GND         |      GND  |
-| 5v          |      Pwr  |
+| ESP32S3     | ESP32       | GPS       |
+| ---         | ---         | ---       |
+| GPIO6 (TX)  | GPIO17 (TX) | GPS (RX)  |
+| GPIO5 (RX)  | GPIO16 (RX) | GPS (TX)  |
+| GND         | GND         |      GND  |
+| 5v          | 5v          |      Pwr  |
+
+### mavlink telem aka serial2/uart2:
+
+tip: on ESP32S3, this extra telem link is on the micro USB port labeled 'UART', and is routed from the micro via a cp2102 chip.
+tip: not avail on classic ESP32, not enough pins.
+
+| ESP32S3     | ESP32       | GPS       |
+| ---         | ---         | ---       |
+| GPIO39 (TX) | ---         | GPS (RX)  |
+| GPIO40 (RX) | ---         | GPS (TX)  |
+| GND         | ---         |      GND  |
+| 5v          | ---         |      Pwr  |
 
 ### RC reciever connection:
 
-|ESP32| RCRECIEVER |
-| --- |    ---     |
-| D4  |  CPPM-out  |
-| GND |       GND  |
-| 5v  |       Pwr  |
+ESP32 'classic' and ESP32S3 are wired the same.
+
+|ESP32/S3| RCRECIEVER |
+| ---    |    ---     |
+| D4     |  CPPM-out  |
+| GND    |       GND  |
+| 5v     |       Pwr  |
 
 
 ###  I2C connection ( for gps with leds/compass-es/etc onboard, or digital airspeed sensorrs, etc):
 
-| ESP32   | I2C       |
-| ---     | ---       |
-| GPIO12  | SCL       |
-| GPIO13  | SDA       |
-| GND     | GND       |
-| 5v      | Pwr       |
+ESP32 'classic' and ESP32S3 are wired the same.
+
+| ESP32/S3   | I2C       |
+| ---        | ---       |
+| GPIO12     | SCL       |
+| GPIO13     | SDA       |
+| GND        | GND       |
+| 5v         | Pwr       |
 
 
 ### Compass (using i2c)
@@ -201,49 +225,37 @@ COMPASS_EXTERN3=1
 
 2nd column is the ardupilot _PIN number and matches what u specify in the third column of HAL_ESP32_ADC_PINS #define elsewhere :
 
-if HAL_ESP32_ADC_PINS == HAL_ESP32_ADC_PINS_OPTION1:
-| ESP32   | AnalogIn  |
-| ---     | ---       |
-| GPIO35  | 1         |
-| GPIO34  | 2         |
-| GPIO39  | 3         |
-| GPIO36  | 4         |
-| GND     | GND       |
+| ESP32S3 -> Ardu-AnalogIn | ESP32 -> Ardu-AnalogIn |
+| ---                      | ---                   |
+| GPIO35  -> 1             | GPIO35  -> 35         |
+| GPIO34  -> 2             | GPIO34  -> 34         |
+| GPIO10  -> 3             | GPIO39  -> 39         |
+| GPIO11  -> 4             | GPIO36  -> 36         |
+| GND     -> GND           | GND     -> GND        |
 
-eg, set ardupilot params like this:
-RSSI_ANA_PIN  = 3  - and it will attempt to read the adc value on GPIO39 for rssi data
-BATT_CURR_PIN = 2  - and it will attempt to read the adc value on GPIO34 for battery current
+eg, ESP32S3 , set ardupilot params like this:
 BATT_VOLT_PIN = 1  - and it will attempt to read the adc value on GPIO35 for  battery voltage
-ARSPD_PIN =     4  - and it will attempt to read the adc value on GPIO36 for analog airspeed data
-
-
-if HAL_ESP32_ADC_PINS == HAL_ESP32_ADC_PINS_OPTION2:
-| ESP32   | AnalogIn   |
-| ---     | ---        |
-| GPIO35  | 35         |
-| GPIO34  | 34         |
-| GPIO39  | 39         |
-| GPIO36  | 36         |
-| GND     | GND        |
-
-eg, set ardupilot params like this:
-RSSI_ANA_PIN =  39  - and it will attempt to read the adc value on GPIO39 for rssi data
-BATT_CURR_PIN = 34  - and it will attempt to read the adc value on GPIO34 for battery current
+BATT_CURR_PIN = 2  - and it will attempt to read the adc value on GPIO34 for battery current
+RSSI_ANA_PIN  = 3  - and it will attempt to read the adc value on GPIO10 for rssi data
+ARSPD_PIN =     4  - and it will attempt to read the adc value on GPIO11 for analog airspeed data
+OR:
+eg, ESP32 , set ardupilot params like this:
 BATT_VOLT_PIN = 35  - and it will attempt to read the adc value on GPIO35 for  battery voltage
+BATT_CURR_PIN = 34  - and it will attempt to read the adc value on GPIO34 for battery current
+RSSI_ANA_PIN =  39  - and it will attempt to read the adc value on GPIO39 for rssi data
 ARSPD_PIN =     36  - and it will attempt to read the adc value on GPIO36 for analog airspeed data
-
 
 
 ### RC Servo connection/s
 
-| BuzzsPcbHeader|ESP32|  RCOUT   |TYPICAL |
-|     ---       | --- |   ---    | ---    |
-|  servo1       |PIN25|SERVO-OUT1|AILERON |
-|  servo2       |PIN27|SERVO-OUT2|ELEVATOR|
-|  servo3       |PIN33|SERVO-OUT3|THROTTLE|
-|  servo4       |PIN32|SERVO-OUT4| RUDDER |
-|  servo5       |PIN22|SERVO-OUT5| avail  |
-|  servo6       |PIN21|SERVO-OUT6| avail  |
+| BuzzsPcbHeader|ESP32S3|ESP32|  RCOUT   |TYPICAL |
+|     ---       |  ---  | --- |   ---    | ---    |
+|  servo1       | PIN47 |PIN25|SERVO-OUT1|AILERON |
+|  servo2       | PIN37 |PIN27|SERVO-OUT2|ELEVATOR|
+|  servo3       | PIN33 |PIN33|SERVO-OUT3|THROTTLE|
+|  servo4       | PIN38 |PIN32|SERVO-OUT4| RUDDER |
+|  servo5       | PIN36 |PIN22|SERVO-OUT5| avail  |
+|  servo6       | PIN21 |PIN21|SERVO-OUT6| avail  |
 
 If you don't get any PWM output on any/some/one of the pins while ardupilot is running, be sure you have set all of these params:
 //ail
@@ -264,19 +276,35 @@ SERVO6_FUNCTION = 4
 (If the RTC source is not required, then Pin12 32K_XP and Pin13 32K_XN can be used as digital GPIOs, so we do, and it works)
 
 
-### GY-91 connection
-This is how buzz has the GY91 wired ATM, but its probable that connecting external 3.3V supply to the VIN is better than connecting a 5V supply, and then the 3V3 pin on the sensor board can be left disconnected, as it's actually 3.3v out from the LDO onboard.
+### GY-91 connection - ESP32 and ESP32S3 are wired differenty. 
+This is how buzz has the GY91 wired. 
 
-|ESP32|GY-91|
-|---|---|
-|GND|GND|
-|5V|VIN|
-|3.3V|3V3|
-|IO5|NCS|
-|IO23|SDA|
-|IO19|SDO/SAO|
-|IO18|SCL|
-|IO26|CSB|
+Don't connect the GY-91's 3V3 to anything,as it's actually 3.3v out from the LDO onboard.
+
+tips:
+'3V3' label on conector of sensor board can be left disconnected.
+'CSB' label on conector is wired to the BMP280's CSB/chip-select
+'NCS' label on conector is wired to the  MPU9250's nCS/chip-select
+SDA,SCL,SDO labels on conector are wired to BOTH chips.
+for the esp32s3 bus:
+miso=SDA=48
+mosi=SDO/SAO=8
+clk/sclk=SCL=18
+for the esp32 classic bus:
+miso=SDA=23
+mosi=SDO/SAO=19
+clk/sclk=SCL=18
+
+|ESP32S3|ESP32|GY-91|
+|---|---|---|
+|GND|GND|GND|
+|5V|5V|VIN|
+|n/c|n/c|3V3|
+|IO9|IO5|NCS|
+|IO48|IO23|SDA|x
+|IO8|IO19|SDO/SAO|x
+|IO18|IO18|SCL|x
+|IO7|IO26|CSB|x
 
 ## debugger connection for classic/original ESP32
 Currently used debugger is called a 'TIAO USB Multi Protocol Adapter' which is a red PCB with a bunch of jtag headers on it and doesn't cost too much. https://www.amazon.com/TIAO-Multi-Protocol-Adapter-JTAG-Serial/dp/B0156ML5LY
@@ -300,6 +328,8 @@ On the 'ESP32-S3-DevKitM' , as an eample, one is labeled UART, and the other USB
 
 On the 'DevKitM' we found we needed to use the 'USB' labeled one, which is the one nearest the 'RESET' button ( this board has two buttons ).
 
+If S3 board won't start/flash, hold BOOT while briefly pressing RESET to put it into bootloader mode, then flash it.
+
 Basic 'debugger' setup... you'll need TWO terminal windows to run the debugger... one for 'openocd' and another for 'gdb'....
 
 prerequisite:   we asume you have successfully compiled and flashed your esp32s3 with an ardupilot esp32 firmware compiled with --debug  and you know where the .elf for it is.
@@ -318,7 +348,6 @@ sudo service udev restart
 sudo usermod -a -G dialout `whoami`
 sudo usermod -a -G plugdev `whoami`
 ```
-
 
 terminal one:
 ```
@@ -345,15 +374,16 @@ c
 ... your debugger is running!, we  hope.
 
 
-## SDCARD connection
+## SDCARD connection - ESP32 and ESP32S3 are wired the same. this is 'MMC' pinout and can't be adjusted without changing to a SPI based wiring, which is slower.
+# tip:for those prototyping, get a micro-sd-to-sd adaptor, and solder short wires to it as needed, then put a micro-sd in it. i seem to have those adaptors lying around everywhere.
 
-|ESP32|  SDCARD  |
-| --- |     ---  |
-|D2   | D0/PIN7  |
-|D14  | CLK/PIN5 |
-|D15  | CMD/PIN2 |
-|GND  | Vss1/PIN3 and Vss2/PIN6 |
-|3.3v | Vcc/PIN4 |
+|ESP32/S3|  SDCARD  |
+|   ---  |     ---  |
+|  D2    | D0/PIN7  |
+|  D14   | CLK/PIN5 |
+|  D15   | CMD/PIN2 |
+|  GND   | Vss1/PIN3 and Vss2/PIN6 |
+|  3.3v  | Vcc/PIN4 |
 
 ## Current progress
 ### Main tasks
