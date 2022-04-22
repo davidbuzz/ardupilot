@@ -89,14 +89,17 @@ ninja menuconfig
 navigate to [save]  (arrows to navigate, 'esc' or 'q' to quit, 's' to save)
 'config written' press [enter] to exit this dialog
 press esc or 'q' to exit the app
+done.    the 'sdkconfig' file in the libraries/AP_HAL_ESP32/targets/esp-idf/    folder should have been updated, using the defaults found in sdkconfig.defaults
 done.    the 'sdkconfig' file in the libraries/AP_HAL_ESP32/targets/esp-idf-s3/ folder should have been updated, using the defaults found in sdkconfig.defaults
 cd ../../../..
 
 After any sort of sdkconfig ot sdkconfig.defaults changes, you need to 'rm -rf 'build' , and re-run from ./waf configure ... ' in order for those changes to properly take effect.
 
-OR locate the 'libraries/AP_HAL_ESP32/targets/esp-idf/sdkconfig' and delete it, as it should call back to the 'sdkconfig.defaults' file if its not there.
+OR locate the 'libraries/AP_HAL_ESP32/targets/esp-idf/sdkconfig'    and delete it, as it should call back to the 'sdkconfig.defaults' file if its not there.
+OR locate the 'libraries/AP_HAL_ESP32/targets/esp-idf-s3/sdkconfig' and delete it, as it should call back to the 'sdkconfig.defaults' file if its not there.
 
-'cd libraries/AP_HAL_ESP32/targets/esp-idf ; idf.py defconfig' is the command that updates it, but that shouldn't be needed manually, we don't think.
+'cd libraries/AP_HAL_ESP32/targets/esp-idf ;    idf.py defconfig' is the command that updates it, but that shouldn't be needed manually, we don't think.
+'cd libraries/AP_HAL_ESP32/targets/esp-idf-s3 ; idf.py defconfig' is the command that updates it, but that shouldn't be needed manually, we don't think.
 
 ... try ./waf plane"
 
@@ -105,7 +108,7 @@ OR locate the 'libraries/AP_HAL_ESP32/targets/esp-idf/sdkconfig' and delete it, 
 ESPBAUD=921600 ./waf plane --upload
 ```
 
-6. The espressif esp-idf original project is built at `cd build/esp32{BOARD}/esp-idf_build/`.
+6. The espressif esp-idf original project is built at `cd build/esp32{BOARD}/esp-idf_build/` or for S3: `cd build/esp32{BOARD}/esp-idf_build_s3/`
 You can use your default build system (make or ninja) to build other esp-idf target.
 
 For example :
@@ -153,7 +156,7 @@ The ardupilot.elf contains all symbol. The cmake provide a stripped version as a
 
 
 ## Test hardware
-Currently esp32 dev board with connected gy-91 10dof sensor board is supported. Pinout (consult UARTDriver.cpp and SPIDevice.cpp for reference):
+Currently esp32 dev board with connected gy-91 10dof sensor board is supported. Pinout in this readme, and (consult UARTDriver.cpp and SPIDevice.cpp for reference):
 
 ### Uart connecion/s
 Internally connected on most devboards, just for reference.
