@@ -65,20 +65,20 @@ public:
     static const int TIMER_PRIO = 15;
     static const int RCIN_PRIO = 15;
     static const int RCOUT_PRIO = 10;
-    static const int WIFI_PRIO = 40;
+    static const int WIFI_PRIO = 7;
     static const int UART_PRIO = 6;
     static const int IO_PRIO = 5;
     static const int STORAGE_PRIO = 4;
 
-    static const int TIMER_SS = 4096;
+    static const int TIMER_SS = 2048;
     static const int MAIN_SS = 4096;
-    static const int RCIN_SS = 4096;
-    static const int RCOUT_SS = 4096;
-    static const int WIFI_SS = 4096;
+    static const int RCIN_SS = 2048;
+    static const int RCOUT_SS = 2048;
+    static const int WIFI_SS = 4096; //2048 not enuf
     static const int UART_SS = 2048;
-    static const int DEVICE_SS = 4096;
+    static const int DEVICE_SS = 2048;
     static const int IO_SS = 4096;
-    static const int STORAGE_SS = 4096;
+    static const int STORAGE_SS = 4096; //2048 not enuf
 
 private:
     AP_HAL::HAL::Callbacks *callbacks;
@@ -93,6 +93,12 @@ private:
     static bool _initialized;
 
 
+    // enum ConnectionState {
+    //     NOT_INITIALIZED,
+    //     INITIALIZED,
+    //     CONNECTED
+    // };
+
 
     tskTaskControlBlock *_main_task_handle;
     tskTaskControlBlock *_timer_task_handle;
@@ -102,12 +108,14 @@ private:
     tskTaskControlBlock *_io_task_handle;
     tskTaskControlBlock *test_task_handle;
     tskTaskControlBlock *_storage_task_handle;
+    tskTaskControlBlock *_wifi_task_handle;
 
     static void _main_thread(void *arg);
     static void _timer_thread(void *arg);
     static void _rcout_thread(void *arg);
     static void _rcin_thread(void *arg);
     static void _uart_thread(void *arg);
+    static void _wifi_thread(void *arg);
     static void _io_thread(void *arg);
     static void _storage_thread(void *arg);
 

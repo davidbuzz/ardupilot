@@ -17,6 +17,7 @@
 #include "AP_HAL_ESP32/RCInput.h"
 #include "AP_HAL_ESP32/AnalogIn.h"
 #include "AP_Math/AP_Math.h"
+#include "WiFiDriver.h"
 #include "SdCard.h"
 #include "Profile.h"
 
@@ -91,18 +92,22 @@ void disableCore1WDT()
 void Scheduler::init()
 {
 
+        delay(2000); // delay boot so we can see more console messages on uart, 4 debug only, remove for prod if u hate boot delays
+
+
 #ifdef SCHEDDEBUG
     printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
 
     //xTaskCreatePinnedToCore(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle, 0);
-    xTaskCreate(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle);
-    xTaskCreate(_timer_thread, "APM_TIMER", TIMER_SS, this, TIMER_PRIO, &_timer_task_handle);
-    xTaskCreate(_rcout_thread, "APM_RCOUT", RCOUT_SS, this, RCOUT_PRIO, &_rcout_task_handle);
-    xTaskCreate(_rcin_thread, "APM_RCIN", RCIN_SS, this, RCIN_PRIO, &_rcin_task_handle);
-    xTaskCreate(_uart_thread, "APM_UART", UART_SS, this, UART_PRIO, &_uart_task_handle);
-    xTaskCreate(_io_thread, "APM_IO", IO_SS, this, IO_PRIO, &_io_task_handle); //SD is mounted by this thread when it starts.
-    xTaskCreate(_storage_thread, "APM_STORAGE", STORAGE_SS, this, STORAGE_PRIO, &_storage_task_handle); //no actual flash writes without this, storage kinda appears to work, but does an erase on every boot and params don't persist over reset etc.
+    xTaskCreate(_main_thread,   "APM_MAIN",Scheduler::MAIN_SS,            this,           Scheduler::MAIN_PRIO, &_main_task_handle);
+    xTaskCreate(_timer_thread,  "APM_TIMER",          TIMER_SS,           this,           TIMER_PRIO,           &_timer_task_handle);
+    xTaskCreate(_rcout_thread,  "APM_RCOUT",          RCOUT_SS,           this,           RCOUT_PRIO,           &_rcout_task_handle);
+    xTaskCreate(_rcin_thread,   "APM_RCIN",           RCIN_SS,            this,           RCIN_PRIO,            &_rcin_task_handle);
+    xTaskCreate(_uart_thread,   "APM_UART",           UART_SS,            this,           UART_PRIO,            &_uart_task_handle);
+    xTaskCreate(_wifi_thread,   "APM_WIFI",Scheduler::WIFI_SS,            this,           Scheduler::WIFI_PRIO, &_wifi_task_handle); // alternativeto uartD setup
+    xTaskCreate(_io_thread,     "APM_IO",             IO_SS,              this,           IO_PRIO,              &_io_task_handle); //SD is mounted by this thread when it starts.
+    xTaskCreate(_storage_thread,"APM_STORAGE",        STORAGE_SS,         this,           STORAGE_PRIO,         &_storage_task_handle); //no actual flash writes without this, storage kinda appears to work, but does an erase on every boot and params don't persist over reset etc.
 
     //   xTaskCreate(_print_profile, "APM_PROFILE", IO_SS, this, IO_PRIO, nullptr);
 
@@ -154,6 +159,7 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
         { PRIORITY_RCIN, RCIN_PRIO},
         { PRIORITY_IO, IO_PRIO},
         { PRIORITY_UART, UART_PRIO},
+        { PRIORITY_WIFI, WIFI_PRIO},
         { PRIORITY_STORAGE, STORAGE_PRIO},
         { PRIORITY_SCRIPTING, IO_PRIO},
     };
@@ -175,6 +181,53 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
         return false;
     }
     return true;
+}
+
+// translanted from TCP wifi obj here so its can be inside a thread easier
+void Scheduler::_wifi_thread(void *arg)
+{
+    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+
+    //WiFiDriver *self = (WiFiDriver *) arg;
+    WiFiDriver *self = (WiFiDriver *) hal.serial(3);
+
+    hal.serial(3)->begin(115200);
+
+    while (true ) {
+          hal.scheduler->delay(1000);
+          //delay(1000);
+          hal.console->printf("_wifi_thread NOT_INITIALIZED YET, delay %s:%d %d\n", __PRETTY_FUNCTION__, __LINE__,self->INITIALIZED);
+          printf("_wifi_thread NOT_INITIALIZED YET, delay %s:%d %d\n", __PRETTY_FUNCTION__, __LINE__,self->INITIALIZED);
+    }
+
+    // if (!self->start_listen()) {
+    //     //vTaskDelete(nullptr);
+    //     hal.console->printf("_wifi_thread gave up, deleted task. %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    // }
+    // while (true) {
+    //     if (self->try_accept()) {
+    //         self->_state = self->CONNECTED;
+    //         while (true) {
+    //             self->_more_data = false;
+    //             if (!self->read_data()) {
+    //                 self->_state =  self->INITIALIZED;
+    //                 break;
+    //             }
+    //             if (!self->write_data()) {
+    //                 self->_state =  self->INITIALIZED;
+    //                 break;
+    //             }
+    //             if (!self->_more_data) {
+    //                 hal.scheduler->delay_microseconds(1000);
+    //             }
+    //             hal.console->printf("_wifi_thread read/write loop %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    //         }
+    //     }
+    //     if (self->_state ==  self->NOT_INITIALIZED) {
+    //       hal.scheduler->delay_microseconds(65534);
+    //       hal.console->printf("_wifi_thread NOT_INITIALIZED, delay %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    //     }
+    // }
 }
 
 void Scheduler::delay(uint16_t ms)
@@ -222,9 +275,9 @@ void Scheduler::register_timer_process(AP_HAL::MemberProc proc)
 
 void Scheduler::register_io_process(AP_HAL::MemberProc proc)
 {
-#ifdef SCHEDDEBUG
+//#ifdef SCHEDDEBUG
     printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#endif
     _io_sem.take_blocking();
     for (uint8_t i = 0; i < _num_io_procs; i++) {
         if (_io_proc[i] == proc) {
@@ -278,9 +331,9 @@ bool Scheduler::is_system_initialized()
 
 void Scheduler::_timer_thread(void *arg)
 {
-#ifdef SCHEDDEBUG
+//#ifdef SCHEDDEBUG
     printf("%s:%d start\n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#endif
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
         sched->delay_microseconds(1000);
@@ -314,9 +367,9 @@ void Scheduler::_rcout_thread(void* arg)
 
 void Scheduler::_run_timers()
 {
-#ifdef SCHEDULERDEBUG
-    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#ifdef SCHEDULERDEBUG
+//    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+//#endif
     if (_in_timer_proc) {
         return;
     }
@@ -348,6 +401,8 @@ void Scheduler::_run_timers()
 
 void Scheduler::_rcin_thread(void *arg)
 {
+        printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+//
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
         sched->delay_microseconds(20000);
@@ -361,9 +416,9 @@ void Scheduler::_rcin_thread(void *arg)
 
 void Scheduler::_run_io(void)
 {
-#ifdef SCHEDULERDEBUG
-    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#ifdef SCHEDULERDEBUG
+//    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+//#endif
     if (_in_io_proc) {
         return;
     }
@@ -387,9 +442,9 @@ void Scheduler::_run_io(void)
 
 void Scheduler::_io_thread(void* arg)
 {
-#ifdef SCHEDDEBUG
+//#ifdef SCHEDDEBUG
     printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#endif
     mount_sdcard();
     Scheduler *sched = (Scheduler *)arg;
     while (!sched->_initialized) {
@@ -419,9 +474,9 @@ void Scheduler::_io_thread(void* arg)
 
 void Scheduler::_storage_thread(void* arg)
 {
-#ifdef SCHEDDEBUG
+//#ifdef SCHEDDEBUG
     printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#endif
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
         sched->delay_microseconds(10000);
@@ -453,9 +508,9 @@ void Scheduler::_print_profile(void* arg)
 
 void Scheduler::_uart_thread(void *arg)
 {
-#ifdef SCHEDDEBUG
+//#ifdef SCHEDDEBUG
     printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#endif
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
         sched->delay_microseconds(2000);
@@ -506,7 +561,10 @@ void IRAM_ATTR Scheduler::_main_thread(void *arg)
     hal.serial(0)->begin(115200); // console on cdc USB
     hal.serial(1)->begin(57600); //gps
     hal.serial(2)->begin(115200); // other usb-UART with cp2102 on it
-    hal.serial(3)->begin(115200); // wifi tcp
+
+    //printf("\n%s:%d _main_thread go wifi\n", __PRETTY_FUNCTION__, __LINE__);
+    //hal.serial(3)->begin(115200); // wifi tcp
+
     //hal.serial(4)->begin(115200); // wifi udp
     //hal.serial(5)->begin(115200); // telem on other uart, if u have one?
     // 5- onwards are 'Empty' on esp32
@@ -521,7 +579,7 @@ void IRAM_ATTR Scheduler::_main_thread(void *arg)
     sched->set_system_initialized();
 
 #ifdef SCHEDDEBUG
-    printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+    printf("\nSYSTEM %s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     while (true) {
         sched->callbacks->loop();

@@ -40,6 +40,7 @@ extern "C" {
 //esp_netif_t *sta_netif = NULL;
 //esp_netif_t *ap_netif = NULL;
 
+
 class ESP32::WiFiDriver : public AP_HAL::UARTDriver
 {
 public:
@@ -66,9 +67,12 @@ public:
 
 
     bool discard_input() override;
-
-    bool _more_data;
 private:
+    //static WiFiDriver wi();
+public:
+    bool _more_data;
+    //static WiFiDriver& get_wi() { return &wi; }
+//private:
     enum ConnectionState {
         NOT_INITIALIZED,
         INITIALIZED,
@@ -84,7 +88,7 @@ private:
     ConnectionState _state;
     short accept_socket;
     short socket_list[WIFI_MAX_CONNECTION];
-    tskTaskControlBlock *_wifi_task_handle;
+    //tskTaskControlBlock *_wifi_task_handle;
     void initialize_wifi();
     bool read_data();
     bool write_data();
@@ -93,4 +97,7 @@ private:
     static void _wifi_thread(void* arg);
     unsigned short available_socket();
     void wifi_init_softap(void);
+
 };
+
+//const ESP32::WiFiDriver& get_wi();

@@ -470,6 +470,12 @@ print varname
 ptype varname
 select-frame 5
 ```
+
+other usefult gdb commands:
+```
+mon reset halt
+
+```
 ctrl-c to exit gdb
 
 # storage tips - not generally needed, as u can update params with missionplanenner over mavlink etc.

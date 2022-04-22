@@ -213,9 +213,13 @@ AP_AHRS_DCM::reset(bool recover_eulers)
         Vector3f initAccVec = _ins.get_accel();
         uint8_t counter = 0;
 
+        static bool ret=true;
+
         // the first vector may be invalid as the filter starts up
         while ((initAccVec.length() < 9.0f || initAccVec.length() > 11) && counter++ < 20) {
-            _ins.wait_for_sample();
+            if ( ret ) {
+              ret = _ins.wait_for_sample();
+            }
             _ins.update();
             initAccVec = _ins.get_accel();
         }

@@ -50,11 +50,18 @@ extern const AP_HAL::HAL& hal;
 extern "C" void phy_bbpll_en_usb(bool en);
 //#endif
 
+
+
+// static const ESP32::WiFiDriver& WiFiDriver::get_wi()
+// {
+//     return wi;
+// }
+
 WiFiDriver::WiFiDriver(uint8_t id)
 {
-    #ifdef WIFIDEBUG
+    //#ifdef WIFIDEBUG
     printf("%s:%d WiFiDriver constructed!\n", __PRETTY_FUNCTION__, __LINE__);
-    #endif
+    //#endif
 
     _state = NOT_INITIALIZED;
     accept_socket = -1;
@@ -63,6 +70,7 @@ WiFiDriver::WiFiDriver(uint8_t id)
         socket_list[i] = -1;
     }
     idx = id;
+   
 }
 
 void WiFiDriver::begin(uint32_t b)
@@ -72,18 +80,18 @@ void WiFiDriver::begin(uint32_t b)
 
 void WiFiDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 {
-    #ifdef WIFIDEBUG
+   // #ifdef WIFIDEBUG
     printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-    #endif
+   // #endif
     if (_state == NOT_INITIALIZED) {
         initialize_wifi();
         //printf("making wifi task in ::begin");
         #ifdef WIFIDEBUG
             printf("Making thread:%s => \n%s:%d \n", "APM_WIFI", __PRETTY_FUNCTION__, __LINE__);
         #endif
-        xTaskCreate(_wifi_thread, "APM_WIFI2", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
-        _readbuf.set_size(RX_BUF_SIZE);
-        _writebuf.set_size(TX_BUF_SIZE);
+        //xTaskCreate(_wifi_thread, "APM_WIFI2", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
+        _readbuf.set_size(128);
+        _writebuf.set_size(128);
         _state = INITIALIZED;
     }
 }
@@ -263,9 +271,12 @@ static void wifi_event_handler1(void* arg, esp_event_base_t event_base,
     }
 }
 
-
+// https://github.com/espressif/esp-idf/blob/release/v4.4/examples/wifi/getting_started/softAP/main/softap_example_main.c
 void WiFiDriver::wifi_init_softap(void)
 {
+
+    printf("wifi_init_softap start");
+
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
     esp_netif_create_default_wifi_ap();
@@ -302,6 +313,8 @@ void WiFiDriver::wifi_init_softap(void)
 void WiFiDriver::initialize_wifi()
 {
 
+    printf("initialize_wifi start");
+
     nvs_flash_init(); // calls down to nvs_flash_init_partition ->  nvs::Storage::init -> nvs::Page::findItem -> ...cache_disable -> spi_flash_disable_interrupts_caches_and_other_cpu and locks up if no 'nvs' partition.
 
     wifi_init_softap();
@@ -309,6 +322,13 @@ void WiFiDriver::initialize_wifi()
 // Temporary fix to ensure that CDC+JTAG stay on on ESP32-C3
 // https://github.com/espressif/arduino-esp32/pull/6287/files
     phy_bbpll_en_usb(true); //this brings the USB serial-jtag back to life. Suggest doing this immediately after wifi startup.
+
+    //extern WiFiDriver uartDDriver;
+    //uartDDriver.begin(115200);// kick wifi thread to start, hack, should b started by Scheduler.cpp doing 'hal.serial(3)->begin(115200);'
+    hal.serial(3)->begin(115200);
+
+    printf("initialize_wifi end");
+
 
 }
 
@@ -334,35 +354,35 @@ size_t WiFiDriver::write(const uint8_t *buffer, size_t size)
 
 void WiFiDriver::_wifi_thread(void *arg)
 {
-    WiFiDriver *self = (WiFiDriver *) arg;
-    if (!self->start_listen()) {
-        vTaskDelete(nullptr);
-        hal.console->printf("_wifi_thread gave up, deleted task. %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-    }
-    while (true) {
-        if (self->try_accept()) {
-            self->_state = CONNECTED;
-            while (true) {
-                self->_more_data = false;
-                if (!self->read_data()) {
-                    self->_state = INITIALIZED;
-                    break;
-                }
-                if (!self->write_data()) {
-                    self->_state = INITIALIZED;
-                    break;
-                }
-                if (!self->_more_data) {
-                    hal.scheduler->delay_microseconds(1000);
-                }
-                hal.console->printf("_wifi_thread read/write loop %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-            }
-        }
-        if (self->_state == NOT_INITIALIZED) {
-          hal.scheduler->delay_microseconds(65534);
-          hal.console->printf("_wifi_thread NOT_INITIALIZED, delay %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-        }
-    }
+    // WiFiDriver *self = (WiFiDriver *) arg;
+    // if (!self->start_listen()) {
+    //     vTaskDelete(nullptr);
+    //     hal.console->printf("_wifi_thread gave up, deleted task. %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    // }
+    // while (true) {
+    //     if (self->try_accept()) {
+    //         self->_state = CONNECTED;
+    //         while (true) {
+    //             self->_more_data = false;
+    //             if (!self->read_data()) {
+    //                 self->_state = INITIALIZED;
+    //                 break;
+    //             }
+    //             if (!self->write_data()) {
+    //                 self->_state = INITIALIZED;
+    //                 break;
+    //             }
+    //             if (!self->_more_data) {
+    //                 hal.scheduler->delay_microseconds(1000);
+    //             }
+    //             hal.console->printf("_wifi_thread read/write loop %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    //         }
+    //     }
+    //     if (self->_state == NOT_INITIALIZED) {
+    //       hal.scheduler->delay_microseconds(65534);
+    //       hal.console->printf("_wifi_thread NOT_INITIALIZED, delay %s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    //     }
+    // }
 }
 
 bool WiFiDriver::discard_input()

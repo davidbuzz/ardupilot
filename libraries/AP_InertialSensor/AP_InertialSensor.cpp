@@ -1326,16 +1326,24 @@ bool AP_InertialSensor::calibrate_trim(Vector3f &trim_rad)
 
     const uint8_t update_dt_milliseconds = (uint8_t)(1000.0f/get_loop_rate_hz()+0.5f);
 
+    static bool ret2=true;
+
     // wait 100ms for ins filter to rise
     for (uint8_t k=0; k<100/update_dt_milliseconds; k++) {
-        wait_for_sample();
+        if (ret2) {
+          ret2 = wait_for_sample();
+        }
         update();
         hal.scheduler->delay(update_dt_milliseconds);
     }
 
+    static bool ret3 = true;
+
     uint32_t num_samples = 0;
     while (num_samples < 400/update_dt_milliseconds) {
-        wait_for_sample();
+        if (ret3) {
+            ret3 = wait_for_sample();
+        }
         // read samples from ins
         update();
         // capture sample
@@ -1600,7 +1608,11 @@ void AP_InertialSensor::update(void)
 {
     // during initialisation update() may be called without
     // wait_for_sample(), and a wait is implied
-    wait_for_sample();
+
+    static bool ret4 = true;
+    if (ret4) {
+        ret4 = wait_for_sample();
+    }
 
         for (uint8_t i=0; i<INS_MAX_INSTANCES; i++) {
             // mark sensors unhealthy and let update() in each backend
@@ -1702,12 +1714,12 @@ void AP_InertialSensor::update(void)
   delays occur we need to cope with them. The long term sum of
   _delta_time should be exactly equal to the wall clock elapsed time
  */
-void AP_InertialSensor::wait_for_sample(void)
+bool AP_InertialSensor::wait_for_sample(void)
 {
     if (_have_sample) {
         // the user has called wait_for_sample() again without
         // consuming the sample with update()
-        return;
+        return true;
     }
 
         //hal.console->printf("Gyro wait_for_sample...\n");
@@ -1821,7 +1833,7 @@ check_sample:
         }
         if (giveup_eventually <=0) {
             _have_sample = true; // fake it
-            return;
+            return false;
         }
         hal.console->printf("Gyro wait_for_sample4...\n");
 
@@ -1849,6 +1861,7 @@ check_sample:
 #endif
 
     _have_sample = true;
+    return true;
 }
 
 

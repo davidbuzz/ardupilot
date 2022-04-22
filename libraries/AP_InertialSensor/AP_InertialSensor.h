@@ -217,8 +217,8 @@ public:
     // update gyro and accel values from accumulated samples
     void update(void);
 
-    // wait for a sample to be available
-    void wait_for_sample(void);
+    // wait for a sample to be available, if it ever returns false, give up permantly.
+    bool wait_for_sample(void);
 
     // class level parameters
     static const struct AP_Param::GroupInfo var_info[];

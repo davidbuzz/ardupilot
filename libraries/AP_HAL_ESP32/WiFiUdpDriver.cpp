@@ -60,9 +60,9 @@ void WiFiUdpDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
             return;
         }
 
-        xTaskCreate(_wifi_thread, "APM_WIFI1", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
-        _readbuf.set_size(RX_BUF_SIZE);
-        _writebuf.set_size(TX_BUF_SIZE);
+        //xTaskCreate(_wifi_thread, "APM_WIFI1", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
+        _readbuf.set_size(128);
+        _writebuf.set_size(128);
         _state = INITIALIZED;
     }
 }

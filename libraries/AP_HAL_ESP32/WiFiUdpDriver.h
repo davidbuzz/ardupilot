@@ -68,7 +68,7 @@ private:
 
     int accept_socket;
 
-    tskTaskControlBlock *_wifi_task_handle;
+    //tskTaskControlBlock *_wifi_task_handle;
     void initialize_wifi();
     bool read_all();
     bool write_data();

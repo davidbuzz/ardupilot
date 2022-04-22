@@ -317,7 +317,10 @@ void AP_Scheduler::loop()
     // wait for an INS sample
     hal.util->persistent_data.scheduler_task = -3;
     _rsem.give();
-    AP::ins().wait_for_sample();
+    static bool ret5= true;
+    if (ret5) {
+        ret5 = AP::ins().wait_for_sample();
+    }
     _rsem.take_blocking();
     hal.util->persistent_data.scheduler_task = -1;
 
@@ -400,6 +403,8 @@ void AP_Scheduler::loop()
     perf_info.check_loop_time(sample_time_us - _loop_timer_start_us);
         
     _loop_timer_start_us = sample_time_us;
+
+    //printf("tick");
 }
 
 void AP_Scheduler::update_logging()

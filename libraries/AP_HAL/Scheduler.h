@@ -112,6 +112,7 @@ public:
         PRIORITY_RCIN,
         PRIORITY_IO,
         PRIORITY_UART,
+        PRIORITY_WIFI,
         PRIORITY_STORAGE,
         PRIORITY_SCRIPTING,
     };
