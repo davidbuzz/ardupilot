@@ -68,11 +68,11 @@ void Scheduler::init()
     //xTaskCreatePinnedToCore(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle, 0);
     xTaskCreate(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle);
     xTaskCreate(_timer_thread, "APM_TIMER", TIMER_SS, this, TIMER_PRIO, &_timer_task_handle);
-    xTaskCreate(_rcout_thread, "APM_RCOUT", RCOUT_SS, this, RCOUT_PRIO, &_rcout_task_handle);
-    xTaskCreate(_rcin_thread, "APM_RCIN", RCIN_SS, this, RCIN_PRIO, &_rcin_task_handle);
+  //  xTaskCreate(_rcout_thread, "APM_RCOUT", RCOUT_SS, this, RCOUT_PRIO, &_rcout_task_handle);
+  //  xTaskCreate(_rcin_thread, "APM_RCIN", RCIN_SS, this, RCIN_PRIO, &_rcin_task_handle);
     xTaskCreate(_uart_thread, "APM_UART", UART_SS, this, UART_PRIO, &_uart_task_handle);
     xTaskCreate(_io_thread, "APM_IO", IO_SS, this, IO_PRIO, &_io_task_handle);
-    xTaskCreate(_storage_thread, "APM_STORAGE", STORAGE_SS, this, STORAGE_PRIO, &_storage_task_handle); //no actual flash writes without this, storage kinda appears to work, but does an erase on every boot and params don't persist over reset etc.
+  //  xTaskCreate(_storage_thread, "APM_STORAGE", STORAGE_SS, this, STORAGE_PRIO, &_storage_task_handle); //no actual flash writes without this, storage kinda appears to work, but does an erase on every boot and params don't persist over reset etc.
 
     //   xTaskCreate(_print_profile, "APM_PROFILE", IO_SS, this, IO_PRIO, nullptr);
 
@@ -180,7 +180,7 @@ void Scheduler::register_timer_process(AP_HAL::MemberProc proc)
         }
     }
     if (_num_timer_procs >= ESP32_SCHEDULER_MAX_TIMER_PROCS) {
-        printf("Out of timer processes\n");
+        //printf("Out of timer processes\n");
         return;
     }
     _timer_sem.take_blocking();
@@ -205,7 +205,7 @@ void Scheduler::register_io_process(AP_HAL::MemberProc proc)
         _io_proc[_num_io_procs] = proc;
         _num_io_procs++;
     } else {
-        printf("Out of IO processes\n");
+        //printf("Out of IO processes\n");
     }
     _io_sem.give();
 }
@@ -217,7 +217,7 @@ void Scheduler::register_timer_failsafe(AP_HAL::Proc failsafe, uint32_t period_u
 
 void Scheduler::reboot(bool hold_in_bootloader)
 {
-    printf("Restarting now...\n");
+    //printf("Restarting now...\n");
     hal.rcout->force_safety_on();
     unmount_sdcard();
     esp_restart();
@@ -458,14 +458,15 @@ void Scheduler::print_stats(void)
     if (AP_HAL::millis64() - last_run > 60000) {
         char buffer[1024];
         vTaskGetRunTimeStats(buffer);
-        printf("\n\n%s\n", buffer);
+        //printf("\n\n%s\n", buffer);
         heap_caps_print_heap_info(0);
         last_run = AP_HAL::millis64();
     }
 
-    // printf("loop_rate_hz: %d",get_loop_rate_hz());
+    //printf("loop_rate_hz: %d",get_loop_rate_hz());
 }
-
+// waning cant 'printf' from anywhere in this file other than _main_thread, as printf isn't thread safe so be careful with SCHEDDEBUG =1
+// hal-console->prinff() is ...
 void IRAM_ATTR Scheduler::_main_thread(void *arg)
 {
 #ifdef SCHEDDEBUG

@@ -68,7 +68,7 @@ public:
     static const int STORAGE_PRIO = 4;
 
     static const int TIMER_SS = 4096;
-    static const int MAIN_SS = 4096;
+    static const int MAIN_SS = 4096*2;
     static const int RCIN_SS = 4096;
     static const int RCOUT_SS = 4096;
     static const int WIFI_SS = 4096;
