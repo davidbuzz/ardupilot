@@ -37,6 +37,9 @@ extern const AP_HAL::HAL& hal;
 
 WiFiDriver::WiFiDriver()
 {
+#ifdef WIFIDEBUG
+   hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     _state = NOT_INITIALIZED;
     accept_socket = -1;
 
@@ -52,6 +55,9 @@ void WiFiDriver::begin(uint32_t b)
 
 void WiFiDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 {
+#ifdef WIFIDEBUG
+   hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     if (_state == NOT_INITIALIZED) {
         initialize_wifi();
         xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
@@ -117,6 +123,9 @@ int16_t WiFiDriver::read()
 
 bool WiFiDriver::start_listen()
 {
+#ifdef WIFIDEBUG
+   hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     accept_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (accept_socket < 0) {
         accept_socket = -1;
@@ -146,6 +155,9 @@ bool WiFiDriver::start_listen()
 
 bool WiFiDriver::try_accept()
 {
+#ifdef WIFIDEBUG
+   hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     struct sockaddr_in sourceAddr;
     uint addrLen = sizeof(sourceAddr);
     short i = available_socket();
@@ -213,12 +225,19 @@ bool WiFiDriver::write_data()
 
 void WiFiDriver::initialize_wifi()
 {
+#ifdef WIFIDEBUG
+   hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     tcpip_adapter_init();
     nvs_flash_init();
     esp_event_loop_init(nullptr, nullptr);
+
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     esp_wifi_init(&cfg);
     esp_wifi_set_storage(WIFI_STORAGE_FLASH);
+
+    //esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL);
+
     wifi_config_t wifi_config;
     memset(&wifi_config, 0, sizeof(wifi_config));
 #ifdef WIFI_SSID
@@ -258,6 +277,9 @@ size_t WiFiDriver::write(const uint8_t *buffer, size_t size)
 
 void WiFiDriver::_wifi_thread(void *arg)
 {
+#ifdef WIFIDEBUG
+   hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     WiFiDriver *self = (WiFiDriver *) arg;
     if (!self->start_listen()) {
         vTaskDelete(nullptr);
