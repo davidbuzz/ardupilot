@@ -72,7 +72,7 @@ public:
     static const int RCIN_SS = 4096;
     static const int RCOUT_SS = 4096;
     static const int WIFI_SS = 4096;
-    static const int UART_SS = 1024;
+    static const int UART_SS = 4096; //1024 is not enough when SCHEDDEBUG=1, as there's many printf's
     static const int DEVICE_SS = 4096;
     static const int IO_SS = 4096;
     static const int STORAGE_SS = 4096;
