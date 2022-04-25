@@ -265,9 +265,10 @@ class CMakeConfig(object):
         env.CMAKE_VARS = ["-D%s='%s'" % (k, self.vars[k]) for k in keys]
         env.CMAKE_FLAGS = self.flags
 
-        self._config_task.set_outputs(
-            self.bldnode.find_or_declare('CMakeCache.txt'),
-        )
+        self._config_task.set_outputs( self.bldnode.find_or_declare('CMakeCache.txt'))
+        #self._config_task.set_outputs( self.bldnode.find_or_declare('config/sdkconfig.h'))
+        #self._config_task.set_outputs( self.bldnode.find_or_declare('build.ninja'))
+
 
         if self.last_build_task:
             self._config_task.set_run_after(self.last_build_task)

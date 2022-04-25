@@ -20,6 +20,9 @@ def relpath(bld, node):
     return os.path.relpath(node.abspath(), blddir)
 
 def build(bld):
+    # if bld.env.WAFCACHE:
+    #     bld.load('wafcache')
+    #     print("lua waf cache enabled")
     main_c = bld.srcnode.make_node('libraries/AP_Scripting/generator/src/main.c')
     gen_bindings = bld.bldnode.find_or_declare('gen-bindings')
 

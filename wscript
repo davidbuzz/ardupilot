@@ -16,6 +16,7 @@ import boards
 
 from waflib import Build, ConfigSet, Configure, Context, Utils
 from waflib.Configure import conf
+#from waflib.extras import wafcache
 
 # Ref: https://stackoverflow.com/questions/40590192/getting-an-error-attributeerror-module-object-has-no-attribute-run-while
 try:
@@ -124,6 +125,11 @@ def options(opt):
         action='store_true',
         default=False,
         help='Configure as debug variant.')
+
+    # g.add_option('--wafcache',
+    #     action='store_true',
+    #     default=False,
+    #     help='Configure with wafcahe variant.')
 
     g.add_option('--disable-watchdog',
         action='store_true',
@@ -373,6 +379,7 @@ def configure(cfg):
         
     cfg.env.BOARD = cfg.options.board
     cfg.env.DEBUG = cfg.options.debug
+    #cfg.env.WAFCACHE = cfg.options.wafcache
     cfg.env.COVERAGE = cfg.options.coverage
     cfg.env.AUTOCONFIG = cfg.options.autoconfig
 
@@ -381,6 +388,7 @@ def configure(cfg):
 
     cfg.env.BOARD = cfg.options.board
     cfg.env.DEBUG = cfg.options.debug
+    #cfg.env.WAFCACHE = cfg.options.wafcache
     cfg.env.COVERAGE = cfg.options.coverage
     cfg.env.SITL32BIT = cfg.options.sitl_32bit
     cfg.env.ENABLE_ASSERTS = cfg.options.enable_asserts
@@ -463,6 +471,12 @@ def configure(cfg):
         cfg.end_msg('enabled')
     else:
         cfg.end_msg('disabled', color='YELLOW')
+
+    # cfg.start_msg('wafcache?')
+    # if cfg.env.WAFCACHE:
+    #     cfg.end_msg('enabled')
+    # else:
+    #     cfg.end_msg('disabled', color='YELLOW')
 
     cfg.start_msg('Coverage build')
     if cfg.env.COVERAGE:
@@ -743,6 +757,8 @@ def _load_pre_build(bld):
         brd.pre_build(bld)    
 
 def build(bld):
+    # if bld.env.WAFCACHE:
+    #     bld.load('wafcache')
     config_hash = Utils.h_file(bld.bldnode.make_node('ap_config.h').abspath())
     bld.env.CCDEPS = config_hash
     bld.env.CXXDEPS = config_hash
