@@ -15,6 +15,9 @@
 
 #include <AP_HAL_ESP32/UARTDriver.h>
 #include <AP_Math/AP_Math.h>
+#include "Semaphores.h"
+#include <AP_HAL_ESP32/Scheduler.h>
+
 
 #include "esp_log.h"
 
@@ -27,6 +30,7 @@ UARTDesc uart_desc[] = {HAL_ESP32_UART_DEVICES};
 
 void UARTDriver::vprintf(const char *fmt, va_list ap)
 {
+    WITH_SEMAPHORE(sem); // the idea is that no other thread can printf to the console etc till the current one finishes its line/action/etc.
 
     uart_port_t p = uart_desc[uart_num].port;
     if (p == 0) {
@@ -34,6 +38,8 @@ void UARTDriver::vprintf(const char *fmt, va_list ap)
     } else {
         AP_HAL::UARTDriver::vprintf(fmt, ap);
     }
+    hal.scheduler->delay_microseconds(10000);// time for hw to flush while holding sem ?
+    // todo use ets_printf 
 }
 
 void UARTDriver::begin(uint32_t b)

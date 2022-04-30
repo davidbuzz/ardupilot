@@ -91,6 +91,8 @@ private:
     void write_data();
 
     uint8_t uart_num;
+    HAL_Semaphore sem;
+
 };
 
 }

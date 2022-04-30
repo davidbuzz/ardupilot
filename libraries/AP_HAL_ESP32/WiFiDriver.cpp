@@ -224,11 +224,13 @@ bool WiFiDriver::write_data()
     return true;
 }
 
-void WiFiDriver::initialize_wifi()
+void IRAM_ATTR WiFiDriver::initialize_wifi()
 {
 #ifdef WIFIDEBUG
-   printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+   ets_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
+    ets_printf("\n1.This thread has ID %d and %u bytes free stack\n", 42, uxTaskGetStackHighWaterMark(NULL));
+
     tcpip_adapter_init();
     nvs_flash_init();
     esp_event_loop_init(nullptr, nullptr);
@@ -253,9 +255,15 @@ void WiFiDriver::initialize_wifi()
 #endif
     wifi_config.ap.authmode = WIFI_AUTH_WPA_WPA2_PSK;
     wifi_config.ap.max_connection = WIFI_MAX_CONNECTION;
-    esp_wifi_set_mode(WIFI_MODE_AP);
+
+    ets_printf("2.This thread has ID %d and %u bytes free stack\n", 43, uxTaskGetStackHighWaterMark(NULL));
+
+    esp_wifi_set_mode(WIFI_MODE_AP); //<-- calls to current_task_is_wifi_task 
+    ets_printf("\n3.\n");
     esp_wifi_set_config(WIFI_IF_AP, &wifi_config);
+    ets_printf("\n4.\n");
     esp_wifi_start();
+    ets_printf("\n5.\n");
 }
 
 size_t WiFiDriver::write(uint8_t c)
