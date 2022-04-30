@@ -52,6 +52,9 @@ DeviceBus::DeviceBus(uint8_t _thread_priority, bool axi_sram) :
 */
 void DeviceBus::bus_thread(void *arg)
 {
+#ifdef BUSDEBUG
+        ets_printf("%s:%d IN Thread Start\n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     struct DeviceBus *binfo = (struct DeviceBus *)arg;
 
     while (true) {

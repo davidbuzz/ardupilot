@@ -68,10 +68,10 @@ public:
     static const int STORAGE_PRIO = 4;
 
     static const int TIMER_SS = 4096;
-    static const int MAIN_SS = 4096*2;
+    static const int MAIN_SS = 4096; // 2048 too small.
     static const int RCIN_SS = 4096;
     static const int RCOUT_SS = 4096;
-    static const int WIFI_SS = 4096;
+    static const int WIFI_SS = 1024*6; // with *5, we have <1k free
     static const int UART_SS = 4096; //1024 is not enough when SCHEDDEBUG=1, as there's many printf's
     static const int DEVICE_SS = 4096;
     static const int IO_SS = 4096;

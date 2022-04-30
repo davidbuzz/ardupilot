@@ -38,7 +38,7 @@ extern const AP_HAL::HAL& hal;
 WiFiDriver::WiFiDriver()
 {
 #ifdef WIFIDEBUG
-   hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+   printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     _state = NOT_INITIALIZED;
     accept_socket = -1;
@@ -56,7 +56,7 @@ void WiFiDriver::begin(uint32_t b)
 void WiFiDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 {
 #ifdef WIFIDEBUG
-   hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+   //printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     if (_state == NOT_INITIALIZED) {
         initialize_wifi();
@@ -121,10 +121,11 @@ int16_t WiFiDriver::read()
     return byte;
 }
 
+
 bool WiFiDriver::start_listen()
 {
 #ifdef WIFIDEBUG
-   hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+   printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     accept_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (accept_socket < 0) {
@@ -156,7 +157,7 @@ bool WiFiDriver::start_listen()
 bool WiFiDriver::try_accept()
 {
 #ifdef WIFIDEBUG
-   hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+   printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     struct sockaddr_in sourceAddr;
     uint addrLen = sizeof(sourceAddr);
@@ -226,7 +227,7 @@ bool WiFiDriver::write_data()
 void WiFiDriver::initialize_wifi()
 {
 #ifdef WIFIDEBUG
-   hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+   printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     tcpip_adapter_init();
     nvs_flash_init();
@@ -278,7 +279,7 @@ size_t WiFiDriver::write(const uint8_t *buffer, size_t size)
 void WiFiDriver::_wifi_thread(void *arg)
 {
 #ifdef WIFIDEBUG
-   hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+   //printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     WiFiDriver *self = (WiFiDriver *) arg;
     if (!self->start_listen()) {
