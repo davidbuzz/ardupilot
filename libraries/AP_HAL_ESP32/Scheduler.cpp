@@ -512,8 +512,8 @@ void Scheduler::print_stats(void)
 {
     static int64_t last_run = 0;
     if (AP_HAL::millis64() - last_run > 60000) {
-        char buffer[1024];
-        vTaskGetRunTimeStats(buffer);
+        //char buffer[1024];
+        //vTaskGetRunTimeStats(buffer); undefined reference to `vTaskGetRunTimeStats' - needs a particular feature in sdkconfig we may not have now CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS  ? 
         //Scheduler::threadsafe_printf("\n\n%s\n", buffer);
         heap_caps_print_heap_info(0);
         last_run = AP_HAL::millis64();
