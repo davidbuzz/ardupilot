@@ -23,6 +23,7 @@ idf_build_process(esp32s3
                nvs_flash
                esptool_py
                app_update
+               esp_http_server
     SDKCONFIG ${CMAKE_CURRENT_LIST_DIR}/sdkconfig
     BUILD_DIR ${CMAKE_BINARY_DIR})
 
@@ -96,6 +97,7 @@ target_link_libraries(${elf_file}
                 idf::spi_flash
                 idf::tcpip_adapter
                 idf::app_update
+                idf::esp_http_server
                 )
 
 # Attach additional targets to the executable file for flashing,
