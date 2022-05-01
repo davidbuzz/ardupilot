@@ -121,8 +121,10 @@ AP_HAL::Device::PeriodicHandle DeviceBus::register_periodic_callback(uint32_t pe
 #ifdef BUSDEBUG
         ets_printf("%s:%d B4 Thread Start\n", __PRETTY_FUNCTION__, __LINE__);
 #endif
-        xTaskCreate(DeviceBus::bus_thread, name, Scheduler::DEVICE_SS,
-                    this, thread_priority, &bus_thread_handle);
+        if (xTaskCreate(DeviceBus::bus_thread, name, Scheduler::DEVICE_SS,   this, thread_priority, &bus_thread_handle) != pdPASS) {
+            ets_printf("FAILED to create task _io_thread\n");
+        }
+
     }
     DeviceBus::callback_info *callback = new DeviceBus::callback_info;
     if (callback == nullptr) {

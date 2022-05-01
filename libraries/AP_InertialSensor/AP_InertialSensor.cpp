@@ -1433,7 +1433,7 @@ AP_InertialSensor::_init_gyro()
     AP_Notify::flags.initialising = true;
 
     // cold start
-    hal.console->printf("Init Gyro");
+    hal.console->printf("Init Gyro\n");
 
     /*
       we do the gyro calibration with no board rotation. This avoids
@@ -1484,7 +1484,7 @@ AP_InertialSensor::_init_gyro()
 
         memset(diff_norm, 0, sizeof(diff_norm));
 
-        hal.console->printf("*");
+        hal.console->printf("*\n");
 
         for (uint8_t k=0; k<num_gyros; k++) {
             gyro_sum[k].zero();

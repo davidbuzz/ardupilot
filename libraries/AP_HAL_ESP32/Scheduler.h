@@ -21,6 +21,9 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+#include "esp_wifi.h"
+#include "esp_event.h"
+
 #define ESP32_SCHEDULER_MAX_TIMER_PROCS 10
 #define ESP32_SCHEDULER_MAX_IO_PROCS 10
 
@@ -67,6 +70,7 @@ public:
     static const int IO_PRIO = 5;
     static const int STORAGE_PRIO = 4;
 
+    //_SS vars are number-of-WORDS, not bytes
     static const int TIMER_SS = 4096;
     static const int MAIN_SS = 4096; // 2048 too small.
     static const int RCIN_SS = 4096;
@@ -122,4 +126,8 @@ private:
     bool _in_io_proc;
     void _run_io();
     Semaphore _io_sem;
+public:
+    static int threadsafe_printf(const char *fmt, ...);
+    Semaphore sem;
+
 };

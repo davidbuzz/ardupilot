@@ -58,7 +58,9 @@ void WiFiUdpDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
             return;
         }
 
-        xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
+        if (xTaskCreate(_wifi_thread2, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle) != pdPASS) {
+            ets_printf("FAILED to create task _wifi_thread2\n");
+        }
         _readbuf.set_size(RX_BUF_SIZE);
         _writebuf.set_size(TX_BUF_SIZE);
         _state = INITIALIZED;
@@ -224,7 +226,7 @@ size_t WiFiUdpDriver::write(const uint8_t *buffer, size_t size)
     return ret;
 }
 
-void WiFiUdpDriver::_wifi_thread(void *arg)
+void WiFiUdpDriver::_wifi_thread2(void *arg)
 {
     WiFiUdpDriver *self = (WiFiUdpDriver *) arg;
     while (true) {

@@ -22,14 +22,16 @@
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
 #include "esp_system.h"
-#include "esp_wifi.h"
-#include "esp_event_loop.h"
+//#include "esp_event_loop.h"
 #include "nvs_flash.h"
 
 #include "lwip/err.h"
 #include "lwip/sockets.h"
 #include "lwip/sys.h"
 #include "lwip/netdb.h"
+
+#include "esp_wifi.h"
+#include "esp_event.h"
 
 using namespace ESP32;
 
@@ -38,7 +40,7 @@ extern const AP_HAL::HAL& hal;
 WiFiDriver::WiFiDriver()
 {
 #ifdef WIFIDEBUG
-   printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+   //Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     _state = NOT_INITIALIZED;
     accept_socket = -1;
@@ -56,11 +58,13 @@ void WiFiDriver::begin(uint32_t b)
 void WiFiDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 {
 #ifdef WIFIDEBUG
-   //printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+   //Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     if (_state == NOT_INITIALIZED) {
         initialize_wifi();
-        xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
+        if (xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle) != pdPASS) {
+            ets_printf("FAILED to create task _wifi_thread\n");
+        }
         _readbuf.set_size(RX_BUF_SIZE);
         _writebuf.set_size(TX_BUF_SIZE);
         _state = INITIALIZED;
@@ -125,7 +129,7 @@ int16_t WiFiDriver::read()
 bool WiFiDriver::start_listen()
 {
 #ifdef WIFIDEBUG
-   printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+//Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     accept_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (accept_socket < 0) {
@@ -157,7 +161,7 @@ bool WiFiDriver::start_listen()
 bool WiFiDriver::try_accept()
 {
 #ifdef WIFIDEBUG
-   printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+//Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     struct sockaddr_in sourceAddr;
     uint addrLen = sizeof(sourceAddr);
@@ -224,22 +228,123 @@ bool WiFiDriver::write_data()
     return true;
 }
 
+void wifi_event_handler(void *arg, esp_event_base_t event_base,
+                                  int32_t event_id, void *event_data)
+    {
+        Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+        if (WIFI_EVENT == event_base)
+        {
+            static const wifi_event_t event_type{static_cast<wifi_event_t>(event_id)};
+
+            switch (event_type)
+            {
+            case WIFI_EVENT_STA_START:
+            {
+                //std::lock_guard<std::mutex> state_guard(_mutx);
+                //_state = READY_TO_CONNECT;
+                 Scheduler::threadsafe_printf("%s:%d WIFI_EVENT_STA_START\n", __PRETTY_FUNCTION__, __LINE__);
+                break;
+            }
+
+            case WIFI_EVENT_STA_CONNECTED:
+            {
+                //std::lock_guard<std::mutex> state_guard(_mutx);
+                //_state = WAITING_FOR_IP;
+                 Scheduler::threadsafe_printf("%s:%d WIFI_EVENT_STA_CONNECTED\n", __PRETTY_FUNCTION__, __LINE__);
+                break;
+            }
+
+            case WIFI_EVENT_STA_DISCONNECTED:
+            {
+               // std::lock_guard<std::mutex> state_guard(_mutx);
+               // _state = DISCONNECTED;
+                Scheduler::threadsafe_printf("%s:%d WIFI_EVENT_STA_DISCONNECTED\n", __PRETTY_FUNCTION__, __LINE__);
+                break;
+            }
+
+            default:
+                break;
+            }
+        }
+    }
+
+void ip_event_handler(void *arg, esp_event_base_t event_base,
+                                int32_t event_id, void *event_data)
+    {
+        Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+        if (IP_EVENT == event_base)
+        {
+            const ip_event_t event_type{static_cast<ip_event_t>(event_id)};
+
+            switch (event_type)
+            {
+            case IP_EVENT_STA_GOT_IP:
+            {
+                //std::lock_guard<std::mutex> state_guard(_mutx);
+                //_state = CONNECTED;
+                //Scheduler::threadsafe_printf("%s:%d IP_EVENT_STA_GOT_IP\n", __PRETTY_FUNCTION__, __LINE__);
+                break;
+            }
+
+            case IP_EVENT_STA_LOST_IP:
+            {
+                //std::lock_guard<std::mutex> state_guard(_mutx);
+                //if (DISCONNECTED != _state)
+                //{
+                   // _state = WAITING_FOR_IP;
+                //}
+                //Scheduler::threadsafe_printf("%s:%d IP_EVENT_STA_LOST_IP\n", __PRETTY_FUNCTION__, __LINE__);
+                break;
+            }
+
+            default:
+                break;
+            }
+        }
+    }
+
 void IRAM_ATTR WiFiDriver::initialize_wifi()
 {
 #ifdef WIFIDEBUG
-   ets_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+   Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
-    ets_printf("\n1.This thread has ID %d and %u bytes free stack\n", 42, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("\n1.WIFI thread has ID %d and %u bytes free stack\n", 42, uxTaskGetStackHighWaterMark(NULL));
 
-    tcpip_adapter_init();
+    //tcpip_adapter_init();
+    esp_netif_init();
+
     nvs_flash_init();
-    esp_event_loop_init(nullptr, nullptr);
+    //esp_event_loop_init(nullptr, nullptr);
+
+    esp_event_loop_create_default();
 
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     esp_wifi_init(&cfg);
     esp_wifi_set_storage(WIFI_STORAGE_FLASH);
 
     //esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL);
+
+            esp_err_t zzstatus{ESP_OK};
+
+
+          //  if (ESP_OK == status)
+          //  {
+                zzstatus = esp_event_handler_instance_register(WIFI_EVENT,
+                                                             ESP_EVENT_ANY_ID,
+                                                             &wifi_event_handler,
+                                                             nullptr,
+                                                             nullptr);
+          //  }
+
+          //  if (ESP_OK == status)
+          //  {
+                zzstatus = esp_event_handler_instance_register(IP_EVENT,
+                                                             ESP_EVENT_ANY_ID,
+                                                             &ip_event_handler,
+                                                             nullptr,
+                                                             nullptr);
+          //  }
+          zzstatus=zzstatus; // UNUSED
 
     wifi_config_t wifi_config;
     memset(&wifi_config, 0, sizeof(wifi_config));
@@ -256,14 +361,14 @@ void IRAM_ATTR WiFiDriver::initialize_wifi()
     wifi_config.ap.authmode = WIFI_AUTH_WPA_WPA2_PSK;
     wifi_config.ap.max_connection = WIFI_MAX_CONNECTION;
 
-    ets_printf("2.This thread has ID %d and %u bytes free stack\n", 43, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("2.WIFI thread has ID %d and %u bytes free stack\n", 43, uxTaskGetStackHighWaterMark(NULL));
 
     esp_wifi_set_mode(WIFI_MODE_AP); //<-- calls to current_task_is_wifi_task 
-    ets_printf("\n3.\n");
+    Scheduler::threadsafe_printf("\n3.\n");
     esp_wifi_set_config(WIFI_IF_AP, &wifi_config);
-    ets_printf("\n4.\n");
+    Scheduler::threadsafe_printf("\n4.\n");
     esp_wifi_start();
-    ets_printf("\n5.\n");
+    Scheduler::threadsafe_printf("\n5.\n");
 }
 
 size_t WiFiDriver::write(uint8_t c)
@@ -287,7 +392,7 @@ size_t WiFiDriver::write(const uint8_t *buffer, size_t size)
 void WiFiDriver::_wifi_thread(void *arg)
 {
 #ifdef WIFIDEBUG
-   //printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+   //Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     WiFiDriver *self = (WiFiDriver *) arg;
     if (!self->start_listen()) {

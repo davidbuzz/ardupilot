@@ -73,5 +73,5 @@ private:
     bool write_data();
     bool start_listen();
     bool try_accept();
-    static void _wifi_thread(void* arg);
+    static void _wifi_thread2(void* arg);
 };

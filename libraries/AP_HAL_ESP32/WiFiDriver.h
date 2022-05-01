@@ -24,6 +24,9 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+#include "esp_wifi.h"
+#include "esp_event.h"
+
 #ifndef WIFI_MAX_CONNECTION
 #define WIFI_MAX_CONNECTION 5
 #endif
@@ -56,12 +59,20 @@ public:
 
     bool discard_input() override;
 
+     //void wifi_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data);
+     //void ip_event_handler(void *arg, esp_event_base_t event_base,  int32_t event_id, void *event_data);
+
     bool _more_data;
 private:
     enum ConnectionState {
         NOT_INITIALIZED,
         INITIALIZED,
-        CONNECTED
+        READY_TO_CONNECT,
+        CONNECTING,
+        WAITING_FOR_IP,
+            CONNECTED,
+            DISCONNECTED,
+            ERROR
     };
     const size_t TX_BUF_SIZE = 1024;
     const size_t RX_BUF_SIZE = 1024;
