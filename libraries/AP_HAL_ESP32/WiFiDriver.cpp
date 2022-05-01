@@ -535,7 +535,7 @@ static httpd_handle_t start_webserver(void)
 {
     httpd_handle_t server = NULL;
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
-    config.max_open_sockets = 13;
+    config.max_open_sockets = 10; /// must be 3 smaller than  CONFIG_LWIP_MAX_SOCKETS=13 in esp-idf/sdkconfig file, change both together as needed.
     config.lru_purge_enable = true;
 
     // Start the httpd server
