@@ -23,7 +23,7 @@
 #include "freertos/event_groups.h"
 #include "esp_system.h"
 #include "esp_wifi.h"
-#include "esp_event_loop.h"
+//#include "esp_event_loop.h"
 #include "nvs_flash.h"
 #include "esp_event.h"
 #include "esp_log.h"
@@ -32,6 +32,9 @@
 #include "lwip/sockets.h"
 #include "lwip/sys.h"
 #include "lwip/netdb.h"
+
+#include "esp_event.h"
+
 
 using namespace ESP32;
 
@@ -53,17 +56,17 @@ void WiFiUdpDriver::begin(uint32_t b)
 void WiFiUdpDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 {
     if (_state == NOT_INITIALIZED) {
-        initialize_wifi();
-        if (!start_listen()) {
-            return;
-        }
+        // initialize_wifi();
+        // if (!start_listen()) {
+        //     return;
+        // }
 
-        if (xTaskCreate(_wifi_thread2, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle) != pdPASS) {
-            ets_printf("FAILED to create task _wifi_thread2\n");
-        }
-        _readbuf.set_size(RX_BUF_SIZE);
-        _writebuf.set_size(TX_BUF_SIZE);
-        _state = INITIALIZED;
+        // if (xTaskCreate(_wifi_thread2, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle) != pdPASS) {
+        //     ets_printf("FAILED to create task _wifi_thread2\n");
+        // }
+        // _readbuf.set_size(RX_BUF_SIZE);
+        // _writebuf.set_size(TX_BUF_SIZE);
+        // _state = INITIALIZED;
     }
 }
 
@@ -184,31 +187,31 @@ bool WiFiUdpDriver::write_data()
 
 void WiFiUdpDriver::initialize_wifi()
 {
-    esp_event_loop_init(nullptr, nullptr);
+//     esp_event_loop_init(nullptr, nullptr);
 
-    tcpip_adapter_init();
-    nvs_flash_init();
+//     tcpip_adapter_init();
+//     nvs_flash_init();
 
-    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    esp_wifi_init(&cfg);
-    esp_wifi_set_storage(WIFI_STORAGE_FLASH);
-    wifi_config_t wifi_config;
-    memset(&wifi_config, 0, sizeof(wifi_config));
-#ifdef WIFI_SSID
-    strcpy((char *)wifi_config.ap.ssid, WIFI_SSID);
-#else
-    strcpy((char *)wifi_config.ap.ssid, "ardupilot");
-#endif
-#ifdef WIFI_PWD
-    strcpy((char *)wifi_config.ap.password, WIFI_PWD);
-#else
-    strcpy((char *)wifi_config.ap.password, "ardupilot1");
-#endif
-    wifi_config.ap.authmode = WIFI_AUTH_WPA_WPA2_PSK;
-    wifi_config.ap.max_connection = 4;
-    esp_wifi_set_mode(WIFI_MODE_AP);
-    esp_wifi_set_config(WIFI_IF_AP, &wifi_config);
-    esp_wifi_start();
+//     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+//     esp_wifi_init(&cfg);
+//     esp_wifi_set_storage(WIFI_STORAGE_FLASH);
+//     wifi_config_t wifi_config;
+//     memset(&wifi_config, 0, sizeof(wifi_config));
+// #ifdef WIFI_SSID
+//     strcpy((char *)wifi_config.ap.ssid, WIFI_SSID);
+// #else
+//     strcpy((char *)wifi_config.ap.ssid, "ardupilot");
+// #endif
+// #ifdef WIFI_PWD
+//     strcpy((char *)wifi_config.ap.password, WIFI_PWD);
+// #else
+//     strcpy((char *)wifi_config.ap.password, "ardupilot1");
+// #endif
+//     wifi_config.ap.authmode = WIFI_AUTH_WPA_WPA2_PSK;
+//     wifi_config.ap.max_connection = 4;
+//     esp_wifi_set_mode(WIFI_MODE_AP);
+//     esp_wifi_set_config(WIFI_IF_AP, &wifi_config);
+//     esp_wifi_start();
 }
 
 size_t WiFiUdpDriver::write(uint8_t c)

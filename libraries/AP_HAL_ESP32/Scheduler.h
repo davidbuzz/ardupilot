@@ -71,15 +71,15 @@ public:
     static const int STORAGE_PRIO = 4;
 
     //_SS vars are number-of-WORDS, not bytes
-    static const int TIMER_SS = 4096;
-    static const int MAIN_SS = 4096; // 2048 too small.
-    static const int RCIN_SS = 4096;
-    static const int RCOUT_SS = 4096;
+    static const int TIMER_SS = 2048;
+    static const int MAIN_SS = 1024*4; // *3 too small. 0x4037ba21 in panic_abort (details=0x3fce0cf1 "***ERROR*** A stack overflow in task APM_MAIN has been detected.")
+    static const int RCIN_SS = 2048;
+    static const int RCOUT_SS = 2048;
     static const int WIFI_SS = 1024*6; // with *5, we have <1k free
     static const int UART_SS = 4096; //1024 is not enough when SCHEDDEBUG=1, as there's many printf's
     static const int DEVICE_SS = 4096;
     static const int IO_SS = 4096;
-    static const int STORAGE_SS = 4096;
+    static const int STORAGE_SS = 2048;
 
 private:
     AP_HAL::HAL::Callbacks *callbacks;

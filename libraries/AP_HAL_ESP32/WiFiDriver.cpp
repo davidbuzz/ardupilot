@@ -160,19 +160,22 @@ bool WiFiDriver::start_listen()
 
 bool WiFiDriver::try_accept()
 {
-#ifdef WIFIDEBUG
-//Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+    Scheduler::threadsafe_printf(" ZZZZ 6\n" );
+
     struct sockaddr_in sourceAddr;
     uint addrLen = sizeof(sourceAddr);
     short i = available_socket();
     if (i != WIFI_MAX_CONNECTION) {
+        Scheduler::threadsafe_printf(" ZZZZ 7\n" );
         socket_list[i] = accept(accept_socket, (struct sockaddr *)&sourceAddr, &addrLen);
+        Scheduler::threadsafe_printf(" ZZZZ 8\n" );
         if (socket_list[i] >= 0) {
+            Scheduler::threadsafe_printf(" ZZZZ 9\n" );
             fcntl(socket_list[i], F_SETFL, O_NONBLOCK);
             return true;
         }
     }
+    Scheduler::threadsafe_printf(" ZZZZ 10\n" );
     return false;
 }
 
@@ -308,7 +311,7 @@ void IRAM_ATTR WiFiDriver::initialize_wifi()
 #ifdef WIFIDEBUG
    Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
-    Scheduler::threadsafe_printf("\n1.WIFI thread has ID %d and %u bytes free stack\n", 42, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("\n1.WIFI thread has ID %d and %d bytes free stack\n", 42, uxTaskGetStackHighWaterMark(NULL));
 
     //tcpip_adapter_init();
     esp_netif_init();
@@ -361,7 +364,7 @@ void IRAM_ATTR WiFiDriver::initialize_wifi()
     wifi_config.ap.authmode = WIFI_AUTH_WPA_WPA2_PSK;
     wifi_config.ap.max_connection = WIFI_MAX_CONNECTION;
 
-    Scheduler::threadsafe_printf("2.WIFI thread has ID %d and %u bytes free stack\n", 43, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("2.WIFI thread has ID %d and %d bytes free stack\n", 43, uxTaskGetStackHighWaterMark(NULL));
 
     esp_wifi_set_mode(WIFI_MODE_AP); //<-- calls to current_task_is_wifi_task 
     Scheduler::threadsafe_printf("\n3.\n");
@@ -392,30 +395,41 @@ size_t WiFiDriver::write(const uint8_t *buffer, size_t size)
 void WiFiDriver::_wifi_thread(void *arg)
 {
 #ifdef WIFIDEBUG
-   //Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+   Scheduler::threadsafe_printf("%s:%d ZZZZ 1\n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     WiFiDriver *self = (WiFiDriver *) arg;
     if (!self->start_listen()) {
         vTaskDelete(nullptr);
     }
+    Scheduler::threadsafe_printf(" ZZZZ 2\n" );
     while (true) {
         if (self->try_accept()) {
+                Scheduler::threadsafe_printf(" ZZZZ 3\n" );
+
             self->_state = CONNECTED;
             while (true) {
                 self->_more_data = false;
                 if (!self->read_data()) {
+                        Scheduler::threadsafe_printf(" ZZZZ 4\n" );
+
                     self->_state = INITIALIZED;
                     break;
                 }
                 if (!self->write_data()) {
+                        Scheduler::threadsafe_printf(" ZZZZ 4\n" );
+
                     self->_state = INITIALIZED;
                     break;
                 }
                 if (!self->_more_data) {
                     hal.scheduler->delay_microseconds(1000);
+                    Scheduler::threadsafe_printf(" ZZZZ 5\n" );
                 }
             }
         }
+        Scheduler::threadsafe_printf(" ZZZZ 11\n" );
+        hal.scheduler->delay_microseconds(10000);
+
     }
 }
 

@@ -269,7 +269,7 @@ void Scheduler::_timer_thread(void *arg)
 {
 #ifdef SCHEDDEBUG
     Scheduler::threadsafe_printf("%s:%d start\n", __PRETTY_FUNCTION__, __LINE__);
-    Scheduler::threadsafe_printf("\n1.TIMER thread has ID %d and %u bytes free stack\n", 48, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("\n1.TIMER thread has ID %d and %d bytes free stack\n", 48, uxTaskGetStackHighWaterMark(NULL));
 #endif
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
@@ -277,7 +277,7 @@ void Scheduler::_timer_thread(void *arg)
     }
 #ifdef SCHEDDEBUG
     ets_printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\n2.TIMER thread has ID %d and %u bytes free stack\n", 49, uxTaskGetStackHighWaterMark(NULL));
+    ets_printf("\n2.TIMER thread has ID %d and %d bytes free stack\n", 49, uxTaskGetStackHighWaterMark(NULL));
 
 #endif
     while (true) {
@@ -307,13 +307,13 @@ void Scheduler::_rcout_thread(void* arg)
 {
     Scheduler *sched = (Scheduler *)arg;
     //hal.scheduler->delay(1000); // 
-    Scheduler::threadsafe_printf("\n1.RCOUT thread has ID %d and %u bytes free stack\n", 50, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("\n1.RCOUT thread has ID %d and %d bytes free stack\n", 50, uxTaskGetStackHighWaterMark(NULL));
 
     while (!_initialized) {
         sched->delay_microseconds(1000);
     }
     //hal.scheduler->delay(1000); // 
-    Scheduler::threadsafe_printf("\n2.RCOUT thread has ID %d and %u bytes free stack\n", 51, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("\n2.RCOUT thread has ID %d and %d bytes free stack\n", 51, uxTaskGetStackHighWaterMark(NULL));
 
     while (true) {
         sched->delay_microseconds(4000);
@@ -358,14 +358,14 @@ void Scheduler::_run_timers()
 
 void Scheduler::_rcin_thread(void *arg)
 {
-    Scheduler::threadsafe_printf("\n1.RCIN thread has ID %d and %u bytes free stack\n", 52, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("\n1.RCIN thread has ID %d and %d bytes free stack\n", 52, uxTaskGetStackHighWaterMark(NULL));
 
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
         sched->delay_microseconds(20000);
     }
     hal.rcin->init();
-    Scheduler::threadsafe_printf("\n2.RCIN thread has ID %d and %u bytes free stack\n", 53, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("\n2.RCIN thread has ID %d and %d bytes free stack\n", 53, uxTaskGetStackHighWaterMark(NULL));
 
     while (true) {
         sched->delay_microseconds(1000);
@@ -403,7 +403,7 @@ void Scheduler::_io_thread(void* arg)
 {
 #ifdef SCHEDDEBUG
     ets_printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\n1.IO thread has ID %d and %u bytes free stack\n", 54, uxTaskGetStackHighWaterMark(NULL));
+    ets_printf("\n1.IO thread has ID %d and %d bytes free stack\n", 54, uxTaskGetStackHighWaterMark(NULL));
 
 #endif
     mount_sdcard();
@@ -413,7 +413,7 @@ void Scheduler::_io_thread(void* arg)
     }
 #ifdef SCHEDDEBUG
     ets_printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\2.IO thread has ID %d and %u bytes free stack\n", 55, uxTaskGetStackHighWaterMark(NULL));
+    ets_printf("\2.IO thread has ID %d and %d bytes free stack\n", 55, uxTaskGetStackHighWaterMark(NULL));
 
 #endif
     uint32_t last_sd_start_ms = AP_HAL::millis();
@@ -439,7 +439,7 @@ void Scheduler::_storage_thread(void* arg)
 {
 #ifdef SCHEDDEBUG
     ets_printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\n1.STOR thread has ID %d and %u bytes free stack\n", 56, uxTaskGetStackHighWaterMark(NULL));
+    ets_printf("\n1.STOR thread has ID %d and %d bytes free stack\n", 56, uxTaskGetStackHighWaterMark(NULL));
 
 #endif
     Scheduler *sched = (Scheduler *)arg;
@@ -448,7 +448,7 @@ void Scheduler::_storage_thread(void* arg)
     }
 #ifdef SCHEDDEBUG
     ets_printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\n2.STOR thread has ID %d and %u bytes free stack\n", 57, uxTaskGetStackHighWaterMark(NULL));
+    ets_printf("\n2.STOR thread has ID %d and %d bytes free stack\n", 57, uxTaskGetStackHighWaterMark(NULL));
 
 #endif
     while (true) {
@@ -477,7 +477,7 @@ void Scheduler::_uart_thread(void *arg)
 {
 #ifdef SCHEDDEBUG
     ets_printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\n1.UART thread has ID %d and %u bytes free stack\n", 46, uxTaskGetStackHighWaterMark(NULL));
+    ets_printf("\n1.UART thread has ID %d and %d bytes free stack\n", 46, uxTaskGetStackHighWaterMark(NULL));
 #endif
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
@@ -485,7 +485,7 @@ void Scheduler::_uart_thread(void *arg)
     }
 #ifdef SCHEDDEBUG
     ets_printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\n2.UART thread has ID %d and %u bytes free stack\n", 47, uxTaskGetStackHighWaterMark(NULL));
+    ets_printf("\n2.UART thread has ID %d and %d bytes free stack\n", 47, uxTaskGetStackHighWaterMark(NULL));
 
 #endif
     while (true) {
@@ -527,7 +527,7 @@ void IRAM_ATTR Scheduler::_main_thread(void *arg)
 {
 //#ifdef SCHEDDEBUG
     Scheduler::threadsafe_printf("\n%s:%d start\n", __PRETTY_FUNCTION__, __LINE__);
-    Scheduler::threadsafe_printf("\n1.MAIN thread has ID %d and %u bytes free stack\n", 44, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("\n1.MAIN thread has ID %d and %d bytes free stack\n", 44, uxTaskGetStackHighWaterMark(NULL));
 
 //#endif
     Scheduler *sched = (Scheduler *)arg;
@@ -548,7 +548,7 @@ Scheduler::threadsafe_printf("\n%s:%d end of uarts\n", __PRETTY_FUNCTION__, __LI
 
 #ifdef SCHEDDEBUG
     ets_printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\n2.MAIN thread has ID %d and %u bytes free stack\n", 45, uxTaskGetStackHighWaterMark(NULL));
+    ets_printf("\n2.MAIN thread has ID %d and %d bytes free stack\n", 45, uxTaskGetStackHighWaterMark(NULL));
 #endif
     while (true) {
         sched->callbacks->loop();
