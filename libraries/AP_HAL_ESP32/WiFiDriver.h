@@ -27,6 +27,8 @@
 #include "esp_wifi.h"
 #include "esp_event.h"
 #include "esp_http_server.h"
+#include "esp_spiffs.h"
+#include "esp_vfs.h"
 
 
 #ifndef WIFI_MAX_CONNECTION

@@ -24,6 +24,7 @@ idf_build_process(esp32s3
                esptool_py
                app_update
                esp_http_server
+               spiffs
     SDKCONFIG ${CMAKE_CURRENT_LIST_DIR}/sdkconfig
     BUILD_DIR ${CMAKE_BINARY_DIR})
 
@@ -98,6 +99,7 @@ target_link_libraries(${elf_file}
                 idf::tcpip_adapter
                 idf::app_update
                 idf::esp_http_server
+                idf::spiffs
                 )
 
 # Attach additional targets to the executable file for flashing,

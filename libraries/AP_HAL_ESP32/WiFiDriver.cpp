@@ -13,6 +13,8 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// https://github.com/espressif/esp-idf/blob/v4.4.1/examples/protocols/sockets/tcp_server/main/tcp_server.c
+
 #include <AP_HAL_ESP32/WiFiDriver.h>
 #include <AP_Math/AP_Math.h>
 #include <AP_HAL_ESP32/Scheduler.h>
@@ -24,6 +26,7 @@
 #include "esp_system.h"
 //#include "esp_event_loop.h"
 #include "nvs_flash.h"
+#include "esp_netif.h"
 
 #include "lwip/err.h"
 #include "lwip/sockets.h"
@@ -34,6 +37,10 @@
 #include "esp_event.h"
 
 #include "esp_http_server.h"
+#include "esp_spiffs.h"
+#include "esp_vfs.h"
+
+
 using namespace ESP32;
 
 extern const AP_HAL::HAL& hal;
@@ -306,6 +313,241 @@ void ip_event_handler(void *arg, esp_event_base_t event_base,
             }
         }
     }
+static void wifi_init_softap(void)
+{
+    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+
+    ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL));
+
+    // wifi_config_t wifi_config = {
+    //     .ap = {
+    //         .ssid = WIFI_SSID,
+    //         .ssid_len = strlen(WIFI_SSID),
+    //         .password = WIFI_PWD,
+    //         .max_connection = 4,
+    //         .authmode = WIFI_AUTH_WPA_WPA2_PSK
+    //     },
+    // };
+     wifi_config_t wifi_config;
+     memset(&wifi_config, 0, sizeof(wifi_config));
+     //wifi_config.ap.ssid=(unsigned char)WIFI_SSID;
+     wifi_config.ap.ssid_len=strlen(WIFI_SSID);
+     //wifi_config.ap.password=WIFI_PWD;
+     wifi_config.ap.max_connection=4;
+     wifi_config.ap.authmode=WIFI_AUTH_WPA_WPA2_PSK;
+
+    strcpy((char *)wifi_config.ap.ssid, WIFI_SSID);
+    strcpy((char *)wifi_config.ap.password, WIFI_PWD);
+
+    // if (strlen(WIFI_PASS) == 0) {
+    //     wifi_config.ap.authmode = WIFI_AUTH_OPEN;
+    // }
+
+    //wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+
+    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_AP));
+    //ESP_ERROR_CHECK(esp_wifi_set_config(ESP_IF_WIFI_AP, &wifi_config));
+    esp_wifi_set_config(WIFI_IF_AP, &wifi_config);
+
+    ESP_ERROR_CHECK(esp_wifi_start());
+
+    esp_netif_ip_info_t ip_info;
+    esp_netif_get_ip_info(esp_netif_get_handle_from_ifkey("WIFI_AP_DEF"), &ip_info);
+
+    char ip_addr[16];
+    inet_ntoa_r(ip_info.ip.addr, ip_addr, 16);
+    ets_printf("Set up softAP with IP: %s", ip_addr);
+
+    ets_printf("wifi_init_softap finished. SSID:'%s' password:'%s'",
+             WIFI_SSID, WIFI_PWD);
+}
+
+
+#define IS_FILE_EXT(filename, ext) \
+    (strcasecmp(&filename[strlen(filename) - sizeof(ext) + 1], ext) == 0)
+
+/* Set HTTP response content type according to file extension */
+static esp_err_t set_content_type_from_file(httpd_req_t *req, const char *filename)
+{
+    if (IS_FILE_EXT(filename, ".pdf")) {
+        return httpd_resp_set_type(req, "application/pdf");
+    } else if (IS_FILE_EXT(filename, ".html")) {
+        return httpd_resp_set_type(req, "text/html");
+    } else if (IS_FILE_EXT(filename, ".jpeg")) {
+        return httpd_resp_set_type(req, "image/jpeg");
+    } else if (IS_FILE_EXT(filename, ".ico")) {
+        return httpd_resp_set_type(req, "image/x-icon");
+    }
+    /* This is a limited set only */
+    /* For any other type always set as plain text */
+    return httpd_resp_set_type(req, "text/plain");
+}
+
+/* Scratch buffer size */
+#define SCRATCH_BUFSIZE  8192
+
+struct file_server_data {
+    /* Base path of file storage */
+    char base_path[ESP_VFS_PATH_MAX + 1];
+
+    /* Scratch buffer for temporary storage during file transfer */
+    char scratch[SCRATCH_BUFSIZE];
+};
+
+
+/* Copies the full path into destination buffer and returns
+ * pointer to path (skipping the preceding base path) */
+static const char* get_path_from_uri(char *dest, const char *base_path, const char *uri, size_t destsize)
+{
+    const size_t base_pathlen = strlen(base_path);
+    size_t pathlen = strlen(uri);
+
+    const char *quest = strchr(uri, '?');
+    if (quest) {
+        pathlen = MIN(pathlen, quest - uri);
+    }
+    const char *hash = strchr(uri, '#');
+    if (hash) {
+        pathlen = MIN(pathlen, hash - uri);
+    }
+
+    if (base_pathlen + pathlen + 1 > destsize) {
+        /* Full path string won't fit into destination buffer */
+        return NULL;
+    }
+
+    /* Construct full path (base + path) */
+    strcpy(dest, base_path);
+    strlcpy(dest + base_pathlen, uri, pathlen + 1);
+
+    /* Return pointer to path, skipping the base */
+    return dest + base_pathlen;
+}
+
+// HTTP GET Handler
+static esp_err_t root_get_handler(httpd_req_t *req)
+{
+    //const uint32_t root_len = root_end - root_start;
+
+    ets_printf("Serve root");
+    //httpd_resp_set_type(req, "text/html");
+    //httpd_resp_send(req, root_start, root_len);
+    //const char root_start[] = "_binary_root_html_start");
+    //const char root_end[] ="_binary_root_html_end");
+
+    char filepath[255];
+    FILE *fd = NULL;
+    struct stat file_stat;
+
+    //const char *filename = "index.html";//get_path_from_uri(filepath, ((struct file_server_data *)req->user_ctx)->base_path,  req->uri, sizeof(filepath));
+    const char *filename = get_path_from_uri(filepath, ((struct file_server_data *)req->user_ctx)->base_path,  req->uri, sizeof(filepath));
+
+   if (!filename) {
+        ets_printf("Filename is too long");
+        /* Respond with 500 Internal Server Error */
+        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Filename too long");
+        return ESP_FAIL;
+    }
+
+      if (stat(filepath, &file_stat) == -1) {
+        /* If file not present on SPIFFS check if URI
+         * corresponds to one of the hardcoded paths */
+        if (strcmp(filename, "/index.html") == 0) {
+            //return index_html_get_handler(req);
+        } else 
+        if (strcmp(filename, "/favicon.ico") == 0) {
+            //return favicon_get_handler(req);
+        }
+        ets_printf("Failed to stat file : %s", filepath);
+        /* Respond with 404 Not Found */
+        httpd_resp_send_err(req, HTTPD_404_NOT_FOUND, "File does not exist");
+        return ESP_FAIL;
+    }
+
+    fd = fopen(filepath, "r");
+    if (!fd) {
+        ets_printf("Failed to read existing file : %s", filepath);
+        /* Respond with 500 Internal Server Error */
+        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Failed to read existing file");
+        return ESP_FAIL;
+    }
+
+    ets_printf("Sending file : %s (%ld bytes)...", filename, file_stat.st_size);
+    set_content_type_from_file(req, filename);
+
+    /* Retrieve the pointer to scratch buffer for temporary storage */
+    char *chunk = ((struct file_server_data *)req->user_ctx)->scratch;
+    size_t chunksize;
+    do {
+        /* Read file in chunks into the scratch buffer */
+        chunksize = fread(chunk, 1, SCRATCH_BUFSIZE, fd);
+
+        if (chunksize > 0) {
+            /* Send the buffer contents as HTTP response chunk */
+            if (httpd_resp_send_chunk(req, chunk, chunksize) != ESP_OK) {
+                fclose(fd);
+                ets_printf("File sending failed!");
+                /* Abort sending file */
+                httpd_resp_sendstr_chunk(req, NULL);
+                /* Respond with 500 Internal Server Error */
+                httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Failed to send file");
+               return ESP_FAIL;
+           }
+        }
+
+        /* Keep looping till the whole file is sent */
+    } while (chunksize != 0);
+
+    /* Close file after sending complete */
+    fclose(fd);
+
+
+    return ESP_OK;
+}
+
+
+// HTTP Error (404) Handler - Redirects all requests to the root page
+esp_err_t http_404_error_handler(httpd_req_t *req, httpd_err_code_t err)
+{
+    // Set status
+    httpd_resp_set_status(req, "302 Temporary Redirect");
+    // Redirect to the "/" root directory
+    httpd_resp_set_hdr(req, "Location", "/");
+    // iOS requires content in the response to detect a captive portal, simply redirecting is not sufficient.
+    httpd_resp_send(req, "Redirect to the captive portal", HTTPD_RESP_USE_STRLEN);
+
+    ets_printf("Redirecting to root");
+    return ESP_OK;
+}
+
+
+
+
+
+static const httpd_uri_t show_root_webpage = {
+    .uri = "/",
+    .method = HTTP_GET,
+    .handler = root_get_handler
+};
+
+static httpd_handle_t start_webserver(void)
+{
+    httpd_handle_t server = NULL;
+    httpd_config_t config = HTTPD_DEFAULT_CONFIG();
+    config.max_open_sockets = 13;
+    config.lru_purge_enable = true;
+
+    // Start the httpd server
+    ets_printf("Starting server on port: '%d'", config.server_port);
+    if (httpd_start(&server, &config) == ESP_OK) {
+        // Set URI handlers
+        ets_printf("Registering URI handlers");
+        httpd_register_uri_handler(server, &show_root_webpage);
+        httpd_register_err_handler(server, HTTPD_404_NOT_FOUND, http_404_error_handler);
+    }
+    return server;
+}
 
 void IRAM_ATTR WiFiDriver::initialize_wifi()
 {
@@ -314,65 +556,89 @@ void IRAM_ATTR WiFiDriver::initialize_wifi()
 #endif
     Scheduler::threadsafe_printf("\n1.WIFI thread has ID %d and %d bytes free stack\n", 42, uxTaskGetStackHighWaterMark(NULL));
 
-    //tcpip_adapter_init();
+
+   /*
+        Turn of warnings from HTTP server as redirecting traffic will yield
+        lots of invalid requests
+    */
+    // esp_log_level_set("httpd_uri", ESP_LOG_ERROR);
+    // esp_log_level_set("httpd_txrx", ESP_LOG_ERROR);
+    // esp_log_level_set("httpd_parse", ESP_LOG_ERROR);
+
+
     esp_netif_init();
-
-    nvs_flash_init();
-    //esp_event_loop_init(nullptr, nullptr);
-
     esp_event_loop_create_default();
+    nvs_flash_init();
+    esp_netif_create_default_wifi_ap();
 
-    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    esp_wifi_init(&cfg);
-    esp_wifi_set_storage(WIFI_STORAGE_FLASH);
+    wifi_init_softap();
 
-    //esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL);
+    // Start the server for the first time
+    start_webserver();
 
-            esp_err_t zzstatus{ESP_OK};
+    //event_init();
+    //esp_netif_create_default_wifi_ap(); //
+//
+   // ESP_ERROR_CHECK(esp_event_loop_create_default());
+    //ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL));
+   // ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, ESP_EVENT_ANY_ID, &ip_event_handler, NULL));
+
+//     esp_netif_t *ap = esp_netif_create_default_wifi_ap();
+
+//     ap=ap;
 
 
-          //  if (ESP_OK == status)
-          //  {
-                zzstatus = esp_event_handler_instance_register(WIFI_EVENT,
-                                                             ESP_EVENT_ANY_ID,
-                                                             &wifi_event_handler,
-                                                             nullptr,
-                                                             nullptr);
-          //  }
+//     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+//     esp_wifi_init(&cfg);
+//     esp_wifi_set_storage(WIFI_STORAGE_FLASH);
 
-          //  if (ESP_OK == status)
-          //  {
-                zzstatus = esp_event_handler_instance_register(IP_EVENT,
-                                                             ESP_EVENT_ANY_ID,
-                                                             &ip_event_handler,
-                                                             nullptr,
-                                                             nullptr);
-          //  }
-          zzstatus=zzstatus; // UNUSED
+//     //esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL);
 
-    wifi_config_t wifi_config;
-    memset(&wifi_config, 0, sizeof(wifi_config));
-#ifdef WIFI_SSID
-    strcpy((char *)wifi_config.ap.ssid, WIFI_SSID);
-#else
-    strcpy((char *)wifi_config.ap.ssid, "ardupilot");
-#endif
-#ifdef WIFI_PWD
-    strcpy((char *)wifi_config.ap.password, WIFI_PWD);
-#else
-    strcpy((char *)wifi_config.ap.password, "ardupilot1");
-#endif
-    wifi_config.ap.authmode = WIFI_AUTH_WPA_WPA2_PSK;
-    wifi_config.ap.max_connection = WIFI_MAX_CONNECTION;
+//             esp_err_t zzstatus{ESP_OK};
 
-    Scheduler::threadsafe_printf("2.WIFI thread has ID %d and %d bytes free stack\n", 43, uxTaskGetStackHighWaterMark(NULL));
 
-    esp_wifi_set_mode(WIFI_MODE_AP); //<-- calls to current_task_is_wifi_task 
-    Scheduler::threadsafe_printf("\n3.\n");
-    esp_wifi_set_config(WIFI_IF_AP, &wifi_config);
-    Scheduler::threadsafe_printf("\n4.\n");
-    esp_wifi_start();
-    Scheduler::threadsafe_printf("\n5.\n");
+//           //  if (ESP_OK == status)
+//           //  {
+//                 zzstatus = esp_event_handler_instance_register(WIFI_EVENT,
+//                                                              ESP_EVENT_ANY_ID,
+//                                                              &wifi_event_handler,
+//                                                              nullptr,
+//                                                              nullptr);
+//           //  }
+
+//           //  if (ESP_OK == status)
+//           //  {
+//                 zzstatus = esp_event_handler_instance_register(IP_EVENT,
+//                                                              ESP_EVENT_ANY_ID,
+//                                                              &ip_event_handler,
+//                                                              nullptr,
+//                                                              nullptr);
+//           //  }
+//           zzstatus=zzstatus; // UNUSED
+
+//     wifi_config_t wifi_config;
+//     memset(&wifi_config, 0, sizeof(wifi_config));
+// #ifdef WIFI_SSID
+//     strcpy((char *)wifi_config.ap.ssid, WIFI_SSID);
+// #else
+//     strcpy((char *)wifi_config.ap.ssid, "ardupilot");
+// #endif
+// #ifdef WIFI_PWD
+//     strcpy((char *)wifi_config.ap.password, WIFI_PWD);
+// #else
+//     strcpy((char *)wifi_config.ap.password, "ardupilot1");
+// #endif
+//     wifi_config.ap.authmode = WIFI_AUTH_WPA_WPA2_PSK;
+//     wifi_config.ap.max_connection = WIFI_MAX_CONNECTION;
+
+//     Scheduler::threadsafe_printf("2.WIFI thread has ID %d and %d bytes free stack\n", 43, uxTaskGetStackHighWaterMark(NULL));
+
+//     esp_wifi_set_mode(WIFI_MODE_AP); //<-- calls to current_task_is_wifi_task 
+//     Scheduler::threadsafe_printf("\n3.\n");
+//     esp_wifi_set_config(WIFI_IF_AP, &wifi_config);
+//     Scheduler::threadsafe_printf("\n4.\n");
+//     esp_wifi_start();
+//     Scheduler::threadsafe_printf("\n5.\n");
 }
 
 size_t WiFiDriver::write(uint8_t c)
