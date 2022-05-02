@@ -189,16 +189,19 @@ bool WiFiDriver::try_accept()
 
 bool WiFiDriver::read_data()
 {
+    Scheduler::threadsafe_printf(" ZZZZ read\n" );
     for (unsigned short i = 0; i < WIFI_MAX_CONNECTION && socket_list[i] > -1; ++i) {
         int count = 0;
         do {
             count = recv(socket_list[i], (void *)_buffer, sizeof(_buffer), 0);
             if (count > 0) {
+                Scheduler::threadsafe_printf(" ZZZZ read %d\n",count );
                 _readbuf.write(_buffer, count);
                 if (count == sizeof(_buffer)) {
                     _more_data = true;
                 }
             } else if (count < 0 && errno != EAGAIN) {
+                Scheduler::threadsafe_printf(" ZZZZ read-shutdown%d\n",count );
                 shutdown(socket_list[i], 0);
                 close(socket_list[i]);
                 socket_list[i] = -1;
@@ -212,6 +215,7 @@ bool WiFiDriver::read_data()
 
 bool WiFiDriver::write_data()
 {
+    Scheduler::threadsafe_printf(" ZZZZ write   \n" );
     for (unsigned short i = 0; i < WIFI_MAX_CONNECTION && socket_list[i] > -1; ++i) {
         int count = 0;
         _write_mutex.take_blocking();
@@ -662,22 +666,22 @@ size_t WiFiDriver::write(const uint8_t *buffer, size_t size)
 void WiFiDriver::_wifi_thread(void *arg)
 {
 #ifdef WIFIDEBUG
-   Scheduler::threadsafe_printf("%s:%d ZZZZ 1\n", __PRETTY_FUNCTION__, __LINE__);
+   Scheduler::threadsafe_printf("%s:%d ZZZZ 0\n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     WiFiDriver *self = (WiFiDriver *) arg;
     if (!self->start_listen()) {
         vTaskDelete(nullptr);
     }
-    Scheduler::threadsafe_printf(" ZZZZ 2\n" );
+    Scheduler::threadsafe_printf(" ZZZZ 1\n" );
     while (true) {
         if (self->try_accept()) {
-                Scheduler::threadsafe_printf(" ZZZZ 3\n" );
+                Scheduler::threadsafe_printf(" ZZZZ 2\n" );
 
             self->_state = CONNECTED;
             while (true) {
                 self->_more_data = false;
                 if (!self->read_data()) {
-                        Scheduler::threadsafe_printf(" ZZZZ 4\n" );
+                        Scheduler::threadsafe_printf(" ZZZZ 3\n" );
 
                     self->_state = INITIALIZED;
                     break;

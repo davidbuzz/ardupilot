@@ -34,6 +34,9 @@
 #include "esp_wifi.h"
 #include "esp_event.h"
 
+#include "esp_log.h"
+
+
 //#define SCHEDULERDEBUG 1
 
 using namespace ESP32;
@@ -297,7 +300,9 @@ int Scheduler::threadsafe_printf(const char *fmt, ...)
     hal.scheduler->delay(100); 
     va_list ap;
     va_start(ap, fmt);
-    int res = ets_printf( fmt, ap);
+    //int res = ets_printf( fmt, ap); // doesn't format %d and frineds so well
+    int res = 1;
+    esp_log_writev(ESP_LOG_INFO, "", fmt, ap); // seems to format better and still looks maybe thread safe?
     va_end(ap);
     //hal.scheduler->delay(100); 
     return res;                                      
