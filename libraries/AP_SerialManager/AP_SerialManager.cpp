@@ -456,7 +456,10 @@ void AP_SerialManager::init()
                     // don't do this if GCS is not enabled as in that
                     // case we don't have serialmanager parameters and
                     // this would prevent AP_Periph from using a GPS
-                    uart->disable_rxtx();
+                   // uart->disable_rxtx();
+                                       uart->begin(map_baudrate(state[i].baud), 
+                                         AP_SERIALMANAGER_MAVLINK_BUFSIZE_RX,
+                                         AP_SERIALMANAGER_MAVLINK_BUFSIZE_TX);
 #endif
                     break;
                 case SerialProtocol_Console:

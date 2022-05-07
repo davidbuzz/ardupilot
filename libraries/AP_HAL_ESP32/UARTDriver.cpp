@@ -17,6 +17,7 @@
 #include <AP_Math/AP_Math.h>
 #include "Semaphores.h"
 #include <AP_HAL_ESP32/Scheduler.h>
+#include "UARTDriver.h"
 
 
 #include "esp_log.h"
@@ -26,7 +27,40 @@ extern const AP_HAL::HAL& hal;
 namespace ESP32
 {
 
+
+int threadsafe_printf(const char *fmt, ...) 
+{
+    //WITH_SEMAPHORE(sem); // the idea is that no other thread can printf to the console etc till the current one finishes its line/action/etc.
+
+    hal.scheduler->delay(10);  // 100 works
+    va_list ap;
+    va_start(ap, fmt);
+    //int res = Scheduler::threadsafe_printf( fmt, ap); // doesn't format %d and frineds so well
+    int res = 1;
+    esp_log_writev(ESP_LOG_INFO, "", fmt, ap); // seems to format better and still looks maybe thread safe?
+    va_end(ap);
+    //hal.scheduler->delay(100); 
+    return res;                                      
+}   
+
 UARTDesc uart_desc[] = {HAL_ESP32_UART_DEVICES};
+
+const UARTDriver::SerialDef UARTDriver::_serial_tab[] = { HAL_ESP32_UART_DEVICES };
+
+// table to find UARTDrivers from serial number, used for event handling
+//#define UART_MAX_DRIVERS 11
+UARTDriver *UARTDriver::uart_drivers[UART_MAX_DRIVERS];
+
+
+UARTDriver::UARTDriver(uint8_t _serial_num) :
+serial_num(_serial_num),
+sdef(_serial_tab[_serial_num])
+//_baudrate(57600)
+{
+    if(serial_num > UART_MAX_DRIVERS) {  ets_printf("too many UART drivers"); }
+    uart_drivers[serial_num] = this;
+    //threadsafe_printf("UARTDriver constructor. sernum:%d\n",serial_num ); static constructor, not allowed
+}
 
 void UARTDriver::vprintf(const char *fmt, va_list ap)
 {
@@ -35,6 +69,7 @@ void UARTDriver::vprintf(const char *fmt, va_list ap)
     uart_port_t p = uart_desc[uart_num].port;
     if (p == 0) {
         esp_log_writev(ESP_LOG_INFO, "", fmt, ap);
+        //vprintf(fmt, ap);
     } else {
         AP_HAL::UARTDriver::vprintf(fmt, ap);
     }
@@ -47,9 +82,12 @@ void UARTDriver::begin(uint32_t b)
     begin(b, 0, 0);
 }
 
+ 
 
 void UARTDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 {
+    threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+
     if (uart_num < ARRAY_SIZE(uart_desc)) {
         uart_port_t p = uart_desc[uart_num].port;
         if (!_initialized) {
@@ -72,12 +110,18 @@ void UARTDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
             _writebuf.set_size(TX_BUF_SIZE);
 
             _initialized = true;
+
+            if (uart_num == 0 ) {
+            //vprintf_console_hook = hal_console_vprintf;
+            }
+
         } else {
             flush();
             uart_set_baudrate(p, b);
 
         }
     }
+
 }
 
 void UARTDriver::end()
@@ -159,6 +203,9 @@ int16_t IRAM_ATTR UARTDriver::read()
 
 void IRAM_ATTR UARTDriver::_timer_tick(void)
 {
+
+    //ets_printf("u%d",serial_num);
+    //Scheduler::threadsafe_printf("u/%d/%d",serial_num,_initialized );
     if (!_initialized) {
         return;
     }

@@ -124,6 +124,9 @@ public:
         return false;
     }
 
+    //virtual int threadsafe_printf(const char *fmt, ...){ return -1;}
+
+
 private:
 
     AP_HAL::Proc _delay_cb;

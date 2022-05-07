@@ -31,17 +31,25 @@ struct UARTDesc {
     gpio_num_t rx;
     gpio_num_t tx;
 };
+#define UART_MAX_DRIVERS 11
+
 
 class UARTDriver : public AP_HAL::UARTDriver
 {
 public:
 
-    UARTDriver(uint8_t serial_num)
-        : AP_HAL::UARTDriver()
-    {
-        _initialized = false;
-        uart_num = serial_num;
-    }
+    // UARTDriver(uint8_t serial_num)
+    //     : AP_HAL::UARTDriver()
+    // {
+    //     _initialized = false;
+    //     uart_num = serial_num;
+    // }
+
+    UARTDriver(uint8_t serial_num);
+
+    /* Do not allow copies */
+    UARTDriver(const UARTDriver &other) = delete;
+    UARTDriver &operator=(const UARTDriver&) = delete;
 
     virtual ~UARTDriver() = default;
 
@@ -76,6 +84,35 @@ public:
         return 10;
     }
 
+    struct SerialDef {
+        void* serial;
+        uint8_t instance;
+        bool is_usb;
+// #ifndef HAL_UART_NODMA
+//         bool dma_rx;
+//         uint8_t dma_rx_stream_id;
+//         uint32_t dma_rx_channel_id;
+//         bool dma_tx;
+//         uint8_t dma_tx_stream_id;
+//         uint32_t dma_tx_channel_id;
+// #endif
+        uint8_t port;
+        uint8_t rx;
+        uint8_t tx;
+        uint8_t rts_line;
+        uint8_t cts_line;
+
+        uint32_t _baudrate;
+
+    //    int8_t rxinv_gpio;
+    //    uint8_t rxinv_polarity;
+    //    int8_t txinv_gpio;
+    //    uint8_t txinv_polarity;
+    //    uint8_t endpoint_id;
+        uint8_t get_index(void) const {
+            return uint8_t(this - &_serial_tab[0]);
+        }
+    };
     //bool lock_port(uint32_t write_key, uint32_t read_key) override;
 
     //size_t write_locked(const uint8_t *buffer, size_t size, uint32_t key) override;
@@ -92,6 +129,16 @@ private:
 
     uint8_t uart_num;
     HAL_Semaphore sem;
+
+        // table to find UARTDrivers from serial number, used for event handling
+    static UARTDriver *uart_drivers[UART_MAX_DRIVERS];
+
+    const SerialDef &sdef;
+    static const SerialDef _serial_tab[];
+
+
+    // index into uart_drivers table
+    uint8_t serial_num;
 
 };
 

@@ -69,14 +69,14 @@ public:
     bool _more_data;
 private:
     enum ConnectionState {
-        NOT_INITIALIZED,
-        INITIALIZED,
-        READY_TO_CONNECT,
-        CONNECTING,
-        WAITING_FOR_IP,
-            CONNECTED,
-            DISCONNECTED,
-            ERROR
+        NOT_INITIALIZED=0,
+        INITIALIZED=1,
+        READY_TO_CONNECT=2,
+        CONNECTING=3,
+        WAITING_FOR_IP=4,
+            CONNECTED=5,
+            DISCONNECTED=6,
+            ERROR=7
     };
     const size_t TX_BUF_SIZE = 1024;
     const size_t RX_BUF_SIZE = 1024;

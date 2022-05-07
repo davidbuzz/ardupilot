@@ -24,7 +24,7 @@ echo "about to build in 3 sec..."
 sleep 3
 
 #with ccache, but without scripting, its ok
-time ESPBAUD=921600 ./waf plane --jobs=7 --upload
+time ESPBAUD=921600 ./waf plane --jobs=4 --upload
 # -v
 #--upload ?
 

@@ -93,6 +93,9 @@ private:
 
     static bool _initialized;
 
+    bool _is_run_timers = false;
+    bool _is_run_timers2 = false;
+
 
 
     tskTaskControlBlock *_main_task_handle;

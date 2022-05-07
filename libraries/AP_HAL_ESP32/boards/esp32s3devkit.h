@@ -130,6 +130,8 @@
 //SERIAL0_PROTOCOL 0
 
 
+#define HAL_GCS_ENABLED 1
+
 // see boards.py
 #ifndef ENABLE_HEAP
 #define ENABLE_HEAP 1
@@ -164,9 +166,10 @@
 #define HAL_ESP32_RCIN GPIO_NUM_14
 
 
-//HARDWARE UARTS
+//HARDWARE UARTS  lets stick to ZERO and wifi on '1' htat doesn't use this setup
 #define HAL_ESP32_UART_DEVICES \
-  {.port=UART_NUM_0, .rx=GPIO_NUM_6, .tx=GPIO_NUM_7 },{.port=UART_NUM_1, .rx=GPIO_NUM_16, .tx=GPIO_NUM_17 }
+  {.port=UART_NUM_0, .rx=GPIO_NUM_6, .tx=GPIO_NUM_7 }
+//  {.port=UART_NUM_0, .rx=GPIO_NUM_6, .tx=GPIO_NUM_7 },{.port=UART_NUM_1, .rx=GPIO_NUM_16, .tx=GPIO_NUM_17 }
 
 #define HAVE_FILESYSTEM_SUPPORT 1
 

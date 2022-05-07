@@ -69,33 +69,43 @@ void Scheduler::init()
 {
 
 #ifdef SCHEDDEBUG
-    ets_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
 
 
     if (xTaskCreate(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle) != pdPASS) {
-        ets_printf("FAILED to create task _main_thread\n");
+        Scheduler::threadsafe_printf("FAILED to create task _main_thread\n");
     }
+    Scheduler::threadsafe_printf("OK created task _main_thread\n");
+
     if (xTaskCreate(_timer_thread, "APM_TIMER", TIMER_SS, this, TIMER_PRIO, &_timer_task_handle) != pdPASS) {
-        ets_printf("FAILED to create task _timer_thread\n");
+        Scheduler::threadsafe_printf("FAILED to create task _timer_thread\n");
     }
+    Scheduler::threadsafe_printf("OK created task _timer_thread\n");
+
     //if (xTaskCreate(_rcout_thread, "APM_RCOUT", RCOUT_SS, this, RCOUT_PRIO, &_rcout_task_handle) != pdPASS) {
-    //    ets_printf("FAILED to create task _rcout_thread\n");
+    //    Scheduler::threadsafe_printf("FAILED to create task _rcout_thread\n");
     //}
     //if (xTaskCreate(_rcin_thread, "APM_RCIN", RCIN_SS, this, RCIN_PRIO, &_rcin_task_handle) != pdPASS) {
-    //    ets_printf("FAILED to create task _rcin_thread\n");
+    //    Scheduler::threadsafe_printf("FAILED to create task _rcin_thread\n");
     //}
     if (xTaskCreate(_uart_thread, "APM_UART", UART_SS, this, UART_PRIO, &_uart_task_handle) != pdPASS) {
-            ets_printf("FAILED to create task _uart_thread\n");
+            Scheduler::threadsafe_printf("FAILED to create task _uart_thread\n");
     }
+    Scheduler::threadsafe_printf("OK created task _uart_thread\n");
+
     if (xTaskCreate(_io_thread, "APM_IO", IO_SS, this, IO_PRIO, &_io_task_handle) != pdPASS) {
-        ets_printf("FAILED to create task _io_thread\n");
+        Scheduler::threadsafe_printf("FAILED to create task _io_thread\n");
     }
+    Scheduler::threadsafe_printf("OK created task _io_thread\n");
+
     if (xTaskCreate(_storage_thread, "APM_STORAGE", STORAGE_SS, this, STORAGE_PRIO, &_storage_task_handle) != pdPASS) { //no actual flash writes without this, storage kinda appears to work, but does an erase on every boot and params don't persist over reset etc.
-        ets_printf("FAILED to create task _storage_thread\n");
+        Scheduler::threadsafe_printf("FAILED to create task _storage_thread\n");
     }
+    Scheduler::threadsafe_printf("OK created task _storage_thread\n");
+
     //if (xTaskCreate(_print_profile, "APM_PROFILE", IO_SS, this, IO_PRIO, nullptr) != pdPASS) {
-    //    ets_printf("FAILED to create task _io_thread\n");
+    //    Scheduler::threadsafe_printf("FAILED to create task _io_thread\n");
     //}
 
     //disableCore0WDT();
@@ -121,9 +131,9 @@ void Scheduler::thread_create_trampoline(void *ctx)
 */
 bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_t stack_size, priority_base base, int8_t priority)
 {
-#ifdef SCHEDDEBUG
-    ets_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#ifdef SCHEDDEBUG
+   Scheduler::threadsafe_printf("thread_create -> %s\n", name);
+//#endif
 
     // take a copy of the MemberProc, it is freed after thread exits
     AP_HAL::MemberProc *tproc = (AP_HAL::MemberProc *)calloc(1, sizeof(proc));
@@ -151,9 +161,9 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
     };
     for (uint8_t i=0; i<ARRAY_SIZE(priority_map); i++) {
         if (priority_map[i].base == base) {
-#ifdef SCHEDDEBUG
-            ets_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#ifdef SCHEDDEBUG
+            Scheduler::threadsafe_printf("thread_create OK. %s\n",name);
+//#endif
             thread_priority = constrain_int16(priority_map[i].p + priority, 1, 25);
             break;
         }
@@ -162,7 +172,7 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
     tskTaskControlBlock* xhandle;
     BaseType_t xReturned = xTaskCreate(thread_create_trampoline, name, stack_size, tproc, thread_priority, &xhandle);
     if (xReturned != pdPASS) {
-        ets_printf("FAILED to create task thread_create_trampoline\n");
+        Scheduler::threadsafe_printf("FAILED to create task thread_create_trampoline %s\n",name);
         free(tproc);
         return false;
     }
@@ -195,7 +205,7 @@ void Scheduler::delay_microseconds(uint16_t us)
 void Scheduler::register_timer_process(AP_HAL::MemberProc proc)
 {
 #ifdef SCHEDDEBUG
-    ets_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     for (uint8_t i = 0; i < _num_timer_procs; i++) {
         if (_timer_proc[i] == proc) {
@@ -215,7 +225,7 @@ void Scheduler::register_timer_process(AP_HAL::MemberProc proc)
 void Scheduler::register_io_process(AP_HAL::MemberProc proc)
 {
 #ifdef SCHEDDEBUG
-    ets_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     _io_sem.take_blocking();
     for (uint8_t i = 0; i < _num_io_procs; i++) {
@@ -254,7 +264,7 @@ bool Scheduler::in_main_thread() const
 void Scheduler::set_system_initialized()
 {
 #ifdef SCHEDDEBUG
-    ets_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     if (_initialized) {
         AP_HAL::panic("PANIC: scheduler::system_initialized called more than once");
@@ -279,8 +289,8 @@ void Scheduler::_timer_thread(void *arg)
         sched->delay_microseconds(1000);
     }
 #ifdef SCHEDDEBUG
-    ets_printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\n2.TIMER thread has ID %d and %d bytes free stack\n", 49, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+    Scheduler::threadsafe_printf("\n2.TIMER thread has ID %d and %d bytes free stack\n", 49, uxTaskGetStackHighWaterMark(NULL));
 
 #endif
     while (true) {
@@ -297,10 +307,10 @@ int Scheduler::threadsafe_printf(const char *fmt, ...)
 {
     //WITH_SEMAPHORE(sem); // the idea is that no other thread can printf to the console etc till the current one finishes its line/action/etc.
 
-    hal.scheduler->delay(100); 
+    hal.scheduler->delay(10);  // 100 works
     va_list ap;
     va_start(ap, fmt);
-    //int res = ets_printf( fmt, ap); // doesn't format %d and frineds so well
+    //int res = Scheduler::threadsafe_printf( fmt, ap); // doesn't format %d and frineds so well
     int res = 1;
     esp_log_writev(ESP_LOG_INFO, "", fmt, ap); // seems to format better and still looks maybe thread safe?
     va_end(ap);
@@ -329,14 +339,17 @@ void Scheduler::_rcout_thread(void* arg)
 
 void Scheduler::_run_timers()
 {
-#ifdef SCHEDULERDEBUG
-    ets_printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#ifdef SCHEDULERDEBUG
+    if (! _is_run_timers) {
+    //Scheduler::threadsafe_printf("%s:%d _run_timers  started\n", __PRETTY_FUNCTION__, __LINE__);
+    _is_run_timers = true;
+    }
+//#endif
     if (_in_timer_proc) {
         return;
     }
 #ifdef SCHEDULERDEBUG
-    ets_printf("%s:%d _in_timer_proc \n", __PRETTY_FUNCTION__, __LINE__);
+    //Scheduler::threadsafe_printf("%s:%d _in_timer_proc \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     _in_timer_proc = true;
 
@@ -381,14 +394,18 @@ void Scheduler::_rcin_thread(void *arg)
 void Scheduler::_run_io(void)
 {
 #ifdef SCHEDULERDEBUG
-    ets_printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+   // Scheduler::threadsafe_printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     if (_in_io_proc) {
         return;
     }
-#ifdef SCHEDULERDEBUG
-    ets_printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#ifdef SCHEDULERDEBUG
+    static uint8_t prevprocs = 0;
+if ( (_num_io_procs > 0 ) && (prevprocs != _num_io_procs ) ) {
+    Scheduler::threadsafe_printf("%s:%d initialised _num_io_procs:%d\n", __PRETTY_FUNCTION__, __LINE__,_num_io_procs);
+    prevprocs = _num_io_procs;
+}
+//#endif
     _in_io_proc = true;
 
     int num_procs = 0;
@@ -407,8 +424,8 @@ void Scheduler::_run_io(void)
 void Scheduler::_io_thread(void* arg)
 {
 #ifdef SCHEDDEBUG
-    ets_printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\n1.IO thread has ID %d and %d bytes free stack\n", 54, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    Scheduler::threadsafe_printf("\n1.IO thread has ID %d and %d bytes free stack\n", 54, uxTaskGetStackHighWaterMark(NULL));
 
 #endif
     mount_sdcard();
@@ -417,8 +434,8 @@ void Scheduler::_io_thread(void* arg)
         sched->delay_microseconds(1000);
     }
 #ifdef SCHEDDEBUG
-    ets_printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\2.IO thread has ID %d and %d bytes free stack\n", 55, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
+    Scheduler::threadsafe_printf("\2.IO thread has ID %d and %d bytes free stack\n", 55, uxTaskGetStackHighWaterMark(NULL));
 
 #endif
     uint32_t last_sd_start_ms = AP_HAL::millis();
@@ -443,8 +460,8 @@ void Scheduler::_io_thread(void* arg)
 void Scheduler::_storage_thread(void* arg)
 {
 #ifdef SCHEDDEBUG
-    ets_printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\n1.STOR thread has ID %d and %d bytes free stack\n", 56, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    Scheduler::threadsafe_printf("\n1.STOR thread has ID %d and %d bytes free stack\n", 56, uxTaskGetStackHighWaterMark(NULL));
 
 #endif
     Scheduler *sched = (Scheduler *)arg;
@@ -452,8 +469,8 @@ void Scheduler::_storage_thread(void* arg)
         sched->delay_microseconds(10000);
     }
 #ifdef SCHEDDEBUG
-    ets_printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\n2.STOR thread has ID %d and %d bytes free stack\n", 57, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
+    Scheduler::threadsafe_printf("\n2.STOR thread has ID %d and %d bytes free stack\n", 57, uxTaskGetStackHighWaterMark(NULL));
 
 #endif
     while (true) {
@@ -481,24 +498,27 @@ void Scheduler::_print_profile(void* arg)
 void Scheduler::_uart_thread(void *arg)
 {
 #ifdef SCHEDDEBUG
-    ets_printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\n1.UART thread has ID %d and %d bytes free stack\n", 46, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    Scheduler::threadsafe_printf("\n1.UART thread has ID %d and %d bytes free stack\n", 46, uxTaskGetStackHighWaterMark(NULL));
 #endif
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
         sched->delay_microseconds(2000);
     }
 #ifdef SCHEDDEBUG
-    ets_printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\n2.UART thread has ID %d and %d bytes free stack\n", 47, uxTaskGetStackHighWaterMark(NULL));
+    Scheduler::threadsafe_printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+    Scheduler::threadsafe_printf("\n2.UART thread has ID %d and %d bytes free stack\n", 47, uxTaskGetStackHighWaterMark(NULL));
 
 #endif
     while (true) {
         sched->delay_microseconds(1000);
-        for (uint8_t i=0; i<hal.num_serial; i++) {
-            hal.serial(i)->_timer_tick();
-        }
-        hal.console->_timer_tick();
+        //for (uint8_t i=0; i<hal.num_serial; i++) {
+            hal.serial(0)->_timer_tick();
+            hal.serial(1)->_timer_tick();
+            hal.serial(2)->_timer_tick();
+            hal.serial(3)->_timer_tick();
+        //}
+        //hal.console->_timer_tick();
     }
 }
 
@@ -524,9 +544,9 @@ void Scheduler::print_stats(void)
         last_run = AP_HAL::millis64();
     }
 
-    //ets_printf("loop_rate_hz: %d",get_loop_rate_hz());
+    //Scheduler::threadsafe_printf("loop_rate_hz: %d",get_loop_rate_hz());
 }
-// waning cant 'printf' from anywhere in this file other than _main_thread, as printf isn't thread safe so be careful with SCHEDDEBUG =1, ets_printf is better.
+// waning cant 'printf' from anywhere in this file other than _main_thread, as printf isn't thread safe so be careful with SCHEDDEBUG =1, Scheduler::threadsafe_printf is better.
 // hal-console->prinff() is ...
 void IRAM_ATTR Scheduler::_main_thread(void *arg)
 {
@@ -538,28 +558,39 @@ void IRAM_ATTR Scheduler::_main_thread(void *arg)
     Scheduler *sched = (Scheduler *)arg;
     hal.serial(0)->begin(115200);
     hal.serial(1)->begin(57600);
-    hal.serial(2)->begin(57600);
-    //hal.uartC->begin(921600);
-    hal.serial(3)->begin(115200);
+    //hal.serial(2)->begin(57600);
+   // hal.serial(3)->begin(115200);
 Scheduler::threadsafe_printf("\n%s:%d end of uarts\n", __PRETTY_FUNCTION__, __LINE__);
 #ifndef HAL_DISABLE_ADC_DRIVER
-    hal.analogin->init();
+    //hal.analogin->init();
 #endif
-    hal.rcout->init();
+   // hal.rcout->init();
 
     sched->callbacks->setup();
 
+    Scheduler::threadsafe_printf("MAIN b4 set_system_initialized\n");
     sched->set_system_initialized();
+    
 
-#ifdef SCHEDDEBUG
-    ets_printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
-    ets_printf("\n2.MAIN thread has ID %d and %d bytes free stack\n", 45, uxTaskGetStackHighWaterMark(NULL));
-#endif
+// #ifdef SCHEDDEBUG
+//     Scheduler::threadsafe_printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+     Scheduler::threadsafe_printf("\n2.MAIN thread has ID %d and %d bytes free stack\n", 45, uxTaskGetStackHighWaterMark(NULL));
+// #endif
     while (true) {
+        //Scheduler::threadsafe_printf("MAIN thread loop\n"); works, but noisy
         sched->callbacks->loop();
         sched->delay_microseconds(250);
 
+        if ((sched->_is_run_timers)&& (!sched->_is_run_timers2)){
+            Scheduler::threadsafe_printf("%s:%d _run_timers  started\n", __PRETTY_FUNCTION__, __LINE__);
+            sched->_is_run_timers2 = true;
+         }   
+
         sched->print_stats(); // only runs every 60 seconds.
+
+        vTaskDelay(10); // to allow watchdog to be fed - buzz hack  
+        //Task watchdog got triggered. The following tasks did not reset the watchdog in time: IDLE APM_MAIN
+
     }
 }
 

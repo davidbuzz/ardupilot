@@ -48,7 +48,7 @@ extern const AP_HAL::HAL& hal;
 WiFiDriver::WiFiDriver()
 {
 #ifdef WIFIDEBUG
-   //Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+   ////Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     _state = NOT_INITIALIZED;
     accept_socket = -1;
@@ -65,13 +65,15 @@ void WiFiDriver::begin(uint32_t b)
 
 void WiFiDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 {
-#ifdef WIFIDEBUG
-   //Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+////#ifdef WIFIDEBUG
+   ////Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+//#endif
+    Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+
     if (_state == NOT_INITIALIZED) {
         initialize_wifi();
         if (xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle) != pdPASS) {
-            ets_printf("FAILED to create task _wifi_thread\n");
+            ////Scheduler::threadsafe_printf("FAILED to create task _wifi_thread\n");
         }
         _readbuf.set_size(RX_BUF_SIZE);
         _writebuf.set_size(TX_BUF_SIZE);
@@ -108,6 +110,7 @@ uint32_t WiFiDriver::available()
     if (_state != CONNECTED) {
         return 0;
     }
+    //Scheduler::threadsafe_printf("WiFiDriver::available ? %d\n",_readbuf.available());
     return _readbuf.available();
 }
 
@@ -123,13 +126,18 @@ uint32_t WiFiDriver::txspace()
 
 int16_t WiFiDriver::read()
 {
+    //Scheduler::threadsafe_printf("ZZZZ read!!\n");
     if (_state != CONNECTED) {
         return -1;
     }
     uint8_t byte;
     if (!_readbuf.read_byte(&byte)) {
         return -1;
+            //Scheduler::threadsafe_printf("ZZZZ readbyte -1\n");
+
     }
+    //Scheduler::threadsafe_printf("ZZZZ read ok\n");
+
     return byte;
 }
 
@@ -137,7 +145,7 @@ int16_t WiFiDriver::read()
 bool WiFiDriver::start_listen()
 {
 #ifdef WIFIDEBUG
-//Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+////Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     accept_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (accept_socket < 0) {
@@ -168,40 +176,40 @@ bool WiFiDriver::start_listen()
 
 bool WiFiDriver::try_accept()
 {
-    Scheduler::threadsafe_printf(" ZZZZ 6\n" );
+    //Scheduler::threadsafe_printf(" ZZZZ 6\n" );
 
     struct sockaddr_in sourceAddr;
     uint addrLen = sizeof(sourceAddr);
     short i = available_socket();
     if (i != WIFI_MAX_CONNECTION) {
-        Scheduler::threadsafe_printf(" ZZZZ 7\n" );
+        //Scheduler::threadsafe_printf(" ZZZZ 7\n" );
         socket_list[i] = accept(accept_socket, (struct sockaddr *)&sourceAddr, &addrLen);
-        Scheduler::threadsafe_printf(" ZZZZ 8\n" );
+        //Scheduler::threadsafe_printf(" ZZZZ 8\n" );
         if (socket_list[i] >= 0) {
-            Scheduler::threadsafe_printf(" ZZZZ 9\n" );
+            //Scheduler::threadsafe_printf(" ZZZZ 9\n" );
             fcntl(socket_list[i], F_SETFL, O_NONBLOCK);
             return true;
         }
     }
-    Scheduler::threadsafe_printf(" ZZZZ 10\n" );
+    //Scheduler::threadsafe_printf(" ZZZZ 10\n" );
     return false;
 }
 
 bool WiFiDriver::read_data()
 {
-    Scheduler::threadsafe_printf(" ZZZZ read\n" );
+    ////Scheduler::threadsafe_printf(" ZZZZ read_data\n" );
     for (unsigned short i = 0; i < WIFI_MAX_CONNECTION && socket_list[i] > -1; ++i) {
         int count = 0;
         do {
             count = recv(socket_list[i], (void *)_buffer, sizeof(_buffer), 0);
             if (count > 0) {
-                Scheduler::threadsafe_printf(" ZZZZ read %d\n",count );
+                //Scheduler::threadsafe_printf(" ZZZZ read_data %d\n",count );
                 _readbuf.write(_buffer, count);
                 if (count == sizeof(_buffer)) {
                     _more_data = true;
                 }
             } else if (count < 0 && errno != EAGAIN) {
-                Scheduler::threadsafe_printf(" ZZZZ read-shutdown%d\n",count );
+                //Scheduler::threadsafe_printf(" ZZZZ read_data-shutdown%d\n",count );
                 shutdown(socket_list[i], 0);
                 close(socket_list[i]);
                 socket_list[i] = -1;
@@ -215,20 +223,28 @@ bool WiFiDriver::read_data()
 
 bool WiFiDriver::write_data()
 {
-    Scheduler::threadsafe_printf(" ZZZZ write   \n" );
+    //Scheduler::threadsafe_printf(" ZZZZ write_data   \n" );
     for (unsigned short i = 0; i < WIFI_MAX_CONNECTION && socket_list[i] > -1; ++i) {
         int count = 0;
         _write_mutex.take_blocking();
+        //Scheduler::threadsafe_printf(" ZZZZ write_data took sem \n" );
+
+            //static const uint8_t buffer[] = {0xFE ,0x09, 0x4E, 0x01, 0x01, 00, 00,   00,  00,  00,  02, 03, 0x51, 0x04,  03, 0x1C,  0x7F };
+            //write(buffer,sizeof(buffer));
         do {
             count = _writebuf.peekbytes(_buffer, sizeof(_buffer));
+            //Scheduler::threadsafe_printf(" ZZZZ write_data peek-count: %d bufsize:%d\n",count,sizeof(_buffer) );
             if (count > 0) {
                 count = send(socket_list[i], (void*) _buffer, count, 0);
+                //Scheduler::threadsafe_printf(" ZZZZ write_data send-count %d\n",count );
                 if (count > 0) {
                     _writebuf.advance(count);
                     if (count == sizeof(_buffer)) {
                         _more_data = true;
+                        //Scheduler::threadsafe_printf(" ZZZZ write_data more data\n" );
                     }
                 } else if (count < 0 && errno != EAGAIN) {
+                    //Scheduler::threadsafe_printf(" ZZZZ write_data shutdown\n" );
                     shutdown(socket_list[i], 0);
                     close(socket_list[i]);
                     socket_list[i] = -1;
@@ -240,13 +256,14 @@ bool WiFiDriver::write_data()
         } while (count > 0);
     }
     _write_mutex.give();
+            //Scheduler::threadsafe_printf(" ZZZZ write_data gave sem \n" );
     return true;
 }
 
 void wifi_event_handler(void *arg, esp_event_base_t event_base,
                                   int32_t event_id, void *event_data)
     {
-        Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+        //Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
         if (WIFI_EVENT == event_base)
         {
             static const wifi_event_t event_type{static_cast<wifi_event_t>(event_id)};
@@ -257,7 +274,7 @@ void wifi_event_handler(void *arg, esp_event_base_t event_base,
             {
                 //std::lock_guard<std::mutex> state_guard(_mutx);
                 //_state = READY_TO_CONNECT;
-                 Scheduler::threadsafe_printf("%s:%d WIFI_EVENT_STA_START\n", __PRETTY_FUNCTION__, __LINE__);
+                 //Scheduler::threadsafe_printf("%s:%d WIFI_EVENT_STA_START\n", __PRETTY_FUNCTION__, __LINE__);
                 break;
             }
 
@@ -265,7 +282,7 @@ void wifi_event_handler(void *arg, esp_event_base_t event_base,
             {
                 //std::lock_guard<std::mutex> state_guard(_mutx);
                 //_state = WAITING_FOR_IP;
-                 Scheduler::threadsafe_printf("%s:%d WIFI_EVENT_STA_CONNECTED\n", __PRETTY_FUNCTION__, __LINE__);
+                 //Scheduler::threadsafe_printf("%s:%d WIFI_EVENT_STA_CONNECTED\n", __PRETTY_FUNCTION__, __LINE__);
                 break;
             }
 
@@ -273,7 +290,7 @@ void wifi_event_handler(void *arg, esp_event_base_t event_base,
             {
                // std::lock_guard<std::mutex> state_guard(_mutx);
                // _state = DISCONNECTED;
-                Scheduler::threadsafe_printf("%s:%d WIFI_EVENT_STA_DISCONNECTED\n", __PRETTY_FUNCTION__, __LINE__);
+                //Scheduler::threadsafe_printf("%s:%d WIFI_EVENT_STA_DISCONNECTED\n", __PRETTY_FUNCTION__, __LINE__);
                 break;
             }
 
@@ -286,7 +303,7 @@ void wifi_event_handler(void *arg, esp_event_base_t event_base,
 void ip_event_handler(void *arg, esp_event_base_t event_base,
                                 int32_t event_id, void *event_data)
     {
-        Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+        //Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
         if (IP_EVENT == event_base)
         {
             const ip_event_t event_type{static_cast<ip_event_t>(event_id)};
@@ -297,7 +314,7 @@ void ip_event_handler(void *arg, esp_event_base_t event_base,
             {
                 //std::lock_guard<std::mutex> state_guard(_mutx);
                 //_state = CONNECTED;
-                //Scheduler::threadsafe_printf("%s:%d IP_EVENT_STA_GOT_IP\n", __PRETTY_FUNCTION__, __LINE__);
+                ////Scheduler::threadsafe_printf("%s:%d IP_EVENT_STA_GOT_IP\n", __PRETTY_FUNCTION__, __LINE__);
                 break;
             }
 
@@ -308,7 +325,7 @@ void ip_event_handler(void *arg, esp_event_base_t event_base,
                 //{
                    // _state = WAITING_FOR_IP;
                 //}
-                //Scheduler::threadsafe_printf("%s:%d IP_EVENT_STA_LOST_IP\n", __PRETTY_FUNCTION__, __LINE__);
+                ////Scheduler::threadsafe_printf("%s:%d IP_EVENT_STA_LOST_IP\n", __PRETTY_FUNCTION__, __LINE__);
                 break;
             }
 
@@ -361,10 +378,9 @@ static void wifi_init_softap(void)
 
     char ip_addr[16];
     inet_ntoa_r(ip_info.ip.addr, ip_addr, 16);
-    ets_printf("Set up softAP with IP: %s", ip_addr);
+    Scheduler::threadsafe_printf("Set up softAP with IP: %s\n", ip_addr);
 
-    ets_printf("wifi_init_softap finished. SSID:'%s' password:'%s'",
-             WIFI_SSID, WIFI_PWD);
+    Scheduler::threadsafe_printf("wifi_init_softap finished. SSID:'%s' password:'%s'\n",  WIFI_SSID, WIFI_PWD);
 }
 
 
@@ -434,7 +450,7 @@ static esp_err_t root_get_handler(httpd_req_t *req)
 {
     //const uint32_t root_len = root_end - root_start;
 
-    ets_printf("Serve root");
+    ////Scheduler::threadsafe_printf("Serve root");
     //httpd_resp_set_type(req, "text/html");
     //httpd_resp_send(req, root_start, root_len);
     //const char root_start[] = "_binary_root_html_start");
@@ -448,7 +464,7 @@ static esp_err_t root_get_handler(httpd_req_t *req)
     const char *filename = get_path_from_uri(filepath, ((struct file_server_data *)req->user_ctx)->base_path,  req->uri, sizeof(filepath));
 
    if (!filename) {
-        ets_printf("Filename is too long");
+        ////Scheduler::threadsafe_printf("Filename is too long");
         /* Respond with 500 Internal Server Error */
         httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Filename too long");
         return ESP_FAIL;
@@ -463,7 +479,7 @@ static esp_err_t root_get_handler(httpd_req_t *req)
         if (strcmp(filename, "/favicon.ico") == 0) {
             //return favicon_get_handler(req);
         }
-        ets_printf("Failed to stat file : %s", filepath);
+        ////Scheduler::threadsafe_printf("Failed to stat file : %s", filepath);
         /* Respond with 404 Not Found */
         httpd_resp_send_err(req, HTTPD_404_NOT_FOUND, "File does not exist");
         return ESP_FAIL;
@@ -471,13 +487,13 @@ static esp_err_t root_get_handler(httpd_req_t *req)
 
     fd = fopen(filepath, "r");
     if (!fd) {
-        ets_printf("Failed to read existing file : %s", filepath);
+       // //Scheduler::threadsafe_printf("Failed to read existing file : %s", filepath);
         /* Respond with 500 Internal Server Error */
         httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Failed to read existing file");
         return ESP_FAIL;
     }
 
-    ets_printf("Sending file : %s (%ld bytes)...", filename, file_stat.st_size);
+    ////Scheduler::threadsafe_printf("Sending file : %s (%ld bytes)...", filename, file_stat.st_size);
     set_content_type_from_file(req, filename);
 
     /* Retrieve the pointer to scratch buffer for temporary storage */
@@ -491,7 +507,7 @@ static esp_err_t root_get_handler(httpd_req_t *req)
             /* Send the buffer contents as HTTP response chunk */
             if (httpd_resp_send_chunk(req, chunk, chunksize) != ESP_OK) {
                 fclose(fd);
-                ets_printf("File sending failed!");
+                ////Scheduler::threadsafe_printf("File sending failed!");
                 /* Abort sending file */
                 httpd_resp_sendstr_chunk(req, NULL);
                 /* Respond with 500 Internal Server Error */
@@ -521,7 +537,7 @@ esp_err_t http_404_error_handler(httpd_req_t *req, httpd_err_code_t err)
     // iOS requires content in the response to detect a captive portal, simply redirecting is not sufficient.
     httpd_resp_send(req, "Redirect to the captive portal", HTTPD_RESP_USE_STRLEN);
 
-    ets_printf("Redirecting to root");
+    ////Scheduler::threadsafe_printf("Redirecting to root");
     return ESP_OK;
 }
 
@@ -537,16 +553,20 @@ static const httpd_uri_t show_root_webpage = {
 
 static httpd_handle_t start_webserver(void)
 {
+    ////Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
     httpd_handle_t server = NULL;
+    return server; // hack to disable it.
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
     config.max_open_sockets = 10; /// must be 3 smaller than  CONFIG_LWIP_MAX_SOCKETS=13 in esp-idf/sdkconfig file, change both together as needed.
     config.lru_purge_enable = true;
+    config.server_port = 80;
 
     // Start the httpd server
-    ets_printf("Starting server on port: '%d'", config.server_port);
+    ////Scheduler::threadsafe_printf("Starting server on port: '%d'", config.server_port);
     if (httpd_start(&server, &config) == ESP_OK) {
+        ////Scheduler::threadsafe_printf("%s:%d httpd_start\n", __PRETTY_FUNCTION__, __LINE__);
         // Set URI handlers
-        ets_printf("Registering URI handlers");
+        ////Scheduler::threadsafe_printf("Registering URI handlers");
         httpd_register_uri_handler(server, &show_root_webpage);
         httpd_register_err_handler(server, HTTPD_404_NOT_FOUND, http_404_error_handler);
     }
@@ -556,18 +576,9 @@ static httpd_handle_t start_webserver(void)
 void IRAM_ATTR WiFiDriver::initialize_wifi()
 {
 #ifdef WIFIDEBUG
-   Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+   ////Scheduler::threadsafe_printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
-    Scheduler::threadsafe_printf("\n1.WIFI thread has ID %d and %d bytes free stack\n", 42, uxTaskGetStackHighWaterMark(NULL));
-
-
-   /*
-        Turn of warnings from HTTP server as redirecting traffic will yield
-        lots of invalid requests
-    */
-    // esp_log_level_set("httpd_uri", ESP_LOG_ERROR);
-    // esp_log_level_set("httpd_txrx", ESP_LOG_ERROR);
-    // esp_log_level_set("httpd_parse", ESP_LOG_ERROR);
+    //Scheduler::threadsafe_printf("\n1.WIFI thread has ID %d and %d bytes free stack\n", 42, uxTaskGetStackHighWaterMark(NULL));
 
 
     esp_netif_init();
@@ -580,69 +591,6 @@ void IRAM_ATTR WiFiDriver::initialize_wifi()
     // Start the server for the first time
     start_webserver();
 
-    //event_init();
-    //esp_netif_create_default_wifi_ap(); //
-//
-   // ESP_ERROR_CHECK(esp_event_loop_create_default());
-    //ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL));
-   // ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, ESP_EVENT_ANY_ID, &ip_event_handler, NULL));
-
-//     esp_netif_t *ap = esp_netif_create_default_wifi_ap();
-
-//     ap=ap;
-
-
-//     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-//     esp_wifi_init(&cfg);
-//     esp_wifi_set_storage(WIFI_STORAGE_FLASH);
-
-//     //esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL);
-
-//             esp_err_t zzstatus{ESP_OK};
-
-
-//           //  if (ESP_OK == status)
-//           //  {
-//                 zzstatus = esp_event_handler_instance_register(WIFI_EVENT,
-//                                                              ESP_EVENT_ANY_ID,
-//                                                              &wifi_event_handler,
-//                                                              nullptr,
-//                                                              nullptr);
-//           //  }
-
-//           //  if (ESP_OK == status)
-//           //  {
-//                 zzstatus = esp_event_handler_instance_register(IP_EVENT,
-//                                                              ESP_EVENT_ANY_ID,
-//                                                              &ip_event_handler,
-//                                                              nullptr,
-//                                                              nullptr);
-//           //  }
-//           zzstatus=zzstatus; // UNUSED
-
-//     wifi_config_t wifi_config;
-//     memset(&wifi_config, 0, sizeof(wifi_config));
-// #ifdef WIFI_SSID
-//     strcpy((char *)wifi_config.ap.ssid, WIFI_SSID);
-// #else
-//     strcpy((char *)wifi_config.ap.ssid, "ardupilot");
-// #endif
-// #ifdef WIFI_PWD
-//     strcpy((char *)wifi_config.ap.password, WIFI_PWD);
-// #else
-//     strcpy((char *)wifi_config.ap.password, "ardupilot1");
-// #endif
-//     wifi_config.ap.authmode = WIFI_AUTH_WPA_WPA2_PSK;
-//     wifi_config.ap.max_connection = WIFI_MAX_CONNECTION;
-
-//     Scheduler::threadsafe_printf("2.WIFI thread has ID %d and %d bytes free stack\n", 43, uxTaskGetStackHighWaterMark(NULL));
-
-//     esp_wifi_set_mode(WIFI_MODE_AP); //<-- calls to current_task_is_wifi_task 
-//     Scheduler::threadsafe_printf("\n3.\n");
-//     esp_wifi_set_config(WIFI_IF_AP, &wifi_config);
-//     Scheduler::threadsafe_printf("\n4.\n");
-//     esp_wifi_start();
-//     Scheduler::threadsafe_printf("\n5.\n");
 }
 
 size_t WiFiDriver::write(uint8_t c)
@@ -652,12 +600,15 @@ size_t WiFiDriver::write(uint8_t c)
 
 size_t WiFiDriver::write(const uint8_t *buffer, size_t size)
 {
+    ////Scheduler::threadsafe_printf(" ZZZZ write? %d\n" , _state );
     if (_state != CONNECTED) {
         return 0;
     }
+    //Scheduler::threadsafe_printf(" ZZZZ write CONNECTED %d\n" , _state );
     if (!_write_mutex.take_nonblocking()) {
         return 0;
     }
+    //Scheduler::threadsafe_printf(" ZZZZ write buffsize:%d\n",size );
     size_t ret = _writebuf.write(buffer, size);
     _write_mutex.give();
     return ret;
@@ -666,39 +617,41 @@ size_t WiFiDriver::write(const uint8_t *buffer, size_t size)
 void WiFiDriver::_wifi_thread(void *arg)
 {
 #ifdef WIFIDEBUG
-   Scheduler::threadsafe_printf("%s:%d ZZZZ 0\n", __PRETTY_FUNCTION__, __LINE__);
+   //Scheduler::threadsafe_printf("%s:%d ZZZZ 0\n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     WiFiDriver *self = (WiFiDriver *) arg;
     if (!self->start_listen()) {
         vTaskDelete(nullptr);
     }
-    Scheduler::threadsafe_printf(" ZZZZ 1\n" );
+    //Scheduler::threadsafe_printf(" ZZZZ 1\n" );
     while (true) {
         if (self->try_accept()) {
-                Scheduler::threadsafe_printf(" ZZZZ 2\n" );
-
+            //Scheduler::threadsafe_printf(" ZZZZ 2 _state = CONNECTED\n" );
             self->_state = CONNECTED;
+
+            //static const uint8_t buffer[] = {0xFE ,0x09, 0x4E, 0x01, 0x01, 00, 00,   00,  00,  00,  02, 03, 0x51, 0x04,  03, 0x1C,  0x7F };
+            //self->write(buffer,sizeof(buffer));
             while (true) {
                 self->_more_data = false;
                 if (!self->read_data()) {
-                        Scheduler::threadsafe_printf(" ZZZZ 3\n" );
+                        //Scheduler::threadsafe_printf(" ZZZZ 3\n" );
 
                     self->_state = INITIALIZED;
                     break;
                 }
                 if (!self->write_data()) {
-                        Scheduler::threadsafe_printf(" ZZZZ 4\n" );
+                        //Scheduler::threadsafe_printf(" ZZZZ 4\n" );
 
                     self->_state = INITIALIZED;
                     break;
                 }
                 if (!self->_more_data) {
                     hal.scheduler->delay_microseconds(1000);
-                    Scheduler::threadsafe_printf(" ZZZZ 5\n" );
+                    ////Scheduler::threadsafe_printf(" ZZZZ 5\n" );
                 }
             }
         }
-        Scheduler::threadsafe_printf(" ZZZZ 11\n" );
+        //Scheduler::threadsafe_printf(" ZZZZ 11 \n" );
         hal.scheduler->delay_microseconds(10000);
 
     }
