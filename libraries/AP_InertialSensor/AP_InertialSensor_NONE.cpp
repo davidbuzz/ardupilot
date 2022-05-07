@@ -261,7 +261,7 @@ void AP_InertialSensor_NONE::timer_update(void)
     static uint64_t last_msg_sent = 0;
     if (now > last_msg_sent + 2000000) { //2sec= 2000ms = 2000000us
         //gcs().send_text(MAV_SEVERITY_WARNING, "NO IMU FOUND");
-        hal.console->printf("INS: NO IMU FOUND\n");
+       //hal.console->printf("INS: NO IMU FOUND\n"); - stack dumps due to trying to printf from a timer
         last_msg_sent = now;
     }
     if (now >= next_accel_sample) {

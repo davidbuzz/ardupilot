@@ -55,7 +55,7 @@
 //#define HAL_BARO_ANALOG_PIN (6)
 
 // MAG/COMPASS choices:
-#define HAL_COMPASS_DEFAULT HAL_COMPASS_AK8963_MPU9250
+//#define HAL_COMPASS_DEFAULT HAL_COMPASS_AK8963_MPU9250
 // or others:
 //#define HAL_COMPASS_ICM20948_I2C_ADDR (0x68)
 //#define HAL_COMPASS_AK09916_I2C_BUS 0
@@ -66,12 +66,15 @@
 //#define HAL_INS_PROBE_LIST PROBE_IMU_I2C(Invensensev2, 0, 0x68, ROTATION_YAW_270)
 // MAG/COMPASS probing:
 //#define HAL_MAG_PROBE_LIST ADD_BACKEND(DRIVER_ICM20948, AP_Compass_AK09916::probe_ICM20948_I2C(0, ROTATION_NONE));
-#define HAL_MAG_PROBE_LIST PROBE_MAG_SPI(Invensense, "mpu9250")
+////#define HAL_MAG_PROBE_LIST PROBE_MAG_SPI(Invensense, "mpu9250")
 // BARO probing:
 #define HAL_BARO_PROBE_LIST PROBE_BARO_I2C(BMP280, 0, 0x77)
 
 // allow boot without a baro
 #define HAL_BARO_ALLOW_INIT_NO_BARO 1
+
+// don't read sameple data 
+#define INS_DONT_SAMPLE 1
 
 
 // ADC is available on lots of pints on the esp32, but adc2 cant co-exist with wifi we choose to allow ADC on :
@@ -102,12 +105,17 @@
 
 #define HAL_INS_MPU9250_NAME "mpu9250"
 
-// uncommenting one or more of these will give more console debug in certain areas..
-//#define INSEDEBUG 1
+// uncommenting one or more of these will give more console debug in certain areas.. ... 
+// ...however all teh extra printf's use a lot of stack, so best to limit yourself to only uncommenting one at a time
+//#define INSEDEBUG 1 //ok
 //#define STORAGEDEBUG 1
-//#define SCHEDDEBUG 1
+//#define SCHEDDEBUG 1 //     static const int UART_SS = 2048; //1024 is not enough when SCHEDDEBUG=1, as there's many printf's
 //#define FSDEBUG 1
-//#define BUSDEBUG 1
+//#define BUSDEBUG 1 //ok
+#define WIFIDEBUG 1 //uses 3500 or more
+
+// disable trying to print floats in betterstream.. for now
+#define __FPU_PRESENT 0
 
 #define HAL_INS_PROBE_LIST PROBE_IMU_SPI( Invensense, HAL_INS_MPU9250_NAME, ROTATION_NONE)
 //#define HAL_INS_PROBE_LIST PROBE_IMU_SPI( Invensense, HAL_INS_MPU9250_NAME, ROTATION_ROLL_180)
@@ -125,6 +133,8 @@
 //LOG_DISARMED 1
 //SERIAL0_PROTOCOL 0
 
+
+#define HAL_GCS_ENABLED 1
 
 // see boards.py
 #ifndef ENABLE_HEAP
@@ -160,9 +170,10 @@
 #define HAL_ESP32_RCIN GPIO_NUM_14
 
 
-//HARDWARE UARTS
+//HARDWARE UARTS  lets stick to ZERO and wifi on '1' htat doesn't use this setup
 #define HAL_ESP32_UART_DEVICES \
-  {.port=UART_NUM_0, .rx=GPIO_NUM_6, .tx=GPIO_NUM_7 },{.port=UART_NUM_1, .rx=GPIO_NUM_16, .tx=GPIO_NUM_17 }
+  {.port=UART_NUM_0, .rx=GPIO_NUM_6, .tx=GPIO_NUM_7 }
+//  {.port=UART_NUM_0, .rx=GPIO_NUM_6, .tx=GPIO_NUM_7 },{.port=UART_NUM_1, .rx=GPIO_NUM_16, .tx=GPIO_NUM_17 }
 
 #define HAVE_FILESYSTEM_SUPPORT 1
 

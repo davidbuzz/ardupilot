@@ -855,7 +855,10 @@ AP_InertialSensor::init(uint16_t loop_rate)
 
     // calibrate gyros unless gyro calibration has been disabled
     if (gyro_calibration_timing() != GYRO_CAL_NEVER) {
+#if !defined ( INS_DONT_SAMPLE )
+        #error buzz buzz buzz
         init_gyro();
+#endif
     }
 
     _sample_period_usec = 1000*1000UL / _loop_rate;
@@ -1328,16 +1331,20 @@ bool AP_InertialSensor::calibrate_trim(Vector3f &trim_rad)
 
     // wait 100ms for ins filter to rise
     for (uint8_t k=0; k<100/update_dt_milliseconds; k++) {
+#if !defined ( INS_DONT_SAMPLE )
         wait_for_sample();
         update();
+#endif
         hal.scheduler->delay(update_dt_milliseconds);
     }
 
     uint32_t num_samples = 0;
     while (num_samples < 400/update_dt_milliseconds) {
+#if !defined ( INS_DONT_SAMPLE )
         wait_for_sample();
         // read samples from ins
         update();
+#endif
         // capture sample
         Vector3f samp;
         samp = get_accel(0);
@@ -1433,7 +1440,7 @@ AP_InertialSensor::_init_gyro()
     AP_Notify::flags.initialising = true;
 
     // cold start
-    hal.console->printf("Init Gyro");
+    hal.console->printf("Init Gyro\n");
 
     /*
       we do the gyro calibration with no board rotation. This avoids
@@ -1484,7 +1491,7 @@ AP_InertialSensor::_init_gyro()
 
         memset(diff_norm, 0, sizeof(diff_norm));
 
-        hal.console->printf("*");
+        hal.console->printf("*\n");
 
         for (uint8_t k=0; k<num_gyros; k++) {
             gyro_sum[k].zero();
@@ -1593,7 +1600,9 @@ void AP_InertialSensor::update(void)
 {
     // during initialisation update() may be called without
     // wait_for_sample(), and a wait is implied
+#if !defined ( INS_DONT_SAMPLE )
     wait_for_sample();
+#endif
 
         for (uint8_t i=0; i<INS_MAX_INSTANCES; i++) {
             // mark sensors unhealthy and let update() in each backend

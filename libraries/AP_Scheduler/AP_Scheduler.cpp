@@ -317,7 +317,9 @@ void AP_Scheduler::loop()
     // wait for an INS sample
     hal.util->persistent_data.scheduler_task = -3;
     _rsem.give();
+#if !defined ( INS_DONT_SAMPLE )
     AP::ins().wait_for_sample();
+#endif
     _rsem.take_blocking();
     hal.util->persistent_data.scheduler_task = -1;
 

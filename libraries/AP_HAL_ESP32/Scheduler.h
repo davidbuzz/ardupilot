@@ -21,6 +21,9 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+#include "esp_wifi.h"
+#include "esp_event.h"
+
 #define ESP32_SCHEDULER_MAX_TIMER_PROCS 10
 #define ESP32_SCHEDULER_MAX_IO_PROCS 10
 
@@ -67,15 +70,16 @@ public:
     static const int IO_PRIO = 5;
     static const int STORAGE_PRIO = 4;
 
-    static const int TIMER_SS = 4096;
-    static const int MAIN_SS = 4096;
-    static const int RCIN_SS = 4096;
-    static const int RCOUT_SS = 4096;
-    static const int WIFI_SS = 4096;
-    static const int UART_SS = 1024;
+    //_SS vars are number-of-WORDS, not bytes
+    static const int TIMER_SS = 2048;
+    static const int MAIN_SS = 1024*4; // *3 too small. 0x4037ba21 in panic_abort (details=0x3fce0cf1 "***ERROR*** A stack overflow in task APM_MAIN has been detected.")
+    static const int RCIN_SS = 2048;
+    static const int RCOUT_SS = 2048;
+    static const int WIFI_SS = 1024*6; // with *5, we have <1k free
+    static const int UART_SS = 4096; //1024 is not enough when SCHEDDEBUG=1, as there's many printf's
     static const int DEVICE_SS = 4096;
     static const int IO_SS = 4096;
-    static const int STORAGE_SS = 4096;
+    static const int STORAGE_SS = 2048;
 
 private:
     AP_HAL::HAL::Callbacks *callbacks;
@@ -88,6 +92,8 @@ private:
     uint8_t _num_io_procs;
 
     static bool _initialized;
+
+    int run_timer_state = 0;
 
 
 
@@ -122,4 +128,7 @@ private:
     bool _in_io_proc;
     void _run_io();
     Semaphore _io_sem;
+public:
+    Semaphore sem;
+
 };

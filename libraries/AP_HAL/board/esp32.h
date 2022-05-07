@@ -70,3 +70,7 @@
 #define LWIP_COMPAT_SOCKET_INET 0
 #define LWIP_COMPAT_SOCKET_ADDR 0
 
+// absolutely essential, as it defualts to 1324 in AP_Logger/AP_Logger.cpp, and that NOT enough.
+// ....with stack checking enabled in FreRTOS and GDB connected, GDB reports:
+// 0x4037ba21 in panic_abort (details=0x3fccdbb1 "***ERROR*** A stack overflow in task log_io has been detected.")
+#define HAL_LOGGING_STACK_SIZE 4096

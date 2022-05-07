@@ -145,6 +145,12 @@ void mount_sdcard_mmc()
     //   then uncomment this line and connect it electrically to the CS pin on the SDcard.
     //gpio_set_pull_mode(GPIO_NUM_13, GPIO_PULLUP_ONLY);   // D3, needed in 4- and 1-line modes
 
+    // https://www.esp32.com/viewtopic.php?t=3155 says that this might prevent a spirious error-msg, but without these lines
+    // we are still able to mount the SD in 1-wire mode, so this is more to quieten the boot message then to fix any bug:
+    // E (1904) sdmmc_req: sdmmc_host_wait_for_event returned 0x107
+    gpio_pulldown_dis(GPIO_NUM_13);
+    gpio_pullup_en(GPIO_NUM_13);
+
 
     // Options for mounting the filesystem.
     // If format_if_mount_failed is set to true, SD card will be partitioned and

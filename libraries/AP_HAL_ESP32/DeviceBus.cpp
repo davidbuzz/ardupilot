@@ -34,7 +34,7 @@ DeviceBus::DeviceBus(uint8_t _thread_priority) :
     thread_priority(_thread_priority), semaphore()
 {
 #ifdef BUSDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
 }
 
@@ -44,7 +44,7 @@ DeviceBus::DeviceBus(uint8_t _thread_priority) :
 void IRAM_ATTR DeviceBus::bus_thread(void *arg)
 {
 #ifdef BUSDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     struct DeviceBus *binfo = (struct DeviceBus *)arg;
 
@@ -98,7 +98,7 @@ void IRAM_ATTR DeviceBus::bus_thread(void *arg)
 AP_HAL::Device::PeriodicHandle DeviceBus::register_periodic_callback(uint32_t period_usec, AP_HAL::Device::PeriodicCb cb, AP_HAL::Device *_hal_device)
 {
 #ifdef BUSDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     if (!thread_started) {
         thread_started = true;
@@ -119,10 +119,12 @@ AP_HAL::Device::PeriodicHandle DeviceBus::register_periodic_callback(uint32_t pe
             break;
         }
 #ifdef BUSDEBUG
-        printf("%s:%d Thread Start\n", __PRETTY_FUNCTION__, __LINE__);
+        hal.console->printf("%s:%d B4 Thread Start\n", __PRETTY_FUNCTION__, __LINE__);
 #endif
-        xTaskCreate(DeviceBus::bus_thread, name, Scheduler::DEVICE_SS,
-                    this, thread_priority, &bus_thread_handle);
+        if (xTaskCreate(DeviceBus::bus_thread, name, Scheduler::DEVICE_SS,   this, thread_priority, &bus_thread_handle) != pdPASS) {
+            hal.console->printf("FAILED to create task _io_thread\n");
+        }
+
     }
     DeviceBus::callback_info *callback = new DeviceBus::callback_info;
     if (callback == nullptr) {
