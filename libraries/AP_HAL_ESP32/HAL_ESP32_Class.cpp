@@ -29,17 +29,13 @@
 #include "AnalogIn.h"
 #include "Util.h"
 
+static ESP32::UARTDriver uartADriver(0);// cons, real uarts need a idx to attach to, wifi doesn't
+static Empty::UARTDriver uartBDriver; //egads, uartBDriver is the port that ardupilot probes for a GPS on.
+static ESP32::WiFiDriver uartCDriver; //lets try for tcp/mavlink on uart 'C'. tcp, client should connect to 192.168.4.1 port 5760
 
-static Empty::UARTDriver uartADriver;
-static ESP32::UARTDriver cons(0);
-static ESP32::UARTDriver uartBDriver(1);
-//#ifdef HAL_ESP32_WIFI
-//#if HAL_ESP32_WIFI == 1
-static ESP32::WiFiDriver uartCDriver; //tcp, client should connect to 192.168.4.1 port 5760
-//#elif HAL_ESP32_WIFI == 2
 //static ESP32::WiFiUdpDriver uartCDriver; //udp
-//#endif
-static ESP32::UARTDriver uartDDriver(2);
+//static Empty::UARTDriver uartCDriver; // empty doesn't need an idx either
+static Empty::UARTDriver uartDDriver;
 static Empty::UARTDriver uartEDriver;
 static Empty::UARTDriver uartFDriver;
 static Empty::UARTDriver uartGDriver;
@@ -69,7 +65,7 @@ extern const AP_HAL::HAL& hal;
 
 HAL_ESP32::HAL_ESP32() :
     AP_HAL::HAL(
-        &cons, //Console/mavlink
+        &uartADriver, //Console/mavlink
         &uartBDriver, //GPS 1
         &uartCDriver, //Telem 1
         &uartDDriver, //Telem 2
@@ -84,7 +80,7 @@ HAL_ESP32::HAL_ESP32() :
         nullptr,
         &analogIn,
         &storageDriver,
-        &cons,
+        &uartADriver,
         &gpioDriver,
         &rcinDriver,
         &rcoutDriver,
