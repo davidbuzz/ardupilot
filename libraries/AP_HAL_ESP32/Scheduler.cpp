@@ -85,12 +85,16 @@ void Scheduler::init()
     }
     hal.console->printf("OK created task _timer_thread\n");
 
-    //if (xTaskCreate(_rcout_thread, "APM_RCOUT", RCOUT_SS, this, RCOUT_PRIO, &_rcout_task_handle) != pdPASS) {
-    //    hal.console->printf("FAILED to create task _rcout_thread\n");
-    //}
-    //if (xTaskCreate(_rcin_thread, "APM_RCIN", RCIN_SS, this, RCIN_PRIO, &_rcin_task_handle) != pdPASS) {
-    //    hal.console->printf("FAILED to create task _rcin_thread\n");
-    //}
+    if (xTaskCreate(_rcout_thread, "APM_RCOUT", RCOUT_SS, this, RCOUT_PRIO, &_rcout_task_handle) != pdPASS) {
+       hal.console->printf("FAILED to create task _rcout_thread\n");
+    }
+    hal.console->printf("OK created task _rcout_thread\n");
+
+    if (xTaskCreate(_rcin_thread, "APM_RCIN", RCIN_SS, this, RCIN_PRIO, &_rcin_task_handle) != pdPASS) {
+       hal.console->printf("FAILED to create task _rcin_thread\n");
+    }
+    hal.console->printf("OK created task _rcin_thread\n");
+
     // pin this thread to Core 1
     if (xTaskCreatePinnedToCore(_uart_thread, "APM_UART", UART_SS, this, UART_PRIO, &_uart_task_handle,1) != pdPASS) {
     //if (xTaskCreate(_uart_thread, "APM_UART", UART_SS, this, UART_PRIO, &_uart_task_handle) != pdPASS) {
@@ -322,17 +326,17 @@ void Scheduler::_timer_thread(void *arg)
 //     return res;                                      
 // }                                                               
 
-void Scheduler::_rcout_thread(void* arg)
+void Scheduler::_rcout_thread(void* arg) // no printing from this functon block..
 {
     Scheduler *sched = (Scheduler *)arg;
     //hal.scheduler->delay(1000); // 
-    hal.console->printf("\n1.RCOUT thread has ID %d and %d bytes free stack\n", 50, uxTaskGetStackHighWaterMark(NULL));
+    //hal.console->printf("\n1.RCOUT thread has ID %d and %d bytes free stack\n", 50, uxTaskGetStackHighWaterMark(NULL));
 
     while (!_initialized) {
         sched->delay_microseconds(1000);
     }
     //hal.scheduler->delay(1000); // 
-    hal.console->printf("\n2.RCOUT thread has ID %d and %d bytes free stack\n", 51, uxTaskGetStackHighWaterMark(NULL));
+    //hal.console->printf("\n2.RCOUT thread has ID %d and %d bytes free stack\n", 51, uxTaskGetStackHighWaterMark(NULL));
 
     while (true) {
         sched->delay_microseconds(4000);
@@ -372,16 +376,16 @@ void Scheduler::_run_timers()
     _in_timer_proc = false;
 }
 
-void Scheduler::_rcin_thread(void *arg)
+void Scheduler::_rcin_thread(void *arg)// no printing from this functon block..
 {
-    hal.console->printf("\n1.RCIN thread has ID %d and %d bytes free stack\n", 52, uxTaskGetStackHighWaterMark(NULL));
+    //hal.console->printf("\n1.RCIN thread has ID %d and %d bytes free stack\n", 52, uxTaskGetStackHighWaterMark(NULL));
 
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
         sched->delay_microseconds(20000);
     }
     hal.rcin->init();
-    hal.console->printf("\n2.RCIN thread has ID %d and %d bytes free stack\n", 53, uxTaskGetStackHighWaterMark(NULL));
+    //hal.console->printf("\n2.RCIN thread has ID %d and %d bytes free stack\n", 53, uxTaskGetStackHighWaterMark(NULL));
 
     while (true) {
         sched->delay_microseconds(1000);
@@ -543,7 +547,7 @@ void Scheduler::print_stats(void)
         hal.console->printf("\n\n%s\n", buffer);
         //https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos.html#_CPPv49vTaskListPc
         hal.console->printf("STATUS ->Blocked,Ready,Deleted,Suspended\n");
-        hal.console->printf("TASK / STATUS /PRIORITY/STACK-HIGH-WATER-MK/TASKNUM/COREID\n");
+        hal.console->printf("TASK / STATUS /PRIORITY/STACK-HIGH-WATER-MK(REMAINING)/TASKNUM/COREID\n");
         vTaskList(buffer);
         hal.console->printf("\n\n%s\n", buffer);
 
