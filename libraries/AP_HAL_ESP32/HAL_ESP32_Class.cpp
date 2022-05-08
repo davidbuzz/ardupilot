@@ -31,11 +31,10 @@
 
 static ESP32::UARTDriver uartADriver(0);// cons, real uarts need a idx to attach to, wifi doesn't
 static Empty::UARTDriver uartBDriver; //egads, uartBDriver is the port that ardupilot probes for a GPS on.
-static ESP32::WiFiDriver uartCDriver; //lets try for tcp/mavlink on uart 'C'. tcp, client should connect to 192.168.4.1 port 5760
 
-//static ESP32::WiFiUdpDriver uartCDriver; //udp
-//static Empty::UARTDriver uartCDriver; // empty doesn't need an idx either
-static Empty::UARTDriver uartDDriver;
+static ESP32::WiFiDriver uartCDriver; //lets try for tcp/mavlink on uart 'C'. tcp, client should connect to 192.168.4.1 port 5760
+static ESP32::WiFiUdpDriver uartDDriver; //udp
+
 static Empty::UARTDriver uartEDriver;
 static Empty::UARTDriver uartFDriver;
 static Empty::UARTDriver uartGDriver;
