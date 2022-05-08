@@ -68,8 +68,10 @@ void WiFiDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 
     if (_state == NOT_INITIALIZED) {
         initialize_wifi();
-        if (xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle) != pdPASS) {
-            ////hal.console->printf("FAILED to create task _wifi_thread\n");
+        // pin this thread to Core 1
+        if (xTaskCreatePinnedToCore(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle,1) != pdPASS) {
+        //if (xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle) != pdPASS) {
+            //hal.console->printf("FAILED to create task _wifi_thread\n");
         }
         _readbuf.set_size(RX_BUF_SIZE);
         _writebuf.set_size(TX_BUF_SIZE);

@@ -79,7 +79,7 @@ wifi           	1920815		1%
 Tmr Svc        	15		<1%
 ipc0           	742286		<1%
 
-after:   at least one cpu is closer to 100%
+after:  CONFIG_FREERTOS_HZ=200 at least one cpu is closer to 100%
 APM_MAIN       	134686198		74%
 APM_UART       	10334839		5%
 APM_WIFI       	23192287		12%
@@ -96,6 +96,8 @@ esp_timer      	504347		<1%
 wifi           	5396335		2%
 ipc1           	851293		<1%
 ipc0           	642383		<1%
+
+// with CONFIG_FREERTOS_HZ=400 gets cpu up to 85% before we move tasks to other cores, seems to boot ok.
 
 
 */

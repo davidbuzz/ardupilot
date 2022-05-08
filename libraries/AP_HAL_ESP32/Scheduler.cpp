@@ -73,7 +73,9 @@ void Scheduler::init()
 #endif
 
 
-    if (xTaskCreate(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle) != pdPASS) {
+    // pin main thread to Core 0, and we'll also pina other heavy-tasks to core 1, like wifi-related.
+    if (xTaskCreatePinnedToCore(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle,0) != pdPASS) {
+    //if (xTaskCreate(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle) != pdPASS) {
         hal.console->printf("FAILED to create task _main_thread\n");
     }
     hal.console->printf("OK created task _main_thread\n");
@@ -89,7 +91,9 @@ void Scheduler::init()
     //if (xTaskCreate(_rcin_thread, "APM_RCIN", RCIN_SS, this, RCIN_PRIO, &_rcin_task_handle) != pdPASS) {
     //    hal.console->printf("FAILED to create task _rcin_thread\n");
     //}
-    if (xTaskCreate(_uart_thread, "APM_UART", UART_SS, this, UART_PRIO, &_uart_task_handle) != pdPASS) {
+    // pin this thread to Core 1
+    if (xTaskCreatePinnedToCore(_uart_thread, "APM_UART", UART_SS, this, UART_PRIO, &_uart_task_handle,1) != pdPASS) {
+    //if (xTaskCreate(_uart_thread, "APM_UART", UART_SS, this, UART_PRIO, &_uart_task_handle) != pdPASS) {
             hal.console->printf("FAILED to create task _uart_thread\n");
     }
     hal.console->printf("OK created task _uart_thread\n");
