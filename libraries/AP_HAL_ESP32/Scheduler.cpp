@@ -541,6 +541,12 @@ void Scheduler::print_stats(void)
         vTaskGetRunTimeStats(buffer); //undefined reference to `vTaskGetRunTimeStats' - needs a particular feature in sdkconfig we may not have now CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS  ? 
         hal.console->printf("TASK           ABSTIME       PERCENTAGE\n");
         hal.console->printf("\n\n%s\n", buffer);
+        //https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos.html#_CPPv49vTaskListPc
+        hal.console->printf("STATUS ->Blocked,Ready,Deleted,Suspended\n");
+        hal.console->printf("TASK / STATUS /PRIORITY/STACK-HIGH-WATER-MK/TASKNUM/COREID\n");
+        vTaskList(buffer);
+        hal.console->printf("\n\n%s\n", buffer);
+
         heap_caps_print_heap_info(0);
         last_run = AP_HAL::millis64();
     }
