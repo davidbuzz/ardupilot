@@ -505,7 +505,7 @@ void Scheduler::_uart_thread(void *arg)
 
 #endif
     while (true) {
-        sched->delay_microseconds(1000);
+        sched->delay_microseconds(1000); // WARN, this is a 1millissec delay in the uart thtead.
         //for (uint8_t i=0; i<hal.num_serial; i++) {
             hal.serial(0)->_timer_tick();
             hal.serial(1)->_timer_tick();
@@ -531,9 +531,12 @@ void Scheduler::print_stats(void)
 {
     static int64_t last_run = 0;
     if (AP_HAL::millis64() - last_run > 60000) {
-        //char buffer[1024];
-        //vTaskGetRunTimeStats(buffer); undefined reference to `vTaskGetRunTimeStats' - needs a particular feature in sdkconfig we may not have now CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS  ? 
-        //hal.console->printf("\n\n%s\n", buffer);
+        char buffer[1024];
+        // https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/kconfig.html#config-freertos-generate-run-time-stats
+        // CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS=y
+        vTaskGetRunTimeStats(buffer); //undefined reference to `vTaskGetRunTimeStats' - needs a particular feature in sdkconfig we may not have now CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS  ? 
+        hal.console->printf("TASK           ABSTIME       PERCENTAGE\n");
+        hal.console->printf("\n\n%s\n", buffer);
         heap_caps_print_heap_info(0);
         last_run = AP_HAL::millis64();
     }
@@ -580,9 +583,9 @@ hal.console->printf("\n%s:%d end of uarts\n", __PRETTY_FUNCTION__, __LINE__);
             sched->run_timer_state = 1;
          }   
 
-        sched->print_stats(); // only runs every 60 seconds.
+        sched->print_stats(); // only runs every 60 seconds, but needs an extra 1K ish of string buffer space
 
-        vTaskDelay(10); // to allow watchdog to be fed - buzz hack  
+        //vTaskDelay(10); // to allow watchdog to be fed - buzz hack  
         //Task watchdog got triggered. The following tasks did not reset the watchdog in time: IDLE APM_MAIN
 
     }

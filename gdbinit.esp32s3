@@ -6,6 +6,6 @@ thb app_main
 #thb AP_Logger_Backend::WritePrioritisedBlock
 #thb abort.c:46
 #thb RingBuffer.cpp:222
-hb WiFiDriver.cpp:71
-b AP_SerialManager.cpp:451
+#hb WiFiDriver.cpp:71
+#b AP_SerialManager.cpp:451
 c

@@ -199,7 +199,7 @@ bool WiFiDriver::read_data()
         do {
             count = recv(socket_list[i], (void *)_buffer, sizeof(_buffer), 0);
             if (count > 0) {
-                //hal.console->printf(" ZZZZ read_data %d\n",count );
+                hal.console->printf(" ZZZZ read_data %d\n",count );
                 _readbuf.write(_buffer, count);
                 if (count == sizeof(_buffer)) {
                     _more_data = true;
@@ -232,7 +232,7 @@ bool WiFiDriver::write_data()
             //hal.console->printf(" ZZZZ write_data peek-count: %d bufsize:%d\n",count,sizeof(_buffer) );
             if (count > 0) {
                 count = send(socket_list[i], (void*) _buffer, count, 0);
-                //hal.console->printf(" ZZZZ write_data send-count %d\n",count );
+                hal.console->printf(" ZZZZ write_data send-count %d\n",count );
                 if (count > 0) {
                     _writebuf.advance(count);
                     if (count == sizeof(_buffer)) {
@@ -375,8 +375,8 @@ void WiFiDriver::_wifi_thread(void *arg)
                     break;
                 }
                 if (!self->_more_data) {
-                    hal.scheduler->delay_microseconds(1000);
-                    ////hal.console->printf(" ZZZZ 5\n" );
+                    hal.scheduler->delay_microseconds(500);
+                    //hal.console->printf(" ZZZZ thread delay\n" );
                 }
             }
         }

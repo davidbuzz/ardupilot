@@ -59,14 +59,55 @@ public:
     static void thread_create_trampoline(void *ctx);
     bool thread_create(AP_HAL::MemberProc, const char *name, uint32_t stack_size, priority_base base, int8_t priority) override;
 
+/*
+before:  cpu is mostly idle...
+
+APM_MAIN       	11295279		9%
+IDLE           	108898189		90%
+IDLE           	106303512		88%
+APM_UART       	1185228		<1%
+APM_WIFI       	4140027		3%
+log_io         	625254		<1%
+APM_IO         	1395396		1%
+APM_STORAGE    	309057		<1%
+tiT            	1963310		1%
+APM_TIMER      	864027		<1%
+ipc1           	682449		<1%
+sys_evt        	1376		<1%
+esp_timer      	263610		<1%
+wifi           	1920815		1%
+Tmr Svc        	15		<1%
+ipc0           	742286		<1%
+
+after:   at least one cpu is closer to 100%
+APM_MAIN       	134686198		74%
+APM_UART       	10334839		5%
+APM_WIFI       	23192287		12%
+log_io         	4342472		2%
+APM_IO         	7103394		3%
+APM_STORAGE    	2184089		1%
+IDLE           	137290709		76%
+IDLE           	16035044		8%
+APM_TIMER      	5138484		2%
+tiT            	12726528		7%
+sys_evt        	923		<1%
+Tmr Svc        	17		<1%
+esp_timer      	504347		<1%
+wifi           	5396335		2%
+ipc1           	851293		<1%
+ipc0           	642383		<1%
+
+
+*/
+
     static const int SPI_PRIORITY = 10; // if your primary imu is spi, this should be above the i2c value, spi is better.
-    static const int MAIN_PRIO = 10;
+    static const int MAIN_PRIO = 128;  // we want schuler running at full tilt.
     static const int I2C_PRIORITY = 5; // if your primary imu is i2c, this should be above the spi value, i2c is not preferred.
-    static const int TIMER_PRIO = 15;
+    static const int TIMER_PRIO = 40; // a low priority mere might cause wifi thruput to suffer
     static const int RCIN_PRIO = 15;
     static const int RCOUT_PRIO = 10;
-    static const int WIFI_PRIO = 40;
-    static const int UART_PRIO = 6;
+    static const int WIFI_PRIO = 20;
+    static const int UART_PRIO = 20; // a low priority mere might cause wifi thruput to suffer, as wifi gets passed its data frim the uart subsustem in _writebuf/_readbuf
     static const int IO_PRIO = 5;
     static const int STORAGE_PRIO = 4;
 
