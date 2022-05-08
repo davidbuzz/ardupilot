@@ -112,7 +112,7 @@
 //#define SCHEDDEBUG 1 //     static const int UART_SS = 2048; //1024 is not enough when SCHEDDEBUG=1, as there's many printf's
 //#define FSDEBUG 1
 //#define BUSDEBUG 1 //ok
-#define WIFIDEBUG 1 //uses 3500 or more
+#define WIFIDEBUG 1 //uses a lot?
 
 // disable trying to print floats in betterstream.. for now
 #define __FPU_PRESENT 0
