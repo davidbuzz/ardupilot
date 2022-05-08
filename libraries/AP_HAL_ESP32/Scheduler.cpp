@@ -68,12 +68,9 @@ void disableCore1WDT()
 void Scheduler::init()
 {
 
-#ifdef SCHEDDEBUG
-    hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+    hal.console->printf("%s:%d running with CONFIG_FREERTOS_HZ=%d\n", __PRETTY_FUNCTION__, __LINE__,CONFIG_FREERTOS_HZ);
 
-
-    // pin main thread to Core 0, and we'll also pina other heavy-tasks to core 1, like wifi-related.
+    // pin main thread to Core 0, and we'll also pin other heavy-tasks to core 1, like wifi-related.
     if (xTaskCreatePinnedToCore(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle,0) != pdPASS) {
     //if (xTaskCreate(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle) != pdPASS) {
         hal.console->printf("FAILED to create task _main_thread\n");
