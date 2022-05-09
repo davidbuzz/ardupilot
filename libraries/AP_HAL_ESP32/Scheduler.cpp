@@ -36,6 +36,8 @@
 
 #include "esp_log.h"
 
+#include "esp_sysview_trace.h"
+
 
 //#define SCHEDULERDEBUG 1
 
@@ -67,6 +69,8 @@ void disableCore1WDT()
 
 void Scheduler::init()
 {
+
+    esp_sysview_flush(ESP_APPTRACE_TMO_INFINITE);
 
     hal.console->printf("%s:%d running with CONFIG_FREERTOS_HZ=%d\n", __PRETTY_FUNCTION__, __LINE__,CONFIG_FREERTOS_HZ);
 
@@ -585,6 +589,9 @@ hal.console->printf("\n%s:%d end of uarts\n", __PRETTY_FUNCTION__, __LINE__);
      hal.console->printf("\n2.MAIN thread has ID %d and %d bytes free stack\n", 45, uxTaskGetStackHighWaterMark(NULL));
 // #endif
     while (true) {
+
+            esp_sysview_flush(ESP_APPTRACE_TMO_INFINITE);
+
         //hal.console->printf("MAIN thread loop\n"); works, but noisy
         sched->callbacks->loop();
         sched->delay_microseconds(250);

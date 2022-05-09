@@ -62,7 +62,7 @@ void WiFiUdpDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
     hal.console->printf("%s:%d UDP state:%d\n", __PRETTY_FUNCTION__, __LINE__,_state);
 
     if (_state == NOT_INITIALIZED) {
-        ::initialize_wifi();
+        //::initialize_wifi();
         if (!start_listen()) {
             return;
         }

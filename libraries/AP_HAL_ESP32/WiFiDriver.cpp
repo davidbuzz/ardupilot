@@ -72,7 +72,7 @@ void WiFiDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
     hal.console->printf("%s:%d TCP state:%d\n", __PRETTY_FUNCTION__, __LINE__,_state);
 
     if (_state == NOT_INITIALIZED) {
-        ::initialize_wifi();
+        //::initialize_wifi();
         // pin this thread to Core 1
         if (xTaskCreatePinnedToCore(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle,1) != pdPASS) {
         //if (xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle) != pdPASS) {

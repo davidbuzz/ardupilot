@@ -856,7 +856,7 @@ AP_InertialSensor::init(uint16_t loop_rate)
     // calibrate gyros unless gyro calibration has been disabled
     if (gyro_calibration_timing() != GYRO_CAL_NEVER) {
 #if !defined ( INS_DONT_SAMPLE )
-        #error buzz buzz buzz
+        //#error buzz buzz buzz
         init_gyro();
 #endif
     }
@@ -1430,6 +1430,7 @@ AP_InertialSensor::_init_gyro()
 
     // exit immediately if calibration is already in progress
     if (calibrating()) {
+        hal.console->printf("_init_gyro INS calibrating...\n");
         return;
     }
 
@@ -1706,6 +1707,9 @@ void AP_InertialSensor::update(void)
  */
 void AP_InertialSensor::wait_for_sample(void)
 {
+
+    hal.console->printf("%s:%d\n", __PRETTY_FUNCTION__, __LINE__);
+
     if (_have_sample) {
         // the user has called wait_for_sample() again without
         // consuming the sample with update()

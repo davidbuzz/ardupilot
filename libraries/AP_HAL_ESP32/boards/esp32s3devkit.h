@@ -73,7 +73,7 @@
 // allow boot without a baro
 #define HAL_BARO_ALLOW_INIT_NO_BARO 1
 
-// don't read sameple data 
+// don't read sameple data , this allows the system to boot when ins is not configured/wired correctly
 #define INS_DONT_SAMPLE 1
 
 

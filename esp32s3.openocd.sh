@@ -9,4 +9,15 @@ source ./modules/esp_idf/export.sh
 # our 'openocd supports special command which can be used to set arbitrary location of application image to debug'
 # https://docs.espressif.com/projects/esp-idf/en/v4.2-beta1/esp32/api-guides/jtag-debugging/tips-and-quirks.html#flash-mappings-vs-sw-flash-breakpoints
 # ...write_flash..  ends in a sequence of <address> <filename> in that order
-openocd -f board/esp32s3-builtin.cfg -c "init; halt; esp32s3 appimage_offset 0x20000" -d2
+#openocd -f board/esp32s3-builtin.cfg -c "init; halt; esp32s3 appimage_offset 0x20000" -d2
+openocd -f board/esp32s3-builtin.cfg -c "init ; halt ;esp32s3 appimage_offset 0x20000 ; resume" -d3
+
+
+# segger tips;
+# from video: https://www.youtube.com/watch?v=rLXjd4VxYaU&ab_channel=Kevin
+# flash with sdk mods and code mods:
+# run/connect openocd then:
+# telnet localhost 4444
+# esp sysview start file://pro.bin file://app.bin 1 -1 -1 0 0
+# ...wait....
+# esp sysview stop
