@@ -856,7 +856,7 @@ AP_InertialSensor::init(uint16_t loop_rate)
     // calibrate gyros unless gyro calibration has been disabled
     if (gyro_calibration_timing() != GYRO_CAL_NEVER) {
 #if !defined ( INS_DONT_SAMPLE )
-        #error buzz buzz buzz
+        //#error buzz buzz buzz
         init_gyro();
 #endif
     }
@@ -1430,6 +1430,7 @@ AP_InertialSensor::_init_gyro()
 
     // exit immediately if calibration is already in progress
     if (calibrating()) {
+        hal.console->printf("%s:%d\n _init_gyro calibrating", __PRETTY_FUNCTION__, __LINE__);
         return;
     }
 
@@ -1456,10 +1457,12 @@ AP_InertialSensor::_init_gyro()
         best_diff[k] = -1.f;
         last_average[k].zero();
         converged[k] = false;
+        hal.console->printf("Init Gyroconverge\n");
     }
 
     for(int8_t c = 0; c < 5; c++) {
         hal.scheduler->delay(5);
+        hal.console->printf("Init Gyro delay/update\n");
         update();
     }
 
@@ -1470,6 +1473,7 @@ AP_InertialSensor::_init_gyro()
     // as the calibration temperature to minimise errors
     for (uint8_t k=0; k<num_gyros; k++) {
         start_temperature[k] = get_temperature(k);
+        hal.console->printf("Init Gyro get-temp\n");
     }
 #endif
 
@@ -1707,6 +1711,8 @@ void AP_InertialSensor::update(void)
 void AP_InertialSensor::wait_for_sample(void)
 {
     if (_have_sample) {
+        //hal.console->printf("%s:%d wait_for_sample quick return\n", __PRETTY_FUNCTION__, __LINE__);
+        hal.console->printf("X");
         // the user has called wait_for_sample() again without
         // consuming the sample with update()
         return;
@@ -1728,10 +1734,10 @@ void AP_InertialSensor::wait_for_sample(void)
         hal.scheduler->delay_microseconds_boost(wait_usec);
         uint32_t now2 = AP_HAL::micros();
         if (now2+100 < _next_sample_usec) {
-            timing_printf("shortsleep %u\n", (unsigned)(_next_sample_usec-now2));
+            hal.console->printf("shortsleep %u\n", (unsigned)(_next_sample_usec-now2));
         }
         if (now2 > _next_sample_usec+400) {
-            timing_printf("longsleep %u wait_usec=%u\n",
+            hal.console->printf("longsleep %u wait_usec=%u\n",
                           (unsigned)(now2-_next_sample_usec),
                           (unsigned)wait_usec);
         }
@@ -1739,12 +1745,12 @@ void AP_InertialSensor::wait_for_sample(void)
     } else if (now - _next_sample_usec < _sample_period_usec/8) {
         // we've overshot, but only by a small amount, keep on
         // schedule with no delay
-        timing_printf("overshoot1 %u\n", (unsigned)(now-_next_sample_usec));
-        _next_sample_usec += _sample_period_usec;
+        hal.console->printf("overshoot1 %u\n", (unsigned)(now-_next_sample_usec));
+        _next_sample_usec += _sample_period_usec;   
     } else {
         // we've overshot by a larger amount, re-zero scheduling with
         // no delay
-        timing_printf("overshoot2 %u\n", (unsigned)(now-_next_sample_usec));
+        //hal.console->printf("overshoot2 %u\n", (unsigned)(now-_next_sample_usec));
         _next_sample_usec = now + _sample_period_usec;
     }
 
@@ -1758,10 +1764,11 @@ check_sample:
         const uint8_t wait_per_loop = 100;
         const uint8_t wait_counter_limit = uint32_t(_loop_delta_t * 1.0e6) / (3*wait_per_loop);
 
-        while (true) {
+        while (wait_counter < wait_counter_limit) {
             for (uint8_t i=0; i<_backend_count; i++) {
                 // this is normally a nop, but can be used by backends
                 // that don't accumulate samples on a timer
+                //hal.console->printf("Init Gyro accumulating\n");
                 _backends[i]->accumulate();
             }
 
@@ -1796,6 +1803,7 @@ check_sample:
                     ((gyro_available_mask & _gyro_wait_mask) == _gyro_wait_mask) &&
                     accel_available_mask &&
                     ((accel_available_mask & _accel_wait_mask) == _accel_wait_mask)) {
+                    hal.console->printf("Init Gyro gyro/accel mask1\n");
                     break;
                 }
             } else {
@@ -1805,10 +1813,11 @@ check_sample:
                     // comes back we will start waiting on it again
                     _gyro_wait_mask &= gyro_available_mask;
                     _accel_wait_mask &= accel_available_mask;
+                    hal.console->printf("Init Gyro gyro/accel mask2\n");
                     break;
                 }
             }
-
+            //hal.console->printf("Init Gyro wait-per-loop %d - %d\n",wait_counter,wait_counter_limit);
             hal.scheduler->delay_microseconds_boost(wait_per_loop);
             wait_counter++;
         }
@@ -1817,7 +1826,7 @@ check_sample:
     _delta_time = (now - _last_sample_usec) * 1.0e-6f;
     _last_sample_usec = now;
 
-#if 0
+#if 1
     {
         static uint64_t delta_time_sum;
         static uint16_t counter;
@@ -1835,6 +1844,7 @@ check_sample:
     }
 #endif
 
+    //hal.console->printf("Init Gyro have sample\n");
     _have_sample = true;
 }
 

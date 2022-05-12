@@ -74,7 +74,7 @@
 #define HAL_BARO_ALLOW_INIT_NO_BARO 1
 
 // don't read sameple data 
-#define INS_DONT_SAMPLE 1
+//#define INS_DONT_SAMPLE 1
 
 
 // ADC is available on lots of pints on the esp32, but adc2 cant co-exist with wifi we choose to allow ADC on :
@@ -107,12 +107,13 @@
 
 // uncommenting one or more of these will give more console debug in certain areas.. ... 
 // ...however all teh extra printf's use a lot of stack, so best to limit yourself to only uncommenting one at a time
-//#define INSEDEBUG 1 //ok
+#define INSEDEBUG 1 //ok
 //#define STORAGEDEBUG 1
 //#define SCHEDDEBUG 1 //     static const int UART_SS = 2048; //1024 is not enough when SCHEDDEBUG=1, as there's many printf's
 //#define FSDEBUG 1
 //#define BUSDEBUG 1 //ok
-#define WIFIDEBUG 1 //uses a lot?
+//#define WIFIDEBUG 1 //uses a lot?
+#define INS_TIMING_DEBUG 1
 
 // disable trying to print floats in betterstream.. for now
 #define __FPU_PRESENT 0
@@ -146,24 +147,23 @@
 
 //RCOUT which pins are used?
 
-#define HAL_ESP32_RCOUT { GPIO_NUM_11,GPIO_NUM_10, GPIO_NUM_9, GPIO_NUM_8, GPIO_NUM_7, GPIO_NUM_6 }
+#define HAL_ESP32_RCOUT { GPIO_NUM_47,GPIO_NUM_37, GPIO_NUM_33, GPIO_NUM_38, GPIO_NUM_36, GPIO_NUM_21 }
 
 // SPI BUS setup, including gpio, dma, etc
 // note... we use 'vspi' for the bmp280 and mpu9250
 #define HAL_ESP32_SPI_BUSES \
-    {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_37, .miso=GPIO_NUM_35, .sclk=GPIO_NUM_36}
+    {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_8, .miso=GPIO_NUM_48, .sclk=GPIO_NUM_18}
 // tip:  VSPI_HOST  is an alternative name for esp's SPI3
 //#define HAL_ESP32_SPI_BUSES {}
 
 // SPI per-device setup, including speeds, etc.
 #define HAL_ESP32_SPI_DEVICES \
-    {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_34,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
+    {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_9,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
 //#define HAL_ESP32_SPI_DEVICES {}
 
 //I2C bus list
-#define HAL_ESP32_I2C_BUSES \
-	{.port=I2C_NUM_0, .sda=GPIO_NUM_13, .scl=GPIO_NUM_12, .speed=400*KHZ, .internal=true}
-//#define HAL_ESP32_I2C_BUSES {} // using this embty block appears to cause crashes?
+//#define HAL_ESP32_I2C_BUSES	{.port=I2C_NUM_0, .sda=GPIO_NUM_13, .scl=GPIO_NUM_12, .speed=400*KHZ, .internal=true}
+#define HAL_ESP32_I2C_BUSES {} // using this embty block appears to cause crashes?
 
 
 // rcin on what pin?
