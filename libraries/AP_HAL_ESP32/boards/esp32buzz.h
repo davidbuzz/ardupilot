@@ -19,8 +19,8 @@
 #define PROBE_IMU_SPI(driver, devname, args ...) ADD_BACKEND(AP_InertialSensor_ ## driver::probe(*this,hal.spi->get_device(devname),##args))
 #define PROBE_IMU_SPI2(driver, devname1, devname2, args ...) ADD_BACKEND(AP_InertialSensor_ ## driver::probe(*this,hal.spi->get_device(devname1),hal.spi->get_device(devname2),##args))
 
-#define PROBE_BARO_I2C(driver, bus, addr, args ...) ADD_BACKEND(AP_Baro_ ## driver::probe(*this,std::move(GET_I2C_DEVICE(bus, addr)),##args))
-#define PROBE_BARO_SPI(driver, devname, args ...) ADD_BACKEND(AP_Baro_ ## driver::probe(*this,std::move(hal.spi->get_device(devname)),##args))
+//#define PROBE_BARO_I2C(driver, bus, addr, args ...) ADD_BACKEND(AP_Baro_ ## driver::probe(*this,std::move(GET_I2C_DEVICE(bus, addr)),##args))
+//#define PROBE_BARO_SPI(driver, devname, args ...) ADD_BACKEND(AP_Baro_ ## driver::probe(*this,std::move(hal.spi->get_device(devname)),##args))
 
 #define PROBE_MAG_I2C(driver, bus, addr, args ...) ADD_BACKEND(DRIVER_ ##driver, AP_Compass_ ## driver::probe(GET_I2C_DEVICE(bus, addr),##args))
 #define PROBE_MAG_SPI(driver, devname, args ...) ADD_BACKEND(DRIVER_ ##driver, AP_Compass_ ## driver::probe(hal.spi->get_device(devname),##args))
@@ -28,6 +28,12 @@
 #define PROBE_MAG_IMU_I2C(driver, imudev, bus, addr, args ...) ADD_BACKEND(DRIVER_ ##driver, AP_Compass_ ## driver::probe_ ## imudev(GET_I2C_DEVICE(bus,addr),##args))
 //------------------------------------
 
+//- these are missing from esp-idf......will not be needed later
+#define RTC_WDT_STG_SEL_OFF             0
+#define RTC_WDT_STG_SEL_INT             1
+#define RTC_WDT_STG_SEL_RESET_CPU       2
+#define RTC_WDT_STG_SEL_RESET_SYSTEM    3
+#define RTC_WDT_STG_SEL_RESET_RTC       4
 
 //#define CONFIG_HAL_BOARD 12
 //#define HAL_BOARD_ESP32 12
@@ -42,14 +48,15 @@
 //#define HAL_INS_ICM20XXX_I2C_ADDR (0x68)
 
 // BARO choices:
-#define HAL_BARO_DEFAULT HAL_BARO_BMP280_SPI
-#define HAL_BARO_BMP280_NAME "BMP280"
+//#define HAL_BARO_DEFAULT HAL_BARO_BMP280_I2C
+//#define HAL_BARO_BMP280_NAME "BMP280"
 // or one of these:
 //#define HAL_BARO_DEFAULT HAL_BARO_MS5837_I2C
 // or: GPIO 34
 //#define HAL_BARO_ANALOG_PIN (6)
 
 // MAG/COMPASS choices:
+//#define HAL_COMPASS_DEFAULT HAL_COMPASS_AK8963_MPU9250
 // or others:
 //#define HAL_COMPASS_ICM20948_I2C_ADDR (0x68)
 //#define HAL_COMPASS_AK09916_I2C_BUS 0
@@ -60,11 +67,15 @@
 //#define HAL_INS_PROBE_LIST PROBE_IMU_I2C(Invensensev2, 0, 0x68, ROTATION_YAW_270)
 // MAG/COMPASS probing:
 //#define HAL_MAG_PROBE_LIST ADD_BACKEND(DRIVER_ICM20948, AP_Compass_AK09916::probe_ICM20948_I2C(0, ROTATION_NONE));
+////#define HAL_MAG_PROBE_LIST PROBE_MAG_SPI(Invensense, "mpu9250")
 // BARO probing:
 //#define HAL_BARO_PROBE_LIST PROBE_BARO_I2C(BMP280, 0, 0x77)
 
 // allow boot without a baro
 #define HAL_BARO_ALLOW_INIT_NO_BARO 1
+
+// don't read sameple data 
+//#define INS_DONT_SAMPLE 1
 
 
 // ADC is available on lots of pints on the esp32, but adc2 cant co-exist with wifi we choose to allow ADC on :
@@ -76,10 +87,10 @@
 //
 // two different pin numbering schemes, both are ok, but only one at a time:
 #define HAL_ESP32_ADC_PINS_OPTION1 {\
-	{ADC1_GPIO35_CHANNEL, 11, 1},\
-	{ADC1_GPIO34_CHANNEL, 11, 2},\
-	{ADC1_GPIO39_CHANNEL, 11, 3},\
-	{ADC1_GPIO36_CHANNEL, 11, 4}\
+	{ADC1_CHANNEL_4, 11, 1},\
+	{ADC1_CHANNEL_3, 11, 2},\
+	{ADC1_CHANNEL_1, 11, 3},\
+	{ADC1_CHANNEL_0, 11, 4}\
 }
 #define HAL_ESP32_ADC_PINS_OPTION2 {\
 	{ADC1_GPIO35_CHANNEL, 11, 35},\
@@ -89,27 +100,31 @@
 }
 // pick one:
 //#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION1
-#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION2
+#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION1
 
-
-
-#define HAL_PROBE_EXTERNAL_I2C_COMPASSES 1
+#define HAL_PROBE_EXTERNAL_I2C_COMPASSES 0
 
 
 #define HAL_INS_MPU9250_NAME "mpu9250"
 
-// uncommenting one or more of these will give more console debug in certain areas..
-//#define INSEDEBUG 1
+// uncommenting one or more of these will give more console debug in certain areas.. ... 
+// ...however all teh extra printf's use a lot of stack, so best to limit yourself to only uncommenting one at a time
+#define INSEDEBUG 1 //ok
 //#define STORAGEDEBUG 1
 //#define SCHEDDEBUG 1
 //#define FSDEBUG 1
-//#define BUSDEBUG 1
+//#define BUSDEBUG 1 //ok
+//#define WIFIDEBUG 1 //uses a lot?
+#define INS_TIMING_DEBUG 1
+
+// disable trying to print floats in betterstream.. for now
+#define __FPU_PRESENT 0
 
 #define HAL_INS_PROBE_LIST PROBE_IMU_SPI( Invensense, HAL_INS_MPU9250_NAME, ROTATION_NONE)
 //#define HAL_INS_PROBE_LIST PROBE_IMU_SPI( Invensense, HAL_INS_MPU9250_NAME, ROTATION_ROLL_180)
 
 
-#define HAL_BARO_PROBE_LIST PROBE_BARO_SPI(BMP280, "bmp280")
+//#define HAL_BARO_PROBE_LIST PROBE_BARO_SPI(BMP280, "bmp280")
 
 // 2 use udp, 1 use tcp...  for udp,client needs to connect as UDPCL in missionplanner etc to 192.168.4.1 port 14550
 #define HAL_ESP32_WIFI 1
@@ -122,6 +137,8 @@
 //SERIAL0_PROTOCOL 0
 
 
+#define HAL_GCS_ENABLED 1
+
 // see boards.py
 #ifndef ENABLE_HEAP
 #define ENABLE_HEAP 1
@@ -132,34 +149,33 @@
 
 //RCOUT which pins are used?
 
-#define HAL_ESP32_RCOUT { GPIO_NUM_25,GPIO_NUM_27, GPIO_NUM_33, GPIO_NUM_32, GPIO_NUM_22, GPIO_NUM_21 }
+#define HAL_ESP32_RCOUT { GPIO_NUM_47,GPIO_NUM_37, GPIO_NUM_33, GPIO_NUM_38, GPIO_NUM_36, GPIO_NUM_21 }
 
 // SPI BUS setup, including gpio, dma, etc
 // note... we use 'vspi' for the bmp280 and mpu9250
 #define HAL_ESP32_SPI_BUSES \
-    {.host=VSPI_HOST, .dma_ch=1, .mosi=GPIO_NUM_23, .miso=GPIO_NUM_19, .sclk=GPIO_NUM_18}
+    {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_8, .miso=GPIO_NUM_48, .sclk=GPIO_NUM_18}
 // tip:  VSPI_HOST  is an alternative name for esp's SPI3
 //#define HAL_ESP32_SPI_BUSES {}
 
 // SPI per-device setup, including speeds, etc.
 #define HAL_ESP32_SPI_DEVICES \
-    {.name= "bmp280", .bus=0, .device=0, .cs=GPIO_NUM_26, .mode = 3, .lspeed=1*MHZ, .hspeed=1*MHZ}, \
-    {.name="mpu9250", .bus=0, .device=1, .cs=GPIO_NUM_5,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
+    {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_9,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
 //#define HAL_ESP32_SPI_DEVICES {}
 
 //I2C bus list
-#define HAL_ESP32_I2C_BUSES \
-	{.port=I2C_NUM_0, .sda=GPIO_NUM_13, .scl=GPIO_NUM_12, .speed=400*KHZ, .internal=true}
-//#define HAL_ESP32_I2C_BUSES {} // using this embty block appears to cause crashes?
+//#define HAL_ESP32_I2C_BUSES	{.port=I2C_NUM_0, .sda=GPIO_NUM_13, .scl=GPIO_NUM_12, .speed=400*KHZ, .internal=true}
+#define HAL_ESP32_I2C_BUSES {} // using this embty block appears to cause crashes?
 
 
 // rcin on what pin?
-#define HAL_ESP32_RCIN GPIO_NUM_4
+#define HAL_ESP32_RCIN GPIO_NUM_14
 
 
 //HARDWARE UARTS
 #define HAL_ESP32_UART_DEVICES \
-  {.port=UART_NUM_0, .rx=GPIO_NUM_3, .tx=GPIO_NUM_1 },{.port=UART_NUM_1, .rx=GPIO_NUM_16, .tx=GPIO_NUM_17 }
+  {.port=UART_NUM_0, .rx=GPIO_NUM_6, .tx=GPIO_NUM_7 }
+//  {.port=UART_NUM_0, .rx=GPIO_NUM_6, .tx=GPIO_NUM_7 },{.port=UART_NUM_1, .rx=GPIO_NUM_16, .tx=GPIO_NUM_17 }
 
 #define HAVE_FILESYSTEM_SUPPORT 1
 

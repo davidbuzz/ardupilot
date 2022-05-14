@@ -7,7 +7,7 @@
 # disabling scripting and enabling ccache for turning bulds around faster.
 
 # 
-#rm -rf build
+rm -rf build
 
 export IDF_CCACHE_ENABLE=1
 source ./modules/esp_idf/export.sh
@@ -19,7 +19,7 @@ export CXX='ccache xtensa-esp32s3-elf-gcc'
 export CC='ccache xtensa-esp32s3-elf-g++' 
 #export CXX='xtensa-esp32s3-elf-gcc' 
 #export CC='xtensa-esp32s3-elf-g++' 
-./waf configure --board=esp32s3devkit --debug --toolchain=xtensa-esp32s3-elf --disable-scripting
+./waf configure --board=esp32buzz --debug --toolchain=xtensa-esp32s3-elf --disable-scripting
 echo "about to build in 3 sec..."
 sleep 3
 
