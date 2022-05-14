@@ -164,8 +164,8 @@
 //#define HAL_ESP32_SPI_DEVICES {}
 
 //I2C bus list
-//#define HAL_ESP32_I2C_BUSES	{.port=I2C_NUM_0, .sda=GPIO_NUM_13, .scl=GPIO_NUM_12, .speed=400*KHZ, .internal=true}
-#define HAL_ESP32_I2C_BUSES {} // using this embty block appears to cause crashes?
+#define HAL_ESP32_I2C_BUSES	{.port=I2C_NUM_0, .sda=GPIO_NUM_13, .scl=GPIO_NUM_12, .speed=400*KHZ, .internal=true}
+//#define HAL_ESP32_I2C_BUSES {} // using this embty block appears to cause crashes?
 
 
 // rcin on what pin?
