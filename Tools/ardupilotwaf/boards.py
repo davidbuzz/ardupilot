@@ -28,6 +28,7 @@ class BoardMeta(type):
         board_name = getattr(cls, 'name', name)
         if board_name in _board_classes:
             raise Exception('board named %s already exists' % board_name)
+        #print("board meta",board_name,cls)
         _board_classes[board_name] = cls
 
 class Board:
@@ -491,7 +492,27 @@ def get_ap_periph_boards():
                     if 'AP_PERIPH' in content:
                         list_ap.append(d)
                         continue
-
+    dirname, dirlist, filenames = next(os.walk('libraries/AP_HAL_ESP32/hwdef'))
+    for d in dirlist:
+        if d in list_ap:
+            continue
+        hwdef = os.path.join(dirname, d, 'hwdef.dat')
+        if os.path.exists(hwdef):
+            with open(hwdef, "r") as f:
+                content = f.read()
+                if 'AP_PERIPH' in content:
+                    list_ap.append(d)
+                    continue
+                # process any include lines:
+                m = re.match(r"include\s+([^\s]*)", content)
+                if m is None:
+                    continue
+                include_path = os.path.join(os.path.dirname(hwdef), m.group(1))
+                with open(include_path, "r") as g:
+                    content = g.read()
+                    if 'AP_PERIPH' in content:
+                        list_ap.append(d)
+                        continue
     list_ap = list(set(list_ap))
     return list_ap
 

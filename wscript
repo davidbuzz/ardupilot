@@ -734,6 +734,7 @@ def _load_pre_build(bld):
         return
     brd = bld.get_board()
     if bld.env.AP_PERIPH:
+        print("BUZZ pre_build periph needs dsdl for libcanard..")
         dsdlc_gen_path = bld.bldnode.make_node('modules/DroneCAN/libcanard/dsdlc_generated/include').abspath()
         #check if canard dsdlc directory empty
         # check if directory exists
