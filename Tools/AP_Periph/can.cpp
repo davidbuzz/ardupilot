@@ -22,7 +22,7 @@
 #include <canard.h>
 #include <AP_GPS/RTCM3_Parser.h>
 #include <stdio.h>
-#include <drivers/stm32/canard_stm32.h>
+//#include <drivers/stm32/canard_stm32.h>
 #include <AP_HAL/I2CDevice.h>
 #include <AP_HAL/utility/RingBuffer.h>
 #include <AP_Common/AP_FWVersion.h>
@@ -35,6 +35,18 @@
 #include <AP_HAL_ChibiOS/hwdef/common/watchdog.h>
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
 #include <AP_HAL_SITL/CANSocketIface.h>
+#endif
+
+
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+//#include <AP_HAL_ESP32/CANIface.h>
+
+
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+#include "esp_system.h"
+//#include <AP_HAL_ESP32/CAN/CAN.h>
+
 #endif
 
 
@@ -90,6 +102,8 @@ static struct instance_t {
     ChibiOS::CANIface* iface;
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
     HALSITL::CANIface* iface;
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+    void* iface;
 #endif
 } instances[HAL_NUM_CAN_IFACES];
 
@@ -141,6 +155,8 @@ uint8_t PreferredNodeID = HAL_CAN_DEFAULT_NODE_ID;
 ChibiOS::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
 HALSITL::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+//ESP32::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
 #endif
 
 

@@ -2820,6 +2820,7 @@ def add_apperiph_defaults(f):
     if env_vars.get('AP_PERIPH',0) == 0:
         # not AP_Periph
         return
+        
 
     if not args.bootloader:
         # use the app descriptor needed by MissionPlanner for CAN upload
@@ -2848,7 +2849,6 @@ def add_apperiph_defaults(f):
 // this becomes the default value for the ardupilot param LOG_BACKEND_TYPE, which most ppl want to be 1, for log-to-flash
 // setting to 2 means log-over-mavlink to a companion computer etc.
 #define HAL_LOGGING_BACKENDS_DEFAULT 1
-
 
 // default to no protocols, AP_Periph enables with params
 #define HAL_SERIAL1_PROTOCOL -1

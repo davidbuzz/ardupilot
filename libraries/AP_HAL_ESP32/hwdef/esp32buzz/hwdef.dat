@@ -5,7 +5,7 @@ MCU esp32 classic
 # We set a specific HAL_BOARD_SUBTYPE, allowing for custom config in
 # drivers. For this to be used the subtype needs to be added to
 # AP_HAL/AP_HAL_Boards.h as well.
-define CONFIG_HAL_BOARD_SUBTYPE HAL_BOARD_SUBTYPE_ESP32
+define CONFIG_HAL_BOARD_SUBTYPE HAL_BOARD_SUBTYPE_ESP32_BUZZ
 
 # Now we need to specify the APJ_BOARD_ID. This is the ID that the
 # bootloader presents to GCS software so it knows if this firmware is
@@ -386,6 +386,8 @@ define HAL_ESP32_SPI_DEVICES  {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_
 
 define HAL_BARO_PROBE_LIST PROBE_BARO_I2C(BMP280, 0, 0x77)
 
+// the pin number, the gain/multiplier associated with it, the ardupilot name for the pin in parameter/s.
+define HAL_ESP32_ADC_PINS {{ADC1_CHANNEL_4, 11, 1},{ADC1_CHANNEL_3, 11, 2},{ADC1_CHANNEL_1, 11, 3},{ADC1_CHANNEL_0, 11, 4}}
 
 # We need to tell HAL_ChibiOS/Storage.cpp how much storage is
 # available (in bytes).
