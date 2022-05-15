@@ -1067,10 +1067,12 @@ def write_mcu_config(f):
     if 'OTG2' in bytype:
         #f.write('#define STM32_USB_USE_OTG2                  FALSE\n')
         pass
+
     defines = get_mcu_config('DEFINES', False)
     if defines is not None:
         for d in defines.keys():
             v = defines[d]
+            print("BUZZ ESP HWDEF PY gegnerator adding DEFINES:",v,defines[d])
             f.write("#ifndef %s\n#define %s %s\n#endif\n" % (d, d, v))
     else:
         defines = {}
