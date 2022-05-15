@@ -42,7 +42,15 @@ def configure(cfg):
     env.SRCROOT = srcpath('')
     env.APJ_TOOL = srcpath('Tools/scripts/apj_tool.py')
 
-    #Check if esp-idf env are loaded, or load it
+    # cfg.env.prepend_value('DEFINES', [
+    #     'APJ_BOARD_ID=2020', # buzz hacks for AP_Periph
+    #     'HAL_CAN_DEFAULT_NODE_ID=0',
+    #     'HAL_NO_GCS=1',
+    #     'AP_AIRSPEED_AUTOCAL_ENABLE=0',
+    #     'DISABLE_SCRIPTING=1',
+    #     'HAL_BUILD_AP_PERIPH=1', # now in hwdef.h load_generated_includes
+    # ])
+
     try:
         env.IDF = os.environ['IDF_PATH']
     except:
@@ -97,6 +105,7 @@ def pre_build(bld):
     """Configure esp-idf as lib target"""
     load_env_vars(bld.env)
     lib_vars = OrderedDict()
+    print("BUZZ pre_build ARDUPILOT_CMD=",bld.cmd)
     lib_vars['ARDUPILOT_CMD'] = bld.cmd
     lib_vars['ARDUPILOT_LIB'] = bld.bldnode.find_or_declare('lib/').abspath()
     lib_vars['ARDUPILOT_BIN'] = bld.bldnode.find_or_declare('lib/bin').abspath()
@@ -169,7 +178,7 @@ def load_env_vars(env):
     e = pickle.load(open(env_py, 'rb'))
     for k in e.keys():
         v = e[k]
-        print("BUZZ en loaded:",v,k,e[k])
+        #print("BUZZ en loaded:",v,k,e[k])
         if k == 'ROMFS_FILES':
             env.ROMFS_FILES += v
             continue

@@ -49,7 +49,6 @@ void stm32_watchdog_pat() { esp_task_wdt_reset(); }
 //Each subscribed task must periodically call esp_task_wdt_reset() to reset the TWDT
 #endif
 
-
 void setup(void)
 {
     periph.init();
@@ -319,7 +318,7 @@ void AP_Periph_FW::show_stack_free()
 #endif
 
 
-
+// this is the main 'periph' loop() function that is called repeatedly as-fast as the scheduler can.
 void AP_Periph_FW::update()
 {
     static uint32_t last_led_ms;

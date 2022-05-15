@@ -61,6 +61,15 @@ void stm32_watchdog_pat();
 void stm32_watchdog_init();
 void stm32_watchdog_pat();
 #endif
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+void stm32_watchdog_init();
+void stm32_watchdog_pat();
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "soc/rtc_wdt.h"
+#include "esp_int_wdt.h"  //Interrupt Watchdog Timer
+#include "esp_task_wdt.h" //Task Watchdog Timer (TWDT)
+#endif
 /*
   app descriptor compatible with MissionPlanner
  */

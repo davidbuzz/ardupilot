@@ -908,23 +908,24 @@ def enable_can(f):
             if 'CAN%u' % i in bytype or (i == 1 and 'CAN' in bytype):
                 can_order.append(i)
 
-    base_list = []
-    for i in can_order:
-        base_list.append("reinterpret_cast<%s*>(uintptr_t(%s%s_BASE))" % (cast, prefix, i))
-        f.write("#define HAL_CAN_IFACE%u_ENABLE\n" % i)
+    base_list = [0]
+    # for i in can_order:
+    #     base_list.append("reinterpret_cast<%s*>(uintptr_t(%s%s_BASE))" % (cast, prefix, i))
+    #     f.write("#define HAL_CAN_IFACE%u_ENABLE\n" % i)
 
-    can_rev_order = [-1]*3
-    for i in range(len(can_order)):
-        can_rev_order[can_order[i]-1] = i
+    # can_rev_order = [-1]*3
+    # for i in range(len(can_order)):
+    #     can_rev_order[can_order[i]-1] = i
 
-    f.write('#define HAL_CAN_INTERFACE_LIST %s\n' % ','.join([str(i-1) for i in can_order]))
-    f.write('#define HAL_CAN_INTERFACE_REV_LIST %s\n' % ','.join([str(i) for i in can_rev_order]))
-    f.write('#define HAL_CAN_BASE_LIST %s\n' % ','.join(base_list))
+    # f.write('#define HAL_CAN_INTERFACE_LIST %s\n' % ','.join([str(i-1) for i in can_order]))
+    # f.write('#define HAL_CAN_INTERFACE_REV_LIST %s\n' % ','.join([str(i) for i in can_rev_order]))
+    # f.write('#define HAL_CAN_BASE_LIST %s\n' % ','.join(base_list))
     f.write('#define HAL_NUM_CAN_IFACES %d\n' % len(base_list))
     global mcu_type
     if 'CAN' in bytype and mcu_type.startswith("STM32F3"):
         f.write('#define CAN1_BASE CAN_BASE\n')
-    env_vars['HAL_NUM_CAN_IFACES'] = str(len(base_list))
+    env_vars['HAL_NUM_CAN_IFACES'] = 1
+    #str(len(base_list))
 
 
 def has_sdcard_spi():
@@ -1122,8 +1123,8 @@ def write_mcu_config(f):
             if result:
                 intdefines[result.group(1)] = int(result.group(2))
 
-    if have_type_prefix('CAN') and not using_chibios_can:
-        enable_can(f)
+    #if have_type_prefix('CAN') and not using_chibios_can:
+    #    enable_can(f)
     flash_size = get_config('FLASH_SIZE_KB', type=int)
     f.write('#define BOARD_FLASH_SIZE %u\n' % flash_size)
     env_vars['BOARD_FLASH_SIZE'] = flash_size
@@ -2827,6 +2828,9 @@ def add_apperiph_defaults(f):
         env_vars['APP_DESCRIPTOR'] = 'MissionPlanner'
 
     print("Setting up as AP_Periph")
+    #periph isn't much good without CAN
+    enable_can(f)
+    # and the rest..
     f.write('''
 #ifndef HAL_SCHEDULER_ENABLED
 #define HAL_SCHEDULER_ENABLED 0

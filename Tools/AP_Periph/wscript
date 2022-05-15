@@ -18,7 +18,7 @@ except ImportError:
     
 
 def build(bld):
-    #print("BUZZ AP_PERIPH WSCRIP BUILD",bld.env)
+    print("BUZZ AP_Periph wscript!")
     targets = bld.ap_periph_boards()
     valid_target = False
     for t in targets:
@@ -66,14 +66,6 @@ def build(bld):
                      'AP_BLHeli',
                      'AP_ESC_Telem',
                      ]
-    bld.ap_stlib(
-        name= 'AP_Periph_libs',
-        ap_vehicle='AP_Periph',
-        ap_libraries= libraries,
-        exclude_src=[
-            'libraries/AP_HAL_ChibiOS/Storage.cpp'
-        ]
-    )
 
     # build external libcanard library
     bld.stlib(source=['../../modules/DroneCAN/libcanard/canard.c'] +
@@ -82,6 +74,14 @@ def build(bld):
                         bld.env.BUILDROOT + '/modules/DroneCAN/libcanard/dsdlc_generated/include'],
               target='libcanard')
 
+    bld.ap_stlib(
+        name= 'AP_Periph_libs',
+        ap_vehicle='AP_Periph',
+        ap_libraries= libraries,
+        exclude_src=[
+            'libraries/AP_HAL_ChibiOS/Storage.cpp'
+        ]
+    )
     bld.ap_program(
         program_name='AP_Periph',
         use=['AP_Periph_libs', 'libcanard'],

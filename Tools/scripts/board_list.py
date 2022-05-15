@@ -147,6 +147,7 @@ class BoardList(object):
             "G4-ESC",
             "HereID",
             "HerePro",
+            "esp32buzz",
 
             # evaluation boards
             "H757I_EVAL",

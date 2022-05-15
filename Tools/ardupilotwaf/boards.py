@@ -142,7 +142,6 @@ class Board:
             '-ffunction-sections',
             '-fdata-sections',
             '-fsigned-char',
-
             '-Wall',
             '-Wextra',
             '-Werror=format',
@@ -469,17 +468,26 @@ def get_boards_names():
     return sorted(list(_board_classes.keys()), key=str.lower)
 
 def get_ap_periph_boards():
+    list1 = __get_ap_periph_boards('libraries/AP_HAL_ChibiOS/hwdef')
+    list2 = __get_ap_periph_boards('libraries/AP_HAL_ESP32/hwdef')
+    nodupes = list(set(list1)|set(list2))
+    print("get_ap_periph_boards?",nodupes)
+    return nodupes
+
+def __get_ap_periph_boards(defs_folder):
     '''Add AP_Periph boards based on existance of periph keywork in hwdef.dat or board name'''
     list_ap = [s for s in list(_board_classes.keys()) if "periph" in s]
-    dirname, dirlist, filenames = next(os.walk('libraries/AP_HAL_ChibiOS/hwdef'))
+    dirname, dirlist, filenames = next(os.walk(defs_folder))
     for d in dirlist:
         if d in list_ap:
             continue
         hwdef = os.path.join(dirname, d, 'hwdef.dat')
+        #print(hwdef)
         if os.path.exists(hwdef):
             with open(hwdef, "r") as f:
                 content = f.read()
                 if 'AP_PERIPH' in content:
+                    #print(d)
                     list_ap.append(d)
                     continue
                 # process any include lines:
@@ -514,6 +522,7 @@ def get_ap_periph_boards():
                         list_ap.append(d)
                         continue
     list_ap = list(set(list_ap))
+    #print("__get_ap_periph_boards?",list_ap)
     return list_ap
 
 def get_removed_boards():
@@ -760,7 +769,8 @@ class esp32(Board):
                          '-Wno-sign-compare',
                          '-fno-inline-functions',
                          '-mlongcalls',
-                         '-DCYGWIN_BUILD']
+                         '-fpermissive', 
+                         '-DCYGWIN_BUILD']   #-fpermissive is needed by libcanard
         env.CXXFLAGS.remove('-Werror=undef')
         env.CXXFLAGS.remove('-Werror=shadow')
 

@@ -76,6 +76,7 @@
 
 // don't read sameple data 
 //#define INS_DONT_SAMPLE 1
+#define PERIPH_FW TRUE
 
 
 // ADC is available on lots of pints on the esp32, but adc2 cant co-exist with wifi we choose to allow ADC on :
@@ -103,6 +104,19 @@
 #define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION1
 
 #define HAL_PROBE_EXTERNAL_I2C_COMPASSES 0
+
+
+//esp32 can:
+// https://github.com/espressif/esp-idf/blob/master/components/driver/include/driver/twai.h
+// https://github.com/espressif/esp-idf/blob/master/components/driver/twai.c
+#define CAN1_BASE 9999
+//#define HAL_CAN_INTERFACE_LIST reinterpret_cast<bxcan::CanType*>(uintptr_t(CAN1_BASE))
+#define HAL_CAN_BASE_LIST 
+#define HAL_NUM_CAN_IFACES 1
+#define HAL_CAN_IFACE1_ENABLE
+#define HAL_CAN_IFACES 1
+
+#define HAL_PROBE_EXTERNAL_I2C_COMPASSES 1
 
 
 #define HAL_INS_MPU9250_NAME "mpu9250"
@@ -169,7 +183,10 @@
 
 
 // rcin on what pin?
-#define HAL_ESP32_RCIN GPIO_NUM_14
+//#define HAL_ESP32_RCIN GPIO_NUM_4
+
+// leaving it at zero causes Plane parameters.cpp error
+#define HAL_PWM_COUNT 1
 
 
 //HARDWARE UARTS

@@ -37,14 +37,15 @@
 #include <AP_HAL_SITL/CANSocketIface.h>
 #endif
 
-
 #if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
-//#include <AP_HAL_ESP32/CANIface.h>
+#include <AP_HAL_ESP32/CANIface.h>
+//#include <drivers/esp32/canard_esp32.h>
 
 
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
 #include "esp_system.h"
+
 //#include <AP_HAL_ESP32/CAN/CAN.h>
 
 #endif
@@ -100,6 +101,8 @@ static struct instance_t {
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
     ChibiOS::CANIface* iface;
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+    ESP32::CANIface* iface;
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
     HALSITL::CANIface* iface;
 #elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
@@ -156,7 +159,7 @@ ChibiOS::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
 HALSITL::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
 #elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
-//ESP32::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
+ESP32::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
 #endif
 
 

@@ -137,9 +137,11 @@ class cmake_configure_task(Task.Task):
     vars = ['CMAKE_BLD_DIR']
     run_str = '${CMAKE} ${CMAKE_FLAGS} ${CMAKE_SRC_DIR} ${CMAKE_VARS} ${CMAKE_GENERATOR_OPTION}'
     color = 'BLUE'
+    print("BUZZ CMAKE CONFIGURE:",vars,run_str)
 
     def exec_command(self, cmd, **kw):
         kw['stdout'] = sys.stdout
+        print("BUZZ CONF CMD:",cmd)
         return super(cmake_configure_task, self).exec_command(cmd, **kw)
 
     def uid(self):
@@ -177,9 +179,11 @@ class cmake_build_task(Task.Task):
     # the cmake-generated build system is responsible of managing its own
     # dependencies
     always_run = True
+    print("BUZZ CMAKE BUILD:",run_str)
 
     def exec_command(self, cmd, **kw):
         kw['stdout'] = sys.stdout
+        print("BUZZ BLD CMD:",cmd)
         return super(cmake_build_task, self).exec_command(cmd, **kw)
 
     def uid(self):

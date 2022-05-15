@@ -92,6 +92,7 @@ void RCInput::_timer_tick(void)
     if (!_init) {
         return;
     }
+
 #ifndef HAL_BUILD_AP_PERIPH
     AP_RCProtocol &rcprot = AP::RC();
 #endif

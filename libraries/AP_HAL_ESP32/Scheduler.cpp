@@ -24,8 +24,8 @@
 #include "freertos/task.h"
 
 #include "soc/rtc_wdt.h"
-#include "esp_int_wdt.h"
-#include "esp_task_wdt.h"
+#include "esp_int_wdt.h"  //Interrupt Watchdog Timer
+#include "esp_task_wdt.h" //Task Watchdog Timer (TWDT)
 
 #include <AP_HAL/AP_HAL.h>
 #include <stdio.h>
