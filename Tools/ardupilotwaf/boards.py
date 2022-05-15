@@ -735,7 +735,8 @@ class esp32(Board):
         super(esp32, self).configure_env(cfg, env)
         cfg.load('esp32')
         env.DEFINES.update(
-            CONFIG_HAL_BOARD = 'HAL_BOARD_ESP32'
+            CONFIG_HAL_BOARD = 'HAL_BOARD_ESP32',
+            HAL_ENABLE_LIBUAVCAN_DRIVERS = 0
         )
 
         tt = self.name[5:] #leave off 'esp32' so we just get 'buzz','diy','icarus, etc

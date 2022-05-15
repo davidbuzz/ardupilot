@@ -31,6 +31,7 @@ def configure(cfg):
 
     #define env and location for the cmake esp32 file
     env = cfg.env
+    env.AP_HAL_PERIPH = srcpath('libraries/AP_HAL_ESP32/targets/periph')
     env.AP_HAL_ESP32 = srcpath('libraries/AP_HAL_ESP32/targets/esp-idf')
     env.AP_PROGRAM_FEATURES += ['esp32_ap_program']
 
@@ -134,6 +135,17 @@ def pre_build(bld):
     bld.add_to_group(tsk)
 
 
+class build_esp32_image_periph(Task.Task):
+    '''build an esp32 image'''
+    color='CYAN'
+    run_str="export IDF_PATH=\"${IDF}\"; cd ${AP_HAL_PERIPH}&&'${MAKE}' V=1"
+    always_run = True
+    def keyword(self):
+        return "Generating (and building IDF)"
+    def __str__(self):
+        return self.outputs[0].path_from(self.generator.bld.bldnode)
+
+
 @feature('esp32_ap_program')
 @after_method('process_source')
 def esp32_firmware(self):
@@ -143,7 +155,20 @@ def esp32_firmware(self):
     build = esp_idf.build('all', target='esp-idf_build/ardupilot.bin')
     build.post()
 
+
     build.cmake_build_task.set_run_after(self.link_task)
+
+    #for periph only...
+    bin_target = self.bld.bldnode.find_or_declare('bin/' + link_output.change_ext('.bin').name)
+    # periph:
+    if str(self.link_task.outputs[0]).endswith('libAP_Periph.a'):
+        #build final image
+        src_in = [self.bld.bldnode.find_or_declare('lib/libAP_Periph_libs.a'),
+                  self.bld.bldnode.find_or_declare('lib/bin/libAP_Periph.a')]
+        img_out = self.bld.bldnode.find_or_declare('idf-periph/AP_Periph.elf')
+        img_out2 = self.bld.bldnode.find_or_declare('idf-periph/AP_Periph.bin')
+        self.generate_bin_task = self.create_task('build_esp32_image_periph', src=src_in, tgt=img_out)
+        self.generate_bin_task.set_run_after(self.link_task)
 
     # tool that can update the default params in a .bin or .apj
     #self.default_params_task = self.create_task('set_default_parameters',
