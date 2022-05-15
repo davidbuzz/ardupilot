@@ -2837,6 +2837,10 @@ def add_apperiph_defaults(f):
 #define HAL_GCS_ENABLED 0
 #endif
 
+// enables ADC subsystem, to do the opposive, define HAL_DISABLE_ADC_DRIVER 1 instead
+#define TRUE 1
+#define HAL_USE_ADC TRUE
+
 #define HAL_ESP32_SDCARD 1
 #define LOGGER_MAVLINK_SUPPORT 1
 #define HAL_OS_POSIX_IO 1

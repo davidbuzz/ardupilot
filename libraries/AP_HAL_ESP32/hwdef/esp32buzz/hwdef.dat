@@ -384,6 +384,9 @@ define HAL_ESP32_I2C_BUSES	{.port=I2C_NUM_0, .sda=GPIO_NUM_13, .scl=GPIO_NUM_12,
 define HAL_ESP32_SPI_BUSES   {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_8, .miso=GPIO_NUM_48, .sclk=GPIO_NUM_18}
 define HAL_ESP32_SPI_DEVICES  {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_9,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
 
+define HAL_BARO_PROBE_LIST PROBE_BARO_I2C(BMP280, 0, 0x77)
+
+
 # We need to tell HAL_ChibiOS/Storage.cpp how much storage is
 # available (in bytes).
 define HAL_STORAGE_SIZE 16384
