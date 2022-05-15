@@ -58,6 +58,14 @@ IF(${ARDUPILOT_CMD} STREQUAL "sub")
     target_link_libraries(${elf_file} "${ARDUPILOT_LIB}/libArduSub_libs.a")
 ENDIF()
 
+IF(${ARDUPILOT_CMD} STREQUAL "AP_Periph")
+    message("Building for AP_Periph")
+    target_link_libraries(${elf_file} "${ARDUPILOT_LIB}/../Tools/AP_Periph/*.o")
+    target_link_libraries(${elf_file} "${ARDUPILOT_LIB}/../Tools/AP_Periph/liblibcanard.a")
+    target_link_libraries(${elf_file} "${ARDUPILOT_BIN}/libAP_Periph.a")
+    target_link_libraries(${elf_file} "${ARDUPILOT_LIB}/libAP_Periph_libs.a")
+ENDIF()
+
 add_custom_target(showinc ALL
         COMMAND echo 
         "$<TARGET_PROPERTY:${elf_file},INCLUDE_DIRECTORIES>"
