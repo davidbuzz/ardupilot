@@ -1,27 +1,29 @@
 #pragma once
 
+#include <hwdef.h>
+//#include <hal.h>
 
-#if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_DIY
-#include "esp32diy.h" // Charles
-#elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_BUZZ
-#include "esp32buzz.h" //Buzz
-#elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_ICARUS
-#include "esp32icarus.h" //Alex
-#elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_S3DEVKIT
-#include "esp32s3devkit.h" //Nick
-#endif
+// #if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_DIY
+// #include "esp32diy.h" // Charles
+// #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_BUZZ
+// #include "esp32buzz.h" //Buzz
+// #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_ICARUS
+// #include "esp32icarus.h" //Alex
+// #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_S3DEVKIT
+// #include "esp32s3devkit.h" //Nick
+// #endif
 
 #define HAL_BOARD_NAME "ESP32"
 #define HAL_CPU_CLASS HAL_CPU_CLASS_150
 #define HAL_WITH_UAVCAN 0
-#define HAL_HAVE_SAFETY_SWITCH 0
-#define HAL_HAVE_BOARD_VOLTAGE 0
+//#define HAL_HAVE_SAFETY_SWITCH 0
+//#define HAL_HAVE_BOARD_VOLTAGE 0
 #define HAL_HAVE_SERVO_VOLTAGE 0
 
 #define HAL_WITH_IO_MCU 0
 
 #define O_CLOEXEC 0
-#define HAL_STORAGE_SIZE (16384)
+//#define HAL_STORAGE_SIZE (16384)
 
 // allow for static semaphores
 #include <AP_HAL_ESP32/Semaphores.h>
@@ -62,6 +64,13 @@
 // #define CONFIG_ESP32_WIFI_TX_BA_WIN 0
 // #define CONFIG_ESP32_WIFI_RX_BA_WIN 0
 #endif
+
+//- these are missing from esp-idf......will not be needed later
+#define RTC_WDT_STG_SEL_OFF             0
+#define RTC_WDT_STG_SEL_INT             1
+#define RTC_WDT_STG_SEL_RESET_CPU       2
+#define RTC_WDT_STG_SEL_RESET_SYSTEM    3
+#define RTC_WDT_STG_SEL_RESET_RTC       4
 
 #define CONFIG_NEWLIB_NANO_FORMAT 0
 #define CONFIG_LWIP_IP4_REASSEMBLY 0

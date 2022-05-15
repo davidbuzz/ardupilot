@@ -371,9 +371,18 @@ SPIDEV mpu9250        SPI1 DEVID4  MPU_CS       MODE3  4*MHZ  8*MHZ
 # a #define in the hwdef.h header.
 define HAL_CHIBIOS_ARCH_FMUV3 1
 
-# Nnow some defines for logging and terrain data files.
-define HAL_BOARD_LOG_DIRECTORY "/APM/LOGS"
-define HAL_BOARD_TERRAIN_DIRECTORY "/APM/TERRAIN"
+define HAL_BOARD_LOG_DIRECTORY "/SDCARD/APM/LOGS"
+define HAL_BOARD_TERRAIN_DIRECTORY "/SDCARD/APM/TERRAIN"
+define HAL_BOARD_STORAGE_DIRECTORY "/SDCARD/APM/STORAGE"
+
+define WIFI_SSID "ardupilot123"
+define WIFI_PWD "ardupilot123"
+
+define HAL_ESP32_UART_DEVICES {.port=UART_NUM_0, .rx=GPIO_NUM_6, .tx=GPIO_NUM_7 }
+define HAL_ESP32_I2C_BUSES	{.port=I2C_NUM_0, .sda=GPIO_NUM_13, .scl=GPIO_NUM_12, .speed=400*KHZ, .internal=true}#define HAL_ESP32_SPI_BUSES  {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_8, .miso=GPIO_NUM_48, .sclk=GPIO_NUM_18}
+
+define HAL_ESP32_SPI_BUSES   {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_8, .miso=GPIO_NUM_48, .sclk=GPIO_NUM_18}
+define HAL_ESP32_SPI_DEVICES  {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_9,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
 
 # We need to tell HAL_ChibiOS/Storage.cpp how much storage is
 # available (in bytes).

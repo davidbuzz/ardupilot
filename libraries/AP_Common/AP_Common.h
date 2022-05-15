@@ -23,6 +23,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <type_traits>
+#include <GCS_MAVLink/GCS.h> // so ppl wanting 'gcs' get it by only importing AP_Common.h
 
 // used to pack structures
 #define PACKED __attribute__((__packed__))

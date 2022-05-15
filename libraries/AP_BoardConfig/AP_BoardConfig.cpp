@@ -24,6 +24,7 @@
 #include <AP_Vehicle/AP_Vehicle.h>
 #include <GCS_MAVLink/GCS.h>
 #include <AP_Filesystem/AP_Filesystem.h>
+#include <GCS_MAVLink/GCS.h>
 
 #include <stdio.h>
 

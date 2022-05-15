@@ -2049,26 +2049,28 @@ def write_PWM_config(f, ordered_timers):
         pwm_clock = 1000000
         period = 1000
 
-        f.write('''#define HAL_PWM_ALARM \\
-        { /* pwmGroup */ \\
-          %u,  /* Timer channel */ \\
-          { /* PWMConfig */ \\
-            %u,    /* PWM clock frequency. */ \\
-            %u,    /* Initial PWM period 20ms. */ \\
-            NULL,  /* no callback */ \\
-            { /* Channel Config */ \\
-             {%s, NULL}, \\
-             {%s, NULL}, \\
-             {%s, NULL}, \\
-             {%s, NULL}  \\
-            }, \\
-            0, 0 \\
-          }, \\
-          &PWMD%u /* PWMDriver* */ \\
-        }\n''' %
-                (chan-1, pwm_clock, period, chan_mode[0],
-                 chan_mode[1], chan_mode[2], chan_mode[3], n))
-    else:
+        #f.write('''#define HAL_PWM_ALARM 0''') # buzz disabld alarm on periph as we don't have hardwar eworking forit yet
+
+        # f.write('''#define HAL_PWM_ALARM \\
+        # { /* pwmGroup */ \\
+        #   %u,  /* Timer channel */ \\
+        #   { /* PWMConfig */ \\
+        #     %u,    /* PWM clock frequency. */ \\
+        #     %u,    /* Initial PWM period 20ms. */ \\
+        #     NULL,  /* no callback */ \\
+        #     { /* Channel Config */ \\
+        #      {%s, NULL}, \\
+        #      {%s, NULL}, \\
+        #      {%s, NULL}, \\
+        #      {%s, NULL}  \\
+        #     }, \\
+        #     0, 0 \\
+        #   }, \\
+        #   &PWMD%u /* PWMDriver* */ \\
+        # }\n''' %
+        #         (chan-1, pwm_clock, period, chan_mode[0],
+        #          chan_mode[1], chan_mode[2], chan_mode[3], n))
+    #else:
         f.write('\n')
         f.write('// No Alarm output pin defined\n')
         f.write('#undef HAL_PWM_ALARM\n')
@@ -2834,6 +2836,16 @@ def add_apperiph_defaults(f):
 #ifndef HAL_GCS_ENABLED
 #define HAL_GCS_ENABLED 0
 #endif
+
+#define HAL_ESP32_SDCARD 1
+#define LOGGER_MAVLINK_SUPPORT 1
+#define HAL_OS_POSIX_IO 1
+
+// this becomes the default value for the ardupilot param LOG_BACKEND_TYPE, which most ppl want to be 1, for log-to-flash
+// setting to 2 means log-over-mavlink to a companion computer etc.
+#define HAL_LOGGING_BACKENDS_DEFAULT 1
+
+
 // default to no protocols, AP_Periph enables with params
 #define HAL_SERIAL1_PROTOCOL -1
 #define HAL_SERIAL2_PROTOCOL -1
