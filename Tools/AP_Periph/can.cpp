@@ -289,25 +289,25 @@ static void handle_param_getset(CanardInstance* ins, CanardRxTransfer* transfer)
             if (req.value.union_tag != UAVCAN_PROTOCOL_PARAM_VALUE_INTEGER_VALUE) {
                 return;
             }
-            //((AP_Int8 *)vp)->set_and_save_ifchanged(req.value.integer_value);
+            ((AP_Int8 *)vp)->set_and_save_ifchanged(req.value.integer_value);
             break;
         case AP_PARAM_INT16:
             if (req.value.union_tag != UAVCAN_PROTOCOL_PARAM_VALUE_INTEGER_VALUE) {
                 return;
             }
-            //((AP_Int16 *)vp)->set_and_save_ifchanged(req.value.integer_value);
+            ((AP_Int16 *)vp)->set_and_save_ifchanged(req.value.integer_value);
             break;
         case AP_PARAM_INT32:
             if (req.value.union_tag != UAVCAN_PROTOCOL_PARAM_VALUE_INTEGER_VALUE) {
                 return;
             }
-            //((AP_Int32 *)vp)->set_and_save_ifchanged(req.value.integer_value);
+            ((AP_Int32 *)vp)->set_and_save_ifchanged(req.value.integer_value);
             break;
         case AP_PARAM_FLOAT:
             if (req.value.union_tag != UAVCAN_PROTOCOL_PARAM_VALUE_REAL_VALUE) {
                 return;
             }
-            //((AP_Float *)vp)->set_and_save_ifchanged(req.value.real_value);
+            ((AP_Float *)vp)->set_and_save_ifchanged(req.value.real_value);
             break;
         default:
             return;
@@ -1305,7 +1305,7 @@ static void process1HzTasks(uint64_t timestamp_usec)
 #if !defined(HAL_NO_FLASH_SUPPORT) && !defined(HAL_NO_ROMFS_SUPPORT)
     if (periph.g.flash_bootloader.get()) {
         const uint8_t flash_bl = periph.g.flash_bootloader.get();
-        //periph.g.flash_bootloader.set_and_save_ifchanged(0);
+        periph.g.flash_bootloader.set_and_save_ifchanged(0);
         if (flash_bl == 42) {
             // magic developer value to test watchdog support with main loop lockup
             while (true) {
@@ -1428,7 +1428,7 @@ void AP_Periph_FW::can_start()
     }
 
 #if !defined(HAL_NO_FLASH_SUPPORT) && !defined(HAL_NO_ROMFS_SUPPORT)
-    //periph.g.flash_bootloader.set_and_save_ifchanged(0);
+    periph.g.flash_bootloader.set_and_save_ifchanged(0);
 #endif
 
 #if AP_PERIPH_ENFORCE_AT_LEAST_ONE_PORT_IS_UAVCAN_1MHz && HAL_NUM_CAN_IFACES >= 2
