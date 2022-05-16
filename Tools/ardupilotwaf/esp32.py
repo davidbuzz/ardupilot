@@ -135,13 +135,22 @@ def pre_build(bld):
     bld.add_to_group(tsk)
 
 
+#makes two .a files into a single .a file....
 class build_esp32_image_periph(Task.Task):
     '''build an esp32 image'''
     color='CYAN'
-    run_str="export IDF_PATH=\"${IDF}\"; cd ${AP_HAL_PERIPH}&&'${MAKE}' V=1"
+    # this command takes the bottom THREE .a files and smashes them together into one .a file. 
+    # xxx.mri contains:
+    # create idf-periph/AP_Periph.a
+    # addlib lib/bin/libAP_Periph.a
+    # addlib lib/libAP_Periph_libs.a
+    # addlib Tools/AP_Periph/liblibcanard.a
+    # save
+    # end
+    run_str="cp ../../xxx.mri . ; xtensa-esp32s3-elf-ar -M < xxx.mri"
     always_run = True
     def keyword(self):
-        return "Generating (and building IDF)"
+        return "tuning periph triple-libs into a single one with AR and custom target..."
     def __str__(self):
         return self.outputs[0].path_from(self.generator.bld.bldnode)
 
@@ -155,20 +164,24 @@ def esp32_firmware(self):
     build = esp_idf.build('all', target='esp-idf_build/ardupilot.bin')
     build.post()
 
-
-    build.cmake_build_task.set_run_after(self.link_task)
-
-    #for periph only...
-    bin_target = self.bld.bldnode.find_or_declare('bin/' + link_output.change_ext('.bin').name)
+    #for periph only, this is a 
+    bin_target = self.bld.bldnode.find_or_declare('bin/periph.bin')
     # periph:
+    print("BUZZ periph:",self.link_task.outputs[0])
     if str(self.link_task.outputs[0]).endswith('libAP_Periph.a'):
         #build final image
         src_in = [self.bld.bldnode.find_or_declare('lib/libAP_Periph_libs.a'),
                   self.bld.bldnode.find_or_declare('lib/bin/libAP_Periph.a')]
-        img_out = self.bld.bldnode.find_or_declare('idf-periph/AP_Periph.elf')
+        img_out0 = self.bld.bldnode.find_or_declare('idf-periph/AP_Periph.a')
+        img_out1 = self.bld.bldnode.find_or_declare('idf-periph/AP_Periph.elf')
         img_out2 = self.bld.bldnode.find_or_declare('idf-periph/AP_Periph.bin')
-        self.generate_bin_task = self.create_task('build_esp32_image_periph', src=src_in, tgt=img_out)
+        self.generate_bin_task = self.create_task('build_esp32_image_periph', src=src_in, tgt=img_out0)
         self.generate_bin_task.set_run_after(self.link_task)
+
+
+    #build.cmake_build_task.set_run_after(self.link_task)
+    build.cmake_build_task.set_run_after(self.generate_bin_task)
+
 
     # tool that can update the default params in a .bin or .apj
     #self.default_params_task = self.create_task('set_default_parameters',

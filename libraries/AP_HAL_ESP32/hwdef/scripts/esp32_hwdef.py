@@ -2846,9 +2846,14 @@ def add_apperiph_defaults(f):
 #define TRUE 1
 #define HAL_USE_ADC TRUE
 
+#define HAL_ESP32_SDMMC 1
+#define HAVE_FILESYSTEM_SUPPORT 1
 #define HAL_ESP32_SDCARD 1
 #define LOGGER_MAVLINK_SUPPORT 1
 #define HAL_OS_POSIX_IO 1
+
+#define HAL_NO_ROMFS_SUPPORT TRUE
+
 
 // this becomes the default value for the ardupilot param LOG_BACKEND_TYPE, which most ppl want to be 1, for log-to-flash
 // setting to 2 means log-over-mavlink to a companion computer etc.
