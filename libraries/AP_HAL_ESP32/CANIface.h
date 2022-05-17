@@ -48,7 +48,7 @@
 
 //#include "CAN/CAN.h"
 
-#if HAL_NUM_CAN_IFACES
+//#if HAL_NUM_CAN_IFACES
 
 //#include "bxcan.hpp" ChibiOs uses bxcan as low-level interface, esp32 uses twai,
 // see https://github.com/espressif/esp-idf/blob/master/components/driver/include/driver/twai.h
@@ -259,5 +259,5 @@ public:
     // CAN Peripheral register structure
     //static constexpr bxcan::CanType* const Can[HAL_NUM_CAN_IFACES] = { HAL_CAN_BASE_LIST };
 };
-#endif //HAL_NUM_CAN_IFACES
+//#endif //HAL_NUM_CAN_IFACES
 

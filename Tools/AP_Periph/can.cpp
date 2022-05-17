@@ -74,12 +74,14 @@ extern AP_Periph_FW periph;
 #endif
 #endif
 
+// if DEBUG_PRINTS=1, then msgs are emitted over CAN
+// if DEBUG_PRINTS=0, then 'printf' is uses for usb/console
 #define DEBUG_PRINTS 0
 #define DEBUG_PKTS 0
 #if DEBUG_PRINTS
  # define Debug(fmt, args ...)  do {can_printf(fmt "\n", ## args);} while(0)
 #else
- # define Debug(fmt, args ...)
+ # define Debug(fmt, args ...)  do {printf(fmt "\n", ## args);} while(0)
 #endif
 
 static struct instance_t {
@@ -1252,6 +1254,7 @@ static uint16_t pool_peak_percent(instance_t &ins)
 {
     const CanardPoolAllocatorStatistics stats = canardGetPoolAllocatorStatistics(&ins.canard);
     const uint16_t peak_percent = (uint16_t)(100U * stats.peak_usage_blocks / stats.capacity_blocks);
+    printf("pool_peak_percent iface:%d usedblocks:%d totalblocks:%d\n", ins.index,stats.peak_usage_blocks, stats.capacity_blocks);
     return peak_percent;
 }
 
@@ -1373,6 +1376,12 @@ static bool can_do_dna(instance_t &ins)
 
     if (AP_Periph_FW::no_iface_finished_dna) {
         printf("Waiting for dynamic node ID allocation on IF%d... (pool %u)\n", ins.index, pool_peak_percent(ins));
+    }
+    // hack to pretend we were assigned a DNA number after 10 secs:
+    int thing = pool_peak_percent(ins);
+    if ( thing > 10) {
+                canardSetLocalNodeID(&ins.canard, 42);
+                AP_Periph_FW::no_iface_finished_dna = false;
     }
 
     ins.send_next_node_id_allocation_request_at_ms =

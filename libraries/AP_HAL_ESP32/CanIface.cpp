@@ -1,7 +1,7 @@
 
 #include "AP_HAL_ESP32.h"
 
-#if HAL_NUM_CAN_IFACES
+//#if HAL_NUM_CAN_IFACES
 #include <cassert>
 #include <cstring>
 #include <AP_Math/AP_Math.h>
@@ -62,7 +62,9 @@ static const twai_timing_config_t t_config = TWAI_TIMING_CONFIG_25KBITS();
 static const twai_filter_config_t f_config = TWAI_FILTER_CONFIG_ACCEPT_ALL();
 static const twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT(TX_GPIO_NUM, RX_GPIO_NUM, TWAI_MODE_NORMAL);
 
-
+// #define ID_MASTER_PING          0x0A2
+// static const twai_message_t ping_message = {.identifier = ID_MASTER_PING, .data_length_code = 0,
+//                                            .ss = 1, .data = {0, 0 , 0 , 0 ,0 ,0 ,0 ,0}};
 
 static inline void handleTxInterrupt(uint8_t phys_index)
 {
@@ -425,8 +427,9 @@ bool CANIface::canAcceptNewTxFrame(const AP_HAL::CANFrame& frame) const
         // }
 
         // if (tme == 0) {     // All TX mailboxes are busy transmitting.
-            return false;
+       //     return false;
       //  }
+      return true; // till we are smarter, always accept.
     }
 
     /*
@@ -848,4 +851,4 @@ extern "C"
 } // extern "C"
 
 
-#endif //HAL_NUM_CAN_IFACES
+//#endif //HAL_NUM_CAN_IFACES
