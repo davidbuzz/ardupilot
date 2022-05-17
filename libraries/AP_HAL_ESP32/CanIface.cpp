@@ -28,10 +28,12 @@
 #define CAN2_RX1_IRQ_Handler     ESP32_CAN2_RX1_HANDLER
 
 
+// periph doesn't use HAL_CANMANAGER_ENABLED 
 #if HAL_CANMANAGER_ENABLED
 #define Debug(fmt, args...) do { AP::can().log_text(AP_CANManager::LOG_DEBUG, "CANIface", fmt, ##args); } while (0)
 #else
-#define Debug(fmt, args...)
+// for periph on esp32, we have a console to get prinf's on..
+#define Debug(fmt, args...) do { hal.console->printf(fmt, ##args); } while (0)
 #endif
 
 #if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
@@ -39,6 +41,8 @@
 #else
 #define PERF_STATS(x)
 #endif
+
+// ref code https://github.com/espressif/esp-idf/blob/release/v4.4/examples/peripherals/twai/twai_network/twai_network_master/main/twai_network_example_master_main.c
 
 
 extern AP_HAL::HAL& hal;
@@ -525,7 +529,7 @@ void CANIface::initOnce(bool enable_irq)
 
 
         twai_driver_install(&g_config, &t_config, &f_config);
-        hal.console->printf("Driver installed");
+        hal.console->printf("CAN Driver installed");
 
     /*
      * CAN1, CAN2
