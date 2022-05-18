@@ -107,8 +107,6 @@ static struct instance_t {
     ESP32::CANIface* iface;
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
     HALSITL::CANIface* iface;
-#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
-    void* iface;
 #endif
 } instances[HAL_NUM_CAN_IFACES];
 
@@ -1362,11 +1360,11 @@ static void process1HzTasks(uint64_t timestamp_usec)
 /*
   wait for dynamic allocation of node ID
  */
-bool AP_Periph_FW::no_iface_finished_dna = true;
+uint8_t AP_Periph_FW::has_any_iface_finished_dna = 0;
 static bool can_do_dna(instance_t &ins)
 {
     if (canardGetLocalNodeID(&ins.canard) != CANARD_BROADCAST_NODE_ID) {
-        AP_Periph_FW::no_iface_finished_dna = false;
+        AP_Periph_FW::has_any_iface_finished_dna = 1;
         return true;
     }
 
@@ -1374,14 +1372,13 @@ static bool can_do_dna(instance_t &ins)
 
     uint8_t node_id_allocation_transfer_id = 0;
 
-    if (AP_Periph_FW::no_iface_finished_dna) {
+    if (AP_Periph_FW::has_any_iface_finished_dna < 10) {
         printf("Waiting for dynamic node ID allocation on IF%d... (pool %u)\n", ins.index, pool_peak_percent(ins));
-    }
-    // hack to pretend we were assigned a DNA number after 10 secs:
-    int thing = pool_peak_percent(ins);
-    if ( thing > 10) {
-                canardSetLocalNodeID(&ins.canard, 42);
-                AP_Periph_FW::no_iface_finished_dna = false;
+        AP_Periph_FW::has_any_iface_finished_dna++; 
+    } else {
+        // hack to pretend we were assigned a DNA number after 10 secs:
+        printf("...didn't get DNA allocation, falling back to CAN node-id 42\n")
+        canardSetLocalNodeID(&ins.canard, 42);
     }
 
     ins.send_next_node_id_allocation_request_at_ms =
@@ -1458,6 +1455,8 @@ void AP_Periph_FW::can_start()
         can_iface_periph[i] = new ChibiOS::CANIface();
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
         can_iface_periph[i] = new HALSITL::CANIface();
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+        can_iface_periph[i] = new ESP32::CANIface();
 #endif
         instances[i].iface = can_iface_periph[i];
         instances[i].index = i;
@@ -1622,7 +1621,7 @@ void AP_Periph_FW::can_update()
     static uint8_t led_idx = 0;
     static uint32_t last_led_change;
 
-    if ((now - last_led_change > led_change_period) && no_iface_finished_dna) {
+    if ((now - last_led_change > led_change_period) && has_any_iface_finished_dna==0) {
         // blink LED in recognisable pattern while waiting for DNA
 #ifdef HAL_GPIO_PIN_LED
         palWriteLine(HAL_GPIO_PIN_LED, (led_pattern & (1U<<led_idx))?1:0);

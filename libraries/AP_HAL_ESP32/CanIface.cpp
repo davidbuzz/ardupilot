@@ -33,7 +33,7 @@
 #define Debug(fmt, args...) do { AP::can().log_text(AP_CANManager::LOG_DEBUG, "CANIface", fmt, ##args); } while (0)
 #else
 // for periph on esp32, we have a console to get prinf's on..
-#define Debug(fmt, args...) do { hal.console->printf(fmt, ##args); } while (0)
+#define Debug(fmt, args...) do { printf(fmt, ##args); } while (0)
 #endif
 
 #if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
@@ -56,15 +56,27 @@ static ESP32::CANIface* can_ifaces[HAL_NUM_CAN_IFACES] = {nullptr};
 uint8_t CANIface::next_interface;
 
 // esp32:
-#define TX_GPIO_NUM           4
-#define RX_GPIO_NUM           5
-static const twai_timing_config_t t_config = TWAI_TIMING_CONFIG_25KBITS();
+#define TX_GPIO_NUM           GPIO_NUM_4
+#define RX_GPIO_NUM           GPIO_NUM_5
+//static const twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT(TX_GPIO_NUM, RX_GPIO_NUM, TWAI_MODE_NORMAL);
+// A workaround is to mark the ISR with IRAM_ATTR attribute to place it into RAM - todo 
+// default LEVEL1 intr flag bug.?  https://github.com/espressif/arduino-esp32/issues/489  
+static const twai_general_config_t g_config =                      {.mode = TWAI_MODE_NORMAL, .tx_io = TX_GPIO_NUM, .rx_io = RX_GPIO_NUM,        \
+                                                                    .clkout_io = TWAI_IO_UNUSED, .bus_off_io = TWAI_IO_UNUSED,      \
+                                                                    .tx_queue_len = 5, .rx_queue_len = 5,                           \
+                                                                    .alerts_enabled = TWAI_ALERT_NONE,  .clkout_divider = 0,        \
+                                                                    .intr_flags = ESP_INTR_FLAG_LEVEL2};
+
+static const twai_timing_config_t t_config = TWAI_TIMING_CONFIG_500KBITS();//TWAI_TIMING_CONFIG_1MBITS
 static const twai_filter_config_t f_config = TWAI_FILTER_CONFIG_ACCEPT_ALL();
-static const twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT(TX_GPIO_NUM, RX_GPIO_NUM, TWAI_MODE_NORMAL);
+// https://github.com/espressif/esp-idf/issues/7955
+//g_config.intr_flags = ESP_INTR_FLAG_LEVEL2; //ESP_INTR_FLAG_LEVEL1 is the default but conflicts 
 
 // #define ID_MASTER_PING          0x0A2
 // static const twai_message_t ping_message = {.identifier = ID_MASTER_PING, .data_length_code = 0,
 //                                            .ss = 1, .data = {0, 0 , 0 , 0 ,0 ,0 ,0 ,0}};
+
+//ESP-IDF driver provides three main functions which you can call from your app: twai_receive, twai_transmit and twai_read_alerts. When you call twai_receive or twai_read_alerts, the execution of the task is suspended until a message or an alert becomes available. Once the message or an alert arrives, the execution of the task is resumed. Please take a look at the examples in this section of the docs: https://docs.espressif.com/projects/esp ... -reception
 
 static inline void handleTxInterrupt(uint8_t phys_index)
 {
@@ -255,6 +267,21 @@ int16_t CANIface::send(const AP_HAL::CANFrame& frame, uint64_t tx_deadline,
     }
 
 
+    //esp32:
+    twai_message_t message;
+    message.identifier = frame.id;//buff->id;
+    message.extd = frame.isExtended() ? 1 : 0;
+    message.data_length_code = frame.dlc;
+    std::memcpy(message.data, frame.data, 8);
+    //
+    esp_err_t sts = twai_transmit(&message, portMAX_DELAY);
+    ESP_ERROR_CHECK(sts);
+    if (sts == ESP_OK) {
+        return true;
+    }
+    return false;
+    //end esp32
+
     CriticalSectionLocker lock;
 
    //....todo
@@ -266,6 +293,30 @@ int16_t CANIface::receive(AP_HAL::CANFrame& out_frame, uint64_t& out_timestamp_u
     CriticalSectionLocker lock;
     CanRxItem rx_item;
    //....todo
+
+   //esp32:
+    //Wait for message to be received - blocks thread for x 'ticks' - 100ms too much? todo recieve in thread.
+    twai_message_t message;
+    if (twai_receive(&message, pdMS_TO_TICKS(100)) == ESP_OK) {
+        printf("Message received\n");
+    } else { //https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/twai.html#message-reception
+        printf("Failed to receive message\n");// will get here if received message contains no data bytes, timed-out, or invalid driver state.
+        return -1;
+    }
+
+    //Process received message
+    if (message.extd) {
+        printf("Message is in Extended Format\n");
+    } else {
+        printf("Message is in Standard Format\n");
+    }
+    printf("ID is %d\n", message.identifier);
+    if (!(message.rtr)) {
+        for (int i = 0; i < message.data_length_code; i++) {
+            printf("Data byte %d = %d\n", i, message.data[i]);
+        }
+    }
+    //esp32
 
     return 1;
 }
@@ -279,18 +330,6 @@ bool CANIface::configureFilters(const CanFilterConfig* filter_configs,
 }
 #endif
 
-bool CANIface::waitMsrINakBitStateChange(bool target_state)
-{
-    const unsigned Timeout = 1000;
-    for (unsigned wait_ack = 0; wait_ack < Timeout; wait_ack++) {
-        const bool state = 0;//(can_->MSR & bxcan::MSR_INAK) != 0;
-        if (state == target_state) {
-            return true;
-        }
-        vTaskDelay(10);
-    }
-    return false;
-}
 
 
 void CANIface::handleTxInterrupt(const uint64_t utc_usec)
@@ -383,21 +422,7 @@ void CANIface::pollErrorFlagsFromISR()
 //     }
 }
 
-void CANIface::discardTimedOutTxMailboxes(uint64_t current_time)
-{
-    // CriticalSectionLocker lock;
-    // for (int i = 0; i < NumTxMailboxes; i++) {
-    //     CanTxItem& txi = pending_tx_[i];
-    //     if (txi.aborted || !txi.setup) {
-    //         continue;
-    //     }
-    //     if (txi.deadline < current_time) {
-    //         can_->TSR = TSR_ABRQx[i];  // Goodnight sweet transmission
-    //         pending_tx_[i].aborted = true;
-    //         PERF_STATS(stats.tx_timedout);
-    //     }
-    // }
-}
+
 
 void CANIface::clear_rx()
 {
@@ -495,14 +520,13 @@ bool CANIface::select(bool &read, bool &write,
 {
     const bool in_read = read;
     const bool in_write= write;
-    uint64_t time = AP_HAL::micros64();
+   //uint64_t time = AP_HAL::micros64();
 
     if (!read && !write) {
         //invalid request
         return false;
     }
 
-    discardTimedOutTxMailboxes(time);              // Check TX timeouts - this may release some TX slots
     pollErrorFlags();
 
     checkAvailable(read, write, pending_tx);          // Check if we already have some of the requested events
@@ -531,8 +555,30 @@ void CANIface::initOnce(bool enable_irq)
 {
 
 
-        twai_driver_install(&g_config, &t_config, &f_config);
-        hal.console->printf("CAN Driver installed");
+    if (twai_driver_install(&g_config, &t_config, &f_config) == ESP_OK)
+    {
+        printf("CAN/TWAI Driver installed\n");
+    }
+    else
+    {
+        printf("Failed to install CAN/TWAI driver\n");
+        return;
+    }
+    
+     //Start TWAI driver
+    if (twai_start() == ESP_OK)
+    {
+        printf("CAN/TWAI Driver started\n");
+    }
+    else
+    {
+        printf("Failed to start CAN/TWAI driver\n");
+        return;
+    }
+
+    hal.console->printf("Ardu CAN Driver installed\n");
+
+
 
     /*
      * CAN1, CAN2
@@ -650,11 +696,6 @@ bool CANIface::init(const uint32_t bitrate, const CANIface::OperatingMode mode)
         //can_->IER = 0;                  // Disable interrupts while initialization is in progress
     }
 
-    if (!waitMsrINakBitStateChange(true)) {
-        Debug("MSR INAK not set");
-        //can_->MCR = bxcan::MCR_RESET;
-        return false;
-    }
 
     /*
      * Object state - interrupts are disabled, so it's safe to modify it now
@@ -694,11 +735,6 @@ bool CANIface::init(const uint32_t bitrate, const CANIface::OperatingMode mode)
 
     // can_->MCR &= ~bxcan::MCR_INRQ;   // Leave init mode
 
-    if (!waitMsrINakBitStateChange(false)) {
-        Debug("MSR INAK not cleared");
-        //can_->MCR = bxcan::MCR_RESET;
-        return false;
-    }
 
     /*
      * Default filter configuration

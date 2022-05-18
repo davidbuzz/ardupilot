@@ -141,8 +141,6 @@ class ESP32::CANIface : public AP_HAL::CANIface
 
     bool readRxFIFO(uint8_t fifo_index);
 
-    void discardTimedOutTxMailboxes(uint64_t current_time);
-
     bool canAcceptNewTxFrame(const AP_HAL::CANFrame& frame) const;
 
     bool isRxBufferEmpty() const;
@@ -153,8 +151,6 @@ class ESP32::CANIface : public AP_HAL::CANIface
 
     void checkAvailable(bool& read, bool& write,
                         const AP_HAL::CANFrame* pending_tx) const;
-
-    bool waitMsrINakBitStateChange(bool target_state);
 
     void handleTxMailboxInterrupt(uint8_t mailbox_index, bool txok, const uint64_t timestamp_us);
 
