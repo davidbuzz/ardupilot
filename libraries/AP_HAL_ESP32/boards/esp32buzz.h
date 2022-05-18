@@ -168,7 +168,7 @@
 // SPI BUS setup, including gpio, dma, etc
 // note... we use 'vspi' for the bmp280 and mpu9250
 #define HAL_ESP32_SPI_BUSES \
-    {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_8, .miso=GPIO_NUM_48, .sclk=GPIO_NUM_18}
+    {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_8, .miso=GPIO_NUM_47, .sclk=GPIO_NUM_18}
 // tip:  VSPI_HOST  is an alternative name for esp's SPI3
 //#define HAL_ESP32_SPI_BUSES {}
 

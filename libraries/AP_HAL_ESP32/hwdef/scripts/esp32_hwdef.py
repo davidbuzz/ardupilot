@@ -440,7 +440,8 @@ def error(str):
 def get_mcu_lib(mcu):
     '''get library file for the chosen MCU'''
 
-    mcu = 'classic'
+    # we don't really use the esp32-xxxxx.py yet, so lets just stick to esp32-classic.py till we need more than 1
+    mcu = 'esp32-classic'
     import importlib
     try:
         #print("MCU type:",mcu)

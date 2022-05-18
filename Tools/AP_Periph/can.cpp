@@ -1377,7 +1377,7 @@ static bool can_do_dna(instance_t &ins)
         AP_Periph_FW::has_any_iface_finished_dna++; 
     } else {
         // hack to pretend we were assigned a DNA number after 10 secs:
-        printf("...didn't get DNA allocation, falling back to CAN node-id 42\n")
+        printf("...didn't get DNA allocation, falling back to CAN node-id 42\n");
         canardSetLocalNodeID(&ins.canard, 42);
     }
 
