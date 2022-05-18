@@ -439,15 +439,15 @@ def error(str):
 
 def get_mcu_lib(mcu):
     '''get library file for the chosen MCU'''
-
-    # we don't really use the esp32-xxxxx.py yet, so lets just stick to esp32-classic.py till we need more than 1
-    mcu = 'esp32-classic'
+    # we don't really use the esp32-xxxxx.py yet, so lets just stick to esp32_s3.py till we need more than 1
+    #mcu = 'esp32-classic'
     import importlib
     try:
         #print("MCU type:",mcu)
-        return importlib.import_module(mcu)
+        lib = importlib.import_module(mcu)
+        return lib
     except ImportError:
-        error("Unable to find module for MCU %s" % mcu)
+        error("MCULIB Unable to find module for MCU %s" % mcu)
 
 # flag inputs as INPUT,FLOATING by default
 def setup_mcu_type_defaults():
@@ -507,6 +507,7 @@ def have_type_prefix(ptype):
 
 def get_ADC1_chan(mcu, pin):
     '''return ADC1 channel for an analog pin'''
+    #mcu = 'esp32-classic'
     import importlib
     try:
         lib = importlib.import_module(mcu)

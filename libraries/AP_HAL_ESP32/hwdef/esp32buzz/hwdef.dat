@@ -1,6 +1,6 @@
 
 # MCU class and specific type
-MCU esp32 classic
+MCU esp32 esp32_s3
 
 # We set a specific HAL_BOARD_SUBTYPE, allowing for custom config in
 # drivers. For this to be used the subtype needs to be added to
@@ -375,19 +375,28 @@ define HAL_BOARD_LOG_DIRECTORY "/SDCARD/APM/LOGS"
 define HAL_BOARD_TERRAIN_DIRECTORY "/SDCARD/APM/TERRAIN"
 define HAL_BOARD_STORAGE_DIRECTORY "/SDCARD/APM/STORAGE"
 
+# do direct neopixel LED output to enable the 'rainbow' effect on
+# startup
+define HAL_PERIPH_NEOPIXEL_CHAN_WITHOUT_NOTIFY 0
+define HAL_PERIPH_NEOPIXEL_COUNT_WITHOUT_NOTIFY 1
+
+
 define WIFI_SSID "ardupilot123"
 define WIFI_PWD "ardupilot123"
 
-define HAL_ESP32_UART_DEVICES {.port=UART_NUM_0, .rx=GPIO_NUM_6, .tx=GPIO_NUM_7 }
-define HAL_ESP32_I2C_BUSES	{.port=I2C_NUM_0, .sda=GPIO_NUM_13, .scl=GPIO_NUM_12, .speed=400*KHZ, .internal=true}#define HAL_ESP32_SPI_BUSES  {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_8, .miso=GPIO_NUM_48, .sclk=GPIO_NUM_18}
+// 48 is actually for the neopixel
+define HAL_ESP32_RCOUT { GPIO_NUM_8,GPIO_NUM_9, GPIO_NUM_10, GPIO_NUM_16, GPIO_NUM_17, GPIO_NUM_18, GPIO_NUM_48 }
 
-define HAL_ESP32_SPI_BUSES   {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_8, .miso=GPIO_NUM_48, .sclk=GPIO_NUM_18}
-define HAL_ESP32_SPI_DEVICES  {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_9,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
+define HAL_ESP32_UART_DEVICES {.port=UART_NUM_0, .rx=GPIO_NUM_6, .tx=GPIO_NUM_7 }
+define HAL_ESP32_I2C_BUSES	{.port=I2C_NUM_0, .sda=GPIO_NUM_5, .scl=GPIO_NUM_1, .speed=400*KHZ, .internal=true}
+
+define HAL_ESP32_SPI_BUSES   {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_11, .miso=GPIO_NUM_13, .sclk=GPIO_NUM_12}
+define HAL_ESP32_SPI_DEVICES  {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_21,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
 
 define HAL_BARO_PROBE_LIST PROBE_BARO_I2C(BMP280, 0, 0x77)
 
 // the pin number, the gain/multiplier associated with it, the ardupilot name for the pin in parameter/s.
-define HAL_ESP32_ADC_PINS {{ADC1_CHANNEL_4, 11, 1},{ADC1_CHANNEL_3, 11, 2},{ADC1_CHANNEL_1, 11, 3},{ADC1_CHANNEL_0, 11, 4}}
+define HAL_ESP32_ADC_PINS {{GPIO_NUM_34, 11, 1},{GPIO_NUM_35, 11, 2},{GPIO_NUM_36, 11, 3},{GPIO_NUM_37, 11, 4}}
 
 # We need to tell HAL_ChibiOS/Storage.cpp how much storage is
 # available (in bytes).

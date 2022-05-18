@@ -309,6 +309,7 @@ def write_dma_header(f, peripheral_list, mcu_type, dma_exclude=[],
     # form a list of peripherals that can't share
     noshare_list = dma_noshare[:]
 
+    #mcu_type = 'esp32-classic'
     try:
         lib = importlib.import_module(mcu_type)
         if hasattr(lib, "DMA_Map"):
@@ -316,7 +317,7 @@ def write_dma_header(f, peripheral_list, mcu_type, dma_exclude=[],
         else:
             return [], []
     except ImportError:
-        print("Unable to find module for MCU %s" % mcu_type)
+        print("DMA resolver Unable to find module for MCU %s" % mcu_type)
         sys.exit(1)
 
     if dma_map is None:

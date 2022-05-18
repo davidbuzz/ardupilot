@@ -88,19 +88,12 @@
 //
 // two different pin numbering schemes, both are ok, but only one at a time:
 #define HAL_ESP32_ADC_PINS_OPTION1 {\
-	{ADC1_CHANNEL_4, 11, 1},\
-	{ADC1_CHANNEL_3, 11, 2},\
-	{ADC1_CHANNEL_1, 11, 3},\
-	{ADC1_CHANNEL_0, 11, 4}\
+	{GPIO_NUM_34, 11, 1},\
+	{GPIO_NUM_35, 11, 2},\
+	{GPIO_NUM_36, 11, 3},\
+	{GPIO_NUM_37, 11, 4}\
 }
-#define HAL_ESP32_ADC_PINS_OPTION2 {\
-	{ADC1_GPIO35_CHANNEL, 11, 35},\
-	{ADC1_GPIO34_CHANNEL, 11, 34},\
-	{ADC1_GPIO39_CHANNEL, 11, 39},\
-	{ADC1_GPIO36_CHANNEL, 11, 36}\
-}
-// pick one:
-//#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION1
+
 #define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION1
 
 #define HAL_PROBE_EXTERNAL_I2C_COMPASSES 0
@@ -163,22 +156,22 @@
 
 //RCOUT which pins are used?
 
-#define HAL_ESP32_RCOUT { GPIO_NUM_47,GPIO_NUM_37, GPIO_NUM_33, GPIO_NUM_38, GPIO_NUM_36, GPIO_NUM_21 }
+#define HAL_ESP32_RCOUT { GPIO_NUM_8,GPIO_NUM_9, GPIO_NUM_10, GPIO_NUM_16, GPIO_NUM_17, GPIO_NUM_18 }
 
 // SPI BUS setup, including gpio, dma, etc
 // note... we use 'vspi' for the bmp280 and mpu9250
 #define HAL_ESP32_SPI_BUSES \
-    {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_8, .miso=GPIO_NUM_47, .sclk=GPIO_NUM_18}
+    {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_11, .miso=GPIO_NUM_13, .sclk=GPIO_NUM_12}
 // tip:  VSPI_HOST  is an alternative name for esp's SPI3
 //#define HAL_ESP32_SPI_BUSES {}
 
 // SPI per-device setup, including speeds, etc.
 #define HAL_ESP32_SPI_DEVICES \
-    {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_9,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
+    {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_21,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
 //#define HAL_ESP32_SPI_DEVICES {}
 
 //I2C bus list
-#define HAL_ESP32_I2C_BUSES	{.port=I2C_NUM_0, .sda=GPIO_NUM_13, .scl=GPIO_NUM_12, .speed=400*KHZ, .internal=true}
+#define HAL_ESP32_I2C_BUSES	{.port=I2C_NUM_0, .sda=GPIO_NUM_5, .scl=GPIO_NUM_1, .speed=400*KHZ, .internal=true}
 //#define HAL_ESP32_I2C_BUSES {} // using this embty block appears to cause crashes?
 
 
