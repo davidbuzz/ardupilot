@@ -20,12 +20,19 @@
 #include "esp_log.h"
 #include "driver/twai.h"
 
+
+
 #define CAN1_TX_IRQ_Handler      ESP32_CAN1_TX_HANDLER
 #define CAN1_RX0_IRQ_Handler     ESP32_CAN1_RX0_HANDLER
 #define CAN1_RX1_IRQ_Handler     ESP32_CAN1_RX1_HANDLER
 #define CAN2_TX_IRQ_Handler      ESP32_CAN2_TX_HANDLER
 #define CAN2_RX0_IRQ_Handler     ESP32_CAN2_RX0_HANDLER
 #define CAN2_RX1_IRQ_Handler     ESP32_CAN2_RX1_HANDLER
+
+// from canard.h
+#define CANARD_CAN_FRAME_EFF                        (1UL << 31U)         ///< Extended frame format
+#define CANARD_CAN_FRAME_RTR                        (1UL << 30U)         ///< Remote transmission (not used by UAVCAN)
+#define CANARD_CAN_FRAME_ERR                        (1UL << 29U)         ///< Error frame (not used by UAVCAN)
 
 
 // periph doesn't use HAL_CANMANAGER_ENABLED 
@@ -272,46 +279,66 @@ int16_t CANIface::send(const AP_HAL::CANFrame& frame, uint64_t tx_deadline,
     }
 
 
-        printf("CANIface send?\n");
+        //printf("CANIface send?\n");
 
     //esp32:
     twai_message_t message;
     message.identifier = frame.id;//buff->id;
     message.extd = frame.isExtended() ? 1 : 0;
     message.data_length_code = frame.dlc;
-    std::memcpy(message.data, frame.data, 8);
+    //std::
+    memcpy(message.data, frame.data, 8);
     //
     esp_err_t sts = twai_transmit(&message, portMAX_DELAY);
     ESP_ERROR_CHECK(sts);
     if (sts == ESP_OK) {
-        return true;
+        printf("CAN send ok\n");
+        return 1;
     }
-    return false;
-    //end esp32
+    printf("CAN send fail\n");
+    return -1;
+    //end esp32//
 
-    CriticalSectionLocker lock;
+    //CriticalSectionLocker lock;
 
    //....todo
-     return 1;
+    // return 1;
 }
 
 int16_t CANIface::receive(AP_HAL::CANFrame& out_frame, uint64_t& out_timestamp_us, CanIOFlags& out_flags)
 {
-            printf("CANIface receive");
+            //printf("CANIface receive\n");
 
-    CriticalSectionLocker lock;
-    CanRxItem rx_item;
+    //CriticalSectionLocker lock;
+    //CanRxItem rx_item;
    //....todo
+
+   //vTaskDelay(1000);
 
    //esp32:
     //Wait for message to be received - blocks thread for x 'ticks' - 100ms too much? todo recieve in thread.
     twai_message_t message;
     if (twai_receive(&message, pdMS_TO_TICKS(100)) == ESP_OK) {
-        printf("Message received\n");
+        printf(".");
+        //printf("Message received\n");
     } else { //https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/twai.html#message-reception
-        printf("Failed to receive message\n");// will get here if received message contains no data bytes, timed-out, or invalid driver state.
+        //printf("Failed to receive message\n");// will get here if received message contains no data bytes, timed-out, or invalid driver state.
+        printf("x");
         return -1;
     }
+
+    // take out of IDF struct, and put into HAL struct.
+    memcpy(out_frame.data, message.data, 8);// copy new data
+    out_frame.dlc = message.data_length_code;
+    out_frame.id = message.identifier;
+    if (message.extd) {
+        out_frame.id = out_frame.id | CANARD_CAN_FRAME_EFF;
+    }
+    if (message.rtr) {
+        out_frame.id = out_frame.id | CANARD_CAN_FRAME_RTR;
+    }
+
+    return 1;// comment this out to see or not, the below print statements and data bytes etc
 
     //Process received message
     if (message.extd) {
@@ -326,7 +353,7 @@ int16_t CANIface::receive(AP_HAL::CANFrame& out_frame, uint64_t& out_timestamp_u
         }
     }
     //esp32
-
+    //printf("receive done\n");
     return 1;
 }
 

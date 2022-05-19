@@ -174,7 +174,7 @@ Heap summary for capabilities 0x00000000:
 
     //_SS vars are number-of-WORDS.        //remaining (stack high water mark):
     static const int TIMER_SS   = 1024+512;//628
-    static const int MAIN_SS    = 1024*4;  //632            *3 too small. 0x4037ba21 in panic_abort (details=0x3fce0cf1 "***ERROR*** A stack overflow in task APM_MAIN has been detected.")
+    static const int MAIN_SS    = 1024*8;  //632            *3 too small. 0x4037ba21 in panic_abort (details=0x3fce0cf1 "***ERROR*** A stack overflow in task APM_MAIN has been detected.")
     static const int RCIN_SS    = 1024+512;//448 
     static const int RCOUT_SS   = 1024+512;//564
     static const int WIFI_SS    = 1024*2;  //524             with *5, we have <1k free
