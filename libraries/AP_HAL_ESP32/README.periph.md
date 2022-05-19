@@ -82,13 +82,13 @@ buzzs S3 has 45 GPIO PIN assignments  0-21 and 26-48:
 35  //AnalogIn2  (--input only on classic, bi-dir on -S3 )
 36  //AnalogIn3  (--input only on classic, bi-dir on -S3 )
 37  //AnalogIn4  (--input only on classic, bi-dir on -S3 )
-38  ---------------------------avail     (--input only on classic, bi-dir on -S3 )
+38  CAN-R  , pin 4 on SN65HVD231/ VP231 (--input only on classic, bi-dir on -S3 )
 //39-42. JTAG GPIO39 GPIO40 GPIO41 GPIO42 (--39 is input only on classic , bi-dir on -S3)
 //43.   43(u0tx),44(u0rx) , also has 15(u0rts),16(u0cts) - these are D+/D- for the 'uart' port, that is not smart, and the flow control lines
 //44.   43(u0tx),44(u0rx) , also has 15(u0rts),16(u0cts) - these are D+/D- for the 'uart' port, that is not smart, and the flow control lines
 //45.   0,3,45,46 as GPIO0, GPIO3, GPIO45 and GPIO46 are strapping pins
 //46.   0,3,45,46 as GPIO0, GPIO3, GPIO45 and GPIO46 are strapping pins
-47 ---------------------------avail
+47   CAN-D , pin 1 on SN65HVD231/ VP231
 48. RGB led SK68XXMINI-HS control line.  SK68xx leds are basically WS28xx leds by another manufacturer. ak etca 'neopixel' aka ws2812
 //https://learn.watterott.com/kb/ws281x/
 ----------------------------------------------------------------------------------------------

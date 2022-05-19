@@ -30,10 +30,10 @@
 
 // periph doesn't use HAL_CANMANAGER_ENABLED 
 #if HAL_CANMANAGER_ENABLED
-#define Debug(fmt, args...) do { AP::can().log_text(AP_CANManager::LOG_DEBUG, "CANIface", fmt, ##args); } while (0)
+#define printf(fmt, args...) do { AP::can().log_text(AP_CANManager::LOG_DEBUG, "CANIface", fmt, ##args); } while (0)
 #else
 // for periph on esp32, we have a console to get prinf's on..
-#define Debug(fmt, args...) do { printf(fmt, ##args); } while (0)
+//#define printf(fmt, args...) do { printf(fmt, ##args); } while (0)
 #endif
 
 #if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
@@ -55,9 +55,10 @@ static ESP32::CANIface* can_ifaces[HAL_NUM_CAN_IFACES] = {nullptr};
 
 uint8_t CANIface::next_interface;
 
+// on -S3 devkit-M rgb LED on pin GPIO48
 // esp32:
-#define TX_GPIO_NUM           GPIO_NUM_4
-#define RX_GPIO_NUM           GPIO_NUM_5
+#define TX_GPIO_NUM           GPIO_NUM_47
+#define RX_GPIO_NUM           GPIO_NUM_38
 //static const twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT(TX_GPIO_NUM, RX_GPIO_NUM, TWAI_MODE_NORMAL);
 // A workaround is to mark the ISR with IRAM_ATTR attribute to place it into RAM - todo 
 // default LEVEL1 intr flag bug.?  https://github.com/espressif/arduino-esp32/issues/489  
@@ -67,7 +68,7 @@ static const twai_general_config_t g_config =                      {.mode = TWAI
                                                                     .alerts_enabled = TWAI_ALERT_NONE,  .clkout_divider = 0,        \
                                                                     .intr_flags = ESP_INTR_FLAG_LEVEL2};
 
-static const twai_timing_config_t t_config = TWAI_TIMING_CONFIG_500KBITS();//TWAI_TIMING_CONFIG_1MBITS
+static const twai_timing_config_t t_config = TWAI_TIMING_CONFIG_1MBITS();//TWAI_TIMING_CONFIG_500KBITS
 static const twai_filter_config_t f_config = TWAI_FILTER_CONFIG_ACCEPT_ALL();
 // https://github.com/espressif/esp-idf/issues/7955
 //g_config.intr_flags = ESP_INTR_FLAG_LEVEL2; //ESP_INTR_FLAG_LEVEL1 is the default but conflicts 
@@ -121,6 +122,8 @@ CANIface::CANIface(uint8_t index) :
        // can_ = Can[index];
 
     }
+    printf("CANIface");
+
 }
 
 // constructor suitable for array
@@ -249,7 +252,7 @@ bool CANIface::computeTimings(uint32_t target_bitrate, Timings& out_timings)
         return false;
     }
 
-    Debug("Timings: quanta/bit: %d, sample point location: %.1f%%",
+    printf("Timings: quanta/bit: %d, sample point location: %.1f%%",
           int(1 + solution.bs1 + solution.bs2), float(solution.sample_point_permill) / 10.F);
 
     out_timings.prescaler = uint16_t(prescaler - 1U);
@@ -262,10 +265,14 @@ bool CANIface::computeTimings(uint32_t target_bitrate, Timings& out_timings)
 int16_t CANIface::send(const AP_HAL::CANFrame& frame, uint64_t tx_deadline,
                        CanIOFlags flags)
 {
+
+
     if (frame.isErrorFrame() || frame.dlc > 8) {
         return -1;
     }
 
+
+        printf("CANIface send?\n");
 
     //esp32:
     twai_message_t message;
@@ -290,6 +297,8 @@ int16_t CANIface::send(const AP_HAL::CANFrame& frame, uint64_t tx_deadline,
 
 int16_t CANIface::receive(AP_HAL::CANFrame& out_frame, uint64_t& out_timestamp_us, CanIOFlags& out_flags)
 {
+            printf("CANIface receive");
+
     CriticalSectionLocker lock;
     CanRxItem rx_item;
    //....todo
@@ -649,9 +658,9 @@ void CANIface::initOnce(bool enable_irq)
 
 bool CANIface::init(const uint32_t bitrate, const CANIface::OperatingMode mode)
 {
-    Debug("Bitrate %lu mode %d", static_cast<unsigned long>(bitrate), static_cast<int>(mode));
+    printf("Bitrate %lu mode %d", static_cast<unsigned long>(bitrate), static_cast<int>(mode));
     if (self_index_ > HAL_NUM_CAN_IFACES) {
-        Debug("CAN drv init failed");
+        printf("CAN drv init failed");
         return false;
     }
     if (can_ifaces[self_index_] == nullptr) {
@@ -666,22 +675,22 @@ bool CANIface::init(const uint32_t bitrate, const CANIface::OperatingMode mode)
 
     if (can_ifaces[0] == nullptr) {
         can_ifaces[0] = new CANIface(0);
-        Debug("Failed to allocate CAN iface 0");
+        printf("Failed to allocate CAN iface 0");
         if (can_ifaces[0] == nullptr) {
             return false;
         }
     }
     if (self_index_ == 1 && !can_ifaces[0]->is_initialized()) {
-        Debug("Iface 0 is not initialized yet but we need it for Iface 1, trying to init it");
-        Debug("Enabling CAN iface 0");
+        printf("Iface 0 is not initialized yet but we need it for Iface 1, trying to init it");
+        printf("Enabling CAN iface 0");
         can_ifaces[0]->initOnce(false);
-        Debug("Initing iface 0...");
+        printf("Initing iface 0...");
         if (!can_ifaces[0]->init(bitrate, mode)) {
-            Debug("Iface 0 init failed");
+            printf("Iface 0 init failed");
             return false;
         }
 
-        Debug("Enabling CAN iface");
+        printf("Enabling CAN iface");
     }
     initOnce(true);
     /*
@@ -715,7 +724,7 @@ bool CANIface::init(const uint32_t bitrate, const CANIface::OperatingMode mode)
         //can_->MCR = bxcan::MCR_RESET;
         return false;
     }
-    Debug("Timings: presc=%u sjw=%u bs1=%u bs2=%u",
+    printf("Timings: presc=%u sjw=%u bs1=%u bs2=%u",
           unsigned(timings.prescaler), unsigned(timings.sjw), unsigned(timings.bs1), unsigned(timings.bs2));
 
     /*

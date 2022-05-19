@@ -1171,6 +1171,8 @@ static void processTx(void)
         if (ins.iface == NULL) {
             continue;
         }
+        //printf("processTx?\n");
+
 #if HAL_NUM_CAN_IFACES >= 2
         if (periph.can_protocol_cached[ins.index] != AP_CANManager::Driver_Type_UAVCAN) {
             continue;
@@ -1207,6 +1209,8 @@ static void processRx(void)
         if (ins.iface == NULL) {
             continue;
         }
+                //printf("processRx?\n");
+
 #if HAL_NUM_CAN_IFACES >= 2
         if (periph.can_protocol_cached[ins.index] != AP_CANManager::Driver_Type_UAVCAN) {
             continue;
@@ -1220,6 +1224,7 @@ static void processRx(void)
                 break;
             }
             CanardCANFrame rx_frame {};
+            printf("processRx?-select %d %d\n",(uint8_t)read_select, (uint8_t)write_select);
 
             //palToggleLine(HAL_GPIO_PIN_LED);
             uint64_t timestamp;
@@ -1621,7 +1626,7 @@ void AP_Periph_FW::can_update()
     static uint8_t led_idx = 0;
     static uint32_t last_led_change;
 
-    if ((now - last_led_change > led_change_period) && has_any_iface_finished_dna==0) {
+    if ((now - last_led_change > led_change_period) && has_any_iface_finished_dna<10) {
         // blink LED in recognisable pattern while waiting for DNA
 #ifdef HAL_GPIO_PIN_LED
         palWriteLine(HAL_GPIO_PIN_LED, (led_pattern & (1U<<led_idx))?1:0);
