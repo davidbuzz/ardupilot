@@ -246,15 +246,6 @@ bool CANIface::computeTimings(uint32_t target_bitrate, Timings& out_timings)
         solution = BsPair(bs1_bs2_sum, uint8_t((7 * bs1_bs2_sum - 1) / 8));
     }
 
-    /*
-     * Final validation
-     * Helpful Python:
-     * def sample_point_from_btr(x):
-     *     assert 0b0011110010000000111111000000000 & x == 0
-     *     ts2,ts1,brp = (x>>20)&7, (x>>16)&15, x&511
-     *     return (1+ts1+1)/(1+ts1+1+ts2+1)
-     *
-     */
     if ((target_bitrate != (pclk / (prescaler * (1 + solution.bs1 + solution.bs2)))) || !solution.isValid()) {
         return false;
     }
@@ -278,8 +269,7 @@ int16_t CANIface::send(const AP_HAL::CANFrame& frame, uint64_t tx_deadline,
         return -1;
     }
 
-
-        //printf("CANIface send?\n");
+    //printf("CANIface send?\n");
 
     //esp32:
     twai_message_t message;
@@ -292,7 +282,7 @@ int16_t CANIface::send(const AP_HAL::CANFrame& frame, uint64_t tx_deadline,
     esp_err_t sts = twai_transmit(&message, portMAX_DELAY);
     ESP_ERROR_CHECK(sts);
     if (sts == ESP_OK) {
-        printf("CAN send ok\n");
+        printf("s"); // s for send 
         return 1;
     }
     printf("CAN send fail\n");
@@ -315,13 +305,21 @@ int16_t CANIface::receive(AP_HAL::CANFrame& out_frame, uint64_t& out_timestamp_u
 
    //vTaskDelay(1000);
 
+   #define MAX_RECV_MSGS_PER_SEC 200
+
    //esp32:
+    // https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/twai.html#message-reception
+    // https://github.com/espressif/esp-idf/blob/release/v4.4/components/driver/twai.c
+
     //Wait for message to be received - blocks thread for x 'ticks' - 100ms too much? todo recieve in thread.
     twai_message_t message;
-    if (twai_receive(&message, pdMS_TO_TICKS(100)) == ESP_OK) {
+    esp_err_t recverr = twai_receive(&message, pdMS_TO_TICKS(1000/MAX_RECV_MSGS_PER_SEC));
+    if ( recverr == ESP_OK) {
         printf(".");
-        //printf("Message received\n");
-    } else { //https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/twai.html#message-reception
+    } else if ( recverr == ESP_ERR_TIMEOUT) {
+        // no msg on timout, as we have short timeout and retry a lot.
+    } else { 
+        //ESP_ERR_INVALID_STATE or ESP_ERR_INVALID_ARG
         //printf("Failed to receive message\n");// will get here if received message contains no data bytes, timed-out, or invalid driver state.
         printf("x");
         return -1;
@@ -331,12 +329,17 @@ int16_t CANIface::receive(AP_HAL::CANFrame& out_frame, uint64_t& out_timestamp_u
     memcpy(out_frame.data, message.data, 8);// copy new data
     out_frame.dlc = message.data_length_code;
     out_frame.id = message.identifier;
-    if (message.extd) {
+    //if (message.extd) {
         out_frame.id = out_frame.id | CANARD_CAN_FRAME_EFF;
+    //}
+   // if (message.rtr) {
+    //    out_frame.id = out_frame.id | CANARD_CAN_FRAME_RTR;
+    //}
+    // we don't pas CAN eror frames to libcanard, as it jsut rebuffs them anywway with CANARD_ERROR_RX_INCOMPATIBLE_PACKET*
+    if (out_frame.id & AP_HAL::CANFrame::FlagERR) { // same as a message.isErrorFrame() if done later.
+        return -1;
     }
-    if (message.rtr) {
-        out_frame.id = out_frame.id | CANARD_CAN_FRAME_RTR;
-    }
+    //CANARD_CAN_FRAME_EFF
 
     return 1;// comment this out to see or not, the below print statements and data bytes etc
 

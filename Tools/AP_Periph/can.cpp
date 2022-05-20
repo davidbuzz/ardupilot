@@ -222,7 +222,24 @@ static void handle_get_node_info(CanardInstance* ins,
     crc[0] = app_descriptor.image_crc1;
     crc[1] = app_descriptor.image_crc2;
 
-    readUniqueID(pkt.hardware_version.unique_id);
+    //readUniqueID(pkt.hardware_version.unique_id);
+    //uint8_t my_unique_id[16] = {1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6}; //hardcode serial 4 now
+    pkt.hardware_version.unique_id[0] = 1;
+    pkt.hardware_version.unique_id[1] = 2;
+    pkt.hardware_version.unique_id[2] = 3;
+    pkt.hardware_version.unique_id[3] = 4;
+    pkt.hardware_version.unique_id[4] = 5;
+    pkt.hardware_version.unique_id[5] = 6;
+    pkt.hardware_version.unique_id[6] = 7;
+    pkt.hardware_version.unique_id[7] = 8;
+    pkt.hardware_version.unique_id[8] = 9;
+    pkt.hardware_version.unique_id[9] = 0;
+    pkt.hardware_version.unique_id[10] = 1;
+    pkt.hardware_version.unique_id[11] = 2;
+    pkt.hardware_version.unique_id[12] = 3;
+    pkt.hardware_version.unique_id[13] = 4;
+    pkt.hardware_version.unique_id[14] = 5;
+    pkt.hardware_version.unique_id[15] = 6;
 
     // use hw major/minor for APJ_BOARD_ID so we know what fw is
     // compatible with this hardware
@@ -257,6 +274,7 @@ static void handle_get_node_info(CanardInstance* ins,
  */
 static void handle_param_getset(CanardInstance* ins, CanardRxTransfer* transfer)
 {
+    printf("handle_param_getset");
     // param fetch all can take a long time, so pat watchdog
     stm32_watchdog_pat();
 
@@ -479,7 +497,7 @@ static void handle_allocation_response(CanardInstance* ins, CanardRxTransfer* tr
 
     if (transfer->source_node_id == CANARD_BROADCAST_NODE_ID)
     {
-        printf("Allocation request from another allocatee\n");
+        //printf("Allocation request from another allocatee\n");
         can_ins->node_id_allocation_unique_id_offset = 0;
         return;
     }
@@ -490,12 +508,13 @@ static void handle_allocation_response(CanardInstance* ins, CanardRxTransfer* tr
     uavcan_protocol_dynamic_node_id_Allocation_decode(transfer, &msg);
 
     // Obtaining the local unique ID
-    uint8_t my_unique_id[sizeof(msg.unique_id.data)];
-    readUniqueID(my_unique_id);
+    // uint8_t my_unique_id[sizeof(msg.unique_id.data)];
+    // readUniqueID(my_unique_id);
+    uint8_t my_unique_id[sizeof(msg.unique_id.data)] = {1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6}; //hardcode serial 4 now
 
     // Matching the received UID against the local one
     if (memcmp(msg.unique_id.data, my_unique_id, msg.unique_id.len) != 0) {
-        printf("Mismatching allocation response\n");
+        //printf("Mismatching allocation response\n");
         can_ins->node_id_allocation_unique_id_offset = 0;
         return;         // No match, return
     }
@@ -909,10 +928,12 @@ static void onTransferReceived(CanardInstance* ins,
 
     switch (transfer->data_type_id) {
     case UAVCAN_PROTOCOL_GETNODEINFO_ID:
+        printf("handle_get node id\n");
         handle_get_node_info(ins, transfer);
         break;
 
     case UAVCAN_PROTOCOL_FILE_BEGINFIRMWAREUPDATE_ID:
+        printf("handle_begin firmware update\n");
         handle_begin_firmware_update(ins, transfer);
         break;
 
@@ -928,6 +949,7 @@ static void onTransferReceived(CanardInstance* ins,
         break;
 
     case UAVCAN_PROTOCOL_PARAM_GETSET_ID:
+        printf("handle_get node id\n");
         handle_param_getset(ins, transfer);
         break;
 
@@ -1249,10 +1271,6 @@ static void processRx(void)
             timestamp = getMonotonicTimestampUSec();
             r = ins.iface->receive(rxmsg, timestamp, flags);
 
-            if (rxmsg.isErrorFrame()) {
-                               printf("isErrorFrame\n");
-            }
-
             if ( r <= 0 ) {
                //printf("rx-no-data\n");
                 return;
@@ -1270,12 +1288,8 @@ static void processRx(void)
             static int16_t res =0;
             res=0;
             res = canardHandleRxFrame(&ins.canard, &rx_frame, timestamp);
-            
-            if (res != 0) {
-                //printf("CANARD_ERROR_RX_INC1OMPATIBLE_PACKET");
-                printf("CANARD_ERR: %d\n",res);
-            }
- 
+
+            // errors 12 and 13 , aka CANARD_ERROR_RX_NOT_WANTED/CANARD_ERROR_RX_MISSED_START happen all the time, ignore
 
 //#if DEBUG_PKTS
             if (res < 0 &&
@@ -1323,6 +1337,10 @@ static void node_status_send(void)
  */
 static void process1HzTasks(uint64_t timestamp_usec)
 {
+
+    //can send and recieve stats?
+    printf("\n");// to keep the console flushed
+
     /*
      * Purging transfers that are no longer transmitted. This will occasionally free up some memory.
      */
@@ -1417,8 +1435,8 @@ static bool can_do_dna(instance_t &ins)
 
     uint8_t node_id_allocation_transfer_id = 0;
 
-    if (AP_Periph_FW::has_any_iface_finished_dna < 10) {
-        printf("\nWaiting for node ID on IF%d... (pool %u)\n", ins.index, pool_peak_percent(ins));
+    if (AP_Periph_FW::has_any_iface_finished_dna < 20) {
+        printf("\nWaiting for node ID on IF%d...  \n", ins.index );
         AP_Periph_FW::has_any_iface_finished_dna++; 
     } else {
         // hack to pretend we were assigned a DNA number after 10 secs:
@@ -1439,8 +1457,10 @@ static bool can_do_dna(instance_t &ins)
         allocation_request[0] |= 1;     // First part of unique ID
     }
 
-    uint8_t my_unique_id[sizeof(uavcan_protocol_dynamic_node_id_Allocation::unique_id.data)];
-    readUniqueID(my_unique_id);
+    // uint8_t my_unique_id[sizeof(uavcan_protocol_dynamic_node_id_Allocation::unique_id.data)];
+    // readUniqueID(my_unique_id);
+    uint8_t my_unique_id[16] = {1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6}; //hardcode serial 4 now
+
 
     static const uint8_t MaxLenOfUniqueIDInRequest = 6;
     uint8_t uid_size = (uint8_t)(sizeof(uavcan_protocol_dynamic_node_id_Allocation::unique_id.data) - ins.node_id_allocation_unique_id_offset);
