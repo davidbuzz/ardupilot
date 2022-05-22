@@ -27,7 +27,7 @@ using namespace ESP32;
 #define MHZ (1000U*1000U)
 #define KHZ (1000U)
 
-//#define SPIDEBUG 1
+#define SPIDEBUG 1
 
 SPIDeviceDesc device_desc[] = {HAL_ESP32_SPI_DEVICES};
 SPIBusDesc bus_desc[] = {HAL_ESP32_SPI_BUSES};
@@ -169,7 +169,7 @@ void SPIDevice::acquire_bus(bool accuire)
 AP_HAL::Semaphore *SPIDevice::get_semaphore()
 {
 #ifdef SPIDEBUG
-    rintf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     return &bus.semaphore;
 }

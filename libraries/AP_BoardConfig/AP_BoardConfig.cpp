@@ -24,6 +24,7 @@
 #include <AP_Vehicle/AP_Vehicle.h>
 #include <GCS_MAVLink/GCS.h>
 #include <AP_Filesystem/AP_Filesystem.h>
+//#include <GCS_MAVLink/GCS.h>
 
 #include <stdio.h>
 
@@ -38,8 +39,11 @@
 #ifndef BOARD_SER1_RTSCTS_DEFAULT
 # define BOARD_SER1_RTSCTS_DEFAULT 2
 #endif
-#ifndef BOARD_TYPE_DEFAULT
-# define BOARD_TYPE_DEFAULT PX4_BOARD_AUTO
+#endif
+
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+#ifndef BOARD_SAFETY_ENABLE_DEFAULT
+# define BOARD_SAFETY_ENABLE_DEFAULT 0
 #endif
 #endif
 

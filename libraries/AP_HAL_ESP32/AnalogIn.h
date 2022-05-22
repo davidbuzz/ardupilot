@@ -19,6 +19,11 @@
 
 #include "AP_HAL_ESP32.h"
 
+#include "hal/gpio_types.h"
+#include "soc/soc.h"
+#include "soc/gpio_periph.h"
+#include "soc/gpio_struct.h"
+
 #if HAL_USE_ADC == TRUE && !defined(HAL_DISABLE_ADC_DRIVER)
 
 #define ANALOG_MAX_CHANNELS 8

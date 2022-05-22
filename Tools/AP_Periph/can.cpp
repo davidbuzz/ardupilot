@@ -23,7 +23,7 @@
 #include <canard.h>
 #include <AP_GPS/RTCM3_Parser.h>
 #include <stdio.h>
-#include <drivers/stm32/canard_stm32.h>
+//#include <drivers/stm32/canard_stm32.h>
 #include <AP_HAL/I2CDevice.h>
 #include <AP_HAL/utility/RingBuffer.h>
 #include <AP_Common/AP_FWVersion.h>
@@ -37,6 +37,19 @@
 #include <AP_HAL_ChibiOS/hwdef/common/watchdog.h>
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
 #include <AP_HAL_SITL/CANSocketIface.h>
+#endif
+
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+#include <AP_HAL_ESP32/CANIface.h>
+//#include <drivers/esp32/canard_esp32.h>
+
+
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+#include "esp_system.h"
+
+//#include <AP_HAL_ESP32/CAN/CAN.h>
+
 #endif
 
 
@@ -63,12 +76,14 @@ extern AP_Periph_FW periph;
 #endif
 #endif
 
+// if DEBUG_PRINTS=1, then msgs are emitted over CAN
+// if DEBUG_PRINTS=0, then 'printf' is uses for usb/console
 #define DEBUG_PRINTS 0
 #define DEBUG_PKTS 0
 #if DEBUG_PRINTS
  # define Debug(fmt, args ...)  do {can_printf(fmt "\n", ## args);} while(0)
 #else
- # define Debug(fmt, args ...)
+ # define Debug(fmt, args ...)  do {printf(fmt "\n", ## args);} while(0)
 #endif
 
 static struct instance_t {
@@ -90,6 +105,8 @@ static struct instance_t {
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
     ChibiOS::CANIface* iface;
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+    ESP32::CANIface* iface;
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
     HALSITL::CANIface* iface;
 #endif
@@ -143,6 +160,8 @@ uint8_t PreferredNodeID = HAL_CAN_DEFAULT_NODE_ID;
 ChibiOS::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
 HALSITL::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+ESP32::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
 #endif
 
 
@@ -177,13 +196,12 @@ static uint16_t get_random_range(uint16_t range)
 /*
   get cpu unique ID
  */
-static void readUniqueID(uint8_t* out_uid)
+static void readUniqueID(uint8_t* id)
 {
-    uint8_t len = sizeof(uavcan_protocol_dynamic_node_id_Allocation::unique_id.data);
-    memset(out_uid, 0, len);
-    hal.util->get_system_id_unformatted(out_uid, len);
+    uint8_t len = sizeof(uavcan_protocol_dynamic_node_id_Allocation::unique_id.data); //16 bytes max, of which 12 will be non-zero in result
+    //memset(id, 0, len);
+    hal.util->get_system_id_unformatted(id, len);
 }
-
 
 /*
   handle a GET_NODE_INFO request
@@ -244,6 +262,7 @@ static void handle_get_node_info(CanardInstance* ins,
  */
 static void handle_param_getset(CanardInstance* ins, CanardRxTransfer* transfer)
 {
+    printf("handle_param_getset");
     // param fetch all can take a long time, so pat watchdog
     stm32_watchdog_pat();
 
@@ -478,7 +497,7 @@ static void handle_allocation_response(CanardInstance* ins, CanardRxTransfer* tr
 
     if (transfer->source_node_id == CANARD_BROADCAST_NODE_ID)
     {
-        printf("Allocation request from another allocatee\n");
+        //printf("Allocation request from another allocatee\n");
         can_ins->node_id_allocation_unique_id_offset = 0;
         return;
     }
@@ -489,12 +508,14 @@ static void handle_allocation_response(CanardInstance* ins, CanardRxTransfer* tr
     uavcan_protocol_dynamic_node_id_Allocation_decode(transfer, &msg);
 
     // Obtaining the local unique ID
-    uint8_t my_unique_id[sizeof(msg.unique_id.data)];
-    readUniqueID(my_unique_id);
+     uint8_t my_unique_id[sizeof(msg.unique_id.data)];
+     printf("response:");
+     readUniqueID(my_unique_id);
+    //uint8_t my_unique_id[sizeof(msg.unique_id.data)] = {1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6}; //hardcode serial 4 now
 
     // Matching the received UID against the local one
     if (memcmp(msg.unique_id.data, my_unique_id, msg.unique_id.len) != 0) {
-        printf("Mismatching allocation response\n");
+        //printf("Mismatching allocation response\n");
         can_ins->node_id_allocation_unique_id_offset = 0;
         return;         // No match, return
     }
@@ -504,7 +525,7 @@ static void handle_allocation_response(CanardInstance* ins, CanardRxTransfer* tr
         can_ins->node_id_allocation_unique_id_offset = msg.unique_id.len;
         can_ins->send_next_node_id_allocation_request_at_ms -= UAVCAN_PROTOCOL_DYNAMIC_NODE_ID_ALLOCATION_MIN_REQUEST_PERIOD_MS;
 
-        printf("Matching allocation response: %d\n", msg.unique_id.len);
+        //printf("Matching allocation response: %d\n", msg.unique_id.len); // we come in here with first 6bytes, then 6 bytes, then 4 bytes
     } else {
         // Allocation complete - copying the allocated node ID from the message
         canardSetLocalNodeID(ins, msg.node_id);
@@ -908,10 +929,12 @@ static void onTransferReceived(CanardInstance* ins,
 
     switch (transfer->data_type_id) {
     case UAVCAN_PROTOCOL_GETNODEINFO_ID:
+        printf("handle_get node id\n");
         handle_get_node_info(ins, transfer);
         break;
 
     case UAVCAN_PROTOCOL_FILE_BEGINFIRMWAREUPDATE_ID:
+        printf("handle_begin firmware update\n");
         handle_begin_firmware_update(ins, transfer);
         break;
 
@@ -927,6 +950,7 @@ static void onTransferReceived(CanardInstance* ins,
         break;
 
     case UAVCAN_PROTOCOL_PARAM_GETSET_ID:
+        printf("handle_get node id\n");
         handle_param_getset(ins, transfer);
         break;
 
@@ -1174,6 +1198,8 @@ static void processTx(void)
         if (ins.iface == NULL) {
             continue;
         }
+        //printf("processTx?\n");
+
 #if HAL_NUM_CAN_IFACES >= 2
         if (periph.can_protocol_cached[ins.index] != AP_CANManager::Driver_Type_UAVCAN) {
             continue;
@@ -1189,9 +1215,10 @@ static void processTx(void)
 #endif
             // push message with 1s timeout
             const uint64_t deadline = AP_HAL::native_micros64() + 1000000;
-            if (ins.iface->send(txmsg, deadline, 0) > 0) {
+            if ((ins.iface->send(txmsg, deadline, 0)) > 0) {
                 canardPopTxQueue(&ins.canard);
                 ins.tx_fail_count = 0;
+                //printf("processTxcanardPopTxQueue\n");
             } else {
                 // just exit and try again later. If we fail 8 times in a row
                 // then start discarding to prevent the pool filling up
@@ -1199,61 +1226,93 @@ static void processTx(void)
                     ins.tx_fail_count++;
                 } else {
                     canardPopTxQueue(&ins.canard);
+                    //printf("processTxcanardPopTxQueue?\n");
                 }
                 break;
             }
+            //printf("processTxloop\n");
         }
     }
+    //printf("processTx..done\n");
 }
+
+static uint64_t getMonotonicTimestampUSec(void)
+{
+    struct timespec ts;
+    memset(&ts, 0, sizeof(ts));
+    if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0)
+    {
+        abort();
+    }
+    return (uint64_t)(ts.tv_sec * 1000000LL + ts.tv_nsec / 1000LL);
+}
+
+static uint8_t zeros[CANARD_CAN_FRAME_MAX_DATA_LEN] = {0,0,0,0,0,0,0,0};
 
 static void processRx(void)
 {
-    AP_HAL::CANFrame rxmsg;
     for (auto &ins : instances) {
+        //processRx
         if (ins.iface == NULL) {
             continue;
         }
+
 #if HAL_NUM_CAN_IFACES >= 2
         if (periph.can_protocol_cached[ins.index] != AP_CANManager::Driver_Type_UAVCAN) {
             continue;
         }
 #endif
-        while (true) {
-            bool read_select = true;
-            bool write_select = false;
-            ins.iface->select(read_select, write_select, nullptr, 0);
-            if (!read_select) { // No data pending
-                break;
-            }
-            CanardCANFrame rx_frame {};
 
             //palToggleLine(HAL_GPIO_PIN_LED);
-            uint64_t timestamp;
-            AP_HAL::CANIface::CanIOFlags flags;
-            ins.iface->receive(rxmsg, timestamp, flags);
+
+            static AP_HAL::CANFrame rxmsg;
+            static AP_HAL::CANIface::CanIOFlags flags;
+            static uint64_t timestamp=0;
+
+             
+            static int16_t r = 0;
+            rxmsg.id=0;                    // clr old data
+            memcpy(rxmsg.data, zeros, 8) ; // clr old data
+            rxmsg.dlc=0;                   // clr old data
+            flags=0;                       // clr old data
+
+            timestamp = getMonotonicTimestampUSec();
+            r = ins.iface->receive(rxmsg, timestamp, flags);
+
+            if ( r <= 0 ) {
+               //printf("rx-no-data\n");
+                return;
+            }
+
+            static CanardCANFrame rx_frame {};
+            memcpy(rx_frame.data, zeros, 8);// clr old data
+            rx_frame.id = 0;                // clr old data
             rx_frame.data_len = AP_HAL::CANFrame::dlcToDataLength(rxmsg.dlc);
             memcpy(rx_frame.data, rxmsg.data, rx_frame.data_len);
 #if HAL_CANFD_SUPPORTED
             rx_frame.canfd = rxmsg.canfd;
 #endif
             rx_frame.id = rxmsg.id;
-#if DEBUG_PKTS
-            const int16_t res = 
-#endif
-            canardHandleRxFrame(&ins.canard, &rx_frame, timestamp);
-#if DEBUG_PKTS
+
+            static int16_t res =0;
+            res=0;
+            res = canardHandleRxFrame(&ins.canard, &rx_frame, timestamp);
+
+            // errors 12 and 13 , aka CANARD_ERROR_RX_NOT_WANTED/CANARD_ERROR_RX_MISSED_START happen all the time, ignore
+
+//#if DEBUG_PKTS
             if (res < 0 &&
                 res != -CANARD_ERROR_RX_NOT_WANTED &&
                 res != -CANARD_ERROR_RX_WRONG_ADDRESS &&
                 res != -CANARD_ERROR_RX_MISSED_START) {
-                printf("Rx error %d, IF%d %lx: ", res, ins.index, rx_frame.id);
+                printf("Rx error %d, IF%d %lx: ", res, ins.index, (unsigned long )rx_frame.id);
                 for (uint8_t i = 0; i < rx_frame.data_len; i++) {
                     printf("%02x", rx_frame.data[i]);
                 }
                 printf("\n");
             }
-#endif
-        }
+//#endif
+
     }
 }
 
@@ -1261,6 +1320,7 @@ static uint16_t pool_peak_percent(instance_t &ins)
 {
     const CanardPoolAllocatorStatistics stats = canardGetPoolAllocatorStatistics(&ins.canard);
     const uint16_t peak_percent = (uint16_t)(100U * stats.peak_usage_blocks / stats.capacity_blocks);
+    //printf("pool_peak_percent iface:%d usedblocks:%d totalblocks:%d\n", ins.index,stats.peak_usage_blocks, stats.capacity_blocks);
     return peak_percent;
 }
 
@@ -1286,6 +1346,10 @@ static void node_status_send(void)
  */
 static void process1HzTasks(uint64_t timestamp_usec)
 {
+
+    //can send and recieve stats?
+    printf("\n");// to keep the console flushed
+
     /*
      * Purging transfers that are no longer transmitted. This will occasionally free up some memory.
      */
@@ -1368,11 +1432,11 @@ static void process1HzTasks(uint64_t timestamp_usec)
 /*
   wait for dynamic allocation of node ID
  */
-bool AP_Periph_FW::no_iface_finished_dna = true;
+uint8_t AP_Periph_FW::has_any_iface_finished_dna = 0;
 static bool can_do_dna(instance_t &ins)
 {
     if (canardGetLocalNodeID(&ins.canard) != CANARD_BROADCAST_NODE_ID) {
-        AP_Periph_FW::no_iface_finished_dna = false;
+        AP_Periph_FW::has_any_iface_finished_dna = 1;
         return true;
     }
 
@@ -1380,8 +1444,13 @@ static bool can_do_dna(instance_t &ins)
 
     uint8_t node_id_allocation_transfer_id = 0;
 
-    if (AP_Periph_FW::no_iface_finished_dna) {
-        printf("Waiting for dynamic node ID allocation on IF%d... (pool %u)\n", ins.index, pool_peak_percent(ins));
+    if (AP_Periph_FW::has_any_iface_finished_dna < 20) {
+        printf("\nWaiting for node ID on IF%d...  \n", ins.index );
+        AP_Periph_FW::has_any_iface_finished_dna++; 
+    } else {
+        // hack to pretend we were assigned a DNA number after 10 secs:
+        printf("...didn't get DNA ID, falling back to CAN node-id 42\n");
+        canardSetLocalNodeID(&ins.canard, 42);
     }
 
     ins.send_next_node_id_allocation_request_at_ms =
@@ -1397,8 +1466,10 @@ static bool can_do_dna(instance_t &ins)
         allocation_request[0] |= 1;     // First part of unique ID
     }
 
-    uint8_t my_unique_id[sizeof(uavcan_protocol_dynamic_node_id_Allocation::unique_id.data)];
-    readUniqueID(my_unique_id);
+     uint8_t my_unique_id[sizeof(uavcan_protocol_dynamic_node_id_Allocation::unique_id.data)];
+     readUniqueID(my_unique_id);
+    //uint8_t my_unique_id[16] = {1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6}; //hardcode serial 4 now
+
 
     static const uint8_t MaxLenOfUniqueIDInRequest = 6;
     uint8_t uid_size = (uint8_t)(sizeof(uavcan_protocol_dynamic_node_id_Allocation::unique_id.data) - ins.node_id_allocation_unique_id_offset);
@@ -1462,6 +1533,8 @@ void AP_Periph_FW::can_start()
         can_iface_periph[i] = new ChibiOS::CANIface();
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
         can_iface_periph[i] = new HALSITL::CANIface();
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+        can_iface_periph[i] = new ESP32::CANIface();
 #endif
         instances[i].iface = can_iface_periph[i];
         instances[i].index = i;
@@ -1625,25 +1698,25 @@ void AP_Periph_FW::esc_telem_update()
 void AP_Periph_FW::can_update()
 {
     const uint32_t now = AP_HAL::native_millis();
-    const uint32_t led_pattern = 0xAAAA;
-    const uint32_t led_change_period = 50;
-    static uint8_t led_idx = 0;
-    static uint32_t last_led_change;
+    // const uint32_t led_pattern = 0xAAAA;
+    // const uint32_t led_change_period = 50;
+    // static uint8_t led_idx = 0;
+    // static uint32_t last_led_change;
 
-    if ((now - last_led_change > led_change_period) && no_iface_finished_dna) {
-        // blink LED in recognisable pattern while waiting for DNA
-#ifdef HAL_GPIO_PIN_LED
-        palWriteLine(HAL_GPIO_PIN_LED, (led_pattern & (1U<<led_idx))?1:0);
-#elif defined(HAL_GPIO_PIN_SAFE_LED)
-        // or use safety LED if defined
-        palWriteLine(HAL_GPIO_PIN_SAFE_LED, (led_pattern & (1U<<led_idx))?1:0);
-#else
-        (void)led_pattern;
-        (void)led_idx;
-#endif
-        led_idx = (led_idx+1) % 32;
-        last_led_change = now;
-    }
+//     if ((now - last_led_change > led_change_period) && has_any_iface_finished_dna<10) {
+//         // blink LED in recognisable pattern while waiting for DNA
+// #ifdef HAL_GPIO_PIN_LED
+//         palWriteLine(HAL_GPIO_PIN_LED, (led_pattern & (1U<<led_idx))?1:0);
+// #elif defined(HAL_GPIO_PIN_SAFE_LED)
+//         // or use safety LED if defined
+//         palWriteLine(HAL_GPIO_PIN_SAFE_LED, (led_pattern & (1U<<led_idx))?1:0);
+// #else
+//         (void)led_pattern;
+//         (void)led_idx;
+// #endif
+//         led_idx = (led_idx+1) % 32;
+//         last_led_change = now;
+//     }
 
     for (auto &ins : instances) {
         if (AP_HAL::millis() > ins.send_next_node_id_allocation_request_at_ms) {
@@ -1656,38 +1729,39 @@ void AP_Periph_FW::can_update()
         last_1Hz_ms = now;
         process1HzTasks(AP_HAL::native_micros64());
     }
-    can_mag_update();
-    can_gps_update();
-    can_battery_update();
-    can_baro_update();
-    can_airspeed_update();
-    can_rangefinder_update();
-#if defined(HAL_PERIPH_ENABLE_BUZZER_WITHOUT_NOTIFY) || defined (HAL_PERIPH_ENABLE_NOTIFY)
-    can_buzzer_update();
-#endif
-#ifdef HAL_GPIO_PIN_SAFE_LED
-    can_safety_LED_update();
-#endif
-#ifdef HAL_GPIO_PIN_SAFE_BUTTON
-    can_safety_button_update();
-#endif
-#ifdef HAL_PERIPH_ENABLE_PWM_HARDPOINT
-    pwm_hardpoint_update();
-#endif
-#ifdef HAL_PERIPH_ENABLE_HWESC
-    hwesc_telem_update();
-#endif
-#ifdef HAL_PERIPH_ENABLE_MSP
-    msp_sensor_update();
-#endif
-#ifdef HAL_PERIPH_ENABLE_RC_OUT
-    rcout_update();
-#endif
+//     can_mag_update();
+//     can_gps_update();
+//     can_battery_update();
+//     can_baro_update();
+//     can_airspeed_update();
+//     can_rangefinder_update();
+// #if defined(HAL_PERIPH_ENABLE_BUZZER_WITHOUT_NOTIFY) || defined (HAL_PERIPH_ENABLE_NOTIFY)
+//     can_buzzer_update();
+// #endif
+// #ifdef HAL_GPIO_PIN_SAFE_LED
+//     can_safety_LED_update();
+// #endif
+// #ifdef HAL_GPIO_PIN_SAFE_BUTTON
+//     can_safety_button_update();
+// #endif
+// #ifdef HAL_PERIPH_ENABLE_PWM_HARDPOINT
+//     pwm_hardpoint_update();
+// #endif
+// #ifdef HAL_PERIPH_ENABLE_HWESC
+//     hwesc_telem_update();
+// #endif
+// #ifdef HAL_PERIPH_ENABLE_MSP
+//     msp_sensor_update();
+// #endif
+// #ifdef HAL_PERIPH_ENABLE_RC_OUT
+//     rcout_update();
+// #endif
     const uint32_t now_us = AP_HAL::micros();
     while ((AP_HAL::micros() - now_us) < 1000) {
         hal.scheduler->delay_microseconds(HAL_PERIPH_LOOP_DELAY_US);
         processTx();
         processRx();
+        //vTaskDelay(1000);
     }
 }
 

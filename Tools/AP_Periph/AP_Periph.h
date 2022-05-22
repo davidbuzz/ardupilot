@@ -1,4 +1,18 @@
 #pragma once
+// options:
+// #define HAL_PERIPH_ENABLE_GPS
+// #define HAL_PERIPH_ENABLE_MSP
+// #define HAL_PERIPH_ENABLE_MAG
+// #define HAL_PERIPH_ENABLE_BARO
+// #define HAL_PERIPH_ENABLE_BATTERY
+// #define HAL_PERIPH_ENABLE_ADSB
+// #define HAL_PERIPH_ENABLE_AIRSPEED
+// #define HAL_PERIPH_ENABLE_RANGEFINDER
+// #define HAL_PERIPH_ENABLE_PWM_HARDPOINT
+// #define HAL_PERIPH_ENABLE_HWESC
+// #define HAL_PERIPH_ENABLE_RC_OUT
+// #define HAL_PERIPH_ENABLE_NOTIFY
+// define# HAL_PERIPH_ENABLE_AHRS
 
 #include <AP_HAL/AP_HAL.h>
 #include <AP_Param/AP_Param.h>
@@ -18,6 +32,23 @@
 #include <AP_CANManager/AP_CANManager.h>
 #include <AP_Scripting/AP_Scripting.h>
 #include <AP_HAL/CANIface.h>
+#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
+#include <AP_HAL_ChibiOS/CANIface.h>
+
+#elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
+#include <AP_HAL_SITL/CANSocketIface.h>
+void stm32_watchdog_init();
+void stm32_watchdog_pat();
+
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+void stm32_watchdog_init();
+void stm32_watchdog_pat();
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "soc/rtc_wdt.h"
+#include "esp_int_wdt.h"  //Interrupt Watchdog Timer
+#include "esp_task_wdt.h" //Task Watchdog Timer (TWDT)
+#endif
 
 #if HAL_GCS_ENABLED
 #include "GCS_MAVLink.h"
@@ -44,10 +75,7 @@
 
 #include "Parameters.h"
 
-#if CONFIG_HAL_BOARD == HAL_BOARD_SITL
-void stm32_watchdog_init();
-void stm32_watchdog_pat();
-#endif
+
 /*
   app descriptor compatible with MissionPlanner
  */
@@ -99,6 +127,8 @@ public:
     static ChibiOS::CANIface* can_iface_periph[HAL_NUM_CAN_IFACES];
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
     static HALSITL::CANIface* can_iface_periph[HAL_NUM_CAN_IFACES];
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+    static ESP32::CANIface* can_iface_periph[HAL_NUM_CAN_IFACES];
 #endif
 
     AP_SerialManager serial_manager;
@@ -260,7 +290,7 @@ public:
     // show stack as DEBUG msgs
     void show_stack_free();
 
-    static bool no_iface_finished_dna;
+    static uint8_t has_any_iface_finished_dna;
     static constexpr auto can_printf = ::can_printf;
 };
 

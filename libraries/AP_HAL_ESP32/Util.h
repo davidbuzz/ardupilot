@@ -17,7 +17,7 @@
 #pragma once
 
 #include <AP_HAL/AP_HAL.h>
-#include "HAL_ESP32_Namespace.h"
+#include "AP_HAL_ESP32_Namespace.h"
 #include "AP_HAL_ESP32.h"
 
 class ESP32::Util : public AP_HAL::Util

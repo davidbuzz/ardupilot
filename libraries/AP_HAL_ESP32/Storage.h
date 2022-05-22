@@ -16,11 +16,16 @@
 #pragma once
 
 #include <AP_HAL/AP_HAL.h>
-#include "HAL_ESP32_Namespace.h"
+#include "AP_HAL_ESP32_Namespace.h"
 #include <AP_Common/Bitmask.h>
 #include <AP_FlashStorage/AP_FlashStorage.h>
 
 #include "esp_partition.h"
+
+// We need to tell HAL_ChibiOS/Storage.cpp how much storage is available (in bytes).
+#ifndef HAL_STORAGE_SIZE
+define HAL_STORAGE_SIZE 4096
+#endif
 
 #define STORAGE_SIZE HAL_STORAGE_SIZE
 #define STORAGE_SECTOR_SIZE (64*1024)

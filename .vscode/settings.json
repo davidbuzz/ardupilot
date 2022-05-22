@@ -1,4 +1,9 @@
 {
     "cSpell.language": "en-GB",
-    "astyle.astylerc": "${workspaceFolder}/Tools/CodeStyle/astylerc"
+    "astyle.astylerc": "${workspaceFolder}/Tools/CodeStyle/astylerc",
+    "files.associations": {
+        "*.ipp": "cpp",
+        "typeindex": "cpp",
+        "typeinfo": "cpp"
+    }
 }

@@ -16,7 +16,13 @@
 #pragma once
 #include <AP_Param/AP_Param.h>
 #include <AP_HAL/AP_HAL.h>
-#include "HAL_ESP32_Namespace.h"
+#include "AP_HAL_ESP32_Namespace.h"
+
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+#include "esp_wifi.h"
+#include "esp_event.h"
 
 #define ESP32_SCHEDULER_MAX_TIMER_PROCS 10
 #define ESP32_SCHEDULER_MAX_IO_PROCS 10
@@ -53,26 +59,36 @@ public:
     static void thread_create_trampoline(void *ctx);
     bool thread_create(AP_HAL::MemberProc, const char *name, uint32_t stack_size, priority_base base, int8_t priority) override;
 
-    static const int SPI_PRIORITY = 40; // if your primary imu is spi, this should be above the i2c value, spi is better.
-    static const int MAIN_PRIO = 10;
-    static const int I2C_PRIORITY = 5; // if your primary imu is i2c, this should be above the spi value, i2c is not preferred.
-    static const int TIMER_PRIO = 15;
-    static const int RCIN_PRIO = 15;
-    static const int RCOUT_PRIO = 10;
-    static const int WIFI_PRIO = 7;
-    static const int UART_PRIO = 6;
-    static const int IO_PRIO = 5;
+
+
+// max scheduler priory = 24 according to vTaskList output
+
+    static const int SPI_PRIORITY = 10; //      if your primary imu is spi, this should be above the i2c value, spi is better.
+    static const int MAIN_PRIO    = 24; //cpu0: we want schuler running at full tilt.
+    static const int I2C_PRIORITY = 5;  //      if your primary imu is i2c, this should be above the spi value, i2c is not preferred.
+    static const int TIMER_PRIO   = 24; //      a low priority mere might cause wifi thruput to suffer
+    static const int RCIN_PRIO    = 15;
+    static const int RCOUT_PRIO   = 10;
+    static const int WIFI_PRIO1    = 24; //cpu1: 
+    static const int WIFI_PRIO2    = 24; //cpu1: 
+    static const int UART_PRIO    = 24; //cpu1: a low priority mere might cause wifi thruput to suffer, as wifi gets passed its data frim the uart subsustem in _writebuf/_readbuf
+    static const int IO_PRIO      = 5;
     static const int STORAGE_PRIO = 4;
 
-    static const int TIMER_SS = 4096;
-    static const int MAIN_SS = 4096;
-    static const int RCIN_SS = 4096;
-    static const int RCOUT_SS = 4096;
-    static const int WIFI_SS = 4096;
-    static const int UART_SS = 1024;
-    static const int DEVICE_SS = 4096;
-    static const int IO_SS = 4096;
-    static const int STORAGE_SS = 4096;
+    //_SS vars are number-of-WORDS.        //remaining (stack high water mark):
+    // "***ERROR*** A stack overflow in task APM_TIMER has been detected.") @ 1024+512 
+    // Thread 8 "APM_TIMER" received signal SIGTRAP 1024*2
+                                                 //unused/avail?
+    static const int TIMER_SS   = 1024*3;        //644
+    static const int MAIN_SS    = 1024*5;        //630            *3.5 just barely ok. *3 too small. 0x4037ba21 in panic_abort (details=0x3fce0cf1 "***ERROR*** A stack overflow in task APM_MAIN has been detected.")
+    static const int RCIN_SS    = 1024+512;      //460 
+    static const int RCOUT_SS   = 1024+512;      //624
+    static const int WIFI_SS1    = 1024*2-256;   //540             with *5, we have <1k free
+    static const int WIFI_SS2    = 1024*2-256;   //408             with *5, we have <1k free
+    static const int UART_SS    = 1024+512;      //396             1024 is not enough when SCHEDDEBUG=1, as there's many printf's
+    static const int DEVICE_SS  = 4096;          //          (DEVICEBUS/s)
+    static const int IO_SS      = 1024*3+512;    //748       (APM_IO)
+    static const int STORAGE_SS = 2048;          //344       (APM_STORAGE)
 
 private:
     AP_HAL::HAL::Callbacks *callbacks;
@@ -86,16 +102,18 @@ private:
 
     static bool _initialized;
 
+    int run_timer_state = 0;
 
 
-    void *_main_task_handle;
-    void *_timer_task_handle;
-    void *_rcin_task_handle;
-    void *_rcout_task_handle;
-    void *_uart_task_handle;
-    void *_io_task_handle;
-    void *test_task_handle;
-    void *_storage_task_handle;
+
+    tskTaskControlBlock *_main_task_handle;
+    tskTaskControlBlock *_timer_task_handle;
+    tskTaskControlBlock *_rcin_task_handle;
+    tskTaskControlBlock *_rcout_task_handle;
+    tskTaskControlBlock *_uart_task_handle;
+    tskTaskControlBlock *_io_task_handle;
+    tskTaskControlBlock *test_task_handle;
+    tskTaskControlBlock *_storage_task_handle;
 
     static void _main_thread(void *arg);
     static void _timer_thread(void *arg);
@@ -119,4 +137,171 @@ private:
     bool _in_io_proc;
     void _run_io();
     Semaphore _io_sem;
+public:
+    Semaphore sem;
+
 };
+
+/*
+before:  cpu is mostly idle...
+
+APM_MAIN       	11295279		9%
+IDLE           	108898189		90%
+IDLE           	106303512		88%
+APM_UART       	1185228		<1%
+APM_WIFI       	4140027		3%
+log_io         	625254		<1%
+APM_IO         	1395396		1%
+APM_STORAGE    	309057		<1%
+tiT            	1963310		1%
+APM_TIMER      	864027		<1%
+ipc1           	682449		<1%
+sys_evt        	1376		<1%
+esp_timer      	263610		<1%
+wifi           	1920815		1%
+Tmr Svc        	15		<1%
+ipc0           	742286		<1%
+
+after:  CONFIG_FREERTOS_HZ=200 at least one cpu is closer to 100%
+APM_MAIN       	134686198		74%
+APM_UART       	10334839		5%
+APM_WIFI       	23192287		12%
+log_io         	4342472		2%
+APM_IO         	7103394		3%
+APM_STORAGE    	2184089		1%
+IDLE           	137290709		76%
+IDLE           	16035044		8%
+APM_TIMER      	5138484		2%
+tiT            	12726528		7%
+sys_evt        	923		<1%
+Tmr Svc        	17		<1%
+esp_timer      	504347		<1%
+wifi           	5396335		2%
+ipc1           	851293		<1%
+ipc0           	642383		<1%
+
+
+
+// with CONFIG_FREERTOS_HZ=400 gets cpu up to 85% and we moved some tasks to other cores, seems to boot ok.
+TASK           ABSTIME       PERCENTAGE
+/
+APM_MAIN       	101931898		84%
+APM_UART       	10403211		8%
+tiT            	7241598		6%
+APM_RCIN       	6806074		5%
+log_io         	2761286		2%
+APM_IO         	1800989		1%
+APM_STORAGE    	1794356		1%
+IDLE           	69455261		57%
+IDLE           	6629911		5%
+APM_TIMER      	7040654		5%
+APM_RCOUT      	1338070		1%
+sys_evt        	1097		<1%
+Tmr Svc        	19		<1%
+APM_WIFI       	17263253		14%
+esp_timer      	357669		<1%
+wifi           	4193745		3%
+ipc1           	699632		<1%
+ipc0           	655826		<1%
+/
+STATUS ->Blocked,Ready,Deleted,Suspended
+TASK / STATUS /PRIORITY/STACK-HIGH-WATER-MK(REMAINING)/TASKNUM/COREID
+/
+/
+APM_UART       	R	24	384	15	1
+APM_WIFI       	R	24	540	19	1
+APM_MAIN       	X	24	552	8	0
+APM_TIMER      	R	24	628	12	-1
+APM_RCIN       	R	15	448	14	-1
+log_io         	R	6	980	20	-1
+APM_IO         	R	5	1392	16	0
+APM_STORAGE    	R	4	344	17	-1
+IDLE           	R	0	576	6	1
+IDLE           	R	0	588	5	0
+tiT            	B	18	1152	9	-1
+APM_RCOUT      	B	10	564	13	-1
+Tmr Svc        	B	1	1156	7	0
+ipc1           	B	24	1076	2	1
+esp_timer      	S	22	2844	3	0
+wifi           	B	23	3968	11	1
+ipc0           	B	24	1136	1	0
+sys_evt        	B	20	1432	10	0
+/
+Heap summary for capabilities 0x00000000:
+  At 0x3fcb3c98 len 181096 free 57960 allocated 121380 min_free 6300
+    largest_free_block 56320 alloc_blocks 123 free_blocks 4 total_blocks 127
+  At 0x3fce0000 len 60980 free 644 allocated 58580 min_free 644
+    largest_free_block 0 alloc_blocks 160 free_blocks 0 total_blocks 160
+  At 0x3fcf0000 len 32768 free 640 allocated 30372 min_free 628
+    largest_free_block 0 alloc_blocks 159 free_blocks 0 total_blocks 159
+  At 0x600fe000 len 8192 free 6436 allocated 0 min_free 6436
+    largest_free_block 6400 alloc_blocks 0 free_blocks 1 total_blocks 1
+  Totals:
+    free 65680 allocated 210332 min_free 14008 largest_free_block 56320
+
+
+
+//s3 devkit plane build, no imu attached
+
+
+TASK           ABSTIME       PERCENTAGE
+
+
+APM_WIFI2      	20849594		34%
+APM_MAIN       	5645491		9%
+APM_UART       	1462936		2%
+APM_RCIN       	1508342		2%
+log_io         	1328601		2%
+APM_IO         	2273742		3%
+APM_STORAGE    	909981		1%
+IDLE           	46868246		78%
+IDLE           	34901776		58%
+APM_RCOUT      	281322		<1%
+tiT            	70871		<1%
+APM_TIMER      	1927840		3%
+sys_evt        	912		<1%
+APM_WIFI1      	1136		<1%
+ipc1           	646116		1%
+ipc0           	646093		1%
+esp_timer      	129861		<1%
+wifi           	598947		<1%
+Tmr Svc        	14		<1%
+
+STATUS ->Blocked,Ready,Deleted,Suspended
+TASK / STATUS /PRIORITY/STACK-HIGH-WATER-MK(REMAINING)/TASKNUM/COREID
+
+
+APM_WIFI2      	R	24	408	20	1
+APM_UART       	R	24	396	15	1
+APM_MAIN       	X	24	248	8	0
+APM_TIMER      	R	24	688	12	-1
+APM_RCIN       	R	15	460	14	-1
+log_io         	R	6	976	21	-1
+APM_IO         	R	5	784	16	0
+APM_STORAGE    	R	4	344	17	-1
+IDLE           	R	0	584	6	1
+IDLE           	R	0	580	5	0
+tiT            	B	18	1820	9	-1
+APM_RCOUT      	B	10	624	13	-1
+APM_WIFI1      	B	24	540	19	1
+ipc1           	B	24	1144	2	1
+ipc0           	B	24	1140	1	0
+esp_timer      	S	22	2884	3	0
+wifi           	B	23	4172	11	1
+Tmr Svc        	B	1	1164	7	0
+sys_evt        	B	20	1428	10	0
+
+Heap summary for capabilities 0x00000000:
+  At 0x3fcaf6b8 len 198984 free 97740 allocated 99136 min_free 95388
+    largest_free_block 96256 alloc_blocks 88 free_blocks 1 total_blocks 89
+  At 0x3fce0000 len 60980 free 4 allocated 58612 min_free 4
+    largest_free_block 0 alloc_blocks 152 free_blocks 0 total_blocks 152
+  At 0x3fcf0000 len 32768 free 4 allocated 30364 min_free 4
+    largest_free_block 0 alloc_blocks 161 free_blocks 0 total_blocks 161
+  At 0x600fe000 len 8192 free 6436 allocated 0 min_free 6436
+    largest_free_block 6400 alloc_blocks 0 free_blocks 1 total_blocks 1
+  Totals:
+    free 104208 allocated 188092 min_free 101832 largest_free_block 96256
+
+
+*/

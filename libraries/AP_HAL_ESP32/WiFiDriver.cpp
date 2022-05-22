@@ -13,6 +13,9 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// https://github.com/espressif/esp-idf/blob/v4.4.1/examples/protocols/sockets/tcp_server/main/tcp_server.c
+
+
 #include <AP_HAL_ESP32/WiFiDriver.h>
 #include <AP_Math/AP_Math.h>
 #include <AP_HAL_ESP32/Scheduler.h>
@@ -22,21 +25,32 @@
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
 #include "esp_system.h"
-#include "esp_wifi.h"
-#include "esp_event_loop.h"
 #include "nvs_flash.h"
+#include "esp_netif.h"
 
 #include "lwip/err.h"
 #include "lwip/sockets.h"
 #include "lwip/sys.h"
 #include "lwip/netdb.h"
 
+#include "esp_wifi.h"
+#include "esp_event.h"
+
+#include "WiFiSetup.h"
+
 using namespace ESP32;
 
 extern const AP_HAL::HAL& hal;
+extern void initialize_wifi(); // see WiFiSetup.cpp
+
+#define TCP_PORT 5760
+
 
 WiFiDriver::WiFiDriver()
 {
+#ifdef WIFIDEBUG
+   ////hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     _state = NOT_INITIALIZED;
     accept_socket = -1;
 
@@ -52,9 +66,18 @@ void WiFiDriver::begin(uint32_t b)
 
 void WiFiDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 {
+////#ifdef WIFIDEBUG
+   ////hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+//#endif
+    hal.console->printf("%s:%d TCP state:%d\n", __PRETTY_FUNCTION__, __LINE__,_state);
+
     if (_state == NOT_INITIALIZED) {
-        initialize_wifi();
-        xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
+        ::initialize_wifi();
+        // pin this thread to Core 1
+        if (xTaskCreatePinnedToCore(_wifi_thread, "APM_WIFI1", Scheduler::WIFI_SS1, this, Scheduler::WIFI_PRIO1, &_wifi_task_handle,1) != pdPASS) {
+        //if (xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO1, &_wifi_task_handle) != pdPASS) {
+            //hal.console->printf("FAILED to create task _wifi_thread\n");
+        }
         _readbuf.set_size(RX_BUF_SIZE);
         _writebuf.set_size(TX_BUF_SIZE);
         _state = INITIALIZED;
@@ -90,6 +113,7 @@ uint32_t WiFiDriver::available()
     if (_state != CONNECTED) {
         return 0;
     }
+    //hal.console->printf("WiFiDriver::available ? %d\n",_readbuf.available());
     return _readbuf.available();
 }
 
@@ -105,18 +129,27 @@ uint32_t WiFiDriver::txspace()
 
 int16_t WiFiDriver::read()
 {
+    //hal.console->printf("ZZZZ read!!\n");
     if (_state != CONNECTED) {
         return -1;
     }
     uint8_t byte;
     if (!_readbuf.read_byte(&byte)) {
         return -1;
+            //hal.console->printf("ZZZZ readbyte -1\n");
+
     }
+    //hal.console->printf("ZZZZ read ok\n");
+
     return byte;
 }
 
+
 bool WiFiDriver::start_listen()
 {
+#ifdef WIFIDEBUG
+////hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     accept_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (accept_socket < 0) {
         accept_socket = -1;
@@ -127,7 +160,7 @@ bool WiFiDriver::start_listen()
     struct sockaddr_in destAddr;
     destAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     destAddr.sin_family = AF_INET;
-    destAddr.sin_port = htons(5760);
+    destAddr.sin_port = htons(TCP_PORT);
     int err = bind(accept_socket, (struct sockaddr *)&destAddr, sizeof(destAddr));
     if (err != 0) {
         close(accept_socket);
@@ -146,31 +179,40 @@ bool WiFiDriver::start_listen()
 
 bool WiFiDriver::try_accept()
 {
+    //hal.console->printf(" ZZZZ 6\n" );
+
     struct sockaddr_in sourceAddr;
     uint addrLen = sizeof(sourceAddr);
     short i = available_socket();
     if (i != WIFI_MAX_CONNECTION) {
+        //hal.console->printf(" ZZZZ 7\n" );
         socket_list[i] = accept(accept_socket, (struct sockaddr *)&sourceAddr, &addrLen);
+        //hal.console->printf(" ZZZZ 8\n" );
         if (socket_list[i] >= 0) {
+            //hal.console->printf(" ZZZZ 9\n" );
             fcntl(socket_list[i], F_SETFL, O_NONBLOCK);
             return true;
         }
     }
+    //hal.console->printf(" ZZZZ 10\n" );
     return false;
 }
 
 bool WiFiDriver::read_data()
 {
+    ////hal.console->printf(" ZZZZ read_data\n" );
     for (unsigned short i = 0; i < WIFI_MAX_CONNECTION && socket_list[i] > -1; ++i) {
         int count = 0;
         do {
             count = recv(socket_list[i], (void *)_buffer, sizeof(_buffer), 0);
             if (count > 0) {
+                //hal.console->printf(" ZZZZ read_data %d\n",count );
                 _readbuf.write(_buffer, count);
                 if (count == sizeof(_buffer)) {
                     _more_data = true;
                 }
             } else if (count < 0 && errno != EAGAIN) {
+                //hal.console->printf(" ZZZZ read_data-shutdown%d\n",count );
                 shutdown(socket_list[i], 0);
                 close(socket_list[i]);
                 socket_list[i] = -1;
@@ -184,19 +226,28 @@ bool WiFiDriver::read_data()
 
 bool WiFiDriver::write_data()
 {
+    //hal.console->printf(" ZZZZ write_data   \n" );
     for (unsigned short i = 0; i < WIFI_MAX_CONNECTION && socket_list[i] > -1; ++i) {
         int count = 0;
         _write_mutex.take_blocking();
+        //hal.console->printf(" ZZZZ write_data took sem \n" );
+
+            //static const uint8_t buffer[] = {0xFE ,0x09, 0x4E, 0x01, 0x01, 00, 00,   00,  00,  00,  02, 03, 0x51, 0x04,  03, 0x1C,  0x7F };
+            //write(buffer,sizeof(buffer));
         do {
             count = _writebuf.peekbytes(_buffer, sizeof(_buffer));
+            //hal.console->printf(" ZZZZ write_data peek-count: %d bufsize:%d\n",count,sizeof(_buffer) );
             if (count > 0) {
                 count = send(socket_list[i], (void*) _buffer, count, 0);
+                //hal.console->printf(" ZZZZ write_data send-count %d\n",count );
                 if (count > 0) {
                     _writebuf.advance(count);
                     if (count == sizeof(_buffer)) {
                         _more_data = true;
+                        //hal.console->printf(" ZZZZ write_data more data\n" );
                     }
                 } else if (count < 0 && errno != EAGAIN) {
+                    //hal.console->printf(" ZZZZ write_data shutdown\n" );
                     shutdown(socket_list[i], 0);
                     close(socket_list[i]);
                     socket_list[i] = -1;
@@ -208,35 +259,11 @@ bool WiFiDriver::write_data()
         } while (count > 0);
     }
     _write_mutex.give();
+            //hal.console->printf(" ZZZZ write_data gave sem \n" );
     return true;
 }
 
-void WiFiDriver::initialize_wifi()
-{
-    tcpip_adapter_init();
-    nvs_flash_init();
-    esp_event_loop_init(nullptr, nullptr);
-    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    esp_wifi_init(&cfg);
-    esp_wifi_set_storage(WIFI_STORAGE_FLASH);
-    wifi_config_t wifi_config;
-    memset(&wifi_config, 0, sizeof(wifi_config));
-#ifdef WIFI_SSID
-    strcpy((char *)wifi_config.ap.ssid, WIFI_SSID);
-#else
-    strcpy((char *)wifi_config.ap.ssid, "ardupilot");
-#endif
-#ifdef WIFI_PWD
-    strcpy((char *)wifi_config.ap.password, WIFI_PWD);
-#else
-    strcpy((char *)wifi_config.ap.password, "ardupilot1");
-#endif
-    wifi_config.ap.authmode = WIFI_AUTH_WPA_WPA2_PSK;
-    wifi_config.ap.max_connection = WIFI_MAX_CONNECTION;
-    esp_wifi_set_mode(WIFI_MODE_AP);
-    esp_wifi_set_config(WIFI_IF_AP, &wifi_config);
-    esp_wifi_start();
-}
+
 
 size_t WiFiDriver::write(uint8_t c)
 {
@@ -245,12 +272,15 @@ size_t WiFiDriver::write(uint8_t c)
 
 size_t WiFiDriver::write(const uint8_t *buffer, size_t size)
 {
+    ////hal.console->printf(" ZZZZ write? %d\n" , _state );
     if (_state != CONNECTED) {
         return 0;
     }
+    //hal.console->printf(" ZZZZ write CONNECTED %d\n" , _state );
     if (!_write_mutex.take_nonblocking()) {
         return 0;
     }
+    //hal.console->printf(" ZZZZ write buffsize:%d\n",size );
     size_t ret = _writebuf.write(buffer, size);
     _write_mutex.give();
     return ret;
@@ -258,28 +288,42 @@ size_t WiFiDriver::write(const uint8_t *buffer, size_t size)
 
 void WiFiDriver::_wifi_thread(void *arg)
 {
+#ifdef WIFIDEBUG
+   //hal.console->printf("%s:%d ZZZZ 0\n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     WiFiDriver *self = (WiFiDriver *) arg;
     if (!self->start_listen()) {
         vTaskDelete(nullptr);
     }
+    //hal.console->printf(" ZZZZ 1\n" );
     while (true) {
         if (self->try_accept()) {
+            //hal.console->printf(" ZZZZ 2 _state = CONNECTED\n" );
             self->_state = CONNECTED;
+
             while (true) {
                 self->_more_data = false;
                 if (!self->read_data()) {
+                        //hal.console->printf(" ZZZZ 3\n" );
+
                     self->_state = INITIALIZED;
                     break;
                 }
                 if (!self->write_data()) {
+                        //hal.console->printf(" ZZZZ 4\n" );
+
                     self->_state = INITIALIZED;
                     break;
                 }
                 if (!self->_more_data) {
-                    hal.scheduler->delay_microseconds(1000);
+                    hal.scheduler->delay_microseconds(500);
+                    //hal.console->printf(" ZZZZ thread delay\n" );
                 }
             }
         }
+        //hal.console->printf(" ZZZZ 11 \n" );
+        hal.scheduler->delay_microseconds(10000);
+
     }
 }
 

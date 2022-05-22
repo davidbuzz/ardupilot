@@ -19,18 +19,19 @@
 #include <AP_HAL/AP_HAL_Boards.h>
 #include <AP_HAL/AP_HAL_Macros.h>
 #include <AP_HAL/Semaphores.h>
-#include "HAL_ESP32_Namespace.h"
+#include "AP_HAL_ESP32_Namespace.h"
 
 class ESP32::Semaphore : public AP_HAL::Semaphore
 {
 public:
     Semaphore();
-    bool give() override;
-    bool take(uint32_t timeout_ms) override;
-    bool take_nonblocking() override;
-    void take_blocking() override;
+    virtual bool give() override;
+    virtual bool take(uint32_t timeout_ms) override;
+    virtual bool take_nonblocking() override;
+    //void take_blocking() override;
 
-    bool check_owner();
+    bool check_owner(void);
+    void assert_owner(void);
 protected:
     void*  handle;
 };

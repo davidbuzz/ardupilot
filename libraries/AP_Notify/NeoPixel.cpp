@@ -18,7 +18,7 @@
 #include "SRV_Channel/SRV_Channel.h"
 
 // This limit is from the dshot driver rcout groups limit
-#define AP_NOTIFY_NEOPIXEL_MAX_INSTANCES        4
+#define AP_NOTIFY_NEOPIXEL_MAX_INSTANCES        1
 
 // Datasheet: https://cdn-shop.adafruit.com/datasheets/WS2812B.pdf
 // 24bit msg as 3 byte GRB (not RGB) where first bit is G7, and last bit is B0
@@ -42,7 +42,7 @@ uint16_t NeoPixel::init_ports()
     for (uint16_t i=0; i<AP_NOTIFY_NEOPIXEL_MAX_INSTANCES; i++) {
         const SRV_Channel::Aux_servo_function_t fn = (SRV_Channel::Aux_servo_function_t)((uint8_t)SRV_Channel::k_LED_neopixel1 + i);
         if (!SRV_Channels::function_assigned(fn)) {
-            continue;
+            //continue; hack to enable first neopixel , aka 'NeoPixel1' aka function 120 , on all rc-output/s ?
         }
         mask |= SRV_Channels::get_output_channel_mask(fn);
     }

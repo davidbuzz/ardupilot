@@ -51,9 +51,9 @@ void RCOutput::init()
     _max_channels = MAX_CHANNELS;
 
 
-    //32 and 33 are special as they dont default to gpio, but can be if u disable their rtc setup:
-    rtc_gpio_deinit(GPIO_NUM_32);
-    rtc_gpio_deinit(GPIO_NUM_33);
+    //on classic esp32 , 32 and 33 are special as they dont default to gpio, but can be if u disable their rtc setup. S3 is differnet 
+    //rtc_gpio_deinit(GPIO_NUM_32);
+    //rtc_gpio_deinit(GPIO_NUM_33);
 
     printf("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo\n");
     printf("RCOutput::init() - channels available: %d \n",(int)MAX_CHANNELS);

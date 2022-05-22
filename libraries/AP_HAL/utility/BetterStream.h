@@ -25,6 +25,14 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+// from AP_Common, as the above include doesn't seem to get them
+#define FMT_PRINTF(a,b) __attribute__((format(printf, a, b)))
+#define FMT_SCANF(a,b) __attribute__((format(scanf, a, b)))
+#define NORETURN __attribute__ ((noreturn))
+#define UNUSED_PRIVATE_MEMBER
+#define PACKED __attribute__((__packed__))
+
+
 class AP_HAL::BetterStream {
 public:
 

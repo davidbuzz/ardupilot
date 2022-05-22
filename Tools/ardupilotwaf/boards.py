@@ -28,6 +28,7 @@ class BoardMeta(type):
         board_name = getattr(cls, 'name', name)
         if board_name in _board_classes:
             raise Exception('board named %s already exists' % board_name)
+        #print("board meta",board_name,cls)
         _board_classes[board_name] = cls
 
 class Board:
@@ -117,6 +118,7 @@ class Board:
         cfg.env.prepend_value('INCLUDES', [
             cfg.srcnode.find_dir('libraries/AP_Common/missing').abspath()
         ])
+        print("BUZZ ADDED MISSING...")
         if os.path.exists(os.path.join(env.SRCROOT, '.vscode/c_cpp_properties.json')):
             # change c_cpp_properties.json configure the VSCode Intellisense env
             c_cpp_properties = json.load(open(os.path.join(env.SRCROOT, '.vscode/c_cpp_properties.json')))
@@ -141,7 +143,6 @@ class Board:
             '-ffunction-sections',
             '-fdata-sections',
             '-fsigned-char',
-
             '-Wall',
             '-Wextra',
             '-Werror=format',
@@ -469,9 +470,39 @@ def get_boards_names():
     return sorted(list(_board_classes.keys()), key=str.lower)
 
 def get_ap_periph_boards():
+    list1 = __get_ap_periph_boards('libraries/AP_HAL_ChibiOS/hwdef')
+    list2 = __get_ap_periph_boards('libraries/AP_HAL_ESP32/hwdef')
+    nodupes = list(set(list1)|set(list2))
+    print("get_ap_periph_boards?",nodupes)
+    return nodupes
+
+def __get_ap_periph_boards(defs_folder):
     '''Add AP_Periph boards based on existance of periph keywork in hwdef.dat or board name'''
     list_ap = [s for s in list(_board_classes.keys()) if "periph" in s]
-    dirname, dirlist, filenames = next(os.walk('libraries/AP_HAL_ChibiOS/hwdef'))
+    dirname, dirlist, filenames = next(os.walk(defs_folder))
+    for d in dirlist:
+        if d in list_ap:
+            continue
+        hwdef = os.path.join(dirname, d, 'hwdef.dat')
+        #print(hwdef)
+        if os.path.exists(hwdef):
+            with open(hwdef, "r") as f:
+                content = f.read()
+                if 'AP_PERIPH' in content:
+                    #print(d)
+                    list_ap.append(d)
+                    continue
+                # process any include lines:
+                m = re.match(r"include\s+([^\s]*)", content)
+                if m is None:
+                    continue
+                include_path = os.path.join(os.path.dirname(hwdef), m.group(1))
+                with open(include_path, "r") as g:
+                    content = g.read()
+                    if 'AP_PERIPH' in content:
+                        list_ap.append(d)
+                        continue
+    dirname, dirlist, filenames = next(os.walk('libraries/AP_HAL_ESP32/hwdef'))
     for d in dirlist:
         if d in list_ap:
             continue
@@ -492,8 +523,8 @@ def get_ap_periph_boards():
                     if 'AP_PERIPH' in content:
                         list_ap.append(d)
                         continue
-
     list_ap = list(set(list_ap))
+    #print("__get_ap_periph_boards?",list_ap)
     return list_ap
 
 def get_removed_boards():
@@ -697,7 +728,7 @@ class sitl_periph_gps(sitl):
 
 class esp32(Board):
     abstract = True
-    toolchain = 'xtensa-esp32-elf'
+    toolchain = 'xtensa-esp32s3-elf'
     def configure_env(self, cfg, env):
         def expand_path(p):
             print("USING EXPRESSIF IDF:"+str(env.idf))
@@ -712,6 +743,7 @@ class esp32(Board):
         env.DEFINES.update(
             CONFIG_HAL_BOARD = 'HAL_BOARD_ESP32',
             AP_SIM_ENABLED = 0,
+            HAL_ENABLE_LIBUAVCAN_DRIVERS = 0
         )
 
         tt = self.name[5:] #leave off 'esp32' so we just get 'buzz','diy','icarus, etc
@@ -719,9 +751,20 @@ class esp32(Board):
         # this makes sure we get the correct subtype
         env.DEFINES.update(
             ENABLE_HEAP = 0,
-            CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_ESP32_%s' %  tt.upper() ,
+            #CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_ESP32_%s' %  tt.upper() , -- no longer reqd, see generated hwdef.h 
             ALLOW_DOUBLE_MATH_FUNCTIONS = '1',
         )
+
+        if self.with_can:
+            cfg.define('HAL_NUM_CAN_IFACES', 1)
+            cfg.define('UAVCAN_EXCEPTIONS', 0)
+            cfg.define('UAVCAN_SUPPORT_CANFD', 0)
+
+        if cfg.env.AP_PERIPH:
+            #if cfg.env.HAL_CANFD_SUPPORTED:
+            #    env.DEFINES.update(CANARD_ENABLE_CANFD=1)
+            #else:
+            env.DEFINES.update(CANARD_ENABLE_TAO_OPTION=1)
 
         env.AP_LIBRARIES += [
             'AP_HAL_ESP32',
@@ -745,7 +788,8 @@ class esp32(Board):
                          '-Wno-sign-compare',
                          '-fno-inline-functions',
                          '-mlongcalls',
-                         '-DCYGWIN_BUILD']
+                         '-fpermissive', 
+                         '-DCYGWIN_BUILD']   #-fpermissive is needed by libcanard
         env.CXXFLAGS.remove('-Werror=undef')
         env.CXXFLAGS.remove('-Werror=shadow')
 

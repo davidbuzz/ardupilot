@@ -514,7 +514,7 @@ def _select_programs_from_group(bld):
 
     for group in groups:
         if group not in _grouped_programs:
-            bld.fatal('Group %s not found' % group)
+            bld.fatal('Group %s not found' % groups )
 
         target_names = _grouped_programs[group].keys()
 
