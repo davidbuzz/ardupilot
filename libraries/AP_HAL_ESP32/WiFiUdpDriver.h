@@ -22,6 +22,8 @@
 #include "lwip/sockets.h"
 #include "esp_event.h"
 
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 class ESP32::WiFiUdpDriver : public AP_HAL::UARTDriver
 {
@@ -67,7 +69,7 @@ private:
 
     int accept_socket;
 
-    void *_wifi_task_handle;
+    tskTaskControlBlock *_wifi_task_handle;
     void initialize_wifi();
     bool read_all();
     bool write_data();

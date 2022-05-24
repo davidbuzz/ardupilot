@@ -134,6 +134,7 @@ void i2c_init(_i2c_bus_t* bus)
           bus->scl, bus->sda, bus->speed);
 
     /* reset the GPIO usage if the pins were used for I2C before */
+    printf("i2c sda: %d i2c scl:%d\n",bus->sda,bus->scl);
     gpio_reset_pin(bus->scl);
     gpio_reset_pin(bus->sda);
 
