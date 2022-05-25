@@ -23,7 +23,8 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-#include "soc/rtc_wdt.h"
+#include "hal/wdt_hal.h"   //Please use #include "hal/wdt_hal.h" instead of soc/rtc_wdt.h. https://github.com/espressif/esp-idf/issues/8855
+
 #include "esp_int_wdt.h"
 #include "esp_task_wdt.h"
 
