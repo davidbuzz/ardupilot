@@ -81,17 +81,9 @@
 	{ADC1_GPIO39_CHANNEL, 11, 3},\
 	{ADC1_GPIO36_CHANNEL, 11, 4}\
 }
-#define HAL_ESP32_ADC_PINS_OPTION2 {\
-	{ADC1_GPIO35_CHANNEL, 11, 35},\
-	{ADC1_GPIO34_CHANNEL, 11, 34},\
-	{ADC1_GPIO39_CHANNEL, 11, 39},\
-	{ADC1_GPIO36_CHANNEL, 11, 36}\
-}
-// pick one:
-//#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION1
-#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION2
+#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION1
 
-
+#
 
 #define HAL_PROBE_EXTERNAL_I2C_COMPASSES 0
 
@@ -132,12 +124,14 @@
 
 //RCOUT which pins are used?
 
-#define HAL_ESP32_RCOUT { GPIO_NUM_25,GPIO_NUM_27, GPIO_NUM_33, GPIO_NUM_32, GPIO_NUM_22, GPIO_NUM_21 }
+// 22-25 not defined on S3
+//error: 'GPIO_NUM_25' was not declared in this scope
+#define HAL_ESP32_RCOUT { GPIO_NUM_26,GPIO_NUM_27, GPIO_NUM_33, GPIO_NUM_32, GPIO_NUM_29, GPIO_NUM_21 }
 
 // SPI BUS setup, including gpio, dma, etc
 // note... we use 'vspi' for the bmp280 and mpu9250
 #define HAL_ESP32_SPI_BUSES \
-    {.host=VSPI_HOST, .dma_ch=1, .mosi=GPIO_NUM_23, .miso=GPIO_NUM_19, .sclk=GPIO_NUM_18}
+    {.host=SPI3_HOST, .dma_ch=1, .mosi=GPIO_NUM_28, .miso=GPIO_NUM_19, .sclk=GPIO_NUM_18}
 // tip:  VSPI_HOST  is an alternative name for esp's SPI3
 //#define HAL_ESP32_SPI_BUSES {}
 

@@ -219,7 +219,7 @@ def size_summary(bld, nodes):
 
     for d in l:
         if bld.env.SIZE:
-            if bld.env.get_flat('SIZE').endswith("xtensa-esp32-elf-size"):
+            if bld.env.get_flat('SIZE').endswith("xtensa-esp32s3-elf-size"):
                 cmd = [bld.env.get_flat('SIZE')] + ["-t"] + [d['binary_path']]
             else:
                 cmd = [bld.env.get_flat('SIZE')] + [d['binary_path']]
@@ -238,7 +238,7 @@ def size_summary(bld, nodes):
                 cwd=bld.bldnode.abspath(),
                 quiet=Context.BOTH,
             )
-            if bld.env.get_flat('SIZE').endswith("xtensa-esp32-elf-size"):
+            if bld.env.get_flat('SIZE').endswith("xtensa-esp32s3-elf-size"):
                 parsed = _parse_size_output(out, out2, True)
             else:
                 parsed = _parse_size_output(out, out2, False)
