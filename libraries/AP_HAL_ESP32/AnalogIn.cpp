@@ -97,7 +97,8 @@ AnalogSource::AnalogSource(int16_t ardupin,int16_t pin,float scaler, float initi
             adc1_config_channel_atten((adc1_channel_t)_pin, atten);
             adc1_pad_get_io_num((adc1_channel_t)_pin, &gpio);
         } else {
-            adc2_config_channel_atten((adc2_channel_t)_pin, atten);
+            // adc2_config_channel_atten((adc2_channel_t)_pin, atten);
+            // adc2_pad_get_io_num((adc2_channel_t)_pin, &gpio);
         }
 
         esp_adc_cal_characteristics_t adc_chars;
@@ -201,7 +202,8 @@ bool AnalogSource::set_pin(uint8_t ardupin)
             adc1_config_channel_atten((adc1_channel_t)newgpioAdcPin, atten);
             adc1_pad_get_io_num((adc1_channel_t)newgpioAdcPin, &gpio);
         } else {
-            adc2_config_channel_atten((adc2_channel_t)newgpioAdcPin, atten);
+            // adc2_config_channel_atten((adc2_channel_t)newgpioAdcPin, atten);
+            // adc2_pad_get_io_num((adc2_channel_t)newgpioAdcPin, &gpio);
         }
 
         esp_adc_cal_characteristics_t adc_chars;
