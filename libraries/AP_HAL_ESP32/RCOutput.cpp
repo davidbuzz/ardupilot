@@ -52,8 +52,11 @@ void RCOutput::init()
 
 
     //32 and 33 are special as they dont default to gpio, but can be if u disable their rtc setup:
+    // not on S3
+    #if defined(CONFIG_IDF_TARGET_ESP32)
     rtc_gpio_deinit(GPIO_NUM_32);
     rtc_gpio_deinit(GPIO_NUM_33);
+    #endif
 
     printf("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo\n");
     printf("RCOutput::init() - channels available: %d \n",(int)MAX_CHANNELS);
