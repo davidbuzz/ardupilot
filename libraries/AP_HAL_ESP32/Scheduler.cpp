@@ -249,14 +249,14 @@ bool Scheduler::is_system_initialized()
 void Scheduler::_timer_thread(void *arg)
 {
 #ifdef SCHEDDEBUG
-    printf("%s:%d start\n", __PRETTY_FUNCTION__, __LINE__);
+    //printf("%s:%d start\n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
         sched->delay_microseconds(1000);
     }
 #ifdef SCHEDDEBUG
-    printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+    //printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     while (true) {
         sched->delay_microseconds(1000);
@@ -358,7 +358,7 @@ void Scheduler::_run_io(void)
 void Scheduler::_io_thread(void* arg)
 {
 #ifdef SCHEDDEBUG
-    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    //printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     mount_sdcard();
     Scheduler *sched = (Scheduler *)arg;
@@ -366,7 +366,7 @@ void Scheduler::_io_thread(void* arg)
         sched->delay_microseconds(1000);
     }
 #ifdef SCHEDDEBUG
-    printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
+    //printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     uint32_t last_sd_start_ms = AP_HAL::millis();
     while (true) {
@@ -390,14 +390,14 @@ void Scheduler::_io_thread(void* arg)
 void Scheduler::_storage_thread(void* arg)
 {
 #ifdef SCHEDDEBUG
-    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    //printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
         sched->delay_microseconds(10000);
     }
 #ifdef SCHEDDEBUG
-    printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
+    //printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     while (true) {
         sched->delay_microseconds(1000);
@@ -424,14 +424,14 @@ void Scheduler::_print_profile(void* arg)
 void Scheduler::_uart_thread(void *arg)
 {
 #ifdef SCHEDDEBUG
-    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    //printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
         sched->delay_microseconds(2000);
     }
 #ifdef SCHEDDEBUG
-    printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+    //printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     while (true) {
         sched->delay_microseconds(1000);
