@@ -56,26 +56,26 @@ public:
     static void thread_create_trampoline(void *ctx);
     bool thread_create(AP_HAL::MemberProc, const char *name, uint32_t stack_size, priority_base base, int8_t priority) override;
 
-    static const int SPI_PRIORITY = 40; // if your primary imu is spi, this should be above the i2c value, spi is better.
-    static const int MAIN_PRIO = 10;
+    static const int SPI_PRIORITY = 10; // if your primary imu is spi, this should be above the i2c value, spi is better.
+    static const int MAIN_PRIO    = 24;
     static const int I2C_PRIORITY = 5; // if your primary imu is i2c, this should be above the spi value, i2c is not preferred.
-    static const int TIMER_PRIO = 15;
-    static const int RCIN_PRIO = 15;
-    static const int RCOUT_PRIO = 10;
-    static const int WIFI_PRIO = 7;
-    static const int UART_PRIO = 6;
-    static const int IO_PRIO = 5;
+    static const int TIMER_PRIO   = 24;
+    static const int RCIN_PRIO    = 15;
+    static const int RCOUT_PRIO   = 10;
+    static const int WIFI_PRIO    = 24;
+    static const int UART_PRIO    = 24;
+    static const int IO_PRIO      = 5;
     static const int STORAGE_PRIO = 4;
 
-    static const int TIMER_SS = 4096;
-    static const int MAIN_SS = 4096;
-    static const int RCIN_SS = 4096;
-    static const int RCOUT_SS = 4096;
-    static const int WIFI_SS = 4096;
-    static const int UART_SS = 1024;
-    static const int DEVICE_SS = 4096;
-    static const int IO_SS = 4096;
-    static const int STORAGE_SS = 4096;
+    static const int TIMER_SS   = 1024*3;
+    static const int MAIN_SS    = 1024*5;
+    static const int RCIN_SS    = 1024*3;
+    static const int RCOUT_SS   = 1024*1.5;
+    static const int WIFI_SS    = 1024*2.25;
+    static const int UART_SS    = 1024*2.25;
+    static const int DEVICE_SS  = 1024*4;
+    static const int IO_SS      = 1024*3.5;
+    static const int STORAGE_SS = 1024*2;
 
 private:
     AP_HAL::HAL::Callbacks *callbacks;
