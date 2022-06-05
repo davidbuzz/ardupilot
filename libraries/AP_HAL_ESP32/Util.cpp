@@ -198,7 +198,7 @@ uint64_t Util::get_hw_rtc() const
 #if defined(HAL_NO_GCS) || defined(HAL_BOOTLOADER_BUILD)
 #define Debug(fmt, args ...)  do { hal.console->printf(fmt, ## args); } while (0)
 #else
-#include <GCS_MAVLink/GCS.h>
+//#include <GCS_MAVLink/GCS.h>
 #define Debug(fmt, args ...)  do { gcs().send_text(MAV_SEVERITY_INFO, fmt, ## args); } while (0)
 #endif
 
@@ -220,9 +220,9 @@ bool Util::get_system_id(char buf[40])
     char board_name[14] = "esp32-buzz   ";
 
     uint8_t base_mac_addr[6] = {0};
-    esp_err_t ret = esp_efuse_mac_get_custom(base_mac_addr);
+    esp_err_t ret = esp_efuse_mac_get_default(base_mac_addr);
     if (ret != ESP_OK) {
-        ret = esp_efuse_mac_get_default(base_mac_addr);
+        return false;
     }
 
     char board_mac[20] = "                   ";
@@ -242,16 +242,26 @@ bool Util::get_system_id(char buf[40])
 
 bool Util::get_system_id_unformatted(uint8_t buf[], uint8_t &len)
 {
-    len = MIN(12, len);
+    len = MIN(16, len);
 
+    static uint8_t cache[16];
 
-    uint8_t base_mac_addr[6] = {0};
-    esp_err_t ret = esp_efuse_mac_get_custom(base_mac_addr);
-    if (ret != ESP_OK) {
-        ret = esp_efuse_mac_get_default(base_mac_addr);
-    }
+    if (( cache[0] == 0 )&& (cache[1] == 0)) {
+        uint8_t base_mac_addr[6] = {0};
+        esp_err_t ret = esp_efuse_mac_get_default(base_mac_addr);
+        if (ret != ESP_OK) { printf("get_system_id_unformatted returned ERR"); return false; }
 
-    memcpy(buf, (const void *)base_mac_addr, len);
+        // mac address itself is only 6 bytes, so we copy it twice and allow the last 4 to be zero's
+        memcpy(cache, (const void *)base_mac_addr, len);
+        memcpy(cache+6, (const void *)base_mac_addr, len);
+        memset(cache+12,0,4);
+
+        printf("get_system_id_unformatted : %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d \n",
+                    cache[0],cache[1],cache[2] ,cache[3], cache[4], cache[5], cache[6], cache[7],
+                    cache[8],cache[9],cache[10],cache[11],cache[12],cache[13],cache[14],cache[15]);
+    } 
+    
+    memcpy(buf,cache,16);
 
     return true;
 }
