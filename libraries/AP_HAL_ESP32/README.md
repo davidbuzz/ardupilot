@@ -146,38 +146,46 @@ After flashing the esp32 , u can connect with a terminal app of your preference 
 
 ### Console/usb/boot-messages/mavlink telem aka serial0/uart0:
 
-| ESP32 | CP2102 |
-| ---   | ---    |
-| GPIO3 | UART_TX |  AKA UART0_RX |
-| GPIO1 | UART_RX |  AKA UART0_TX |
+| ESP32S3        | ESP32 | CP2102 |
+| ---            | ---   | ---    |
+| 'USB'/GPIO19   | GPIO3 | UART_TX |  AKA UART0_RX |
+| 'USB'/GPIO20   | GPIO1 | UART_RX |  AKA UART0_TX |
 
 ### GPS aka serial1/uart1:
 
-| ESP32       | GPS       |
-| ---         | ---       |
-| GPIO17 (TX) | GPS (RX)  |
-| GPIO16 (RX) | GPS (TX)  |
-| GND         |      GND  |
-| 5v          |      Pwr  |
+| ESP32S3     | ESP32       | GPS       |
+| ---         | ---         | ---       |
+| GPIO7 (TX)  | GPIO17 (TX) | GPS (RX)  |
+| GPIO6 (RX)  | GPIO16 (RX) | GPS (TX)  |
+| GND         | GND         |      GND  |
+| 5v          | 5v          |      Pwr  |
+
+# possibly might get another uart here, on d3 ?
+
+| ESP32S3     | ESP32       |   
+| ---         | ---         |  
+| GPIO43 (TX) | ---         |  
+| GPIO44 (RX) | ---         |  
+| GND         | ---         |     
+| 5v          | ---         |    
 
 ### RC reciever connection:
 
-|ESP32| RCRECIEVER |
-| --- |    ---     |
-| D4  |  CPPM-out  |
-| GND |       GND  |
-| 5v  |       Pwr  |
+|ESP32/S3| RCRECIEVER |
+| ---    |    ---     |
+| D4     |  CPPM-out  |
+| GND    |       GND  |
+| 5v     |       Pwr  |
 
 
 ###  I2C connection ( for gps with leds/compass-es/etc onboard, or digital airspeed sensorrs, etc):
 
-| ESP32   | I2C       |
-| ---     | ---       |
-| GPIO12  | SCL       |
-| GPIO13  | SDA       |
-| GND     | GND       |
-| 5v      | Pwr       |
-
+| ESP32S3 | ESP32      | I2C       |
+| ---     | ---        | ---       |
+| GPIO1   | GPIO12     | SCL       |
+| GPIO5   | GPIO13     | SDA       |
+| GND     | GND        | GND       |
+| 5v      | 5v         | Pwr       |
 
 ### Compass (using i2c)
  - u need to set the ardupilot params, and connected a GPS that has at least one i2c compass on it.. tested this with a HMC5883 and/or LIS3MDL
@@ -191,13 +199,13 @@ COMPASS_EXTERN3=1
 2nd column is the ardupilot _PIN number and matches what u specify in the third column of HAL_ESP32_ADC_PINS #define elsewhere :
 
 if HAL_ESP32_ADC_PINS == HAL_ESP32_ADC_PINS_OPTION1:
-| ESP32   | AnalogIn  |
-| ---     | ---       |
-| GPIO35  | 1         |
-| GPIO34  | 2         |
-| GPIO39  | 3         |
-| GPIO36  | 4         |
-| GND     | GND       |
+| ESP32S3 -> Ardu-AnalogIn | ESP32 -> Ardu-AnalogIn |
+| ---                      | ---                   |
+| GPIO34  -> 1             | GPIO35  -> 35         |
+| GPIO35  -> 2             | GPIO34  -> 34         |
+| GPIO36  -> 3             | GPIO39  -> 39         |
+| GPIO37  -> 4             | GPIO36  -> 36         |
+| GND     -> GND           | GND     -> GND        |
 
 eg, set ardupilot params like this:
 RSSI_ANA_PIN  = 3  - and it will attempt to read the adc value on GPIO39 for rssi data
@@ -225,14 +233,14 @@ ARSPD_PIN =     36  - and it will attempt to read the adc value on GPIO36 for an
 
 ### RC Servo connection/s
 
-| BuzzsPcbHeader|ESP32|  RCOUT   |TYPICAL |
-|     ---       | --- |   ---    | ---    |
-|  servo1       |PIN25|SERVO-OUT1|AILERON |
-|  servo2       |PIN27|SERVO-OUT2|ELEVATOR|
-|  servo3       |PIN33|SERVO-OUT3|THROTTLE|
-|  servo4       |PIN32|SERVO-OUT4| RUDDER |
-|  servo5       |PIN22|SERVO-OUT5| avail  |
-|  servo6       |PIN21|SERVO-OUT6| avail  |
+| BuzzsPcbHeader|ESP32S3|ESP32|  RCOUT   |TYPICAL |
+|     ---       |  ---  | --- |   ---    | ---    |
+|  servo1       | PIN8  |PIN25|SERVO-OUT1|AILERON |
+|  servo2       | PIN9  |PIN27|SERVO-OUT2|ELEVATOR|
+|  servo3       | PIN10 |PIN33|SERVO-OUT3|THROTTLE|
+|  servo4       | PIN16 |PIN32|SERVO-OUT4| RUDDER |
+|  servo5       | PIN17 |PIN22|SERVO-OUT5| avail  |
+|  servo6       | PIN18 |PIN21|SERVO-OUT6| avail  |
 
 If you don't get any PWM output on any/some/one of the pins while ardupilot is running, be sure you have set all of these params:
 //ail
@@ -256,39 +264,42 @@ SERVO6_FUNCTION = 4
 ### GY-91 connection
 This is how buzz has the GY91 wired ATM, but its probable that connecting external 3.3V supply to the VIN is better than connecting a 5V supply, and then the 3V3 pin on the sensor board can be left disconnected, as it's actually 3.3v out from the LDO onboard.
 
-|ESP32|GY-91|
-|---|---|
-|GND|GND|
-|5V|VIN|
-|3.3V|3V3|
-|IO5|NCS|
-|IO23|SDA|
-|IO19|SDO/SAO|
-|IO18|SCL|
-|IO26|CSB|
+|ESP32S3|ESP32|GY-91|
+|---    |---  |---|
+|GND    |GND  |GND|
+|5V     |5V   |VIN|
+|n/c    |n/c  |3V3|
+|21     |IO5  |NCS|
+|13     |IO23 |SDA|
+|11     |IO19 |SDO/SAO|
+|12     |IO18 |SCL|
+|33     |IO26 |CSB|
 
 ## debugger connection
 Currently used debugger is called a 'TIAO USB Multi Protocol Adapter' which is a red PCB with a bunch of jtag headers on it and doesn't cost too much. https://www.amazon.com/TIAO-Multi-Protocol-Adapter-JTAG-Serial/dp/B0156ML5LY
 
-|ESP32| 20PINJTAG|
-| --- | --- |
-|D12  | TDI(PIN5)|
-|D13  | SWCLK/TCLK(PIN9)|
-|D14  | SWDIO/TMS(PIN7)|
-|D15  | SWO/TDO(PIN13)|
-|3.3v | -- ( powered via usb, not programmer, or PIN1)|
-|GND  | GND(any of PIN4,PIN6,or PIN8 , all GND)|
-|EN   | TRST(PIN3)|
+|ESP32S3|ESP32| 20PINJTAG|
+|---    | --- | --- |
+|39?    |D12  | TDI(PIN5)|
+|40?    |D13  | SWCLK/TCLK(PIN9)|
+|41?    |D14  | SWDIO/TMS(PIN7)|
+|42?    |D15  | SWO/TDO(PIN13)|
+|---    |3.3v | -- ( powered via usb, not programmer, or PIN1)|
+|GND    |GND  | GND(any of PIN4,PIN6,or PIN8 , all GND)|
+|---    |EN   | TRST(PIN3)|
 
 ## SDCARD connection
 
-|ESP32|  SDCARD  |
-| --- |     ---  |
-|D2   | D0/PIN7  |
-|D14  | CLK/PIN5 |
-|D15  | CMD/PIN2 |
-|GND  | Vss1/PIN3 and Vss2/PIN6 |
-|3.3v | Vcc/PIN4 |
+## SDCARD connection - ESP32 and ESP32S3 are wired the same. this is 'MMC' pinout and can't be adjusted without changing to a SPI based wiring, which is slower.
+# tip:for those prototyping, get a micro-sd-to-sd adaptor, and solder short wires to it as needed, then put a micro-sd in it. i seem to have those adaptors lying around everywhere.
+
+|ESP32/S3|  SDCARD  |
+|   ---  |     ---  |
+|  D2    | D0/PIN7  |
+|  D14   | CLK/PIN5 |
+|  D15   | CMD/PIN2 |
+|  GND   | Vss1/PIN3 and Vss2/PIN6 |
+|  3.3v  | Vcc/PIN4 |
 
 ## Current progress
 ### Main tasks
