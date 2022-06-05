@@ -51,7 +51,7 @@ void RCOutput::init()
     _max_channels = MAX_CHANNELS;
 
 
-    //32 and 33 are special as they dont default to gpio, but can be if u disable their rtc setup:
+    //on classic esp32 , 32 and 33 are special as they dont default to gpio, but can be if u disable their rtc setup. S3 is differnet 
     // not on S3
     #if defined(CONFIG_IDF_TARGET_ESP32)
     rtc_gpio_deinit(GPIO_NUM_32);

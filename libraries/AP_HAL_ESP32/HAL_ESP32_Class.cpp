@@ -54,11 +54,11 @@ static Empty::DSP dspDriver;
 
 static ESP32::I2CDeviceManager i2cDeviceManager;
 static ESP32::SPIDeviceManager spiDeviceManager;
-#ifndef HAL_DISABLE_ADC_DRIVER
-static ESP32::AnalogIn analogIn;
-#else
+//#ifndef HAL_DISABLE_ADC_DRIVER
+//static ESP32::AnalogIn analogIn;
+//#else
 static Empty::AnalogIn analogIn;
-#endif
+//#endif
 static ESP32::Storage storageDriver;
 static Empty::GPIO gpioDriver;
 static ESP32::RCOutput rcoutDriver;

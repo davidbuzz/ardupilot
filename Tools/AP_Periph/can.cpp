@@ -23,7 +23,9 @@
 #include <canard.h>
 #include <AP_GPS/RTCM3_Parser.h>
 #include <stdio.h>
+#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
 #include <drivers/stm32/canard_stm32.h>
+#endif
 #include <AP_HAL/I2CDevice.h>
 #include <AP_HAL/utility/RingBuffer.h>
 #include <AP_Common/AP_FWVersion.h>
@@ -37,8 +39,9 @@
 #include <AP_HAL_ChibiOS/hwdef/common/watchdog.h>
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
 #include <AP_HAL_SITL/CANSocketIface.h>
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+#include <AP_HAL_ESP32/CANIface.h>
 #endif
-
 
 #include "i2c.h"
 #include <utility>
@@ -63,12 +66,14 @@ extern AP_Periph_FW periph;
 #endif
 #endif
 
+// if DEBUG_PRINTS=1, then msgs are emitted over CAN
+// if DEBUG_PRINTS=0, then 'printf' is uses for usb/console
 #define DEBUG_PRINTS 0
 #define DEBUG_PKTS 0
 #if DEBUG_PRINTS
  # define Debug(fmt, args ...)  do {can_printf(fmt "\n", ## args);} while(0)
 #else
- # define Debug(fmt, args ...)
+ # define Debug(fmt, args ...)  do {printf(fmt "\n", ## args);} while(0)
 #endif
 
 static struct instance_t {
@@ -90,6 +95,8 @@ static struct instance_t {
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
     ChibiOS::CANIface* iface;
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+    ESP32::CANIface* iface;
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
     HALSITL::CANIface* iface;
 #endif
@@ -143,6 +150,8 @@ uint8_t PreferredNodeID = HAL_CAN_DEFAULT_NODE_ID;
 ChibiOS::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
 HALSITL::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+ESP32::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
 #endif
 
 
@@ -1189,7 +1198,7 @@ static void processTx(void)
 #endif
             // push message with 1s timeout
             const uint64_t deadline = AP_HAL::native_micros64() + 1000000;
-            if (ins.iface->send(txmsg, deadline, 0) > 0) {
+            if ((ins.iface->send(txmsg, deadline, 0)) > 0) {
                 canardPopTxQueue(&ins.canard);
                 ins.tx_fail_count = 0;
             } else {
@@ -1462,6 +1471,8 @@ void AP_Periph_FW::can_start()
         can_iface_periph[i] = new ChibiOS::CANIface();
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
         can_iface_periph[i] = new HALSITL::CANIface();
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+        can_iface_periph[i] = new ESP32::CANIface();
 #endif
         instances[i].iface = can_iface_periph[i];
         instances[i].index = i;
