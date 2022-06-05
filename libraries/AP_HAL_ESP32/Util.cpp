@@ -22,6 +22,7 @@
 #include "RCOutput.h"
 
 #include <AP_ROMFS/AP_ROMFS.h>
+#include <AP_Common/ExpandingString.h>
 #include "SdCard.h"
 
 #include <esp_timer.h>
@@ -107,14 +108,7 @@ void *Util::allocate_heap_memory(size_t size)
     return heap;
 }
 
-void *Util::heap_realloc(void *heap, void *ptr, size_t new_size)
-{
-    if (heap == nullptr) {
-        return nullptr;
-    }
 
-    return multi_heap_realloc(*(multi_heap_handle_t *)heap, ptr, new_size);
-}
 
 /*
   realloc implementation thanks to wolfssl, used by AP_Scripting
@@ -135,6 +129,15 @@ void *Util::std_realloc(void *addr, size_t size)
         free(addr);
     }
     return new_mem;
+}
+
+void *Util::heap_realloc(void *heap, void *ptr, size_t new_size)
+{
+    if (heap == nullptr) {
+        return nullptr;
+    }
+
+    return multi_heap_realloc(*(multi_heap_handle_t *)heap, ptr, new_size);
 }
 
 #endif // ENABLE_HEAP
@@ -204,7 +207,7 @@ uint64_t Util::get_hw_rtc() const
 
 Util::FlashBootloader Util::flash_bootloader()
 {
-    //    ....esp32 too
+    //    ....esp32 to do 
     return FlashBootloader::FAIL;
 }
 #endif // !HAL_NO_FLASH_SUPPORT && !HAL_NO_ROMFS_SUPPORT
@@ -278,28 +281,53 @@ bool Util::was_watchdog_reset() const
            || reason == ESP_RST_WDT;
 }
 
-#if CH_DBG_ENABLE_STACK_CHECK == TRUE
-/*
-  display stack usage as text buffer for @SYS/threads.txt
- */
-size_t Util::thread_info(char *buf, size_t bufsize)
-{
-    thread_t *tp;
-    size_t total = 0;
 
+// called by mavftp for thread info.
+ void Util::thread_info(ExpandingString &str)
+{
+  //todo
+}
+
+
+
+void Util::dma_info(ExpandingString &str)
+{
+  //todo 
+}
+
+void Util::mem_info(ExpandingString &str)
+{
+    //memory_heap_t *heaps;
+    //const struct memory_region *regions;
+    uint8_t num_heaps = 0;//malloc_get_heaps(&heaps, &regions); todo
+
+    str.printf("MemInfoV1\n");
+    for (uint8_t i=0; i<num_heaps; i++) {
+        size_t totalp=0, largest=0;
+        // get memory available on main heap
+        //chHeapStatus(i == 0 ? nullptr : &heaps[i], &totalp, &largest);
+        str.printf("START=0x%08x LEN=%3uk FREE=%6u LRG=%6u TYPE=%1u\n",
+                   unsigned(0), unsigned(0),
+                   unsigned(totalp), unsigned(largest), unsigned(0)); //todo
+    }
+}
+
+void Util::uart_info(ExpandingString &str)
+{
     // a header to allow for machine parsers to determine format
-    int n = snprintf(buf, bufsize, "ThreadsV1\n");
-    if (n <= 0) {
-        return 0;
+    str.printf("UARTV1\n");
+    for (uint8_t i = 0; i < HAL_UART_NUM_SERIAL_PORTS; i++) {
+        auto *uart = hal.serial(i);
+        if (uart) {
+            str.printf("SERIAL%u ", i);
+            uart->uart_info(str);
+        }
     }
 
-    //    char buffer[1024];
-    //    vTaskGetRunTimeStats(buffer);
-    //    snprintf(buf, bufsize,"\n\n%s\n", buffer);
-
-    // total = ..
-
-    return total;
 }
-#endif // CH_DBG_ENABLE_STACK_CHECK == TRUE
-
+#if HAL_USE_PWM == TRUE
+void Util::timer_info(ExpandingString &str)
+{
+    hal.rcout->timer_info(str);
+}
+#endif

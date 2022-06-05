@@ -61,10 +61,19 @@ public:
 
     // return true if the reason for the reboot was a watchdog reset
     bool was_watchdog_reset() const override;
+    
 
-#if CH_DBG_ENABLE_STACK_CHECK == TRUE
     // request information on running threads
-    size_t thread_info(char *buf, size_t bufsize) override;
+    void thread_info(ExpandingString &str) override;
+    // request information on dma contention
+    void dma_info(ExpandingString &str) override;
+    void mem_info(ExpandingString &str) override;
+    // request information on uart I/O
+    virtual void uart_info(ExpandingString &str) override;
+
+
+#if HAL_USE_PWM == TRUE
+    void timer_info(ExpandingString &str) override;
 #endif
 
 private:
