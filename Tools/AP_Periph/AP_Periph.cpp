@@ -45,6 +45,12 @@ void stm32_watchdog_init() {}
 void stm32_watchdog_pat() {}
 #endif
 
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+void stm32_watchdog_init() {}
+void stm32_watchdog_pat() { esp_task_wdt_reset(); }   
+//Each subscribed task must periodically call esp_task_wdt_reset() to reset the TWDT
+#endif
+
 void setup(void)
 {
     periph.init();

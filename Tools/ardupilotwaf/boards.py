@@ -519,9 +519,16 @@ def get_boards_names():
     return sorted(list(_board_classes.keys()), key=str.lower)
 
 def get_ap_periph_boards():
+    list1 = __get_ap_periph_boards('libraries/AP_HAL_ChibiOS/hwdef')
+    list2 = __get_ap_periph_boards('libraries/AP_HAL_ESP32/hwdef')
+    nodupes = list(set(list1)|set(list2))
+    print("get_ap_periph_boards?",nodupes)
+    return nodupes
+
+def __get_ap_periph_boards(defs_folder):
     '''Add AP_Periph boards based on existance of periph keywork in hwdef.dat or board name'''
     list_ap = [s for s in list(_board_classes.keys()) if "periph" in s]
-    dirname, dirlist, filenames = next(os.walk('libraries/AP_HAL_ChibiOS/hwdef'))
+    dirname, dirlist, filenames = next(os.walk(defs_folder))
     for d in dirlist:
         if d in list_ap:
             continue
@@ -815,7 +822,8 @@ class esp32(Board):
                          '-Wno-sign-compare',
                          '-fno-inline-functions',
                          '-mlongcalls',
-                         '-DCYGWIN_BUILD']
+                         '-fpermissive', 
+                         '-DCYGWIN_BUILD']   #-fpermissive is needed by libcanard
         env.CXXFLAGS.remove('-Werror=undef')
         env.CXXFLAGS.remove('-Werror=shadow')
 
