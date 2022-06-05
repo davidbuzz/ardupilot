@@ -49,6 +49,9 @@
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
 void stm32_watchdog_init();
 void stm32_watchdog_pat();
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+void stm32_watchdog_init();
+void stm32_watchdog_pat();
 #endif
 /*
   app descriptor compatible with MissionPlanner
@@ -105,6 +108,8 @@ public:
     static ChibiOS::CANIface* can_iface_periph[HAL_NUM_CAN_IFACES];
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
     static HALSITL::CANIface* can_iface_periph[HAL_NUM_CAN_IFACES];
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+    static ESP32::CANIface* can_iface_periph[HAL_NUM_CAN_IFACES];
 #endif
 
     AP_SerialManager serial_manager;
