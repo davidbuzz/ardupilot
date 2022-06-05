@@ -182,3 +182,5 @@
 // setting to 2 means log-over-mavlink to a companion computer etc.
 #define HAL_LOGGING_BACKENDS_DEFAULT 1
 
+// 2k not enuf
+#define HAL_LOGGING_STACK_SIZE 1024*3
