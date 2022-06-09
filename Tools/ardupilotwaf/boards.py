@@ -794,6 +794,7 @@ class esp32(Board):
         tt = self.name[5:] #leave off 'esp32' so we just get 'buzz','diy','icarus, etc
         
         # this makes sure we get the correct subtype
+        print('CONFIG_HAL_BOARD_SUBTYPE = HAL_BOARD_SUBTYPE_ESP32_%s' %  tt.upper() )
         env.DEFINES.update(
             ENABLE_HEAP = 0,
             CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_ESP32_%s' %  tt.upper() ,
