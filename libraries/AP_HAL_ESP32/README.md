@@ -198,38 +198,35 @@ COMPASS_EXTERN3=1
 
 2nd column is the ardupilot _PIN number and matches what u specify in the third column of HAL_ESP32_ADC_PINS #define elsewhere :
 
-if HAL_ESP32_ADC_PINS == HAL_ESP32_ADC_PINS_OPTION1:
+
 | ESP32S3 -> Ardu-AnalogIn | ESP32 -> Ardu-AnalogIn |
 | ---                      | ---                   |
-| GPIO34  -> 1             | GPIO35  -> 35         |
-| GPIO35  -> 2             | GPIO34  -> 34         |
-| GPIO36  -> 3             | GPIO39  -> 39         |
-| GPIO37  -> 4             | GPIO36  -> 36         |
+| GPIO4   -> 1             | GPIO35  -> 35         |
+| GPIO8   -> 2             | GPIO34  -> 34         |
+| GPIO9   -> 3             | GPIO39  -> 39         |
+| GPIO10   -> 4            | GPIO36  -> 36         |
 | GND     -> GND           | GND     -> GND        |
 
-eg, set ardupilot params like this:
-RSSI_ANA_PIN  = 3  - and it will attempt to read the adc value on GPIO39 for rssi data
-BATT_CURR_PIN = 2  - and it will attempt to read the adc value on GPIO34 for battery current
-BATT_VOLT_PIN = 1  - and it will attempt to read the adc value on GPIO35 for  battery voltage
-ARSPD_PIN =     4  - and it will attempt to read the adc value on GPIO36 for analog airspeed data
 
+eg, on ardupilot set some params to enable some analog inputs :( in this case it means we use analog pins for voltage and current on first battery, and for reading RSSI)
+BATT_MONITOR=4
+RSSI_TYPE=1
+reboot then set these params:
 
-if HAL_ESP32_ADC_PINS == HAL_ESP32_ADC_PINS_OPTION2:
-| ESP32   | AnalogIn   |
-| ---     | ---        |
-| GPIO35  | 35         |
-| GPIO34  | 34         |
-| GPIO39  | 39         |
-| GPIO36  | 36         |
-| GND     | GND        |
-
-eg, set ardupilot params like this:
+eg on 'classic' esp32:
 RSSI_ANA_PIN =  39  - and it will attempt to read the adc value on GPIO39 for rssi data
 BATT_CURR_PIN = 34  - and it will attempt to read the adc value on GPIO34 for battery current
 BATT_VOLT_PIN = 35  - and it will attempt to read the adc value on GPIO35 for  battery voltage
 ARSPD_PIN =     36  - and it will attempt to read the adc value on GPIO36 for analog airspeed data
 
+eg, on 'S3; set ardupilot params like this: 
+BATT_CURR_PIN = 1  - and it will attempt to read the adc value on GPIO4 for battery current
+BATT_VOLT_PIN = 2  - and it will attempt to read the adc value on GPIO8 for  battery voltage
+ARSPD_PIN =     3  - and it will attempt to read the adc value on GPIO9 for analog airspeed data
+RSSI_ANA_PIN =  4  - and it will attempt to read the adc value on GPIO10 for rssi data
 
+you can change this, search for HAL_ESP32_ADC_PINS in libraries/AP_HAL_ESP32 for more. 
+...
 
 ### RC Servo connection/s
 
