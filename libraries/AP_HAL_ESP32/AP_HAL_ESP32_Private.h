@@ -23,3 +23,5 @@
 #include "WiFiDriver.h"
 #include "WiFiUdpDriver.h"
 #include "RmtSigReader.h"
+
+#include "CANIface.h"

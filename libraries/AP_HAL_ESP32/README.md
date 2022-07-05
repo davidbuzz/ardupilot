@@ -298,6 +298,26 @@ Currently used debugger is called a 'TIAO USB Multi Protocol Adapter' which is a
 |  GND   | Vss1/PIN3 and Vss2/PIN6 |
 |  3.3v  | Vcc/PIN4 |
 
+
+### micro-to-CAN-Tranceiver connection:
+|ESP32S3 |     CAN-Tranceiver                              |
+| ---    |    ---                                          |
+| 38     |  CAN-R = pin 4 on SN65HVD231/VP231              |
+| 47     |  CAN-D = pin 1 on SN65HVD231/VP231              |
+| GND    |  GND  =  pin 2&8 on SN65HVD231/VP231            |
+| 3.3v   |  3.3v Pwr = pin 3 on SN65HVD231/VP231 (not 5v !)|
+
+
+### CAN-Tranceiver-to-other-device/s connection:
+|CAN-Tranceiver                            |  Pixhawk/pixhawk2 compatible CAN-Connector  |
+|  ---                                     |      ---                                    |
+| 5v (not used, leave diconnected)         |  PIN1 5v    (often a red wire)              |
+| CANH  = pin 7 on SN65HVD231/VP231        |  PIN2 CAN_H                                 |
+| CANL  = pin 6 on SN65HVD231/VP231        |  PIN3 CAN_L                                 |
+| GND   = pin 2 on SN65HVD231/VP231        |  PIN4 GND   (opposite end to red wire )     |
+
+
+
 ## Current progress
 ### Main tasks
 - [x] Build system

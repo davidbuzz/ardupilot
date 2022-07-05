@@ -311,7 +311,7 @@ void Util::mem_info(ExpandingString &str)
                    unsigned(totalp), unsigned(largest), unsigned(0)); //todo
     }
 }
-
+#if HAL_UART_STATS_ENABLED
 void Util::uart_info(ExpandingString &str)
 {
     // a header to allow for machine parsers to determine format
@@ -325,6 +325,7 @@ void Util::uart_info(ExpandingString &str)
     }
 
 }
+#endif
 #if HAL_USE_PWM == TRUE
 void Util::timer_info(ExpandingString &str)
 {
