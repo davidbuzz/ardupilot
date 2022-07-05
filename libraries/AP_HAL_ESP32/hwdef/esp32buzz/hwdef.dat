@@ -410,8 +410,13 @@ define HAL_ESP32_SPI_BUSES   {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GP
 define HAL_ESP32_SPI_DEVICES {.name="bmp280", .bus=0, .device=0, .cs=GPIO_NUM_33,  .mode = 3, .lspeed=1*MHZ, .hspeed=1*MHZ}, {.name="mpu9250", .bus=0, .device=1, .cs=GPIO_NUM_21,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
 
 // the pin number, the gain/multiplier associated with it, the ardupilot name for the pin in parameter/s.
-define HAL_USE_ADC 1
-define HAL_ESP32_ADC_PINS {{GPIO_NUM_4, 11, 1},{GPIO_NUM_8, 11, 2},{GPIO_NUM_9, 11, 3},{GPIO_NUM_0, 11, 4}}
+#--dxefine HAL_USE_ADC 1
+
+// ..each is the ADC1 channel number of GPIO n.... must exist in this list... not all pins can adc:
+// right now we only really support ADC1, not 2, so that too. so GPIO1-to GPIO10 seem ok, if unused elsewhere.
+//https://docs.espressif.com/projects/esp-idf/en/release-v4.4/esp32s3/api-reference/peripherals/adc.html#adc-api-reference-gpio-lookup-macros
+// {the pin number, the gain/multiplier associated with it, the ardupilot name for the pin in parameter/s}
+define HAL_ESP32_ADC_PINS {{ADC1_GPIO4_CHANNEL, 11, 1},{ADC1_GPIO8_CHANNEL, 11, 2},{ADC1_GPIO9_CHANNEL, 11, 3},{ADC1_GPIO10_CHANNEL, 11, 4}}
 
 define HAL_ESP32_RCIN GPIO_NUM_34
 

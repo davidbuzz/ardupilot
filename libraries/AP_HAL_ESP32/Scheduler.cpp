@@ -480,7 +480,7 @@ void IRAM_ATTR Scheduler::_main_thread(void *arg)
     hal.serial(3)->begin(115200);
 
 #ifndef HAL_DISABLE_ADC_DRIVER
-    hal.analogin->init();
+   hal.analogin->init();
 #endif
     hal.rcout->init();
 

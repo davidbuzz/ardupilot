@@ -28,6 +28,7 @@
 
 #define ANALOG_MAX_CHANNELS 8
 
+
 namespace ESP32
 {
 
@@ -49,7 +50,8 @@ private:
     //ADC number (1 or 2). ADC2 is unavailable when WIFI on
     uint8_t _unit;
 
-    //adc Pin number (1-8)
+    //adc Pin number (usable range: 0-7 on esp32 classic), (0-9 on S3).
+    // S3: see https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/api-reference/peripherals/adc.html   search for 'enum adc1_channel_t'
     // gpio-adc lower level pin name
     int16_t _pin;
 
@@ -72,6 +74,7 @@ private:
     void _add_value();
 
     HAL_Semaphore _semaphore;
+
 };
 
 class AnalogIn : public AP_HAL::AnalogIn
