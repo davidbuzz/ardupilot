@@ -17,7 +17,7 @@
 
 #include <AP_HAL/AP_HAL.h>
 #include <AP_HAL_Empty/AP_HAL_Empty_Namespace.h>
-#include <AP_HAL_ESP32/HAL_ESP32_Namespace.h>
+#include <AP_HAL_ESP32/AP_HAL_ESP32_Namespace.h>
 
 class HAL_ESP32 : public AP_HAL::HAL
 {

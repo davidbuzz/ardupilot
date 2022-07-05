@@ -18,7 +18,7 @@
 #pragma once
 
 #include <AP_HAL/AP_HAL.h>
-#include "HAL_ESP32_Namespace.h"
+#include "AP_HAL_ESP32_Namespace.h"
 
 #include <AP_HAL/utility/RingBuffer.h>
 #include <AP_HAL/AP_HAL_Boards.h>
