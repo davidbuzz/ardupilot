@@ -68,9 +68,11 @@ public:
     // request information on dma contention
     void dma_info(ExpandingString &str) override;
     void mem_info(ExpandingString &str) override;
+
+#if HAL_UART_STATS_ENABLED
     // request information on uart I/O
     virtual void uart_info(ExpandingString &str) override;
-
+#endif
 
 #if HAL_USE_PWM == TRUE
     void timer_info(ExpandingString &str) override;

@@ -314,7 +314,7 @@ void AnalogIn::_timer_tick()
     if (AP_HAL::millis() - prev > 1000) {
         //count = 0;
         prev = AP_HAL::millis();
-        hal.console->printf(" adc smoothed: %d %d %d %d %d %d %d %d %d %d\n", buf_adc[0], buf_adc[1], buf_adc[2], buf_adc[3], buf_adc[4], buf_adc[5], buf_adc[6], buf_adc[7], buf_adc[8], buf_adc[9]);
+        //hal.console->printf(" adc smoothed: %d %d %d %d %d %d %d %d %d %d\n", buf_adc[0], buf_adc[1], buf_adc[2], buf_adc[3], buf_adc[4], buf_adc[5], buf_adc[6], buf_adc[7], buf_adc[8], buf_adc[9]);
     }
 
 }

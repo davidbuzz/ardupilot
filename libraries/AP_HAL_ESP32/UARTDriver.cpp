@@ -44,6 +44,8 @@ void UARTDriver::begin(uint32_t b)
 
 void UARTDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 {
+        hal.console->printf("%s:%d UART num:%d\n", __PRETTY_FUNCTION__, __LINE__,uart_desc[uart_num].port);
+
     if (uart_num < ARRAY_SIZE(uart_desc)) {
         uart_port_t p = uart_desc[uart_num].port;
         if (!_initialized) {

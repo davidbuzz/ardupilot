@@ -282,7 +282,7 @@ public:
     // show stack as DEBUG msgs
     void show_stack_free();
 
-    static bool no_iface_finished_dna;
+    static uint8_t has_any_iface_finished_dna;
     static constexpr auto can_printf = ::can_printf;
 };
 

@@ -933,6 +933,7 @@ static void onTransferReceived(CanardInstance* ins,
 
     switch (transfer->data_type_id) {
     case UAVCAN_PROTOCOL_GETNODEINFO_ID:
+        printf("handle_get node id\n");
         handle_get_node_info(ins, transfer);
         break;
 
@@ -948,10 +949,13 @@ static void onTransferReceived(CanardInstance* ins,
         NVIC_SystemReset();
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
         HAL_SITL::actually_reboot();
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+        hal.scheduler->reboot(false);
 #endif
         break;
 
     case UAVCAN_PROTOCOL_PARAM_GETSET_ID:
+        printf("handle_get node id\n");
         handle_param_getset(ins, transfer);
         break;
 
@@ -1322,6 +1326,10 @@ static void node_status_send(void)
  */
 static void process1HzTasks(uint64_t timestamp_usec)
 {
+
+    //can send and recieve stats?
+    printf("\n");// to keep the console flushed
+
     /*
      * Purging transfers that are no longer transmitted. This will occasionally free up some memory.
      */
@@ -1429,6 +1437,10 @@ static bool can_do_dna()
 
     if (AP_Periph_FW::no_iface_finished_dna) {
         printf("Waiting for dynamic node ID allocation %x... (pool %u)\n",  IFACE_ALL, pool_peak_percent());
+    } else {
+        // hack to pretend we were assigned a DNA number after 10 secs:
+        printf("...didn't get DNA ID, falling back to CAN node-id 42\n");
+        canardSetLocalNodeID(&ins.canard, 42);
     }
 
     dronecan.send_next_node_id_allocation_request_at_ms =
@@ -1683,7 +1695,7 @@ void AP_Periph_FW::can_update()
     static uint8_t led_idx = 0;
     static uint32_t last_led_change;
 
-    if ((now - last_led_change > led_change_period) && no_iface_finished_dna) {
+    if ((now - last_led_change > led_change_period) && has_any_iface_finished_dna) {
         // blink LED in recognisable pattern while waiting for DNA
 #ifdef HAL_GPIO_PIN_LED
         palWriteLine(HAL_GPIO_PIN_LED, (led_pattern & (1U<<led_idx))?1:0);

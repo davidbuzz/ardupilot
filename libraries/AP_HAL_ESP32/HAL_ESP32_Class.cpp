@@ -167,7 +167,11 @@ HAL_ESP32::HAL_ESP32() :
         &opticalFlowDriver,
         &flashDriver,
         &dspDriver,
+#if HAL_NUM_CAN_IFACES
+        (AP_HAL::CANIface**)canDrivers
+#else
         nullptr
+#endif
     )
 {}
 

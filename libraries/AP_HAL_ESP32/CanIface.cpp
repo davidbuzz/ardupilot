@@ -270,8 +270,6 @@ int16_t CANIface::send(const AP_HAL::CANFrame& frame, uint64_t tx_deadline,
         return -1;
     }
 
-    //printf("CANIface send?\n");
-
     //esp32:
     twai_message_t message;
     message.identifier = frame.id;//buff->id;
@@ -288,26 +286,16 @@ int16_t CANIface::send(const AP_HAL::CANFrame& frame, uint64_t tx_deadline,
     }
     printf("CAN send fail\n");
     return -1;
-    //end esp32//
 
-    //CriticalSectionLocker lock;
-
-   //....todo
-    // return 1;
 }
 
 int16_t CANIface::receive(AP_HAL::CANFrame& out_frame, uint64_t& out_timestamp_us, CanIOFlags& out_flags)
 {
-            //printf("CANIface receive\n");
-
-    //CriticalSectionLocker lock;
-    //CanRxItem rx_item;
-   //....todo
-
-   //vTaskDelay(1000);
 
    #define MAX_RECV_MSGS_PER_SEC 200
 
+   // we don't use a CanRxItem like chibios does, we go from IDF's twai_message_t type to AP_HAL::CANFrame type
+ 
    //esp32:
     // https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/twai.html#message-reception
     // https://github.com/espressif/esp-idf/blob/release/v4.4/components/driver/twai.c
@@ -330,17 +318,12 @@ int16_t CANIface::receive(AP_HAL::CANFrame& out_frame, uint64_t& out_timestamp_u
     memcpy(out_frame.data, message.data, 8);// copy new data
     out_frame.dlc = message.data_length_code;
     out_frame.id = message.identifier;
-    //if (message.extd) {
-        out_frame.id = out_frame.id | CANARD_CAN_FRAME_EFF;
-    //}
-   // if (message.rtr) {
-    //    out_frame.id = out_frame.id | CANARD_CAN_FRAME_RTR;
-    //}
+    out_frame.id = out_frame.id | CANARD_CAN_FRAME_EFF;
     // we don't pas CAN eror frames to libcanard, as it jsut rebuffs them anywway with CANARD_ERROR_RX_INCOMPATIBLE_PACKET*
     if (out_frame.id & AP_HAL::CANFrame::FlagERR) { // same as a message.isErrorFrame() if done later.
         return -1;
     }
-    //CANARD_CAN_FRAME_EFF
+    out_timestamp_us = AP_HAL::native_micros64(); // arrival time.
 
     return 1;// comment this out to see or not, the below print statements and data bytes etc
 
@@ -383,69 +366,69 @@ void CANIface::handleTxInterrupt(const uint64_t utc_usec)
 {
 
 
-#if CH_CFG_USE_EVENTS == TRUE
-    if (event_handle_ != nullptr) {
-        PERF_STATS(stats.num_events);
-        evt_src_.signalI(1 << self_index_);
-    }
-#endif
-    pollErrorFlagsFromISR();
+// #if CH_CFG_USE_EVENTS == TRUE
+//     if (event_handle_ != nullptr) {
+//         PERF_STATS(stats.num_events);
+//         evt_src_.signalI(1 << self_index_);
+//     }
+// #endif
+//     pollErrorFlagsFromISR();
 }
 
 void CANIface::handleRxInterrupt(uint8_t fifo_index, uint64_t timestamp_us)
 {
 
 
-    /*
-     * Read the frame contents
-     */
-    AP_HAL::CANFrame &frame = isr_rx_frame;
-    // const bxcan::RxMailboxType& rf = can_->RxMailbox[fifo_index];
+//     /*
+//      * Read the frame contents
+//      */
+//     AP_HAL::CANFrame &frame = isr_rx_frame;
+//     // const bxcan::RxMailboxType& rf = can_->RxMailbox[fifo_index];
 
-    // if ((rf.RIR & bxcan::RIR_IDE) == 0) {
-    //     frame.id = AP_HAL::CANFrame::MaskStdID & (rf.RIR >> 21);
-    // } else {
-    //     frame.id = AP_HAL::CANFrame::MaskExtID & (rf.RIR >> 3);
-    //     frame.id |= AP_HAL::CANFrame::FlagEFF;
-    // }
+//     // if ((rf.RIR & bxcan::RIR_IDE) == 0) {
+//     //     frame.id = AP_HAL::CANFrame::MaskStdID & (rf.RIR >> 21);
+//     // } else {
+//     //     frame.id = AP_HAL::CANFrame::MaskExtID & (rf.RIR >> 3);
+//     //     frame.id |= AP_HAL::CANFrame::FlagEFF;
+//     // }
 
-    // if ((rf.RIR & bxcan::RIR_RTR) != 0) {
-    //     frame.id |= AP_HAL::CANFrame::FlagRTR;
-    // }
+//     // if ((rf.RIR & bxcan::RIR_RTR) != 0) {
+//     //     frame.id |= AP_HAL::CANFrame::FlagRTR;
+//     // }
 
-    // frame.dlc = rf.RDTR & 15;
+//     // frame.dlc = rf.RDTR & 15;
 
-    // frame.data[0] = uint8_t(0xFF & (rf.RDLR >> 0));
-    // frame.data[1] = uint8_t(0xFF & (rf.RDLR >> 8));
-    // frame.data[2] = uint8_t(0xFF & (rf.RDLR >> 16));
-    // frame.data[3] = uint8_t(0xFF & (rf.RDLR >> 24));
-    // frame.data[4] = uint8_t(0xFF & (rf.RDHR >> 0));
-    // frame.data[5] = uint8_t(0xFF & (rf.RDHR >> 8));
-    // frame.data[6] = uint8_t(0xFF & (rf.RDHR >> 16));
-    // frame.data[7] = uint8_t(0xFF & (rf.RDHR >> 24));
+//     // frame.data[0] = uint8_t(0xFF & (rf.RDLR >> 0));
+//     // frame.data[1] = uint8_t(0xFF & (rf.RDLR >> 8));
+//     // frame.data[2] = uint8_t(0xFF & (rf.RDLR >> 16));
+//     // frame.data[3] = uint8_t(0xFF & (rf.RDLR >> 24));
+//     // frame.data[4] = uint8_t(0xFF & (rf.RDHR >> 0));
+//     // frame.data[5] = uint8_t(0xFF & (rf.RDHR >> 8));
+//     // frame.data[6] = uint8_t(0xFF & (rf.RDHR >> 16));
+//     // frame.data[7] = uint8_t(0xFF & (rf.RDHR >> 24));
 
-    /*
-     * Store with timeout into the FIFO buffer and signal update event
-     */
-    CanRxItem &rx_item = isr_rx_item;
-    rx_item.frame = frame;
-    rx_item.timestamp_us = timestamp_us;
-    rx_item.flags = 0;
-    if (rx_queue_.push(rx_item)) {
-       // PERF_STATS(stats.rx_received);
-    } else {
-       // PERF_STATS(stats.rx_overflow);
-    }
+//     /*
+//      * Store with timeout into the FIFO buffer and signal update event
+//      */
+//     CanRxItem &rx_item = isr_rx_item;
+//     rx_item.frame = frame;
+//     rx_item.timestamp_us = timestamp_us;
+//     rx_item.flags = 0;
+//     if (rx_queue_.push(rx_item)) {
+//        // PERF_STATS(stats.rx_received);
+//     } else {
+//        // PERF_STATS(stats.rx_overflow);
+//     }
 
-    had_activity_ = true;
+//     had_activity_ = true;
 
-#if CH_CFG_USE_EVENTS == TRUE
-    if (event_handle_ != nullptr) {
-        PERF_STATS(stats.num_events);
-        evt_src_.signalI(1 << self_index_);
-    }
-#endif
-    pollErrorFlagsFromISR();
+// #if CH_CFG_USE_EVENTS == TRUE
+//     if (event_handle_ != nullptr) {
+//         PERF_STATS(stats.num_events);
+//         evt_src_.signalI(1 << self_index_);
+//     }
+// #endif
+//     pollErrorFlagsFromISR();
 }
 
 void CANIface::pollErrorFlagsFromISR()
@@ -482,8 +465,8 @@ void CANIface::clear_rx()
 
 void CANIface::pollErrorFlags()
 {
-    CriticalSectionLocker cs_locker;
-    pollErrorFlagsFromISR();
+    // CriticalSectionLocker cs_locker;
+    // pollErrorFlagsFromISR();
 }
 
 bool CANIface::canAcceptNewTxFrame(const AP_HAL::CANFrame& frame) const
@@ -523,8 +506,27 @@ bool CANIface::canAcceptNewTxFrame(const AP_HAL::CANFrame& frame) const
 
 bool CANIface::isRxBufferEmpty() const
 {
-    CriticalSectionLocker lock;
-    return rx_queue_.available() == 0;
+    // CriticalSectionLocker lock;
+    // return rx_queue_.available() == 0;
+
+    #include "driver/twai.h"
+
+    // //Reconfigure alerts to detect rx-related stuff only...
+    // uint32_t alerts_to_enable = TWAI_ALERT_RX_DATA | TWAI_ALERT_RX_QUEUE_FULL;
+    // if (twai_reconfigure_alerts(alerts_to_enable, NULL) == ESP_OK) {
+    //     printf("Alerts reconfigured\n");
+    // } else {
+    //     printf("Failed to reconfigure alerts");
+    // }
+
+    //to Block indefinitely until an alert occurs portMAX_DELAY, otherwisse non-blocking use tiny value like 1
+    uint32_t alerts_triggered;
+    twai_read_alerts(&alerts_triggered, 1);
+
+  //because we only alert on RX data, and non-zero value meansthere's RX available 
+    if ( alerts_triggered > 0) return false;
+
+    return true;
 }
 
 #if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
@@ -542,26 +544,26 @@ uint32_t CANIface::getErrorCount() const
 
 #endif // #if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
 
-#if CH_CFG_USE_EVENTS == TRUE
-ChibiOS::EventSource CANIface::evt_src_;
-bool CANIface::set_event_handle(AP_HAL::EventHandle* handle)
-{
-    CriticalSectionLocker lock;
-    event_handle_ = handle;
-    event_handle_->set_source(&evt_src_);
-    return event_handle_->register_event(1 << self_index_);
-}
+// #if CH_CFG_USE_EVENTS == TRUE
+// ChibiOS::EventSource CANIface::evt_src_;
+// bool CANIface::set_event_handle(AP_HAL::EventHandle* handle)
+// {
+//     CriticalSectionLocker lock;
+//     event_handle_ = handle;
+//     event_handle_->set_source(&evt_src_);
+//     return event_handle_->register_event(1 << self_index_);
+// }
 
-#endif // #if CH_CFG_USE_EVENTS == TRUE
+// #endif // #if CH_CFG_USE_EVENTS == TRUE
 
 void CANIface::checkAvailable(bool& read, bool& write, const AP_HAL::CANFrame* pending_tx) const
 {
     write = false;
     read = !isRxBufferEmpty();
 
-    if (pending_tx != nullptr) {
+    //if (pending_tx != nullptr) {
         write = canAcceptNewTxFrame(*pending_tx);
-    }
+    //}
 }
 
 bool CANIface::select(bool &read, bool &write,
@@ -577,27 +579,27 @@ bool CANIface::select(bool &read, bool &write,
         return false;
     }
 
-    pollErrorFlags();
+    //pollErrorFlags();
 
     checkAvailable(read, write, pending_tx);          // Check if we already have some of the requested events
     if ((read && in_read) || (write && in_write)) {
         return true;
     }
 
-#if CH_CFG_USE_EVENTS == TRUE
-    // we don't support blocking select in AP_Periph and bootloader
-    while (time < blocking_deadline) {
-        if (event_handle_ == nullptr) {
-            break;
-        }
-        event_handle_->wait(blocking_deadline - time); // Block until timeout expires or any iface updates
-        checkAvailable(read, write, pending_tx);  // Check what we got
-        if ((read && in_read) || (write && in_write)) {
-            return true;
-        }
-        time = AP_HAL::micros64();
-    }
-#endif // #if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
+// #if CH_CFG_USE_EVENTS == TRUE
+//     // we don't support blocking select in AP_Periph and bootloader
+//     while (time < blocking_deadline) {
+//         if (event_handle_ == nullptr) {
+//             break;
+//         }
+//         event_handle_->wait(blocking_deadline - time); // Block until timeout expires or any iface updates
+//         checkAvailable(read, write, pending_tx);  // Check what we got
+//         if ((read && in_read) || (write && in_write)) {
+//             return true;
+//         }
+//         time = AP_HAL::micros64();
+//     }
+// #endif // #if !defined(HAL_BUILD_AP_PERIPH) && !defined(HAL_BOOTLOADER_BUILD)
     return true;
 }
 
@@ -613,6 +615,14 @@ void CANIface::initOnce(bool enable_irq)
     {
         printf("Failed to install CAN/TWAI driver\n");
         return;
+    }
+
+    //Reconfigure alerts to detect rx-related stuff only...
+    uint32_t alerts_to_enable = TWAI_ALERT_RX_DATA | TWAI_ALERT_RX_QUEUE_FULL;
+    if (twai_reconfigure_alerts(alerts_to_enable, NULL) == ESP_OK) {
+        printf("CAN/TWAI Alerts reconfigured\n");
+    } else {
+        printf("Failed to reconfigure CAN/TWAI alerts");
     }
     
      //Start TWAI driver
