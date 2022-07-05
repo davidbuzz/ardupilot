@@ -62,8 +62,9 @@ public:
     static const int TIMER_PRIO   = 24;
     static const int RCIN_PRIO    = 15;
     static const int RCOUT_PRIO   = 10;
-    static const int WIFI_PRIO    = 24;
-    static const int UART_PRIO    = 24;
+    static const int WIFI_PRIO1    = 24; //cpu1: 
+    static const int WIFI_PRIO2    = 12; //cpu1: 
+    static const int UART_PRIO    = 24; //cpu1: a low priority mere might cause wifi thruput to suffer, as wifi gets passed its data frim the uart subsustem in _writebuf/_readbuf
     static const int IO_PRIO      = 5;
     static const int STORAGE_PRIO = 4;
 
