@@ -16,7 +16,7 @@
 #pragma once
 #include <AP_Param/AP_Param.h>
 #include <AP_HAL/AP_HAL.h>
-#include "HAL_ESP32_Namespace.h"
+#include "AP_HAL_ESP32_Namespace.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
