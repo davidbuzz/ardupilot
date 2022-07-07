@@ -758,7 +758,7 @@ def build(bld):
 
     bld.env.AP_LIBRARIES_OBJECTS_KW.update(
         use=['mavlink'],
-        cxxflags=['-include', 'ap_config.h'],
+        cxxflags=['-include', 'ap_config.h','-pthread'],
     )
 
     _load_pre_build(bld)
