@@ -32,7 +32,9 @@
 
 #include <AP_HAL/CANIface.h>
 
+#ifndef __EMSCRIPTEN__
 #include <linux/can.h>
+#endif
 
 #include <string>
 #include <queue>

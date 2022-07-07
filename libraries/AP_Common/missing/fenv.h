@@ -3,6 +3,19 @@
 #include_next <fenv.h>
 
 #ifndef HAVE_FEENABLEEXCEPT
+
+// getto hack to allow building with emscsripten which is missing these
+#ifdef __EMSCRIPTEN__
+// https://github.com/emscripten-core/emscripten/blob/main/system/lib/libc/musl/src/fenv/fenv.c
+#define FE_OVERFLOW 0
+#define FE_DIVBYZERO 0
+#define FE_INVALID 0
+#define FE_INEXACT 0
+#define FE_OVERFLOW 0
+#define USE_TERMIOS 1
+#define HAL_NUM_CAN_IFACES 0
+#endif
+
 #if defined(__APPLE__) && defined(__MACH__)
 #if defined __i386__ || defined __x86_64__
 

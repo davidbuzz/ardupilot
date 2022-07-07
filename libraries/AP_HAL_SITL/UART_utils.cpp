@@ -19,6 +19,10 @@
 
 #include "UARTDriver.h"
 
+#ifdef __EMSCRIPTEN__
+#define USE_TERMIOS
+#endif
+
 #if defined(__CYGWIN__) || defined(__CYGWIN64__) || defined(__APPLE__)
 #define USE_TERMIOS
 #endif

@@ -1,5 +1,8 @@
 #pragma once
 
+#ifdef HAL_ESP32_SDCARD
+
+
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
@@ -44,3 +47,4 @@ public:
     bool set_mtime(const char *filename, const uint32_t mtime_sec) override;
 };
 
+#endif

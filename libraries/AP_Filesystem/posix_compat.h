@@ -89,8 +89,10 @@ char *tmpnam(char s[L_tmpnam]);
 #define ftell(stream) apfs_ftell(stream)
 #define freopen(pathname, mode, stream) apfs_freopen(pathname, mode, stream)
 #define rename(oldpath, newpath) apfs_rename(oldpath, newpath)
-#if !defined(__APPLE__)
+#if !defined(__APPLE__) && !defined(__EMSCRIPTEN__)
 #define remove(pathname) apfs_remove(pathname)
+#endif
+#if !defined(__APPLE__)
 int sprintf(char *str, const char *format, ...);
 #endif
 
