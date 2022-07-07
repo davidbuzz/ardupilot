@@ -116,6 +116,7 @@ def _build_summary(bld):
     Logs.info('')
     text('BUILD SUMMARY')
     text('Build directory: ', bld.bldnode.abspath())
+    return
 
     targets_suppressed = False
     if bld.targets == '*':
