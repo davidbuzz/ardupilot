@@ -116,6 +116,9 @@
 #endif
 #include "AP_Arming.h"
 
+
+#include <emscripten/emscripten.h>
+
 /*
   main APM:Plane class
  */
@@ -828,7 +831,7 @@ private:
     // Attitude.cpp
     void adjust_nav_pitch_throttle(void);
     void update_load_factor(void);
-    void adjust_altitude_target();
+    EMSCRIPTEN_KEEPALIVE void adjust_altitude_target();
     void setup_glide_slope(void);
     int32_t get_RTL_altitude_cm() const;
     float relative_ground_altitude(bool use_rangefinder_if_available);

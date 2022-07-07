@@ -25,6 +25,15 @@
 #define SCHED_TASK(func, rate_hz, max_time_micros, priority) SCHED_TASK_CLASS(Plane, &plane, func, rate_hz, max_time_micros, priority)
 
 
+#include <emscripten/emscripten.h>
+// cant call things in libs from JS at the moment, but from anwhere in 'ArduPlane/' folder, ok...
+// can't do it as a 'static' here either
+extern "C" {
+    EMSCRIPTEN_KEEPALIVE  void  call_from_js() {
+        printf(" hi from C\n");
+    }
+}
+
 /*
   scheduler table - all regular tasks should be listed here.
 

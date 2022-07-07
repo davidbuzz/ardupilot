@@ -19,7 +19,7 @@ then
     ./emsdk install latest
     ./emsdk activate latest
 
-    echo 'source "~/emsdk_env.sh"' >> $HOME/.bash_profile
+    echo 'source "~/emsdk/emsdk_env.sh"' >> $HOME/.bash_profile
     source "~/emsdk/emsdk_env.sh"
     cd ~
 fi
@@ -44,6 +44,9 @@ fi
 
 cd ~/ardupilot
 
+#rm -rf build
+#rm -rf /tmp/emscripten_temp
+
 # hack to empty SHLIB_MARKER and STLIB_MARKER as '-Wl,-Bdynamic' and '-Wl,-Bstatic' are not supported by emscrypten/clang, and i don't know why its using the waflib 'gcc' and 'gxx' tools?
 cp gcc.py modules/waf/waflib/Tools/gcc.py
 cp gxx.py modules/waf/waflib/Tools/gxx.py
@@ -53,7 +56,24 @@ cp gxx.py modules/waf/waflib/Tools/gxx.py
 
 echo -e "${RED}building arduplane for emscriptem/wasm${NC}"
 
+
+#    export CC="emcc -sLINKABLE -sEXPORT_ALL -sEXPORTED_FUNCTIONS=_main,_call_from_js"
+#    export CXX="em++ -sLINKABLE -sEXPORT_ALL -sEXPORTED_FUNCTIONS=_main,_call_from_js"
+
 ./waf plane -v -v 
+
+#( 
+#  cd build/sitl
+#
+#  /home/buzz/emsdk/upstream/bin/wasm-ld -o bin/arduplane.wasm --gc-sections ArduPlane/AP_Arming.cpp.45.o ArduPlane/ArduPlane.cpp.45.o ArduPlane/Attitude.cpp.45.o ArduPlane/GCS_Mavlink.cpp.45.o ArduPlane/GCS_Plane.cpp.45.o ArduPlane/Log.cpp.45.o ArduPlane/Parameters.cpp.45.o ArduPlane/Plane.cpp.45.o ArduPlane/RC_Channel.cpp.45.o ArduPlane/afs_plane.cpp.45.o ArduPlane/altitude.cpp.45.o ArduPlane/avoidance_adsb.cpp.45.o ArduPlane/commands.cpp.45.o ArduPlane/commands_logic.cpp.45.o ArduPlane/control_modes.cpp.45.o ArduPlane/ekf_check.cpp.45.o ArduPlane/events.cpp.45.o ArduPlane/failsafe.cpp.45.o ArduPlane/fence.cpp.45.o ArduPlane/is_flying.cpp.45.o ArduPlane/mode.cpp.45.o ArduPlane/mode_LoiterAltQLand.cpp.45.o ArduPlane/mode_acro.cpp.45.o ArduPlane/mode_auto.cpp.45.o ArduPlane/mode_autotune.cpp.45.o ArduPlane/mode_avoidADSB.cpp.45.o ArduPlane/mode_circle.cpp.45.o ArduPlane/mode_cruise.cpp.45.o ArduPlane/mode_fbwa.cpp.45.o ArduPlane/mode_fbwb.cpp.45.o ArduPlane/mode_guided.cpp.45.o ArduPlane/mode_loiter.cpp.45.o ArduPlane/mode_manual.cpp.45.o ArduPlane/mode_qacro.cpp.45.o ArduPlane/mode_qautotune.cpp.45.o ArduPlane/mode_qhover.cpp.45.o ArduPlane/mode_qland.cpp.45.o ArduPlane/mode_qloiter.cpp.45.o ArduPlane/mode_qrtl.cpp.45.o ArduPlane/mode_qstabilize.cpp.45.o ArduPlane/mode_rtl.cpp.45.o ArduPlane/mode_stabilize.cpp.45.o ArduPlane/mode_takeoff.cpp.45.o ArduPlane/mode_thermal.cpp.45.o ArduPlane/mode_training.cpp.45.o ArduPlane/motor_test.cpp.45.o ArduPlane/navigation.cpp.45.o ArduPlane/parachute.cpp.45.o ArduPlane/qautotune.cpp.45.o ArduPlane/quadplane.cpp.45.o ArduPlane/radio.cpp.45.o ArduPlane/reverse_thrust.cpp.45.o ArduPlane/sensors.cpp.45.o ArduPlane/servos.cpp.45.o ArduPlane/soaring.cpp.45.o ArduPlane/system.cpp.45.o ArduPlane/tailsitter.cpp.45.o ArduPlane/takeoff.cpp.45.o ArduPlane/tiltrotor.cpp.45.o ArduPlane/tuning.cpp.45.o -Llib lib/libArduPlane_libs.a -L/home/buzz/emsdk/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten /home/buzz/emsdk/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten/crtbegin.o -lGL-mt -lal -lhtml5 -lstubs-debug -lnoexit -lc-mt-debug -ldlmalloc-mt -lcompiler_rt-mt -lc++-mt-noexcept -lc++abi-mt-noexcept -lsockets-mt --no-whole-archive -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --import-undefined --import-memory --shared-memory --strip-debug --export-dynamic --export-if-defined=main --export-if-defined=_emscripten_thread_init --export-if-defined=_emscripten_thread_exit --export-if-defined=_emscripten_thread_crashed --export-if-defined=_emscripten_tls_init --export-if-defined=pthread_self --export-if-defined=__start_em_asm --export-if-defined=__stop_em_asm --export-if-defined=__main_argc_argv --export-if-defined=fflush --export=emscripten_stack_get_end --export=emscripten_stack_get_free --export=emscripten_stack_get_base --export=emscripten_stack_init --export=stackSave --export=stackRestore --export=stackAlloc --export=__wasm_call_ctors --export=__errno_location --export=emscripten_dispatch_to_thread_ --export=_emscripten_thread_free_data --export=emscripten_main_browser_thread_id --export=emscripten_main_thread_process_queued_calls --export=emscripten_run_in_main_runtime_thread_js --export=emscripten_stack_set_limits --export=malloc --export=free --export=raise --export=ntohs --export=htons --export-table -z stack-size=5242880 --initial-memory=16777216 --no-entry --max-memory=16777216 --global-base=1024
+#)
+
+#from: https://emscripten.org/docs/tools_reference/emcc.html#emcc-o1
+#compiler flags:
+#-O0 = no optimisation, AND extra asserts that check for bad stuff. For fast incremental builds -O0 is best, but not for release.
+#-O1 = drop asserts, minimal simple optimisations
+#-O2 = also removes things conmpiler doesn't think are used. At higher optimisation levels (-O2 and above), code is minified, including function names
+#-03 = more optimisations, takes longer to run.
 
 
 echo -e "${RED}setting up web-server for arduplane/emscriptem/wasm:${NC}"
@@ -73,7 +93,45 @@ exit
 
 random notes, don't use these to get a working build...
 
+--------------------------------------------------
 
+-sLINKABLE will also disable link-time optimizations and dead code elimination.
+
+--------------------------------------------------
+
+-sEXPORTED_FUNCTIONS=_foo,_bar,_baz  for each C func u want to call from JS... 
+and 
+-sEXTRA_EXPORTED_RUNTIME_METHODS=['ccall','cwrap']
+to allow them to be called arbitrarily from any js.
+
+https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html#interacting-with-code-ccall-cwrap
+
+--------------------------------------------------
+
+
+https://stackoverflow.com/questions/61322756/tcp-server-in-webassembly-c-fails-with-accept
+
+To use POSIX sockets proxying, link the application with flags
+ “-lwebsocket.js -s PROXY_POSIX_SOCKETS=1 -s USE_PTHREADS=1 -s PROXY_TO_PTHREAD=1”. 
+ That is, POSIX sockets proxying builds on top of the Emscripten WebSockets library, 
+ and requires multithreading and proxying the application main() to a pthread.
+
+--------------------------------------------------
+
+
+cd ~/ardupilot
+ cp -rp ~/emsdk/upstream/emscripten/tools/websocket_to_posix_proxy .
+cd websocket_to_posix_proxy/
+mkdir build
+cd build/
+cmake ..
+make
+
+cd ~/ardupilot
+ ./websocket_to_posix_proxy/build/websocket_to_posix_proxy 1234
+=> ws://localhost:1234/
+
+--------------------------------------------------
 
         #// right now, --debug doesn't always work, but might, it seems to not work with ... export CXX="em++ -sLINKABLE"..., for example
         #//./waf configure board=sitl --disable-scripting -v --debug
@@ -87,20 +145,32 @@ Checking for cxx flags '-MMD'            : yes
 CXX Compiler                             : clang++ 15.0.0 
 ...
 
+--------------------------------------------------
 
 
 https://emscripten.org/docs/getting_started/FAQ.html#faq-dead-code-elimination
 
     bad..?
-    export CC="emcc -sEXPORTALL"
-    export CXX="em++ -sEXPORTALL"
+    export CC="emcc -sEXPORT_ALL"
+    export CXX="em++ -sEXPORT_ALL"
     or ?
     export CC="emcc -sLINKABLE"
     export CXX="em++ -sLINKABLE"
+        or ?
+    export CC="emcc -sLINKABLE -sEXPORT_ALL"
+    export CXX="em++ -sLINKABLE -sEXPORT_ALL"
+
+    tip: https://github.com/emscripten-core/emscripten/issues/6233
+    export CC="emcc -sLINKABLE -sEXPORT_ALL -sEXPORTED_FUNCTIONS=_main,call_from_js"
+    export CXX="em++ -sLINKABLE -sEXPORT_ALL -sEXPORTED_FUNCTIONS=_main,call_from_js"
+
+    
+--------------------------------------------------
 
 the --debug gets rid of -O3 , uses -O0 instead, which disables many emscrypten optimisations and makes code slower etc.
   ref: https://emscripten.org/docs/getting_started/FAQ.html#why-is-code-compilation-slow
 
+--------------------------------------------------
 
 #define HAL_NUM_CAN_IFACES 0 is reqd.
 
@@ -114,6 +184,9 @@ need to enable USE_TERMIOS in uart utills
 meed  to addd '-pthread' to cxxflags in ./wscript for libraries. 
 
 need to didale scripting as ldo.c won't build
+
+--------------------------------------------------
+
 
 run it with 'wsmtime' on conssole?
 
@@ -130,11 +203,13 @@ ls build/sitl/bin/arduplane.wasm
 
  build/sitl/bin/arduplane is a .js file that loads the .wasm in Node ...
 
+--------------------------------------------------
 
 in-node..?
 node --experimental-wasm-threads --experimental-wasm-bulk-memory build/sitl/bin/arduplane 
 node --experimental-wasm-threads --experimental-wasm-bulk-memory build/sitl/bin/arduplane --model plane -I0 --home=-27.3895825856374,152.464935779572,104,120 --speedup  1
 
+--------------------------------------------------
 
 in-browser...?
 
@@ -150,6 +225,8 @@ cd build/sitl/bin/ ; emrun --port 8000 .
 
 then goto: http://localhost:8000/
 
+--------------------------------------------------
+
 
 tunneled networking over webssockets, not working but possible..?
   https://emscripten.org/docs/porting/networking.html?highlight=proxy#emulated-posix-tcp-sockets-over-websockets
@@ -159,6 +236,7 @@ sudo apt install python3-websockify
 websockify 5503 :5502 -v --web .
 then goto: http://localhost:5503/
 
+--------------------------------------------------
 
  to prevent compiler eliding of 'unused' C functions.....
 tip: seee also EMSCRIPTEN_KEEPALIVE  and EXPORTED_FUNCTIONS and EMSCRIPTEN_BINDINGS

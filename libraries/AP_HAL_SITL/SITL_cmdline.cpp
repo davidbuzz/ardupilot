@@ -45,21 +45,6 @@
 
 extern HAL_SITL& hal;
 
-//#include <emscripten.h>
-#include <emscripten/emscripten.h>
-
-
-// #ifdef __cplusplus
-// extern "C" {
-// #endif
-
-//     EMSCRIPTEN_KEEPALIVE static void  call_from_js() {
-//         printf(" hi from c++\n");
-//     }
-
-// #ifdef __cplusplus
-// }
-// #endif
 
 using namespace HALSITL;
 using namespace SITL;

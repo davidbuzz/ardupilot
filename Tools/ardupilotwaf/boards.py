@@ -352,6 +352,11 @@ class Board:
             env.LINKFLAGS += [
                 '-fno-exceptions',
                 '-Wl,--gc-sections',
+                #'-sMAIN_MODULE=0',
+                # '-sEXPORT_ALL',
+                # '-sLINKABLE',
+                 '-sEXPORTED_FUNCTIONS=_main,_call_from_js,__ZN5Plane22adjust_altitude_targetEv',
+                 '-sEXPORTED_RUNTIME_METHODS=cwrap,ccall',
             ]
 
         if self.with_can and not cfg.env.AP_PERIPH:
@@ -563,7 +568,9 @@ class sitl(Board):
 
         if not cfg.env.DEBUG:
             env.CXXFLAGS += [
-                '-O3',
+                '-O0',
+                #'-sEXPORT_ALL',
+                #'-sLINKABLE',
             ]
 
         if 'clang++' in cfg.env.COMPILER_CXX and cfg.options.asan:
@@ -579,7 +586,15 @@ class sitl(Board):
         cfg.check_librt(env)
         cfg.check_feenableexcept()
 
-        env.LINKFLAGS += ['-pthread',]
+        # https://stackoverflow.com/questions/33190760/export-all-functions-with-emscripten
+
+        # https://github.com/emscripten-core/emscripten/issues/9516
+        env.LINKFLAGS += [
+                '-pthread',
+                #'-sEXPORT_ALL',
+                #'-sLINKABLE',
+                #'-sMAIN_MODULE=0',
+        ]
 
         if cfg.env.DEBUG and 'clang++' in cfg.env.COMPILER_CXX and cfg.options.asan:
              env.LINKFLAGS += ['-fsanitize=address']
