@@ -45,6 +45,22 @@
 
 extern HAL_SITL& hal;
 
+//#include <emscripten.h>
+#include <emscripten/emscripten.h>
+
+
+// #ifdef __cplusplus
+// extern "C" {
+// #endif
+
+//     EMSCRIPTEN_KEEPALIVE static void  call_from_js() {
+//         printf(" hi from c++\n");
+//     }
+
+// #ifdef __cplusplus
+// }
+// #endif
+
 using namespace HALSITL;
 using namespace SITL;
 
@@ -202,8 +218,8 @@ void SITL_State::_parse_command_line(int argc, char * const argv[])
     _instance = 0;
     _synthetic_clock_mode = false;
     // default to CMAC
-    const char *home_str = nullptr;
-    const char *model_str = nullptr;
+    const char *home_str = "-27.3895825856374,152.464935779572,104,120";
+    const char *model_str = "plane";
     _use_fg_view = true;
     char *autotest_dir = nullptr;
     _fg_address = "127.0.0.1";
@@ -379,7 +395,7 @@ void SITL_State::_parse_command_line(int argc, char * const argv[])
             HALSITL::UARTDriver::_console = true;
             break;
         case 'I': {
-            _instance = atoi(gopt.optarg);
+            _instance = atoi(0);
             if (_base_port == BASE_PORT) {
                 _base_port += _instance * 10;
             }
@@ -407,11 +423,11 @@ void SITL_State::_parse_command_line(int argc, char * const argv[])
             _synthetic_clock_mode = true;
             break;
         case 'O':
-            home_str = gopt.optarg;
+            //home_str = gopt.optarg;
             break;
-        case 'M':
-            model_str = gopt.optarg;
-            break;
+        //case 'M':
+           // model_str = "plane";//buzz hack gopt.optarg;
+           // break;
         case 'c':
             config = gopt.optarg;
             break;
