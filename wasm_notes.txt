@@ -36,6 +36,12 @@ export EMCC_DEBUG=1
 echo -e "${RED}configuring arduplane for emscriptem/wasm:${NC}"
 
 
+if [ ! -d ~/ardupilot ]
+then
+  echo -e "${RED} Sorry, this script assumes ardupilot sources/git repo is at ~/ardupilot , giving up, change script to suite your setup.${NC}"
+  exit
+fi
+
 cd ~/ardupilot
 
 # hack to empty SHLIB_MARKER and STLIB_MARKER as '-Wl,-Bdynamic' and '-Wl,-Bstatic' are not supported by emscrypten/clang, and i don't know why its using the waflib 'gcc' and 'gxx' tools?
@@ -45,7 +51,7 @@ cp gxx.py modules/waf/waflib/Tools/gxx.py
 
 ./waf configure board=sitl --disable-scripting -v
 
-echo "${RED}building arduplane for emscriptem/wasm${NC}"
+echo -e "${RED}building arduplane for emscriptem/wasm${NC}"
 
 ./waf plane -v -v 
 
