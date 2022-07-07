@@ -1,0 +1,168 @@
+#/bin/bash
+# shell script and notes to compile arduplane sitl with emscripten to .wasm and javascript.
+# wasm_notes.txt
+
+# if u don't have these, install them..
+#sudo apt install cmake git python3 
+
+#colors:
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+echo -e "${RED}getting emscrypten via its sdk:${NC}"
+
+cd ~
+if [ ! -d "./emsdk" ] 
+then
+    git clone https://github.com/emscripten-core/emsdk.git
+    cd emsdk
+    ./emsdk install latest
+    ./emsdk activate latest
+
+    echo 'source "~/emsdk_env.sh"' >> $HOME/.bash_profile
+    source "~/emsdk/emsdk_env.sh"
+    cd ~
+fi
+
+which emcc
+which em++
+
+echo -e "${RED}setting emcc/em++ as the compiler to use:${NC}"
+
+export CC=emcc
+export CXX=em++
+export EMCC_DEBUG=1
+
+echo -e "${RED}configuring arduplane for emscriptem/wasm:${NC}"
+
+
+cd ~/ardupilot
+
+# hack to empty SHLIB_MARKER and STLIB_MARKER as '-Wl,-Bdynamic' and '-Wl,-Bstatic' are not supported by emscrypten/clang, and i don't know why its using the waflib 'gcc' and 'gxx' tools?
+cp gcc.py modules/waf/waflib/Tools/gcc.py
+cp gxx.py modules/waf/waflib/Tools/gxx.py
+
+
+./waf configure board=sitl --disable-scripting -v
+
+echo "${RED}building arduplane for emscriptem/wasm${NC}"
+
+./waf plane -v -v 
+
+
+echo -e "${RED}setting up web-server for arduplane/emscriptem/wasm:${NC}"
+
+# web page that loads arduplane.js and arduplane.wasm
+cp ./shell_minimal.html build/sitl/bin/index.html
+
+# target file is a .js but doesn't get the right extension, so we copy it to .js:
+cp build/sitl/bin/arduplane build/sitl/bin/arduplane.js
+
+echo -e "goto: ${RED}http://localhost:8000/${NC} or ctrl-c to exit web server"
+( cd build/sitl/bin/ ; emrun --port 8000 . )
+
+exit
+
+
+
+random notes, don't use these to get a working build...
+
+
+
+        #// right now, --debug doesn't always work, but might, it seems to not work with ... export CXX="em++ -sLINKABLE"..., for example
+        #//./waf configure board=sitl --disable-scripting -v --debug
+...
+Checking for 'g++' (C++ compiler)        : not found 
+Checking for 'clang++' (C++ compiler)    : em++ 
+Checking for 'gcc' (C compiler)          : not found 
+Checking for 'clang' (C compiler)        : emcc 
+Checking for c flags '-MMD'              : yes 
+Checking for cxx flags '-MMD'            : yes 
+CXX Compiler                             : clang++ 15.0.0 
+...
+
+
+
+https://emscripten.org/docs/getting_started/FAQ.html#faq-dead-code-elimination
+
+    bad..?
+    export CC="emcc -sEXPORTALL"
+    export CXX="em++ -sEXPORTALL"
+    or ?
+    export CC="emcc -sLINKABLE"
+    export CXX="em++ -sLINKABLE"
+
+the --debug gets rid of -O3 , uses -O0 instead, which disables many emscrypten optimisations and makes code slower etc.
+  ref: https://emscripten.org/docs/getting_started/FAQ.html#why-is-code-compilation-slow
+
+
+#define HAL_NUM_CAN_IFACES 0 is reqd.
+
+linux/can.h not found
+
+FE_OVERFLOW and FE_DIVBYZERO and FE_INVALID and FE_INEXACT and FE_OVERFLOW not defined
+
+need to enable USE_TERMIOS in uart utills
+
+
+meed  to addd '-pthread' to cxxflags in ./wscript for libraries. 
+
+need to didale scripting as ldo.c won't build
+
+run it with 'wsmtime' on conssole?
+
+cd ~
+curl https://wasmtime.dev/install.sh -sSf | bash
+
+export WASMTIME_HOME="$HOME/.wasmtime"
+export PATH="$WASMTIME_HOME/bin:$PATH"
+
+which wasmtime
+
+cd ~/ardupilot
+ls build/sitl/bin/arduplane.wasm
+
+ build/sitl/bin/arduplane is a .js file that loads the .wasm in Node ...
+
+
+in-node..?
+node --experimental-wasm-threads --experimental-wasm-bulk-memory build/sitl/bin/arduplane 
+node --experimental-wasm-threads --experimental-wasm-bulk-memory build/sitl/bin/arduplane --model plane -I0 --home=-27.3895825856374,152.464935779572,104,120 --speedup  1
+
+
+in-browser...?
+
+( cd build/sitl/bin/ ; python wasm_server.py ; cd - )
+
+or:
+ https://emscripten.org/docs/compiling/Running-html-files-with-emrun.html
+
+cp ./shell_minimal.html build/sitl/bin/index.html
+cp build/sitl/bin/arduplane build/sitl/bin/arduplane.js
+cd build/sitl/bin/ ; emrun --port 8000 .
+
+
+then goto: http://localhost:8000/
+
+
+tunneled networking over webssockets, not working but possible..?
+  https://emscripten.org/docs/porting/networking.html?highlight=proxy#emulated-posix-tcp-sockets-over-websockets
+
+sudo apt install python3-websockify
+// first number is websocket port, second number is native TCP port to forward to.
+websockify 5503 :5502 -v --web .
+then goto: http://localhost:5503/
+
+
+ to prevent compiler eliding of 'unused' C functions.....
+tip: seee also EMSCRIPTEN_KEEPALIVE  and EXPORTED_FUNCTIONS and EMSCRIPTEN_BINDINGS
+and https://stackoverflow.com/questions/61818481/emscripten-emscripten-keepalive-exported-functions-from-hpp-cpp-files-other-th
+and https://emscripten.org/docs/api_reference/advanced-apis.html#settings-js
+
+edit ~/emsdk/upstream/emscripten/src/settings.js
+and search/set:
+var EXPORT_ALL = true;
+and rm -rf build and redo configure/build
+
+
+
