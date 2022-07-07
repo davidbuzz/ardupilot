@@ -307,6 +307,8 @@ class Board:
                 '-Wno-gnu-variable-sized-type-not-at-end',
                 '-Werror=implicit-fallthrough',
             ]
+
+            
         else:
             env.CXXFLAGS += [
                 '-Wno-format-contains-nul',
@@ -535,6 +537,8 @@ class sitl(Board):
         else:
             self.with_can = False
 
+        self.with_can = False
+
     def configure_env(self, cfg, env):
         super(sitl, self).configure_env(cfg, env)
         env.DEFINES.update(
@@ -549,7 +553,7 @@ class sitl(Board):
         cfg.define('HAL_WITH_RAMTRON', 1)
 
         if self.with_can:
-            cfg.define('HAL_NUM_CAN_IFACES', 2)
+            cfg.define('HAL_NUM_CAN_IFACES', 0)
             cfg.define('UAVCAN_EXCEPTIONS', 0)
             cfg.define('UAVCAN_SUPPORT_CANFD', 1)
 
