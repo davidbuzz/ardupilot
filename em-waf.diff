@@ -1,0 +1,56 @@
+diff --git a/waflib/Tools/clang.py b/waflib/Tools/clang.py
+index 3828e391..f0080d13 100644
+--- a/waflib/Tools/clang.py
++++ b/waflib/Tools/clang.py
+@@ -20,7 +20,7 @@ def find_clang(conf):
+ 
+ def configure(conf):
+ 	conf.find_clang()
+-	conf.find_program(['llvm-ar', 'ar'], var='AR')
++	conf.find_program(['emar', 'ar'], var='AR')
+ 	conf.find_ar()
+ 	conf.gcc_common_flags()
+ 	conf.gcc_modifier_platform()
+diff --git a/waflib/Tools/clangxx.py b/waflib/Tools/clangxx.py
+index 152013ce..11f7cc9c 100644
+--- a/waflib/Tools/clangxx.py
++++ b/waflib/Tools/clangxx.py
+@@ -20,7 +20,7 @@ def find_clangxx(conf):
+ 
+ def configure(conf):
+ 	conf.find_clangxx()
+-	conf.find_program(['llvm-ar', 'ar'], var='AR')
++	conf.find_program(['emar', 'ar'], var='AR')
+ 	conf.find_ar()
+ 	conf.gxx_common_flags()
+ 	conf.gxx_modifier_platform()
+diff --git a/waflib/Tools/gcc.py b/waflib/Tools/gcc.py
+index 2bda5f52..531d685b 100644
+--- a/waflib/Tools/gcc.py
++++ b/waflib/Tools/gcc.py
+@@ -45,8 +45,8 @@ def gcc_common_flags(conf):
+ 	v.RPATH_ST            = '-Wl,-rpath,%s'
+ 
+ 	v.SONAME_ST           = '-Wl,-h,%s'
+-	v.SHLIB_MARKER        = '-Wl,-Bdynamic'
+-	v.STLIB_MARKER        = '-Wl,-Bstatic'
++	v.SHLIB_MARKER        = ''
++	v.STLIB_MARKER        = ''
+ 
+ 	v.cprogram_PATTERN    = '%s'
+ 
+diff --git a/waflib/Tools/gxx.py b/waflib/Tools/gxx.py
+index 26672581..9c20a329 100644
+--- a/waflib/Tools/gxx.py
++++ b/waflib/Tools/gxx.py
+@@ -45,8 +45,8 @@ def gxx_common_flags(conf):
+ 	v.RPATH_ST            = '-Wl,-rpath,%s'
+ 
+ 	v.SONAME_ST           = '-Wl,-h,%s'
+-	v.SHLIB_MARKER        = '-Wl,-Bdynamic'
+-	v.STLIB_MARKER        = '-Wl,-Bstatic'
++	v.SHLIB_MARKER        = ''
++	v.STLIB_MARKER        = ''
+ 
+ 	v.cxxprogram_PATTERN  = '%s'
+ 

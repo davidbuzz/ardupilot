@@ -73,7 +73,7 @@ class Board:
 
         # allow GCS disable for AP_DAL example
         if cfg.options.no_gcs:
-            env.CXXFLAGS += ['-DHAL_GCS_ENABLED=0']
+            env.CXXFLAGS += ['-DHAL_GCS_ENABLED=0', '-pthread']
 
         # setup for supporting onvif cam control
         if cfg.options.enable_onvif:
@@ -355,7 +355,8 @@ class Board:
                 #'-sMAIN_MODULE=0',
                 # '-sEXPORT_ALL',
                 # '-sLINKABLE',
-                 '-sEXPORTED_FUNCTIONS=_main,_call_from_js,__ZN5Plane22adjust_altitude_targetEv',
+                # '-sEXPORTED_FUNCTIONS=_main,_call_from_js,__ZN5Plane22adjust_altitude_targetEv',
+                 '-sEXPORTED_FUNCTIONS=_main',
                  '-sEXPORTED_RUNTIME_METHODS=cwrap,ccall',
             ]
 

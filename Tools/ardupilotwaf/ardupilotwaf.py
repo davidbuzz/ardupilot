@@ -368,7 +368,7 @@ def ap_find_tests(bld, use=[]):
             program_name=f.change_ext('').name,
             program_groups='tests',
             use_legacy_defines=False,
-            cxxflags=['-Wno-undef'],
+            cxxflags=['-Wno-undef','-pthread'],
         )
 
 _versions = []
