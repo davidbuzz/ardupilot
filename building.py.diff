@@ -1,0 +1,19 @@
+*** building.py	2022-07-09 13:23:49.600512121 +1000
+--- building.py.new	2022-07-09 13:23:45.200455760 +1000
+***************
+*** 366,372 ****
+    # Emscripten currently expects linkable output (SIDE_MODULE/MAIN_MODULE) to
+    # include all archive contents.
+    if settings.LINKABLE:
+!     args.insert(0, '--whole-archive')
+      args.append('--no-whole-archive')
+  
+    if settings.STRICT:
+--- 366,372 ----
+    # Emscripten currently expects linkable output (SIDE_MODULE/MAIN_MODULE) to
+    # include all archive contents.
+    if settings.LINKABLE:
+!     #args.insert(0, '--whole-archive')
+      args.append('--no-whole-archive')
+  
+    if settings.STRICT:

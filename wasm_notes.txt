@@ -64,6 +64,9 @@ fi
 # apply diff file: 
 ( cd modules/waf ; patch --forward -p1 -r- < ../../em-waf.diff )
 
+# apply next diff file: 
+( cp building.py.diff ~/emsdk/upstream/emscripten/tools ; cd ~/emsdk/upstream/emscripten/tools ; patch --forward -r- < building.py.diff )
+
 ./waf configure board=sitl --disable-scripting -v
 
 echo -e "${RED}building arduplane for emscriptem/wasm${NC}"
