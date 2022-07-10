@@ -37,8 +37,12 @@ echo -e "${RED}setting emcc/em++ as the compiler to use:${NC}"
 #export CXX=em++
 
 #or with ccache:
-export CC='ccache emcc'
-export CXX='ccache em++'
+#export CC='ccache emcc'
+#export CXX='ccache em++'
+
+# with ccache AND embind (for c++ bindings)
+export CC='ccache emcc -lembind'
+export CXX='ccache em++ -lembind'
 
 # make emscrypten more verbose..
 export EMCC_DEBUG=1
@@ -119,6 +123,16 @@ export CC='ccache emcc'
 ./waf --target tests/test_notchfilter -v -v 
 
 --------------------------------------------------
+
+You can change the EXPORT_NAME setting from the default of Module. You can do this on the command line as an options to emcc:
+
+emcc -s EXPORT_NAME="'MyEmscriptenModule'" <other options...>
+....
+For me EXPORT_NAME only works if I use MODULARIZE or MODULARIZE_INSTANCE together with it. – 
+??
+
+--------------------------------------------------
+
 
 wasm-ld: error: --shared-memory is disallowed by xxx because it was not compiled with 'atomics' or 'bulk-memory' 
 ...

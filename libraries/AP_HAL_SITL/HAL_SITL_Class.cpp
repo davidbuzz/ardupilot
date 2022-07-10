@@ -291,10 +291,41 @@ void HAL_SITL::actually_reboot()
     execv(new_argv[0], new_argv);
     AP_HAL::panic("PANIC: REBOOT FAILED: %s", strerror(errno));
 }
+static const HAL_SITL xxhal;
 
 const AP_HAL::HAL& AP_HAL::get_HAL() {
-    static const HAL_SITL hal;
-    return hal;
+    return xxhal;
 }
+
+#include <AP_HAL_SITL/AP_HAL_SITL.h>
+
+//extern const HAL_SITL& hal_sitl;
+
+
+HAL_SITL* HAL_SITL::singleton(void){
+  //return (HAL_SITL&)hal;
+  return &(HAL_SITL&)hal_sitl; // buzz is this really right ?
+}
+
+
+#include <emscripten/bind.h>
+
+using namespace emscripten;
+
+
+EMSCRIPTEN_BINDINGS(Plane_example1) {
+  class_<HAL_SITL>("HAL_SITL")
+    .constructor()
+    .function("singleton", &HAL_SITL::singleton, allow_raw_pointers())
+
+    .class_property("hal", &xxhal)
+
+    //.function<>("actually_reboot", &HAL_SITL::actually_reboot, allow_raw_pointers())
+    //.function<uint8_t>("get_instance", &HAL_SITL::get_instance, allow_raw_pointers())
+    
+  ;
+}
+
+
 
 #endif  // CONFIG_HAL_BOARD == HAL_BOARD_SITL

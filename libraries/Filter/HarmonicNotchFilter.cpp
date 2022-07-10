@@ -310,3 +310,27 @@ void HarmonicNotchFilterParams::save_params()
 template class HarmonicNotchFilter<Vector3f>;
 template class HarmonicNotchFilter<float>;
 
+#include <emscripten/bind.h>
+
+using namespace emscripten;
+
+    // void allocate_filters(uint8_t num_notches, uint8_t harmonics, uint8_t composite_notches);
+    // void init(float sample_freq_hz, float center_freq_hz, float bandwidth_hz, float attenuation_dB);
+    // void update(float center_freq_hz);
+    // void update(uint8_t num_centers, const float center_freq_hz[]);
+    // T apply(const T &sample);
+    // void reset();
+
+//JS Binding code
+// if we called 'new ... Plane from JS, we get => AP_HAL::panic("Too many schedulers");
+EMSCRIPTEN_BINDINGS(HarmonicNotchFilterVector3f) {
+  class_<HarmonicNotchFilterVector3f>("HarmonicNotchFilterVector3f")
+    .constructor()
+    .function("init", &HarmonicNotchFilterVector3f::init)
+    .function("allocate_filters", &HarmonicNotchFilterVector3f::allocate_filters)
+    .function("apply", &HarmonicNotchFilterVector3f::apply)
+    //.function("update", &HarmonicNotchFilterVector3f::update)
+    .function("reset", &HarmonicNotchFilterVector3f::reset)
+    ;
+}
+

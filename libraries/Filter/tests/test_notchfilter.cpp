@@ -4,6 +4,11 @@
 #include <Filter/NotchFilter.h>
 #include <Filter/HarmonicNotchFilter.h>
 
+//run
+// waf --board=sitl --debug
+// waf --target 
+// ./build/sitl/tests/test_notch_filter
+
 const AP_HAL::HAL& hal = AP_HAL::get_HAL();
 
 /*

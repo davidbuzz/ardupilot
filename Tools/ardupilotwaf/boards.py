@@ -358,6 +358,8 @@ class Board:
                 # '-sEXPORTED_FUNCTIONS=_main,_call_from_js,__ZN5Plane22adjust_altitude_targetEv',
                  '-sEXPORTED_FUNCTIONS=_main',
                  '-sEXPORTED_RUNTIME_METHODS=cwrap,ccall',
+                 '-lembind',
+                 #'-fsanitize=undefined',
             ]
 
         if self.with_can and not cfg.env.AP_PERIPH:

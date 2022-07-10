@@ -103,6 +103,47 @@ void NotchFilter<T>::reset()
 /*
    instantiate template classes
  */
-template class NotchFilter<float>;
-template class NotchFilter<Vector2f>;
-template class NotchFilter<Vector3f>;
+
+
+#include <emscripten/bind.h>
+
+using namespace emscripten;
+
+    // void init(float sample_freq_hz, float center_freq_hz, float bandwidth_hz, float attenuation_dB);
+    // void init_with_A_and_Q(float sample_freq_hz, float center_freq_hz, float A, float Q);
+    // T apply(const T &sample);
+    // void reset();
+    // static void calculate_A_and_Q(float center_freq_hz, float bandwidth_hz, float attenuation_dB, float& A, float& Q); 
+
+//JS Binding code
+// if we called 'new ... Plane from JS, we get => AP_HAL::panic("Too many schedulers");
+EMSCRIPTEN_BINDINGS(NotchFilterFloat) {
+  class_<NotchFilterFloat>("NotchFilterFloat")
+    .constructor()
+    .function("init", &NotchFilterFloat::init)
+    .function("init_with_A_and_Q", &NotchFilterFloat::init_with_A_and_Q)
+    .function("apply", &NotchFilterFloat::apply)
+    .function("reset", &NotchFilterFloat::reset)
+    //.function("calculate_A_and_Q", &NotchFilterFloat::calculate_A_and_Q)
+    ;
+}
+EMSCRIPTEN_BINDINGS(NotchFilterVector2f) {
+  class_<NotchFilterVector2f>("NotchFilterVector2f")
+    .constructor()
+    .function("init", &NotchFilterVector2f::init)
+    .function("init_with_A_and_Q", &NotchFilterVector2f::init_with_A_and_Q)
+    .function("apply", &NotchFilterVector2f::apply)
+    .function("reset", &NotchFilterVector2f::reset)
+    //.function("calculate_A_and_Q", &NotchFilterVector2f::calculate_A_and_Q)
+    ;
+}
+EMSCRIPTEN_BINDINGS(NotchFilterVector3f) {
+  class_<NotchFilterVector3f>("NotchFilterVector3f")
+    .constructor()
+    .function("init", &NotchFilterVector3f::init)
+    .function("init_with_A_and_Q", &NotchFilterVector3f::init_with_A_and_Q)
+    .function("apply", &NotchFilterVector3f::apply)
+    .function("reset", &NotchFilterVector3f::reset)
+    //.function("calculate_A_and_Q", &NotchFilterVector3f::calculate_A_and_Q)
+    ;
+}

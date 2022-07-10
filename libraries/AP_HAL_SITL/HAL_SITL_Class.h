@@ -37,6 +37,10 @@ public:
 
     uint8_t get_instance() const;
 
+    HAL_SITL* singleton(void);
+
+
+
 private:
     HALSITL::SITL_State *_sitl_state;
 
@@ -54,5 +58,8 @@ private:
 #if HAL_NUM_CAN_IFACES
 typedef HALSITL::CANIface HAL_CANIface;
 #endif
+
+
+
 
 #endif  // CONFIG_HAL_BOARD == HAL_BOARD_SITL

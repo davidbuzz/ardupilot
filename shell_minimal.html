@@ -83,9 +83,9 @@
         //and the third is an array of parameter types (which may be omitted if there are no parameters). 
         call_from_js = Module.cwrap('call_from_js', null);// calling void function with no params and no return val.
         call_from_js();
-        var Plane = {};
-        Plane.adjust_altitude_target = Module.cwrap('_ZN5Plane22adjust_altitude_targetEv', null);// calling void function with no params and no return val.
-        Plane.adjust_altitude_target();
+        //var Plane = {};
+        //Plane.adjust_altitude_target = Module.cwrap('_ZN5Plane22adjust_altitude_targetEv', null);// calling void function with no params and no return val.
+        //Plane.adjust_altitude_target();
       }
 
       var Module = {
@@ -156,5 +156,25 @@
       };
     </script>
     <script src="arduplane.js"></script>
+    <script>
+      Module.onRuntimeInitialized = _ => {
+          // const Plane = new Module.Plane(); // C++ constructor
+          // console.log(Plane.any_failsafe_triggered);// see Plane.cpp -> EMSCRIPTEN_BINDINGS Class
+
+          var halsitl = new Module.HAL_SITL(); // 
+
+          //var r = Module.Plane(); // 
+
+          var hal = halsitl.singleton();
+
+          var hal2 = Module.HAL_SITL;
+
+          var hal3 = hal2.hal; // property
+
+          //hal.actually_reboot(); 
+          alert('boo');
+
+        };
+      </script>
   </body>
 </html>

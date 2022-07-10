@@ -30,5 +30,40 @@ Plane::Plane(void)
     auto_state.takeoff_complete = true;
 }
 
+Plane::~Plane(void){}
+
+#include <AP_HAL_SITL/AP_HAL_SITL.h>
+
+extern const HAL_SITL& hal_sitl;
+
+
+HAL_SITL* Plane::singleton(void){
+  //return (HAL_SITL&)hal;
+  return &(HAL_SITL&)hal_sitl; // buzz is this really right ?
+}
+
+
 Plane plane;
 AP_Vehicle& vehicle = plane;
+
+
+#include <emscripten/bind.h>
+
+using namespace emscripten;
+
+
+//JS Binding code
+// if we called 'new ... Plane from JS, we get => AP_HAL::panic("Too many schedulers");
+EMSCRIPTEN_BINDINGS(Plane_example2) {
+  class_<Plane>("Plane")
+    .constructor()
+    .function("any_failsafe_triggered", &Plane::any_failsafe_triggered)
+    .function("terrain_disabled", &Plane::terrain_disabled)
+
+    //.function("singleton", &Plane::singleton, allow_raw_pointers())
+    //.property("x", &Plane::getX, &Plane::setX)
+    //.class_function("getStringFromInstance", &Plane::getStringFromInstance)
+    //.function("singleton", &singleton, allow_raw_pointers())
+
+    ;
+}

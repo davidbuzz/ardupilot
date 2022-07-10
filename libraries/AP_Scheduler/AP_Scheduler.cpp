@@ -75,7 +75,8 @@ AP_Scheduler::AP_Scheduler()
 {
     if (_singleton) {
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
-        AP_HAL::panic("Too many schedulers");
+       // AP_HAL::panic("Too many schedulers");
+       printf("Too many schedulers");
 #endif
         return;
     }

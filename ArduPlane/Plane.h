@@ -116,6 +116,8 @@
 #endif
 #include "AP_Arming.h"
 
+#include <AP_HAL_SITL/AP_HAL_SITL.h>
+
 
 #include <emscripten/emscripten.h>
 
@@ -169,8 +171,9 @@ public:
     friend class ModeLoiterAltQLand;
 
     Plane(void);
+    ~Plane(void);
 
-private:
+//private:
 
     // key aircraft parameters passed to multiple libraries
     AP_Vehicle::FixedWing aparm;
@@ -1214,9 +1217,12 @@ public:
     bool set_velocity_match(const Vector2f &velocity) override;
 #endif // AP_SCRIPTING_ENABLED
 
+    HAL_SITL* singleton(void);
+
 };
 
 extern Plane plane;
 
 using AP_HAL::millis;
 using AP_HAL::micros;
+

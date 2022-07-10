@@ -40,6 +40,8 @@ void WEAK panic(const char *errormsg, ...)
     va_end(ap);
     printf("\n");
 
+    return;//buzz hack
+
     dump_stack_trace();
     dump_core_file();
 
