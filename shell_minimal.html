@@ -81,8 +81,9 @@
         //The first parameter is the name of the C function to be wrapped, 
         //the second is the return type of the function (or a JavaScript null value if there isn’t one), 
         //and the third is an array of parameter types (which may be omitted if there are no parameters). 
-        call_from_js = Module.cwrap('call_from_js', null);// calling void function with no params and no return val.
-        call_from_js();
+        //call_from_js = Module.cwrap('call_from_js', null);// calling void function with no params and no return val.
+        //call_from_js();
+
         //var Plane = {};
         //Plane.adjust_altitude_target = Module.cwrap('_ZN5Plane22adjust_altitude_targetEv', null);// calling void function with no params and no return val.
         //Plane.adjust_altitude_target();
@@ -171,8 +172,21 @@
 
           var hal3 = hal2.hal; // property
 
+          var filt = new Module.NotchFilterFloat();
+
+          filt.init(2000,47,47,43);
+
+          filt.reset();
+
+          filt.apply(20);
+          filt.apply(20);
+          filt.apply(20);
+          filt.apply(20);
+          var result = filt.apply(20);
+
+          console.log(result);
           //hal.actually_reboot(); 
-          alert('boo');
+          alert(result);
 
         };
       </script>

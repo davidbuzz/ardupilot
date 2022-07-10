@@ -11,6 +11,11 @@ export CC='ccache emcc'
 ./waf configure board=sitl --debug --disable-scripting
 ./waf --target tests/test_notchfilter -v -v 
 
+echo '( cd build/sitl/tests/ ; emrun --port 8000 . )'
+echo 'cp ./shell_minimal.html build/sitl/tests/index.html'
+echo 'cp build/sitl/tests/test_notchfilter build/sitl/tests/arduplane.js'
+
 cp ./shell_minimal.html build/sitl/tests/index.html
 cp build/sitl/tests/test_notchfilter build/sitl/tests/arduplane.js
 ( cd build/sitl/tests/ ; emrun --port 8000 . )
+
