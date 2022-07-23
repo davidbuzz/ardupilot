@@ -87,7 +87,7 @@ SERIAL_ORDER OTG1 USART2 USART3 UART4 UART8 UART7
 # UART to talk to that MCU. Leave it out for boards with no IOMCU.
 
 # UART for IOMCU
-#IOMCU_UART USART6
+#IOxMCU_UART USART6
 
 # Now we start on the pin definitions. Every pin used by ArduPilot
 # needs to be in this file. The pins in this file can be defined in any order.
@@ -473,4 +473,4 @@ DMA_PRIORITY USART6* SPI*
 # we can automatically update the IOMCU firmware on boot. The format
 # is "ROMFS ROMFS-filename source-filename". Paths are relative to the
 # ardupilot root.
-ROMFS io_firmware.bin Tools/IO_Firmware/iofirmware_lowpolh.bin
+#RxOMFS io_firmware.bin Tools/IO_Firmware/iofirmware_lowpolh.bin

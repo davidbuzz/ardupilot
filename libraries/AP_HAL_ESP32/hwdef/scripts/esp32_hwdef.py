@@ -1777,23 +1777,23 @@ def write_UART_config(f):
         f.write('#define HAL_UART%s_DRIVER Empty::UARTDriver uart%sDriver\n' %
                 (devnames[idx], devnames[idx]))
 
-    if 'IOMCU_UART' in config:
-        if not 'io_firmware.bin' in romfs:
-            error("Need io_firmware.bin in ROMFS for IOMCU")
+    # if 'IOMCU_UART' in config:
+    #     if not 'io_firmware.bin' in romfs:
+    #         error("Need io_firmware.bin in ROMFS for IOMCU")
 
-        f.write('#define HAL_WITH_IO_MCU 1\n')
-        idx = len(uart_list)
-        f.write('#define HAL_UART_IOMCU_IDX %u\n' % idx)
-        f.write(
-            '#define HAL_UART_IO_DRIVER ChibiOS::UARTDriver uart_io(HAL_UART_IOMCU_IDX)\n'
-        )
-        uart_list.append(config['IOMCU_UART'][0])
-        f.write('#define HAL_HAVE_SERVO_VOLTAGE 1\n') # make the assumption that IO gurantees servo monitoring
-        # all IOMCU capable boards have SBUS out
-        f.write('#define AP_FEATURE_SBUS_OUT 1\n')
-    else:
-        f.write('#define HAL_WITH_IO_MCU 0\n')
-    f.write('\n')
+    #     f.write('#define HAL_WITH_IO_MCU 1\n')
+    #     idx = len(uart_list)
+    #     f.write('#define HAL_UART_IOMCU_IDX %u\n' % idx)
+    #     f.write(
+    #         '#define HAL_UART_IO_DRIVER ChibiOS::UARTDriver uart_io(HAL_UART_IOMCU_IDX)\n'
+    #     )
+    #     uart_list.append(config['IOMCU_UART'][0])
+    #     f.write('#define HAL_HAVE_SERVO_VOLTAGE 1\n') # make the assumption that IO gurantees servo monitoring
+    #     # all IOMCU capable boards have SBUS out
+    #     f.write('#define AP_FEATURE_SBUS_OUT 1\n')
+    # else:
+    f.write('#define HAL_WITH_IO_MCU 0\n')
+    #f.write('\n')
 
     need_uart_driver = False
     OTG2_index = None
@@ -2287,13 +2287,13 @@ def bootloader_path():
 
 
 def add_bootloader():
-    '''added bootloader to ROMFS'''
-    bp = bootloader_path()
-    if bp is not None and int(get_config('BOOTLOADER_EMBED', required=False, default='1')):
-        romfs["bootloader.bin"] = bp
-        env_vars['BOOTLOADER_EMBED'] = 1
-    else:
-        env_vars['BOOTLOADER_EMBED'] = 0
+    # '''added bootloader to ROMFS'''
+    # bp = bootloader_path()
+    # if bp is not None and int(get_config('BOOTLOADER_EMBED', required=False, default='1')):
+    #     romfs["bootloader.bin"] = bp
+    #     env_vars['BOOTLOADER_EMBED'] = 1
+    # else:
+    env_vars['BOOTLOADER_EMBED'] = 0
 
 
 
@@ -2302,7 +2302,8 @@ def write_ROMFS(outdir):
     romfs_list = []
     for k in romfs.keys():
         romfs_list.append((k, romfs[k]))
-    env_vars['ROMFS_FILES'] = romfs_list
+    nodupes = list(set(romfs_list))
+    env_vars['ROMFS_FILES'] = nodupes
 
 
 def setup_apj_IDs():
