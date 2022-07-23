@@ -64,7 +64,15 @@ if args.start is not None:
     board_list = board_list[args.start-1:]
 
 def is_ap_periph(board):
-    hwdef = os.path.join('libraries/AP_HAL_ChibiOS/hwdef/%s/hwdef.dat' % board)
+    hal = 'AP_HAL_ChibiOS'
+    list1 = __is_ap_periph(board,hal)
+    hal = 'AP_HAL_ESP32'
+    list2 = __is_ap_periph(board,hal)
+    nodupes = list(set(list1)|set(list2))
+    return nodupes
+    
+def __is_ap_periph(board,hal):
+    hwdef = os.path.join('libraries/%s/hwdef/%s/hwdef.dat' % (hal,board))
     try:
         r = open(hwdef, 'r').read()
         if r.find('periph/hwdef.dat') != -1 or r.find('AP_PERIPH') != -1:
