@@ -15,6 +15,10 @@
 
 #include <AP_HAL_ESP32/UARTDriver.h>
 #include <AP_Math/AP_Math.h>
+#include "Semaphores.h"
+#include <AP_HAL_ESP32/Scheduler.h>
+#include "UARTDriver.h"
+
 
 #include "esp_log.h"
 
@@ -25,8 +29,26 @@ namespace ESP32
 
 UARTDesc uart_desc[] = {HAL_ESP32_UART_DEVICES};
 
+const UARTDriver::SerialDef UARTDriver::_serial_tab[] = { HAL_ESP32_UART_DEVICES };
+
+// table to find UARTDrivers from serial number, used for event handling
+//#define UART_MAX_DRIVERS 11
+UARTDriver *UARTDriver::uart_drivers[UART_MAX_DRIVERS];
+
+
+UARTDriver::UARTDriver(uint8_t _serial_num) :
+serial_num(_serial_num),
+sdef(_serial_tab[_serial_num])
+//_baudrate(57600)
+{
+    if(serial_num > UART_MAX_DRIVERS) {  ets_printf("too many UART drivers"); }//ets is very low level and can't print floats etc
+    uart_drivers[serial_num] = this;
+    //no printf allowed in static constructor, not allowed
+}
+
 void UARTDriver::vprintf(const char *fmt, va_list ap)
 {
+    WITH_SEMAPHORE(sem); // the idea is that no other thread can printf to the console etc till the current one finishes its line/action/etc.
 
     uart_port_t p = uart_desc[uart_num].port;
     if (p == 0) {
@@ -34,6 +56,8 @@ void UARTDriver::vprintf(const char *fmt, va_list ap)
     } else {
         AP_HAL::UARTDriver::vprintf(fmt, ap);
     }
+    hal.scheduler->delay_microseconds(10000);// time for hw to flush while holding sem ?
+    // todo use ets_printf 
 }
 
 void UARTDriver::begin(uint32_t b)
@@ -41,6 +65,18 @@ void UARTDriver::begin(uint32_t b)
     begin(b, 0, 0);
 }
 
+// disable TX/RX pins for unusued uart
+void UARTDriver::disable_rxtx(void) const
+{
+    // if (arx_line) {
+    //     palSetLineMode(arx_line, PAL_MODE_INPUT);
+    // }
+    // if (atx_line) {
+    //     palSetLineMode(atx_line, PAL_MODE_INPUT);
+    // }
+    // nop on esp32
+}
+ 
 
 void UARTDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 {

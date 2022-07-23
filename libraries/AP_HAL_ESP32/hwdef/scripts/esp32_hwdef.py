@@ -69,7 +69,7 @@ inonlypins = [
 # RTC stuff is different and has its own mux
 
 #. The IO_MUX contains one register per GPIO pad. 
-# Each pad can be configured to perform a ”GPIO” function
+# Each pad can be configured to perform a âGPIOâ function
 #(when connected to the GPIO Matrix) or a direct function (bypassing the GPIO Matrix). 
 # Some high-speed digital functions (Ethernet, SDIO, SPI, JTAG, UART) can bypass the GPIO Matrix for better high-frequency
 #digital performance. In this case, the IO_MUX is used to connect these pads directly to the peripheral.)
@@ -290,7 +290,7 @@ esp32_gpio_matrix = {
 # tbl 18 in ref man
 
 #GPIO Pad_Name Function_0 Function_1 Function_2 Function_3 Function_4 Function_5 Reset Notes
-# ”Reset” column shows each pad’s default configurations after reset:
+# âResetâ column shows each padâs default configurations after reset:
 #  0=input-disabled
 #  1=input-enabled
 #  2=input-enabled-pull-down

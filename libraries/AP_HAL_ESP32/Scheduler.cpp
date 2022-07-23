@@ -12,10 +12,13 @@
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <AP_HAL/AP_HAL.h>
 
-#include "AP_HAL_ESP32/Scheduler.h"
-#include "AP_HAL_ESP32/RCInput.h"
-#include "AP_HAL_ESP32/AnalogIn.h"
+#include "AP_HAL_ESP32.h"
+
+#include "Scheduler.h"
+#include "RCInput.h"
+#include "AnalogIn.h"
 #include "AP_Math/AP_Math.h"
 #include "SdCard.h"
 #include "Profile.h"
@@ -28,8 +31,15 @@
 #include "esp_int_wdt.h"
 #include "esp_task_wdt.h"
 
-#include <AP_HAL/AP_HAL.h>
+//#include <AP_HAL/AP_HAL.h>
 #include <stdio.h>
+#include "Semaphores.h"
+
+#include "esp_wifi.h"
+#include "esp_event.h"
+
+#include "esp_log.h"
+
 
 //#define SCHEDULERDEBUG 1
 
@@ -62,20 +72,50 @@ void disableCore1WDT()
 void Scheduler::init()
 {
 
-#ifdef SCHEDDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+    hal.console->printf("%s:%d running with CONFIG_FREERTOS_HZ=%d\n", __PRETTY_FUNCTION__, __LINE__,CONFIG_FREERTOS_HZ);
 
-    //xTaskCreatePinnedToCore(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle, 0);
-    xTaskCreate(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle);
-    xTaskCreate(_timer_thread, "APM_TIMER", TIMER_SS, this, TIMER_PRIO, &_timer_task_handle);
-    xTaskCreate(_rcout_thread, "APM_RCOUT", RCOUT_SS, this, RCOUT_PRIO, &_rcout_task_handle);
-    xTaskCreate(_rcin_thread, "APM_RCIN", RCIN_SS, this, RCIN_PRIO, &_rcin_task_handle);
-    xTaskCreate(_uart_thread, "APM_UART", UART_SS, this, UART_PRIO, &_uart_task_handle);
-    xTaskCreate(_io_thread, "APM_IO", IO_SS, this, IO_PRIO, &_io_task_handle);
-    xTaskCreate(_storage_thread, "APM_STORAGE", STORAGE_SS, this, STORAGE_PRIO, &_storage_task_handle); //no actual flash writes without this, storage kinda appears to work, but does an erase on every boot and params don't persist over reset etc.
+    // pin main thread to Core 0, and we'll also pin other heavy-tasks to core 1, like wifi-related.
+    if (xTaskCreatePinnedToCore(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle,0) != pdPASS) {
+    //if (xTaskCreate(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle) != pdPASS) {
+        hal.console->printf("FAILED to create task _main_thread\n");
+    }
+    hal.console->printf("OK created task _main_thread\n");
 
-    //   xTaskCreate(_print_profile, "APM_PROFILE", IO_SS, this, IO_PRIO, nullptr);
+    if (xTaskCreate(_timer_thread, "APM_TIMER", TIMER_SS, this, TIMER_PRIO, &_timer_task_handle) != pdPASS) {
+        hal.console->printf("FAILED to create task _timer_thread\n");
+    }
+    hal.console->printf("OK created task _timer_thread\n");
+
+    if (xTaskCreate(_rcout_thread, "APM_RCOUT", RCOUT_SS, this, RCOUT_PRIO, &_rcout_task_handle) != pdPASS) {
+       hal.console->printf("FAILED to create task _rcout_thread\n");
+    }
+    hal.console->printf("OK created task _rcout_thread\n");
+
+    if (xTaskCreate(_rcin_thread, "APM_RCIN", RCIN_SS, this, RCIN_PRIO, &_rcin_task_handle) != pdPASS) {
+       hal.console->printf("FAILED to create task _rcin_thread\n");
+    }
+    hal.console->printf("OK created task _rcin_thread\n");
+
+    // pin this thread to Core 1
+    if (xTaskCreatePinnedToCore(_uart_thread, "APM_UART", UART_SS, this, UART_PRIO, &_uart_task_handle,1) != pdPASS) {
+    //if (xTaskCreate(_uart_thread, "APM_UART", UART_SS, this, UART_PRIO, &_uart_task_handle) != pdPASS) {
+            hal.console->printf("FAILED to create task _uart_thread\n");
+    }
+    hal.console->printf("OK created task _uart_thread\n");
+
+    if (xTaskCreate(_io_thread, "SchedulerIO:APM_IO", IO_SS, this, IO_PRIO, &_io_task_handle) != pdPASS) {
+        hal.console->printf("FAILED to create task _io_thread\n");
+    }
+    hal.console->printf("OK created task _io_thread\n");
+
+    if (xTaskCreate(_storage_thread, "APM_STORAGE", STORAGE_SS, this, STORAGE_PRIO, &_storage_task_handle) != pdPASS) { //no actual flash writes without this, storage kinda appears to work, but does an erase on every boot and params don't persist over reset etc.
+        hal.console->printf("FAILED to create task _storage_thread\n");
+    }
+    hal.console->printf("OK created task _storage_thread\n");
+
+    //if (xTaskCreate(_print_profile, "APM_PROFILE", IO_SS, this, IO_PRIO, nullptr) != pdPASS) {
+    //    hal.console->printf("FAILED to create task _io_thread\n");
+    //}
 
     //disableCore0WDT();
     //disableCore1WDT();
@@ -100,9 +140,9 @@ void Scheduler::thread_create_trampoline(void *ctx)
 */
 bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_t stack_size, priority_base base, int8_t priority)
 {
-#ifdef SCHEDDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#ifdef SCHEDDEBUG
+  hal.console->printf("thread_create -> %s\n", name);
+//#endif
 
     // take a copy of the MemberProc, it is freed after thread exits
     AP_HAL::MemberProc *tproc = (AP_HAL::MemberProc *)calloc(1, sizeof(proc));
@@ -130,9 +170,9 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
     };
     for (uint8_t i=0; i<ARRAY_SIZE(priority_map); i++) {
         if (priority_map[i].base == base) {
-#ifdef SCHEDDEBUG
-            printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#ifdef SCHEDDEBUG
+            hal.console->printf("thread_create OK. %s\n",name);
+//#endif
             thread_priority = constrain_int16(priority_map[i].p + priority, 1, 25);
             break;
         }
@@ -141,6 +181,7 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
     tskTaskControlBlock* xhandle;
     BaseType_t xReturned = xTaskCreate(thread_create_trampoline, name, stack_size, tproc, thread_priority, &xhandle);
     if (xReturned != pdPASS) {
+        hal.console->printf("FAILED to create task thread_create_trampoline %s\n",name);
         free(tproc);
         return false;
     }
@@ -173,7 +214,7 @@ void Scheduler::delay_microseconds(uint16_t us)
 void Scheduler::register_timer_process(AP_HAL::MemberProc proc)
 {
 #ifdef SCHEDDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     for (uint8_t i = 0; i < _num_timer_procs; i++) {
         if (_timer_proc[i] == proc) {
@@ -181,7 +222,7 @@ void Scheduler::register_timer_process(AP_HAL::MemberProc proc)
         }
     }
     if (_num_timer_procs >= ESP32_SCHEDULER_MAX_TIMER_PROCS) {
-        printf("Out of timer processes\n");
+        //hal.console->printf("Out of timer processes\n");
         return;
     }
     _timer_sem.take_blocking();
@@ -192,9 +233,7 @@ void Scheduler::register_timer_process(AP_HAL::MemberProc proc)
 
 void Scheduler::register_io_process(AP_HAL::MemberProc proc)
 {
-#ifdef SCHEDDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+
     _io_sem.take_blocking();
     for (uint8_t i = 0; i < _num_io_procs; i++) {
         if (_io_proc[i] == proc) {
@@ -206,7 +245,7 @@ void Scheduler::register_io_process(AP_HAL::MemberProc proc)
         _io_proc[_num_io_procs] = proc;
         _num_io_procs++;
     } else {
-        printf("Out of IO processes\n");
+        //hal.console->printf("Out of IO processes\n");
     }
     _io_sem.give();
 }
@@ -218,7 +257,7 @@ void Scheduler::register_timer_failsafe(AP_HAL::Proc failsafe, uint32_t period_u
 
 void Scheduler::reboot(bool hold_in_bootloader)
 {
-    printf("Restarting now...\n");
+    //hal.console->printf("Restarting now...\n");
     hal.rcout->force_safety_on();
     unmount_sdcard();
     esp_restart();
@@ -232,7 +271,7 @@ bool Scheduler::in_main_thread() const
 void Scheduler::set_system_initialized()
 {
 #ifdef SCHEDDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     if (_initialized) {
         AP_HAL::panic("PANIC: scheduler::system_initialized called more than once");
@@ -249,31 +288,39 @@ bool Scheduler::is_system_initialized()
 void Scheduler::_timer_thread(void *arg)
 {
 #ifdef SCHEDDEBUG
-    //printf("%s:%d start\n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d start\n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n1.TIMER thread has ID %d and %d bytes free stack\n", 48, uxTaskGetStackHighWaterMark(NULL));
 #endif
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
         sched->delay_microseconds(1000);
     }
 #ifdef SCHEDDEBUG
-    //printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n2.TIMER thread has ID %d and %d bytes free stack\n", 49, uxTaskGetStackHighWaterMark(NULL));
+
 #endif
     while (true) {
         sched->delay_microseconds(1000);
         sched->_run_timers();
         //analog in
 #ifndef HAL_DISABLE_ADC_DRIVER
-        ((AnalogIn*)hal.analogin)->_timer_tick();
+       // ((AnalogIn*)hal.analogin)->_timer_tick();
 #endif
     }
 }
 
-void Scheduler::_rcout_thread(void* arg)
+void Scheduler::_rcout_thread(void* arg)  // no printing from this functon block..
 {
     Scheduler *sched = (Scheduler *)arg;
+    //hal.scheduler->delay(1000); // 
+    //hal.console->printf("\n1.RCOUT thread has ID %d and %d bytes free stack\n", 50, uxTaskGetStackHighWaterMark(NULL));
+
     while (!_initialized) {
         sched->delay_microseconds(1000);
     }
+    //hal.scheduler->delay(1000); // 
+    //hal.console->printf("\n2.RCOUT thread has ID %d and %d bytes free stack\n", 51, uxTaskGetStackHighWaterMark(NULL));
 
     while (true) {
         sched->delay_microseconds(4000);
@@ -284,14 +331,11 @@ void Scheduler::_rcout_thread(void* arg)
 
 void Scheduler::_run_timers()
 {
-#ifdef SCHEDULERDEBUG
-    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
     if (_in_timer_proc) {
         return;
     }
 #ifdef SCHEDULERDEBUG
-    printf("%s:%d _in_timer_proc \n", __PRETTY_FUNCTION__, __LINE__);
+    //hal.console->printf("%s:%d _in_timer_proc \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     _in_timer_proc = true;
 
@@ -316,13 +360,17 @@ void Scheduler::_run_timers()
     _in_timer_proc = false;
 }
 
-void Scheduler::_rcin_thread(void *arg)
+void Scheduler::_rcin_thread(void *arg)// no printing from this functon block..
 {
+    //hal.console->printf("\n1.RCIN thread has ID %d and %d bytes free stack\n", 52, uxTaskGetStackHighWaterMark(NULL));
+
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
         sched->delay_microseconds(20000);
     }
     hal.rcin->init();
+    //hal.console->printf("\n2.RCIN thread has ID %d and %d bytes free stack\n", 53, uxTaskGetStackHighWaterMark(NULL));
+
     while (true) {
         sched->delay_microseconds(1000);
         ((RCInput *)hal.rcin)->_timer_tick();
@@ -332,14 +380,18 @@ void Scheduler::_rcin_thread(void *arg)
 void Scheduler::_run_io(void)
 {
 #ifdef SCHEDULERDEBUG
-    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+   // hal.console->printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     if (_in_io_proc) {
         return;
     }
-#ifdef SCHEDULERDEBUG
-    printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#ifdef SCHEDULERDEBUG
+    static uint8_t prevprocs = 0;
+if ( (_num_io_procs > 0 ) && (prevprocs != _num_io_procs ) ) {
+    hal.console->printf("%s:%d initialised _num_io_procs:%d\n", __PRETTY_FUNCTION__, __LINE__,_num_io_procs);
+    prevprocs = _num_io_procs;
+}
+//#endif
     _in_io_proc = true;
 
     int num_procs = 0;
@@ -358,7 +410,9 @@ void Scheduler::_run_io(void)
 void Scheduler::_io_thread(void* arg)
 {
 #ifdef SCHEDDEBUG
-    //printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n1.IO thread has ID %d and %d bytes free stack\n", 54, uxTaskGetStackHighWaterMark(NULL));
+
 #endif
     mount_sdcard();
     Scheduler *sched = (Scheduler *)arg;
@@ -366,7 +420,9 @@ void Scheduler::_io_thread(void* arg)
         sched->delay_microseconds(1000);
     }
 #ifdef SCHEDDEBUG
-    //printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\2.IO thread has ID %d and %d bytes free stack\n", 55, uxTaskGetStackHighWaterMark(NULL));
+
 #endif
     uint32_t last_sd_start_ms = AP_HAL::millis();
     while (true) {
@@ -390,14 +446,18 @@ void Scheduler::_io_thread(void* arg)
 void Scheduler::_storage_thread(void* arg)
 {
 #ifdef SCHEDDEBUG
-    //printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n1.STOR thread has ID %d and %d bytes free stack\n", 56, uxTaskGetStackHighWaterMark(NULL));
+
 #endif
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
         sched->delay_microseconds(10000);
     }
 #ifdef SCHEDDEBUG
-    //printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n2.STOR thread has ID %d and %d bytes free stack\n", 57, uxTaskGetStackHighWaterMark(NULL));
+
 #endif
     while (true) {
         sched->delay_microseconds(1000);
@@ -424,21 +484,25 @@ void Scheduler::_print_profile(void* arg)
 void Scheduler::_uart_thread(void *arg)
 {
 #ifdef SCHEDDEBUG
-    //printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n1.UART thread has ID %d and %d bytes free stack\n", 46, uxTaskGetStackHighWaterMark(NULL));
 #endif
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
         sched->delay_microseconds(2000);
     }
 #ifdef SCHEDDEBUG
-    //printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n2.UART thread has ID %d and %d bytes free stack\n", 47, uxTaskGetStackHighWaterMark(NULL));
+
 #endif
     while (true) {
-        sched->delay_microseconds(1000);
-        for (uint8_t i=0; i<hal.num_serial; i++) {
-            hal.serial(i)->_timer_tick();
-        }
-        hal.console->_timer_tick();
+        sched->delay_microseconds(1000); // WARN, this is a 1millissec delay in the uart thtead.
+        hal.serial(0)->_timer_tick();
+        hal.serial(1)->_timer_tick();
+        hal.serial(2)->_timer_tick();
+        hal.serial(3)->_timer_tick();
+        //hal.console->_timer_tick();
     }
 }
 
@@ -458,20 +522,32 @@ void Scheduler::print_stats(void)
     static int64_t last_run = 0;
     if (AP_HAL::millis64() - last_run > 60000) {
         char buffer[1024];
-        vTaskGetRunTimeStats(buffer);
-        printf("\n\n%s\n", buffer);
+        // https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/kconfig.html#config-freertos-generate-run-time-stats
+        // CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS=y
+        vTaskGetRunTimeStats(buffer); //undefined reference to `vTaskGetRunTimeStats' - needs a particular feature in sdkconfig we may not have now CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS  ? 
+        hal.console->printf("TASK           ABSTIME       PERCENTAGE\n");
+        hal.console->printf("\n\n%s\n", buffer);
+        //https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos.html#_CPPv49vTaskListPc
+        hal.console->printf("STATUS ->Blocked,Ready,Deleted,Suspended\n");
+        hal.console->printf("TASK / STATUS /PRIORITY/STACK-HIGH-WATER-MK(REMAINING)/TASKNUM/COREID\n");
+        vTaskList(buffer);
+        hal.console->printf("\n\n%s\n", buffer);
+
         heap_caps_print_heap_info(0);
         last_run = AP_HAL::millis64();
     }
 
     // printf("loop_rate_hz: %d",get_loop_rate_hz());
 }
-
+// waning cant 'printf' from anywhere in this file other than _main_thread, as printf isn't thread safe so be careful with SCHEDDEBUG =1, hal.console->printf is better.
+// hal-console->prinff() is ...
 void IRAM_ATTR Scheduler::_main_thread(void *arg)
 {
-#ifdef SCHEDDEBUG
-    printf("%s:%d start\n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#ifdef SCHEDDEBUG
+    hal.console->printf("\n%s:%d start\n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n1.MAIN thread has ID %d and %d bytes free stack\n", 44, uxTaskGetStackHighWaterMark(NULL));
+
+//#endif
     Scheduler *sched = (Scheduler *)arg;
     hal.serial(0)->begin(115200);
     hal.serial(1)->begin(57600); //tcp wifi driver
@@ -485,11 +561,14 @@ hal.console->printf("\n%s:%d end of uarts\n", __PRETTY_FUNCTION__, __LINE__);
 
     sched->callbacks->setup();
 
+    hal.console->printf("MAIN b4 set_system_initialized\n");
     sched->set_system_initialized();
+    
 
-#ifdef SCHEDDEBUG
-    printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+// #ifdef SCHEDDEBUG
+//     hal.console->printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+     hal.console->printf("\n2.MAIN thread has ID %d and %d bytes free stack\n", 45, uxTaskGetStackHighWaterMark(NULL));
+// #endif
     while (true) {
         sched->callbacks->loop();
         sched->delay_microseconds(250);

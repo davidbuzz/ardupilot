@@ -1,7 +1,8 @@
 #pragma once
 
 //generated header
-#include <esp32buzz.h>
+#include <hwdef.h>
+//#include <esp32buzz.h>
 
 #define HAL_BOARD_NAME "ESP32"
 #define HAL_CPU_CLASS HAL_CPU_CLASS_150

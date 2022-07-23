@@ -56,10 +56,12 @@ public:
     static void thread_create_trampoline(void *ctx);
     bool thread_create(AP_HAL::MemberProc, const char *name, uint32_t stack_size, priority_base base, int8_t priority) override;
 
-    static const int SPI_PRIORITY = 10; // if your primary imu is spi, this should be above the i2c value, spi is better.
-    static const int MAIN_PRIO    = 24;
-    static const int I2C_PRIORITY = 5; // if your primary imu is i2c, this should be above the spi value, i2c is not preferred.
-    static const int TIMER_PRIO   = 24;
+    // max scheduler priory = 24 according to vTaskList output
+
+    static const int SPI_PRIORITY = 10; //      if your primary imu is spi, this should be above the i2c value, spi is better.
+    static const int MAIN_PRIO    = 24; //cpu0: we want schuler running at full tilt.
+    static const int I2C_PRIORITY = 5;  //      if your primary imu is i2c, this should be above the spi value, i2c is not preferred.
+    static const int TIMER_PRIO   = 24; //      a low priority mere might cause wifi thruput to suffer
     static const int RCIN_PRIO    = 15;
     static const int RCOUT_PRIO   = 10;
     static const int WIFI_PRIO1    = 24; //cpu1: 
@@ -72,11 +74,12 @@ public:
     static const int MAIN_SS    = 1024*5;
     static const int RCIN_SS    = 1024*3;
     static const int RCOUT_SS   = 1024*1.5;
-    static const int WIFI_SS    = 1024*2.25;
+    static const int WIFI_SS1    = 1024*2.25;
+    static const int WIFI_SS2    = 1024*2.25;
     static const int UART_SS    = 1024*2.25;
-    static const int DEVICE_SS  = 1024*4;
-    static const int IO_SS      = 1024*3.5;
-    static const int STORAGE_SS = 1024*2;
+    static const int DEVICE_SS  = 1024*4;   //       (DEVICEBUS/s)
+    static const int IO_SS      = 1024*3.5; //       (APM_IO)
+    static const int STORAGE_SS = 1024*2;   //       (APM_STORAGE)
 
 private:
     AP_HAL::HAL::Callbacks *callbacks;
@@ -89,6 +92,8 @@ private:
     uint8_t _num_io_procs;
 
     static bool _initialized;
+
+    int run_timer_state = 0;
 
 
 
@@ -123,4 +128,7 @@ private:
     bool _in_io_proc;
     void _run_io();
     Semaphore _io_sem;
+public:
+    Semaphore sem;
+
 };

@@ -4,8 +4,7 @@
 Waf tool for ESP32 build
 """
 
-from waflib import Build, ConfigSet, Configure, Context, Task, Utils
-from waflib import Errors, Logs
+from waflib import Errors, Logs, Task, Utils, Context, Build, ConfigSet, Configure
 from waflib.TaskGen import before, after_method, before_method, feature
 from waflib.Configure import conf
 from collections import OrderedDict
@@ -15,6 +14,7 @@ import shutil
 import sys
 import re
 import pickle
+import struct
 import subprocess
 
 def configure(cfg):
@@ -54,16 +54,55 @@ def configure(cfg):
         env.DEFAULT_PARAMETERS = cfg.srcnode.abspath()+"/libraries/AP_HAL_ESP32/boards/defaults.parm"
     print("USING DEFAULT_PARAMETERS:"+str(env.DEFAULT_PARAMETERS))
 
+    try:
+        ret = _generate_hwdef_h(env)
+    except Exception:
+        cfg.fatal("Failed to process hwdef.dat")
+    if ret != 0:
+        cfg.fatal("Failed to process hwdef.dat ret=%d" % ret)
     #env.append_value('GIT_SUBMODULES', 'esp_idf')
 
+    load_env_vars(cfg.env)
 
-def pre_build(self):
+def _generate_hwdef_h(env):
+    '''run esp32_hwdef.py'''
+    import subprocess
+    # if env.BOOTLOADER:
+    #     if len(env.HWDEF) == 0:
+    #         env.HWDEF = os.path.join(env.SRCROOT, 'libraries/AP_HAL_ESP32/hwdef/%s/hwdef-bl.dat' % env.BOARD)
+    #     else:
+    #         # update to using hwdef-bl.dat
+    #         env.HWDEF = env.HWDEF.replace('hwdef.dat', 'hwdef-bl.dat')
+    #     env.BOOTLOADER_OPTION="--bootloader"
+    # else:
+    if len(env.HWDEF) == 0:
+        env.HWDEF = os.path.join(env.SRCROOT, 'libraries/AP_HAL_ESP32/hwdef/%s/hwdef.dat' % env.BOARD)
+    env.BOOTLOADER_OPTION=""
+
+    hwdef_script = os.path.join(env.SRCROOT, 'libraries/AP_HAL_ESP32/hwdef/scripts/esp32_hwdef.py')
+    hwdef_out = env.BUILDROOT
+    if not os.path.exists(hwdef_out):
+        os.mkdir(hwdef_out)
+    python = sys.executable
+    cmd = "{0} '{1}' -D '{2}' --params '{3}' '{4}'".format(python, hwdef_script, hwdef_out, env.DEFAULT_PARAMETERS, env.HWDEF)
+    # if env.HWDEF_EXTRA:
+    #     cmd += " '{0}'".format(env.HWDEF_EXTRA)
+    # if env.BOOTLOADER_OPTION:
+    #     cmd += " " + env.BOOTLOADER_OPTION
+    print("BUZZ generate hwdef.h from .dat",cmd)
+    return subprocess.call(cmd, shell=True)
+
+def pre_build(bld):
     """Configure esp-idf as lib target"""
+    load_env_vars(bld.env)
+    if bld.env.HAL_NUM_CAN_IFACES:
+        bld.get_board().with_can = True
     lib_vars = OrderedDict()
-    lib_vars['ARDUPILOT_CMD'] = self.cmd
-    lib_vars['ARDUPILOT_LIB'] = self.bldnode.find_or_declare('lib/').abspath()
-    lib_vars['ARDUPILOT_BIN'] = self.bldnode.find_or_declare('lib/bin').abspath()
-    esp_idf = self.cmake(
+    print("BUZZ pre_build ARDUPILOT_CMD=",bld.cmd)
+    lib_vars['ARDUPILOT_CMD'] = bld.cmd
+    lib_vars['ARDUPILOT_LIB'] = bld.bldnode.find_or_declare('lib/').abspath()
+    lib_vars['ARDUPILOT_BIN'] = bld.bldnode.find_or_declare('lib/bin').abspath()
+    esp_idf = bld.cmake(
             name='esp-idf',
             cmake_vars=lib_vars,
             cmake_src='libraries/AP_HAL_ESP32/targets/esp-idf',
@@ -83,9 +122,29 @@ def pre_build(self):
             #print(includes)
             bld.env.prepend_value('INCLUDES', includes)
 
-    tsk = load_generated_includes(env=self.env)
-    tsk.set_inputs(self.path.find_resource('esp-idf_build/includes.list'))
-    self.add_to_group(tsk)
+    tsk = load_generated_includes(env=bld.env)
+    tsk.set_inputs(bld.path.find_resource('esp-idf_build/includes.list'))
+    bld.add_to_group(tsk)
+
+
+#makes two .a files into a single .a file....
+class build_esp32_image_periph(Task.Task):
+    '''build an esp32 image'''
+    color='CYAN'
+    # this command takes the bottom THREE .a files and smashes them together into one .a file. 
+    # libraries/AP_HAL_ESP32/utils/periph.mri contains:
+    # create bin/AP_Periph.a
+    # addlib lib/bin/libAP_Periph.a
+    # addlib lib/libAP_Periph_libs.a
+    # addlib Tools/AP_Periph/liblibcanard.a
+    # save
+    # end
+    run_str="xtensa-esp32s3-elf-ar -M < ../../libraries/AP_HAL_ESP32/utils/periph.mri"
+    always_run = True
+    def keyword(self):
+        return "tuning periph triple-libs into a single one with AR and custom target...\n"
+    def __str__(self):
+        return self.outputs[0].path_from(self.generator.bld.bldnode)
 
 
 @feature('esp32_ap_program')
@@ -97,7 +156,25 @@ def esp32_firmware(self):
     build = esp_idf.build('all', target='esp-idf_build/ardupilot.bin')
     build.post()
 
-    build.cmake_build_task.set_run_after(self.link_task)
+    #for periph only, this is a 
+    bin_target = self.bld.bldnode.find_or_declare('bin/periph.bin')
+    # periph:
+    print("esp32_firmware:",self.link_task.outputs[0])
+    if str(self.link_task.outputs[0]).endswith('libAP_Periph.a'):
+        #build final image
+        src_in = [self.bld.bldnode.find_or_declare('lib/libAP_Periph_libs.a'),
+                  self.bld.bldnode.find_or_declare('lib/bin/libAP_Periph.a')]
+        img_out0 = self.bld.bldnode.find_or_declare('bin/AP_Periph.a')
+        # img_out1 = self.bld.bldnode.find_or_declare('bin/AP_Periph.elf')
+        # img_out2 = self.bld.bldnode.find_or_declare('bin/AP_Periph.bin')
+        self.generate_bin_task = self.create_task('build_esp32_image_periph', src=src_in, tgt=img_out0)
+        self.generate_bin_task.set_run_after(self.link_task)
+        build.cmake_build_task.set_run_after(self.generate_bin_task)
+
+    else:
+        build.cmake_build_task.set_run_after(self.link_task)
+    #
+
 
     # tool that can update the default params in a .bin or .apj
     #self.default_params_task = self.create_task('set_default_parameters',
@@ -121,59 +198,38 @@ class set_default_parameters(Task.Task):
         # TIP:  if u do try this, afterwards, be sure to 'rm -rf build/esp32buzz/idf-plane/*.bin' and re-run waf
         return
 
-        # (752) esp_image: Checksum failed. Calculated 0xd3 read 0xa3
-        # (752) boot: OTA app partition slot 0 is not bootable
-        # (753) esp_image: image at 0x200000 has invalid magic byte
-        # (759) boot_comm: mismatch chip ID, expected 0, found 65535
-        # (766) boot_comm: can't run on lower chip revision, expected 1, found 255
-        # (773) esp_image: image at 0x200000 has invalid SPI mode 255
-        # (779) esp_image: image at 0x200000 has invalid SPI size 15
-        # (786) boot: OTA app partition slot 1 is not bootable
-        # (792) boot: No bootable app partitions in the partition table
-
-
-        # skip task if nothing to do.
-        if not self.env.DEFAULT_PARAMETERS:
-            return
-
-        default_parameters = self.env.get_flat('DEFAULT_PARAMETERS').replace("'", "")
-        #print("apj defaults file:"+str(default_parameters))
-
-        _bin = str(self.inputs[0])
-
-        # paranoia check  before and after apj_tool to see if file hash has changed...
-        cmd = "shasum -b {0}".format( _bin )
-        result = subprocess.check_output(cmd, shell=True)
-        prehash = str(result).split(' ')[0][2:]
-
-        cmd = "{1} {2} --set-file {3}".format(self.env.SRCROOT, self.env.APJ_TOOL, _bin, default_parameters )
-        print(cmd)
-        result = subprocess.check_output(cmd, shell=True)
-        if not isinstance(result, str):
-            result = result.decode()
-        for i in str(result).split('\n'):
-            print("\t"+i)
-
-        # paranoia check  before and after apj_tool to see if file hash has changed...
-        cmd = "shasum -b {0}".format( _bin )
-        result = subprocess.check_output(cmd, shell=True)
-        posthash = str(result).split(' ')[0][2:]
-
-        # display --show output, helpful.
-        cmd = "{1} {2} --show ".format(self.env.SRCROOT, self.env.APJ_TOOL, _bin )
-        print(cmd)
-        result = subprocess.check_output(cmd, shell=True)
-        if not isinstance(result, str):
-            result = result.decode()
-        for i in str(result).split('\n'):
-            print("\t"+i)
-
-        # were embedded params updated in .bin?
-        if prehash == posthash:
-            print("Embedded params in .bin unchanged (probably already up-to-date)")
+def load_env_vars(env):
+    '''optionally load extra environment variables from env.py in the build directory'''
+    # right now the esp32 build doesn't actually use this, afaict, except for flagging periph builds?
+    print("Checking for env.py")
+    env_py = os.path.join(env.BUILDROOT, 'env.py')
+    if not os.path.exists(env_py):
+        print("No env.py found")
+        return
+    e = pickle.load(open(env_py, 'rb'))
+    for k in e.keys():
+        v = e[k]
+        #print("BUZZ en loaded:",v,k,e[k])
+        if k == 'ROMFS_FILES':
+            env.ROMFS_FILES += v
+            continue
+        if k in env:
+            if isinstance(env[k], dict):
+                a = v.split('=')
+                env[k][a[0]] = '='.join(a[1:])
+                print("env updated %s=%s" % (k, v))
+            elif isinstance(env[k], list):
+                env[k].append(v)
+                print("env appended %s=%s" % (k, v))
+            else:
+                env[k] = v
+                print("env added %s=%s" % (k, v))
         else:
-            print("Embedded params in .bin UPDATED")
-
-
-
-
+            env[k] = v
+            print("esp32 env set %s=%s" % (k, v))
+    if env.ENABLE_ASSERTS:
+        env.CHIBIOS_BUILD_FLAGS += ' ENABLE_ASSERTS=yes'
+    if env.ENABLE_MALLOC_GUARD:
+        env.CHIBIOS_BUILD_FLAGS += ' ENABLE_MALLOC_GUARD=yes'
+    if env.ENABLE_STATS:
+        env.CHIBIOS_BUILD_FLAGS += ' ENABLE_STATS=yes'

@@ -13,6 +13,9 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// https://github.com/espressif/esp-idf/blob/v4.4.1/examples/protocols/sockets/udp_server/main/udp_server.c
+
+
 #include <AP_HAL_ESP32/WiFiUdpDriver.h>
 #include <AP_Math/AP_Math.h>
 #include <AP_HAL_ESP32/Scheduler.h>
@@ -22,20 +25,24 @@
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
 #include "esp_system.h"
-#include "esp_wifi.h"
-#include "esp_event_loop.h"
 #include "nvs_flash.h"
-#include "esp_event.h"
-#include "esp_log.h"
+#include "esp_netif.h"
 
 #include "lwip/err.h"
 #include "lwip/sockets.h"
 #include "lwip/sys.h"
 #include "lwip/netdb.h"
 
+#include "esp_wifi.h"
+#include "esp_event.h"
+
+#include "WiFiSetup.h"
+
+
 using namespace ESP32;
 
 extern const AP_HAL::HAL& hal;
+extern void initialize_wifi(); // see WiFiSetup.cpp
 
 #define UDP_PORT 14550
 
@@ -53,12 +60,14 @@ void WiFiUdpDriver::begin(uint32_t b)
 void WiFiUdpDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 {
     if (_state == NOT_INITIALIZED) {
-        initialize_wifi();
+        ::initialize_wifi();
         if (!start_listen()) {
             return;
         }
 
-        xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
+        if (xTaskCreatePinnedToCore(_wifi_thread2, "APM_WIFI2", Scheduler::WIFI_SS2, this, Scheduler::WIFI_PRIO2, &_wifi_task_handle,1) != pdPASS) {
+            hal.console->printf("FAILED to create task _wifi_thread2\n");
+        }
         _readbuf.set_size(RX_BUF_SIZE);
         _writebuf.set_size(TX_BUF_SIZE);
         _state = INITIALIZED;
@@ -147,13 +156,16 @@ bool WiFiUdpDriver::read_all()
     _read_mutex.take_blocking();
     struct sockaddr_in client_addr;
     socklen_t socklen = sizeof(client_addr);
-    int count = recvfrom(accept_socket, _buffer, sizeof(_buffer) - 1, 0, (struct sockaddr *)&client_addr, &socklen);
-    if (count > 0) {
-        _readbuf.write(_buffer, count);
-        _read_mutex.give();
-    } else {
-        return false;
-    }
+    int count=0;
+    do {
+        count = recvfrom(accept_socket, _buffer, sizeof(_buffer) - 1, 0, (struct sockaddr *)&client_addr, &socklen);
+        if (count > 0) {
+            _readbuf.write(_buffer, count);
+            _read_mutex.give();
+        } //else {
+          //   return false;
+        //}
+    } while (count > 0);
     _read_mutex.give();
     return true;
 }
@@ -166,48 +178,23 @@ bool WiFiUdpDriver::write_data()
     dest_addr.sin_addr.s_addr = inet_addr("192.168.4.255");
     dest_addr.sin_family = AF_INET;
     dest_addr.sin_port = htons(UDP_PORT);
-    int count = _writebuf.peekbytes(_buffer, sizeof(_buffer));
-    if (count > 0) {
-        count = sendto(accept_socket, _buffer, count, 0, (struct sockaddr *)&dest_addr, sizeof(dest_addr));
+    int count = 0;
+    do {
+        count = _writebuf.peekbytes(_buffer, sizeof(_buffer));
         if (count > 0) {
-            _writebuf.advance(count);
-        } else {
-            _write_mutex.give();
-            return false;
+            count = sendto(accept_socket, _buffer, count, 0, (struct sockaddr *)&dest_addr, sizeof(dest_addr));
+            if (count > 0) {
+                _writebuf.advance(count);
+            } //else {
+              //  _write_mutex.give();
+              //  return false;
+           // }
         }
-    }
+    } while (count>0);
     _write_mutex.give();
     return true;
 }
 
-void WiFiUdpDriver::initialize_wifi()
-{
-    esp_event_loop_init(nullptr, nullptr);
-
-    tcpip_adapter_init();
-    nvs_flash_init();
-
-    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    esp_wifi_init(&cfg);
-    esp_wifi_set_storage(WIFI_STORAGE_FLASH);
-    wifi_config_t wifi_config;
-    memset(&wifi_config, 0, sizeof(wifi_config));
-#ifdef WIFI_SSID
-    strcpy((char *)wifi_config.ap.ssid, WIFI_SSID);
-#else
-    strcpy((char *)wifi_config.ap.ssid, "ardupilot");
-#endif
-#ifdef WIFI_PWD
-    strcpy((char *)wifi_config.ap.password, WIFI_PWD);
-#else
-    strcpy((char *)wifi_config.ap.password, "ardupilot1");
-#endif
-    wifi_config.ap.authmode = WIFI_AUTH_WPA_WPA2_PSK;
-    wifi_config.ap.max_connection = 4;
-    esp_wifi_set_mode(WIFI_MODE_AP);
-    esp_wifi_set_config(WIFI_IF_AP, &wifi_config);
-    esp_wifi_start();
-}
 
 size_t WiFiUdpDriver::write(uint8_t c)
 {
@@ -224,7 +211,7 @@ size_t WiFiUdpDriver::write(const uint8_t *buffer, size_t size)
     return ret;
 }
 
-void WiFiUdpDriver::_wifi_thread(void *arg)
+void WiFiUdpDriver::_wifi_thread2(void *arg)
 {
     WiFiUdpDriver *self = (WiFiUdpDriver *) arg;
     while (true) {
