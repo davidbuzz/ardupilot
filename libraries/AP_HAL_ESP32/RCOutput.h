@@ -23,7 +23,8 @@
 #include "AP_HAL_ESP32_Namespace.h"
 #include "driver/mcpwm.h"
 
-#include <AP_HAL/Util.h>
+//#include <AP_HAL/Util.h>
+#include "AP_HAL_ESP32.h"
 
 namespace ESP32
 {
