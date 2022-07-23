@@ -16,6 +16,8 @@
 #define O_CLOEXEC 0
 #define HAL_STORAGE_SIZE (16384)
 
+
+
 // allow for static semaphores
 #include <type_traits>
 #include <AP_HAL_ESP32/Semaphores.h>
