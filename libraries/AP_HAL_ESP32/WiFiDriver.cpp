@@ -13,6 +13,9 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// https://github.com/espressif/esp-idf/blob/v4.4.1/examples/protocols/sockets/tcp_server/main/tcp_server.c
+
+
 #include <AP_HAL_ESP32/WiFiDriver.h>
 #include <AP_Math/AP_Math.h>
 #include <AP_HAL_ESP32/Scheduler.h>
@@ -22,21 +25,32 @@
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
 #include "esp_system.h"
-#include "esp_wifi.h"
-#include "esp_event_loop.h"
 #include "nvs_flash.h"
+#include "esp_netif.h"
 
 #include "lwip/err.h"
 #include "lwip/sockets.h"
 #include "lwip/sys.h"
 #include "lwip/netdb.h"
 
+#include "esp_wifi.h"
+#include "esp_event.h"
+
+#include "WiFiSetup.h"
+
 using namespace ESP32;
 
 extern const AP_HAL::HAL& hal;
+extern void initialize_wifi(); // see WiFiSetup.cpp
+
+#define TCP_PORT 5760
+
 
 WiFiDriver::WiFiDriver()
 {
+#ifdef WIFIDEBUG
+   ////hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
     _state = NOT_INITIALIZED;
     accept_socket = -1;
 
@@ -52,9 +66,18 @@ void WiFiDriver::begin(uint32_t b)
 
 void WiFiDriver::begin(uint32_t b, uint16_t rxS, uint16_t txS)
 {
+////#ifdef WIFIDEBUG
+   ////hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+//#endif
+    hal.console->printf("%s:%d TCP state:%d\n", __PRETTY_FUNCTION__, __LINE__,_state);
+
     if (_state == NOT_INITIALIZED) {
-        initialize_wifi();
-        xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO, &_wifi_task_handle);
+        ::initialize_wifi();
+        // pin this thread to Core 1
+        if (xTaskCreatePinnedToCore(_wifi_thread, "APM_WIFI1", Scheduler::WIFI_SS1, this, Scheduler::WIFI_PRIO1, &_wifi_task_handle,1) != pdPASS) {
+        //if (xTaskCreate(_wifi_thread, "APM_WIFI", Scheduler::WIFI_SS, this, Scheduler::WIFI_PRIO1, &_wifi_task_handle) != pdPASS) {
+            //hal.console->printf("FAILED to create task _wifi_thread\n");
+        }
         _readbuf.set_size(RX_BUF_SIZE);
         _writebuf.set_size(TX_BUF_SIZE);
         _state = INITIALIZED;
@@ -90,6 +113,7 @@ uint32_t WiFiDriver::available()
     if (_state != CONNECTED) {
         return 0;
     }
+    //hal.console->printf("WiFiDriver::available ? %d\n",_readbuf.available());
     return _readbuf.available();
 }
 
@@ -127,7 +151,7 @@ bool WiFiDriver::start_listen()
     struct sockaddr_in destAddr;
     destAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     destAddr.sin_family = AF_INET;
-    destAddr.sin_port = htons(5760);
+    destAddr.sin_port = htons(TCP_PORT);
     int err = bind(accept_socket, (struct sockaddr *)&destAddr, sizeof(destAddr));
     if (err != 0) {
         close(accept_socket);
@@ -211,32 +235,7 @@ bool WiFiDriver::write_data()
     return true;
 }
 
-void WiFiDriver::initialize_wifi()
-{
-    tcpip_adapter_init();
-    nvs_flash_init();
-    esp_event_loop_init(nullptr, nullptr);
-    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    esp_wifi_init(&cfg);
-    esp_wifi_set_storage(WIFI_STORAGE_FLASH);
-    wifi_config_t wifi_config;
-    memset(&wifi_config, 0, sizeof(wifi_config));
-#ifdef WIFI_SSID
-    strcpy((char *)wifi_config.ap.ssid, WIFI_SSID);
-#else
-    strcpy((char *)wifi_config.ap.ssid, "ardupilot");
-#endif
-#ifdef WIFI_PWD
-    strcpy((char *)wifi_config.ap.password, WIFI_PWD);
-#else
-    strcpy((char *)wifi_config.ap.password, "ardupilot1");
-#endif
-    wifi_config.ap.authmode = WIFI_AUTH_WPA_WPA2_PSK;
-    wifi_config.ap.max_connection = WIFI_MAX_CONNECTION;
-    esp_wifi_set_mode(WIFI_MODE_AP);
-    esp_wifi_set_config(WIFI_IF_AP, &wifi_config);
-    esp_wifi_start();
-}
+
 
 size_t WiFiDriver::write(uint8_t c)
 {

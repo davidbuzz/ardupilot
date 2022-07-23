@@ -701,8 +701,11 @@ def _build_recursion(bld):
         if bld.env.IOMCU_FW:
             dirs_to_recurse.append('libraries/AP_IOMCU/iofirmware')
 
-    if bld.env.PERIPH_FW is not None:
+    if bld.env.PERIPH_FW == 1:
+        print("BUZZ PERIPH_FW is-not-none",bld.env.PERIPH_FW)
+        bld.env['PERIPH_FW'] = 1
         if bld.env.PERIPH_FW:
+            print("BUZZ PERIPH_FW ...",bld.env.PERIPH_FW)
             dirs_to_recurse.append('Tools/AP_Periph')
 
     dirs_to_recurse.append('libraries/AP_Scripting')
@@ -738,7 +741,9 @@ def _load_pre_build(bld):
     if bld.cmd == 'clean':
         return
     brd = bld.get_board()
+    print("_load_pre_build",bld.env.AP_PERIPH)
     if bld.env.AP_PERIPH:
+        print("BUZZ pre_build periph needs dsdl for libcanard..")
         dsdlc_gen_path = bld.bldnode.make_node('modules/DroneCAN/libcanard/dsdlc_generated/include').abspath()
         #check if canard dsdlc directory empty
         # check if directory exists
