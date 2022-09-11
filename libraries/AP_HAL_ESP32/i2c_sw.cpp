@@ -34,8 +34,13 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+#include <AP_HAL/AP_HAL.h>
+#include <AP_HAL/AP_HAL_Boards.h>
+
+
 #include "esp_attr.h"
-#if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_S3DEVKIT
+// if an S3 target..?
+#if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_S3DEVKIT || CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_S3DEVKITPERIPH || CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_S3BUZZ || CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_S3BUZZ_PERIPH
 #include "esp32s3/rom/ets_sys.h"
 #else
 #include "esp32/rom/ets_sys.h"
@@ -51,7 +56,7 @@
 #include "esp_types.h"
 #include "esp_attr.h"
 #include "esp_intr_alloc.h"
-#include "esp_log.h"
+//#include "esp_log.h" ets_sys.h:64:5: error: redeclaration of enumerator 'ETS_OK'
 #include "malloc.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"

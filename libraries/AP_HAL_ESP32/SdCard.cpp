@@ -127,6 +127,7 @@ void mount_sdcard_mmc()
     // Modify slot_config.gpio_cd and slot_config.gpio_wp if your board has these signals.
     //sdmmc_slot_config_t slot_config = SDMMC_SLOT_CONFIG_DEFAULT();
 
+#ifdef SOC_SDMMC_USE_GPIO_MATRIX
     sdmmc_slot_config_t slot_config = { \
                                 .clk = GPIO_NUM_14, \
                                 .cmd = GPIO_NUM_15, \
@@ -143,7 +144,6 @@ void mount_sdcard_mmc()
                                 .width = 1, \
                                 .flags = 0\
                                 };
-
 
     // To use 1-line SD mode (this driver does), uncomment the following line:
     //slot_config.width = 1;
@@ -163,6 +163,9 @@ void mount_sdcard_mmc()
     //   then uncomment this line and connect it electrically to the CS pin on the SDcard.
     //gpio_set_pull_mode(GPIO_NUM_13, GPIO_PULLUP_ONLY);   // D3, needed in 4- and 1-line modes
 
+#else
+    sdmmc_slot_config_t slot_config = SDMMC_SLOT_CONFIG_DEFAULT();
+#endif
     // https://www.esp32.com/viewtopic.php?t=3155 says that this might prevent a spirious error-msg, but without these lines
     // we are still able to mount the SD in 1-wire mode, so this is more to quieten the boot message then to fix any bug:
     // E (1904) sdmmc_req: sdmmc_host_wait_for_event returned 0x107

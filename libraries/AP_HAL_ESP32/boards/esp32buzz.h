@@ -32,6 +32,8 @@
 //#define CONFIG_HAL_BOARD 12
 //#define HAL_BOARD_ESP32 12
 
+#define CONFIG_HAL_BOARD_SUBTYPE HAL_BOARD_SUBTYPE_ESP32_BUZZ
+
 //INS choices:
 #define HAL_INS_DEFAULT HAL_INS_MPU9250_SPI
 //#define HAL_INS_MPU9250_NAME "MPU9250"
@@ -79,12 +81,26 @@
 //GPIO_NUM_8
 //GPIO_NUM_9
 //GPIO_NUM_10
+// S3?
+// #define HAL_ESP32_ADC_PINS_OPTION1 {
+// 	{ADC1_GPIO4_CHANNEL, 11, 1},
+// 	{ADC1_GPIO8_CHANNEL, 11, 2},
+// 	{ADC1_GPIO9_CHANNEL, 11, 3},
+// 	{ADC1_GPIO10_CHANNEL, 11, 4}
+// }
+// classic uses pins 35,34,39,36 in that order:
 #define HAL_ESP32_ADC_PINS_OPTION1 {\
-	{ADC1_GPIO4_CHANNEL, 11, 1},\
-	{ADC1_GPIO8_CHANNEL, 11, 2},\
-	{ADC1_GPIO9_CHANNEL, 11, 3},\
-	{ADC1_GPIO10_CHANNEL, 11, 4}\
+	{ADC1_CHANNEL_7_GPIO_NUM, 11, 1},\
+	{ADC1_CHANNEL_7_GPIO_NUM, 11, 2},\
+	{ADC1_CHANNEL_3_GPIO_NUM, 11, 3},\
+	{ADC1_CHANNEL_0_GPIO_NUM, 11, 4}\
 }
+// #define ADC1_CHANNEL_0_GPIO_NUM 36
+// #define ADC1_CHANNEL_3_GPIO_NUM 39
+// #define ADC1_CHANNEL_7_GPIO_NUM 34
+// #define ADC1_CHANNEL_7_GPIO_NUM 35
+
+// 
 // ..each is the ADC1 channel number of GPIO n.... must exist in this list... not all pins can adc:
 // right now we only really support ADC1, not 2, so that too. so GPIO1-to GPIO10 seem ok, if unused elsewhere.
 //https://docs.espressif.com/projects/esp-idf/en/release-v4.4/esp32s3/api-reference/peripherals/adc.html#adc-api-reference-gpio-lookup-macros
