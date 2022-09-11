@@ -49,4 +49,5 @@
     {.port=UART_NUM_0, .rx=GPIO_NUM_3 , .tx=GPIO_NUM_1 },\
     {.port=UART_NUM_1, .rx=GPIO_NUM_34, .tx=GPIO_NUM_32},\
     {.port=UART_NUM_2, .rx=GPIO_NUM_35, .tx=GPIO_NUM_33}
-
+// the classic esp32 hardware has three uarts, and we also add a virtual tcp, and a virtual udp port to that list 
+#define HAL_UART_NUM_SERIAL_PORTS 5

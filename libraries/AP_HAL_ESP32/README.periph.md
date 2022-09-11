@@ -5,7 +5,7 @@ setup idf/submodule, run it, etc then..
 ...
 source ~/ardupilot/modules/esp_idf/export.sh 
 rm -rf build
-./waf configure --board=esp32buzz
+./waf configure --board=esp32s3buzz
 ./waf AP_Periph -v --upload
 
 
@@ -182,12 +182,12 @@ full compile/flash  log, to prove it happened ( without -v):
 -------------------------------------------------------------
 
 buzz@buzz-metabox:~/ardupilot$ rm -rf build/
-buzz@buzz-metabox:~/ardupilot$ ./waf configure --board=esp32buzz
-get_ap_periph_boards? ['CarbonixL496', 'Sierra-F412', 'f103-Airspeed', 'HolybroGPS', 'MatekH743-periph', 'f303-Universal', 'CubeOrange-periph', 'CUAV_GPS', 'Pixracer-periph', 'f103-HWESC', 'HereID', 'f303-M10025', 'ZubaxGNSS', 'Nucleo-L496', 'Nucleo-L476', 'H757I_EVAL', 'Sierra-L431', 'f405-MatekGPS', 'f103-RangeFinder', 'mRo-M10095', 'CubeOrange-periph-heavy', 'f303-PWM', 'FreeflyRTK', 'f103-GPS', 'f303-MatekGPS', 'f103-QiotekPeriph', 'HitecMosaic', 'H757I_EVAL_intf', 'esp32buzz', 'f303-M10070', 'f103-Trigger', 'sitl_periph_gps', 'BirdCANdy', 'ARK_GPS', 'f303-GPS', 'HerePro', 'G4-ESC', 'Hitec-Airspeed', 'f103-ADSB', 'f303-HWESC', 'Sierra-F405', 'CubeBlack-periph']
+buzz@buzz-metabox:~/ardupilot$ ./waf configure --board=esp32s3buzz
+get_ap_periph_boards? ['CarbonixL496', 'Sierra-F412', 'f103-Airspeed', 'HolybroGPS', 'MatekH743-periph', 'f303-Universal', 'CubeOrange-periph', 'CUAV_GPS', 'Pixracer-periph', 'f103-HWESC', 'HereID', 'f303-M10025', 'ZubaxGNSS', 'Nucleo-L496', 'Nucleo-L476', 'H757I_EVAL', 'Sierra-L431', 'f405-MatekGPS', 'f103-RangeFinder', 'mRo-M10095', 'CubeOrange-periph-heavy', 'f303-PWM', 'FreeflyRTK', 'f103-GPS', 'f303-MatekGPS', 'f103-QiotekPeriph', 'HitecMosaic', 'H757I_EVAL_intf', 'esp32s3buzz', 'f303-M10070', 'f103-Trigger', 'sitl_periph_gps', 'BirdCANdy', 'ARK_GPS', 'f303-GPS', 'HerePro', 'G4-ESC', 'Hitec-Airspeed', 'f103-ADSB', 'f303-HWESC', 'Sierra-F405', 'CubeBlack-periph']
 Setting top to                           : /home/buzz/ardupilot 
 Setting out to                           : /home/buzz/ardupilot/build 
 Autoconfiguration                        : enabled 
-Setting board to                         : esp32buzz 
+Setting board to                         : esp32s3buzz 
 Using toolchain                          : xtensa-esp32s3-elf 
 Checking for 'g++' (C++ compiler)        : /home/buzz/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-patch3-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-g++ 
 Checking for 'gcc' (C compiler)          : /home/buzz/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-patch3-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-gcc 
@@ -200,7 +200,7 @@ Checking for program 'cmake'             : /usr/bin/cmake
 Checking for program 'ninja, ninja-build' : /usr/bin/ninja 
 USING EXPRESSIF IDF:/home/buzz/ardupilot/modules/esp_idf
 USING DEFAULT_PARAMETERS:/home/buzz/ardupilot/libraries/AP_HAL_ESP32/boards/defaults.parm
-BUZZ generate hwdef.h from .dat /home/buzz/.espressif/python_env/idf4.4_py3.8_env/bin/python '/home/buzz/ardupilot/libraries/AP_HAL_ESP32/hwdef/scripts/esp32_hwdef.py' -D '/home/buzz/ardupilot/build/esp32buzz' --params '/home/buzz/ardupilot/libraries/AP_HAL_ESP32/boards/defaults.parm' '/home/buzz/ardupilot/libraries/AP_HAL_ESP32/hwdef/esp32buzz/hwdef.dat'
+BUZZ generate hwdef.h from .dat /home/buzz/.espressif/python_env/idf4.4_py3.8_env/bin/python '/home/buzz/ardupilot/libraries/AP_HAL_ESP32/hwdef/scripts/esp32_hwdef.py' -D '/home/buzz/ardupilot/build/esp32s3buzz' --params '/home/buzz/ardupilot/libraries/AP_HAL_ESP32/boards/defaults.parm' '/home/buzz/ardupilot/libraries/AP_HAL_ESP32/hwdef/esp32s3buzz/hwdef.dat'
 MCU series: esp32  type: classic
 Adding environment AP_PERIPH 1
 port,pin,p A -- 0 -- PA0 UART4_TX UART4 AF8
@@ -227,7 +227,7 @@ port,pin,p B -- 3 -- PB3 FMU_SW0 INPUT
 port,pin,p B -- 5 -- PB5 VDD_BRICK_nVALID INPUT
 port,pin,p B -- 7 -- PB7 VDD_BRICK2_nVALID INPUT
 Setup for MCU classic
-Writing hwdef setup in /home/buzz/ardupilot/build/esp32buzz/hwdef.h
+Writing hwdef setup in /home/buzz/ardupilot/build/esp32s3buzz/hwdef.h
 BUZZ EEP2-------------------------------------------------xx
 Setting up as AP_Periph
 Writing DMA map
@@ -283,13 +283,13 @@ SITL 32-bit build                              : disabled
 Checking for program 'rsync'                   : /usr/bin/rsync 
 'configure' finished successfully (0.646s)
 buzz@buzz-metabox:~/ardupilot$ ./waf AP_Periph --upload
-get_ap_periph_boards? ['HolybroGPS', 'f303-PWM', 'f103-Airspeed', 'Sierra-L431', 'sitl_periph_gps', 'f303-Universal', 'HitecMosaic', 'ARK_GPS', 'f303-MatekGPS', 'f103-GPS', 'CubeBlack-periph', 'f303-GPS', 'H757I_EVAL_intf', 'FreeflyRTK', 'Sierra-F405', 'f303-M10025', 'f103-QiotekPeriph', 'Nucleo-L476', 'Pixracer-periph', 'CubeOrange-periph-heavy', 'CUAV_GPS', 'BirdCANdy', 'CarbonixL496', 'Sierra-F412', 'f303-M10070', 'f103-HWESC', 'HerePro', 'f103-RangeFinder', 'Hitec-Airspeed', 'CubeOrange-periph', 'MatekH743-periph', 'f103-Trigger', 'G4-ESC', 'f303-HWESC', 'mRo-M10095', 'esp32buzz', 'H757I_EVAL', 'Nucleo-L496', 'f405-MatekGPS', 'f103-ADSB', 'ZubaxGNSS', 'HereID']
+get_ap_periph_boards? ['HolybroGPS', 'f303-PWM', 'f103-Airspeed', 'Sierra-L431', 'sitl_periph_gps', 'f303-Universal', 'HitecMosaic', 'ARK_GPS', 'f303-MatekGPS', 'f103-GPS', 'CubeBlack-periph', 'f303-GPS', 'H757I_EVAL_intf', 'FreeflyRTK', 'Sierra-F405', 'f303-M10025', 'f103-QiotekPeriph', 'Nucleo-L476', 'Pixracer-periph', 'CubeOrange-periph-heavy', 'CUAV_GPS', 'BirdCANdy', 'CarbonixL496', 'Sierra-F412', 'f303-M10070', 'f103-HWESC', 'HerePro', 'f103-RangeFinder', 'Hitec-Airspeed', 'CubeOrange-periph', 'MatekH743-periph', 'f103-Trigger', 'G4-ESC', 'f303-HWESC', 'mRo-M10095', 'esp32s3buzz', 'H757I_EVAL', 'Nucleo-L496', 'f405-MatekGPS', 'f103-ADSB', 'ZubaxGNSS', 'HereID']
 BUZZ CMAKE CONFIGURE: ['CMAKE_BLD_DIR'] ${CMAKE} ${CMAKE_FLAGS} ${CMAKE_SRC_DIR} ${CMAKE_VARS} ${CMAKE_GENERATOR_OPTION}
 BUZZ CMAKE BUILD: ${CMAKE} --build ${CMAKE_BLD_DIR} --target ${CMAKE_TARGET}
-Waf: Entering directory `/home/buzz/ardupilot/build/esp32buzz'
+Waf: Entering directory `/home/buzz/ardupilot/build/esp32s3buzz'
 _load_pre_build 1
 BUZZ pre_build periph needs dsdl for libcanard..
-Generating DSDLC for CANARD: /home/buzz/.espressif/python_env/idf4.4_py3.8_env/bin/python /home/buzz/ardupilot/modules/DroneCAN/dronecan_dsdlc/dronecan_dsdlc.py -O /home/buzz/ardupilot/build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated /home/buzz/ardupilot/modules/DroneCAN/DSDL/ardupilot /home/buzz/ardupilot/modules/DroneCAN/DSDL/com /home/buzz/ardupilot/modules/DroneCAN/DSDL/cuav /home/buzz/ardupilot/modules/DroneCAN/DSDL/dronecan /home/buzz/ardupilot/modules/DroneCAN/DSDL/mppt /home/buzz/ardupilot/modules/DroneCAN/DSDL/uavcan
+Generating DSDLC for CANARD: /home/buzz/.espressif/python_env/idf4.4_py3.8_env/bin/python /home/buzz/ardupilot/modules/DroneCAN/dronecan_dsdlc/dronecan_dsdlc.py -O /home/buzz/ardupilot/build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated /home/buzz/ardupilot/modules/DroneCAN/DSDL/ardupilot /home/buzz/ardupilot/modules/DroneCAN/DSDL/com /home/buzz/ardupilot/modules/DroneCAN/DSDL/cuav /home/buzz/ardupilot/modules/DroneCAN/DSDL/dronecan /home/buzz/ardupilot/modules/DroneCAN/DSDL/mppt /home/buzz/ardupilot/modules/DroneCAN/DSDL/uavcan
 Checking for env.py
 env added AP_PERIPH=1
 env added DISABLE_SCRIPTING=True
@@ -318,9 +318,9 @@ BUZZ _build_dynamic_sources
 BUZZ PERIPH_FW is-not-none 0
 BUZZ PERIPH_FW ... 1
 BUZZ AP_Periph wscript!
-get_ap_periph_boards? ['HolybroGPS', 'f303-PWM', 'f103-Airspeed', 'Sierra-L431', 'sitl_periph_gps', 'f303-Universal', 'HitecMosaic', 'ARK_GPS', 'f303-MatekGPS', 'f103-GPS', 'CubeBlack-periph', 'f303-GPS', 'H757I_EVAL_intf', 'FreeflyRTK', 'Sierra-F405', 'f303-M10025', 'f103-QiotekPeriph', 'Nucleo-L476', 'Pixracer-periph', 'CubeOrange-periph-heavy', 'CUAV_GPS', 'BirdCANdy', 'CarbonixL496', 'Sierra-F412', 'f303-M10070', 'f103-HWESC', 'HerePro', 'f103-RangeFinder', 'Hitec-Airspeed', 'CubeOrange-periph', 'MatekH743-periph', 'f103-Trigger', 'G4-ESC', 'f303-HWESC', 'mRo-M10095', 'esp32buzz', 'H757I_EVAL', 'Nucleo-L496', 'f405-MatekGPS', 'f103-ADSB', 'ZubaxGNSS', 'HereID']
+get_ap_periph_boards? ['HolybroGPS', 'f303-PWM', 'f103-Airspeed', 'Sierra-L431', 'sitl_periph_gps', 'f303-Universal', 'HitecMosaic', 'ARK_GPS', 'f303-MatekGPS', 'f103-GPS', 'CubeBlack-periph', 'f303-GPS', 'H757I_EVAL_intf', 'FreeflyRTK', 'Sierra-F405', 'f303-M10025', 'f103-QiotekPeriph', 'Nucleo-L476', 'Pixracer-periph', 'CubeOrange-periph-heavy', 'CUAV_GPS', 'BirdCANdy', 'CarbonixL496', 'Sierra-F412', 'f303-M10070', 'f103-HWESC', 'HerePro', 'f103-RangeFinder', 'Hitec-Airspeed', 'CubeOrange-periph', 'MatekH743-periph', 'f103-Trigger', 'G4-ESC', 'f303-HWESC', 'mRo-M10095', 'esp32s3buzz', 'H757I_EVAL', 'Nucleo-L496', 'f405-MatekGPS', 'f103-ADSB', 'ZubaxGNSS', 'HereID']
 [1/3] CMake Configure esp-idf
-BUZZ CONF CMD: ['/usr/bin/cmake', '/home/buzz/ardupilot/libraries/AP_HAL_ESP32/targets/esp-idf', "-DARDUPILOT_CMD='AP_Periph'", "-DARDUPILOT_LIB='/home/buzz/ardupilot/build/esp32buzz/lib'", "-DARDUPILOT_BIN='/home/buzz/ardupilot/build/esp32buzz/lib/bin'", '-GNinja']
+BUZZ CONF CMD: ['/usr/bin/cmake', '/home/buzz/ardupilot/libraries/AP_HAL_ESP32/targets/esp-idf-s3', "-DARDUPILOT_CMD='AP_Periph'", "-DARDUPILOT_LIB='/home/buzz/ardupilot/build/esp32s3buzz/lib'", "-DARDUPILOT_BIN='/home/buzz/ardupilot/build/esp32s3buzz/lib/bin'", '-GNinja']
 -- The C compiler identification is GNU 8.4.0
 -- The CXX compiler identification is GNU 8.4.0
 -- Detecting C compiler ABI info
@@ -336,14 +336,14 @@ BUZZ CONF CMD: ['/usr/bin/cmake', '/home/buzz/ardupilot/libraries/AP_HAL_ESP32/t
 -- Found Git: /usr/bin/git (found version "2.25.1") 
 -- Checking Python dependencies...
 Python requirements from /home/buzz/ardupilot/modules/esp_idf/requirements.txt are satisfied.
--- Project sdkconfig file /home/buzz/ardupilot/libraries/AP_HAL_ESP32/targets/esp-idf/sdkconfig
+-- Project sdkconfig file /home/buzz/ardupilot/libraries/AP_HAL_ESP32/targets/esp-idf-s3/sdkconfig
 -- The ASM compiler identification is GNU
 -- Found assembler: /home/buzz/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-patch3-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-gcc
 -- Found Python3: /home/buzz/.espressif/python_env/idf4.4_py3.8_env/bin/python3.8 (found version "3.8.10") found components: Interpreter 
 -- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS
 -- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS - Success
 -- App "ardupilot" version: 1
--- Adding linker script /home/buzz/ardupilot/build/esp32buzz/esp-idf_build/esp-idf/esp_system/ld/memory.ld
+-- Adding linker script /home/buzz/ardupilot/build/esp32s3buzz/esp-idf_build/esp-idf/esp_system/ld/memory.ld
 -- Adding linker script /home/buzz/ardupilot/modules/esp_idf/components/esp_system/ld/esp32s3/sections.ld.in
 -- Adding linker script /home/buzz/ardupilot/modules/esp_idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ld
 -- Adding linker script /home/buzz/ardupilot/modules/esp_idf/components/esp_rom/esp32s3/ld/esp32s3.rom.api.ld
@@ -354,7 +354,7 @@ Python requirements from /home/buzz/ardupilot/modules/esp_idf/requirements.txt a
 -- Adding linker script /home/buzz/ardupilot/modules/esp_idf/components/soc/esp32s3/ld/esp32s3.peripherals.ld
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/buzz/ardupilot/build/esp32buzz/esp-idf_build
+-- Build files have been written to: /home/buzz/ardupilot/build/esp32s3buzz/esp-idf_build
 Building for AP_Periph
 CMake Warning:
   Manually-specified variables were not used by the project:
@@ -364,12 +364,12 @@ CMake Warning:
 
 
 [2/3] CMake Build esp-idf showinc
-BUZZ BLD CMD: ['/usr/bin/cmake', '--build', '/home/buzz/ardupilot/build/esp32buzz/esp-idf_build', '--target', 'showinc']
-[1/1] cd /home/buzz/ardupilot/build/esp32buzz/esp-idf_b...ot/build/esp32buzz/esp-idf_build/config > includes.list
-[3/3] Processing build/esp32buzz/esp-idf_build/includes.list
+BUZZ BLD CMD: ['/usr/bin/cmake', '--build', '/home/buzz/ardupilot/build/esp32s3buzz/esp-idf_build', '--target', 'showinc']
+[1/1] cd /home/buzz/ardupilot/build/esp32s3buzz/esp-idf_b...ot/build/esp32s3buzz/esp-idf_build/config > includes.list
+[3/3] Processing build/esp32s3buzz/esp-idf_build/includes.list
 [6/9] Compiling libraries/AP_Scripting/generator/src/main.c
 [7/9] Processing modules/mavlink/message_definitions/v1.0/ardupilotmega.xml
-[8/9] Creating build/esp32buzz/ap_version.h
+[8/9] Creating build/esp32s3buzz/ap_version.h
 Validation skipped for /home/buzz/ardupilot/modules/mavlink/message_definitions/v1.0/ardupilotmega.xml.
 Parsing /home/buzz/ardupilot/modules/mavlink/message_definitions/v1.0/ardupilotmega.xml
 Validation skipped for /home/buzz/ardupilot/modules/mavlink/message_definitions/v1.0/common.xml.
@@ -382,14 +382,14 @@ Validation skipped for /home/buzz/ardupilot/modules/mavlink/message_definitions/
 Parsing /home/buzz/ardupilot/modules/mavlink/message_definitions/v1.0/minimal.xml
 Merged enum MAV_CMD
 Found 254 MAVLink message types in 5 XML files
-Generating C implementation in directory /home/buzz/ardupilot/build/esp32buzz/libraries/GCS_MAVLink/include/mavlink/v2.0/ardupilotmega
-[9/9] Processing /home/buzz/ardupilot/build/esp32buzz/libraries/AP_Scripting/lua_generated_bindings.cpp,/home/buzz/ardupilot/build/esp32buzz/libraries/AP_Scripting/lua_generated_bindings.h: libraries/AP_Scripting/generator/description/bindings.desc build/esp32buzz/gen-bindings -> build/esp32buzz/libraries/AP_Scripting/lua_generated_bindings.cpp build/esp32buzz/libraries/AP_Scripting/lua_generated_bindings.h
-Generating C implementation in directory /home/buzz/ardupilot/build/esp32buzz/libraries/GCS_MAVLink/include/mavlink/v2.0/common
-Generating C implementation in directory /home/buzz/ardupilot/build/esp32buzz/libraries/GCS_MAVLink/include/mavlink/v2.0/uAvionix
-Generating C implementation in directory /home/buzz/ardupilot/build/esp32buzz/libraries/GCS_MAVLink/include/mavlink/v2.0/icarous
-Generating C implementation in directory /home/buzz/ardupilot/build/esp32buzz/libraries/GCS_MAVLink/include/mavlink/v2.0/minimal
-Copying fixed headers for protocol 2.0 to /home/buzz/ardupilot/build/esp32buzz/libraries/GCS_MAVLink/include/mavlink/v2.0
-BUZZ periph: /home/buzz/ardupilot/build/esp32buzz/lib/bin/libAP_Periph.a
+Generating C implementation in directory /home/buzz/ardupilot/build/esp32s3buzz/libraries/GCS_MAVLink/include/mavlink/v2.0/ardupilotmega
+[9/9] Processing /home/buzz/ardupilot/build/esp32s3buzz/libraries/AP_Scripting/lua_generated_bindings.cpp,/home/buzz/ardupilot/build/esp32s3buzz/libraries/AP_Scripting/lua_generated_bindings.h: libraries/AP_Scripting/generator/description/bindings.desc build/esp32s3buzz/gen-bindings -> build/esp32s3buzz/libraries/AP_Scripting/lua_generated_bindings.cpp build/esp32s3buzz/libraries/AP_Scripting/lua_generated_bindings.h
+Generating C implementation in directory /home/buzz/ardupilot/build/esp32s3buzz/libraries/GCS_MAVLink/include/mavlink/v2.0/common
+Generating C implementation in directory /home/buzz/ardupilot/build/esp32s3buzz/libraries/GCS_MAVLink/include/mavlink/v2.0/uAvionix
+Generating C implementation in directory /home/buzz/ardupilot/build/esp32s3buzz/libraries/GCS_MAVLink/include/mavlink/v2.0/icarous
+Generating C implementation in directory /home/buzz/ardupilot/build/esp32s3buzz/libraries/GCS_MAVLink/include/mavlink/v2.0/minimal
+Copying fixed headers for protocol 2.0 to /home/buzz/ardupilot/build/esp32s3buzz/libraries/GCS_MAVLink/include/mavlink/v2.0
+BUZZ periph: /home/buzz/ardupilot/build/esp32s3buzz/lib/bin/libAP_Periph.a
 [ 10/477] Compiling libraries/AC_PID/AC_PI_2D.cpp
 [ 11/477] Compiling libraries/AC_PID/AC_HELI_PID.cpp
 [ 12/477] Compiling libraries/AC_PID/AC_P.cpp
@@ -752,123 +752,123 @@ In file included from ../../libraries/AP_HAL_ESP32/CANIface.h:64,
 [344/477] Compiling libraries/AP_Logger/AP_Logger_File.cpp
 [345/477] Compiling libraries/AP_Logger/AP_Logger_Backend.cpp
 [346/477] Compiling libraries/AP_BLHeli/AP_BLHeli.cpp
-[347/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
-[348/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
-[349/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
-[350/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
-[351/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
-[352/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.RGB565.c
-[353/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.actuator.ArrayCommand.c
-[354/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
-[355/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
-[356/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
-[357/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
-[358/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
-[359/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.SingleLightCommand.c
-[360/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
-[361/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
-[362/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
-[363/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.esc.RPMCommand.c
-[364/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.esc.RawCommand.c
-[365/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
-[366/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
-[367/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
-[368/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
-[369/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
-[370/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
-[371/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
-[372/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
+[347/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
+[348/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
+[349/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
+[350/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
+[351/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
+[352/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.RGB565.c
+[353/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.actuator.ArrayCommand.c
+[354/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
+[355/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
+[356/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
+[357/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
+[358/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
+[359/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.SingleLightCommand.c
+[360/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
+[361/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
+[362/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
+[363/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.esc.RPMCommand.c
+[364/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.esc.RawCommand.c
+[365/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
+[366/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
+[367/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
+[368/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
+[369/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
+[370/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
+[371/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
+[372/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
 [373/477] Compiling modules/DroneCAN/libcanard/canard.c
-[374/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
-[375/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
-[376/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
-[377/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
-[378/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
-[379/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
-[380/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
-[381/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
-[382/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
-[383/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.range_sensor.Measurement.c
-[384/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
-[385/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.safety.ArmingStatus.c
-[386/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
-[387/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
-[388/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
-[389/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
-[390/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
-[391/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
-[392/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
-[393/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
-[394/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
-[395/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
-[396/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
-[397/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
-[398/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
-[399/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.actuator.Command.c
-[400/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
-[401/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.Fix.c
-[402/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
-[403/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
-[404/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.ECEFPositionVelocity.c
-[405/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
-[406/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
-[407/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
-[408/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
-[409/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
-[410/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
-[411/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
-[412/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
-[413/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
-[414/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
-[415/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
-[416/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
-[417/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
-[418/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
-[419/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
-[420/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
-[421/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
-[422/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
-[423/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
-[424/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
-[425/477] Linking build/esp32buzz/lib/libAP_Periph_libs.a
-[426/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
-[427/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength2.c
-[428/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
-[429/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
-[430/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
-[431/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
-[432/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
-[433/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.LightsCommand.c
-[434/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.Fix2.c
-[435/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
-[436/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
-[437/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
-[438/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
-[439/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
-[440/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
-[441/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
-[442/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
-[443/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.device.Temperature.c
-[444/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.esc.Status.c
-[445/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
-[446/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
-[447/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
-[448/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
-[449/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
-[450/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
-[451/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
-[452/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
-[453/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.BeepCommand.c
-[454/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
-[455/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
-[456/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
-[457/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.actuator.Status.c
-[458/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
-[459/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
-[460/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
-[461/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.Auxiliary.c
-[462/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
-[463/477] Compiling build/esp32buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
+[374/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
+[375/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
+[376/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
+[377/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
+[378/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
+[379/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
+[380/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
+[381/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
+[382/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
+[383/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.range_sensor.Measurement.c
+[384/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
+[385/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.safety.ArmingStatus.c
+[386/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
+[387/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
+[388/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
+[389/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
+[390/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
+[391/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
+[392/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
+[393/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
+[394/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
+[395/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
+[396/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
+[397/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
+[398/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
+[399/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.actuator.Command.c
+[400/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
+[401/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.Fix.c
+[402/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
+[403/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
+[404/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.ECEFPositionVelocity.c
+[405/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
+[406/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
+[407/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
+[408/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
+[409/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
+[410/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
+[411/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
+[412/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
+[413/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
+[414/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
+[415/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
+[416/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
+[417/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
+[418/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
+[419/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
+[420/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
+[421/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
+[422/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
+[423/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
+[424/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
+[425/477] Linking build/esp32s3buzz/lib/libAP_Periph_libs.a
+[426/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
+[427/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength2.c
+[428/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
+[429/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
+[430/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
+[431/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
+[432/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
+[433/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.LightsCommand.c
+[434/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.Fix2.c
+[435/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
+[436/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
+[437/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
+[438/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
+[439/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
+[440/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
+[441/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
+[442/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
+[443/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.device.Temperature.c
+[444/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.esc.Status.c
+[445/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
+[446/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
+[447/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
+[448/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
+[449/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
+[450/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
+[451/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
+[452/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
+[453/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.BeepCommand.c
+[454/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
+[455/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
+[456/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
+[457/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.actuator.Status.c
+[458/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
+[459/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
+[460/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
+[461/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.Auxiliary.c
+[462/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
+[463/477] Compiling build/esp32s3buzz/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
 [464/477] Compiling Tools/AP_Periph/can.cpp
 [465/477] Compiling Tools/AP_Periph/Parameters.cpp
 [466/477] Compiling Tools/AP_Periph/GCS_MAVLink.cpp
@@ -877,12 +877,12 @@ In file included from ../../libraries/AP_HAL_ESP32/CANIface.h:64,
 [469/477] Compiling Tools/AP_Periph/version.cpp
 [470/477] Compiling Tools/AP_Periph/rc_out.cpp
 [471/477] Compiling Tools/AP_Periph/adsb.cpp
-[472/477] Linking build/esp32buzz/Tools/AP_Periph/liblibcanard.a
+[472/477] Linking build/esp32s3buzz/Tools/AP_Periph/liblibcanard.a
 [473/477] Compiling Tools/AP_Periph/hwing_esc.cpp
-[474/477] Linking build/esp32buzz/lib/bin/libAP_Periph.a
+[474/477] Linking build/esp32s3buzz/lib/bin/libAP_Periph.a
 [475/477] tuning periph triple-libs into a single one with AR and custom target... idf-periph/AP_Periph.a
 [476/477] CMake Build esp-idf all
-BUZZ BLD CMD: ['/usr/bin/cmake', '--build', '/home/buzz/ardupilot/build/esp32buzz/esp-idf_build', '--target', 'all']
+BUZZ BLD CMD: ['/usr/bin/cmake', '--build', '/home/buzz/ardupilot/build/esp32s3buzz/esp-idf_build', '--target', 'all']
 [13/706] Generating ../../partition_table/partition-table.bin
 Partition table binary generated. Contents:
 *******************************************************************************
@@ -910,7 +910,7 @@ storage,69,0,0x220000,128K,
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Building ESP-IDF components for target esp32s3
--- Project sdkconfig file /home/buzz/ardupilot/libraries/AP_HAL_ESP32/targets/esp-idf/sdkconfig
+-- Project sdkconfig file /home/buzz/ardupilot/libraries/AP_HAL_ESP32/targets/esp-idf-s3/sdkconfig
 -- Adding linker script /home/buzz/ardupilot/modules/esp_idf/components/soc/esp32s3/ld/esp32s3.peripherals.ld
 -- Adding linker script /home/buzz/ardupilot/modules/esp_idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ld
 -- Adding linker script /home/buzz/ardupilot/modules/esp_idf/components/esp_rom/esp32s3/ld/esp32s3.rom.api.ld
@@ -922,7 +922,7 @@ storage,69,0,0x220000,128K,
 -- Component paths: /home/buzz/ardupilot/modules/esp_idf/components/bootloader /home/buzz/ardupilot/modules/esp_idf/components/bootloader_support /home/buzz/ardupilot/modules/esp_idf/components/efuse /home/buzz/ardupilot/modules/esp_idf/components/esp32s3 /home/buzz/ardupilot/modules/esp_idf/components/esp_common /home/buzz/ardupilot/modules/esp_idf/components/esp_hw_support /home/buzz/ardupilot/modules/esp_idf/components/esp_rom /home/buzz/ardupilot/modules/esp_idf/components/esp_system /home/buzz/ardupilot/modules/esp_idf/components/esptool_py /home/buzz/ardupilot/modules/esp_idf/components/freertos /home/buzz/ardupilot/modules/esp_idf/components/hal /home/buzz/ardupilot/modules/esp_idf/components/log /home/buzz/ardupilot/modules/esp_idf/components/bootloader/subproject/main /home/buzz/ardupilot/modules/esp_idf/components/bootloader/subproject/components/micro-ecc /home/buzz/ardupilot/modules/esp_idf/components/newlib /home/buzz/ardupilot/modules/esp_idf/components/partition_table /home/buzz/ardupilot/modules/esp_idf/components/soc /home/buzz/ardupilot/modules/esp_idf/components/spi_flash /home/buzz/ardupilot/modules/esp_idf/components/xtensa
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/buzz/ardupilot/build/esp32buzz/esp-idf_build/bootloader
+-- Build files have been written to: /home/buzz/ardupilot/build/esp32s3buzz/esp-idf_build/bootloader
 [401/706] Performing build step for 'bootloader'
 [1/101] Generating project_elf_src_esp32s3.c
 [2/101] Building C object esp-idf/soc/CMakeFiles/__idf_soc.dir/soc_include_legacy_warn.c.obj
@@ -1028,23 +1028,23 @@ esptool.py v3.3.1-dev
 Creating esp32s3 image...
 Merged 1 ELF section
 Successfully created esp32s3 image.
-Generated /home/buzz/ardupilot/build/esp32buzz/esp-idf_build/bootloader/bootloader.bin
-[101/101] cd /home/buzz/ardupilot/build/esp32buzz/esp-idf_build/bootloader/esp-idf/esptool_py && python /home/buzz/ardupilot/modules/esp_idf/components/partition_table/check_sizes.py --offset 0x10000 bootloader 0x0 /home/buzz/ardupilot/build/esp32buzz/esp-idf_build/bootloader/bootloader.bin
+Generated /home/buzz/ardupilot/build/esp32s3buzz/esp-idf_build/bootloader/bootloader.bin
+[101/101] cd /home/buzz/ardupilot/build/esp32s3buzz/esp-idf_build/bootloader/esp-idf/esptool_py && python /home/buzz/ardupilot/modules/esp_idf/components/partition_table/check_sizes.py --offset 0x10000 bootloader 0x0 /home/buzz/ardupilot/build/esp32s3buzz/esp-idf_build/bootloader/bootloader.bin
 Bootloader binary size 0x3560 bytes. 0xcaa0 bytes (79%) free.
 [705/706] Generating binary image from built executable
 esptool.py v3.3.1-dev
 Creating esp32s3 image...
 Merged 2 ELF sections
 Successfully created esp32s3 image.
-Generated /home/buzz/ardupilot/build/esp32buzz/esp-idf_build/ardupilot.bin
-[706/706] cd /home/buzz/ardupilot/build/esp32buzz/esp-i...z/ardupilot/build/esp32buzz/esp-idf_build/ardupilot.bin
+Generated /home/buzz/ardupilot/build/esp32s3buzz/esp-idf_build/ardupilot.bin
+[706/706] cd /home/buzz/ardupilot/build/esp32s3buzz/esp-i...z/ardupilot/build/esp32s3buzz/esp-idf_build/ardupilot.bin
 ardupilot.bin binary size 0xd6e50 bytes. Smallest app partition is 0x200000 bytes. 0x1291b0 bytes (58%) free.
 [477/477] CMake Build esp-idf flash
-BUZZ BLD CMD: ['/usr/bin/cmake', '--build', '/home/buzz/ardupilot/build/esp32buzz/esp-idf_build', '--target', 'flash']
-[1/5] cd /home/buzz/ardupilot/build/esp32buzz/esp-idf_b...z/ardupilot/build/esp32buzz/esp-idf_build/ardupilot.bin
+BUZZ BLD CMD: ['/usr/bin/cmake', '--build', '/home/buzz/ardupilot/build/esp32s3buzz/esp-idf_build', '--target', 'flash']
+[1/5] cd /home/buzz/ardupilot/build/esp32s3buzz/esp-idf_b...z/ardupilot/build/esp32s3buzz/esp-idf_build/ardupilot.bin
 ardupilot.bin binary size 0xd6e50 bytes. Smallest app partition is 0x200000 bytes. 0x1291b0 bytes (58%) free.
 [2/5] Performing build step for 'bootloader'
-[1/1] cd /home/buzz/ardupilot/build/esp32buzz/esp-idf_build/bootloader/esp-idf/esptool_py && python /home/buzz/ardupilot/modules/esp_idf/components/partition_table/check_sizes.py --offset 0x10000 bootloader 0x0 /home/buzz/ardupilot/build/esp32buzz/esp-idf_build/bootloader/bootloader.bin
+[1/1] cd /home/buzz/ardupilot/build/esp32s3buzz/esp-idf_build/bootloader/esp-idf/esptool_py && python /home/buzz/ardupilot/modules/esp_idf/components/partition_table/check_sizes.py --offset 0x10000 bootloader 0x0 /home/buzz/ardupilot/build/esp32s3buzz/esp-idf_build/bootloader/bootloader.bin
 Bootloader binary size 0x3560 bytes. 0xcaa0 bytes (79%) free.
 [2/3] cd /home/buzz/ardupilot/modules/esp_idf/component...les/esp_idf/components/esptool_py/run_serial_tool.cmake
 esptool.py esp32s3 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 8MB 0x0 bootloader/bootloader.bin 0x20000 ardupilot.bin 0x10000 partition_table/partition-table.bin
@@ -1113,8 +1113,8 @@ Hard resetting via RTS pin...
 Note: python /home/buzz/ardupilot/modules/esp_idf/components/esptool_py/esptool/esptool.py --chip esp32s3 will search for a serial port. To specify a port, set the ESPPORT environment variable.
 Note: python /home/buzz/ardupilot/modules/esp_idf/components/esptool_py/esptool/esptool.py --chip esp32s3 will attempt to set baud rate automatically. To specify a baud rate, set the ESPBAUD environment variable.
 
-Waf: Leaving directory `/home/buzz/ardupilot/build/esp32buzz'
+Waf: Leaving directory `/home/buzz/ardupilot/build/esp32s3buzz'
 
-Build commands will be stored in build/esp32buzz/compile_commands.json
+Build commands will be stored in build/esp32s3buzz/compile_commands.json
 'AP_Periph' finished successfully (1m51.863s)
 buzz@buzz-metabox:~/ardupilot$ 

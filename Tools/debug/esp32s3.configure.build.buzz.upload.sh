@@ -16,8 +16,8 @@ unset CC
 
 rm -rf build
 
-#./waf configure --board=esp32buzz --debug --toolchain=xtensa-esp32s3-elf --disable-scripting
-./waf configure --board=esp32buzz --debug --disable-scripting
+#./waf configure --board=esp32s3buzz --debug --toolchain=xtensa-esp32s3-elf --disable-scripting
+./waf configure --board=esp32s3buzz --debug --disable-scripting
 #./waf configure --board f103-GPS
 echo "about to build PLANE for ESP32-S3 in 3 sec..."
 sleep 3
@@ -29,7 +29,7 @@ time ESPBAUD=921600 ./waf plane --jobs=7 --upload
 #periph: ---------------------------------------
 #rm -rf build
 
-./waf configure --board=esp32buzz_periph --debug --disable-scripting
+./waf configure --board=esp32s3buzz_periph --debug --disable-scripting
 #./waf configure --board f103-GPS
 echo "about to build AP_Periph for ESP32-S3 in 3 sec..."
 sleep 3

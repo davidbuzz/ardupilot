@@ -5,7 +5,7 @@ MCU esp32 esp32_s3
 # We set a specific HAL_BOARD_SUBTYPE, allowing for custom config in
 # drivers. For this to be used the subtype needs to be added to
 # AP_HAL/AP_HAL_Boards.h as well.
-#-- dxefine CONFIG_HAL_BOARD_SUBTYPE HAL_BOARD_SUBTYPE_ESP32_BUZZ
+#-- dxefine CONFIG_HAL_BOARD_SUBTYPE HAL_BOARD_SUBTYPE_ESP32_S3BUZZ
 
 # Now we need to specify the APJ_BOARD_ID. This is the ID that the
 # bootloader presents to GCS software so it knows if this firmware is
@@ -27,7 +27,7 @@ APJ_BOARD_ID 9
 OSCILLATOR_HZ 24000000
 
 # setup build for a peripheral firmware
-env AP_PERIPH 1
+env AP_PERIxPH 1
 
 # Now the size of flash in kilobytes, for creating the ld.script.
 
@@ -383,7 +383,7 @@ define HAL_PERIPH_NEOPIXEL_COUNT_WITHOUT_NOTIFY 1
 define HAL_INS_DEFAULT HAL_INS_MPU9250_SPI
 define HAL_BARO_DEFAULT HAL_BARO_BMP280_SPI
 
-#- periph already allows this: dexfine HAL_BARO_ALLOW_INIT_NO_BARO 1
+define HAL_BARO_ALLOW_INIT_NO_BARO 1
 
 define HAL_PROBE_EXTERNAL_I2C_COMPASSES 0
 
@@ -418,7 +418,7 @@ define HAL_ESP32_SPI_DEVICES {.name="bmp280", .bus=0, .device=0, .cs=GPIO_NUM_33
 // {the pin number, the gain/multiplier associated with it, the ardupilot name for the pin in parameter/s}
 define HAL_ESP32_ADC_PINS {{ADC1_GPIO4_CHANNEL, 11, 1},{ADC1_GPIO8_CHANNEL, 11, 2},{ADC1_GPIO9_CHANNEL, 11, 3},{ADC1_GPIO10_CHANNEL, 11, 4}}
 
-#-- dxefine HAL_ESP32_RCIN GPIO_NUM_34
+define HAL_ESP32_RCIN GPIO_NUM_34
 
 define HAVE_FILESYSTEM_SUPPORT 1
 
@@ -473,4 +473,4 @@ DMA_PRIORITY USART6* SPI*
 # we can automatically update the IOMCU firmware on boot. The format
 # is "ROMFS ROMFS-filename source-filename". Paths are relative to the
 # ardupilot root.
-#RxOMFS io_firmware.bin Tools/IO_Firmware/iofirmware_lowpolh.bin
+# RxOMFS io_firmware.bin Tools/IO_Firmware/iofirmware_lowpolh.bin

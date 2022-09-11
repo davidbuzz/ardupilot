@@ -5,7 +5,7 @@ setup idf/submodule, run it, etc then..
 ...
 source ~/ardupilot/modules/esp_idf/export.sh 
 rm -rf build
-./waf configure --board=esp32buzz --debug
+./waf configure --board=esp32s3buzz --debug
 ./waf plane -v --upload
 
 S3 pin notes: 

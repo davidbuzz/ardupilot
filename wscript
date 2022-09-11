@@ -767,15 +767,16 @@ def _load_pre_build(bld):
     if bld.cmd == 'clean':
         return
     brd = bld.get_board()
-    print("./wscript pre_build ... ",bld.env.AP_PERIPH)
+    #print("./wscript pre_build preiph check?",bld.env.AP_PERIPH)
     if bld.env.AP_PERIPH:
-        print("./wscript pre_build ... periph needs dsdl for libcanard..")
+        #print("./wscript pre_build ... periph needs dsdl for libcanard..")
         dsdlc_gen_path = bld.bldnode.make_node('modules/DroneCAN/libcanard/dsdlc_generated/include').abspath()
         #check if canard dsdlc directory empty
         # check if directory exists
         if not os.path.exists(dsdlc_gen_path) or not os.listdir(dsdlc_gen_path):
             generate_dronecan_dsdlc(bld)
     if getattr(brd, 'pre_build', None):
+        #print("calling pre_bulld for board...")
         brd.pre_build(bld)    
 
 def build(bld):

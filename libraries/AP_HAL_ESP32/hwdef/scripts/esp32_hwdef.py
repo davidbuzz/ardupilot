@@ -1882,6 +1882,8 @@ def write_UART_config(f):
     num_uarts = len(devlist)
     if 'IOMCU_UART' in config:
         num_uarts -= 1
+    #if 'IOMCU_UART' in config:
+    num_uarts += 2  # the tcp and the udp driver are two additional virtual uarts
     if num_uarts > 10:
         error("Exceeded max num UARTs of 10 (%u)" % num_uarts)
     f.write('#define HAL_UART_NUM_SERIAL_PORTS %u\n' % num_uarts)
@@ -2635,7 +2637,7 @@ def write_env_py(filename):
     #         print("No default parameter file found")
 
     # CHIBIOS_BUILD_FLAGS is passed to the ChibiOS makefile
-    env_vars['CHIBIOS_BUILD_FLAGS'] = ' '.join(build_flags)
+    #env_vars['CHIBIOS_BUILD_FLAGS'] = ' '.join(build_flags)
     pickle.dump(env_vars, open(filename, "wb"))
 
 
@@ -2941,10 +2943,12 @@ outdir = args.outdir
 if outdir is None:
     outdir = '/tmp'
 
-if "MCU" not in config:
-    error("Missing MCU type in config")
-
 mcu_type = get_config('MCU', 1)
+
+if "MCU" not in config:
+    error("Missing MCU type in config - old style config")
+    mcu_type = 'esp32'
+
 print("Setup for MCU %s" % mcu_type)
 
 # build a list for peripherals for DMA resolver

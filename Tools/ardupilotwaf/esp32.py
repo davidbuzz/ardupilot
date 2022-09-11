@@ -20,6 +20,7 @@ import subprocess
 def configure(cfg):
 
     bldnode = cfg.bldnode.make_node(cfg.variant)
+    #print("bldnode:",bldnode,"-------------------------------------------------------------------")
     def srcpath(path):
         return cfg.srcnode.make_node(path).abspath()
     def bldpath(path):
@@ -28,24 +29,40 @@ def configure(cfg):
     #Load cmake builder and make
     cfg.load('cmake')
 
+    if 's3' in cfg.variant:
+        cfg.s3 = True
+        cfg.env.s3 = True
+
     #define env and location for the cmake esp32 file
     env = cfg.env
-    env.AP_HAL_ESP32 = srcpath('libraries/AP_HAL_ESP32/targets/esp-idf')
+
+    if not 's3' in cfg.variant:
+        env.AP_HAL_ESP32 = srcpath('libraries/AP_HAL_ESP32/targets/esp-idf')
+    else:
+        env.AP_HAL_ESP32 = srcpath('libraries/AP_HAL_ESP32/targets/esp-idf-s3')
+
     env.AP_PROGRAM_FEATURES += ['esp32_ap_program']
 
-    env.ESP_IDF_PREFIX_REL = 'esp-idf'
+    if not 's3' in cfg.variant:
+        env.ESP_IDF_PREFIX_REL = 'esp-idf'
+        prefix_node = bldnode.make_node(env.ESP_IDF_PREFIX_REL)
+    else:
+        env.ESP_IDF_PREFIX_REL_S3 = 'esp-idf-s3'
+        prefix_node = bldnode.make_node(env.ESP_IDF_PREFIX_REL_S3)
 
-    prefix_node = bldnode.make_node(env.ESP_IDF_PREFIX_REL)
 
     env.BUILDROOT = bldpath('')
+    print("env.BUILDROOT:",env.BUILDROOT)
+
     env.SRCROOT = srcpath('')
     env.APJ_TOOL = srcpath('Tools/scripts/apj_tool.py')
 
     #Check if esp-idf env are loaded, or load it
-    try:
-        env.IDF = os.environ['IDF_PATH']
-    except:
+    if not 's3' in cfg.variant:
         env.IDF = cfg.srcnode.abspath()+"/modules/esp_idf"
+    else:
+        env.IDF = cfg.srcnode.abspath()+"/modules/esp_idf-s3"
+
     print("USING EXPRESSIF IDF:"+str(env.IDF))
 
     try:
@@ -67,14 +84,7 @@ def configure(cfg):
 def _generate_hwdef_h(env):
     '''run esp32_hwdef.py'''
     import subprocess
-    # if env.BOOTLOADER:
-    #     if len(env.HWDEF) == 0:
-    #         env.HWDEF = os.path.join(env.SRCROOT, 'libraries/AP_HAL_ESP32/hwdef/%s/hwdef-bl.dat' % env.BOARD)
-    #     else:
-    #         # update to using hwdef-bl.dat
-    #         env.HWDEF = env.HWDEF.replace('hwdef.dat', 'hwdef-bl.dat')
-    #     env.BOOTLOADER_OPTION="--bootloader"
-    # else:
+
     if len(env.HWDEF) == 0:
         env.HWDEF = os.path.join(env.SRCROOT, 'libraries/AP_HAL_ESP32/hwdef/%s/hwdef.dat' % env.BOARD)
     env.BOOTLOADER_OPTION=""
@@ -94,7 +104,10 @@ def _generate_hwdef_h(env):
 
 def pre_build(bld):
     """Configure esp-idf as lib target"""
+    #print(bld.env)
     load_env_vars(bld.env)
+
+    print("bld.env.s3",bld.env.s3)
 
     if bld.env.HAL_NUM_CAN_IFACES:
         bld.get_board().with_can = True
@@ -109,15 +122,28 @@ def pre_build(bld):
     lib_vars['ARDUPILOT_CMD'] = bld.cmd
     lib_vars['ARDUPILOT_LIB'] = bld.bldnode.find_or_declare('lib/').abspath()
     lib_vars['ARDUPILOT_BIN'] = bld.bldnode.find_or_declare('lib/bin').abspath()
-    esp_idf = bld.cmake(
-            name='esp-idf',
-            cmake_vars=lib_vars,
-            cmake_src='libraries/AP_HAL_ESP32/targets/esp-idf',
-            cmake_bld='esp-idf_build',
-            )
 
-    esp_idf_showinc = esp_idf.build('showinc', target='esp-idf_build/includes.list')
-    esp_idf_showinc.post()
+    # classic boards:
+    if not bld.env.s3:
+        esp_idf = bld.cmake(
+                name='esp-idf',
+                cmake_vars=lib_vars,
+                cmake_src='libraries/AP_HAL_ESP32/targets/esp-idf',
+                cmake_bld='esp-idf_build',
+                )
+        esp_idf_showinc = esp_idf.build('showinc', target='esp-idf_build/includes.list')
+        esp_idf_showinc.post()
+
+    # s3 boards:
+    if bld.env.s3:
+        esp_idf = bld.cmake(
+                name='esp-idf-s3',
+                cmake_vars=lib_vars,
+                cmake_src='libraries/AP_HAL_ESP32/targets/esp-idf-s3',
+                cmake_bld='esp-idf-s3_build',
+                )
+        esp_idf_showinc = esp_idf.build('showinc', target='esp-idf-s3_build/includes.list')
+        esp_idf_showinc.post()
 
     from waflib import Task
     class load_generated_includes(Task.Task):
@@ -126,12 +152,24 @@ def pre_build(bld):
         def run(tsk):
             bld = tsk.generator.bld
             includes = bld.bldnode.find_or_declare('esp-idf_build/includes.list').read().split()
-            #print(includes)
             bld.env.prepend_value('INCLUDES', includes)
+    class load_generated_includes_s3(Task.Task):
+        """After includes.list generated include it in env"""
+        always_run = True
+        def run(tsk):
+            bld = tsk.generator.bld
+            includes_s3 = bld.bldnode.find_or_declare('esp-idf-s3_build/includes.list').read().split()
+            bld.env.prepend_value('INCLUDES', includes_s3)
 
-    tsk = load_generated_includes(env=bld.env)
-    tsk.set_inputs(bld.path.find_resource('esp-idf_build/includes.list'))
-    bld.add_to_group(tsk)
+    if not bld.env.s3:
+        tsk = load_generated_includes(env=bld.env)
+        tsk.set_inputs(bld.path.find_resource('esp-idf_build/includes.list'))
+        bld.add_to_group(tsk)
+
+    if bld.env.s3:
+        tsk = load_generated_includes_s3(env=bld.env)
+        tsk.set_inputs(bld.path.find_resource('esp-idf-s3_build/includes.list'))
+        bld.add_to_group(tsk)
 
 
 #makes two .a files into a single .a file....
@@ -158,9 +196,14 @@ class build_esp32_image_periph(Task.Task):
 @after_method('process_source')
 def esp32_firmware(self):
     self.link_task.always_run = True
-    esp_idf = self.bld.cmake('esp-idf')
 
-    build = esp_idf.build('all', target='esp-idf_build/ardupilot.bin')
+    if self.bld.env.s3:
+        esp_idf = self.bld.cmake('esp-idf-s3')
+        build = esp_idf.build('all', target='esp-idf-s3_build/ardupilot.bin')
+    else:
+        esp_idf = self.bld.cmake('esp-idf')
+        build = esp_idf.build('all', target='esp-idf_build/ardupilot.bin')
+
     build.post()
 
     #for periph only, this is a 
@@ -206,9 +249,12 @@ class set_default_parameters(Task.Task):
         return
 
 def load_env_vars(env):
+
+    # if env.S3:
+    #     pass
     '''optionally load extra environment variables from env.py in the build directory'''
     # right now the esp32 build doesn't actually use this, afaict, except for flagging periph builds?
-    print("Checking for env.py")
+    print("Checking for env.py",env.BUILDROOT)
     env_py = os.path.join(env.BUILDROOT, 'env.py')
     if not os.path.exists(env_py):
         print("No env.py found")
@@ -234,9 +280,4 @@ def load_env_vars(env):
         else:
             env[k] = v
             print("esp32 env set %s=%s" % (k, v))
-    if env.ENABLE_ASSERTS:
-        env.CHIBIOS_BUILD_FLAGS += ' ENABLE_ASSERTS=yes'
-    if env.ENABLE_MALLOC_GUARD:
-        env.CHIBIOS_BUILD_FLAGS += ' ENABLE_MALLOC_GUARD=yes'
-    if env.ENABLE_STATS:
-        env.CHIBIOS_BUILD_FLAGS += ' ENABLE_STATS=yes'
+

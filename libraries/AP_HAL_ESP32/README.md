@@ -43,8 +43,15 @@ cd ../../..
 ```bash
 cd ardupilot
 ./waf configure
+[ choose one of these for a 'classic' esp32, if unsure, pick the first one...]
 ./waf configure --board=esp32buzz --debug
-[ or ./waf configure --board=esp32diy --debug ]
+./waf configure --board=esp32diy --debug 
+./waf configure --board=esp32icarus --debug
+[ or one of our more expirimental 's3' targets...]
+./waf configure --board=esp32s3buzz --debug
+./waf configure --board=esp32s3buzz_periph --debug
+
+[then...]
 ./waf plane
 or
 ./waf copter
@@ -83,7 +90,10 @@ cd ../../../..
 
 OR locate the 'libraries/AP_HAL_ESP32/targets/esp-idf/sdkconfig' and delete it, as it should call back to the 'sdkconfig.defaults' file if its not there.
 
-'cd libraries/AP_HAL_ESP32/targets/esp-idf ; idf.py defconfig' is the command that updates it, but that shouldn't be needed manually, we don't think.
+'cd libraries/AP_HAL_ESP32/targets/esp-idf ; idf.py defconfig'
+or
+'cd libraries/AP_HAL_ESP32/targets/esp-idf-s3 ; idf.py defconfig' 
+is the command that updates it, but that shouldn't be needed manually, we don't think.
 
 ... try ./waf plane"
 
@@ -112,7 +122,11 @@ ESPTOOL_BAUD=921600
 
 You can find more info here : [ESPTOOL](https://github.com/espressif/esptool)
 
-You can also find the cmake esp-idf project at `libraries/AP_HAL_ESP32/targets/esp-idf` for idf.py command. But see next section to understand how ardupilot is compiled on ESP32.
+You can also find the cmake esp-idf project at 
+`libraries/AP_HAL_ESP32/targets/esp-idf`
+or
+`libraries/AP_HAL_ESP32/targets/esp-idf-s3`
+ for idf.py command. But see next section to understand how ardupilot is compiled on ESP32.
 
 ---
 OLD

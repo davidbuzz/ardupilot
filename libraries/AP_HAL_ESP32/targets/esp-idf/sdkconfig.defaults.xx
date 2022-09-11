@@ -4,14 +4,14 @@
 #
 CONFIG_IDF_CMAKE=y
 CONFIG_IDF_TARGET_ARCH_XTENSA=y
-CONFIG_IDF_TARGET="esp32s3"
+CONFIG_IDF_TARGET="esp32"
 CONFIG_IDF_TARGET_ESP32S3=y
 CONFIG_IDF_FIRMWARE_CHIP_ID=0x0000
 
 #
 # SDK tool configuration
 #
-CONFIG_SDK_TOOLPREFIX="xtensa-esp32s3-elf-"
+CONFIG_SDK_TOOLPREFIX="xtensa-esp32-elf-"
 # CONFIG_SDK_TOOLCHAIN_SUPPORTS_TIME_WIDE_64_BITS is not set
 # end of SDK tool configuration
 
@@ -1022,7 +1022,7 @@ CONFIG_WPA_MBEDTLS_CRYPTO=y
 # end of Compatibility options
 
 # Deprecated options for backward compatibility
-CONFIG_TOOLPREFIX="xtensa-esp32s3-elf-"
+CONFIG_TOOLPREFIX="xtensa-esp32-elf-"
 CONFIG_LOG_BOOTLOADER_LEVEL_NONE=y
 # CONFIG_LOG_BOOTLOADER_LEVEL_ERROR is not set
 # CONFIG_LOG_BOOTLOADER_LEVEL_WARN is not set

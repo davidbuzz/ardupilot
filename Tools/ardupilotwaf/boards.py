@@ -511,19 +511,27 @@ def add_dynamic_boards_esp32():
             continue
         hwdef = os.path.join(dirname, d, 'hwdef.dat')
         if os.path.exists(hwdef):
-            newclass = type(d, (esp32,), {'name': d})
+            with open(hwdef, "r") as f:
+                content = f.read()
+                if 's3' in content:
+                    print(hwdef,"ESP32: located S3 variant")
+                    newclass = type(d, (esp32s3,), {'name': d})
+                else:
+                    print(hwdef,"ESP32: located old/classic ESP32 variant")
+                    newclass = type(d, (esp32,), {'name': d })
 
 def get_boards_names():
     add_dynamic_boards_chibios()
     add_dynamic_boards_esp32()
-
-    return sorted(list(_board_classes.keys()), key=str.lower)
+    nodupes = sorted(list(_board_classes.keys()), key=str.lower)
+    #print("get_boards_names?",nodupes)
+    return nodupes
 
 def get_ap_periph_boards():
     list1 = __get_ap_periph_boards('libraries/AP_HAL_ChibiOS/hwdef')
     list2 = __get_ap_periph_boards('libraries/AP_HAL_ESP32/hwdef')
     nodupes = list(set(list1)|set(list2))
-    print("get_ap_periph_boards?",nodupes)
+    #print("get_ap_periph_boards?",nodupes)
     return nodupes
 
 def __get_ap_periph_boards(defs_folder):
@@ -775,16 +783,22 @@ class sitl_periph_gps(sitl):
 
 class esp32(Board):
     abstract = True
-    toolchain = 'xtensa-esp32s3-elf'
+    toolchain = 'xtensa-esp32-elf'
+    s3 = False
     def configure_env(self, cfg, env):
         def expand_path(p):
             print("USING EXPRESSIF IDF:"+str(env.idf))
             return cfg.root.find_dir(env.IDF+p).abspath()
-        try:
-            env.IDF = os.environ['IDF_PATH'] 
-        except:
-            env.IDF = cfg.srcnode.abspath()+"/modules/esp_idf"
 
+        if not self.s3:
+            env.IDF = cfg.srcnode.abspath()+"/modules/esp_idf"
+            print("NOT S3")
+            env.s3 = False
+        else :
+            env.IDF = cfg.srcnode.abspath()+"/modules/esp_idf-s3"
+            print("YES S3")
+            env.s3 = True
+        
         super(esp32, self).configure_env(cfg, env)
         cfg.load('esp32')
         env.DEFINES.update(
@@ -841,6 +855,8 @@ class esp32(Board):
         env.CXXFLAGS.remove('-Werror=undef')
         env.CXXFLAGS.remove('-Werror=shadow')
 
+        bldnode = cfg.bldnode.make_node(self.name)
+        env.BUILDROOT = bldnode.make_node('').abspath()
 
         env.INCLUDES += [
                 cfg.srcnode.find_dir('libraries/AP_HAL_ESP32/boards').abspath(),
@@ -867,6 +883,7 @@ class esp32(Board):
         fun = getattr(module, 'pre_build', None)
         if fun:
             fun(bld)
+            print("calling esp32 prebuild from boards.py")
         super(esp32, self).pre_build(bld)
 
 
@@ -877,6 +894,11 @@ class esp32(Board):
     def get_name(self):
         # get name of class
         return self.__class__.__name__
+
+class esp32s3(esp32):
+    toolchain = 'xtensa-esp32s3-elf'
+    s3 = True
+
 
 class chibios(Board):
     abstract = True
