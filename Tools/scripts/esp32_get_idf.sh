@@ -34,16 +34,17 @@ echo "inspecting possible IDF... "
 cd esp_idf
 echo `git rev-parse HEAD`
 # these are a selection of possible specific commit/s that represent v4.4 branch of the esp_idf 
-if [ `git rev-parse HEAD` == 'f98ec313f2a9bc50151349c404a8f2f10ed99649' ]; then 
+if [ `git rev-parse HEAD` == 'de1e58118d89965f255edb587aae8dd29e8b510c' ]; then 
     echo "IDF version 'release/4.4' found OK, great."; 
 else
     echo "looks like an idf, but not v4.4 branch, trying to switch branch and reflect upstream";
     ../../Tools/gittools/submodule-sync.sh >/dev/null
-    git fetch ; git checkout -f release/v4.4 
+    git fetch ; git checkout -f release/v4.4
+    git pull
 
     # retry same as above
     echo `git rev-parse HEAD`
-    if [ `git rev-parse HEAD` == 'f98ec313f2a9bc50151349c404a8f2f10ed99649' ]; then 
+    if [ `git rev-parse HEAD` == 'de1e58118d89965f255edb587aae8dd29e8b510c' ]; then   
         echo "IDF version 'release/4.4' found OK, great."; 
     fi
 fi
