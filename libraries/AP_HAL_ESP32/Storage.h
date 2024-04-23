@@ -43,7 +43,7 @@ public:
 
 private:
     volatile bool _initialised;
-    const esp_partition_t *p;
+    const esp_partition_t *part;
     void _storage_open(void);
     void _mark_dirty(uint16_t loc, uint16_t length);
     uint8_t _buffer[STORAGE_SIZE] __attribute__((aligned(4)));

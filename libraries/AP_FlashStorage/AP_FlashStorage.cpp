@@ -56,7 +56,7 @@ bool AP_FlashStorage::init(void)
 
     // read headers and possibly initialise if bad signature
     for (uint8_t i=0; i<2; i++) {
-        if (!flash_read(i, 0, (uint8_t *)&header[i], sizeof(header[i]))) {
+        if (!flash_read(i, 0, (uint8_t *)&header[i], sizeof(header[i]))) { // calls <storageDriver>._flash_read_data thru functor. eg: ESP32::Storage::_flash_read_data
             return false;
         }
         bool bad_header = !header[i].signature_ok();
