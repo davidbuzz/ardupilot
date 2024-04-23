@@ -74,34 +74,17 @@ void enableCore1WDT()
     }
 }
 
-void Scheduler::init()
-{
+// keep main tasks that need speed on CPU 0
+// pin potentially slow stuff to CPU 1, as we have disabled the WDT on that core.
+#define FASTCPU 0
+#define SLOWCPU 1
 
-#ifdef SCHEDDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+void Scheduler::moreinit() {
 
-    // disable wd while booting, as things like mounting the sd-card in the io thread can take a while, especially if there isn't hardware attached.
-    disableCore0WDT(); //FASTCPU
-    disableCore1WDT(); //SLOWCPU
+        hal.console->printf("%s:%d running ...\n", __PRETTY_FUNCTION__, __LINE__);
 
 
-    hal.console->printf("%s:%d running with CONFIG_FREERTOS_HZ=%d\n", __PRETTY_FUNCTION__, __LINE__,CONFIG_FREERTOS_HZ);
-
-    // keep main tasks that need speed on CPU 0
-    // pin potentially slow stuff to CPU 1, as we have disabled the WDT on that core.
-    #define FASTCPU 0
-    #define SLOWCPU 1
-
-    // pin main thread to Core 0, and we'll also pin other heavy-tasks to core 1, like wifi-related.
-    if (xTaskCreatePinnedToCore(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle,FASTCPU) != pdPASS) {
-    //if (xTaskCreate(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle) != pdPASS) {
-        hal.console->printf("FAILED to create task _main_thread on FASTCPU\n");
-    } else {
-    	hal.console->printf("OK created task _main_thread on FASTCPU\n");
-    }
-
-    if (xTaskCreatePinnedToCore(_timer_thread, "APM_TIMER", TIMER_SS, this, TIMER_PRIO, &_timer_task_handle,FASTCPU) != pdPASS) {
+ if (xTaskCreatePinnedToCore(_timer_thread, "APM_TIMER", TIMER_SS, this, TIMER_PRIO, &_timer_task_handle,FASTCPU) != pdPASS) {
         hal.console->printf("FAILED to create task _timer_thread on FASTCPU\n");
     } else {
     	hal.console->printf("OK created task _timer_thread on FASTCPU\n");
@@ -159,6 +142,32 @@ void Scheduler::init()
         // smaller the above number/s are the closer that task has come to running out of its stack space.
         printf("Stack High Water Marks: Main: %d, Timer: %d, RCIN: %d, RCOUT: %d, UART: %d, IO: %d, Test: %d, Storage: %d\n",mahi,tihi,rihi,rohi,uahi,iohi,tthi,sohi);
     }
+}
+
+void Scheduler::init()
+{
+
+#ifdef SCHEDDEBUG
+    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
+    // disable wd while booting, as things like mounting the sd-card in the io thread can take a while, especially if there isn't hardware attached.
+    disableCore0WDT(); //FASTCPU
+    disableCore1WDT(); //SLOWCPU
+
+    hal.console->printf("%s:%d running with CONFIG_FREERTOS_HZ=%d\n", __PRETTY_FUNCTION__, __LINE__,CONFIG_FREERTOS_HZ);
+
+
+
+    // pin main thread to Core 0, and we'll also pin other heavy-tasks to core 1, like wifi-related.
+    if (xTaskCreatePinnedToCore(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle,FASTCPU) != pdPASS) {
+    //if (xTaskCreate(_main_thread, "APM_MAIN", Scheduler::MAIN_SS, this, Scheduler::MAIN_PRIO, &_main_task_handle) != pdPASS) {
+        hal.console->printf("FAILED to create task _main_thread on FASTCPU\n");
+    } else {
+    	hal.console->printf("OK created task _main_thread on FASTCPU\n");
+    }
+
+   
 
 }
 
@@ -577,12 +586,15 @@ void IRAM_ATTR Scheduler::_main_thread(void *arg)
 #endif
     Scheduler *sched = (Scheduler *)arg;
 
-#ifndef HAL_DISABLE_ADC_DRIVER
-    hal.analogin->init();
-#endif
-    hal.rcout->init();
+    sched->callbacks->setup();  // calls AP_Vehicle::setup() which loads the params and converts them etc  and is the slowest bit
 
-    sched->callbacks->setup();
+    // we avoid spinning-up all the other threads till the params are parsed in the main thread, to    speed it up
+    hal.scheduler->moreinit();
+
+    #ifndef HAL_DISABLE_ADC_DRIVER
+    hal.analogin->init();
+    #endif
+    hal.rcout->init();
 
     sched->set_system_initialized();
 

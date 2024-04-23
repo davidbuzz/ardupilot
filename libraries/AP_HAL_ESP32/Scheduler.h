@@ -33,6 +33,7 @@ public:
     Scheduler();
     /* AP_HAL::Scheduler methods */
     void     init() override;
+    void     moreinit() override; 
     void     set_callbacks(AP_HAL::HAL::Callbacks *cb)
     {
         callbacks = cb;
