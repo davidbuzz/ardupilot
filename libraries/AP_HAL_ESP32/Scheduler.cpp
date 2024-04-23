@@ -177,68 +177,7 @@ void executor(T oui)
     oui();
 }
 
-void Scheduler::thread_create_trampoline(void *ctx)
-{
-    AP_HAL::MemberProc *t = (AP_HAL::MemberProc *)ctx;
-    (*t)();
-    free(t);
-}
 
-/*
-  create a new thread
-*/
-bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_t requested_stack_size, priority_base base, int8_t priority)
-{
-#ifdef SCHEDDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
-
-    // take a copy of the MemberProc, it is freed after thread exits
-    AP_HAL::MemberProc *tproc = (AP_HAL::MemberProc *)calloc(1, sizeof(proc));
-    if (!tproc) {
-        return false;
-    }
-    *tproc = proc;
-
-    uint8_t thread_priority = IO_PRIO;
-    static const struct {
-        priority_base base;
-        uint8_t p;
-    } priority_map[] = {
-        { PRIORITY_BOOST, IO_PRIO},
-        { PRIORITY_MAIN, MAIN_PRIO},
-        { PRIORITY_SPI, SPI_PRIORITY},
-        { PRIORITY_I2C, I2C_PRIORITY},
-        { PRIORITY_CAN, IO_PRIO},
-        { PRIORITY_TIMER, TIMER_PRIO},
-        { PRIORITY_RCIN, RCIN_PRIO},
-        { PRIORITY_IO, IO_PRIO},
-        { PRIORITY_UART, UART_PRIO},
-        { PRIORITY_NET, WIFI_PRIO1},
-        { PRIORITY_STORAGE, STORAGE_PRIO},
-        { PRIORITY_SCRIPTING, UART_PRIO},
-    };
-    for (uint8_t i=0; i<ARRAY_SIZE(priority_map); i++) {
-        if (priority_map[i].base == base) {
-#ifdef SCHEDDEBUG
-            printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
-            thread_priority = constrain_int16(priority_map[i].p + priority, 1, 25);
-            break;
-        }
-    }
-    // chibios has a 'thread working area', we just another 1k.
-    #define EXTRA_THREAD_SPACE 1024
-    uint32_t actual_stack_size = requested_stack_size+EXTRA_THREAD_SPACE;
-
-    // tskTaskControlBlock* xhandle;
-    // BaseType_t xReturned = xTaskCreate(thread_create_trampoline, name, actual_stack_size, tproc, thread_priority, &xhandle);
-    // if (xReturned != pdPASS) {
-    //     free(tproc);
-    //     return false;
-    // }
-    return true;
-}
 
 void Scheduler::delay(uint16_t ms)
 {
@@ -323,17 +262,6 @@ bool Scheduler::in_main_thread() const
     return _main_task_handle == xTaskGetCurrentTaskHandle();
 }
 
-void Scheduler::set_system_initialized()
-{
-#ifdef SCHEDDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
-    if (_initialized) {
-        AP_HAL::panic("PANIC: scheduler::system_initialized called more than once");
-    }
-
-    _initialized = true;
-}
 
 bool Scheduler::is_system_initialized()
 {
@@ -506,6 +434,167 @@ void Scheduler::_storage_thread(void* arg)
     }
 }
 
+void Scheduler::set_system_initialized()
+{
+    if (_initialized) {
+        AP_HAL::panic("PANIC: scheduler::set_system_initialized called"
+                      "more than once");
+    }
+    _initialized = true;
+}
+
+
+void *Scheduler::disable_interrupts_save(void)
+{
+    return (void *)0; // not implemented
+}
+void Scheduler::restore_interrupts(void *state)
+{
+    return; // not implemented
+}
+void Scheduler::thread_create_trampoline(void *ctx)
+{
+    AP_HAL::MemberProc *t = (AP_HAL::MemberProc *)ctx;
+    (*t)();
+    free(t);
+}
+
+
+uint8_t Scheduler::calculate_thread_priority(priority_base base, int8_t priority) const
+{
+    uint8_t thread_priority = IO_PRIO;
+
+    static const struct {
+        priority_base base;
+        uint8_t p;
+    } priority_map[] = {
+        { PRIORITY_BOOST, IO_PRIO},
+        { PRIORITY_MAIN, MAIN_PRIO},
+        { PRIORITY_SPI, SPI_PRIORITY},
+        { PRIORITY_I2C, I2C_PRIORITY},
+        { PRIORITY_CAN, IO_PRIO},
+        { PRIORITY_TIMER, TIMER_PRIO},
+        { PRIORITY_RCOUT, RCIN_PRIO},
+        { PRIORITY_LED, LED_PRIORITY},
+        { PRIORITY_RCIN, RCIN_PRIO},
+        { PRIORITY_IO, IO_PRIO},
+        { PRIORITY_UART, UART_PRIO},
+        { PRIORITY_STORAGE, STORAGE_PRIO},
+        { PRIORITY_SCRIPTING, UART_PRIO},
+        { PRIORITY_NET, WIFI_PRIO1},
+    };
+    for (uint8_t i=0; i<ARRAY_SIZE(priority_map); i++) {
+        if (priority_map[i].base == base) {
+#ifdef SCHEDDEBUG
+            printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+            #define LOWPRIO 1
+            #define HIGHPRIO 25
+            thread_priority = constrain_int16(priority_map[i].p + priority, LOWPRIO, HIGHPRIO);
+            break;
+        }
+    }
+    return thread_priority;
+}
+/*
+  create a new thread
+*/
+bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_t requested_stack_size, priority_base base, int8_t priority)
+{
+#ifdef SCHEDDEBUG
+    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+#endif
+
+    // take a copy of the MemberProc, it is freed after thread exits
+    AP_HAL::MemberProc *tproc = (AP_HAL::MemberProc *)calloc(1, sizeof(proc));
+    if (!tproc) {
+        return false;
+    }
+    *tproc = proc;
+
+    const uint8_t thread_priority = calculate_thread_priority(base, priority);
+
+    // chibios has a 'thread working area', we just another 1k.
+    #define EXTRA_THREAD_SPACE 1024
+    uint32_t actual_stack_size = requested_stack_size+EXTRA_THREAD_SPACE;
+
+    tskTaskControlBlock* xhandle;
+    BaseType_t xReturned = xTaskCreate(thread_create_trampoline, name, actual_stack_size, tproc, thread_priority, &xhandle);
+    if (xReturned != pdPASS) {
+        free(tproc);
+        return false;
+    }
+    return true;
+}
+
+void Scheduler::_expect_delay_ms(uint32_t ms)
+{
+    if (!in_main_thread()) {
+        // only for main thread
+        return;
+    }
+    //todo not implemented
+
+}
+
+/*
+  this is _expect_delay_ms() with check that we are in the main thread
+ */
+void Scheduler::expect_delay_ms(uint32_t ms)
+{
+    if (!in_main_thread()) {
+        // only for main thread
+        return;
+    }
+    _expect_delay_ms(ms);
+}
+
+// pat the watchdog
+void Scheduler::watchdog_pat(void)
+{
+    // not implemented
+}
+
+/*
+  check we have enough stack free on all threads and the ISR stack
+ */
+void Scheduler::check_stack_free(void)
+{
+    // not implemented
+}
+
+
+/*
+  try to avoid watchdog during a locking deadlock by force releasing a
+  mutex that is blocking the main thread
+ */
+void Scheduler::try_force_mutex(void)
+{
+    // not implemented
+}
+
+/*
+  return true if we are in a period of expected delay. This can be
+  used to suppress error messages
+*/
+bool Scheduler::in_expected_delay(void) const
+{
+//#if AP_HAL_CHIBIOS_IN_EXPECTED_DELAY_WHEN_NOT_INITIALISED
+    if (!_initialized) {
+        // until setup() is complete we expect delays
+        return true;
+    }
+//#endif
+    if (expect_delay_start != 0) {
+        uint32_t now = AP_HAL::millis();
+        if (now - expect_delay_start <= expect_delay_length) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void Scheduler::_print_profile(void* arg)
 {
     Scheduler *sched = (Scheduler *)arg;
@@ -545,6 +634,9 @@ void Scheduler::_uart_thread(void *arg)
 // get the active main loop rate
 uint16_t Scheduler::get_loop_rate_hz(void)
 {
+#ifdef SCHEDDEBUG
+    printf("%s:%d _loop_rate_hz:%d\n", __PRETTY_FUNCTION__, __LINE__,_loop_rate_hz);
+#endif
     if (_active_loop_rate_hz == 0) {
         _active_loop_rate_hz = _loop_rate_hz;
     }

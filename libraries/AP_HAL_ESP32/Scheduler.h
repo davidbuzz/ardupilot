@@ -48,6 +48,29 @@ public:
     // check and set the startup state
     void     set_system_initialized() override;
     bool     is_system_initialized() override;
+    void     hal_initialized() { _hal_initialized = true; }
+
+
+    void     _expect_delay_ms(uint32_t ms);
+    void     expect_delay_ms(uint32_t ms) override;
+
+     /*
+      return true if we are in a period of expected delay. This can be
+      used to suppress error messages
+     */
+    bool in_expected_delay(void) const override;
+    
+    /*
+      disable interrupts and return a context that can be used to
+      restore the interrupt state. This can be used to protect
+      critical regions
+     */
+    void *disable_interrupts_save(void) override;
+
+    /*
+      restore interrupt state from disable_interrupts_save()
+     */
+    void restore_interrupts(void *) override;
 
     void     print_stats(void) ;
     void     print_main_loop_rate(void);
@@ -81,6 +104,8 @@ public:
     static const int UART_PRIO    = 24; //cpu1: a low priority mere might cause wifi thruput to suffer, as wifi gets passed its data frim the uart subsustem in _writebuf/_readbuf
     static const int IO_PRIO      = 5;
     static const int STORAGE_PRIO = 4;
+    static const int LED_PRIORITY = 1;
+
 
     static const int TIMER_SS 	  = 8292;
     static const int MAIN_SS      = 8292;
@@ -93,7 +118,14 @@ public:
     static const int IO_SS        = 8292;
     static const int STORAGE_SS   = 8292;
 
+    // pat the watchdog
+    void watchdog_pat(void);
+
 private:
+    static bool _initialized;
+
+    volatile bool _hal_initialized;
+
     AP_HAL::HAL::Callbacks *callbacks;
     AP_HAL::Proc _failsafe;
 
@@ -103,7 +135,14 @@ private:
     AP_HAL::MemberProc _io_proc[ESP32_SCHEDULER_MAX_IO_PROCS];
     uint8_t _num_io_procs;
 
-    static bool _initialized;
+    uint32_t expect_delay_start;
+    uint32_t expect_delay_length;
+    uint32_t expect_delay_nesting;
+    HAL_Semaphore expect_delay_sem;
+
+        // calculates an integer to be used as the priority for a newly-created thread
+    uint8_t calculate_thread_priority(priority_base base, int8_t priority) const;
+
 
     tskTaskControlBlock* _main_task_handle;
     tskTaskControlBlock* _timer_task_handle;
@@ -135,4 +174,10 @@ private:
     bool _in_io_proc;
     void _run_io();
     Semaphore _io_sem;
+
+        // check for free stack space
+    void check_stack_free(void);
+
+
+    static void try_force_mutex(void);
 };

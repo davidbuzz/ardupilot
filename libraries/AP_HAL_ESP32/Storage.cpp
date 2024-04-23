@@ -40,7 +40,7 @@ void Storage::_storage_open(void)
     part = esp_partition_find_first((esp_partition_type_t)0x45, ESP_PARTITION_SUBTYPE_ANY, nullptr);
 
     if (part != NULL) {
-        hal.console->printf("\tfound partition '%s' at offset 0x%" PRIx32 " with size 0x%\n" PRIx32, part->label, part->address, part->size);
+        hal.console->printf("\tfound partition '%s' at offset %d with size %dk\n", part->label, part->address, part->size/1024);
             // load from storage backend
             _flash_load();
             _initialised = true;
