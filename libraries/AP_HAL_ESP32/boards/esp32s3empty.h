@@ -100,7 +100,7 @@
 
 #define AP_FILESYSTEM_ESP32_ENABLED 1
 #define AP_SCRIPTING_ENABLED 0
-#define HAL_USE_EMPTY_STORAGE 1
+//#define HAL_USE_EMPTY_STORAGE 1
 
 
 // the below list is basically from chibios's minimise_common.inc and represents a "hal minimise" for the ESP32
