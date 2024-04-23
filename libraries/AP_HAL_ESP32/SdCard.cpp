@@ -279,7 +279,7 @@ void unmount_sdcard()
 // empty impl's
 void mount_sdcard()
 {
-    printf("No sdcard setup.\n");
+    printf("\nNo sdcard setup.\n");
 }
 void unmount_sdcard()
 {

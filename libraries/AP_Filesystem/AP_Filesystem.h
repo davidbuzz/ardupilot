@@ -19,6 +19,10 @@
  */
 #pragma once
 
+#if BUILT_WIHT_CMAKE
+#include "sdkconfig.h"
+#endif
+
 #include <stdint.h>
 #include <AP_HAL/AP_HAL_Boards.h>
 

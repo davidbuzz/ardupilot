@@ -1,4 +1,10 @@
 #pragma once
+#ifdef BUILT_WITH_CMAKE
+#include "config/sdkconfig.h"
+#endif
+
+#include "AP_Filesystem_config.h"
+
 
 #include <stdio.h>
 #include <string.h>
@@ -15,10 +21,16 @@
 #include "driver/sdspi_host.h"
 #include "sdmmc_cmd.h"
 
+#include "ff.h" //modules/esp_idf/components/fatfs/src/ff.h
+
 #include "AP_Filesystem_backend.h"
 
 class AP_Filesystem_ESP32 : public AP_Filesystem_Backend
 {
+
+public:
+    //AP_Filesystem_ESP32(); //constructor
+    //static AP_Filesystem_ESP32 *instance;
 public:
     // functions that closely match the equivalent posix calls
     int open(const char *fname, int flags, bool allow_absolute_paths = false) override;

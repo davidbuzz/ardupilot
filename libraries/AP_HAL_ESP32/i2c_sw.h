@@ -118,6 +118,11 @@
 #include <stddef.h>
 #include <limits.h>
 
+#ifdef BUILT_WITH_CMAKE
+#include "config/sdkconfig.h"
+#endif
+
+
 #include "driver/gpio.h"
 
 #ifdef __cplusplus

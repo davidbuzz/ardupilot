@@ -13,6 +13,10 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef BUILT_WITH_CMAKE
+#include "config/sdkconfig.h"
+#endif
+
 #include <AP_HAL_ESP32/UARTDriver.h>
 #include <AP_Math/AP_Math.h>
 

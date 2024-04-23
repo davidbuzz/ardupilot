@@ -27,6 +27,8 @@
 #include "msp.h"
 
 #include <time.h>
+#include "time.h"
+
 
 #define MSP_TIME_SLOT_MAX 12
 #define CELLFULL 4.35

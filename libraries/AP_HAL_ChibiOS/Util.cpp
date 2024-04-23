@@ -14,6 +14,11 @@
  *
  * Code by Andrew Tridgell and Siddharth Bharat Purohit
  */
+//https://www.esp32.com/viewtopic.php?t=5799 for memmem function on esp32 targets and cmake build
+#ifdef BUILT_WITH_CMAKE 
+#define _GNU_SOURCE 
+#endif
+
 #include <AP_HAL/AP_HAL.h>
 #include <AP_Math/AP_Math.h>
 

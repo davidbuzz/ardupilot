@@ -36,6 +36,8 @@
 #include <ctype.h>
 #include <stdio.h>
 
+#define gmtime_r(t,r) gmtime(t)
+
 #if HAL_MSP_ENABLED
 
 extern const AP_HAL::HAL& hal;
@@ -1029,6 +1031,7 @@ MSPCommandResult AP_MSP_Telem_Backend::msp_process_out_rtc(sbuf_t *dst)
         const time_t time_sec = time_usec / 1000000;
         struct tm tmd {};
         localtime_tm = *gmtime_r(&time_sec, &tmd);
+        tmd.tm_isdst=tmd.tm_isdst; //so we avoid UNUSED error on tmd
     }
 #endif
     const struct PACKED {

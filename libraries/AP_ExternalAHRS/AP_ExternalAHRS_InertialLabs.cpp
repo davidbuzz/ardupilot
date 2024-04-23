@@ -15,6 +15,10 @@
 /*
   support for serial connected InertialLabs INS
  */
+//https://www.esp32.com/viewtopic.php?t=5799 for memmem function on esp32 targets and cmake build
+#ifdef BUILT_WITH_CMAKE 
+#define _GNU_SOURCE 
+#endif
 
 #include "AP_ExternalAHRS_config.h"
 

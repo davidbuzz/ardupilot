@@ -34,12 +34,18 @@
 
 #pragma GCC optimize("Os")
 
+extern int errno;
+#define ERANGE 34
+#define EEXIST 17
+#define ENOENT  2
+
 #define ALLOW_DOUBLE_MATH_FUNCTIONS
 
 #include "AP_JSON.h"
 #include <AP_Filesystem/AP_Filesystem.h>
 #include <AP_Math/AP_Math.h>
 #include <stdio.h>
+
 
 /*
   load JSON file, returning a value object or nullptr on failure

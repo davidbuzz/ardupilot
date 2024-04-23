@@ -55,9 +55,9 @@ void RCOutput::init()
     rtc_gpio_deinit(GPIO_NUM_32);
     rtc_gpio_deinit(GPIO_NUM_33);
 
-    printf("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo\n");
+    //printf("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo\n");
     printf("RCOutput::init() - channels available: %d \n",(int)MAX_CHANNELS);
-    printf("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo\n");
+    //printf("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo\n");
 
     static const mcpwm_io_signals_t signals[] = {
         MCPWM0A,

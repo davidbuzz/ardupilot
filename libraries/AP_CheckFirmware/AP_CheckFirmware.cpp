@@ -1,6 +1,11 @@
 /*
   support checking board ID and firmware CRC in the bootloader
  */
+//https://www.esp32.com/viewtopic.php?t=5799 for memmem function on esp32 targets and cmake build
+#ifdef BUILT_WITH_CMAKE 
+#define _GNU_SOURCE 
+#endif
+
 #include "AP_CheckFirmware.h"
 #include <AP_HAL/HAL.h>
 #include <AP_Math/crc.h>

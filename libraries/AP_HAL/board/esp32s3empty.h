@@ -15,7 +15,7 @@
 #pragma once
 
 #ifdef BUILT_WITH_CMAKE
-#include "config/sdkconfig.h"
+#include "../../../build2/config/sdkconfig.h"
 #endif
 
 #include <hal/gpio_types.h>

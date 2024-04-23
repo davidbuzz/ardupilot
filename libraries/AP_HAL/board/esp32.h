@@ -1,5 +1,10 @@
 #pragma once
 
+#ifdef BUILT_WITH_CMAKE
+#define AP_MAIN othermain
+#include "sdkconfig.h"
+#endif
+
 
 #if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_DIY
 #include "esp32diy.h" // Charles
@@ -30,9 +35,15 @@
 #define HAL_HAVE_BOARD_VOLTAGE 0
 #define HAL_HAVE_SERVO_VOLTAGE 0
 
+
+// osd doesn't fit on esp32
+#define OSD_PARAM_ENABLED 0 
+
 #define HAL_WITH_IO_MCU 0
 
+#ifndef O_CLOEXEC
 #define O_CLOEXEC 0
+#endif
 #define HAL_STORAGE_SIZE (16384)
 
 #ifdef __cplusplus
@@ -116,3 +127,25 @@
 // other big things..
 #define HAL_QUADPLANE_ENABLED 0
 #define HAL_GYROFFT_ENABLED 0
+
+
+#ifdef BUILT_WITH_CMAKE
+// couple small bits from errno.h - used in GCS_FTP.cpp, AP_JSON.cpp, AP_Filesystem_Param.cpp
+extern int errno;
+#define  ENOENT           2
+#define  EBADF            9
+#define  ENOMEM          12
+#define  EEXIST          17
+#define  EINVAL          22
+#define  ENFILE          23
+#define  ENOSPC          28
+#define  EROFS           30
+#define  ERANGE          34
+#define  EBADFD          77
+// AP_HAL_ESP32/i2c_sw.c
+#define  ENXIO            6  /* No such device or address */
+#define  EAGAIN          11  /* Try again */
+#define  ETIMEDOUT      110  /* Connection timed out */
+#define  EIO              5  /* I/O error */
+#define  EOPNOTSUPP      95  /* Operation not supported on transport endpoint */
+#endif

@@ -123,9 +123,9 @@ add_definitions(-DAP_CUSTOMCONTROL_ENABLED=0)
 add_definitions(-DAP_DDS_ENABLED=0)
 add_definitions(-DAP_SCRIPTING_CHECKS=1)
 
-if (BOARD_NAME STREQUAL "sitl")
-    add_definitions(-DAP_SIM_ENABLED=1)
-endif()
+# if (BOARD_NAME STREQUAL "sitl")
+#     add_definitions(-DAP_SIM_ENABLED=1)
+# endif()
 
 add_definitions(-DENABLE_HEAP=0)
 add_definitions(-DENABLE_ONVIF=0)
@@ -186,6 +186,9 @@ add_definitions(-I../..)
 add_definitions(-I../../..)
 
 add_definitions(-I../../libraries)
+
+add_definitions(-DBUILT_WITH_CMAKE=1)
+
 
 
 # not entirely a rip off:

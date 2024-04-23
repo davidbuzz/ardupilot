@@ -23,6 +23,7 @@ extern const AP_HAL::HAL& hal;
 */
 FileData *AP_Filesystem_Backend::load_file(const char *filename)
 {
+    printf("\nAP_Filesystem_Backend::load_file: %s\n", filename);
     struct stat st;
     if (stat(filename, &st) != 0) {
         return nullptr;

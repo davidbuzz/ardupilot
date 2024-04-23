@@ -25,6 +25,9 @@
    The implementation bases on the bit-banging I2C master implementation as
    described in [wikipedia](https://en.wikipedia.org/wiki/I%C2%B2C#Example_of_bit-banging_the_I%C2%B2C_master_protocol).
 */
+#ifdef BUILT_WITH_CMAKE
+#include "config/sdkconfig.h"
+#endif
 
 #include "esp_err.h"
 #define DEBUG printf
@@ -41,6 +44,9 @@
 #include "soc/gpio_reg.h"
 #include "soc/gpio_struct.h"
 
+#include "freertos/FreeRTOS.h" // must be included before task.h and semphr.h
+
+
 
 // IMPORTS FROM esp-idf hw implem
 #include <string.h>
@@ -50,7 +56,6 @@
 #include "esp_intr_alloc.h"
 #include "esp_log.h"
 #include "malloc.h"
-#include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
 #include "freertos/xtensa_api.h"
 #include "freertos/task.h"
@@ -64,6 +69,13 @@
 #include "driver/periph_ctrl.h"
 #include "lwip/netdb.h"
 #include "i2c_sw.h"
+
+// copied from someplace else.. todo remove this block as its in esp32.h
+#define  ENXIO            6  /* No such device or address */
+#define  EAGAIN          11  /* Try again */
+#define  ETIMEDOUT      110  /* Connection timed out */
+#define  EIO              5  /* I/O error */
+#define  EOPNOTSUPP      95  /* Operation not supported on transport endpoint */
 
 /* max clock stretching counter */
 #define I2C_CLOCK_STRETCH 200

@@ -1,4 +1,5 @@
-#include "time.h"
+#include <time.h>
+#include "./time.h"
 
 /*
   mktime replacement from Samba

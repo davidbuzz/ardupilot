@@ -32,6 +32,18 @@ if (NOT "$ENV{VEHICLETYPE}" STREQUAL "")
     message(STATUS "VEHICLETYPE: ${VEHICLETYPE}")
 endif()
 
+# idf-specific setup - we're "remembering" here, these values into the cache.
+if (NOT "$ENV{IDF_PATH}" STREQUAL "")
+    set(IDF_PATH "$ENV{IDF_PATH}" CACHE INTERNAL "Copied from environment IDF_PATH")
+    message(STATUS "IDF_PATH: ${IDF_PATH}")
+endif()
+if (NOT "$ENV{TARGET}" STREQUAL "")
+    set(TARGET "$ENV{TARGET}" CACHE INTERNAL "Copied from environment TARGET")
+    message(STATUS "TARGET: ${TARGET}")
+endif()
+set(CMAKE_TOOLCHAIN_FILE ${IDF_PATH}/tools/cmake/toolchain-${TARGET}.cmake CACHE INTERNAL "assembled CMAKE_TOOLCHAIN_FILE from ENV")
+message(STATUS "CMAKE_TOOLCHAIN_FILE: ${CMAKE_TOOLCHAIN_FILE}")
+
 
 project(arduplane)
 enable_language(C CXX ASM)
@@ -42,6 +54,9 @@ if("${TARGET}" IN_LIST targets)
     # Include for ESP-IDF build system functions
     include($ENV{IDF_PATH}/tools/cmake/idf.cmake)
     # Create idf::{target} and idf::freertos static libraries
+
+    #list of components in a normal s3 build:
+    # bootloader bootloader_support efuse esp32s3 esp_common esp_hw_support esp_rom esp_system esptool_py freertos hal log main micro-ecc newlib partition_table soc spi_flash xtensa
     idf_build_process("${TARGET}"
                     # try and trim the build; additional components
                     # will be included as needed based on dependency tree
@@ -51,10 +66,15 @@ if("${TARGET}" IN_LIST targets)
                     # targets and file generation
                     # WARNING leaving (eg) fatfs out here causes libraries/AP_Filesystem/AP_Filesystem_ESP32.h , which includes #include "esp_vfs_fat.h" to not be able to find the right symbols
                     COMPONENTS  
+                        bootloader bootloader_support efuse 
                         "${TARGET}"  #esp32s3
+                        esp_common esp_hw_support esp_rom esp_system 
                         freertos
+                        hal log 
                         #esp_rom             # for asprintf
                         newlib               # for time.h?
+                        #micro-ecc    #Failed to resolve component 'micro-ecc'.
+                        partition_table soc
                         console          
                         tcpip_adapter
                         fatfs               # for esp_vfs_fat.h etc
@@ -169,6 +189,26 @@ add_definitions(-I../../../)
 add_definitions(-I../../../../)
 add_definitions(-I../../../../../)
 
+# this alows ardupilot to call stuff like f_getfree in the fatfs library
+add_definitions(-I./modules/esp_idf/components/fatfs/diskio)
+add_definitions(-I./modules/esp_idf/components/fatfs/vfs)
+add_definitions(-I./modules/esp_idf/components/fatfs/src)
+add_definitions(-I../modules/esp_idf/components/fatfs/diskio)
+add_definitions(-I../modules/esp_idf/components/fatfs/vfs)
+add_definitions(-I../modules/esp_idf/components/fatfs/src)
+add_definitions(-I../../modules/esp_idf/components/fatfs/diskio)
+add_definitions(-I../../modules/esp_idf/components/fatfs/vfs)
+add_definitions(-I../../modules/esp_idf/components/fatfs/src)
+add_definitions(-I../../../modules/esp_idf/components/fatfs/diskio)
+add_definitions(-I../../../modules/esp_idf/components/fatfs/vfs)
+add_definitions(-I../../../modules/esp_idf/components/fatfs/src)
+add_definitions(-I../../../../modules/esp_idf/components/fatfs/diskio)
+add_definitions(-I../../../../modules/esp_idf/components/fatfs/vfs)
+add_definitions(-I../../../../modules/esp_idf/components/fatfs/src)
+add_definitions(-I../../../../../modules/esp_idf/components/fatfs/diskio)
+add_definitions(-I../../../../../modules/esp_idf/components/fatfs/vfs)
+add_definitions(-I../../../../../modules/esp_idf/components/fatfs/src)
+
 # add_definitions(-DCONFIG_HAL_BOARD=HAL_BOARD_ESP32)
 # add_definitions(-DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_ESP32_S3EMPTY) 
 # add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_${VEHICLETYPE})
@@ -218,6 +258,9 @@ add_definitions(-Wno-trigraphs)  #warning: trigraph ??- ignored, use -trigraphs 
 
 add_definitions(-I${VEHICLETYPE})
 add_definitions(-I../../${VEHICLETYPE})
+
+add_definitions(-DBUILT_WITH_CMAKE=1)
+
 
 
 # add_definitions(-I.)

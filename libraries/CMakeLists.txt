@@ -36,15 +36,17 @@ add_definitions(-DAP_CUSTOMCONTROL_ENABLED=0)
 add_definitions(-DAP_DDS_ENABLED=0)
 add_definitions(-DAP_SCRIPTING_CHECKS=1)
 
-if (BOARD_NAME STREQUAL "sitl")
-    add_definitions(-DAP_SIM_ENABLED=1)
-endif()
+# if (BOARD_NAME STREQUAL "sitl")
+#     add_definitions(-DAP_SIM_ENABLED=1)
+# endif()
 
 add_definitions(-DENABLE_HEAP=0)
 add_definitions(-DENABLE_ONVIF=0)
 add_definitions(-DHAL_DEBUG_BUILD=1)
 add_definitions(-DHAL_HAVE_HARDWARE_DOUBLE=1)
 add_definitions(-DLUA_32BITS=1)
+
+add_definitions(-DBUILT_WITH_CMAKE=1)
 
 
 add_definitions(-D__GNU_VISIBLE) #https://www.esp32.com/viewtopic.php?t=5799
@@ -193,3 +195,24 @@ add_definitions(-I../../modules/esp_idf/components/bootloader_support/include)
 #add_definitions(-I../../modules/esp_idf/components/bootloader/include)
 
 add_definitions(-I../../libraries/AP_Common)  # this needs to be AFTER the *newlib/platform_include* above so we get time.h from newlib *first*
+
+
+# this alows ardupilot to call stuff like f_getfree in the fatfs library
+add_definitions(-I./modules/esp_idf/components/fatfs/diskio)
+add_definitions(-I./modules/esp_idf/components/fatfs/vfs)
+add_definitions(-I./modules/esp_idf/components/fatfs/src)
+add_definitions(-I../modules/esp_idf/components/fatfs/diskio)
+add_definitions(-I../modules/esp_idf/components/fatfs/vfs)
+add_definitions(-I../modules/esp_idf/components/fatfs/src)
+add_definitions(-I../../modules/esp_idf/components/fatfs/diskio)
+add_definitions(-I../../modules/esp_idf/components/fatfs/vfs)
+add_definitions(-I../../modules/esp_idf/components/fatfs/src)
+add_definitions(-I../../../modules/esp_idf/components/fatfs/diskio)
+add_definitions(-I../../../modules/esp_idf/components/fatfs/vfs)
+add_definitions(-I../../../modules/esp_idf/components/fatfs/src)
+add_definitions(-I../../../../modules/esp_idf/components/fatfs/diskio)
+add_definitions(-I../../../../modules/esp_idf/components/fatfs/vfs)
+add_definitions(-I../../../../modules/esp_idf/components/fatfs/src)
+add_definitions(-I../../../../../modules/esp_idf/components/fatfs/diskio)
+add_definitions(-I../../../../../modules/esp_idf/components/fatfs/vfs)
+add_definitions(-I../../../../../modules/esp_idf/components/fatfs/src)

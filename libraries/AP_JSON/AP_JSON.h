@@ -2,9 +2,19 @@
   ArduPilot JSON parser
  */
 
+#ifdef BUILT_WITH_CMAKE
+#include "config/sdkconfig.h"
+#endif
+
 #pragma once
 
-#include <cstdio>
+
+extern int errno;
+#define ERANGE 34
+#define EEXIST 17
+#define ENOENT  2
+
+//#include <cstdio>
 #include <map>
 #include <vector>
 
@@ -83,4 +93,3 @@ public:
     // load a json file, returning a value object
     static value *load_json(const char *filename);
 };
-

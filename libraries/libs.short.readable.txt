@@ -758,7 +758,6 @@
 ./AP_HAL_ESP32/SoftSigReaderRMT.h
 ./AP_HAL_ESP32/SPIDevice.cpp
 ./AP_HAL_ESP32/SPIDevice.h
-./AP_HAL_ESP32/stdio.cpp
 ./AP_HAL_ESP32/stdio.h
 ./AP_HAL_ESP32/Storage.cpp
 ./AP_HAL_ESP32/Storage.h

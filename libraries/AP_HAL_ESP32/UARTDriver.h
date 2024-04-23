@@ -15,6 +15,10 @@
 
 #pragma once
 
+#ifdef BUILT_WITH_CMAKE
+#include "config/sdkconfig.h"
+#endif
+
 #include <AP_HAL/UARTDriver.h>
 #include <AP_HAL/utility/RingBuffer.h>
 #include <AP_HAL_ESP32/AP_HAL_ESP32.h>
