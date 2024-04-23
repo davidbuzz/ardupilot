@@ -216,3 +216,6 @@ add_definitions(-I../../../../modules/esp_idf/components/fatfs/src)
 add_definitions(-I../../../../../modules/esp_idf/components/fatfs/diskio)
 add_definitions(-I../../../../../modules/esp_idf/components/fatfs/vfs)
 add_definitions(-I../../../../../modules/esp_idf/components/fatfs/src)
+
+#enable debugging symbols
+target_compile_options(ARDULIBS PRIVATE -g)

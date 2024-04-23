@@ -8,7 +8,8 @@ idf_component_register(SRCS "main.cpp"
                     REQUIRES ARDULIBS 
                     )
 
-target_compile_options(${COMPONENT_LIB} PRIVATE -Wno-reorder -Wno-trigraphs -Wno-unknown-pragmas)
+#-g enables debugging symbols
+target_compile_options(${COMPONENT_LIB} PRIVATE -Wno-reorder -Wno-trigraphs -Wno-unknown-pragmas -g)
 
 add_definitions(-I./${BUILDDIR}/${BOARD_NAME}/libraries/GCS_MAVLink) # generated mavlink code in build dir
 add_definitions(-I../${BUILDDIR}/${BOARD_NAME}/libraries/GCS_MAVLink) # generated mavlink code in build dir

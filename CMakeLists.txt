@@ -262,6 +262,9 @@ add_definitions(-I../../${VEHICLETYPE})
 add_definitions(-DBUILT_WITH_CMAKE=1)
 
 
+#enable debugging symbols
+target_compile_options(${elf_file} PRIVATE -g)
+
 
 # add_definitions(-I.)
 # add_definitions(-I..)
