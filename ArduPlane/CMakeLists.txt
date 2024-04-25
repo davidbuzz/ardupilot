@@ -88,4 +88,4 @@ target_sources(${CURRENT_EXE_NAME}
 target_include_directories(${CURRENT_EXE_NAME} PUBLIC "${CMAKE_CURRENT_LIST_DIR}")
 
 
-include(${CMAKE_CURRENT_LIST_DIR}/../ardudefinitions.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/../ardu.esp32s3.definitions.cmake)

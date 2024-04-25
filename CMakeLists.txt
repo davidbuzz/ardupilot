@@ -130,7 +130,7 @@ endif()
 
 
 
-include(./ardudefinitions.cmake)
+include(./ardu.esp32s3.definitions.cmake)
 
 #enable debugging symbols
 target_compile_options(${elf_file} PRIVATE -g)
