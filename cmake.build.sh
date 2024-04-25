@@ -16,5 +16,5 @@ cd $BUILDDIR
 # make VERBOSE=1
 # make VERBOSE=1 -j16
 # cmake --build .
-make -j16 # this is the most common way to build the project
+make -j12 # this is the most common way to build the project
 cd ..

@@ -4,7 +4,7 @@ cd /home/buzz2/ardupilot
 
 source ./cmake.last.env.bin
 
-. ./modules/esp_idf/export.sh
+#. ./modules/esp_idf/export.sh
 
 cd $BUILDDIR
 
@@ -20,5 +20,5 @@ echo "flashing to device: DEV=$DEV"
 # make VERBOSE=1 -j16
 # cmake --build .
 # make flash -j16  # this uses idf.py autodetection of the serial port
-ESPPORT=`ls /dev/tty[UA]*` make flash -j16 # this is the most common way to build the project
+ESPTOOL_BAUD=921600 ESPPORT=`ls /dev/tty[UA]*` make flash -j16 # this is the fastest way to flash the project
 cd ..

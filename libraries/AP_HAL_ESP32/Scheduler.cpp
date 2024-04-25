@@ -139,11 +139,26 @@ void Scheduler::init()
     	hal.console->printf("OK created task _storage_thread\n");
     }
 
-    //   xTaskCreatePinnedToCore(_print_profile, "APM_PROFILE", IO_SS, this, IO_PRIO, nullptr,SLOWCPU);
+       xTaskCreatePinnedToCore(_print_profile, "APM_PROFILE", IO_SS, this, IO_PRIO, nullptr,SLOWCPU);
 
     hal.console->printf("OK Sched Init, enabling WD\n");
-    enableCore0WDT();   //FASTCPU
+    //enableCore0WDT();   //FASTCPU
     //enableCore1WDT();   //we don't enable WD on SLOWCPU right now.
+
+    while (true) {
+        vTaskDelay(10000);
+        printf("Scheduler...\n");
+        int mahi = uxTaskGetStackHighWaterMark(_main_task_handle);
+        int tihi = uxTaskGetStackHighWaterMark(_timer_task_handle);
+        int rihi = uxTaskGetStackHighWaterMark(_rcin_task_handle);
+        int rohi = uxTaskGetStackHighWaterMark(_rcout_task_handle);
+        int uahi = uxTaskGetStackHighWaterMark(_uart_task_handle);
+        int iohi = uxTaskGetStackHighWaterMark(_io_task_handle);
+        int tthi = uxTaskGetStackHighWaterMark(test_task_handle);
+        int sohi = uxTaskGetStackHighWaterMark(_storage_task_handle);
+        // smaller the above number/s are the closer that task has come to running out of its stack space.
+        printf("Stack High Water Marks: Main: %d, Timer: %d, RCIN: %d, RCOUT: %d, UART: %d, IO: %d, Test: %d, Storage: %d\n",mahi,tihi,rihi,rohi,uahi,iohi,tthi,sohi);
+    }
 
 }
 
@@ -207,12 +222,12 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
     #define EXTRA_THREAD_SPACE 1024
     uint32_t actual_stack_size = requested_stack_size+EXTRA_THREAD_SPACE;
 
-    tskTaskControlBlock* xhandle;
-    BaseType_t xReturned = xTaskCreate(thread_create_trampoline, name, actual_stack_size, tproc, thread_priority, &xhandle);
-    if (xReturned != pdPASS) {
-        free(tproc);
-        return false;
-    }
+    // tskTaskControlBlock* xhandle;
+    // BaseType_t xReturned = xTaskCreate(thread_create_trampoline, name, actual_stack_size, tproc, thread_priority, &xhandle);
+    // if (xReturned != pdPASS) {
+    //     free(tproc);
+    //     return false;
+    // }
     return true;
 }
 

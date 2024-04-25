@@ -81,16 +81,16 @@ public:
     static const int IO_PRIO      = 5;
     static const int STORAGE_PRIO = 4;
 
-    static const int TIMER_SS 	  = 4096;
-    static const int MAIN_SS      = 8192;
-    static const int RCIN_SS      = 4096;
-    static const int RCOUT_SS     = 4096;
-    static const int WIFI_SS1     = 6192;
-    static const int WIFI_SS2     = 6192;
-    static const int UART_SS      = 2048;
-    static const int DEVICE_SS    = 4096;
-    static const int IO_SS        = 4096;
-    static const int STORAGE_SS   = 8192;
+    static const int TIMER_SS 	  = 8292;
+    static const int MAIN_SS      = 8292;
+    static const int RCIN_SS      = 8292;
+    static const int RCOUT_SS     = 8292;
+    static const int WIFI_SS1     = 8292;
+    static const int WIFI_SS2     = 8292;
+    static const int UART_SS      = 8292;
+    static const int DEVICE_SS    = 8292;
+    static const int IO_SS        = 8292;
+    static const int STORAGE_SS   = 8292;
 
 private:
     AP_HAL::HAL::Callbacks *callbacks;
