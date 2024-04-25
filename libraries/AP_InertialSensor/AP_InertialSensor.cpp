@@ -1814,6 +1814,9 @@ AP_InertialSensor::_init_gyro()
     // stop flashing leds
     AP_Notify::flags.initialising = false;
     AP_Notify::flags.gyro_calibrated = true;
+
+    DEV_PRINTF("\nInit Gyro - DONE\n");
+
 }
 
 // save parameters to eeprom
@@ -1867,6 +1870,8 @@ void AP_InertialSensor::update(void)
 {
     // during initialisation update() may be called without
     // wait_for_sample(), and a wait is implied
+    //hal.console->printf("AP_InertialSensor::update/wait-for-sample\n");
+    hal.console->printf(".");
     wait_for_sample();
 
         for (uint8_t i=0; i<INS_MAX_INSTANCES; i++) {

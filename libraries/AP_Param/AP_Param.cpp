@@ -347,14 +347,20 @@ void AP_Param::check_var_info(void)
     // saving default values
 }
 
+// thb read_block
+// thb AP_Param::setup
+// s = 'execute one line of code'
 
 // setup the _var_info[] table
 bool AP_Param::setup(void)
 {
+
+    hal.console->printf("\nAP_Param::setup start\n");
+
     struct EEPROM_header hdr {};
 
     // check the header
-    _storage.read_block(&hdr, 0, sizeof(hdr));
+    _storage.read_block(&hdr, 0, sizeof(hdr)); //StorageAccess::read_block in StorageManager/StorageManager.cpp
 
 #if AP_PARAM_STORAGE_BAK_ENABLED
     struct EEPROM_header hdr2 {};
@@ -384,6 +390,7 @@ bool AP_Param::setup(void)
     // ensure that backup is in sync with primary
     _storage_bak.copy_area(_storage);
 #endif
+    hal.console->printf("\nAP_Param::setup DONE\n");
 
     return true;
 }
@@ -1508,9 +1515,11 @@ bool AP_Param::set_object_value(const void *object_pointer,
 // recurse into sub-objects
 void AP_Param::setup_sketch_defaults(void)
 {
-    setup();
+    hal.console->printf("AP_Param::setup_sketch_defaults start\n");
+    setup(); // calls AP_Param::setup which also StorageAccess::read_block
     for (uint16_t i=0; i<_num_vars; i++) {
         const auto &info = var_info(i);
+        hal.console->printf("AP_Param::setup_sketch_defaults:%s\n", info.name);
         uint8_t type = info.type;
         if (type <= AP_PARAM_FLOAT) {
             ptrdiff_t base;
@@ -1955,6 +1964,7 @@ bool AP_Param::find_old_parameter(const struct ConversionInfo *info, AP_Param *v
 // convert one old vehicle parameter to new object parameter
 void AP_Param::convert_old_parameter(const struct ConversionInfo *info, float scaler, uint8_t flags)
 {
+    hal.console->printf("AP_Param::convert_old_parameter:%s\n",info->new_name);
     uint8_t old_value[type_size(info->type)];
     AP_Param *ap = (AP_Param *)&old_value[0];
 
@@ -2013,6 +2023,7 @@ void AP_Param::convert_old_parameter(const struct ConversionInfo *info, float sc
 // convert old vehicle parameters to new object parameters
 void AP_Param::convert_old_parameters(const struct ConversionInfo *conversion_table, uint8_t table_size, uint8_t flags)
 {
+    hal.console->printf("Converting old parameters...\n");
     convert_old_parameters_scaled(conversion_table, table_size, 1.0f, flags);
 }
 
@@ -2036,6 +2047,7 @@ void AP_Param::convert_class(uint16_t param_key, void *object_pointer,
     const uint8_t group_shift = is_top_level ? 0 : 6;
 
     for (uint8_t i=0; group_info[i].type != AP_PARAM_NONE; i++) {
+        hal.console->printf("AP_Param::convert_class...%s\n",group_info[i].name);
         struct ConversionInfo info;
         info.old_key = param_key;
         info.type = (ap_var_type)group_info[i].type;
@@ -2078,11 +2090,13 @@ void AP_Param::convert_g2_objects(const void *g2, const G2ObjectConversion g2_co
 {
     // Find G2's Top Level Key
     ConversionInfo info;
+    hal.console->printf("\nPlane::G2 tlp...\n");
     if (!find_top_level_key_by_pointer(g2, info.old_key)) {
         return;
     }
     for (uint8_t i=0; i<num_conversions; i++) {
         const auto &c { g2_conversions[i] };
+        hal.console->printf("\nPlane::G2 %d...\n",i);
         convert_class(info.old_key, c.object_pointer, c.var_info, c.old_index, false);
     }
 }

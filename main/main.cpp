@@ -42,7 +42,7 @@ extern Plane plane;
  }
 void app_main()
 {
-     printf("Hello nerds!\n");
+     printf("app_main - Hello nerds!\n");
 
     /* Print chip information */
     esp_chip_info_t chip_info;
@@ -64,26 +64,13 @@ void app_main()
     printf("%dMB %s flash\n", flash_size / (1024 * 1024),
             (chip_info.features & CHIP_FEATURE_EMB_FLASH) ? "embedded" : "external");
 
-    //for (int i = 10; i >= 0; i--) {
-    //    printf("Restarting in %d seconds...\n", i);
-       // vTaskDelay(1000 / portTICK_PERIOD_MS);
-    //}
-    //printf("Restarting now.\n");
-    //fflush(stdout);
-    //esp_restart();
     char * argv[0];
     main(0,argv);
 }
 
 int main(int argc, char * argv[]) {
-    //app_main();
 
-    printf("after app main before hal\n");
-
-    hal.run(argc, argv, &plane); 
-
-    printf("HAL has started - Ground Start and INS calibration should begin shortly....\n");
-
-    //othermain(argc, argv); // see ArduPlane/ArduPlane.cpp
+    printf("main() before hal\n");
+    hal.run(argc, argv, &plane);  // this  calls HAL_ESP32::run() which basically calls esp32 Scheduler.init() indirectly, and nothing after this should run.
     return 0;
 }

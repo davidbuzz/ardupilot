@@ -1346,8 +1346,9 @@ static const RCConversionInfo rc_option_conversion[] = {
 
 void Plane::load_parameters(void)
 {
+    hal.console->printf("\nPlane::load_parameters...\n");
     AP_Vehicle::load_parameters(g.format_version, Parameters::k_format_version);
-
+    hal.console->printf("\nPlane::convert_old_parameters...\n");
     AP_Param::convert_old_parameters(&conversion_table[0], ARRAY_SIZE(conversion_table));
 
     // setup defaults in SRV_Channels
@@ -1355,7 +1356,8 @@ void Plane::load_parameters(void)
     g2.servo_channels.set_default_function(CH_2, SRV_Channel::k_elevator);
     g2.servo_channels.set_default_function(CH_3, SRV_Channel::k_throttle);
     g2.servo_channels.set_default_function(CH_4, SRV_Channel::k_rudder);
-        
+
+    hal.console->printf("\nPlane::upgrade_parameters...\n");
     SRV_Channels::upgrade_parameters();
 
 #if HAL_QUADPLANE_ENABLED
@@ -1366,6 +1368,9 @@ void Plane::load_parameters(void)
 #endif
 
     AP_Param::set_frame_type_flags(AP_PARAM_FRAME_PLANE);
+
+
+    hal.console->printf("\nPlane::RCx_OPTIONs params...\n");
 
     // Convert chan params to RCx_OPTION
     for (uint8_t i=0; i<ARRAY_SIZE(rc_option_conversion); i++) {
@@ -1380,6 +1385,9 @@ void Plane::load_parameters(void)
     }
 
 #if AP_FENCE_ENABLED
+
+    hal.console->printf("\nPlane::FENCE_TYPE params...\n");
+
     enum ap_var_type ptype_fence_type;
     AP_Int8 *fence_type_new = (AP_Int8*)AP_Param::find("FENCE_TYPE", &ptype_fence_type);
     if (fence_type_new && !fence_type_new->configured()) {
@@ -1466,9 +1474,14 @@ void Plane::load_parameters(void)
     }
 #endif // AP_FENCE_ENABLED
 
+    hal.console->printf("\nPlane::terrain convert_parameter_width...\n");
+
+
 #if AP_TERRAIN_AVAILABLE
     g.terrain_follow.convert_parameter_width(AP_PARAM_INT8);
 #endif
+
+    hal.console->printf("\nPlane::thrust convert_parameter_width...\n");
 
     g.use_reverse_thrust.convert_parameter_width(AP_PARAM_INT16);
 
@@ -1480,6 +1493,9 @@ void Plane::load_parameters(void)
         AP_Param::convert_class(old_key, &airspeed, airspeed.var_info, old_index, true);
     }
 #endif
+
+    hal.console->printf("\nPlane::notch params...\n");
+
 
 #if AP_INERTIALSENSOR_HARMONICNOTCH_ENABLED
 #if HAL_INS_NUM_HARMONIC_NOTCH_FILTERS > 1
@@ -1503,6 +1519,8 @@ void Plane::load_parameters(void)
     AP_Param::convert_class(g.k_param_fence, &fence, fence.var_info, 0, true);
 #endif
   
+      hal.console->printf("\nPlane::convert_centi_parameter...\n");
+
     // PARAMETER_CONVERSION - Added: Dec 2023
     // Convert _CM (centimeter) parameters to meters and _CD (centidegrees) parameters to meters
     g.pitch_trim.convert_centi_parameter(AP_PARAM_INT16);
@@ -1513,6 +1531,8 @@ void Plane::load_parameters(void)
     aparm.pitch_limit_max.convert_centi_parameter(AP_PARAM_INT16);
     aparm.pitch_limit_min.convert_centi_parameter(AP_PARAM_INT16);
     aparm.roll_limit.convert_centi_parameter(AP_PARAM_INT16);
+
+      hal.console->printf("\nPlane::landing params...\n");
 
     landing.convert_parameters();
 
@@ -1535,12 +1555,19 @@ void Plane::load_parameters(void)
 #endif
     };
 
+          hal.console->printf("\nPlane::G2 params...\n");
+
+
     AP_Param::convert_g2_objects(&g2, g2_conversions, ARRAY_SIZE(g2_conversions));
+
+     hal.console->printf("\nPlane::convert_class params...\n");
 
     // PARAMETER_CONVERSION - Added: Feb-2024 for Copter-4.6
 #if HAL_LOGGING_ENABLED
     AP_Param::convert_class(g.k_param_logger, &logger, logger.var_info, 0, true);
 #endif
+
+hal.console->printf("\nPlane::serial_manager params...\n");
 
     static const AP_Param::TopLevelObjectConversion toplevel_conversions[] {
 #if AP_SERIALMANAGER_ENABLED
@@ -1549,5 +1576,9 @@ void Plane::load_parameters(void)
 #endif
     };
 
+    hal.console->printf("\nPlane::convert_toplevel_objects params...\n");
+
     AP_Param::convert_toplevel_objects(toplevel_conversions, ARRAY_SIZE(toplevel_conversions));
+
+    hal.console->printf("\nPlane::load_parameters... DONE\n");
 }

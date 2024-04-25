@@ -299,6 +299,7 @@ extern AP_Vehicle& vehicle;
  */
 void AP_Vehicle::setup()
 {
+    hal.console->printf("AP_Vehicle::setup()\n");
     // load the default values of variables listed in var_info[]
     AP_Param::setup_sketch_defaults();
 

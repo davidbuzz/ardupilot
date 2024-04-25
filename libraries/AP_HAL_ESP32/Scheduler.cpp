@@ -124,13 +124,13 @@ void Scheduler::moreinit() {
 
        xTaskCreatePinnedToCore(_print_profile, "APM_PROFILE", IO_SS, this, IO_PRIO, nullptr,SLOWCPU);
 
-    hal.console->printf("OK Sched Init, enabling WD\n");
+    hal.console->printf("OK Sched Init booting...\n");
     //enableCore0WDT();   //FASTCPU
     //enableCore1WDT();   //we don't enable WD on SLOWCPU right now.
 
     while (true) {
         vTaskDelay(10000);
-        printf("Scheduler...\n");
+        //printf("Scheduler...\n");
         int mahi = uxTaskGetStackHighWaterMark(_main_task_handle);
         int tihi = uxTaskGetStackHighWaterMark(_timer_task_handle);
         int rihi = uxTaskGetStackHighWaterMark(_rcin_task_handle);
@@ -140,7 +140,7 @@ void Scheduler::moreinit() {
         int tthi = uxTaskGetStackHighWaterMark(test_task_handle);
         int sohi = uxTaskGetStackHighWaterMark(_storage_task_handle);
         // smaller the above number/s are the closer that task has come to running out of its stack space.
-        printf("Stack High Water Marks: Main: %d, Timer: %d, RCIN: %d, RCOUT: %d, UART: %d, IO: %d, Test: %d, Storage: %d\n",mahi,tihi,rihi,rohi,uahi,iohi,tthi,sohi);
+        printf("\nStack High Water Marks: Main: %d, Timer: %d, RCIN: %d, RCOUT: %d, UART: %d, IO: %d, Test: %d, Storage: %d\n",mahi,tihi,rihi,rohi,uahi,iohi,tthi,sohi);
     }
 }
 

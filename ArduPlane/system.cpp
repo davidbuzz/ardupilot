@@ -10,6 +10,7 @@ static void failsafe_check_static()
 void Plane::init_ardupilot()
 {
 
+    hal.console->printf("Plane::init_ardupilot()...\n");
     ins.set_log_raw_bit(MASK_LOG_IMU_RAW);
 
     rollController.convert_pid();
@@ -107,9 +108,11 @@ void Plane::init_ardupilot()
 
 #if (GROUND_START_DELAY > 0)
     gcs().send_text(MAV_SEVERITY_NOTICE,"Ground start with delay");
+    hal.console->printf("Ground start with delay: %d\n", GROUND_START_DELAY);
     delay(GROUND_START_DELAY * 1000);
 #else
     gcs().send_text(MAV_SEVERITY_INFO,"Ground start");
+    hal.console->printf("Ground start\n");
 #endif
 
     //INS ground start
@@ -159,6 +162,8 @@ void Plane::init_ardupilot()
 #if AC_PRECLAND_ENABLED
     g2.precland.init(scheduler.get_loop_rate_hz());
 #endif
+
+    hal.console->printf("Plane::init_ardupilot()...DONE\n");
 }
 
 #if AP_FENCE_ENABLED
@@ -404,24 +409,32 @@ void Plane::check_short_failsafe()
 
 void Plane::startup_INS(void)
 {
+    hal.console->printf("Plane::startup_INS...\n");
     if (ins.gyro_calibration_timing() != AP_InertialSensor::GYRO_CAL_NEVER) {
         gcs().send_text(MAV_SEVERITY_ALERT, "Beginning INS calibration. Do not move plane");
+        hal.console->printf("Beginning INS calibration. Do not move plane\n");
     } else {
         gcs().send_text(MAV_SEVERITY_ALERT, "Skipping INS calibration");
+        hal.console->printf("Skipping INS calibration\n");
     }
 
+    hal.console->printf("ahrs.init\n");
     ahrs.init();
     ahrs.set_fly_forward(true);
     ahrs.set_vehicle_class(AP_AHRS::VehicleClass::FIXED_WING);
     ahrs.set_wind_estimation_enabled(true);
 
+    hal.console->printf("ins.init\n");
     ins.init(scheduler.get_loop_rate_hz());
+    hal.console->printf("ahrs.init\n");
     ahrs.reset();
 
     // read Baro pressure at ground
     //-----------------------------
+    hal.console->printf("barometer setup\n");
     barometer.set_log_baro_bit(MASK_LOG_IMU);
     barometer.calibrate();
+    hal.console->printf("Plane::startup_INS DONE\n");
 }
 
 // sets notify object flight mode information
