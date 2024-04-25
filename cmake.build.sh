@@ -1,12 +1,18 @@
-#!/bin/bash -x
+#!/bin/bash
 
 cd /home/buzz2/ardupilot
 
 source ./cmake.last.env.bin
 
-cd $BUILDDIR
+echo "--------------------------------------------------------------------------------"
+echo "building this target..."
+cat ./cmake.last.env.bin | grep export
+echo "--------------------------------------------------------------------------------"
 
-. ./modules/esp_idf/export.sh
+
+. ./modules/esp_idf/export.sh 2>&1 > /dev/null
+
+cd $BUILDDIR
 
 
 # before we get here, we've already run the cmake.xx.configure.sh  which ran 'cmake ..' in this build directory as part of the 'configure' script

@@ -1,5 +1,4 @@
-#!/bin/bash -x
-
+#!/bin/bash
 # must do this once first:
 # ./Tools/scripts/esp32_get_idf.sh
 
@@ -10,11 +9,12 @@ unset LDFLAGS
 
 mkdir -p build2/esp32s3empty/libraries/GCS_MAVLink/include/mavlink/v2.0
 # needs mavgen.py in path
-python3 `which mavgen.py` --lang C --wire-protocol 2.0 --no-validate -o build2/esp32s3empty/libraries/GCS_MAVLink/include/mavlink/v2.0 modules/mavlink/message_definitions/v1.0/all.xml
+python3 `which mavgen.py` --lang C --wire-protocol 2.0 --no-validate -o build2/esp32s3empty/libraries/GCS_MAVLink/include/mavlink/v2.0 modules/mavlink/message_definitions/v1.0/all.xml 2>&1 | grep -v xml | grep -v enum
 
 
 # auto-gen the cmake file for the 'libraries' folder
-echo "cmake libs build output missing. updating: ./libraries/libs.short.txt.cmake"
+echo "--------------------------------------------------------------------------------"
+echo "Generating cmake output for /libraries/ folder: ./libraries/libs.short.txt.cmake"
 cd libraries
 ./libraries.cmake.generator.sh
 cd ..
@@ -26,10 +26,10 @@ if [ ! -f "./modules/esp_idf/export.sh" ]; then
 fi
 
 if [  -f "./modules/esp_idf/export.sh" ]; then
-   source ./modules/esp_idf/export.sh
+   source ./modules/esp_idf/export.sh 2>&1 > /dev/null
 fi
 
-rm CMakeCache.txt
+touch CMakeCache.txt; rm CMakeCache.txt
 
 
 #inspired by https://github.com/espressif/esp-idf/blob/master/examples/build_system/cmake/idf_as_lib/
@@ -48,10 +48,13 @@ echo "export TARGET=$TARGET" >> ./cmake.last.env.bin
 #rm -rf $BUILDDIR
 cd $BUILDDIR
 # u could also cmake  .. -DBUILDDIR=$BUILDDIR -DBOARD_NAME=$BOARD_NAME -DVEHICLETYPE=$VEHICLETYPE -DTARGET=${TARGET}
+echo "--------------------------------------------------------------------------------"
 cmake ..
+echo "--------------------------------------------------------------------------------"
+
 cd ..
 
-echo "Please now run ./cmake.build.sh to      build the project."
+echo "Please now run ./cmake.build.sh         to build the project."
 echo "   OR      run ./cmake.build.flash.sh   to build and attempt to flash the connected board"
 
 #tips:
