@@ -52,6 +52,10 @@
 #define __LITTLE_ENDIAN  1234
 #define __BYTE_ORDER     __LITTLE_ENDIAN
 
+// ardu uses this to determine if we are doing a ramfunc, but free rtos/ esp32 calls it something else
+#define __RAMFUNC__ IRAM_ATTR 
+
+
 // whenver u get ... error: "xxxxxxx" is not defined, evaluates to 0 [-Werror=undef]  just define it below as 0
 #define CONFIG_SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY 0
 #define XCHAL_ERRATUM_453 0
