@@ -31,10 +31,6 @@
 
 #include "AnalogIn.h"
 
-#ifndef ESP32_ADC_MAVLINK_DEBUG
-// this allows the first 6 analog channels to be reported by mavlink for debugging purposes
-#define ESP32_ADC_MAVLINK_DEBUG 0
-#endif
 
 #include <GCS_MAVLink/GCS_MAVLink.h>
 
@@ -64,7 +60,10 @@ using namespace ESP32;
    */
 const AnalogIn::pin_info AnalogIn::pin_config[] = HAL_ESP32_ADC_PINS;
 
+
+
 #define ADC_GRP1_NUM_CHANNELS   ARRAY_SIZE(AnalogIn::pin_config)
+
 
 
 #define DEFAULT_VREF    1100       //Use adc2_vref_to_gpio() to obtain a better estimate
@@ -85,7 +84,7 @@ AnalogSource::AnalogSource(int16_t ardupin,int16_t pin,float scaler, float initi
     _sum_count(0),
     _sum_value(0)
 {
-    printf("AnalogIn: adding ardupin:%d-> which is adc1_offset:%d\n", _ardupin,_pin);
+    hal.console->printf("AnalogIn: adding ardupin:%d-> which is adc1_offset:%d\n", _ardupin,_pin);
 
     // init the pin now if possible, otherwise doo it later from set_pin
     if ( _ardupin != ANALOG_INPUT_NONE ) {
@@ -97,7 +96,8 @@ AnalogSource::AnalogSource(int16_t ardupin,int16_t pin,float scaler, float initi
             adc1_config_channel_atten((adc1_channel_t)_pin, atten);
             adc1_pad_get_io_num((adc1_channel_t)_pin, &gpio);
         } else {
-            adc2_config_channel_atten((adc2_channel_t)_pin, atten);
+            // adc2_config_channel_atten((adc2_channel_t)_pin, atten);
+            // adc2_pad_get_io_num((adc2_channel_t)_pin, &gpio);
         }
 
         esp_adc_cal_characteristics_t adc_chars;
@@ -201,7 +201,8 @@ bool AnalogSource::set_pin(uint8_t ardupin)
             adc1_config_channel_atten((adc1_channel_t)newgpioAdcPin, atten);
             adc1_pad_get_io_num((adc1_channel_t)newgpioAdcPin, &gpio);
         } else {
-            adc2_config_channel_atten((adc2_channel_t)newgpioAdcPin, atten);
+            // adc2_config_channel_atten((adc2_channel_t)newgpioAdcPin, atten);
+            // adc2_pad_get_io_num((adc2_channel_t)newgpioAdcPin, &gpio);
         }
 
         esp_adc_cal_characteristics_t adc_chars;
@@ -244,6 +245,7 @@ void AnalogSource::_add_value()
         adc2_get_raw((adc2_channel_t)_pin, ADC_WIDTH_BIT_12, &value);
     }
 
+
     _latest_value = value;
     _sum_value += value;
     _sum_count++;
@@ -252,6 +254,14 @@ void AnalogSource::_add_value()
         _sum_value /= 2;
         _sum_count /= 2;
     }
+
+    // static int count=0;
+    // if (count > 1000 ) {
+    //  hal.console->printf(" adc raw: value:%d gpio:%d\n", value,_gpio);
+    //  count=0;
+    // }
+    // count++;
+    // buf_adc[_pin] = read_average();
 }
 
 static void check_efuse()
@@ -290,26 +300,16 @@ void AnalogIn::_timer_tick()
         ESP32::AnalogSource *c = _channels[j];
         if (c != nullptr) {
             // add a value
-            //c->_add_value();
+            c->_add_value();
         }
     }
 
-#if ESP32_ADC_MAVLINK_DEBUG
-    static uint8_t count;
-    if (AP_HAL::millis() > 5000 && count++ == 10) {
-        count = 0;
-        uint16_t adc[6] {};
-        uint8_t n = ADC_GRP1_NUM_CHANNELS;
-        if (n > 6) {
-            n = 6;
-        }
-        for (uint8_t i = 0; i < n; i++) {
-            adc[i] = buf_adc[i];
-        }
-        mavlink_msg_ap_adc_send(MAVLINK_COMM_0, adc[0], adc[1], adc[2], adc[3], adc[4],
-                                adc[5]);
+    static uint32_t prev = AP_HAL::millis();
+    if (AP_HAL::millis() - prev > 1000) {
+        //count = 0;
+        prev = AP_HAL::millis();
+        //hal.console->printf(" adc smoothed: %d %d %d %d %d %d %d %d %d %d\n", buf_adc[0], buf_adc[1], buf_adc[2], buf_adc[3], buf_adc[4], buf_adc[5], buf_adc[6], buf_adc[7], buf_adc[8], buf_adc[9]);
     }
-#endif
 
 }
 

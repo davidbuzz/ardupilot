@@ -43,6 +43,12 @@
 #endif
 #endif
 
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+#ifndef BOARD_SAFETY_ENABLE_DEFAULT
+# define BOARD_SAFETY_ENABLE_DEFAULT 0
+#endif
+#endif
+
 #ifndef BOARD_SAFETY_ENABLE_DEFAULT
 #if defined(HAL_GPIO_PIN_SAFETY_IN)
   // have safety startup enabled if we have a safety pin

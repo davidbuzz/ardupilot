@@ -88,6 +88,11 @@ AP_Notify *AP_Notify::_singleton;
 #define DRONECAN_LEDS 0
 #endif
 
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+  #define BUILD_DEFAULT_LED_TYPE (Notify_LED_None)
+  // buzz todo on the devkitm boards there's a led, maybe we can drive it with RCOutputRGBLed(HAL_RCOUT_RGBLED_RED, HAL_RCOUT_RGBLED_GREEN, HAL_RCOUT_RGBLED_BLUE));  ?
+#endif
+
 #ifndef DEFAULT_NTF_LED_TYPES
 #if CONFIG_HAL_BOARD == HAL_BOARD_LINUX
   #if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_NAVIO

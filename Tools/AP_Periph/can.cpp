@@ -21,7 +21,9 @@
 #include <AP_HAL/AP_HAL_Boards.h>
 #include "AP_Periph.h"
 #include <stdio.h>
+#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
 #include <drivers/stm32/canard_stm32.h>
+#endif
 #include <AP_HAL/I2CDevice.h>
 #include <AP_HAL/utility/RingBuffer.h>
 #include <AP_Common/AP_FWVersion.h>
@@ -35,6 +37,8 @@
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
 #include <AP_HAL_SITL/CANSocketIface.h>
 #include <AP_HAL_SITL/AP_HAL_SITL.h>
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+#include <AP_HAL_ESP32/CANIface.h>
 #endif
 
 #define IFACE_ALL ((1U<<(HAL_NUM_CAN_IFACES))-1U)
@@ -66,7 +70,14 @@ extern AP_Periph_FW periph;
 // timeout all frames at 1s
 #define CAN_FRAME_TIMEOUT 1000000ULL
 
+// if DEBUG_PRINTS=1, then msgs are emitted over CAN
+// if DEBUG_PRINTS=0, then 'printf' is uses for usb/console
+#define DEBUG_PRINTS 0
 #define DEBUG_PKTS 0
+#if DEBUG_PRINTS
+ # define Debug(fmt, args ...)  do {can_printf(fmt "\n", ## args);} while(0)
+#else
+ # define Debug(fmt, args ...)  do {printf(fmt "\n", ## args);} while(0)
 
 #if HAL_PERIPH_CAN_MIRROR
   #ifndef HAL_PERIPH_CAN_MIRROR_QUEUE_SIZE
@@ -101,6 +112,15 @@ static struct instance_t {
 #endif // HAL_PERIPH_CAN_MIRROR
 } instances[HAL_NUM_CAN_IFACES];
 
+
+#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
+    ChibiOS::CANIface* iface;
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+    ESP32::CANIface* iface;
+#elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
+    HALSITL::CANIface* iface;
+#endif
+} instances[HAL_NUM_CAN_IFACES];
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS && defined(HAL_GPIO_PIN_TERMCAN1) && (HAL_NUM_CAN_IFACES >= 2)
 static ioline_t can_term_lines[] = {
@@ -142,6 +162,8 @@ uint8_t PreferredNodeID = HAL_CAN_DEFAULT_NODE_ID;
 ChibiOS::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
 HALSITL::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+ESP32::CANIface* AP_Periph_FW::can_iface_periph[HAL_NUM_CAN_IFACES];
 #endif
 
 #if AP_CAN_SLCAN_ENABLED
@@ -793,6 +815,7 @@ void AP_Periph_FW::onTransferReceived(CanardInstance* canard_instance,
 
     switch (transfer->data_type_id) {
     case UAVCAN_PROTOCOL_GETNODEINFO_ID:
+        printf("handle_get node id\n");
         handle_get_node_info(canard_instance, transfer);
         break;
 
@@ -808,10 +831,13 @@ void AP_Periph_FW::onTransferReceived(CanardInstance* canard_instance,
         NVIC_SystemReset();
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
         HAL_SITL::actually_reboot();
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+        hal.scheduler->reboot(false);
 #endif
         break;
 
     case UAVCAN_PROTOCOL_PARAM_GETSET_ID:
+        printf("handle_get node id\n");
         handle_param_getset(canard_instance, transfer);
         break;
 
@@ -1435,6 +1461,10 @@ void AP_Periph_FW::node_status_send(void)
  */
 void AP_Periph_FW::process1HzTasks(uint64_t timestamp_usec)
 {
+
+    //can send and recieve stats?
+    printf("\n");// to keep the console flushed
+
     /*
      * Purging transfers that are no longer transmitted. This will occasionally free up some memory.
      */
@@ -1541,6 +1571,10 @@ bool AP_Periph_FW::can_do_dna()
 
     if (AP_Periph_FW::no_iface_finished_dna) {
         printf("Waiting for dynamic node ID allocation %x... (pool %u)\n",  IFACE_ALL, pool_peak_percent());
+    } else {
+        // hack to pretend we were assigned a DNA number after 10 secs:
+        printf("...didn't get DNA ID, falling back to CAN node-id 42\n");
+        canardSetLocalNodeID(&ins.canard, 42);
     }
 
     dronecan.send_next_node_id_allocation_request_at_ms =
@@ -1625,6 +1659,8 @@ void AP_Periph_FW::can_start()
         can_iface_periph[i] = NEW_NOTHROW ChibiOS::CANIface();
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
         can_iface_periph[i] = NEW_NOTHROW HALSITL::CANIface();
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+        can_iface_periph[i] = new ESP32::CANIface();
 #endif
         instances[i].iface = can_iface_periph[i];
         instances[i].index = i;
@@ -1847,7 +1883,7 @@ void AP_Periph_FW::can_update()
     static uint8_t led_idx = 0;
     static uint32_t last_led_change;
 
-    if ((now - last_led_change > led_change_period) && no_iface_finished_dna) {
+    if ((now - last_led_change > led_change_period) && has_any_iface_finished_dna) {
         // blink LED in recognisable pattern while waiting for DNA
 #ifdef HAL_GPIO_PIN_LED
         palWriteLine(HAL_GPIO_PIN_LED, (led_pattern & (1U<<led_idx))?1:0);

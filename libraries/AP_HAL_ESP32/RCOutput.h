@@ -22,8 +22,9 @@
 #include <AP_HAL/RCOutput.h>
 #include "HAL_ESP32_Namespace.h"
 #include "driver/mcpwm.h"
-#define HAL_PARAM_DEFAULTS_PATH nullptr
-#include <AP_HAL/Util.h>
+
+//#include <AP_HAL/Util.h>
+#include "AP_HAL_ESP32.h"
 
 namespace ESP32
 {
@@ -90,6 +91,9 @@ public:
     {
         safety_mask = mask;
     }
+
+    void timer_info(ExpandingString &str) override;
+
 
 
     void timer_tick() override;
