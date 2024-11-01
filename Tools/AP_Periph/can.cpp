@@ -102,6 +102,8 @@ static struct instance_t {
     AP_HAL::CANIface* iface;
 #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
     HALSITL::CANIface* iface;
+#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+     ESP32::CANIface* iface;
 #endif
 
 #if HAL_PERIPH_CAN_MIRROR
@@ -1114,7 +1116,7 @@ bool AP_Periph_FW::canard_broadcast(uint64_t data_type_signature,
 #if CANARD_ENABLE_CANFD
         .canfd = is_dna? false : canfdout(),
 #endif
-        .deadline_usec = AP_HAL::micros64()+CAN_FRAME_TIMEOUT,
+        //.deadline_usec = AP_HAL::micros64()+CAN_FRAME_TIMEOUT,
 #if CANARD_MULTI_IFACE
         .iface_mask = iface_mask==0 ? uint8_t(IFACE_ALL) : iface_mask,
 #endif
@@ -1157,7 +1159,7 @@ bool AP_Periph_FW::canard_respond(CanardInstance* canard_instance,
 #if CANARD_ENABLE_CANFD
         .canfd = canfdout(),
 #endif
-        .deadline_usec = AP_HAL::micros64()+CAN_FRAME_TIMEOUT,
+        //.deadline_usec = AP_HAL::micros64()+CAN_FRAME_TIMEOUT,
 #if CANARD_MULTI_IFACE
         .iface_mask = IFACE_ALL,
 #endif
@@ -1582,7 +1584,7 @@ bool AP_Periph_FW::can_do_dna()
     } else {
         // hack to pretend we were assigned a DNA number after 10 secs:
         printf("...didn't get DNA ID, falling back to CAN node-id 42\n");
-        canardSetLocalNodeID(&ins.canard, 42);
+        canardSetLocalNodeID(&dronecan.canard, 42);
     }
 
     dronecan.send_next_node_id_allocation_request_at_ms =
