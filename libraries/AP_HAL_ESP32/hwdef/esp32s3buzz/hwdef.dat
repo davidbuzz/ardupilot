@@ -452,8 +452,10 @@ define HAL_WITH_RAMTRON 1
 # an IMU heater.
 define HAL_HAVE_IMU_HEATER 1
 
-# Enable FAT filesystem support (needs a microSD defined via SDIO).
-define HAL_OS_FATFS_IO 1
+# Enable FAT filesystem support (needs a microSD defined via SDIO) - no worky assumes chibios
+# define HAL_OS_FATFS_IO 1
+# esp32 uses AP_FILESYSTEM_ESP32_ENABLED  not AP_FILESYSTEM_FATFS_ENABLED
+define AP_FILESYSTEM_ESP32_ENABLED 1
 
 # Now setup the default battery pins driver analog pins and default
 # scaling for the power brick.
@@ -474,3 +476,6 @@ DMA_PRIORITY USART6* SPI*
 # is "ROMFS ROMFS-filename source-filename". Paths are relative to the
 # ardupilot root.
 # RxOMFS io_firmware.bin Tools/IO_Firmware/iofirmware_lowpolh.bin
+
+# which gpio pin does this board read its RCIN in on?
+define HAL_ESP32_RMT_RX_PIN_NUMBER 4
