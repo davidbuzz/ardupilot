@@ -2,6 +2,8 @@
 '''
 these tables are generated from the STM32 datasheets for the
 STM32F42x
+
+ - this file is totally unused on tesp32 ruight now, please see esp32_hwdef.py for where it actually happens.
 '''
 
 # additional build information for ChibiOS
@@ -114,6 +116,8 @@ DMA_Map = {
 	"USART6_RX"	:	[(2,1,5),(2,2,5)],
 	"USART6_TX"	:	[(2,6,5),(2,7,5)],
 }
+
+
 
 AltFunction_map = {
 	# format is PIN:FUNCTION : AFNUM

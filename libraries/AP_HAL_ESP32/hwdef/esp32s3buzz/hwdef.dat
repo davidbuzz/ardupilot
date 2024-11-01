@@ -2,7 +2,7 @@
 # MCU class and specific type
 MCU esp32 esp32_s3
 
-define HAL_ESP32_BOARD_NAME esp32s3buzz
+define HAL_ESP32_BOARD_NAME "esp32s3buzz"
 
 # We set a specific HAL_BOARD_SUBTYPE, allowing for custom config in
 # drivers. For this to be used the subtype needs to be added to
@@ -148,21 +148,73 @@ PA4 VDD_5V_SENS ADC1 SCALE(2)
 definitions. You can add speed modifiers if you want them, otherwise
 the defaults for the peripheral class are used.
 
-PA18 SPI1_SCK SPI1
-PA19 SPI1_MISO SPI1
-PA23 SPI1_MOSI SPI1
+# defaults setting snme: PE2 port E esppin 34 pinidx 2 type:INPUT extra:['FLOATING']
+# shows us that esp pin: 34 is CS ( ie chipselect )
+# seepms plausible, buzz...
+PE2 SPI3_CS SPI3 MPU_CS
+SPIDEV mpu9250        SPI3 DEVID4  MPU_CS       MODE0  2*MHZ  8*MHZ
 
-PA26 MAG_CS CS
+
+# --------------------------------
+#        #define HAL_ESP32_RCOUT { GPIO_NUM_11,GPIO_NUM_10, GPIO_NUM_9, GPIO_NUM_8, GPIO_NUM_7, GPIO_NUM_6 }
+#
+#        // SPI BUS setup, including gpio, dma, etc
+#        // note... we use 'vspi' for the bmp280 and mpu9250
+#        #define HAL_ESP32_SPI_BUSES \
+#            {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_36, .miso=GPIO_NUM_37, .sclk=GPIO_NUM_35}
+#        // tip:  VSPI_HOST  is an alternative name for esp's SPI3
+#        //#define HAL_ESP32_SPI_BUSES {}
+#
+#        // SPI per-device setup, including speeds, etc.
+#        #define HAL_ESP32_SPI_DEVICES \
+#            {.name="mpu9250", .bus=0, .device=0, .cs=GPIO_NUM_34,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
+#        //#define HAL_ESP32_SPI_DEVICES {}
+#
+#        //I2C bus list
+#        #define HAL_ESP32_I2C_BUSES \
+#            {.port=I2C_NUM_0, .sda=GPIO_NUM_16, .scl=GPIO_NUM_15, .speed=400*KHZ, .internal=true}
+#        //#define HAL_ESP32_I2C_BUSES {} // using this embty block appears to cause crashes?
+#
+#
+#        // rcin on what pin?
+#        #define HAL_ESP32_RCIN GPIO_NUM_14
+#
+#
+#        //HARDWARE UARTS
+#        #define HAL_ESP32_UART_DEVICES \
+#        {.port=UART_NUM_0, .rx=GPIO_NUM_44, .tx=GPIO_NUM_43 },{.port=UART_NUM_1, .rx=GPIO_NUM_17, .tx=GPIO_NUM_18 }
+#  ---------------------------------------------
+
+# this is how youd enable spi1 bus.
+# PA18 SPI1_SCK SPI1
+# PA19 SPI1_MISO SPI1
+# PA23 SPI1_MOSI SPI1
+
+# esp32s VSPI buss is also called SPI3 so we use that fo the only peripheral-usable spi bus on this board
+#   ... so the output shows us that esp pin:
+#  35 is on PE3 and is spi CLOCK
+#  36 is on PE4 and is spi mosi
+#  37 is on PE5 and is spi miso
+# defaults setting snme: PE3 port E esppin 35 pinidx 3 type:INPUT extra:['FLOATING']
+# defaults setting snme: PE4 port E esppin 36 pinidx 4 type:INPUT extra:['FLOATING']
+# defaults setting snme: PE5 port E esppin 37 pinidx 5 type:INPUT extra:['FLOATING']
+# defaults setting snme: PE6 port E esppin 38 pinidx 6 type:INPUT extra:['FLOATING']
+
+PE3 SPI3_SCK SPI3
+PE4 SPI3_MOSI SPI3
+PE5 SPI3_MISO SPI3
+
+# PA26 MAG_CS CS
 PA5 MPU_CS CS
 
 # This defines an output pin which will default to output LOW. It is a
 # pin that enables peripheral power on this board.
 
-PA8 VDD_5V_PERIPH_EN OUTPUT LOW
+# - we dont have a:  PA8 VDD_5V_PERIPH_EN OUTPUT LOW
 
 # This is the pin that senses USB being connected. It is an input pin
 # setup as OPENDRAIN.
-PA9 VBUS INPUT OPENDRAIN
+# - we dont have a: PA9 VBUS INPUT OPENDRAIN
 
 # This is a commented out pin for talking to the debug UART on the
 # IOMCU, not used yet, but left as a comment (with a '#' in front) for
@@ -170,19 +222,19 @@ PA9 VBUS INPUT OPENDRAIN
 # PA10 IO-debug-console
 
 # Now we define the pins that USB is connected on.
-PA11 OTG_FS_DM OTG1
-PA12 OTG_FS_DP OTG1
+# - we dont have a: PA11 OTG_FS_DM OTG1
+# - we dont have a: PA12 OTG_FS_DP OTG1
 
 # These are the pins for SWD debugging with a STlinkv2 or black-magic probe.
-PA13 JTMS-SWDIO SWD
-PA14 JTCK-SWCLK SWD
+# - we dont have a: PA13 JTMS-SWDIO SWD
+# - we dont have a: PA14 JTCK-SWCLK SWD
 
 # This defines the PWM pin for the buzzer (if there is one). It is
 # also mapped to a GPIO output so you can play with the buzzer via
 # MAVLink relay commands if you want to.
 
 # PWM output for buzzer
-PA15 TIM2_CH1 TIM2 GPIO(77) ALARM
+# - we dont have a: PA15 TIM2_CH1 TIM2 GPIO(77) ALARM
 
 # This defines a couple of general purpose outputs, mapped to GPIO
 # numbers 1 and 2 for users.
@@ -339,7 +391,8 @@ PB7 VDD_BRICK2_nVALID INPUT PULLUP
 #SPIDEV ms5611_ext     SPI4 DEVID2  BARO_EXT_CS  MODE3 20*MHZ 20*MHZ
 #SPIDEV mpu6000        SPI1 DEVID4  MPU_CS       MODE3  2*MHZ  8*MHZ
 #SPIDEV icm20608-am    SPI1 DEVID2  ACCEL_EXT_CS MODE3  4*MHZ  8*MHZ
-SPIDEV mpu9250        SPI1 DEVID4  MPU_CS       MODE3  4*MHZ  8*MHZ
+
+
 #SPIDEV mpu9250_ext    SPI4 DEVID1  MPU_EXT_CS   MODE3  4*MHZ  8*MHZ
 #SPIDEV icm20948       SPI1 DEVID4  MPU_CS       MODE3  4*MHZ  8*MHZ
 #SPIDEV icm20948_ext   SPI4 DEVID1  MPU_EXT_CS   MODE3  4*MHZ  8*MHZ
@@ -383,14 +436,32 @@ define HAL_PERIPH_NEOPIXEL_CHAN_WITHOUT_NOTIFY 0
 define HAL_PERIPH_NEOPIXEL_COUNT_WITHOUT_NOTIFY 1
 
 define HAL_INS_DEFAULT HAL_INS_MPU9250_SPI
-define HAL_BARO_DEFAULT HAL_BARO_BMP280_SPI
+#define HAL_BARO_DEFAULT HAL_BARO_BMP280_SPI
 
 define HAL_BARO_ALLOW_INIT_NO_BARO 1
 
 define HAL_PROBE_EXTERNAL_I2C_COMPASSES 0
 
-define HAL_INS_PROBE_LIST PROBE_IMU_SPI( Invensense, HAL_INS_MPU9250_NAME, ROTATION_NONE)
-define HAL_BARO_PROBE_LIST PROBE_BARO_SPI(BMP280, "bmp280")
+# spi imu
+define HAL_INS_MPU9250_NAME "mpu9250"
+define PROBE_IMU_SPI ADD_BACKEND(AP_InertialSensor_Invensense::probe(*this,hal.spi->get_device(HAL_INS_MPU9250_NAME), ROTATION_NONE))
+define HAL_INS_PROBE_LIST PROBE_IMU_SPI
+
+# one spi baro looks like this:
+# define HAL_BARO_PROBE_LIST PROBE_BARO_SPI(BMP280, "bmp280")
+
+# spi BARO setup
+#define PE6 BARO1_CS
+#SPIDEV baro  SPI3 DEVID2 BARO1_CS MODE3 1*MHZ 8*MHZ
+BARO BMP280 SPI:baro
+define HAL_BARO_ALLOW_INIT_NO_BARO 1
+define AP_BARO_BACKEND_DEFAULT_ENABLED 0
+define AP_BARO_BMP280_ENABLED 1
+
+# one i2c BARO might be like this..
+# BARO BMP280 I2C:0:0x76
+# define AP_BARO_BACKEND_DEFAULT_ENABLED 0
+# define AP_BARO_BMP280_ENABLED 1
 
 define HAL_ESP32_WIFI 1
 

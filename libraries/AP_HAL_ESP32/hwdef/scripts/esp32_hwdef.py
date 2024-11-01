@@ -21,8 +21,9 @@ parser.add_argument(
     '-D', '--outdir', type=str, default=None, help='Output directory')
 parser.add_argument(
     '--bootloader', action='store_true', default=False, help='configure for bootloader')
+#/home/buzz2/ardupilot/libraries/AP_HAL_ESP32/hwdef/esp32s3buzz/hwdef.dat
 parser.add_argument(
-    'hwdef', type=str, nargs='+', default=None, help='hardware definition file')
+    'hwdef', type=str, nargs='+', default='None', help='hardware definition file')
 parser.add_argument(
     '--params', type=str, default=None, help='user default params path')
 
@@ -85,31 +86,31 @@ inonlypins = [
 # table 17 in ref man
 #Signal Input_Signal Output_Signal Direct_I/O_in_IO_MUX
 esp32_gpio_matrix = {
-'0':['SPICLK_in' ,'SPICLK_out' ,'YES'],
-'1':['SPIQ_in' ,'SPIQ_out' ,'YES'],
-'2':['SPID_in' ,'SPID_out' ,'YES'],
-'3':['SPIHD_in' ,'SPIHD_out' ,'YES'],
-'4':['SPIWP_in' ,'SPIWP_out' ,'YES'],
-'5':['SPICS0_in' ,'SPICS0_out' ,'YES'],
-'6':['SPICS1_in' ,'SPICS1_out' ,'-'],
-'7':['SPICS2_in' ,'SPICS2_out' ,'-'],
-'8':['HSPICLK_in' ,'HSPICLK_out' ,'YES'],
-'9':['HSPIQ_in' ,'HSPIQ_out' ,'YES'],
-'10':['HSPID_in' ,'HSPID_out' ,'YES'],
-'11':['HSPICS0_in' ,'HSPICS0_out' ,'YES'],
-'12':['HSPIHD_in' ,'HSPIHD_out' ,'YES'],
-'13':['HSPIWP_in' ,'HSPIWP_out' ,'YES'],
-'14':['U0RXD_in' ,'U0TXD_out' ,'YES'],
-'15':['U0CTS_in' ,'U0RTS_out' ,'YES'],
-'16':['U0DSR_in' ,'U0DTR_out' ,'-'],
-'17':['U1RXD_in' ,'U1TXD_out' ,'YES'],
-'18':['U1CTS_in' ,'U1RTS_out' ,'YES'],
-'23':['I2S0O_BCK_in' ,'I2S0O_BCK_out' ,'-'],
-'24':['I2S1O_BCK_in' ,'I2S1O_BCK_out' ,'-'],
-'25':['I2S0O_WS_in' ,'I2S0O_WS_out' ,'-'],
-'26':['I2S1O_WS_in' ,'I2S1O_WS_out' ,'-'],
-'27':['I2S0I_BCK_in' ,'I2S0I_BCK_out' ,'-'],
-'28':['I2S0I_WS_in' ,'I2S0I_WS_out' ,'-'],
+'0': ['SPICLK_in' ,'SPICLK_out'             ,'YES'],
+'1': ['SPIQ_in' ,'SPIQ_out'                 ,'YES'],
+'2': ['SPID_in' ,'SPID_out'                 ,'YES'],
+'3': ['SPIHD_in' ,'SPIHD_out'               ,'YES'],
+'4': ['SPIWP_in' ,'SPIWP_out'               ,'YES'],
+'5': ['SPICS0_in' ,'SPICS0_out'             ,'YES'],
+'6': ['SPICS1_in' ,'SPICS1_out'    ,'-'],
+'7': ['SPICS2_in' ,'SPICS2_out'    ,'-'],
+'8': ['HSPICLK_in' ,'HSPICLK_out'           ,'YES'],
+'9': ['HSPIQ_in' ,'HSPIQ_out'               ,'YES'],
+'10':['HSPID_in' ,'HSPID_out'               ,'YES'],
+'11':['HSPICS0_in' ,'HSPICS0_out'           ,'YES'],
+'12':['HSPIHD_in' ,'HSPIHD_out'             ,'YES'],
+'13':['HSPIWP_in' ,'HSPIWP_out'             ,'YES'],
+'14':['U0RXD_in' ,'U0TXD_out'               ,'YES'],
+'15':['U0CTS_in' ,'U0RTS_out'               ,'YES'],
+'16':['U0DSR_in' ,'U0DTR_out'      ,'-'],
+'17':['U1RXD_in' ,'U1TXD_out'               ,'YES'],
+'18':['U1CTS_in' ,'U1RTS_out'               ,'YES'],
+'23':['I2S0O_BCK_in' ,'I2S0O_BCK_out'  ,'-'],
+'24':['I2S1O_BCK_in' ,'I2S1O_BCK_out'  ,'-'],
+'25':['I2S0O_WS_in' ,'I2S0O_WS_out'    ,'-'],
+'26':['I2S1O_WS_in' ,'I2S1O_WS_out'    ,'-'],
+'27':['I2S0I_BCK_in' ,'I2S0I_BCK_out'  ,'-'],
+'28':['I2S0I_WS_in' ,'I2S0I_WS_out'    ,'-'],
 '29':['I2CEXT0_SCL_in' ,'I2CEXT0_SCL_out' ,'-'],
 '30':['I2CEXT0_SDA_in' ,'I2CEXT0_SDA_out' ,'-'],
 '31':['pwm0_sync0_in' ,'sdio_tohost_int_out' ,'-'],
@@ -141,14 +142,14 @@ esp32_gpio_matrix = {
 '58':['pcnt_ctrl_ch1_in4' ,'-' ,'-'],
 '61':['HSPICS1_in' ,'HSPICS1_out' ,'-'],
 '62':['HSPICS2_in' ,'HSPICS2_out' ,'-'],
-'63':['VSPICLK_in' ,'VSPICLK_out_mux' ,'YES'],
-'64':['VSPIQ_in' ,'VSPIQ_out' ,'YES'],
-'65':['VSPID_in' ,'VSPID_out' ,'YES'],
-'66':['VSPIHD_in' ,'VSPIHD_out' ,'YES'],
-'67':['VSPIWP_in' ,'VSPIWP_out' ,'YES'],
-'68':['VSPICS0_in' ,'VSPICS0_out' ,'YES'],
-'69':['VSPICS1_in' ,'VSPICS1_out' ,'-'],
-'70':['VSPICS2_in' ,'VSPICS2_out' ,'-'],
+'63':['VSPICLK_in' ,'VSPICLK_out_mux'            ,'YES'],
+'64':['VSPIQ_in' ,'VSPIQ_out'                    ,'YES'],
+'65':['VSPID_in' ,'VSPID_out'                    ,'YES'],
+'66':['VSPIHD_in' ,'VSPIHD_out'                  ,'YES'],
+'67':['VSPIWP_in' ,'VSPIWP_out'                  ,'YES'],
+'68':['VSPICS0_in' ,'VSPICS0_out'                ,'YES'],
+'69':['VSPICS1_in' ,'VSPICS1_out'            ,'-'],
+'70':['VSPICS2_in' ,'VSPICS2_out'            ,'-'],
 '71':['pcnt_sig_ch0_in5' ,'ledc_hs_sig_out0' ,'-'],
 '72':['pcnt_sig_ch1_in5' ,'ledc_hs_sig_out1' ,'-'],
 '73':['pcnt_ctrl_ch0_in5' ,'ledc_hs_sig_out2' ,'-'],
@@ -261,8 +262,8 @@ esp32_gpio_matrix = {
 '195':['I2S1I_H_ENABLE' ,'-' ,'-'],
 '196':['-' ,'-' ,'-'],
 '197':['-' ,'-' ,'-'],
-'198':['U2RXD_in' ,'U2TXD_out' ,'YES'],
-'199':['U2CTS_in' ,'U2RTS_out' ,'YES'],
+'198':['U2RXD_in' ,'U2TXD_out'                 ,'YES'],
+'199':['U2CTS_in' ,'U2RTS_out'                 ,'YES'],
 '200':['emac_mdc_i' ,'emac_mdc_o' ,'-'],
 '201':['emac_mdi_i' ,'emac_mdo_o' ,'-'],
 '202':['emac_crs_i' ,'emac_crs_o' ,'-'],
@@ -290,7 +291,7 @@ esp32_gpio_matrix = {
 # tbl 18 in ref man
 
 #GPIO Pad_Name Function_0 Function_1 Function_2 Function_3 Function_4 Function_5 Reset Notes
-# âResetâ column shows each padâs default configurations after reset:
+# 'Reset' column shows each pads default configurations after reset:
 #  0=input-disabled
 #  1=input-enabled
 #  2=input-enabled-pull-down
@@ -299,47 +300,149 @@ esp32_gpio_matrix = {
 
 esp32_io_mux_pad_list = {
 
-'0':['GPIO0','GPIO0','CLK_OUT1','GPIO0','-','-','EMAC_TX_CLK','3','R'],
-'1':['U0TXD','U0TXD','CLK_OUT3','GPIO1','-','-','EMAC_RXD2','3','-'],
-'2':['GPIO2','GPIO2','HSPIWP','GPIO2','HS2_DATA0','SD_DATA0','-','2','R'],
-'3':['U0RXD','U0RXD','CLK_OUT2','GPIO3','-','-','-','3','-'],
-'4':['GPIO4','GPIO4','HSPIHD','GPIO4','HS2_DATA1','SD_DATA1','EMAC_TX_ER','2','R'],
-'5':['GPIO5','GPIO5','VSPICS0','GPIO5','HS1_DATA6','-','EMAC_RX_CLK','3','-'],
-'6':['SD_CLK','SD_CLK','SPICLK','GPIO6','HS1_CLK','U1CTS','-','3','-'],
-'7':['SD_DATA_0','SD_DATA0','SPIQ','GPIO7','HS1_DATA0','U2RTS','-','3','-'],
-'8':['SD_DATA_1','SD_DATA1','SPID','GPIO8','HS1_DATA1','U2CTS','-','3','-'],
-'9':['SD_DATA_2','SD_DATA2','SPIHD','GPIO9','HS1_DATA2','U1RXD','-','3','-'],
-'10':['SD_DATA_3','SD_DATA3','SPIWP','GPIO10','HS1_DATA3','U1TXD','-','3','-'],
-'11':['SD_CMD','SD_CMD','SPICS0','GPIO11','HS1_CMD','U1RTS','-','3','-'],
-'12':['MTDI','MTDI','HSPIQ','GPIO12','HS2_DATA2','SD_DATA2','EMAC_TXD3','2','R'],
-'13':['MTCK','MTCK','HSPID','GPIO13','HS2_DATA3','SD_DATA3','EMAC_RX_ER','2','R'],
-'14':['MTMS','MTMS','HSPICLK','GPIO14','HS2_CLK','SD_CLK','EMAC_TXD2','3','R'],
-'15':['MTDO','MTDO','HSPICS0','GPIO15','HS2_CMD','SD_CMD','EMAC_RXD3','3','R'],
-'16':['GPIO16','GPIO16','-','GPIO16','HS1_DATA4','U2RXD','EMAC_CLK_OUT','1','-'],
-'17':['GPIO17','GPIO17','-','GPIO17','HS1_DATA5','U2TXD','EMAC_CLK_180','1','-'],
-'18':['GPIO18','GPIO18','VSPICLK','GPIO18','HS1_DATA7','-','-','1','-'],
-'19':['GPIO19','GPIO19','VSPIQ','GPIO19','U0CTS','-','EMAC_TXD0','1','-'],
-'21':['GPIO21','GPIO21','VSPIHD','GPIO21','-','-','EMAC_TX_EN','1','-'],
-'22':['GPIO22','GPIO22','VSPIWP','GPIO22','U0RTS','-','EMAC_TXD1','1','-'],
-'23':['GPIO23','GPIO23','VSPID','GPIO23','HS1_STROBE','-','-','1','-'],
-'25':['GPIO25','GPIO25','-','GPIO25','-','-','EMAC_RXD0','0','R'],
-'26':['GPIO26','GPIO26','-','GPIO26','-','-','EMAC_RXD1','0','R'],
-'27':['GPIO27','GPIO27','-','GPIO27','-','-','EMAC_RX_DV','0','R'],
-'32':['32K_XP','GPIO32','-','GPIO32','-','-','-','0','R'],
-'33':['32K_XN','GPIO33','-','GPIO33','-','-','-','0','R'],
-'34':['VDET_1','GPIO34','-','GPIO34','-','-','-','0','R,','I'],
-'35':['VDET_2','GPIO35','-','GPIO35','-','-','-','0','R,','I'],
-'36':['SENSOR_VP','GPIO36','-','GPIO36','-','-','-','0','R,','I'],
-'37':['SENSOR_CAPP','GPIO37','-','GPIO37','-','-','-','0','R,','I'],
-'38':['SENSOR_CAPN','GPIO38','-','GPIO38','-','-','-','0','R,','I'],
-'39':['SENSOR_VN','GPIO39','-','GPIO39','-','-','-','0','R,','I'],
-
-
+#GPIO Pad_Name   Function_0 Function_1 Function_2 Function_3 Function_4   Function_5    Reset Notes
+# esp32 doesn't really have a concept of a 'port' like stm32, its got pads and pad labels, so we'll group them in 8's and call them ports where we have to
+# "virtual port A":
+'0':['GPIO0'     ,'GPIO0'  ,'CLK_OUT1','GPIO0'   ,'-'         ,'-'       ,'EMAC_TX_CLK' ,'3','R'],
+'1':['U0TXD'     ,'U0TXD'  ,'CLK_OUT3','GPIO1'   ,'-'         ,'-'       ,'EMAC_RXD2'   ,'3','-'],
+'2':['GPIO2'     ,'GPIO2'  ,'HSPIWP'  ,'GPIO2'   ,'HS2_DATA0' ,'SD_DATA0','-'           ,'2','R'],
+'3':['U0RXD'     ,'U0RXD'  ,'CLK_OUT2','GPIO3'   ,'-'         ,'-'       ,'-'           ,'3','-'],
+'4':['GPIO4'     ,'GPIO4'   ,'HSPIHD' ,'GPIO4'   ,'HS2_DATA1' ,'SD_DATA1','EMAC_TX_ER'  ,'2','R'],
+'5':['GPIO5'     ,'GPIO5'   ,'VSPICS0','GPIO5'   ,'HS1_DATA6' ,'-'       ,'EMAC_RX_CLK' ,'3','-'],
+'6':['SD_CLK'    ,'SD_CLK'  ,'SPICLK' ,'GPIO6'   ,'HS1_CLK'   ,'U1CTS'   ,'-'           ,'3','-'],
+'7':['SD_DATA_0' ,'SD_DATA0','SPIQ'   ,'GPIO7'   ,'HS1_DATA0' ,'U2RTS'   ,'-'           ,'3','-'],
+# "virtual port B":
+'8':['SD_DATA_1' ,'SD_DATA1','SPID'   ,'GPIO8'   ,'HS1_DATA1' ,'U2CTS'   ,'-'           ,'3','-'],
+'9':['SD_DATA_2' ,'SD_DATA2','SPIHD'  ,'GPIO9'   ,'HS1_DATA2' ,'U1RXD'   ,'-'           ,'3','-'],
+'10':['SD_DATA_3','SD_DATA3','SPIWP'  ,'GPIO10'  ,'HS1_DATA3' ,'U1TXD'   ,'-'           ,'3','-'],
+'11':['SD_CMD'   ,'SD_CMD'  ,'SPICS0' ,'GPIO11'  ,'HS1_CMD'   ,'U1RTS'   ,'-'           ,'3','-'],
+'12':['MTDI'     ,'MTDI'    ,'HSPIQ'  ,'GPIO12'  ,'HS2_DATA2' ,'SD_DATA2','EMAC_TXD3'   ,'2','R'],
+'13':['MTCK'     ,'MTCK'    ,'HSPID'  ,'GPIO13'  , 'HS2_DATA3' ,'SD_DATA3','EMAC_RX_ER'  ,'2','R'],
+'14':['MTMS'     ,'MTMS'    ,'HSPICLK','GPIO14'  ,'HS2_CLK'   ,'SD_CLK'  ,'EMAC_TXD2'   ,'3','R'],
+'15':['MTDO'     ,'MTDO'    ,'HSPICS0','GPIO15'  ,'HS2_CMD'   ,'SD_CMD'  ,'EMAC_RXD3'   ,'3','R'],
+# "virtual port C":
+'16':['GPIO16'   ,'GPIO16'  ,'-'      ,'GPIO16'  ,'HS1_DATA4' ,'U2RXD'   ,'EMAC_CLK_OUT','1','-'],
+'17':['GPIO17'   ,'GPIO17'  ,'-'      ,'GPIO17'  ,'HS1_DATA5' ,'U2TXD'   ,'EMAC_CLK_180','1','-'],
+'18':['GPIO18'   ,'GPIO18'  ,'VSPICLK','GPIO18'  ,'HS1_DATA7' ,'-'       ,'-'           ,'1','-'],
+'19':['GPIO19'   ,'GPIO19'  ,'VSPIQ'  ,'GPIO19'  ,'U0CTS'     ,'-'       ,'EMAC_TXD0'   ,'1','-'],
+'21':['GPIO21'   ,'GPIO21'  ,'VSPIHD' ,'GPIO21'  ,'-'         ,'-'       ,'EMAC_TX_EN'  ,'1','-'],
+'22':['GPIO22'   ,'GPIO22'  ,'VSPIWP' ,'GPIO22'  ,'U0RTS'     ,'-'       ,'EMAC_TXD1'   ,'1','-'],
+'23':['GPIO23'   ,'GPIO23'  ,'VSPID'  ,'GPIO23'  ,'HS1_STROBE','-'       ,'-'           ,'1','-'],
+'25':['GPIO25'   ,'GPIO25'  ,'-'      ,'GPIO25'  ,'-'         ,'-'       ,'EMAC_RXD0'   ,'0','R'],
+# "virtual port D":
+'26':['GPIO26'   ,'GPIO26'  ,'-'      ,'GPIO26'  ,'-'         ,'-'       ,'EMAC_RXD1'   ,'0','R'],
+'27':['GPIO27'   ,'GPIO27'  ,'-'      ,'GPIO27'  ,'-'         ,'-'       ,'EMAC_RX_DV'  ,'0','R'],
+'28': [], # not in table
+'29': [], # not in table
+'30': [], # not in table
+'31': [], # not in table
+# there is 28,29,30,31 in this table, but they are implied to be part of port D just unused.
+# "virtual port E":
+'32':['32K_XP'   ,'GPIO32'  ,'-'      ,'GPIO32'  ,'-'         ,'-'       ,'-'           ,'0','R'],
+'33':['32K_XN'   ,'GPIO33'  ,'-'      ,'GPIO33'  ,'-'         ,'-'       ,'-'           ,'0','R'],
+'34':['VDET_1'   ,'GPIO34'  ,'-'      ,'GPIO34'  ,'-'         ,'-'       ,'-'           ,'0','R,','I'],
+'35':['VDET_2'   ,'GPIO35'  ,'-'      ,'GPIO35'  ,'-'         ,'-'       ,'-'           ,'0','R,','I'],
+'36':['SENSOR_VP','GPIO36'  ,'-'      ,'GPIO36'  ,'-'         ,'-'       ,'-'           ,'0','R,','I'],
+'37':['SENSOR_CAPP','GPIO37','-'      ,'GPIO37'  ,'-'         ,'-'       ,'-'           ,'0','R,','I'],
+'38':['SENSOR_CAPN','GPIO38','-'      ,'GPIO38'  ,'-'         ,'-'       ,'-'           ,'0','R,','I'],
+'39':['SENSOR_VN','GPIO39'  ,'-'      ,'GPIO39'  ,'-'         ,'-'       ,'-'           ,'0','R,','I'],
 }
 
+# PA, PB, PC, PD, PE
+esp32_virtual_ports = {
+    'A': [0,1,2,3,4,5,6,7],
+    'B': [8,9,10,11,12,13,14,15],
+    'C': [16,17,18,19,21,22,23,25],
+    'D': [26,27,28,29,30,31],
+    'E': [32,33,34,35,36,37,38,39]
+}
 
+# pass in a number ranging from 0-39 and used as index here: esp32_io_mux_pad_list
+def from_mux_pad_idx_to_compat_name(pidx):
+    '''return the compat name for a given pad index'''
+     # we gonna scan all the sub values in esp32_virtual_ports and do a reverse look from there with two loops
+    for p in esp32_virtual_ports:
+        for pnum in esp32_virtual_ports[p]:
+            if pnum == pidx:
+                return p
+
+def from_mux_pad_idx_to_compat_short_idx(pidx):
+    '''return the compat idx 0-7 for a given pad index 0-39'''
+     # we gonna scan all the sub values in esp32_virtual_ports and do a reverse look from there with two loops
+    for p in esp32_virtual_ports:
+        shrtidx=0
+        for pnum in esp32_virtual_ports[p]:
+            if pnum == pidx:
+                return str(shrtidx)
+            shrtidx+=1
+
+# def get_port_name(port):
+#     '''return the port name for a given port number'''
+#     for p in esp32_virtual_ports:
+#         if port in esp32_virtual_ports[p]:
+#             return p
+#     return None
+
+def get_port_pins(port):
+    '''return the pins for a given port'''
+    return esp32_virtual_ports[port]
+
+# x  = PA , PB etc
+esp32_mux_pad_lookup = {}
+def port_lookup(pname) :
+    for pnum in esp32_virtual_ports[pname]:
+         #print ("Zport_lookup:%s" % pnum)
+         # compat_port_name => A0 
+         compat_port_name = pname+str(pnum)
+               #for pidx,mux_pad_info in esp32_io_mux_pad_list.items():
+         mux_pad_info = esp32_io_mux_pad_list[str(pnum)] # go from classic name to esp idx and get pad_name and functions etc
+         if len(mux_pad_info) == 0:
+                continue   # skips empty entries 
+         Pad_Name=mux_pad_info[0]
+         Function_0=mux_pad_info[1]
+         Function_1=mux_pad_info[2]
+         Function_2=mux_pad_info[3]
+         Function_3=mux_pad_info[4]
+         Function_4=mux_pad_info[5]
+         Reset=mux_pad_info[6]
+         Notes=mux_pad_info[7]
+         # we make all the printed values fixed-width
+         #print("compat_name:%-5s \tPad_Name:%-10s \tFunction_0:%-10s \tFunction_1:%-10s \tFunction_2:%-10s \tFunction_3:%-10s \tFunction_4:%-10s \tReset:%-10s \tNotes:%-10s" % (compat_port_name,Pad_Name,Function_0,Function_1,Function_2,Function_3, Function_4,Reset,Notes))
+         # save the data in a dictionary
+         esp32_mux_pad_lookup[compat_port_name]= [Pad_Name,Function_0,Function_1,Function_2,Function_3,Function_4,Reset,Notes]
+    # implicit return value is in esp32_mux_pad_lookup
 
 # ref tbl 19 is RTC_MUX not included here yet - appears to be mostly to do with ADC's, xtals ?
+
+esp32_alt_functions = {}
+# build a dictionary of alternate functions kinda like above but for alternate functions
+def esp32_altfunc_lookup():
+    for pidx,mux_pad_info in esp32_io_mux_pad_list.items():
+        if len(mux_pad_info) == 0:
+            continue   # skips empty entries 
+        compat_port_name =  from_mux_pad_idx_to_compat_name(int(pidx))
+        compat_short_idx =  from_mux_pad_idx_to_compat_short_idx(int(pidx)) #0-7
+        zzidx = 'P'+compat_port_name+compat_short_idx
+        esp32_alt_functions[zzidx] = {}
+        Pad_Name=mux_pad_info[0]
+        Function_0=mux_pad_info[1]
+        Function_1=mux_pad_info[2]
+        Function_2=mux_pad_info[3]
+        Function_3=mux_pad_info[4]
+        Function_4=mux_pad_info[5]
+        Reset=mux_pad_info[6]
+        Notes=mux_pad_info[7]
+        # we make all the printed values fixed-width
+        #print("espidx:%-5s compat_name:P%-5s \tPad_Name:%-10s \tFunction_0:%-10s \tFunction_1:%-10s \tFunction_2:%-10s \tFunction_3:%-10s \tFunction_4:%-10s \tReset:%-10s \tNotes:%-10s" % (pidx,compat_port_name,Pad_Name,Function_0,Function_1,Function_2,Function_3, Function_4,Reset,Notes))
+
+        #iterate over the function_0 to function_4 , not using a range, but just a list of values
+        fnidx=0
+        for fname in [Function_0,Function_1,Function_2,Function_3,Function_4]:
+            newidx = 'F'+str(fnidx)
+            esp32_alt_functions[zzidx][newidx]= fname
+            #print("esp32_altfunc_lookup:%s => %s => %s" % (zzidx,newidx,fname))
+            fnidx+=1
+    # implicit return value is in esp32_mux_pad_lookup
 
 
 # esp32
@@ -347,11 +450,28 @@ esp32_io_mux_pad_list = {
 # GPIO_OUT_REG GPIO 0-31 output register 0x3FF44004 R/W
 # GPIO_OUT1_REG GPIO 32-39 output register 0x3FF44010 R/W
 pincount = {
-    'A': 32,  #0-31
-    'B': 8,   #32-39
+    'A': 8,  #0-7   of 31
+    'B': 8,  #8-15  of 31
+    'C': 8,  #16-25 of 31
+    'D': 6,  #26-31 of 31
+    'E': 8,  #32-39
 }
+# so this gives us GPIOA and GPIOB as possible ports
+#  we make them all 8 pins wide and call the GPIOA,GPIOB,GPIOC,GPIOD,GPIOE for no better names 
+
+# from a 
 
 ports = pincount.keys()
+
+# pre-read all teh data into esp32_mux_pad_lookup
+for p in ports: 
+    port_lookup(p) # p= 'A', 'B', 'C', 'D', 'E' etc 
+#print ("esp32_mux_pad_lookup:%s" % esp32_mux_pad_lookup)
+
+# now do the same for alternate functions - see results in esp32_alt_functions
+esp32_altfunc_lookup()
+#print ("esp32_alt_functions:%s" % esp32_alt_functions)
+#exit(0)
 
 portmap = {}
 
@@ -436,34 +556,59 @@ def error(str):
     print("Error: " + str)
     #sys.exit(1)
 
+# MCU parameters - this is BS on the esp32, and just a placeholder for now
+_mcu = {
+    # ram map, as list of (address, size-kb, flags)
+    # flags of 1 means DMA-capable
+    # flags of 2 means faster memory for CPU intensive work
+    'RAM_MAP' : [
+        (0x20000000, 192, 1), # main memory, DMA safe
+        (0x10000000,  64, 2), # CCM memory, faster, but not DMA safe
+    ],
+
+    'EXPECTED_CLOCK' : 168000000
+}
+
 
 def get_mcu_lib(mcu):
     '''get library file for the chosen MCU'''
+
+    lib = {}
+    lib['AltFunction_map'] = esp32_alt_functions
+    lib['mcu'] = _mcu  # a global dict with MCU parameters
+    # add more here as needed
+    return lib
     # we don't really use the esp32-xxxxx.py yet, so lets just stick to esp32_s3.py till we need more than 1
     #mcu = 'esp32-classic'
-    import importlib
-    try:
-        #print("MCU type:",mcu)
-        lib = importlib.import_module(mcu)
-        return lib
-    except ImportError:
-        error("MCULIB Unable to find module for MCU %s" % mcu)
+    #import importlib
+    #try:
+    #    #print("MCU type:",mcu)
+    #    lib = importlib.import_module(mcu)
+    #    return lib
+    #except ImportError:
+    #    error("MCULIB Unable to find module for MCU %s" % mcu)
 
 # flag inputs as INPUT,FLOATING by default
 def setup_mcu_type_defaults():
     '''setup defaults for given mcu type'''
     global  pincount, portmap, vtypes, mcu_type
     lib = get_mcu_lib(mcu_type)
-    if hasattr(lib, 'pincount'):
-        pincount = lib.pincount
+    #if hasattr(lib, 'pincount'):
+    #    pincount = lib.pincount
     vtypes = f4f7_vtypes
     ports = pincount.keys()
     #setup default as input pins
     for port in ports:
         portmap[port] = []
-        for pin in range(pincount[port]):
-            #print("defaults",port,pin,default_gpio[0],default_gpio[1:])
-            portmap[port].append(generic_pin(port, pin, None, default_gpio[0], default_gpio[1:]))
+        esppins = get_port_pins(port)     #esppins ranges from x-to-y , not starting at zero.
+        for pinidx in range(pincount[port]): #pinidx ranges from 0-7
+            intype = default_gpio[0]
+            inextra = default_gpio[1:]
+            portmap[port].append(generic_pin(port, pinidx, None, intype, inextra))
+            esppin = esppins[pinidx]
+            snme = "P%s%u" % (port, pinidx)
+            print("defaults setting snme: %s port %s esppin %u pinidx %u type:%s extra:%s" % (snme,port, esppin, pinidx,intype,inextra))
+
 
 
 def get_alt_function(mcu, pin, function):
@@ -493,6 +638,7 @@ def get_alt_function(mcu, pin, function):
             s = pin + ":" + function
             if s not in alt_map:
                 error("Unknown pin function %s for MCU %s" % (s, mcu))
+                #error("Unknown pin function %s for MCU %s with alt_map:%s" % (s, mcu,alt_map))
             return alt_map[s]
     return None
 
@@ -862,13 +1008,16 @@ def get_config(name, column=0, required=True, default=None, type=None, spaces=Fa
 def get_mcu_config(name, required=False):
     '''get a value from the mcu dictionary'''
     lib = get_mcu_lib(mcu_type)
-    if not hasattr(lib, 'mcu'):
+    print ("get_mcu_config:%s" % lib)
+    #import pprint
+    #pprint.pprint(lib)
+    if 'mcu' not in lib:
         error("Missing mcu config for %s" % mcu_type)
-    if name not in lib.mcu:
+    if name not in lib['mcu']:
         if required:
             error("Missing required mcu config %s for %s" % (name, mcu_type))
         return None
-    return lib.mcu[name]
+    return lib['mcu'][name]
 
 
 def get_ram_reserve_start():
@@ -1208,19 +1357,19 @@ def write_mcu_config(f):
 #endif
     ''')
 
-    lib = get_mcu_lib(mcu_type)
-    build_info = lib.build
-
-    if get_mcu_config('CPU_FLAGS') and get_mcu_config('CORTEX'):
-        # CPU flags specified in mcu file
-        cortex = get_mcu_config('CORTEX')
-        env_vars['CPU_FLAGS'] = get_mcu_config('CPU_FLAGS').split()
-        build_info['MCU'] = cortex
-        print("MCU Flags: %s %s" % (cortex, env_vars['CPU_FLAGS']))
-    else:
-        cortex = "cortex-m4"
-        env_vars['CPU_FLAGS'] = ["-mcpu=%s" % cortex, "-mfpu=fpv4-sp-d16", "-mfloat-abi=hard"]
-        build_info['MCU'] = cortex
+    #lib = get_mcu_lib(mcu_type)
+    #build_info = lib['build']
+    #
+    #if get_mcu_config('CPU_FLAGS') and get_mcu_config('CORTEX'):
+    #    # CPU flags specified in mcu file
+    #    cortex = get_mcu_config('CORTEX')
+    #    env_vars['CPU_FLAGS'] = get_mcu_config('CPU_FLAGS').split()
+    #    build_info['MCU'] = cortex
+    #    print("MCU Flags: %s %s" % (cortex, env_vars['CPU_FLAGS']))
+    #else:
+    #    cortex = "cortex-m4"
+    #    env_vars['CPU_FLAGS'] = ["-mcpu=%s" % cortex, "-mfpu=fpv4-sp-d16", "-mfloat-abi=hard"]
+    #    build_info['MCU'] = cortex
 
     f.write('''
 #ifndef HAL_HAVE_HARDWARE_DOUBLE
@@ -1231,17 +1380,17 @@ def write_mcu_config(f):
     if get_mcu_config('EXPECTED_CLOCK', required=True):
         f.write('#define HAL_EXPECTED_SYSCLOCK %u\n' % get_mcu_config('EXPECTED_CLOCK'))
 
-    env_vars['CORTEX'] = cortex
-
-    if not args.bootloader:
-        if cortex == 'cortex-m4':
-            env_vars['CPU_FLAGS'].append('-DARM_MATH_CM4')
-        elif cortex == 'cortex-m7':
-            env_vars['CPU_FLAGS'].append('-DARM_MATH_CM7')
+    #env_vars['CORTEX'] = cortex
+    #
+    #if not args.bootloader:
+    #    if cortex == 'cortex-m4':
+    #        env_vars['CPU_FLAGS'].append('-DARM_MATH_CM4')
+    #    elif cortex == 'cortex-m7':
+    #        env_vars['CPU_FLAGS'].append('-DARM_MATH_CM7')
 
     # setup build variables
-    for v in build_info.keys():
-        build_flags.append('%s=%s' % (v, build_info[v]))
+    #for v in build_info.keys():
+    #    build_flags.append('%s=%s' % (v, build_info[v]))
 
     # setup for bootloader build
     if args.bootloader:
@@ -1440,7 +1589,7 @@ def write_SPI_table(f):
         lowspeed = dev[5]
         highspeed = dev[6]
         if not bus.startswith('SPI') or bus not in spi_list:
-            error("Bad SPI bus in SPIDEV line %s" % dev)
+            error("Bad SPI bus in SPIDEV line dev:%s bus:%s spibuslist:%s" % (dev,bus,spi_list))
         if not devid.startswith('DEVID') or not is_int(devid[5:]):
             error("Bad DEVID in SPIDEV line %s" % dev)
         if cs not in bylabel or not bylabel[cs].is_CS():
@@ -1597,6 +1746,7 @@ def write_IMU_config(f):
         if len(devlist) < 3:
             f.write('#define INS_MAX_INSTANCES %u\n' % len(devlist))
         f.write('#define HAL_INS_PROBE_LIST %s\n\n' % ';'.join(devlist))
+    #exit(1) # buzz hack
 
 
 def write_MAG_config(f):
@@ -2722,6 +2872,8 @@ def process_line(line):
     a = shlex.split(line, posix=False)
     # keep all config lines for later use
     alllines.append(line)
+
+    print("Processing line: ",line)
 
     p = None
     if a[0].startswith('P') and a[0][1] in ports:
