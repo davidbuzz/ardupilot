@@ -21,7 +21,9 @@
 
 #include <AP_HAL/RCOutput.h>
 #include "HAL_ESP32_Namespace.h"
+#ifndef HAL_PARAM_DEFAULTS_PATH
 #define HAL_PARAM_DEFAULTS_PATH nullptr
+#endif
 #include <AP_HAL/Util.h>
 
 #include "driver/gpio.h"
