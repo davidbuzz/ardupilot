@@ -125,7 +125,31 @@ void stm32_watchdog_pat();
 /*
   app descriptor for firmware checking
  */
+
+typedef struct app_descriptor_unsigned app_descriptor_t;
+
 extern const app_descriptor_t app_descriptor;
+
+const app_descriptor_t app_descriptor = {
+
+#if AP_SIGNED_FIRMWARE
+    .sig = AP_APP_DESCRIPTOR_SIGNATURE_SIGNED,
+#else
+    .sig = AP_APP_DESCRIPTOR_SIGNATURE_UNSIGNED,
+#endif
+    .image_crc1 = 0,
+    .image_crc2 = 0,
+    .image_size = 0,
+    .git_hash = 0,
+#if AP_SIGNED_FIRMWARE
+    .signature_length = 0,
+    .signature = {},
+#endif
+    .version_major = APP_FW_MAJOR,
+    .version_minor = APP_FW_MINOR,
+    .board_id = APJ_BOARD_ID,
+    .reserved = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff }
+};
 
 extern "C" {
     void can_vprintf(uint8_t severity, const char *fmt, va_list arg);
