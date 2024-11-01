@@ -2581,6 +2581,7 @@ def write_hwdef_header(outfilename):
       f.write("// This file contains OLD-STYLE static content from libraries/AP_HAL_ESP32/boards/%s\n" % dot_h_filename)
       f.write("// This file contains OLD-STYLE static content from libraries/AP_HAL_ESP32/boards/%s\n" % dot_h_filename)
       f.write("// --------------------------------------------------------------------------------\n")
+      f.write("#define ESP_BUILD_TYPE 1\n")
       f.write(lines)
       f.close()
       os.rename(tmpfile, outfilename)
@@ -2594,6 +2595,7 @@ def write_hwdef_header(outfilename):
     f.write("// This file contains NEW-STYLE content from  libraries/AP_HAL_ESP32/hwdef/%s/hwdef.dat\n" % hwdef_dirname)
     f.write("// This file contains NEW-STYLE content from  libraries/AP_HAL_ESP32/hwdef/%s/hwdef.dat\n" % hwdef_dirname)
     f.write("// --------------------------------------------------------------------------------\n")
+    f.write("#define ESP_BUILD_TYPE 2\n")
 
     dma_noshare.extend(get_config('DMA_NOSHARE', default='', aslist=True))
 

@@ -7,7 +7,7 @@ define HAL_ESP32_BOARD_NAME "esp32s3buzz"
 # We set a specific HAL_BOARD_SUBTYPE, allowing for custom config in
 # drivers. For this to be used the subtype needs to be added to
 # AP_HAL/AP_HAL_Boards.h as well.
-#-- dxefine CONFIG_HAL_BOARD_SUBTYPE HAL_BOARD_SUBTYPE_ESP32_S3BUZZ
+#  dont use this here, boards.py does it for us. dxefine CONFIG_HAL_BOARD_SUBTYPE HAL_BOARD_SUBTYPE_ESP32_S3BUZZ
 
 # Now we need to specify the APJ_BOARD_ID. This is the ID that the
 # bootloader presents to GCS software so it knows if this firmware is
@@ -392,6 +392,7 @@ PB7 VDD_BRICK2_nVALID INPUT PULLUP
 #SPIDEV mpu6000        SPI1 DEVID4  MPU_CS       MODE3  2*MHZ  8*MHZ
 #SPIDEV icm20608-am    SPI1 DEVID2  ACCEL_EXT_CS MODE3  4*MHZ  8*MHZ
 
+#SPIDEV mpu9250        SPI1 DEVID4  MPU_CS       MODE3  4*MHZ  8*MHZ
 
 #SPIDEV mpu9250_ext    SPI4 DEVID1  MPU_EXT_CS   MODE3  4*MHZ  8*MHZ
 #SPIDEV icm20948       SPI1 DEVID4  MPU_CS       MODE3  4*MHZ  8*MHZ
@@ -442,7 +443,7 @@ define HAL_BARO_ALLOW_INIT_NO_BARO 1
 
 define HAL_PROBE_EXTERNAL_I2C_COMPASSES 0
 
-# spi imu
+# spi imu is a 9250
 define HAL_INS_MPU9250_NAME "mpu9250"
 define PROBE_IMU_SPI ADD_BACKEND(AP_InertialSensor_Invensense::probe(*this,hal.spi->get_device(HAL_INS_MPU9250_NAME), ROTATION_NONE))
 define HAL_INS_PROBE_LIST PROBE_IMU_SPI

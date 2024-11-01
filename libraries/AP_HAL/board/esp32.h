@@ -2,7 +2,10 @@
 
 //generated header
 #include <hwdef.h>
-//#include <esp32buzz.h>
+
+// coming from their respective esp-idf/sdkconfig files ...
+// also note that '#ifdef CONFIG_IDF_TARGET_ESP32' is only true on Classic esp32 targets, not s3.
+// also note that '#ifdef CONFIG_IDF_TARGET_ESP32S3' is only true on esp32s3 targets, not classic.
 
 #if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_DIY
 #include "esp32diy.h" // Charles
@@ -21,7 +24,9 @@
 #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_S3EMPTY
 #include "esp32s3empty.h"
 #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_S3BUZZ
-//#include "esp32s3buzz.h" - uses hwdef.h from hwdef.dat, not this.
+#elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_DYNAMIC
+#elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_S3BUZZ_PERIPH
+// nothing here. both these use hwdef.h from hwdef.dat, not this - todo maybe stop requring SUBTYPES for hwdef.dat boards?
 #else
 #error "Invalid CONFIG_HAL_BOARD_SUBTYPE for esp32"
 #endif
@@ -155,9 +160,13 @@
 // remove once ESP32 isn't so chronically slow
 #define AP_SCHEDULER_OVERTIME_MARGIN_US 50000UL
 
+#ifndef HAL_UART_STATS_ENABLED
 #define HAL_UART_STATS_ENABLED 1
+#endif
 
+#ifndef HAL_WITH_DSP
 #define HAL_WITH_DSP 0
+#endif
 
 // three hardware serial + two virtual for tcp and udp
 #ifndef HAL_UART_NUM_SERIAL_PORTS 
