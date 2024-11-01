@@ -60,7 +60,7 @@
 #include "malloc.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
-#include "freertos/xtensa_api.h"
+#include "xtensa_api.h" // #include <freertos/xtensa_api.h>` is deprecated. Please use `#include <xtensa_api.h>` instead"
 #include "freertos/task.h"
 #include "freertos/ringbuf.h"
 #include "soc/dport_reg.h"
@@ -69,7 +69,7 @@
 //#include "hal/i2c_hal.h"
 #include "soc/i2c_periph.h"
 #include "driver/i2c.h"
-#include "driver/periph_ctrl.h"
+//#include "driver/periph_ctrl.h" //warning: #warning driver/periph_ctrl.h header is no longer used, and will be removed in future versions.
 #include "lwip/netdb.h"
 #include "i2c_sw.h"
 
@@ -134,8 +134,9 @@ void i2c_init(_i2c_bus_t* bus)
         case 160: bus->delay = _i2c_delays[bus->speed][1]; break;
         case 240: bus->delay = _i2c_delays[bus->speed][2]; break;
         default : DEBUG("i2c I2C software implementation is not "
-                                      "supported for this CPU frequency: %d MHz\n",
-                               ets_get_cpu_frequency());
+                        "supported for this CPU frequency: %u MHz\n",
+                        (unsigned int)ets_get_cpu_frequency()
+                       );
             return;
     }
 

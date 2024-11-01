@@ -48,8 +48,8 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_system.h"
-#include "soc/rtc_wdt.h"
-#include "esp_int_wdt.h"  //Interrupt Watchdog Timer
+//#include "soc/rtc_wdt.h"  //fatal error: soc/rtc_wdt.h: No such file or directory on classic
+//#include "esp_int_wdt.h"  //Interrupt Watchdog Timer - fatal error: esp_int_wdt.h: No such file or directory on classic
 #include "esp_task_wdt.h" //Task Watchdog Timer (TWDT)
 static ESP32::UARTDriver serial0Driver(0); //serial nterfaces with (x) after are real-hardware serial/s
 #ifdef HAL_ESP32_WIFI

@@ -25,9 +25,13 @@
 
 
 #include "esp_log.h"
+//#include "log/include/esp_log.h" 
+//#include <xtensa_api.h> // for ets_printf
 
 extern const AP_HAL::HAL& hal;
 
+#include "rom/ets_sys.h" //for ets_printf
+extern int ets_printf(const char* format, ...); //for ets_printf in rom
 
 using namespace ESP32;
 
