@@ -333,7 +333,7 @@ int16_t CANIface::receive(AP_HAL::CANFrame& out_frame, uint64_t& out_timestamp_u
     } else {
         printf("Message is in Standard Format\n");
     }
-    printf("ID is %d\n", message.identifier);
+    printf("ID is %ld\n", message.identifier);
     if (!(message.rtr)) {
         for (int i = 0; i < message.data_length_code; i++) {
             printf("Data byte %d = %d\n", i, message.data[i]);

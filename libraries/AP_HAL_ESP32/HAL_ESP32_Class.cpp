@@ -132,7 +132,7 @@ static Empty::Flash flashDriver;
 
 
 #if HAL_NUM_CAN_IFACES
-static CANIface* canDrivers[HAL_NUM_CAN_IFACES];
+static AP_HAL::CANIface* canDrivers[HAL_NUM_CAN_IFACES];
 #endif
 
 #if HAL_USE_WSPI == TRUE && defined(HAL_QSPI_DEVICE_LIST)
