@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 '''
-setup board.h for chibios
+setup board.h for esp32 derived from chibios script.
 '''
 
 import argparse

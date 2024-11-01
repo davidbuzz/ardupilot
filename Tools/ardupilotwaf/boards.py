@@ -1009,7 +1009,7 @@ class esp32(Board):
             print("NOT S3")
             env.s3 = False
         else :
-            env.IDF = cfg.srcnode.abspath()+"/modules/esp_idf-s3"
+            env.IDF = cfg.srcnode.abspath()+"/modules/esp_idf"
             print("YES S3")
             env.s3 = True
         

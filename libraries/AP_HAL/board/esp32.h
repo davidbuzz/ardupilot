@@ -20,6 +20,8 @@
 #include "esp32s3devkit.h" //Nick K. on discord
 #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_S3EMPTY
 #include "esp32s3empty.h"
+#elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_ESP32_S3BUZZ
+//#include "esp32s3buzz.h" - uses hwdef.h from hwdef.dat, not this.
 #else
 #error "Invalid CONFIG_HAL_BOARD_SUBTYPE for esp32"
 #endif
@@ -29,9 +31,17 @@
 #define HAL_WITH_DRONECAN 0
 #define HAL_WITH_UAVCAN 0
 #define HAL_MAX_CAN_PROTOCOL_DRIVERS 0
+
+// some of these are optionally defined in the *generated* hwdef.h from hwdef.dat so we wrap them here
+#ifndef HAL_HAVE_SAFETY_SWITCH
 #define HAL_HAVE_SAFETY_SWITCH 0
+#endif
+#ifndef HAL_HAVE_BOARD_VOLTAGE
 #define HAL_HAVE_BOARD_VOLTAGE 0
+#endif
+#ifndef HAL_HAVE_SERVO_VOLTAGE
 #define HAL_HAVE_SERVO_VOLTAGE 0
+#endif
 
 #define HAL_WITH_IO_MCU 0
 

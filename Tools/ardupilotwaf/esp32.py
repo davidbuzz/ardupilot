@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 """
-Waf tool for ESP32 build
+Waf tool for ESP32 and ESP32S3 build/s that are using a hwdef.dat
 """
 
 from waflib import Errors, Logs, Task, Utils, Context, Build, ConfigSet, Configure
