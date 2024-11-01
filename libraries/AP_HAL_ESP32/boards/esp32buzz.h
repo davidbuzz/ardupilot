@@ -34,6 +34,8 @@
 //#define CONFIG_HAL_BOARD 12
 //#define HAL_BOARD_ESP32 12
 
+#define CONFIG_HAL_BOARD_SUBTYPE HAL_BOARD_SUBTYPE_ESP32_BUZZ
+
 //INS choices:
 #define HAL_INS_DEFAULT HAL_INS_MPU9250_SPI
 //#define HAL_INS_MPU9250_NAME "MPU9250"
@@ -83,25 +85,38 @@
 // the pin number, the gain/multiplier associated with it, the ardupilot name for the pin in parameter/s.
 //
 // two different pin numbering schemes, both are ok, but only one at a time:
+//GPIO_NUM_4
+//GPIO_NUM_8
+//GPIO_NUM_9
+//GPIO_NUM_10
+// S3?
+// #define HAL_ESP32_ADC_PINS_OPTION1 {
+// 	{ADC1_GPIO4_CHANNEL, 11, 1},
+// 	{ADC1_GPIO8_CHANNEL, 11, 2},
+// 	{ADC1_GPIO9_CHANNEL, 11, 3},
+// 	{ADC1_GPIO10_CHANNEL, 11, 4}
+// }
+// classic uses pins 35,34,39,36 in that order:
 #define HAL_ESP32_ADC_PINS_OPTION1 {\
-	{ADC1_GPIO35_CHANNEL, 11, 1},\
-	{ADC1_GPIO34_CHANNEL, 11, 2},\
-	{ADC1_GPIO39_CHANNEL, 11, 3},\
-	{ADC1_GPIO36_CHANNEL, 11, 4}\
+	{ADC1_CHANNEL_7_GPIO_NUM, 11, 1},\
+	{ADC1_CHANNEL_7_GPIO_NUM, 11, 2},\
+	{ADC1_CHANNEL_3_GPIO_NUM, 11, 3},\
+	{ADC1_CHANNEL_0_GPIO_NUM, 11, 4}\
 }
-#define HAL_ESP32_ADC_PINS_OPTION2 {\
-	{ADC1_GPIO35_CHANNEL, 11, 35},\
-	{ADC1_GPIO34_CHANNEL, 11, 34},\
-	{ADC1_GPIO39_CHANNEL, 11, 39},\
-	{ADC1_GPIO36_CHANNEL, 11, 36}\
-}
-// pick one:
-//#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION1
-#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION2
+// #define ADC1_CHANNEL_0_GPIO_NUM 36
+// #define ADC1_CHANNEL_3_GPIO_NUM 39
+// #define ADC1_CHANNEL_7_GPIO_NUM 34
+// #define ADC1_CHANNEL_7_GPIO_NUM 35
+
+// 
+// ..each is the ADC1 channel number of GPIO n.... must exist in this list... not all pins can adc:
+// right now we only really support ADC1, not 2, so that too. so GPIO1-to GPIO10 seem ok, if unused elsewhere.
+//https://docs.espressif.com/projects/esp-idf/en/release-v4.4/esp32s3/api-reference/peripherals/adc.html#adc-api-reference-gpio-lookup-macros
+#define HAL_ESP32_ADC_PINS HAL_ESP32_ADC_PINS_OPTION1
 
 
 
-#define HAL_PROBE_EXTERNAL_I2C_COMPASSES 1
+#define HAL_PROBE_EXTERNAL_I2C_COMPASSES 0
 
 
 #define HAL_INS_MPU9250_NAME "mpu9250"
@@ -122,7 +137,7 @@
 #define HAL_BARO_PROBE_LIST PROBE_BARO_SPI(BMP280, "bmp280")
 
 // 2 use udp, 1 use tcp...  for udp,client needs to connect as UDPCL in missionplanner etc to 192.168.4.1 port 14550
-#define HAL_ESP32_WIFI 1
+#define HAL_ESP32_WIFI 2
 
 // tip: if u are ok getting mavlink-over-tcp or mavlink-over-udp and want to disable mavlink-over-serial-usb
 //then set ardupilot parameter SERIAL0_PROTOCOL = 0 and reboot.
@@ -142,34 +157,40 @@
 
 //RCOUT which pins are used?
 
-#define HAL_ESP32_RCOUT { GPIO_NUM_25,GPIO_NUM_27, GPIO_NUM_33, GPIO_NUM_32, GPIO_NUM_22, GPIO_NUM_21 }
+// 22-25 not defined on S3, 26-32 for spi-flash, 39-42 for jtag, 0,3,45,46 strapping pins, 2,14,15 for SDcard, 
+#define HAL_ESP32_RCOUT { GPIO_NUM_35,GPIO_NUM_36, GPIO_NUM_37 }
 
 // SPI BUS setup, including gpio, dma, etc
 // note... we use 'vspi' for the bmp280 and mpu9250
+//spi: spi_bus_initialize(762): invalid dma channel, chip only support spi dma channel auto-alloc
 #define HAL_ESP32_SPI_BUSES \
-    {.host=VSPI_HOST, .dma_ch=1, .mosi=GPIO_NUM_23, .miso=GPIO_NUM_19, .sclk=GPIO_NUM_18}
+    {.host=SPI3_HOST, .dma_ch=SPI_DMA_CH_AUTO, .mosi=GPIO_NUM_11, .miso=GPIO_NUM_13, .sclk=GPIO_NUM_12}
 // tip:  VSPI_HOST  is an alternative name for esp's SPI3
 //#define HAL_ESP32_SPI_BUSES {}
 
 // SPI per-device setup, including speeds, etc.
+// device=x must start from ZERO and increment.
 #define HAL_ESP32_SPI_DEVICES \
-    {.name= "bmp280", .bus=0, .device=0, .cs=GPIO_NUM_26, .mode = 3, .lspeed=1*MHZ, .hspeed=1*MHZ}, \
-    {.name="mpu9250", .bus=0, .device=1, .cs=GPIO_NUM_5,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
+    {.name="bmp280", .bus=0, .device=0, .cs=GPIO_NUM_33,  .mode = 3, .lspeed=1*MHZ, .hspeed=1*MHZ},\
+    {.name="mpu9250", .bus=0, .device=1, .cs=GPIO_NUM_21,  .mode = 0, .lspeed=2*MHZ, .hspeed=8*MHZ}
 //#define HAL_ESP32_SPI_DEVICES {}
 
 //I2C bus list
 #define HAL_ESP32_I2C_BUSES \
-	{.port=I2C_NUM_0, .sda=GPIO_NUM_13, .scl=GPIO_NUM_12, .speed=400*KHZ, .internal=true}
+	{.port=I2C_NUM_0, .sda=GPIO_NUM_5, .scl=GPIO_NUM_1, .speed=400*KHZ, .internal=true}
 //#define HAL_ESP32_I2C_BUSES {} // using this embty block appears to cause crashes?
 
 
 // rcin on what pin?
-#define HAL_ESP32_RCIN GPIO_NUM_4
+#define HAL_ESP32_RCIN GPIO_NUM_34
 
 
 //HARDWARE UARTS
-#define HAL_ESP32_UART_DEVICES \
-  {.port=UART_NUM_0, .rx=GPIO_NUM_3, .tx=GPIO_NUM_1 },{.port=UART_NUM_1, .rx=GPIO_NUM_16, .tx=GPIO_NUM_17 }
+//#define HAL_ESP32_UART_DEVICES 
+  //{.port=UART_NUM_0, .rx=GPIO_NUM_6, .tx=GPIO_NUM_7 }
+#define HAL_ESP32_UART_DEVICES  { }
+// the classic esp32 hardware has three uarts, and we also add a virtual tcp, and a virtual udp port to that list 
+#define HAL_UART_NUM_SERIAL_PORTS 5
 
 #define AP_FILESYSTEM_ESP32_ENABLED 1
 

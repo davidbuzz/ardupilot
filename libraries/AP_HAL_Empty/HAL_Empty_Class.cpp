@@ -47,7 +47,18 @@ HAL_Empty::HAL_Empty() :
         &utilInstance,
         &opticalFlowDriver,
         &flashDriver,
-        nullptr)            /* no DSP */
+        #if AP_SIM_ENABLED
+        &xsimstate,
+#endif
+#if HAL_WITH_DSP
+        &dspDriver,
+#endif
+#if HAL_NUM_CAN_IFACES
+        (AP_HAL::CANIface**)canDrivers
+#else
+        nullptr
+#endif
+    )            /* no DSP */
 {}
 
 void HAL_Empty::run(int argc, char* const argv[], Callbacks* callbacks) const
