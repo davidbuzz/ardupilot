@@ -320,7 +320,7 @@ BUZZ PERIPH_FW ... 1
 BUZZ AP_Periph wscript!
 get_ap_periph_boards? ['HolybroGPS', 'f303-PWM', 'f103-Airspeed', 'Sierra-L431', 'sitl_periph_gps', 'f303-Universal', 'HitecMosaic', 'ARK_GPS', 'f303-MatekGPS', 'f103-GPS', 'CubeBlack-periph', 'f303-GPS', 'H757I_EVAL_intf', 'FreeflyRTK', 'Sierra-F405', 'f303-M10025', 'f103-QiotekPeriph', 'Nucleo-L476', 'Pixracer-periph', 'CubeOrange-periph-heavy', 'CUAV_GPS', 'BirdCANdy', 'CarbonixL496', 'Sierra-F412', 'f303-M10070', 'f103-HWESC', 'HerePro', 'f103-RangeFinder', 'Hitec-Airspeed', 'CubeOrange-periph', 'MatekH743-periph', 'f103-Trigger', 'G4-ESC', 'f303-HWESC', 'mRo-M10095', 'esp32s3buzz', 'H757I_EVAL', 'Nucleo-L496', 'f405-MatekGPS', 'f103-ADSB', 'ZubaxGNSS', 'HereID']
 [1/3] CMake Configure esp-idf
-BUZZ CONF CMD: ['/usr/bin/cmake', '/home/buzz/ardupilot/libraries/AP_HAL_ESP32/targets/esp-idf-s3', "-DARDUPILOT_CMD='AP_Periph'", "-DARDUPILOT_LIB='/home/buzz/ardupilot/build/esp32s3buzz/lib'", "-DARDUPILOT_BIN='/home/buzz/ardupilot/build/esp32s3buzz/lib/bin'", '-GNinja']
+BUZZ CONF CMD: ['/usr/bin/cmake', '/home/buzz/ardupilot/libraries/AP_HAL_ESP32/targets/esp32s3/esp-idf', "-DARDUPILOT_CMD='AP_Periph'", "-DARDUPILOT_LIB='/home/buzz/ardupilot/build/esp32s3buzz/lib'", "-DARDUPILOT_BIN='/home/buzz/ardupilot/build/esp32s3buzz/lib/bin'", '-GNinja']
 -- The C compiler identification is GNU 8.4.0
 -- The CXX compiler identification is GNU 8.4.0
 -- Detecting C compiler ABI info
@@ -336,7 +336,7 @@ BUZZ CONF CMD: ['/usr/bin/cmake', '/home/buzz/ardupilot/libraries/AP_HAL_ESP32/t
 -- Found Git: /usr/bin/git (found version "2.25.1") 
 -- Checking Python dependencies...
 Python requirements from /home/buzz/ardupilot/modules/esp_idf/requirements.txt are satisfied.
--- Project sdkconfig file /home/buzz/ardupilot/libraries/AP_HAL_ESP32/targets/esp-idf-s3/sdkconfig
+-- Project sdkconfig file /home/buzz/ardupilot/libraries/AP_HAL_ESP32/targets/esp32s3/esp-idf/sdkconfig
 -- The ASM compiler identification is GNU
 -- Found assembler: /home/buzz/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-patch3-8.4.0/xtensa-esp32s3-elf/bin/xtensa-esp32s3-elf-gcc
 -- Found Python3: /home/buzz/.espressif/python_env/idf4.4_py3.8_env/bin/python3.8 (found version "3.8.10") found components: Interpreter 
@@ -910,7 +910,7 @@ storage,69,0,0x220000,128K,
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Building ESP-IDF components for target esp32s3
--- Project sdkconfig file /home/buzz/ardupilot/libraries/AP_HAL_ESP32/targets/esp-idf-s3/sdkconfig
+-- Project sdkconfig file /home/buzz/ardupilot/libraries/AP_HAL_ESP32/targets/esp32s3/esp-idf/sdkconfig
 -- Adding linker script /home/buzz/ardupilot/modules/esp_idf/components/soc/esp32s3/ld/esp32s3.peripherals.ld
 -- Adding linker script /home/buzz/ardupilot/modules/esp_idf/components/esp_rom/esp32s3/ld/esp32s3.rom.ld
 -- Adding linker script /home/buzz/ardupilot/modules/esp_idf/components/esp_rom/esp32s3/ld/esp32s3.rom.api.ld

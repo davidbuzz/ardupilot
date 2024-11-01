@@ -95,9 +95,9 @@ cd ../../../..
 
 If you want to make changes to sdkconfig (sdkconfig is in git ignore list) permanent and to commit them back in git, you should edit sdkconfig.defaults manually or to use ninja save-defconfig tool after menuconfig.
 
-'cd libraries/AP_HAL_ESP32/targets/esp-idf ; idf.py defconfig'
+'cd libraries/AP_HAL_ESP32/targets/esp32/esp-idf ; idf.py defconfig'
 or
-'cd libraries/AP_HAL_ESP32/targets/esp-idf-s3 ; idf.py defconfig' 
+'cd libraries/AP_HAL_ESP32/targets/esp32s3/esp-idf ; idf.py defconfig' 
 is the command that updates it, but that shouldn't be needed manually, we don't think.
 
 ... try ./waf plane"
@@ -130,9 +130,9 @@ ESPTOOL_BAUD=921600
 You can find more info here : [ESPTOOL](https://github.com/espressif/esptool)
 
 You can also find the cmake esp-idf project at 
-`libraries/AP_HAL_ESP32/targets/esp-idf`
+`libraries/AP_HAL_ESP32/targets/esp32/esp-idf`
 or
-`libraries/AP_HAL_ESP32/targets/esp-idf-s3`
+`libraries/AP_HAL_ESP32/targets/esp32s3/esp-idf`
  for idf.py command. But see next section to understand how ardupilot is compiled on ESP32.
 
 
