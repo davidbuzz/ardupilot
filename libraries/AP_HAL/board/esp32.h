@@ -173,6 +173,10 @@
 #define HAL_UART_NUM_SERIAL_PORTS 5
 #endif
 
+// unwanted features
 #ifndef HAL_LANDING_DEEPSTALL_ENABLED
 #define HAL_LANDING_DEEPSTALL_ENABLED 0
+#endif
+#ifndef HAL_PICCOLO_CAN_ENABLED
+#define HAL_PICCOLO_CAN_ENABLED 0
 #endif
