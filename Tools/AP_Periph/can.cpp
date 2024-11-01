@@ -78,6 +78,7 @@ extern AP_Periph_FW periph;
  # define Debug(fmt, args ...)  do {can_printf(fmt "\n", ## args);} while(0)
 #else
  # define Debug(fmt, args ...)  do {printf(fmt "\n", ## args);} while(0)
+#endif
 
 #if HAL_PERIPH_CAN_MIRROR
   #ifndef HAL_PERIPH_CAN_MIRROR_QUEUE_SIZE
@@ -113,14 +114,14 @@ static struct instance_t {
 } instances[HAL_NUM_CAN_IFACES];
 
 
-#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
-    ChibiOS::CANIface* iface;
-#elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
-    ESP32::CANIface* iface;
-#elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
-    HALSITL::CANIface* iface;
-#endif
-} instances[HAL_NUM_CAN_IFACES];
+// #if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
+//     ChibiOS::CANIface* iface;
+// #elif CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+//     ESP32::CANIface* iface;
+// #elif CONFIG_HAL_BOARD == HAL_BOARD_SITL
+//     HALSITL::CANIface* iface;
+// #endif
+// } instances[HAL_NUM_CAN_IFACES];
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS && defined(HAL_GPIO_PIN_TERMCAN1) && (HAL_NUM_CAN_IFACES >= 2)
 static ioline_t can_term_lines[] = {
