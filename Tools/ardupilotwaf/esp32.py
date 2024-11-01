@@ -43,7 +43,7 @@ def configure(cfg):
         env.ESP_IDF_PREFIX_REL = 'esp-idf'
         prefix_node = bldnode.make_node(env.ESP_IDF_PREFIX_REL)
     else:
-        env.ESP_IDF_PREFIX_REL_S3 = 'esp-idf-s3'
+        env.ESP_IDF_PREFIX_REL_S3 = 'esp-idf'
         prefix_node = bldnode.make_node(env.ESP_IDF_PREFIX_REL_S3)
 
     prefix_node = bldnode.make_node(env.ESP_IDF_PREFIX_REL)
@@ -58,7 +58,7 @@ def configure(cfg):
     if not 's3' in cfg.variant:
         env.IDF = cfg.srcnode.abspath()+"/modules/esp_idf"
     else:
-        env.IDF = cfg.srcnode.abspath()+"/modules/esp_idf-s3"
+        env.IDF = cfg.srcnode.abspath()+"/modules/esp_idf"
 
     print("USING EXPRESSIF IDF:"+str(env.IDF))
 
@@ -142,7 +142,7 @@ def pre_build(bld):
         always_run = True
         def run(tsk):
             bld = tsk.generator.bld
-            includes_s3 = bld.bldnode.find_or_declare('esp-idf-s3_build/includes.list').read().split()
+            includes_s3 = bld.bldnode.find_or_declare('esp-idf_build/includes.list').read().split()
             bld.env.prepend_value('INCLUDES', includes_s3)
 
     if not bld.env.s3:
@@ -152,7 +152,7 @@ def pre_build(bld):
 
     if bld.env.s3:
         tsk = load_generated_includes_s3(env=bld.env)
-        tsk.set_inputs(bld.path.find_resource('esp-idf-s3_build/includes.list'))
+        tsk.set_inputs(bld.path.find_resource('esp-idf_build/includes.list'))
         bld.add_to_group(tsk)
 
 
@@ -182,8 +182,8 @@ def esp32_firmware(self):
     self.link_task.always_run = True
 
     if self.bld.env.s3:
-        esp_idf = self.bld.cmake('esp-idf-s3')
-        build = esp_idf.build('all', target='esp-idf-s3_build/ardupilot.bin')
+        esp_idf = self.bld.cmake('esp-idf')
+        build = esp_idf.build('all', target='esp-idf_build/ardupilot.bin')
     else:
         esp_idf = self.bld.cmake('esp-idf')
         build = esp_idf.build('all', target='esp-idf_build/ardupilot.bin')

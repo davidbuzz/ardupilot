@@ -130,9 +130,6 @@ static Empty::Flash flashDriver;
 static Empty::Flash flashDriver;
 #endif
 
-#if AP_SIM_ENABLED
-static AP_HAL::SIMState xsimstate;
-#endif
 
 #if HAL_NUM_CAN_IFACES
 static CANIface* canDrivers[HAL_NUM_CAN_IFACES];
