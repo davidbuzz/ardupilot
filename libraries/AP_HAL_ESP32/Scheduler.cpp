@@ -12,10 +12,13 @@
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <AP_HAL/AP_HAL.h>
 
-#include "AP_HAL_ESP32/Scheduler.h"
-#include "AP_HAL_ESP32/RCInput.h"
-#include "AP_HAL_ESP32/AnalogIn.h"
+#include "AP_HAL_ESP32.h"
+
+#include "Scheduler.h"
+#include "RCInput.h"
+#include "AnalogIn.h"
 #include "AP_Math/AP_Math.h"
 #include "SdCard.h"
 #include "Profile.h"
@@ -23,11 +26,21 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+#include "hal/wdt_hal.h"   //Please use #include "hal/wdt_hal.h" instead of soc/rtc_wdt.h. https://github.com/espressif/esp-idf/issues/8855
+
+#include "esp_int_wdt.h"
 #include "esp_task_wdt.h"
 
 #include <AP_HAL/AP_HAL.h>
 #include <AP_Scheduler/AP_Scheduler.h>
 #include <stdio.h>
+#include "Semaphores.h"
+
+#include "esp_wifi.h"
+#include "esp_event.h"
+
+#include "esp_log.h"
+
 
 //#define SCHEDULERDEBUG 1
 
@@ -69,9 +82,7 @@ void Scheduler::wdt_init(uint32_t timeout, uint32_t core_mask)
 void Scheduler::init()
 {
 
-#ifdef SCHEDDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+    hal.console->printf("%s:%d running with CONFIG_FREERTOS_HZ=%d\n", __PRETTY_FUNCTION__, __LINE__,CONFIG_FREERTOS_HZ);
 
     hal.console->printf("%s:%d running with CONFIG_FREERTOS_HZ=%d\n", __PRETTY_FUNCTION__, __LINE__,CONFIG_FREERTOS_HZ);
 
@@ -147,9 +158,9 @@ void IRAM_ATTR Scheduler::thread_create_trampoline(void *ctx)
 */
 bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_t requested_stack_size, priority_base base, int8_t priority)
 {
-#ifdef SCHEDDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#ifdef SCHEDDEBUG
+  hal.console->printf("thread_create -> %s\n", name);
+//#endif
 
     // take a copy of the MemberProc, it is freed after thread exits
     AP_HAL::MemberProc *tproc = (AP_HAL::MemberProc *)calloc(1, sizeof(proc));
@@ -178,9 +189,9 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
     };
     for (uint8_t i=0; i<ARRAY_SIZE(priority_map); i++) {
         if (priority_map[i].base == base) {
-#ifdef SCHEDDEBUG
-            printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#ifdef SCHEDDEBUG
+            hal.console->printf("thread_create OK. %s\n",name);
+//#endif
             thread_priority = constrain_int16(priority_map[i].p + priority, 1, 25);
             break;
         }
@@ -192,6 +203,7 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
     tskTaskControlBlock* xhandle;
     BaseType_t xReturned = xTaskCreate(thread_create_trampoline, name, actual_stack_size, tproc, thread_priority, &xhandle);
     if (xReturned != pdPASS) {
+        hal.console->printf("FAILED to create task thread_create_trampoline %s\n",name);
         free(tproc);
         return false;
     }
@@ -225,7 +237,7 @@ void IRAM_ATTR Scheduler::delay_microseconds(uint16_t us)
 void IRAM_ATTR Scheduler::register_timer_process(AP_HAL::MemberProc proc)
 {
 #ifdef SCHEDDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     for (uint8_t i = 0; i < _num_timer_procs; i++) {
         if (_timer_proc[i] == proc) {
@@ -233,7 +245,7 @@ void IRAM_ATTR Scheduler::register_timer_process(AP_HAL::MemberProc proc)
         }
     }
     if (_num_timer_procs >= ESP32_SCHEDULER_MAX_TIMER_PROCS) {
-        printf("Out of timer processes\n");
+        //hal.console->printf("Out of timer processes\n");
         return;
     }
     _timer_sem.take_blocking();
@@ -244,9 +256,7 @@ void IRAM_ATTR Scheduler::register_timer_process(AP_HAL::MemberProc proc)
 
 void IRAM_ATTR Scheduler::register_io_process(AP_HAL::MemberProc proc)
 {
-#ifdef SCHEDDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+
     _io_sem.take_blocking();
     for (uint8_t i = 0; i < _num_io_procs; i++) {
         if (_io_proc[i] == proc) {
@@ -258,7 +268,7 @@ void IRAM_ATTR Scheduler::register_io_process(AP_HAL::MemberProc proc)
         _io_proc[_num_io_procs] = proc;
         _num_io_procs++;
     } else {
-        printf("Out of IO processes\n");
+        //hal.console->printf("Out of IO processes\n");
     }
     _io_sem.give();
 }
@@ -270,7 +280,7 @@ void IRAM_ATTR Scheduler::register_timer_failsafe(AP_HAL::Proc failsafe, uint32_
 
 void Scheduler::reboot(bool hold_in_bootloader)
 {
-    printf("Restarting now...\n");
+    //hal.console->printf("Restarting now...\n");
     hal.rcout->force_safety_on();
     unmount_sdcard();
     esp_restart();
@@ -284,7 +294,7 @@ bool IRAM_ATTR Scheduler::in_main_thread() const
 void Scheduler::set_system_initialized()
 {
 #ifdef SCHEDDEBUG
-    printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     if (_initialized) {
         AP_HAL::panic("PANIC: scheduler::system_initialized called more than once");
@@ -301,7 +311,8 @@ bool Scheduler::is_system_initialized()
 void IRAM_ATTR Scheduler::_timer_thread(void *arg)
 {
 #ifdef SCHEDDEBUG
-    printf("%s:%d start\n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d start\n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n1.TIMER thread has ID %d and %d bytes free stack\n", 48, uxTaskGetStackHighWaterMark(NULL));
 #endif
     Scheduler *sched = (Scheduler *)arg;
 
@@ -313,19 +324,21 @@ void IRAM_ATTR Scheduler::_timer_thread(void *arg)
 #endif
 
 #ifdef SCHEDDEBUG
-    printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n2.TIMER thread has ID %d and %d bytes free stack\n", 49, uxTaskGetStackHighWaterMark(NULL));
+
 #endif
     while (true) {
         sched->delay_microseconds(1000);
         sched->_run_timers();
         //analog in
 #ifndef HAL_DISABLE_ADC_DRIVER
-        ((AnalogIn*)hal.analogin)->_timer_tick();
+       // ((AnalogIn*)hal.analogin)->_timer_tick();
 #endif
     }
 }
 
-void IRAM_ATTR Scheduler::_rcout_thread(void* arg)
+void IRAM_ATTR Scheduler::_rcout_thread(void* arg)  // dangerous to use print or hal.console->printf or similar in this functon block, avoid it. 
 {
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
@@ -341,14 +354,11 @@ void IRAM_ATTR Scheduler::_rcout_thread(void* arg)
 
 void IRAM_ATTR Scheduler::_run_timers()
 {
-#ifdef SCHEDULERDEBUG
-    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
     if (_in_timer_proc) {
         return;
     }
 #ifdef SCHEDULERDEBUG
-    printf("%s:%d _in_timer_proc \n", __PRETTY_FUNCTION__, __LINE__);
+    //hal.console->printf("%s:%d _in_timer_proc \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     _in_timer_proc = true;
 
@@ -373,7 +383,7 @@ void IRAM_ATTR Scheduler::_run_timers()
     _in_timer_proc = false;
 }
 
-void IRAM_ATTR Scheduler::_rcin_thread(void *arg)
+void IRAM_ATTR Scheduler::_rcin_thread(void *arg) // dangerous to use print or hal.console->printf or similar in this functon block, avoid it. 
 {
     Scheduler *sched = (Scheduler *)arg;
     while (!_initialized) {
@@ -389,14 +399,18 @@ void IRAM_ATTR Scheduler::_rcin_thread(void *arg)
 void IRAM_ATTR Scheduler::_run_io(void)
 {
 #ifdef SCHEDULERDEBUG
-    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+   // hal.console->printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
 #endif
     if (_in_io_proc) {
         return;
     }
-#ifdef SCHEDULERDEBUG
-    printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
-#endif
+//#ifdef SCHEDULERDEBUG
+    static uint8_t prevprocs = 0;
+if ( (_num_io_procs > 0 ) && (prevprocs != _num_io_procs ) ) {
+    hal.console->printf("%s:%d initialised _num_io_procs:%d\n", __PRETTY_FUNCTION__, __LINE__,_num_io_procs);
+    prevprocs = _num_io_procs;
+}
+//#endif
     _in_io_proc = true;
 
     int num_procs = 0;
@@ -415,7 +429,9 @@ void IRAM_ATTR Scheduler::_run_io(void)
 void IRAM_ATTR Scheduler::_io_thread(void* arg)
 {
 #ifdef SCHEDDEBUG
-    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n1.IO thread has ID %d and %d bytes free stack\n", 54, uxTaskGetStackHighWaterMark(NULL));
+
 #endif
     mount_sdcard();
     Scheduler *sched = (Scheduler *)arg;
@@ -423,7 +439,9 @@ void IRAM_ATTR Scheduler::_io_thread(void* arg)
         sched->delay_microseconds(1000);
     }
 #ifdef SCHEDDEBUG
-    printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\2.IO thread has ID %d and %d bytes free stack\n", 55, uxTaskGetStackHighWaterMark(NULL));
+
 #endif
     uint32_t last_sd_start_ms = AP_HAL::millis();
     while (true) {
@@ -447,14 +465,18 @@ void IRAM_ATTR Scheduler::_io_thread(void* arg)
 void Scheduler::_storage_thread(void* arg)
 {
 #ifdef SCHEDDEBUG
-    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n1.STOR thread has ID %d and %d bytes free stack\n", 56, uxTaskGetStackHighWaterMark(NULL));
+
 #endif
     Scheduler *sched = (Scheduler *)arg;
     while (!sched->_initialized) {
         sched->delay_microseconds(10000);
     }
 #ifdef SCHEDDEBUG
-    printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d initialised \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n2.STOR thread has ID %d and %d bytes free stack\n", 57, uxTaskGetStackHighWaterMark(NULL));
+
 #endif
     while (true) {
         sched->delay_microseconds(1000);
@@ -481,21 +503,25 @@ void Scheduler::_print_profile(void* arg)
 void IRAM_ATTR Scheduler::_uart_thread(void *arg)
 {
 #ifdef SCHEDDEBUG
-    printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d start \n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n1.UART thread has ID %d and %d bytes free stack\n", 46, uxTaskGetStackHighWaterMark(NULL));
 #endif
     Scheduler *sched = (Scheduler *)arg;
     while (!sched->_initialized) {
         sched->delay_microseconds(2000);
     }
 #ifdef SCHEDDEBUG
-    printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
+    hal.console->printf("\n2.UART thread has ID %d and %d bytes free stack\n", 47, uxTaskGetStackHighWaterMark(NULL));
+
 #endif
     while (true) {
-        sched->delay_microseconds(1000);
-        for (uint8_t i=0; i<hal.num_serial; i++) {
-            hal.serial(i)->_timer_tick();
-        }
-        hal.console->_timer_tick();
+        sched->delay_microseconds(1000); // WARN, this is a 1millissec delay in the uart thtead.
+        hal.serial(0)->_timer_tick();
+        hal.serial(1)->_timer_tick();
+        hal.serial(2)->_timer_tick();
+        hal.serial(3)->_timer_tick();
+        //hal.console->_timer_tick();
     }
 }
 
@@ -515,8 +541,17 @@ void Scheduler::print_stats(void)
     static int64_t last_run = 0;
     if (AP_HAL::millis64() - last_run > 60000) {
         char buffer[1024];
-        vTaskGetRunTimeStats(buffer);
-        printf("\n\n%s\n", buffer);
+        // https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/kconfig.html#config-freertos-generate-run-time-stats
+        // CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS=y
+        vTaskGetRunTimeStats(buffer); //undefined reference to `vTaskGetRunTimeStats' - needs a particular feature in sdkconfig we may not have now CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS  ? 
+        hal.console->printf("TASK           ABSTIME       PERCENTAGE\n");
+        hal.console->printf("\n\n%s\n", buffer);
+        //https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos.html#_CPPv49vTaskListPc
+        hal.console->printf("STATUS ->Blocked,Ready,Deleted,Suspended\n");
+        hal.console->printf("TASK / STATUS /PRIORITY/STACK-HIGH-WATER-MK(REMAINING)/TASKNUM/COREID\n");
+        vTaskList(buffer);
+        hal.console->printf("\n\n%s\n", buffer);
+
         heap_caps_print_heap_info(0);
         last_run = AP_HAL::millis64();
     }
@@ -541,6 +576,7 @@ void IRAM_ATTR Scheduler::_main_thread(void *arg)
 {
 #ifdef SCHEDDEBUG
     printf("%s:%d start\n", __PRETTY_FUNCTION__, __LINE__);
+    printf("\n1.MAIN thread has ID %d and %d bytes free stack\n", 44, uxTaskGetStackHighWaterMark(NULL));
 #endif
     Scheduler *sched = (Scheduler *)arg;
 
@@ -552,14 +588,14 @@ void IRAM_ATTR Scheduler::_main_thread(void *arg)
     sched->callbacks->setup();
 
     sched->set_system_initialized();
-
+    
     //initialize WTD for current thread on FASTCPU, all cores will be (1 << CONFIG_FREERTOS_NUMBER_OF_CORES) - 1
     wdt_init( TWDT_TIMEOUT_MS, 1 << FASTCPU ); // 3 sec
-
 
 #ifdef SCHEDDEBUG
     printf("%s:%d initialised\n", __PRETTY_FUNCTION__, __LINE__);
 #endif
+     
     while (true) {
         sched->callbacks->loop();
         sched->delay_microseconds(250);

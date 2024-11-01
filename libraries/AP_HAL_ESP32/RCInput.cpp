@@ -93,7 +93,10 @@ void RCInput::_timer_tick(void)
     if (!_init) {
         return;
     }
+
+#ifndef HAL_BUILD_AP_PERIPH
     AP_RCProtocol &rcprot = AP::RC();
+#endif
 
 #ifdef HAL_ESP32_RCIN
     uint32_t width_s0, width_s1;

@@ -93,6 +93,9 @@ public:
         safety_mask = mask;
     }
 
+    void timer_info(ExpandingString &str) override;
+
+
 
     void timer_tick() override;
 

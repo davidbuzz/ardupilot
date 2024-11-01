@@ -69,10 +69,25 @@ if args.start is not None:
     board_list = board_list[args.start-1:]
 
 def is_ap_periph(board):
-    hwdef = os.path.join('libraries/AP_HAL_ChibiOS/hwdef/%s/hwdef.dat' % board)
+    #hal = 'AP_HAL_ChibiOS'
     ch = chibios_hwdef.ChibiOSHWDef()
     ch.process_file(hwdef)
     return ch.is_periph_fw()
+    # todo
+    #hal = 'AP_HAL_ESP32'
+    #list2 = __is_ap_periph(board,hal)
+    #nodupes = list(set(list1)|set(list2))
+
+def __is_ap_periph(board,hal):
+    hwdef = os.path.join('libraries/%s/hwdef/%s/hwdef.dat' % (hal,board))
+    try:
+        r = open(hwdef, 'r').read()
+        if r.find('periph/hwdef.dat') != -1 or r.find('AP_PERIPH') != -1:
+            print("%s is AP_Periph" % board)
+            return True
+    except Exception as ex:
+        pass
+    return False
 
 if args.copy_hwdef_incs_to_directory is not None:
     os.makedirs(args.copy_hwdef_incs_to_directory)
