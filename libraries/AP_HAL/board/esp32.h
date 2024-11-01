@@ -32,6 +32,11 @@
 #define HAL_WITH_UAVCAN 0
 #define HAL_MAX_CAN_PROTOCOL_DRIVERS 0
 
+// boards derived from hwdef.dat dont necessarily have this so make a reasonable fallback
+#ifndef HAL_ESP32_BOARD_NAME 
+#define HAL_ESP32_BOARD_NAME "esp32generic"
+#endif
+
 // some of these are optionally defined in the *generated* hwdef.h from hwdef.dat so we wrap them here
 #ifndef HAL_HAVE_SAFETY_SWITCH
 #define HAL_HAVE_SAFETY_SWITCH 0

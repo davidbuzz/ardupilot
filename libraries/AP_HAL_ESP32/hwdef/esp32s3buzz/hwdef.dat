@@ -2,6 +2,8 @@
 # MCU class and specific type
 MCU esp32 esp32_s3
 
+define HAL_ESP32_BOARD_NAME esp32s3buzz
+
 # We set a specific HAL_BOARD_SUBTYPE, allowing for custom config in
 # drivers. For this to be used the subtype needs to be added to
 # AP_HAL/AP_HAL_Boards.h as well.

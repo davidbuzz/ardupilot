@@ -17,6 +17,8 @@
 #include <AP_HAL/AP_HAL.h>
 #include <AP_Math/AP_Math.h>
 
+#include <AP_HAL/board/esp32.h> // for HAL_ESP32_BOARD_NAME
+
 #include "Util.h"
 
 #include "RCOutput.h"
