@@ -172,9 +172,9 @@ HAL_ESP32::HAL_ESP32() :
         &utilInstance,
         &opticalFlowDriver,
         &flashDriver,
-// #if AP_SIM_ENABLED && CONFIG_HAL_BOARD != HAL_BOARD_SITL
-//         &xsimstate,
-// #endif
+#if AP_SIM_ENABLED && CONFIG_HAL_BOARD != HAL_BOARD_SITL
+         &xsimstate,
+#endif
 #if HAL_WITH_DSP
         &dspDriver, //HAL_WITH_DSP   
 #endif
