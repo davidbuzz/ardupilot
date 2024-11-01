@@ -238,6 +238,8 @@ public:
     static SLCAN::CANIface slcan_interface;
 #endif
 
+    static bool no_iface_finished_dna;
+
     AP_SerialManager serial_manager;
 
 #if AP_STATS_ENABLED
