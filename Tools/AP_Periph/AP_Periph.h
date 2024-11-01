@@ -625,7 +625,13 @@ public:
 };
 
 #ifndef CAN_APP_NODE_NAME
-#define CAN_APP_NODE_NAME "org.ardupilot." CHIBIOS_BOARD_NAME
+    #if  defined(CHIBIOS_BOARD_NAME)
+    #define CAN_APP_NODE_NAME "org.ardupilot." CHIBIOS_BOARD_NAME
+    #elif defined(HAL_ESP32_BOARD_NAME)
+    #define CAN_APP_NODE_NAME "org.ardupilot." HAL_ESP32_BOARD_NAME
+    #else
+    #define CAN_APP_NODE_NAME "org.ardupilot.generic"
+    #endif
 #endif
 
 namespace AP
