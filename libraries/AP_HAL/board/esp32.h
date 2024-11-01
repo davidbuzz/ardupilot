@@ -143,3 +143,8 @@
 #define HAL_UART_STATS_ENABLED 1
 
 #define HAL_WITH_DSP 0
+
+// three hardware serial + two virtual for tcp and udp
+#ifndef HAL_UART_NUM_SERIAL_PORTS 
+#define HAL_UART_NUM_SERIAL_PORTS 5
+#endif
