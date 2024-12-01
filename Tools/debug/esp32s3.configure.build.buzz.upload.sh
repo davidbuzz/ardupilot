@@ -19,11 +19,11 @@ rm -rf build
 #./waf configure --board=esp32s3buzz --debug --toolchain=xtensa-esp32s3-elf --disable-scripting
 ./waf configure --board=esp32s3empty --debug --disable-scripting
 #./waf configure --board f103-GPS
-echo "about to build PLANE for ESP32-S3 in 3 sec..."
+echo "about to build COPTER for ESP32-S3 in 3 sec..."
 sleep 3
 
 #with ccache, but without scripting, its ok
-time ESPBAUD=921600 ./waf plane --jobs=7 --upload
+time ESPBAUD=921600 ./waf copter --jobs=7 --upload
 # -v -v
 
 #periph: ---------------------------------------
