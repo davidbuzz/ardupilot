@@ -1,8 +1,12 @@
 target remote :3333
-set print pretty
 set confirm off
+#handle SIGINT nostop print nopass
+handle SIGINT stop print nopass
+catch signal SIGUSR1 
+set print pretty
 set pagination 0
 set print asm-demangle on
 set remote hardware-watchpoint-limit 2
 set print thread-events off
 thread apply all bt
+c
