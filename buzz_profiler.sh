@@ -8,6 +8,7 @@ gdbdev=`ls /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_*`
 gdb=xtensa-esp32s3-elf-gdb
 # if you want to sample the full boot sequence it takes a couple of minutes
 nsamples=120
+#nsamples=500
 sleeptime=1
 #nthreads=14
 
