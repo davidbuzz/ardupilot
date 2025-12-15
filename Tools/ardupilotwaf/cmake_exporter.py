@@ -251,11 +251,13 @@ class CMakeExporter(object):
 			pre_run_ = './gen-bindings -o libraries/AP_Scripting/lua_generated_bindings -i ../../libraries/AP_Scripting/generator/description/bindings.desc'
 			pre_run_dir = self.bld.srcnode.abspath() + '/build/sitl'
 			# set cwd to ./build/sitl first.
-			pre_run_ = 'cd %s && %s' % (pre_run_dir, pre_run_)
+			pre_run_1 = 'cd %s && %s' % (pre_run_dir, pre_run_)
 			# run the above now with ``os.system`` so that the generated bindings are present for cmake build
 			import os
-			x = os.system(pre_run_)
-			print ('ran: %s , returned: %s dir: %s' % (pre_run_, x, pre_run_dir))
+			x = os.system(pre_run_1)
+			print ('ran: %s , returned: %s dir: %s' % (pre_run_1, x, pre_run_dir))
+
+			#pre_run_2 = 'todo copy.. cp ../build/sitl/ap_config.h .'  to build2 dir
 			
 			content += 'cmake_minimum_required (VERSION 2.6.3)\n'
 			#content += 'project (%s)\n' % (getattr(Context.g_module, Context.APPNAME))
@@ -268,11 +270,32 @@ class CMakeExporter(object):
 				content += 'add_definitions(-D%s)\n' % (' -D'.join(defines))
 				content += '\n'
 
-			flags = env.CFLAGS
+			# drop '-Werror=shadow' from CFLAGS and CXXFLAGS
+			env.CFLAGS = [f for f in env.CFLAGS if f != '-Werror=shadow']
+			env.CXXFLAGS = [f for f in env.CXXFLAGS if f != '-Werror=shadow']
+			# convert 'HAL_GCS_ENABLED&&HAL_RALLY_ENABLED' to 'HAL_GCS_ENABLED' in CFLAGS and CXXFLAGS
+			def clean_flags(flags):
+				new_flags = []
+				FRAME_CONFIG_seen = False
+				for f in flags:
+					if '&&' in f:
+						parts = f.split('&&')
+						# keep only the first part
+						new_flags.append(parts[0])
+					#if 'FRAME_CONFIG=' in f:
+					#	# skip FRAME_CONFIG=... second and further occurrences
+					#	if not FRAME_CONFIG_seen:
+					#		new_flags.append(f)
+					#		FRAME_CONFIG_seen = True
+					else:
+						new_flags.append(f)
+				return new_flags
+
+			flags = clean_flags(env.CFLAGS)
 			if len(flags):
 				content += 'set(CMAKE_C_FLAGS "%s")\n' % (' '.join(flags))
 
-			flags = env.CXXFLAGS
+			flags = clean_flags(env.CXXFLAGS)
 			if len(flags):
 				content += 'set(CMAKE_CXX_FLAGS "%s")\n' % (' '.join(flags))
 
