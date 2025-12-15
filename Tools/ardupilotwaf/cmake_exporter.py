@@ -248,11 +248,16 @@ class CMakeExporter(object):
 
 		content = ''
 		if is_top:
-			content += 'cmake_minimum_required (VERSION 2.6)\n'
-			# list all attrs that Context var has:
-			#for attr in dir(Context.g_module):
-			#	print('Context attr: %s' % (attr))
-			# buzz todo APPNAME.
+			pre_run_ = './gen-bindings -o libraries/AP_Scripting/lua_generated_bindings -i ../../libraries/AP_Scripting/generator/description/bindings.desc'
+			pre_run_dir = self.bld.srcnode.abspath() + '/build/sitl'
+			# set cwd to ./build/sitl first.
+			pre_run_ = 'cd %s && %s' % (pre_run_dir, pre_run_)
+			# run the above now with ``os.system`` so that the generated bindings are present for cmake build
+			import os
+			x = os.system(pre_run_)
+			print ('ran: %s , returned: %s dir: %s' % (pre_run_, x, pre_run_dir))
+			
+			content += 'cmake_minimum_required (VERSION 2.6.3)\n'
 			#content += 'project (%s)\n' % (getattr(Context.g_module, Context.APPNAME))
 			content += 'project (ArduPilot)\n'
 			content += '\n'
@@ -286,6 +291,11 @@ class CMakeExporter(object):
 	def get_tgen_content(self, tgen):
 		content = ''
 		name = tgen.get_name()
+
+		# check if 'name' starts with an *, as in '*.c' or similar.
+		if '*' in name:
+			print('Warning: Skipping task generator with wildcard name: %s' % name)
+			return ''
 
 		content += 'set(%s_SOURCES' % (name)
 		for src in tgen.source:
