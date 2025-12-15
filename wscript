@@ -17,6 +17,7 @@ import boards
 import shutil
 import build_options
 import glob
+import cmake_exporter 
 
 from waflib import Build, ConfigSet, Configure, Context, Utils
 from waflib.Configure import conf

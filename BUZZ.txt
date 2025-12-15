@@ -1,0 +1,374 @@
+ref  # https://bitbucket.org/Moo7/waftools/src/master/waftools/cmake.py
+
+# we dont install the entire 'waftools' package as its old and unmaintained and makes bad assumptions
+
+wget https://bitbucket.org/Moo7/waftools/src/master/waftools/cmake.py
+mv ./cmake.py ./Tools/ardupilotwaf/cmake_exporter.py
+s/cmake/cmake_exporter/g etc
+
+# hack till it runs.
+
+run: 
+[buzz@qbi-buzz ardupilot]$ ./waf configure 
+Setting top to                           : /home/buzz2/ardupilot 
+Setting out to                           : /home/buzz2/ardupilot/build 
+Autoconfiguration                        : enabled 
+Checking for program 'python'            : /usr/bin/python3 
+Checking for python version >= 3.8.0     : 3.12.3 
+Setting board to                         : sitl 
+Using toolchain                          : native 
+Checking for 'g++' (C++ compiler)        : /usr/lib/ccache/g++ 
+Checking for 'gcc' (C compiler)          : /usr/lib/ccache/gcc 
+Checking for c flags '-MMD'              : yes 
+Checking for cxx flags '-MMD'            : yes 
+CXX Compiler                             : g++ 13.3.0 
+Checking for need to link with librt     : not necessary 
+Checking for feenableexcept              : yes 
+Enabling -Werror                         : no 
+Enabled OpenDroneID                      : no 
+Enabled firmware ID checking             : no 
+GPS Debug Logging                        : no 
+Enabled custom controller                : yes 
+Checking for HAVE_CMATH_ISFINITE         : yes 
+Checking for HAVE_CMATH_ISINF            : yes 
+Checking for HAVE_CMATH_ISNAN            : yes 
+Checking for NEED_CMATH_ISFINITE_STD_NAMESPACE : yes 
+Checking for NEED_CMATH_ISINF_STD_NAMESPACE    : yes 
+Checking for NEED_CMATH_ISNAN_STD_NAMESPACE    : yes 
+Checking for header endian.h                   : yes 
+Checking for header byteswap.h                 : yes 
+Checking for HAVE_MEMRCHR                      : yes 
+Configured VSCode Intellisense:                : no 
+DC_DSDL compiler in                            : /home/buzz2/ardupilot/modules/DroneCAN/dronecan_dsdlc 
+Source is git repository                       : yes 
+Update submodules                              : yes 
+Checking for program 'git'                     : /usr/bin/git 
+Littlefs                                       : disabled 
+Checking for program 'size'                    : /usr/bin/size 
+Benchmarks                                     : disabled 
+Unit tests                                     : enabled 
+Scripting                                      : maybe 
+Scripting runtime checks                       : enabled 
+Debug build                                    : disabled 
+Coverage build                                 : disabled 
+Consistent build                               : disabled 
+Force 32-bit build                             : disabled 
+Checking for program 'rsync'                   : /usr/bin/rsync 
+Removing target_list file /home/buzz2/ardupilot/build/sitl/target_list
+'configure' finished successfully (0.650s)
+[buzz@qbi-buzz ardupilot]$ ./waf cmake_exporter
+Embedding file locations.txt:Tools/autotest/locations.txt
+Embedding file models/Callisto.json:Tools/autotest/models/Callisto.json
+Embedding file models/freestyle.json:Tools/autotest/models/freestyle.json
+Embedding file models/plane-3d.parm:Tools/autotest/models/plane-3d.parm
+Embedding file models/plane.parm:Tools/autotest/models/plane.parm
+Embedding file models/skywalker_2013.json:Tools/autotest/models/skywalker_2013.json
+Embedding file models/xplane_heli.json:Tools/autotest/models/xplane_heli.json
+Embedding file models/xplane_plane.json:Tools/autotest/models/xplane_plane.json
+Generating compile_commands.json
+Generating compile_commands.json
+Generating compile_commands.json
+Generating compile_commands.json
+Generating compile_commands.json
+Generating compile_commands.json
+Generating compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/sitl/compile_commands.json
+CMakeExporter initialized for location: .
+CMakeExporter initialized for location: AntennaTracker
+CMakeExporter initialized for location: ArduCopter
+CMakeExporter initialized for location: ArduPlane
+CMakeExporter initialized for location: ArduSub
+CMakeExporter initialized for location: Blimp
+CMakeExporter initialized for location: Rover
+exported: /home/buzz2/ardupilot/CMakeLists.txt 
+exported: /home/buzz2/ardupilot/AntennaTracker/CMakeLists.txt 
+exported: /home/buzz2/ardupilot/ArduCopter/CMakeLists.txt 
+exported: /home/buzz2/ardupilot/ArduPlane/CMakeLists.txt 
+exported: /home/buzz2/ardupilot/ArduSub/CMakeLists.txt 
+exported: /home/buzz2/ardupilot/Blimp/CMakeLists.txt 
+exported: /home/buzz2/ardupilot/Rover/CMakeLists.txt 
+'cmake_exporter' finished successfully (26.893s)
+[buzz@qbi-buzz ardupilot]$
+
+
+
+
+

@@ -387,9 +387,9 @@ def dry_run_compilation_database(self):
         use = [use]
     # if targets have not changed and neither has configuration, 
     # we can skip compilation database generation
-    if not target_list_changed(bld, targets + use):
-        Logs.info('Targets have not changed, skipping compilation database compile_commands.json generation')
-        return
+    #if not target_list_changed(bld, targets + use):
+    #    Logs.info('Targets have not changed, skipping compilation database compile_commands.json generation')
+    #    return
     Logs.info('Generating compile_commands.json')
     # we need only to generate last_cmd, so override
     # exec_command temporarily
