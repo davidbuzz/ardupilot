@@ -1,0 +1,38 @@
+Embedding file locations.txt:Tools/autotest/locations.txt
+Embedding file models/Callisto.json:Tools/autotest/models/Callisto.json
+Embedding file models/freestyle.json:Tools/autotest/models/freestyle.json
+Embedding file models/plane-3d.parm:Tools/autotest/models/plane-3d.parm
+Embedding file models/plane.parm:Tools/autotest/models/plane.parm
+Embedding file models/skywalker_2013.json:Tools/autotest/models/skywalker_2013.json
+Embedding file models/xplane_heli.json:Tools/autotest/models/xplane_heli.json
+Embedding file models/xplane_plane.json:Tools/autotest/models/xplane_plane.json
+Debug: CMakeExporterContext __call__ for name: mavlink 
+Debug: CMakeExporterContext __call__ for name: dronecan 
+dronecan: Running shell command: /usr/bin/python3 /home/buzz2/ardupilot/modules/DroneCAN/dronecan_dsdlc/dronecan_dsdlc.py -O/home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated /home/buzz2/ardupilot/modules/DroneCAN/DSDL/ardupilot /home/buzz2/ardupilot/modules/DroneCAN/DSDL/com /home/buzz2/ardupilot/modules/DroneCAN/DSDL/cuav /home/buzz2/ardupilot/modules/DroneCAN/DSDL/dronecan /home/buzz2/ardupilot/modules/DroneCAN/DSDL/mppt /home/buzz2/ardupilot/modules/DroneCAN/DSDL/tests /home/buzz2/ardupilot/modules/DroneCAN/DSDL/uavcan 
+Debug: CMakeExporterContext __call__ for name: ap_version 
+ap_version: Running shell command: mkdir -p build2/sitl 
+Debug: Writing ap_config.h to: build2/sitl/ap_config.h 
+CMakeExporter initialized for location: .
+CMakeExporter initialized for location: AntennaTracker
+CMakeExporter initialized for location: ArduCopter
+CMakeExporter initialized for location: ArduPlane
+CMakeExporter initialized for location: ArduSub
+CMakeExporter initialized for location: Blimp
+CMakeExporter initialized for location: Rover
+ran: cd /home/buzz2/ardupilot/build/sitl && ./gen-bindings -o libraries/AP_Scripting/lua_generated_bindings -i ../../libraries/AP_Scripting/generator/description/bindings.desc , returned: 0 dir: /home/buzz2/ardupilot/build/sitl
+Warning: Skipping task generator with wildcard name: objs/modules/DroneCAN/libcanard/*.c
+exported: /home/buzz2/ardupilot/CMakeLists.txt 
+Debug: Task generator name starts with bin: bin/antennatracker
+exported: /home/buzz2/ardupilot/AntennaTracker/CMakeLists.txt 
+Debug: Task generator name starts with bin: bin/arducopter
+Debug: Task generator name starts with bin: bin/arducopter-heli
+exported: /home/buzz2/ardupilot/ArduCopter/CMakeLists.txt 
+Debug: Task generator name starts with bin: bin/arduplane
+exported: /home/buzz2/ardupilot/ArduPlane/CMakeLists.txt 
+Debug: Task generator name starts with bin: bin/ardusub
+exported: /home/buzz2/ardupilot/ArduSub/CMakeLists.txt 
+Debug: Task generator name starts with bin: bin/blimp
+exported: /home/buzz2/ardupilot/Blimp/CMakeLists.txt 
+Debug: Task generator name starts with bin: bin/ardurover
+exported: /home/buzz2/ardupilot/Rover/CMakeLists.txt 
+'cmake_exporter' finished successfully (7.597s)
