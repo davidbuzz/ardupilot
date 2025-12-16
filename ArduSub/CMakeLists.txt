@@ -2079,16 +2079,5 @@ add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="
 
 add_executable(bin/ardusub ${bin/ardusub_SOURCES})
 
-target_link_libraries(bin/ardusub A)
-target_link_libraries(bin/ardusub r)
-target_link_libraries(bin/ardusub d)
-target_link_libraries(bin/ardusub u)
-target_link_libraries(bin/ardusub S)
-target_link_libraries(bin/ardusub u)
-target_link_libraries(bin/ardusub b)
-target_link_libraries(bin/ardusub _)
-target_link_libraries(bin/ardusub l)
-target_link_libraries(bin/ardusub i)
-target_link_libraries(bin/ardusub b)
-target_link_libraries(bin/ardusub s)
+target_link_libraries(bin/ardusub ArduSub_libs)
 

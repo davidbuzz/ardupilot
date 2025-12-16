@@ -152,9 +152,23 @@ def export(bld):
 	top = CMakeExporter(bld, loc)
 	cmakes[loc] = top
 	targets = waftools.deps.get_targets(bld)
+	unique_targets = set()
+	#for t in targets:
+	#	unique_targets.add(t)
+	#print('unique_targets:', unique_targets)
 
+	# targets.append('ArduPlane_libs') 
+	# targets.append('AntennaTracker_libs') 
+	# targets.append('ArduCopter_libs') 
+	# targets.append('Rover_libs')
+	# targets.append('ArduSub_libs')
+	# targets.append('Blimp_libs')
+	
+	
 	for tgen in bld.task_gen_cache_names.values():
 		if targets and tgen.get_name() not in targets:
+			#print('skipping tgen:', tgen.get_name())
+			# examples, tests, etc
 			continue
 		if getattr(tgen, 'cmake_skipme', False):
 			continue
@@ -315,6 +329,10 @@ class CMakeExporter(object):
 		content = ''
 		name = tgen.get_name()
 
+		# does name start with bin/ ? if so print debug statement
+		if name.startswith('bin/'):
+			print('Debug: Task generator name starts with bin/: %s' % name)
+
 		# check if 'name' starts with an *, as in '*.c' or similar.
 		if '*' in name:
 			print('Warning: Skipping task generator with wildcard name: %s' % name)
@@ -352,14 +370,26 @@ class CMakeExporter(object):
 		#libs = getattr(tgen, 'use', []) + getattr(tgen, 'lib', [])
 		# TypeError: can only concatenate str (not "list") to str
 		libs = []
-		for u in getattr(tgen, 'use', []):
-			libs.append(u)
+		if hasattr(tgen, 'use'):
+			foo = tgen.use # might be a list or a string.
+			typeof_foo = type(foo)
+			if typeof_foo == list:
+				for u in getattr(tgen, 'use', []): #doing this on a string would get us letters.
+					libs.append(u)
+			elif typeof_foo == str:
+				libs.append(foo)
 		for l in getattr(tgen, 'lib', []):
 			libs.append(l)
+		#for l in getattr(tgen, 'uselib', []): todo?
+		#	libs.append(l)
 
 		if len(libs):
 			content += '\n'
 			for lib in libs:
+				# if lib is one or zero characters long, print warning.
+				if len(lib) <= 1:
+					print('Warning: Skipping linking to library with too short name: "%s" in target: %s' % (lib, name))
+					continue
 				content += 'target_link_libraries(%s %s)\n' % (name, lib)
 			content += '\n'
 

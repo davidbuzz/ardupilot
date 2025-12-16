@@ -74,14 +74,15 @@ Build.AntennaTracker/*
 Build.ArduCopter/*
 Build.ArduPlane/*
 Build.ArduSub/*
-# CMakeCache.txt
+CMakeCache.txt
 CMakeFiles
+cmake_install.cmake
 LASTLOG.TXT
 Make.dep
 Thumbs.db
 autotest.lck
 build
-#cmake_install.cmake
+build2
 cscope.in.out
 cscope.out
 cscope.po.out

@@ -2034,14 +2034,5 @@ add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Bl
 
 add_executable(bin/blimp ${bin/blimp_SOURCES})
 
-target_link_libraries(bin/blimp B)
-target_link_libraries(bin/blimp l)
-target_link_libraries(bin/blimp i)
-target_link_libraries(bin/blimp m)
-target_link_libraries(bin/blimp p)
-target_link_libraries(bin/blimp _)
-target_link_libraries(bin/blimp l)
-target_link_libraries(bin/blimp i)
-target_link_libraries(bin/blimp b)
-target_link_libraries(bin/blimp s)
+target_link_libraries(bin/blimp Blimp_libs)
 

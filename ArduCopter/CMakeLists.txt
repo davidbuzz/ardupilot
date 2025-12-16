@@ -2231,21 +2231,7 @@ add_definitions(-DFRAME_CONFIG=MULTICOPTER_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD
 
 add_executable(bin/arducopter ${bin/arducopter_SOURCES})
 
-target_link_libraries(bin/arducopter A)
-target_link_libraries(bin/arducopter r)
-target_link_libraries(bin/arducopter d)
-target_link_libraries(bin/arducopter u)
-target_link_libraries(bin/arducopter C)
-target_link_libraries(bin/arducopter o)
-target_link_libraries(bin/arducopter p)
-target_link_libraries(bin/arducopter t)
-target_link_libraries(bin/arducopter e)
-target_link_libraries(bin/arducopter r)
-target_link_libraries(bin/arducopter _)
-target_link_libraries(bin/arducopter l)
-target_link_libraries(bin/arducopter i)
-target_link_libraries(bin/arducopter b)
-target_link_libraries(bin/arducopter s)
+target_link_libraries(bin/arducopter ArduCopter_libs)
 
 set(bin/arducopter-heli_SOURCES
     AP_Arming_Copter.cpp
@@ -2348,19 +2334,5 @@ add_definitions(-DFRAME_CONFIG=HELI_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCo
 
 add_executable(bin/arducopter-heli ${bin/arducopter-heli_SOURCES})
 
-target_link_libraries(bin/arducopter-heli A)
-target_link_libraries(bin/arducopter-heli r)
-target_link_libraries(bin/arducopter-heli d)
-target_link_libraries(bin/arducopter-heli u)
-target_link_libraries(bin/arducopter-heli C)
-target_link_libraries(bin/arducopter-heli o)
-target_link_libraries(bin/arducopter-heli p)
-target_link_libraries(bin/arducopter-heli t)
-target_link_libraries(bin/arducopter-heli e)
-target_link_libraries(bin/arducopter-heli r)
-target_link_libraries(bin/arducopter-heli _)
-target_link_libraries(bin/arducopter-heli l)
-target_link_libraries(bin/arducopter-heli i)
-target_link_libraries(bin/arducopter-heli b)
-target_link_libraries(bin/arducopter-heli s)
+target_link_libraries(bin/arducopter-heli ArduCopter_libs)
 

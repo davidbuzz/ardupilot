@@ -2057,14 +2057,5 @@ add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Ro
 
 add_executable(bin/ardurover ${bin/ardurover_SOURCES})
 
-target_link_libraries(bin/ardurover R)
-target_link_libraries(bin/ardurover o)
-target_link_libraries(bin/ardurover v)
-target_link_libraries(bin/ardurover e)
-target_link_libraries(bin/ardurover r)
-target_link_libraries(bin/ardurover _)
-target_link_libraries(bin/ardurover l)
-target_link_libraries(bin/ardurover i)
-target_link_libraries(bin/ardurover b)
-target_link_libraries(bin/ardurover s)
+target_link_libraries(bin/ardurover Rover_libs)
 

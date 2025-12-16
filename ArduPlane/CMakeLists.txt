@@ -2261,18 +2261,5 @@ add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME
 
 add_executable(bin/arduplane ${bin/arduplane_SOURCES})
 
-target_link_libraries(bin/arduplane A)
-target_link_libraries(bin/arduplane r)
-target_link_libraries(bin/arduplane d)
-target_link_libraries(bin/arduplane u)
-target_link_libraries(bin/arduplane P)
-target_link_libraries(bin/arduplane l)
-target_link_libraries(bin/arduplane a)
-target_link_libraries(bin/arduplane n)
-target_link_libraries(bin/arduplane e)
-target_link_libraries(bin/arduplane _)
-target_link_libraries(bin/arduplane l)
-target_link_libraries(bin/arduplane i)
-target_link_libraries(bin/arduplane b)
-target_link_libraries(bin/arduplane s)
+target_link_libraries(bin/arduplane ArduPlane_libs)
 
