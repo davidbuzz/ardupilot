@@ -117,466 +117,648 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/bin/antennatracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/bin/antennatracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/bin/antennatracker.dir/rule
+AntennaTracker/CMakeFiles/bin_antennatracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/bin_antennatracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/bin_antennatracker.dir/rule
 
 # Convenience name for target.
-bin/antennatracker: AntennaTracker/CMakeFiles/bin/antennatracker.dir/rule
-.PHONY : bin/antennatracker
-
-# fast build rule for target.
-bin/antennatracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/build
-.PHONY : bin/antennatracker/fast
-
-# Convenience name for target.
-AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/rule
-
-# Convenience name for target.
-objs/GCS_MAVLink/AntennaTracker: AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/rule
-.PHONY : objs/GCS_MAVLink/AntennaTracker
+bin_antennatracker: AntennaTracker/CMakeFiles/bin_antennatracker.dir/rule
+.PHONY : bin_antennatracker
 
 # fast build rule for target.
-objs/GCS_MAVLink/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build
-.PHONY : objs/GCS_MAVLink/AntennaTracker/fast
+bin_antennatracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/build
+.PHONY : bin_antennatracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_Filter_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_Filter_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_Filter_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_RCTelemetry/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/rule
-.PHONY : objs/AP_RCTelemetry/AntennaTracker
+objs_Filter_AntennaTracker: AntennaTracker/CMakeFiles/objs_Filter_AntennaTracker.dir/rule
+.PHONY : objs_Filter_AntennaTracker
 
 # fast build rule for target.
-objs/AP_RCTelemetry/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/build
-.PHONY : objs/AP_RCTelemetry/AntennaTracker/fast
+objs_Filter_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_Filter_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_Filter_AntennaTracker.dir/build
+.PHONY : objs_Filter_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Scheduler/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Scheduler/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Scheduler/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_Vehicle_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Vehicle_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Vehicle_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_Scheduler/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Scheduler/AntennaTracker.dir/rule
-.PHONY : objs/AP_Scheduler/AntennaTracker
+objs_AP_Vehicle_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Vehicle_AntennaTracker.dir/rule
+.PHONY : objs_AP_Vehicle_AntennaTracker
 
 # fast build rule for target.
-objs/AP_Scheduler/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scheduler/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scheduler/AntennaTracker.dir/build
-.PHONY : objs/AP_Scheduler/AntennaTracker/fast
+objs_AP_Vehicle_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Vehicle_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Vehicle_AntennaTracker.dir/build
+.PHONY : objs_AP_Vehicle_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Rally/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Rally/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Rally/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_Rally_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Rally_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Rally_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_Rally/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Rally/AntennaTracker.dir/rule
-.PHONY : objs/AP_Rally/AntennaTracker
+objs_AP_Rally_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Rally_AntennaTracker.dir/rule
+.PHONY : objs_AP_Rally_AntennaTracker
 
 # fast build rule for target.
-objs/AP_Rally/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Rally/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Rally/AntennaTracker.dir/build
-.PHONY : objs/AP_Rally/AntennaTracker/fast
+objs_AP_Rally_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Rally_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Rally_AntennaTracker.dir/build
+.PHONY : objs_AP_Rally_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Mission/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Mission/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Mission/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_Relay_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Relay_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Relay_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_Mission/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Mission/AntennaTracker.dir/rule
-.PHONY : objs/AP_Mission/AntennaTracker
+objs_AP_Relay_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Relay_AntennaTracker.dir/rule
+.PHONY : objs_AP_Relay_AntennaTracker
 
 # fast build rule for target.
-objs/AP_Mission/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Mission/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Mission/AntennaTracker.dir/build
-.PHONY : objs/AP_Mission/AntennaTracker/fast
+objs_AP_Relay_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Relay_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Relay_AntennaTracker.dir/build
+.PHONY : objs_AP_Relay_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_Terrain_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Terrain_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Terrain_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_OSD/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/rule
-.PHONY : objs/AP_OSD/AntennaTracker
+objs_AP_Terrain_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Terrain_AntennaTracker.dir/rule
+.PHONY : objs_AP_Terrain_AntennaTracker
 
 # fast build rule for target.
-objs/AP_OSD/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/build
-.PHONY : objs/AP_OSD/AntennaTracker/fast
+objs_AP_Terrain_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Terrain_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Terrain_AntennaTracker.dir/build
+.PHONY : objs_AP_Terrain_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_TemperatureSensor/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_TemperatureSensor/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_TemperatureSensor/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_Arming_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Arming_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Arming_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_TemperatureSensor/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_TemperatureSensor/AntennaTracker.dir/rule
-.PHONY : objs/AP_TemperatureSensor/AntennaTracker
+objs_AP_Arming_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Arming_AntennaTracker.dir/rule
+.PHONY : objs_AP_Arming_AntennaTracker
 
 # fast build rule for target.
-objs/AP_TemperatureSensor/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_TemperatureSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_TemperatureSensor/AntennaTracker.dir/build
-.PHONY : objs/AP_TemperatureSensor/AntennaTracker/fast
+objs_AP_Arming_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Arming_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Arming_AntennaTracker.dir/build
+.PHONY : objs_AP_Arming_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Filesystem/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Filesystem/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Filesystem/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_Scheduler_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Scheduler_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Scheduler_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_Filesystem/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Filesystem/AntennaTracker.dir/rule
-.PHONY : objs/AP_Filesystem/AntennaTracker
+objs_AP_Scheduler_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Scheduler_AntennaTracker.dir/rule
+.PHONY : objs_AP_Scheduler_AntennaTracker
 
 # fast build rule for target.
-objs/AP_Filesystem/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Filesystem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Filesystem/AntennaTracker.dir/build
-.PHONY : objs/AP_Filesystem/AntennaTracker/fast
+objs_AP_Scheduler_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scheduler_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scheduler_AntennaTracker.dir/build
+.PHONY : objs_AP_Scheduler_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_ESC_Telem_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_ESC_Telem_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_ESC_Telem_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_NavEKF2/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/rule
-.PHONY : objs/AP_NavEKF2/AntennaTracker
+objs_AP_ESC_Telem_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_ESC_Telem_AntennaTracker.dir/rule
+.PHONY : objs_AP_ESC_Telem_AntennaTracker
 
 # fast build rule for target.
-objs/AP_NavEKF2/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/build
-.PHONY : objs/AP_NavEKF2/AntennaTracker/fast
+objs_AP_ESC_Telem_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ESC_Telem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ESC_Telem_AntennaTracker.dir/build
+.PHONY : objs_AP_ESC_Telem_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_HAL/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_HAL/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_HAL/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_HAL/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_HAL/AntennaTracker.dir/rule
-.PHONY : objs/AP_HAL/AntennaTracker
+objs_SITL_AntennaTracker: AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/rule
+.PHONY : objs_SITL_AntennaTracker
 
 # fast build rule for target.
-objs/AP_HAL/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_HAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_HAL/AntennaTracker.dir/build
-.PHONY : objs/AP_HAL/AntennaTracker/fast
+objs_SITL_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/build
+.PHONY : objs_SITL_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_Baro/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/rule
-.PHONY : objs/AP_Baro/AntennaTracker
+objs_AP_NavEKF2_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/rule
+.PHONY : objs_AP_NavEKF2_AntennaTracker
 
 # fast build rule for target.
-objs/AP_Baro/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/build
-.PHONY : objs/AP_Baro/AntennaTracker/fast
+objs_AP_NavEKF2_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/build
+.PHONY : objs_AP_NavEKF2_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/rule
+AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_ADSB/sagetech-sdk: AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/rule
-.PHONY : objs/AP_ADSB/sagetech-sdk
+objs_GCS_MAVLink_AntennaTracker: AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/rule
+.PHONY : objs_GCS_MAVLink_AntennaTracker
 
 # fast build rule for target.
-objs/AP_ADSB/sagetech-sdk/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build
-.PHONY : objs/AP_ADSB/sagetech-sdk/fast
+objs_GCS_MAVLink_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build
+.PHONY : objs_GCS_MAVLink_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/Filter/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/Filter/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/Filter/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_Math_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Math_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Math_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/Filter/AntennaTracker: AntennaTracker/CMakeFiles/objs/Filter/AntennaTracker.dir/rule
-.PHONY : objs/Filter/AntennaTracker
+objs_AP_Math_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Math_AntennaTracker.dir/rule
+.PHONY : objs_AP_Math_AntennaTracker
 
 # fast build rule for target.
-objs/Filter/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/Filter/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/Filter/AntennaTracker.dir/build
-.PHONY : objs/Filter/AntennaTracker/fast
+objs_AP_Math_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Math_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Math_AntennaTracker.dir/build
+.PHONY : objs_AP_Math_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_RCProtocol/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/rule
-.PHONY : objs/AP_RCProtocol/AntennaTracker
+objs_AP_InertialSensor_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/rule
+.PHONY : objs_AP_InertialSensor_AntennaTracker
 
 # fast build rule for target.
-objs/AP_RCProtocol/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build
-.PHONY : objs/AP_RCProtocol/AntennaTracker/fast
+objs_AP_InertialSensor_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/build
+.PHONY : objs_AP_InertialSensor_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Follow/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Follow/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Follow/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_Follow/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Follow/AntennaTracker.dir/rule
-.PHONY : objs/AP_Follow/AntennaTracker
+objs_AP_BattMonitor_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/rule
+.PHONY : objs_AP_BattMonitor_AntennaTracker
 
 # fast build rule for target.
-objs/AP_Follow/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Follow/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Follow/AntennaTracker.dir/build
-.PHONY : objs/AP_Follow/AntennaTracker/fast
+objs_AP_BattMonitor_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/build
+.PHONY : objs_AP_BattMonitor_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_ESC_Telem/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_ESC_Telem/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_ESC_Telem/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_ESC_Telem/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_ESC_Telem/AntennaTracker.dir/rule
-.PHONY : objs/AP_ESC_Telem/AntennaTracker
+objs_AP_Airspeed_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/rule
+.PHONY : objs_AP_Airspeed_AntennaTracker
 
 # fast build rule for target.
-objs/AP_ESC_Telem/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ESC_Telem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ESC_Telem/AntennaTracker.dir/build
-.PHONY : objs/AP_ESC_Telem/AntennaTracker/fast
+objs_AP_Airspeed_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/build
+.PHONY : objs_AP_Airspeed_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_RC_Channel_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_RC_Channel_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_RC_Channel_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_AHRS/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/rule
-.PHONY : objs/AP_AHRS/AntennaTracker
+objs_RC_Channel_AntennaTracker: AntennaTracker/CMakeFiles/objs_RC_Channel_AntennaTracker.dir/rule
+.PHONY : objs_RC_Channel_AntennaTracker
 
 # fast build rule for target.
-objs/AP_AHRS/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/build
-.PHONY : objs/AP_AHRS/AntennaTracker/fast
+objs_RC_Channel_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_RC_Channel_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_RC_Channel_AntennaTracker.dir/build
+.PHONY : objs_RC_Channel_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_Follow_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Follow_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Follow_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_BattMonitor/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/rule
-.PHONY : objs/AP_BattMonitor/AntennaTracker
+objs_AP_Follow_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Follow_AntennaTracker.dir/rule
+.PHONY : objs_AP_Follow_AntennaTracker
 
 # fast build rule for target.
-objs/AP_BattMonitor/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/build
-.PHONY : objs/AP_BattMonitor/AntennaTracker/fast
+objs_AP_Follow_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Follow_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Follow_AntennaTracker.dir/build
+.PHONY : objs_AP_Follow_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_BoardConfig/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_BoardConfig/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_BoardConfig/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_HAL_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_HAL_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_HAL_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_BoardConfig/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_BoardConfig/AntennaTracker.dir/rule
-.PHONY : objs/AP_BoardConfig/AntennaTracker
+objs_AP_HAL_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_HAL_AntennaTracker.dir/rule
+.PHONY : objs_AP_HAL_AntennaTracker
 
 # fast build rule for target.
-objs/AP_BoardConfig/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BoardConfig/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BoardConfig/AntennaTracker.dir/build
-.PHONY : objs/AP_BoardConfig/AntennaTracker/fast
+objs_AP_HAL_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_HAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_HAL_AntennaTracker.dir/build
+.PHONY : objs_AP_HAL_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_LandingGear_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_LandingGear_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_LandingGear_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_Logger/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/rule
-.PHONY : objs/AP_Logger/AntennaTracker
+objs_AP_LandingGear_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_LandingGear_AntennaTracker.dir/rule
+.PHONY : objs_AP_LandingGear_AntennaTracker
 
 # fast build rule for target.
-objs/AP_Logger/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/build
-.PHONY : objs/AP_Logger/AntennaTracker/fast
+objs_AP_LandingGear_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_LandingGear_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_LandingGear_AntennaTracker.dir/build
+.PHONY : objs_AP_LandingGear_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Frsky_Telem/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Frsky_Telem/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Frsky_Telem/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_StorageManager_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_StorageManager_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_StorageManager_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_Frsky_Telem/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Frsky_Telem/AntennaTracker.dir/rule
-.PHONY : objs/AP_Frsky_Telem/AntennaTracker
+objs_StorageManager_AntennaTracker: AntennaTracker/CMakeFiles/objs_StorageManager_AntennaTracker.dir/rule
+.PHONY : objs_StorageManager_AntennaTracker
 
 # fast build rule for target.
-objs/AP_Frsky_Telem/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Frsky_Telem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Frsky_Telem/AntennaTracker.dir/build
-.PHONY : objs/AP_Frsky_Telem/AntennaTracker/fast
+objs_StorageManager_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_StorageManager_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_StorageManager_AntennaTracker.dir/build
+.PHONY : objs_StorageManager_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/rule
 
 # Convenience name for target.
-objs/AP_ExternalAHRS/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/rule
-.PHONY : objs/AP_ExternalAHRS/AntennaTracker
+objs_AP_ADSB_sagetech-sdk: AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/rule
+.PHONY : objs_AP_ADSB_sagetech-sdk
 
 # fast build rule for target.
-objs/AP_ExternalAHRS/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/build
-.PHONY : objs/AP_ExternalAHRS/AntennaTracker/fast
+objs_AP_ADSB_sagetech-sdk/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build
+.PHONY : objs_AP_ADSB_sagetech-sdk/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Math/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Math/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Math/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_Math/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Math/AntennaTracker.dir/rule
-.PHONY : objs/AP_Math/AntennaTracker
+objs_AP_NavEKF3_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/rule
+.PHONY : objs_AP_NavEKF3_AntennaTracker
 
 # fast build rule for target.
-objs/AP_Math/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Math/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Math/AntennaTracker.dir/build
-.PHONY : objs/AP_Math/AntennaTracker/fast
+objs_AP_NavEKF3_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build
+.PHONY : objs_AP_NavEKF3_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_ADSB/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/rule
-.PHONY : objs/AP_ADSB/AntennaTracker
+objs_AP_Scripting_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/rule
+.PHONY : objs_AP_Scripting_AntennaTracker
 
 # fast build rule for target.
-objs/AP_ADSB/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/build
-.PHONY : objs/AP_ADSB/AntennaTracker/fast
+objs_AP_Scripting_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build
+.PHONY : objs_AP_Scripting_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_Airspeed/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/rule
-.PHONY : objs/AP_Airspeed/AntennaTracker
+objs_AP_DAL_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/rule
+.PHONY : objs_AP_DAL_AntennaTracker
 
 # fast build rule for target.
-objs/AP_Airspeed/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/build
-.PHONY : objs/AP_Airspeed/AntennaTracker/fast
+objs_AP_DAL_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/build
+.PHONY : objs_AP_DAL_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Proximity/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Proximity/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Proximity/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_Mission_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Mission_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Mission_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_Proximity/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Proximity/AntennaTracker.dir/rule
-.PHONY : objs/AP_Proximity/AntennaTracker
+objs_AP_Mission_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Mission_AntennaTracker.dir/rule
+.PHONY : objs_AP_Mission_AntennaTracker
 
 # fast build rule for target.
-objs/AP_Proximity/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Proximity/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Proximity/AntennaTracker.dir/build
-.PHONY : objs/AP_Proximity/AntennaTracker/fast
+objs_AP_Mission_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Mission_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Mission_AntennaTracker.dir/build
+.PHONY : objs_AP_Mission_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/RC_Channel/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/RC_Channel/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/RC_Channel/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_BoardConfig_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_BoardConfig_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_BoardConfig_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/RC_Channel/AntennaTracker: AntennaTracker/CMakeFiles/objs/RC_Channel/AntennaTracker.dir/rule
-.PHONY : objs/RC_Channel/AntennaTracker
+objs_AP_BoardConfig_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_BoardConfig_AntennaTracker.dir/rule
+.PHONY : objs_AP_BoardConfig_AntennaTracker
 
 # fast build rule for target.
-objs/RC_Channel/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/RC_Channel/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/RC_Channel/AntennaTracker.dir/build
-.PHONY : objs/RC_Channel/AntennaTracker/fast
+objs_AP_BoardConfig_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BoardConfig_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BoardConfig_AntennaTracker.dir/build
+.PHONY : objs_AP_BoardConfig_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_IBus_Telem/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_IBus_Telem/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_IBus_Telem/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_Frsky_Telem_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Frsky_Telem_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Frsky_Telem_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_IBus_Telem/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_IBus_Telem/AntennaTracker.dir/rule
-.PHONY : objs/AP_IBus_Telem/AntennaTracker
+objs_AP_Frsky_Telem_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Frsky_Telem_AntennaTracker.dir/rule
+.PHONY : objs_AP_Frsky_Telem_AntennaTracker
 
 # fast build rule for target.
-objs/AP_IBus_Telem/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_IBus_Telem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_IBus_Telem/AntennaTracker.dir/build
-.PHONY : objs/AP_IBus_Telem/AntennaTracker/fast
+objs_AP_Frsky_Telem_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Frsky_Telem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Frsky_Telem_AntennaTracker.dir/build
+.PHONY : objs_AP_Frsky_Telem_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Relay/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Relay/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Relay/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_IBus_Telem_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_IBus_Telem_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_IBus_Telem_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_Relay/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Relay/AntennaTracker.dir/rule
-.PHONY : objs/AP_Relay/AntennaTracker
+objs_AP_IBus_Telem_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_IBus_Telem_AntennaTracker.dir/rule
+.PHONY : objs_AP_IBus_Telem_AntennaTracker
 
 # fast build rule for target.
-objs/AP_Relay/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Relay/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Relay/AntennaTracker.dir/build
-.PHONY : objs/AP_Relay/AntennaTracker/fast
+objs_AP_IBus_Telem_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_IBus_Telem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_IBus_Telem_AntennaTracker.dir/build
+.PHONY : objs_AP_IBus_Telem_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_BLHeli/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_BLHeli/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_BLHeli/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_BLHeli/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_BLHeli/AntennaTracker.dir/rule
-.PHONY : objs/AP_BLHeli/AntennaTracker
+objs_AP_RCProtocol_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/rule
+.PHONY : objs_AP_RCProtocol_AntennaTracker
 
 # fast build rule for target.
-objs/AP_BLHeli/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BLHeli/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BLHeli/AntennaTracker.dir/build
-.PHONY : objs/AP_BLHeli/AntennaTracker/fast
+objs_AP_RCProtocol_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build
+.PHONY : objs_AP_RCProtocol_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AC_Fence/AntennaTracker: AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/rule
-.PHONY : objs/AC_Fence/AntennaTracker
+objs_AP_Baro_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/rule
+.PHONY : objs_AP_Baro_AntennaTracker
 
 # fast build rule for target.
-objs/AC_Fence/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/build
-.PHONY : objs/AC_Fence/AntennaTracker/fast
+objs_AP_Baro_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/build
+.PHONY : objs_AP_Baro_AntennaTracker/fast
 
 # Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/rule
+AntennaTracker/CMakeFiles/objs_AP_Filesystem_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Filesystem_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Filesystem_AntennaTracker.dir/rule
 
 # Convenience name for target.
-objs/AP_DAL/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/rule
-.PHONY : objs/AP_DAL/AntennaTracker
+objs_AP_Filesystem_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Filesystem_AntennaTracker.dir/rule
+.PHONY : objs_AP_Filesystem_AntennaTracker
 
 # fast build rule for target.
-objs/AP_DAL/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/build
-.PHONY : objs/AP_DAL/AntennaTracker/fast
+objs_AP_Filesystem_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Filesystem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Filesystem_AntennaTracker.dir/build
+.PHONY : objs_AP_Filesystem_AntennaTracker/fast
+
+# Convenience name for target.
+AntennaTracker/CMakeFiles/objs_AP_BLHeli_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_BLHeli_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_BLHeli_AntennaTracker.dir/rule
+
+# Convenience name for target.
+objs_AP_BLHeli_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_BLHeli_AntennaTracker.dir/rule
+.PHONY : objs_AP_BLHeli_AntennaTracker
+
+# fast build rule for target.
+objs_AP_BLHeli_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BLHeli_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BLHeli_AntennaTracker.dir/build
+.PHONY : objs_AP_BLHeli_AntennaTracker/fast
+
+# Convenience name for target.
+AntennaTracker/CMakeFiles/objs_AP_Proximity_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Proximity_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Proximity_AntennaTracker.dir/rule
+
+# Convenience name for target.
+objs_AP_Proximity_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Proximity_AntennaTracker.dir/rule
+.PHONY : objs_AP_Proximity_AntennaTracker
+
+# fast build rule for target.
+objs_AP_Proximity_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Proximity_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Proximity_AntennaTracker.dir/build
+.PHONY : objs_AP_Proximity_AntennaTracker/fast
+
+# Convenience name for target.
+AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/rule
+
+# Convenience name for target.
+objs_AC_Fence_AntennaTracker: AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/rule
+.PHONY : objs_AC_Fence_AntennaTracker
+
+# fast build rule for target.
+objs_AC_Fence_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/build
+.PHONY : objs_AC_Fence_AntennaTracker/fast
+
+# Convenience name for target.
+AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/rule
+
+# Convenience name for target.
+objs_AC_Avoidance_AntennaTracker: AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/rule
+.PHONY : objs_AC_Avoidance_AntennaTracker
+
+# fast build rule for target.
+objs_AC_Avoidance_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/build
+.PHONY : objs_AC_Avoidance_AntennaTracker/fast
+
+# Convenience name for target.
+AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/rule
+
+# Convenience name for target.
+objs_AP_OSD_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/rule
+.PHONY : objs_AP_OSD_AntennaTracker
+
+# fast build rule for target.
+objs_AP_OSD_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/build
+.PHONY : objs_AP_OSD_AntennaTracker/fast
+
+# Convenience name for target.
+AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/rule
+
+# Convenience name for target.
+objs_AP_ADSB_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/rule
+.PHONY : objs_AP_ADSB_AntennaTracker
+
+# fast build rule for target.
+objs_AP_ADSB_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/build
+.PHONY : objs_AP_ADSB_AntennaTracker/fast
+
+# Convenience name for target.
+AntennaTracker/CMakeFiles/objs_AP_GyroFFT_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_GyroFFT_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_GyroFFT_AntennaTracker.dir/rule
+
+# Convenience name for target.
+objs_AP_GyroFFT_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_GyroFFT_AntennaTracker.dir/rule
+.PHONY : objs_AP_GyroFFT_AntennaTracker
+
+# fast build rule for target.
+objs_AP_GyroFFT_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_GyroFFT_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_GyroFFT_AntennaTracker.dir/build
+.PHONY : objs_AP_GyroFFT_AntennaTracker/fast
+
+# Convenience name for target.
+AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/rule
+
+# Convenience name for target.
+objs_AP_AHRS_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/rule
+.PHONY : objs_AP_AHRS_AntennaTracker
+
+# fast build rule for target.
+objs_AP_AHRS_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/build
+.PHONY : objs_AP_AHRS_AntennaTracker/fast
+
+# Convenience name for target.
+AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/rule
+
+# Convenience name for target.
+objs_AP_ExternalAHRS_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/rule
+.PHONY : objs_AP_ExternalAHRS_AntennaTracker
+
+# fast build rule for target.
+objs_AP_ExternalAHRS_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/build
+.PHONY : objs_AP_ExternalAHRS_AntennaTracker/fast
+
+# Convenience name for target.
+AntennaTracker/CMakeFiles/objs_AP_TemperatureSensor_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_TemperatureSensor_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_TemperatureSensor_AntennaTracker.dir/rule
+
+# Convenience name for target.
+objs_AP_TemperatureSensor_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_TemperatureSensor_AntennaTracker.dir/rule
+.PHONY : objs_AP_TemperatureSensor_AntennaTracker
+
+# fast build rule for target.
+objs_AP_TemperatureSensor_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_TemperatureSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_TemperatureSensor_AntennaTracker.dir/build
+.PHONY : objs_AP_TemperatureSensor_AntennaTracker/fast
+
+# Convenience name for target.
+AntennaTracker/CMakeFiles/objs_AP_AIS_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_AIS_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_AIS_AntennaTracker.dir/rule
+
+# Convenience name for target.
+objs_AP_AIS_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_AIS_AntennaTracker.dir/rule
+.PHONY : objs_AP_AIS_AntennaTracker
+
+# fast build rule for target.
+objs_AP_AIS_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_AIS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_AIS_AntennaTracker.dir/build
+.PHONY : objs_AP_AIS_AntennaTracker/fast
+
+# Convenience name for target.
+AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/rule
+
+# Convenience name for target.
+objs_AP_RCTelemetry_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/rule
+.PHONY : objs_AP_RCTelemetry_AntennaTracker
+
+# fast build rule for target.
+objs_AP_RCTelemetry_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/build
+.PHONY : objs_AP_RCTelemetry_AntennaTracker/fast
+
+# Convenience name for target.
+AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/rule
+
+# Convenience name for target.
+objs_AP_HAL_SITL_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/rule
+.PHONY : objs_AP_HAL_SITL_AntennaTracker
+
+# fast build rule for target.
+objs_AP_HAL_SITL_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/build
+.PHONY : objs_AP_HAL_SITL_AntennaTracker/fast
+
+# Convenience name for target.
+AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/rule
+.PHONY : AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/rule
+
+# Convenience name for target.
+objs_AP_Logger_AntennaTracker: AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/rule
+.PHONY : objs_AP_Logger_AntennaTracker
+
+# fast build rule for target.
+objs_AP_Logger_AntennaTracker/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/build
+.PHONY : objs_AP_Logger_AntennaTracker/fast
 
 # Convenience name for target.
 AntennaTracker/CMakeFiles/AntennaTracker_libs.dir/rule:
@@ -592,194 +774,12 @@ AntennaTracker_libs/fast:
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/AntennaTracker_libs.dir/build.make AntennaTracker/CMakeFiles/AntennaTracker_libs.dir/build
 .PHONY : AntennaTracker_libs/fast
 
-# Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Vehicle/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Vehicle/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Vehicle/AntennaTracker.dir/rule
-
-# Convenience name for target.
-objs/AP_Vehicle/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Vehicle/AntennaTracker.dir/rule
-.PHONY : objs/AP_Vehicle/AntennaTracker
-
-# fast build rule for target.
-objs/AP_Vehicle/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Vehicle/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Vehicle/AntennaTracker.dir/build
-.PHONY : objs/AP_Vehicle/AntennaTracker/fast
-
-# Convenience name for target.
-AntennaTracker/CMakeFiles/objs/StorageManager/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/StorageManager/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/StorageManager/AntennaTracker.dir/rule
-
-# Convenience name for target.
-objs/StorageManager/AntennaTracker: AntennaTracker/CMakeFiles/objs/StorageManager/AntennaTracker.dir/rule
-.PHONY : objs/StorageManager/AntennaTracker
-
-# fast build rule for target.
-objs/StorageManager/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/StorageManager/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/StorageManager/AntennaTracker.dir/build
-.PHONY : objs/StorageManager/AntennaTracker/fast
-
-# Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/rule
-
-# Convenience name for target.
-objs/AC_Avoidance/AntennaTracker: AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/rule
-.PHONY : objs/AC_Avoidance/AntennaTracker
-
-# fast build rule for target.
-objs/AC_Avoidance/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/build
-.PHONY : objs/AC_Avoidance/AntennaTracker/fast
-
-# Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/rule
-
-# Convenience name for target.
-objs/AP_InertialSensor/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/rule
-.PHONY : objs/AP_InertialSensor/AntennaTracker
-
-# fast build rule for target.
-objs/AP_InertialSensor/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/build
-.PHONY : objs/AP_InertialSensor/AntennaTracker/fast
-
-# Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_LandingGear/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_LandingGear/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_LandingGear/AntennaTracker.dir/rule
-
-# Convenience name for target.
-objs/AP_LandingGear/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_LandingGear/AntennaTracker.dir/rule
-.PHONY : objs/AP_LandingGear/AntennaTracker
-
-# fast build rule for target.
-objs/AP_LandingGear/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_LandingGear/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_LandingGear/AntennaTracker.dir/build
-.PHONY : objs/AP_LandingGear/AntennaTracker/fast
-
-# Convenience name for target.
-AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/rule
-
-# Convenience name for target.
-objs/SITL/AntennaTracker: AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/rule
-.PHONY : objs/SITL/AntennaTracker
-
-# fast build rule for target.
-objs/SITL/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/build
-.PHONY : objs/SITL/AntennaTracker/fast
-
-# Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Terrain/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Terrain/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Terrain/AntennaTracker.dir/rule
-
-# Convenience name for target.
-objs/AP_Terrain/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Terrain/AntennaTracker.dir/rule
-.PHONY : objs/AP_Terrain/AntennaTracker
-
-# fast build rule for target.
-objs/AP_Terrain/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Terrain/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Terrain/AntennaTracker.dir/build
-.PHONY : objs/AP_Terrain/AntennaTracker/fast
-
-# Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_GyroFFT/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_GyroFFT/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_GyroFFT/AntennaTracker.dir/rule
-
-# Convenience name for target.
-objs/AP_GyroFFT/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_GyroFFT/AntennaTracker.dir/rule
-.PHONY : objs/AP_GyroFFT/AntennaTracker
-
-# fast build rule for target.
-objs/AP_GyroFFT/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_GyroFFT/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_GyroFFT/AntennaTracker.dir/build
-.PHONY : objs/AP_GyroFFT/AntennaTracker/fast
-
-# Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_AIS/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_AIS/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_AIS/AntennaTracker.dir/rule
-
-# Convenience name for target.
-objs/AP_AIS/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_AIS/AntennaTracker.dir/rule
-.PHONY : objs/AP_AIS/AntennaTracker
-
-# fast build rule for target.
-objs/AP_AIS/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_AIS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_AIS/AntennaTracker.dir/build
-.PHONY : objs/AP_AIS/AntennaTracker/fast
-
-# Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/rule
-
-# Convenience name for target.
-objs/AP_NavEKF3/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/rule
-.PHONY : objs/AP_NavEKF3/AntennaTracker
-
-# fast build rule for target.
-objs/AP_NavEKF3/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build
-.PHONY : objs/AP_NavEKF3/AntennaTracker/fast
-
-# Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Arming/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Arming/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Arming/AntennaTracker.dir/rule
-
-# Convenience name for target.
-objs/AP_Arming/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Arming/AntennaTracker.dir/rule
-.PHONY : objs/AP_Arming/AntennaTracker
-
-# fast build rule for target.
-objs/AP_Arming/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Arming/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Arming/AntennaTracker.dir/build
-.PHONY : objs/AP_Arming/AntennaTracker/fast
-
-# Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/rule
-
-# Convenience name for target.
-objs/AP_HAL_SITL/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/rule
-.PHONY : objs/AP_HAL_SITL/AntennaTracker
-
-# fast build rule for target.
-objs/AP_HAL_SITL/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/build
-.PHONY : objs/AP_HAL_SITL/AntennaTracker/fast
-
-# Convenience name for target.
-AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/rule
-.PHONY : AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/rule
-
-# Convenience name for target.
-objs/AP_Scripting/AntennaTracker: AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/rule
-.PHONY : objs/AP_Scripting/AntennaTracker
-
-# fast build rule for target.
-objs/AP_Scripting/AntennaTracker/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build
-.PHONY : objs/AP_Scripting/AntennaTracker/fast
-
 GCS_MAVLink_Tracker.o: GCS_MAVLink_Tracker.cpp.o
 .PHONY : GCS_MAVLink_Tracker.o
 
 # target to build an object file
 GCS_MAVLink_Tracker.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/GCS_MAVLink_Tracker.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/GCS_MAVLink_Tracker.cpp.o
 .PHONY : GCS_MAVLink_Tracker.cpp.o
 
 GCS_MAVLink_Tracker.i: GCS_MAVLink_Tracker.cpp.i
@@ -787,7 +787,7 @@ GCS_MAVLink_Tracker.i: GCS_MAVLink_Tracker.cpp.i
 
 # target to preprocess a source file
 GCS_MAVLink_Tracker.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/GCS_MAVLink_Tracker.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/GCS_MAVLink_Tracker.cpp.i
 .PHONY : GCS_MAVLink_Tracker.cpp.i
 
 GCS_MAVLink_Tracker.s: GCS_MAVLink_Tracker.cpp.s
@@ -795,7 +795,7 @@ GCS_MAVLink_Tracker.s: GCS_MAVLink_Tracker.cpp.s
 
 # target to generate assembly for a file
 GCS_MAVLink_Tracker.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/GCS_MAVLink_Tracker.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/GCS_MAVLink_Tracker.cpp.s
 .PHONY : GCS_MAVLink_Tracker.cpp.s
 
 GCS_Tracker.o: GCS_Tracker.cpp.o
@@ -803,7 +803,7 @@ GCS_Tracker.o: GCS_Tracker.cpp.o
 
 # target to build an object file
 GCS_Tracker.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/GCS_Tracker.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/GCS_Tracker.cpp.o
 .PHONY : GCS_Tracker.cpp.o
 
 GCS_Tracker.i: GCS_Tracker.cpp.i
@@ -811,7 +811,7 @@ GCS_Tracker.i: GCS_Tracker.cpp.i
 
 # target to preprocess a source file
 GCS_Tracker.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/GCS_Tracker.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/GCS_Tracker.cpp.i
 .PHONY : GCS_Tracker.cpp.i
 
 GCS_Tracker.s: GCS_Tracker.cpp.s
@@ -819,7 +819,7 @@ GCS_Tracker.s: GCS_Tracker.cpp.s
 
 # target to generate assembly for a file
 GCS_Tracker.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/GCS_Tracker.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/GCS_Tracker.cpp.s
 .PHONY : GCS_Tracker.cpp.s
 
 Log.o: Log.cpp.o
@@ -827,7 +827,7 @@ Log.o: Log.cpp.o
 
 # target to build an object file
 Log.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/Log.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/Log.cpp.o
 .PHONY : Log.cpp.o
 
 Log.i: Log.cpp.i
@@ -835,7 +835,7 @@ Log.i: Log.cpp.i
 
 # target to preprocess a source file
 Log.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/Log.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/Log.cpp.i
 .PHONY : Log.cpp.i
 
 Log.s: Log.cpp.s
@@ -843,7 +843,7 @@ Log.s: Log.cpp.s
 
 # target to generate assembly for a file
 Log.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/Log.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/Log.cpp.s
 .PHONY : Log.cpp.s
 
 Parameters.o: Parameters.cpp.o
@@ -851,7 +851,7 @@ Parameters.o: Parameters.cpp.o
 
 # target to build an object file
 Parameters.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/Parameters.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/Parameters.cpp.o
 .PHONY : Parameters.cpp.o
 
 Parameters.i: Parameters.cpp.i
@@ -859,7 +859,7 @@ Parameters.i: Parameters.cpp.i
 
 # target to preprocess a source file
 Parameters.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/Parameters.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/Parameters.cpp.i
 .PHONY : Parameters.cpp.i
 
 Parameters.s: Parameters.cpp.s
@@ -867,7 +867,7 @@ Parameters.s: Parameters.cpp.s
 
 # target to generate assembly for a file
 Parameters.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/Parameters.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/Parameters.cpp.s
 .PHONY : Parameters.cpp.s
 
 RC_Channel_Tracker.o: RC_Channel_Tracker.cpp.o
@@ -875,7 +875,7 @@ RC_Channel_Tracker.o: RC_Channel_Tracker.cpp.o
 
 # target to build an object file
 RC_Channel_Tracker.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/RC_Channel_Tracker.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/RC_Channel_Tracker.cpp.o
 .PHONY : RC_Channel_Tracker.cpp.o
 
 RC_Channel_Tracker.i: RC_Channel_Tracker.cpp.i
@@ -883,7 +883,7 @@ RC_Channel_Tracker.i: RC_Channel_Tracker.cpp.i
 
 # target to preprocess a source file
 RC_Channel_Tracker.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/RC_Channel_Tracker.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/RC_Channel_Tracker.cpp.i
 .PHONY : RC_Channel_Tracker.cpp.i
 
 RC_Channel_Tracker.s: RC_Channel_Tracker.cpp.s
@@ -891,7 +891,7 @@ RC_Channel_Tracker.s: RC_Channel_Tracker.cpp.s
 
 # target to generate assembly for a file
 RC_Channel_Tracker.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/RC_Channel_Tracker.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/RC_Channel_Tracker.cpp.s
 .PHONY : RC_Channel_Tracker.cpp.s
 
 Tracker.o: Tracker.cpp.o
@@ -899,7 +899,7 @@ Tracker.o: Tracker.cpp.o
 
 # target to build an object file
 Tracker.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/Tracker.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/Tracker.cpp.o
 .PHONY : Tracker.cpp.o
 
 Tracker.i: Tracker.cpp.i
@@ -907,7 +907,7 @@ Tracker.i: Tracker.cpp.i
 
 # target to preprocess a source file
 Tracker.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/Tracker.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/Tracker.cpp.i
 .PHONY : Tracker.cpp.i
 
 Tracker.s: Tracker.cpp.s
@@ -915,7 +915,7 @@ Tracker.s: Tracker.cpp.s
 
 # target to generate assembly for a file
 Tracker.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/Tracker.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/Tracker.cpp.s
 .PHONY : Tracker.cpp.s
 
 __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.o: __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.o
@@ -923,7 +923,7 @@ __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.o: __/build/sitl/lib
 
 # target to build an object file
 __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.o
 .PHONY : __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.o
 
 __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.i: __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.i
@@ -931,7 +931,7 @@ __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.i: __/build/sitl/lib
 
 # target to preprocess a source file
 __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.i
 .PHONY : __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.i
 
 __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.s: __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.s
@@ -939,7 +939,7 @@ __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.s: __/build/sitl/lib
 
 # target to generate assembly for a file
 __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.s
 .PHONY : __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.s
 
 __/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.o: __/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c.o
@@ -5171,7 +5171,7 @@ __/libraries/AC_Avoidance/AC_Avoid.o: __/libraries/AC_Avoidance/AC_Avoid.cpp.o
 
 # target to build an object file
 __/libraries/AC_Avoidance/AC_Avoid.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/__/libraries/AC_Avoidance/AC_Avoid.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/__/libraries/AC_Avoidance/AC_Avoid.cpp.o
 .PHONY : __/libraries/AC_Avoidance/AC_Avoid.cpp.o
 
 __/libraries/AC_Avoidance/AC_Avoid.i: __/libraries/AC_Avoidance/AC_Avoid.cpp.i
@@ -5179,7 +5179,7 @@ __/libraries/AC_Avoidance/AC_Avoid.i: __/libraries/AC_Avoidance/AC_Avoid.cpp.i
 
 # target to preprocess a source file
 __/libraries/AC_Avoidance/AC_Avoid.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/__/libraries/AC_Avoidance/AC_Avoid.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/__/libraries/AC_Avoidance/AC_Avoid.cpp.i
 .PHONY : __/libraries/AC_Avoidance/AC_Avoid.cpp.i
 
 __/libraries/AC_Avoidance/AC_Avoid.s: __/libraries/AC_Avoidance/AC_Avoid.cpp.s
@@ -5187,7 +5187,7 @@ __/libraries/AC_Avoidance/AC_Avoid.s: __/libraries/AC_Avoidance/AC_Avoid.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AC_Avoidance/AC_Avoid.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/__/libraries/AC_Avoidance/AC_Avoid.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/__/libraries/AC_Avoidance/AC_Avoid.cpp.s
 .PHONY : __/libraries/AC_Avoidance/AC_Avoid.cpp.s
 
 __/libraries/AC_Avoidance/AP_OABendyRuler.o: __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.o
@@ -5195,7 +5195,7 @@ __/libraries/AC_Avoidance/AP_OABendyRuler.o: __/libraries/AC_Avoidance/AP_OABend
 
 # target to build an object file
 __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/__/libraries/AC_Avoidance/AP_OABendyRuler.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/__/libraries/AC_Avoidance/AP_OABendyRuler.cpp.o
 .PHONY : __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.o
 
 __/libraries/AC_Avoidance/AP_OABendyRuler.i: __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.i
@@ -5203,7 +5203,7 @@ __/libraries/AC_Avoidance/AP_OABendyRuler.i: __/libraries/AC_Avoidance/AP_OABend
 
 # target to preprocess a source file
 __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/__/libraries/AC_Avoidance/AP_OABendyRuler.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/__/libraries/AC_Avoidance/AP_OABendyRuler.cpp.i
 .PHONY : __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.i
 
 __/libraries/AC_Avoidance/AP_OABendyRuler.s: __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.s
@@ -5211,7 +5211,7 @@ __/libraries/AC_Avoidance/AP_OABendyRuler.s: __/libraries/AC_Avoidance/AP_OABend
 
 # target to generate assembly for a file
 __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/__/libraries/AC_Avoidance/AP_OABendyRuler.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/__/libraries/AC_Avoidance/AP_OABendyRuler.cpp.s
 .PHONY : __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.s
 
 __/libraries/AC_Avoidance/AP_OADatabase.o: __/libraries/AC_Avoidance/AP_OADatabase.cpp.o
@@ -5219,7 +5219,7 @@ __/libraries/AC_Avoidance/AP_OADatabase.o: __/libraries/AC_Avoidance/AP_OADataba
 
 # target to build an object file
 __/libraries/AC_Avoidance/AP_OADatabase.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/__/libraries/AC_Avoidance/AP_OADatabase.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/__/libraries/AC_Avoidance/AP_OADatabase.cpp.o
 .PHONY : __/libraries/AC_Avoidance/AP_OADatabase.cpp.o
 
 __/libraries/AC_Avoidance/AP_OADatabase.i: __/libraries/AC_Avoidance/AP_OADatabase.cpp.i
@@ -5227,7 +5227,7 @@ __/libraries/AC_Avoidance/AP_OADatabase.i: __/libraries/AC_Avoidance/AP_OADataba
 
 # target to preprocess a source file
 __/libraries/AC_Avoidance/AP_OADatabase.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/__/libraries/AC_Avoidance/AP_OADatabase.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/__/libraries/AC_Avoidance/AP_OADatabase.cpp.i
 .PHONY : __/libraries/AC_Avoidance/AP_OADatabase.cpp.i
 
 __/libraries/AC_Avoidance/AP_OADatabase.s: __/libraries/AC_Avoidance/AP_OADatabase.cpp.s
@@ -5235,7 +5235,7 @@ __/libraries/AC_Avoidance/AP_OADatabase.s: __/libraries/AC_Avoidance/AP_OADataba
 
 # target to generate assembly for a file
 __/libraries/AC_Avoidance/AP_OADatabase.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Avoidance/AntennaTracker.dir/__/libraries/AC_Avoidance/AP_OADatabase.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Avoidance_AntennaTracker.dir/__/libraries/AC_Avoidance/AP_OADatabase.cpp.s
 .PHONY : __/libraries/AC_Avoidance/AP_OADatabase.cpp.s
 
 __/libraries/AC_Fence/AC_Fence.o: __/libraries/AC_Fence/AC_Fence.cpp.o
@@ -5243,7 +5243,7 @@ __/libraries/AC_Fence/AC_Fence.o: __/libraries/AC_Fence/AC_Fence.cpp.o
 
 # target to build an object file
 __/libraries/AC_Fence/AC_Fence.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/__/libraries/AC_Fence/AC_Fence.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/__/libraries/AC_Fence/AC_Fence.cpp.o
 .PHONY : __/libraries/AC_Fence/AC_Fence.cpp.o
 
 __/libraries/AC_Fence/AC_Fence.i: __/libraries/AC_Fence/AC_Fence.cpp.i
@@ -5251,7 +5251,7 @@ __/libraries/AC_Fence/AC_Fence.i: __/libraries/AC_Fence/AC_Fence.cpp.i
 
 # target to preprocess a source file
 __/libraries/AC_Fence/AC_Fence.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/__/libraries/AC_Fence/AC_Fence.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/__/libraries/AC_Fence/AC_Fence.cpp.i
 .PHONY : __/libraries/AC_Fence/AC_Fence.cpp.i
 
 __/libraries/AC_Fence/AC_Fence.s: __/libraries/AC_Fence/AC_Fence.cpp.s
@@ -5259,7 +5259,7 @@ __/libraries/AC_Fence/AC_Fence.s: __/libraries/AC_Fence/AC_Fence.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AC_Fence/AC_Fence.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/__/libraries/AC_Fence/AC_Fence.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/__/libraries/AC_Fence/AC_Fence.cpp.s
 .PHONY : __/libraries/AC_Fence/AC_Fence.cpp.s
 
 __/libraries/AC_Fence/AC_PolyFence_loader.o: __/libraries/AC_Fence/AC_PolyFence_loader.cpp.o
@@ -5267,7 +5267,7 @@ __/libraries/AC_Fence/AC_PolyFence_loader.o: __/libraries/AC_Fence/AC_PolyFence_
 
 # target to build an object file
 __/libraries/AC_Fence/AC_PolyFence_loader.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/__/libraries/AC_Fence/AC_PolyFence_loader.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/__/libraries/AC_Fence/AC_PolyFence_loader.cpp.o
 .PHONY : __/libraries/AC_Fence/AC_PolyFence_loader.cpp.o
 
 __/libraries/AC_Fence/AC_PolyFence_loader.i: __/libraries/AC_Fence/AC_PolyFence_loader.cpp.i
@@ -5275,7 +5275,7 @@ __/libraries/AC_Fence/AC_PolyFence_loader.i: __/libraries/AC_Fence/AC_PolyFence_
 
 # target to preprocess a source file
 __/libraries/AC_Fence/AC_PolyFence_loader.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/__/libraries/AC_Fence/AC_PolyFence_loader.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/__/libraries/AC_Fence/AC_PolyFence_loader.cpp.i
 .PHONY : __/libraries/AC_Fence/AC_PolyFence_loader.cpp.i
 
 __/libraries/AC_Fence/AC_PolyFence_loader.s: __/libraries/AC_Fence/AC_PolyFence_loader.cpp.s
@@ -5283,7 +5283,7 @@ __/libraries/AC_Fence/AC_PolyFence_loader.s: __/libraries/AC_Fence/AC_PolyFence_
 
 # target to generate assembly for a file
 __/libraries/AC_Fence/AC_PolyFence_loader.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AC_Fence/AntennaTracker.dir/__/libraries/AC_Fence/AC_PolyFence_loader.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AC_Fence_AntennaTracker.dir/__/libraries/AC_Fence/AC_PolyFence_loader.cpp.s
 .PHONY : __/libraries/AC_Fence/AC_PolyFence_loader.cpp.s
 
 __/libraries/AP_ADSB/AP_ADSB.o: __/libraries/AP_ADSB/AP_ADSB.cpp.o
@@ -5291,7 +5291,7 @@ __/libraries/AP_ADSB/AP_ADSB.o: __/libraries/AP_ADSB/AP_ADSB.cpp.o
 
 # target to build an object file
 __/libraries/AP_ADSB/AP_ADSB.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/__/libraries/AP_ADSB/AP_ADSB.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/__/libraries/AP_ADSB/AP_ADSB.cpp.o
 .PHONY : __/libraries/AP_ADSB/AP_ADSB.cpp.o
 
 __/libraries/AP_ADSB/AP_ADSB.i: __/libraries/AP_ADSB/AP_ADSB.cpp.i
@@ -5299,7 +5299,7 @@ __/libraries/AP_ADSB/AP_ADSB.i: __/libraries/AP_ADSB/AP_ADSB.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/AP_ADSB.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/__/libraries/AP_ADSB/AP_ADSB.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/__/libraries/AP_ADSB/AP_ADSB.cpp.i
 .PHONY : __/libraries/AP_ADSB/AP_ADSB.cpp.i
 
 __/libraries/AP_ADSB/AP_ADSB.s: __/libraries/AP_ADSB/AP_ADSB.cpp.s
@@ -5307,7 +5307,7 @@ __/libraries/AP_ADSB/AP_ADSB.s: __/libraries/AP_ADSB/AP_ADSB.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/AP_ADSB.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/__/libraries/AP_ADSB/AP_ADSB.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/__/libraries/AP_ADSB/AP_ADSB.cpp.s
 .PHONY : __/libraries/AP_ADSB/AP_ADSB.cpp.s
 
 __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.o: __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.o
@@ -5315,7 +5315,7 @@ __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.o: __/libraries/AP_ADSB/AP_ADSB_Sagete
 
 # target to build an object file
 __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.o
 .PHONY : __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.o
 
 __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.i: __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.i
@@ -5323,7 +5323,7 @@ __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.i: __/libraries/AP_ADSB/AP_ADSB_Sagete
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.i
 .PHONY : __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.i
 
 __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.s: __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.s
@@ -5331,7 +5331,7 @@ __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.s: __/libraries/AP_ADSB/AP_ADSB_Sagete
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/AntennaTracker.dir/__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_AntennaTracker.dir/__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.s
 .PHONY : __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.s
 
 __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.o: __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.o
@@ -5339,7 +5339,7 @@ __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.o: __/libraries/AP_ADSB/sagetec
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.i: __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.i
@@ -5347,7 +5347,7 @@ __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.i: __/libraries/AP_ADSB/sagetec
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.s: __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.s
@@ -5355,7 +5355,7 @@ __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.s: __/libraries/AP_ADSB/sagetec
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/appendChecksum.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.o: __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.o
@@ -5363,7 +5363,7 @@ __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.o: __/libraries/AP_ADSB/sagetech-
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.i: __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.i
@@ -5371,7 +5371,7 @@ __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.i: __/libraries/AP_ADSB/sagetech-
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.s: __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.s
@@ -5379,7 +5379,7 @@ __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.s: __/libraries/AP_ADSB/sagetech-
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/calcChecksum.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.o: __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.o
@@ -5387,7 +5387,7 @@ __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.o: __/libraries/AP_ADSB/sagetech
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.i: __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.i
@@ -5395,7 +5395,7 @@ __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.i: __/libraries/AP_ADSB/sagetech
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.s: __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.s
@@ -5403,7 +5403,7 @@ __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.s: __/libraries/AP_ADSB/sagetech
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/float2Buf.o: __/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.o
@@ -5411,7 +5411,7 @@ __/libraries/AP_ADSB/sagetech-sdk/float2Buf.o: __/libraries/AP_ADSB/sagetech-sdk
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/float2Buf.i: __/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.i
@@ -5419,7 +5419,7 @@ __/libraries/AP_ADSB/sagetech-sdk/float2Buf.i: __/libraries/AP_ADSB/sagetech-sdk
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/float2Buf.s: __/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.s
@@ -5427,7 +5427,7 @@ __/libraries/AP_ADSB/sagetech-sdk/float2Buf.s: __/libraries/AP_ADSB/sagetech-sdk
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/float2Buf.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.o: __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.o
@@ -5435,7 +5435,7 @@ __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.o: __/libraries/AP_ADSB/sagetech-sdk/
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.i: __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.i
@@ -5443,7 +5443,7 @@ __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.i: __/libraries/AP_ADSB/sagetech-sdk/
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.s: __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.s
@@ -5451,7 +5451,7 @@ __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.s: __/libraries/AP_ADSB/sagetech-sdk/
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/icao2Buf.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.o: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.o
@@ -5459,7 +5459,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.o: __/libraries/AP_ADSB/sagetech-s
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.i: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.i
@@ -5467,7 +5467,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.i: __/libraries/AP_ADSB/sagetech-s
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.s: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.s
@@ -5475,7 +5475,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.s: __/libraries/AP_ADSB/sagetech-s
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeAck.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.o: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.o
@@ -5483,7 +5483,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.o: __/libraries/AP_ADSB/saget
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.i: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.i
@@ -5491,7 +5491,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.i: __/libraries/AP_ADSB/saget
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.s: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.s
@@ -5499,7 +5499,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.s: __/libraries/AP_ADSB/saget
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeFlightId.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.o: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.o
@@ -5507,7 +5507,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.o: __/libraries/AP_ADSB/sagete
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.i: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.i
@@ -5515,7 +5515,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.i: __/libraries/AP_ADSB/sagete
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.s: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.s
@@ -5523,7 +5523,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.s: __/libraries/AP_ADSB/sagete
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeInstall.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.o: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.o
@@ -5531,7 +5531,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.o: __/libraries/AP_ADSB/sagetech-s
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.i: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.i
@@ -5539,7 +5539,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.i: __/libraries/AP_ADSB/sagetech-s
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.s: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.s
@@ -5547,7 +5547,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.s: __/libraries/AP_ADSB/sagetech-s
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeMSR.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.o: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.o
@@ -5555,7 +5555,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.o: __/libraries/AP_ADSB/sagetech-s
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.i: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.i
@@ -5563,7 +5563,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.i: __/libraries/AP_ADSB/sagetech-s
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.s: __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.s
@@ -5571,7 +5571,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.s: __/libraries/AP_ADSB/sagetech-s
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgDecodeSVR.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.o: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.o
@@ -5579,7 +5579,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.o: __/libraries/AP_ADSB/sagete
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.i: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.i
@@ -5587,7 +5587,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.i: __/libraries/AP_ADSB/sagete
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.s: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.s
@@ -5595,7 +5595,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.s: __/libraries/AP_ADSB/sagete
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeDataReq.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.o: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.o
@@ -5603,7 +5603,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.o: __/libraries/AP_ADSB/saget
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.i: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.i
@@ -5611,7 +5611,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.i: __/libraries/AP_ADSB/saget
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.s: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.s
@@ -5619,7 +5619,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.s: __/libraries/AP_ADSB/saget
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeFlightId.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.o: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.o
@@ -5627,7 +5627,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.o: __/libraries/AP_ADSB/sagetech-s
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.i: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.i
@@ -5635,7 +5635,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.i: __/libraries/AP_ADSB/sagetech-s
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.s: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.s
@@ -5643,7 +5643,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.s: __/libraries/AP_ADSB/sagetech-s
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeGPS.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.o: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.o
@@ -5651,7 +5651,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.o: __/libraries/AP_ADSB/sagete
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.i: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.i
@@ -5659,7 +5659,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.i: __/libraries/AP_ADSB/sagete
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.s: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.s
@@ -5667,7 +5667,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.s: __/libraries/AP_ADSB/sagete
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeInstall.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.o: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.o
@@ -5675,7 +5675,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.o: __/libraries/AP_ADSB/sage
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.i: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.i
@@ -5683,7 +5683,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.i: __/libraries/AP_ADSB/sage
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.s: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.s
@@ -5691,7 +5691,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.s: __/libraries/AP_ADSB/sage
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeOperating.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.o: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.o
@@ -5699,7 +5699,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.o: __/libraries/AP_ADSB/sage
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.i: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.i
@@ -5707,7 +5707,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.i: __/libraries/AP_ADSB/sage
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.s: __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.s
@@ -5715,7 +5715,7 @@ __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.s: __/libraries/AP_ADSB/sage
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/sgEncodeTargetReq.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/target.o: __/libraries/AP_ADSB/sagetech-sdk/target.c.o
@@ -5723,7 +5723,7 @@ __/libraries/AP_ADSB/sagetech-sdk/target.o: __/libraries/AP_ADSB/sagetech-sdk/ta
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/target.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/target.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/target.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/target.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/target.i: __/libraries/AP_ADSB/sagetech-sdk/target.c.i
@@ -5731,7 +5731,7 @@ __/libraries/AP_ADSB/sagetech-sdk/target.i: __/libraries/AP_ADSB/sagetech-sdk/ta
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/target.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/target.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/target.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/target.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/target.s: __/libraries/AP_ADSB/sagetech-sdk/target.c.s
@@ -5739,7 +5739,7 @@ __/libraries/AP_ADSB/sagetech-sdk/target.s: __/libraries/AP_ADSB/sagetech-sdk/ta
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/target.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/target.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/target.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/target.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/toAlt.o: __/libraries/AP_ADSB/sagetech-sdk/toAlt.c.o
@@ -5747,7 +5747,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toAlt.o: __/libraries/AP_ADSB/sagetech-sdk/toA
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/toAlt.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toAlt.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toAlt.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toAlt.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/toAlt.i: __/libraries/AP_ADSB/sagetech-sdk/toAlt.c.i
@@ -5755,7 +5755,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toAlt.i: __/libraries/AP_ADSB/sagetech-sdk/toA
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/toAlt.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toAlt.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toAlt.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toAlt.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/toAlt.s: __/libraries/AP_ADSB/sagetech-sdk/toAlt.c.s
@@ -5763,7 +5763,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toAlt.s: __/libraries/AP_ADSB/sagetech-sdk/toA
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/toAlt.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toAlt.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toAlt.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toAlt.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/toGS.o: __/libraries/AP_ADSB/sagetech-sdk/toGS.c.o
@@ -5771,7 +5771,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toGS.o: __/libraries/AP_ADSB/sagetech-sdk/toGS
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/toGS.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toGS.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toGS.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toGS.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/toGS.i: __/libraries/AP_ADSB/sagetech-sdk/toGS.c.i
@@ -5779,7 +5779,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toGS.i: __/libraries/AP_ADSB/sagetech-sdk/toGS
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/toGS.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toGS.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toGS.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toGS.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/toGS.s: __/libraries/AP_ADSB/sagetech-sdk/toGS.c.s
@@ -5787,7 +5787,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toGS.s: __/libraries/AP_ADSB/sagetech-sdk/toGS
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/toGS.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toGS.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toGS.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toGS.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/toHeading.o: __/libraries/AP_ADSB/sagetech-sdk/toHeading.c.o
@@ -5795,7 +5795,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toHeading.o: __/libraries/AP_ADSB/sagetech-sdk
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/toHeading.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toHeading.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toHeading.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toHeading.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/toHeading.i: __/libraries/AP_ADSB/sagetech-sdk/toHeading.c.i
@@ -5803,7 +5803,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toHeading.i: __/libraries/AP_ADSB/sagetech-sdk
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/toHeading.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toHeading.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toHeading.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toHeading.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/toHeading.s: __/libraries/AP_ADSB/sagetech-sdk/toHeading.c.s
@@ -5811,7 +5811,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toHeading.s: __/libraries/AP_ADSB/sagetech-sdk
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/toHeading.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toHeading.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toHeading.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toHeading.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/toHeading2.o: __/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.o
@@ -5819,7 +5819,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toHeading2.o: __/libraries/AP_ADSB/sagetech-sd
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/toHeading2.i: __/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.i
@@ -5827,7 +5827,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toHeading2.i: __/libraries/AP_ADSB/sagetech-sd
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/toHeading2.s: __/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.s
@@ -5835,7 +5835,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toHeading2.s: __/libraries/AP_ADSB/sagetech-sd
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toHeading2.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/toIcao.o: __/libraries/AP_ADSB/sagetech-sdk/toIcao.c.o
@@ -5843,7 +5843,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toIcao.o: __/libraries/AP_ADSB/sagetech-sdk/to
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/toIcao.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toIcao.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toIcao.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toIcao.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/toIcao.i: __/libraries/AP_ADSB/sagetech-sdk/toIcao.c.i
@@ -5851,7 +5851,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toIcao.i: __/libraries/AP_ADSB/sagetech-sdk/to
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/toIcao.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toIcao.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toIcao.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toIcao.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/toIcao.s: __/libraries/AP_ADSB/sagetech-sdk/toIcao.c.s
@@ -5859,7 +5859,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toIcao.s: __/libraries/AP_ADSB/sagetech-sdk/to
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/toIcao.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toIcao.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toIcao.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toIcao.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/toInt16.o: __/libraries/AP_ADSB/sagetech-sdk/toInt16.c.o
@@ -5867,7 +5867,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toInt16.o: __/libraries/AP_ADSB/sagetech-sdk/t
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/toInt16.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toInt16.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toInt16.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toInt16.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/toInt16.i: __/libraries/AP_ADSB/sagetech-sdk/toInt16.c.i
@@ -5875,7 +5875,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toInt16.i: __/libraries/AP_ADSB/sagetech-sdk/t
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/toInt16.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toInt16.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toInt16.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toInt16.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/toInt16.s: __/libraries/AP_ADSB/sagetech-sdk/toInt16.c.s
@@ -5883,7 +5883,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toInt16.s: __/libraries/AP_ADSB/sagetech-sdk/t
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/toInt16.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toInt16.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toInt16.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toInt16.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/toInt32.o: __/libraries/AP_ADSB/sagetech-sdk/toInt32.c.o
@@ -5891,7 +5891,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toInt32.o: __/libraries/AP_ADSB/sagetech-sdk/t
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/toInt32.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toInt32.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toInt32.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toInt32.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/toInt32.i: __/libraries/AP_ADSB/sagetech-sdk/toInt32.c.i
@@ -5899,7 +5899,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toInt32.i: __/libraries/AP_ADSB/sagetech-sdk/t
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/toInt32.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toInt32.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toInt32.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toInt32.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/toInt32.s: __/libraries/AP_ADSB/sagetech-sdk/toInt32.c.s
@@ -5907,7 +5907,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toInt32.s: __/libraries/AP_ADSB/sagetech-sdk/t
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/toInt32.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toInt32.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toInt32.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toInt32.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/toLatLon.o: __/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.o
@@ -5915,7 +5915,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toLatLon.o: __/libraries/AP_ADSB/sagetech-sdk/
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/toLatLon.i: __/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.i
@@ -5923,7 +5923,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toLatLon.i: __/libraries/AP_ADSB/sagetech-sdk/
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/toLatLon.s: __/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.s
@@ -5931,7 +5931,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toLatLon.s: __/libraries/AP_ADSB/sagetech-sdk/
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toLatLon.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/toTOA.o: __/libraries/AP_ADSB/sagetech-sdk/toTOA.c.o
@@ -5939,7 +5939,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toTOA.o: __/libraries/AP_ADSB/sagetech-sdk/toT
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/toTOA.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toTOA.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toTOA.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toTOA.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/toTOA.i: __/libraries/AP_ADSB/sagetech-sdk/toTOA.c.i
@@ -5947,7 +5947,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toTOA.i: __/libraries/AP_ADSB/sagetech-sdk/toT
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/toTOA.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toTOA.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toTOA.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toTOA.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/toTOA.s: __/libraries/AP_ADSB/sagetech-sdk/toTOA.c.s
@@ -5955,7 +5955,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toTOA.s: __/libraries/AP_ADSB/sagetech-sdk/toT
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/toTOA.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toTOA.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toTOA.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toTOA.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/toUint16.o: __/libraries/AP_ADSB/sagetech-sdk/toUint16.c.o
@@ -5963,7 +5963,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toUint16.o: __/libraries/AP_ADSB/sagetech-sdk/
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/toUint16.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toUint16.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toUint16.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toUint16.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/toUint16.i: __/libraries/AP_ADSB/sagetech-sdk/toUint16.c.i
@@ -5971,7 +5971,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toUint16.i: __/libraries/AP_ADSB/sagetech-sdk/
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/toUint16.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toUint16.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toUint16.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toUint16.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/toUint16.s: __/libraries/AP_ADSB/sagetech-sdk/toUint16.c.s
@@ -5979,7 +5979,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toUint16.s: __/libraries/AP_ADSB/sagetech-sdk/
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/toUint16.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toUint16.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toUint16.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toUint16.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/toUint32.o: __/libraries/AP_ADSB/sagetech-sdk/toUint32.c.o
@@ -5987,7 +5987,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toUint32.o: __/libraries/AP_ADSB/sagetech-sdk/
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/toUint32.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toUint32.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toUint32.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toUint32.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/toUint32.i: __/libraries/AP_ADSB/sagetech-sdk/toUint32.c.i
@@ -5995,7 +5995,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toUint32.i: __/libraries/AP_ADSB/sagetech-sdk/
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/toUint32.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toUint32.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toUint32.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toUint32.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/toUint32.s: __/libraries/AP_ADSB/sagetech-sdk/toUint32.c.s
@@ -6003,7 +6003,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toUint32.s: __/libraries/AP_ADSB/sagetech-sdk/
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/toUint32.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toUint32.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toUint32.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toUint32.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/toVel.o: __/libraries/AP_ADSB/sagetech-sdk/toVel.c.o
@@ -6011,7 +6011,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toVel.o: __/libraries/AP_ADSB/sagetech-sdk/toV
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/toVel.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toVel.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toVel.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toVel.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/toVel.i: __/libraries/AP_ADSB/sagetech-sdk/toVel.c.i
@@ -6019,7 +6019,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toVel.i: __/libraries/AP_ADSB/sagetech-sdk/toV
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/toVel.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toVel.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toVel.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toVel.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/toVel.s: __/libraries/AP_ADSB/sagetech-sdk/toVel.c.s
@@ -6027,7 +6027,7 @@ __/libraries/AP_ADSB/sagetech-sdk/toVel.s: __/libraries/AP_ADSB/sagetech-sdk/toV
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/toVel.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toVel.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/toVel.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/toVel.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.o: __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.o
@@ -6035,7 +6035,7 @@ __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.o: __/libraries/AP_ADSB/sagetech-sd
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.i: __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.i
@@ -6043,7 +6043,7 @@ __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.i: __/libraries/AP_ADSB/sagetech-sd
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.s: __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.s
@@ -6051,7 +6051,7 @@ __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.s: __/libraries/AP_ADSB/sagetech-sd
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/uint162Buf.c.s
 
 __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.o: __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.o
@@ -6059,7 +6059,7 @@ __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.o: __/libraries/AP_ADSB/sagetech-sd
 
 # target to build an object file
 __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.o
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.o
 
 __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.i: __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.i
@@ -6067,7 +6067,7 @@ __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.i: __/libraries/AP_ADSB/sagetech-sd
 
 # target to preprocess a source file
 __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.i
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.i
 
 __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.s: __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.s
@@ -6075,7 +6075,7 @@ __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.s: __/libraries/AP_ADSB/sagetech-sd
 
 # target to generate assembly for a file
 __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ADSB/sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ADSB_sagetech-sdk.dir/__/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.s
 .PHONY : __/libraries/AP_ADSB/sagetech-sdk/uint322Buf.c.s
 
 __/libraries/AP_AHRS/AP_AHRS.o: __/libraries/AP_AHRS/AP_AHRS.cpp.o
@@ -6083,7 +6083,7 @@ __/libraries/AP_AHRS/AP_AHRS.o: __/libraries/AP_AHRS/AP_AHRS.cpp.o
 
 # target to build an object file
 __/libraries/AP_AHRS/AP_AHRS.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS.cpp.o
 .PHONY : __/libraries/AP_AHRS/AP_AHRS.cpp.o
 
 __/libraries/AP_AHRS/AP_AHRS.i: __/libraries/AP_AHRS/AP_AHRS.cpp.i
@@ -6091,7 +6091,7 @@ __/libraries/AP_AHRS/AP_AHRS.i: __/libraries/AP_AHRS/AP_AHRS.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_AHRS/AP_AHRS.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS.cpp.i
 .PHONY : __/libraries/AP_AHRS/AP_AHRS.cpp.i
 
 __/libraries/AP_AHRS/AP_AHRS.s: __/libraries/AP_AHRS/AP_AHRS.cpp.s
@@ -6099,7 +6099,7 @@ __/libraries/AP_AHRS/AP_AHRS.s: __/libraries/AP_AHRS/AP_AHRS.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_AHRS/AP_AHRS.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS.cpp.s
 .PHONY : __/libraries/AP_AHRS/AP_AHRS.cpp.s
 
 __/libraries/AP_AHRS/AP_AHRS_Backend.o: __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
@@ -6107,7 +6107,7 @@ __/libraries/AP_AHRS/AP_AHRS_Backend.o: __/libraries/AP_AHRS/AP_AHRS_Backend.cpp
 
 # target to build an object file
 __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
 .PHONY : __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
 
 __/libraries/AP_AHRS/AP_AHRS_Backend.i: __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
@@ -6115,7 +6115,7 @@ __/libraries/AP_AHRS/AP_AHRS_Backend.i: __/libraries/AP_AHRS/AP_AHRS_Backend.cpp
 
 # target to preprocess a source file
 __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
 .PHONY : __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
 
 __/libraries/AP_AHRS/AP_AHRS_Backend.s: __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
@@ -6123,7 +6123,7 @@ __/libraries/AP_AHRS/AP_AHRS_Backend.s: __/libraries/AP_AHRS/AP_AHRS_Backend.cpp
 
 # target to generate assembly for a file
 __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
 .PHONY : __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
 
 __/libraries/AP_AHRS/AP_AHRS_DCM.o: __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
@@ -6131,7 +6131,7 @@ __/libraries/AP_AHRS/AP_AHRS_DCM.o: __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
 
 # target to build an object file
 __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
 .PHONY : __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
 
 __/libraries/AP_AHRS/AP_AHRS_DCM.i: __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
@@ -6139,7 +6139,7 @@ __/libraries/AP_AHRS/AP_AHRS_DCM.i: __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
 .PHONY : __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
 
 __/libraries/AP_AHRS/AP_AHRS_DCM.s: __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
@@ -6147,7 +6147,7 @@ __/libraries/AP_AHRS/AP_AHRS_DCM.s: __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_AHRS/AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_AHRS_AntennaTracker.dir/__/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
 .PHONY : __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
 
 __/libraries/AP_AIS/AP_AIS.o: __/libraries/AP_AIS/AP_AIS.cpp.o
@@ -6155,7 +6155,7 @@ __/libraries/AP_AIS/AP_AIS.o: __/libraries/AP_AIS/AP_AIS.cpp.o
 
 # target to build an object file
 __/libraries/AP_AIS/AP_AIS.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_AIS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_AIS/AntennaTracker.dir/__/libraries/AP_AIS/AP_AIS.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_AIS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_AIS_AntennaTracker.dir/__/libraries/AP_AIS/AP_AIS.cpp.o
 .PHONY : __/libraries/AP_AIS/AP_AIS.cpp.o
 
 __/libraries/AP_AIS/AP_AIS.i: __/libraries/AP_AIS/AP_AIS.cpp.i
@@ -6163,7 +6163,7 @@ __/libraries/AP_AIS/AP_AIS.i: __/libraries/AP_AIS/AP_AIS.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_AIS/AP_AIS.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_AIS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_AIS/AntennaTracker.dir/__/libraries/AP_AIS/AP_AIS.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_AIS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_AIS_AntennaTracker.dir/__/libraries/AP_AIS/AP_AIS.cpp.i
 .PHONY : __/libraries/AP_AIS/AP_AIS.cpp.i
 
 __/libraries/AP_AIS/AP_AIS.s: __/libraries/AP_AIS/AP_AIS.cpp.s
@@ -6171,7 +6171,7 @@ __/libraries/AP_AIS/AP_AIS.s: __/libraries/AP_AIS/AP_AIS.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_AIS/AP_AIS.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_AIS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_AIS/AntennaTracker.dir/__/libraries/AP_AIS/AP_AIS.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_AIS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_AIS_AntennaTracker.dir/__/libraries/AP_AIS/AP_AIS.cpp.s
 .PHONY : __/libraries/AP_AIS/AP_AIS.cpp.s
 
 __/libraries/AP_Airspeed/AP_Airspeed.o: __/libraries/AP_Airspeed/AP_Airspeed.cpp.o
@@ -6179,7 +6179,7 @@ __/libraries/AP_Airspeed/AP_Airspeed.o: __/libraries/AP_Airspeed/AP_Airspeed.cpp
 
 # target to build an object file
 __/libraries/AP_Airspeed/AP_Airspeed.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed.cpp.o
 .PHONY : __/libraries/AP_Airspeed/AP_Airspeed.cpp.o
 
 __/libraries/AP_Airspeed/AP_Airspeed.i: __/libraries/AP_Airspeed/AP_Airspeed.cpp.i
@@ -6187,7 +6187,7 @@ __/libraries/AP_Airspeed/AP_Airspeed.i: __/libraries/AP_Airspeed/AP_Airspeed.cpp
 
 # target to preprocess a source file
 __/libraries/AP_Airspeed/AP_Airspeed.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed.cpp.i
 .PHONY : __/libraries/AP_Airspeed/AP_Airspeed.cpp.i
 
 __/libraries/AP_Airspeed/AP_Airspeed.s: __/libraries/AP_Airspeed/AP_Airspeed.cpp.s
@@ -6195,7 +6195,7 @@ __/libraries/AP_Airspeed/AP_Airspeed.s: __/libraries/AP_Airspeed/AP_Airspeed.cpp
 
 # target to generate assembly for a file
 __/libraries/AP_Airspeed/AP_Airspeed.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed.cpp.s
 .PHONY : __/libraries/AP_Airspeed/AP_Airspeed.cpp.s
 
 __/libraries/AP_Airspeed/AP_Airspeed_NMEA.o: __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.o
@@ -6203,7 +6203,7 @@ __/libraries/AP_Airspeed/AP_Airspeed_NMEA.o: __/libraries/AP_Airspeed/AP_Airspee
 
 # target to build an object file
 __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.o
 .PHONY : __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.o
 
 __/libraries/AP_Airspeed/AP_Airspeed_NMEA.i: __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.i
@@ -6211,7 +6211,7 @@ __/libraries/AP_Airspeed/AP_Airspeed_NMEA.i: __/libraries/AP_Airspeed/AP_Airspee
 
 # target to preprocess a source file
 __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.i
 .PHONY : __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.i
 
 __/libraries/AP_Airspeed/AP_Airspeed_NMEA.s: __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.s
@@ -6219,7 +6219,7 @@ __/libraries/AP_Airspeed/AP_Airspeed_NMEA.s: __/libraries/AP_Airspeed/AP_Airspee
 
 # target to generate assembly for a file
 __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.s
 .PHONY : __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.s
 
 __/libraries/AP_Airspeed/AP_Airspeed_Params.o: __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.o
@@ -6227,7 +6227,7 @@ __/libraries/AP_Airspeed/AP_Airspeed_Params.o: __/libraries/AP_Airspeed/AP_Airsp
 
 # target to build an object file
 __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.o
 .PHONY : __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.o
 
 __/libraries/AP_Airspeed/AP_Airspeed_Params.i: __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.i
@@ -6235,7 +6235,7 @@ __/libraries/AP_Airspeed/AP_Airspeed_Params.i: __/libraries/AP_Airspeed/AP_Airsp
 
 # target to preprocess a source file
 __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.i
 .PHONY : __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.i
 
 __/libraries/AP_Airspeed/AP_Airspeed_Params.s: __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.s
@@ -6243,7 +6243,7 @@ __/libraries/AP_Airspeed/AP_Airspeed_Params.s: __/libraries/AP_Airspeed/AP_Airsp
 
 # target to generate assembly for a file
 __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Airspeed/AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Airspeed_AntennaTracker.dir/__/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.s
 .PHONY : __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.s
 
 __/libraries/AP_Arming/AP_Arming.o: __/libraries/AP_Arming/AP_Arming.cpp.o
@@ -6251,7 +6251,7 @@ __/libraries/AP_Arming/AP_Arming.o: __/libraries/AP_Arming/AP_Arming.cpp.o
 
 # target to build an object file
 __/libraries/AP_Arming/AP_Arming.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Arming/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Arming/AntennaTracker.dir/__/libraries/AP_Arming/AP_Arming.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Arming_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Arming_AntennaTracker.dir/__/libraries/AP_Arming/AP_Arming.cpp.o
 .PHONY : __/libraries/AP_Arming/AP_Arming.cpp.o
 
 __/libraries/AP_Arming/AP_Arming.i: __/libraries/AP_Arming/AP_Arming.cpp.i
@@ -6259,7 +6259,7 @@ __/libraries/AP_Arming/AP_Arming.i: __/libraries/AP_Arming/AP_Arming.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_Arming/AP_Arming.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Arming/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Arming/AntennaTracker.dir/__/libraries/AP_Arming/AP_Arming.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Arming_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Arming_AntennaTracker.dir/__/libraries/AP_Arming/AP_Arming.cpp.i
 .PHONY : __/libraries/AP_Arming/AP_Arming.cpp.i
 
 __/libraries/AP_Arming/AP_Arming.s: __/libraries/AP_Arming/AP_Arming.cpp.s
@@ -6267,7 +6267,7 @@ __/libraries/AP_Arming/AP_Arming.s: __/libraries/AP_Arming/AP_Arming.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_Arming/AP_Arming.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Arming/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Arming/AntennaTracker.dir/__/libraries/AP_Arming/AP_Arming.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Arming_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Arming_AntennaTracker.dir/__/libraries/AP_Arming/AP_Arming.cpp.s
 .PHONY : __/libraries/AP_Arming/AP_Arming.cpp.s
 
 __/libraries/AP_BLHeli/AP_BLHeli.o: __/libraries/AP_BLHeli/AP_BLHeli.cpp.o
@@ -6275,7 +6275,7 @@ __/libraries/AP_BLHeli/AP_BLHeli.o: __/libraries/AP_BLHeli/AP_BLHeli.cpp.o
 
 # target to build an object file
 __/libraries/AP_BLHeli/AP_BLHeli.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BLHeli/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BLHeli/AntennaTracker.dir/__/libraries/AP_BLHeli/AP_BLHeli.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BLHeli_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BLHeli_AntennaTracker.dir/__/libraries/AP_BLHeli/AP_BLHeli.cpp.o
 .PHONY : __/libraries/AP_BLHeli/AP_BLHeli.cpp.o
 
 __/libraries/AP_BLHeli/AP_BLHeli.i: __/libraries/AP_BLHeli/AP_BLHeli.cpp.i
@@ -6283,7 +6283,7 @@ __/libraries/AP_BLHeli/AP_BLHeli.i: __/libraries/AP_BLHeli/AP_BLHeli.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_BLHeli/AP_BLHeli.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BLHeli/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BLHeli/AntennaTracker.dir/__/libraries/AP_BLHeli/AP_BLHeli.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BLHeli_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BLHeli_AntennaTracker.dir/__/libraries/AP_BLHeli/AP_BLHeli.cpp.i
 .PHONY : __/libraries/AP_BLHeli/AP_BLHeli.cpp.i
 
 __/libraries/AP_BLHeli/AP_BLHeli.s: __/libraries/AP_BLHeli/AP_BLHeli.cpp.s
@@ -6291,7 +6291,7 @@ __/libraries/AP_BLHeli/AP_BLHeli.s: __/libraries/AP_BLHeli/AP_BLHeli.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_BLHeli/AP_BLHeli.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BLHeli/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BLHeli/AntennaTracker.dir/__/libraries/AP_BLHeli/AP_BLHeli.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BLHeli_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BLHeli_AntennaTracker.dir/__/libraries/AP_BLHeli/AP_BLHeli.cpp.s
 .PHONY : __/libraries/AP_BLHeli/AP_BLHeli.cpp.s
 
 __/libraries/AP_Baro/AP_Baro.o: __/libraries/AP_Baro/AP_Baro.cpp.o
@@ -6299,7 +6299,7 @@ __/libraries/AP_Baro/AP_Baro.o: __/libraries/AP_Baro/AP_Baro.cpp.o
 
 # target to build an object file
 __/libraries/AP_Baro/AP_Baro.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro.cpp.o
 .PHONY : __/libraries/AP_Baro/AP_Baro.cpp.o
 
 __/libraries/AP_Baro/AP_Baro.i: __/libraries/AP_Baro/AP_Baro.cpp.i
@@ -6307,7 +6307,7 @@ __/libraries/AP_Baro/AP_Baro.i: __/libraries/AP_Baro/AP_Baro.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_Baro/AP_Baro.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro.cpp.i
 .PHONY : __/libraries/AP_Baro/AP_Baro.cpp.i
 
 __/libraries/AP_Baro/AP_Baro.s: __/libraries/AP_Baro/AP_Baro.cpp.s
@@ -6315,7 +6315,7 @@ __/libraries/AP_Baro/AP_Baro.s: __/libraries/AP_Baro/AP_Baro.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_Baro/AP_Baro.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro.cpp.s
 .PHONY : __/libraries/AP_Baro/AP_Baro.cpp.s
 
 __/libraries/AP_Baro/AP_Baro_Backend.o: __/libraries/AP_Baro/AP_Baro_Backend.cpp.o
@@ -6323,7 +6323,7 @@ __/libraries/AP_Baro/AP_Baro_Backend.o: __/libraries/AP_Baro/AP_Baro_Backend.cpp
 
 # target to build an object file
 __/libraries/AP_Baro/AP_Baro_Backend.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro_Backend.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro_Backend.cpp.o
 .PHONY : __/libraries/AP_Baro/AP_Baro_Backend.cpp.o
 
 __/libraries/AP_Baro/AP_Baro_Backend.i: __/libraries/AP_Baro/AP_Baro_Backend.cpp.i
@@ -6331,7 +6331,7 @@ __/libraries/AP_Baro/AP_Baro_Backend.i: __/libraries/AP_Baro/AP_Baro_Backend.cpp
 
 # target to preprocess a source file
 __/libraries/AP_Baro/AP_Baro_Backend.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro_Backend.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro_Backend.cpp.i
 .PHONY : __/libraries/AP_Baro/AP_Baro_Backend.cpp.i
 
 __/libraries/AP_Baro/AP_Baro_Backend.s: __/libraries/AP_Baro/AP_Baro_Backend.cpp.s
@@ -6339,7 +6339,7 @@ __/libraries/AP_Baro/AP_Baro_Backend.s: __/libraries/AP_Baro/AP_Baro_Backend.cpp
 
 # target to generate assembly for a file
 __/libraries/AP_Baro/AP_Baro_Backend.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro_Backend.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro_Backend.cpp.s
 .PHONY : __/libraries/AP_Baro/AP_Baro_Backend.cpp.s
 
 __/libraries/AP_Baro/AP_Baro_SITL.o: __/libraries/AP_Baro/AP_Baro_SITL.cpp.o
@@ -6347,7 +6347,7 @@ __/libraries/AP_Baro/AP_Baro_SITL.o: __/libraries/AP_Baro/AP_Baro_SITL.cpp.o
 
 # target to build an object file
 __/libraries/AP_Baro/AP_Baro_SITL.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro_SITL.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro_SITL.cpp.o
 .PHONY : __/libraries/AP_Baro/AP_Baro_SITL.cpp.o
 
 __/libraries/AP_Baro/AP_Baro_SITL.i: __/libraries/AP_Baro/AP_Baro_SITL.cpp.i
@@ -6355,7 +6355,7 @@ __/libraries/AP_Baro/AP_Baro_SITL.i: __/libraries/AP_Baro/AP_Baro_SITL.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_Baro/AP_Baro_SITL.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro_SITL.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro_SITL.cpp.i
 .PHONY : __/libraries/AP_Baro/AP_Baro_SITL.cpp.i
 
 __/libraries/AP_Baro/AP_Baro_SITL.s: __/libraries/AP_Baro/AP_Baro_SITL.cpp.s
@@ -6363,7 +6363,7 @@ __/libraries/AP_Baro/AP_Baro_SITL.s: __/libraries/AP_Baro/AP_Baro_SITL.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_Baro/AP_Baro_SITL.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Baro/AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro_SITL.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Baro_AntennaTracker.dir/__/libraries/AP_Baro/AP_Baro_SITL.cpp.s
 .PHONY : __/libraries/AP_Baro/AP_Baro_SITL.cpp.s
 
 __/libraries/AP_BattMonitor/AP_BattMonitor.o: __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.o
@@ -6371,7 +6371,7 @@ __/libraries/AP_BattMonitor/AP_BattMonitor.o: __/libraries/AP_BattMonitor/AP_Bat
 
 # target to build an object file
 __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/__/libraries/AP_BattMonitor/AP_BattMonitor.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/__/libraries/AP_BattMonitor/AP_BattMonitor.cpp.o
 .PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.o
 
 __/libraries/AP_BattMonitor/AP_BattMonitor.i: __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.i
@@ -6379,7 +6379,7 @@ __/libraries/AP_BattMonitor/AP_BattMonitor.i: __/libraries/AP_BattMonitor/AP_Bat
 
 # target to preprocess a source file
 __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/__/libraries/AP_BattMonitor/AP_BattMonitor.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/__/libraries/AP_BattMonitor/AP_BattMonitor.cpp.i
 .PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.i
 
 __/libraries/AP_BattMonitor/AP_BattMonitor.s: __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.s
@@ -6387,7 +6387,7 @@ __/libraries/AP_BattMonitor/AP_BattMonitor.s: __/libraries/AP_BattMonitor/AP_Bat
 
 # target to generate assembly for a file
 __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/__/libraries/AP_BattMonitor/AP_BattMonitor.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/__/libraries/AP_BattMonitor/AP_BattMonitor.cpp.s
 .PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.s
 
 __/libraries/AP_BattMonitor/AP_BattMonitor_Params.o: __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.o
@@ -6395,7 +6395,7 @@ __/libraries/AP_BattMonitor/AP_BattMonitor_Params.o: __/libraries/AP_BattMonitor
 
 # target to build an object file
 __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/__/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/__/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.o
 .PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.o
 
 __/libraries/AP_BattMonitor/AP_BattMonitor_Params.i: __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.i
@@ -6403,7 +6403,7 @@ __/libraries/AP_BattMonitor/AP_BattMonitor_Params.i: __/libraries/AP_BattMonitor
 
 # target to preprocess a source file
 __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/__/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/__/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.i
 .PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.i
 
 __/libraries/AP_BattMonitor/AP_BattMonitor_Params.s: __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.s
@@ -6411,7 +6411,7 @@ __/libraries/AP_BattMonitor/AP_BattMonitor_Params.s: __/libraries/AP_BattMonitor
 
 # target to generate assembly for a file
 __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BattMonitor/AntennaTracker.dir/__/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BattMonitor_AntennaTracker.dir/__/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.s
 .PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.s
 
 __/libraries/AP_BoardConfig/AP_BoardConfig.o: __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.o
@@ -6419,7 +6419,7 @@ __/libraries/AP_BoardConfig/AP_BoardConfig.o: __/libraries/AP_BoardConfig/AP_Boa
 
 # target to build an object file
 __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BoardConfig/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BoardConfig/AntennaTracker.dir/__/libraries/AP_BoardConfig/AP_BoardConfig.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BoardConfig_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BoardConfig_AntennaTracker.dir/__/libraries/AP_BoardConfig/AP_BoardConfig.cpp.o
 .PHONY : __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.o
 
 __/libraries/AP_BoardConfig/AP_BoardConfig.i: __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.i
@@ -6427,7 +6427,7 @@ __/libraries/AP_BoardConfig/AP_BoardConfig.i: __/libraries/AP_BoardConfig/AP_Boa
 
 # target to preprocess a source file
 __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BoardConfig/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BoardConfig/AntennaTracker.dir/__/libraries/AP_BoardConfig/AP_BoardConfig.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BoardConfig_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BoardConfig_AntennaTracker.dir/__/libraries/AP_BoardConfig/AP_BoardConfig.cpp.i
 .PHONY : __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.i
 
 __/libraries/AP_BoardConfig/AP_BoardConfig.s: __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.s
@@ -6435,7 +6435,7 @@ __/libraries/AP_BoardConfig/AP_BoardConfig.s: __/libraries/AP_BoardConfig/AP_Boa
 
 # target to generate assembly for a file
 __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_BoardConfig/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_BoardConfig/AntennaTracker.dir/__/libraries/AP_BoardConfig/AP_BoardConfig.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_BoardConfig_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_BoardConfig_AntennaTracker.dir/__/libraries/AP_BoardConfig/AP_BoardConfig.cpp.s
 .PHONY : __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.s
 
 __/libraries/AP_DAL/AP_DAL.o: __/libraries/AP_DAL/AP_DAL.cpp.o
@@ -6443,7 +6443,7 @@ __/libraries/AP_DAL/AP_DAL.o: __/libraries/AP_DAL/AP_DAL.cpp.o
 
 # target to build an object file
 __/libraries/AP_DAL/AP_DAL.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL.cpp.o
 .PHONY : __/libraries/AP_DAL/AP_DAL.cpp.o
 
 __/libraries/AP_DAL/AP_DAL.i: __/libraries/AP_DAL/AP_DAL.cpp.i
@@ -6451,7 +6451,7 @@ __/libraries/AP_DAL/AP_DAL.i: __/libraries/AP_DAL/AP_DAL.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_DAL/AP_DAL.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL.cpp.i
 .PHONY : __/libraries/AP_DAL/AP_DAL.cpp.i
 
 __/libraries/AP_DAL/AP_DAL.s: __/libraries/AP_DAL/AP_DAL.cpp.s
@@ -6459,7 +6459,7 @@ __/libraries/AP_DAL/AP_DAL.s: __/libraries/AP_DAL/AP_DAL.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_DAL/AP_DAL.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL.cpp.s
 .PHONY : __/libraries/AP_DAL/AP_DAL.cpp.s
 
 __/libraries/AP_DAL/AP_DAL_Beacon.o: __/libraries/AP_DAL/AP_DAL_Beacon.cpp.o
@@ -6467,7 +6467,7 @@ __/libraries/AP_DAL/AP_DAL_Beacon.o: __/libraries/AP_DAL/AP_DAL_Beacon.cpp.o
 
 # target to build an object file
 __/libraries/AP_DAL/AP_DAL_Beacon.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_Beacon.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_Beacon.cpp.o
 .PHONY : __/libraries/AP_DAL/AP_DAL_Beacon.cpp.o
 
 __/libraries/AP_DAL/AP_DAL_Beacon.i: __/libraries/AP_DAL/AP_DAL_Beacon.cpp.i
@@ -6475,7 +6475,7 @@ __/libraries/AP_DAL/AP_DAL_Beacon.i: __/libraries/AP_DAL/AP_DAL_Beacon.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_DAL/AP_DAL_Beacon.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_Beacon.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_Beacon.cpp.i
 .PHONY : __/libraries/AP_DAL/AP_DAL_Beacon.cpp.i
 
 __/libraries/AP_DAL/AP_DAL_Beacon.s: __/libraries/AP_DAL/AP_DAL_Beacon.cpp.s
@@ -6483,7 +6483,7 @@ __/libraries/AP_DAL/AP_DAL_Beacon.s: __/libraries/AP_DAL/AP_DAL_Beacon.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_DAL/AP_DAL_Beacon.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_Beacon.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_Beacon.cpp.s
 .PHONY : __/libraries/AP_DAL/AP_DAL_Beacon.cpp.s
 
 __/libraries/AP_DAL/AP_DAL_RangeFinder.o: __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
@@ -6491,7 +6491,7 @@ __/libraries/AP_DAL/AP_DAL_RangeFinder.o: __/libraries/AP_DAL/AP_DAL_RangeFinder
 
 # target to build an object file
 __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
 .PHONY : __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
 
 __/libraries/AP_DAL/AP_DAL_RangeFinder.i: __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
@@ -6499,7 +6499,7 @@ __/libraries/AP_DAL/AP_DAL_RangeFinder.i: __/libraries/AP_DAL/AP_DAL_RangeFinder
 
 # target to preprocess a source file
 __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
 .PHONY : __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
 
 __/libraries/AP_DAL/AP_DAL_RangeFinder.s: __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
@@ -6507,7 +6507,7 @@ __/libraries/AP_DAL/AP_DAL_RangeFinder.s: __/libraries/AP_DAL/AP_DAL_RangeFinder
 
 # target to generate assembly for a file
 __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
 .PHONY : __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
 
 __/libraries/AP_DAL/AP_DAL_VisualOdom.o: __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
@@ -6515,7 +6515,7 @@ __/libraries/AP_DAL/AP_DAL_VisualOdom.o: __/libraries/AP_DAL/AP_DAL_VisualOdom.c
 
 # target to build an object file
 __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
 .PHONY : __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
 
 __/libraries/AP_DAL/AP_DAL_VisualOdom.i: __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
@@ -6523,7 +6523,7 @@ __/libraries/AP_DAL/AP_DAL_VisualOdom.i: __/libraries/AP_DAL/AP_DAL_VisualOdom.c
 
 # target to preprocess a source file
 __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
 .PHONY : __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
 
 __/libraries/AP_DAL/AP_DAL_VisualOdom.s: __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
@@ -6531,7 +6531,7 @@ __/libraries/AP_DAL/AP_DAL_VisualOdom.s: __/libraries/AP_DAL/AP_DAL_VisualOdom.c
 
 # target to generate assembly for a file
 __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_DAL/AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_DAL_AntennaTracker.dir/__/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
 .PHONY : __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
 
 __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.o: __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.o
@@ -6539,7 +6539,7 @@ __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.o: __/libraries/AP_ESC_Telem/AP_E
 
 # target to build an object file
 __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ESC_Telem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ESC_Telem/AntennaTracker.dir/__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ESC_Telem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ESC_Telem_AntennaTracker.dir/__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.o
 .PHONY : __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.o
 
 __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.i: __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.i
@@ -6547,7 +6547,7 @@ __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.i: __/libraries/AP_ESC_Telem/AP_E
 
 # target to preprocess a source file
 __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ESC_Telem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ESC_Telem/AntennaTracker.dir/__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ESC_Telem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ESC_Telem_AntennaTracker.dir/__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.i
 .PHONY : __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.i
 
 __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.s: __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.s
@@ -6555,7 +6555,7 @@ __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.s: __/libraries/AP_ESC_Telem/AP_E
 
 # target to generate assembly for a file
 __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ESC_Telem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ESC_Telem/AntennaTracker.dir/__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ESC_Telem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ESC_Telem_AntennaTracker.dir/__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.s
 .PHONY : __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.s
 
 __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.o: __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.o
@@ -6563,7 +6563,7 @@ __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.o: __/libraries/AP_Ext
 
 # target to build an object file
 __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.o
 .PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.o
 
 __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.i: __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.i
@@ -6571,7 +6571,7 @@ __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.i: __/libraries/AP_Ext
 
 # target to preprocess a source file
 __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.i
 .PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.i
 
 __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.s: __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.s
@@ -6579,7 +6579,7 @@ __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.s: __/libraries/AP_Ext
 
 # target to generate assembly for a file
 __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.s
 .PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.s
 
 __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.o: __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.o
@@ -6587,7 +6587,7 @@ __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.o: __/libraries/AP_ExternalAHRS
 
 # target to build an object file
 __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.o
 .PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.o
 
 __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.i: __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.i
@@ -6595,7 +6595,7 @@ __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.i: __/libraries/AP_ExternalAHRS
 
 # target to preprocess a source file
 __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.i
 .PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.i
 
 __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.s: __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.s
@@ -6603,7 +6603,7 @@ __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.s: __/libraries/AP_ExternalAHRS
 
 # target to generate assembly for a file
 __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_ExternalAHRS/AntennaTracker.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_ExternalAHRS_AntennaTracker.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.s
 .PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.s
 
 __/libraries/AP_Filesystem/AP_Filesystem_posix.o: __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.o
@@ -6611,7 +6611,7 @@ __/libraries/AP_Filesystem/AP_Filesystem_posix.o: __/libraries/AP_Filesystem/AP_
 
 # target to build an object file
 __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Filesystem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Filesystem/AntennaTracker.dir/__/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Filesystem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Filesystem_AntennaTracker.dir/__/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.o
 .PHONY : __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.o
 
 __/libraries/AP_Filesystem/AP_Filesystem_posix.i: __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.i
@@ -6619,7 +6619,7 @@ __/libraries/AP_Filesystem/AP_Filesystem_posix.i: __/libraries/AP_Filesystem/AP_
 
 # target to preprocess a source file
 __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Filesystem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Filesystem/AntennaTracker.dir/__/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Filesystem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Filesystem_AntennaTracker.dir/__/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.i
 .PHONY : __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.i
 
 __/libraries/AP_Filesystem/AP_Filesystem_posix.s: __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.s
@@ -6627,7 +6627,7 @@ __/libraries/AP_Filesystem/AP_Filesystem_posix.s: __/libraries/AP_Filesystem/AP_
 
 # target to generate assembly for a file
 __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Filesystem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Filesystem/AntennaTracker.dir/__/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Filesystem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Filesystem_AntennaTracker.dir/__/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.s
 .PHONY : __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.s
 
 __/libraries/AP_Follow/AP_Follow.o: __/libraries/AP_Follow/AP_Follow.cpp.o
@@ -6635,7 +6635,7 @@ __/libraries/AP_Follow/AP_Follow.o: __/libraries/AP_Follow/AP_Follow.cpp.o
 
 # target to build an object file
 __/libraries/AP_Follow/AP_Follow.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Follow/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Follow/AntennaTracker.dir/__/libraries/AP_Follow/AP_Follow.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Follow_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Follow_AntennaTracker.dir/__/libraries/AP_Follow/AP_Follow.cpp.o
 .PHONY : __/libraries/AP_Follow/AP_Follow.cpp.o
 
 __/libraries/AP_Follow/AP_Follow.i: __/libraries/AP_Follow/AP_Follow.cpp.i
@@ -6643,7 +6643,7 @@ __/libraries/AP_Follow/AP_Follow.i: __/libraries/AP_Follow/AP_Follow.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_Follow/AP_Follow.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Follow/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Follow/AntennaTracker.dir/__/libraries/AP_Follow/AP_Follow.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Follow_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Follow_AntennaTracker.dir/__/libraries/AP_Follow/AP_Follow.cpp.i
 .PHONY : __/libraries/AP_Follow/AP_Follow.cpp.i
 
 __/libraries/AP_Follow/AP_Follow.s: __/libraries/AP_Follow/AP_Follow.cpp.s
@@ -6651,7 +6651,7 @@ __/libraries/AP_Follow/AP_Follow.s: __/libraries/AP_Follow/AP_Follow.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_Follow/AP_Follow.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Follow/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Follow/AntennaTracker.dir/__/libraries/AP_Follow/AP_Follow.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Follow_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Follow_AntennaTracker.dir/__/libraries/AP_Follow/AP_Follow.cpp.s
 .PHONY : __/libraries/AP_Follow/AP_Follow.cpp.s
 
 __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.o: __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.o
@@ -6659,7 +6659,7 @@ __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.o: __/libraries/AP_Frsky_
 
 # target to build an object file
 __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Frsky_Telem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Frsky_Telem/AntennaTracker.dir/__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Frsky_Telem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Frsky_Telem_AntennaTracker.dir/__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.o
 .PHONY : __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.o
 
 __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.i: __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.i
@@ -6667,7 +6667,7 @@ __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.i: __/libraries/AP_Frsky_
 
 # target to preprocess a source file
 __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Frsky_Telem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Frsky_Telem/AntennaTracker.dir/__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Frsky_Telem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Frsky_Telem_AntennaTracker.dir/__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.i
 .PHONY : __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.i
 
 __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.s: __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.s
@@ -6675,7 +6675,7 @@ __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.s: __/libraries/AP_Frsky_
 
 # target to generate assembly for a file
 __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Frsky_Telem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Frsky_Telem/AntennaTracker.dir/__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Frsky_Telem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Frsky_Telem_AntennaTracker.dir/__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.s
 .PHONY : __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.s
 
 __/libraries/AP_GyroFFT/AP_GyroFFT.o: __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.o
@@ -6683,7 +6683,7 @@ __/libraries/AP_GyroFFT/AP_GyroFFT.o: __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.o
 
 # target to build an object file
 __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_GyroFFT/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_GyroFFT/AntennaTracker.dir/__/libraries/AP_GyroFFT/AP_GyroFFT.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_GyroFFT_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_GyroFFT_AntennaTracker.dir/__/libraries/AP_GyroFFT/AP_GyroFFT.cpp.o
 .PHONY : __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.o
 
 __/libraries/AP_GyroFFT/AP_GyroFFT.i: __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.i
@@ -6691,7 +6691,7 @@ __/libraries/AP_GyroFFT/AP_GyroFFT.i: __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_GyroFFT/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_GyroFFT/AntennaTracker.dir/__/libraries/AP_GyroFFT/AP_GyroFFT.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_GyroFFT_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_GyroFFT_AntennaTracker.dir/__/libraries/AP_GyroFFT/AP_GyroFFT.cpp.i
 .PHONY : __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.i
 
 __/libraries/AP_GyroFFT/AP_GyroFFT.s: __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.s
@@ -6699,7 +6699,7 @@ __/libraries/AP_GyroFFT/AP_GyroFFT.s: __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_GyroFFT/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_GyroFFT/AntennaTracker.dir/__/libraries/AP_GyroFFT/AP_GyroFFT.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_GyroFFT_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_GyroFFT_AntennaTracker.dir/__/libraries/AP_GyroFFT/AP_GyroFFT.cpp.s
 .PHONY : __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.s
 
 __/libraries/AP_HAL/SIMState.o: __/libraries/AP_HAL/SIMState.cpp.o
@@ -6707,7 +6707,7 @@ __/libraries/AP_HAL/SIMState.o: __/libraries/AP_HAL/SIMState.cpp.o
 
 # target to build an object file
 __/libraries/AP_HAL/SIMState.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_HAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_HAL/AntennaTracker.dir/__/libraries/AP_HAL/SIMState.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_HAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_HAL_AntennaTracker.dir/__/libraries/AP_HAL/SIMState.cpp.o
 .PHONY : __/libraries/AP_HAL/SIMState.cpp.o
 
 __/libraries/AP_HAL/SIMState.i: __/libraries/AP_HAL/SIMState.cpp.i
@@ -6715,7 +6715,7 @@ __/libraries/AP_HAL/SIMState.i: __/libraries/AP_HAL/SIMState.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_HAL/SIMState.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_HAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_HAL/AntennaTracker.dir/__/libraries/AP_HAL/SIMState.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_HAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_HAL_AntennaTracker.dir/__/libraries/AP_HAL/SIMState.cpp.i
 .PHONY : __/libraries/AP_HAL/SIMState.cpp.i
 
 __/libraries/AP_HAL/SIMState.s: __/libraries/AP_HAL/SIMState.cpp.s
@@ -6723,7 +6723,7 @@ __/libraries/AP_HAL/SIMState.s: __/libraries/AP_HAL/SIMState.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_HAL/SIMState.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_HAL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_HAL/AntennaTracker.dir/__/libraries/AP_HAL/SIMState.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_HAL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_HAL_AntennaTracker.dir/__/libraries/AP_HAL/SIMState.cpp.s
 .PHONY : __/libraries/AP_HAL/SIMState.cpp.s
 
 __/libraries/AP_HAL_SITL/SITL_cmdline.o: __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
@@ -6731,7 +6731,7 @@ __/libraries/AP_HAL_SITL/SITL_cmdline.o: __/libraries/AP_HAL_SITL/SITL_cmdline.c
 
 # target to build an object file
 __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/__/libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/__/libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
 .PHONY : __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
 
 __/libraries/AP_HAL_SITL/SITL_cmdline.i: __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
@@ -6739,7 +6739,7 @@ __/libraries/AP_HAL_SITL/SITL_cmdline.i: __/libraries/AP_HAL_SITL/SITL_cmdline.c
 
 # target to preprocess a source file
 __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/__/libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/__/libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
 .PHONY : __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
 
 __/libraries/AP_HAL_SITL/SITL_cmdline.s: __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
@@ -6747,7 +6747,7 @@ __/libraries/AP_HAL_SITL/SITL_cmdline.s: __/libraries/AP_HAL_SITL/SITL_cmdline.c
 
 # target to generate assembly for a file
 __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/__/libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/__/libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
 .PHONY : __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
 
 __/libraries/AP_HAL_SITL/Storage.o: __/libraries/AP_HAL_SITL/Storage.cpp.o
@@ -6755,7 +6755,7 @@ __/libraries/AP_HAL_SITL/Storage.o: __/libraries/AP_HAL_SITL/Storage.cpp.o
 
 # target to build an object file
 __/libraries/AP_HAL_SITL/Storage.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/__/libraries/AP_HAL_SITL/Storage.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/__/libraries/AP_HAL_SITL/Storage.cpp.o
 .PHONY : __/libraries/AP_HAL_SITL/Storage.cpp.o
 
 __/libraries/AP_HAL_SITL/Storage.i: __/libraries/AP_HAL_SITL/Storage.cpp.i
@@ -6763,7 +6763,7 @@ __/libraries/AP_HAL_SITL/Storage.i: __/libraries/AP_HAL_SITL/Storage.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_HAL_SITL/Storage.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/__/libraries/AP_HAL_SITL/Storage.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/__/libraries/AP_HAL_SITL/Storage.cpp.i
 .PHONY : __/libraries/AP_HAL_SITL/Storage.cpp.i
 
 __/libraries/AP_HAL_SITL/Storage.s: __/libraries/AP_HAL_SITL/Storage.cpp.s
@@ -6771,7 +6771,7 @@ __/libraries/AP_HAL_SITL/Storage.s: __/libraries/AP_HAL_SITL/Storage.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_HAL_SITL/Storage.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/__/libraries/AP_HAL_SITL/Storage.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/__/libraries/AP_HAL_SITL/Storage.cpp.s
 .PHONY : __/libraries/AP_HAL_SITL/Storage.cpp.s
 
 __/libraries/AP_HAL_SITL/UARTDriver.o: __/libraries/AP_HAL_SITL/UARTDriver.cpp.o
@@ -6779,7 +6779,7 @@ __/libraries/AP_HAL_SITL/UARTDriver.o: __/libraries/AP_HAL_SITL/UARTDriver.cpp.o
 
 # target to build an object file
 __/libraries/AP_HAL_SITL/UARTDriver.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/__/libraries/AP_HAL_SITL/UARTDriver.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/__/libraries/AP_HAL_SITL/UARTDriver.cpp.o
 .PHONY : __/libraries/AP_HAL_SITL/UARTDriver.cpp.o
 
 __/libraries/AP_HAL_SITL/UARTDriver.i: __/libraries/AP_HAL_SITL/UARTDriver.cpp.i
@@ -6787,7 +6787,7 @@ __/libraries/AP_HAL_SITL/UARTDriver.i: __/libraries/AP_HAL_SITL/UARTDriver.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_HAL_SITL/UARTDriver.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/__/libraries/AP_HAL_SITL/UARTDriver.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/__/libraries/AP_HAL_SITL/UARTDriver.cpp.i
 .PHONY : __/libraries/AP_HAL_SITL/UARTDriver.cpp.i
 
 __/libraries/AP_HAL_SITL/UARTDriver.s: __/libraries/AP_HAL_SITL/UARTDriver.cpp.s
@@ -6795,7 +6795,7 @@ __/libraries/AP_HAL_SITL/UARTDriver.s: __/libraries/AP_HAL_SITL/UARTDriver.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_HAL_SITL/UARTDriver.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_HAL_SITL/AntennaTracker.dir/__/libraries/AP_HAL_SITL/UARTDriver.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_HAL_SITL_AntennaTracker.dir/__/libraries/AP_HAL_SITL/UARTDriver.cpp.s
 .PHONY : __/libraries/AP_HAL_SITL/UARTDriver.cpp.s
 
 __/libraries/AP_IBus_Telem/AP_IBus_Telem.o: __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.o
@@ -6803,7 +6803,7 @@ __/libraries/AP_IBus_Telem/AP_IBus_Telem.o: __/libraries/AP_IBus_Telem/AP_IBus_T
 
 # target to build an object file
 __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_IBus_Telem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_IBus_Telem/AntennaTracker.dir/__/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_IBus_Telem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_IBus_Telem_AntennaTracker.dir/__/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.o
 .PHONY : __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.o
 
 __/libraries/AP_IBus_Telem/AP_IBus_Telem.i: __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.i
@@ -6811,7 +6811,7 @@ __/libraries/AP_IBus_Telem/AP_IBus_Telem.i: __/libraries/AP_IBus_Telem/AP_IBus_T
 
 # target to preprocess a source file
 __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_IBus_Telem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_IBus_Telem/AntennaTracker.dir/__/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_IBus_Telem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_IBus_Telem_AntennaTracker.dir/__/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.i
 .PHONY : __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.i
 
 __/libraries/AP_IBus_Telem/AP_IBus_Telem.s: __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.s
@@ -6819,7 +6819,7 @@ __/libraries/AP_IBus_Telem/AP_IBus_Telem.s: __/libraries/AP_IBus_Telem/AP_IBus_T
 
 # target to generate assembly for a file
 __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_IBus_Telem/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_IBus_Telem/AntennaTracker.dir/__/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_IBus_Telem_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_IBus_Telem_AntennaTracker.dir/__/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.s
 .PHONY : __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.s
 
 __/libraries/AP_InertialSensor/AP_InertialSensor.o: __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.o
@@ -6827,7 +6827,7 @@ __/libraries/AP_InertialSensor/AP_InertialSensor.o: __/libraries/AP_InertialSens
 
 # target to build an object file
 __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor.cpp.o
 .PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.o
 
 __/libraries/AP_InertialSensor/AP_InertialSensor.i: __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.i
@@ -6835,7 +6835,7 @@ __/libraries/AP_InertialSensor/AP_InertialSensor.i: __/libraries/AP_InertialSens
 
 # target to preprocess a source file
 __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor.cpp.i
 .PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.i
 
 __/libraries/AP_InertialSensor/AP_InertialSensor.s: __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.s
@@ -6843,7 +6843,7 @@ __/libraries/AP_InertialSensor/AP_InertialSensor.s: __/libraries/AP_InertialSens
 
 # target to generate assembly for a file
 __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor.cpp.s
 .PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.s
 
 __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.o: __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.o
@@ -6851,7 +6851,7 @@ __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.o: __/libraries/AP_Iner
 
 # target to build an object file
 __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.o
 .PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.o
 
 __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.i: __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.i
@@ -6859,7 +6859,7 @@ __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.i: __/libraries/AP_Iner
 
 # target to preprocess a source file
 __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.i
 .PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.i
 
 __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.s: __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.s
@@ -6867,7 +6867,7 @@ __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.s: __/libraries/AP_Iner
 
 # target to generate assembly for a file
 __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.s
 .PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.s
 
 __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.o: __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.o
@@ -6875,7 +6875,7 @@ __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.o: __/libraries/AP
 
 # target to build an object file
 __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.o
 .PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.o
 
 __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.i: __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.i
@@ -6883,7 +6883,7 @@ __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.i: __/libraries/AP
 
 # target to preprocess a source file
 __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.i
 .PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.i
 
 __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.s: __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.s
@@ -6891,7 +6891,7 @@ __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.s: __/libraries/AP
 
 # target to generate assembly for a file
 __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.s
 .PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.s
 
 __/libraries/AP_InertialSensor/FastRateBuffer.o: __/libraries/AP_InertialSensor/FastRateBuffer.cpp.o
@@ -6899,7 +6899,7 @@ __/libraries/AP_InertialSensor/FastRateBuffer.o: __/libraries/AP_InertialSensor/
 
 # target to build an object file
 __/libraries/AP_InertialSensor/FastRateBuffer.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/__/libraries/AP_InertialSensor/FastRateBuffer.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/__/libraries/AP_InertialSensor/FastRateBuffer.cpp.o
 .PHONY : __/libraries/AP_InertialSensor/FastRateBuffer.cpp.o
 
 __/libraries/AP_InertialSensor/FastRateBuffer.i: __/libraries/AP_InertialSensor/FastRateBuffer.cpp.i
@@ -6907,7 +6907,7 @@ __/libraries/AP_InertialSensor/FastRateBuffer.i: __/libraries/AP_InertialSensor/
 
 # target to preprocess a source file
 __/libraries/AP_InertialSensor/FastRateBuffer.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/__/libraries/AP_InertialSensor/FastRateBuffer.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/__/libraries/AP_InertialSensor/FastRateBuffer.cpp.i
 .PHONY : __/libraries/AP_InertialSensor/FastRateBuffer.cpp.i
 
 __/libraries/AP_InertialSensor/FastRateBuffer.s: __/libraries/AP_InertialSensor/FastRateBuffer.cpp.s
@@ -6915,7 +6915,7 @@ __/libraries/AP_InertialSensor/FastRateBuffer.s: __/libraries/AP_InertialSensor/
 
 # target to generate assembly for a file
 __/libraries/AP_InertialSensor/FastRateBuffer.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_InertialSensor/AntennaTracker.dir/__/libraries/AP_InertialSensor/FastRateBuffer.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_InertialSensor_AntennaTracker.dir/__/libraries/AP_InertialSensor/FastRateBuffer.cpp.s
 .PHONY : __/libraries/AP_InertialSensor/FastRateBuffer.cpp.s
 
 __/libraries/AP_LandingGear/AP_LandingGear.o: __/libraries/AP_LandingGear/AP_LandingGear.cpp.o
@@ -6923,7 +6923,7 @@ __/libraries/AP_LandingGear/AP_LandingGear.o: __/libraries/AP_LandingGear/AP_Lan
 
 # target to build an object file
 __/libraries/AP_LandingGear/AP_LandingGear.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_LandingGear/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_LandingGear/AntennaTracker.dir/__/libraries/AP_LandingGear/AP_LandingGear.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_LandingGear_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_LandingGear_AntennaTracker.dir/__/libraries/AP_LandingGear/AP_LandingGear.cpp.o
 .PHONY : __/libraries/AP_LandingGear/AP_LandingGear.cpp.o
 
 __/libraries/AP_LandingGear/AP_LandingGear.i: __/libraries/AP_LandingGear/AP_LandingGear.cpp.i
@@ -6931,7 +6931,7 @@ __/libraries/AP_LandingGear/AP_LandingGear.i: __/libraries/AP_LandingGear/AP_Lan
 
 # target to preprocess a source file
 __/libraries/AP_LandingGear/AP_LandingGear.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_LandingGear/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_LandingGear/AntennaTracker.dir/__/libraries/AP_LandingGear/AP_LandingGear.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_LandingGear_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_LandingGear_AntennaTracker.dir/__/libraries/AP_LandingGear/AP_LandingGear.cpp.i
 .PHONY : __/libraries/AP_LandingGear/AP_LandingGear.cpp.i
 
 __/libraries/AP_LandingGear/AP_LandingGear.s: __/libraries/AP_LandingGear/AP_LandingGear.cpp.s
@@ -6939,7 +6939,7 @@ __/libraries/AP_LandingGear/AP_LandingGear.s: __/libraries/AP_LandingGear/AP_Lan
 
 # target to generate assembly for a file
 __/libraries/AP_LandingGear/AP_LandingGear.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_LandingGear/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_LandingGear/AntennaTracker.dir/__/libraries/AP_LandingGear/AP_LandingGear.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_LandingGear_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_LandingGear_AntennaTracker.dir/__/libraries/AP_LandingGear/AP_LandingGear.cpp.s
 .PHONY : __/libraries/AP_LandingGear/AP_LandingGear.cpp.s
 
 __/libraries/AP_Logger/AP_Logger.o: __/libraries/AP_Logger/AP_Logger.cpp.o
@@ -6947,7 +6947,7 @@ __/libraries/AP_Logger/AP_Logger.o: __/libraries/AP_Logger/AP_Logger.cpp.o
 
 # target to build an object file
 __/libraries/AP_Logger/AP_Logger.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger.cpp.o
 .PHONY : __/libraries/AP_Logger/AP_Logger.cpp.o
 
 __/libraries/AP_Logger/AP_Logger.i: __/libraries/AP_Logger/AP_Logger.cpp.i
@@ -6955,7 +6955,7 @@ __/libraries/AP_Logger/AP_Logger.i: __/libraries/AP_Logger/AP_Logger.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_Logger/AP_Logger.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger.cpp.i
 .PHONY : __/libraries/AP_Logger/AP_Logger.cpp.i
 
 __/libraries/AP_Logger/AP_Logger.s: __/libraries/AP_Logger/AP_Logger.cpp.s
@@ -6963,7 +6963,7 @@ __/libraries/AP_Logger/AP_Logger.s: __/libraries/AP_Logger/AP_Logger.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_Logger/AP_Logger.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger.cpp.s
 .PHONY : __/libraries/AP_Logger/AP_Logger.cpp.s
 
 __/libraries/AP_Logger/AP_Logger_Backend.o: __/libraries/AP_Logger/AP_Logger_Backend.cpp.o
@@ -6971,7 +6971,7 @@ __/libraries/AP_Logger/AP_Logger_Backend.o: __/libraries/AP_Logger/AP_Logger_Bac
 
 # target to build an object file
 __/libraries/AP_Logger/AP_Logger_Backend.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger_Backend.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger_Backend.cpp.o
 .PHONY : __/libraries/AP_Logger/AP_Logger_Backend.cpp.o
 
 __/libraries/AP_Logger/AP_Logger_Backend.i: __/libraries/AP_Logger/AP_Logger_Backend.cpp.i
@@ -6979,7 +6979,7 @@ __/libraries/AP_Logger/AP_Logger_Backend.i: __/libraries/AP_Logger/AP_Logger_Bac
 
 # target to preprocess a source file
 __/libraries/AP_Logger/AP_Logger_Backend.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger_Backend.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger_Backend.cpp.i
 .PHONY : __/libraries/AP_Logger/AP_Logger_Backend.cpp.i
 
 __/libraries/AP_Logger/AP_Logger_Backend.s: __/libraries/AP_Logger/AP_Logger_Backend.cpp.s
@@ -6987,7 +6987,7 @@ __/libraries/AP_Logger/AP_Logger_Backend.s: __/libraries/AP_Logger/AP_Logger_Bac
 
 # target to generate assembly for a file
 __/libraries/AP_Logger/AP_Logger_Backend.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger_Backend.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger_Backend.cpp.s
 .PHONY : __/libraries/AP_Logger/AP_Logger_Backend.cpp.s
 
 __/libraries/AP_Logger/AP_Logger_File.o: __/libraries/AP_Logger/AP_Logger_File.cpp.o
@@ -6995,7 +6995,7 @@ __/libraries/AP_Logger/AP_Logger_File.o: __/libraries/AP_Logger/AP_Logger_File.c
 
 # target to build an object file
 __/libraries/AP_Logger/AP_Logger_File.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger_File.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger_File.cpp.o
 .PHONY : __/libraries/AP_Logger/AP_Logger_File.cpp.o
 
 __/libraries/AP_Logger/AP_Logger_File.i: __/libraries/AP_Logger/AP_Logger_File.cpp.i
@@ -7003,7 +7003,7 @@ __/libraries/AP_Logger/AP_Logger_File.i: __/libraries/AP_Logger/AP_Logger_File.c
 
 # target to preprocess a source file
 __/libraries/AP_Logger/AP_Logger_File.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger_File.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger_File.cpp.i
 .PHONY : __/libraries/AP_Logger/AP_Logger_File.cpp.i
 
 __/libraries/AP_Logger/AP_Logger_File.s: __/libraries/AP_Logger/AP_Logger_File.cpp.s
@@ -7011,7 +7011,7 @@ __/libraries/AP_Logger/AP_Logger_File.s: __/libraries/AP_Logger/AP_Logger_File.c
 
 # target to generate assembly for a file
 __/libraries/AP_Logger/AP_Logger_File.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger_File.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/__/libraries/AP_Logger/AP_Logger_File.cpp.s
 .PHONY : __/libraries/AP_Logger/AP_Logger_File.cpp.s
 
 __/libraries/AP_Logger/LoggerMessageWriter.o: __/libraries/AP_Logger/LoggerMessageWriter.cpp.o
@@ -7019,7 +7019,7 @@ __/libraries/AP_Logger/LoggerMessageWriter.o: __/libraries/AP_Logger/LoggerMessa
 
 # target to build an object file
 __/libraries/AP_Logger/LoggerMessageWriter.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/__/libraries/AP_Logger/LoggerMessageWriter.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/__/libraries/AP_Logger/LoggerMessageWriter.cpp.o
 .PHONY : __/libraries/AP_Logger/LoggerMessageWriter.cpp.o
 
 __/libraries/AP_Logger/LoggerMessageWriter.i: __/libraries/AP_Logger/LoggerMessageWriter.cpp.i
@@ -7027,7 +7027,7 @@ __/libraries/AP_Logger/LoggerMessageWriter.i: __/libraries/AP_Logger/LoggerMessa
 
 # target to preprocess a source file
 __/libraries/AP_Logger/LoggerMessageWriter.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/__/libraries/AP_Logger/LoggerMessageWriter.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/__/libraries/AP_Logger/LoggerMessageWriter.cpp.i
 .PHONY : __/libraries/AP_Logger/LoggerMessageWriter.cpp.i
 
 __/libraries/AP_Logger/LoggerMessageWriter.s: __/libraries/AP_Logger/LoggerMessageWriter.cpp.s
@@ -7035,7 +7035,7 @@ __/libraries/AP_Logger/LoggerMessageWriter.s: __/libraries/AP_Logger/LoggerMessa
 
 # target to generate assembly for a file
 __/libraries/AP_Logger/LoggerMessageWriter.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Logger/AntennaTracker.dir/__/libraries/AP_Logger/LoggerMessageWriter.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Logger_AntennaTracker.dir/__/libraries/AP_Logger/LoggerMessageWriter.cpp.s
 .PHONY : __/libraries/AP_Logger/LoggerMessageWriter.cpp.s
 
 __/libraries/AP_Math/SCurve.o: __/libraries/AP_Math/SCurve.cpp.o
@@ -7043,7 +7043,7 @@ __/libraries/AP_Math/SCurve.o: __/libraries/AP_Math/SCurve.cpp.o
 
 # target to build an object file
 __/libraries/AP_Math/SCurve.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Math/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Math/AntennaTracker.dir/__/libraries/AP_Math/SCurve.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Math_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Math_AntennaTracker.dir/__/libraries/AP_Math/SCurve.cpp.o
 .PHONY : __/libraries/AP_Math/SCurve.cpp.o
 
 __/libraries/AP_Math/SCurve.i: __/libraries/AP_Math/SCurve.cpp.i
@@ -7051,7 +7051,7 @@ __/libraries/AP_Math/SCurve.i: __/libraries/AP_Math/SCurve.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_Math/SCurve.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Math/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Math/AntennaTracker.dir/__/libraries/AP_Math/SCurve.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Math_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Math_AntennaTracker.dir/__/libraries/AP_Math/SCurve.cpp.i
 .PHONY : __/libraries/AP_Math/SCurve.cpp.i
 
 __/libraries/AP_Math/SCurve.s: __/libraries/AP_Math/SCurve.cpp.s
@@ -7059,7 +7059,7 @@ __/libraries/AP_Math/SCurve.s: __/libraries/AP_Math/SCurve.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_Math/SCurve.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Math/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Math/AntennaTracker.dir/__/libraries/AP_Math/SCurve.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Math_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Math_AntennaTracker.dir/__/libraries/AP_Math/SCurve.cpp.s
 .PHONY : __/libraries/AP_Math/SCurve.cpp.s
 
 __/libraries/AP_Mission/AP_Mission.o: __/libraries/AP_Mission/AP_Mission.cpp.o
@@ -7067,7 +7067,7 @@ __/libraries/AP_Mission/AP_Mission.o: __/libraries/AP_Mission/AP_Mission.cpp.o
 
 # target to build an object file
 __/libraries/AP_Mission/AP_Mission.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Mission/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Mission/AntennaTracker.dir/__/libraries/AP_Mission/AP_Mission.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Mission_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Mission_AntennaTracker.dir/__/libraries/AP_Mission/AP_Mission.cpp.o
 .PHONY : __/libraries/AP_Mission/AP_Mission.cpp.o
 
 __/libraries/AP_Mission/AP_Mission.i: __/libraries/AP_Mission/AP_Mission.cpp.i
@@ -7075,7 +7075,7 @@ __/libraries/AP_Mission/AP_Mission.i: __/libraries/AP_Mission/AP_Mission.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_Mission/AP_Mission.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Mission/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Mission/AntennaTracker.dir/__/libraries/AP_Mission/AP_Mission.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Mission_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Mission_AntennaTracker.dir/__/libraries/AP_Mission/AP_Mission.cpp.i
 .PHONY : __/libraries/AP_Mission/AP_Mission.cpp.i
 
 __/libraries/AP_Mission/AP_Mission.s: __/libraries/AP_Mission/AP_Mission.cpp.s
@@ -7083,7 +7083,7 @@ __/libraries/AP_Mission/AP_Mission.s: __/libraries/AP_Mission/AP_Mission.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_Mission/AP_Mission.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Mission/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Mission/AntennaTracker.dir/__/libraries/AP_Mission/AP_Mission.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Mission_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Mission_AntennaTracker.dir/__/libraries/AP_Mission/AP_Mission.cpp.s
 .PHONY : __/libraries/AP_Mission/AP_Mission.cpp.s
 
 __/libraries/AP_NavEKF2/AP_NavEKF2.o: __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.o
@@ -7091,7 +7091,7 @@ __/libraries/AP_NavEKF2/AP_NavEKF2.o: __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.o
 
 # target to build an object file
 __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/__/libraries/AP_NavEKF2/AP_NavEKF2.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/__/libraries/AP_NavEKF2/AP_NavEKF2.cpp.o
 .PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.o
 
 __/libraries/AP_NavEKF2/AP_NavEKF2.i: __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.i
@@ -7099,7 +7099,7 @@ __/libraries/AP_NavEKF2/AP_NavEKF2.i: __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/__/libraries/AP_NavEKF2/AP_NavEKF2.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/__/libraries/AP_NavEKF2/AP_NavEKF2.cpp.i
 .PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.i
 
 __/libraries/AP_NavEKF2/AP_NavEKF2.s: __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.s
@@ -7107,7 +7107,7 @@ __/libraries/AP_NavEKF2/AP_NavEKF2.s: __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/__/libraries/AP_NavEKF2/AP_NavEKF2.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/__/libraries/AP_NavEKF2/AP_NavEKF2.cpp.s
 .PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.s
 
 __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.o: __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.o
@@ -7115,7 +7115,7 @@ __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.o: __/libraries/AP_NavEKF2/AP_N
 
 # target to build an object file
 __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.o
 .PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.o
 
 __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.i: __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.i
@@ -7123,7 +7123,7 @@ __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.i: __/libraries/AP_NavEKF2/AP_N
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.i
 .PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.i
 
 __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.s: __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.s
@@ -7131,7 +7131,7 @@ __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.s: __/libraries/AP_NavEKF2/AP_N
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF2/AntennaTracker.dir/__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF2_AntennaTracker.dir/__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.s
 .PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.s
 
 __/libraries/AP_NavEKF3/AP_NavEKF3.o: __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.o
@@ -7139,7 +7139,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3.o: __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.o
 
 # target to build an object file
 __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3.cpp.o
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.o
 
 __/libraries/AP_NavEKF3/AP_NavEKF3.i: __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.i
@@ -7147,7 +7147,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3.i: __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3.cpp.i
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.i
 
 __/libraries/AP_NavEKF3/AP_NavEKF3.s: __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.s
@@ -7155,7 +7155,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3.s: __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3.cpp.s
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.s
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.o: __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.o
@@ -7163,7 +7163,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.o: __/libraries/AP_NavEKF3/AP_N
 
 # target to build an object file
 __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.o
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.o
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.i: __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.i
@@ -7171,7 +7171,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.i: __/libraries/AP_NavEKF3/AP_N
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.i
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.i
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.s: __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.s
@@ -7179,7 +7179,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.s: __/libraries/AP_NavEKF3/AP_N
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.s
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.s
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_Control.o: __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.o
@@ -7187,7 +7187,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_Control.o: __/libraries/AP_NavEKF3/AP_NavEKF3
 
 # target to build an object file
 __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.o
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.o
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_Control.i: __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.i
@@ -7195,7 +7195,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_Control.i: __/libraries/AP_NavEKF3/AP_NavEKF3
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.i
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.i
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_Control.s: __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.s
@@ -7203,7 +7203,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_Control.s: __/libraries/AP_NavEKF3/AP_NavEKF3
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.s
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.s
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.o: __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.o
@@ -7211,7 +7211,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.o: __/libraries/AP_NavEKF3/AP_NavEKF
 
 # target to build an object file
 __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.o
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.o
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.i: __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.i
@@ -7219,7 +7219,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.i: __/libraries/AP_NavEKF3/AP_NavEKF
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.i
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.i
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.s: __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.s
@@ -7227,7 +7227,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.s: __/libraries/AP_NavEKF3/AP_NavEKF
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.s
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.s
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.o: __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.o
@@ -7235,7 +7235,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.o: __/libraries/AP_NavEKF3/AP_NavEKF3
 
 # target to build an object file
 __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.o
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.o
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.i: __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.i
@@ -7243,7 +7243,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.i: __/libraries/AP_NavEKF3/AP_NavEKF3
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.i
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.i
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.s: __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.s
@@ -7251,7 +7251,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.s: __/libraries/AP_NavEKF3/AP_NavEKF3
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.s
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.s
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.o: __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.o
@@ -7259,7 +7259,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.o: __/libraries/AP_NavEKF3/AP_NavEK
 
 # target to build an object file
 __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.o
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.o
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.i: __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.i
@@ -7267,7 +7267,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.i: __/libraries/AP_NavEKF3/AP_NavEK
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.i
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.i
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.s: __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.s
@@ -7275,7 +7275,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.s: __/libraries/AP_NavEKF3/AP_NavEK
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.s
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.s
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.o: __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.o
@@ -7283,7 +7283,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.o: __/libraries/AP_NavEKF3/AP_Na
 
 # target to build an object file
 __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.o
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.o
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.i: __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.i
@@ -7291,7 +7291,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.i: __/libraries/AP_NavEKF3/AP_Na
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.i
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.i
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.s: __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.s
@@ -7299,7 +7299,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.s: __/libraries/AP_NavEKF3/AP_Na
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.s
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.s
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.o: __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.o
@@ -7307,7 +7307,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.o: __/libraries/AP_NavEKF3/AP_N
 
 # target to build an object file
 __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.o
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.o
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.i: __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.i
@@ -7315,7 +7315,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.i: __/libraries/AP_NavEKF3/AP_N
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.i
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.i
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.s: __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.s
@@ -7323,7 +7323,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.s: __/libraries/AP_NavEKF3/AP_N
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.s
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.s
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.o: __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.o
@@ -7331,7 +7331,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.o: __/libraries/AP_NavEKF3/AP_NavEKF3
 
 # target to build an object file
 __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.o
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.o
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.i: __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.i
@@ -7339,7 +7339,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.i: __/libraries/AP_NavEKF3/AP_NavEKF3
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.i
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.i
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.s: __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.s
@@ -7347,7 +7347,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.s: __/libraries/AP_NavEKF3/AP_NavEKF3
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.s
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.s
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.o: __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.o
@@ -7355,7 +7355,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.o: __/libraries/AP_NavEKF3/AP_Na
 
 # target to build an object file
 __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.o
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.o
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.i: __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.i
@@ -7363,7 +7363,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.i: __/libraries/AP_NavEKF3/AP_Na
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.i
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.i
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.s: __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.s
@@ -7371,7 +7371,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.s: __/libraries/AP_NavEKF3/AP_Na
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.s
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.s
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.o: __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.o
@@ -7379,7 +7379,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.o: __/libraries/AP_NavEKF3/AP_Na
 
 # target to build an object file
 __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.o
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.o
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.i: __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.i
@@ -7387,7 +7387,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.i: __/libraries/AP_NavEKF3/AP_Na
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.i
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.i
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.s: __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.s
@@ -7395,7 +7395,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.s: __/libraries/AP_NavEKF3/AP_Na
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.s
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.s
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.o: __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.o
@@ -7403,7 +7403,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.o: __/libraries/AP_NavEKF3/AP_N
 
 # target to build an object file
 __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.o
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.o
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.i: __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.i
@@ -7411,7 +7411,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.i: __/libraries/AP_NavEKF3/AP_N
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.i
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.i
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.s: __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.s
@@ -7419,7 +7419,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.s: __/libraries/AP_NavEKF3/AP_N
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.s
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.s
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_core.o: __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.o
@@ -7427,7 +7427,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_core.o: __/libraries/AP_NavEKF3/AP_NavEKF3_co
 
 # target to build an object file
 __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.o
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.o
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_core.i: __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.i
@@ -7435,7 +7435,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_core.i: __/libraries/AP_NavEKF3/AP_NavEKF3_co
 
 # target to preprocess a source file
 __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.i
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.i
 
 __/libraries/AP_NavEKF3/AP_NavEKF3_core.s: __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.s
@@ -7443,7 +7443,7 @@ __/libraries/AP_NavEKF3/AP_NavEKF3_core.s: __/libraries/AP_NavEKF3/AP_NavEKF3_co
 
 # target to generate assembly for a file
 __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_NavEKF3/AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_NavEKF3_AntennaTracker.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.s
 .PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.s
 
 __/libraries/AP_OSD/AP_OSD_ParamScreen.o: __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
@@ -7451,7 +7451,7 @@ __/libraries/AP_OSD/AP_OSD_ParamScreen.o: __/libraries/AP_OSD/AP_OSD_ParamScreen
 
 # target to build an object file
 __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
 .PHONY : __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
 
 __/libraries/AP_OSD/AP_OSD_ParamScreen.i: __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
@@ -7459,7 +7459,7 @@ __/libraries/AP_OSD/AP_OSD_ParamScreen.i: __/libraries/AP_OSD/AP_OSD_ParamScreen
 
 # target to preprocess a source file
 __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
 .PHONY : __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
 
 __/libraries/AP_OSD/AP_OSD_ParamScreen.s: __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
@@ -7467,7 +7467,7 @@ __/libraries/AP_OSD/AP_OSD_ParamScreen.s: __/libraries/AP_OSD/AP_OSD_ParamScreen
 
 # target to generate assembly for a file
 __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
 .PHONY : __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
 
 __/libraries/AP_OSD/AP_OSD_ParamSetting.o: __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
@@ -7475,7 +7475,7 @@ __/libraries/AP_OSD/AP_OSD_ParamSetting.o: __/libraries/AP_OSD/AP_OSD_ParamSetti
 
 # target to build an object file
 __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
 .PHONY : __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
 
 __/libraries/AP_OSD/AP_OSD_ParamSetting.i: __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
@@ -7483,7 +7483,7 @@ __/libraries/AP_OSD/AP_OSD_ParamSetting.i: __/libraries/AP_OSD/AP_OSD_ParamSetti
 
 # target to preprocess a source file
 __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
 .PHONY : __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
 
 __/libraries/AP_OSD/AP_OSD_ParamSetting.s: __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
@@ -7491,7 +7491,7 @@ __/libraries/AP_OSD/AP_OSD_ParamSetting.s: __/libraries/AP_OSD/AP_OSD_ParamSetti
 
 # target to generate assembly for a file
 __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
 .PHONY : __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
 
 __/libraries/AP_OSD/AP_OSD_Screen.o: __/libraries/AP_OSD/AP_OSD_Screen.cpp.o
@@ -7499,7 +7499,7 @@ __/libraries/AP_OSD/AP_OSD_Screen.o: __/libraries/AP_OSD/AP_OSD_Screen.cpp.o
 
 # target to build an object file
 __/libraries/AP_OSD/AP_OSD_Screen.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_Screen.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_Screen.cpp.o
 .PHONY : __/libraries/AP_OSD/AP_OSD_Screen.cpp.o
 
 __/libraries/AP_OSD/AP_OSD_Screen.i: __/libraries/AP_OSD/AP_OSD_Screen.cpp.i
@@ -7507,7 +7507,7 @@ __/libraries/AP_OSD/AP_OSD_Screen.i: __/libraries/AP_OSD/AP_OSD_Screen.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_OSD/AP_OSD_Screen.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_Screen.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_Screen.cpp.i
 .PHONY : __/libraries/AP_OSD/AP_OSD_Screen.cpp.i
 
 __/libraries/AP_OSD/AP_OSD_Screen.s: __/libraries/AP_OSD/AP_OSD_Screen.cpp.s
@@ -7515,7 +7515,7 @@ __/libraries/AP_OSD/AP_OSD_Screen.s: __/libraries/AP_OSD/AP_OSD_Screen.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_OSD/AP_OSD_Screen.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_OSD/AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_Screen.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_OSD_AntennaTracker.dir/__/libraries/AP_OSD/AP_OSD_Screen.cpp.s
 .PHONY : __/libraries/AP_OSD/AP_OSD_Screen.cpp.s
 
 __/libraries/AP_Proximity/AP_Proximity_Utils.o: __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.o
@@ -7523,7 +7523,7 @@ __/libraries/AP_Proximity/AP_Proximity_Utils.o: __/libraries/AP_Proximity/AP_Pro
 
 # target to build an object file
 __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Proximity/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Proximity/AntennaTracker.dir/__/libraries/AP_Proximity/AP_Proximity_Utils.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Proximity_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Proximity_AntennaTracker.dir/__/libraries/AP_Proximity/AP_Proximity_Utils.cpp.o
 .PHONY : __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.o
 
 __/libraries/AP_Proximity/AP_Proximity_Utils.i: __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.i
@@ -7531,7 +7531,7 @@ __/libraries/AP_Proximity/AP_Proximity_Utils.i: __/libraries/AP_Proximity/AP_Pro
 
 # target to preprocess a source file
 __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Proximity/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Proximity/AntennaTracker.dir/__/libraries/AP_Proximity/AP_Proximity_Utils.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Proximity_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Proximity_AntennaTracker.dir/__/libraries/AP_Proximity/AP_Proximity_Utils.cpp.i
 .PHONY : __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.i
 
 __/libraries/AP_Proximity/AP_Proximity_Utils.s: __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.s
@@ -7539,7 +7539,7 @@ __/libraries/AP_Proximity/AP_Proximity_Utils.s: __/libraries/AP_Proximity/AP_Pro
 
 # target to generate assembly for a file
 __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Proximity/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Proximity/AntennaTracker.dir/__/libraries/AP_Proximity/AP_Proximity_Utils.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Proximity_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Proximity_AntennaTracker.dir/__/libraries/AP_Proximity/AP_Proximity_Utils.cpp.s
 .PHONY : __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.s
 
 __/libraries/AP_RCProtocol/AP_RCProtocol.o: __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.o
@@ -7547,7 +7547,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol.o: __/libraries/AP_RCProtocol/AP_RCProt
 
 # target to build an object file
 __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol.cpp.o
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.o
 
 __/libraries/AP_RCProtocol/AP_RCProtocol.i: __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.i
@@ -7555,7 +7555,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol.i: __/libraries/AP_RCProtocol/AP_RCProt
 
 # target to preprocess a source file
 __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol.cpp.i
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.i
 
 __/libraries/AP_RCProtocol/AP_RCProtocol.s: __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.s
@@ -7563,7 +7563,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol.s: __/libraries/AP_RCProtocol/AP_RCProt
 
 # target to generate assembly for a file
 __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol.cpp.s
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.s
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.o: __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.o
@@ -7571,7 +7571,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.o: __/libraries/AP_RCProtocol/AP_R
 
 # target to build an object file
 __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.o
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.o
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.i: __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.i
@@ -7579,7 +7579,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.i: __/libraries/AP_RCProtocol/AP_R
 
 # target to preprocess a source file
 __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.i
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.i
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.s: __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.s
@@ -7587,7 +7587,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.s: __/libraries/AP_RCProtocol/AP_R
 
 # target to generate assembly for a file
 __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.s
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.s
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.o: __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.o
@@ -7595,7 +7595,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.o: __/libraries/AP_RCProtocol/AP_
 
 # target to build an object file
 __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.o
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.o
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.i: __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.i
@@ -7603,7 +7603,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.i: __/libraries/AP_RCProtocol/AP_
 
 # target to preprocess a source file
 __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.i
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.i
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.s: __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.s
@@ -7611,7 +7611,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.s: __/libraries/AP_RCProtocol/AP_
 
 # target to generate assembly for a file
 __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.s
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.s
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.o: __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.o
@@ -7619,7 +7619,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.o: __/libraries/AP_RCProtocol/AP
 
 # target to build an object file
 __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.o
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.o
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.i: __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.i
@@ -7627,7 +7627,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.i: __/libraries/AP_RCProtocol/AP
 
 # target to preprocess a source file
 __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.i
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.i
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.s: __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.s
@@ -7635,7 +7635,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.s: __/libraries/AP_RCProtocol/AP
 
 # target to generate assembly for a file
 __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.s
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.s
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.o: __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.o
@@ -7643,7 +7643,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.o: __/libraries/AP_RCProtocol/AP_R
 
 # target to build an object file
 __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.o
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.o
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.i: __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.i
@@ -7651,7 +7651,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.i: __/libraries/AP_RCProtocol/AP_R
 
 # target to preprocess a source file
 __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.i
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.i
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.s: __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.s
@@ -7659,7 +7659,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.s: __/libraries/AP_RCProtocol/AP_R
 
 # target to generate assembly for a file
 __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.s
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.s
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.o: __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.o
@@ -7667,7 +7667,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.o: __/libraries/AP_RCProtocol/AP_
 
 # target to build an object file
 __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.o
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.o
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.i: __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.i
@@ -7675,7 +7675,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.i: __/libraries/AP_RCProtocol/AP_
 
 # target to preprocess a source file
 __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.i
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.i
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.s: __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.s
@@ -7683,7 +7683,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.s: __/libraries/AP_RCProtocol/AP_
 
 # target to generate assembly for a file
 __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.s
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.s
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.o: __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.o
@@ -7691,7 +7691,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.o: __/libraries/AP_RCProtocol/AP_RC
 
 # target to build an object file
 __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.o
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.o
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.i: __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.i
@@ -7699,7 +7699,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.i: __/libraries/AP_RCProtocol/AP_RC
 
 # target to preprocess a source file
 __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.i
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.i
 
 __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.s: __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.s
@@ -7707,7 +7707,7 @@ __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.s: __/libraries/AP_RCProtocol/AP_RC
 
 # target to generate assembly for a file
 __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCProtocol/AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCProtocol_AntennaTracker.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.s
 .PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.s
 
 __/libraries/AP_RCTelemetry/AP_CRSF_Telem.o: __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.o
@@ -7715,7 +7715,7 @@ __/libraries/AP_RCTelemetry/AP_CRSF_Telem.o: __/libraries/AP_RCTelemetry/AP_CRSF
 
 # target to build an object file
 __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/__/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/__/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.o
 .PHONY : __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.o
 
 __/libraries/AP_RCTelemetry/AP_CRSF_Telem.i: __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.i
@@ -7723,7 +7723,7 @@ __/libraries/AP_RCTelemetry/AP_CRSF_Telem.i: __/libraries/AP_RCTelemetry/AP_CRSF
 
 # target to preprocess a source file
 __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/__/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/__/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.i
 .PHONY : __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.i
 
 __/libraries/AP_RCTelemetry/AP_CRSF_Telem.s: __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.s
@@ -7731,7 +7731,7 @@ __/libraries/AP_RCTelemetry/AP_CRSF_Telem.s: __/libraries/AP_RCTelemetry/AP_CRSF
 
 # target to generate assembly for a file
 __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/__/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/__/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.s
 .PHONY : __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.s
 
 __/libraries/AP_RCTelemetry/AP_RCTelemetry.o: __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.o
@@ -7739,7 +7739,7 @@ __/libraries/AP_RCTelemetry/AP_RCTelemetry.o: __/libraries/AP_RCTelemetry/AP_RCT
 
 # target to build an object file
 __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/__/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/__/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.o
 .PHONY : __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.o
 
 __/libraries/AP_RCTelemetry/AP_RCTelemetry.i: __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.i
@@ -7747,7 +7747,7 @@ __/libraries/AP_RCTelemetry/AP_RCTelemetry.i: __/libraries/AP_RCTelemetry/AP_RCT
 
 # target to preprocess a source file
 __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/__/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/__/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.i
 .PHONY : __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.i
 
 __/libraries/AP_RCTelemetry/AP_RCTelemetry.s: __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.s
@@ -7755,7 +7755,7 @@ __/libraries/AP_RCTelemetry/AP_RCTelemetry.s: __/libraries/AP_RCTelemetry/AP_RCT
 
 # target to generate assembly for a file
 __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_RCTelemetry/AntennaTracker.dir/__/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_RCTelemetry_AntennaTracker.dir/__/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.s
 .PHONY : __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.s
 
 __/libraries/AP_Rally/AP_Rally.o: __/libraries/AP_Rally/AP_Rally.cpp.o
@@ -7763,7 +7763,7 @@ __/libraries/AP_Rally/AP_Rally.o: __/libraries/AP_Rally/AP_Rally.cpp.o
 
 # target to build an object file
 __/libraries/AP_Rally/AP_Rally.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Rally/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Rally/AntennaTracker.dir/__/libraries/AP_Rally/AP_Rally.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Rally_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Rally_AntennaTracker.dir/__/libraries/AP_Rally/AP_Rally.cpp.o
 .PHONY : __/libraries/AP_Rally/AP_Rally.cpp.o
 
 __/libraries/AP_Rally/AP_Rally.i: __/libraries/AP_Rally/AP_Rally.cpp.i
@@ -7771,7 +7771,7 @@ __/libraries/AP_Rally/AP_Rally.i: __/libraries/AP_Rally/AP_Rally.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_Rally/AP_Rally.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Rally/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Rally/AntennaTracker.dir/__/libraries/AP_Rally/AP_Rally.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Rally_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Rally_AntennaTracker.dir/__/libraries/AP_Rally/AP_Rally.cpp.i
 .PHONY : __/libraries/AP_Rally/AP_Rally.cpp.i
 
 __/libraries/AP_Rally/AP_Rally.s: __/libraries/AP_Rally/AP_Rally.cpp.s
@@ -7779,7 +7779,7 @@ __/libraries/AP_Rally/AP_Rally.s: __/libraries/AP_Rally/AP_Rally.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_Rally/AP_Rally.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Rally/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Rally/AntennaTracker.dir/__/libraries/AP_Rally/AP_Rally.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Rally_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Rally_AntennaTracker.dir/__/libraries/AP_Rally/AP_Rally.cpp.s
 .PHONY : __/libraries/AP_Rally/AP_Rally.cpp.s
 
 __/libraries/AP_Relay/AP_Relay.o: __/libraries/AP_Relay/AP_Relay.cpp.o
@@ -7787,7 +7787,7 @@ __/libraries/AP_Relay/AP_Relay.o: __/libraries/AP_Relay/AP_Relay.cpp.o
 
 # target to build an object file
 __/libraries/AP_Relay/AP_Relay.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Relay/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Relay/AntennaTracker.dir/__/libraries/AP_Relay/AP_Relay.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Relay_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Relay_AntennaTracker.dir/__/libraries/AP_Relay/AP_Relay.cpp.o
 .PHONY : __/libraries/AP_Relay/AP_Relay.cpp.o
 
 __/libraries/AP_Relay/AP_Relay.i: __/libraries/AP_Relay/AP_Relay.cpp.i
@@ -7795,7 +7795,7 @@ __/libraries/AP_Relay/AP_Relay.i: __/libraries/AP_Relay/AP_Relay.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_Relay/AP_Relay.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Relay/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Relay/AntennaTracker.dir/__/libraries/AP_Relay/AP_Relay.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Relay_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Relay_AntennaTracker.dir/__/libraries/AP_Relay/AP_Relay.cpp.i
 .PHONY : __/libraries/AP_Relay/AP_Relay.cpp.i
 
 __/libraries/AP_Relay/AP_Relay.s: __/libraries/AP_Relay/AP_Relay.cpp.s
@@ -7803,7 +7803,7 @@ __/libraries/AP_Relay/AP_Relay.s: __/libraries/AP_Relay/AP_Relay.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_Relay/AP_Relay.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Relay/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Relay/AntennaTracker.dir/__/libraries/AP_Relay/AP_Relay.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Relay_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Relay_AntennaTracker.dir/__/libraries/AP_Relay/AP_Relay.cpp.s
 .PHONY : __/libraries/AP_Relay/AP_Relay.cpp.s
 
 __/libraries/AP_Scheduler/AP_Scheduler.o: __/libraries/AP_Scheduler/AP_Scheduler.cpp.o
@@ -7811,7 +7811,7 @@ __/libraries/AP_Scheduler/AP_Scheduler.o: __/libraries/AP_Scheduler/AP_Scheduler
 
 # target to build an object file
 __/libraries/AP_Scheduler/AP_Scheduler.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scheduler/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scheduler/AntennaTracker.dir/__/libraries/AP_Scheduler/AP_Scheduler.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scheduler_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scheduler_AntennaTracker.dir/__/libraries/AP_Scheduler/AP_Scheduler.cpp.o
 .PHONY : __/libraries/AP_Scheduler/AP_Scheduler.cpp.o
 
 __/libraries/AP_Scheduler/AP_Scheduler.i: __/libraries/AP_Scheduler/AP_Scheduler.cpp.i
@@ -7819,7 +7819,7 @@ __/libraries/AP_Scheduler/AP_Scheduler.i: __/libraries/AP_Scheduler/AP_Scheduler
 
 # target to preprocess a source file
 __/libraries/AP_Scheduler/AP_Scheduler.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scheduler/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scheduler/AntennaTracker.dir/__/libraries/AP_Scheduler/AP_Scheduler.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scheduler_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scheduler_AntennaTracker.dir/__/libraries/AP_Scheduler/AP_Scheduler.cpp.i
 .PHONY : __/libraries/AP_Scheduler/AP_Scheduler.cpp.i
 
 __/libraries/AP_Scheduler/AP_Scheduler.s: __/libraries/AP_Scheduler/AP_Scheduler.cpp.s
@@ -7827,7 +7827,7 @@ __/libraries/AP_Scheduler/AP_Scheduler.s: __/libraries/AP_Scheduler/AP_Scheduler
 
 # target to generate assembly for a file
 __/libraries/AP_Scheduler/AP_Scheduler.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scheduler/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scheduler/AntennaTracker.dir/__/libraries/AP_Scheduler/AP_Scheduler.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scheduler_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scheduler_AntennaTracker.dir/__/libraries/AP_Scheduler/AP_Scheduler.cpp.s
 .PHONY : __/libraries/AP_Scheduler/AP_Scheduler.cpp.s
 
 __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.o: __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.o
@@ -7835,7 +7835,7 @@ __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.o: __/libraries/AP_Scripting/AP_
 
 # target to build an object file
 __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.o
 .PHONY : __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.o
 
 __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.i: __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.i
@@ -7843,7 +7843,7 @@ __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.i: __/libraries/AP_Scripting/AP_
 
 # target to preprocess a source file
 __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.i
 .PHONY : __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.i
 
 __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.s: __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.s
@@ -7851,7 +7851,7 @@ __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.s: __/libraries/AP_Scripting/AP_
 
 # target to generate assembly for a file
 __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.s
 .PHONY : __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.s
 
 __/libraries/AP_Scripting/AP_Scripting_helpers.o: __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.o
@@ -7859,7 +7859,7 @@ __/libraries/AP_Scripting/AP_Scripting_helpers.o: __/libraries/AP_Scripting/AP_S
 
 # target to build an object file
 __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/AP_Scripting_helpers.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/AP_Scripting_helpers.cpp.o
 .PHONY : __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.o
 
 __/libraries/AP_Scripting/AP_Scripting_helpers.i: __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.i
@@ -7867,7 +7867,7 @@ __/libraries/AP_Scripting/AP_Scripting_helpers.i: __/libraries/AP_Scripting/AP_S
 
 # target to preprocess a source file
 __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/AP_Scripting_helpers.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/AP_Scripting_helpers.cpp.i
 .PHONY : __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.i
 
 __/libraries/AP_Scripting/AP_Scripting_helpers.s: __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.s
@@ -7875,7 +7875,7 @@ __/libraries/AP_Scripting/AP_Scripting_helpers.s: __/libraries/AP_Scripting/AP_S
 
 # target to generate assembly for a file
 __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/AP_Scripting_helpers.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/AP_Scripting_helpers.cpp.s
 .PHONY : __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.s
 
 __/libraries/AP_Scripting/lua_bindings.o: __/libraries/AP_Scripting/lua_bindings.cpp.o
@@ -7883,7 +7883,7 @@ __/libraries/AP_Scripting/lua_bindings.o: __/libraries/AP_Scripting/lua_bindings
 
 # target to build an object file
 __/libraries/AP_Scripting/lua_bindings.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/lua_bindings.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/lua_bindings.cpp.o
 .PHONY : __/libraries/AP_Scripting/lua_bindings.cpp.o
 
 __/libraries/AP_Scripting/lua_bindings.i: __/libraries/AP_Scripting/lua_bindings.cpp.i
@@ -7891,7 +7891,7 @@ __/libraries/AP_Scripting/lua_bindings.i: __/libraries/AP_Scripting/lua_bindings
 
 # target to preprocess a source file
 __/libraries/AP_Scripting/lua_bindings.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/lua_bindings.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/lua_bindings.cpp.i
 .PHONY : __/libraries/AP_Scripting/lua_bindings.cpp.i
 
 __/libraries/AP_Scripting/lua_bindings.s: __/libraries/AP_Scripting/lua_bindings.cpp.s
@@ -7899,7 +7899,7 @@ __/libraries/AP_Scripting/lua_bindings.s: __/libraries/AP_Scripting/lua_bindings
 
 # target to generate assembly for a file
 __/libraries/AP_Scripting/lua_bindings.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/lua_bindings.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/lua_bindings.cpp.s
 .PHONY : __/libraries/AP_Scripting/lua_bindings.cpp.s
 
 __/libraries/AP_Scripting/lua_boxed_numerics.o: __/libraries/AP_Scripting/lua_boxed_numerics.cpp.o
@@ -7907,7 +7907,7 @@ __/libraries/AP_Scripting/lua_boxed_numerics.o: __/libraries/AP_Scripting/lua_bo
 
 # target to build an object file
 __/libraries/AP_Scripting/lua_boxed_numerics.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/lua_boxed_numerics.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/lua_boxed_numerics.cpp.o
 .PHONY : __/libraries/AP_Scripting/lua_boxed_numerics.cpp.o
 
 __/libraries/AP_Scripting/lua_boxed_numerics.i: __/libraries/AP_Scripting/lua_boxed_numerics.cpp.i
@@ -7915,7 +7915,7 @@ __/libraries/AP_Scripting/lua_boxed_numerics.i: __/libraries/AP_Scripting/lua_bo
 
 # target to preprocess a source file
 __/libraries/AP_Scripting/lua_boxed_numerics.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/lua_boxed_numerics.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/lua_boxed_numerics.cpp.i
 .PHONY : __/libraries/AP_Scripting/lua_boxed_numerics.cpp.i
 
 __/libraries/AP_Scripting/lua_boxed_numerics.s: __/libraries/AP_Scripting/lua_boxed_numerics.cpp.s
@@ -7923,7 +7923,7 @@ __/libraries/AP_Scripting/lua_boxed_numerics.s: __/libraries/AP_Scripting/lua_bo
 
 # target to generate assembly for a file
 __/libraries/AP_Scripting/lua_boxed_numerics.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/lua_boxed_numerics.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/lua_boxed_numerics.cpp.s
 .PHONY : __/libraries/AP_Scripting/lua_boxed_numerics.cpp.s
 
 __/libraries/AP_Scripting/lua_scripts.o: __/libraries/AP_Scripting/lua_scripts.cpp.o
@@ -7931,7 +7931,7 @@ __/libraries/AP_Scripting/lua_scripts.o: __/libraries/AP_Scripting/lua_scripts.c
 
 # target to build an object file
 __/libraries/AP_Scripting/lua_scripts.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/lua_scripts.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/lua_scripts.cpp.o
 .PHONY : __/libraries/AP_Scripting/lua_scripts.cpp.o
 
 __/libraries/AP_Scripting/lua_scripts.i: __/libraries/AP_Scripting/lua_scripts.cpp.i
@@ -7939,7 +7939,7 @@ __/libraries/AP_Scripting/lua_scripts.i: __/libraries/AP_Scripting/lua_scripts.c
 
 # target to preprocess a source file
 __/libraries/AP_Scripting/lua_scripts.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/lua_scripts.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/lua_scripts.cpp.i
 .PHONY : __/libraries/AP_Scripting/lua_scripts.cpp.i
 
 __/libraries/AP_Scripting/lua_scripts.s: __/libraries/AP_Scripting/lua_scripts.cpp.s
@@ -7947,7 +7947,7 @@ __/libraries/AP_Scripting/lua_scripts.s: __/libraries/AP_Scripting/lua_scripts.c
 
 # target to generate assembly for a file
 __/libraries/AP_Scripting/lua_scripts.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Scripting/AntennaTracker.dir/__/libraries/AP_Scripting/lua_scripts.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Scripting_AntennaTracker.dir/__/libraries/AP_Scripting/lua_scripts.cpp.s
 .PHONY : __/libraries/AP_Scripting/lua_scripts.cpp.s
 
 __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.o: __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.o
@@ -7955,7 +7955,7 @@ __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.o: __/libraries/AP_Temper
 
 # target to build an object file
 __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_TemperatureSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_TemperatureSensor/AntennaTracker.dir/__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_TemperatureSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_TemperatureSensor_AntennaTracker.dir/__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.o
 .PHONY : __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.o
 
 __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.i: __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.i
@@ -7963,7 +7963,7 @@ __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.i: __/libraries/AP_Temper
 
 # target to preprocess a source file
 __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_TemperatureSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_TemperatureSensor/AntennaTracker.dir/__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_TemperatureSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_TemperatureSensor_AntennaTracker.dir/__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.i
 .PHONY : __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.i
 
 __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.s: __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.s
@@ -7971,7 +7971,7 @@ __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.s: __/libraries/AP_Temper
 
 # target to generate assembly for a file
 __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_TemperatureSensor/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_TemperatureSensor/AntennaTracker.dir/__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_TemperatureSensor_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_TemperatureSensor_AntennaTracker.dir/__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.s
 .PHONY : __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.s
 
 __/libraries/AP_Terrain/AP_Terrain.o: __/libraries/AP_Terrain/AP_Terrain.cpp.o
@@ -7979,7 +7979,7 @@ __/libraries/AP_Terrain/AP_Terrain.o: __/libraries/AP_Terrain/AP_Terrain.cpp.o
 
 # target to build an object file
 __/libraries/AP_Terrain/AP_Terrain.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Terrain/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Terrain/AntennaTracker.dir/__/libraries/AP_Terrain/AP_Terrain.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Terrain_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Terrain_AntennaTracker.dir/__/libraries/AP_Terrain/AP_Terrain.cpp.o
 .PHONY : __/libraries/AP_Terrain/AP_Terrain.cpp.o
 
 __/libraries/AP_Terrain/AP_Terrain.i: __/libraries/AP_Terrain/AP_Terrain.cpp.i
@@ -7987,7 +7987,7 @@ __/libraries/AP_Terrain/AP_Terrain.i: __/libraries/AP_Terrain/AP_Terrain.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_Terrain/AP_Terrain.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Terrain/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Terrain/AntennaTracker.dir/__/libraries/AP_Terrain/AP_Terrain.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Terrain_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Terrain_AntennaTracker.dir/__/libraries/AP_Terrain/AP_Terrain.cpp.i
 .PHONY : __/libraries/AP_Terrain/AP_Terrain.cpp.i
 
 __/libraries/AP_Terrain/AP_Terrain.s: __/libraries/AP_Terrain/AP_Terrain.cpp.s
@@ -7995,7 +7995,7 @@ __/libraries/AP_Terrain/AP_Terrain.s: __/libraries/AP_Terrain/AP_Terrain.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_Terrain/AP_Terrain.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Terrain/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Terrain/AntennaTracker.dir/__/libraries/AP_Terrain/AP_Terrain.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Terrain_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Terrain_AntennaTracker.dir/__/libraries/AP_Terrain/AP_Terrain.cpp.s
 .PHONY : __/libraries/AP_Terrain/AP_Terrain.cpp.s
 
 __/libraries/AP_Vehicle/AP_Vehicle.o: __/libraries/AP_Vehicle/AP_Vehicle.cpp.o
@@ -8003,7 +8003,7 @@ __/libraries/AP_Vehicle/AP_Vehicle.o: __/libraries/AP_Vehicle/AP_Vehicle.cpp.o
 
 # target to build an object file
 __/libraries/AP_Vehicle/AP_Vehicle.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Vehicle/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Vehicle/AntennaTracker.dir/__/libraries/AP_Vehicle/AP_Vehicle.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Vehicle_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Vehicle_AntennaTracker.dir/__/libraries/AP_Vehicle/AP_Vehicle.cpp.o
 .PHONY : __/libraries/AP_Vehicle/AP_Vehicle.cpp.o
 
 __/libraries/AP_Vehicle/AP_Vehicle.i: __/libraries/AP_Vehicle/AP_Vehicle.cpp.i
@@ -8011,7 +8011,7 @@ __/libraries/AP_Vehicle/AP_Vehicle.i: __/libraries/AP_Vehicle/AP_Vehicle.cpp.i
 
 # target to preprocess a source file
 __/libraries/AP_Vehicle/AP_Vehicle.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Vehicle/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Vehicle/AntennaTracker.dir/__/libraries/AP_Vehicle/AP_Vehicle.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Vehicle_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Vehicle_AntennaTracker.dir/__/libraries/AP_Vehicle/AP_Vehicle.cpp.i
 .PHONY : __/libraries/AP_Vehicle/AP_Vehicle.cpp.i
 
 __/libraries/AP_Vehicle/AP_Vehicle.s: __/libraries/AP_Vehicle/AP_Vehicle.cpp.s
@@ -8019,7 +8019,7 @@ __/libraries/AP_Vehicle/AP_Vehicle.s: __/libraries/AP_Vehicle/AP_Vehicle.cpp.s
 
 # target to generate assembly for a file
 __/libraries/AP_Vehicle/AP_Vehicle.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/AP_Vehicle/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/AP_Vehicle/AntennaTracker.dir/__/libraries/AP_Vehicle/AP_Vehicle.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_AP_Vehicle_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_AP_Vehicle_AntennaTracker.dir/__/libraries/AP_Vehicle/AP_Vehicle.cpp.s
 .PHONY : __/libraries/AP_Vehicle/AP_Vehicle.cpp.s
 
 __/libraries/Filter/HarmonicNotchFilter.o: __/libraries/Filter/HarmonicNotchFilter.cpp.o
@@ -8027,7 +8027,7 @@ __/libraries/Filter/HarmonicNotchFilter.o: __/libraries/Filter/HarmonicNotchFilt
 
 # target to build an object file
 __/libraries/Filter/HarmonicNotchFilter.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/Filter/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/Filter/AntennaTracker.dir/__/libraries/Filter/HarmonicNotchFilter.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_Filter_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_Filter_AntennaTracker.dir/__/libraries/Filter/HarmonicNotchFilter.cpp.o
 .PHONY : __/libraries/Filter/HarmonicNotchFilter.cpp.o
 
 __/libraries/Filter/HarmonicNotchFilter.i: __/libraries/Filter/HarmonicNotchFilter.cpp.i
@@ -8035,7 +8035,7 @@ __/libraries/Filter/HarmonicNotchFilter.i: __/libraries/Filter/HarmonicNotchFilt
 
 # target to preprocess a source file
 __/libraries/Filter/HarmonicNotchFilter.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/Filter/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/Filter/AntennaTracker.dir/__/libraries/Filter/HarmonicNotchFilter.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_Filter_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_Filter_AntennaTracker.dir/__/libraries/Filter/HarmonicNotchFilter.cpp.i
 .PHONY : __/libraries/Filter/HarmonicNotchFilter.cpp.i
 
 __/libraries/Filter/HarmonicNotchFilter.s: __/libraries/Filter/HarmonicNotchFilter.cpp.s
@@ -8043,7 +8043,7 @@ __/libraries/Filter/HarmonicNotchFilter.s: __/libraries/Filter/HarmonicNotchFilt
 
 # target to generate assembly for a file
 __/libraries/Filter/HarmonicNotchFilter.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/Filter/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/Filter/AntennaTracker.dir/__/libraries/Filter/HarmonicNotchFilter.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_Filter_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_Filter_AntennaTracker.dir/__/libraries/Filter/HarmonicNotchFilter.cpp.s
 .PHONY : __/libraries/Filter/HarmonicNotchFilter.cpp.s
 
 __/libraries/GCS_MAVLink/GCS.o: __/libraries/GCS_MAVLink/GCS.cpp.o
@@ -8051,7 +8051,7 @@ __/libraries/GCS_MAVLink/GCS.o: __/libraries/GCS_MAVLink/GCS.cpp.o
 
 # target to build an object file
 __/libraries/GCS_MAVLink/GCS.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS.cpp.o
 .PHONY : __/libraries/GCS_MAVLink/GCS.cpp.o
 
 __/libraries/GCS_MAVLink/GCS.i: __/libraries/GCS_MAVLink/GCS.cpp.i
@@ -8059,7 +8059,7 @@ __/libraries/GCS_MAVLink/GCS.i: __/libraries/GCS_MAVLink/GCS.cpp.i
 
 # target to preprocess a source file
 __/libraries/GCS_MAVLink/GCS.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS.cpp.i
 .PHONY : __/libraries/GCS_MAVLink/GCS.cpp.i
 
 __/libraries/GCS_MAVLink/GCS.s: __/libraries/GCS_MAVLink/GCS.cpp.s
@@ -8067,7 +8067,7 @@ __/libraries/GCS_MAVLink/GCS.s: __/libraries/GCS_MAVLink/GCS.cpp.s
 
 # target to generate assembly for a file
 __/libraries/GCS_MAVLink/GCS.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS.cpp.s
 .PHONY : __/libraries/GCS_MAVLink/GCS.cpp.s
 
 __/libraries/GCS_MAVLink/GCS_Common.o: __/libraries/GCS_MAVLink/GCS_Common.cpp.o
@@ -8075,7 +8075,7 @@ __/libraries/GCS_MAVLink/GCS_Common.o: __/libraries/GCS_MAVLink/GCS_Common.cpp.o
 
 # target to build an object file
 __/libraries/GCS_MAVLink/GCS_Common.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Common.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Common.cpp.o
 .PHONY : __/libraries/GCS_MAVLink/GCS_Common.cpp.o
 
 __/libraries/GCS_MAVLink/GCS_Common.i: __/libraries/GCS_MAVLink/GCS_Common.cpp.i
@@ -8083,7 +8083,7 @@ __/libraries/GCS_MAVLink/GCS_Common.i: __/libraries/GCS_MAVLink/GCS_Common.cpp.i
 
 # target to preprocess a source file
 __/libraries/GCS_MAVLink/GCS_Common.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Common.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Common.cpp.i
 .PHONY : __/libraries/GCS_MAVLink/GCS_Common.cpp.i
 
 __/libraries/GCS_MAVLink/GCS_Common.s: __/libraries/GCS_MAVLink/GCS_Common.cpp.s
@@ -8091,7 +8091,7 @@ __/libraries/GCS_MAVLink/GCS_Common.s: __/libraries/GCS_MAVLink/GCS_Common.cpp.s
 
 # target to generate assembly for a file
 __/libraries/GCS_MAVLink/GCS_Common.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Common.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Common.cpp.s
 .PHONY : __/libraries/GCS_MAVLink/GCS_Common.cpp.s
 
 __/libraries/GCS_MAVLink/GCS_Dummy.o: __/libraries/GCS_MAVLink/GCS_Dummy.cpp.o
@@ -8099,7 +8099,7 @@ __/libraries/GCS_MAVLink/GCS_Dummy.o: __/libraries/GCS_MAVLink/GCS_Dummy.cpp.o
 
 # target to build an object file
 __/libraries/GCS_MAVLink/GCS_Dummy.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Dummy.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Dummy.cpp.o
 .PHONY : __/libraries/GCS_MAVLink/GCS_Dummy.cpp.o
 
 __/libraries/GCS_MAVLink/GCS_Dummy.i: __/libraries/GCS_MAVLink/GCS_Dummy.cpp.i
@@ -8107,7 +8107,7 @@ __/libraries/GCS_MAVLink/GCS_Dummy.i: __/libraries/GCS_MAVLink/GCS_Dummy.cpp.i
 
 # target to preprocess a source file
 __/libraries/GCS_MAVLink/GCS_Dummy.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Dummy.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Dummy.cpp.i
 .PHONY : __/libraries/GCS_MAVLink/GCS_Dummy.cpp.i
 
 __/libraries/GCS_MAVLink/GCS_Dummy.s: __/libraries/GCS_MAVLink/GCS_Dummy.cpp.s
@@ -8115,7 +8115,7 @@ __/libraries/GCS_MAVLink/GCS_Dummy.s: __/libraries/GCS_MAVLink/GCS_Dummy.cpp.s
 
 # target to generate assembly for a file
 __/libraries/GCS_MAVLink/GCS_Dummy.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Dummy.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Dummy.cpp.s
 .PHONY : __/libraries/GCS_MAVLink/GCS_Dummy.cpp.s
 
 __/libraries/GCS_MAVLink/GCS_Fence.o: __/libraries/GCS_MAVLink/GCS_Fence.cpp.o
@@ -8123,7 +8123,7 @@ __/libraries/GCS_MAVLink/GCS_Fence.o: __/libraries/GCS_MAVLink/GCS_Fence.cpp.o
 
 # target to build an object file
 __/libraries/GCS_MAVLink/GCS_Fence.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Fence.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Fence.cpp.o
 .PHONY : __/libraries/GCS_MAVLink/GCS_Fence.cpp.o
 
 __/libraries/GCS_MAVLink/GCS_Fence.i: __/libraries/GCS_MAVLink/GCS_Fence.cpp.i
@@ -8131,7 +8131,7 @@ __/libraries/GCS_MAVLink/GCS_Fence.i: __/libraries/GCS_MAVLink/GCS_Fence.cpp.i
 
 # target to preprocess a source file
 __/libraries/GCS_MAVLink/GCS_Fence.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Fence.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Fence.cpp.i
 .PHONY : __/libraries/GCS_MAVLink/GCS_Fence.cpp.i
 
 __/libraries/GCS_MAVLink/GCS_Fence.s: __/libraries/GCS_MAVLink/GCS_Fence.cpp.s
@@ -8139,7 +8139,7 @@ __/libraries/GCS_MAVLink/GCS_Fence.s: __/libraries/GCS_MAVLink/GCS_Fence.cpp.s
 
 # target to generate assembly for a file
 __/libraries/GCS_MAVLink/GCS_Fence.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Fence.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_Fence.cpp.s
 .PHONY : __/libraries/GCS_MAVLink/GCS_Fence.cpp.s
 
 __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.o: __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.o
@@ -8147,7 +8147,7 @@ __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.o: __/libraries/GCS_MAVLink/GCS_
 
 # target to build an object file
 __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.o
 .PHONY : __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.o
 
 __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.i: __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.i
@@ -8155,7 +8155,7 @@ __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.i: __/libraries/GCS_MAVLink/GCS_
 
 # target to preprocess a source file
 __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.i
 .PHONY : __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.i
 
 __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.s: __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.s
@@ -8163,7 +8163,7 @@ __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.s: __/libraries/GCS_MAVLink/GCS_
 
 # target to generate assembly for a file
 __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/GCS_MAVLink/AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_GCS_MAVLink_AntennaTracker.dir/__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.s
 .PHONY : __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.s
 
 __/libraries/RC_Channel/RC_Channel.o: __/libraries/RC_Channel/RC_Channel.cpp.o
@@ -8171,7 +8171,7 @@ __/libraries/RC_Channel/RC_Channel.o: __/libraries/RC_Channel/RC_Channel.cpp.o
 
 # target to build an object file
 __/libraries/RC_Channel/RC_Channel.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/RC_Channel/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/RC_Channel/AntennaTracker.dir/__/libraries/RC_Channel/RC_Channel.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_RC_Channel_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_RC_Channel_AntennaTracker.dir/__/libraries/RC_Channel/RC_Channel.cpp.o
 .PHONY : __/libraries/RC_Channel/RC_Channel.cpp.o
 
 __/libraries/RC_Channel/RC_Channel.i: __/libraries/RC_Channel/RC_Channel.cpp.i
@@ -8179,7 +8179,7 @@ __/libraries/RC_Channel/RC_Channel.i: __/libraries/RC_Channel/RC_Channel.cpp.i
 
 # target to preprocess a source file
 __/libraries/RC_Channel/RC_Channel.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/RC_Channel/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/RC_Channel/AntennaTracker.dir/__/libraries/RC_Channel/RC_Channel.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_RC_Channel_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_RC_Channel_AntennaTracker.dir/__/libraries/RC_Channel/RC_Channel.cpp.i
 .PHONY : __/libraries/RC_Channel/RC_Channel.cpp.i
 
 __/libraries/RC_Channel/RC_Channel.s: __/libraries/RC_Channel/RC_Channel.cpp.s
@@ -8187,7 +8187,7 @@ __/libraries/RC_Channel/RC_Channel.s: __/libraries/RC_Channel/RC_Channel.cpp.s
 
 # target to generate assembly for a file
 __/libraries/RC_Channel/RC_Channel.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/RC_Channel/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/RC_Channel/AntennaTracker.dir/__/libraries/RC_Channel/RC_Channel.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_RC_Channel_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_RC_Channel_AntennaTracker.dir/__/libraries/RC_Channel/RC_Channel.cpp.s
 .PHONY : __/libraries/RC_Channel/RC_Channel.cpp.s
 
 __/libraries/SITL/SIM_Aircraft.o: __/libraries/SITL/SIM_Aircraft.cpp.o
@@ -8195,7 +8195,7 @@ __/libraries/SITL/SIM_Aircraft.o: __/libraries/SITL/SIM_Aircraft.cpp.o
 
 # target to build an object file
 __/libraries/SITL/SIM_Aircraft.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/__/libraries/SITL/SIM_Aircraft.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/__/libraries/SITL/SIM_Aircraft.cpp.o
 .PHONY : __/libraries/SITL/SIM_Aircraft.cpp.o
 
 __/libraries/SITL/SIM_Aircraft.i: __/libraries/SITL/SIM_Aircraft.cpp.i
@@ -8203,7 +8203,7 @@ __/libraries/SITL/SIM_Aircraft.i: __/libraries/SITL/SIM_Aircraft.cpp.i
 
 # target to preprocess a source file
 __/libraries/SITL/SIM_Aircraft.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/__/libraries/SITL/SIM_Aircraft.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/__/libraries/SITL/SIM_Aircraft.cpp.i
 .PHONY : __/libraries/SITL/SIM_Aircraft.cpp.i
 
 __/libraries/SITL/SIM_Aircraft.s: __/libraries/SITL/SIM_Aircraft.cpp.s
@@ -8211,7 +8211,7 @@ __/libraries/SITL/SIM_Aircraft.s: __/libraries/SITL/SIM_Aircraft.cpp.s
 
 # target to generate assembly for a file
 __/libraries/SITL/SIM_Aircraft.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/__/libraries/SITL/SIM_Aircraft.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/__/libraries/SITL/SIM_Aircraft.cpp.s
 .PHONY : __/libraries/SITL/SIM_Aircraft.cpp.s
 
 __/libraries/SITL/SIM_DroneCANDevice.o: __/libraries/SITL/SIM_DroneCANDevice.cpp.o
@@ -8219,7 +8219,7 @@ __/libraries/SITL/SIM_DroneCANDevice.o: __/libraries/SITL/SIM_DroneCANDevice.cpp
 
 # target to build an object file
 __/libraries/SITL/SIM_DroneCANDevice.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/__/libraries/SITL/SIM_DroneCANDevice.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/__/libraries/SITL/SIM_DroneCANDevice.cpp.o
 .PHONY : __/libraries/SITL/SIM_DroneCANDevice.cpp.o
 
 __/libraries/SITL/SIM_DroneCANDevice.i: __/libraries/SITL/SIM_DroneCANDevice.cpp.i
@@ -8227,7 +8227,7 @@ __/libraries/SITL/SIM_DroneCANDevice.i: __/libraries/SITL/SIM_DroneCANDevice.cpp
 
 # target to preprocess a source file
 __/libraries/SITL/SIM_DroneCANDevice.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/__/libraries/SITL/SIM_DroneCANDevice.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/__/libraries/SITL/SIM_DroneCANDevice.cpp.i
 .PHONY : __/libraries/SITL/SIM_DroneCANDevice.cpp.i
 
 __/libraries/SITL/SIM_DroneCANDevice.s: __/libraries/SITL/SIM_DroneCANDevice.cpp.s
@@ -8235,7 +8235,7 @@ __/libraries/SITL/SIM_DroneCANDevice.s: __/libraries/SITL/SIM_DroneCANDevice.cpp
 
 # target to generate assembly for a file
 __/libraries/SITL/SIM_DroneCANDevice.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/__/libraries/SITL/SIM_DroneCANDevice.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/__/libraries/SITL/SIM_DroneCANDevice.cpp.s
 .PHONY : __/libraries/SITL/SIM_DroneCANDevice.cpp.s
 
 __/libraries/SITL/SIM_XPlane.o: __/libraries/SITL/SIM_XPlane.cpp.o
@@ -8243,7 +8243,7 @@ __/libraries/SITL/SIM_XPlane.o: __/libraries/SITL/SIM_XPlane.cpp.o
 
 # target to build an object file
 __/libraries/SITL/SIM_XPlane.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/__/libraries/SITL/SIM_XPlane.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/__/libraries/SITL/SIM_XPlane.cpp.o
 .PHONY : __/libraries/SITL/SIM_XPlane.cpp.o
 
 __/libraries/SITL/SIM_XPlane.i: __/libraries/SITL/SIM_XPlane.cpp.i
@@ -8251,7 +8251,7 @@ __/libraries/SITL/SIM_XPlane.i: __/libraries/SITL/SIM_XPlane.cpp.i
 
 # target to preprocess a source file
 __/libraries/SITL/SIM_XPlane.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/__/libraries/SITL/SIM_XPlane.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/__/libraries/SITL/SIM_XPlane.cpp.i
 .PHONY : __/libraries/SITL/SIM_XPlane.cpp.i
 
 __/libraries/SITL/SIM_XPlane.s: __/libraries/SITL/SIM_XPlane.cpp.s
@@ -8259,7 +8259,7 @@ __/libraries/SITL/SIM_XPlane.s: __/libraries/SITL/SIM_XPlane.cpp.s
 
 # target to generate assembly for a file
 __/libraries/SITL/SIM_XPlane.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/__/libraries/SITL/SIM_XPlane.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/__/libraries/SITL/SIM_XPlane.cpp.s
 .PHONY : __/libraries/SITL/SIM_XPlane.cpp.s
 
 __/libraries/SITL/SITL.o: __/libraries/SITL/SITL.cpp.o
@@ -8267,7 +8267,7 @@ __/libraries/SITL/SITL.o: __/libraries/SITL/SITL.cpp.o
 
 # target to build an object file
 __/libraries/SITL/SITL.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/__/libraries/SITL/SITL.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/__/libraries/SITL/SITL.cpp.o
 .PHONY : __/libraries/SITL/SITL.cpp.o
 
 __/libraries/SITL/SITL.i: __/libraries/SITL/SITL.cpp.i
@@ -8275,7 +8275,7 @@ __/libraries/SITL/SITL.i: __/libraries/SITL/SITL.cpp.i
 
 # target to preprocess a source file
 __/libraries/SITL/SITL.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/__/libraries/SITL/SITL.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/__/libraries/SITL/SITL.cpp.i
 .PHONY : __/libraries/SITL/SITL.cpp.i
 
 __/libraries/SITL/SITL.s: __/libraries/SITL/SITL.cpp.s
@@ -8283,7 +8283,7 @@ __/libraries/SITL/SITL.s: __/libraries/SITL/SITL.cpp.s
 
 # target to generate assembly for a file
 __/libraries/SITL/SITL.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/SITL/AntennaTracker.dir/__/libraries/SITL/SITL.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_SITL_AntennaTracker.dir/__/libraries/SITL/SITL.cpp.s
 .PHONY : __/libraries/SITL/SITL.cpp.s
 
 __/libraries/StorageManager/StorageManager.o: __/libraries/StorageManager/StorageManager.cpp.o
@@ -8291,7 +8291,7 @@ __/libraries/StorageManager/StorageManager.o: __/libraries/StorageManager/Storag
 
 # target to build an object file
 __/libraries/StorageManager/StorageManager.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/StorageManager/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/StorageManager/AntennaTracker.dir/__/libraries/StorageManager/StorageManager.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_StorageManager_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_StorageManager_AntennaTracker.dir/__/libraries/StorageManager/StorageManager.cpp.o
 .PHONY : __/libraries/StorageManager/StorageManager.cpp.o
 
 __/libraries/StorageManager/StorageManager.i: __/libraries/StorageManager/StorageManager.cpp.i
@@ -8299,7 +8299,7 @@ __/libraries/StorageManager/StorageManager.i: __/libraries/StorageManager/Storag
 
 # target to preprocess a source file
 __/libraries/StorageManager/StorageManager.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/StorageManager/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/StorageManager/AntennaTracker.dir/__/libraries/StorageManager/StorageManager.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_StorageManager_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_StorageManager_AntennaTracker.dir/__/libraries/StorageManager/StorageManager.cpp.i
 .PHONY : __/libraries/StorageManager/StorageManager.cpp.i
 
 __/libraries/StorageManager/StorageManager.s: __/libraries/StorageManager/StorageManager.cpp.s
@@ -8307,7 +8307,7 @@ __/libraries/StorageManager/StorageManager.s: __/libraries/StorageManager/Storag
 
 # target to generate assembly for a file
 __/libraries/StorageManager/StorageManager.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs/StorageManager/AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs/StorageManager/AntennaTracker.dir/__/libraries/StorageManager/StorageManager.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/objs_StorageManager_AntennaTracker.dir/build.make AntennaTracker/CMakeFiles/objs_StorageManager_AntennaTracker.dir/__/libraries/StorageManager/StorageManager.cpp.s
 .PHONY : __/libraries/StorageManager/StorageManager.cpp.s
 
 mode.o: mode.cpp.o
@@ -8315,7 +8315,7 @@ mode.o: mode.cpp.o
 
 # target to build an object file
 mode.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode.cpp.o
 .PHONY : mode.cpp.o
 
 mode.i: mode.cpp.i
@@ -8323,7 +8323,7 @@ mode.i: mode.cpp.i
 
 # target to preprocess a source file
 mode.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode.cpp.i
 .PHONY : mode.cpp.i
 
 mode.s: mode.cpp.s
@@ -8331,7 +8331,7 @@ mode.s: mode.cpp.s
 
 # target to generate assembly for a file
 mode.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode.cpp.s
 .PHONY : mode.cpp.s
 
 mode_auto.o: mode_auto.cpp.o
@@ -8339,7 +8339,7 @@ mode_auto.o: mode_auto.cpp.o
 
 # target to build an object file
 mode_auto.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_auto.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_auto.cpp.o
 .PHONY : mode_auto.cpp.o
 
 mode_auto.i: mode_auto.cpp.i
@@ -8347,7 +8347,7 @@ mode_auto.i: mode_auto.cpp.i
 
 # target to preprocess a source file
 mode_auto.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_auto.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_auto.cpp.i
 .PHONY : mode_auto.cpp.i
 
 mode_auto.s: mode_auto.cpp.s
@@ -8355,7 +8355,7 @@ mode_auto.s: mode_auto.cpp.s
 
 # target to generate assembly for a file
 mode_auto.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_auto.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_auto.cpp.s
 .PHONY : mode_auto.cpp.s
 
 mode_guided.o: mode_guided.cpp.o
@@ -8363,7 +8363,7 @@ mode_guided.o: mode_guided.cpp.o
 
 # target to build an object file
 mode_guided.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_guided.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_guided.cpp.o
 .PHONY : mode_guided.cpp.o
 
 mode_guided.i: mode_guided.cpp.i
@@ -8371,7 +8371,7 @@ mode_guided.i: mode_guided.cpp.i
 
 # target to preprocess a source file
 mode_guided.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_guided.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_guided.cpp.i
 .PHONY : mode_guided.cpp.i
 
 mode_guided.s: mode_guided.cpp.s
@@ -8379,7 +8379,7 @@ mode_guided.s: mode_guided.cpp.s
 
 # target to generate assembly for a file
 mode_guided.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_guided.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_guided.cpp.s
 .PHONY : mode_guided.cpp.s
 
 mode_manual.o: mode_manual.cpp.o
@@ -8387,7 +8387,7 @@ mode_manual.o: mode_manual.cpp.o
 
 # target to build an object file
 mode_manual.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_manual.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_manual.cpp.o
 .PHONY : mode_manual.cpp.o
 
 mode_manual.i: mode_manual.cpp.i
@@ -8395,7 +8395,7 @@ mode_manual.i: mode_manual.cpp.i
 
 # target to preprocess a source file
 mode_manual.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_manual.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_manual.cpp.i
 .PHONY : mode_manual.cpp.i
 
 mode_manual.s: mode_manual.cpp.s
@@ -8403,7 +8403,7 @@ mode_manual.s: mode_manual.cpp.s
 
 # target to generate assembly for a file
 mode_manual.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_manual.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_manual.cpp.s
 .PHONY : mode_manual.cpp.s
 
 mode_scan.o: mode_scan.cpp.o
@@ -8411,7 +8411,7 @@ mode_scan.o: mode_scan.cpp.o
 
 # target to build an object file
 mode_scan.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_scan.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_scan.cpp.o
 .PHONY : mode_scan.cpp.o
 
 mode_scan.i: mode_scan.cpp.i
@@ -8419,7 +8419,7 @@ mode_scan.i: mode_scan.cpp.i
 
 # target to preprocess a source file
 mode_scan.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_scan.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_scan.cpp.i
 .PHONY : mode_scan.cpp.i
 
 mode_scan.s: mode_scan.cpp.s
@@ -8427,7 +8427,7 @@ mode_scan.s: mode_scan.cpp.s
 
 # target to generate assembly for a file
 mode_scan.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_scan.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_scan.cpp.s
 .PHONY : mode_scan.cpp.s
 
 mode_servotest.o: mode_servotest.cpp.o
@@ -8435,7 +8435,7 @@ mode_servotest.o: mode_servotest.cpp.o
 
 # target to build an object file
 mode_servotest.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_servotest.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_servotest.cpp.o
 .PHONY : mode_servotest.cpp.o
 
 mode_servotest.i: mode_servotest.cpp.i
@@ -8443,7 +8443,7 @@ mode_servotest.i: mode_servotest.cpp.i
 
 # target to preprocess a source file
 mode_servotest.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_servotest.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_servotest.cpp.i
 .PHONY : mode_servotest.cpp.i
 
 mode_servotest.s: mode_servotest.cpp.s
@@ -8451,7 +8451,7 @@ mode_servotest.s: mode_servotest.cpp.s
 
 # target to generate assembly for a file
 mode_servotest.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/mode_servotest.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/mode_servotest.cpp.s
 .PHONY : mode_servotest.cpp.s
 
 radio.o: radio.cpp.o
@@ -8459,7 +8459,7 @@ radio.o: radio.cpp.o
 
 # target to build an object file
 radio.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/radio.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/radio.cpp.o
 .PHONY : radio.cpp.o
 
 radio.i: radio.cpp.i
@@ -8467,7 +8467,7 @@ radio.i: radio.cpp.i
 
 # target to preprocess a source file
 radio.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/radio.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/radio.cpp.i
 .PHONY : radio.cpp.i
 
 radio.s: radio.cpp.s
@@ -8475,7 +8475,7 @@ radio.s: radio.cpp.s
 
 # target to generate assembly for a file
 radio.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/radio.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/radio.cpp.s
 .PHONY : radio.cpp.s
 
 sensors.o: sensors.cpp.o
@@ -8483,7 +8483,7 @@ sensors.o: sensors.cpp.o
 
 # target to build an object file
 sensors.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/sensors.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/sensors.cpp.o
 .PHONY : sensors.cpp.o
 
 sensors.i: sensors.cpp.i
@@ -8491,7 +8491,7 @@ sensors.i: sensors.cpp.i
 
 # target to preprocess a source file
 sensors.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/sensors.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/sensors.cpp.i
 .PHONY : sensors.cpp.i
 
 sensors.s: sensors.cpp.s
@@ -8499,7 +8499,7 @@ sensors.s: sensors.cpp.s
 
 # target to generate assembly for a file
 sensors.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/sensors.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/sensors.cpp.s
 .PHONY : sensors.cpp.s
 
 servos.o: servos.cpp.o
@@ -8507,7 +8507,7 @@ servos.o: servos.cpp.o
 
 # target to build an object file
 servos.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/servos.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/servos.cpp.o
 .PHONY : servos.cpp.o
 
 servos.i: servos.cpp.i
@@ -8515,7 +8515,7 @@ servos.i: servos.cpp.i
 
 # target to preprocess a source file
 servos.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/servos.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/servos.cpp.i
 .PHONY : servos.cpp.i
 
 servos.s: servos.cpp.s
@@ -8523,7 +8523,7 @@ servos.s: servos.cpp.s
 
 # target to generate assembly for a file
 servos.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/servos.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/servos.cpp.s
 .PHONY : servos.cpp.s
 
 system.o: system.cpp.o
@@ -8531,7 +8531,7 @@ system.o: system.cpp.o
 
 # target to build an object file
 system.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/system.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/system.cpp.o
 .PHONY : system.cpp.o
 
 system.i: system.cpp.i
@@ -8539,7 +8539,7 @@ system.i: system.cpp.i
 
 # target to preprocess a source file
 system.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/system.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/system.cpp.i
 .PHONY : system.cpp.i
 
 system.s: system.cpp.s
@@ -8547,7 +8547,7 @@ system.s: system.cpp.s
 
 # target to generate assembly for a file
 system.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/system.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/system.cpp.s
 .PHONY : system.cpp.s
 
 tracking.o: tracking.cpp.o
@@ -8555,7 +8555,7 @@ tracking.o: tracking.cpp.o
 
 # target to build an object file
 tracking.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/tracking.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/tracking.cpp.o
 .PHONY : tracking.cpp.o
 
 tracking.i: tracking.cpp.i
@@ -8563,7 +8563,7 @@ tracking.i: tracking.cpp.i
 
 # target to preprocess a source file
 tracking.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/tracking.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/tracking.cpp.i
 .PHONY : tracking.cpp.i
 
 tracking.s: tracking.cpp.s
@@ -8571,7 +8571,7 @@ tracking.s: tracking.cpp.s
 
 # target to generate assembly for a file
 tracking.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin/antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin/antennatracker.dir/tracking.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f AntennaTracker/CMakeFiles/bin_antennatracker.dir/build.make AntennaTracker/CMakeFiles/bin_antennatracker.dir/tracking.cpp.s
 .PHONY : tracking.cpp.s
 
 # Help Target
@@ -8583,52 +8583,52 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... AntennaTracker_libs"
-	@echo "... bin/antennatracker"
-	@echo "... objs/AC_Avoidance/AntennaTracker"
-	@echo "... objs/AC_Fence/AntennaTracker"
-	@echo "... objs/AP_ADSB/AntennaTracker"
-	@echo "... objs/AP_ADSB/sagetech-sdk"
-	@echo "... objs/AP_AHRS/AntennaTracker"
-	@echo "... objs/AP_AIS/AntennaTracker"
-	@echo "... objs/AP_Airspeed/AntennaTracker"
-	@echo "... objs/AP_Arming/AntennaTracker"
-	@echo "... objs/AP_BLHeli/AntennaTracker"
-	@echo "... objs/AP_Baro/AntennaTracker"
-	@echo "... objs/AP_BattMonitor/AntennaTracker"
-	@echo "... objs/AP_BoardConfig/AntennaTracker"
-	@echo "... objs/AP_DAL/AntennaTracker"
-	@echo "... objs/AP_ESC_Telem/AntennaTracker"
-	@echo "... objs/AP_ExternalAHRS/AntennaTracker"
-	@echo "... objs/AP_Filesystem/AntennaTracker"
-	@echo "... objs/AP_Follow/AntennaTracker"
-	@echo "... objs/AP_Frsky_Telem/AntennaTracker"
-	@echo "... objs/AP_GyroFFT/AntennaTracker"
-	@echo "... objs/AP_HAL/AntennaTracker"
-	@echo "... objs/AP_HAL_SITL/AntennaTracker"
-	@echo "... objs/AP_IBus_Telem/AntennaTracker"
-	@echo "... objs/AP_InertialSensor/AntennaTracker"
-	@echo "... objs/AP_LandingGear/AntennaTracker"
-	@echo "... objs/AP_Logger/AntennaTracker"
-	@echo "... objs/AP_Math/AntennaTracker"
-	@echo "... objs/AP_Mission/AntennaTracker"
-	@echo "... objs/AP_NavEKF2/AntennaTracker"
-	@echo "... objs/AP_NavEKF3/AntennaTracker"
-	@echo "... objs/AP_OSD/AntennaTracker"
-	@echo "... objs/AP_Proximity/AntennaTracker"
-	@echo "... objs/AP_RCProtocol/AntennaTracker"
-	@echo "... objs/AP_RCTelemetry/AntennaTracker"
-	@echo "... objs/AP_Rally/AntennaTracker"
-	@echo "... objs/AP_Relay/AntennaTracker"
-	@echo "... objs/AP_Scheduler/AntennaTracker"
-	@echo "... objs/AP_Scripting/AntennaTracker"
-	@echo "... objs/AP_TemperatureSensor/AntennaTracker"
-	@echo "... objs/AP_Terrain/AntennaTracker"
-	@echo "... objs/AP_Vehicle/AntennaTracker"
-	@echo "... objs/Filter/AntennaTracker"
-	@echo "... objs/GCS_MAVLink/AntennaTracker"
-	@echo "... objs/RC_Channel/AntennaTracker"
-	@echo "... objs/SITL/AntennaTracker"
-	@echo "... objs/StorageManager/AntennaTracker"
+	@echo "... bin_antennatracker"
+	@echo "... objs_AC_Avoidance_AntennaTracker"
+	@echo "... objs_AC_Fence_AntennaTracker"
+	@echo "... objs_AP_ADSB_AntennaTracker"
+	@echo "... objs_AP_ADSB_sagetech-sdk"
+	@echo "... objs_AP_AHRS_AntennaTracker"
+	@echo "... objs_AP_AIS_AntennaTracker"
+	@echo "... objs_AP_Airspeed_AntennaTracker"
+	@echo "... objs_AP_Arming_AntennaTracker"
+	@echo "... objs_AP_BLHeli_AntennaTracker"
+	@echo "... objs_AP_Baro_AntennaTracker"
+	@echo "... objs_AP_BattMonitor_AntennaTracker"
+	@echo "... objs_AP_BoardConfig_AntennaTracker"
+	@echo "... objs_AP_DAL_AntennaTracker"
+	@echo "... objs_AP_ESC_Telem_AntennaTracker"
+	@echo "... objs_AP_ExternalAHRS_AntennaTracker"
+	@echo "... objs_AP_Filesystem_AntennaTracker"
+	@echo "... objs_AP_Follow_AntennaTracker"
+	@echo "... objs_AP_Frsky_Telem_AntennaTracker"
+	@echo "... objs_AP_GyroFFT_AntennaTracker"
+	@echo "... objs_AP_HAL_AntennaTracker"
+	@echo "... objs_AP_HAL_SITL_AntennaTracker"
+	@echo "... objs_AP_IBus_Telem_AntennaTracker"
+	@echo "... objs_AP_InertialSensor_AntennaTracker"
+	@echo "... objs_AP_LandingGear_AntennaTracker"
+	@echo "... objs_AP_Logger_AntennaTracker"
+	@echo "... objs_AP_Math_AntennaTracker"
+	@echo "... objs_AP_Mission_AntennaTracker"
+	@echo "... objs_AP_NavEKF2_AntennaTracker"
+	@echo "... objs_AP_NavEKF3_AntennaTracker"
+	@echo "... objs_AP_OSD_AntennaTracker"
+	@echo "... objs_AP_Proximity_AntennaTracker"
+	@echo "... objs_AP_RCProtocol_AntennaTracker"
+	@echo "... objs_AP_RCTelemetry_AntennaTracker"
+	@echo "... objs_AP_Rally_AntennaTracker"
+	@echo "... objs_AP_Relay_AntennaTracker"
+	@echo "... objs_AP_Scheduler_AntennaTracker"
+	@echo "... objs_AP_Scripting_AntennaTracker"
+	@echo "... objs_AP_TemperatureSensor_AntennaTracker"
+	@echo "... objs_AP_Terrain_AntennaTracker"
+	@echo "... objs_AP_Vehicle_AntennaTracker"
+	@echo "... objs_Filter_AntennaTracker"
+	@echo "... objs_GCS_MAVLink_AntennaTracker"
+	@echo "... objs_RC_Channel_AntennaTracker"
+	@echo "... objs_SITL_AntennaTracker"
+	@echo "... objs_StorageManager_AntennaTracker"
 	@echo "... GCS_MAVLink_Tracker.o"
 	@echo "... GCS_MAVLink_Tracker.i"
 	@echo "... GCS_MAVLink_Tracker.s"
