@@ -77,6 +77,7 @@ as shown below::
 '''
 
 
+from modules.waf.waflib import TaskGen
 from waflib.Build import BuildContext
 from waflib import Utils, Logs, Context, Errors
 import waftools
@@ -106,6 +107,80 @@ def configure(conf):
 class CMakeExporterContext(BuildContext):
 	'''export C/C++ tasks to CMakeExporter.'''
 	cmd = 'cmake_exporter'
+
+	# rip off of BuildContext.__call__ in waflib/Build.py
+	def __call__(self, *k, **kw):
+		#kw['bld'] = self
+		#ret = TaskGen.task_gen(*k, **kw)
+		#self.task_gen_cache_names = {} # reset the cache, each time
+		#self.add_to_group(ret, group=kw.get('group'))
+		#return ret
+
+		name = kw.get('name', None)
+		features = kw.get('features', [])
+		source = kw.get('source', [])
+		output_dir = kw.get('output_dir', None)
+		export_includes = kw.get('export_includes', True)
+
+		import os
+
+		namelist = ['mavlink','dronecan','ap_version','ap_config']
+		if name in namelist:
+			print('Debug: CMakeExporterContext __call__ for name: %s ' % name)
+			if name == 'dronecan':
+				shell_cmd = '/usr/bin/python3 /home/buzz2/ardupilot/modules/DroneCAN/dronecan_dsdlc/dronecan_dsdlc.py -O/home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated /home/buzz2/ardupilot/modules/DroneCAN/DSDL/ardupilot /home/buzz2/ardupilot/modules/DroneCAN/DSDL/com /home/buzz2/ardupilot/modules/DroneCAN/DSDL/cuav /home/buzz2/ardupilot/modules/DroneCAN/DSDL/dronecan /home/buzz2/ardupilot/modules/DroneCAN/DSDL/mppt /home/buzz2/ardupilot/modules/DroneCAN/DSDL/tests /home/buzz2/ardupilot/modules/DroneCAN/DSDL/uavcan'
+				print('dronecan: Running shell command: %s ' % shell_cmd)
+
+
+			if name == 'ap_version':
+				builddir = self.bldnode.abspath() #eg build/sitl
+				# shell. `mkdir -p build2/sitl`
+				shell_cmd = 'mkdir -p build2/sitl'
+				print('ap_version: Running shell command: %s ' % shell_cmd)
+				os.system(shell_cmd)
+				# write ap_version.h
+				tgt = 'build2/sitl/ap_config.h'
+				print('Debug: Writing ap_config.h to: %s ' % tgt)
+				with open(tgt, 'w') as f:
+        				print(
+'''/* WARNING! All changes made to this file will be lost! */
+
+#ifndef _AP_CONFIG_H_
+#define _AP_CONFIG_H_
+
+#define WAF_BUILD 1
+#define PYTHONDIR "/usr/lib/python3/dist-packages"
+#define PYTHONARCHDIR "/usr/lib/python3/dist-packages"
+#define __STDC_FORMAT_MACROS 1
+#define AP_SIM_ENABLED 1
+#define HAL_WITH_SPI 1
+#define HAL_WITH_RAMTRON 1
+#define AP_OPENDRONEID_ENABLED 1
+#define AP_SIGNED_FIRMWARE 0
+#define AP_NOTIFY_LP5562_BUS 2
+#define AP_NOTIFY_LP5562_ADDR 48
+#define HAL_NUM_CAN_IFACES 2
+#define HAL_CAN_WITH_SOCKETCAN 1
+#define HAVE_FEENABLEEXCEPT 1
+#define HAVE_CMATH_ISFINITE 1
+#define HAVE_CMATH_ISINF 1
+#define HAVE_CMATH_ISNAN 1
+#define NEED_CMATH_ISFINITE_STD_NAMESPACE 1
+#define NEED_CMATH_ISINF_STD_NAMESPACE 1
+#define NEED_CMATH_ISNAN_STD_NAMESPACE 1
+#define HAVE_ENDIAN_H 1
+#define HAVE_BYTESWAP_H 1
+#define HAVE_MEMRCHR 1
+#define _GNU_SOURCE 1
+
+#endif /* _AP_CONFIG_H_ */
+''', file=f)
+
+        # for k, v in ctx.env['AP_VERSION_ITEMS']:
+        #     print('#define {} {}'.format(k, v), file=f)	
+
+		# call the parent class __call__
+		return super().__call__(*k, **kw)
 
 	def execute(self):
 		'''Will be invoked when issuing the *cmake_exporter* command.'''
@@ -272,8 +347,16 @@ class CMakeExporter(object):
 			print ('ran: %s , returned: %s dir: %s' % (pre_run_1, x, pre_run_dir))
 
 			#pre_run_2 = 'todo copy.. cp ../build/sitl/ap_config.h .'  to build2 dir
+			if is_top == "." :
+				# test if ap_config.h exists in the build dir and if not copy it there.
+				ap_config_h_src = self.bld.bldnode.abspath() + '/ap_config.h'
+				ap_config_h_dst = self.bld.srcnode.abspath() + '/ap_config.h'
+				if not os.path.isfile(ap_config_h_dst):
+					import shutil
+					shutil.copyfile(ap_config_h_src, ap_config_h_dst)
+					print ('copied: %s to %s' % (ap_config_h_src, ap_config_h_dst))
 			
-			content += 'cmake_minimum_required (VERSION 2.6.3)\n'
+			content += 'cmake_minimum_required (VERSION 2.8.13)\n'
 			#content += 'project (%s)\n' % (getattr(Context.g_module, Context.APPNAME))
 			content += 'project (ArduPilot)\n'
 			content += '\n'
@@ -337,8 +420,8 @@ class CMakeExporter(object):
 		cleanedname = name.replace('/', '_')
 
 		# does name start with bin/ ? if so print debug statement
-		if name.startswith('bin/'):
-			print('Debug: Task generator name starts with bin/: %s' % name)
+		if name.startswith('bin'):
+			print('Debug: Task generator name starts with bin: %s' % name)
 
 		# check if 'name' starts with an *, as in '*.c' or similar.
 		if '*' in name:
