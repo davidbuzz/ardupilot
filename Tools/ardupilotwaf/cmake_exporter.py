@@ -278,6 +278,10 @@ class CMakeExporter(object):
 			content += 'project (ArduPilot)\n'
 			content += '\n'
 
+			#set(ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
+			content += 'set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")\n'
+			content += '\n'
+
 			env = self.bld.env
 			defines = env.DEFINES
 			if len(defines):
@@ -329,6 +333,9 @@ class CMakeExporter(object):
 		content = ''
 		name = tgen.get_name()
 
+		#CMP0037_name = name.replace('-', '_')
+		cleanedname = name.replace('/', '_')
+
 		# does name start with bin/ ? if so print debug statement
 		if name.startswith('bin/'):
 			print('Debug: Task generator name starts with bin/: %s' % name)
@@ -338,7 +345,7 @@ class CMakeExporter(object):
 			print('Warning: Skipping task generator with wildcard name: %s' % name)
 			return ''
 
-		content += 'set(%s_SOURCES' % (name)
+		content += 'set(%s_SOURCES' % (cleanedname)
 		for src in tgen.source:
 			content += '\n    %s' % (src.path_from(tgen.path).replace('\\','/'))
 		content += ')\n\n'
@@ -346,11 +353,11 @@ class CMakeExporter(object):
 		includes = self.get_includes(tgen)
 		includes.extend(tgen.env.INCLUDES)
 		if len(includes):
-			content += 'set(%s_INCLUDES' % (name)
+			content += 'set(%s_INCLUDES' % (cleanedname)
 			for include in includes:
 				content += '\n    %s' % include
 			content += ')\n\n'
-			content += 'include_directories(${%s_INCLUDES})\n' % (name)
+			content += 'include_directories(${%s_INCLUDES})\n' % (cleanedname)
 			content += '\n'
 
 		defines = self.get_genlist(tgen, 'defines')
@@ -359,13 +366,23 @@ class CMakeExporter(object):
 			content += '\n'
 
 		if set(('cprogram', 'cxxprogram')) & set(tgen.features):
-			content += 'add_executable(%s ${%s_SOURCES})\n' % (name, name)
+			content += 'add_executable(%s ${%s_SOURCES})\n' % (cleanedname, cleanedname)
 		
 		elif set(('cshlib', 'cxxshlib')) & set(tgen.features):
-			content += 'add_library(%s SHARED ${%s_SOURCES})\n' % (name, name)
+			content += 'add_library(%s SHARED ${%s_SOURCES})\n' % (cleanedname, cleanedname)
+
+			#set_target_properties(JE3D PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/library)
+			content += 'set_target_properties(%s PROPERTIES\n' % (cleanedname)
+			content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/"\n'
+			content += ')\n\n'
 
 		else: # cstlib, cxxstlib or objects
-			content += 'add_library(%s ${%s_SOURCES})\n' % (name, name)
+			content += 'add_library(%s ${%s_SOURCES})\n' % (cleanedname, cleanedname)
+
+			#set_target_properties(JE3D PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/library)
+			content += 'set_target_properties(%s PROPERTIES\n' % (cleanedname)
+			content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"\n'
+			content += ')\n\n'
 
 		#libs = getattr(tgen, 'use', []) + getattr(tgen, 'lib', [])
 		# TypeError: can only concatenate str (not "list") to str
@@ -390,7 +407,7 @@ class CMakeExporter(object):
 				if len(lib) <= 1:
 					print('Warning: Skipping linking to library with too short name: "%s" in target: %s' % (lib, name))
 					continue
-				content += 'target_link_libraries(%s %s)\n' % (name, lib)
+				content += 'target_link_libraries(%s %s)\n' % (cleanedname, lib)
 			content += '\n'
 
 		return content
