@@ -1,10 +1,10 @@
 
-set(objs/AP_AHRS/ArduSub_SOURCES
+set(objs_AP_AHRS_ArduSub_SOURCES
     ../libraries/AP_AHRS/AP_AHRS.cpp
     ../libraries/AP_AHRS/AP_AHRS_Backend.cpp
     ../libraries/AP_AHRS/AP_AHRS_DCM.cpp)
 
-set(objs/AP_AHRS/ArduSub_INCLUDES
+set(objs_AP_AHRS_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -23,22 +23,26 @@ set(objs/AP_AHRS/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_AHRS/ArduSub_INCLUDES})
+include_directories(${objs_AP_AHRS_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_AHRS/ArduSub ${objs/AP_AHRS/ArduSub_SOURCES})
+add_library(objs_AP_AHRS_ArduSub ${objs_AP_AHRS_ArduSub_SOURCES})
+set_target_properties(objs_AP_AHRS_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_AHRS/ArduSub mavlink)
-target_link_libraries(objs/AP_AHRS/ArduSub dronecan)
-target_link_libraries(objs/AP_AHRS/ArduSub littlefs)
 
-set(objs/AP_Airspeed/ArduSub_SOURCES
+target_link_libraries(objs_AP_AHRS_ArduSub mavlink)
+target_link_libraries(objs_AP_AHRS_ArduSub dronecan)
+target_link_libraries(objs_AP_AHRS_ArduSub littlefs)
+
+set(objs_AP_Airspeed_ArduSub_SOURCES
     ../libraries/AP_Airspeed/AP_Airspeed.cpp
     ../libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp
     ../libraries/AP_Airspeed/AP_Airspeed_Params.cpp)
 
-set(objs/AP_Airspeed/ArduSub_INCLUDES
+set(objs_AP_Airspeed_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -57,22 +61,26 @@ set(objs/AP_Airspeed/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Airspeed/ArduSub_INCLUDES})
+include_directories(${objs_AP_Airspeed_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Airspeed/ArduSub ${objs/AP_Airspeed/ArduSub_SOURCES})
+add_library(objs_AP_Airspeed_ArduSub ${objs_AP_Airspeed_ArduSub_SOURCES})
+set_target_properties(objs_AP_Airspeed_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Airspeed/ArduSub mavlink)
-target_link_libraries(objs/AP_Airspeed/ArduSub dronecan)
-target_link_libraries(objs/AP_Airspeed/ArduSub littlefs)
 
-set(objs/AP_Baro/ArduSub_SOURCES
+target_link_libraries(objs_AP_Airspeed_ArduSub mavlink)
+target_link_libraries(objs_AP_Airspeed_ArduSub dronecan)
+target_link_libraries(objs_AP_Airspeed_ArduSub littlefs)
+
+set(objs_AP_Baro_ArduSub_SOURCES
     ../libraries/AP_Baro/AP_Baro.cpp
     ../libraries/AP_Baro/AP_Baro_Backend.cpp
     ../libraries/AP_Baro/AP_Baro_SITL.cpp)
 
-set(objs/AP_Baro/ArduSub_INCLUDES
+set(objs_AP_Baro_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -91,21 +99,25 @@ set(objs/AP_Baro/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Baro/ArduSub_INCLUDES})
+include_directories(${objs_AP_Baro_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Baro/ArduSub ${objs/AP_Baro/ArduSub_SOURCES})
+add_library(objs_AP_Baro_ArduSub ${objs_AP_Baro_ArduSub_SOURCES})
+set_target_properties(objs_AP_Baro_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Baro/ArduSub mavlink)
-target_link_libraries(objs/AP_Baro/ArduSub dronecan)
-target_link_libraries(objs/AP_Baro/ArduSub littlefs)
 
-set(objs/AP_BattMonitor/ArduSub_SOURCES
+target_link_libraries(objs_AP_Baro_ArduSub mavlink)
+target_link_libraries(objs_AP_Baro_ArduSub dronecan)
+target_link_libraries(objs_AP_Baro_ArduSub littlefs)
+
+set(objs_AP_BattMonitor_ArduSub_SOURCES
     ../libraries/AP_BattMonitor/AP_BattMonitor.cpp
     ../libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp)
 
-set(objs/AP_BattMonitor/ArduSub_INCLUDES
+set(objs_AP_BattMonitor_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -124,20 +136,24 @@ set(objs/AP_BattMonitor/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_BattMonitor/ArduSub_INCLUDES})
+include_directories(${objs_AP_BattMonitor_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_BattMonitor/ArduSub ${objs/AP_BattMonitor/ArduSub_SOURCES})
+add_library(objs_AP_BattMonitor_ArduSub ${objs_AP_BattMonitor_ArduSub_SOURCES})
+set_target_properties(objs_AP_BattMonitor_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_BattMonitor/ArduSub mavlink)
-target_link_libraries(objs/AP_BattMonitor/ArduSub dronecan)
-target_link_libraries(objs/AP_BattMonitor/ArduSub littlefs)
 
-set(objs/AP_BoardConfig/ArduSub_SOURCES
+target_link_libraries(objs_AP_BattMonitor_ArduSub mavlink)
+target_link_libraries(objs_AP_BattMonitor_ArduSub dronecan)
+target_link_libraries(objs_AP_BattMonitor_ArduSub littlefs)
+
+set(objs_AP_BoardConfig_ArduSub_SOURCES
     ../libraries/AP_BoardConfig/AP_BoardConfig.cpp)
 
-set(objs/AP_BoardConfig/ArduSub_INCLUDES
+set(objs_AP_BoardConfig_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -156,20 +172,24 @@ set(objs/AP_BoardConfig/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_BoardConfig/ArduSub_INCLUDES})
+include_directories(${objs_AP_BoardConfig_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_BoardConfig/ArduSub ${objs/AP_BoardConfig/ArduSub_SOURCES})
+add_library(objs_AP_BoardConfig_ArduSub ${objs_AP_BoardConfig_ArduSub_SOURCES})
+set_target_properties(objs_AP_BoardConfig_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_BoardConfig/ArduSub mavlink)
-target_link_libraries(objs/AP_BoardConfig/ArduSub dronecan)
-target_link_libraries(objs/AP_BoardConfig/ArduSub littlefs)
 
-set(objs/AP_HAL/ArduSub_SOURCES
+target_link_libraries(objs_AP_BoardConfig_ArduSub mavlink)
+target_link_libraries(objs_AP_BoardConfig_ArduSub dronecan)
+target_link_libraries(objs_AP_BoardConfig_ArduSub littlefs)
+
+set(objs_AP_HAL_ArduSub_SOURCES
     ../libraries/AP_HAL/SIMState.cpp)
 
-set(objs/AP_HAL/ArduSub_INCLUDES
+set(objs_AP_HAL_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -188,23 +208,27 @@ set(objs/AP_HAL/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_HAL/ArduSub_INCLUDES})
+include_directories(${objs_AP_HAL_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_HAL/ArduSub ${objs/AP_HAL/ArduSub_SOURCES})
+add_library(objs_AP_HAL_ArduSub ${objs_AP_HAL_ArduSub_SOURCES})
+set_target_properties(objs_AP_HAL_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_HAL/ArduSub mavlink)
-target_link_libraries(objs/AP_HAL/ArduSub dronecan)
-target_link_libraries(objs/AP_HAL/ArduSub littlefs)
 
-set(objs/AP_InertialSensor/ArduSub_SOURCES
+target_link_libraries(objs_AP_HAL_ArduSub mavlink)
+target_link_libraries(objs_AP_HAL_ArduSub dronecan)
+target_link_libraries(objs_AP_HAL_ArduSub littlefs)
+
+set(objs_AP_InertialSensor_ArduSub_SOURCES
     ../libraries/AP_InertialSensor/AP_InertialSensor.cpp
     ../libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp
     ../libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp
     ../libraries/AP_InertialSensor/FastRateBuffer.cpp)
 
-set(objs/AP_InertialSensor/ArduSub_INCLUDES
+set(objs_AP_InertialSensor_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -223,20 +247,24 @@ set(objs/AP_InertialSensor/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_InertialSensor/ArduSub_INCLUDES})
+include_directories(${objs_AP_InertialSensor_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_InertialSensor/ArduSub ${objs/AP_InertialSensor/ArduSub_SOURCES})
+add_library(objs_AP_InertialSensor_ArduSub ${objs_AP_InertialSensor_ArduSub_SOURCES})
+set_target_properties(objs_AP_InertialSensor_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_InertialSensor/ArduSub mavlink)
-target_link_libraries(objs/AP_InertialSensor/ArduSub dronecan)
-target_link_libraries(objs/AP_InertialSensor/ArduSub littlefs)
 
-set(objs/AP_Math/ArduSub_SOURCES
+target_link_libraries(objs_AP_InertialSensor_ArduSub mavlink)
+target_link_libraries(objs_AP_InertialSensor_ArduSub dronecan)
+target_link_libraries(objs_AP_InertialSensor_ArduSub littlefs)
+
+set(objs_AP_Math_ArduSub_SOURCES
     ../libraries/AP_Math/SCurve.cpp)
 
-set(objs/AP_Math/ArduSub_INCLUDES
+set(objs_AP_Math_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -255,20 +283,24 @@ set(objs/AP_Math/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Math/ArduSub_INCLUDES})
+include_directories(${objs_AP_Math_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Math/ArduSub ${objs/AP_Math/ArduSub_SOURCES})
+add_library(objs_AP_Math_ArduSub ${objs_AP_Math_ArduSub_SOURCES})
+set_target_properties(objs_AP_Math_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Math/ArduSub mavlink)
-target_link_libraries(objs/AP_Math/ArduSub dronecan)
-target_link_libraries(objs/AP_Math/ArduSub littlefs)
 
-set(objs/AP_Mission/ArduSub_SOURCES
+target_link_libraries(objs_AP_Math_ArduSub mavlink)
+target_link_libraries(objs_AP_Math_ArduSub dronecan)
+target_link_libraries(objs_AP_Math_ArduSub littlefs)
+
+set(objs_AP_Mission_ArduSub_SOURCES
     ../libraries/AP_Mission/AP_Mission.cpp)
 
-set(objs/AP_Mission/ArduSub_INCLUDES
+set(objs_AP_Mission_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -287,23 +319,27 @@ set(objs/AP_Mission/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Mission/ArduSub_INCLUDES})
+include_directories(${objs_AP_Mission_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Mission/ArduSub ${objs/AP_Mission/ArduSub_SOURCES})
+add_library(objs_AP_Mission_ArduSub ${objs_AP_Mission_ArduSub_SOURCES})
+set_target_properties(objs_AP_Mission_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Mission/ArduSub mavlink)
-target_link_libraries(objs/AP_Mission/ArduSub dronecan)
-target_link_libraries(objs/AP_Mission/ArduSub littlefs)
 
-set(objs/AP_DAL/ArduSub_SOURCES
+target_link_libraries(objs_AP_Mission_ArduSub mavlink)
+target_link_libraries(objs_AP_Mission_ArduSub dronecan)
+target_link_libraries(objs_AP_Mission_ArduSub littlefs)
+
+set(objs_AP_DAL_ArduSub_SOURCES
     ../libraries/AP_DAL/AP_DAL.cpp
     ../libraries/AP_DAL/AP_DAL_Beacon.cpp
     ../libraries/AP_DAL/AP_DAL_RangeFinder.cpp
     ../libraries/AP_DAL/AP_DAL_VisualOdom.cpp)
 
-set(objs/AP_DAL/ArduSub_INCLUDES
+set(objs_AP_DAL_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -322,21 +358,25 @@ set(objs/AP_DAL/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_DAL/ArduSub_INCLUDES})
+include_directories(${objs_AP_DAL_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_DAL/ArduSub ${objs/AP_DAL/ArduSub_SOURCES})
+add_library(objs_AP_DAL_ArduSub ${objs_AP_DAL_ArduSub_SOURCES})
+set_target_properties(objs_AP_DAL_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_DAL/ArduSub mavlink)
-target_link_libraries(objs/AP_DAL/ArduSub dronecan)
-target_link_libraries(objs/AP_DAL/ArduSub littlefs)
 
-set(objs/AP_NavEKF2/ArduSub_SOURCES
+target_link_libraries(objs_AP_DAL_ArduSub mavlink)
+target_link_libraries(objs_AP_DAL_ArduSub dronecan)
+target_link_libraries(objs_AP_DAL_ArduSub littlefs)
+
+set(objs_AP_NavEKF2_ArduSub_SOURCES
     ../libraries/AP_NavEKF2/AP_NavEKF2.cpp
     ../libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp)
 
-set(objs/AP_NavEKF2/ArduSub_INCLUDES
+set(objs_AP_NavEKF2_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -355,17 +395,21 @@ set(objs/AP_NavEKF2/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_NavEKF2/ArduSub_INCLUDES})
+include_directories(${objs_AP_NavEKF2_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_NavEKF2/ArduSub ${objs/AP_NavEKF2/ArduSub_SOURCES})
+add_library(objs_AP_NavEKF2_ArduSub ${objs_AP_NavEKF2_ArduSub_SOURCES})
+set_target_properties(objs_AP_NavEKF2_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_NavEKF2/ArduSub mavlink)
-target_link_libraries(objs/AP_NavEKF2/ArduSub dronecan)
-target_link_libraries(objs/AP_NavEKF2/ArduSub littlefs)
 
-set(objs/AP_NavEKF3/ArduSub_SOURCES
+target_link_libraries(objs_AP_NavEKF2_ArduSub mavlink)
+target_link_libraries(objs_AP_NavEKF2_ArduSub dronecan)
+target_link_libraries(objs_AP_NavEKF2_ArduSub littlefs)
+
+set(objs_AP_NavEKF3_ArduSub_SOURCES
     ../libraries/AP_NavEKF3/AP_NavEKF3.cpp
     ../libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp
     ../libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp
@@ -380,7 +424,7 @@ set(objs/AP_NavEKF3/ArduSub_SOURCES
     ../libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp
     ../libraries/AP_NavEKF3/AP_NavEKF3_core.cpp)
 
-set(objs/AP_NavEKF3/ArduSub_INCLUDES
+set(objs_AP_NavEKF3_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -399,20 +443,24 @@ set(objs/AP_NavEKF3/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_NavEKF3/ArduSub_INCLUDES})
+include_directories(${objs_AP_NavEKF3_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_NavEKF3/ArduSub ${objs/AP_NavEKF3/ArduSub_SOURCES})
+add_library(objs_AP_NavEKF3_ArduSub ${objs_AP_NavEKF3_ArduSub_SOURCES})
+set_target_properties(objs_AP_NavEKF3_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_NavEKF3/ArduSub mavlink)
-target_link_libraries(objs/AP_NavEKF3/ArduSub dronecan)
-target_link_libraries(objs/AP_NavEKF3/ArduSub littlefs)
 
-set(objs/AP_Rally/ArduSub_SOURCES
+target_link_libraries(objs_AP_NavEKF3_ArduSub mavlink)
+target_link_libraries(objs_AP_NavEKF3_ArduSub dronecan)
+target_link_libraries(objs_AP_NavEKF3_ArduSub littlefs)
+
+set(objs_AP_Rally_ArduSub_SOURCES
     ../libraries/AP_Rally/AP_Rally.cpp)
 
-set(objs/AP_Rally/ArduSub_INCLUDES
+set(objs_AP_Rally_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -431,20 +479,24 @@ set(objs/AP_Rally/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Rally/ArduSub_INCLUDES})
+include_directories(${objs_AP_Rally_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Rally/ArduSub ${objs/AP_Rally/ArduSub_SOURCES})
+add_library(objs_AP_Rally_ArduSub ${objs_AP_Rally_ArduSub_SOURCES})
+set_target_properties(objs_AP_Rally_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Rally/ArduSub mavlink)
-target_link_libraries(objs/AP_Rally/ArduSub dronecan)
-target_link_libraries(objs/AP_Rally/ArduSub littlefs)
 
-set(objs/AP_Scheduler/ArduSub_SOURCES
+target_link_libraries(objs_AP_Rally_ArduSub mavlink)
+target_link_libraries(objs_AP_Rally_ArduSub dronecan)
+target_link_libraries(objs_AP_Rally_ArduSub littlefs)
+
+set(objs_AP_Scheduler_ArduSub_SOURCES
     ../libraries/AP_Scheduler/AP_Scheduler.cpp)
 
-set(objs/AP_Scheduler/ArduSub_INCLUDES
+set(objs_AP_Scheduler_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -463,20 +515,24 @@ set(objs/AP_Scheduler/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Scheduler/ArduSub_INCLUDES})
+include_directories(${objs_AP_Scheduler_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Scheduler/ArduSub ${objs/AP_Scheduler/ArduSub_SOURCES})
+add_library(objs_AP_Scheduler_ArduSub ${objs_AP_Scheduler_ArduSub_SOURCES})
+set_target_properties(objs_AP_Scheduler_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Scheduler/ArduSub mavlink)
-target_link_libraries(objs/AP_Scheduler/ArduSub dronecan)
-target_link_libraries(objs/AP_Scheduler/ArduSub littlefs)
 
-set(objs/AP_Terrain/ArduSub_SOURCES
+target_link_libraries(objs_AP_Scheduler_ArduSub mavlink)
+target_link_libraries(objs_AP_Scheduler_ArduSub dronecan)
+target_link_libraries(objs_AP_Scheduler_ArduSub littlefs)
+
+set(objs_AP_Terrain_ArduSub_SOURCES
     ../libraries/AP_Terrain/AP_Terrain.cpp)
 
-set(objs/AP_Terrain/ArduSub_INCLUDES
+set(objs_AP_Terrain_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -495,20 +551,24 @@ set(objs/AP_Terrain/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Terrain/ArduSub_INCLUDES})
+include_directories(${objs_AP_Terrain_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Terrain/ArduSub ${objs/AP_Terrain/ArduSub_SOURCES})
+add_library(objs_AP_Terrain_ArduSub ${objs_AP_Terrain_ArduSub_SOURCES})
+set_target_properties(objs_AP_Terrain_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Terrain/ArduSub mavlink)
-target_link_libraries(objs/AP_Terrain/ArduSub dronecan)
-target_link_libraries(objs/AP_Terrain/ArduSub littlefs)
 
-set(objs/AP_Vehicle/ArduSub_SOURCES
+target_link_libraries(objs_AP_Terrain_ArduSub mavlink)
+target_link_libraries(objs_AP_Terrain_ArduSub dronecan)
+target_link_libraries(objs_AP_Terrain_ArduSub littlefs)
+
+set(objs_AP_Vehicle_ArduSub_SOURCES
     ../libraries/AP_Vehicle/AP_Vehicle.cpp)
 
-set(objs/AP_Vehicle/ArduSub_INCLUDES
+set(objs_AP_Vehicle_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -527,23 +587,27 @@ set(objs/AP_Vehicle/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Vehicle/ArduSub_INCLUDES})
+include_directories(${objs_AP_Vehicle_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Vehicle/ArduSub ${objs/AP_Vehicle/ArduSub_SOURCES})
+add_library(objs_AP_Vehicle_ArduSub ${objs_AP_Vehicle_ArduSub_SOURCES})
+set_target_properties(objs_AP_Vehicle_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Vehicle/ArduSub mavlink)
-target_link_libraries(objs/AP_Vehicle/ArduSub dronecan)
-target_link_libraries(objs/AP_Vehicle/ArduSub littlefs)
 
-set(objs/AP_Logger/ArduSub_SOURCES
+target_link_libraries(objs_AP_Vehicle_ArduSub mavlink)
+target_link_libraries(objs_AP_Vehicle_ArduSub dronecan)
+target_link_libraries(objs_AP_Vehicle_ArduSub littlefs)
+
+set(objs_AP_Logger_ArduSub_SOURCES
     ../libraries/AP_Logger/AP_Logger.cpp
     ../libraries/AP_Logger/AP_Logger_Backend.cpp
     ../libraries/AP_Logger/AP_Logger_File.cpp
     ../libraries/AP_Logger/LoggerMessageWriter.cpp)
 
-set(objs/AP_Logger/ArduSub_INCLUDES
+set(objs_AP_Logger_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -562,20 +626,24 @@ set(objs/AP_Logger/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Logger/ArduSub_INCLUDES})
+include_directories(${objs_AP_Logger_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Logger/ArduSub ${objs/AP_Logger/ArduSub_SOURCES})
+add_library(objs_AP_Logger_ArduSub ${objs_AP_Logger_ArduSub_SOURCES})
+set_target_properties(objs_AP_Logger_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Logger/ArduSub mavlink)
-target_link_libraries(objs/AP_Logger/ArduSub dronecan)
-target_link_libraries(objs/AP_Logger/ArduSub littlefs)
 
-set(objs/Filter/ArduSub_SOURCES
+target_link_libraries(objs_AP_Logger_ArduSub mavlink)
+target_link_libraries(objs_AP_Logger_ArduSub dronecan)
+target_link_libraries(objs_AP_Logger_ArduSub littlefs)
+
+set(objs_Filter_ArduSub_SOURCES
     ../libraries/Filter/HarmonicNotchFilter.cpp)
 
-set(objs/Filter/ArduSub_INCLUDES
+set(objs_Filter_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -594,24 +662,28 @@ set(objs/Filter/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/Filter/ArduSub_INCLUDES})
+include_directories(${objs_Filter_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/Filter/ArduSub ${objs/Filter/ArduSub_SOURCES})
+add_library(objs_Filter_ArduSub ${objs_Filter_ArduSub_SOURCES})
+set_target_properties(objs_Filter_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/Filter/ArduSub mavlink)
-target_link_libraries(objs/Filter/ArduSub dronecan)
-target_link_libraries(objs/Filter/ArduSub littlefs)
 
-set(objs/GCS_MAVLink/ArduSub_SOURCES
+target_link_libraries(objs_Filter_ArduSub mavlink)
+target_link_libraries(objs_Filter_ArduSub dronecan)
+target_link_libraries(objs_Filter_ArduSub littlefs)
+
+set(objs_GCS_MAVLink_ArduSub_SOURCES
     ../libraries/GCS_MAVLink/GCS.cpp
     ../libraries/GCS_MAVLink/GCS_Common.cpp
     ../libraries/GCS_MAVLink/GCS_Dummy.cpp
     ../libraries/GCS_MAVLink/GCS_Fence.cpp
     ../libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp)
 
-set(objs/GCS_MAVLink/ArduSub_INCLUDES
+set(objs_GCS_MAVLink_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -630,20 +702,24 @@ set(objs/GCS_MAVLink/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/GCS_MAVLink/ArduSub_INCLUDES})
+include_directories(${objs_GCS_MAVLink_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/GCS_MAVLink/ArduSub ${objs/GCS_MAVLink/ArduSub_SOURCES})
+add_library(objs_GCS_MAVLink_ArduSub ${objs_GCS_MAVLink_ArduSub_SOURCES})
+set_target_properties(objs_GCS_MAVLink_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/GCS_MAVLink/ArduSub mavlink)
-target_link_libraries(objs/GCS_MAVLink/ArduSub dronecan)
-target_link_libraries(objs/GCS_MAVLink/ArduSub littlefs)
 
-set(objs/RC_Channel/ArduSub_SOURCES
+target_link_libraries(objs_GCS_MAVLink_ArduSub mavlink)
+target_link_libraries(objs_GCS_MAVLink_ArduSub dronecan)
+target_link_libraries(objs_GCS_MAVLink_ArduSub littlefs)
+
+set(objs_RC_Channel_ArduSub_SOURCES
     ../libraries/RC_Channel/RC_Channel.cpp)
 
-set(objs/RC_Channel/ArduSub_INCLUDES
+set(objs_RC_Channel_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -662,20 +738,24 @@ set(objs/RC_Channel/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/RC_Channel/ArduSub_INCLUDES})
+include_directories(${objs_RC_Channel_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/RC_Channel/ArduSub ${objs/RC_Channel/ArduSub_SOURCES})
+add_library(objs_RC_Channel_ArduSub ${objs_RC_Channel_ArduSub_SOURCES})
+set_target_properties(objs_RC_Channel_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/RC_Channel/ArduSub mavlink)
-target_link_libraries(objs/RC_Channel/ArduSub dronecan)
-target_link_libraries(objs/RC_Channel/ArduSub littlefs)
 
-set(objs/StorageManager/ArduSub_SOURCES
+target_link_libraries(objs_RC_Channel_ArduSub mavlink)
+target_link_libraries(objs_RC_Channel_ArduSub dronecan)
+target_link_libraries(objs_RC_Channel_ArduSub littlefs)
+
+set(objs_StorageManager_ArduSub_SOURCES
     ../libraries/StorageManager/StorageManager.cpp)
 
-set(objs/StorageManager/ArduSub_INCLUDES
+set(objs_StorageManager_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -694,20 +774,24 @@ set(objs/StorageManager/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/StorageManager/ArduSub_INCLUDES})
+include_directories(${objs_StorageManager_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/StorageManager/ArduSub ${objs/StorageManager/ArduSub_SOURCES})
+add_library(objs_StorageManager_ArduSub ${objs_StorageManager_ArduSub_SOURCES})
+set_target_properties(objs_StorageManager_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/StorageManager/ArduSub mavlink)
-target_link_libraries(objs/StorageManager/ArduSub dronecan)
-target_link_libraries(objs/StorageManager/ArduSub littlefs)
 
-set(objs/AP_Frsky_Telem/ArduSub_SOURCES
+target_link_libraries(objs_StorageManager_ArduSub mavlink)
+target_link_libraries(objs_StorageManager_ArduSub dronecan)
+target_link_libraries(objs_StorageManager_ArduSub littlefs)
+
+set(objs_AP_Frsky_Telem_ArduSub_SOURCES
     ../libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp)
 
-set(objs/AP_Frsky_Telem/ArduSub_INCLUDES
+set(objs_AP_Frsky_Telem_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -726,20 +810,24 @@ set(objs/AP_Frsky_Telem/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Frsky_Telem/ArduSub_INCLUDES})
+include_directories(${objs_AP_Frsky_Telem_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Frsky_Telem/ArduSub ${objs/AP_Frsky_Telem/ArduSub_SOURCES})
+add_library(objs_AP_Frsky_Telem_ArduSub ${objs_AP_Frsky_Telem_ArduSub_SOURCES})
+set_target_properties(objs_AP_Frsky_Telem_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Frsky_Telem/ArduSub mavlink)
-target_link_libraries(objs/AP_Frsky_Telem/ArduSub dronecan)
-target_link_libraries(objs/AP_Frsky_Telem/ArduSub littlefs)
 
-set(objs/AP_IBus_Telem/ArduSub_SOURCES
+target_link_libraries(objs_AP_Frsky_Telem_ArduSub mavlink)
+target_link_libraries(objs_AP_Frsky_Telem_ArduSub dronecan)
+target_link_libraries(objs_AP_Frsky_Telem_ArduSub littlefs)
+
+set(objs_AP_IBus_Telem_ArduSub_SOURCES
     ../libraries/AP_IBus_Telem/AP_IBus_Telem.cpp)
 
-set(objs/AP_IBus_Telem/ArduSub_INCLUDES
+set(objs_AP_IBus_Telem_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -758,20 +846,24 @@ set(objs/AP_IBus_Telem/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_IBus_Telem/ArduSub_INCLUDES})
+include_directories(${objs_AP_IBus_Telem_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_IBus_Telem/ArduSub ${objs/AP_IBus_Telem/ArduSub_SOURCES})
+add_library(objs_AP_IBus_Telem_ArduSub ${objs_AP_IBus_Telem_ArduSub_SOURCES})
+set_target_properties(objs_AP_IBus_Telem_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_IBus_Telem/ArduSub mavlink)
-target_link_libraries(objs/AP_IBus_Telem/ArduSub dronecan)
-target_link_libraries(objs/AP_IBus_Telem/ArduSub littlefs)
 
-set(objs/AP_Relay/ArduSub_SOURCES
+target_link_libraries(objs_AP_IBus_Telem_ArduSub mavlink)
+target_link_libraries(objs_AP_IBus_Telem_ArduSub dronecan)
+target_link_libraries(objs_AP_IBus_Telem_ArduSub littlefs)
+
+set(objs_AP_Relay_ArduSub_SOURCES
     ../libraries/AP_Relay/AP_Relay.cpp)
 
-set(objs/AP_Relay/ArduSub_INCLUDES
+set(objs_AP_Relay_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -790,17 +882,21 @@ set(objs/AP_Relay/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Relay/ArduSub_INCLUDES})
+include_directories(${objs_AP_Relay_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Relay/ArduSub ${objs/AP_Relay/ArduSub_SOURCES})
+add_library(objs_AP_Relay_ArduSub ${objs_AP_Relay_ArduSub_SOURCES})
+set_target_properties(objs_AP_Relay_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Relay/ArduSub mavlink)
-target_link_libraries(objs/AP_Relay/ArduSub dronecan)
-target_link_libraries(objs/AP_Relay/ArduSub littlefs)
 
-set(objs/AP_RCProtocol/ArduSub_SOURCES
+target_link_libraries(objs_AP_Relay_ArduSub mavlink)
+target_link_libraries(objs_AP_Relay_ArduSub dronecan)
+target_link_libraries(objs_AP_Relay_ArduSub littlefs)
+
+set(objs_AP_RCProtocol_ArduSub_SOURCES
     ../libraries/AP_RCProtocol/AP_RCProtocol.cpp
     ../libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp
     ../libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp
@@ -809,7 +905,7 @@ set(objs/AP_RCProtocol/ArduSub_SOURCES
     ../libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp
     ../libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp)
 
-set(objs/AP_RCProtocol/ArduSub_INCLUDES
+set(objs_AP_RCProtocol_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -828,20 +924,24 @@ set(objs/AP_RCProtocol/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_RCProtocol/ArduSub_INCLUDES})
+include_directories(${objs_AP_RCProtocol_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_RCProtocol/ArduSub ${objs/AP_RCProtocol/ArduSub_SOURCES})
+add_library(objs_AP_RCProtocol_ArduSub ${objs_AP_RCProtocol_ArduSub_SOURCES})
+set_target_properties(objs_AP_RCProtocol_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_RCProtocol/ArduSub mavlink)
-target_link_libraries(objs/AP_RCProtocol/ArduSub dronecan)
-target_link_libraries(objs/AP_RCProtocol/ArduSub littlefs)
 
-set(objs/AP_BLHeli/ArduSub_SOURCES
+target_link_libraries(objs_AP_RCProtocol_ArduSub mavlink)
+target_link_libraries(objs_AP_RCProtocol_ArduSub dronecan)
+target_link_libraries(objs_AP_RCProtocol_ArduSub littlefs)
+
+set(objs_AP_BLHeli_ArduSub_SOURCES
     ../libraries/AP_BLHeli/AP_BLHeli.cpp)
 
-set(objs/AP_BLHeli/ArduSub_INCLUDES
+set(objs_AP_BLHeli_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -860,20 +960,24 @@ set(objs/AP_BLHeli/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_BLHeli/ArduSub_INCLUDES})
+include_directories(${objs_AP_BLHeli_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_BLHeli/ArduSub ${objs/AP_BLHeli/ArduSub_SOURCES})
+add_library(objs_AP_BLHeli_ArduSub ${objs_AP_BLHeli_ArduSub_SOURCES})
+set_target_properties(objs_AP_BLHeli_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_BLHeli/ArduSub mavlink)
-target_link_libraries(objs/AP_BLHeli/ArduSub dronecan)
-target_link_libraries(objs/AP_BLHeli/ArduSub littlefs)
 
-set(objs/AP_Proximity/ArduSub_SOURCES
+target_link_libraries(objs_AP_BLHeli_ArduSub mavlink)
+target_link_libraries(objs_AP_BLHeli_ArduSub dronecan)
+target_link_libraries(objs_AP_BLHeli_ArduSub littlefs)
+
+set(objs_AP_Proximity_ArduSub_SOURCES
     ../libraries/AP_Proximity/AP_Proximity_Utils.cpp)
 
-set(objs/AP_Proximity/ArduSub_INCLUDES
+set(objs_AP_Proximity_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -892,21 +996,25 @@ set(objs/AP_Proximity/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Proximity/ArduSub_INCLUDES})
+include_directories(${objs_AP_Proximity_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Proximity/ArduSub ${objs/AP_Proximity/ArduSub_SOURCES})
+add_library(objs_AP_Proximity_ArduSub ${objs_AP_Proximity_ArduSub_SOURCES})
+set_target_properties(objs_AP_Proximity_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Proximity/ArduSub mavlink)
-target_link_libraries(objs/AP_Proximity/ArduSub dronecan)
-target_link_libraries(objs/AP_Proximity/ArduSub littlefs)
 
-set(objs/AC_Fence/ArduSub_SOURCES
+target_link_libraries(objs_AP_Proximity_ArduSub mavlink)
+target_link_libraries(objs_AP_Proximity_ArduSub dronecan)
+target_link_libraries(objs_AP_Proximity_ArduSub littlefs)
+
+set(objs_AC_Fence_ArduSub_SOURCES
     ../libraries/AC_Fence/AC_Fence.cpp
     ../libraries/AC_Fence/AC_PolyFence_loader.cpp)
 
-set(objs/AC_Fence/ArduSub_INCLUDES
+set(objs_AC_Fence_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -925,22 +1033,26 @@ set(objs/AC_Fence/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AC_Fence/ArduSub_INCLUDES})
+include_directories(${objs_AC_Fence_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AC_Fence/ArduSub ${objs/AC_Fence/ArduSub_SOURCES})
+add_library(objs_AC_Fence_ArduSub ${objs_AC_Fence_ArduSub_SOURCES})
+set_target_properties(objs_AC_Fence_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AC_Fence/ArduSub mavlink)
-target_link_libraries(objs/AC_Fence/ArduSub dronecan)
-target_link_libraries(objs/AC_Fence/ArduSub littlefs)
 
-set(objs/AC_Avoidance/ArduSub_SOURCES
+target_link_libraries(objs_AC_Fence_ArduSub mavlink)
+target_link_libraries(objs_AC_Fence_ArduSub dronecan)
+target_link_libraries(objs_AC_Fence_ArduSub littlefs)
+
+set(objs_AC_Avoidance_ArduSub_SOURCES
     ../libraries/AC_Avoidance/AC_Avoid.cpp
     ../libraries/AC_Avoidance/AP_OABendyRuler.cpp
     ../libraries/AC_Avoidance/AP_OADatabase.cpp)
 
-set(objs/AC_Avoidance/ArduSub_INCLUDES
+set(objs_AC_Avoidance_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -959,20 +1071,24 @@ set(objs/AC_Avoidance/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AC_Avoidance/ArduSub_INCLUDES})
+include_directories(${objs_AC_Avoidance_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AC_Avoidance/ArduSub ${objs/AC_Avoidance/ArduSub_SOURCES})
+add_library(objs_AC_Avoidance_ArduSub ${objs_AC_Avoidance_ArduSub_SOURCES})
+set_target_properties(objs_AC_Avoidance_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AC_Avoidance/ArduSub mavlink)
-target_link_libraries(objs/AC_Avoidance/ArduSub dronecan)
-target_link_libraries(objs/AC_Avoidance/ArduSub littlefs)
 
-set(objs/AP_LandingGear/ArduSub_SOURCES
+target_link_libraries(objs_AC_Avoidance_ArduSub mavlink)
+target_link_libraries(objs_AC_Avoidance_ArduSub dronecan)
+target_link_libraries(objs_AC_Avoidance_ArduSub littlefs)
+
+set(objs_AP_LandingGear_ArduSub_SOURCES
     ../libraries/AP_LandingGear/AP_LandingGear.cpp)
 
-set(objs/AP_LandingGear/ArduSub_INCLUDES
+set(objs_AP_LandingGear_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -991,22 +1107,26 @@ set(objs/AP_LandingGear/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_LandingGear/ArduSub_INCLUDES})
+include_directories(${objs_AP_LandingGear_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_LandingGear/ArduSub ${objs/AP_LandingGear/ArduSub_SOURCES})
+add_library(objs_AP_LandingGear_ArduSub ${objs_AP_LandingGear_ArduSub_SOURCES})
+set_target_properties(objs_AP_LandingGear_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_LandingGear/ArduSub mavlink)
-target_link_libraries(objs/AP_LandingGear/ArduSub dronecan)
-target_link_libraries(objs/AP_LandingGear/ArduSub littlefs)
 
-set(objs/AP_OSD/ArduSub_SOURCES
+target_link_libraries(objs_AP_LandingGear_ArduSub mavlink)
+target_link_libraries(objs_AP_LandingGear_ArduSub dronecan)
+target_link_libraries(objs_AP_LandingGear_ArduSub littlefs)
+
+set(objs_AP_OSD_ArduSub_SOURCES
     ../libraries/AP_OSD/AP_OSD_ParamScreen.cpp
     ../libraries/AP_OSD/AP_OSD_ParamSetting.cpp
     ../libraries/AP_OSD/AP_OSD_Screen.cpp)
 
-set(objs/AP_OSD/ArduSub_INCLUDES
+set(objs_AP_OSD_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1025,20 +1145,24 @@ set(objs/AP_OSD/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_OSD/ArduSub_INCLUDES})
+include_directories(${objs_AP_OSD_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_OSD/ArduSub ${objs/AP_OSD/ArduSub_SOURCES})
+add_library(objs_AP_OSD_ArduSub ${objs_AP_OSD_ArduSub_SOURCES})
+set_target_properties(objs_AP_OSD_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_OSD/ArduSub mavlink)
-target_link_libraries(objs/AP_OSD/ArduSub dronecan)
-target_link_libraries(objs/AP_OSD/ArduSub littlefs)
 
-set(objs/AP_Filesystem/ArduSub_SOURCES
+target_link_libraries(objs_AP_OSD_ArduSub mavlink)
+target_link_libraries(objs_AP_OSD_ArduSub dronecan)
+target_link_libraries(objs_AP_OSD_ArduSub littlefs)
+
+set(objs_AP_Filesystem_ArduSub_SOURCES
     ../libraries/AP_Filesystem/AP_Filesystem_posix.cpp)
 
-set(objs/AP_Filesystem/ArduSub_INCLUDES
+set(objs_AP_Filesystem_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1057,21 +1181,25 @@ set(objs/AP_Filesystem/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Filesystem/ArduSub_INCLUDES})
+include_directories(${objs_AP_Filesystem_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Filesystem/ArduSub ${objs/AP_Filesystem/ArduSub_SOURCES})
+add_library(objs_AP_Filesystem_ArduSub ${objs_AP_Filesystem_ArduSub_SOURCES})
+set_target_properties(objs_AP_Filesystem_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Filesystem/ArduSub mavlink)
-target_link_libraries(objs/AP_Filesystem/ArduSub dronecan)
-target_link_libraries(objs/AP_Filesystem/ArduSub littlefs)
 
-set(objs/AP_ADSB/ArduSub_SOURCES
+target_link_libraries(objs_AP_Filesystem_ArduSub mavlink)
+target_link_libraries(objs_AP_Filesystem_ArduSub dronecan)
+target_link_libraries(objs_AP_Filesystem_ArduSub littlefs)
+
+set(objs_AP_ADSB_ArduSub_SOURCES
     ../libraries/AP_ADSB/AP_ADSB.cpp
     ../libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp)
 
-set(objs/AP_ADSB/ArduSub_INCLUDES
+set(objs_AP_ADSB_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1090,20 +1218,24 @@ set(objs/AP_ADSB/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_ADSB/ArduSub_INCLUDES})
+include_directories(${objs_AP_ADSB_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_ADSB/ArduSub ${objs/AP_ADSB/ArduSub_SOURCES})
+add_library(objs_AP_ADSB_ArduSub ${objs_AP_ADSB_ArduSub_SOURCES})
+set_target_properties(objs_AP_ADSB_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_ADSB/ArduSub mavlink)
-target_link_libraries(objs/AP_ADSB/ArduSub dronecan)
-target_link_libraries(objs/AP_ADSB/ArduSub littlefs)
 
-set(objs/AP_ESC_Telem/ArduSub_SOURCES
+target_link_libraries(objs_AP_ADSB_ArduSub mavlink)
+target_link_libraries(objs_AP_ADSB_ArduSub dronecan)
+target_link_libraries(objs_AP_ADSB_ArduSub littlefs)
+
+set(objs_AP_ESC_Telem_ArduSub_SOURCES
     ../libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp)
 
-set(objs/AP_ESC_Telem/ArduSub_INCLUDES
+set(objs_AP_ESC_Telem_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1122,20 +1254,24 @@ set(objs/AP_ESC_Telem/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_ESC_Telem/ArduSub_INCLUDES})
+include_directories(${objs_AP_ESC_Telem_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_ESC_Telem/ArduSub ${objs/AP_ESC_Telem/ArduSub_SOURCES})
+add_library(objs_AP_ESC_Telem_ArduSub ${objs_AP_ESC_Telem_ArduSub_SOURCES})
+set_target_properties(objs_AP_ESC_Telem_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_ESC_Telem/ArduSub mavlink)
-target_link_libraries(objs/AP_ESC_Telem/ArduSub dronecan)
-target_link_libraries(objs/AP_ESC_Telem/ArduSub littlefs)
 
-set(objs/AP_GyroFFT/ArduSub_SOURCES
+target_link_libraries(objs_AP_ESC_Telem_ArduSub mavlink)
+target_link_libraries(objs_AP_ESC_Telem_ArduSub dronecan)
+target_link_libraries(objs_AP_ESC_Telem_ArduSub littlefs)
+
+set(objs_AP_GyroFFT_ArduSub_SOURCES
     ../libraries/AP_GyroFFT/AP_GyroFFT.cpp)
 
-set(objs/AP_GyroFFT/ArduSub_INCLUDES
+set(objs_AP_GyroFFT_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1154,21 +1290,25 @@ set(objs/AP_GyroFFT/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_GyroFFT/ArduSub_INCLUDES})
+include_directories(${objs_AP_GyroFFT_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_GyroFFT/ArduSub ${objs/AP_GyroFFT/ArduSub_SOURCES})
+add_library(objs_AP_GyroFFT_ArduSub ${objs_AP_GyroFFT_ArduSub_SOURCES})
+set_target_properties(objs_AP_GyroFFT_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_GyroFFT/ArduSub mavlink)
-target_link_libraries(objs/AP_GyroFFT/ArduSub dronecan)
-target_link_libraries(objs/AP_GyroFFT/ArduSub littlefs)
 
-set(objs/AP_RCTelemetry/ArduSub_SOURCES
+target_link_libraries(objs_AP_GyroFFT_ArduSub mavlink)
+target_link_libraries(objs_AP_GyroFFT_ArduSub dronecan)
+target_link_libraries(objs_AP_GyroFFT_ArduSub littlefs)
+
+set(objs_AP_RCTelemetry_ArduSub_SOURCES
     ../libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp
     ../libraries/AP_RCTelemetry/AP_RCTelemetry.cpp)
 
-set(objs/AP_RCTelemetry/ArduSub_INCLUDES
+set(objs_AP_RCTelemetry_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1187,21 +1327,25 @@ set(objs/AP_RCTelemetry/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_RCTelemetry/ArduSub_INCLUDES})
+include_directories(${objs_AP_RCTelemetry_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_RCTelemetry/ArduSub ${objs/AP_RCTelemetry/ArduSub_SOURCES})
+add_library(objs_AP_RCTelemetry_ArduSub ${objs_AP_RCTelemetry_ArduSub_SOURCES})
+set_target_properties(objs_AP_RCTelemetry_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_RCTelemetry/ArduSub mavlink)
-target_link_libraries(objs/AP_RCTelemetry/ArduSub dronecan)
-target_link_libraries(objs/AP_RCTelemetry/ArduSub littlefs)
 
-set(objs/AP_ExternalAHRS/ArduSub_SOURCES
+target_link_libraries(objs_AP_RCTelemetry_ArduSub mavlink)
+target_link_libraries(objs_AP_RCTelemetry_ArduSub dronecan)
+target_link_libraries(objs_AP_RCTelemetry_ArduSub littlefs)
+
+set(objs_AP_ExternalAHRS_ArduSub_SOURCES
     ../libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp
     ../libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp)
 
-set(objs/AP_ExternalAHRS/ArduSub_INCLUDES
+set(objs_AP_ExternalAHRS_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1220,20 +1364,24 @@ set(objs/AP_ExternalAHRS/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_ExternalAHRS/ArduSub_INCLUDES})
+include_directories(${objs_AP_ExternalAHRS_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_ExternalAHRS/ArduSub ${objs/AP_ExternalAHRS/ArduSub_SOURCES})
+add_library(objs_AP_ExternalAHRS_ArduSub ${objs_AP_ExternalAHRS_ArduSub_SOURCES})
+set_target_properties(objs_AP_ExternalAHRS_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_ExternalAHRS/ArduSub mavlink)
-target_link_libraries(objs/AP_ExternalAHRS/ArduSub dronecan)
-target_link_libraries(objs/AP_ExternalAHRS/ArduSub littlefs)
 
-set(objs/AP_TemperatureSensor/ArduSub_SOURCES
+target_link_libraries(objs_AP_ExternalAHRS_ArduSub mavlink)
+target_link_libraries(objs_AP_ExternalAHRS_ArduSub dronecan)
+target_link_libraries(objs_AP_ExternalAHRS_ArduSub littlefs)
+
+set(objs_AP_TemperatureSensor_ArduSub_SOURCES
     ../libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp)
 
-set(objs/AP_TemperatureSensor/ArduSub_INCLUDES
+set(objs_AP_TemperatureSensor_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1252,20 +1400,24 @@ set(objs/AP_TemperatureSensor/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_TemperatureSensor/ArduSub_INCLUDES})
+include_directories(${objs_AP_TemperatureSensor_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_TemperatureSensor/ArduSub ${objs/AP_TemperatureSensor/ArduSub_SOURCES})
+add_library(objs_AP_TemperatureSensor_ArduSub ${objs_AP_TemperatureSensor_ArduSub_SOURCES})
+set_target_properties(objs_AP_TemperatureSensor_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_TemperatureSensor/ArduSub mavlink)
-target_link_libraries(objs/AP_TemperatureSensor/ArduSub dronecan)
-target_link_libraries(objs/AP_TemperatureSensor/ArduSub littlefs)
 
-set(objs/AP_AIS/ArduSub_SOURCES
+target_link_libraries(objs_AP_TemperatureSensor_ArduSub mavlink)
+target_link_libraries(objs_AP_TemperatureSensor_ArduSub dronecan)
+target_link_libraries(objs_AP_TemperatureSensor_ArduSub littlefs)
+
+set(objs_AP_AIS_ArduSub_SOURCES
     ../libraries/AP_AIS/AP_AIS.cpp)
 
-set(objs/AP_AIS/ArduSub_INCLUDES
+set(objs_AP_AIS_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1284,20 +1436,24 @@ set(objs/AP_AIS/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_AIS/ArduSub_INCLUDES})
+include_directories(${objs_AP_AIS_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_AIS/ArduSub ${objs/AP_AIS/ArduSub_SOURCES})
+add_library(objs_AP_AIS_ArduSub ${objs_AP_AIS_ArduSub_SOURCES})
+set_target_properties(objs_AP_AIS_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_AIS/ArduSub mavlink)
-target_link_libraries(objs/AP_AIS/ArduSub dronecan)
-target_link_libraries(objs/AP_AIS/ArduSub littlefs)
 
-set(objs/AP_Arming/ArduSub_SOURCES
+target_link_libraries(objs_AP_AIS_ArduSub mavlink)
+target_link_libraries(objs_AP_AIS_ArduSub dronecan)
+target_link_libraries(objs_AP_AIS_ArduSub littlefs)
+
+set(objs_AP_Arming_ArduSub_SOURCES
     ../libraries/AP_Arming/AP_Arming.cpp)
 
-set(objs/AP_Arming/ArduSub_INCLUDES
+set(objs_AP_Arming_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1316,20 +1472,24 @@ set(objs/AP_Arming/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Arming/ArduSub_INCLUDES})
+include_directories(${objs_AP_Arming_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Arming/ArduSub ${objs/AP_Arming/ArduSub_SOURCES})
+add_library(objs_AP_Arming_ArduSub ${objs_AP_Arming_ArduSub_SOURCES})
+set_target_properties(objs_AP_Arming_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Arming/ArduSub mavlink)
-target_link_libraries(objs/AP_Arming/ArduSub dronecan)
-target_link_libraries(objs/AP_Arming/ArduSub littlefs)
 
-set(objs/AP_Follow/ArduSub_SOURCES
+target_link_libraries(objs_AP_Arming_ArduSub mavlink)
+target_link_libraries(objs_AP_Arming_ArduSub dronecan)
+target_link_libraries(objs_AP_Arming_ArduSub littlefs)
+
+set(objs_AP_Follow_ArduSub_SOURCES
     ../libraries/AP_Follow/AP_Follow.cpp)
 
-set(objs/AP_Follow/ArduSub_INCLUDES
+set(objs_AP_Follow_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1348,22 +1508,26 @@ set(objs/AP_Follow/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Follow/ArduSub_INCLUDES})
+include_directories(${objs_AP_Follow_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Follow/ArduSub ${objs/AP_Follow/ArduSub_SOURCES})
+add_library(objs_AP_Follow_ArduSub ${objs_AP_Follow_ArduSub_SOURCES})
+set_target_properties(objs_AP_Follow_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Follow/ArduSub mavlink)
-target_link_libraries(objs/AP_Follow/ArduSub dronecan)
-target_link_libraries(objs/AP_Follow/ArduSub littlefs)
 
-set(objs/AC_AttitudeControl/ArduSub_SOURCES
+target_link_libraries(objs_AP_Follow_ArduSub mavlink)
+target_link_libraries(objs_AP_Follow_ArduSub dronecan)
+target_link_libraries(objs_AP_Follow_ArduSub littlefs)
+
+set(objs_AC_AttitudeControl_ArduSub_SOURCES
     ../libraries/AC_AttitudeControl/AC_AttitudeControl.cpp
     ../libraries/AC_AttitudeControl/AC_PosControl.cpp
     ../libraries/AC_AttitudeControl/AC_WeatherVane.cpp)
 
-set(objs/AC_AttitudeControl/ArduSub_INCLUDES
+set(objs_AC_AttitudeControl_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1382,20 +1546,24 @@ set(objs/AC_AttitudeControl/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AC_AttitudeControl/ArduSub_INCLUDES})
+include_directories(${objs_AC_AttitudeControl_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AC_AttitudeControl/ArduSub ${objs/AC_AttitudeControl/ArduSub_SOURCES})
+add_library(objs_AC_AttitudeControl_ArduSub ${objs_AC_AttitudeControl_ArduSub_SOURCES})
+set_target_properties(objs_AC_AttitudeControl_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AC_AttitudeControl/ArduSub mavlink)
-target_link_libraries(objs/AC_AttitudeControl/ArduSub dronecan)
-target_link_libraries(objs/AC_AttitudeControl/ArduSub littlefs)
 
-set(objs/AC_WPNav/ArduSub_SOURCES
+target_link_libraries(objs_AC_AttitudeControl_ArduSub mavlink)
+target_link_libraries(objs_AC_AttitudeControl_ArduSub dronecan)
+target_link_libraries(objs_AC_AttitudeControl_ArduSub littlefs)
+
+set(objs_AC_WPNav_ArduSub_SOURCES
     ../libraries/AC_WPNav/AC_Loiter.cpp)
 
-set(objs/AC_WPNav/ArduSub_INCLUDES
+set(objs_AC_WPNav_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1414,23 +1582,27 @@ set(objs/AC_WPNav/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AC_WPNav/ArduSub_INCLUDES})
+include_directories(${objs_AC_WPNav_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AC_WPNav/ArduSub ${objs/AC_WPNav/ArduSub_SOURCES})
+add_library(objs_AC_WPNav_ArduSub ${objs_AC_WPNav_ArduSub_SOURCES})
+set_target_properties(objs_AC_WPNav_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AC_WPNav/ArduSub mavlink)
-target_link_libraries(objs/AC_WPNav/ArduSub dronecan)
-target_link_libraries(objs/AC_WPNav/ArduSub littlefs)
 
-set(objs/AP_Motors/ArduSub_SOURCES
+target_link_libraries(objs_AC_WPNav_ArduSub mavlink)
+target_link_libraries(objs_AC_WPNav_ArduSub dronecan)
+target_link_libraries(objs_AC_WPNav_ArduSub littlefs)
+
+set(objs_AP_Motors_ArduSub_SOURCES
     ../libraries/AP_Motors/AP_MotorsMatrix.cpp
     ../libraries/AP_Motors/AP_MotorsMulticopter.cpp
     ../libraries/AP_Motors/AP_MotorsTri.cpp
     ../libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp)
 
-set(objs/AP_Motors/ArduSub_INCLUDES
+set(objs_AP_Motors_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1449,22 +1621,26 @@ set(objs/AP_Motors/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Motors/ArduSub_INCLUDES})
+include_directories(${objs_AP_Motors_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Motors/ArduSub ${objs/AP_Motors/ArduSub_SOURCES})
+add_library(objs_AP_Motors_ArduSub ${objs_AP_Motors_ArduSub_SOURCES})
+set_target_properties(objs_AP_Motors_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Motors/ArduSub mavlink)
-target_link_libraries(objs/AP_Motors/ArduSub dronecan)
-target_link_libraries(objs/AP_Motors/ArduSub littlefs)
 
-set(objs/AP_HAL_SITL/ArduSub_SOURCES
+target_link_libraries(objs_AP_Motors_ArduSub mavlink)
+target_link_libraries(objs_AP_Motors_ArduSub dronecan)
+target_link_libraries(objs_AP_Motors_ArduSub littlefs)
+
+set(objs_AP_HAL_SITL_ArduSub_SOURCES
     ../libraries/AP_HAL_SITL/SITL_cmdline.cpp
     ../libraries/AP_HAL_SITL/Storage.cpp
     ../libraries/AP_HAL_SITL/UARTDriver.cpp)
 
-set(objs/AP_HAL_SITL/ArduSub_INCLUDES
+set(objs_AP_HAL_SITL_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1483,23 +1659,27 @@ set(objs/AP_HAL_SITL/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_HAL_SITL/ArduSub_INCLUDES})
+include_directories(${objs_AP_HAL_SITL_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_HAL_SITL/ArduSub ${objs/AP_HAL_SITL/ArduSub_SOURCES})
+add_library(objs_AP_HAL_SITL_ArduSub ${objs_AP_HAL_SITL_ArduSub_SOURCES})
+set_target_properties(objs_AP_HAL_SITL_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_HAL_SITL/ArduSub mavlink)
-target_link_libraries(objs/AP_HAL_SITL/ArduSub dronecan)
-target_link_libraries(objs/AP_HAL_SITL/ArduSub littlefs)
 
-set(objs/SITL/ArduSub_SOURCES
+target_link_libraries(objs_AP_HAL_SITL_ArduSub mavlink)
+target_link_libraries(objs_AP_HAL_SITL_ArduSub dronecan)
+target_link_libraries(objs_AP_HAL_SITL_ArduSub littlefs)
+
+set(objs_SITL_ArduSub_SOURCES
     ../libraries/SITL/SIM_Aircraft.cpp
     ../libraries/SITL/SIM_DroneCANDevice.cpp
     ../libraries/SITL/SIM_XPlane.cpp
     ../libraries/SITL/SITL.cpp)
 
-set(objs/SITL/ArduSub_INCLUDES
+set(objs_SITL_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1518,17 +1698,21 @@ set(objs/SITL/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/SITL/ArduSub_INCLUDES})
+include_directories(${objs_SITL_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/SITL/ArduSub ${objs/SITL/ArduSub_SOURCES})
+add_library(objs_SITL_ArduSub ${objs_SITL_ArduSub_SOURCES})
+set_target_properties(objs_SITL_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/SITL/ArduSub mavlink)
-target_link_libraries(objs/SITL/ArduSub dronecan)
-target_link_libraries(objs/SITL/ArduSub littlefs)
 
-set(objs/AP_Scripting/ArduSub_SOURCES
+target_link_libraries(objs_SITL_ArduSub mavlink)
+target_link_libraries(objs_SITL_ArduSub dronecan)
+target_link_libraries(objs_SITL_ArduSub littlefs)
+
+set(objs_AP_Scripting_ArduSub_SOURCES
     ../libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp
     ../libraries/AP_Scripting/AP_Scripting_helpers.cpp
     ../libraries/AP_Scripting/lua_bindings.cpp
@@ -1536,7 +1720,7 @@ set(objs/AP_Scripting/ArduSub_SOURCES
     ../libraries/AP_Scripting/lua_scripts.cpp
     ../build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp)
 
-set(objs/AP_Scripting/ArduSub_INCLUDES
+set(objs_AP_Scripting_ArduSub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1555,15 +1739,19 @@ set(objs/AP_Scripting/ArduSub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Scripting/ArduSub_INCLUDES})
+include_directories(${objs_AP_Scripting_ArduSub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_library(objs/AP_Scripting/ArduSub ${objs/AP_Scripting/ArduSub_SOURCES})
+add_library(objs_AP_Scripting_ArduSub ${objs_AP_Scripting_ArduSub_SOURCES})
+set_target_properties(objs_AP_Scripting_ArduSub PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Scripting/ArduSub mavlink)
-target_link_libraries(objs/AP_Scripting/ArduSub dronecan)
-target_link_libraries(objs/AP_Scripting/ArduSub littlefs)
+
+target_link_libraries(objs_AP_Scripting_ArduSub mavlink)
+target_link_libraries(objs_AP_Scripting_ArduSub dronecan)
+target_link_libraries(objs_AP_Scripting_ArduSub littlefs)
 
 set(ArduSub_libs_SOURCES
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
@@ -1765,6 +1953,10 @@ set(ArduSub_libs_INCLUDES
 include_directories(${ArduSub_libs_INCLUDES})
 
 add_library(ArduSub_libs ${ArduSub_libs_SOURCES})
+set_target_properties(ArduSub_libs PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
+
 
 target_link_libraries(ArduSub_libs objs/AP_AccelCal)
 target_link_libraries(ArduSub_libs objs/AP_AccelCal/ArduSub)
@@ -2015,7 +2207,7 @@ target_link_libraries(ArduSub_libs objs/AP_Scripting/lua/src/ArduSub)
 target_link_libraries(ArduSub_libs objs/AC_CustomControl)
 target_link_libraries(ArduSub_libs objs/AC_CustomControl/ArduSub)
 
-set(bin/ardusub_SOURCES
+set(bin_ardusub_SOURCES
     AP_Arming_Sub.cpp
     AP_State.cpp
     Attitude.cpp
@@ -2054,7 +2246,7 @@ set(bin/ardusub_SOURCES
     terrain.cpp
     turn_counter.cpp)
 
-set(bin/ardusub_INCLUDES
+set(bin_ardusub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -2073,11 +2265,11 @@ set(bin/ardusub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${bin/ardusub_INCLUDES})
+include_directories(${bin_ardusub_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
 
-add_executable(bin/ardusub ${bin/ardusub_SOURCES})
+add_executable(bin_ardusub ${bin_ardusub_SOURCES})
 
-target_link_libraries(bin/ardusub ArduSub_libs)
+target_link_libraries(bin_ardusub ArduSub_libs)
 

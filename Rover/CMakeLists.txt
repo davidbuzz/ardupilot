@@ -1,10 +1,10 @@
 
-set(objs/AP_AHRS/Rover_SOURCES
+set(objs_AP_AHRS_Rover_SOURCES
     ../libraries/AP_AHRS/AP_AHRS.cpp
     ../libraries/AP_AHRS/AP_AHRS_Backend.cpp
     ../libraries/AP_AHRS/AP_AHRS_DCM.cpp)
 
-set(objs/AP_AHRS/Rover_INCLUDES
+set(objs_AP_AHRS_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -23,22 +23,26 @@ set(objs/AP_AHRS/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_AHRS/Rover_INCLUDES})
+include_directories(${objs_AP_AHRS_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_AHRS/Rover ${objs/AP_AHRS/Rover_SOURCES})
+add_library(objs_AP_AHRS_Rover ${objs_AP_AHRS_Rover_SOURCES})
+set_target_properties(objs_AP_AHRS_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_AHRS/Rover mavlink)
-target_link_libraries(objs/AP_AHRS/Rover dronecan)
-target_link_libraries(objs/AP_AHRS/Rover littlefs)
 
-set(objs/AP_Airspeed/Rover_SOURCES
+target_link_libraries(objs_AP_AHRS_Rover mavlink)
+target_link_libraries(objs_AP_AHRS_Rover dronecan)
+target_link_libraries(objs_AP_AHRS_Rover littlefs)
+
+set(objs_AP_Airspeed_Rover_SOURCES
     ../libraries/AP_Airspeed/AP_Airspeed.cpp
     ../libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp
     ../libraries/AP_Airspeed/AP_Airspeed_Params.cpp)
 
-set(objs/AP_Airspeed/Rover_INCLUDES
+set(objs_AP_Airspeed_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -57,22 +61,26 @@ set(objs/AP_Airspeed/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Airspeed/Rover_INCLUDES})
+include_directories(${objs_AP_Airspeed_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Airspeed/Rover ${objs/AP_Airspeed/Rover_SOURCES})
+add_library(objs_AP_Airspeed_Rover ${objs_AP_Airspeed_Rover_SOURCES})
+set_target_properties(objs_AP_Airspeed_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Airspeed/Rover mavlink)
-target_link_libraries(objs/AP_Airspeed/Rover dronecan)
-target_link_libraries(objs/AP_Airspeed/Rover littlefs)
 
-set(objs/AP_Baro/Rover_SOURCES
+target_link_libraries(objs_AP_Airspeed_Rover mavlink)
+target_link_libraries(objs_AP_Airspeed_Rover dronecan)
+target_link_libraries(objs_AP_Airspeed_Rover littlefs)
+
+set(objs_AP_Baro_Rover_SOURCES
     ../libraries/AP_Baro/AP_Baro.cpp
     ../libraries/AP_Baro/AP_Baro_Backend.cpp
     ../libraries/AP_Baro/AP_Baro_SITL.cpp)
 
-set(objs/AP_Baro/Rover_INCLUDES
+set(objs_AP_Baro_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -91,21 +99,25 @@ set(objs/AP_Baro/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Baro/Rover_INCLUDES})
+include_directories(${objs_AP_Baro_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Baro/Rover ${objs/AP_Baro/Rover_SOURCES})
+add_library(objs_AP_Baro_Rover ${objs_AP_Baro_Rover_SOURCES})
+set_target_properties(objs_AP_Baro_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Baro/Rover mavlink)
-target_link_libraries(objs/AP_Baro/Rover dronecan)
-target_link_libraries(objs/AP_Baro/Rover littlefs)
 
-set(objs/AP_BattMonitor/Rover_SOURCES
+target_link_libraries(objs_AP_Baro_Rover mavlink)
+target_link_libraries(objs_AP_Baro_Rover dronecan)
+target_link_libraries(objs_AP_Baro_Rover littlefs)
+
+set(objs_AP_BattMonitor_Rover_SOURCES
     ../libraries/AP_BattMonitor/AP_BattMonitor.cpp
     ../libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp)
 
-set(objs/AP_BattMonitor/Rover_INCLUDES
+set(objs_AP_BattMonitor_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -124,20 +136,24 @@ set(objs/AP_BattMonitor/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_BattMonitor/Rover_INCLUDES})
+include_directories(${objs_AP_BattMonitor_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_BattMonitor/Rover ${objs/AP_BattMonitor/Rover_SOURCES})
+add_library(objs_AP_BattMonitor_Rover ${objs_AP_BattMonitor_Rover_SOURCES})
+set_target_properties(objs_AP_BattMonitor_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_BattMonitor/Rover mavlink)
-target_link_libraries(objs/AP_BattMonitor/Rover dronecan)
-target_link_libraries(objs/AP_BattMonitor/Rover littlefs)
 
-set(objs/AP_BoardConfig/Rover_SOURCES
+target_link_libraries(objs_AP_BattMonitor_Rover mavlink)
+target_link_libraries(objs_AP_BattMonitor_Rover dronecan)
+target_link_libraries(objs_AP_BattMonitor_Rover littlefs)
+
+set(objs_AP_BoardConfig_Rover_SOURCES
     ../libraries/AP_BoardConfig/AP_BoardConfig.cpp)
 
-set(objs/AP_BoardConfig/Rover_INCLUDES
+set(objs_AP_BoardConfig_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -156,20 +172,24 @@ set(objs/AP_BoardConfig/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_BoardConfig/Rover_INCLUDES})
+include_directories(${objs_AP_BoardConfig_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_BoardConfig/Rover ${objs/AP_BoardConfig/Rover_SOURCES})
+add_library(objs_AP_BoardConfig_Rover ${objs_AP_BoardConfig_Rover_SOURCES})
+set_target_properties(objs_AP_BoardConfig_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_BoardConfig/Rover mavlink)
-target_link_libraries(objs/AP_BoardConfig/Rover dronecan)
-target_link_libraries(objs/AP_BoardConfig/Rover littlefs)
 
-set(objs/AP_HAL/Rover_SOURCES
+target_link_libraries(objs_AP_BoardConfig_Rover mavlink)
+target_link_libraries(objs_AP_BoardConfig_Rover dronecan)
+target_link_libraries(objs_AP_BoardConfig_Rover littlefs)
+
+set(objs_AP_HAL_Rover_SOURCES
     ../libraries/AP_HAL/SIMState.cpp)
 
-set(objs/AP_HAL/Rover_INCLUDES
+set(objs_AP_HAL_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -188,23 +208,27 @@ set(objs/AP_HAL/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_HAL/Rover_INCLUDES})
+include_directories(${objs_AP_HAL_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_HAL/Rover ${objs/AP_HAL/Rover_SOURCES})
+add_library(objs_AP_HAL_Rover ${objs_AP_HAL_Rover_SOURCES})
+set_target_properties(objs_AP_HAL_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_HAL/Rover mavlink)
-target_link_libraries(objs/AP_HAL/Rover dronecan)
-target_link_libraries(objs/AP_HAL/Rover littlefs)
 
-set(objs/AP_InertialSensor/Rover_SOURCES
+target_link_libraries(objs_AP_HAL_Rover mavlink)
+target_link_libraries(objs_AP_HAL_Rover dronecan)
+target_link_libraries(objs_AP_HAL_Rover littlefs)
+
+set(objs_AP_InertialSensor_Rover_SOURCES
     ../libraries/AP_InertialSensor/AP_InertialSensor.cpp
     ../libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp
     ../libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp
     ../libraries/AP_InertialSensor/FastRateBuffer.cpp)
 
-set(objs/AP_InertialSensor/Rover_INCLUDES
+set(objs_AP_InertialSensor_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -223,20 +247,24 @@ set(objs/AP_InertialSensor/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_InertialSensor/Rover_INCLUDES})
+include_directories(${objs_AP_InertialSensor_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_InertialSensor/Rover ${objs/AP_InertialSensor/Rover_SOURCES})
+add_library(objs_AP_InertialSensor_Rover ${objs_AP_InertialSensor_Rover_SOURCES})
+set_target_properties(objs_AP_InertialSensor_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_InertialSensor/Rover mavlink)
-target_link_libraries(objs/AP_InertialSensor/Rover dronecan)
-target_link_libraries(objs/AP_InertialSensor/Rover littlefs)
 
-set(objs/AP_Math/Rover_SOURCES
+target_link_libraries(objs_AP_InertialSensor_Rover mavlink)
+target_link_libraries(objs_AP_InertialSensor_Rover dronecan)
+target_link_libraries(objs_AP_InertialSensor_Rover littlefs)
+
+set(objs_AP_Math_Rover_SOURCES
     ../libraries/AP_Math/SCurve.cpp)
 
-set(objs/AP_Math/Rover_INCLUDES
+set(objs_AP_Math_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -255,20 +283,24 @@ set(objs/AP_Math/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Math/Rover_INCLUDES})
+include_directories(${objs_AP_Math_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Math/Rover ${objs/AP_Math/Rover_SOURCES})
+add_library(objs_AP_Math_Rover ${objs_AP_Math_Rover_SOURCES})
+set_target_properties(objs_AP_Math_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Math/Rover mavlink)
-target_link_libraries(objs/AP_Math/Rover dronecan)
-target_link_libraries(objs/AP_Math/Rover littlefs)
 
-set(objs/AP_Mission/Rover_SOURCES
+target_link_libraries(objs_AP_Math_Rover mavlink)
+target_link_libraries(objs_AP_Math_Rover dronecan)
+target_link_libraries(objs_AP_Math_Rover littlefs)
+
+set(objs_AP_Mission_Rover_SOURCES
     ../libraries/AP_Mission/AP_Mission.cpp)
 
-set(objs/AP_Mission/Rover_INCLUDES
+set(objs_AP_Mission_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -287,23 +319,27 @@ set(objs/AP_Mission/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Mission/Rover_INCLUDES})
+include_directories(${objs_AP_Mission_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Mission/Rover ${objs/AP_Mission/Rover_SOURCES})
+add_library(objs_AP_Mission_Rover ${objs_AP_Mission_Rover_SOURCES})
+set_target_properties(objs_AP_Mission_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Mission/Rover mavlink)
-target_link_libraries(objs/AP_Mission/Rover dronecan)
-target_link_libraries(objs/AP_Mission/Rover littlefs)
 
-set(objs/AP_DAL/Rover_SOURCES
+target_link_libraries(objs_AP_Mission_Rover mavlink)
+target_link_libraries(objs_AP_Mission_Rover dronecan)
+target_link_libraries(objs_AP_Mission_Rover littlefs)
+
+set(objs_AP_DAL_Rover_SOURCES
     ../libraries/AP_DAL/AP_DAL.cpp
     ../libraries/AP_DAL/AP_DAL_Beacon.cpp
     ../libraries/AP_DAL/AP_DAL_RangeFinder.cpp
     ../libraries/AP_DAL/AP_DAL_VisualOdom.cpp)
 
-set(objs/AP_DAL/Rover_INCLUDES
+set(objs_AP_DAL_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -322,21 +358,25 @@ set(objs/AP_DAL/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_DAL/Rover_INCLUDES})
+include_directories(${objs_AP_DAL_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_DAL/Rover ${objs/AP_DAL/Rover_SOURCES})
+add_library(objs_AP_DAL_Rover ${objs_AP_DAL_Rover_SOURCES})
+set_target_properties(objs_AP_DAL_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_DAL/Rover mavlink)
-target_link_libraries(objs/AP_DAL/Rover dronecan)
-target_link_libraries(objs/AP_DAL/Rover littlefs)
 
-set(objs/AP_NavEKF2/Rover_SOURCES
+target_link_libraries(objs_AP_DAL_Rover mavlink)
+target_link_libraries(objs_AP_DAL_Rover dronecan)
+target_link_libraries(objs_AP_DAL_Rover littlefs)
+
+set(objs_AP_NavEKF2_Rover_SOURCES
     ../libraries/AP_NavEKF2/AP_NavEKF2.cpp
     ../libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp)
 
-set(objs/AP_NavEKF2/Rover_INCLUDES
+set(objs_AP_NavEKF2_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -355,17 +395,21 @@ set(objs/AP_NavEKF2/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_NavEKF2/Rover_INCLUDES})
+include_directories(${objs_AP_NavEKF2_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_NavEKF2/Rover ${objs/AP_NavEKF2/Rover_SOURCES})
+add_library(objs_AP_NavEKF2_Rover ${objs_AP_NavEKF2_Rover_SOURCES})
+set_target_properties(objs_AP_NavEKF2_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_NavEKF2/Rover mavlink)
-target_link_libraries(objs/AP_NavEKF2/Rover dronecan)
-target_link_libraries(objs/AP_NavEKF2/Rover littlefs)
 
-set(objs/AP_NavEKF3/Rover_SOURCES
+target_link_libraries(objs_AP_NavEKF2_Rover mavlink)
+target_link_libraries(objs_AP_NavEKF2_Rover dronecan)
+target_link_libraries(objs_AP_NavEKF2_Rover littlefs)
+
+set(objs_AP_NavEKF3_Rover_SOURCES
     ../libraries/AP_NavEKF3/AP_NavEKF3.cpp
     ../libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp
     ../libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp
@@ -380,7 +424,7 @@ set(objs/AP_NavEKF3/Rover_SOURCES
     ../libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp
     ../libraries/AP_NavEKF3/AP_NavEKF3_core.cpp)
 
-set(objs/AP_NavEKF3/Rover_INCLUDES
+set(objs_AP_NavEKF3_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -399,20 +443,24 @@ set(objs/AP_NavEKF3/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_NavEKF3/Rover_INCLUDES})
+include_directories(${objs_AP_NavEKF3_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_NavEKF3/Rover ${objs/AP_NavEKF3/Rover_SOURCES})
+add_library(objs_AP_NavEKF3_Rover ${objs_AP_NavEKF3_Rover_SOURCES})
+set_target_properties(objs_AP_NavEKF3_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_NavEKF3/Rover mavlink)
-target_link_libraries(objs/AP_NavEKF3/Rover dronecan)
-target_link_libraries(objs/AP_NavEKF3/Rover littlefs)
 
-set(objs/AP_Rally/Rover_SOURCES
+target_link_libraries(objs_AP_NavEKF3_Rover mavlink)
+target_link_libraries(objs_AP_NavEKF3_Rover dronecan)
+target_link_libraries(objs_AP_NavEKF3_Rover littlefs)
+
+set(objs_AP_Rally_Rover_SOURCES
     ../libraries/AP_Rally/AP_Rally.cpp)
 
-set(objs/AP_Rally/Rover_INCLUDES
+set(objs_AP_Rally_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -431,20 +479,24 @@ set(objs/AP_Rally/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Rally/Rover_INCLUDES})
+include_directories(${objs_AP_Rally_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Rally/Rover ${objs/AP_Rally/Rover_SOURCES})
+add_library(objs_AP_Rally_Rover ${objs_AP_Rally_Rover_SOURCES})
+set_target_properties(objs_AP_Rally_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Rally/Rover mavlink)
-target_link_libraries(objs/AP_Rally/Rover dronecan)
-target_link_libraries(objs/AP_Rally/Rover littlefs)
 
-set(objs/AP_Scheduler/Rover_SOURCES
+target_link_libraries(objs_AP_Rally_Rover mavlink)
+target_link_libraries(objs_AP_Rally_Rover dronecan)
+target_link_libraries(objs_AP_Rally_Rover littlefs)
+
+set(objs_AP_Scheduler_Rover_SOURCES
     ../libraries/AP_Scheduler/AP_Scheduler.cpp)
 
-set(objs/AP_Scheduler/Rover_INCLUDES
+set(objs_AP_Scheduler_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -463,20 +515,24 @@ set(objs/AP_Scheduler/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Scheduler/Rover_INCLUDES})
+include_directories(${objs_AP_Scheduler_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Scheduler/Rover ${objs/AP_Scheduler/Rover_SOURCES})
+add_library(objs_AP_Scheduler_Rover ${objs_AP_Scheduler_Rover_SOURCES})
+set_target_properties(objs_AP_Scheduler_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Scheduler/Rover mavlink)
-target_link_libraries(objs/AP_Scheduler/Rover dronecan)
-target_link_libraries(objs/AP_Scheduler/Rover littlefs)
 
-set(objs/AP_Terrain/Rover_SOURCES
+target_link_libraries(objs_AP_Scheduler_Rover mavlink)
+target_link_libraries(objs_AP_Scheduler_Rover dronecan)
+target_link_libraries(objs_AP_Scheduler_Rover littlefs)
+
+set(objs_AP_Terrain_Rover_SOURCES
     ../libraries/AP_Terrain/AP_Terrain.cpp)
 
-set(objs/AP_Terrain/Rover_INCLUDES
+set(objs_AP_Terrain_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -495,20 +551,24 @@ set(objs/AP_Terrain/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Terrain/Rover_INCLUDES})
+include_directories(${objs_AP_Terrain_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Terrain/Rover ${objs/AP_Terrain/Rover_SOURCES})
+add_library(objs_AP_Terrain_Rover ${objs_AP_Terrain_Rover_SOURCES})
+set_target_properties(objs_AP_Terrain_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Terrain/Rover mavlink)
-target_link_libraries(objs/AP_Terrain/Rover dronecan)
-target_link_libraries(objs/AP_Terrain/Rover littlefs)
 
-set(objs/AP_Vehicle/Rover_SOURCES
+target_link_libraries(objs_AP_Terrain_Rover mavlink)
+target_link_libraries(objs_AP_Terrain_Rover dronecan)
+target_link_libraries(objs_AP_Terrain_Rover littlefs)
+
+set(objs_AP_Vehicle_Rover_SOURCES
     ../libraries/AP_Vehicle/AP_Vehicle.cpp)
 
-set(objs/AP_Vehicle/Rover_INCLUDES
+set(objs_AP_Vehicle_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -527,23 +587,27 @@ set(objs/AP_Vehicle/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Vehicle/Rover_INCLUDES})
+include_directories(${objs_AP_Vehicle_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Vehicle/Rover ${objs/AP_Vehicle/Rover_SOURCES})
+add_library(objs_AP_Vehicle_Rover ${objs_AP_Vehicle_Rover_SOURCES})
+set_target_properties(objs_AP_Vehicle_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Vehicle/Rover mavlink)
-target_link_libraries(objs/AP_Vehicle/Rover dronecan)
-target_link_libraries(objs/AP_Vehicle/Rover littlefs)
 
-set(objs/AP_Logger/Rover_SOURCES
+target_link_libraries(objs_AP_Vehicle_Rover mavlink)
+target_link_libraries(objs_AP_Vehicle_Rover dronecan)
+target_link_libraries(objs_AP_Vehicle_Rover littlefs)
+
+set(objs_AP_Logger_Rover_SOURCES
     ../libraries/AP_Logger/AP_Logger.cpp
     ../libraries/AP_Logger/AP_Logger_Backend.cpp
     ../libraries/AP_Logger/AP_Logger_File.cpp
     ../libraries/AP_Logger/LoggerMessageWriter.cpp)
 
-set(objs/AP_Logger/Rover_INCLUDES
+set(objs_AP_Logger_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -562,20 +626,24 @@ set(objs/AP_Logger/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Logger/Rover_INCLUDES})
+include_directories(${objs_AP_Logger_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Logger/Rover ${objs/AP_Logger/Rover_SOURCES})
+add_library(objs_AP_Logger_Rover ${objs_AP_Logger_Rover_SOURCES})
+set_target_properties(objs_AP_Logger_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Logger/Rover mavlink)
-target_link_libraries(objs/AP_Logger/Rover dronecan)
-target_link_libraries(objs/AP_Logger/Rover littlefs)
 
-set(objs/Filter/Rover_SOURCES
+target_link_libraries(objs_AP_Logger_Rover mavlink)
+target_link_libraries(objs_AP_Logger_Rover dronecan)
+target_link_libraries(objs_AP_Logger_Rover littlefs)
+
+set(objs_Filter_Rover_SOURCES
     ../libraries/Filter/HarmonicNotchFilter.cpp)
 
-set(objs/Filter/Rover_INCLUDES
+set(objs_Filter_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -594,24 +662,28 @@ set(objs/Filter/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/Filter/Rover_INCLUDES})
+include_directories(${objs_Filter_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/Filter/Rover ${objs/Filter/Rover_SOURCES})
+add_library(objs_Filter_Rover ${objs_Filter_Rover_SOURCES})
+set_target_properties(objs_Filter_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/Filter/Rover mavlink)
-target_link_libraries(objs/Filter/Rover dronecan)
-target_link_libraries(objs/Filter/Rover littlefs)
 
-set(objs/GCS_MAVLink/Rover_SOURCES
+target_link_libraries(objs_Filter_Rover mavlink)
+target_link_libraries(objs_Filter_Rover dronecan)
+target_link_libraries(objs_Filter_Rover littlefs)
+
+set(objs_GCS_MAVLink_Rover_SOURCES
     ../libraries/GCS_MAVLink/GCS.cpp
     ../libraries/GCS_MAVLink/GCS_Common.cpp
     ../libraries/GCS_MAVLink/GCS_Dummy.cpp
     ../libraries/GCS_MAVLink/GCS_Fence.cpp
     ../libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp)
 
-set(objs/GCS_MAVLink/Rover_INCLUDES
+set(objs_GCS_MAVLink_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -630,20 +702,24 @@ set(objs/GCS_MAVLink/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/GCS_MAVLink/Rover_INCLUDES})
+include_directories(${objs_GCS_MAVLink_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/GCS_MAVLink/Rover ${objs/GCS_MAVLink/Rover_SOURCES})
+add_library(objs_GCS_MAVLink_Rover ${objs_GCS_MAVLink_Rover_SOURCES})
+set_target_properties(objs_GCS_MAVLink_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/GCS_MAVLink/Rover mavlink)
-target_link_libraries(objs/GCS_MAVLink/Rover dronecan)
-target_link_libraries(objs/GCS_MAVLink/Rover littlefs)
 
-set(objs/RC_Channel/Rover_SOURCES
+target_link_libraries(objs_GCS_MAVLink_Rover mavlink)
+target_link_libraries(objs_GCS_MAVLink_Rover dronecan)
+target_link_libraries(objs_GCS_MAVLink_Rover littlefs)
+
+set(objs_RC_Channel_Rover_SOURCES
     ../libraries/RC_Channel/RC_Channel.cpp)
 
-set(objs/RC_Channel/Rover_INCLUDES
+set(objs_RC_Channel_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -662,20 +738,24 @@ set(objs/RC_Channel/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/RC_Channel/Rover_INCLUDES})
+include_directories(${objs_RC_Channel_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/RC_Channel/Rover ${objs/RC_Channel/Rover_SOURCES})
+add_library(objs_RC_Channel_Rover ${objs_RC_Channel_Rover_SOURCES})
+set_target_properties(objs_RC_Channel_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/RC_Channel/Rover mavlink)
-target_link_libraries(objs/RC_Channel/Rover dronecan)
-target_link_libraries(objs/RC_Channel/Rover littlefs)
 
-set(objs/StorageManager/Rover_SOURCES
+target_link_libraries(objs_RC_Channel_Rover mavlink)
+target_link_libraries(objs_RC_Channel_Rover dronecan)
+target_link_libraries(objs_RC_Channel_Rover littlefs)
+
+set(objs_StorageManager_Rover_SOURCES
     ../libraries/StorageManager/StorageManager.cpp)
 
-set(objs/StorageManager/Rover_INCLUDES
+set(objs_StorageManager_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -694,20 +774,24 @@ set(objs/StorageManager/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/StorageManager/Rover_INCLUDES})
+include_directories(${objs_StorageManager_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/StorageManager/Rover ${objs/StorageManager/Rover_SOURCES})
+add_library(objs_StorageManager_Rover ${objs_StorageManager_Rover_SOURCES})
+set_target_properties(objs_StorageManager_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/StorageManager/Rover mavlink)
-target_link_libraries(objs/StorageManager/Rover dronecan)
-target_link_libraries(objs/StorageManager/Rover littlefs)
 
-set(objs/AP_Frsky_Telem/Rover_SOURCES
+target_link_libraries(objs_StorageManager_Rover mavlink)
+target_link_libraries(objs_StorageManager_Rover dronecan)
+target_link_libraries(objs_StorageManager_Rover littlefs)
+
+set(objs_AP_Frsky_Telem_Rover_SOURCES
     ../libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp)
 
-set(objs/AP_Frsky_Telem/Rover_INCLUDES
+set(objs_AP_Frsky_Telem_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -726,20 +810,24 @@ set(objs/AP_Frsky_Telem/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Frsky_Telem/Rover_INCLUDES})
+include_directories(${objs_AP_Frsky_Telem_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Frsky_Telem/Rover ${objs/AP_Frsky_Telem/Rover_SOURCES})
+add_library(objs_AP_Frsky_Telem_Rover ${objs_AP_Frsky_Telem_Rover_SOURCES})
+set_target_properties(objs_AP_Frsky_Telem_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Frsky_Telem/Rover mavlink)
-target_link_libraries(objs/AP_Frsky_Telem/Rover dronecan)
-target_link_libraries(objs/AP_Frsky_Telem/Rover littlefs)
 
-set(objs/AP_IBus_Telem/Rover_SOURCES
+target_link_libraries(objs_AP_Frsky_Telem_Rover mavlink)
+target_link_libraries(objs_AP_Frsky_Telem_Rover dronecan)
+target_link_libraries(objs_AP_Frsky_Telem_Rover littlefs)
+
+set(objs_AP_IBus_Telem_Rover_SOURCES
     ../libraries/AP_IBus_Telem/AP_IBus_Telem.cpp)
 
-set(objs/AP_IBus_Telem/Rover_INCLUDES
+set(objs_AP_IBus_Telem_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -758,20 +846,24 @@ set(objs/AP_IBus_Telem/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_IBus_Telem/Rover_INCLUDES})
+include_directories(${objs_AP_IBus_Telem_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_IBus_Telem/Rover ${objs/AP_IBus_Telem/Rover_SOURCES})
+add_library(objs_AP_IBus_Telem_Rover ${objs_AP_IBus_Telem_Rover_SOURCES})
+set_target_properties(objs_AP_IBus_Telem_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_IBus_Telem/Rover mavlink)
-target_link_libraries(objs/AP_IBus_Telem/Rover dronecan)
-target_link_libraries(objs/AP_IBus_Telem/Rover littlefs)
 
-set(objs/AP_Relay/Rover_SOURCES
+target_link_libraries(objs_AP_IBus_Telem_Rover mavlink)
+target_link_libraries(objs_AP_IBus_Telem_Rover dronecan)
+target_link_libraries(objs_AP_IBus_Telem_Rover littlefs)
+
+set(objs_AP_Relay_Rover_SOURCES
     ../libraries/AP_Relay/AP_Relay.cpp)
 
-set(objs/AP_Relay/Rover_INCLUDES
+set(objs_AP_Relay_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -790,17 +882,21 @@ set(objs/AP_Relay/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Relay/Rover_INCLUDES})
+include_directories(${objs_AP_Relay_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Relay/Rover ${objs/AP_Relay/Rover_SOURCES})
+add_library(objs_AP_Relay_Rover ${objs_AP_Relay_Rover_SOURCES})
+set_target_properties(objs_AP_Relay_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Relay/Rover mavlink)
-target_link_libraries(objs/AP_Relay/Rover dronecan)
-target_link_libraries(objs/AP_Relay/Rover littlefs)
 
-set(objs/AP_RCProtocol/Rover_SOURCES
+target_link_libraries(objs_AP_Relay_Rover mavlink)
+target_link_libraries(objs_AP_Relay_Rover dronecan)
+target_link_libraries(objs_AP_Relay_Rover littlefs)
+
+set(objs_AP_RCProtocol_Rover_SOURCES
     ../libraries/AP_RCProtocol/AP_RCProtocol.cpp
     ../libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp
     ../libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp
@@ -809,7 +905,7 @@ set(objs/AP_RCProtocol/Rover_SOURCES
     ../libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp
     ../libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp)
 
-set(objs/AP_RCProtocol/Rover_INCLUDES
+set(objs_AP_RCProtocol_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -828,20 +924,24 @@ set(objs/AP_RCProtocol/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_RCProtocol/Rover_INCLUDES})
+include_directories(${objs_AP_RCProtocol_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_RCProtocol/Rover ${objs/AP_RCProtocol/Rover_SOURCES})
+add_library(objs_AP_RCProtocol_Rover ${objs_AP_RCProtocol_Rover_SOURCES})
+set_target_properties(objs_AP_RCProtocol_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_RCProtocol/Rover mavlink)
-target_link_libraries(objs/AP_RCProtocol/Rover dronecan)
-target_link_libraries(objs/AP_RCProtocol/Rover littlefs)
 
-set(objs/AP_BLHeli/Rover_SOURCES
+target_link_libraries(objs_AP_RCProtocol_Rover mavlink)
+target_link_libraries(objs_AP_RCProtocol_Rover dronecan)
+target_link_libraries(objs_AP_RCProtocol_Rover littlefs)
+
+set(objs_AP_BLHeli_Rover_SOURCES
     ../libraries/AP_BLHeli/AP_BLHeli.cpp)
 
-set(objs/AP_BLHeli/Rover_INCLUDES
+set(objs_AP_BLHeli_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -860,20 +960,24 @@ set(objs/AP_BLHeli/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_BLHeli/Rover_INCLUDES})
+include_directories(${objs_AP_BLHeli_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_BLHeli/Rover ${objs/AP_BLHeli/Rover_SOURCES})
+add_library(objs_AP_BLHeli_Rover ${objs_AP_BLHeli_Rover_SOURCES})
+set_target_properties(objs_AP_BLHeli_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_BLHeli/Rover mavlink)
-target_link_libraries(objs/AP_BLHeli/Rover dronecan)
-target_link_libraries(objs/AP_BLHeli/Rover littlefs)
 
-set(objs/AP_Proximity/Rover_SOURCES
+target_link_libraries(objs_AP_BLHeli_Rover mavlink)
+target_link_libraries(objs_AP_BLHeli_Rover dronecan)
+target_link_libraries(objs_AP_BLHeli_Rover littlefs)
+
+set(objs_AP_Proximity_Rover_SOURCES
     ../libraries/AP_Proximity/AP_Proximity_Utils.cpp)
 
-set(objs/AP_Proximity/Rover_INCLUDES
+set(objs_AP_Proximity_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -892,21 +996,25 @@ set(objs/AP_Proximity/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Proximity/Rover_INCLUDES})
+include_directories(${objs_AP_Proximity_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Proximity/Rover ${objs/AP_Proximity/Rover_SOURCES})
+add_library(objs_AP_Proximity_Rover ${objs_AP_Proximity_Rover_SOURCES})
+set_target_properties(objs_AP_Proximity_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Proximity/Rover mavlink)
-target_link_libraries(objs/AP_Proximity/Rover dronecan)
-target_link_libraries(objs/AP_Proximity/Rover littlefs)
 
-set(objs/AC_Fence/Rover_SOURCES
+target_link_libraries(objs_AP_Proximity_Rover mavlink)
+target_link_libraries(objs_AP_Proximity_Rover dronecan)
+target_link_libraries(objs_AP_Proximity_Rover littlefs)
+
+set(objs_AC_Fence_Rover_SOURCES
     ../libraries/AC_Fence/AC_Fence.cpp
     ../libraries/AC_Fence/AC_PolyFence_loader.cpp)
 
-set(objs/AC_Fence/Rover_INCLUDES
+set(objs_AC_Fence_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -925,22 +1033,26 @@ set(objs/AC_Fence/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AC_Fence/Rover_INCLUDES})
+include_directories(${objs_AC_Fence_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AC_Fence/Rover ${objs/AC_Fence/Rover_SOURCES})
+add_library(objs_AC_Fence_Rover ${objs_AC_Fence_Rover_SOURCES})
+set_target_properties(objs_AC_Fence_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AC_Fence/Rover mavlink)
-target_link_libraries(objs/AC_Fence/Rover dronecan)
-target_link_libraries(objs/AC_Fence/Rover littlefs)
 
-set(objs/AC_Avoidance/Rover_SOURCES
+target_link_libraries(objs_AC_Fence_Rover mavlink)
+target_link_libraries(objs_AC_Fence_Rover dronecan)
+target_link_libraries(objs_AC_Fence_Rover littlefs)
+
+set(objs_AC_Avoidance_Rover_SOURCES
     ../libraries/AC_Avoidance/AC_Avoid.cpp
     ../libraries/AC_Avoidance/AP_OABendyRuler.cpp
     ../libraries/AC_Avoidance/AP_OADatabase.cpp)
 
-set(objs/AC_Avoidance/Rover_INCLUDES
+set(objs_AC_Avoidance_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -959,20 +1071,24 @@ set(objs/AC_Avoidance/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AC_Avoidance/Rover_INCLUDES})
+include_directories(${objs_AC_Avoidance_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AC_Avoidance/Rover ${objs/AC_Avoidance/Rover_SOURCES})
+add_library(objs_AC_Avoidance_Rover ${objs_AC_Avoidance_Rover_SOURCES})
+set_target_properties(objs_AC_Avoidance_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AC_Avoidance/Rover mavlink)
-target_link_libraries(objs/AC_Avoidance/Rover dronecan)
-target_link_libraries(objs/AC_Avoidance/Rover littlefs)
 
-set(objs/AP_LandingGear/Rover_SOURCES
+target_link_libraries(objs_AC_Avoidance_Rover mavlink)
+target_link_libraries(objs_AC_Avoidance_Rover dronecan)
+target_link_libraries(objs_AC_Avoidance_Rover littlefs)
+
+set(objs_AP_LandingGear_Rover_SOURCES
     ../libraries/AP_LandingGear/AP_LandingGear.cpp)
 
-set(objs/AP_LandingGear/Rover_INCLUDES
+set(objs_AP_LandingGear_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -991,22 +1107,26 @@ set(objs/AP_LandingGear/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_LandingGear/Rover_INCLUDES})
+include_directories(${objs_AP_LandingGear_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_LandingGear/Rover ${objs/AP_LandingGear/Rover_SOURCES})
+add_library(objs_AP_LandingGear_Rover ${objs_AP_LandingGear_Rover_SOURCES})
+set_target_properties(objs_AP_LandingGear_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_LandingGear/Rover mavlink)
-target_link_libraries(objs/AP_LandingGear/Rover dronecan)
-target_link_libraries(objs/AP_LandingGear/Rover littlefs)
 
-set(objs/AP_OSD/Rover_SOURCES
+target_link_libraries(objs_AP_LandingGear_Rover mavlink)
+target_link_libraries(objs_AP_LandingGear_Rover dronecan)
+target_link_libraries(objs_AP_LandingGear_Rover littlefs)
+
+set(objs_AP_OSD_Rover_SOURCES
     ../libraries/AP_OSD/AP_OSD_ParamScreen.cpp
     ../libraries/AP_OSD/AP_OSD_ParamSetting.cpp
     ../libraries/AP_OSD/AP_OSD_Screen.cpp)
 
-set(objs/AP_OSD/Rover_INCLUDES
+set(objs_AP_OSD_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1025,20 +1145,24 @@ set(objs/AP_OSD/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_OSD/Rover_INCLUDES})
+include_directories(${objs_AP_OSD_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_OSD/Rover ${objs/AP_OSD/Rover_SOURCES})
+add_library(objs_AP_OSD_Rover ${objs_AP_OSD_Rover_SOURCES})
+set_target_properties(objs_AP_OSD_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_OSD/Rover mavlink)
-target_link_libraries(objs/AP_OSD/Rover dronecan)
-target_link_libraries(objs/AP_OSD/Rover littlefs)
 
-set(objs/AP_Filesystem/Rover_SOURCES
+target_link_libraries(objs_AP_OSD_Rover mavlink)
+target_link_libraries(objs_AP_OSD_Rover dronecan)
+target_link_libraries(objs_AP_OSD_Rover littlefs)
+
+set(objs_AP_Filesystem_Rover_SOURCES
     ../libraries/AP_Filesystem/AP_Filesystem_posix.cpp)
 
-set(objs/AP_Filesystem/Rover_INCLUDES
+set(objs_AP_Filesystem_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1057,21 +1181,25 @@ set(objs/AP_Filesystem/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Filesystem/Rover_INCLUDES})
+include_directories(${objs_AP_Filesystem_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Filesystem/Rover ${objs/AP_Filesystem/Rover_SOURCES})
+add_library(objs_AP_Filesystem_Rover ${objs_AP_Filesystem_Rover_SOURCES})
+set_target_properties(objs_AP_Filesystem_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Filesystem/Rover mavlink)
-target_link_libraries(objs/AP_Filesystem/Rover dronecan)
-target_link_libraries(objs/AP_Filesystem/Rover littlefs)
 
-set(objs/AP_ADSB/Rover_SOURCES
+target_link_libraries(objs_AP_Filesystem_Rover mavlink)
+target_link_libraries(objs_AP_Filesystem_Rover dronecan)
+target_link_libraries(objs_AP_Filesystem_Rover littlefs)
+
+set(objs_AP_ADSB_Rover_SOURCES
     ../libraries/AP_ADSB/AP_ADSB.cpp
     ../libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp)
 
-set(objs/AP_ADSB/Rover_INCLUDES
+set(objs_AP_ADSB_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1090,20 +1218,24 @@ set(objs/AP_ADSB/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_ADSB/Rover_INCLUDES})
+include_directories(${objs_AP_ADSB_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_ADSB/Rover ${objs/AP_ADSB/Rover_SOURCES})
+add_library(objs_AP_ADSB_Rover ${objs_AP_ADSB_Rover_SOURCES})
+set_target_properties(objs_AP_ADSB_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_ADSB/Rover mavlink)
-target_link_libraries(objs/AP_ADSB/Rover dronecan)
-target_link_libraries(objs/AP_ADSB/Rover littlefs)
 
-set(objs/AP_ESC_Telem/Rover_SOURCES
+target_link_libraries(objs_AP_ADSB_Rover mavlink)
+target_link_libraries(objs_AP_ADSB_Rover dronecan)
+target_link_libraries(objs_AP_ADSB_Rover littlefs)
+
+set(objs_AP_ESC_Telem_Rover_SOURCES
     ../libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp)
 
-set(objs/AP_ESC_Telem/Rover_INCLUDES
+set(objs_AP_ESC_Telem_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1122,20 +1254,24 @@ set(objs/AP_ESC_Telem/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_ESC_Telem/Rover_INCLUDES})
+include_directories(${objs_AP_ESC_Telem_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_ESC_Telem/Rover ${objs/AP_ESC_Telem/Rover_SOURCES})
+add_library(objs_AP_ESC_Telem_Rover ${objs_AP_ESC_Telem_Rover_SOURCES})
+set_target_properties(objs_AP_ESC_Telem_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_ESC_Telem/Rover mavlink)
-target_link_libraries(objs/AP_ESC_Telem/Rover dronecan)
-target_link_libraries(objs/AP_ESC_Telem/Rover littlefs)
 
-set(objs/AP_GyroFFT/Rover_SOURCES
+target_link_libraries(objs_AP_ESC_Telem_Rover mavlink)
+target_link_libraries(objs_AP_ESC_Telem_Rover dronecan)
+target_link_libraries(objs_AP_ESC_Telem_Rover littlefs)
+
+set(objs_AP_GyroFFT_Rover_SOURCES
     ../libraries/AP_GyroFFT/AP_GyroFFT.cpp)
 
-set(objs/AP_GyroFFT/Rover_INCLUDES
+set(objs_AP_GyroFFT_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1154,21 +1290,25 @@ set(objs/AP_GyroFFT/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_GyroFFT/Rover_INCLUDES})
+include_directories(${objs_AP_GyroFFT_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_GyroFFT/Rover ${objs/AP_GyroFFT/Rover_SOURCES})
+add_library(objs_AP_GyroFFT_Rover ${objs_AP_GyroFFT_Rover_SOURCES})
+set_target_properties(objs_AP_GyroFFT_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_GyroFFT/Rover mavlink)
-target_link_libraries(objs/AP_GyroFFT/Rover dronecan)
-target_link_libraries(objs/AP_GyroFFT/Rover littlefs)
 
-set(objs/AP_RCTelemetry/Rover_SOURCES
+target_link_libraries(objs_AP_GyroFFT_Rover mavlink)
+target_link_libraries(objs_AP_GyroFFT_Rover dronecan)
+target_link_libraries(objs_AP_GyroFFT_Rover littlefs)
+
+set(objs_AP_RCTelemetry_Rover_SOURCES
     ../libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp
     ../libraries/AP_RCTelemetry/AP_RCTelemetry.cpp)
 
-set(objs/AP_RCTelemetry/Rover_INCLUDES
+set(objs_AP_RCTelemetry_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1187,21 +1327,25 @@ set(objs/AP_RCTelemetry/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_RCTelemetry/Rover_INCLUDES})
+include_directories(${objs_AP_RCTelemetry_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_RCTelemetry/Rover ${objs/AP_RCTelemetry/Rover_SOURCES})
+add_library(objs_AP_RCTelemetry_Rover ${objs_AP_RCTelemetry_Rover_SOURCES})
+set_target_properties(objs_AP_RCTelemetry_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_RCTelemetry/Rover mavlink)
-target_link_libraries(objs/AP_RCTelemetry/Rover dronecan)
-target_link_libraries(objs/AP_RCTelemetry/Rover littlefs)
 
-set(objs/AP_ExternalAHRS/Rover_SOURCES
+target_link_libraries(objs_AP_RCTelemetry_Rover mavlink)
+target_link_libraries(objs_AP_RCTelemetry_Rover dronecan)
+target_link_libraries(objs_AP_RCTelemetry_Rover littlefs)
+
+set(objs_AP_ExternalAHRS_Rover_SOURCES
     ../libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp
     ../libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp)
 
-set(objs/AP_ExternalAHRS/Rover_INCLUDES
+set(objs_AP_ExternalAHRS_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1220,20 +1364,24 @@ set(objs/AP_ExternalAHRS/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_ExternalAHRS/Rover_INCLUDES})
+include_directories(${objs_AP_ExternalAHRS_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_ExternalAHRS/Rover ${objs/AP_ExternalAHRS/Rover_SOURCES})
+add_library(objs_AP_ExternalAHRS_Rover ${objs_AP_ExternalAHRS_Rover_SOURCES})
+set_target_properties(objs_AP_ExternalAHRS_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_ExternalAHRS/Rover mavlink)
-target_link_libraries(objs/AP_ExternalAHRS/Rover dronecan)
-target_link_libraries(objs/AP_ExternalAHRS/Rover littlefs)
 
-set(objs/AP_TemperatureSensor/Rover_SOURCES
+target_link_libraries(objs_AP_ExternalAHRS_Rover mavlink)
+target_link_libraries(objs_AP_ExternalAHRS_Rover dronecan)
+target_link_libraries(objs_AP_ExternalAHRS_Rover littlefs)
+
+set(objs_AP_TemperatureSensor_Rover_SOURCES
     ../libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp)
 
-set(objs/AP_TemperatureSensor/Rover_INCLUDES
+set(objs_AP_TemperatureSensor_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1252,20 +1400,24 @@ set(objs/AP_TemperatureSensor/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_TemperatureSensor/Rover_INCLUDES})
+include_directories(${objs_AP_TemperatureSensor_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_TemperatureSensor/Rover ${objs/AP_TemperatureSensor/Rover_SOURCES})
+add_library(objs_AP_TemperatureSensor_Rover ${objs_AP_TemperatureSensor_Rover_SOURCES})
+set_target_properties(objs_AP_TemperatureSensor_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_TemperatureSensor/Rover mavlink)
-target_link_libraries(objs/AP_TemperatureSensor/Rover dronecan)
-target_link_libraries(objs/AP_TemperatureSensor/Rover littlefs)
 
-set(objs/AP_AIS/Rover_SOURCES
+target_link_libraries(objs_AP_TemperatureSensor_Rover mavlink)
+target_link_libraries(objs_AP_TemperatureSensor_Rover dronecan)
+target_link_libraries(objs_AP_TemperatureSensor_Rover littlefs)
+
+set(objs_AP_AIS_Rover_SOURCES
     ../libraries/AP_AIS/AP_AIS.cpp)
 
-set(objs/AP_AIS/Rover_INCLUDES
+set(objs_AP_AIS_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1284,20 +1436,24 @@ set(objs/AP_AIS/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_AIS/Rover_INCLUDES})
+include_directories(${objs_AP_AIS_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_AIS/Rover ${objs/AP_AIS/Rover_SOURCES})
+add_library(objs_AP_AIS_Rover ${objs_AP_AIS_Rover_SOURCES})
+set_target_properties(objs_AP_AIS_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_AIS/Rover mavlink)
-target_link_libraries(objs/AP_AIS/Rover dronecan)
-target_link_libraries(objs/AP_AIS/Rover littlefs)
 
-set(objs/AP_Arming/Rover_SOURCES
+target_link_libraries(objs_AP_AIS_Rover mavlink)
+target_link_libraries(objs_AP_AIS_Rover dronecan)
+target_link_libraries(objs_AP_AIS_Rover littlefs)
+
+set(objs_AP_Arming_Rover_SOURCES
     ../libraries/AP_Arming/AP_Arming.cpp)
 
-set(objs/AP_Arming/Rover_INCLUDES
+set(objs_AP_Arming_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1316,20 +1472,24 @@ set(objs/AP_Arming/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Arming/Rover_INCLUDES})
+include_directories(${objs_AP_Arming_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Arming/Rover ${objs/AP_Arming/Rover_SOURCES})
+add_library(objs_AP_Arming_Rover ${objs_AP_Arming_Rover_SOURCES})
+set_target_properties(objs_AP_Arming_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Arming/Rover mavlink)
-target_link_libraries(objs/AP_Arming/Rover dronecan)
-target_link_libraries(objs/AP_Arming/Rover littlefs)
 
-set(objs/AP_Follow/Rover_SOURCES
+target_link_libraries(objs_AP_Arming_Rover mavlink)
+target_link_libraries(objs_AP_Arming_Rover dronecan)
+target_link_libraries(objs_AP_Arming_Rover littlefs)
+
+set(objs_AP_Follow_Rover_SOURCES
     ../libraries/AP_Follow/AP_Follow.cpp)
 
-set(objs/AP_Follow/Rover_INCLUDES
+set(objs_AP_Follow_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1348,22 +1508,26 @@ set(objs/AP_Follow/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Follow/Rover_INCLUDES})
+include_directories(${objs_AP_Follow_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Follow/Rover ${objs/AP_Follow/Rover_SOURCES})
+add_library(objs_AP_Follow_Rover ${objs_AP_Follow_Rover_SOURCES})
+set_target_properties(objs_AP_Follow_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Follow/Rover mavlink)
-target_link_libraries(objs/AP_Follow/Rover dronecan)
-target_link_libraries(objs/AP_Follow/Rover littlefs)
 
-set(objs/AC_AttitudeControl/Rover_SOURCES
+target_link_libraries(objs_AP_Follow_Rover mavlink)
+target_link_libraries(objs_AP_Follow_Rover dronecan)
+target_link_libraries(objs_AP_Follow_Rover littlefs)
+
+set(objs_AC_AttitudeControl_Rover_SOURCES
     ../libraries/AC_AttitudeControl/AC_AttitudeControl.cpp
     ../libraries/AC_AttitudeControl/AC_PosControl.cpp
     ../libraries/AC_AttitudeControl/AC_WeatherVane.cpp)
 
-set(objs/AC_AttitudeControl/Rover_INCLUDES
+set(objs_AC_AttitudeControl_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1382,20 +1546,24 @@ set(objs/AC_AttitudeControl/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AC_AttitudeControl/Rover_INCLUDES})
+include_directories(${objs_AC_AttitudeControl_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AC_AttitudeControl/Rover ${objs/AC_AttitudeControl/Rover_SOURCES})
+add_library(objs_AC_AttitudeControl_Rover ${objs_AC_AttitudeControl_Rover_SOURCES})
+set_target_properties(objs_AC_AttitudeControl_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AC_AttitudeControl/Rover mavlink)
-target_link_libraries(objs/AC_AttitudeControl/Rover dronecan)
-target_link_libraries(objs/AC_AttitudeControl/Rover littlefs)
 
-set(objs/AC_PrecLand/Rover_SOURCES
+target_link_libraries(objs_AC_AttitudeControl_Rover mavlink)
+target_link_libraries(objs_AC_AttitudeControl_Rover dronecan)
+target_link_libraries(objs_AC_AttitudeControl_Rover littlefs)
+
+set(objs_AC_PrecLand_Rover_SOURCES
     ../libraries/AC_PrecLand/AC_PrecLand.cpp)
 
-set(objs/AC_PrecLand/Rover_INCLUDES
+set(objs_AC_PrecLand_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1414,22 +1582,26 @@ set(objs/AC_PrecLand/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AC_PrecLand/Rover_INCLUDES})
+include_directories(${objs_AC_PrecLand_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AC_PrecLand/Rover ${objs/AC_PrecLand/Rover_SOURCES})
+add_library(objs_AC_PrecLand_Rover ${objs_AC_PrecLand_Rover_SOURCES})
+set_target_properties(objs_AC_PrecLand_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AC_PrecLand/Rover mavlink)
-target_link_libraries(objs/AC_PrecLand/Rover dronecan)
-target_link_libraries(objs/AC_PrecLand/Rover littlefs)
 
-set(objs/AP_HAL_SITL/Rover_SOURCES
+target_link_libraries(objs_AC_PrecLand_Rover mavlink)
+target_link_libraries(objs_AC_PrecLand_Rover dronecan)
+target_link_libraries(objs_AC_PrecLand_Rover littlefs)
+
+set(objs_AP_HAL_SITL_Rover_SOURCES
     ../libraries/AP_HAL_SITL/SITL_cmdline.cpp
     ../libraries/AP_HAL_SITL/Storage.cpp
     ../libraries/AP_HAL_SITL/UARTDriver.cpp)
 
-set(objs/AP_HAL_SITL/Rover_INCLUDES
+set(objs_AP_HAL_SITL_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1448,23 +1620,27 @@ set(objs/AP_HAL_SITL/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_HAL_SITL/Rover_INCLUDES})
+include_directories(${objs_AP_HAL_SITL_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_HAL_SITL/Rover ${objs/AP_HAL_SITL/Rover_SOURCES})
+add_library(objs_AP_HAL_SITL_Rover ${objs_AP_HAL_SITL_Rover_SOURCES})
+set_target_properties(objs_AP_HAL_SITL_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_HAL_SITL/Rover mavlink)
-target_link_libraries(objs/AP_HAL_SITL/Rover dronecan)
-target_link_libraries(objs/AP_HAL_SITL/Rover littlefs)
 
-set(objs/SITL/Rover_SOURCES
+target_link_libraries(objs_AP_HAL_SITL_Rover mavlink)
+target_link_libraries(objs_AP_HAL_SITL_Rover dronecan)
+target_link_libraries(objs_AP_HAL_SITL_Rover littlefs)
+
+set(objs_SITL_Rover_SOURCES
     ../libraries/SITL/SIM_Aircraft.cpp
     ../libraries/SITL/SIM_DroneCANDevice.cpp
     ../libraries/SITL/SIM_XPlane.cpp
     ../libraries/SITL/SITL.cpp)
 
-set(objs/SITL/Rover_INCLUDES
+set(objs_SITL_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1483,17 +1659,21 @@ set(objs/SITL/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/SITL/Rover_INCLUDES})
+include_directories(${objs_SITL_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/SITL/Rover ${objs/SITL/Rover_SOURCES})
+add_library(objs_SITL_Rover ${objs_SITL_Rover_SOURCES})
+set_target_properties(objs_SITL_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/SITL/Rover mavlink)
-target_link_libraries(objs/SITL/Rover dronecan)
-target_link_libraries(objs/SITL/Rover littlefs)
 
-set(objs/AP_Scripting/Rover_SOURCES
+target_link_libraries(objs_SITL_Rover mavlink)
+target_link_libraries(objs_SITL_Rover dronecan)
+target_link_libraries(objs_SITL_Rover littlefs)
+
+set(objs_AP_Scripting_Rover_SOURCES
     ../libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp
     ../libraries/AP_Scripting/AP_Scripting_helpers.cpp
     ../libraries/AP_Scripting/lua_bindings.cpp
@@ -1501,7 +1681,7 @@ set(objs/AP_Scripting/Rover_SOURCES
     ../libraries/AP_Scripting/lua_scripts.cpp
     ../build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp)
 
-set(objs/AP_Scripting/Rover_INCLUDES
+set(objs_AP_Scripting_Rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1520,15 +1700,19 @@ set(objs/AP_Scripting/Rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Scripting/Rover_INCLUDES})
+include_directories(${objs_AP_Scripting_Rover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_library(objs/AP_Scripting/Rover ${objs/AP_Scripting/Rover_SOURCES})
+add_library(objs_AP_Scripting_Rover ${objs_AP_Scripting_Rover_SOURCES})
+set_target_properties(objs_AP_Scripting_Rover PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Scripting/Rover mavlink)
-target_link_libraries(objs/AP_Scripting/Rover dronecan)
-target_link_libraries(objs/AP_Scripting/Rover littlefs)
+
+target_link_libraries(objs_AP_Scripting_Rover mavlink)
+target_link_libraries(objs_AP_Scripting_Rover dronecan)
+target_link_libraries(objs_AP_Scripting_Rover littlefs)
 
 set(Rover_libs_SOURCES
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
@@ -1730,6 +1914,10 @@ set(Rover_libs_INCLUDES
 include_directories(${Rover_libs_INCLUDES})
 
 add_library(Rover_libs ${Rover_libs_SOURCES})
+set_target_properties(Rover_libs PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
+
 
 target_link_libraries(Rover_libs objs/AP_AccelCal)
 target_link_libraries(Rover_libs objs/AP_AccelCal/Rover)
@@ -1992,7 +2180,7 @@ target_link_libraries(Rover_libs objs/AP_Scripting/lua/src/Rover)
 target_link_libraries(Rover_libs objs/AC_CustomControl)
 target_link_libraries(Rover_libs objs/AC_CustomControl/Rover)
 
-set(bin/ardurover_SOURCES
+set(bin_ardurover_SOURCES
     AP_Arming_Rover.cpp
     AP_ExternalControl_Rover.cpp
     AP_Rally.cpp
@@ -2032,7 +2220,7 @@ set(bin/ardurover_SOURCES
     sensors.cpp
     system.cpp)
 
-set(bin/ardurover_INCLUDES
+set(bin_ardurover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -2051,11 +2239,11 @@ set(bin/ardurover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${bin/ardurover_INCLUDES})
+include_directories(${bin_ardurover_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
 
-add_executable(bin/ardurover ${bin/ardurover_SOURCES})
+add_executable(bin_ardurover ${bin_ardurover_SOURCES})
 
-target_link_libraries(bin/ardurover Rover_libs)
+target_link_libraries(bin_ardurover Rover_libs)
 

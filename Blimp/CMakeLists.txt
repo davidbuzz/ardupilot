@@ -1,10 +1,10 @@
 
-set(objs/AP_AHRS/Blimp_SOURCES
+set(objs_AP_AHRS_Blimp_SOURCES
     ../libraries/AP_AHRS/AP_AHRS.cpp
     ../libraries/AP_AHRS/AP_AHRS_Backend.cpp
     ../libraries/AP_AHRS/AP_AHRS_DCM.cpp)
 
-set(objs/AP_AHRS/Blimp_INCLUDES
+set(objs_AP_AHRS_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -23,22 +23,26 @@ set(objs/AP_AHRS/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_AHRS/Blimp_INCLUDES})
+include_directories(${objs_AP_AHRS_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_AHRS/Blimp ${objs/AP_AHRS/Blimp_SOURCES})
+add_library(objs_AP_AHRS_Blimp ${objs_AP_AHRS_Blimp_SOURCES})
+set_target_properties(objs_AP_AHRS_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_AHRS/Blimp mavlink)
-target_link_libraries(objs/AP_AHRS/Blimp dronecan)
-target_link_libraries(objs/AP_AHRS/Blimp littlefs)
 
-set(objs/AP_Airspeed/Blimp_SOURCES
+target_link_libraries(objs_AP_AHRS_Blimp mavlink)
+target_link_libraries(objs_AP_AHRS_Blimp dronecan)
+target_link_libraries(objs_AP_AHRS_Blimp littlefs)
+
+set(objs_AP_Airspeed_Blimp_SOURCES
     ../libraries/AP_Airspeed/AP_Airspeed.cpp
     ../libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp
     ../libraries/AP_Airspeed/AP_Airspeed_Params.cpp)
 
-set(objs/AP_Airspeed/Blimp_INCLUDES
+set(objs_AP_Airspeed_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -57,22 +61,26 @@ set(objs/AP_Airspeed/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Airspeed/Blimp_INCLUDES})
+include_directories(${objs_AP_Airspeed_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Airspeed/Blimp ${objs/AP_Airspeed/Blimp_SOURCES})
+add_library(objs_AP_Airspeed_Blimp ${objs_AP_Airspeed_Blimp_SOURCES})
+set_target_properties(objs_AP_Airspeed_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Airspeed/Blimp mavlink)
-target_link_libraries(objs/AP_Airspeed/Blimp dronecan)
-target_link_libraries(objs/AP_Airspeed/Blimp littlefs)
 
-set(objs/AP_Baro/Blimp_SOURCES
+target_link_libraries(objs_AP_Airspeed_Blimp mavlink)
+target_link_libraries(objs_AP_Airspeed_Blimp dronecan)
+target_link_libraries(objs_AP_Airspeed_Blimp littlefs)
+
+set(objs_AP_Baro_Blimp_SOURCES
     ../libraries/AP_Baro/AP_Baro.cpp
     ../libraries/AP_Baro/AP_Baro_Backend.cpp
     ../libraries/AP_Baro/AP_Baro_SITL.cpp)
 
-set(objs/AP_Baro/Blimp_INCLUDES
+set(objs_AP_Baro_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -91,21 +99,25 @@ set(objs/AP_Baro/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Baro/Blimp_INCLUDES})
+include_directories(${objs_AP_Baro_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Baro/Blimp ${objs/AP_Baro/Blimp_SOURCES})
+add_library(objs_AP_Baro_Blimp ${objs_AP_Baro_Blimp_SOURCES})
+set_target_properties(objs_AP_Baro_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Baro/Blimp mavlink)
-target_link_libraries(objs/AP_Baro/Blimp dronecan)
-target_link_libraries(objs/AP_Baro/Blimp littlefs)
 
-set(objs/AP_BattMonitor/Blimp_SOURCES
+target_link_libraries(objs_AP_Baro_Blimp mavlink)
+target_link_libraries(objs_AP_Baro_Blimp dronecan)
+target_link_libraries(objs_AP_Baro_Blimp littlefs)
+
+set(objs_AP_BattMonitor_Blimp_SOURCES
     ../libraries/AP_BattMonitor/AP_BattMonitor.cpp
     ../libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp)
 
-set(objs/AP_BattMonitor/Blimp_INCLUDES
+set(objs_AP_BattMonitor_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -124,20 +136,24 @@ set(objs/AP_BattMonitor/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_BattMonitor/Blimp_INCLUDES})
+include_directories(${objs_AP_BattMonitor_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_BattMonitor/Blimp ${objs/AP_BattMonitor/Blimp_SOURCES})
+add_library(objs_AP_BattMonitor_Blimp ${objs_AP_BattMonitor_Blimp_SOURCES})
+set_target_properties(objs_AP_BattMonitor_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_BattMonitor/Blimp mavlink)
-target_link_libraries(objs/AP_BattMonitor/Blimp dronecan)
-target_link_libraries(objs/AP_BattMonitor/Blimp littlefs)
 
-set(objs/AP_BoardConfig/Blimp_SOURCES
+target_link_libraries(objs_AP_BattMonitor_Blimp mavlink)
+target_link_libraries(objs_AP_BattMonitor_Blimp dronecan)
+target_link_libraries(objs_AP_BattMonitor_Blimp littlefs)
+
+set(objs_AP_BoardConfig_Blimp_SOURCES
     ../libraries/AP_BoardConfig/AP_BoardConfig.cpp)
 
-set(objs/AP_BoardConfig/Blimp_INCLUDES
+set(objs_AP_BoardConfig_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -156,20 +172,24 @@ set(objs/AP_BoardConfig/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_BoardConfig/Blimp_INCLUDES})
+include_directories(${objs_AP_BoardConfig_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_BoardConfig/Blimp ${objs/AP_BoardConfig/Blimp_SOURCES})
+add_library(objs_AP_BoardConfig_Blimp ${objs_AP_BoardConfig_Blimp_SOURCES})
+set_target_properties(objs_AP_BoardConfig_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_BoardConfig/Blimp mavlink)
-target_link_libraries(objs/AP_BoardConfig/Blimp dronecan)
-target_link_libraries(objs/AP_BoardConfig/Blimp littlefs)
 
-set(objs/AP_HAL/Blimp_SOURCES
+target_link_libraries(objs_AP_BoardConfig_Blimp mavlink)
+target_link_libraries(objs_AP_BoardConfig_Blimp dronecan)
+target_link_libraries(objs_AP_BoardConfig_Blimp littlefs)
+
+set(objs_AP_HAL_Blimp_SOURCES
     ../libraries/AP_HAL/SIMState.cpp)
 
-set(objs/AP_HAL/Blimp_INCLUDES
+set(objs_AP_HAL_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -188,23 +208,27 @@ set(objs/AP_HAL/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_HAL/Blimp_INCLUDES})
+include_directories(${objs_AP_HAL_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_HAL/Blimp ${objs/AP_HAL/Blimp_SOURCES})
+add_library(objs_AP_HAL_Blimp ${objs_AP_HAL_Blimp_SOURCES})
+set_target_properties(objs_AP_HAL_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_HAL/Blimp mavlink)
-target_link_libraries(objs/AP_HAL/Blimp dronecan)
-target_link_libraries(objs/AP_HAL/Blimp littlefs)
 
-set(objs/AP_InertialSensor/Blimp_SOURCES
+target_link_libraries(objs_AP_HAL_Blimp mavlink)
+target_link_libraries(objs_AP_HAL_Blimp dronecan)
+target_link_libraries(objs_AP_HAL_Blimp littlefs)
+
+set(objs_AP_InertialSensor_Blimp_SOURCES
     ../libraries/AP_InertialSensor/AP_InertialSensor.cpp
     ../libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp
     ../libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp
     ../libraries/AP_InertialSensor/FastRateBuffer.cpp)
 
-set(objs/AP_InertialSensor/Blimp_INCLUDES
+set(objs_AP_InertialSensor_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -223,20 +247,24 @@ set(objs/AP_InertialSensor/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_InertialSensor/Blimp_INCLUDES})
+include_directories(${objs_AP_InertialSensor_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_InertialSensor/Blimp ${objs/AP_InertialSensor/Blimp_SOURCES})
+add_library(objs_AP_InertialSensor_Blimp ${objs_AP_InertialSensor_Blimp_SOURCES})
+set_target_properties(objs_AP_InertialSensor_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_InertialSensor/Blimp mavlink)
-target_link_libraries(objs/AP_InertialSensor/Blimp dronecan)
-target_link_libraries(objs/AP_InertialSensor/Blimp littlefs)
 
-set(objs/AP_Math/Blimp_SOURCES
+target_link_libraries(objs_AP_InertialSensor_Blimp mavlink)
+target_link_libraries(objs_AP_InertialSensor_Blimp dronecan)
+target_link_libraries(objs_AP_InertialSensor_Blimp littlefs)
+
+set(objs_AP_Math_Blimp_SOURCES
     ../libraries/AP_Math/SCurve.cpp)
 
-set(objs/AP_Math/Blimp_INCLUDES
+set(objs_AP_Math_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -255,20 +283,24 @@ set(objs/AP_Math/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Math/Blimp_INCLUDES})
+include_directories(${objs_AP_Math_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Math/Blimp ${objs/AP_Math/Blimp_SOURCES})
+add_library(objs_AP_Math_Blimp ${objs_AP_Math_Blimp_SOURCES})
+set_target_properties(objs_AP_Math_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Math/Blimp mavlink)
-target_link_libraries(objs/AP_Math/Blimp dronecan)
-target_link_libraries(objs/AP_Math/Blimp littlefs)
 
-set(objs/AP_Mission/Blimp_SOURCES
+target_link_libraries(objs_AP_Math_Blimp mavlink)
+target_link_libraries(objs_AP_Math_Blimp dronecan)
+target_link_libraries(objs_AP_Math_Blimp littlefs)
+
+set(objs_AP_Mission_Blimp_SOURCES
     ../libraries/AP_Mission/AP_Mission.cpp)
 
-set(objs/AP_Mission/Blimp_INCLUDES
+set(objs_AP_Mission_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -287,23 +319,27 @@ set(objs/AP_Mission/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Mission/Blimp_INCLUDES})
+include_directories(${objs_AP_Mission_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Mission/Blimp ${objs/AP_Mission/Blimp_SOURCES})
+add_library(objs_AP_Mission_Blimp ${objs_AP_Mission_Blimp_SOURCES})
+set_target_properties(objs_AP_Mission_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Mission/Blimp mavlink)
-target_link_libraries(objs/AP_Mission/Blimp dronecan)
-target_link_libraries(objs/AP_Mission/Blimp littlefs)
 
-set(objs/AP_DAL/Blimp_SOURCES
+target_link_libraries(objs_AP_Mission_Blimp mavlink)
+target_link_libraries(objs_AP_Mission_Blimp dronecan)
+target_link_libraries(objs_AP_Mission_Blimp littlefs)
+
+set(objs_AP_DAL_Blimp_SOURCES
     ../libraries/AP_DAL/AP_DAL.cpp
     ../libraries/AP_DAL/AP_DAL_Beacon.cpp
     ../libraries/AP_DAL/AP_DAL_RangeFinder.cpp
     ../libraries/AP_DAL/AP_DAL_VisualOdom.cpp)
 
-set(objs/AP_DAL/Blimp_INCLUDES
+set(objs_AP_DAL_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -322,21 +358,25 @@ set(objs/AP_DAL/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_DAL/Blimp_INCLUDES})
+include_directories(${objs_AP_DAL_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_DAL/Blimp ${objs/AP_DAL/Blimp_SOURCES})
+add_library(objs_AP_DAL_Blimp ${objs_AP_DAL_Blimp_SOURCES})
+set_target_properties(objs_AP_DAL_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_DAL/Blimp mavlink)
-target_link_libraries(objs/AP_DAL/Blimp dronecan)
-target_link_libraries(objs/AP_DAL/Blimp littlefs)
 
-set(objs/AP_NavEKF2/Blimp_SOURCES
+target_link_libraries(objs_AP_DAL_Blimp mavlink)
+target_link_libraries(objs_AP_DAL_Blimp dronecan)
+target_link_libraries(objs_AP_DAL_Blimp littlefs)
+
+set(objs_AP_NavEKF2_Blimp_SOURCES
     ../libraries/AP_NavEKF2/AP_NavEKF2.cpp
     ../libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp)
 
-set(objs/AP_NavEKF2/Blimp_INCLUDES
+set(objs_AP_NavEKF2_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -355,17 +395,21 @@ set(objs/AP_NavEKF2/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_NavEKF2/Blimp_INCLUDES})
+include_directories(${objs_AP_NavEKF2_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_NavEKF2/Blimp ${objs/AP_NavEKF2/Blimp_SOURCES})
+add_library(objs_AP_NavEKF2_Blimp ${objs_AP_NavEKF2_Blimp_SOURCES})
+set_target_properties(objs_AP_NavEKF2_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_NavEKF2/Blimp mavlink)
-target_link_libraries(objs/AP_NavEKF2/Blimp dronecan)
-target_link_libraries(objs/AP_NavEKF2/Blimp littlefs)
 
-set(objs/AP_NavEKF3/Blimp_SOURCES
+target_link_libraries(objs_AP_NavEKF2_Blimp mavlink)
+target_link_libraries(objs_AP_NavEKF2_Blimp dronecan)
+target_link_libraries(objs_AP_NavEKF2_Blimp littlefs)
+
+set(objs_AP_NavEKF3_Blimp_SOURCES
     ../libraries/AP_NavEKF3/AP_NavEKF3.cpp
     ../libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp
     ../libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp
@@ -380,7 +424,7 @@ set(objs/AP_NavEKF3/Blimp_SOURCES
     ../libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp
     ../libraries/AP_NavEKF3/AP_NavEKF3_core.cpp)
 
-set(objs/AP_NavEKF3/Blimp_INCLUDES
+set(objs_AP_NavEKF3_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -399,20 +443,24 @@ set(objs/AP_NavEKF3/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_NavEKF3/Blimp_INCLUDES})
+include_directories(${objs_AP_NavEKF3_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_NavEKF3/Blimp ${objs/AP_NavEKF3/Blimp_SOURCES})
+add_library(objs_AP_NavEKF3_Blimp ${objs_AP_NavEKF3_Blimp_SOURCES})
+set_target_properties(objs_AP_NavEKF3_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_NavEKF3/Blimp mavlink)
-target_link_libraries(objs/AP_NavEKF3/Blimp dronecan)
-target_link_libraries(objs/AP_NavEKF3/Blimp littlefs)
 
-set(objs/AP_Rally/Blimp_SOURCES
+target_link_libraries(objs_AP_NavEKF3_Blimp mavlink)
+target_link_libraries(objs_AP_NavEKF3_Blimp dronecan)
+target_link_libraries(objs_AP_NavEKF3_Blimp littlefs)
+
+set(objs_AP_Rally_Blimp_SOURCES
     ../libraries/AP_Rally/AP_Rally.cpp)
 
-set(objs/AP_Rally/Blimp_INCLUDES
+set(objs_AP_Rally_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -431,20 +479,24 @@ set(objs/AP_Rally/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Rally/Blimp_INCLUDES})
+include_directories(${objs_AP_Rally_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Rally/Blimp ${objs/AP_Rally/Blimp_SOURCES})
+add_library(objs_AP_Rally_Blimp ${objs_AP_Rally_Blimp_SOURCES})
+set_target_properties(objs_AP_Rally_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Rally/Blimp mavlink)
-target_link_libraries(objs/AP_Rally/Blimp dronecan)
-target_link_libraries(objs/AP_Rally/Blimp littlefs)
 
-set(objs/AP_Scheduler/Blimp_SOURCES
+target_link_libraries(objs_AP_Rally_Blimp mavlink)
+target_link_libraries(objs_AP_Rally_Blimp dronecan)
+target_link_libraries(objs_AP_Rally_Blimp littlefs)
+
+set(objs_AP_Scheduler_Blimp_SOURCES
     ../libraries/AP_Scheduler/AP_Scheduler.cpp)
 
-set(objs/AP_Scheduler/Blimp_INCLUDES
+set(objs_AP_Scheduler_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -463,20 +515,24 @@ set(objs/AP_Scheduler/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Scheduler/Blimp_INCLUDES})
+include_directories(${objs_AP_Scheduler_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Scheduler/Blimp ${objs/AP_Scheduler/Blimp_SOURCES})
+add_library(objs_AP_Scheduler_Blimp ${objs_AP_Scheduler_Blimp_SOURCES})
+set_target_properties(objs_AP_Scheduler_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Scheduler/Blimp mavlink)
-target_link_libraries(objs/AP_Scheduler/Blimp dronecan)
-target_link_libraries(objs/AP_Scheduler/Blimp littlefs)
 
-set(objs/AP_Terrain/Blimp_SOURCES
+target_link_libraries(objs_AP_Scheduler_Blimp mavlink)
+target_link_libraries(objs_AP_Scheduler_Blimp dronecan)
+target_link_libraries(objs_AP_Scheduler_Blimp littlefs)
+
+set(objs_AP_Terrain_Blimp_SOURCES
     ../libraries/AP_Terrain/AP_Terrain.cpp)
 
-set(objs/AP_Terrain/Blimp_INCLUDES
+set(objs_AP_Terrain_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -495,20 +551,24 @@ set(objs/AP_Terrain/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Terrain/Blimp_INCLUDES})
+include_directories(${objs_AP_Terrain_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Terrain/Blimp ${objs/AP_Terrain/Blimp_SOURCES})
+add_library(objs_AP_Terrain_Blimp ${objs_AP_Terrain_Blimp_SOURCES})
+set_target_properties(objs_AP_Terrain_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Terrain/Blimp mavlink)
-target_link_libraries(objs/AP_Terrain/Blimp dronecan)
-target_link_libraries(objs/AP_Terrain/Blimp littlefs)
 
-set(objs/AP_Vehicle/Blimp_SOURCES
+target_link_libraries(objs_AP_Terrain_Blimp mavlink)
+target_link_libraries(objs_AP_Terrain_Blimp dronecan)
+target_link_libraries(objs_AP_Terrain_Blimp littlefs)
+
+set(objs_AP_Vehicle_Blimp_SOURCES
     ../libraries/AP_Vehicle/AP_Vehicle.cpp)
 
-set(objs/AP_Vehicle/Blimp_INCLUDES
+set(objs_AP_Vehicle_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -527,23 +587,27 @@ set(objs/AP_Vehicle/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Vehicle/Blimp_INCLUDES})
+include_directories(${objs_AP_Vehicle_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Vehicle/Blimp ${objs/AP_Vehicle/Blimp_SOURCES})
+add_library(objs_AP_Vehicle_Blimp ${objs_AP_Vehicle_Blimp_SOURCES})
+set_target_properties(objs_AP_Vehicle_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Vehicle/Blimp mavlink)
-target_link_libraries(objs/AP_Vehicle/Blimp dronecan)
-target_link_libraries(objs/AP_Vehicle/Blimp littlefs)
 
-set(objs/AP_Logger/Blimp_SOURCES
+target_link_libraries(objs_AP_Vehicle_Blimp mavlink)
+target_link_libraries(objs_AP_Vehicle_Blimp dronecan)
+target_link_libraries(objs_AP_Vehicle_Blimp littlefs)
+
+set(objs_AP_Logger_Blimp_SOURCES
     ../libraries/AP_Logger/AP_Logger.cpp
     ../libraries/AP_Logger/AP_Logger_Backend.cpp
     ../libraries/AP_Logger/AP_Logger_File.cpp
     ../libraries/AP_Logger/LoggerMessageWriter.cpp)
 
-set(objs/AP_Logger/Blimp_INCLUDES
+set(objs_AP_Logger_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -562,20 +626,24 @@ set(objs/AP_Logger/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Logger/Blimp_INCLUDES})
+include_directories(${objs_AP_Logger_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Logger/Blimp ${objs/AP_Logger/Blimp_SOURCES})
+add_library(objs_AP_Logger_Blimp ${objs_AP_Logger_Blimp_SOURCES})
+set_target_properties(objs_AP_Logger_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Logger/Blimp mavlink)
-target_link_libraries(objs/AP_Logger/Blimp dronecan)
-target_link_libraries(objs/AP_Logger/Blimp littlefs)
 
-set(objs/Filter/Blimp_SOURCES
+target_link_libraries(objs_AP_Logger_Blimp mavlink)
+target_link_libraries(objs_AP_Logger_Blimp dronecan)
+target_link_libraries(objs_AP_Logger_Blimp littlefs)
+
+set(objs_Filter_Blimp_SOURCES
     ../libraries/Filter/HarmonicNotchFilter.cpp)
 
-set(objs/Filter/Blimp_INCLUDES
+set(objs_Filter_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -594,24 +662,28 @@ set(objs/Filter/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/Filter/Blimp_INCLUDES})
+include_directories(${objs_Filter_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/Filter/Blimp ${objs/Filter/Blimp_SOURCES})
+add_library(objs_Filter_Blimp ${objs_Filter_Blimp_SOURCES})
+set_target_properties(objs_Filter_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/Filter/Blimp mavlink)
-target_link_libraries(objs/Filter/Blimp dronecan)
-target_link_libraries(objs/Filter/Blimp littlefs)
 
-set(objs/GCS_MAVLink/Blimp_SOURCES
+target_link_libraries(objs_Filter_Blimp mavlink)
+target_link_libraries(objs_Filter_Blimp dronecan)
+target_link_libraries(objs_Filter_Blimp littlefs)
+
+set(objs_GCS_MAVLink_Blimp_SOURCES
     ../libraries/GCS_MAVLink/GCS.cpp
     ../libraries/GCS_MAVLink/GCS_Common.cpp
     ../libraries/GCS_MAVLink/GCS_Dummy.cpp
     ../libraries/GCS_MAVLink/GCS_Fence.cpp
     ../libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp)
 
-set(objs/GCS_MAVLink/Blimp_INCLUDES
+set(objs_GCS_MAVLink_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -630,20 +702,24 @@ set(objs/GCS_MAVLink/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/GCS_MAVLink/Blimp_INCLUDES})
+include_directories(${objs_GCS_MAVLink_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/GCS_MAVLink/Blimp ${objs/GCS_MAVLink/Blimp_SOURCES})
+add_library(objs_GCS_MAVLink_Blimp ${objs_GCS_MAVLink_Blimp_SOURCES})
+set_target_properties(objs_GCS_MAVLink_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/GCS_MAVLink/Blimp mavlink)
-target_link_libraries(objs/GCS_MAVLink/Blimp dronecan)
-target_link_libraries(objs/GCS_MAVLink/Blimp littlefs)
 
-set(objs/RC_Channel/Blimp_SOURCES
+target_link_libraries(objs_GCS_MAVLink_Blimp mavlink)
+target_link_libraries(objs_GCS_MAVLink_Blimp dronecan)
+target_link_libraries(objs_GCS_MAVLink_Blimp littlefs)
+
+set(objs_RC_Channel_Blimp_SOURCES
     ../libraries/RC_Channel/RC_Channel.cpp)
 
-set(objs/RC_Channel/Blimp_INCLUDES
+set(objs_RC_Channel_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -662,20 +738,24 @@ set(objs/RC_Channel/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/RC_Channel/Blimp_INCLUDES})
+include_directories(${objs_RC_Channel_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/RC_Channel/Blimp ${objs/RC_Channel/Blimp_SOURCES})
+add_library(objs_RC_Channel_Blimp ${objs_RC_Channel_Blimp_SOURCES})
+set_target_properties(objs_RC_Channel_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/RC_Channel/Blimp mavlink)
-target_link_libraries(objs/RC_Channel/Blimp dronecan)
-target_link_libraries(objs/RC_Channel/Blimp littlefs)
 
-set(objs/StorageManager/Blimp_SOURCES
+target_link_libraries(objs_RC_Channel_Blimp mavlink)
+target_link_libraries(objs_RC_Channel_Blimp dronecan)
+target_link_libraries(objs_RC_Channel_Blimp littlefs)
+
+set(objs_StorageManager_Blimp_SOURCES
     ../libraries/StorageManager/StorageManager.cpp)
 
-set(objs/StorageManager/Blimp_INCLUDES
+set(objs_StorageManager_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -694,20 +774,24 @@ set(objs/StorageManager/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/StorageManager/Blimp_INCLUDES})
+include_directories(${objs_StorageManager_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/StorageManager/Blimp ${objs/StorageManager/Blimp_SOURCES})
+add_library(objs_StorageManager_Blimp ${objs_StorageManager_Blimp_SOURCES})
+set_target_properties(objs_StorageManager_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/StorageManager/Blimp mavlink)
-target_link_libraries(objs/StorageManager/Blimp dronecan)
-target_link_libraries(objs/StorageManager/Blimp littlefs)
 
-set(objs/AP_Frsky_Telem/Blimp_SOURCES
+target_link_libraries(objs_StorageManager_Blimp mavlink)
+target_link_libraries(objs_StorageManager_Blimp dronecan)
+target_link_libraries(objs_StorageManager_Blimp littlefs)
+
+set(objs_AP_Frsky_Telem_Blimp_SOURCES
     ../libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp)
 
-set(objs/AP_Frsky_Telem/Blimp_INCLUDES
+set(objs_AP_Frsky_Telem_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -726,20 +810,24 @@ set(objs/AP_Frsky_Telem/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Frsky_Telem/Blimp_INCLUDES})
+include_directories(${objs_AP_Frsky_Telem_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Frsky_Telem/Blimp ${objs/AP_Frsky_Telem/Blimp_SOURCES})
+add_library(objs_AP_Frsky_Telem_Blimp ${objs_AP_Frsky_Telem_Blimp_SOURCES})
+set_target_properties(objs_AP_Frsky_Telem_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Frsky_Telem/Blimp mavlink)
-target_link_libraries(objs/AP_Frsky_Telem/Blimp dronecan)
-target_link_libraries(objs/AP_Frsky_Telem/Blimp littlefs)
 
-set(objs/AP_IBus_Telem/Blimp_SOURCES
+target_link_libraries(objs_AP_Frsky_Telem_Blimp mavlink)
+target_link_libraries(objs_AP_Frsky_Telem_Blimp dronecan)
+target_link_libraries(objs_AP_Frsky_Telem_Blimp littlefs)
+
+set(objs_AP_IBus_Telem_Blimp_SOURCES
     ../libraries/AP_IBus_Telem/AP_IBus_Telem.cpp)
 
-set(objs/AP_IBus_Telem/Blimp_INCLUDES
+set(objs_AP_IBus_Telem_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -758,20 +846,24 @@ set(objs/AP_IBus_Telem/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_IBus_Telem/Blimp_INCLUDES})
+include_directories(${objs_AP_IBus_Telem_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_IBus_Telem/Blimp ${objs/AP_IBus_Telem/Blimp_SOURCES})
+add_library(objs_AP_IBus_Telem_Blimp ${objs_AP_IBus_Telem_Blimp_SOURCES})
+set_target_properties(objs_AP_IBus_Telem_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_IBus_Telem/Blimp mavlink)
-target_link_libraries(objs/AP_IBus_Telem/Blimp dronecan)
-target_link_libraries(objs/AP_IBus_Telem/Blimp littlefs)
 
-set(objs/AP_Relay/Blimp_SOURCES
+target_link_libraries(objs_AP_IBus_Telem_Blimp mavlink)
+target_link_libraries(objs_AP_IBus_Telem_Blimp dronecan)
+target_link_libraries(objs_AP_IBus_Telem_Blimp littlefs)
+
+set(objs_AP_Relay_Blimp_SOURCES
     ../libraries/AP_Relay/AP_Relay.cpp)
 
-set(objs/AP_Relay/Blimp_INCLUDES
+set(objs_AP_Relay_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -790,17 +882,21 @@ set(objs/AP_Relay/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Relay/Blimp_INCLUDES})
+include_directories(${objs_AP_Relay_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Relay/Blimp ${objs/AP_Relay/Blimp_SOURCES})
+add_library(objs_AP_Relay_Blimp ${objs_AP_Relay_Blimp_SOURCES})
+set_target_properties(objs_AP_Relay_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Relay/Blimp mavlink)
-target_link_libraries(objs/AP_Relay/Blimp dronecan)
-target_link_libraries(objs/AP_Relay/Blimp littlefs)
 
-set(objs/AP_RCProtocol/Blimp_SOURCES
+target_link_libraries(objs_AP_Relay_Blimp mavlink)
+target_link_libraries(objs_AP_Relay_Blimp dronecan)
+target_link_libraries(objs_AP_Relay_Blimp littlefs)
+
+set(objs_AP_RCProtocol_Blimp_SOURCES
     ../libraries/AP_RCProtocol/AP_RCProtocol.cpp
     ../libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp
     ../libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp
@@ -809,7 +905,7 @@ set(objs/AP_RCProtocol/Blimp_SOURCES
     ../libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp
     ../libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp)
 
-set(objs/AP_RCProtocol/Blimp_INCLUDES
+set(objs_AP_RCProtocol_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -828,20 +924,24 @@ set(objs/AP_RCProtocol/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_RCProtocol/Blimp_INCLUDES})
+include_directories(${objs_AP_RCProtocol_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_RCProtocol/Blimp ${objs/AP_RCProtocol/Blimp_SOURCES})
+add_library(objs_AP_RCProtocol_Blimp ${objs_AP_RCProtocol_Blimp_SOURCES})
+set_target_properties(objs_AP_RCProtocol_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_RCProtocol/Blimp mavlink)
-target_link_libraries(objs/AP_RCProtocol/Blimp dronecan)
-target_link_libraries(objs/AP_RCProtocol/Blimp littlefs)
 
-set(objs/AP_BLHeli/Blimp_SOURCES
+target_link_libraries(objs_AP_RCProtocol_Blimp mavlink)
+target_link_libraries(objs_AP_RCProtocol_Blimp dronecan)
+target_link_libraries(objs_AP_RCProtocol_Blimp littlefs)
+
+set(objs_AP_BLHeli_Blimp_SOURCES
     ../libraries/AP_BLHeli/AP_BLHeli.cpp)
 
-set(objs/AP_BLHeli/Blimp_INCLUDES
+set(objs_AP_BLHeli_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -860,20 +960,24 @@ set(objs/AP_BLHeli/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_BLHeli/Blimp_INCLUDES})
+include_directories(${objs_AP_BLHeli_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_BLHeli/Blimp ${objs/AP_BLHeli/Blimp_SOURCES})
+add_library(objs_AP_BLHeli_Blimp ${objs_AP_BLHeli_Blimp_SOURCES})
+set_target_properties(objs_AP_BLHeli_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_BLHeli/Blimp mavlink)
-target_link_libraries(objs/AP_BLHeli/Blimp dronecan)
-target_link_libraries(objs/AP_BLHeli/Blimp littlefs)
 
-set(objs/AP_Proximity/Blimp_SOURCES
+target_link_libraries(objs_AP_BLHeli_Blimp mavlink)
+target_link_libraries(objs_AP_BLHeli_Blimp dronecan)
+target_link_libraries(objs_AP_BLHeli_Blimp littlefs)
+
+set(objs_AP_Proximity_Blimp_SOURCES
     ../libraries/AP_Proximity/AP_Proximity_Utils.cpp)
 
-set(objs/AP_Proximity/Blimp_INCLUDES
+set(objs_AP_Proximity_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -892,21 +996,25 @@ set(objs/AP_Proximity/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Proximity/Blimp_INCLUDES})
+include_directories(${objs_AP_Proximity_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Proximity/Blimp ${objs/AP_Proximity/Blimp_SOURCES})
+add_library(objs_AP_Proximity_Blimp ${objs_AP_Proximity_Blimp_SOURCES})
+set_target_properties(objs_AP_Proximity_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Proximity/Blimp mavlink)
-target_link_libraries(objs/AP_Proximity/Blimp dronecan)
-target_link_libraries(objs/AP_Proximity/Blimp littlefs)
 
-set(objs/AC_Fence/Blimp_SOURCES
+target_link_libraries(objs_AP_Proximity_Blimp mavlink)
+target_link_libraries(objs_AP_Proximity_Blimp dronecan)
+target_link_libraries(objs_AP_Proximity_Blimp littlefs)
+
+set(objs_AC_Fence_Blimp_SOURCES
     ../libraries/AC_Fence/AC_Fence.cpp
     ../libraries/AC_Fence/AC_PolyFence_loader.cpp)
 
-set(objs/AC_Fence/Blimp_INCLUDES
+set(objs_AC_Fence_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -925,22 +1033,26 @@ set(objs/AC_Fence/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AC_Fence/Blimp_INCLUDES})
+include_directories(${objs_AC_Fence_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AC_Fence/Blimp ${objs/AC_Fence/Blimp_SOURCES})
+add_library(objs_AC_Fence_Blimp ${objs_AC_Fence_Blimp_SOURCES})
+set_target_properties(objs_AC_Fence_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AC_Fence/Blimp mavlink)
-target_link_libraries(objs/AC_Fence/Blimp dronecan)
-target_link_libraries(objs/AC_Fence/Blimp littlefs)
 
-set(objs/AC_Avoidance/Blimp_SOURCES
+target_link_libraries(objs_AC_Fence_Blimp mavlink)
+target_link_libraries(objs_AC_Fence_Blimp dronecan)
+target_link_libraries(objs_AC_Fence_Blimp littlefs)
+
+set(objs_AC_Avoidance_Blimp_SOURCES
     ../libraries/AC_Avoidance/AC_Avoid.cpp
     ../libraries/AC_Avoidance/AP_OABendyRuler.cpp
     ../libraries/AC_Avoidance/AP_OADatabase.cpp)
 
-set(objs/AC_Avoidance/Blimp_INCLUDES
+set(objs_AC_Avoidance_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -959,20 +1071,24 @@ set(objs/AC_Avoidance/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AC_Avoidance/Blimp_INCLUDES})
+include_directories(${objs_AC_Avoidance_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AC_Avoidance/Blimp ${objs/AC_Avoidance/Blimp_SOURCES})
+add_library(objs_AC_Avoidance_Blimp ${objs_AC_Avoidance_Blimp_SOURCES})
+set_target_properties(objs_AC_Avoidance_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AC_Avoidance/Blimp mavlink)
-target_link_libraries(objs/AC_Avoidance/Blimp dronecan)
-target_link_libraries(objs/AC_Avoidance/Blimp littlefs)
 
-set(objs/AP_LandingGear/Blimp_SOURCES
+target_link_libraries(objs_AC_Avoidance_Blimp mavlink)
+target_link_libraries(objs_AC_Avoidance_Blimp dronecan)
+target_link_libraries(objs_AC_Avoidance_Blimp littlefs)
+
+set(objs_AP_LandingGear_Blimp_SOURCES
     ../libraries/AP_LandingGear/AP_LandingGear.cpp)
 
-set(objs/AP_LandingGear/Blimp_INCLUDES
+set(objs_AP_LandingGear_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -991,22 +1107,26 @@ set(objs/AP_LandingGear/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_LandingGear/Blimp_INCLUDES})
+include_directories(${objs_AP_LandingGear_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_LandingGear/Blimp ${objs/AP_LandingGear/Blimp_SOURCES})
+add_library(objs_AP_LandingGear_Blimp ${objs_AP_LandingGear_Blimp_SOURCES})
+set_target_properties(objs_AP_LandingGear_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_LandingGear/Blimp mavlink)
-target_link_libraries(objs/AP_LandingGear/Blimp dronecan)
-target_link_libraries(objs/AP_LandingGear/Blimp littlefs)
 
-set(objs/AP_OSD/Blimp_SOURCES
+target_link_libraries(objs_AP_LandingGear_Blimp mavlink)
+target_link_libraries(objs_AP_LandingGear_Blimp dronecan)
+target_link_libraries(objs_AP_LandingGear_Blimp littlefs)
+
+set(objs_AP_OSD_Blimp_SOURCES
     ../libraries/AP_OSD/AP_OSD_ParamScreen.cpp
     ../libraries/AP_OSD/AP_OSD_ParamSetting.cpp
     ../libraries/AP_OSD/AP_OSD_Screen.cpp)
 
-set(objs/AP_OSD/Blimp_INCLUDES
+set(objs_AP_OSD_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1025,20 +1145,24 @@ set(objs/AP_OSD/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_OSD/Blimp_INCLUDES})
+include_directories(${objs_AP_OSD_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_OSD/Blimp ${objs/AP_OSD/Blimp_SOURCES})
+add_library(objs_AP_OSD_Blimp ${objs_AP_OSD_Blimp_SOURCES})
+set_target_properties(objs_AP_OSD_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_OSD/Blimp mavlink)
-target_link_libraries(objs/AP_OSD/Blimp dronecan)
-target_link_libraries(objs/AP_OSD/Blimp littlefs)
 
-set(objs/AP_Filesystem/Blimp_SOURCES
+target_link_libraries(objs_AP_OSD_Blimp mavlink)
+target_link_libraries(objs_AP_OSD_Blimp dronecan)
+target_link_libraries(objs_AP_OSD_Blimp littlefs)
+
+set(objs_AP_Filesystem_Blimp_SOURCES
     ../libraries/AP_Filesystem/AP_Filesystem_posix.cpp)
 
-set(objs/AP_Filesystem/Blimp_INCLUDES
+set(objs_AP_Filesystem_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1057,21 +1181,25 @@ set(objs/AP_Filesystem/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Filesystem/Blimp_INCLUDES})
+include_directories(${objs_AP_Filesystem_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Filesystem/Blimp ${objs/AP_Filesystem/Blimp_SOURCES})
+add_library(objs_AP_Filesystem_Blimp ${objs_AP_Filesystem_Blimp_SOURCES})
+set_target_properties(objs_AP_Filesystem_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Filesystem/Blimp mavlink)
-target_link_libraries(objs/AP_Filesystem/Blimp dronecan)
-target_link_libraries(objs/AP_Filesystem/Blimp littlefs)
 
-set(objs/AP_ADSB/Blimp_SOURCES
+target_link_libraries(objs_AP_Filesystem_Blimp mavlink)
+target_link_libraries(objs_AP_Filesystem_Blimp dronecan)
+target_link_libraries(objs_AP_Filesystem_Blimp littlefs)
+
+set(objs_AP_ADSB_Blimp_SOURCES
     ../libraries/AP_ADSB/AP_ADSB.cpp
     ../libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp)
 
-set(objs/AP_ADSB/Blimp_INCLUDES
+set(objs_AP_ADSB_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1090,20 +1218,24 @@ set(objs/AP_ADSB/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_ADSB/Blimp_INCLUDES})
+include_directories(${objs_AP_ADSB_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_ADSB/Blimp ${objs/AP_ADSB/Blimp_SOURCES})
+add_library(objs_AP_ADSB_Blimp ${objs_AP_ADSB_Blimp_SOURCES})
+set_target_properties(objs_AP_ADSB_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_ADSB/Blimp mavlink)
-target_link_libraries(objs/AP_ADSB/Blimp dronecan)
-target_link_libraries(objs/AP_ADSB/Blimp littlefs)
 
-set(objs/AP_ESC_Telem/Blimp_SOURCES
+target_link_libraries(objs_AP_ADSB_Blimp mavlink)
+target_link_libraries(objs_AP_ADSB_Blimp dronecan)
+target_link_libraries(objs_AP_ADSB_Blimp littlefs)
+
+set(objs_AP_ESC_Telem_Blimp_SOURCES
     ../libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp)
 
-set(objs/AP_ESC_Telem/Blimp_INCLUDES
+set(objs_AP_ESC_Telem_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1122,20 +1254,24 @@ set(objs/AP_ESC_Telem/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_ESC_Telem/Blimp_INCLUDES})
+include_directories(${objs_AP_ESC_Telem_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_ESC_Telem/Blimp ${objs/AP_ESC_Telem/Blimp_SOURCES})
+add_library(objs_AP_ESC_Telem_Blimp ${objs_AP_ESC_Telem_Blimp_SOURCES})
+set_target_properties(objs_AP_ESC_Telem_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_ESC_Telem/Blimp mavlink)
-target_link_libraries(objs/AP_ESC_Telem/Blimp dronecan)
-target_link_libraries(objs/AP_ESC_Telem/Blimp littlefs)
 
-set(objs/AP_GyroFFT/Blimp_SOURCES
+target_link_libraries(objs_AP_ESC_Telem_Blimp mavlink)
+target_link_libraries(objs_AP_ESC_Telem_Blimp dronecan)
+target_link_libraries(objs_AP_ESC_Telem_Blimp littlefs)
+
+set(objs_AP_GyroFFT_Blimp_SOURCES
     ../libraries/AP_GyroFFT/AP_GyroFFT.cpp)
 
-set(objs/AP_GyroFFT/Blimp_INCLUDES
+set(objs_AP_GyroFFT_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1154,21 +1290,25 @@ set(objs/AP_GyroFFT/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_GyroFFT/Blimp_INCLUDES})
+include_directories(${objs_AP_GyroFFT_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_GyroFFT/Blimp ${objs/AP_GyroFFT/Blimp_SOURCES})
+add_library(objs_AP_GyroFFT_Blimp ${objs_AP_GyroFFT_Blimp_SOURCES})
+set_target_properties(objs_AP_GyroFFT_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_GyroFFT/Blimp mavlink)
-target_link_libraries(objs/AP_GyroFFT/Blimp dronecan)
-target_link_libraries(objs/AP_GyroFFT/Blimp littlefs)
 
-set(objs/AP_RCTelemetry/Blimp_SOURCES
+target_link_libraries(objs_AP_GyroFFT_Blimp mavlink)
+target_link_libraries(objs_AP_GyroFFT_Blimp dronecan)
+target_link_libraries(objs_AP_GyroFFT_Blimp littlefs)
+
+set(objs_AP_RCTelemetry_Blimp_SOURCES
     ../libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp
     ../libraries/AP_RCTelemetry/AP_RCTelemetry.cpp)
 
-set(objs/AP_RCTelemetry/Blimp_INCLUDES
+set(objs_AP_RCTelemetry_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1187,21 +1327,25 @@ set(objs/AP_RCTelemetry/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_RCTelemetry/Blimp_INCLUDES})
+include_directories(${objs_AP_RCTelemetry_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_RCTelemetry/Blimp ${objs/AP_RCTelemetry/Blimp_SOURCES})
+add_library(objs_AP_RCTelemetry_Blimp ${objs_AP_RCTelemetry_Blimp_SOURCES})
+set_target_properties(objs_AP_RCTelemetry_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_RCTelemetry/Blimp mavlink)
-target_link_libraries(objs/AP_RCTelemetry/Blimp dronecan)
-target_link_libraries(objs/AP_RCTelemetry/Blimp littlefs)
 
-set(objs/AP_ExternalAHRS/Blimp_SOURCES
+target_link_libraries(objs_AP_RCTelemetry_Blimp mavlink)
+target_link_libraries(objs_AP_RCTelemetry_Blimp dronecan)
+target_link_libraries(objs_AP_RCTelemetry_Blimp littlefs)
+
+set(objs_AP_ExternalAHRS_Blimp_SOURCES
     ../libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp
     ../libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp)
 
-set(objs/AP_ExternalAHRS/Blimp_INCLUDES
+set(objs_AP_ExternalAHRS_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1220,20 +1364,24 @@ set(objs/AP_ExternalAHRS/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_ExternalAHRS/Blimp_INCLUDES})
+include_directories(${objs_AP_ExternalAHRS_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_ExternalAHRS/Blimp ${objs/AP_ExternalAHRS/Blimp_SOURCES})
+add_library(objs_AP_ExternalAHRS_Blimp ${objs_AP_ExternalAHRS_Blimp_SOURCES})
+set_target_properties(objs_AP_ExternalAHRS_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_ExternalAHRS/Blimp mavlink)
-target_link_libraries(objs/AP_ExternalAHRS/Blimp dronecan)
-target_link_libraries(objs/AP_ExternalAHRS/Blimp littlefs)
 
-set(objs/AP_TemperatureSensor/Blimp_SOURCES
+target_link_libraries(objs_AP_ExternalAHRS_Blimp mavlink)
+target_link_libraries(objs_AP_ExternalAHRS_Blimp dronecan)
+target_link_libraries(objs_AP_ExternalAHRS_Blimp littlefs)
+
+set(objs_AP_TemperatureSensor_Blimp_SOURCES
     ../libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp)
 
-set(objs/AP_TemperatureSensor/Blimp_INCLUDES
+set(objs_AP_TemperatureSensor_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1252,20 +1400,24 @@ set(objs/AP_TemperatureSensor/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_TemperatureSensor/Blimp_INCLUDES})
+include_directories(${objs_AP_TemperatureSensor_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_TemperatureSensor/Blimp ${objs/AP_TemperatureSensor/Blimp_SOURCES})
+add_library(objs_AP_TemperatureSensor_Blimp ${objs_AP_TemperatureSensor_Blimp_SOURCES})
+set_target_properties(objs_AP_TemperatureSensor_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_TemperatureSensor/Blimp mavlink)
-target_link_libraries(objs/AP_TemperatureSensor/Blimp dronecan)
-target_link_libraries(objs/AP_TemperatureSensor/Blimp littlefs)
 
-set(objs/AP_AIS/Blimp_SOURCES
+target_link_libraries(objs_AP_TemperatureSensor_Blimp mavlink)
+target_link_libraries(objs_AP_TemperatureSensor_Blimp dronecan)
+target_link_libraries(objs_AP_TemperatureSensor_Blimp littlefs)
+
+set(objs_AP_AIS_Blimp_SOURCES
     ../libraries/AP_AIS/AP_AIS.cpp)
 
-set(objs/AP_AIS/Blimp_INCLUDES
+set(objs_AP_AIS_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1284,20 +1436,24 @@ set(objs/AP_AIS/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_AIS/Blimp_INCLUDES})
+include_directories(${objs_AP_AIS_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_AIS/Blimp ${objs/AP_AIS/Blimp_SOURCES})
+add_library(objs_AP_AIS_Blimp ${objs_AP_AIS_Blimp_SOURCES})
+set_target_properties(objs_AP_AIS_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_AIS/Blimp mavlink)
-target_link_libraries(objs/AP_AIS/Blimp dronecan)
-target_link_libraries(objs/AP_AIS/Blimp littlefs)
 
-set(objs/AP_Arming/Blimp_SOURCES
+target_link_libraries(objs_AP_AIS_Blimp mavlink)
+target_link_libraries(objs_AP_AIS_Blimp dronecan)
+target_link_libraries(objs_AP_AIS_Blimp littlefs)
+
+set(objs_AP_Arming_Blimp_SOURCES
     ../libraries/AP_Arming/AP_Arming.cpp)
 
-set(objs/AP_Arming/Blimp_INCLUDES
+set(objs_AP_Arming_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1316,20 +1472,24 @@ set(objs/AP_Arming/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Arming/Blimp_INCLUDES})
+include_directories(${objs_AP_Arming_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Arming/Blimp ${objs/AP_Arming/Blimp_SOURCES})
+add_library(objs_AP_Arming_Blimp ${objs_AP_Arming_Blimp_SOURCES})
+set_target_properties(objs_AP_Arming_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Arming/Blimp mavlink)
-target_link_libraries(objs/AP_Arming/Blimp dronecan)
-target_link_libraries(objs/AP_Arming/Blimp littlefs)
 
-set(objs/AP_Follow/Blimp_SOURCES
+target_link_libraries(objs_AP_Arming_Blimp mavlink)
+target_link_libraries(objs_AP_Arming_Blimp dronecan)
+target_link_libraries(objs_AP_Arming_Blimp littlefs)
+
+set(objs_AP_Follow_Blimp_SOURCES
     ../libraries/AP_Follow/AP_Follow.cpp)
 
-set(objs/AP_Follow/Blimp_INCLUDES
+set(objs_AP_Follow_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1348,20 +1508,24 @@ set(objs/AP_Follow/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Follow/Blimp_INCLUDES})
+include_directories(${objs_AP_Follow_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Follow/Blimp ${objs/AP_Follow/Blimp_SOURCES})
+add_library(objs_AP_Follow_Blimp ${objs_AP_Follow_Blimp_SOURCES})
+set_target_properties(objs_AP_Follow_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Follow/Blimp mavlink)
-target_link_libraries(objs/AP_Follow/Blimp dronecan)
-target_link_libraries(objs/AP_Follow/Blimp littlefs)
 
-set(objs/AP_Avoidance/Blimp_SOURCES
+target_link_libraries(objs_AP_Follow_Blimp mavlink)
+target_link_libraries(objs_AP_Follow_Blimp dronecan)
+target_link_libraries(objs_AP_Follow_Blimp littlefs)
+
+set(objs_AP_Avoidance_Blimp_SOURCES
     ../libraries/AP_Avoidance/AP_Avoidance.cpp)
 
-set(objs/AP_Avoidance/Blimp_INCLUDES
+set(objs_AP_Avoidance_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1380,22 +1544,26 @@ set(objs/AP_Avoidance/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Avoidance/Blimp_INCLUDES})
+include_directories(${objs_AP_Avoidance_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Avoidance/Blimp ${objs/AP_Avoidance/Blimp_SOURCES})
+add_library(objs_AP_Avoidance_Blimp ${objs_AP_Avoidance_Blimp_SOURCES})
+set_target_properties(objs_AP_Avoidance_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Avoidance/Blimp mavlink)
-target_link_libraries(objs/AP_Avoidance/Blimp dronecan)
-target_link_libraries(objs/AP_Avoidance/Blimp littlefs)
 
-set(objs/AC_AttitudeControl/Blimp_SOURCES
+target_link_libraries(objs_AP_Avoidance_Blimp mavlink)
+target_link_libraries(objs_AP_Avoidance_Blimp dronecan)
+target_link_libraries(objs_AP_Avoidance_Blimp littlefs)
+
+set(objs_AC_AttitudeControl_Blimp_SOURCES
     ../libraries/AC_AttitudeControl/AC_AttitudeControl.cpp
     ../libraries/AC_AttitudeControl/AC_PosControl.cpp
     ../libraries/AC_AttitudeControl/AC_WeatherVane.cpp)
 
-set(objs/AC_AttitudeControl/Blimp_INCLUDES
+set(objs_AC_AttitudeControl_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1414,22 +1582,26 @@ set(objs/AC_AttitudeControl/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AC_AttitudeControl/Blimp_INCLUDES})
+include_directories(${objs_AC_AttitudeControl_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AC_AttitudeControl/Blimp ${objs/AC_AttitudeControl/Blimp_SOURCES})
+add_library(objs_AC_AttitudeControl_Blimp ${objs_AC_AttitudeControl_Blimp_SOURCES})
+set_target_properties(objs_AC_AttitudeControl_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AC_AttitudeControl/Blimp mavlink)
-target_link_libraries(objs/AC_AttitudeControl/Blimp dronecan)
-target_link_libraries(objs/AC_AttitudeControl/Blimp littlefs)
 
-set(objs/AP_HAL_SITL/Blimp_SOURCES
+target_link_libraries(objs_AC_AttitudeControl_Blimp mavlink)
+target_link_libraries(objs_AC_AttitudeControl_Blimp dronecan)
+target_link_libraries(objs_AC_AttitudeControl_Blimp littlefs)
+
+set(objs_AP_HAL_SITL_Blimp_SOURCES
     ../libraries/AP_HAL_SITL/SITL_cmdline.cpp
     ../libraries/AP_HAL_SITL/Storage.cpp
     ../libraries/AP_HAL_SITL/UARTDriver.cpp)
 
-set(objs/AP_HAL_SITL/Blimp_INCLUDES
+set(objs_AP_HAL_SITL_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1448,23 +1620,27 @@ set(objs/AP_HAL_SITL/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_HAL_SITL/Blimp_INCLUDES})
+include_directories(${objs_AP_HAL_SITL_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_HAL_SITL/Blimp ${objs/AP_HAL_SITL/Blimp_SOURCES})
+add_library(objs_AP_HAL_SITL_Blimp ${objs_AP_HAL_SITL_Blimp_SOURCES})
+set_target_properties(objs_AP_HAL_SITL_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_HAL_SITL/Blimp mavlink)
-target_link_libraries(objs/AP_HAL_SITL/Blimp dronecan)
-target_link_libraries(objs/AP_HAL_SITL/Blimp littlefs)
 
-set(objs/SITL/Blimp_SOURCES
+target_link_libraries(objs_AP_HAL_SITL_Blimp mavlink)
+target_link_libraries(objs_AP_HAL_SITL_Blimp dronecan)
+target_link_libraries(objs_AP_HAL_SITL_Blimp littlefs)
+
+set(objs_SITL_Blimp_SOURCES
     ../libraries/SITL/SIM_Aircraft.cpp
     ../libraries/SITL/SIM_DroneCANDevice.cpp
     ../libraries/SITL/SIM_XPlane.cpp
     ../libraries/SITL/SITL.cpp)
 
-set(objs/SITL/Blimp_INCLUDES
+set(objs_SITL_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1483,17 +1659,21 @@ set(objs/SITL/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/SITL/Blimp_INCLUDES})
+include_directories(${objs_SITL_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/SITL/Blimp ${objs/SITL/Blimp_SOURCES})
+add_library(objs_SITL_Blimp ${objs_SITL_Blimp_SOURCES})
+set_target_properties(objs_SITL_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/SITL/Blimp mavlink)
-target_link_libraries(objs/SITL/Blimp dronecan)
-target_link_libraries(objs/SITL/Blimp littlefs)
 
-set(objs/AP_Scripting/Blimp_SOURCES
+target_link_libraries(objs_SITL_Blimp mavlink)
+target_link_libraries(objs_SITL_Blimp dronecan)
+target_link_libraries(objs_SITL_Blimp littlefs)
+
+set(objs_AP_Scripting_Blimp_SOURCES
     ../libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp
     ../libraries/AP_Scripting/AP_Scripting_helpers.cpp
     ../libraries/AP_Scripting/lua_bindings.cpp
@@ -1501,7 +1681,7 @@ set(objs/AP_Scripting/Blimp_SOURCES
     ../libraries/AP_Scripting/lua_scripts.cpp
     ../build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp)
 
-set(objs/AP_Scripting/Blimp_INCLUDES
+set(objs_AP_Scripting_Blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1520,15 +1700,19 @@ set(objs/AP_Scripting/Blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Scripting/Blimp_INCLUDES})
+include_directories(${objs_AP_Scripting_Blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_library(objs/AP_Scripting/Blimp ${objs/AP_Scripting/Blimp_SOURCES})
+add_library(objs_AP_Scripting_Blimp ${objs_AP_Scripting_Blimp_SOURCES})
+set_target_properties(objs_AP_Scripting_Blimp PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Scripting/Blimp mavlink)
-target_link_libraries(objs/AP_Scripting/Blimp dronecan)
-target_link_libraries(objs/AP_Scripting/Blimp littlefs)
+
+target_link_libraries(objs_AP_Scripting_Blimp mavlink)
+target_link_libraries(objs_AP_Scripting_Blimp dronecan)
+target_link_libraries(objs_AP_Scripting_Blimp littlefs)
 
 set(Blimp_libs_SOURCES
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
@@ -1730,6 +1914,10 @@ set(Blimp_libs_INCLUDES
 include_directories(${Blimp_libs_INCLUDES})
 
 add_library(Blimp_libs ${Blimp_libs_SOURCES})
+set_target_properties(Blimp_libs PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
+
 
 target_link_libraries(Blimp_libs objs/AP_AccelCal)
 target_link_libraries(Blimp_libs objs/AP_AccelCal/Blimp)
@@ -1982,7 +2170,7 @@ target_link_libraries(Blimp_libs objs/AP_Scripting/lua/src/Blimp)
 target_link_libraries(Blimp_libs objs/AC_CustomControl)
 target_link_libraries(Blimp_libs objs/AC_CustomControl/Blimp)
 
-set(bin/blimp_SOURCES
+set(bin_blimp_SOURCES
     AP_Arming_Blimp.cpp
     AP_State.cpp
     Blimp.cpp
@@ -2009,7 +2197,7 @@ set(bin/blimp_SOURCES
     sensors.cpp
     system.cpp)
 
-set(bin/blimp_INCLUDES
+set(bin_blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -2028,11 +2216,11 @@ set(bin/blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${bin/blimp_INCLUDES})
+include_directories(${bin_blimp_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
 
-add_executable(bin/blimp ${bin/blimp_SOURCES})
+add_executable(bin_blimp ${bin_blimp_SOURCES})
 
-target_link_libraries(bin/blimp Blimp_libs)
+target_link_libraries(bin_blimp Blimp_libs)
 

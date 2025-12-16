@@ -1,10 +1,10 @@
 
-set(objs/AP_AHRS/AntennaTracker_SOURCES
+set(objs_AP_AHRS_AntennaTracker_SOURCES
     ../libraries/AP_AHRS/AP_AHRS.cpp
     ../libraries/AP_AHRS/AP_AHRS_Backend.cpp
     ../libraries/AP_AHRS/AP_AHRS_DCM.cpp)
 
-set(objs/AP_AHRS/AntennaTracker_INCLUDES
+set(objs_AP_AHRS_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -23,22 +23,26 @@ set(objs/AP_AHRS/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_AHRS/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_AHRS_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_AHRS/AntennaTracker ${objs/AP_AHRS/AntennaTracker_SOURCES})
+add_library(objs_AP_AHRS_AntennaTracker ${objs_AP_AHRS_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_AHRS_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_AHRS/AntennaTracker mavlink)
-target_link_libraries(objs/AP_AHRS/AntennaTracker dronecan)
-target_link_libraries(objs/AP_AHRS/AntennaTracker littlefs)
 
-set(objs/AP_Airspeed/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_AHRS_AntennaTracker mavlink)
+target_link_libraries(objs_AP_AHRS_AntennaTracker dronecan)
+target_link_libraries(objs_AP_AHRS_AntennaTracker littlefs)
+
+set(objs_AP_Airspeed_AntennaTracker_SOURCES
     ../libraries/AP_Airspeed/AP_Airspeed.cpp
     ../libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp
     ../libraries/AP_Airspeed/AP_Airspeed_Params.cpp)
 
-set(objs/AP_Airspeed/AntennaTracker_INCLUDES
+set(objs_AP_Airspeed_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -57,22 +61,26 @@ set(objs/AP_Airspeed/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Airspeed/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Airspeed_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Airspeed/AntennaTracker ${objs/AP_Airspeed/AntennaTracker_SOURCES})
+add_library(objs_AP_Airspeed_AntennaTracker ${objs_AP_Airspeed_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Airspeed_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Airspeed/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Airspeed/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Airspeed/AntennaTracker littlefs)
 
-set(objs/AP_Baro/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Airspeed_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Airspeed_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Airspeed_AntennaTracker littlefs)
+
+set(objs_AP_Baro_AntennaTracker_SOURCES
     ../libraries/AP_Baro/AP_Baro.cpp
     ../libraries/AP_Baro/AP_Baro_Backend.cpp
     ../libraries/AP_Baro/AP_Baro_SITL.cpp)
 
-set(objs/AP_Baro/AntennaTracker_INCLUDES
+set(objs_AP_Baro_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -91,21 +99,25 @@ set(objs/AP_Baro/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Baro/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Baro_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Baro/AntennaTracker ${objs/AP_Baro/AntennaTracker_SOURCES})
+add_library(objs_AP_Baro_AntennaTracker ${objs_AP_Baro_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Baro_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Baro/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Baro/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Baro/AntennaTracker littlefs)
 
-set(objs/AP_BattMonitor/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Baro_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Baro_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Baro_AntennaTracker littlefs)
+
+set(objs_AP_BattMonitor_AntennaTracker_SOURCES
     ../libraries/AP_BattMonitor/AP_BattMonitor.cpp
     ../libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp)
 
-set(objs/AP_BattMonitor/AntennaTracker_INCLUDES
+set(objs_AP_BattMonitor_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -124,20 +136,24 @@ set(objs/AP_BattMonitor/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_BattMonitor/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_BattMonitor_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_BattMonitor/AntennaTracker ${objs/AP_BattMonitor/AntennaTracker_SOURCES})
+add_library(objs_AP_BattMonitor_AntennaTracker ${objs_AP_BattMonitor_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_BattMonitor_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_BattMonitor/AntennaTracker mavlink)
-target_link_libraries(objs/AP_BattMonitor/AntennaTracker dronecan)
-target_link_libraries(objs/AP_BattMonitor/AntennaTracker littlefs)
 
-set(objs/AP_BoardConfig/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_BattMonitor_AntennaTracker mavlink)
+target_link_libraries(objs_AP_BattMonitor_AntennaTracker dronecan)
+target_link_libraries(objs_AP_BattMonitor_AntennaTracker littlefs)
+
+set(objs_AP_BoardConfig_AntennaTracker_SOURCES
     ../libraries/AP_BoardConfig/AP_BoardConfig.cpp)
 
-set(objs/AP_BoardConfig/AntennaTracker_INCLUDES
+set(objs_AP_BoardConfig_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -156,20 +172,24 @@ set(objs/AP_BoardConfig/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_BoardConfig/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_BoardConfig_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_BoardConfig/AntennaTracker ${objs/AP_BoardConfig/AntennaTracker_SOURCES})
+add_library(objs_AP_BoardConfig_AntennaTracker ${objs_AP_BoardConfig_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_BoardConfig_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_BoardConfig/AntennaTracker mavlink)
-target_link_libraries(objs/AP_BoardConfig/AntennaTracker dronecan)
-target_link_libraries(objs/AP_BoardConfig/AntennaTracker littlefs)
 
-set(objs/AP_HAL/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_BoardConfig_AntennaTracker mavlink)
+target_link_libraries(objs_AP_BoardConfig_AntennaTracker dronecan)
+target_link_libraries(objs_AP_BoardConfig_AntennaTracker littlefs)
+
+set(objs_AP_HAL_AntennaTracker_SOURCES
     ../libraries/AP_HAL/SIMState.cpp)
 
-set(objs/AP_HAL/AntennaTracker_INCLUDES
+set(objs_AP_HAL_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -188,23 +208,27 @@ set(objs/AP_HAL/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_HAL/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_HAL_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_HAL/AntennaTracker ${objs/AP_HAL/AntennaTracker_SOURCES})
+add_library(objs_AP_HAL_AntennaTracker ${objs_AP_HAL_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_HAL_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_HAL/AntennaTracker mavlink)
-target_link_libraries(objs/AP_HAL/AntennaTracker dronecan)
-target_link_libraries(objs/AP_HAL/AntennaTracker littlefs)
 
-set(objs/AP_InertialSensor/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_HAL_AntennaTracker mavlink)
+target_link_libraries(objs_AP_HAL_AntennaTracker dronecan)
+target_link_libraries(objs_AP_HAL_AntennaTracker littlefs)
+
+set(objs_AP_InertialSensor_AntennaTracker_SOURCES
     ../libraries/AP_InertialSensor/AP_InertialSensor.cpp
     ../libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp
     ../libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp
     ../libraries/AP_InertialSensor/FastRateBuffer.cpp)
 
-set(objs/AP_InertialSensor/AntennaTracker_INCLUDES
+set(objs_AP_InertialSensor_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -223,20 +247,24 @@ set(objs/AP_InertialSensor/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_InertialSensor/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_InertialSensor_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_InertialSensor/AntennaTracker ${objs/AP_InertialSensor/AntennaTracker_SOURCES})
+add_library(objs_AP_InertialSensor_AntennaTracker ${objs_AP_InertialSensor_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_InertialSensor_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_InertialSensor/AntennaTracker mavlink)
-target_link_libraries(objs/AP_InertialSensor/AntennaTracker dronecan)
-target_link_libraries(objs/AP_InertialSensor/AntennaTracker littlefs)
 
-set(objs/AP_Math/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_InertialSensor_AntennaTracker mavlink)
+target_link_libraries(objs_AP_InertialSensor_AntennaTracker dronecan)
+target_link_libraries(objs_AP_InertialSensor_AntennaTracker littlefs)
+
+set(objs_AP_Math_AntennaTracker_SOURCES
     ../libraries/AP_Math/SCurve.cpp)
 
-set(objs/AP_Math/AntennaTracker_INCLUDES
+set(objs_AP_Math_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -255,20 +283,24 @@ set(objs/AP_Math/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Math/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Math_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Math/AntennaTracker ${objs/AP_Math/AntennaTracker_SOURCES})
+add_library(objs_AP_Math_AntennaTracker ${objs_AP_Math_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Math_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Math/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Math/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Math/AntennaTracker littlefs)
 
-set(objs/AP_Mission/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Math_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Math_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Math_AntennaTracker littlefs)
+
+set(objs_AP_Mission_AntennaTracker_SOURCES
     ../libraries/AP_Mission/AP_Mission.cpp)
 
-set(objs/AP_Mission/AntennaTracker_INCLUDES
+set(objs_AP_Mission_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -287,23 +319,27 @@ set(objs/AP_Mission/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Mission/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Mission_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Mission/AntennaTracker ${objs/AP_Mission/AntennaTracker_SOURCES})
+add_library(objs_AP_Mission_AntennaTracker ${objs_AP_Mission_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Mission_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Mission/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Mission/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Mission/AntennaTracker littlefs)
 
-set(objs/AP_DAL/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Mission_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Mission_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Mission_AntennaTracker littlefs)
+
+set(objs_AP_DAL_AntennaTracker_SOURCES
     ../libraries/AP_DAL/AP_DAL.cpp
     ../libraries/AP_DAL/AP_DAL_Beacon.cpp
     ../libraries/AP_DAL/AP_DAL_RangeFinder.cpp
     ../libraries/AP_DAL/AP_DAL_VisualOdom.cpp)
 
-set(objs/AP_DAL/AntennaTracker_INCLUDES
+set(objs_AP_DAL_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -322,21 +358,25 @@ set(objs/AP_DAL/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_DAL/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_DAL_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_DAL/AntennaTracker ${objs/AP_DAL/AntennaTracker_SOURCES})
+add_library(objs_AP_DAL_AntennaTracker ${objs_AP_DAL_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_DAL_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_DAL/AntennaTracker mavlink)
-target_link_libraries(objs/AP_DAL/AntennaTracker dronecan)
-target_link_libraries(objs/AP_DAL/AntennaTracker littlefs)
 
-set(objs/AP_NavEKF2/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_DAL_AntennaTracker mavlink)
+target_link_libraries(objs_AP_DAL_AntennaTracker dronecan)
+target_link_libraries(objs_AP_DAL_AntennaTracker littlefs)
+
+set(objs_AP_NavEKF2_AntennaTracker_SOURCES
     ../libraries/AP_NavEKF2/AP_NavEKF2.cpp
     ../libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp)
 
-set(objs/AP_NavEKF2/AntennaTracker_INCLUDES
+set(objs_AP_NavEKF2_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -355,17 +395,21 @@ set(objs/AP_NavEKF2/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_NavEKF2/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_NavEKF2_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_NavEKF2/AntennaTracker ${objs/AP_NavEKF2/AntennaTracker_SOURCES})
+add_library(objs_AP_NavEKF2_AntennaTracker ${objs_AP_NavEKF2_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_NavEKF2_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_NavEKF2/AntennaTracker mavlink)
-target_link_libraries(objs/AP_NavEKF2/AntennaTracker dronecan)
-target_link_libraries(objs/AP_NavEKF2/AntennaTracker littlefs)
 
-set(objs/AP_NavEKF3/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_NavEKF2_AntennaTracker mavlink)
+target_link_libraries(objs_AP_NavEKF2_AntennaTracker dronecan)
+target_link_libraries(objs_AP_NavEKF2_AntennaTracker littlefs)
+
+set(objs_AP_NavEKF3_AntennaTracker_SOURCES
     ../libraries/AP_NavEKF3/AP_NavEKF3.cpp
     ../libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp
     ../libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp
@@ -380,7 +424,7 @@ set(objs/AP_NavEKF3/AntennaTracker_SOURCES
     ../libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp
     ../libraries/AP_NavEKF3/AP_NavEKF3_core.cpp)
 
-set(objs/AP_NavEKF3/AntennaTracker_INCLUDES
+set(objs_AP_NavEKF3_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -399,20 +443,24 @@ set(objs/AP_NavEKF3/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_NavEKF3/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_NavEKF3_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_NavEKF3/AntennaTracker ${objs/AP_NavEKF3/AntennaTracker_SOURCES})
+add_library(objs_AP_NavEKF3_AntennaTracker ${objs_AP_NavEKF3_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_NavEKF3_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_NavEKF3/AntennaTracker mavlink)
-target_link_libraries(objs/AP_NavEKF3/AntennaTracker dronecan)
-target_link_libraries(objs/AP_NavEKF3/AntennaTracker littlefs)
 
-set(objs/AP_Rally/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_NavEKF3_AntennaTracker mavlink)
+target_link_libraries(objs_AP_NavEKF3_AntennaTracker dronecan)
+target_link_libraries(objs_AP_NavEKF3_AntennaTracker littlefs)
+
+set(objs_AP_Rally_AntennaTracker_SOURCES
     ../libraries/AP_Rally/AP_Rally.cpp)
 
-set(objs/AP_Rally/AntennaTracker_INCLUDES
+set(objs_AP_Rally_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -431,20 +479,24 @@ set(objs/AP_Rally/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Rally/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Rally_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Rally/AntennaTracker ${objs/AP_Rally/AntennaTracker_SOURCES})
+add_library(objs_AP_Rally_AntennaTracker ${objs_AP_Rally_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Rally_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Rally/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Rally/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Rally/AntennaTracker littlefs)
 
-set(objs/AP_Scheduler/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Rally_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Rally_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Rally_AntennaTracker littlefs)
+
+set(objs_AP_Scheduler_AntennaTracker_SOURCES
     ../libraries/AP_Scheduler/AP_Scheduler.cpp)
 
-set(objs/AP_Scheduler/AntennaTracker_INCLUDES
+set(objs_AP_Scheduler_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -463,20 +515,24 @@ set(objs/AP_Scheduler/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Scheduler/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Scheduler_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Scheduler/AntennaTracker ${objs/AP_Scheduler/AntennaTracker_SOURCES})
+add_library(objs_AP_Scheduler_AntennaTracker ${objs_AP_Scheduler_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Scheduler_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Scheduler/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Scheduler/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Scheduler/AntennaTracker littlefs)
 
-set(objs/AP_Terrain/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Scheduler_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Scheduler_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Scheduler_AntennaTracker littlefs)
+
+set(objs_AP_Terrain_AntennaTracker_SOURCES
     ../libraries/AP_Terrain/AP_Terrain.cpp)
 
-set(objs/AP_Terrain/AntennaTracker_INCLUDES
+set(objs_AP_Terrain_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -495,20 +551,24 @@ set(objs/AP_Terrain/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Terrain/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Terrain_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Terrain/AntennaTracker ${objs/AP_Terrain/AntennaTracker_SOURCES})
+add_library(objs_AP_Terrain_AntennaTracker ${objs_AP_Terrain_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Terrain_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Terrain/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Terrain/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Terrain/AntennaTracker littlefs)
 
-set(objs/AP_Vehicle/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Terrain_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Terrain_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Terrain_AntennaTracker littlefs)
+
+set(objs_AP_Vehicle_AntennaTracker_SOURCES
     ../libraries/AP_Vehicle/AP_Vehicle.cpp)
 
-set(objs/AP_Vehicle/AntennaTracker_INCLUDES
+set(objs_AP_Vehicle_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -527,23 +587,27 @@ set(objs/AP_Vehicle/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Vehicle/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Vehicle_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Vehicle/AntennaTracker ${objs/AP_Vehicle/AntennaTracker_SOURCES})
+add_library(objs_AP_Vehicle_AntennaTracker ${objs_AP_Vehicle_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Vehicle_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Vehicle/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Vehicle/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Vehicle/AntennaTracker littlefs)
 
-set(objs/AP_Logger/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Vehicle_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Vehicle_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Vehicle_AntennaTracker littlefs)
+
+set(objs_AP_Logger_AntennaTracker_SOURCES
     ../libraries/AP_Logger/AP_Logger.cpp
     ../libraries/AP_Logger/AP_Logger_Backend.cpp
     ../libraries/AP_Logger/AP_Logger_File.cpp
     ../libraries/AP_Logger/LoggerMessageWriter.cpp)
 
-set(objs/AP_Logger/AntennaTracker_INCLUDES
+set(objs_AP_Logger_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -562,20 +626,24 @@ set(objs/AP_Logger/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Logger/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Logger_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Logger/AntennaTracker ${objs/AP_Logger/AntennaTracker_SOURCES})
+add_library(objs_AP_Logger_AntennaTracker ${objs_AP_Logger_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Logger_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Logger/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Logger/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Logger/AntennaTracker littlefs)
 
-set(objs/Filter/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Logger_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Logger_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Logger_AntennaTracker littlefs)
+
+set(objs_Filter_AntennaTracker_SOURCES
     ../libraries/Filter/HarmonicNotchFilter.cpp)
 
-set(objs/Filter/AntennaTracker_INCLUDES
+set(objs_Filter_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -594,24 +662,28 @@ set(objs/Filter/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/Filter/AntennaTracker_INCLUDES})
+include_directories(${objs_Filter_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/Filter/AntennaTracker ${objs/Filter/AntennaTracker_SOURCES})
+add_library(objs_Filter_AntennaTracker ${objs_Filter_AntennaTracker_SOURCES})
+set_target_properties(objs_Filter_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/Filter/AntennaTracker mavlink)
-target_link_libraries(objs/Filter/AntennaTracker dronecan)
-target_link_libraries(objs/Filter/AntennaTracker littlefs)
 
-set(objs/GCS_MAVLink/AntennaTracker_SOURCES
+target_link_libraries(objs_Filter_AntennaTracker mavlink)
+target_link_libraries(objs_Filter_AntennaTracker dronecan)
+target_link_libraries(objs_Filter_AntennaTracker littlefs)
+
+set(objs_GCS_MAVLink_AntennaTracker_SOURCES
     ../libraries/GCS_MAVLink/GCS.cpp
     ../libraries/GCS_MAVLink/GCS_Common.cpp
     ../libraries/GCS_MAVLink/GCS_Dummy.cpp
     ../libraries/GCS_MAVLink/GCS_Fence.cpp
     ../libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp)
 
-set(objs/GCS_MAVLink/AntennaTracker_INCLUDES
+set(objs_GCS_MAVLink_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -630,20 +702,24 @@ set(objs/GCS_MAVLink/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/GCS_MAVLink/AntennaTracker_INCLUDES})
+include_directories(${objs_GCS_MAVLink_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/GCS_MAVLink/AntennaTracker ${objs/GCS_MAVLink/AntennaTracker_SOURCES})
+add_library(objs_GCS_MAVLink_AntennaTracker ${objs_GCS_MAVLink_AntennaTracker_SOURCES})
+set_target_properties(objs_GCS_MAVLink_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/GCS_MAVLink/AntennaTracker mavlink)
-target_link_libraries(objs/GCS_MAVLink/AntennaTracker dronecan)
-target_link_libraries(objs/GCS_MAVLink/AntennaTracker littlefs)
 
-set(objs/RC_Channel/AntennaTracker_SOURCES
+target_link_libraries(objs_GCS_MAVLink_AntennaTracker mavlink)
+target_link_libraries(objs_GCS_MAVLink_AntennaTracker dronecan)
+target_link_libraries(objs_GCS_MAVLink_AntennaTracker littlefs)
+
+set(objs_RC_Channel_AntennaTracker_SOURCES
     ../libraries/RC_Channel/RC_Channel.cpp)
 
-set(objs/RC_Channel/AntennaTracker_INCLUDES
+set(objs_RC_Channel_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -662,20 +738,24 @@ set(objs/RC_Channel/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/RC_Channel/AntennaTracker_INCLUDES})
+include_directories(${objs_RC_Channel_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/RC_Channel/AntennaTracker ${objs/RC_Channel/AntennaTracker_SOURCES})
+add_library(objs_RC_Channel_AntennaTracker ${objs_RC_Channel_AntennaTracker_SOURCES})
+set_target_properties(objs_RC_Channel_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/RC_Channel/AntennaTracker mavlink)
-target_link_libraries(objs/RC_Channel/AntennaTracker dronecan)
-target_link_libraries(objs/RC_Channel/AntennaTracker littlefs)
 
-set(objs/StorageManager/AntennaTracker_SOURCES
+target_link_libraries(objs_RC_Channel_AntennaTracker mavlink)
+target_link_libraries(objs_RC_Channel_AntennaTracker dronecan)
+target_link_libraries(objs_RC_Channel_AntennaTracker littlefs)
+
+set(objs_StorageManager_AntennaTracker_SOURCES
     ../libraries/StorageManager/StorageManager.cpp)
 
-set(objs/StorageManager/AntennaTracker_INCLUDES
+set(objs_StorageManager_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -694,20 +774,24 @@ set(objs/StorageManager/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/StorageManager/AntennaTracker_INCLUDES})
+include_directories(${objs_StorageManager_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/StorageManager/AntennaTracker ${objs/StorageManager/AntennaTracker_SOURCES})
+add_library(objs_StorageManager_AntennaTracker ${objs_StorageManager_AntennaTracker_SOURCES})
+set_target_properties(objs_StorageManager_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/StorageManager/AntennaTracker mavlink)
-target_link_libraries(objs/StorageManager/AntennaTracker dronecan)
-target_link_libraries(objs/StorageManager/AntennaTracker littlefs)
 
-set(objs/AP_Frsky_Telem/AntennaTracker_SOURCES
+target_link_libraries(objs_StorageManager_AntennaTracker mavlink)
+target_link_libraries(objs_StorageManager_AntennaTracker dronecan)
+target_link_libraries(objs_StorageManager_AntennaTracker littlefs)
+
+set(objs_AP_Frsky_Telem_AntennaTracker_SOURCES
     ../libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp)
 
-set(objs/AP_Frsky_Telem/AntennaTracker_INCLUDES
+set(objs_AP_Frsky_Telem_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -726,20 +810,24 @@ set(objs/AP_Frsky_Telem/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Frsky_Telem/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Frsky_Telem_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Frsky_Telem/AntennaTracker ${objs/AP_Frsky_Telem/AntennaTracker_SOURCES})
+add_library(objs_AP_Frsky_Telem_AntennaTracker ${objs_AP_Frsky_Telem_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Frsky_Telem_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Frsky_Telem/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Frsky_Telem/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Frsky_Telem/AntennaTracker littlefs)
 
-set(objs/AP_IBus_Telem/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Frsky_Telem_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Frsky_Telem_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Frsky_Telem_AntennaTracker littlefs)
+
+set(objs_AP_IBus_Telem_AntennaTracker_SOURCES
     ../libraries/AP_IBus_Telem/AP_IBus_Telem.cpp)
 
-set(objs/AP_IBus_Telem/AntennaTracker_INCLUDES
+set(objs_AP_IBus_Telem_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -758,20 +846,24 @@ set(objs/AP_IBus_Telem/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_IBus_Telem/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_IBus_Telem_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_IBus_Telem/AntennaTracker ${objs/AP_IBus_Telem/AntennaTracker_SOURCES})
+add_library(objs_AP_IBus_Telem_AntennaTracker ${objs_AP_IBus_Telem_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_IBus_Telem_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_IBus_Telem/AntennaTracker mavlink)
-target_link_libraries(objs/AP_IBus_Telem/AntennaTracker dronecan)
-target_link_libraries(objs/AP_IBus_Telem/AntennaTracker littlefs)
 
-set(objs/AP_Relay/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_IBus_Telem_AntennaTracker mavlink)
+target_link_libraries(objs_AP_IBus_Telem_AntennaTracker dronecan)
+target_link_libraries(objs_AP_IBus_Telem_AntennaTracker littlefs)
+
+set(objs_AP_Relay_AntennaTracker_SOURCES
     ../libraries/AP_Relay/AP_Relay.cpp)
 
-set(objs/AP_Relay/AntennaTracker_INCLUDES
+set(objs_AP_Relay_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -790,17 +882,21 @@ set(objs/AP_Relay/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Relay/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Relay_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Relay/AntennaTracker ${objs/AP_Relay/AntennaTracker_SOURCES})
+add_library(objs_AP_Relay_AntennaTracker ${objs_AP_Relay_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Relay_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Relay/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Relay/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Relay/AntennaTracker littlefs)
 
-set(objs/AP_RCProtocol/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Relay_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Relay_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Relay_AntennaTracker littlefs)
+
+set(objs_AP_RCProtocol_AntennaTracker_SOURCES
     ../libraries/AP_RCProtocol/AP_RCProtocol.cpp
     ../libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp
     ../libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp
@@ -809,7 +905,7 @@ set(objs/AP_RCProtocol/AntennaTracker_SOURCES
     ../libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp
     ../libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp)
 
-set(objs/AP_RCProtocol/AntennaTracker_INCLUDES
+set(objs_AP_RCProtocol_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -828,20 +924,24 @@ set(objs/AP_RCProtocol/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_RCProtocol/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_RCProtocol_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_RCProtocol/AntennaTracker ${objs/AP_RCProtocol/AntennaTracker_SOURCES})
+add_library(objs_AP_RCProtocol_AntennaTracker ${objs_AP_RCProtocol_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_RCProtocol_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_RCProtocol/AntennaTracker mavlink)
-target_link_libraries(objs/AP_RCProtocol/AntennaTracker dronecan)
-target_link_libraries(objs/AP_RCProtocol/AntennaTracker littlefs)
 
-set(objs/AP_BLHeli/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_RCProtocol_AntennaTracker mavlink)
+target_link_libraries(objs_AP_RCProtocol_AntennaTracker dronecan)
+target_link_libraries(objs_AP_RCProtocol_AntennaTracker littlefs)
+
+set(objs_AP_BLHeli_AntennaTracker_SOURCES
     ../libraries/AP_BLHeli/AP_BLHeli.cpp)
 
-set(objs/AP_BLHeli/AntennaTracker_INCLUDES
+set(objs_AP_BLHeli_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -860,20 +960,24 @@ set(objs/AP_BLHeli/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_BLHeli/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_BLHeli_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_BLHeli/AntennaTracker ${objs/AP_BLHeli/AntennaTracker_SOURCES})
+add_library(objs_AP_BLHeli_AntennaTracker ${objs_AP_BLHeli_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_BLHeli_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_BLHeli/AntennaTracker mavlink)
-target_link_libraries(objs/AP_BLHeli/AntennaTracker dronecan)
-target_link_libraries(objs/AP_BLHeli/AntennaTracker littlefs)
 
-set(objs/AP_Proximity/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_BLHeli_AntennaTracker mavlink)
+target_link_libraries(objs_AP_BLHeli_AntennaTracker dronecan)
+target_link_libraries(objs_AP_BLHeli_AntennaTracker littlefs)
+
+set(objs_AP_Proximity_AntennaTracker_SOURCES
     ../libraries/AP_Proximity/AP_Proximity_Utils.cpp)
 
-set(objs/AP_Proximity/AntennaTracker_INCLUDES
+set(objs_AP_Proximity_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -892,21 +996,25 @@ set(objs/AP_Proximity/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Proximity/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Proximity_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Proximity/AntennaTracker ${objs/AP_Proximity/AntennaTracker_SOURCES})
+add_library(objs_AP_Proximity_AntennaTracker ${objs_AP_Proximity_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Proximity_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Proximity/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Proximity/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Proximity/AntennaTracker littlefs)
 
-set(objs/AC_Fence/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Proximity_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Proximity_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Proximity_AntennaTracker littlefs)
+
+set(objs_AC_Fence_AntennaTracker_SOURCES
     ../libraries/AC_Fence/AC_Fence.cpp
     ../libraries/AC_Fence/AC_PolyFence_loader.cpp)
 
-set(objs/AC_Fence/AntennaTracker_INCLUDES
+set(objs_AC_Fence_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -925,22 +1033,26 @@ set(objs/AC_Fence/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AC_Fence/AntennaTracker_INCLUDES})
+include_directories(${objs_AC_Fence_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AC_Fence/AntennaTracker ${objs/AC_Fence/AntennaTracker_SOURCES})
+add_library(objs_AC_Fence_AntennaTracker ${objs_AC_Fence_AntennaTracker_SOURCES})
+set_target_properties(objs_AC_Fence_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AC_Fence/AntennaTracker mavlink)
-target_link_libraries(objs/AC_Fence/AntennaTracker dronecan)
-target_link_libraries(objs/AC_Fence/AntennaTracker littlefs)
 
-set(objs/AC_Avoidance/AntennaTracker_SOURCES
+target_link_libraries(objs_AC_Fence_AntennaTracker mavlink)
+target_link_libraries(objs_AC_Fence_AntennaTracker dronecan)
+target_link_libraries(objs_AC_Fence_AntennaTracker littlefs)
+
+set(objs_AC_Avoidance_AntennaTracker_SOURCES
     ../libraries/AC_Avoidance/AC_Avoid.cpp
     ../libraries/AC_Avoidance/AP_OABendyRuler.cpp
     ../libraries/AC_Avoidance/AP_OADatabase.cpp)
 
-set(objs/AC_Avoidance/AntennaTracker_INCLUDES
+set(objs_AC_Avoidance_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -959,20 +1071,24 @@ set(objs/AC_Avoidance/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AC_Avoidance/AntennaTracker_INCLUDES})
+include_directories(${objs_AC_Avoidance_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AC_Avoidance/AntennaTracker ${objs/AC_Avoidance/AntennaTracker_SOURCES})
+add_library(objs_AC_Avoidance_AntennaTracker ${objs_AC_Avoidance_AntennaTracker_SOURCES})
+set_target_properties(objs_AC_Avoidance_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AC_Avoidance/AntennaTracker mavlink)
-target_link_libraries(objs/AC_Avoidance/AntennaTracker dronecan)
-target_link_libraries(objs/AC_Avoidance/AntennaTracker littlefs)
 
-set(objs/AP_LandingGear/AntennaTracker_SOURCES
+target_link_libraries(objs_AC_Avoidance_AntennaTracker mavlink)
+target_link_libraries(objs_AC_Avoidance_AntennaTracker dronecan)
+target_link_libraries(objs_AC_Avoidance_AntennaTracker littlefs)
+
+set(objs_AP_LandingGear_AntennaTracker_SOURCES
     ../libraries/AP_LandingGear/AP_LandingGear.cpp)
 
-set(objs/AP_LandingGear/AntennaTracker_INCLUDES
+set(objs_AP_LandingGear_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -991,22 +1107,26 @@ set(objs/AP_LandingGear/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_LandingGear/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_LandingGear_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_LandingGear/AntennaTracker ${objs/AP_LandingGear/AntennaTracker_SOURCES})
+add_library(objs_AP_LandingGear_AntennaTracker ${objs_AP_LandingGear_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_LandingGear_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_LandingGear/AntennaTracker mavlink)
-target_link_libraries(objs/AP_LandingGear/AntennaTracker dronecan)
-target_link_libraries(objs/AP_LandingGear/AntennaTracker littlefs)
 
-set(objs/AP_OSD/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_LandingGear_AntennaTracker mavlink)
+target_link_libraries(objs_AP_LandingGear_AntennaTracker dronecan)
+target_link_libraries(objs_AP_LandingGear_AntennaTracker littlefs)
+
+set(objs_AP_OSD_AntennaTracker_SOURCES
     ../libraries/AP_OSD/AP_OSD_ParamScreen.cpp
     ../libraries/AP_OSD/AP_OSD_ParamSetting.cpp
     ../libraries/AP_OSD/AP_OSD_Screen.cpp)
 
-set(objs/AP_OSD/AntennaTracker_INCLUDES
+set(objs_AP_OSD_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1025,20 +1145,24 @@ set(objs/AP_OSD/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_OSD/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_OSD_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_OSD/AntennaTracker ${objs/AP_OSD/AntennaTracker_SOURCES})
+add_library(objs_AP_OSD_AntennaTracker ${objs_AP_OSD_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_OSD_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_OSD/AntennaTracker mavlink)
-target_link_libraries(objs/AP_OSD/AntennaTracker dronecan)
-target_link_libraries(objs/AP_OSD/AntennaTracker littlefs)
 
-set(objs/AP_Filesystem/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_OSD_AntennaTracker mavlink)
+target_link_libraries(objs_AP_OSD_AntennaTracker dronecan)
+target_link_libraries(objs_AP_OSD_AntennaTracker littlefs)
+
+set(objs_AP_Filesystem_AntennaTracker_SOURCES
     ../libraries/AP_Filesystem/AP_Filesystem_posix.cpp)
 
-set(objs/AP_Filesystem/AntennaTracker_INCLUDES
+set(objs_AP_Filesystem_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1057,21 +1181,25 @@ set(objs/AP_Filesystem/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Filesystem/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Filesystem_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Filesystem/AntennaTracker ${objs/AP_Filesystem/AntennaTracker_SOURCES})
+add_library(objs_AP_Filesystem_AntennaTracker ${objs_AP_Filesystem_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Filesystem_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Filesystem/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Filesystem/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Filesystem/AntennaTracker littlefs)
 
-set(objs/AP_ADSB/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Filesystem_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Filesystem_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Filesystem_AntennaTracker littlefs)
+
+set(objs_AP_ADSB_AntennaTracker_SOURCES
     ../libraries/AP_ADSB/AP_ADSB.cpp
     ../libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp)
 
-set(objs/AP_ADSB/AntennaTracker_INCLUDES
+set(objs_AP_ADSB_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1090,17 +1218,21 @@ set(objs/AP_ADSB/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_ADSB/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_ADSB_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_ADSB/AntennaTracker ${objs/AP_ADSB/AntennaTracker_SOURCES})
+add_library(objs_AP_ADSB_AntennaTracker ${objs_AP_ADSB_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_ADSB_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_ADSB/AntennaTracker mavlink)
-target_link_libraries(objs/AP_ADSB/AntennaTracker dronecan)
-target_link_libraries(objs/AP_ADSB/AntennaTracker littlefs)
 
-set(objs/AP_ADSB/sagetech-sdk_SOURCES
+target_link_libraries(objs_AP_ADSB_AntennaTracker mavlink)
+target_link_libraries(objs_AP_ADSB_AntennaTracker dronecan)
+target_link_libraries(objs_AP_ADSB_AntennaTracker littlefs)
+
+set(objs_AP_ADSB_sagetech-sdk_SOURCES
     ../libraries/AP_ADSB/sagetech-sdk/appendChecksum.c
     ../libraries/AP_ADSB/sagetech-sdk/calcChecksum.c
     ../libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c
@@ -1133,7 +1265,7 @@ set(objs/AP_ADSB/sagetech-sdk_SOURCES
     ../libraries/AP_ADSB/sagetech-sdk/uint162Buf.c
     ../libraries/AP_ADSB/sagetech-sdk/uint322Buf.c)
 
-set(objs/AP_ADSB/sagetech-sdk_INCLUDES
+set(objs_AP_ADSB_sagetech-sdk_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1152,18 +1284,22 @@ set(objs/AP_ADSB/sagetech-sdk_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_ADSB/sagetech-sdk_INCLUDES})
+include_directories(${objs_AP_ADSB_sagetech-sdk_INCLUDES})
 
-add_library(objs/AP_ADSB/sagetech-sdk ${objs/AP_ADSB/sagetech-sdk_SOURCES})
+add_library(objs_AP_ADSB_sagetech-sdk ${objs_AP_ADSB_sagetech-sdk_SOURCES})
+set_target_properties(objs_AP_ADSB_sagetech-sdk PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_ADSB/sagetech-sdk mavlink)
-target_link_libraries(objs/AP_ADSB/sagetech-sdk dronecan)
-target_link_libraries(objs/AP_ADSB/sagetech-sdk littlefs)
 
-set(objs/AP_ESC_Telem/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_ADSB_sagetech-sdk mavlink)
+target_link_libraries(objs_AP_ADSB_sagetech-sdk dronecan)
+target_link_libraries(objs_AP_ADSB_sagetech-sdk littlefs)
+
+set(objs_AP_ESC_Telem_AntennaTracker_SOURCES
     ../libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp)
 
-set(objs/AP_ESC_Telem/AntennaTracker_INCLUDES
+set(objs_AP_ESC_Telem_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1182,20 +1318,24 @@ set(objs/AP_ESC_Telem/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_ESC_Telem/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_ESC_Telem_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_ESC_Telem/AntennaTracker ${objs/AP_ESC_Telem/AntennaTracker_SOURCES})
+add_library(objs_AP_ESC_Telem_AntennaTracker ${objs_AP_ESC_Telem_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_ESC_Telem_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_ESC_Telem/AntennaTracker mavlink)
-target_link_libraries(objs/AP_ESC_Telem/AntennaTracker dronecan)
-target_link_libraries(objs/AP_ESC_Telem/AntennaTracker littlefs)
 
-set(objs/AP_GyroFFT/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_ESC_Telem_AntennaTracker mavlink)
+target_link_libraries(objs_AP_ESC_Telem_AntennaTracker dronecan)
+target_link_libraries(objs_AP_ESC_Telem_AntennaTracker littlefs)
+
+set(objs_AP_GyroFFT_AntennaTracker_SOURCES
     ../libraries/AP_GyroFFT/AP_GyroFFT.cpp)
 
-set(objs/AP_GyroFFT/AntennaTracker_INCLUDES
+set(objs_AP_GyroFFT_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1214,21 +1354,25 @@ set(objs/AP_GyroFFT/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_GyroFFT/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_GyroFFT_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_GyroFFT/AntennaTracker ${objs/AP_GyroFFT/AntennaTracker_SOURCES})
+add_library(objs_AP_GyroFFT_AntennaTracker ${objs_AP_GyroFFT_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_GyroFFT_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_GyroFFT/AntennaTracker mavlink)
-target_link_libraries(objs/AP_GyroFFT/AntennaTracker dronecan)
-target_link_libraries(objs/AP_GyroFFT/AntennaTracker littlefs)
 
-set(objs/AP_RCTelemetry/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_GyroFFT_AntennaTracker mavlink)
+target_link_libraries(objs_AP_GyroFFT_AntennaTracker dronecan)
+target_link_libraries(objs_AP_GyroFFT_AntennaTracker littlefs)
+
+set(objs_AP_RCTelemetry_AntennaTracker_SOURCES
     ../libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp
     ../libraries/AP_RCTelemetry/AP_RCTelemetry.cpp)
 
-set(objs/AP_RCTelemetry/AntennaTracker_INCLUDES
+set(objs_AP_RCTelemetry_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1247,21 +1391,25 @@ set(objs/AP_RCTelemetry/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_RCTelemetry/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_RCTelemetry_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_RCTelemetry/AntennaTracker ${objs/AP_RCTelemetry/AntennaTracker_SOURCES})
+add_library(objs_AP_RCTelemetry_AntennaTracker ${objs_AP_RCTelemetry_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_RCTelemetry_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_RCTelemetry/AntennaTracker mavlink)
-target_link_libraries(objs/AP_RCTelemetry/AntennaTracker dronecan)
-target_link_libraries(objs/AP_RCTelemetry/AntennaTracker littlefs)
 
-set(objs/AP_ExternalAHRS/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_RCTelemetry_AntennaTracker mavlink)
+target_link_libraries(objs_AP_RCTelemetry_AntennaTracker dronecan)
+target_link_libraries(objs_AP_RCTelemetry_AntennaTracker littlefs)
+
+set(objs_AP_ExternalAHRS_AntennaTracker_SOURCES
     ../libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp
     ../libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp)
 
-set(objs/AP_ExternalAHRS/AntennaTracker_INCLUDES
+set(objs_AP_ExternalAHRS_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1280,20 +1428,24 @@ set(objs/AP_ExternalAHRS/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_ExternalAHRS/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_ExternalAHRS_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_ExternalAHRS/AntennaTracker ${objs/AP_ExternalAHRS/AntennaTracker_SOURCES})
+add_library(objs_AP_ExternalAHRS_AntennaTracker ${objs_AP_ExternalAHRS_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_ExternalAHRS_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_ExternalAHRS/AntennaTracker mavlink)
-target_link_libraries(objs/AP_ExternalAHRS/AntennaTracker dronecan)
-target_link_libraries(objs/AP_ExternalAHRS/AntennaTracker littlefs)
 
-set(objs/AP_TemperatureSensor/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_ExternalAHRS_AntennaTracker mavlink)
+target_link_libraries(objs_AP_ExternalAHRS_AntennaTracker dronecan)
+target_link_libraries(objs_AP_ExternalAHRS_AntennaTracker littlefs)
+
+set(objs_AP_TemperatureSensor_AntennaTracker_SOURCES
     ../libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp)
 
-set(objs/AP_TemperatureSensor/AntennaTracker_INCLUDES
+set(objs_AP_TemperatureSensor_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1312,20 +1464,24 @@ set(objs/AP_TemperatureSensor/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_TemperatureSensor/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_TemperatureSensor_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_TemperatureSensor/AntennaTracker ${objs/AP_TemperatureSensor/AntennaTracker_SOURCES})
+add_library(objs_AP_TemperatureSensor_AntennaTracker ${objs_AP_TemperatureSensor_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_TemperatureSensor_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_TemperatureSensor/AntennaTracker mavlink)
-target_link_libraries(objs/AP_TemperatureSensor/AntennaTracker dronecan)
-target_link_libraries(objs/AP_TemperatureSensor/AntennaTracker littlefs)
 
-set(objs/AP_AIS/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_TemperatureSensor_AntennaTracker mavlink)
+target_link_libraries(objs_AP_TemperatureSensor_AntennaTracker dronecan)
+target_link_libraries(objs_AP_TemperatureSensor_AntennaTracker littlefs)
+
+set(objs_AP_AIS_AntennaTracker_SOURCES
     ../libraries/AP_AIS/AP_AIS.cpp)
 
-set(objs/AP_AIS/AntennaTracker_INCLUDES
+set(objs_AP_AIS_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1344,20 +1500,24 @@ set(objs/AP_AIS/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_AIS/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_AIS_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_AIS/AntennaTracker ${objs/AP_AIS/AntennaTracker_SOURCES})
+add_library(objs_AP_AIS_AntennaTracker ${objs_AP_AIS_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_AIS_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_AIS/AntennaTracker mavlink)
-target_link_libraries(objs/AP_AIS/AntennaTracker dronecan)
-target_link_libraries(objs/AP_AIS/AntennaTracker littlefs)
 
-set(objs/AP_Arming/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_AIS_AntennaTracker mavlink)
+target_link_libraries(objs_AP_AIS_AntennaTracker dronecan)
+target_link_libraries(objs_AP_AIS_AntennaTracker littlefs)
+
+set(objs_AP_Arming_AntennaTracker_SOURCES
     ../libraries/AP_Arming/AP_Arming.cpp)
 
-set(objs/AP_Arming/AntennaTracker_INCLUDES
+set(objs_AP_Arming_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1376,20 +1536,24 @@ set(objs/AP_Arming/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Arming/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Arming_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Arming/AntennaTracker ${objs/AP_Arming/AntennaTracker_SOURCES})
+add_library(objs_AP_Arming_AntennaTracker ${objs_AP_Arming_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Arming_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Arming/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Arming/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Arming/AntennaTracker littlefs)
 
-set(objs/AP_Follow/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Arming_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Arming_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Arming_AntennaTracker littlefs)
+
+set(objs_AP_Follow_AntennaTracker_SOURCES
     ../libraries/AP_Follow/AP_Follow.cpp)
 
-set(objs/AP_Follow/AntennaTracker_INCLUDES
+set(objs_AP_Follow_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1408,22 +1572,26 @@ set(objs/AP_Follow/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Follow/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Follow_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Follow/AntennaTracker ${objs/AP_Follow/AntennaTracker_SOURCES})
+add_library(objs_AP_Follow_AntennaTracker ${objs_AP_Follow_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Follow_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Follow/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Follow/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Follow/AntennaTracker littlefs)
 
-set(objs/AP_HAL_SITL/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_Follow_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Follow_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Follow_AntennaTracker littlefs)
+
+set(objs_AP_HAL_SITL_AntennaTracker_SOURCES
     ../libraries/AP_HAL_SITL/SITL_cmdline.cpp
     ../libraries/AP_HAL_SITL/Storage.cpp
     ../libraries/AP_HAL_SITL/UARTDriver.cpp)
 
-set(objs/AP_HAL_SITL/AntennaTracker_INCLUDES
+set(objs_AP_HAL_SITL_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1442,23 +1610,27 @@ set(objs/AP_HAL_SITL/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_HAL_SITL/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_HAL_SITL_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_HAL_SITL/AntennaTracker ${objs/AP_HAL_SITL/AntennaTracker_SOURCES})
+add_library(objs_AP_HAL_SITL_AntennaTracker ${objs_AP_HAL_SITL_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_HAL_SITL_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_HAL_SITL/AntennaTracker mavlink)
-target_link_libraries(objs/AP_HAL_SITL/AntennaTracker dronecan)
-target_link_libraries(objs/AP_HAL_SITL/AntennaTracker littlefs)
 
-set(objs/SITL/AntennaTracker_SOURCES
+target_link_libraries(objs_AP_HAL_SITL_AntennaTracker mavlink)
+target_link_libraries(objs_AP_HAL_SITL_AntennaTracker dronecan)
+target_link_libraries(objs_AP_HAL_SITL_AntennaTracker littlefs)
+
+set(objs_SITL_AntennaTracker_SOURCES
     ../libraries/SITL/SIM_Aircraft.cpp
     ../libraries/SITL/SIM_DroneCANDevice.cpp
     ../libraries/SITL/SIM_XPlane.cpp
     ../libraries/SITL/SITL.cpp)
 
-set(objs/SITL/AntennaTracker_INCLUDES
+set(objs_SITL_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1477,17 +1649,21 @@ set(objs/SITL/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/SITL/AntennaTracker_INCLUDES})
+include_directories(${objs_SITL_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/SITL/AntennaTracker ${objs/SITL/AntennaTracker_SOURCES})
+add_library(objs_SITL_AntennaTracker ${objs_SITL_AntennaTracker_SOURCES})
+set_target_properties(objs_SITL_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/SITL/AntennaTracker mavlink)
-target_link_libraries(objs/SITL/AntennaTracker dronecan)
-target_link_libraries(objs/SITL/AntennaTracker littlefs)
 
-set(objs/AP_Scripting/AntennaTracker_SOURCES
+target_link_libraries(objs_SITL_AntennaTracker mavlink)
+target_link_libraries(objs_SITL_AntennaTracker dronecan)
+target_link_libraries(objs_SITL_AntennaTracker littlefs)
+
+set(objs_AP_Scripting_AntennaTracker_SOURCES
     ../libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp
     ../libraries/AP_Scripting/AP_Scripting_helpers.cpp
     ../libraries/AP_Scripting/lua_bindings.cpp
@@ -1495,7 +1671,7 @@ set(objs/AP_Scripting/AntennaTracker_SOURCES
     ../libraries/AP_Scripting/lua_scripts.cpp
     ../build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp)
 
-set(objs/AP_Scripting/AntennaTracker_INCLUDES
+set(objs_AP_Scripting_AntennaTracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -1514,15 +1690,19 @@ set(objs/AP_Scripting/AntennaTracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs/AP_Scripting/AntennaTracker_INCLUDES})
+include_directories(${objs_AP_Scripting_AntennaTracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_library(objs/AP_Scripting/AntennaTracker ${objs/AP_Scripting/AntennaTracker_SOURCES})
+add_library(objs_AP_Scripting_AntennaTracker ${objs_AP_Scripting_AntennaTracker_SOURCES})
+set_target_properties(objs_AP_Scripting_AntennaTracker PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
 
-target_link_libraries(objs/AP_Scripting/AntennaTracker mavlink)
-target_link_libraries(objs/AP_Scripting/AntennaTracker dronecan)
-target_link_libraries(objs/AP_Scripting/AntennaTracker littlefs)
+
+target_link_libraries(objs_AP_Scripting_AntennaTracker mavlink)
+target_link_libraries(objs_AP_Scripting_AntennaTracker dronecan)
+target_link_libraries(objs_AP_Scripting_AntennaTracker littlefs)
 
 set(AntennaTracker_libs_SOURCES
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
@@ -1724,6 +1904,10 @@ set(AntennaTracker_libs_INCLUDES
 include_directories(${AntennaTracker_libs_INCLUDES})
 
 add_library(AntennaTracker_libs ${AntennaTracker_libs_SOURCES})
+set_target_properties(AntennaTracker_libs PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
+
 
 target_link_libraries(AntennaTracker_libs objs/AP_AccelCal)
 target_link_libraries(AntennaTracker_libs objs/AP_AccelCal/AntennaTracker)
@@ -1962,7 +2146,7 @@ target_link_libraries(AntennaTracker_libs objs/AP_Scripting/lua/src/AntennaTrack
 target_link_libraries(AntennaTracker_libs objs/AC_CustomControl)
 target_link_libraries(AntennaTracker_libs objs/AC_CustomControl/AntennaTracker)
 
-set(bin/antennatracker_SOURCES
+set(bin_antennatracker_SOURCES
     GCS_MAVLink_Tracker.cpp
     GCS_Tracker.cpp
     Log.cpp
@@ -1981,7 +2165,7 @@ set(bin/antennatracker_SOURCES
     system.cpp
     tracking.cpp)
 
-set(bin/antennatracker_INCLUDES
+set(bin_antennatracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -2000,11 +2184,11 @@ set(bin/antennatracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${bin/antennatracker_INCLUDES})
+include_directories(${bin_antennatracker_INCLUDES})
 
 add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
 
-add_executable(bin/antennatracker ${bin/antennatracker_SOURCES})
+add_executable(bin_antennatracker ${bin_antennatracker_SOURCES})
 
-target_link_libraries(bin/antennatracker AntennaTracker_libs)
+target_link_libraries(bin_antennatracker AntennaTracker_libs)
 
