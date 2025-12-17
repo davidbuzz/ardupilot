@@ -384,26 +384,29 @@ class CMakeExporter(object):
 				new_flags = []
 				FRAME_CONFIG_seen = False
 				for f in flags:
+					#print('Debug: original flag: %s' % f)
 					if '&&' in f:
 						parts = f.split('&&')
 						# keep only the first part
 						new_flags.append(parts[0])
-					#if 'FRAME_CONFIG=' in f:
-					#	# skip FRAME_CONFIG=... second and further occurrences
-					#	if not FRAME_CONFIG_seen:
-					#		new_flags.append(f)
-					#		FRAME_CONFIG_seen = True
-					else:
-						new_flags.append(f)
+						print('Debug: fixed flag: %s' % parts[0])
+						continue
+					if 'FRAME_CONFIG=' in f:
+						# skip FRAME_CONFIG=... second and further occurrences
+						if not FRAME_CONFIG_seen:
+							new_flags.append(f)
+							FRAME_CONFIG_seen = True
+						continue
+					new_flags.append(f)
 				return new_flags
 
-			flags = clean_flags(env.CFLAGS)
-			if len(flags):
-				content += 'set(CMAKE_C_FLAGS "%s")\n' % (' '.join(flags))
+			flags1 = clean_flags(env.CFLAGS)
+			if len(flags1):
+				content += 'set(CMAKE_C_FLAGS "%s")\n' % (' '.join(flags1))
 
-			flags = clean_flags(env.CXXFLAGS)
-			if len(flags):
-				content += 'set(CMAKE_CXX_FLAGS "%s")\n' % (' '.join(flags))
+			flags2 = clean_flags(env.CXXFLAGS)
+			if len(flags2):
+				content += 'set(CMAKE_CXX_FLAGS "%s")\n' % (' '.join(flags2))
 
 		if len(self.tgens):
 			content += '\n'
@@ -495,7 +498,16 @@ class CMakeExporter(object):
 				if len(lib) <= 1:
 					print('Warning: Skipping linking to library with too short name: "%s" in target: %s' % (lib, name))
 					continue
-				content += 'target_link_libraries(%s %s)\n' % (cleanedname, lib)
+				if lib.startswith('objs/'):
+					#print('Debug: Skipping linking to library for objs/ target: %s lib: %s' % (name, lib))
+					#continue
+					strip_lib = lib[5:] # remove 'objs/' prefix
+					# does strip_lib end in /ArduCopter, ie has a / ?
+					if '/' in strip_lib:
+						continue
+					content += 'target_link_libraries(%s libobjs_%s.a) #stripped\n' % (cleanedname, strip_lib)
+				else:
+					content += 'target_link_libraries(%s %s) #clean\n' % (cleanedname, lib)
 			content += '\n'
 
 		return content
