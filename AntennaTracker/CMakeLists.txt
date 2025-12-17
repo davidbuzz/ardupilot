@@ -33,9 +33,9 @@ set_target_properties(objs_AP_AHRS_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_AHRS_AntennaTracker mavlink)
-target_link_libraries(objs_AP_AHRS_AntennaTracker dronecan)
-target_link_libraries(objs_AP_AHRS_AntennaTracker littlefs)
+target_link_libraries(objs_AP_AHRS_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_AHRS_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_AHRS_AntennaTracker littlefs) #clean
 
 set(objs_AP_Airspeed_AntennaTracker_SOURCES
     ../libraries/AP_Airspeed/AP_Airspeed.cpp
@@ -71,9 +71,9 @@ set_target_properties(objs_AP_Airspeed_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Airspeed_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Airspeed_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Airspeed_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Airspeed_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Airspeed_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Airspeed_AntennaTracker littlefs) #clean
 
 set(objs_AP_Baro_AntennaTracker_SOURCES
     ../libraries/AP_Baro/AP_Baro.cpp
@@ -109,9 +109,9 @@ set_target_properties(objs_AP_Baro_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Baro_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Baro_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Baro_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Baro_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Baro_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Baro_AntennaTracker littlefs) #clean
 
 set(objs_AP_BattMonitor_AntennaTracker_SOURCES
     ../libraries/AP_BattMonitor/AP_BattMonitor.cpp
@@ -146,9 +146,9 @@ set_target_properties(objs_AP_BattMonitor_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_BattMonitor_AntennaTracker mavlink)
-target_link_libraries(objs_AP_BattMonitor_AntennaTracker dronecan)
-target_link_libraries(objs_AP_BattMonitor_AntennaTracker littlefs)
+target_link_libraries(objs_AP_BattMonitor_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_BattMonitor_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_BattMonitor_AntennaTracker littlefs) #clean
 
 set(objs_AP_BoardConfig_AntennaTracker_SOURCES
     ../libraries/AP_BoardConfig/AP_BoardConfig.cpp)
@@ -182,9 +182,9 @@ set_target_properties(objs_AP_BoardConfig_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_BoardConfig_AntennaTracker mavlink)
-target_link_libraries(objs_AP_BoardConfig_AntennaTracker dronecan)
-target_link_libraries(objs_AP_BoardConfig_AntennaTracker littlefs)
+target_link_libraries(objs_AP_BoardConfig_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_BoardConfig_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_BoardConfig_AntennaTracker littlefs) #clean
 
 set(objs_AP_HAL_AntennaTracker_SOURCES
     ../libraries/AP_HAL/SIMState.cpp)
@@ -218,9 +218,9 @@ set_target_properties(objs_AP_HAL_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_HAL_AntennaTracker mavlink)
-target_link_libraries(objs_AP_HAL_AntennaTracker dronecan)
-target_link_libraries(objs_AP_HAL_AntennaTracker littlefs)
+target_link_libraries(objs_AP_HAL_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_HAL_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_HAL_AntennaTracker littlefs) #clean
 
 set(objs_AP_InertialSensor_AntennaTracker_SOURCES
     ../libraries/AP_InertialSensor/AP_InertialSensor.cpp
@@ -257,9 +257,9 @@ set_target_properties(objs_AP_InertialSensor_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_InertialSensor_AntennaTracker mavlink)
-target_link_libraries(objs_AP_InertialSensor_AntennaTracker dronecan)
-target_link_libraries(objs_AP_InertialSensor_AntennaTracker littlefs)
+target_link_libraries(objs_AP_InertialSensor_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_InertialSensor_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_InertialSensor_AntennaTracker littlefs) #clean
 
 set(objs_AP_Math_AntennaTracker_SOURCES
     ../libraries/AP_Math/SCurve.cpp)
@@ -293,9 +293,9 @@ set_target_properties(objs_AP_Math_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Math_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Math_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Math_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Math_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Math_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Math_AntennaTracker littlefs) #clean
 
 set(objs_AP_Mission_AntennaTracker_SOURCES
     ../libraries/AP_Mission/AP_Mission.cpp)
@@ -329,9 +329,9 @@ set_target_properties(objs_AP_Mission_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Mission_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Mission_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Mission_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Mission_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Mission_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Mission_AntennaTracker littlefs) #clean
 
 set(objs_AP_DAL_AntennaTracker_SOURCES
     ../libraries/AP_DAL/AP_DAL.cpp
@@ -368,9 +368,9 @@ set_target_properties(objs_AP_DAL_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_DAL_AntennaTracker mavlink)
-target_link_libraries(objs_AP_DAL_AntennaTracker dronecan)
-target_link_libraries(objs_AP_DAL_AntennaTracker littlefs)
+target_link_libraries(objs_AP_DAL_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_DAL_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_DAL_AntennaTracker littlefs) #clean
 
 set(objs_AP_NavEKF2_AntennaTracker_SOURCES
     ../libraries/AP_NavEKF2/AP_NavEKF2.cpp
@@ -405,9 +405,9 @@ set_target_properties(objs_AP_NavEKF2_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_NavEKF2_AntennaTracker mavlink)
-target_link_libraries(objs_AP_NavEKF2_AntennaTracker dronecan)
-target_link_libraries(objs_AP_NavEKF2_AntennaTracker littlefs)
+target_link_libraries(objs_AP_NavEKF2_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_NavEKF2_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_NavEKF2_AntennaTracker littlefs) #clean
 
 set(objs_AP_NavEKF3_AntennaTracker_SOURCES
     ../libraries/AP_NavEKF3/AP_NavEKF3.cpp
@@ -453,9 +453,9 @@ set_target_properties(objs_AP_NavEKF3_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_NavEKF3_AntennaTracker mavlink)
-target_link_libraries(objs_AP_NavEKF3_AntennaTracker dronecan)
-target_link_libraries(objs_AP_NavEKF3_AntennaTracker littlefs)
+target_link_libraries(objs_AP_NavEKF3_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_NavEKF3_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_NavEKF3_AntennaTracker littlefs) #clean
 
 set(objs_AP_Rally_AntennaTracker_SOURCES
     ../libraries/AP_Rally/AP_Rally.cpp)
@@ -489,9 +489,9 @@ set_target_properties(objs_AP_Rally_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Rally_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Rally_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Rally_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Rally_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Rally_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Rally_AntennaTracker littlefs) #clean
 
 set(objs_AP_Scheduler_AntennaTracker_SOURCES
     ../libraries/AP_Scheduler/AP_Scheduler.cpp)
@@ -525,9 +525,9 @@ set_target_properties(objs_AP_Scheduler_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Scheduler_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Scheduler_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Scheduler_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Scheduler_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Scheduler_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Scheduler_AntennaTracker littlefs) #clean
 
 set(objs_AP_Terrain_AntennaTracker_SOURCES
     ../libraries/AP_Terrain/AP_Terrain.cpp)
@@ -561,9 +561,9 @@ set_target_properties(objs_AP_Terrain_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Terrain_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Terrain_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Terrain_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Terrain_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Terrain_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Terrain_AntennaTracker littlefs) #clean
 
 set(objs_AP_Vehicle_AntennaTracker_SOURCES
     ../libraries/AP_Vehicle/AP_Vehicle.cpp)
@@ -597,9 +597,9 @@ set_target_properties(objs_AP_Vehicle_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Vehicle_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Vehicle_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Vehicle_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Vehicle_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Vehicle_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Vehicle_AntennaTracker littlefs) #clean
 
 set(objs_AP_Logger_AntennaTracker_SOURCES
     ../libraries/AP_Logger/AP_Logger.cpp
@@ -636,9 +636,9 @@ set_target_properties(objs_AP_Logger_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Logger_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Logger_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Logger_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Logger_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Logger_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Logger_AntennaTracker littlefs) #clean
 
 set(objs_Filter_AntennaTracker_SOURCES
     ../libraries/Filter/HarmonicNotchFilter.cpp)
@@ -672,9 +672,9 @@ set_target_properties(objs_Filter_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_Filter_AntennaTracker mavlink)
-target_link_libraries(objs_Filter_AntennaTracker dronecan)
-target_link_libraries(objs_Filter_AntennaTracker littlefs)
+target_link_libraries(objs_Filter_AntennaTracker mavlink) #clean
+target_link_libraries(objs_Filter_AntennaTracker dronecan) #clean
+target_link_libraries(objs_Filter_AntennaTracker littlefs) #clean
 
 set(objs_GCS_MAVLink_AntennaTracker_SOURCES
     ../libraries/GCS_MAVLink/GCS.cpp
@@ -712,9 +712,9 @@ set_target_properties(objs_GCS_MAVLink_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_GCS_MAVLink_AntennaTracker mavlink)
-target_link_libraries(objs_GCS_MAVLink_AntennaTracker dronecan)
-target_link_libraries(objs_GCS_MAVLink_AntennaTracker littlefs)
+target_link_libraries(objs_GCS_MAVLink_AntennaTracker mavlink) #clean
+target_link_libraries(objs_GCS_MAVLink_AntennaTracker dronecan) #clean
+target_link_libraries(objs_GCS_MAVLink_AntennaTracker littlefs) #clean
 
 set(objs_RC_Channel_AntennaTracker_SOURCES
     ../libraries/RC_Channel/RC_Channel.cpp)
@@ -748,9 +748,9 @@ set_target_properties(objs_RC_Channel_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_RC_Channel_AntennaTracker mavlink)
-target_link_libraries(objs_RC_Channel_AntennaTracker dronecan)
-target_link_libraries(objs_RC_Channel_AntennaTracker littlefs)
+target_link_libraries(objs_RC_Channel_AntennaTracker mavlink) #clean
+target_link_libraries(objs_RC_Channel_AntennaTracker dronecan) #clean
+target_link_libraries(objs_RC_Channel_AntennaTracker littlefs) #clean
 
 set(objs_StorageManager_AntennaTracker_SOURCES
     ../libraries/StorageManager/StorageManager.cpp)
@@ -784,9 +784,9 @@ set_target_properties(objs_StorageManager_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_StorageManager_AntennaTracker mavlink)
-target_link_libraries(objs_StorageManager_AntennaTracker dronecan)
-target_link_libraries(objs_StorageManager_AntennaTracker littlefs)
+target_link_libraries(objs_StorageManager_AntennaTracker mavlink) #clean
+target_link_libraries(objs_StorageManager_AntennaTracker dronecan) #clean
+target_link_libraries(objs_StorageManager_AntennaTracker littlefs) #clean
 
 set(objs_AP_Frsky_Telem_AntennaTracker_SOURCES
     ../libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp)
@@ -820,9 +820,9 @@ set_target_properties(objs_AP_Frsky_Telem_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Frsky_Telem_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Frsky_Telem_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Frsky_Telem_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Frsky_Telem_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Frsky_Telem_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Frsky_Telem_AntennaTracker littlefs) #clean
 
 set(objs_AP_IBus_Telem_AntennaTracker_SOURCES
     ../libraries/AP_IBus_Telem/AP_IBus_Telem.cpp)
@@ -856,9 +856,9 @@ set_target_properties(objs_AP_IBus_Telem_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_IBus_Telem_AntennaTracker mavlink)
-target_link_libraries(objs_AP_IBus_Telem_AntennaTracker dronecan)
-target_link_libraries(objs_AP_IBus_Telem_AntennaTracker littlefs)
+target_link_libraries(objs_AP_IBus_Telem_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_IBus_Telem_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_IBus_Telem_AntennaTracker littlefs) #clean
 
 set(objs_AP_Relay_AntennaTracker_SOURCES
     ../libraries/AP_Relay/AP_Relay.cpp)
@@ -892,9 +892,9 @@ set_target_properties(objs_AP_Relay_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Relay_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Relay_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Relay_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Relay_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Relay_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Relay_AntennaTracker littlefs) #clean
 
 set(objs_AP_RCProtocol_AntennaTracker_SOURCES
     ../libraries/AP_RCProtocol/AP_RCProtocol.cpp
@@ -934,9 +934,9 @@ set_target_properties(objs_AP_RCProtocol_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RCProtocol_AntennaTracker mavlink)
-target_link_libraries(objs_AP_RCProtocol_AntennaTracker dronecan)
-target_link_libraries(objs_AP_RCProtocol_AntennaTracker littlefs)
+target_link_libraries(objs_AP_RCProtocol_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_RCProtocol_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_RCProtocol_AntennaTracker littlefs) #clean
 
 set(objs_AP_BLHeli_AntennaTracker_SOURCES
     ../libraries/AP_BLHeli/AP_BLHeli.cpp)
@@ -970,9 +970,9 @@ set_target_properties(objs_AP_BLHeli_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_BLHeli_AntennaTracker mavlink)
-target_link_libraries(objs_AP_BLHeli_AntennaTracker dronecan)
-target_link_libraries(objs_AP_BLHeli_AntennaTracker littlefs)
+target_link_libraries(objs_AP_BLHeli_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_BLHeli_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_BLHeli_AntennaTracker littlefs) #clean
 
 set(objs_AP_Proximity_AntennaTracker_SOURCES
     ../libraries/AP_Proximity/AP_Proximity_Utils.cpp)
@@ -1006,9 +1006,9 @@ set_target_properties(objs_AP_Proximity_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Proximity_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Proximity_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Proximity_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Proximity_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Proximity_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Proximity_AntennaTracker littlefs) #clean
 
 set(objs_AC_Fence_AntennaTracker_SOURCES
     ../libraries/AC_Fence/AC_Fence.cpp
@@ -1043,9 +1043,9 @@ set_target_properties(objs_AC_Fence_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_Fence_AntennaTracker mavlink)
-target_link_libraries(objs_AC_Fence_AntennaTracker dronecan)
-target_link_libraries(objs_AC_Fence_AntennaTracker littlefs)
+target_link_libraries(objs_AC_Fence_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AC_Fence_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AC_Fence_AntennaTracker littlefs) #clean
 
 set(objs_AC_Avoidance_AntennaTracker_SOURCES
     ../libraries/AC_Avoidance/AC_Avoid.cpp
@@ -1081,9 +1081,9 @@ set_target_properties(objs_AC_Avoidance_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_Avoidance_AntennaTracker mavlink)
-target_link_libraries(objs_AC_Avoidance_AntennaTracker dronecan)
-target_link_libraries(objs_AC_Avoidance_AntennaTracker littlefs)
+target_link_libraries(objs_AC_Avoidance_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AC_Avoidance_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AC_Avoidance_AntennaTracker littlefs) #clean
 
 set(objs_AP_LandingGear_AntennaTracker_SOURCES
     ../libraries/AP_LandingGear/AP_LandingGear.cpp)
@@ -1117,9 +1117,9 @@ set_target_properties(objs_AP_LandingGear_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_LandingGear_AntennaTracker mavlink)
-target_link_libraries(objs_AP_LandingGear_AntennaTracker dronecan)
-target_link_libraries(objs_AP_LandingGear_AntennaTracker littlefs)
+target_link_libraries(objs_AP_LandingGear_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_LandingGear_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_LandingGear_AntennaTracker littlefs) #clean
 
 set(objs_AP_OSD_AntennaTracker_SOURCES
     ../libraries/AP_OSD/AP_OSD_ParamScreen.cpp
@@ -1155,9 +1155,9 @@ set_target_properties(objs_AP_OSD_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_OSD_AntennaTracker mavlink)
-target_link_libraries(objs_AP_OSD_AntennaTracker dronecan)
-target_link_libraries(objs_AP_OSD_AntennaTracker littlefs)
+target_link_libraries(objs_AP_OSD_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_OSD_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_OSD_AntennaTracker littlefs) #clean
 
 set(objs_AP_Filesystem_AntennaTracker_SOURCES
     ../libraries/AP_Filesystem/AP_Filesystem_posix.cpp)
@@ -1191,9 +1191,9 @@ set_target_properties(objs_AP_Filesystem_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Filesystem_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Filesystem_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Filesystem_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Filesystem_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Filesystem_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Filesystem_AntennaTracker littlefs) #clean
 
 set(objs_AP_ADSB_AntennaTracker_SOURCES
     ../libraries/AP_ADSB/AP_ADSB.cpp
@@ -1228,9 +1228,9 @@ set_target_properties(objs_AP_ADSB_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ADSB_AntennaTracker mavlink)
-target_link_libraries(objs_AP_ADSB_AntennaTracker dronecan)
-target_link_libraries(objs_AP_ADSB_AntennaTracker littlefs)
+target_link_libraries(objs_AP_ADSB_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_ADSB_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_ADSB_AntennaTracker littlefs) #clean
 
 set(objs_AP_ADSB_sagetech-sdk_SOURCES
     ../libraries/AP_ADSB/sagetech-sdk/appendChecksum.c
@@ -1292,9 +1292,9 @@ set_target_properties(objs_AP_ADSB_sagetech-sdk PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ADSB_sagetech-sdk mavlink)
-target_link_libraries(objs_AP_ADSB_sagetech-sdk dronecan)
-target_link_libraries(objs_AP_ADSB_sagetech-sdk littlefs)
+target_link_libraries(objs_AP_ADSB_sagetech-sdk mavlink) #clean
+target_link_libraries(objs_AP_ADSB_sagetech-sdk dronecan) #clean
+target_link_libraries(objs_AP_ADSB_sagetech-sdk littlefs) #clean
 
 set(objs_AP_ESC_Telem_AntennaTracker_SOURCES
     ../libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp)
@@ -1328,9 +1328,9 @@ set_target_properties(objs_AP_ESC_Telem_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ESC_Telem_AntennaTracker mavlink)
-target_link_libraries(objs_AP_ESC_Telem_AntennaTracker dronecan)
-target_link_libraries(objs_AP_ESC_Telem_AntennaTracker littlefs)
+target_link_libraries(objs_AP_ESC_Telem_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_ESC_Telem_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_ESC_Telem_AntennaTracker littlefs) #clean
 
 set(objs_AP_GyroFFT_AntennaTracker_SOURCES
     ../libraries/AP_GyroFFT/AP_GyroFFT.cpp)
@@ -1364,9 +1364,9 @@ set_target_properties(objs_AP_GyroFFT_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_GyroFFT_AntennaTracker mavlink)
-target_link_libraries(objs_AP_GyroFFT_AntennaTracker dronecan)
-target_link_libraries(objs_AP_GyroFFT_AntennaTracker littlefs)
+target_link_libraries(objs_AP_GyroFFT_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_GyroFFT_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_GyroFFT_AntennaTracker littlefs) #clean
 
 set(objs_AP_RCTelemetry_AntennaTracker_SOURCES
     ../libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp
@@ -1401,9 +1401,9 @@ set_target_properties(objs_AP_RCTelemetry_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RCTelemetry_AntennaTracker mavlink)
-target_link_libraries(objs_AP_RCTelemetry_AntennaTracker dronecan)
-target_link_libraries(objs_AP_RCTelemetry_AntennaTracker littlefs)
+target_link_libraries(objs_AP_RCTelemetry_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_RCTelemetry_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_RCTelemetry_AntennaTracker littlefs) #clean
 
 set(objs_AP_ExternalAHRS_AntennaTracker_SOURCES
     ../libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp
@@ -1438,9 +1438,9 @@ set_target_properties(objs_AP_ExternalAHRS_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ExternalAHRS_AntennaTracker mavlink)
-target_link_libraries(objs_AP_ExternalAHRS_AntennaTracker dronecan)
-target_link_libraries(objs_AP_ExternalAHRS_AntennaTracker littlefs)
+target_link_libraries(objs_AP_ExternalAHRS_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_ExternalAHRS_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_ExternalAHRS_AntennaTracker littlefs) #clean
 
 set(objs_AP_TemperatureSensor_AntennaTracker_SOURCES
     ../libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp)
@@ -1474,9 +1474,9 @@ set_target_properties(objs_AP_TemperatureSensor_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_TemperatureSensor_AntennaTracker mavlink)
-target_link_libraries(objs_AP_TemperatureSensor_AntennaTracker dronecan)
-target_link_libraries(objs_AP_TemperatureSensor_AntennaTracker littlefs)
+target_link_libraries(objs_AP_TemperatureSensor_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_TemperatureSensor_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_TemperatureSensor_AntennaTracker littlefs) #clean
 
 set(objs_AP_AIS_AntennaTracker_SOURCES
     ../libraries/AP_AIS/AP_AIS.cpp)
@@ -1510,9 +1510,9 @@ set_target_properties(objs_AP_AIS_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_AIS_AntennaTracker mavlink)
-target_link_libraries(objs_AP_AIS_AntennaTracker dronecan)
-target_link_libraries(objs_AP_AIS_AntennaTracker littlefs)
+target_link_libraries(objs_AP_AIS_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_AIS_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_AIS_AntennaTracker littlefs) #clean
 
 set(objs_AP_Arming_AntennaTracker_SOURCES
     ../libraries/AP_Arming/AP_Arming.cpp)
@@ -1546,9 +1546,9 @@ set_target_properties(objs_AP_Arming_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Arming_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Arming_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Arming_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Arming_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Arming_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Arming_AntennaTracker littlefs) #clean
 
 set(objs_AP_Follow_AntennaTracker_SOURCES
     ../libraries/AP_Follow/AP_Follow.cpp)
@@ -1582,9 +1582,9 @@ set_target_properties(objs_AP_Follow_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Follow_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Follow_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Follow_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Follow_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Follow_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Follow_AntennaTracker littlefs) #clean
 
 set(objs_AP_HAL_SITL_AntennaTracker_SOURCES
     ../libraries/AP_HAL_SITL/SITL_cmdline.cpp
@@ -1620,9 +1620,9 @@ set_target_properties(objs_AP_HAL_SITL_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_HAL_SITL_AntennaTracker mavlink)
-target_link_libraries(objs_AP_HAL_SITL_AntennaTracker dronecan)
-target_link_libraries(objs_AP_HAL_SITL_AntennaTracker littlefs)
+target_link_libraries(objs_AP_HAL_SITL_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_HAL_SITL_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_HAL_SITL_AntennaTracker littlefs) #clean
 
 set(objs_SITL_AntennaTracker_SOURCES
     ../libraries/SITL/SIM_Aircraft.cpp
@@ -1659,9 +1659,9 @@ set_target_properties(objs_SITL_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_SITL_AntennaTracker mavlink)
-target_link_libraries(objs_SITL_AntennaTracker dronecan)
-target_link_libraries(objs_SITL_AntennaTracker littlefs)
+target_link_libraries(objs_SITL_AntennaTracker mavlink) #clean
+target_link_libraries(objs_SITL_AntennaTracker dronecan) #clean
+target_link_libraries(objs_SITL_AntennaTracker littlefs) #clean
 
 set(objs_AP_Scripting_AntennaTracker_SOURCES
     ../libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp
@@ -1700,9 +1700,9 @@ set_target_properties(objs_AP_Scripting_AntennaTracker PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Scripting_AntennaTracker mavlink)
-target_link_libraries(objs_AP_Scripting_AntennaTracker dronecan)
-target_link_libraries(objs_AP_Scripting_AntennaTracker littlefs)
+target_link_libraries(objs_AP_Scripting_AntennaTracker mavlink) #clean
+target_link_libraries(objs_AP_Scripting_AntennaTracker dronecan) #clean
+target_link_libraries(objs_AP_Scripting_AntennaTracker littlefs) #clean
 
 set(AntennaTracker_libs_SOURCES
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
@@ -1909,242 +1909,120 @@ set_target_properties(AntennaTracker_libs PROPERTIES
 )
 
 
-target_link_libraries(AntennaTracker_libs objs/AP_AccelCal)
-target_link_libraries(AntennaTracker_libs objs/AP_AccelCal/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_ADC)
-target_link_libraries(AntennaTracker_libs objs/AP_ADC/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_AHRS)
-target_link_libraries(AntennaTracker_libs objs/AP_AHRS/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Airspeed)
-target_link_libraries(AntennaTracker_libs objs/AP_Airspeed/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Baro)
-target_link_libraries(AntennaTracker_libs objs/AP_Baro/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_BattMonitor)
-target_link_libraries(AntennaTracker_libs objs/AP_BattMonitor/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_BoardConfig)
-target_link_libraries(AntennaTracker_libs objs/AP_BoardConfig/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Camera)
-target_link_libraries(AntennaTracker_libs objs/AP_Camera/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Common)
-target_link_libraries(AntennaTracker_libs objs/AP_Common/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Compass)
-target_link_libraries(AntennaTracker_libs objs/AP_Compass/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Declination)
-target_link_libraries(AntennaTracker_libs objs/AP_Declination/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_GPS)
-target_link_libraries(AntennaTracker_libs objs/AP_GPS/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_GSOF)
-target_link_libraries(AntennaTracker_libs objs/AP_GSOF/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_HAL)
-target_link_libraries(AntennaTracker_libs objs/AP_HAL/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_HAL_Empty)
-target_link_libraries(AntennaTracker_libs objs/AP_HAL_Empty/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_DDS)
-target_link_libraries(AntennaTracker_libs objs/AP_DDS/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_InertialSensor)
-target_link_libraries(AntennaTracker_libs objs/AP_InertialSensor/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Math)
-target_link_libraries(AntennaTracker_libs objs/AP_Math/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Mission)
-target_link_libraries(AntennaTracker_libs objs/AP_Mission/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_DAL)
-target_link_libraries(AntennaTracker_libs objs/AP_DAL/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_NavEKF)
-target_link_libraries(AntennaTracker_libs objs/AP_NavEKF/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_NavEKF2)
-target_link_libraries(AntennaTracker_libs objs/AP_NavEKF2/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_NavEKF3)
-target_link_libraries(AntennaTracker_libs objs/AP_NavEKF3/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Notify)
-target_link_libraries(AntennaTracker_libs objs/AP_Notify/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_OpticalFlow)
-target_link_libraries(AntennaTracker_libs objs/AP_OpticalFlow/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Param)
-target_link_libraries(AntennaTracker_libs objs/AP_Param/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Rally)
-target_link_libraries(AntennaTracker_libs objs/AP_Rally/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_LightWareSerial)
-target_link_libraries(AntennaTracker_libs objs/AP_LightWareSerial/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_RangeFinder)
-target_link_libraries(AntennaTracker_libs objs/AP_RangeFinder/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Scheduler)
-target_link_libraries(AntennaTracker_libs objs/AP_Scheduler/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_SerialManager)
-target_link_libraries(AntennaTracker_libs objs/AP_SerialManager/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Terrain)
-target_link_libraries(AntennaTracker_libs objs/AP_Terrain/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Vehicle)
-target_link_libraries(AntennaTracker_libs objs/AP_Vehicle/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_InternalError)
-target_link_libraries(AntennaTracker_libs objs/AP_InternalError/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Logger)
-target_link_libraries(AntennaTracker_libs objs/AP_Logger/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/Filter)
-target_link_libraries(AntennaTracker_libs objs/Filter/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/GCS_MAVLink)
-target_link_libraries(AntennaTracker_libs objs/GCS_MAVLink/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/RC_Channel)
-target_link_libraries(AntennaTracker_libs objs/RC_Channel/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/SRV_Channel)
-target_link_libraries(AntennaTracker_libs objs/SRV_Channel/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/StorageManager)
-target_link_libraries(AntennaTracker_libs objs/StorageManager/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Tuning)
-target_link_libraries(AntennaTracker_libs objs/AP_Tuning/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_RPM)
-target_link_libraries(AntennaTracker_libs objs/AP_RPM/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_RSSI)
-target_link_libraries(AntennaTracker_libs objs/AP_RSSI/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Mount)
-target_link_libraries(AntennaTracker_libs objs/AP_Mount/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Module)
-target_link_libraries(AntennaTracker_libs objs/AP_Module/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Button)
-target_link_libraries(AntennaTracker_libs objs/AP_Button/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_ICEngine)
-target_link_libraries(AntennaTracker_libs objs/AP_ICEngine/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Networking)
-target_link_libraries(AntennaTracker_libs objs/AP_Networking/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Frsky_Telem)
-target_link_libraries(AntennaTracker_libs objs/AP_Frsky_Telem/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_IBus_Telem)
-target_link_libraries(AntennaTracker_libs objs/AP_IBus_Telem/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_FlashStorage)
-target_link_libraries(AntennaTracker_libs objs/AP_FlashStorage/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Relay)
-target_link_libraries(AntennaTracker_libs objs/AP_Relay/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_ServoRelayEvents)
-target_link_libraries(AntennaTracker_libs objs/AP_ServoRelayEvents/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Volz_Protocol)
-target_link_libraries(AntennaTracker_libs objs/AP_Volz_Protocol/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_SBusOut)
-target_link_libraries(AntennaTracker_libs objs/AP_SBusOut/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_IOMCU)
-target_link_libraries(AntennaTracker_libs objs/AP_IOMCU/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Parachute)
-target_link_libraries(AntennaTracker_libs objs/AP_Parachute/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_RAMTRON)
-target_link_libraries(AntennaTracker_libs objs/AP_RAMTRON/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_RCProtocol)
-target_link_libraries(AntennaTracker_libs objs/AP_RCProtocol/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Radio)
-target_link_libraries(AntennaTracker_libs objs/AP_Radio/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_TempCalibration)
-target_link_libraries(AntennaTracker_libs objs/AP_TempCalibration/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_VisualOdom)
-target_link_libraries(AntennaTracker_libs objs/AP_VisualOdom/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_BLHeli)
-target_link_libraries(AntennaTracker_libs objs/AP_BLHeli/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_ROMFS)
-target_link_libraries(AntennaTracker_libs objs/AP_ROMFS/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Proximity)
-target_link_libraries(AntennaTracker_libs objs/AP_Proximity/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Gripper)
-target_link_libraries(AntennaTracker_libs objs/AP_Gripper/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_RTC)
-target_link_libraries(AntennaTracker_libs objs/AP_RTC/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AC_Sprayer)
-target_link_libraries(AntennaTracker_libs objs/AC_Sprayer/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AC_Fence)
-target_link_libraries(AntennaTracker_libs objs/AC_Fence/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AC_Avoidance)
-target_link_libraries(AntennaTracker_libs objs/AC_Avoidance/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_LandingGear)
-target_link_libraries(AntennaTracker_libs objs/AP_LandingGear/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_RobotisServo)
-target_link_libraries(AntennaTracker_libs objs/AP_RobotisServo/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_NMEA_Output)
-target_link_libraries(AntennaTracker_libs objs/AP_NMEA_Output/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_OSD)
-target_link_libraries(AntennaTracker_libs objs/AP_OSD/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Filesystem)
-target_link_libraries(AntennaTracker_libs objs/AP_Filesystem/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_ADSB)
-target_link_libraries(AntennaTracker_libs objs/AP_ADSB/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_ADSB/sagetech-sdk)
-target_link_libraries(AntennaTracker_libs objs/AP_ADSB/sagetech-sdk/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AC_PID)
-target_link_libraries(AntennaTracker_libs objs/AC_PID/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_SerialLED)
-target_link_libraries(AntennaTracker_libs objs/AP_SerialLED/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_EFI)
-target_link_libraries(AntennaTracker_libs objs/AP_EFI/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Hott_Telem)
-target_link_libraries(AntennaTracker_libs objs/AP_Hott_Telem/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_ESC_Telem)
-target_link_libraries(AntennaTracker_libs objs/AP_ESC_Telem/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Servo_Telem)
-target_link_libraries(AntennaTracker_libs objs/AP_Servo_Telem/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Stats)
-target_link_libraries(AntennaTracker_libs objs/AP_Stats/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_GyroFFT)
-target_link_libraries(AntennaTracker_libs objs/AP_GyroFFT/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_RCTelemetry)
-target_link_libraries(AntennaTracker_libs objs/AP_RCTelemetry/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Generator)
-target_link_libraries(AntennaTracker_libs objs/AP_Generator/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_MSP)
-target_link_libraries(AntennaTracker_libs objs/AP_MSP/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_OLC)
-target_link_libraries(AntennaTracker_libs objs/AP_OLC/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_WheelEncoder)
-target_link_libraries(AntennaTracker_libs objs/AP_WheelEncoder/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_ExternalAHRS)
-target_link_libraries(AntennaTracker_libs objs/AP_ExternalAHRS/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_VideoTX)
-target_link_libraries(AntennaTracker_libs objs/AP_VideoTX/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_FETtecOneWire)
-target_link_libraries(AntennaTracker_libs objs/AP_FETtecOneWire/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_TemperatureSensor)
-target_link_libraries(AntennaTracker_libs objs/AP_TemperatureSensor/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Torqeedo)
-target_link_libraries(AntennaTracker_libs objs/AP_Torqeedo/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_CustomRotations)
-target_link_libraries(AntennaTracker_libs objs/AP_CustomRotations/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_AIS)
-target_link_libraries(AntennaTracker_libs objs/AP_AIS/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_OpenDroneID)
-target_link_libraries(AntennaTracker_libs objs/AP_OpenDroneID/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_CheckFirmware)
-target_link_libraries(AntennaTracker_libs objs/AP_CheckFirmware/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_ExternalControl)
-target_link_libraries(AntennaTracker_libs objs/AP_ExternalControl/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_JSON)
-target_link_libraries(AntennaTracker_libs objs/AP_JSON/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Beacon)
-target_link_libraries(AntennaTracker_libs objs/AP_Beacon/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Arming)
-target_link_libraries(AntennaTracker_libs objs/AP_Arming/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_RCMapper)
-target_link_libraries(AntennaTracker_libs objs/AP_RCMapper/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_MultiHeap)
-target_link_libraries(AntennaTracker_libs objs/AP_MultiHeap/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Follow)
-target_link_libraries(AntennaTracker_libs objs/AP_Follow/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_CANManager)
-target_link_libraries(AntennaTracker_libs objs/AP_CANManager/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_KDECAN)
-target_link_libraries(AntennaTracker_libs objs/AP_KDECAN/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_PiccoloCAN)
-target_link_libraries(AntennaTracker_libs objs/AP_PiccoloCAN/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_PiccoloCAN/piccolo_protocol)
-target_link_libraries(AntennaTracker_libs objs/AP_PiccoloCAN/piccolo_protocol/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_DroneCAN)
-target_link_libraries(AntennaTracker_libs objs/AP_DroneCAN/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/modules/DroneCAN/libcanard/*.c)
-target_link_libraries(AntennaTracker_libs objs/modules/DroneCAN/libcanard/*.c/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_HAL_SITL)
-target_link_libraries(AntennaTracker_libs objs/AP_HAL_SITL/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_CSVReader)
-target_link_libraries(AntennaTracker_libs objs/AP_CSVReader/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/SITL)
-target_link_libraries(AntennaTracker_libs objs/SITL/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Scripting)
-target_link_libraries(AntennaTracker_libs objs/AP_Scripting/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AP_Scripting/lua/src)
-target_link_libraries(AntennaTracker_libs objs/AP_Scripting/lua/src/AntennaTracker)
-target_link_libraries(AntennaTracker_libs objs/AC_CustomControl)
-target_link_libraries(AntennaTracker_libs objs/AC_CustomControl/AntennaTracker)
+target_link_libraries(AntennaTracker_libs libobjs_AP_AccelCal.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_ADC.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_AHRS.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Airspeed.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Baro.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_BattMonitor.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_BoardConfig.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Camera.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Common.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Compass.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Declination.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_GPS.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_GSOF.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_HAL.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_HAL_Empty.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_DDS.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_InertialSensor.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Math.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Mission.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_DAL.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_NavEKF.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_NavEKF2.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_NavEKF3.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Notify.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_OpticalFlow.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Param.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Rally.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_LightWareSerial.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_RangeFinder.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Scheduler.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_SerialManager.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Terrain.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Vehicle.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_InternalError.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Logger.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_Filter.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_GCS_MAVLink.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_RC_Channel.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_SRV_Channel.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_StorageManager.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Tuning.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_RPM.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_RSSI.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Mount.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Module.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Button.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_ICEngine.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Networking.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Frsky_Telem.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_IBus_Telem.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_FlashStorage.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Relay.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_ServoRelayEvents.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Volz_Protocol.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_SBusOut.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_IOMCU.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Parachute.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_RAMTRON.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_RCProtocol.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Radio.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_TempCalibration.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_VisualOdom.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_BLHeli.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_ROMFS.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Proximity.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Gripper.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_RTC.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AC_Sprayer.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AC_Fence.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AC_Avoidance.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_LandingGear.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_RobotisServo.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_NMEA_Output.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_OSD.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Filesystem.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_ADSB.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AC_PID.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_SerialLED.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_EFI.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Hott_Telem.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_ESC_Telem.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Servo_Telem.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Stats.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_GyroFFT.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_RCTelemetry.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Generator.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_MSP.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_OLC.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_WheelEncoder.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_ExternalAHRS.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_VideoTX.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_FETtecOneWire.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_TemperatureSensor.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Torqeedo.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_CustomRotations.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_AIS.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_OpenDroneID.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_CheckFirmware.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_ExternalControl.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_JSON.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Beacon.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Arming.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_RCMapper.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_MultiHeap.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Follow.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_CANManager.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_KDECAN.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_PiccoloCAN.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_DroneCAN.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_HAL_SITL.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_CSVReader.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_SITL.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AP_Scripting.a) #stripped
+target_link_libraries(AntennaTracker_libs libobjs_AC_CustomControl.a) #stripped
 
 set(bin_antennatracker_SOURCES
     GCS_MAVLink_Tracker.cpp
@@ -2190,5 +2068,5 @@ add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET
 
 add_executable(bin_antennatracker ${bin_antennatracker_SOURCES})
 
-target_link_libraries(bin_antennatracker AntennaTracker_libs)
+target_link_libraries(bin_antennatracker AntennaTracker_libs) #clean
 

@@ -33,9 +33,9 @@ set_target_properties(objs_AP_AHRS_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_AHRS_ArduPlane mavlink)
-target_link_libraries(objs_AP_AHRS_ArduPlane dronecan)
-target_link_libraries(objs_AP_AHRS_ArduPlane littlefs)
+target_link_libraries(objs_AP_AHRS_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_AHRS_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_AHRS_ArduPlane littlefs) #clean
 
 set(objs_AP_Airspeed_ArduPlane_SOURCES
     ../libraries/AP_Airspeed/AP_Airspeed.cpp
@@ -71,9 +71,9 @@ set_target_properties(objs_AP_Airspeed_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Airspeed_ArduPlane mavlink)
-target_link_libraries(objs_AP_Airspeed_ArduPlane dronecan)
-target_link_libraries(objs_AP_Airspeed_ArduPlane littlefs)
+target_link_libraries(objs_AP_Airspeed_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Airspeed_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Airspeed_ArduPlane littlefs) #clean
 
 set(objs_AP_Baro_ArduPlane_SOURCES
     ../libraries/AP_Baro/AP_Baro.cpp
@@ -109,9 +109,9 @@ set_target_properties(objs_AP_Baro_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Baro_ArduPlane mavlink)
-target_link_libraries(objs_AP_Baro_ArduPlane dronecan)
-target_link_libraries(objs_AP_Baro_ArduPlane littlefs)
+target_link_libraries(objs_AP_Baro_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Baro_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Baro_ArduPlane littlefs) #clean
 
 set(objs_AP_BattMonitor_ArduPlane_SOURCES
     ../libraries/AP_BattMonitor/AP_BattMonitor.cpp
@@ -146,9 +146,9 @@ set_target_properties(objs_AP_BattMonitor_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_BattMonitor_ArduPlane mavlink)
-target_link_libraries(objs_AP_BattMonitor_ArduPlane dronecan)
-target_link_libraries(objs_AP_BattMonitor_ArduPlane littlefs)
+target_link_libraries(objs_AP_BattMonitor_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_BattMonitor_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_BattMonitor_ArduPlane littlefs) #clean
 
 set(objs_AP_BoardConfig_ArduPlane_SOURCES
     ../libraries/AP_BoardConfig/AP_BoardConfig.cpp)
@@ -182,9 +182,9 @@ set_target_properties(objs_AP_BoardConfig_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_BoardConfig_ArduPlane mavlink)
-target_link_libraries(objs_AP_BoardConfig_ArduPlane dronecan)
-target_link_libraries(objs_AP_BoardConfig_ArduPlane littlefs)
+target_link_libraries(objs_AP_BoardConfig_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_BoardConfig_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_BoardConfig_ArduPlane littlefs) #clean
 
 set(objs_AP_HAL_ArduPlane_SOURCES
     ../libraries/AP_HAL/SIMState.cpp)
@@ -218,9 +218,9 @@ set_target_properties(objs_AP_HAL_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_HAL_ArduPlane mavlink)
-target_link_libraries(objs_AP_HAL_ArduPlane dronecan)
-target_link_libraries(objs_AP_HAL_ArduPlane littlefs)
+target_link_libraries(objs_AP_HAL_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_HAL_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_HAL_ArduPlane littlefs) #clean
 
 set(objs_AP_InertialSensor_ArduPlane_SOURCES
     ../libraries/AP_InertialSensor/AP_InertialSensor.cpp
@@ -257,9 +257,9 @@ set_target_properties(objs_AP_InertialSensor_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_InertialSensor_ArduPlane mavlink)
-target_link_libraries(objs_AP_InertialSensor_ArduPlane dronecan)
-target_link_libraries(objs_AP_InertialSensor_ArduPlane littlefs)
+target_link_libraries(objs_AP_InertialSensor_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_InertialSensor_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_InertialSensor_ArduPlane littlefs) #clean
 
 set(objs_AP_Math_ArduPlane_SOURCES
     ../libraries/AP_Math/SCurve.cpp)
@@ -293,9 +293,9 @@ set_target_properties(objs_AP_Math_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Math_ArduPlane mavlink)
-target_link_libraries(objs_AP_Math_ArduPlane dronecan)
-target_link_libraries(objs_AP_Math_ArduPlane littlefs)
+target_link_libraries(objs_AP_Math_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Math_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Math_ArduPlane littlefs) #clean
 
 set(objs_AP_Mission_ArduPlane_SOURCES
     ../libraries/AP_Mission/AP_Mission.cpp)
@@ -329,9 +329,9 @@ set_target_properties(objs_AP_Mission_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Mission_ArduPlane mavlink)
-target_link_libraries(objs_AP_Mission_ArduPlane dronecan)
-target_link_libraries(objs_AP_Mission_ArduPlane littlefs)
+target_link_libraries(objs_AP_Mission_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Mission_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Mission_ArduPlane littlefs) #clean
 
 set(objs_AP_DAL_ArduPlane_SOURCES
     ../libraries/AP_DAL/AP_DAL.cpp
@@ -368,9 +368,9 @@ set_target_properties(objs_AP_DAL_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_DAL_ArduPlane mavlink)
-target_link_libraries(objs_AP_DAL_ArduPlane dronecan)
-target_link_libraries(objs_AP_DAL_ArduPlane littlefs)
+target_link_libraries(objs_AP_DAL_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_DAL_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_DAL_ArduPlane littlefs) #clean
 
 set(objs_AP_NavEKF2_ArduPlane_SOURCES
     ../libraries/AP_NavEKF2/AP_NavEKF2.cpp
@@ -405,9 +405,9 @@ set_target_properties(objs_AP_NavEKF2_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_NavEKF2_ArduPlane mavlink)
-target_link_libraries(objs_AP_NavEKF2_ArduPlane dronecan)
-target_link_libraries(objs_AP_NavEKF2_ArduPlane littlefs)
+target_link_libraries(objs_AP_NavEKF2_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_NavEKF2_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_NavEKF2_ArduPlane littlefs) #clean
 
 set(objs_AP_NavEKF3_ArduPlane_SOURCES
     ../libraries/AP_NavEKF3/AP_NavEKF3.cpp
@@ -453,9 +453,9 @@ set_target_properties(objs_AP_NavEKF3_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_NavEKF3_ArduPlane mavlink)
-target_link_libraries(objs_AP_NavEKF3_ArduPlane dronecan)
-target_link_libraries(objs_AP_NavEKF3_ArduPlane littlefs)
+target_link_libraries(objs_AP_NavEKF3_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_NavEKF3_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_NavEKF3_ArduPlane littlefs) #clean
 
 set(objs_AP_Rally_ArduPlane_SOURCES
     ../libraries/AP_Rally/AP_Rally.cpp)
@@ -489,9 +489,9 @@ set_target_properties(objs_AP_Rally_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Rally_ArduPlane mavlink)
-target_link_libraries(objs_AP_Rally_ArduPlane dronecan)
-target_link_libraries(objs_AP_Rally_ArduPlane littlefs)
+target_link_libraries(objs_AP_Rally_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Rally_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Rally_ArduPlane littlefs) #clean
 
 set(objs_AP_Scheduler_ArduPlane_SOURCES
     ../libraries/AP_Scheduler/AP_Scheduler.cpp)
@@ -525,9 +525,9 @@ set_target_properties(objs_AP_Scheduler_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Scheduler_ArduPlane mavlink)
-target_link_libraries(objs_AP_Scheduler_ArduPlane dronecan)
-target_link_libraries(objs_AP_Scheduler_ArduPlane littlefs)
+target_link_libraries(objs_AP_Scheduler_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Scheduler_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Scheduler_ArduPlane littlefs) #clean
 
 set(objs_AP_Terrain_ArduPlane_SOURCES
     ../libraries/AP_Terrain/AP_Terrain.cpp)
@@ -561,9 +561,9 @@ set_target_properties(objs_AP_Terrain_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Terrain_ArduPlane mavlink)
-target_link_libraries(objs_AP_Terrain_ArduPlane dronecan)
-target_link_libraries(objs_AP_Terrain_ArduPlane littlefs)
+target_link_libraries(objs_AP_Terrain_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Terrain_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Terrain_ArduPlane littlefs) #clean
 
 set(objs_AP_Vehicle_ArduPlane_SOURCES
     ../libraries/AP_Vehicle/AP_Vehicle.cpp)
@@ -597,9 +597,9 @@ set_target_properties(objs_AP_Vehicle_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Vehicle_ArduPlane mavlink)
-target_link_libraries(objs_AP_Vehicle_ArduPlane dronecan)
-target_link_libraries(objs_AP_Vehicle_ArduPlane littlefs)
+target_link_libraries(objs_AP_Vehicle_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Vehicle_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Vehicle_ArduPlane littlefs) #clean
 
 set(objs_AP_Logger_ArduPlane_SOURCES
     ../libraries/AP_Logger/AP_Logger.cpp
@@ -636,9 +636,9 @@ set_target_properties(objs_AP_Logger_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Logger_ArduPlane mavlink)
-target_link_libraries(objs_AP_Logger_ArduPlane dronecan)
-target_link_libraries(objs_AP_Logger_ArduPlane littlefs)
+target_link_libraries(objs_AP_Logger_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Logger_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Logger_ArduPlane littlefs) #clean
 
 set(objs_Filter_ArduPlane_SOURCES
     ../libraries/Filter/HarmonicNotchFilter.cpp)
@@ -672,9 +672,9 @@ set_target_properties(objs_Filter_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_Filter_ArduPlane mavlink)
-target_link_libraries(objs_Filter_ArduPlane dronecan)
-target_link_libraries(objs_Filter_ArduPlane littlefs)
+target_link_libraries(objs_Filter_ArduPlane mavlink) #clean
+target_link_libraries(objs_Filter_ArduPlane dronecan) #clean
+target_link_libraries(objs_Filter_ArduPlane littlefs) #clean
 
 set(objs_GCS_MAVLink_ArduPlane_SOURCES
     ../libraries/GCS_MAVLink/GCS.cpp
@@ -712,9 +712,9 @@ set_target_properties(objs_GCS_MAVLink_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_GCS_MAVLink_ArduPlane mavlink)
-target_link_libraries(objs_GCS_MAVLink_ArduPlane dronecan)
-target_link_libraries(objs_GCS_MAVLink_ArduPlane littlefs)
+target_link_libraries(objs_GCS_MAVLink_ArduPlane mavlink) #clean
+target_link_libraries(objs_GCS_MAVLink_ArduPlane dronecan) #clean
+target_link_libraries(objs_GCS_MAVLink_ArduPlane littlefs) #clean
 
 set(objs_RC_Channel_ArduPlane_SOURCES
     ../libraries/RC_Channel/RC_Channel.cpp)
@@ -748,9 +748,9 @@ set_target_properties(objs_RC_Channel_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_RC_Channel_ArduPlane mavlink)
-target_link_libraries(objs_RC_Channel_ArduPlane dronecan)
-target_link_libraries(objs_RC_Channel_ArduPlane littlefs)
+target_link_libraries(objs_RC_Channel_ArduPlane mavlink) #clean
+target_link_libraries(objs_RC_Channel_ArduPlane dronecan) #clean
+target_link_libraries(objs_RC_Channel_ArduPlane littlefs) #clean
 
 set(objs_StorageManager_ArduPlane_SOURCES
     ../libraries/StorageManager/StorageManager.cpp)
@@ -784,9 +784,9 @@ set_target_properties(objs_StorageManager_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_StorageManager_ArduPlane mavlink)
-target_link_libraries(objs_StorageManager_ArduPlane dronecan)
-target_link_libraries(objs_StorageManager_ArduPlane littlefs)
+target_link_libraries(objs_StorageManager_ArduPlane mavlink) #clean
+target_link_libraries(objs_StorageManager_ArduPlane dronecan) #clean
+target_link_libraries(objs_StorageManager_ArduPlane littlefs) #clean
 
 set(objs_AP_Frsky_Telem_ArduPlane_SOURCES
     ../libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp)
@@ -820,9 +820,9 @@ set_target_properties(objs_AP_Frsky_Telem_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Frsky_Telem_ArduPlane mavlink)
-target_link_libraries(objs_AP_Frsky_Telem_ArduPlane dronecan)
-target_link_libraries(objs_AP_Frsky_Telem_ArduPlane littlefs)
+target_link_libraries(objs_AP_Frsky_Telem_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Frsky_Telem_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Frsky_Telem_ArduPlane littlefs) #clean
 
 set(objs_AP_IBus_Telem_ArduPlane_SOURCES
     ../libraries/AP_IBus_Telem/AP_IBus_Telem.cpp)
@@ -856,9 +856,9 @@ set_target_properties(objs_AP_IBus_Telem_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_IBus_Telem_ArduPlane mavlink)
-target_link_libraries(objs_AP_IBus_Telem_ArduPlane dronecan)
-target_link_libraries(objs_AP_IBus_Telem_ArduPlane littlefs)
+target_link_libraries(objs_AP_IBus_Telem_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_IBus_Telem_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_IBus_Telem_ArduPlane littlefs) #clean
 
 set(objs_AP_Relay_ArduPlane_SOURCES
     ../libraries/AP_Relay/AP_Relay.cpp)
@@ -892,9 +892,9 @@ set_target_properties(objs_AP_Relay_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Relay_ArduPlane mavlink)
-target_link_libraries(objs_AP_Relay_ArduPlane dronecan)
-target_link_libraries(objs_AP_Relay_ArduPlane littlefs)
+target_link_libraries(objs_AP_Relay_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Relay_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Relay_ArduPlane littlefs) #clean
 
 set(objs_AP_RCProtocol_ArduPlane_SOURCES
     ../libraries/AP_RCProtocol/AP_RCProtocol.cpp
@@ -934,9 +934,9 @@ set_target_properties(objs_AP_RCProtocol_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RCProtocol_ArduPlane mavlink)
-target_link_libraries(objs_AP_RCProtocol_ArduPlane dronecan)
-target_link_libraries(objs_AP_RCProtocol_ArduPlane littlefs)
+target_link_libraries(objs_AP_RCProtocol_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_RCProtocol_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_RCProtocol_ArduPlane littlefs) #clean
 
 set(objs_AP_BLHeli_ArduPlane_SOURCES
     ../libraries/AP_BLHeli/AP_BLHeli.cpp)
@@ -970,9 +970,9 @@ set_target_properties(objs_AP_BLHeli_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_BLHeli_ArduPlane mavlink)
-target_link_libraries(objs_AP_BLHeli_ArduPlane dronecan)
-target_link_libraries(objs_AP_BLHeli_ArduPlane littlefs)
+target_link_libraries(objs_AP_BLHeli_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_BLHeli_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_BLHeli_ArduPlane littlefs) #clean
 
 set(objs_AP_Proximity_ArduPlane_SOURCES
     ../libraries/AP_Proximity/AP_Proximity_Utils.cpp)
@@ -1006,9 +1006,9 @@ set_target_properties(objs_AP_Proximity_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Proximity_ArduPlane mavlink)
-target_link_libraries(objs_AP_Proximity_ArduPlane dronecan)
-target_link_libraries(objs_AP_Proximity_ArduPlane littlefs)
+target_link_libraries(objs_AP_Proximity_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Proximity_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Proximity_ArduPlane littlefs) #clean
 
 set(objs_AC_Fence_ArduPlane_SOURCES
     ../libraries/AC_Fence/AC_Fence.cpp
@@ -1043,9 +1043,9 @@ set_target_properties(objs_AC_Fence_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_Fence_ArduPlane mavlink)
-target_link_libraries(objs_AC_Fence_ArduPlane dronecan)
-target_link_libraries(objs_AC_Fence_ArduPlane littlefs)
+target_link_libraries(objs_AC_Fence_ArduPlane mavlink) #clean
+target_link_libraries(objs_AC_Fence_ArduPlane dronecan) #clean
+target_link_libraries(objs_AC_Fence_ArduPlane littlefs) #clean
 
 set(objs_AC_Avoidance_ArduPlane_SOURCES
     ../libraries/AC_Avoidance/AC_Avoid.cpp
@@ -1081,9 +1081,9 @@ set_target_properties(objs_AC_Avoidance_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_Avoidance_ArduPlane mavlink)
-target_link_libraries(objs_AC_Avoidance_ArduPlane dronecan)
-target_link_libraries(objs_AC_Avoidance_ArduPlane littlefs)
+target_link_libraries(objs_AC_Avoidance_ArduPlane mavlink) #clean
+target_link_libraries(objs_AC_Avoidance_ArduPlane dronecan) #clean
+target_link_libraries(objs_AC_Avoidance_ArduPlane littlefs) #clean
 
 set(objs_AP_LandingGear_ArduPlane_SOURCES
     ../libraries/AP_LandingGear/AP_LandingGear.cpp)
@@ -1117,9 +1117,9 @@ set_target_properties(objs_AP_LandingGear_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_LandingGear_ArduPlane mavlink)
-target_link_libraries(objs_AP_LandingGear_ArduPlane dronecan)
-target_link_libraries(objs_AP_LandingGear_ArduPlane littlefs)
+target_link_libraries(objs_AP_LandingGear_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_LandingGear_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_LandingGear_ArduPlane littlefs) #clean
 
 set(objs_AP_OSD_ArduPlane_SOURCES
     ../libraries/AP_OSD/AP_OSD_ParamScreen.cpp
@@ -1155,9 +1155,9 @@ set_target_properties(objs_AP_OSD_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_OSD_ArduPlane mavlink)
-target_link_libraries(objs_AP_OSD_ArduPlane dronecan)
-target_link_libraries(objs_AP_OSD_ArduPlane littlefs)
+target_link_libraries(objs_AP_OSD_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_OSD_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_OSD_ArduPlane littlefs) #clean
 
 set(objs_AP_Filesystem_ArduPlane_SOURCES
     ../libraries/AP_Filesystem/AP_Filesystem_posix.cpp)
@@ -1191,9 +1191,9 @@ set_target_properties(objs_AP_Filesystem_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Filesystem_ArduPlane mavlink)
-target_link_libraries(objs_AP_Filesystem_ArduPlane dronecan)
-target_link_libraries(objs_AP_Filesystem_ArduPlane littlefs)
+target_link_libraries(objs_AP_Filesystem_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Filesystem_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Filesystem_ArduPlane littlefs) #clean
 
 set(objs_AP_ADSB_ArduPlane_SOURCES
     ../libraries/AP_ADSB/AP_ADSB.cpp
@@ -1228,9 +1228,9 @@ set_target_properties(objs_AP_ADSB_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ADSB_ArduPlane mavlink)
-target_link_libraries(objs_AP_ADSB_ArduPlane dronecan)
-target_link_libraries(objs_AP_ADSB_ArduPlane littlefs)
+target_link_libraries(objs_AP_ADSB_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_ADSB_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_ADSB_ArduPlane littlefs) #clean
 
 set(objs_AP_ESC_Telem_ArduPlane_SOURCES
     ../libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp)
@@ -1264,9 +1264,9 @@ set_target_properties(objs_AP_ESC_Telem_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ESC_Telem_ArduPlane mavlink)
-target_link_libraries(objs_AP_ESC_Telem_ArduPlane dronecan)
-target_link_libraries(objs_AP_ESC_Telem_ArduPlane littlefs)
+target_link_libraries(objs_AP_ESC_Telem_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_ESC_Telem_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_ESC_Telem_ArduPlane littlefs) #clean
 
 set(objs_AP_GyroFFT_ArduPlane_SOURCES
     ../libraries/AP_GyroFFT/AP_GyroFFT.cpp)
@@ -1300,9 +1300,9 @@ set_target_properties(objs_AP_GyroFFT_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_GyroFFT_ArduPlane mavlink)
-target_link_libraries(objs_AP_GyroFFT_ArduPlane dronecan)
-target_link_libraries(objs_AP_GyroFFT_ArduPlane littlefs)
+target_link_libraries(objs_AP_GyroFFT_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_GyroFFT_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_GyroFFT_ArduPlane littlefs) #clean
 
 set(objs_AP_RCTelemetry_ArduPlane_SOURCES
     ../libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp
@@ -1337,9 +1337,9 @@ set_target_properties(objs_AP_RCTelemetry_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RCTelemetry_ArduPlane mavlink)
-target_link_libraries(objs_AP_RCTelemetry_ArduPlane dronecan)
-target_link_libraries(objs_AP_RCTelemetry_ArduPlane littlefs)
+target_link_libraries(objs_AP_RCTelemetry_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_RCTelemetry_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_RCTelemetry_ArduPlane littlefs) #clean
 
 set(objs_AP_ExternalAHRS_ArduPlane_SOURCES
     ../libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp
@@ -1374,9 +1374,9 @@ set_target_properties(objs_AP_ExternalAHRS_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ExternalAHRS_ArduPlane mavlink)
-target_link_libraries(objs_AP_ExternalAHRS_ArduPlane dronecan)
-target_link_libraries(objs_AP_ExternalAHRS_ArduPlane littlefs)
+target_link_libraries(objs_AP_ExternalAHRS_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_ExternalAHRS_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_ExternalAHRS_ArduPlane littlefs) #clean
 
 set(objs_AP_TemperatureSensor_ArduPlane_SOURCES
     ../libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp)
@@ -1410,9 +1410,9 @@ set_target_properties(objs_AP_TemperatureSensor_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_TemperatureSensor_ArduPlane mavlink)
-target_link_libraries(objs_AP_TemperatureSensor_ArduPlane dronecan)
-target_link_libraries(objs_AP_TemperatureSensor_ArduPlane littlefs)
+target_link_libraries(objs_AP_TemperatureSensor_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_TemperatureSensor_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_TemperatureSensor_ArduPlane littlefs) #clean
 
 set(objs_AP_AIS_ArduPlane_SOURCES
     ../libraries/AP_AIS/AP_AIS.cpp)
@@ -1446,9 +1446,9 @@ set_target_properties(objs_AP_AIS_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_AIS_ArduPlane mavlink)
-target_link_libraries(objs_AP_AIS_ArduPlane dronecan)
-target_link_libraries(objs_AP_AIS_ArduPlane littlefs)
+target_link_libraries(objs_AP_AIS_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_AIS_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_AIS_ArduPlane littlefs) #clean
 
 set(objs_AP_Arming_ArduPlane_SOURCES
     ../libraries/AP_Arming/AP_Arming.cpp)
@@ -1482,9 +1482,9 @@ set_target_properties(objs_AP_Arming_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Arming_ArduPlane mavlink)
-target_link_libraries(objs_AP_Arming_ArduPlane dronecan)
-target_link_libraries(objs_AP_Arming_ArduPlane littlefs)
+target_link_libraries(objs_AP_Arming_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Arming_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Arming_ArduPlane littlefs) #clean
 
 set(objs_AP_Follow_ArduPlane_SOURCES
     ../libraries/AP_Follow/AP_Follow.cpp)
@@ -1518,9 +1518,9 @@ set_target_properties(objs_AP_Follow_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Follow_ArduPlane mavlink)
-target_link_libraries(objs_AP_Follow_ArduPlane dronecan)
-target_link_libraries(objs_AP_Follow_ArduPlane littlefs)
+target_link_libraries(objs_AP_Follow_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Follow_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Follow_ArduPlane littlefs) #clean
 
 set(objs_AP_Avoidance_ArduPlane_SOURCES
     ../libraries/AP_Avoidance/AP_Avoidance.cpp)
@@ -1554,9 +1554,9 @@ set_target_properties(objs_AP_Avoidance_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Avoidance_ArduPlane mavlink)
-target_link_libraries(objs_AP_Avoidance_ArduPlane dronecan)
-target_link_libraries(objs_AP_Avoidance_ArduPlane littlefs)
+target_link_libraries(objs_AP_Avoidance_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Avoidance_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Avoidance_ArduPlane littlefs) #clean
 
 set(objs_AC_WPNav_ArduPlane_SOURCES
     ../libraries/AC_WPNav/AC_Loiter.cpp)
@@ -1590,9 +1590,9 @@ set_target_properties(objs_AC_WPNav_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_WPNav_ArduPlane mavlink)
-target_link_libraries(objs_AC_WPNav_ArduPlane dronecan)
-target_link_libraries(objs_AC_WPNav_ArduPlane littlefs)
+target_link_libraries(objs_AC_WPNav_ArduPlane mavlink) #clean
+target_link_libraries(objs_AC_WPNav_ArduPlane dronecan) #clean
+target_link_libraries(objs_AC_WPNav_ArduPlane littlefs) #clean
 
 set(objs_AC_AttitudeControl_ArduPlane_SOURCES
     ../libraries/AC_AttitudeControl/AC_AttitudeControl.cpp
@@ -1628,9 +1628,9 @@ set_target_properties(objs_AC_AttitudeControl_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_AttitudeControl_ArduPlane mavlink)
-target_link_libraries(objs_AC_AttitudeControl_ArduPlane dronecan)
-target_link_libraries(objs_AC_AttitudeControl_ArduPlane littlefs)
+target_link_libraries(objs_AC_AttitudeControl_ArduPlane mavlink) #clean
+target_link_libraries(objs_AC_AttitudeControl_ArduPlane dronecan) #clean
+target_link_libraries(objs_AC_AttitudeControl_ArduPlane littlefs) #clean
 
 set(objs_AP_Motors_ArduPlane_SOURCES
     ../libraries/AP_Motors/AP_MotorsMatrix.cpp
@@ -1667,9 +1667,9 @@ set_target_properties(objs_AP_Motors_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Motors_ArduPlane mavlink)
-target_link_libraries(objs_AP_Motors_ArduPlane dronecan)
-target_link_libraries(objs_AP_Motors_ArduPlane littlefs)
+target_link_libraries(objs_AP_Motors_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Motors_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Motors_ArduPlane littlefs) #clean
 
 set(objs_AP_Landing_ArduPlane_SOURCES
     ../libraries/AP_Landing/AP_Landing_Slope.cpp)
@@ -1703,9 +1703,9 @@ set_target_properties(objs_AP_Landing_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Landing_ArduPlane mavlink)
-target_link_libraries(objs_AP_Landing_ArduPlane dronecan)
-target_link_libraries(objs_AP_Landing_ArduPlane littlefs)
+target_link_libraries(objs_AP_Landing_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Landing_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Landing_ArduPlane littlefs) #clean
 
 set(objs_AC_AutoTune_ArduPlane_SOURCES
     ../libraries/AC_AutoTune/AC_AutoTune.cpp
@@ -1740,9 +1740,9 @@ set_target_properties(objs_AC_AutoTune_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_AutoTune_ArduPlane mavlink)
-target_link_libraries(objs_AC_AutoTune_ArduPlane dronecan)
-target_link_libraries(objs_AC_AutoTune_ArduPlane littlefs)
+target_link_libraries(objs_AC_AutoTune_ArduPlane mavlink) #clean
+target_link_libraries(objs_AC_AutoTune_ArduPlane dronecan) #clean
+target_link_libraries(objs_AC_AutoTune_ArduPlane littlefs) #clean
 
 set(objs_AC_PrecLand_ArduPlane_SOURCES
     ../libraries/AC_PrecLand/AC_PrecLand.cpp)
@@ -1776,9 +1776,9 @@ set_target_properties(objs_AC_PrecLand_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_PrecLand_ArduPlane mavlink)
-target_link_libraries(objs_AC_PrecLand_ArduPlane dronecan)
-target_link_libraries(objs_AC_PrecLand_ArduPlane littlefs)
+target_link_libraries(objs_AC_PrecLand_ArduPlane mavlink) #clean
+target_link_libraries(objs_AC_PrecLand_ArduPlane dronecan) #clean
+target_link_libraries(objs_AC_PrecLand_ArduPlane littlefs) #clean
 
 set(objs_AP_HAL_SITL_ArduPlane_SOURCES
     ../libraries/AP_HAL_SITL/SITL_cmdline.cpp
@@ -1814,9 +1814,9 @@ set_target_properties(objs_AP_HAL_SITL_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_HAL_SITL_ArduPlane mavlink)
-target_link_libraries(objs_AP_HAL_SITL_ArduPlane dronecan)
-target_link_libraries(objs_AP_HAL_SITL_ArduPlane littlefs)
+target_link_libraries(objs_AP_HAL_SITL_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_HAL_SITL_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_HAL_SITL_ArduPlane littlefs) #clean
 
 set(objs_SITL_ArduPlane_SOURCES
     ../libraries/SITL/SIM_Aircraft.cpp
@@ -1853,9 +1853,9 @@ set_target_properties(objs_SITL_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_SITL_ArduPlane mavlink)
-target_link_libraries(objs_SITL_ArduPlane dronecan)
-target_link_libraries(objs_SITL_ArduPlane littlefs)
+target_link_libraries(objs_SITL_ArduPlane mavlink) #clean
+target_link_libraries(objs_SITL_ArduPlane dronecan) #clean
+target_link_libraries(objs_SITL_ArduPlane littlefs) #clean
 
 set(objs_AP_Scripting_ArduPlane_SOURCES
     ../libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp
@@ -1894,9 +1894,9 @@ set_target_properties(objs_AP_Scripting_ArduPlane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Scripting_ArduPlane mavlink)
-target_link_libraries(objs_AP_Scripting_ArduPlane dronecan)
-target_link_libraries(objs_AP_Scripting_ArduPlane littlefs)
+target_link_libraries(objs_AP_Scripting_ArduPlane mavlink) #clean
+target_link_libraries(objs_AP_Scripting_ArduPlane dronecan) #clean
+target_link_libraries(objs_AP_Scripting_ArduPlane littlefs) #clean
 
 set(ArduPlane_libs_SOURCES
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
@@ -2103,280 +2103,139 @@ set_target_properties(ArduPlane_libs PROPERTIES
 )
 
 
-target_link_libraries(ArduPlane_libs objs/AP_AccelCal)
-target_link_libraries(ArduPlane_libs objs/AP_AccelCal/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_ADC)
-target_link_libraries(ArduPlane_libs objs/AP_ADC/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_AHRS)
-target_link_libraries(ArduPlane_libs objs/AP_AHRS/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Airspeed)
-target_link_libraries(ArduPlane_libs objs/AP_Airspeed/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Baro)
-target_link_libraries(ArduPlane_libs objs/AP_Baro/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_BattMonitor)
-target_link_libraries(ArduPlane_libs objs/AP_BattMonitor/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_BoardConfig)
-target_link_libraries(ArduPlane_libs objs/AP_BoardConfig/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Camera)
-target_link_libraries(ArduPlane_libs objs/AP_Camera/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Common)
-target_link_libraries(ArduPlane_libs objs/AP_Common/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Compass)
-target_link_libraries(ArduPlane_libs objs/AP_Compass/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Declination)
-target_link_libraries(ArduPlane_libs objs/AP_Declination/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_GPS)
-target_link_libraries(ArduPlane_libs objs/AP_GPS/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_GSOF)
-target_link_libraries(ArduPlane_libs objs/AP_GSOF/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_HAL)
-target_link_libraries(ArduPlane_libs objs/AP_HAL/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_HAL_Empty)
-target_link_libraries(ArduPlane_libs objs/AP_HAL_Empty/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_DDS)
-target_link_libraries(ArduPlane_libs objs/AP_DDS/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_InertialSensor)
-target_link_libraries(ArduPlane_libs objs/AP_InertialSensor/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Math)
-target_link_libraries(ArduPlane_libs objs/AP_Math/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Mission)
-target_link_libraries(ArduPlane_libs objs/AP_Mission/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_DAL)
-target_link_libraries(ArduPlane_libs objs/AP_DAL/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_NavEKF)
-target_link_libraries(ArduPlane_libs objs/AP_NavEKF/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_NavEKF2)
-target_link_libraries(ArduPlane_libs objs/AP_NavEKF2/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_NavEKF3)
-target_link_libraries(ArduPlane_libs objs/AP_NavEKF3/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Notify)
-target_link_libraries(ArduPlane_libs objs/AP_Notify/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_OpticalFlow)
-target_link_libraries(ArduPlane_libs objs/AP_OpticalFlow/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Param)
-target_link_libraries(ArduPlane_libs objs/AP_Param/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Rally)
-target_link_libraries(ArduPlane_libs objs/AP_Rally/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_LightWareSerial)
-target_link_libraries(ArduPlane_libs objs/AP_LightWareSerial/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_RangeFinder)
-target_link_libraries(ArduPlane_libs objs/AP_RangeFinder/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Scheduler)
-target_link_libraries(ArduPlane_libs objs/AP_Scheduler/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_SerialManager)
-target_link_libraries(ArduPlane_libs objs/AP_SerialManager/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Terrain)
-target_link_libraries(ArduPlane_libs objs/AP_Terrain/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Vehicle)
-target_link_libraries(ArduPlane_libs objs/AP_Vehicle/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_InternalError)
-target_link_libraries(ArduPlane_libs objs/AP_InternalError/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Logger)
-target_link_libraries(ArduPlane_libs objs/AP_Logger/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/Filter)
-target_link_libraries(ArduPlane_libs objs/Filter/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/GCS_MAVLink)
-target_link_libraries(ArduPlane_libs objs/GCS_MAVLink/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/RC_Channel)
-target_link_libraries(ArduPlane_libs objs/RC_Channel/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/SRV_Channel)
-target_link_libraries(ArduPlane_libs objs/SRV_Channel/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/StorageManager)
-target_link_libraries(ArduPlane_libs objs/StorageManager/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Tuning)
-target_link_libraries(ArduPlane_libs objs/AP_Tuning/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_RPM)
-target_link_libraries(ArduPlane_libs objs/AP_RPM/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_RSSI)
-target_link_libraries(ArduPlane_libs objs/AP_RSSI/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Mount)
-target_link_libraries(ArduPlane_libs objs/AP_Mount/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Module)
-target_link_libraries(ArduPlane_libs objs/AP_Module/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Button)
-target_link_libraries(ArduPlane_libs objs/AP_Button/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_ICEngine)
-target_link_libraries(ArduPlane_libs objs/AP_ICEngine/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Networking)
-target_link_libraries(ArduPlane_libs objs/AP_Networking/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Frsky_Telem)
-target_link_libraries(ArduPlane_libs objs/AP_Frsky_Telem/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_IBus_Telem)
-target_link_libraries(ArduPlane_libs objs/AP_IBus_Telem/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_FlashStorage)
-target_link_libraries(ArduPlane_libs objs/AP_FlashStorage/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Relay)
-target_link_libraries(ArduPlane_libs objs/AP_Relay/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_ServoRelayEvents)
-target_link_libraries(ArduPlane_libs objs/AP_ServoRelayEvents/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Volz_Protocol)
-target_link_libraries(ArduPlane_libs objs/AP_Volz_Protocol/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_SBusOut)
-target_link_libraries(ArduPlane_libs objs/AP_SBusOut/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_IOMCU)
-target_link_libraries(ArduPlane_libs objs/AP_IOMCU/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Parachute)
-target_link_libraries(ArduPlane_libs objs/AP_Parachute/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_RAMTRON)
-target_link_libraries(ArduPlane_libs objs/AP_RAMTRON/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_RCProtocol)
-target_link_libraries(ArduPlane_libs objs/AP_RCProtocol/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Radio)
-target_link_libraries(ArduPlane_libs objs/AP_Radio/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_TempCalibration)
-target_link_libraries(ArduPlane_libs objs/AP_TempCalibration/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_VisualOdom)
-target_link_libraries(ArduPlane_libs objs/AP_VisualOdom/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_BLHeli)
-target_link_libraries(ArduPlane_libs objs/AP_BLHeli/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_ROMFS)
-target_link_libraries(ArduPlane_libs objs/AP_ROMFS/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Proximity)
-target_link_libraries(ArduPlane_libs objs/AP_Proximity/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Gripper)
-target_link_libraries(ArduPlane_libs objs/AP_Gripper/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_RTC)
-target_link_libraries(ArduPlane_libs objs/AP_RTC/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AC_Sprayer)
-target_link_libraries(ArduPlane_libs objs/AC_Sprayer/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AC_Fence)
-target_link_libraries(ArduPlane_libs objs/AC_Fence/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AC_Avoidance)
-target_link_libraries(ArduPlane_libs objs/AC_Avoidance/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_LandingGear)
-target_link_libraries(ArduPlane_libs objs/AP_LandingGear/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_RobotisServo)
-target_link_libraries(ArduPlane_libs objs/AP_RobotisServo/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_NMEA_Output)
-target_link_libraries(ArduPlane_libs objs/AP_NMEA_Output/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_OSD)
-target_link_libraries(ArduPlane_libs objs/AP_OSD/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Filesystem)
-target_link_libraries(ArduPlane_libs objs/AP_Filesystem/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_ADSB)
-target_link_libraries(ArduPlane_libs objs/AP_ADSB/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_ADSB/sagetech-sdk)
-target_link_libraries(ArduPlane_libs objs/AP_ADSB/sagetech-sdk/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AC_PID)
-target_link_libraries(ArduPlane_libs objs/AC_PID/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_SerialLED)
-target_link_libraries(ArduPlane_libs objs/AP_SerialLED/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_EFI)
-target_link_libraries(ArduPlane_libs objs/AP_EFI/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Hott_Telem)
-target_link_libraries(ArduPlane_libs objs/AP_Hott_Telem/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_ESC_Telem)
-target_link_libraries(ArduPlane_libs objs/AP_ESC_Telem/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Servo_Telem)
-target_link_libraries(ArduPlane_libs objs/AP_Servo_Telem/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Stats)
-target_link_libraries(ArduPlane_libs objs/AP_Stats/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_GyroFFT)
-target_link_libraries(ArduPlane_libs objs/AP_GyroFFT/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_RCTelemetry)
-target_link_libraries(ArduPlane_libs objs/AP_RCTelemetry/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Generator)
-target_link_libraries(ArduPlane_libs objs/AP_Generator/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_MSP)
-target_link_libraries(ArduPlane_libs objs/AP_MSP/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_OLC)
-target_link_libraries(ArduPlane_libs objs/AP_OLC/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_WheelEncoder)
-target_link_libraries(ArduPlane_libs objs/AP_WheelEncoder/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_ExternalAHRS)
-target_link_libraries(ArduPlane_libs objs/AP_ExternalAHRS/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_VideoTX)
-target_link_libraries(ArduPlane_libs objs/AP_VideoTX/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_FETtecOneWire)
-target_link_libraries(ArduPlane_libs objs/AP_FETtecOneWire/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_TemperatureSensor)
-target_link_libraries(ArduPlane_libs objs/AP_TemperatureSensor/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Torqeedo)
-target_link_libraries(ArduPlane_libs objs/AP_Torqeedo/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_CustomRotations)
-target_link_libraries(ArduPlane_libs objs/AP_CustomRotations/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_AIS)
-target_link_libraries(ArduPlane_libs objs/AP_AIS/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_OpenDroneID)
-target_link_libraries(ArduPlane_libs objs/AP_OpenDroneID/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_CheckFirmware)
-target_link_libraries(ArduPlane_libs objs/AP_CheckFirmware/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_ExternalControl)
-target_link_libraries(ArduPlane_libs objs/AP_ExternalControl/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_JSON)
-target_link_libraries(ArduPlane_libs objs/AP_JSON/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Beacon)
-target_link_libraries(ArduPlane_libs objs/AP_Beacon/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Arming)
-target_link_libraries(ArduPlane_libs objs/AP_Arming/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_RCMapper)
-target_link_libraries(ArduPlane_libs objs/AP_RCMapper/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_MultiHeap)
-target_link_libraries(ArduPlane_libs objs/AP_MultiHeap/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Follow)
-target_link_libraries(ArduPlane_libs objs/AP_Follow/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_CANManager)
-target_link_libraries(ArduPlane_libs objs/AP_CANManager/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_KDECAN)
-target_link_libraries(ArduPlane_libs objs/AP_KDECAN/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_PiccoloCAN)
-target_link_libraries(ArduPlane_libs objs/AP_PiccoloCAN/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_PiccoloCAN/piccolo_protocol)
-target_link_libraries(ArduPlane_libs objs/AP_PiccoloCAN/piccolo_protocol/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/APM_Control)
-target_link_libraries(ArduPlane_libs objs/APM_Control/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_AdvancedFailsafe)
-target_link_libraries(ArduPlane_libs objs/AP_AdvancedFailsafe/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Avoidance)
-target_link_libraries(ArduPlane_libs objs/AP_Avoidance/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_L1_Control)
-target_link_libraries(ArduPlane_libs objs/AP_L1_Control/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Navigation)
-target_link_libraries(ArduPlane_libs objs/AP_Navigation/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_TECS)
-target_link_libraries(ArduPlane_libs objs/AP_TECS/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_InertialNav)
-target_link_libraries(ArduPlane_libs objs/AP_InertialNav/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AC_WPNav)
-target_link_libraries(ArduPlane_libs objs/AC_WPNav/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AC_AttitudeControl)
-target_link_libraries(ArduPlane_libs objs/AC_AttitudeControl/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Motors)
-target_link_libraries(ArduPlane_libs objs/AP_Motors/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Landing)
-target_link_libraries(ArduPlane_libs objs/AP_Landing/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/PID)
-target_link_libraries(ArduPlane_libs objs/PID/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Soaring)
-target_link_libraries(ArduPlane_libs objs/AP_Soaring/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_LTM_Telem)
-target_link_libraries(ArduPlane_libs objs/AP_LTM_Telem/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Devo_Telem)
-target_link_libraries(ArduPlane_libs objs/AP_Devo_Telem/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AC_AutoTune)
-target_link_libraries(ArduPlane_libs objs/AC_AutoTune/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AC_PrecLand)
-target_link_libraries(ArduPlane_libs objs/AC_PrecLand/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_IRLock)
-target_link_libraries(ArduPlane_libs objs/AP_IRLock/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Quicktune)
-target_link_libraries(ArduPlane_libs objs/AP_Quicktune/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_DroneCAN)
-target_link_libraries(ArduPlane_libs objs/AP_DroneCAN/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/modules/DroneCAN/libcanard/*.c)
-target_link_libraries(ArduPlane_libs objs/modules/DroneCAN/libcanard/*.c/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_HAL_SITL)
-target_link_libraries(ArduPlane_libs objs/AP_HAL_SITL/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_CSVReader)
-target_link_libraries(ArduPlane_libs objs/AP_CSVReader/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/SITL)
-target_link_libraries(ArduPlane_libs objs/SITL/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Scripting)
-target_link_libraries(ArduPlane_libs objs/AP_Scripting/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AP_Scripting/lua/src)
-target_link_libraries(ArduPlane_libs objs/AP_Scripting/lua/src/ArduPlane)
-target_link_libraries(ArduPlane_libs objs/AC_CustomControl)
-target_link_libraries(ArduPlane_libs objs/AC_CustomControl/ArduPlane)
+target_link_libraries(ArduPlane_libs libobjs_AP_AccelCal.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_ADC.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_AHRS.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Airspeed.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Baro.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_BattMonitor.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_BoardConfig.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Camera.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Common.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Compass.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Declination.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_GPS.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_GSOF.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_HAL.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_HAL_Empty.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_DDS.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_InertialSensor.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Math.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Mission.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_DAL.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_NavEKF.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_NavEKF2.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_NavEKF3.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Notify.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_OpticalFlow.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Param.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Rally.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_LightWareSerial.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_RangeFinder.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Scheduler.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_SerialManager.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Terrain.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Vehicle.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_InternalError.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Logger.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_Filter.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_GCS_MAVLink.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_RC_Channel.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_SRV_Channel.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_StorageManager.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Tuning.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_RPM.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_RSSI.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Mount.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Module.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Button.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_ICEngine.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Networking.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Frsky_Telem.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_IBus_Telem.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_FlashStorage.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Relay.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_ServoRelayEvents.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Volz_Protocol.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_SBusOut.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_IOMCU.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Parachute.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_RAMTRON.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_RCProtocol.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Radio.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_TempCalibration.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_VisualOdom.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_BLHeli.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_ROMFS.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Proximity.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Gripper.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_RTC.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AC_Sprayer.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AC_Fence.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AC_Avoidance.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_LandingGear.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_RobotisServo.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_NMEA_Output.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_OSD.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Filesystem.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_ADSB.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AC_PID.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_SerialLED.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_EFI.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Hott_Telem.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_ESC_Telem.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Servo_Telem.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Stats.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_GyroFFT.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_RCTelemetry.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Generator.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_MSP.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_OLC.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_WheelEncoder.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_ExternalAHRS.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_VideoTX.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_FETtecOneWire.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_TemperatureSensor.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Torqeedo.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_CustomRotations.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_AIS.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_OpenDroneID.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_CheckFirmware.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_ExternalControl.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_JSON.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Beacon.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Arming.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_RCMapper.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_MultiHeap.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Follow.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_CANManager.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_KDECAN.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_PiccoloCAN.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_APM_Control.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_AdvancedFailsafe.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Avoidance.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_L1_Control.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Navigation.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_TECS.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_InertialNav.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AC_WPNav.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AC_AttitudeControl.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Motors.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Landing.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_PID.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Soaring.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_LTM_Telem.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Devo_Telem.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AC_AutoTune.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AC_PrecLand.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_IRLock.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Quicktune.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_DroneCAN.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_HAL_SITL.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_CSVReader.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_SITL.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AP_Scripting.a) #stripped
+target_link_libraries(ArduPlane_libs libobjs_AC_CustomControl.a) #stripped
 
 set(bin_arduplane_SOURCES
     AP_Arming_Plane.cpp
@@ -2469,5 +2328,5 @@ add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME
 
 add_executable(bin_arduplane ${bin_arduplane_SOURCES})
 
-target_link_libraries(bin_arduplane ArduPlane_libs)
+target_link_libraries(bin_arduplane ArduPlane_libs) #clean
 

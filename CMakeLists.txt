@@ -68,9 +68,9 @@ set_target_properties(objs_AC_AttitudeControl PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_AttitudeControl mavlink)
-target_link_libraries(objs_AC_AttitudeControl dronecan)
-target_link_libraries(objs_AC_AttitudeControl littlefs)
+target_link_libraries(objs_AC_AttitudeControl mavlink) #clean
+target_link_libraries(objs_AC_AttitudeControl dronecan) #clean
+target_link_libraries(objs_AC_AttitudeControl littlefs) #clean
 
 set(objs_AC_AutoTune_SOURCES
     libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp
@@ -103,9 +103,9 @@ set_target_properties(objs_AC_AutoTune PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_AutoTune mavlink)
-target_link_libraries(objs_AC_AutoTune dronecan)
-target_link_libraries(objs_AC_AutoTune littlefs)
+target_link_libraries(objs_AC_AutoTune mavlink) #clean
+target_link_libraries(objs_AC_AutoTune dronecan) #clean
+target_link_libraries(objs_AC_AutoTune littlefs) #clean
 
 set(objs_AC_Autorotation_SOURCES
     libraries/AC_Autorotation/AC_Autorotation.cpp
@@ -138,9 +138,9 @@ set_target_properties(objs_AC_Autorotation PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_Autorotation mavlink)
-target_link_libraries(objs_AC_Autorotation dronecan)
-target_link_libraries(objs_AC_Autorotation littlefs)
+target_link_libraries(objs_AC_Autorotation mavlink) #clean
+target_link_libraries(objs_AC_Autorotation dronecan) #clean
+target_link_libraries(objs_AC_Autorotation littlefs) #clean
 
 set(objs_AC_Avoidance_SOURCES
     libraries/AC_Avoidance/AC_Avoidance_Logging.cpp
@@ -175,9 +175,9 @@ set_target_properties(objs_AC_Avoidance PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_Avoidance mavlink)
-target_link_libraries(objs_AC_Avoidance dronecan)
-target_link_libraries(objs_AC_Avoidance littlefs)
+target_link_libraries(objs_AC_Avoidance mavlink) #clean
+target_link_libraries(objs_AC_Avoidance dronecan) #clean
+target_link_libraries(objs_AC_Avoidance littlefs) #clean
 
 set(objs_AC_CustomControl_SOURCES
     libraries/AC_CustomControl/AC_CustomControl.cpp
@@ -211,9 +211,9 @@ set_target_properties(objs_AC_CustomControl PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_CustomControl mavlink)
-target_link_libraries(objs_AC_CustomControl dronecan)
-target_link_libraries(objs_AC_CustomControl littlefs)
+target_link_libraries(objs_AC_CustomControl mavlink) #clean
+target_link_libraries(objs_AC_CustomControl dronecan) #clean
+target_link_libraries(objs_AC_CustomControl littlefs) #clean
 
 set(objs_AC_InputManager_SOURCES
     libraries/AC_InputManager/AC_InputManager.cpp
@@ -246,9 +246,9 @@ set_target_properties(objs_AC_InputManager PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_InputManager mavlink)
-target_link_libraries(objs_AC_InputManager dronecan)
-target_link_libraries(objs_AC_InputManager littlefs)
+target_link_libraries(objs_AC_InputManager mavlink) #clean
+target_link_libraries(objs_AC_InputManager dronecan) #clean
+target_link_libraries(objs_AC_InputManager littlefs) #clean
 
 set(objs_AC_PID_SOURCES
     libraries/AC_PID/AC_HELI_PID.cpp
@@ -288,9 +288,9 @@ set_target_properties(objs_AC_PID PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_PID mavlink)
-target_link_libraries(objs_AC_PID dronecan)
-target_link_libraries(objs_AC_PID littlefs)
+target_link_libraries(objs_AC_PID mavlink) #clean
+target_link_libraries(objs_AC_PID dronecan) #clean
+target_link_libraries(objs_AC_PID littlefs) #clean
 
 set(objs_AC_PrecLand_SOURCES
     libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp
@@ -327,9 +327,9 @@ set_target_properties(objs_AC_PrecLand PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_PrecLand mavlink)
-target_link_libraries(objs_AC_PrecLand dronecan)
-target_link_libraries(objs_AC_PrecLand littlefs)
+target_link_libraries(objs_AC_PrecLand mavlink) #clean
+target_link_libraries(objs_AC_PrecLand dronecan) #clean
+target_link_libraries(objs_AC_PrecLand littlefs) #clean
 
 set(objs_AC_Sprayer_SOURCES
     libraries/AC_Sprayer/AC_Sprayer.cpp)
@@ -361,9 +361,9 @@ set_target_properties(objs_AC_Sprayer PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_Sprayer mavlink)
-target_link_libraries(objs_AC_Sprayer dronecan)
-target_link_libraries(objs_AC_Sprayer littlefs)
+target_link_libraries(objs_AC_Sprayer mavlink) #clean
+target_link_libraries(objs_AC_Sprayer dronecan) #clean
+target_link_libraries(objs_AC_Sprayer littlefs) #clean
 
 set(objs_AC_WPNav_SOURCES
     libraries/AC_WPNav/AC_Circle.cpp
@@ -397,9 +397,9 @@ set_target_properties(objs_AC_WPNav PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_WPNav mavlink)
-target_link_libraries(objs_AC_WPNav dronecan)
-target_link_libraries(objs_AC_WPNav littlefs)
+target_link_libraries(objs_AC_WPNav mavlink) #clean
+target_link_libraries(objs_AC_WPNav dronecan) #clean
+target_link_libraries(objs_AC_WPNav littlefs) #clean
 
 set(objs_APM_Control_SOURCES
     libraries/APM_Control/AP_AutoTune.cpp
@@ -438,9 +438,9 @@ set_target_properties(objs_APM_Control PROPERTIES
 )
 
 
-target_link_libraries(objs_APM_Control mavlink)
-target_link_libraries(objs_APM_Control dronecan)
-target_link_libraries(objs_APM_Control littlefs)
+target_link_libraries(objs_APM_Control mavlink) #clean
+target_link_libraries(objs_APM_Control dronecan) #clean
+target_link_libraries(objs_APM_Control littlefs) #clean
 
 set(objs_AP_ADC_SOURCES
     libraries/AP_ADC/AP_ADC_ADS1115.cpp)
@@ -472,9 +472,9 @@ set_target_properties(objs_AP_ADC PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ADC mavlink)
-target_link_libraries(objs_AP_ADC dronecan)
-target_link_libraries(objs_AP_ADC littlefs)
+target_link_libraries(objs_AP_ADC mavlink) #clean
+target_link_libraries(objs_AP_ADC dronecan) #clean
+target_link_libraries(objs_AP_ADC littlefs) #clean
 
 set(objs_AP_ADSB_SOURCES
     libraries/AP_ADSB/AP_ADSB_Backend.cpp
@@ -509,9 +509,9 @@ set_target_properties(objs_AP_ADSB PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ADSB mavlink)
-target_link_libraries(objs_AP_ADSB dronecan)
-target_link_libraries(objs_AP_ADSB littlefs)
+target_link_libraries(objs_AP_ADSB mavlink) #clean
+target_link_libraries(objs_AP_ADSB dronecan) #clean
+target_link_libraries(objs_AP_ADSB littlefs) #clean
 
 set(objs_AP_AHRS_SOURCES
     libraries/AP_AHRS/AP_AHRS_External.cpp
@@ -546,9 +546,9 @@ set_target_properties(objs_AP_AHRS PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_AHRS mavlink)
-target_link_libraries(objs_AP_AHRS dronecan)
-target_link_libraries(objs_AP_AHRS littlefs)
+target_link_libraries(objs_AP_AHRS mavlink) #clean
+target_link_libraries(objs_AP_AHRS dronecan) #clean
+target_link_libraries(objs_AP_AHRS littlefs) #clean
 
 set(objs_AP_AccelCal_SOURCES
     libraries/AP_AccelCal/AP_AccelCal.cpp
@@ -581,9 +581,9 @@ set_target_properties(objs_AP_AccelCal PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_AccelCal mavlink)
-target_link_libraries(objs_AP_AccelCal dronecan)
-target_link_libraries(objs_AP_AccelCal littlefs)
+target_link_libraries(objs_AP_AccelCal mavlink) #clean
+target_link_libraries(objs_AP_AccelCal dronecan) #clean
+target_link_libraries(objs_AP_AccelCal littlefs) #clean
 
 set(objs_AP_AdvancedFailsafe_SOURCES
     libraries/AP_AdvancedFailsafe/AP_AdvancedFailsafe.cpp)
@@ -615,9 +615,9 @@ set_target_properties(objs_AP_AdvancedFailsafe PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_AdvancedFailsafe mavlink)
-target_link_libraries(objs_AP_AdvancedFailsafe dronecan)
-target_link_libraries(objs_AP_AdvancedFailsafe littlefs)
+target_link_libraries(objs_AP_AdvancedFailsafe mavlink) #clean
+target_link_libraries(objs_AP_AdvancedFailsafe dronecan) #clean
+target_link_libraries(objs_AP_AdvancedFailsafe littlefs) #clean
 
 set(objs_AP_Airspeed_SOURCES
     libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp
@@ -662,9 +662,9 @@ set_target_properties(objs_AP_Airspeed PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Airspeed mavlink)
-target_link_libraries(objs_AP_Airspeed dronecan)
-target_link_libraries(objs_AP_Airspeed littlefs)
+target_link_libraries(objs_AP_Airspeed mavlink) #clean
+target_link_libraries(objs_AP_Airspeed dronecan) #clean
+target_link_libraries(objs_AP_Airspeed littlefs) #clean
 
 set(objs_AP_Baro_SOURCES
     libraries/AP_Baro/AP_Baro_AUAV.cpp
@@ -717,9 +717,9 @@ set_target_properties(objs_AP_Baro PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Baro mavlink)
-target_link_libraries(objs_AP_Baro dronecan)
-target_link_libraries(objs_AP_Baro littlefs)
+target_link_libraries(objs_AP_Baro mavlink) #clean
+target_link_libraries(objs_AP_Baro dronecan) #clean
+target_link_libraries(objs_AP_Baro littlefs) #clean
 
 set(objs_AP_BattMonitor_SOURCES
     libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp
@@ -776,9 +776,9 @@ set_target_properties(objs_AP_BattMonitor PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_BattMonitor mavlink)
-target_link_libraries(objs_AP_BattMonitor dronecan)
-target_link_libraries(objs_AP_BattMonitor littlefs)
+target_link_libraries(objs_AP_BattMonitor mavlink) #clean
+target_link_libraries(objs_AP_BattMonitor dronecan) #clean
+target_link_libraries(objs_AP_BattMonitor littlefs) #clean
 
 set(objs_AP_Beacon_SOURCES
     libraries/AP_Beacon/AP_Beacon.cpp
@@ -815,9 +815,9 @@ set_target_properties(objs_AP_Beacon PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Beacon mavlink)
-target_link_libraries(objs_AP_Beacon dronecan)
-target_link_libraries(objs_AP_Beacon littlefs)
+target_link_libraries(objs_AP_Beacon mavlink) #clean
+target_link_libraries(objs_AP_Beacon dronecan) #clean
+target_link_libraries(objs_AP_Beacon littlefs) #clean
 
 set(objs_AP_BoardConfig_SOURCES
     libraries/AP_BoardConfig/IMU_heater.cpp
@@ -850,9 +850,9 @@ set_target_properties(objs_AP_BoardConfig PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_BoardConfig mavlink)
-target_link_libraries(objs_AP_BoardConfig dronecan)
-target_link_libraries(objs_AP_BoardConfig littlefs)
+target_link_libraries(objs_AP_BoardConfig mavlink) #clean
+target_link_libraries(objs_AP_BoardConfig dronecan) #clean
+target_link_libraries(objs_AP_BoardConfig littlefs) #clean
 
 set(objs_AP_Button_SOURCES
     libraries/AP_Button/AP_Button.cpp)
@@ -884,9 +884,9 @@ set_target_properties(objs_AP_Button PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Button mavlink)
-target_link_libraries(objs_AP_Button dronecan)
-target_link_libraries(objs_AP_Button littlefs)
+target_link_libraries(objs_AP_Button mavlink) #clean
+target_link_libraries(objs_AP_Button dronecan) #clean
+target_link_libraries(objs_AP_Button littlefs) #clean
 
 set(objs_AP_CANManager_SOURCES
     libraries/AP_CANManager/AP_CANIfaceParams.cpp
@@ -923,9 +923,9 @@ set_target_properties(objs_AP_CANManager PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_CANManager mavlink)
-target_link_libraries(objs_AP_CANManager dronecan)
-target_link_libraries(objs_AP_CANManager littlefs)
+target_link_libraries(objs_AP_CANManager mavlink) #clean
+target_link_libraries(objs_AP_CANManager dronecan) #clean
+target_link_libraries(objs_AP_CANManager littlefs) #clean
 
 set(objs_AP_CSVReader_SOURCES
     libraries/AP_CSVReader/AP_CSVReader.cpp)
@@ -957,9 +957,9 @@ set_target_properties(objs_AP_CSVReader PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_CSVReader mavlink)
-target_link_libraries(objs_AP_CSVReader dronecan)
-target_link_libraries(objs_AP_CSVReader littlefs)
+target_link_libraries(objs_AP_CSVReader mavlink) #clean
+target_link_libraries(objs_AP_CSVReader dronecan) #clean
+target_link_libraries(objs_AP_CSVReader littlefs) #clean
 
 set(objs_AP_Camera_SOURCES
     libraries/AP_Camera/AP_Camera.cpp
@@ -1002,9 +1002,9 @@ set_target_properties(objs_AP_Camera PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Camera mavlink)
-target_link_libraries(objs_AP_Camera dronecan)
-target_link_libraries(objs_AP_Camera littlefs)
+target_link_libraries(objs_AP_Camera mavlink) #clean
+target_link_libraries(objs_AP_Camera dronecan) #clean
+target_link_libraries(objs_AP_Camera littlefs) #clean
 
 set(objs_AP_CheckFirmware_SOURCES
     libraries/AP_CheckFirmware/AP_CheckFirmware.cpp
@@ -1038,9 +1038,9 @@ set_target_properties(objs_AP_CheckFirmware PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_CheckFirmware mavlink)
-target_link_libraries(objs_AP_CheckFirmware dronecan)
-target_link_libraries(objs_AP_CheckFirmware littlefs)
+target_link_libraries(objs_AP_CheckFirmware mavlink) #clean
+target_link_libraries(objs_AP_CheckFirmware dronecan) #clean
+target_link_libraries(objs_AP_CheckFirmware littlefs) #clean
 
 set(objs_AP_Common_SOURCES
     libraries/AP_Common/AP_Common.cpp
@@ -1081,9 +1081,9 @@ set_target_properties(objs_AP_Common PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Common mavlink)
-target_link_libraries(objs_AP_Common dronecan)
-target_link_libraries(objs_AP_Common littlefs)
+target_link_libraries(objs_AP_Common mavlink) #clean
+target_link_libraries(objs_AP_Common dronecan) #clean
+target_link_libraries(objs_AP_Common littlefs) #clean
 
 set(objs_AP_Compass_SOURCES
     libraries/AP_Compass/AP_Compass.cpp
@@ -1142,9 +1142,9 @@ set_target_properties(objs_AP_Compass PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Compass mavlink)
-target_link_libraries(objs_AP_Compass dronecan)
-target_link_libraries(objs_AP_Compass littlefs)
+target_link_libraries(objs_AP_Compass mavlink) #clean
+target_link_libraries(objs_AP_Compass dronecan) #clean
+target_link_libraries(objs_AP_Compass littlefs) #clean
 
 set(objs_AP_CustomRotations_SOURCES
     libraries/AP_CustomRotations/AP_CustomRotations.cpp
@@ -1177,9 +1177,9 @@ set_target_properties(objs_AP_CustomRotations PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_CustomRotations mavlink)
-target_link_libraries(objs_AP_CustomRotations dronecan)
-target_link_libraries(objs_AP_CustomRotations littlefs)
+target_link_libraries(objs_AP_CustomRotations mavlink) #clean
+target_link_libraries(objs_AP_CustomRotations dronecan) #clean
+target_link_libraries(objs_AP_CustomRotations littlefs) #clean
 
 set(objs_AP_DAL_SOURCES
     libraries/AP_DAL/AP_DAL_Airspeed.cpp
@@ -1215,9 +1215,9 @@ set_target_properties(objs_AP_DAL PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_DAL mavlink)
-target_link_libraries(objs_AP_DAL dronecan)
-target_link_libraries(objs_AP_DAL littlefs)
+target_link_libraries(objs_AP_DAL mavlink) #clean
+target_link_libraries(objs_AP_DAL dronecan) #clean
+target_link_libraries(objs_AP_DAL littlefs) #clean
 
 set(objs_AP_DDS_SOURCES
     libraries/AP_DDS/AP_DDS_Client.cpp
@@ -1254,9 +1254,9 @@ set_target_properties(objs_AP_DDS PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_DDS mavlink)
-target_link_libraries(objs_AP_DDS dronecan)
-target_link_libraries(objs_AP_DDS littlefs)
+target_link_libraries(objs_AP_DDS mavlink) #clean
+target_link_libraries(objs_AP_DDS dronecan) #clean
+target_link_libraries(objs_AP_DDS littlefs) #clean
 
 set(objs_AP_Declination_SOURCES
     libraries/AP_Declination/AP_Declination.cpp
@@ -1289,9 +1289,9 @@ set_target_properties(objs_AP_Declination PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Declination mavlink)
-target_link_libraries(objs_AP_Declination dronecan)
-target_link_libraries(objs_AP_Declination littlefs)
+target_link_libraries(objs_AP_Declination mavlink) #clean
+target_link_libraries(objs_AP_Declination dronecan) #clean
+target_link_libraries(objs_AP_Declination littlefs) #clean
 
 set(objs_AP_Devo_Telem_SOURCES
     libraries/AP_Devo_Telem/AP_Devo_Telem.cpp)
@@ -1323,9 +1323,9 @@ set_target_properties(objs_AP_Devo_Telem PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Devo_Telem mavlink)
-target_link_libraries(objs_AP_Devo_Telem dronecan)
-target_link_libraries(objs_AP_Devo_Telem littlefs)
+target_link_libraries(objs_AP_Devo_Telem mavlink) #clean
+target_link_libraries(objs_AP_Devo_Telem dronecan) #clean
+target_link_libraries(objs_AP_Devo_Telem littlefs) #clean
 
 set(objs_AP_DroneCAN_SOURCES
     libraries/AP_DroneCAN/AP_Canard_iface.cpp
@@ -1360,9 +1360,9 @@ set_target_properties(objs_AP_DroneCAN PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_DroneCAN mavlink)
-target_link_libraries(objs_AP_DroneCAN dronecan)
-target_link_libraries(objs_AP_DroneCAN littlefs)
+target_link_libraries(objs_AP_DroneCAN mavlink) #clean
+target_link_libraries(objs_AP_DroneCAN dronecan) #clean
+target_link_libraries(objs_AP_DroneCAN littlefs) #clean
 
 set(objs_AP_EFI_SOURCES
     libraries/AP_EFI/AP_EFI.cpp
@@ -1405,9 +1405,9 @@ set_target_properties(objs_AP_EFI PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_EFI mavlink)
-target_link_libraries(objs_AP_EFI dronecan)
-target_link_libraries(objs_AP_EFI littlefs)
+target_link_libraries(objs_AP_EFI mavlink) #clean
+target_link_libraries(objs_AP_EFI dronecan) #clean
+target_link_libraries(objs_AP_EFI littlefs) #clean
 
 set(objs_AP_ESC_Telem_SOURCES
     libraries/AP_ESC_Telem/AP_ESC_Telem.cpp
@@ -1440,9 +1440,9 @@ set_target_properties(objs_AP_ESC_Telem PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ESC_Telem mavlink)
-target_link_libraries(objs_AP_ESC_Telem dronecan)
-target_link_libraries(objs_AP_ESC_Telem littlefs)
+target_link_libraries(objs_AP_ESC_Telem mavlink) #clean
+target_link_libraries(objs_AP_ESC_Telem dronecan) #clean
+target_link_libraries(objs_AP_ESC_Telem littlefs) #clean
 
 set(objs_AP_ExternalAHRS_SOURCES
     libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp
@@ -1479,9 +1479,9 @@ set_target_properties(objs_AP_ExternalAHRS PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ExternalAHRS mavlink)
-target_link_libraries(objs_AP_ExternalAHRS dronecan)
-target_link_libraries(objs_AP_ExternalAHRS littlefs)
+target_link_libraries(objs_AP_ExternalAHRS mavlink) #clean
+target_link_libraries(objs_AP_ExternalAHRS dronecan) #clean
+target_link_libraries(objs_AP_ExternalAHRS littlefs) #clean
 
 set(objs_AP_ExternalControl_SOURCES
     libraries/AP_ExternalControl/AP_ExternalControl.cpp)
@@ -1513,9 +1513,9 @@ set_target_properties(objs_AP_ExternalControl PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ExternalControl mavlink)
-target_link_libraries(objs_AP_ExternalControl dronecan)
-target_link_libraries(objs_AP_ExternalControl littlefs)
+target_link_libraries(objs_AP_ExternalControl mavlink) #clean
+target_link_libraries(objs_AP_ExternalControl dronecan) #clean
+target_link_libraries(objs_AP_ExternalControl littlefs) #clean
 
 set(objs_AP_FETtecOneWire_SOURCES
     libraries/AP_FETtecOneWire/AP_FETtecOneWire.cpp)
@@ -1547,9 +1547,9 @@ set_target_properties(objs_AP_FETtecOneWire PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_FETtecOneWire mavlink)
-target_link_libraries(objs_AP_FETtecOneWire dronecan)
-target_link_libraries(objs_AP_FETtecOneWire littlefs)
+target_link_libraries(objs_AP_FETtecOneWire mavlink) #clean
+target_link_libraries(objs_AP_FETtecOneWire dronecan) #clean
+target_link_libraries(objs_AP_FETtecOneWire littlefs) #clean
 
 set(objs_AP_Filesystem_SOURCES
     libraries/AP_Filesystem/AP_Filesystem.cpp
@@ -1590,9 +1590,9 @@ set_target_properties(objs_AP_Filesystem PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Filesystem mavlink)
-target_link_libraries(objs_AP_Filesystem dronecan)
-target_link_libraries(objs_AP_Filesystem littlefs)
+target_link_libraries(objs_AP_Filesystem mavlink) #clean
+target_link_libraries(objs_AP_Filesystem dronecan) #clean
+target_link_libraries(objs_AP_Filesystem littlefs) #clean
 
 set(objs_AP_FlashStorage_SOURCES
     libraries/AP_FlashStorage/AP_FlashStorage.cpp)
@@ -1624,9 +1624,9 @@ set_target_properties(objs_AP_FlashStorage PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_FlashStorage mavlink)
-target_link_libraries(objs_AP_FlashStorage dronecan)
-target_link_libraries(objs_AP_FlashStorage littlefs)
+target_link_libraries(objs_AP_FlashStorage mavlink) #clean
+target_link_libraries(objs_AP_FlashStorage dronecan) #clean
+target_link_libraries(objs_AP_FlashStorage littlefs) #clean
 
 set(objs_AP_Frsky_Telem_SOURCES
     libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp
@@ -1666,9 +1666,9 @@ set_target_properties(objs_AP_Frsky_Telem PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Frsky_Telem mavlink)
-target_link_libraries(objs_AP_Frsky_Telem dronecan)
-target_link_libraries(objs_AP_Frsky_Telem littlefs)
+target_link_libraries(objs_AP_Frsky_Telem mavlink) #clean
+target_link_libraries(objs_AP_Frsky_Telem dronecan) #clean
+target_link_libraries(objs_AP_Frsky_Telem littlefs) #clean
 
 set(objs_AP_GPS_SOURCES
     libraries/AP_GPS/AP_GPS.cpp
@@ -1719,9 +1719,9 @@ set_target_properties(objs_AP_GPS PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_GPS mavlink)
-target_link_libraries(objs_AP_GPS dronecan)
-target_link_libraries(objs_AP_GPS littlefs)
+target_link_libraries(objs_AP_GPS mavlink) #clean
+target_link_libraries(objs_AP_GPS dronecan) #clean
+target_link_libraries(objs_AP_GPS littlefs) #clean
 
 set(objs_AP_GSOF_SOURCES
     libraries/AP_GSOF/AP_GSOF.cpp)
@@ -1753,9 +1753,9 @@ set_target_properties(objs_AP_GSOF PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_GSOF mavlink)
-target_link_libraries(objs_AP_GSOF dronecan)
-target_link_libraries(objs_AP_GSOF littlefs)
+target_link_libraries(objs_AP_GSOF mavlink) #clean
+target_link_libraries(objs_AP_GSOF dronecan) #clean
+target_link_libraries(objs_AP_GSOF littlefs) #clean
 
 set(objs_AP_Generator_SOURCES
     libraries/AP_Generator/AP_Generator.cpp
@@ -1794,9 +1794,9 @@ set_target_properties(objs_AP_Generator PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Generator mavlink)
-target_link_libraries(objs_AP_Generator dronecan)
-target_link_libraries(objs_AP_Generator littlefs)
+target_link_libraries(objs_AP_Generator mavlink) #clean
+target_link_libraries(objs_AP_Generator dronecan) #clean
+target_link_libraries(objs_AP_Generator littlefs) #clean
 
 set(objs_AP_Gripper_SOURCES
     libraries/AP_Gripper/AP_Gripper.cpp
@@ -1831,9 +1831,9 @@ set_target_properties(objs_AP_Gripper PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Gripper mavlink)
-target_link_libraries(objs_AP_Gripper dronecan)
-target_link_libraries(objs_AP_Gripper littlefs)
+target_link_libraries(objs_AP_Gripper mavlink) #clean
+target_link_libraries(objs_AP_Gripper dronecan) #clean
+target_link_libraries(objs_AP_Gripper littlefs) #clean
 
 set(objs_AP_Hott_Telem_SOURCES
     libraries/AP_Hott_Telem/AP_Hott_Telem.cpp)
@@ -1865,9 +1865,9 @@ set_target_properties(objs_AP_Hott_Telem PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Hott_Telem mavlink)
-target_link_libraries(objs_AP_Hott_Telem dronecan)
-target_link_libraries(objs_AP_Hott_Telem littlefs)
+target_link_libraries(objs_AP_Hott_Telem mavlink) #clean
+target_link_libraries(objs_AP_Hott_Telem dronecan) #clean
+target_link_libraries(objs_AP_Hott_Telem littlefs) #clean
 
 set(objs_AP_ICEngine_SOURCES
     libraries/AP_ICEngine/AP_ICEngine.cpp
@@ -1900,9 +1900,9 @@ set_target_properties(objs_AP_ICEngine PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ICEngine mavlink)
-target_link_libraries(objs_AP_ICEngine dronecan)
-target_link_libraries(objs_AP_ICEngine littlefs)
+target_link_libraries(objs_AP_ICEngine mavlink) #clean
+target_link_libraries(objs_AP_ICEngine dronecan) #clean
+target_link_libraries(objs_AP_ICEngine littlefs) #clean
 
 set(objs_AP_IOMCU_SOURCES
     libraries/AP_IOMCU/AP_IOMCU.cpp
@@ -1935,9 +1935,9 @@ set_target_properties(objs_AP_IOMCU PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_IOMCU mavlink)
-target_link_libraries(objs_AP_IOMCU dronecan)
-target_link_libraries(objs_AP_IOMCU littlefs)
+target_link_libraries(objs_AP_IOMCU mavlink) #clean
+target_link_libraries(objs_AP_IOMCU dronecan) #clean
+target_link_libraries(objs_AP_IOMCU littlefs) #clean
 
 set(objs_AP_IRLock_SOURCES
     libraries/AP_IRLock/AP_IRLock.cpp
@@ -1972,9 +1972,9 @@ set_target_properties(objs_AP_IRLock PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_IRLock mavlink)
-target_link_libraries(objs_AP_IRLock dronecan)
-target_link_libraries(objs_AP_IRLock littlefs)
+target_link_libraries(objs_AP_IRLock mavlink) #clean
+target_link_libraries(objs_AP_IRLock dronecan) #clean
+target_link_libraries(objs_AP_IRLock littlefs) #clean
 
 set(objs_AP_InertialNav_SOURCES
     libraries/AP_InertialNav/AP_InertialNav.cpp)
@@ -2006,9 +2006,9 @@ set_target_properties(objs_AP_InertialNav PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_InertialNav mavlink)
-target_link_libraries(objs_AP_InertialNav dronecan)
-target_link_libraries(objs_AP_InertialNav littlefs)
+target_link_libraries(objs_AP_InertialNav mavlink) #clean
+target_link_libraries(objs_AP_InertialNav dronecan) #clean
+target_link_libraries(objs_AP_InertialNav littlefs) #clean
 
 set(objs_AP_InertialSensor_SOURCES
     libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp
@@ -2058,9 +2058,9 @@ set_target_properties(objs_AP_InertialSensor PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_InertialSensor mavlink)
-target_link_libraries(objs_AP_InertialSensor dronecan)
-target_link_libraries(objs_AP_InertialSensor littlefs)
+target_link_libraries(objs_AP_InertialSensor mavlink) #clean
+target_link_libraries(objs_AP_InertialSensor dronecan) #clean
+target_link_libraries(objs_AP_InertialSensor littlefs) #clean
 
 set(objs_AP_InternalError_SOURCES
     libraries/AP_InternalError/AP_InternalError.cpp)
@@ -2092,9 +2092,9 @@ set_target_properties(objs_AP_InternalError PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_InternalError mavlink)
-target_link_libraries(objs_AP_InternalError dronecan)
-target_link_libraries(objs_AP_InternalError littlefs)
+target_link_libraries(objs_AP_InternalError mavlink) #clean
+target_link_libraries(objs_AP_InternalError dronecan) #clean
+target_link_libraries(objs_AP_InternalError littlefs) #clean
 
 set(objs_AP_JSButton_SOURCES
     libraries/AP_JSButton/AP_JSButton.cpp)
@@ -2126,9 +2126,9 @@ set_target_properties(objs_AP_JSButton PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_JSButton mavlink)
-target_link_libraries(objs_AP_JSButton dronecan)
-target_link_libraries(objs_AP_JSButton littlefs)
+target_link_libraries(objs_AP_JSButton mavlink) #clean
+target_link_libraries(objs_AP_JSButton dronecan) #clean
+target_link_libraries(objs_AP_JSButton littlefs) #clean
 
 set(objs_AP_JSON_SOURCES
     libraries/AP_JSON/AP_JSON.cpp)
@@ -2160,9 +2160,9 @@ set_target_properties(objs_AP_JSON PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_JSON mavlink)
-target_link_libraries(objs_AP_JSON dronecan)
-target_link_libraries(objs_AP_JSON littlefs)
+target_link_libraries(objs_AP_JSON mavlink) #clean
+target_link_libraries(objs_AP_JSON dronecan) #clean
+target_link_libraries(objs_AP_JSON littlefs) #clean
 
 set(objs_AP_KDECAN_SOURCES
     libraries/AP_KDECAN/AP_KDECAN.cpp)
@@ -2194,9 +2194,9 @@ set_target_properties(objs_AP_KDECAN PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_KDECAN mavlink)
-target_link_libraries(objs_AP_KDECAN dronecan)
-target_link_libraries(objs_AP_KDECAN littlefs)
+target_link_libraries(objs_AP_KDECAN mavlink) #clean
+target_link_libraries(objs_AP_KDECAN dronecan) #clean
+target_link_libraries(objs_AP_KDECAN littlefs) #clean
 
 set(objs_AP_L1_Control_SOURCES
     libraries/AP_L1_Control/AP_L1_Control.cpp)
@@ -2228,9 +2228,9 @@ set_target_properties(objs_AP_L1_Control PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_L1_Control mavlink)
-target_link_libraries(objs_AP_L1_Control dronecan)
-target_link_libraries(objs_AP_L1_Control littlefs)
+target_link_libraries(objs_AP_L1_Control mavlink) #clean
+target_link_libraries(objs_AP_L1_Control dronecan) #clean
+target_link_libraries(objs_AP_L1_Control littlefs) #clean
 
 set(objs_AP_LTM_Telem_SOURCES
     libraries/AP_LTM_Telem/AP_LTM_Telem.cpp)
@@ -2262,9 +2262,9 @@ set_target_properties(objs_AP_LTM_Telem PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_LTM_Telem mavlink)
-target_link_libraries(objs_AP_LTM_Telem dronecan)
-target_link_libraries(objs_AP_LTM_Telem littlefs)
+target_link_libraries(objs_AP_LTM_Telem mavlink) #clean
+target_link_libraries(objs_AP_LTM_Telem dronecan) #clean
+target_link_libraries(objs_AP_LTM_Telem littlefs) #clean
 
 set(objs_AP_Landing_SOURCES
     libraries/AP_Landing/AP_Landing.cpp
@@ -2297,9 +2297,9 @@ set_target_properties(objs_AP_Landing PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Landing mavlink)
-target_link_libraries(objs_AP_Landing dronecan)
-target_link_libraries(objs_AP_Landing littlefs)
+target_link_libraries(objs_AP_Landing mavlink) #clean
+target_link_libraries(objs_AP_Landing dronecan) #clean
+target_link_libraries(objs_AP_Landing littlefs) #clean
 
 set(objs_AP_LeakDetector_SOURCES
     libraries/AP_LeakDetector/AP_LeakDetector.cpp
@@ -2334,9 +2334,9 @@ set_target_properties(objs_AP_LeakDetector PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_LeakDetector mavlink)
-target_link_libraries(objs_AP_LeakDetector dronecan)
-target_link_libraries(objs_AP_LeakDetector littlefs)
+target_link_libraries(objs_AP_LeakDetector mavlink) #clean
+target_link_libraries(objs_AP_LeakDetector dronecan) #clean
+target_link_libraries(objs_AP_LeakDetector littlefs) #clean
 
 set(objs_AP_LightWareSerial_SOURCES
     libraries/AP_LightWareSerial/AP_LightWareSerial.cpp)
@@ -2368,9 +2368,9 @@ set_target_properties(objs_AP_LightWareSerial PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_LightWareSerial mavlink)
-target_link_libraries(objs_AP_LightWareSerial dronecan)
-target_link_libraries(objs_AP_LightWareSerial littlefs)
+target_link_libraries(objs_AP_LightWareSerial mavlink) #clean
+target_link_libraries(objs_AP_LightWareSerial dronecan) #clean
+target_link_libraries(objs_AP_LightWareSerial littlefs) #clean
 
 set(objs_AP_Logger_SOURCES
     libraries/AP_Logger/AP_Logger_Block.cpp
@@ -2407,9 +2407,9 @@ set_target_properties(objs_AP_Logger PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Logger mavlink)
-target_link_libraries(objs_AP_Logger dronecan)
-target_link_libraries(objs_AP_Logger littlefs)
+target_link_libraries(objs_AP_Logger mavlink) #clean
+target_link_libraries(objs_AP_Logger dronecan) #clean
+target_link_libraries(objs_AP_Logger littlefs) #clean
 
 set(objs_AP_MSP_SOURCES
     libraries/AP_MSP/AP_MSP.cpp
@@ -2447,9 +2447,9 @@ set_target_properties(objs_AP_MSP PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_MSP mavlink)
-target_link_libraries(objs_AP_MSP dronecan)
-target_link_libraries(objs_AP_MSP littlefs)
+target_link_libraries(objs_AP_MSP mavlink) #clean
+target_link_libraries(objs_AP_MSP dronecan) #clean
+target_link_libraries(objs_AP_MSP littlefs) #clean
 
 set(objs_AP_Math_SOURCES
     libraries/AP_Math/AP_GeodesicGrid.cpp
@@ -2497,9 +2497,9 @@ set_target_properties(objs_AP_Math PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Math mavlink)
-target_link_libraries(objs_AP_Math dronecan)
-target_link_libraries(objs_AP_Math littlefs)
+target_link_libraries(objs_AP_Math mavlink) #clean
+target_link_libraries(objs_AP_Math dronecan) #clean
+target_link_libraries(objs_AP_Math littlefs) #clean
 
 set(objs_AP_Mission_SOURCES
     libraries/AP_Mission/AP_Mission_ChangeDetector.cpp
@@ -2532,9 +2532,9 @@ set_target_properties(objs_AP_Mission PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Mission mavlink)
-target_link_libraries(objs_AP_Mission dronecan)
-target_link_libraries(objs_AP_Mission littlefs)
+target_link_libraries(objs_AP_Mission mavlink) #clean
+target_link_libraries(objs_AP_Mission dronecan) #clean
+target_link_libraries(objs_AP_Mission littlefs) #clean
 
 set(objs_AP_Module_SOURCES
     libraries/AP_Module/AP_Module.cpp)
@@ -2566,9 +2566,9 @@ set_target_properties(objs_AP_Module PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Module mavlink)
-target_link_libraries(objs_AP_Module dronecan)
-target_link_libraries(objs_AP_Module littlefs)
+target_link_libraries(objs_AP_Module mavlink) #clean
+target_link_libraries(objs_AP_Module dronecan) #clean
+target_link_libraries(objs_AP_Module littlefs) #clean
 
 set(objs_AP_Motors_SOURCES
     libraries/AP_Motors/AP_Motors6DOF.cpp
@@ -2612,9 +2612,9 @@ set_target_properties(objs_AP_Motors PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Motors mavlink)
-target_link_libraries(objs_AP_Motors dronecan)
-target_link_libraries(objs_AP_Motors littlefs)
+target_link_libraries(objs_AP_Motors mavlink) #clean
+target_link_libraries(objs_AP_Motors dronecan) #clean
+target_link_libraries(objs_AP_Motors littlefs) #clean
 
 set(objs_AP_Mount_SOURCES
     libraries/AP_Mount/AP_Mount.cpp
@@ -2665,9 +2665,9 @@ set_target_properties(objs_AP_Mount PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Mount mavlink)
-target_link_libraries(objs_AP_Mount dronecan)
-target_link_libraries(objs_AP_Mount littlefs)
+target_link_libraries(objs_AP_Mount mavlink) #clean
+target_link_libraries(objs_AP_Mount dronecan) #clean
+target_link_libraries(objs_AP_Mount littlefs) #clean
 
 set(objs_AP_MultiHeap_SOURCES
     libraries/AP_MultiHeap/AP_MultiHeap.cpp
@@ -2701,9 +2701,9 @@ set_target_properties(objs_AP_MultiHeap PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_MultiHeap mavlink)
-target_link_libraries(objs_AP_MultiHeap dronecan)
-target_link_libraries(objs_AP_MultiHeap littlefs)
+target_link_libraries(objs_AP_MultiHeap mavlink) #clean
+target_link_libraries(objs_AP_MultiHeap dronecan) #clean
+target_link_libraries(objs_AP_MultiHeap littlefs) #clean
 
 set(objs_AP_NMEA_Output_SOURCES
     libraries/AP_NMEA_Output/AP_NMEA_Output.cpp)
@@ -2735,9 +2735,9 @@ set_target_properties(objs_AP_NMEA_Output PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_NMEA_Output mavlink)
-target_link_libraries(objs_AP_NMEA_Output dronecan)
-target_link_libraries(objs_AP_NMEA_Output littlefs)
+target_link_libraries(objs_AP_NMEA_Output mavlink) #clean
+target_link_libraries(objs_AP_NMEA_Output dronecan) #clean
+target_link_libraries(objs_AP_NMEA_Output littlefs) #clean
 
 set(objs_AP_NavEKF_SOURCES
     libraries/AP_NavEKF/AP_NavEKF_Source.cpp
@@ -2773,9 +2773,9 @@ set_target_properties(objs_AP_NavEKF PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_NavEKF mavlink)
-target_link_libraries(objs_AP_NavEKF dronecan)
-target_link_libraries(objs_AP_NavEKF littlefs)
+target_link_libraries(objs_AP_NavEKF mavlink) #clean
+target_link_libraries(objs_AP_NavEKF dronecan) #clean
+target_link_libraries(objs_AP_NavEKF littlefs) #clean
 
 set(objs_AP_NavEKF2_SOURCES
     libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp
@@ -2817,9 +2817,9 @@ set_target_properties(objs_AP_NavEKF2 PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_NavEKF2 mavlink)
-target_link_libraries(objs_AP_NavEKF2 dronecan)
-target_link_libraries(objs_AP_NavEKF2 littlefs)
+target_link_libraries(objs_AP_NavEKF2 mavlink) #clean
+target_link_libraries(objs_AP_NavEKF2 dronecan) #clean
+target_link_libraries(objs_AP_NavEKF2 littlefs) #clean
 
 set(objs_AP_Networking_SOURCES
     libraries/AP_Networking/AP_Networking.cpp
@@ -2931,9 +2931,9 @@ set_target_properties(objs_AP_Networking PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Networking mavlink)
-target_link_libraries(objs_AP_Networking dronecan)
-target_link_libraries(objs_AP_Networking littlefs)
+target_link_libraries(objs_AP_Networking mavlink) #clean
+target_link_libraries(objs_AP_Networking dronecan) #clean
+target_link_libraries(objs_AP_Networking littlefs) #clean
 
 set(objs_AP_Notify_SOURCES
     libraries/AP_Notify/AP_BoardLED.cpp
@@ -2997,9 +2997,9 @@ set_target_properties(objs_AP_Notify PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Notify mavlink)
-target_link_libraries(objs_AP_Notify dronecan)
-target_link_libraries(objs_AP_Notify littlefs)
+target_link_libraries(objs_AP_Notify mavlink) #clean
+target_link_libraries(objs_AP_Notify dronecan) #clean
+target_link_libraries(objs_AP_Notify littlefs) #clean
 
 set(objs_AP_OLC_SOURCES
     libraries/AP_OLC/AP_OLC.cpp)
@@ -3031,9 +3031,9 @@ set_target_properties(objs_AP_OLC PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_OLC mavlink)
-target_link_libraries(objs_AP_OLC dronecan)
-target_link_libraries(objs_AP_OLC littlefs)
+target_link_libraries(objs_AP_OLC mavlink) #clean
+target_link_libraries(objs_AP_OLC dronecan) #clean
+target_link_libraries(objs_AP_OLC littlefs) #clean
 
 set(objs_AP_OSD_SOURCES
     libraries/AP_OSD/AP_OSD.cpp
@@ -3071,9 +3071,9 @@ set_target_properties(objs_AP_OSD PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_OSD mavlink)
-target_link_libraries(objs_AP_OSD dronecan)
-target_link_libraries(objs_AP_OSD littlefs)
+target_link_libraries(objs_AP_OSD mavlink) #clean
+target_link_libraries(objs_AP_OSD dronecan) #clean
+target_link_libraries(objs_AP_OSD littlefs) #clean
 
 set(objs_AP_OpenDroneID_SOURCES
     libraries/AP_OpenDroneID/AP_OpenDroneID.cpp
@@ -3106,9 +3106,9 @@ set_target_properties(objs_AP_OpenDroneID PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_OpenDroneID mavlink)
-target_link_libraries(objs_AP_OpenDroneID dronecan)
-target_link_libraries(objs_AP_OpenDroneID littlefs)
+target_link_libraries(objs_AP_OpenDroneID mavlink) #clean
+target_link_libraries(objs_AP_OpenDroneID dronecan) #clean
+target_link_libraries(objs_AP_OpenDroneID littlefs) #clean
 
 set(objs_AP_OpticalFlow_SOURCES
     libraries/AP_OpticalFlow/AP_OpticalFlow.cpp
@@ -3151,9 +3151,9 @@ set_target_properties(objs_AP_OpticalFlow PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_OpticalFlow mavlink)
-target_link_libraries(objs_AP_OpticalFlow dronecan)
-target_link_libraries(objs_AP_OpticalFlow littlefs)
+target_link_libraries(objs_AP_OpticalFlow mavlink) #clean
+target_link_libraries(objs_AP_OpticalFlow dronecan) #clean
+target_link_libraries(objs_AP_OpticalFlow littlefs) #clean
 
 set(objs_AP_Parachute_SOURCES
     libraries/AP_Parachute/AP_Parachute.cpp)
@@ -3185,9 +3185,9 @@ set_target_properties(objs_AP_Parachute PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Parachute mavlink)
-target_link_libraries(objs_AP_Parachute dronecan)
-target_link_libraries(objs_AP_Parachute littlefs)
+target_link_libraries(objs_AP_Parachute mavlink) #clean
+target_link_libraries(objs_AP_Parachute dronecan) #clean
+target_link_libraries(objs_AP_Parachute littlefs) #clean
 
 set(objs_AP_Param_SOURCES
     libraries/AP_Param/AP_Param.cpp
@@ -3220,9 +3220,9 @@ set_target_properties(objs_AP_Param PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Param mavlink)
-target_link_libraries(objs_AP_Param dronecan)
-target_link_libraries(objs_AP_Param littlefs)
+target_link_libraries(objs_AP_Param mavlink) #clean
+target_link_libraries(objs_AP_Param dronecan) #clean
+target_link_libraries(objs_AP_Param littlefs) #clean
 
 set(objs_AP_PiccoloCAN_SOURCES
     libraries/AP_PiccoloCAN/AP_PiccoloCAN.cpp
@@ -3258,9 +3258,9 @@ set_target_properties(objs_AP_PiccoloCAN PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_PiccoloCAN mavlink)
-target_link_libraries(objs_AP_PiccoloCAN dronecan)
-target_link_libraries(objs_AP_PiccoloCAN littlefs)
+target_link_libraries(objs_AP_PiccoloCAN mavlink) #clean
+target_link_libraries(objs_AP_PiccoloCAN dronecan) #clean
+target_link_libraries(objs_AP_PiccoloCAN littlefs) #clean
 
 set(objs_AP_Proximity_SOURCES
     libraries/AP_Proximity/AP_Proximity.cpp
@@ -3310,9 +3310,9 @@ set_target_properties(objs_AP_Proximity PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Proximity mavlink)
-target_link_libraries(objs_AP_Proximity dronecan)
-target_link_libraries(objs_AP_Proximity littlefs)
+target_link_libraries(objs_AP_Proximity mavlink) #clean
+target_link_libraries(objs_AP_Proximity dronecan) #clean
+target_link_libraries(objs_AP_Proximity littlefs) #clean
 
 set(objs_AP_Quicktune_SOURCES
     libraries/AP_Quicktune/AP_Quicktune.cpp)
@@ -3344,9 +3344,9 @@ set_target_properties(objs_AP_Quicktune PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Quicktune mavlink)
-target_link_libraries(objs_AP_Quicktune dronecan)
-target_link_libraries(objs_AP_Quicktune littlefs)
+target_link_libraries(objs_AP_Quicktune mavlink) #clean
+target_link_libraries(objs_AP_Quicktune dronecan) #clean
+target_link_libraries(objs_AP_Quicktune littlefs) #clean
 
 set(objs_AP_RAMTRON_SOURCES
     libraries/AP_RAMTRON/AP_RAMTRON.cpp)
@@ -3378,9 +3378,9 @@ set_target_properties(objs_AP_RAMTRON PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RAMTRON mavlink)
-target_link_libraries(objs_AP_RAMTRON dronecan)
-target_link_libraries(objs_AP_RAMTRON littlefs)
+target_link_libraries(objs_AP_RAMTRON mavlink) #clean
+target_link_libraries(objs_AP_RAMTRON dronecan) #clean
+target_link_libraries(objs_AP_RAMTRON littlefs) #clean
 
 set(objs_AP_RCMapper_SOURCES
     libraries/AP_RCMapper/AP_RCMapper.cpp)
@@ -3412,9 +3412,9 @@ set_target_properties(objs_AP_RCMapper PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RCMapper mavlink)
-target_link_libraries(objs_AP_RCMapper dronecan)
-target_link_libraries(objs_AP_RCMapper littlefs)
+target_link_libraries(objs_AP_RCMapper mavlink) #clean
+target_link_libraries(objs_AP_RCMapper dronecan) #clean
+target_link_libraries(objs_AP_RCMapper littlefs) #clean
 
 set(objs_AP_RCProtocol_SOURCES
     libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp
@@ -3462,9 +3462,9 @@ set_target_properties(objs_AP_RCProtocol PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RCProtocol mavlink)
-target_link_libraries(objs_AP_RCProtocol dronecan)
-target_link_libraries(objs_AP_RCProtocol littlefs)
+target_link_libraries(objs_AP_RCProtocol mavlink) #clean
+target_link_libraries(objs_AP_RCProtocol dronecan) #clean
+target_link_libraries(objs_AP_RCProtocol littlefs) #clean
 
 set(objs_AP_RCTelemetry_SOURCES
     libraries/AP_RCTelemetry/AP_GHST_Telem.cpp
@@ -3497,9 +3497,9 @@ set_target_properties(objs_AP_RCTelemetry PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RCTelemetry mavlink)
-target_link_libraries(objs_AP_RCTelemetry dronecan)
-target_link_libraries(objs_AP_RCTelemetry littlefs)
+target_link_libraries(objs_AP_RCTelemetry mavlink) #clean
+target_link_libraries(objs_AP_RCTelemetry dronecan) #clean
+target_link_libraries(objs_AP_RCTelemetry littlefs) #clean
 
 set(objs_AP_ROMFS_SOURCES
     libraries/AP_ROMFS/AP_ROMFS.cpp
@@ -3532,9 +3532,9 @@ set_target_properties(objs_AP_ROMFS PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ROMFS mavlink)
-target_link_libraries(objs_AP_ROMFS dronecan)
-target_link_libraries(objs_AP_ROMFS littlefs)
+target_link_libraries(objs_AP_ROMFS mavlink) #clean
+target_link_libraries(objs_AP_ROMFS dronecan) #clean
+target_link_libraries(objs_AP_ROMFS littlefs) #clean
 
 set(objs_AP_RPM_SOURCES
     libraries/AP_RPM/AP_RPM.cpp
@@ -3575,9 +3575,9 @@ set_target_properties(objs_AP_RPM PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RPM mavlink)
-target_link_libraries(objs_AP_RPM dronecan)
-target_link_libraries(objs_AP_RPM littlefs)
+target_link_libraries(objs_AP_RPM mavlink) #clean
+target_link_libraries(objs_AP_RPM dronecan) #clean
+target_link_libraries(objs_AP_RPM littlefs) #clean
 
 set(objs_AP_RSSI_SOURCES
     libraries/AP_RSSI/AP_RSSI.cpp)
@@ -3609,9 +3609,9 @@ set_target_properties(objs_AP_RSSI PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RSSI mavlink)
-target_link_libraries(objs_AP_RSSI dronecan)
-target_link_libraries(objs_AP_RSSI littlefs)
+target_link_libraries(objs_AP_RSSI mavlink) #clean
+target_link_libraries(objs_AP_RSSI dronecan) #clean
+target_link_libraries(objs_AP_RSSI littlefs) #clean
 
 set(objs_AP_RTC_SOURCES
     libraries/AP_RTC/AP_RTC.cpp
@@ -3644,9 +3644,9 @@ set_target_properties(objs_AP_RTC PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RTC mavlink)
-target_link_libraries(objs_AP_RTC dronecan)
-target_link_libraries(objs_AP_RTC littlefs)
+target_link_libraries(objs_AP_RTC mavlink) #clean
+target_link_libraries(objs_AP_RTC dronecan) #clean
+target_link_libraries(objs_AP_RTC littlefs) #clean
 
 set(objs_AP_Radio_SOURCES
     libraries/AP_Radio/AP_Radio.cpp
@@ -3684,9 +3684,9 @@ set_target_properties(objs_AP_Radio PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Radio mavlink)
-target_link_libraries(objs_AP_Radio dronecan)
-target_link_libraries(objs_AP_Radio littlefs)
+target_link_libraries(objs_AP_Radio mavlink) #clean
+target_link_libraries(objs_AP_Radio dronecan) #clean
+target_link_libraries(objs_AP_Radio littlefs) #clean
 
 set(objs_AP_RangeFinder_SOURCES
     libraries/AP_RangeFinder/AP_RangeFinder.cpp
@@ -3762,9 +3762,9 @@ set_target_properties(objs_AP_RangeFinder PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RangeFinder mavlink)
-target_link_libraries(objs_AP_RangeFinder dronecan)
-target_link_libraries(objs_AP_RangeFinder littlefs)
+target_link_libraries(objs_AP_RangeFinder mavlink) #clean
+target_link_libraries(objs_AP_RangeFinder dronecan) #clean
+target_link_libraries(objs_AP_RangeFinder littlefs) #clean
 
 set(objs_AP_Relay_SOURCES
     libraries/AP_Relay/AP_Relay_Params.cpp)
@@ -3796,9 +3796,9 @@ set_target_properties(objs_AP_Relay PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Relay mavlink)
-target_link_libraries(objs_AP_Relay dronecan)
-target_link_libraries(objs_AP_Relay littlefs)
+target_link_libraries(objs_AP_Relay mavlink) #clean
+target_link_libraries(objs_AP_Relay dronecan) #clean
+target_link_libraries(objs_AP_Relay littlefs) #clean
 
 set(objs_AP_RobotisServo_SOURCES
     libraries/AP_RobotisServo/AP_RobotisServo.cpp)
@@ -3830,9 +3830,9 @@ set_target_properties(objs_AP_RobotisServo PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RobotisServo mavlink)
-target_link_libraries(objs_AP_RobotisServo dronecan)
-target_link_libraries(objs_AP_RobotisServo littlefs)
+target_link_libraries(objs_AP_RobotisServo mavlink) #clean
+target_link_libraries(objs_AP_RobotisServo dronecan) #clean
+target_link_libraries(objs_AP_RobotisServo littlefs) #clean
 
 set(objs_AP_SBusOut_SOURCES
     libraries/AP_SBusOut/AP_SBusOut.cpp)
@@ -3864,9 +3864,9 @@ set_target_properties(objs_AP_SBusOut PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_SBusOut mavlink)
-target_link_libraries(objs_AP_SBusOut dronecan)
-target_link_libraries(objs_AP_SBusOut littlefs)
+target_link_libraries(objs_AP_SBusOut mavlink) #clean
+target_link_libraries(objs_AP_SBusOut dronecan) #clean
+target_link_libraries(objs_AP_SBusOut littlefs) #clean
 
 set(objs_AP_Scheduler_SOURCES
     libraries/AP_Scheduler/PerfInfo.cpp)
@@ -3898,9 +3898,9 @@ set_target_properties(objs_AP_Scheduler PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Scheduler mavlink)
-target_link_libraries(objs_AP_Scheduler dronecan)
-target_link_libraries(objs_AP_Scheduler littlefs)
+target_link_libraries(objs_AP_Scheduler mavlink) #clean
+target_link_libraries(objs_AP_Scheduler dronecan) #clean
+target_link_libraries(objs_AP_Scheduler littlefs) #clean
 
 set(objs_AP_SerialLED_SOURCES
     libraries/AP_SerialLED/AP_SerialLED.cpp)
@@ -3932,9 +3932,9 @@ set_target_properties(objs_AP_SerialLED PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_SerialLED mavlink)
-target_link_libraries(objs_AP_SerialLED dronecan)
-target_link_libraries(objs_AP_SerialLED littlefs)
+target_link_libraries(objs_AP_SerialLED mavlink) #clean
+target_link_libraries(objs_AP_SerialLED dronecan) #clean
+target_link_libraries(objs_AP_SerialLED littlefs) #clean
 
 set(objs_AP_SerialManager_SOURCES
     libraries/AP_SerialManager/AP_SerialManager.cpp)
@@ -3966,9 +3966,9 @@ set_target_properties(objs_AP_SerialManager PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_SerialManager mavlink)
-target_link_libraries(objs_AP_SerialManager dronecan)
-target_link_libraries(objs_AP_SerialManager littlefs)
+target_link_libraries(objs_AP_SerialManager mavlink) #clean
+target_link_libraries(objs_AP_SerialManager dronecan) #clean
+target_link_libraries(objs_AP_SerialManager littlefs) #clean
 
 set(objs_AP_ServoRelayEvents_SOURCES
     libraries/AP_ServoRelayEvents/AP_ServoRelayEvents.cpp)
@@ -4000,9 +4000,9 @@ set_target_properties(objs_AP_ServoRelayEvents PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ServoRelayEvents mavlink)
-target_link_libraries(objs_AP_ServoRelayEvents dronecan)
-target_link_libraries(objs_AP_ServoRelayEvents littlefs)
+target_link_libraries(objs_AP_ServoRelayEvents mavlink) #clean
+target_link_libraries(objs_AP_ServoRelayEvents dronecan) #clean
+target_link_libraries(objs_AP_ServoRelayEvents littlefs) #clean
 
 set(objs_AP_Servo_Telem_SOURCES
     libraries/AP_Servo_Telem/AP_Servo_Telem.cpp)
@@ -4034,9 +4034,9 @@ set_target_properties(objs_AP_Servo_Telem PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Servo_Telem mavlink)
-target_link_libraries(objs_AP_Servo_Telem dronecan)
-target_link_libraries(objs_AP_Servo_Telem littlefs)
+target_link_libraries(objs_AP_Servo_Telem mavlink) #clean
+target_link_libraries(objs_AP_Servo_Telem dronecan) #clean
+target_link_libraries(objs_AP_Servo_Telem littlefs) #clean
 
 set(objs_AP_SmartRTL_SOURCES
     libraries/AP_SmartRTL/AP_SmartRTL.cpp)
@@ -4068,9 +4068,9 @@ set_target_properties(objs_AP_SmartRTL PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_SmartRTL mavlink)
-target_link_libraries(objs_AP_SmartRTL dronecan)
-target_link_libraries(objs_AP_SmartRTL littlefs)
+target_link_libraries(objs_AP_SmartRTL mavlink) #clean
+target_link_libraries(objs_AP_SmartRTL dronecan) #clean
+target_link_libraries(objs_AP_SmartRTL littlefs) #clean
 
 set(objs_AP_Soaring_SOURCES
     libraries/AP_Soaring/AP_Soaring.cpp
@@ -4105,9 +4105,9 @@ set_target_properties(objs_AP_Soaring PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Soaring mavlink)
-target_link_libraries(objs_AP_Soaring dronecan)
-target_link_libraries(objs_AP_Soaring littlefs)
+target_link_libraries(objs_AP_Soaring mavlink) #clean
+target_link_libraries(objs_AP_Soaring dronecan) #clean
+target_link_libraries(objs_AP_Soaring littlefs) #clean
 
 set(objs_AP_Stats_SOURCES
     libraries/AP_Stats/AP_Stats.cpp)
@@ -4139,9 +4139,9 @@ set_target_properties(objs_AP_Stats PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Stats mavlink)
-target_link_libraries(objs_AP_Stats dronecan)
-target_link_libraries(objs_AP_Stats littlefs)
+target_link_libraries(objs_AP_Stats mavlink) #clean
+target_link_libraries(objs_AP_Stats dronecan) #clean
+target_link_libraries(objs_AP_Stats littlefs) #clean
 
 set(objs_AP_SurfaceDistance_SOURCES
     libraries/AP_SurfaceDistance/AP_SurfaceDistance.cpp)
@@ -4173,9 +4173,9 @@ set_target_properties(objs_AP_SurfaceDistance PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_SurfaceDistance mavlink)
-target_link_libraries(objs_AP_SurfaceDistance dronecan)
-target_link_libraries(objs_AP_SurfaceDistance littlefs)
+target_link_libraries(objs_AP_SurfaceDistance mavlink) #clean
+target_link_libraries(objs_AP_SurfaceDistance dronecan) #clean
+target_link_libraries(objs_AP_SurfaceDistance littlefs) #clean
 
 set(objs_AP_TECS_SOURCES
     libraries/AP_TECS/AP_TECS.cpp)
@@ -4207,9 +4207,9 @@ set_target_properties(objs_AP_TECS PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_TECS mavlink)
-target_link_libraries(objs_AP_TECS dronecan)
-target_link_libraries(objs_AP_TECS littlefs)
+target_link_libraries(objs_AP_TECS mavlink) #clean
+target_link_libraries(objs_AP_TECS dronecan) #clean
+target_link_libraries(objs_AP_TECS littlefs) #clean
 
 set(objs_AP_TempCalibration_SOURCES
     libraries/AP_TempCalibration/AP_TempCalibration.cpp)
@@ -4241,9 +4241,9 @@ set_target_properties(objs_AP_TempCalibration PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_TempCalibration mavlink)
-target_link_libraries(objs_AP_TempCalibration dronecan)
-target_link_libraries(objs_AP_TempCalibration littlefs)
+target_link_libraries(objs_AP_TempCalibration mavlink) #clean
+target_link_libraries(objs_AP_TempCalibration dronecan) #clean
+target_link_libraries(objs_AP_TempCalibration littlefs) #clean
 
 set(objs_AP_TemperatureSensor_SOURCES
     libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp
@@ -4284,9 +4284,9 @@ set_target_properties(objs_AP_TemperatureSensor PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_TemperatureSensor mavlink)
-target_link_libraries(objs_AP_TemperatureSensor dronecan)
-target_link_libraries(objs_AP_TemperatureSensor littlefs)
+target_link_libraries(objs_AP_TemperatureSensor mavlink) #clean
+target_link_libraries(objs_AP_TemperatureSensor dronecan) #clean
+target_link_libraries(objs_AP_TemperatureSensor littlefs) #clean
 
 set(objs_AP_Terrain_SOURCES
     libraries/AP_Terrain/TerrainGCS.cpp
@@ -4321,9 +4321,9 @@ set_target_properties(objs_AP_Terrain PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Terrain mavlink)
-target_link_libraries(objs_AP_Terrain dronecan)
-target_link_libraries(objs_AP_Terrain littlefs)
+target_link_libraries(objs_AP_Terrain mavlink) #clean
+target_link_libraries(objs_AP_Terrain dronecan) #clean
+target_link_libraries(objs_AP_Terrain littlefs) #clean
 
 set(objs_AP_Torqeedo_SOURCES
     libraries/AP_Torqeedo/AP_Torqeedo.cpp
@@ -4358,9 +4358,9 @@ set_target_properties(objs_AP_Torqeedo PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Torqeedo mavlink)
-target_link_libraries(objs_AP_Torqeedo dronecan)
-target_link_libraries(objs_AP_Torqeedo littlefs)
+target_link_libraries(objs_AP_Torqeedo mavlink) #clean
+target_link_libraries(objs_AP_Torqeedo dronecan) #clean
+target_link_libraries(objs_AP_Torqeedo littlefs) #clean
 
 set(objs_AP_Tuning_SOURCES
     libraries/AP_Tuning/AP_Tuning.cpp)
@@ -4392,9 +4392,9 @@ set_target_properties(objs_AP_Tuning PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Tuning mavlink)
-target_link_libraries(objs_AP_Tuning dronecan)
-target_link_libraries(objs_AP_Tuning littlefs)
+target_link_libraries(objs_AP_Tuning mavlink) #clean
+target_link_libraries(objs_AP_Tuning dronecan) #clean
+target_link_libraries(objs_AP_Tuning littlefs) #clean
 
 set(objs_AP_Vehicle_SOURCES
     libraries/AP_Vehicle/Parameters.cpp)
@@ -4426,9 +4426,9 @@ set_target_properties(objs_AP_Vehicle PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Vehicle mavlink)
-target_link_libraries(objs_AP_Vehicle dronecan)
-target_link_libraries(objs_AP_Vehicle littlefs)
+target_link_libraries(objs_AP_Vehicle mavlink) #clean
+target_link_libraries(objs_AP_Vehicle dronecan) #clean
+target_link_libraries(objs_AP_Vehicle littlefs) #clean
 
 set(objs_AP_VideoTX_SOURCES
     libraries/AP_VideoTX/AP_SmartAudio.cpp
@@ -4462,9 +4462,9 @@ set_target_properties(objs_AP_VideoTX PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_VideoTX mavlink)
-target_link_libraries(objs_AP_VideoTX dronecan)
-target_link_libraries(objs_AP_VideoTX littlefs)
+target_link_libraries(objs_AP_VideoTX mavlink) #clean
+target_link_libraries(objs_AP_VideoTX dronecan) #clean
+target_link_libraries(objs_AP_VideoTX littlefs) #clean
 
 set(objs_AP_VisualOdom_SOURCES
     libraries/AP_VisualOdom/AP_VisualOdom.cpp
@@ -4500,9 +4500,9 @@ set_target_properties(objs_AP_VisualOdom PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_VisualOdom mavlink)
-target_link_libraries(objs_AP_VisualOdom dronecan)
-target_link_libraries(objs_AP_VisualOdom littlefs)
+target_link_libraries(objs_AP_VisualOdom mavlink) #clean
+target_link_libraries(objs_AP_VisualOdom dronecan) #clean
+target_link_libraries(objs_AP_VisualOdom littlefs) #clean
 
 set(objs_AP_Volz_Protocol_SOURCES
     libraries/AP_Volz_Protocol/AP_Volz_Protocol.cpp)
@@ -4534,9 +4534,9 @@ set_target_properties(objs_AP_Volz_Protocol PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Volz_Protocol mavlink)
-target_link_libraries(objs_AP_Volz_Protocol dronecan)
-target_link_libraries(objs_AP_Volz_Protocol littlefs)
+target_link_libraries(objs_AP_Volz_Protocol mavlink) #clean
+target_link_libraries(objs_AP_Volz_Protocol dronecan) #clean
+target_link_libraries(objs_AP_Volz_Protocol littlefs) #clean
 
 set(objs_AP_WheelEncoder_SOURCES
     libraries/AP_WheelEncoder/AP_WheelEncoder.cpp
@@ -4572,9 +4572,9 @@ set_target_properties(objs_AP_WheelEncoder PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_WheelEncoder mavlink)
-target_link_libraries(objs_AP_WheelEncoder dronecan)
-target_link_libraries(objs_AP_WheelEncoder littlefs)
+target_link_libraries(objs_AP_WheelEncoder mavlink) #clean
+target_link_libraries(objs_AP_WheelEncoder dronecan) #clean
+target_link_libraries(objs_AP_WheelEncoder littlefs) #clean
 
 set(objs_AP_Winch_SOURCES
     libraries/AP_Winch/AP_Winch.cpp
@@ -4609,9 +4609,9 @@ set_target_properties(objs_AP_Winch PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Winch mavlink)
-target_link_libraries(objs_AP_Winch dronecan)
-target_link_libraries(objs_AP_Winch littlefs)
+target_link_libraries(objs_AP_Winch mavlink) #clean
+target_link_libraries(objs_AP_Winch dronecan) #clean
+target_link_libraries(objs_AP_Winch littlefs) #clean
 
 set(objs_AP_WindVane_SOURCES
     libraries/AP_WindVane/AP_WindVane.cpp
@@ -4651,9 +4651,9 @@ set_target_properties(objs_AP_WindVane PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_WindVane mavlink)
-target_link_libraries(objs_AP_WindVane dronecan)
-target_link_libraries(objs_AP_WindVane littlefs)
+target_link_libraries(objs_AP_WindVane mavlink) #clean
+target_link_libraries(objs_AP_WindVane dronecan) #clean
+target_link_libraries(objs_AP_WindVane littlefs) #clean
 
 set(objs_AR_Motors_SOURCES
     libraries/AR_Motors/AP_MotorsUGV.cpp)
@@ -4685,9 +4685,9 @@ set_target_properties(objs_AR_Motors PROPERTIES
 )
 
 
-target_link_libraries(objs_AR_Motors mavlink)
-target_link_libraries(objs_AR_Motors dronecan)
-target_link_libraries(objs_AR_Motors littlefs)
+target_link_libraries(objs_AR_Motors mavlink) #clean
+target_link_libraries(objs_AR_Motors dronecan) #clean
+target_link_libraries(objs_AR_Motors littlefs) #clean
 
 set(objs_AR_WPNav_SOURCES
     libraries/AR_WPNav/AR_PivotTurn.cpp
@@ -4721,9 +4721,9 @@ set_target_properties(objs_AR_WPNav PROPERTIES
 )
 
 
-target_link_libraries(objs_AR_WPNav mavlink)
-target_link_libraries(objs_AR_WPNav dronecan)
-target_link_libraries(objs_AR_WPNav littlefs)
+target_link_libraries(objs_AR_WPNav mavlink) #clean
+target_link_libraries(objs_AR_WPNav dronecan) #clean
+target_link_libraries(objs_AR_WPNav littlefs) #clean
 
 set(objs_Filter_SOURCES
     libraries/Filter/AP_Filter.cpp
@@ -4763,9 +4763,9 @@ set_target_properties(objs_Filter PROPERTIES
 )
 
 
-target_link_libraries(objs_Filter mavlink)
-target_link_libraries(objs_Filter dronecan)
-target_link_libraries(objs_Filter littlefs)
+target_link_libraries(objs_Filter mavlink) #clean
+target_link_libraries(objs_Filter dronecan) #clean
+target_link_libraries(objs_Filter littlefs) #clean
 
 set(objs_GCS_MAVLink_SOURCES
     libraries/GCS_MAVLink/GCS_DeviceOp.cpp
@@ -4809,9 +4809,9 @@ set_target_properties(objs_GCS_MAVLink PROPERTIES
 )
 
 
-target_link_libraries(objs_GCS_MAVLink mavlink)
-target_link_libraries(objs_GCS_MAVLink dronecan)
-target_link_libraries(objs_GCS_MAVLink littlefs)
+target_link_libraries(objs_GCS_MAVLink mavlink) #clean
+target_link_libraries(objs_GCS_MAVLink dronecan) #clean
+target_link_libraries(objs_GCS_MAVLink littlefs) #clean
 
 set(objs_PID_SOURCES
     libraries/PID/PID.cpp)
@@ -4843,9 +4843,9 @@ set_target_properties(objs_PID PROPERTIES
 )
 
 
-target_link_libraries(objs_PID mavlink)
-target_link_libraries(objs_PID dronecan)
-target_link_libraries(objs_PID littlefs)
+target_link_libraries(objs_PID mavlink) #clean
+target_link_libraries(objs_PID dronecan) #clean
+target_link_libraries(objs_PID littlefs) #clean
 
 set(objs_RC_Channel_SOURCES
     libraries/RC_Channel/RC_Channels.cpp)
@@ -4877,9 +4877,9 @@ set_target_properties(objs_RC_Channel PROPERTIES
 )
 
 
-target_link_libraries(objs_RC_Channel mavlink)
-target_link_libraries(objs_RC_Channel dronecan)
-target_link_libraries(objs_RC_Channel littlefs)
+target_link_libraries(objs_RC_Channel mavlink) #clean
+target_link_libraries(objs_RC_Channel dronecan) #clean
+target_link_libraries(objs_RC_Channel littlefs) #clean
 
 set(objs_SRV_Channel_SOURCES
     libraries/SRV_Channel/SRV_Channel.cpp
@@ -4913,9 +4913,9 @@ set_target_properties(objs_SRV_Channel PROPERTIES
 )
 
 
-target_link_libraries(objs_SRV_Channel mavlink)
-target_link_libraries(objs_SRV_Channel dronecan)
-target_link_libraries(objs_SRV_Channel littlefs)
+target_link_libraries(objs_SRV_Channel mavlink) #clean
+target_link_libraries(objs_SRV_Channel dronecan) #clean
+target_link_libraries(objs_SRV_Channel littlefs) #clean
 
 set(objs_AP_HAL_SOURCES
     libraries/AP_HAL/CANIface.cpp
@@ -4975,9 +4975,9 @@ set_target_properties(objs_AP_HAL PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_HAL mavlink)
-target_link_libraries(objs_AP_HAL dronecan)
-target_link_libraries(objs_AP_HAL littlefs)
+target_link_libraries(objs_AP_HAL mavlink) #clean
+target_link_libraries(objs_AP_HAL dronecan) #clean
+target_link_libraries(objs_AP_HAL littlefs) #clean
 
 set(objs_AP_HAL_Empty_SOURCES
     libraries/AP_HAL_Empty/AnalogIn.cpp
@@ -5016,9 +5016,9 @@ set_target_properties(objs_AP_HAL_Empty PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_HAL_Empty mavlink)
-target_link_libraries(objs_AP_HAL_Empty dronecan)
-target_link_libraries(objs_AP_HAL_Empty littlefs)
+target_link_libraries(objs_AP_HAL_Empty mavlink) #clean
+target_link_libraries(objs_AP_HAL_Empty dronecan) #clean
+target_link_libraries(objs_AP_HAL_Empty littlefs) #clean
 
 set(objs_AP_PiccoloCAN_piccolo_protocol_SOURCES
     libraries/AP_PiccoloCAN/piccolo_protocol/CortexDefines.c
@@ -5068,9 +5068,9 @@ set_target_properties(objs_AP_PiccoloCAN_piccolo_protocol PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_PiccoloCAN_piccolo_protocol mavlink)
-target_link_libraries(objs_AP_PiccoloCAN_piccolo_protocol dronecan)
-target_link_libraries(objs_AP_PiccoloCAN_piccolo_protocol littlefs)
+target_link_libraries(objs_AP_PiccoloCAN_piccolo_protocol mavlink) #clean
+target_link_libraries(objs_AP_PiccoloCAN_piccolo_protocol dronecan) #clean
+target_link_libraries(objs_AP_PiccoloCAN_piccolo_protocol littlefs) #clean
 
 set(objs_AP_HAL_SITL_SOURCES
     libraries/AP_HAL_SITL/AnalogIn.cpp
@@ -5123,9 +5123,9 @@ set_target_properties(objs_AP_HAL_SITL PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_HAL_SITL mavlink)
-target_link_libraries(objs_AP_HAL_SITL dronecan)
-target_link_libraries(objs_AP_HAL_SITL littlefs)
+target_link_libraries(objs_AP_HAL_SITL mavlink) #clean
+target_link_libraries(objs_AP_HAL_SITL dronecan) #clean
+target_link_libraries(objs_AP_HAL_SITL littlefs) #clean
 
 set(objs_SITL_SOURCES
     libraries/SITL/SIM_ADSB.cpp
@@ -5301,9 +5301,9 @@ set_target_properties(objs_SITL PROPERTIES
 )
 
 
-target_link_libraries(objs_SITL mavlink)
-target_link_libraries(objs_SITL dronecan)
-target_link_libraries(objs_SITL littlefs)
+target_link_libraries(objs_SITL mavlink) #clean
+target_link_libraries(objs_SITL dronecan) #clean
+target_link_libraries(objs_SITL littlefs) #clean
 
 set(objs_AP_Scripting_SOURCES
     libraries/AP_Scripting/AP_Scripting.cpp
@@ -5338,9 +5338,9 @@ set_target_properties(objs_AP_Scripting PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Scripting mavlink)
-target_link_libraries(objs_AP_Scripting dronecan)
-target_link_libraries(objs_AP_Scripting littlefs)
+target_link_libraries(objs_AP_Scripting mavlink) #clean
+target_link_libraries(objs_AP_Scripting dronecan) #clean
+target_link_libraries(objs_AP_Scripting littlefs) #clean
 
 set(objs_AP_Scripting_lua_src_SOURCES
     libraries/AP_Scripting/lua/src/lapi.c
@@ -5406,9 +5406,9 @@ set_target_properties(objs_AP_Scripting_lua_src PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Scripting_lua_src mavlink)
-target_link_libraries(objs_AP_Scripting_lua_src dronecan)
-target_link_libraries(objs_AP_Scripting_lua_src littlefs)
+target_link_libraries(objs_AP_Scripting_lua_src mavlink) #clean
+target_link_libraries(objs_AP_Scripting_lua_src dronecan) #clean
+target_link_libraries(objs_AP_Scripting_lua_src littlefs) #clean
 
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/AntennaTracker)

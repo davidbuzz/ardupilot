@@ -33,9 +33,9 @@ set_target_properties(objs_AP_AHRS_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_AHRS_Blimp mavlink)
-target_link_libraries(objs_AP_AHRS_Blimp dronecan)
-target_link_libraries(objs_AP_AHRS_Blimp littlefs)
+target_link_libraries(objs_AP_AHRS_Blimp mavlink) #clean
+target_link_libraries(objs_AP_AHRS_Blimp dronecan) #clean
+target_link_libraries(objs_AP_AHRS_Blimp littlefs) #clean
 
 set(objs_AP_Airspeed_Blimp_SOURCES
     ../libraries/AP_Airspeed/AP_Airspeed.cpp
@@ -71,9 +71,9 @@ set_target_properties(objs_AP_Airspeed_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Airspeed_Blimp mavlink)
-target_link_libraries(objs_AP_Airspeed_Blimp dronecan)
-target_link_libraries(objs_AP_Airspeed_Blimp littlefs)
+target_link_libraries(objs_AP_Airspeed_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Airspeed_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Airspeed_Blimp littlefs) #clean
 
 set(objs_AP_Baro_Blimp_SOURCES
     ../libraries/AP_Baro/AP_Baro.cpp
@@ -109,9 +109,9 @@ set_target_properties(objs_AP_Baro_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Baro_Blimp mavlink)
-target_link_libraries(objs_AP_Baro_Blimp dronecan)
-target_link_libraries(objs_AP_Baro_Blimp littlefs)
+target_link_libraries(objs_AP_Baro_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Baro_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Baro_Blimp littlefs) #clean
 
 set(objs_AP_BattMonitor_Blimp_SOURCES
     ../libraries/AP_BattMonitor/AP_BattMonitor.cpp
@@ -146,9 +146,9 @@ set_target_properties(objs_AP_BattMonitor_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_BattMonitor_Blimp mavlink)
-target_link_libraries(objs_AP_BattMonitor_Blimp dronecan)
-target_link_libraries(objs_AP_BattMonitor_Blimp littlefs)
+target_link_libraries(objs_AP_BattMonitor_Blimp mavlink) #clean
+target_link_libraries(objs_AP_BattMonitor_Blimp dronecan) #clean
+target_link_libraries(objs_AP_BattMonitor_Blimp littlefs) #clean
 
 set(objs_AP_BoardConfig_Blimp_SOURCES
     ../libraries/AP_BoardConfig/AP_BoardConfig.cpp)
@@ -182,9 +182,9 @@ set_target_properties(objs_AP_BoardConfig_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_BoardConfig_Blimp mavlink)
-target_link_libraries(objs_AP_BoardConfig_Blimp dronecan)
-target_link_libraries(objs_AP_BoardConfig_Blimp littlefs)
+target_link_libraries(objs_AP_BoardConfig_Blimp mavlink) #clean
+target_link_libraries(objs_AP_BoardConfig_Blimp dronecan) #clean
+target_link_libraries(objs_AP_BoardConfig_Blimp littlefs) #clean
 
 set(objs_AP_HAL_Blimp_SOURCES
     ../libraries/AP_HAL/SIMState.cpp)
@@ -218,9 +218,9 @@ set_target_properties(objs_AP_HAL_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_HAL_Blimp mavlink)
-target_link_libraries(objs_AP_HAL_Blimp dronecan)
-target_link_libraries(objs_AP_HAL_Blimp littlefs)
+target_link_libraries(objs_AP_HAL_Blimp mavlink) #clean
+target_link_libraries(objs_AP_HAL_Blimp dronecan) #clean
+target_link_libraries(objs_AP_HAL_Blimp littlefs) #clean
 
 set(objs_AP_InertialSensor_Blimp_SOURCES
     ../libraries/AP_InertialSensor/AP_InertialSensor.cpp
@@ -257,9 +257,9 @@ set_target_properties(objs_AP_InertialSensor_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_InertialSensor_Blimp mavlink)
-target_link_libraries(objs_AP_InertialSensor_Blimp dronecan)
-target_link_libraries(objs_AP_InertialSensor_Blimp littlefs)
+target_link_libraries(objs_AP_InertialSensor_Blimp mavlink) #clean
+target_link_libraries(objs_AP_InertialSensor_Blimp dronecan) #clean
+target_link_libraries(objs_AP_InertialSensor_Blimp littlefs) #clean
 
 set(objs_AP_Math_Blimp_SOURCES
     ../libraries/AP_Math/SCurve.cpp)
@@ -293,9 +293,9 @@ set_target_properties(objs_AP_Math_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Math_Blimp mavlink)
-target_link_libraries(objs_AP_Math_Blimp dronecan)
-target_link_libraries(objs_AP_Math_Blimp littlefs)
+target_link_libraries(objs_AP_Math_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Math_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Math_Blimp littlefs) #clean
 
 set(objs_AP_Mission_Blimp_SOURCES
     ../libraries/AP_Mission/AP_Mission.cpp)
@@ -329,9 +329,9 @@ set_target_properties(objs_AP_Mission_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Mission_Blimp mavlink)
-target_link_libraries(objs_AP_Mission_Blimp dronecan)
-target_link_libraries(objs_AP_Mission_Blimp littlefs)
+target_link_libraries(objs_AP_Mission_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Mission_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Mission_Blimp littlefs) #clean
 
 set(objs_AP_DAL_Blimp_SOURCES
     ../libraries/AP_DAL/AP_DAL.cpp
@@ -368,9 +368,9 @@ set_target_properties(objs_AP_DAL_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_DAL_Blimp mavlink)
-target_link_libraries(objs_AP_DAL_Blimp dronecan)
-target_link_libraries(objs_AP_DAL_Blimp littlefs)
+target_link_libraries(objs_AP_DAL_Blimp mavlink) #clean
+target_link_libraries(objs_AP_DAL_Blimp dronecan) #clean
+target_link_libraries(objs_AP_DAL_Blimp littlefs) #clean
 
 set(objs_AP_NavEKF2_Blimp_SOURCES
     ../libraries/AP_NavEKF2/AP_NavEKF2.cpp
@@ -405,9 +405,9 @@ set_target_properties(objs_AP_NavEKF2_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_NavEKF2_Blimp mavlink)
-target_link_libraries(objs_AP_NavEKF2_Blimp dronecan)
-target_link_libraries(objs_AP_NavEKF2_Blimp littlefs)
+target_link_libraries(objs_AP_NavEKF2_Blimp mavlink) #clean
+target_link_libraries(objs_AP_NavEKF2_Blimp dronecan) #clean
+target_link_libraries(objs_AP_NavEKF2_Blimp littlefs) #clean
 
 set(objs_AP_NavEKF3_Blimp_SOURCES
     ../libraries/AP_NavEKF3/AP_NavEKF3.cpp
@@ -453,9 +453,9 @@ set_target_properties(objs_AP_NavEKF3_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_NavEKF3_Blimp mavlink)
-target_link_libraries(objs_AP_NavEKF3_Blimp dronecan)
-target_link_libraries(objs_AP_NavEKF3_Blimp littlefs)
+target_link_libraries(objs_AP_NavEKF3_Blimp mavlink) #clean
+target_link_libraries(objs_AP_NavEKF3_Blimp dronecan) #clean
+target_link_libraries(objs_AP_NavEKF3_Blimp littlefs) #clean
 
 set(objs_AP_Rally_Blimp_SOURCES
     ../libraries/AP_Rally/AP_Rally.cpp)
@@ -489,9 +489,9 @@ set_target_properties(objs_AP_Rally_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Rally_Blimp mavlink)
-target_link_libraries(objs_AP_Rally_Blimp dronecan)
-target_link_libraries(objs_AP_Rally_Blimp littlefs)
+target_link_libraries(objs_AP_Rally_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Rally_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Rally_Blimp littlefs) #clean
 
 set(objs_AP_Scheduler_Blimp_SOURCES
     ../libraries/AP_Scheduler/AP_Scheduler.cpp)
@@ -525,9 +525,9 @@ set_target_properties(objs_AP_Scheduler_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Scheduler_Blimp mavlink)
-target_link_libraries(objs_AP_Scheduler_Blimp dronecan)
-target_link_libraries(objs_AP_Scheduler_Blimp littlefs)
+target_link_libraries(objs_AP_Scheduler_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Scheduler_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Scheduler_Blimp littlefs) #clean
 
 set(objs_AP_Terrain_Blimp_SOURCES
     ../libraries/AP_Terrain/AP_Terrain.cpp)
@@ -561,9 +561,9 @@ set_target_properties(objs_AP_Terrain_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Terrain_Blimp mavlink)
-target_link_libraries(objs_AP_Terrain_Blimp dronecan)
-target_link_libraries(objs_AP_Terrain_Blimp littlefs)
+target_link_libraries(objs_AP_Terrain_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Terrain_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Terrain_Blimp littlefs) #clean
 
 set(objs_AP_Vehicle_Blimp_SOURCES
     ../libraries/AP_Vehicle/AP_Vehicle.cpp)
@@ -597,9 +597,9 @@ set_target_properties(objs_AP_Vehicle_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Vehicle_Blimp mavlink)
-target_link_libraries(objs_AP_Vehicle_Blimp dronecan)
-target_link_libraries(objs_AP_Vehicle_Blimp littlefs)
+target_link_libraries(objs_AP_Vehicle_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Vehicle_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Vehicle_Blimp littlefs) #clean
 
 set(objs_AP_Logger_Blimp_SOURCES
     ../libraries/AP_Logger/AP_Logger.cpp
@@ -636,9 +636,9 @@ set_target_properties(objs_AP_Logger_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Logger_Blimp mavlink)
-target_link_libraries(objs_AP_Logger_Blimp dronecan)
-target_link_libraries(objs_AP_Logger_Blimp littlefs)
+target_link_libraries(objs_AP_Logger_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Logger_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Logger_Blimp littlefs) #clean
 
 set(objs_Filter_Blimp_SOURCES
     ../libraries/Filter/HarmonicNotchFilter.cpp)
@@ -672,9 +672,9 @@ set_target_properties(objs_Filter_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_Filter_Blimp mavlink)
-target_link_libraries(objs_Filter_Blimp dronecan)
-target_link_libraries(objs_Filter_Blimp littlefs)
+target_link_libraries(objs_Filter_Blimp mavlink) #clean
+target_link_libraries(objs_Filter_Blimp dronecan) #clean
+target_link_libraries(objs_Filter_Blimp littlefs) #clean
 
 set(objs_GCS_MAVLink_Blimp_SOURCES
     ../libraries/GCS_MAVLink/GCS.cpp
@@ -712,9 +712,9 @@ set_target_properties(objs_GCS_MAVLink_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_GCS_MAVLink_Blimp mavlink)
-target_link_libraries(objs_GCS_MAVLink_Blimp dronecan)
-target_link_libraries(objs_GCS_MAVLink_Blimp littlefs)
+target_link_libraries(objs_GCS_MAVLink_Blimp mavlink) #clean
+target_link_libraries(objs_GCS_MAVLink_Blimp dronecan) #clean
+target_link_libraries(objs_GCS_MAVLink_Blimp littlefs) #clean
 
 set(objs_RC_Channel_Blimp_SOURCES
     ../libraries/RC_Channel/RC_Channel.cpp)
@@ -748,9 +748,9 @@ set_target_properties(objs_RC_Channel_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_RC_Channel_Blimp mavlink)
-target_link_libraries(objs_RC_Channel_Blimp dronecan)
-target_link_libraries(objs_RC_Channel_Blimp littlefs)
+target_link_libraries(objs_RC_Channel_Blimp mavlink) #clean
+target_link_libraries(objs_RC_Channel_Blimp dronecan) #clean
+target_link_libraries(objs_RC_Channel_Blimp littlefs) #clean
 
 set(objs_StorageManager_Blimp_SOURCES
     ../libraries/StorageManager/StorageManager.cpp)
@@ -784,9 +784,9 @@ set_target_properties(objs_StorageManager_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_StorageManager_Blimp mavlink)
-target_link_libraries(objs_StorageManager_Blimp dronecan)
-target_link_libraries(objs_StorageManager_Blimp littlefs)
+target_link_libraries(objs_StorageManager_Blimp mavlink) #clean
+target_link_libraries(objs_StorageManager_Blimp dronecan) #clean
+target_link_libraries(objs_StorageManager_Blimp littlefs) #clean
 
 set(objs_AP_Frsky_Telem_Blimp_SOURCES
     ../libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp)
@@ -820,9 +820,9 @@ set_target_properties(objs_AP_Frsky_Telem_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Frsky_Telem_Blimp mavlink)
-target_link_libraries(objs_AP_Frsky_Telem_Blimp dronecan)
-target_link_libraries(objs_AP_Frsky_Telem_Blimp littlefs)
+target_link_libraries(objs_AP_Frsky_Telem_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Frsky_Telem_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Frsky_Telem_Blimp littlefs) #clean
 
 set(objs_AP_IBus_Telem_Blimp_SOURCES
     ../libraries/AP_IBus_Telem/AP_IBus_Telem.cpp)
@@ -856,9 +856,9 @@ set_target_properties(objs_AP_IBus_Telem_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_IBus_Telem_Blimp mavlink)
-target_link_libraries(objs_AP_IBus_Telem_Blimp dronecan)
-target_link_libraries(objs_AP_IBus_Telem_Blimp littlefs)
+target_link_libraries(objs_AP_IBus_Telem_Blimp mavlink) #clean
+target_link_libraries(objs_AP_IBus_Telem_Blimp dronecan) #clean
+target_link_libraries(objs_AP_IBus_Telem_Blimp littlefs) #clean
 
 set(objs_AP_Relay_Blimp_SOURCES
     ../libraries/AP_Relay/AP_Relay.cpp)
@@ -892,9 +892,9 @@ set_target_properties(objs_AP_Relay_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Relay_Blimp mavlink)
-target_link_libraries(objs_AP_Relay_Blimp dronecan)
-target_link_libraries(objs_AP_Relay_Blimp littlefs)
+target_link_libraries(objs_AP_Relay_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Relay_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Relay_Blimp littlefs) #clean
 
 set(objs_AP_RCProtocol_Blimp_SOURCES
     ../libraries/AP_RCProtocol/AP_RCProtocol.cpp
@@ -934,9 +934,9 @@ set_target_properties(objs_AP_RCProtocol_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RCProtocol_Blimp mavlink)
-target_link_libraries(objs_AP_RCProtocol_Blimp dronecan)
-target_link_libraries(objs_AP_RCProtocol_Blimp littlefs)
+target_link_libraries(objs_AP_RCProtocol_Blimp mavlink) #clean
+target_link_libraries(objs_AP_RCProtocol_Blimp dronecan) #clean
+target_link_libraries(objs_AP_RCProtocol_Blimp littlefs) #clean
 
 set(objs_AP_BLHeli_Blimp_SOURCES
     ../libraries/AP_BLHeli/AP_BLHeli.cpp)
@@ -970,9 +970,9 @@ set_target_properties(objs_AP_BLHeli_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_BLHeli_Blimp mavlink)
-target_link_libraries(objs_AP_BLHeli_Blimp dronecan)
-target_link_libraries(objs_AP_BLHeli_Blimp littlefs)
+target_link_libraries(objs_AP_BLHeli_Blimp mavlink) #clean
+target_link_libraries(objs_AP_BLHeli_Blimp dronecan) #clean
+target_link_libraries(objs_AP_BLHeli_Blimp littlefs) #clean
 
 set(objs_AP_Proximity_Blimp_SOURCES
     ../libraries/AP_Proximity/AP_Proximity_Utils.cpp)
@@ -1006,9 +1006,9 @@ set_target_properties(objs_AP_Proximity_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Proximity_Blimp mavlink)
-target_link_libraries(objs_AP_Proximity_Blimp dronecan)
-target_link_libraries(objs_AP_Proximity_Blimp littlefs)
+target_link_libraries(objs_AP_Proximity_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Proximity_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Proximity_Blimp littlefs) #clean
 
 set(objs_AC_Fence_Blimp_SOURCES
     ../libraries/AC_Fence/AC_Fence.cpp
@@ -1043,9 +1043,9 @@ set_target_properties(objs_AC_Fence_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_Fence_Blimp mavlink)
-target_link_libraries(objs_AC_Fence_Blimp dronecan)
-target_link_libraries(objs_AC_Fence_Blimp littlefs)
+target_link_libraries(objs_AC_Fence_Blimp mavlink) #clean
+target_link_libraries(objs_AC_Fence_Blimp dronecan) #clean
+target_link_libraries(objs_AC_Fence_Blimp littlefs) #clean
 
 set(objs_AC_Avoidance_Blimp_SOURCES
     ../libraries/AC_Avoidance/AC_Avoid.cpp
@@ -1081,9 +1081,9 @@ set_target_properties(objs_AC_Avoidance_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_Avoidance_Blimp mavlink)
-target_link_libraries(objs_AC_Avoidance_Blimp dronecan)
-target_link_libraries(objs_AC_Avoidance_Blimp littlefs)
+target_link_libraries(objs_AC_Avoidance_Blimp mavlink) #clean
+target_link_libraries(objs_AC_Avoidance_Blimp dronecan) #clean
+target_link_libraries(objs_AC_Avoidance_Blimp littlefs) #clean
 
 set(objs_AP_LandingGear_Blimp_SOURCES
     ../libraries/AP_LandingGear/AP_LandingGear.cpp)
@@ -1117,9 +1117,9 @@ set_target_properties(objs_AP_LandingGear_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_LandingGear_Blimp mavlink)
-target_link_libraries(objs_AP_LandingGear_Blimp dronecan)
-target_link_libraries(objs_AP_LandingGear_Blimp littlefs)
+target_link_libraries(objs_AP_LandingGear_Blimp mavlink) #clean
+target_link_libraries(objs_AP_LandingGear_Blimp dronecan) #clean
+target_link_libraries(objs_AP_LandingGear_Blimp littlefs) #clean
 
 set(objs_AP_OSD_Blimp_SOURCES
     ../libraries/AP_OSD/AP_OSD_ParamScreen.cpp
@@ -1155,9 +1155,9 @@ set_target_properties(objs_AP_OSD_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_OSD_Blimp mavlink)
-target_link_libraries(objs_AP_OSD_Blimp dronecan)
-target_link_libraries(objs_AP_OSD_Blimp littlefs)
+target_link_libraries(objs_AP_OSD_Blimp mavlink) #clean
+target_link_libraries(objs_AP_OSD_Blimp dronecan) #clean
+target_link_libraries(objs_AP_OSD_Blimp littlefs) #clean
 
 set(objs_AP_Filesystem_Blimp_SOURCES
     ../libraries/AP_Filesystem/AP_Filesystem_posix.cpp)
@@ -1191,9 +1191,9 @@ set_target_properties(objs_AP_Filesystem_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Filesystem_Blimp mavlink)
-target_link_libraries(objs_AP_Filesystem_Blimp dronecan)
-target_link_libraries(objs_AP_Filesystem_Blimp littlefs)
+target_link_libraries(objs_AP_Filesystem_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Filesystem_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Filesystem_Blimp littlefs) #clean
 
 set(objs_AP_ADSB_Blimp_SOURCES
     ../libraries/AP_ADSB/AP_ADSB.cpp
@@ -1228,9 +1228,9 @@ set_target_properties(objs_AP_ADSB_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ADSB_Blimp mavlink)
-target_link_libraries(objs_AP_ADSB_Blimp dronecan)
-target_link_libraries(objs_AP_ADSB_Blimp littlefs)
+target_link_libraries(objs_AP_ADSB_Blimp mavlink) #clean
+target_link_libraries(objs_AP_ADSB_Blimp dronecan) #clean
+target_link_libraries(objs_AP_ADSB_Blimp littlefs) #clean
 
 set(objs_AP_ESC_Telem_Blimp_SOURCES
     ../libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp)
@@ -1264,9 +1264,9 @@ set_target_properties(objs_AP_ESC_Telem_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ESC_Telem_Blimp mavlink)
-target_link_libraries(objs_AP_ESC_Telem_Blimp dronecan)
-target_link_libraries(objs_AP_ESC_Telem_Blimp littlefs)
+target_link_libraries(objs_AP_ESC_Telem_Blimp mavlink) #clean
+target_link_libraries(objs_AP_ESC_Telem_Blimp dronecan) #clean
+target_link_libraries(objs_AP_ESC_Telem_Blimp littlefs) #clean
 
 set(objs_AP_GyroFFT_Blimp_SOURCES
     ../libraries/AP_GyroFFT/AP_GyroFFT.cpp)
@@ -1300,9 +1300,9 @@ set_target_properties(objs_AP_GyroFFT_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_GyroFFT_Blimp mavlink)
-target_link_libraries(objs_AP_GyroFFT_Blimp dronecan)
-target_link_libraries(objs_AP_GyroFFT_Blimp littlefs)
+target_link_libraries(objs_AP_GyroFFT_Blimp mavlink) #clean
+target_link_libraries(objs_AP_GyroFFT_Blimp dronecan) #clean
+target_link_libraries(objs_AP_GyroFFT_Blimp littlefs) #clean
 
 set(objs_AP_RCTelemetry_Blimp_SOURCES
     ../libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp
@@ -1337,9 +1337,9 @@ set_target_properties(objs_AP_RCTelemetry_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RCTelemetry_Blimp mavlink)
-target_link_libraries(objs_AP_RCTelemetry_Blimp dronecan)
-target_link_libraries(objs_AP_RCTelemetry_Blimp littlefs)
+target_link_libraries(objs_AP_RCTelemetry_Blimp mavlink) #clean
+target_link_libraries(objs_AP_RCTelemetry_Blimp dronecan) #clean
+target_link_libraries(objs_AP_RCTelemetry_Blimp littlefs) #clean
 
 set(objs_AP_ExternalAHRS_Blimp_SOURCES
     ../libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp
@@ -1374,9 +1374,9 @@ set_target_properties(objs_AP_ExternalAHRS_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ExternalAHRS_Blimp mavlink)
-target_link_libraries(objs_AP_ExternalAHRS_Blimp dronecan)
-target_link_libraries(objs_AP_ExternalAHRS_Blimp littlefs)
+target_link_libraries(objs_AP_ExternalAHRS_Blimp mavlink) #clean
+target_link_libraries(objs_AP_ExternalAHRS_Blimp dronecan) #clean
+target_link_libraries(objs_AP_ExternalAHRS_Blimp littlefs) #clean
 
 set(objs_AP_TemperatureSensor_Blimp_SOURCES
     ../libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp)
@@ -1410,9 +1410,9 @@ set_target_properties(objs_AP_TemperatureSensor_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_TemperatureSensor_Blimp mavlink)
-target_link_libraries(objs_AP_TemperatureSensor_Blimp dronecan)
-target_link_libraries(objs_AP_TemperatureSensor_Blimp littlefs)
+target_link_libraries(objs_AP_TemperatureSensor_Blimp mavlink) #clean
+target_link_libraries(objs_AP_TemperatureSensor_Blimp dronecan) #clean
+target_link_libraries(objs_AP_TemperatureSensor_Blimp littlefs) #clean
 
 set(objs_AP_AIS_Blimp_SOURCES
     ../libraries/AP_AIS/AP_AIS.cpp)
@@ -1446,9 +1446,9 @@ set_target_properties(objs_AP_AIS_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_AIS_Blimp mavlink)
-target_link_libraries(objs_AP_AIS_Blimp dronecan)
-target_link_libraries(objs_AP_AIS_Blimp littlefs)
+target_link_libraries(objs_AP_AIS_Blimp mavlink) #clean
+target_link_libraries(objs_AP_AIS_Blimp dronecan) #clean
+target_link_libraries(objs_AP_AIS_Blimp littlefs) #clean
 
 set(objs_AP_Arming_Blimp_SOURCES
     ../libraries/AP_Arming/AP_Arming.cpp)
@@ -1482,9 +1482,9 @@ set_target_properties(objs_AP_Arming_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Arming_Blimp mavlink)
-target_link_libraries(objs_AP_Arming_Blimp dronecan)
-target_link_libraries(objs_AP_Arming_Blimp littlefs)
+target_link_libraries(objs_AP_Arming_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Arming_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Arming_Blimp littlefs) #clean
 
 set(objs_AP_Follow_Blimp_SOURCES
     ../libraries/AP_Follow/AP_Follow.cpp)
@@ -1518,9 +1518,9 @@ set_target_properties(objs_AP_Follow_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Follow_Blimp mavlink)
-target_link_libraries(objs_AP_Follow_Blimp dronecan)
-target_link_libraries(objs_AP_Follow_Blimp littlefs)
+target_link_libraries(objs_AP_Follow_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Follow_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Follow_Blimp littlefs) #clean
 
 set(objs_AP_Avoidance_Blimp_SOURCES
     ../libraries/AP_Avoidance/AP_Avoidance.cpp)
@@ -1554,9 +1554,9 @@ set_target_properties(objs_AP_Avoidance_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Avoidance_Blimp mavlink)
-target_link_libraries(objs_AP_Avoidance_Blimp dronecan)
-target_link_libraries(objs_AP_Avoidance_Blimp littlefs)
+target_link_libraries(objs_AP_Avoidance_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Avoidance_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Avoidance_Blimp littlefs) #clean
 
 set(objs_AC_AttitudeControl_Blimp_SOURCES
     ../libraries/AC_AttitudeControl/AC_AttitudeControl.cpp
@@ -1592,9 +1592,9 @@ set_target_properties(objs_AC_AttitudeControl_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_AttitudeControl_Blimp mavlink)
-target_link_libraries(objs_AC_AttitudeControl_Blimp dronecan)
-target_link_libraries(objs_AC_AttitudeControl_Blimp littlefs)
+target_link_libraries(objs_AC_AttitudeControl_Blimp mavlink) #clean
+target_link_libraries(objs_AC_AttitudeControl_Blimp dronecan) #clean
+target_link_libraries(objs_AC_AttitudeControl_Blimp littlefs) #clean
 
 set(objs_AP_HAL_SITL_Blimp_SOURCES
     ../libraries/AP_HAL_SITL/SITL_cmdline.cpp
@@ -1630,9 +1630,9 @@ set_target_properties(objs_AP_HAL_SITL_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_HAL_SITL_Blimp mavlink)
-target_link_libraries(objs_AP_HAL_SITL_Blimp dronecan)
-target_link_libraries(objs_AP_HAL_SITL_Blimp littlefs)
+target_link_libraries(objs_AP_HAL_SITL_Blimp mavlink) #clean
+target_link_libraries(objs_AP_HAL_SITL_Blimp dronecan) #clean
+target_link_libraries(objs_AP_HAL_SITL_Blimp littlefs) #clean
 
 set(objs_SITL_Blimp_SOURCES
     ../libraries/SITL/SIM_Aircraft.cpp
@@ -1669,9 +1669,9 @@ set_target_properties(objs_SITL_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_SITL_Blimp mavlink)
-target_link_libraries(objs_SITL_Blimp dronecan)
-target_link_libraries(objs_SITL_Blimp littlefs)
+target_link_libraries(objs_SITL_Blimp mavlink) #clean
+target_link_libraries(objs_SITL_Blimp dronecan) #clean
+target_link_libraries(objs_SITL_Blimp littlefs) #clean
 
 set(objs_AP_Scripting_Blimp_SOURCES
     ../libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp
@@ -1710,9 +1710,9 @@ set_target_properties(objs_AP_Scripting_Blimp PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Scripting_Blimp mavlink)
-target_link_libraries(objs_AP_Scripting_Blimp dronecan)
-target_link_libraries(objs_AP_Scripting_Blimp littlefs)
+target_link_libraries(objs_AP_Scripting_Blimp mavlink) #clean
+target_link_libraries(objs_AP_Scripting_Blimp dronecan) #clean
+target_link_libraries(objs_AP_Scripting_Blimp littlefs) #clean
 
 set(Blimp_libs_SOURCES
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
@@ -1919,256 +1919,127 @@ set_target_properties(Blimp_libs PROPERTIES
 )
 
 
-target_link_libraries(Blimp_libs objs/AP_AccelCal)
-target_link_libraries(Blimp_libs objs/AP_AccelCal/Blimp)
-target_link_libraries(Blimp_libs objs/AP_ADC)
-target_link_libraries(Blimp_libs objs/AP_ADC/Blimp)
-target_link_libraries(Blimp_libs objs/AP_AHRS)
-target_link_libraries(Blimp_libs objs/AP_AHRS/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Airspeed)
-target_link_libraries(Blimp_libs objs/AP_Airspeed/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Baro)
-target_link_libraries(Blimp_libs objs/AP_Baro/Blimp)
-target_link_libraries(Blimp_libs objs/AP_BattMonitor)
-target_link_libraries(Blimp_libs objs/AP_BattMonitor/Blimp)
-target_link_libraries(Blimp_libs objs/AP_BoardConfig)
-target_link_libraries(Blimp_libs objs/AP_BoardConfig/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Camera)
-target_link_libraries(Blimp_libs objs/AP_Camera/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Common)
-target_link_libraries(Blimp_libs objs/AP_Common/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Compass)
-target_link_libraries(Blimp_libs objs/AP_Compass/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Declination)
-target_link_libraries(Blimp_libs objs/AP_Declination/Blimp)
-target_link_libraries(Blimp_libs objs/AP_GPS)
-target_link_libraries(Blimp_libs objs/AP_GPS/Blimp)
-target_link_libraries(Blimp_libs objs/AP_GSOF)
-target_link_libraries(Blimp_libs objs/AP_GSOF/Blimp)
-target_link_libraries(Blimp_libs objs/AP_HAL)
-target_link_libraries(Blimp_libs objs/AP_HAL/Blimp)
-target_link_libraries(Blimp_libs objs/AP_HAL_Empty)
-target_link_libraries(Blimp_libs objs/AP_HAL_Empty/Blimp)
-target_link_libraries(Blimp_libs objs/AP_DDS)
-target_link_libraries(Blimp_libs objs/AP_DDS/Blimp)
-target_link_libraries(Blimp_libs objs/AP_InertialSensor)
-target_link_libraries(Blimp_libs objs/AP_InertialSensor/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Math)
-target_link_libraries(Blimp_libs objs/AP_Math/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Mission)
-target_link_libraries(Blimp_libs objs/AP_Mission/Blimp)
-target_link_libraries(Blimp_libs objs/AP_DAL)
-target_link_libraries(Blimp_libs objs/AP_DAL/Blimp)
-target_link_libraries(Blimp_libs objs/AP_NavEKF)
-target_link_libraries(Blimp_libs objs/AP_NavEKF/Blimp)
-target_link_libraries(Blimp_libs objs/AP_NavEKF2)
-target_link_libraries(Blimp_libs objs/AP_NavEKF2/Blimp)
-target_link_libraries(Blimp_libs objs/AP_NavEKF3)
-target_link_libraries(Blimp_libs objs/AP_NavEKF3/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Notify)
-target_link_libraries(Blimp_libs objs/AP_Notify/Blimp)
-target_link_libraries(Blimp_libs objs/AP_OpticalFlow)
-target_link_libraries(Blimp_libs objs/AP_OpticalFlow/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Param)
-target_link_libraries(Blimp_libs objs/AP_Param/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Rally)
-target_link_libraries(Blimp_libs objs/AP_Rally/Blimp)
-target_link_libraries(Blimp_libs objs/AP_LightWareSerial)
-target_link_libraries(Blimp_libs objs/AP_LightWareSerial/Blimp)
-target_link_libraries(Blimp_libs objs/AP_RangeFinder)
-target_link_libraries(Blimp_libs objs/AP_RangeFinder/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Scheduler)
-target_link_libraries(Blimp_libs objs/AP_Scheduler/Blimp)
-target_link_libraries(Blimp_libs objs/AP_SerialManager)
-target_link_libraries(Blimp_libs objs/AP_SerialManager/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Terrain)
-target_link_libraries(Blimp_libs objs/AP_Terrain/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Vehicle)
-target_link_libraries(Blimp_libs objs/AP_Vehicle/Blimp)
-target_link_libraries(Blimp_libs objs/AP_InternalError)
-target_link_libraries(Blimp_libs objs/AP_InternalError/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Logger)
-target_link_libraries(Blimp_libs objs/AP_Logger/Blimp)
-target_link_libraries(Blimp_libs objs/Filter)
-target_link_libraries(Blimp_libs objs/Filter/Blimp)
-target_link_libraries(Blimp_libs objs/GCS_MAVLink)
-target_link_libraries(Blimp_libs objs/GCS_MAVLink/Blimp)
-target_link_libraries(Blimp_libs objs/RC_Channel)
-target_link_libraries(Blimp_libs objs/RC_Channel/Blimp)
-target_link_libraries(Blimp_libs objs/SRV_Channel)
-target_link_libraries(Blimp_libs objs/SRV_Channel/Blimp)
-target_link_libraries(Blimp_libs objs/StorageManager)
-target_link_libraries(Blimp_libs objs/StorageManager/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Tuning)
-target_link_libraries(Blimp_libs objs/AP_Tuning/Blimp)
-target_link_libraries(Blimp_libs objs/AP_RPM)
-target_link_libraries(Blimp_libs objs/AP_RPM/Blimp)
-target_link_libraries(Blimp_libs objs/AP_RSSI)
-target_link_libraries(Blimp_libs objs/AP_RSSI/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Mount)
-target_link_libraries(Blimp_libs objs/AP_Mount/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Module)
-target_link_libraries(Blimp_libs objs/AP_Module/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Button)
-target_link_libraries(Blimp_libs objs/AP_Button/Blimp)
-target_link_libraries(Blimp_libs objs/AP_ICEngine)
-target_link_libraries(Blimp_libs objs/AP_ICEngine/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Networking)
-target_link_libraries(Blimp_libs objs/AP_Networking/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Frsky_Telem)
-target_link_libraries(Blimp_libs objs/AP_Frsky_Telem/Blimp)
-target_link_libraries(Blimp_libs objs/AP_IBus_Telem)
-target_link_libraries(Blimp_libs objs/AP_IBus_Telem/Blimp)
-target_link_libraries(Blimp_libs objs/AP_FlashStorage)
-target_link_libraries(Blimp_libs objs/AP_FlashStorage/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Relay)
-target_link_libraries(Blimp_libs objs/AP_Relay/Blimp)
-target_link_libraries(Blimp_libs objs/AP_ServoRelayEvents)
-target_link_libraries(Blimp_libs objs/AP_ServoRelayEvents/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Volz_Protocol)
-target_link_libraries(Blimp_libs objs/AP_Volz_Protocol/Blimp)
-target_link_libraries(Blimp_libs objs/AP_SBusOut)
-target_link_libraries(Blimp_libs objs/AP_SBusOut/Blimp)
-target_link_libraries(Blimp_libs objs/AP_IOMCU)
-target_link_libraries(Blimp_libs objs/AP_IOMCU/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Parachute)
-target_link_libraries(Blimp_libs objs/AP_Parachute/Blimp)
-target_link_libraries(Blimp_libs objs/AP_RAMTRON)
-target_link_libraries(Blimp_libs objs/AP_RAMTRON/Blimp)
-target_link_libraries(Blimp_libs objs/AP_RCProtocol)
-target_link_libraries(Blimp_libs objs/AP_RCProtocol/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Radio)
-target_link_libraries(Blimp_libs objs/AP_Radio/Blimp)
-target_link_libraries(Blimp_libs objs/AP_TempCalibration)
-target_link_libraries(Blimp_libs objs/AP_TempCalibration/Blimp)
-target_link_libraries(Blimp_libs objs/AP_VisualOdom)
-target_link_libraries(Blimp_libs objs/AP_VisualOdom/Blimp)
-target_link_libraries(Blimp_libs objs/AP_BLHeli)
-target_link_libraries(Blimp_libs objs/AP_BLHeli/Blimp)
-target_link_libraries(Blimp_libs objs/AP_ROMFS)
-target_link_libraries(Blimp_libs objs/AP_ROMFS/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Proximity)
-target_link_libraries(Blimp_libs objs/AP_Proximity/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Gripper)
-target_link_libraries(Blimp_libs objs/AP_Gripper/Blimp)
-target_link_libraries(Blimp_libs objs/AP_RTC)
-target_link_libraries(Blimp_libs objs/AP_RTC/Blimp)
-target_link_libraries(Blimp_libs objs/AC_Sprayer)
-target_link_libraries(Blimp_libs objs/AC_Sprayer/Blimp)
-target_link_libraries(Blimp_libs objs/AC_Fence)
-target_link_libraries(Blimp_libs objs/AC_Fence/Blimp)
-target_link_libraries(Blimp_libs objs/AC_Avoidance)
-target_link_libraries(Blimp_libs objs/AC_Avoidance/Blimp)
-target_link_libraries(Blimp_libs objs/AP_LandingGear)
-target_link_libraries(Blimp_libs objs/AP_LandingGear/Blimp)
-target_link_libraries(Blimp_libs objs/AP_RobotisServo)
-target_link_libraries(Blimp_libs objs/AP_RobotisServo/Blimp)
-target_link_libraries(Blimp_libs objs/AP_NMEA_Output)
-target_link_libraries(Blimp_libs objs/AP_NMEA_Output/Blimp)
-target_link_libraries(Blimp_libs objs/AP_OSD)
-target_link_libraries(Blimp_libs objs/AP_OSD/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Filesystem)
-target_link_libraries(Blimp_libs objs/AP_Filesystem/Blimp)
-target_link_libraries(Blimp_libs objs/AP_ADSB)
-target_link_libraries(Blimp_libs objs/AP_ADSB/Blimp)
-target_link_libraries(Blimp_libs objs/AP_ADSB/sagetech-sdk)
-target_link_libraries(Blimp_libs objs/AP_ADSB/sagetech-sdk/Blimp)
-target_link_libraries(Blimp_libs objs/AC_PID)
-target_link_libraries(Blimp_libs objs/AC_PID/Blimp)
-target_link_libraries(Blimp_libs objs/AP_SerialLED)
-target_link_libraries(Blimp_libs objs/AP_SerialLED/Blimp)
-target_link_libraries(Blimp_libs objs/AP_EFI)
-target_link_libraries(Blimp_libs objs/AP_EFI/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Hott_Telem)
-target_link_libraries(Blimp_libs objs/AP_Hott_Telem/Blimp)
-target_link_libraries(Blimp_libs objs/AP_ESC_Telem)
-target_link_libraries(Blimp_libs objs/AP_ESC_Telem/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Servo_Telem)
-target_link_libraries(Blimp_libs objs/AP_Servo_Telem/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Stats)
-target_link_libraries(Blimp_libs objs/AP_Stats/Blimp)
-target_link_libraries(Blimp_libs objs/AP_GyroFFT)
-target_link_libraries(Blimp_libs objs/AP_GyroFFT/Blimp)
-target_link_libraries(Blimp_libs objs/AP_RCTelemetry)
-target_link_libraries(Blimp_libs objs/AP_RCTelemetry/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Generator)
-target_link_libraries(Blimp_libs objs/AP_Generator/Blimp)
-target_link_libraries(Blimp_libs objs/AP_MSP)
-target_link_libraries(Blimp_libs objs/AP_MSP/Blimp)
-target_link_libraries(Blimp_libs objs/AP_OLC)
-target_link_libraries(Blimp_libs objs/AP_OLC/Blimp)
-target_link_libraries(Blimp_libs objs/AP_WheelEncoder)
-target_link_libraries(Blimp_libs objs/AP_WheelEncoder/Blimp)
-target_link_libraries(Blimp_libs objs/AP_ExternalAHRS)
-target_link_libraries(Blimp_libs objs/AP_ExternalAHRS/Blimp)
-target_link_libraries(Blimp_libs objs/AP_VideoTX)
-target_link_libraries(Blimp_libs objs/AP_VideoTX/Blimp)
-target_link_libraries(Blimp_libs objs/AP_FETtecOneWire)
-target_link_libraries(Blimp_libs objs/AP_FETtecOneWire/Blimp)
-target_link_libraries(Blimp_libs objs/AP_TemperatureSensor)
-target_link_libraries(Blimp_libs objs/AP_TemperatureSensor/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Torqeedo)
-target_link_libraries(Blimp_libs objs/AP_Torqeedo/Blimp)
-target_link_libraries(Blimp_libs objs/AP_CustomRotations)
-target_link_libraries(Blimp_libs objs/AP_CustomRotations/Blimp)
-target_link_libraries(Blimp_libs objs/AP_AIS)
-target_link_libraries(Blimp_libs objs/AP_AIS/Blimp)
-target_link_libraries(Blimp_libs objs/AP_OpenDroneID)
-target_link_libraries(Blimp_libs objs/AP_OpenDroneID/Blimp)
-target_link_libraries(Blimp_libs objs/AP_CheckFirmware)
-target_link_libraries(Blimp_libs objs/AP_CheckFirmware/Blimp)
-target_link_libraries(Blimp_libs objs/AP_ExternalControl)
-target_link_libraries(Blimp_libs objs/AP_ExternalControl/Blimp)
-target_link_libraries(Blimp_libs objs/AP_JSON)
-target_link_libraries(Blimp_libs objs/AP_JSON/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Beacon)
-target_link_libraries(Blimp_libs objs/AP_Beacon/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Arming)
-target_link_libraries(Blimp_libs objs/AP_Arming/Blimp)
-target_link_libraries(Blimp_libs objs/AP_RCMapper)
-target_link_libraries(Blimp_libs objs/AP_RCMapper/Blimp)
-target_link_libraries(Blimp_libs objs/AP_MultiHeap)
-target_link_libraries(Blimp_libs objs/AP_MultiHeap/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Follow)
-target_link_libraries(Blimp_libs objs/AP_Follow/Blimp)
-target_link_libraries(Blimp_libs objs/AP_CANManager)
-target_link_libraries(Blimp_libs objs/AP_CANManager/Blimp)
-target_link_libraries(Blimp_libs objs/AP_KDECAN)
-target_link_libraries(Blimp_libs objs/AP_KDECAN/Blimp)
-target_link_libraries(Blimp_libs objs/AP_PiccoloCAN)
-target_link_libraries(Blimp_libs objs/AP_PiccoloCAN/Blimp)
-target_link_libraries(Blimp_libs objs/AP_PiccoloCAN/piccolo_protocol)
-target_link_libraries(Blimp_libs objs/AP_PiccoloCAN/piccolo_protocol/Blimp)
-target_link_libraries(Blimp_libs objs/AC_InputManager)
-target_link_libraries(Blimp_libs objs/AC_InputManager/Blimp)
-target_link_libraries(Blimp_libs objs/AP_InertialNav)
-target_link_libraries(Blimp_libs objs/AP_InertialNav/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Avoidance)
-target_link_libraries(Blimp_libs objs/AP_Avoidance/Blimp)
-target_link_libraries(Blimp_libs objs/AP_LTM_Telem)
-target_link_libraries(Blimp_libs objs/AP_LTM_Telem/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Devo_Telem)
-target_link_libraries(Blimp_libs objs/AP_Devo_Telem/Blimp)
-target_link_libraries(Blimp_libs objs/AP_AdvancedFailsafe)
-target_link_libraries(Blimp_libs objs/AP_AdvancedFailsafe/Blimp)
-target_link_libraries(Blimp_libs objs/AC_AttitudeControl)
-target_link_libraries(Blimp_libs objs/AC_AttitudeControl/Blimp)
-target_link_libraries(Blimp_libs objs/AP_DroneCAN)
-target_link_libraries(Blimp_libs objs/AP_DroneCAN/Blimp)
-target_link_libraries(Blimp_libs objs/modules/DroneCAN/libcanard/*.c)
-target_link_libraries(Blimp_libs objs/modules/DroneCAN/libcanard/*.c/Blimp)
-target_link_libraries(Blimp_libs objs/AP_HAL_SITL)
-target_link_libraries(Blimp_libs objs/AP_HAL_SITL/Blimp)
-target_link_libraries(Blimp_libs objs/AP_CSVReader)
-target_link_libraries(Blimp_libs objs/AP_CSVReader/Blimp)
-target_link_libraries(Blimp_libs objs/SITL)
-target_link_libraries(Blimp_libs objs/SITL/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Scripting)
-target_link_libraries(Blimp_libs objs/AP_Scripting/Blimp)
-target_link_libraries(Blimp_libs objs/AP_Scripting/lua/src)
-target_link_libraries(Blimp_libs objs/AP_Scripting/lua/src/Blimp)
-target_link_libraries(Blimp_libs objs/AC_CustomControl)
-target_link_libraries(Blimp_libs objs/AC_CustomControl/Blimp)
+target_link_libraries(Blimp_libs libobjs_AP_AccelCal.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_ADC.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_AHRS.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Airspeed.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Baro.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_BattMonitor.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_BoardConfig.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Camera.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Common.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Compass.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Declination.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_GPS.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_GSOF.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_HAL.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_HAL_Empty.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_DDS.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_InertialSensor.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Math.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Mission.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_DAL.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_NavEKF.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_NavEKF2.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_NavEKF3.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Notify.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_OpticalFlow.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Param.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Rally.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_LightWareSerial.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_RangeFinder.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Scheduler.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_SerialManager.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Terrain.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Vehicle.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_InternalError.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Logger.a) #stripped
+target_link_libraries(Blimp_libs libobjs_Filter.a) #stripped
+target_link_libraries(Blimp_libs libobjs_GCS_MAVLink.a) #stripped
+target_link_libraries(Blimp_libs libobjs_RC_Channel.a) #stripped
+target_link_libraries(Blimp_libs libobjs_SRV_Channel.a) #stripped
+target_link_libraries(Blimp_libs libobjs_StorageManager.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Tuning.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_RPM.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_RSSI.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Mount.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Module.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Button.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_ICEngine.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Networking.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Frsky_Telem.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_IBus_Telem.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_FlashStorage.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Relay.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_ServoRelayEvents.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Volz_Protocol.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_SBusOut.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_IOMCU.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Parachute.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_RAMTRON.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_RCProtocol.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Radio.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_TempCalibration.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_VisualOdom.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_BLHeli.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_ROMFS.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Proximity.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Gripper.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_RTC.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AC_Sprayer.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AC_Fence.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AC_Avoidance.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_LandingGear.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_RobotisServo.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_NMEA_Output.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_OSD.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Filesystem.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_ADSB.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AC_PID.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_SerialLED.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_EFI.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Hott_Telem.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_ESC_Telem.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Servo_Telem.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Stats.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_GyroFFT.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_RCTelemetry.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Generator.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_MSP.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_OLC.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_WheelEncoder.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_ExternalAHRS.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_VideoTX.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_FETtecOneWire.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_TemperatureSensor.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Torqeedo.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_CustomRotations.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_AIS.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_OpenDroneID.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_CheckFirmware.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_ExternalControl.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_JSON.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Beacon.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Arming.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_RCMapper.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_MultiHeap.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Follow.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_CANManager.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_KDECAN.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_PiccoloCAN.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AC_InputManager.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_InertialNav.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Avoidance.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_LTM_Telem.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Devo_Telem.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_AdvancedFailsafe.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AC_AttitudeControl.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_DroneCAN.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_HAL_SITL.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_CSVReader.a) #stripped
+target_link_libraries(Blimp_libs libobjs_SITL.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AP_Scripting.a) #stripped
+target_link_libraries(Blimp_libs libobjs_AC_CustomControl.a) #stripped
 
 set(bin_blimp_SOURCES
     AP_Arming_Blimp.cpp
@@ -2222,5 +2093,5 @@ add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Bl
 
 add_executable(bin_blimp ${bin_blimp_SOURCES})
 
-target_link_libraries(bin_blimp Blimp_libs)
+target_link_libraries(bin_blimp Blimp_libs) #clean
 

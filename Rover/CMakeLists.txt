@@ -33,9 +33,9 @@ set_target_properties(objs_AP_AHRS_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_AHRS_Rover mavlink)
-target_link_libraries(objs_AP_AHRS_Rover dronecan)
-target_link_libraries(objs_AP_AHRS_Rover littlefs)
+target_link_libraries(objs_AP_AHRS_Rover mavlink) #clean
+target_link_libraries(objs_AP_AHRS_Rover dronecan) #clean
+target_link_libraries(objs_AP_AHRS_Rover littlefs) #clean
 
 set(objs_AP_Airspeed_Rover_SOURCES
     ../libraries/AP_Airspeed/AP_Airspeed.cpp
@@ -71,9 +71,9 @@ set_target_properties(objs_AP_Airspeed_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Airspeed_Rover mavlink)
-target_link_libraries(objs_AP_Airspeed_Rover dronecan)
-target_link_libraries(objs_AP_Airspeed_Rover littlefs)
+target_link_libraries(objs_AP_Airspeed_Rover mavlink) #clean
+target_link_libraries(objs_AP_Airspeed_Rover dronecan) #clean
+target_link_libraries(objs_AP_Airspeed_Rover littlefs) #clean
 
 set(objs_AP_Baro_Rover_SOURCES
     ../libraries/AP_Baro/AP_Baro.cpp
@@ -109,9 +109,9 @@ set_target_properties(objs_AP_Baro_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Baro_Rover mavlink)
-target_link_libraries(objs_AP_Baro_Rover dronecan)
-target_link_libraries(objs_AP_Baro_Rover littlefs)
+target_link_libraries(objs_AP_Baro_Rover mavlink) #clean
+target_link_libraries(objs_AP_Baro_Rover dronecan) #clean
+target_link_libraries(objs_AP_Baro_Rover littlefs) #clean
 
 set(objs_AP_BattMonitor_Rover_SOURCES
     ../libraries/AP_BattMonitor/AP_BattMonitor.cpp
@@ -146,9 +146,9 @@ set_target_properties(objs_AP_BattMonitor_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_BattMonitor_Rover mavlink)
-target_link_libraries(objs_AP_BattMonitor_Rover dronecan)
-target_link_libraries(objs_AP_BattMonitor_Rover littlefs)
+target_link_libraries(objs_AP_BattMonitor_Rover mavlink) #clean
+target_link_libraries(objs_AP_BattMonitor_Rover dronecan) #clean
+target_link_libraries(objs_AP_BattMonitor_Rover littlefs) #clean
 
 set(objs_AP_BoardConfig_Rover_SOURCES
     ../libraries/AP_BoardConfig/AP_BoardConfig.cpp)
@@ -182,9 +182,9 @@ set_target_properties(objs_AP_BoardConfig_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_BoardConfig_Rover mavlink)
-target_link_libraries(objs_AP_BoardConfig_Rover dronecan)
-target_link_libraries(objs_AP_BoardConfig_Rover littlefs)
+target_link_libraries(objs_AP_BoardConfig_Rover mavlink) #clean
+target_link_libraries(objs_AP_BoardConfig_Rover dronecan) #clean
+target_link_libraries(objs_AP_BoardConfig_Rover littlefs) #clean
 
 set(objs_AP_HAL_Rover_SOURCES
     ../libraries/AP_HAL/SIMState.cpp)
@@ -218,9 +218,9 @@ set_target_properties(objs_AP_HAL_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_HAL_Rover mavlink)
-target_link_libraries(objs_AP_HAL_Rover dronecan)
-target_link_libraries(objs_AP_HAL_Rover littlefs)
+target_link_libraries(objs_AP_HAL_Rover mavlink) #clean
+target_link_libraries(objs_AP_HAL_Rover dronecan) #clean
+target_link_libraries(objs_AP_HAL_Rover littlefs) #clean
 
 set(objs_AP_InertialSensor_Rover_SOURCES
     ../libraries/AP_InertialSensor/AP_InertialSensor.cpp
@@ -257,9 +257,9 @@ set_target_properties(objs_AP_InertialSensor_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_InertialSensor_Rover mavlink)
-target_link_libraries(objs_AP_InertialSensor_Rover dronecan)
-target_link_libraries(objs_AP_InertialSensor_Rover littlefs)
+target_link_libraries(objs_AP_InertialSensor_Rover mavlink) #clean
+target_link_libraries(objs_AP_InertialSensor_Rover dronecan) #clean
+target_link_libraries(objs_AP_InertialSensor_Rover littlefs) #clean
 
 set(objs_AP_Math_Rover_SOURCES
     ../libraries/AP_Math/SCurve.cpp)
@@ -293,9 +293,9 @@ set_target_properties(objs_AP_Math_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Math_Rover mavlink)
-target_link_libraries(objs_AP_Math_Rover dronecan)
-target_link_libraries(objs_AP_Math_Rover littlefs)
+target_link_libraries(objs_AP_Math_Rover mavlink) #clean
+target_link_libraries(objs_AP_Math_Rover dronecan) #clean
+target_link_libraries(objs_AP_Math_Rover littlefs) #clean
 
 set(objs_AP_Mission_Rover_SOURCES
     ../libraries/AP_Mission/AP_Mission.cpp)
@@ -329,9 +329,9 @@ set_target_properties(objs_AP_Mission_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Mission_Rover mavlink)
-target_link_libraries(objs_AP_Mission_Rover dronecan)
-target_link_libraries(objs_AP_Mission_Rover littlefs)
+target_link_libraries(objs_AP_Mission_Rover mavlink) #clean
+target_link_libraries(objs_AP_Mission_Rover dronecan) #clean
+target_link_libraries(objs_AP_Mission_Rover littlefs) #clean
 
 set(objs_AP_DAL_Rover_SOURCES
     ../libraries/AP_DAL/AP_DAL.cpp
@@ -368,9 +368,9 @@ set_target_properties(objs_AP_DAL_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_DAL_Rover mavlink)
-target_link_libraries(objs_AP_DAL_Rover dronecan)
-target_link_libraries(objs_AP_DAL_Rover littlefs)
+target_link_libraries(objs_AP_DAL_Rover mavlink) #clean
+target_link_libraries(objs_AP_DAL_Rover dronecan) #clean
+target_link_libraries(objs_AP_DAL_Rover littlefs) #clean
 
 set(objs_AP_NavEKF2_Rover_SOURCES
     ../libraries/AP_NavEKF2/AP_NavEKF2.cpp
@@ -405,9 +405,9 @@ set_target_properties(objs_AP_NavEKF2_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_NavEKF2_Rover mavlink)
-target_link_libraries(objs_AP_NavEKF2_Rover dronecan)
-target_link_libraries(objs_AP_NavEKF2_Rover littlefs)
+target_link_libraries(objs_AP_NavEKF2_Rover mavlink) #clean
+target_link_libraries(objs_AP_NavEKF2_Rover dronecan) #clean
+target_link_libraries(objs_AP_NavEKF2_Rover littlefs) #clean
 
 set(objs_AP_NavEKF3_Rover_SOURCES
     ../libraries/AP_NavEKF3/AP_NavEKF3.cpp
@@ -453,9 +453,9 @@ set_target_properties(objs_AP_NavEKF3_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_NavEKF3_Rover mavlink)
-target_link_libraries(objs_AP_NavEKF3_Rover dronecan)
-target_link_libraries(objs_AP_NavEKF3_Rover littlefs)
+target_link_libraries(objs_AP_NavEKF3_Rover mavlink) #clean
+target_link_libraries(objs_AP_NavEKF3_Rover dronecan) #clean
+target_link_libraries(objs_AP_NavEKF3_Rover littlefs) #clean
 
 set(objs_AP_Rally_Rover_SOURCES
     ../libraries/AP_Rally/AP_Rally.cpp)
@@ -489,9 +489,9 @@ set_target_properties(objs_AP_Rally_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Rally_Rover mavlink)
-target_link_libraries(objs_AP_Rally_Rover dronecan)
-target_link_libraries(objs_AP_Rally_Rover littlefs)
+target_link_libraries(objs_AP_Rally_Rover mavlink) #clean
+target_link_libraries(objs_AP_Rally_Rover dronecan) #clean
+target_link_libraries(objs_AP_Rally_Rover littlefs) #clean
 
 set(objs_AP_Scheduler_Rover_SOURCES
     ../libraries/AP_Scheduler/AP_Scheduler.cpp)
@@ -525,9 +525,9 @@ set_target_properties(objs_AP_Scheduler_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Scheduler_Rover mavlink)
-target_link_libraries(objs_AP_Scheduler_Rover dronecan)
-target_link_libraries(objs_AP_Scheduler_Rover littlefs)
+target_link_libraries(objs_AP_Scheduler_Rover mavlink) #clean
+target_link_libraries(objs_AP_Scheduler_Rover dronecan) #clean
+target_link_libraries(objs_AP_Scheduler_Rover littlefs) #clean
 
 set(objs_AP_Terrain_Rover_SOURCES
     ../libraries/AP_Terrain/AP_Terrain.cpp)
@@ -561,9 +561,9 @@ set_target_properties(objs_AP_Terrain_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Terrain_Rover mavlink)
-target_link_libraries(objs_AP_Terrain_Rover dronecan)
-target_link_libraries(objs_AP_Terrain_Rover littlefs)
+target_link_libraries(objs_AP_Terrain_Rover mavlink) #clean
+target_link_libraries(objs_AP_Terrain_Rover dronecan) #clean
+target_link_libraries(objs_AP_Terrain_Rover littlefs) #clean
 
 set(objs_AP_Vehicle_Rover_SOURCES
     ../libraries/AP_Vehicle/AP_Vehicle.cpp)
@@ -597,9 +597,9 @@ set_target_properties(objs_AP_Vehicle_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Vehicle_Rover mavlink)
-target_link_libraries(objs_AP_Vehicle_Rover dronecan)
-target_link_libraries(objs_AP_Vehicle_Rover littlefs)
+target_link_libraries(objs_AP_Vehicle_Rover mavlink) #clean
+target_link_libraries(objs_AP_Vehicle_Rover dronecan) #clean
+target_link_libraries(objs_AP_Vehicle_Rover littlefs) #clean
 
 set(objs_AP_Logger_Rover_SOURCES
     ../libraries/AP_Logger/AP_Logger.cpp
@@ -636,9 +636,9 @@ set_target_properties(objs_AP_Logger_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Logger_Rover mavlink)
-target_link_libraries(objs_AP_Logger_Rover dronecan)
-target_link_libraries(objs_AP_Logger_Rover littlefs)
+target_link_libraries(objs_AP_Logger_Rover mavlink) #clean
+target_link_libraries(objs_AP_Logger_Rover dronecan) #clean
+target_link_libraries(objs_AP_Logger_Rover littlefs) #clean
 
 set(objs_Filter_Rover_SOURCES
     ../libraries/Filter/HarmonicNotchFilter.cpp)
@@ -672,9 +672,9 @@ set_target_properties(objs_Filter_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_Filter_Rover mavlink)
-target_link_libraries(objs_Filter_Rover dronecan)
-target_link_libraries(objs_Filter_Rover littlefs)
+target_link_libraries(objs_Filter_Rover mavlink) #clean
+target_link_libraries(objs_Filter_Rover dronecan) #clean
+target_link_libraries(objs_Filter_Rover littlefs) #clean
 
 set(objs_GCS_MAVLink_Rover_SOURCES
     ../libraries/GCS_MAVLink/GCS.cpp
@@ -712,9 +712,9 @@ set_target_properties(objs_GCS_MAVLink_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_GCS_MAVLink_Rover mavlink)
-target_link_libraries(objs_GCS_MAVLink_Rover dronecan)
-target_link_libraries(objs_GCS_MAVLink_Rover littlefs)
+target_link_libraries(objs_GCS_MAVLink_Rover mavlink) #clean
+target_link_libraries(objs_GCS_MAVLink_Rover dronecan) #clean
+target_link_libraries(objs_GCS_MAVLink_Rover littlefs) #clean
 
 set(objs_RC_Channel_Rover_SOURCES
     ../libraries/RC_Channel/RC_Channel.cpp)
@@ -748,9 +748,9 @@ set_target_properties(objs_RC_Channel_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_RC_Channel_Rover mavlink)
-target_link_libraries(objs_RC_Channel_Rover dronecan)
-target_link_libraries(objs_RC_Channel_Rover littlefs)
+target_link_libraries(objs_RC_Channel_Rover mavlink) #clean
+target_link_libraries(objs_RC_Channel_Rover dronecan) #clean
+target_link_libraries(objs_RC_Channel_Rover littlefs) #clean
 
 set(objs_StorageManager_Rover_SOURCES
     ../libraries/StorageManager/StorageManager.cpp)
@@ -784,9 +784,9 @@ set_target_properties(objs_StorageManager_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_StorageManager_Rover mavlink)
-target_link_libraries(objs_StorageManager_Rover dronecan)
-target_link_libraries(objs_StorageManager_Rover littlefs)
+target_link_libraries(objs_StorageManager_Rover mavlink) #clean
+target_link_libraries(objs_StorageManager_Rover dronecan) #clean
+target_link_libraries(objs_StorageManager_Rover littlefs) #clean
 
 set(objs_AP_Frsky_Telem_Rover_SOURCES
     ../libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp)
@@ -820,9 +820,9 @@ set_target_properties(objs_AP_Frsky_Telem_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Frsky_Telem_Rover mavlink)
-target_link_libraries(objs_AP_Frsky_Telem_Rover dronecan)
-target_link_libraries(objs_AP_Frsky_Telem_Rover littlefs)
+target_link_libraries(objs_AP_Frsky_Telem_Rover mavlink) #clean
+target_link_libraries(objs_AP_Frsky_Telem_Rover dronecan) #clean
+target_link_libraries(objs_AP_Frsky_Telem_Rover littlefs) #clean
 
 set(objs_AP_IBus_Telem_Rover_SOURCES
     ../libraries/AP_IBus_Telem/AP_IBus_Telem.cpp)
@@ -856,9 +856,9 @@ set_target_properties(objs_AP_IBus_Telem_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_IBus_Telem_Rover mavlink)
-target_link_libraries(objs_AP_IBus_Telem_Rover dronecan)
-target_link_libraries(objs_AP_IBus_Telem_Rover littlefs)
+target_link_libraries(objs_AP_IBus_Telem_Rover mavlink) #clean
+target_link_libraries(objs_AP_IBus_Telem_Rover dronecan) #clean
+target_link_libraries(objs_AP_IBus_Telem_Rover littlefs) #clean
 
 set(objs_AP_Relay_Rover_SOURCES
     ../libraries/AP_Relay/AP_Relay.cpp)
@@ -892,9 +892,9 @@ set_target_properties(objs_AP_Relay_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Relay_Rover mavlink)
-target_link_libraries(objs_AP_Relay_Rover dronecan)
-target_link_libraries(objs_AP_Relay_Rover littlefs)
+target_link_libraries(objs_AP_Relay_Rover mavlink) #clean
+target_link_libraries(objs_AP_Relay_Rover dronecan) #clean
+target_link_libraries(objs_AP_Relay_Rover littlefs) #clean
 
 set(objs_AP_RCProtocol_Rover_SOURCES
     ../libraries/AP_RCProtocol/AP_RCProtocol.cpp
@@ -934,9 +934,9 @@ set_target_properties(objs_AP_RCProtocol_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RCProtocol_Rover mavlink)
-target_link_libraries(objs_AP_RCProtocol_Rover dronecan)
-target_link_libraries(objs_AP_RCProtocol_Rover littlefs)
+target_link_libraries(objs_AP_RCProtocol_Rover mavlink) #clean
+target_link_libraries(objs_AP_RCProtocol_Rover dronecan) #clean
+target_link_libraries(objs_AP_RCProtocol_Rover littlefs) #clean
 
 set(objs_AP_BLHeli_Rover_SOURCES
     ../libraries/AP_BLHeli/AP_BLHeli.cpp)
@@ -970,9 +970,9 @@ set_target_properties(objs_AP_BLHeli_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_BLHeli_Rover mavlink)
-target_link_libraries(objs_AP_BLHeli_Rover dronecan)
-target_link_libraries(objs_AP_BLHeli_Rover littlefs)
+target_link_libraries(objs_AP_BLHeli_Rover mavlink) #clean
+target_link_libraries(objs_AP_BLHeli_Rover dronecan) #clean
+target_link_libraries(objs_AP_BLHeli_Rover littlefs) #clean
 
 set(objs_AP_Proximity_Rover_SOURCES
     ../libraries/AP_Proximity/AP_Proximity_Utils.cpp)
@@ -1006,9 +1006,9 @@ set_target_properties(objs_AP_Proximity_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Proximity_Rover mavlink)
-target_link_libraries(objs_AP_Proximity_Rover dronecan)
-target_link_libraries(objs_AP_Proximity_Rover littlefs)
+target_link_libraries(objs_AP_Proximity_Rover mavlink) #clean
+target_link_libraries(objs_AP_Proximity_Rover dronecan) #clean
+target_link_libraries(objs_AP_Proximity_Rover littlefs) #clean
 
 set(objs_AC_Fence_Rover_SOURCES
     ../libraries/AC_Fence/AC_Fence.cpp
@@ -1043,9 +1043,9 @@ set_target_properties(objs_AC_Fence_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_Fence_Rover mavlink)
-target_link_libraries(objs_AC_Fence_Rover dronecan)
-target_link_libraries(objs_AC_Fence_Rover littlefs)
+target_link_libraries(objs_AC_Fence_Rover mavlink) #clean
+target_link_libraries(objs_AC_Fence_Rover dronecan) #clean
+target_link_libraries(objs_AC_Fence_Rover littlefs) #clean
 
 set(objs_AC_Avoidance_Rover_SOURCES
     ../libraries/AC_Avoidance/AC_Avoid.cpp
@@ -1081,9 +1081,9 @@ set_target_properties(objs_AC_Avoidance_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_Avoidance_Rover mavlink)
-target_link_libraries(objs_AC_Avoidance_Rover dronecan)
-target_link_libraries(objs_AC_Avoidance_Rover littlefs)
+target_link_libraries(objs_AC_Avoidance_Rover mavlink) #clean
+target_link_libraries(objs_AC_Avoidance_Rover dronecan) #clean
+target_link_libraries(objs_AC_Avoidance_Rover littlefs) #clean
 
 set(objs_AP_LandingGear_Rover_SOURCES
     ../libraries/AP_LandingGear/AP_LandingGear.cpp)
@@ -1117,9 +1117,9 @@ set_target_properties(objs_AP_LandingGear_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_LandingGear_Rover mavlink)
-target_link_libraries(objs_AP_LandingGear_Rover dronecan)
-target_link_libraries(objs_AP_LandingGear_Rover littlefs)
+target_link_libraries(objs_AP_LandingGear_Rover mavlink) #clean
+target_link_libraries(objs_AP_LandingGear_Rover dronecan) #clean
+target_link_libraries(objs_AP_LandingGear_Rover littlefs) #clean
 
 set(objs_AP_OSD_Rover_SOURCES
     ../libraries/AP_OSD/AP_OSD_ParamScreen.cpp
@@ -1155,9 +1155,9 @@ set_target_properties(objs_AP_OSD_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_OSD_Rover mavlink)
-target_link_libraries(objs_AP_OSD_Rover dronecan)
-target_link_libraries(objs_AP_OSD_Rover littlefs)
+target_link_libraries(objs_AP_OSD_Rover mavlink) #clean
+target_link_libraries(objs_AP_OSD_Rover dronecan) #clean
+target_link_libraries(objs_AP_OSD_Rover littlefs) #clean
 
 set(objs_AP_Filesystem_Rover_SOURCES
     ../libraries/AP_Filesystem/AP_Filesystem_posix.cpp)
@@ -1191,9 +1191,9 @@ set_target_properties(objs_AP_Filesystem_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Filesystem_Rover mavlink)
-target_link_libraries(objs_AP_Filesystem_Rover dronecan)
-target_link_libraries(objs_AP_Filesystem_Rover littlefs)
+target_link_libraries(objs_AP_Filesystem_Rover mavlink) #clean
+target_link_libraries(objs_AP_Filesystem_Rover dronecan) #clean
+target_link_libraries(objs_AP_Filesystem_Rover littlefs) #clean
 
 set(objs_AP_ADSB_Rover_SOURCES
     ../libraries/AP_ADSB/AP_ADSB.cpp
@@ -1228,9 +1228,9 @@ set_target_properties(objs_AP_ADSB_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ADSB_Rover mavlink)
-target_link_libraries(objs_AP_ADSB_Rover dronecan)
-target_link_libraries(objs_AP_ADSB_Rover littlefs)
+target_link_libraries(objs_AP_ADSB_Rover mavlink) #clean
+target_link_libraries(objs_AP_ADSB_Rover dronecan) #clean
+target_link_libraries(objs_AP_ADSB_Rover littlefs) #clean
 
 set(objs_AP_ESC_Telem_Rover_SOURCES
     ../libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp)
@@ -1264,9 +1264,9 @@ set_target_properties(objs_AP_ESC_Telem_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ESC_Telem_Rover mavlink)
-target_link_libraries(objs_AP_ESC_Telem_Rover dronecan)
-target_link_libraries(objs_AP_ESC_Telem_Rover littlefs)
+target_link_libraries(objs_AP_ESC_Telem_Rover mavlink) #clean
+target_link_libraries(objs_AP_ESC_Telem_Rover dronecan) #clean
+target_link_libraries(objs_AP_ESC_Telem_Rover littlefs) #clean
 
 set(objs_AP_GyroFFT_Rover_SOURCES
     ../libraries/AP_GyroFFT/AP_GyroFFT.cpp)
@@ -1300,9 +1300,9 @@ set_target_properties(objs_AP_GyroFFT_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_GyroFFT_Rover mavlink)
-target_link_libraries(objs_AP_GyroFFT_Rover dronecan)
-target_link_libraries(objs_AP_GyroFFT_Rover littlefs)
+target_link_libraries(objs_AP_GyroFFT_Rover mavlink) #clean
+target_link_libraries(objs_AP_GyroFFT_Rover dronecan) #clean
+target_link_libraries(objs_AP_GyroFFT_Rover littlefs) #clean
 
 set(objs_AP_RCTelemetry_Rover_SOURCES
     ../libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp
@@ -1337,9 +1337,9 @@ set_target_properties(objs_AP_RCTelemetry_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_RCTelemetry_Rover mavlink)
-target_link_libraries(objs_AP_RCTelemetry_Rover dronecan)
-target_link_libraries(objs_AP_RCTelemetry_Rover littlefs)
+target_link_libraries(objs_AP_RCTelemetry_Rover mavlink) #clean
+target_link_libraries(objs_AP_RCTelemetry_Rover dronecan) #clean
+target_link_libraries(objs_AP_RCTelemetry_Rover littlefs) #clean
 
 set(objs_AP_ExternalAHRS_Rover_SOURCES
     ../libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp
@@ -1374,9 +1374,9 @@ set_target_properties(objs_AP_ExternalAHRS_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_ExternalAHRS_Rover mavlink)
-target_link_libraries(objs_AP_ExternalAHRS_Rover dronecan)
-target_link_libraries(objs_AP_ExternalAHRS_Rover littlefs)
+target_link_libraries(objs_AP_ExternalAHRS_Rover mavlink) #clean
+target_link_libraries(objs_AP_ExternalAHRS_Rover dronecan) #clean
+target_link_libraries(objs_AP_ExternalAHRS_Rover littlefs) #clean
 
 set(objs_AP_TemperatureSensor_Rover_SOURCES
     ../libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp)
@@ -1410,9 +1410,9 @@ set_target_properties(objs_AP_TemperatureSensor_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_TemperatureSensor_Rover mavlink)
-target_link_libraries(objs_AP_TemperatureSensor_Rover dronecan)
-target_link_libraries(objs_AP_TemperatureSensor_Rover littlefs)
+target_link_libraries(objs_AP_TemperatureSensor_Rover mavlink) #clean
+target_link_libraries(objs_AP_TemperatureSensor_Rover dronecan) #clean
+target_link_libraries(objs_AP_TemperatureSensor_Rover littlefs) #clean
 
 set(objs_AP_AIS_Rover_SOURCES
     ../libraries/AP_AIS/AP_AIS.cpp)
@@ -1446,9 +1446,9 @@ set_target_properties(objs_AP_AIS_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_AIS_Rover mavlink)
-target_link_libraries(objs_AP_AIS_Rover dronecan)
-target_link_libraries(objs_AP_AIS_Rover littlefs)
+target_link_libraries(objs_AP_AIS_Rover mavlink) #clean
+target_link_libraries(objs_AP_AIS_Rover dronecan) #clean
+target_link_libraries(objs_AP_AIS_Rover littlefs) #clean
 
 set(objs_AP_Arming_Rover_SOURCES
     ../libraries/AP_Arming/AP_Arming.cpp)
@@ -1482,9 +1482,9 @@ set_target_properties(objs_AP_Arming_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Arming_Rover mavlink)
-target_link_libraries(objs_AP_Arming_Rover dronecan)
-target_link_libraries(objs_AP_Arming_Rover littlefs)
+target_link_libraries(objs_AP_Arming_Rover mavlink) #clean
+target_link_libraries(objs_AP_Arming_Rover dronecan) #clean
+target_link_libraries(objs_AP_Arming_Rover littlefs) #clean
 
 set(objs_AP_Follow_Rover_SOURCES
     ../libraries/AP_Follow/AP_Follow.cpp)
@@ -1518,9 +1518,9 @@ set_target_properties(objs_AP_Follow_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Follow_Rover mavlink)
-target_link_libraries(objs_AP_Follow_Rover dronecan)
-target_link_libraries(objs_AP_Follow_Rover littlefs)
+target_link_libraries(objs_AP_Follow_Rover mavlink) #clean
+target_link_libraries(objs_AP_Follow_Rover dronecan) #clean
+target_link_libraries(objs_AP_Follow_Rover littlefs) #clean
 
 set(objs_AC_AttitudeControl_Rover_SOURCES
     ../libraries/AC_AttitudeControl/AC_AttitudeControl.cpp
@@ -1556,9 +1556,9 @@ set_target_properties(objs_AC_AttitudeControl_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_AttitudeControl_Rover mavlink)
-target_link_libraries(objs_AC_AttitudeControl_Rover dronecan)
-target_link_libraries(objs_AC_AttitudeControl_Rover littlefs)
+target_link_libraries(objs_AC_AttitudeControl_Rover mavlink) #clean
+target_link_libraries(objs_AC_AttitudeControl_Rover dronecan) #clean
+target_link_libraries(objs_AC_AttitudeControl_Rover littlefs) #clean
 
 set(objs_AC_PrecLand_Rover_SOURCES
     ../libraries/AC_PrecLand/AC_PrecLand.cpp)
@@ -1592,9 +1592,9 @@ set_target_properties(objs_AC_PrecLand_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AC_PrecLand_Rover mavlink)
-target_link_libraries(objs_AC_PrecLand_Rover dronecan)
-target_link_libraries(objs_AC_PrecLand_Rover littlefs)
+target_link_libraries(objs_AC_PrecLand_Rover mavlink) #clean
+target_link_libraries(objs_AC_PrecLand_Rover dronecan) #clean
+target_link_libraries(objs_AC_PrecLand_Rover littlefs) #clean
 
 set(objs_AP_HAL_SITL_Rover_SOURCES
     ../libraries/AP_HAL_SITL/SITL_cmdline.cpp
@@ -1630,9 +1630,9 @@ set_target_properties(objs_AP_HAL_SITL_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_HAL_SITL_Rover mavlink)
-target_link_libraries(objs_AP_HAL_SITL_Rover dronecan)
-target_link_libraries(objs_AP_HAL_SITL_Rover littlefs)
+target_link_libraries(objs_AP_HAL_SITL_Rover mavlink) #clean
+target_link_libraries(objs_AP_HAL_SITL_Rover dronecan) #clean
+target_link_libraries(objs_AP_HAL_SITL_Rover littlefs) #clean
 
 set(objs_SITL_Rover_SOURCES
     ../libraries/SITL/SIM_Aircraft.cpp
@@ -1669,9 +1669,9 @@ set_target_properties(objs_SITL_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_SITL_Rover mavlink)
-target_link_libraries(objs_SITL_Rover dronecan)
-target_link_libraries(objs_SITL_Rover littlefs)
+target_link_libraries(objs_SITL_Rover mavlink) #clean
+target_link_libraries(objs_SITL_Rover dronecan) #clean
+target_link_libraries(objs_SITL_Rover littlefs) #clean
 
 set(objs_AP_Scripting_Rover_SOURCES
     ../libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp
@@ -1710,9 +1710,9 @@ set_target_properties(objs_AP_Scripting_Rover PROPERTIES
 )
 
 
-target_link_libraries(objs_AP_Scripting_Rover mavlink)
-target_link_libraries(objs_AP_Scripting_Rover dronecan)
-target_link_libraries(objs_AP_Scripting_Rover littlefs)
+target_link_libraries(objs_AP_Scripting_Rover mavlink) #clean
+target_link_libraries(objs_AP_Scripting_Rover dronecan) #clean
+target_link_libraries(objs_AP_Scripting_Rover littlefs) #clean
 
 set(Rover_libs_SOURCES
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
@@ -1919,266 +1919,132 @@ set_target_properties(Rover_libs PROPERTIES
 )
 
 
-target_link_libraries(Rover_libs objs/AP_AccelCal)
-target_link_libraries(Rover_libs objs/AP_AccelCal/Rover)
-target_link_libraries(Rover_libs objs/AP_ADC)
-target_link_libraries(Rover_libs objs/AP_ADC/Rover)
-target_link_libraries(Rover_libs objs/AP_AHRS)
-target_link_libraries(Rover_libs objs/AP_AHRS/Rover)
-target_link_libraries(Rover_libs objs/AP_Airspeed)
-target_link_libraries(Rover_libs objs/AP_Airspeed/Rover)
-target_link_libraries(Rover_libs objs/AP_Baro)
-target_link_libraries(Rover_libs objs/AP_Baro/Rover)
-target_link_libraries(Rover_libs objs/AP_BattMonitor)
-target_link_libraries(Rover_libs objs/AP_BattMonitor/Rover)
-target_link_libraries(Rover_libs objs/AP_BoardConfig)
-target_link_libraries(Rover_libs objs/AP_BoardConfig/Rover)
-target_link_libraries(Rover_libs objs/AP_Camera)
-target_link_libraries(Rover_libs objs/AP_Camera/Rover)
-target_link_libraries(Rover_libs objs/AP_Common)
-target_link_libraries(Rover_libs objs/AP_Common/Rover)
-target_link_libraries(Rover_libs objs/AP_Compass)
-target_link_libraries(Rover_libs objs/AP_Compass/Rover)
-target_link_libraries(Rover_libs objs/AP_Declination)
-target_link_libraries(Rover_libs objs/AP_Declination/Rover)
-target_link_libraries(Rover_libs objs/AP_GPS)
-target_link_libraries(Rover_libs objs/AP_GPS/Rover)
-target_link_libraries(Rover_libs objs/AP_GSOF)
-target_link_libraries(Rover_libs objs/AP_GSOF/Rover)
-target_link_libraries(Rover_libs objs/AP_HAL)
-target_link_libraries(Rover_libs objs/AP_HAL/Rover)
-target_link_libraries(Rover_libs objs/AP_HAL_Empty)
-target_link_libraries(Rover_libs objs/AP_HAL_Empty/Rover)
-target_link_libraries(Rover_libs objs/AP_DDS)
-target_link_libraries(Rover_libs objs/AP_DDS/Rover)
-target_link_libraries(Rover_libs objs/AP_InertialSensor)
-target_link_libraries(Rover_libs objs/AP_InertialSensor/Rover)
-target_link_libraries(Rover_libs objs/AP_Math)
-target_link_libraries(Rover_libs objs/AP_Math/Rover)
-target_link_libraries(Rover_libs objs/AP_Mission)
-target_link_libraries(Rover_libs objs/AP_Mission/Rover)
-target_link_libraries(Rover_libs objs/AP_DAL)
-target_link_libraries(Rover_libs objs/AP_DAL/Rover)
-target_link_libraries(Rover_libs objs/AP_NavEKF)
-target_link_libraries(Rover_libs objs/AP_NavEKF/Rover)
-target_link_libraries(Rover_libs objs/AP_NavEKF2)
-target_link_libraries(Rover_libs objs/AP_NavEKF2/Rover)
-target_link_libraries(Rover_libs objs/AP_NavEKF3)
-target_link_libraries(Rover_libs objs/AP_NavEKF3/Rover)
-target_link_libraries(Rover_libs objs/AP_Notify)
-target_link_libraries(Rover_libs objs/AP_Notify/Rover)
-target_link_libraries(Rover_libs objs/AP_OpticalFlow)
-target_link_libraries(Rover_libs objs/AP_OpticalFlow/Rover)
-target_link_libraries(Rover_libs objs/AP_Param)
-target_link_libraries(Rover_libs objs/AP_Param/Rover)
-target_link_libraries(Rover_libs objs/AP_Rally)
-target_link_libraries(Rover_libs objs/AP_Rally/Rover)
-target_link_libraries(Rover_libs objs/AP_LightWareSerial)
-target_link_libraries(Rover_libs objs/AP_LightWareSerial/Rover)
-target_link_libraries(Rover_libs objs/AP_RangeFinder)
-target_link_libraries(Rover_libs objs/AP_RangeFinder/Rover)
-target_link_libraries(Rover_libs objs/AP_Scheduler)
-target_link_libraries(Rover_libs objs/AP_Scheduler/Rover)
-target_link_libraries(Rover_libs objs/AP_SerialManager)
-target_link_libraries(Rover_libs objs/AP_SerialManager/Rover)
-target_link_libraries(Rover_libs objs/AP_Terrain)
-target_link_libraries(Rover_libs objs/AP_Terrain/Rover)
-target_link_libraries(Rover_libs objs/AP_Vehicle)
-target_link_libraries(Rover_libs objs/AP_Vehicle/Rover)
-target_link_libraries(Rover_libs objs/AP_InternalError)
-target_link_libraries(Rover_libs objs/AP_InternalError/Rover)
-target_link_libraries(Rover_libs objs/AP_Logger)
-target_link_libraries(Rover_libs objs/AP_Logger/Rover)
-target_link_libraries(Rover_libs objs/Filter)
-target_link_libraries(Rover_libs objs/Filter/Rover)
-target_link_libraries(Rover_libs objs/GCS_MAVLink)
-target_link_libraries(Rover_libs objs/GCS_MAVLink/Rover)
-target_link_libraries(Rover_libs objs/RC_Channel)
-target_link_libraries(Rover_libs objs/RC_Channel/Rover)
-target_link_libraries(Rover_libs objs/SRV_Channel)
-target_link_libraries(Rover_libs objs/SRV_Channel/Rover)
-target_link_libraries(Rover_libs objs/StorageManager)
-target_link_libraries(Rover_libs objs/StorageManager/Rover)
-target_link_libraries(Rover_libs objs/AP_Tuning)
-target_link_libraries(Rover_libs objs/AP_Tuning/Rover)
-target_link_libraries(Rover_libs objs/AP_RPM)
-target_link_libraries(Rover_libs objs/AP_RPM/Rover)
-target_link_libraries(Rover_libs objs/AP_RSSI)
-target_link_libraries(Rover_libs objs/AP_RSSI/Rover)
-target_link_libraries(Rover_libs objs/AP_Mount)
-target_link_libraries(Rover_libs objs/AP_Mount/Rover)
-target_link_libraries(Rover_libs objs/AP_Module)
-target_link_libraries(Rover_libs objs/AP_Module/Rover)
-target_link_libraries(Rover_libs objs/AP_Button)
-target_link_libraries(Rover_libs objs/AP_Button/Rover)
-target_link_libraries(Rover_libs objs/AP_ICEngine)
-target_link_libraries(Rover_libs objs/AP_ICEngine/Rover)
-target_link_libraries(Rover_libs objs/AP_Networking)
-target_link_libraries(Rover_libs objs/AP_Networking/Rover)
-target_link_libraries(Rover_libs objs/AP_Frsky_Telem)
-target_link_libraries(Rover_libs objs/AP_Frsky_Telem/Rover)
-target_link_libraries(Rover_libs objs/AP_IBus_Telem)
-target_link_libraries(Rover_libs objs/AP_IBus_Telem/Rover)
-target_link_libraries(Rover_libs objs/AP_FlashStorage)
-target_link_libraries(Rover_libs objs/AP_FlashStorage/Rover)
-target_link_libraries(Rover_libs objs/AP_Relay)
-target_link_libraries(Rover_libs objs/AP_Relay/Rover)
-target_link_libraries(Rover_libs objs/AP_ServoRelayEvents)
-target_link_libraries(Rover_libs objs/AP_ServoRelayEvents/Rover)
-target_link_libraries(Rover_libs objs/AP_Volz_Protocol)
-target_link_libraries(Rover_libs objs/AP_Volz_Protocol/Rover)
-target_link_libraries(Rover_libs objs/AP_SBusOut)
-target_link_libraries(Rover_libs objs/AP_SBusOut/Rover)
-target_link_libraries(Rover_libs objs/AP_IOMCU)
-target_link_libraries(Rover_libs objs/AP_IOMCU/Rover)
-target_link_libraries(Rover_libs objs/AP_Parachute)
-target_link_libraries(Rover_libs objs/AP_Parachute/Rover)
-target_link_libraries(Rover_libs objs/AP_RAMTRON)
-target_link_libraries(Rover_libs objs/AP_RAMTRON/Rover)
-target_link_libraries(Rover_libs objs/AP_RCProtocol)
-target_link_libraries(Rover_libs objs/AP_RCProtocol/Rover)
-target_link_libraries(Rover_libs objs/AP_Radio)
-target_link_libraries(Rover_libs objs/AP_Radio/Rover)
-target_link_libraries(Rover_libs objs/AP_TempCalibration)
-target_link_libraries(Rover_libs objs/AP_TempCalibration/Rover)
-target_link_libraries(Rover_libs objs/AP_VisualOdom)
-target_link_libraries(Rover_libs objs/AP_VisualOdom/Rover)
-target_link_libraries(Rover_libs objs/AP_BLHeli)
-target_link_libraries(Rover_libs objs/AP_BLHeli/Rover)
-target_link_libraries(Rover_libs objs/AP_ROMFS)
-target_link_libraries(Rover_libs objs/AP_ROMFS/Rover)
-target_link_libraries(Rover_libs objs/AP_Proximity)
-target_link_libraries(Rover_libs objs/AP_Proximity/Rover)
-target_link_libraries(Rover_libs objs/AP_Gripper)
-target_link_libraries(Rover_libs objs/AP_Gripper/Rover)
-target_link_libraries(Rover_libs objs/AP_RTC)
-target_link_libraries(Rover_libs objs/AP_RTC/Rover)
-target_link_libraries(Rover_libs objs/AC_Sprayer)
-target_link_libraries(Rover_libs objs/AC_Sprayer/Rover)
-target_link_libraries(Rover_libs objs/AC_Fence)
-target_link_libraries(Rover_libs objs/AC_Fence/Rover)
-target_link_libraries(Rover_libs objs/AC_Avoidance)
-target_link_libraries(Rover_libs objs/AC_Avoidance/Rover)
-target_link_libraries(Rover_libs objs/AP_LandingGear)
-target_link_libraries(Rover_libs objs/AP_LandingGear/Rover)
-target_link_libraries(Rover_libs objs/AP_RobotisServo)
-target_link_libraries(Rover_libs objs/AP_RobotisServo/Rover)
-target_link_libraries(Rover_libs objs/AP_NMEA_Output)
-target_link_libraries(Rover_libs objs/AP_NMEA_Output/Rover)
-target_link_libraries(Rover_libs objs/AP_OSD)
-target_link_libraries(Rover_libs objs/AP_OSD/Rover)
-target_link_libraries(Rover_libs objs/AP_Filesystem)
-target_link_libraries(Rover_libs objs/AP_Filesystem/Rover)
-target_link_libraries(Rover_libs objs/AP_ADSB)
-target_link_libraries(Rover_libs objs/AP_ADSB/Rover)
-target_link_libraries(Rover_libs objs/AP_ADSB/sagetech-sdk)
-target_link_libraries(Rover_libs objs/AP_ADSB/sagetech-sdk/Rover)
-target_link_libraries(Rover_libs objs/AC_PID)
-target_link_libraries(Rover_libs objs/AC_PID/Rover)
-target_link_libraries(Rover_libs objs/AP_SerialLED)
-target_link_libraries(Rover_libs objs/AP_SerialLED/Rover)
-target_link_libraries(Rover_libs objs/AP_EFI)
-target_link_libraries(Rover_libs objs/AP_EFI/Rover)
-target_link_libraries(Rover_libs objs/AP_Hott_Telem)
-target_link_libraries(Rover_libs objs/AP_Hott_Telem/Rover)
-target_link_libraries(Rover_libs objs/AP_ESC_Telem)
-target_link_libraries(Rover_libs objs/AP_ESC_Telem/Rover)
-target_link_libraries(Rover_libs objs/AP_Servo_Telem)
-target_link_libraries(Rover_libs objs/AP_Servo_Telem/Rover)
-target_link_libraries(Rover_libs objs/AP_Stats)
-target_link_libraries(Rover_libs objs/AP_Stats/Rover)
-target_link_libraries(Rover_libs objs/AP_GyroFFT)
-target_link_libraries(Rover_libs objs/AP_GyroFFT/Rover)
-target_link_libraries(Rover_libs objs/AP_RCTelemetry)
-target_link_libraries(Rover_libs objs/AP_RCTelemetry/Rover)
-target_link_libraries(Rover_libs objs/AP_Generator)
-target_link_libraries(Rover_libs objs/AP_Generator/Rover)
-target_link_libraries(Rover_libs objs/AP_MSP)
-target_link_libraries(Rover_libs objs/AP_MSP/Rover)
-target_link_libraries(Rover_libs objs/AP_OLC)
-target_link_libraries(Rover_libs objs/AP_OLC/Rover)
-target_link_libraries(Rover_libs objs/AP_WheelEncoder)
-target_link_libraries(Rover_libs objs/AP_WheelEncoder/Rover)
-target_link_libraries(Rover_libs objs/AP_ExternalAHRS)
-target_link_libraries(Rover_libs objs/AP_ExternalAHRS/Rover)
-target_link_libraries(Rover_libs objs/AP_VideoTX)
-target_link_libraries(Rover_libs objs/AP_VideoTX/Rover)
-target_link_libraries(Rover_libs objs/AP_FETtecOneWire)
-target_link_libraries(Rover_libs objs/AP_FETtecOneWire/Rover)
-target_link_libraries(Rover_libs objs/AP_TemperatureSensor)
-target_link_libraries(Rover_libs objs/AP_TemperatureSensor/Rover)
-target_link_libraries(Rover_libs objs/AP_Torqeedo)
-target_link_libraries(Rover_libs objs/AP_Torqeedo/Rover)
-target_link_libraries(Rover_libs objs/AP_CustomRotations)
-target_link_libraries(Rover_libs objs/AP_CustomRotations/Rover)
-target_link_libraries(Rover_libs objs/AP_AIS)
-target_link_libraries(Rover_libs objs/AP_AIS/Rover)
-target_link_libraries(Rover_libs objs/AP_OpenDroneID)
-target_link_libraries(Rover_libs objs/AP_OpenDroneID/Rover)
-target_link_libraries(Rover_libs objs/AP_CheckFirmware)
-target_link_libraries(Rover_libs objs/AP_CheckFirmware/Rover)
-target_link_libraries(Rover_libs objs/AP_ExternalControl)
-target_link_libraries(Rover_libs objs/AP_ExternalControl/Rover)
-target_link_libraries(Rover_libs objs/AP_JSON)
-target_link_libraries(Rover_libs objs/AP_JSON/Rover)
-target_link_libraries(Rover_libs objs/AP_Beacon)
-target_link_libraries(Rover_libs objs/AP_Beacon/Rover)
-target_link_libraries(Rover_libs objs/AP_Arming)
-target_link_libraries(Rover_libs objs/AP_Arming/Rover)
-target_link_libraries(Rover_libs objs/AP_RCMapper)
-target_link_libraries(Rover_libs objs/AP_RCMapper/Rover)
-target_link_libraries(Rover_libs objs/AP_MultiHeap)
-target_link_libraries(Rover_libs objs/AP_MultiHeap/Rover)
-target_link_libraries(Rover_libs objs/AP_Follow)
-target_link_libraries(Rover_libs objs/AP_Follow/Rover)
-target_link_libraries(Rover_libs objs/AP_CANManager)
-target_link_libraries(Rover_libs objs/AP_CANManager/Rover)
-target_link_libraries(Rover_libs objs/AP_KDECAN)
-target_link_libraries(Rover_libs objs/AP_KDECAN/Rover)
-target_link_libraries(Rover_libs objs/AP_PiccoloCAN)
-target_link_libraries(Rover_libs objs/AP_PiccoloCAN/Rover)
-target_link_libraries(Rover_libs objs/AP_PiccoloCAN/piccolo_protocol)
-target_link_libraries(Rover_libs objs/AP_PiccoloCAN/piccolo_protocol/Rover)
-target_link_libraries(Rover_libs objs/APM_Control)
-target_link_libraries(Rover_libs objs/APM_Control/Rover)
-target_link_libraries(Rover_libs objs/AP_Navigation)
-target_link_libraries(Rover_libs objs/AP_Navigation/Rover)
-target_link_libraries(Rover_libs objs/AR_WPNav)
-target_link_libraries(Rover_libs objs/AR_WPNav/Rover)
-target_link_libraries(Rover_libs objs/AP_AdvancedFailsafe)
-target_link_libraries(Rover_libs objs/AP_AdvancedFailsafe/Rover)
-target_link_libraries(Rover_libs objs/AP_SmartRTL)
-target_link_libraries(Rover_libs objs/AP_SmartRTL/Rover)
-target_link_libraries(Rover_libs objs/AC_AttitudeControl)
-target_link_libraries(Rover_libs objs/AC_AttitudeControl/Rover)
-target_link_libraries(Rover_libs objs/AP_LTM_Telem)
-target_link_libraries(Rover_libs objs/AP_LTM_Telem/Rover)
-target_link_libraries(Rover_libs objs/AP_Devo_Telem)
-target_link_libraries(Rover_libs objs/AP_Devo_Telem/Rover)
-target_link_libraries(Rover_libs objs/AP_WindVane)
-target_link_libraries(Rover_libs objs/AP_WindVane/Rover)
-target_link_libraries(Rover_libs objs/AR_Motors)
-target_link_libraries(Rover_libs objs/AR_Motors/Rover)
-target_link_libraries(Rover_libs objs/AC_PrecLand)
-target_link_libraries(Rover_libs objs/AC_PrecLand/Rover)
-target_link_libraries(Rover_libs objs/AP_IRLock)
-target_link_libraries(Rover_libs objs/AP_IRLock/Rover)
-target_link_libraries(Rover_libs objs/AP_DroneCAN)
-target_link_libraries(Rover_libs objs/AP_DroneCAN/Rover)
-target_link_libraries(Rover_libs objs/modules/DroneCAN/libcanard/*.c)
-target_link_libraries(Rover_libs objs/modules/DroneCAN/libcanard/*.c/Rover)
-target_link_libraries(Rover_libs objs/AP_HAL_SITL)
-target_link_libraries(Rover_libs objs/AP_HAL_SITL/Rover)
-target_link_libraries(Rover_libs objs/AP_CSVReader)
-target_link_libraries(Rover_libs objs/AP_CSVReader/Rover)
-target_link_libraries(Rover_libs objs/SITL)
-target_link_libraries(Rover_libs objs/SITL/Rover)
-target_link_libraries(Rover_libs objs/AP_Scripting)
-target_link_libraries(Rover_libs objs/AP_Scripting/Rover)
-target_link_libraries(Rover_libs objs/AP_Scripting/lua/src)
-target_link_libraries(Rover_libs objs/AP_Scripting/lua/src/Rover)
-target_link_libraries(Rover_libs objs/AC_CustomControl)
-target_link_libraries(Rover_libs objs/AC_CustomControl/Rover)
+target_link_libraries(Rover_libs libobjs_AP_AccelCal.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_ADC.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_AHRS.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Airspeed.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Baro.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_BattMonitor.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_BoardConfig.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Camera.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Common.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Compass.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Declination.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_GPS.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_GSOF.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_HAL.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_HAL_Empty.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_DDS.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_InertialSensor.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Math.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Mission.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_DAL.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_NavEKF.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_NavEKF2.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_NavEKF3.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Notify.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_OpticalFlow.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Param.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Rally.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_LightWareSerial.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_RangeFinder.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Scheduler.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_SerialManager.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Terrain.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Vehicle.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_InternalError.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Logger.a) #stripped
+target_link_libraries(Rover_libs libobjs_Filter.a) #stripped
+target_link_libraries(Rover_libs libobjs_GCS_MAVLink.a) #stripped
+target_link_libraries(Rover_libs libobjs_RC_Channel.a) #stripped
+target_link_libraries(Rover_libs libobjs_SRV_Channel.a) #stripped
+target_link_libraries(Rover_libs libobjs_StorageManager.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Tuning.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_RPM.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_RSSI.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Mount.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Module.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Button.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_ICEngine.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Networking.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Frsky_Telem.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_IBus_Telem.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_FlashStorage.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Relay.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_ServoRelayEvents.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Volz_Protocol.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_SBusOut.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_IOMCU.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Parachute.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_RAMTRON.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_RCProtocol.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Radio.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_TempCalibration.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_VisualOdom.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_BLHeli.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_ROMFS.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Proximity.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Gripper.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_RTC.a) #stripped
+target_link_libraries(Rover_libs libobjs_AC_Sprayer.a) #stripped
+target_link_libraries(Rover_libs libobjs_AC_Fence.a) #stripped
+target_link_libraries(Rover_libs libobjs_AC_Avoidance.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_LandingGear.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_RobotisServo.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_NMEA_Output.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_OSD.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Filesystem.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_ADSB.a) #stripped
+target_link_libraries(Rover_libs libobjs_AC_PID.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_SerialLED.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_EFI.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Hott_Telem.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_ESC_Telem.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Servo_Telem.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Stats.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_GyroFFT.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_RCTelemetry.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Generator.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_MSP.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_OLC.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_WheelEncoder.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_ExternalAHRS.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_VideoTX.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_FETtecOneWire.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_TemperatureSensor.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Torqeedo.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_CustomRotations.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_AIS.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_OpenDroneID.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_CheckFirmware.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_ExternalControl.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_JSON.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Beacon.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Arming.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_RCMapper.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_MultiHeap.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Follow.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_CANManager.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_KDECAN.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_PiccoloCAN.a) #stripped
+target_link_libraries(Rover_libs libobjs_APM_Control.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Navigation.a) #stripped
+target_link_libraries(Rover_libs libobjs_AR_WPNav.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_AdvancedFailsafe.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_SmartRTL.a) #stripped
+target_link_libraries(Rover_libs libobjs_AC_AttitudeControl.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_LTM_Telem.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Devo_Telem.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_WindVane.a) #stripped
+target_link_libraries(Rover_libs libobjs_AR_Motors.a) #stripped
+target_link_libraries(Rover_libs libobjs_AC_PrecLand.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_IRLock.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_DroneCAN.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_HAL_SITL.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_CSVReader.a) #stripped
+target_link_libraries(Rover_libs libobjs_SITL.a) #stripped
+target_link_libraries(Rover_libs libobjs_AP_Scripting.a) #stripped
+target_link_libraries(Rover_libs libobjs_AC_CustomControl.a) #stripped
 
 set(bin_ardurover_SOURCES
     AP_Arming_Rover.cpp
@@ -2245,5 +2111,5 @@ add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Ro
 
 add_executable(bin_ardurover ${bin_ardurover_SOURCES})
 
-target_link_libraries(bin_ardurover Rover_libs)
+target_link_libraries(bin_ardurover Rover_libs) #clean
 
