@@ -127,10 +127,15 @@ class CMakeExporterContext(BuildContext):
 		namelist = ['mavlink','dronecan','ap_version','ap_config']
 		if name in namelist:
 			print('Debug: CMakeExporterContext __call__ for name: %s ' % name)
+			if name == 'mavlink':
+				shell_cmd1 = 'gcc -std=c99 -Wno-error=missing-field-initializers -Wall -Werror -Wextra -o gen-bindings ../../libraries/AP_Scripting/generator/src/main.c'
+				print('mavlink: Running shell command: %s ' % shell_cmd1)
+				os.system(shell_cmd1)
+
 			if name == 'dronecan':
 				shell_cmd = '/usr/bin/python3 /home/buzz2/ardupilot/modules/DroneCAN/dronecan_dsdlc/dronecan_dsdlc.py -O/home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated /home/buzz2/ardupilot/modules/DroneCAN/DSDL/ardupilot /home/buzz2/ardupilot/modules/DroneCAN/DSDL/com /home/buzz2/ardupilot/modules/DroneCAN/DSDL/cuav /home/buzz2/ardupilot/modules/DroneCAN/DSDL/dronecan /home/buzz2/ardupilot/modules/DroneCAN/DSDL/mppt /home/buzz2/ardupilot/modules/DroneCAN/DSDL/tests /home/buzz2/ardupilot/modules/DroneCAN/DSDL/uavcan'
 				print('dronecan: Running shell command: %s ' % shell_cmd)
-
+				os.system(shell_cmd)
 
 			if name == 'ap_version':
 				builddir = self.bldnode.abspath() #eg build/sitl
