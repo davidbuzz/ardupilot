@@ -103,6 +103,14 @@ def configure(conf):
 	'''
 	conf.find_program('cmake_exporter', var='CMAKE_EXPORTER', mandatory=False)
 
+# this data is used in both the parent and subdirs so we dont do objs multiple times.
+lib_register = {}
+def is_lib_registered(libname):
+	global lib_register
+	return libname in lib_register
+def register_lib(libname):
+	global lib_register
+	lib_register[libname] = True
 
 class CMakeExporterContext(BuildContext):
 	'''export C/C++ tasks to CMakeExporter.'''
@@ -133,7 +141,7 @@ class CMakeExporterContext(BuildContext):
 				os.system(shell_cmd1)
 
 			if name == 'dronecan':
-				shell_cmd = '/usr/bin/python3 /home/buzz2/ardupilot/modules/DroneCAN/dronecan_dsdlc/dronecan_dsdlc.py -O/home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated /home/buzz2/ardupilot/modules/DroneCAN/DSDL/ardupilot /home/buzz2/ardupilot/modules/DroneCAN/DSDL/com /home/buzz2/ardupilot/modules/DroneCAN/DSDL/cuav /home/buzz2/ardupilot/modules/DroneCAN/DSDL/dronecan /home/buzz2/ardupilot/modules/DroneCAN/DSDL/mppt /home/buzz2/ardupilot/modules/DroneCAN/DSDL/tests /home/buzz2/ardupilot/modules/DroneCAN/DSDL/uavcan'
+				shell_cmd = '/usr/bin/python3 /home/buzz2/ardupilot/modules/DroneCAN/dronecan_dsdlc/dronecan_dsdlc.py -O/home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated /home/buzz2/ardupilot/modules/DroneCAN/DSDL/ardupilot /home/buzz2/ardupilot/modules/DroneCAN/DSDL/com /home/buzz2/ardupilot/modules/DroneCAN/DSDL/cuav /home/buzz2/ardupilot/modules/DroneCAN/DSDL/dronecan /home/buzz2/ardupilot/modules/DroneCAN/DSDL/mppt /home/buzz2/ardupilot/modules/DroneCAN/DSDL/tests /home/buzz2/ardupilot/modules/DroneCAN/DSDL/uavcan >/dev/null 2>&1'
 				print('dronecan: Running shell command: %s ' % shell_cmd)
 				os.system(shell_cmd)
 
@@ -228,22 +236,15 @@ def export(bld):
 	#	return
 
 	cmakes = {}
-	loc = bld.path.relpath().replace('\\', '/') # eg loc = 'Rover' or 'ArduPlane' etc
+	loc = bld.path.relpath().replace('\\', '/')  # eg loc = '.'
+	#print('ZZCreating new CMakeExporter for location: %s ' % (loc))
 	top = CMakeExporter(bld, loc)
 	cmakes[loc] = top
 	targets = waftools.deps.get_targets(bld)
-	unique_targets = set()
+	#unique_targets = set()
 	#for t in targets:
 	#	unique_targets.add(t)
 	#print('unique_targets:', unique_targets)
-
-	# targets.append('ArduPlane_libs') 
-	# targets.append('AntennaTracker_libs') 
-	# targets.append('ArduCopter_libs') 
-	# targets.append('Rover_libs')
-	# targets.append('ArduSub_libs')
-	# targets.append('Blimp_libs')
-	
 	
 	for tgen in bld.task_gen_cache_names.values():
 		if targets and tgen.get_name() not in targets:
@@ -253,8 +254,9 @@ def export(bld):
 		if getattr(tgen, 'cmake_skipme', False):
 			continue
 		if set(('c', 'cxx')) & set(getattr(tgen, 'features', [])):
-			loc = tgen.path.relpath().replace('\\', '/')
+			loc = tgen.path.relpath().replace('\\', '/') # eg loc = 'Rover' or 'ArduPlane' etc
 			if loc not in cmakes:
+				#print('Creating new CMakeExporter for location: %s ' % (loc))
 				cmake = CMakeExporter(bld, loc)
 				cmakes[loc] = cmake
 				top.add_child(cmake)
@@ -361,7 +363,8 @@ class CMakeExporter(object):
 					shutil.copyfile(ap_config_h_src, ap_config_h_dst)
 					print ('copied: %s to %s' % (ap_config_h_src, ap_config_h_dst))
 			
-			content += 'cmake_minimum_required (VERSION 3.2)\n'
+			# 3.13 need to enable the NEW behavior of policy CMP0079 in your CMake project
+			content += 'cmake_minimum_required (VERSION 3.13)\n'
 			#content += 'project (%s)\n' % (getattr(Context.g_module, Context.APPNAME))
 			content += 'project (ArduPilot)\n'
 			content += '\n'
@@ -416,10 +419,14 @@ class CMakeExporter(object):
 			flags2 = clean_flags(env.CXXFLAGS)
 			if len(flags2):
 				content += 'set(CMAKE_CXX_FLAGS "%s")\n' % (' '.join(flags2))
+		else:
+			pass # not top level
 
 		if len(self.tgens):
 			content += '\n'
 			for tgen in self.tgens:
+				t = tgen.get_name()
+				#print('Debug: Generating cmake content for tgen: %s ' % t)
 				content += self.get_tgen_content(tgen)
 
 		if len(self.cmakes):
@@ -433,8 +440,20 @@ class CMakeExporter(object):
 		content = ''
 		name = tgen.get_name()
 
+		# if name has two /'s in it, is a mid-level target, break it into pieces and remove the lastm which should be self.location
+		# eg objs/AP_Scripting/ArduCopter  becomes objs/AP_Scripting
+		parts = name.split('/')
+		if len(parts) == 3:
+			parts = parts[:-1] # remove last part
+			name = '/'.join(parts)
+
 		#CMP0037_name = name.replace('-', '_')
 		cleanedname = name.replace('/', '_')
+
+		# top level:
+		# eg objs/AP_Scripting
+		# next level:
+		# eg objs/AP_Scripting/ArduCopter
 
 		# does name start with bin/ ? if so print debug statement
 		if name.startswith('bin'):
@@ -444,6 +463,13 @@ class CMakeExporter(object):
 		if '*' in name:
 			print('Warning: Skipping task generator with wildcard name: %s' % name)
 			return ''
+		
+		reg_status = is_lib_registered(cleanedname)
+		if reg_status:
+			print('Warning: Skipping already registered library: %s' % cleanedname)
+			return ''
+		print('Registering Library: %s' % cleanedname)
+		register_lib(cleanedname)
 
 		content += 'set(%s_SOURCES' % (cleanedname)
 		for src in tgen.source:
@@ -473,7 +499,7 @@ class CMakeExporter(object):
 			content += '\n'
 
 		elif set(('cshlib', 'cxxshlib')) & set(tgen.features):
-			content += 'add_library(%s SHARED ${%s_SOURCES})\n' % (cleanedname, cleanedname)
+			content += 'add_library(%s SHARED ${%s_SOURCES}) #1\n' % (cleanedname, cleanedname)
 			if len(defines):
 				content += 'target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
 			content += '\n'
@@ -484,7 +510,7 @@ class CMakeExporter(object):
 			content += ')\n\n'
 
 		else: # cstlib, cxxstlib or objects
-			content += 'add_library(%s ${%s_SOURCES})\n' % (cleanedname, cleanedname)
+			content += 'add_library(%s ${%s_SOURCES}) #2\n' % (cleanedname, cleanedname)
 			if len(defines):
 				content += 'target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
 			content += '\n'
@@ -528,7 +554,8 @@ class CMakeExporter(object):
 					is_lib = cleaned_name_bits[1]
 					is_loc = cleaned_name_bits[0]
 					if is_lib == 'libs'  and self.location == is_loc:
-						content += 'target_link_libraries(%s objs_%s_%s) #stripped2\n' % (cleanedname, strip_lib, is_loc)
+						#content += 'target_link_libraries(%s ../libobjs_%s_%s.a) #stripped2\n' % (cleanedname, strip_lib, is_loc)
+						content += 'target_link_libraries(%s ../libobjs_%s.a) #stripped2\n' % (cleanedname, strip_lib)
 					else:
 						content += 'target_link_libraries(%s objs_%s_%s) #stripped\n' % (cleanedname, strip_lib,)
 				else:
