@@ -228,7 +228,7 @@ def export(bld):
 	#	return
 
 	cmakes = {}
-	loc = bld.path.relpath().replace('\\', '/')
+	loc = bld.path.relpath().replace('\\', '/') # eg loc = 'Rover' or 'ArduPlane' etc
 	top = CMakeExporter(bld, loc)
 	cmakes[loc] = top
 	targets = waftools.deps.get_targets(bld)
@@ -290,7 +290,7 @@ def cleanup(bld):
 class CMakeExporter(object):
 	def __init__(self, bld, location):
 		self.bld = bld
-		self.location = location
+		self.location = location # relative path from top level dir and 'ArduPlane' or 'Rover' etc
 		self.cmakes = []
 		self.tgens = []
 		print('CMakeExporter initialized for location: %s' % (self.location))
@@ -373,7 +373,7 @@ class CMakeExporter(object):
 			env = self.bld.env
 			defines = env.DEFINES
 			if len(defines):
-				content += 'add_definitions(-D%s)\n' % (' -D'.join(defines))
+				content += 'add_definitions(-D%s) #1\n' % (' -D'.join(defines))
 				content += '\n'
 
 			# drop '-Werror=shadow' from CFLAGS and CXXFLAGS
@@ -452,15 +452,22 @@ class CMakeExporter(object):
 			content += '\n'
 
 		defines = self.get_genlist(tgen, 'defines')
-		if len(defines):
-			content += 'add_definitions(-D%s)\n' % (' -D'.join(defines))
-			content += '\n'
+		#if len(defines):
+		#	content += 'add_definitions(-D%s) #2\n' % (' -D'.join(defines))
+		#	content += '\n'
+
 
 		if set(('cprogram', 'cxxprogram')) & set(tgen.features):
 			content += 'add_executable(%s ${%s_SOURCES})\n' % (cleanedname, cleanedname)
-		
+			if len(defines):
+				content += 'target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
+			content += '\n'
+
 		elif set(('cshlib', 'cxxshlib')) & set(tgen.features):
 			content += 'add_library(%s SHARED ${%s_SOURCES})\n' % (cleanedname, cleanedname)
+			if len(defines):
+				content += 'target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
+			content += '\n'
 
 			#set_target_properties(JE3D PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/library)
 			content += 'set_target_properties(%s PROPERTIES\n' % (cleanedname)
@@ -469,6 +476,9 @@ class CMakeExporter(object):
 
 		else: # cstlib, cxxstlib or objects
 			content += 'add_library(%s ${%s_SOURCES})\n' % (cleanedname, cleanedname)
+			if len(defines):
+				content += 'target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
+			content += '\n'
 
 			#set_target_properties(JE3D PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/library)
 			content += 'set_target_properties(%s PROPERTIES\n' % (cleanedname)
