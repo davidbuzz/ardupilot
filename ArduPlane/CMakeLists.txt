@@ -25,9 +25,9 @@ set(objs_AP_AHRS_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_AHRS_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_AHRS_ArduPlane ${objs_AP_AHRS_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_AHRS_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_AHRS_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -63,9 +63,9 @@ set(objs_AP_Airspeed_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Airspeed_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Airspeed_ArduPlane ${objs_AP_Airspeed_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Airspeed_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Airspeed_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -101,9 +101,9 @@ set(objs_AP_Baro_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Baro_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Baro_ArduPlane ${objs_AP_Baro_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Baro_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Baro_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -138,9 +138,9 @@ set(objs_AP_BattMonitor_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_BattMonitor_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_BattMonitor_ArduPlane ${objs_AP_BattMonitor_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_BattMonitor_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_BattMonitor_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -174,9 +174,9 @@ set(objs_AP_BoardConfig_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_BoardConfig_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_BoardConfig_ArduPlane ${objs_AP_BoardConfig_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_BoardConfig_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_BoardConfig_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -210,9 +210,9 @@ set(objs_AP_HAL_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_HAL_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_HAL_ArduPlane ${objs_AP_HAL_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_HAL_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_HAL_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -249,9 +249,9 @@ set(objs_AP_InertialSensor_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_InertialSensor_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_InertialSensor_ArduPlane ${objs_AP_InertialSensor_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_InertialSensor_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_InertialSensor_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -285,9 +285,9 @@ set(objs_AP_Math_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Math_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Math_ArduPlane ${objs_AP_Math_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Math_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Math_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -321,9 +321,9 @@ set(objs_AP_Mission_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Mission_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Mission_ArduPlane ${objs_AP_Mission_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Mission_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Mission_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -360,9 +360,9 @@ set(objs_AP_DAL_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_DAL_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_DAL_ArduPlane ${objs_AP_DAL_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_DAL_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_DAL_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -397,9 +397,9 @@ set(objs_AP_NavEKF2_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_NavEKF2_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_NavEKF2_ArduPlane ${objs_AP_NavEKF2_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_NavEKF2_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_NavEKF2_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -445,9 +445,9 @@ set(objs_AP_NavEKF3_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_NavEKF3_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_NavEKF3_ArduPlane ${objs_AP_NavEKF3_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_NavEKF3_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_NavEKF3_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -481,9 +481,9 @@ set(objs_AP_Rally_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Rally_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Rally_ArduPlane ${objs_AP_Rally_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Rally_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Rally_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -517,9 +517,9 @@ set(objs_AP_Scheduler_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Scheduler_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Scheduler_ArduPlane ${objs_AP_Scheduler_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Scheduler_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Scheduler_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -553,9 +553,9 @@ set(objs_AP_Terrain_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Terrain_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Terrain_ArduPlane ${objs_AP_Terrain_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Terrain_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Terrain_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -589,9 +589,9 @@ set(objs_AP_Vehicle_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Vehicle_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Vehicle_ArduPlane ${objs_AP_Vehicle_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Vehicle_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Vehicle_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -628,9 +628,9 @@ set(objs_AP_Logger_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Logger_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Logger_ArduPlane ${objs_AP_Logger_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Logger_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Logger_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -664,9 +664,9 @@ set(objs_Filter_ArduPlane_INCLUDES
 
 include_directories(${objs_Filter_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_Filter_ArduPlane ${objs_Filter_ArduPlane_SOURCES})
+target_compile_definitions(objs_Filter_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_Filter_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -704,9 +704,9 @@ set(objs_GCS_MAVLink_ArduPlane_INCLUDES
 
 include_directories(${objs_GCS_MAVLink_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_GCS_MAVLink_ArduPlane ${objs_GCS_MAVLink_ArduPlane_SOURCES})
+target_compile_definitions(objs_GCS_MAVLink_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_GCS_MAVLink_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -740,9 +740,9 @@ set(objs_RC_Channel_ArduPlane_INCLUDES
 
 include_directories(${objs_RC_Channel_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_RC_Channel_ArduPlane ${objs_RC_Channel_ArduPlane_SOURCES})
+target_compile_definitions(objs_RC_Channel_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_RC_Channel_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -776,9 +776,9 @@ set(objs_StorageManager_ArduPlane_INCLUDES
 
 include_directories(${objs_StorageManager_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_StorageManager_ArduPlane ${objs_StorageManager_ArduPlane_SOURCES})
+target_compile_definitions(objs_StorageManager_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_StorageManager_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -812,9 +812,9 @@ set(objs_AP_Frsky_Telem_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Frsky_Telem_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Frsky_Telem_ArduPlane ${objs_AP_Frsky_Telem_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Frsky_Telem_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Frsky_Telem_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -848,9 +848,9 @@ set(objs_AP_IBus_Telem_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_IBus_Telem_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_IBus_Telem_ArduPlane ${objs_AP_IBus_Telem_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_IBus_Telem_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_IBus_Telem_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -884,9 +884,9 @@ set(objs_AP_Relay_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Relay_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Relay_ArduPlane ${objs_AP_Relay_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Relay_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Relay_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -926,9 +926,9 @@ set(objs_AP_RCProtocol_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_RCProtocol_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_RCProtocol_ArduPlane ${objs_AP_RCProtocol_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_RCProtocol_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_RCProtocol_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -962,9 +962,9 @@ set(objs_AP_BLHeli_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_BLHeli_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_BLHeli_ArduPlane ${objs_AP_BLHeli_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_BLHeli_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_BLHeli_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -998,9 +998,9 @@ set(objs_AP_Proximity_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Proximity_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Proximity_ArduPlane ${objs_AP_Proximity_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Proximity_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Proximity_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1035,9 +1035,9 @@ set(objs_AC_Fence_ArduPlane_INCLUDES
 
 include_directories(${objs_AC_Fence_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AC_Fence_ArduPlane ${objs_AC_Fence_ArduPlane_SOURCES})
+target_compile_definitions(objs_AC_Fence_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AC_Fence_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1073,9 +1073,9 @@ set(objs_AC_Avoidance_ArduPlane_INCLUDES
 
 include_directories(${objs_AC_Avoidance_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AC_Avoidance_ArduPlane ${objs_AC_Avoidance_ArduPlane_SOURCES})
+target_compile_definitions(objs_AC_Avoidance_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AC_Avoidance_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1109,9 +1109,9 @@ set(objs_AP_LandingGear_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_LandingGear_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_LandingGear_ArduPlane ${objs_AP_LandingGear_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_LandingGear_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_LandingGear_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1147,9 +1147,9 @@ set(objs_AP_OSD_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_OSD_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_OSD_ArduPlane ${objs_AP_OSD_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_OSD_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_OSD_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1183,9 +1183,9 @@ set(objs_AP_Filesystem_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Filesystem_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Filesystem_ArduPlane ${objs_AP_Filesystem_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Filesystem_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Filesystem_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1220,9 +1220,9 @@ set(objs_AP_ADSB_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_ADSB_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_ADSB_ArduPlane ${objs_AP_ADSB_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_ADSB_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_ADSB_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1256,9 +1256,9 @@ set(objs_AP_ESC_Telem_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_ESC_Telem_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_ESC_Telem_ArduPlane ${objs_AP_ESC_Telem_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_ESC_Telem_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_ESC_Telem_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1292,9 +1292,9 @@ set(objs_AP_GyroFFT_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_GyroFFT_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_GyroFFT_ArduPlane ${objs_AP_GyroFFT_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_GyroFFT_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_GyroFFT_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1329,9 +1329,9 @@ set(objs_AP_RCTelemetry_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_RCTelemetry_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_RCTelemetry_ArduPlane ${objs_AP_RCTelemetry_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_RCTelemetry_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_RCTelemetry_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1366,9 +1366,9 @@ set(objs_AP_ExternalAHRS_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_ExternalAHRS_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_ExternalAHRS_ArduPlane ${objs_AP_ExternalAHRS_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_ExternalAHRS_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_ExternalAHRS_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1402,9 +1402,9 @@ set(objs_AP_TemperatureSensor_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_TemperatureSensor_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_TemperatureSensor_ArduPlane ${objs_AP_TemperatureSensor_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_TemperatureSensor_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_TemperatureSensor_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1438,9 +1438,9 @@ set(objs_AP_AIS_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_AIS_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_AIS_ArduPlane ${objs_AP_AIS_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_AIS_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_AIS_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1474,9 +1474,9 @@ set(objs_AP_Arming_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Arming_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Arming_ArduPlane ${objs_AP_Arming_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Arming_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Arming_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1510,9 +1510,9 @@ set(objs_AP_Follow_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Follow_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Follow_ArduPlane ${objs_AP_Follow_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Follow_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Follow_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1546,9 +1546,9 @@ set(objs_AP_Avoidance_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Avoidance_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Avoidance_ArduPlane ${objs_AP_Avoidance_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Avoidance_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Avoidance_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1582,9 +1582,9 @@ set(objs_AC_WPNav_ArduPlane_INCLUDES
 
 include_directories(${objs_AC_WPNav_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AC_WPNav_ArduPlane ${objs_AC_WPNav_ArduPlane_SOURCES})
+target_compile_definitions(objs_AC_WPNav_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AC_WPNav_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1620,9 +1620,9 @@ set(objs_AC_AttitudeControl_ArduPlane_INCLUDES
 
 include_directories(${objs_AC_AttitudeControl_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AC_AttitudeControl_ArduPlane ${objs_AC_AttitudeControl_ArduPlane_SOURCES})
+target_compile_definitions(objs_AC_AttitudeControl_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AC_AttitudeControl_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1659,9 +1659,9 @@ set(objs_AP_Motors_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Motors_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Motors_ArduPlane ${objs_AP_Motors_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Motors_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Motors_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1695,9 +1695,9 @@ set(objs_AP_Landing_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Landing_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Landing_ArduPlane ${objs_AP_Landing_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Landing_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Landing_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1732,9 +1732,9 @@ set(objs_AC_AutoTune_ArduPlane_INCLUDES
 
 include_directories(${objs_AC_AutoTune_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AC_AutoTune_ArduPlane ${objs_AC_AutoTune_ArduPlane_SOURCES})
+target_compile_definitions(objs_AC_AutoTune_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AC_AutoTune_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1768,9 +1768,9 @@ set(objs_AC_PrecLand_ArduPlane_INCLUDES
 
 include_directories(${objs_AC_PrecLand_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AC_PrecLand_ArduPlane ${objs_AC_PrecLand_ArduPlane_SOURCES})
+target_compile_definitions(objs_AC_PrecLand_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AC_PrecLand_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1806,9 +1806,9 @@ set(objs_AP_HAL_SITL_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_HAL_SITL_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_HAL_SITL_ArduPlane ${objs_AP_HAL_SITL_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_HAL_SITL_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_HAL_SITL_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1845,9 +1845,9 @@ set(objs_SITL_ArduPlane_INCLUDES
 
 include_directories(${objs_SITL_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_SITL_ArduPlane ${objs_SITL_ArduPlane_SOURCES})
+target_compile_definitions(objs_SITL_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_SITL_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1886,9 +1886,9 @@ set(objs_AP_Scripting_ArduPlane_INCLUDES
 
 include_directories(${objs_AP_Scripting_ArduPlane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_library(objs_AP_Scripting_ArduPlane ${objs_AP_Scripting_ArduPlane_SOURCES})
+target_compile_definitions(objs_AP_Scripting_ArduPlane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 set_target_properties(objs_AP_Scripting_ArduPlane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2098,6 +2098,7 @@ set(ArduPlane_libs_INCLUDES
 include_directories(${ArduPlane_libs_INCLUDES})
 
 add_library(ArduPlane_libs ${ArduPlane_libs_SOURCES})
+
 set_target_properties(ArduPlane_libs PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2324,9 +2325,9 @@ set(bin_arduplane_INCLUDES
 
 include_directories(${bin_arduplane_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane")
-
 add_executable(bin_arduplane ${bin_arduplane_SOURCES})
+target_compile_definitions(bin_arduplane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+
 
 target_link_libraries(bin_arduplane ArduPlane_libs) #clean
 

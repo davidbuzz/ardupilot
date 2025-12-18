@@ -25,9 +25,9 @@ set(objs_AP_AHRS_ArduSub_INCLUDES
 
 include_directories(${objs_AP_AHRS_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_AHRS_ArduSub ${objs_AP_AHRS_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_AHRS_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_AHRS_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -63,9 +63,9 @@ set(objs_AP_Airspeed_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Airspeed_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Airspeed_ArduSub ${objs_AP_Airspeed_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Airspeed_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Airspeed_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -101,9 +101,9 @@ set(objs_AP_Baro_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Baro_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Baro_ArduSub ${objs_AP_Baro_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Baro_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Baro_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -138,9 +138,9 @@ set(objs_AP_BattMonitor_ArduSub_INCLUDES
 
 include_directories(${objs_AP_BattMonitor_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_BattMonitor_ArduSub ${objs_AP_BattMonitor_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_BattMonitor_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_BattMonitor_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -174,9 +174,9 @@ set(objs_AP_BoardConfig_ArduSub_INCLUDES
 
 include_directories(${objs_AP_BoardConfig_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_BoardConfig_ArduSub ${objs_AP_BoardConfig_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_BoardConfig_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_BoardConfig_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -210,9 +210,9 @@ set(objs_AP_HAL_ArduSub_INCLUDES
 
 include_directories(${objs_AP_HAL_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_HAL_ArduSub ${objs_AP_HAL_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_HAL_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_HAL_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -249,9 +249,9 @@ set(objs_AP_InertialSensor_ArduSub_INCLUDES
 
 include_directories(${objs_AP_InertialSensor_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_InertialSensor_ArduSub ${objs_AP_InertialSensor_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_InertialSensor_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_InertialSensor_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -285,9 +285,9 @@ set(objs_AP_Math_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Math_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Math_ArduSub ${objs_AP_Math_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Math_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Math_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -321,9 +321,9 @@ set(objs_AP_Mission_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Mission_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Mission_ArduSub ${objs_AP_Mission_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Mission_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Mission_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -360,9 +360,9 @@ set(objs_AP_DAL_ArduSub_INCLUDES
 
 include_directories(${objs_AP_DAL_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_DAL_ArduSub ${objs_AP_DAL_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_DAL_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_DAL_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -397,9 +397,9 @@ set(objs_AP_NavEKF2_ArduSub_INCLUDES
 
 include_directories(${objs_AP_NavEKF2_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_NavEKF2_ArduSub ${objs_AP_NavEKF2_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_NavEKF2_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_NavEKF2_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -445,9 +445,9 @@ set(objs_AP_NavEKF3_ArduSub_INCLUDES
 
 include_directories(${objs_AP_NavEKF3_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_NavEKF3_ArduSub ${objs_AP_NavEKF3_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_NavEKF3_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_NavEKF3_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -481,9 +481,9 @@ set(objs_AP_Rally_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Rally_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Rally_ArduSub ${objs_AP_Rally_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Rally_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Rally_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -517,9 +517,9 @@ set(objs_AP_Scheduler_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Scheduler_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Scheduler_ArduSub ${objs_AP_Scheduler_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Scheduler_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Scheduler_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -553,9 +553,9 @@ set(objs_AP_Terrain_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Terrain_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Terrain_ArduSub ${objs_AP_Terrain_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Terrain_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Terrain_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -589,9 +589,9 @@ set(objs_AP_Vehicle_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Vehicle_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Vehicle_ArduSub ${objs_AP_Vehicle_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Vehicle_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Vehicle_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -628,9 +628,9 @@ set(objs_AP_Logger_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Logger_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Logger_ArduSub ${objs_AP_Logger_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Logger_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Logger_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -664,9 +664,9 @@ set(objs_Filter_ArduSub_INCLUDES
 
 include_directories(${objs_Filter_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_Filter_ArduSub ${objs_Filter_ArduSub_SOURCES})
+target_compile_definitions(objs_Filter_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_Filter_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -704,9 +704,9 @@ set(objs_GCS_MAVLink_ArduSub_INCLUDES
 
 include_directories(${objs_GCS_MAVLink_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_GCS_MAVLink_ArduSub ${objs_GCS_MAVLink_ArduSub_SOURCES})
+target_compile_definitions(objs_GCS_MAVLink_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_GCS_MAVLink_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -740,9 +740,9 @@ set(objs_RC_Channel_ArduSub_INCLUDES
 
 include_directories(${objs_RC_Channel_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_RC_Channel_ArduSub ${objs_RC_Channel_ArduSub_SOURCES})
+target_compile_definitions(objs_RC_Channel_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_RC_Channel_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -776,9 +776,9 @@ set(objs_StorageManager_ArduSub_INCLUDES
 
 include_directories(${objs_StorageManager_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_StorageManager_ArduSub ${objs_StorageManager_ArduSub_SOURCES})
+target_compile_definitions(objs_StorageManager_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_StorageManager_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -812,9 +812,9 @@ set(objs_AP_Frsky_Telem_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Frsky_Telem_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Frsky_Telem_ArduSub ${objs_AP_Frsky_Telem_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Frsky_Telem_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Frsky_Telem_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -848,9 +848,9 @@ set(objs_AP_IBus_Telem_ArduSub_INCLUDES
 
 include_directories(${objs_AP_IBus_Telem_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_IBus_Telem_ArduSub ${objs_AP_IBus_Telem_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_IBus_Telem_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_IBus_Telem_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -884,9 +884,9 @@ set(objs_AP_Relay_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Relay_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Relay_ArduSub ${objs_AP_Relay_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Relay_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Relay_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -926,9 +926,9 @@ set(objs_AP_RCProtocol_ArduSub_INCLUDES
 
 include_directories(${objs_AP_RCProtocol_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_RCProtocol_ArduSub ${objs_AP_RCProtocol_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_RCProtocol_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_RCProtocol_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -962,9 +962,9 @@ set(objs_AP_BLHeli_ArduSub_INCLUDES
 
 include_directories(${objs_AP_BLHeli_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_BLHeli_ArduSub ${objs_AP_BLHeli_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_BLHeli_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_BLHeli_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -998,9 +998,9 @@ set(objs_AP_Proximity_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Proximity_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Proximity_ArduSub ${objs_AP_Proximity_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Proximity_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Proximity_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1035,9 +1035,9 @@ set(objs_AC_Fence_ArduSub_INCLUDES
 
 include_directories(${objs_AC_Fence_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AC_Fence_ArduSub ${objs_AC_Fence_ArduSub_SOURCES})
+target_compile_definitions(objs_AC_Fence_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AC_Fence_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1073,9 +1073,9 @@ set(objs_AC_Avoidance_ArduSub_INCLUDES
 
 include_directories(${objs_AC_Avoidance_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AC_Avoidance_ArduSub ${objs_AC_Avoidance_ArduSub_SOURCES})
+target_compile_definitions(objs_AC_Avoidance_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AC_Avoidance_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1109,9 +1109,9 @@ set(objs_AP_LandingGear_ArduSub_INCLUDES
 
 include_directories(${objs_AP_LandingGear_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_LandingGear_ArduSub ${objs_AP_LandingGear_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_LandingGear_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_LandingGear_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1147,9 +1147,9 @@ set(objs_AP_OSD_ArduSub_INCLUDES
 
 include_directories(${objs_AP_OSD_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_OSD_ArduSub ${objs_AP_OSD_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_OSD_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_OSD_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1183,9 +1183,9 @@ set(objs_AP_Filesystem_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Filesystem_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Filesystem_ArduSub ${objs_AP_Filesystem_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Filesystem_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Filesystem_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1220,9 +1220,9 @@ set(objs_AP_ADSB_ArduSub_INCLUDES
 
 include_directories(${objs_AP_ADSB_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_ADSB_ArduSub ${objs_AP_ADSB_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_ADSB_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_ADSB_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1256,9 +1256,9 @@ set(objs_AP_ESC_Telem_ArduSub_INCLUDES
 
 include_directories(${objs_AP_ESC_Telem_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_ESC_Telem_ArduSub ${objs_AP_ESC_Telem_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_ESC_Telem_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_ESC_Telem_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1292,9 +1292,9 @@ set(objs_AP_GyroFFT_ArduSub_INCLUDES
 
 include_directories(${objs_AP_GyroFFT_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_GyroFFT_ArduSub ${objs_AP_GyroFFT_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_GyroFFT_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_GyroFFT_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1329,9 +1329,9 @@ set(objs_AP_RCTelemetry_ArduSub_INCLUDES
 
 include_directories(${objs_AP_RCTelemetry_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_RCTelemetry_ArduSub ${objs_AP_RCTelemetry_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_RCTelemetry_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_RCTelemetry_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1366,9 +1366,9 @@ set(objs_AP_ExternalAHRS_ArduSub_INCLUDES
 
 include_directories(${objs_AP_ExternalAHRS_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_ExternalAHRS_ArduSub ${objs_AP_ExternalAHRS_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_ExternalAHRS_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_ExternalAHRS_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1402,9 +1402,9 @@ set(objs_AP_TemperatureSensor_ArduSub_INCLUDES
 
 include_directories(${objs_AP_TemperatureSensor_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_TemperatureSensor_ArduSub ${objs_AP_TemperatureSensor_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_TemperatureSensor_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_TemperatureSensor_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1438,9 +1438,9 @@ set(objs_AP_AIS_ArduSub_INCLUDES
 
 include_directories(${objs_AP_AIS_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_AIS_ArduSub ${objs_AP_AIS_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_AIS_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_AIS_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1474,9 +1474,9 @@ set(objs_AP_Arming_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Arming_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Arming_ArduSub ${objs_AP_Arming_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Arming_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Arming_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1510,9 +1510,9 @@ set(objs_AP_Follow_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Follow_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Follow_ArduSub ${objs_AP_Follow_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Follow_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Follow_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1548,9 +1548,9 @@ set(objs_AC_AttitudeControl_ArduSub_INCLUDES
 
 include_directories(${objs_AC_AttitudeControl_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AC_AttitudeControl_ArduSub ${objs_AC_AttitudeControl_ArduSub_SOURCES})
+target_compile_definitions(objs_AC_AttitudeControl_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AC_AttitudeControl_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1584,9 +1584,9 @@ set(objs_AC_WPNav_ArduSub_INCLUDES
 
 include_directories(${objs_AC_WPNav_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AC_WPNav_ArduSub ${objs_AC_WPNav_ArduSub_SOURCES})
+target_compile_definitions(objs_AC_WPNav_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AC_WPNav_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1623,9 +1623,9 @@ set(objs_AP_Motors_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Motors_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Motors_ArduSub ${objs_AP_Motors_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Motors_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Motors_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1661,9 +1661,9 @@ set(objs_AP_HAL_SITL_ArduSub_INCLUDES
 
 include_directories(${objs_AP_HAL_SITL_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_HAL_SITL_ArduSub ${objs_AP_HAL_SITL_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_HAL_SITL_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_HAL_SITL_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1700,9 +1700,9 @@ set(objs_SITL_ArduSub_INCLUDES
 
 include_directories(${objs_SITL_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_SITL_ArduSub ${objs_SITL_ArduSub_SOURCES})
+target_compile_definitions(objs_SITL_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_SITL_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1741,9 +1741,9 @@ set(objs_AP_Scripting_ArduSub_INCLUDES
 
 include_directories(${objs_AP_Scripting_ArduSub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_library(objs_AP_Scripting_ArduSub ${objs_AP_Scripting_ArduSub_SOURCES})
+target_compile_definitions(objs_AP_Scripting_ArduSub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 set_target_properties(objs_AP_Scripting_ArduSub PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1953,6 +1953,7 @@ set(ArduSub_libs_INCLUDES
 include_directories(${ArduSub_libs_INCLUDES})
 
 add_library(ArduSub_libs ${ArduSub_libs_SOURCES})
+
 set_target_properties(ArduSub_libs PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2139,9 +2140,9 @@ set(bin_ardusub_INCLUDES
 
 include_directories(${bin_ardusub_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub")
-
 add_executable(bin_ardusub ${bin_ardusub_SOURCES})
+target_compile_definitions(bin_ardusub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+
 
 target_link_libraries(bin_ardusub ArduSub_libs) #clean
 

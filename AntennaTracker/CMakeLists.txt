@@ -25,9 +25,9 @@ set(objs_AP_AHRS_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_AHRS_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_AHRS_AntennaTracker ${objs_AP_AHRS_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_AHRS_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_AHRS_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -63,9 +63,9 @@ set(objs_AP_Airspeed_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Airspeed_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Airspeed_AntennaTracker ${objs_AP_Airspeed_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Airspeed_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Airspeed_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -101,9 +101,9 @@ set(objs_AP_Baro_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Baro_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Baro_AntennaTracker ${objs_AP_Baro_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Baro_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Baro_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -138,9 +138,9 @@ set(objs_AP_BattMonitor_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_BattMonitor_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_BattMonitor_AntennaTracker ${objs_AP_BattMonitor_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_BattMonitor_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_BattMonitor_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -174,9 +174,9 @@ set(objs_AP_BoardConfig_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_BoardConfig_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_BoardConfig_AntennaTracker ${objs_AP_BoardConfig_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_BoardConfig_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_BoardConfig_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -210,9 +210,9 @@ set(objs_AP_HAL_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_HAL_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_HAL_AntennaTracker ${objs_AP_HAL_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_HAL_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_HAL_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -249,9 +249,9 @@ set(objs_AP_InertialSensor_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_InertialSensor_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_InertialSensor_AntennaTracker ${objs_AP_InertialSensor_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_InertialSensor_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_InertialSensor_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -285,9 +285,9 @@ set(objs_AP_Math_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Math_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Math_AntennaTracker ${objs_AP_Math_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Math_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Math_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -321,9 +321,9 @@ set(objs_AP_Mission_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Mission_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Mission_AntennaTracker ${objs_AP_Mission_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Mission_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Mission_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -360,9 +360,9 @@ set(objs_AP_DAL_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_DAL_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_DAL_AntennaTracker ${objs_AP_DAL_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_DAL_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_DAL_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -397,9 +397,9 @@ set(objs_AP_NavEKF2_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_NavEKF2_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_NavEKF2_AntennaTracker ${objs_AP_NavEKF2_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_NavEKF2_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_NavEKF2_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -445,9 +445,9 @@ set(objs_AP_NavEKF3_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_NavEKF3_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_NavEKF3_AntennaTracker ${objs_AP_NavEKF3_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_NavEKF3_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_NavEKF3_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -481,9 +481,9 @@ set(objs_AP_Rally_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Rally_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Rally_AntennaTracker ${objs_AP_Rally_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Rally_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Rally_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -517,9 +517,9 @@ set(objs_AP_Scheduler_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Scheduler_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Scheduler_AntennaTracker ${objs_AP_Scheduler_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Scheduler_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Scheduler_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -553,9 +553,9 @@ set(objs_AP_Terrain_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Terrain_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Terrain_AntennaTracker ${objs_AP_Terrain_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Terrain_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Terrain_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -589,9 +589,9 @@ set(objs_AP_Vehicle_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Vehicle_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Vehicle_AntennaTracker ${objs_AP_Vehicle_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Vehicle_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Vehicle_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -628,9 +628,9 @@ set(objs_AP_Logger_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Logger_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Logger_AntennaTracker ${objs_AP_Logger_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Logger_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Logger_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -664,9 +664,9 @@ set(objs_Filter_AntennaTracker_INCLUDES
 
 include_directories(${objs_Filter_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_Filter_AntennaTracker ${objs_Filter_AntennaTracker_SOURCES})
+target_compile_definitions(objs_Filter_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_Filter_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -704,9 +704,9 @@ set(objs_GCS_MAVLink_AntennaTracker_INCLUDES
 
 include_directories(${objs_GCS_MAVLink_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_GCS_MAVLink_AntennaTracker ${objs_GCS_MAVLink_AntennaTracker_SOURCES})
+target_compile_definitions(objs_GCS_MAVLink_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_GCS_MAVLink_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -740,9 +740,9 @@ set(objs_RC_Channel_AntennaTracker_INCLUDES
 
 include_directories(${objs_RC_Channel_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_RC_Channel_AntennaTracker ${objs_RC_Channel_AntennaTracker_SOURCES})
+target_compile_definitions(objs_RC_Channel_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_RC_Channel_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -776,9 +776,9 @@ set(objs_StorageManager_AntennaTracker_INCLUDES
 
 include_directories(${objs_StorageManager_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_StorageManager_AntennaTracker ${objs_StorageManager_AntennaTracker_SOURCES})
+target_compile_definitions(objs_StorageManager_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_StorageManager_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -812,9 +812,9 @@ set(objs_AP_Frsky_Telem_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Frsky_Telem_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Frsky_Telem_AntennaTracker ${objs_AP_Frsky_Telem_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Frsky_Telem_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Frsky_Telem_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -848,9 +848,9 @@ set(objs_AP_IBus_Telem_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_IBus_Telem_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_IBus_Telem_AntennaTracker ${objs_AP_IBus_Telem_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_IBus_Telem_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_IBus_Telem_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -884,9 +884,9 @@ set(objs_AP_Relay_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Relay_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Relay_AntennaTracker ${objs_AP_Relay_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Relay_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Relay_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -926,9 +926,9 @@ set(objs_AP_RCProtocol_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_RCProtocol_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_RCProtocol_AntennaTracker ${objs_AP_RCProtocol_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_RCProtocol_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_RCProtocol_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -962,9 +962,9 @@ set(objs_AP_BLHeli_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_BLHeli_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_BLHeli_AntennaTracker ${objs_AP_BLHeli_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_BLHeli_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_BLHeli_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -998,9 +998,9 @@ set(objs_AP_Proximity_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Proximity_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Proximity_AntennaTracker ${objs_AP_Proximity_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Proximity_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Proximity_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1035,9 +1035,9 @@ set(objs_AC_Fence_AntennaTracker_INCLUDES
 
 include_directories(${objs_AC_Fence_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AC_Fence_AntennaTracker ${objs_AC_Fence_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AC_Fence_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AC_Fence_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1073,9 +1073,9 @@ set(objs_AC_Avoidance_AntennaTracker_INCLUDES
 
 include_directories(${objs_AC_Avoidance_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AC_Avoidance_AntennaTracker ${objs_AC_Avoidance_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AC_Avoidance_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AC_Avoidance_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1109,9 +1109,9 @@ set(objs_AP_LandingGear_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_LandingGear_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_LandingGear_AntennaTracker ${objs_AP_LandingGear_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_LandingGear_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_LandingGear_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1147,9 +1147,9 @@ set(objs_AP_OSD_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_OSD_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_OSD_AntennaTracker ${objs_AP_OSD_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_OSD_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_OSD_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1183,9 +1183,9 @@ set(objs_AP_Filesystem_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Filesystem_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Filesystem_AntennaTracker ${objs_AP_Filesystem_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Filesystem_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Filesystem_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1220,9 +1220,9 @@ set(objs_AP_ADSB_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_ADSB_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_ADSB_AntennaTracker ${objs_AP_ADSB_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_ADSB_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_ADSB_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1287,6 +1287,7 @@ set(objs_AP_ADSB_sagetech-sdk_INCLUDES
 include_directories(${objs_AP_ADSB_sagetech-sdk_INCLUDES})
 
 add_library(objs_AP_ADSB_sagetech-sdk ${objs_AP_ADSB_sagetech-sdk_SOURCES})
+
 set_target_properties(objs_AP_ADSB_sagetech-sdk PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1320,9 +1321,9 @@ set(objs_AP_ESC_Telem_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_ESC_Telem_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_ESC_Telem_AntennaTracker ${objs_AP_ESC_Telem_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_ESC_Telem_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_ESC_Telem_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1356,9 +1357,9 @@ set(objs_AP_GyroFFT_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_GyroFFT_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_GyroFFT_AntennaTracker ${objs_AP_GyroFFT_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_GyroFFT_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_GyroFFT_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1393,9 +1394,9 @@ set(objs_AP_RCTelemetry_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_RCTelemetry_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_RCTelemetry_AntennaTracker ${objs_AP_RCTelemetry_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_RCTelemetry_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_RCTelemetry_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1430,9 +1431,9 @@ set(objs_AP_ExternalAHRS_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_ExternalAHRS_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_ExternalAHRS_AntennaTracker ${objs_AP_ExternalAHRS_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_ExternalAHRS_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_ExternalAHRS_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1466,9 +1467,9 @@ set(objs_AP_TemperatureSensor_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_TemperatureSensor_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_TemperatureSensor_AntennaTracker ${objs_AP_TemperatureSensor_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_TemperatureSensor_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_TemperatureSensor_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1502,9 +1503,9 @@ set(objs_AP_AIS_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_AIS_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_AIS_AntennaTracker ${objs_AP_AIS_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_AIS_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_AIS_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1538,9 +1539,9 @@ set(objs_AP_Arming_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Arming_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Arming_AntennaTracker ${objs_AP_Arming_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Arming_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Arming_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1574,9 +1575,9 @@ set(objs_AP_Follow_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Follow_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Follow_AntennaTracker ${objs_AP_Follow_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Follow_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Follow_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1612,9 +1613,9 @@ set(objs_AP_HAL_SITL_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_HAL_SITL_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_HAL_SITL_AntennaTracker ${objs_AP_HAL_SITL_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_HAL_SITL_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_HAL_SITL_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1651,9 +1652,9 @@ set(objs_SITL_AntennaTracker_INCLUDES
 
 include_directories(${objs_SITL_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_SITL_AntennaTracker ${objs_SITL_AntennaTracker_SOURCES})
+target_compile_definitions(objs_SITL_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_SITL_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1692,9 +1693,9 @@ set(objs_AP_Scripting_AntennaTracker_INCLUDES
 
 include_directories(${objs_AP_Scripting_AntennaTracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_library(objs_AP_Scripting_AntennaTracker ${objs_AP_Scripting_AntennaTracker_SOURCES})
+target_compile_definitions(objs_AP_Scripting_AntennaTracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 set_target_properties(objs_AP_Scripting_AntennaTracker PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1904,6 +1905,7 @@ set(AntennaTracker_libs_INCLUDES
 include_directories(${AntennaTracker_libs_INCLUDES})
 
 add_library(AntennaTracker_libs ${AntennaTracker_libs_SOURCES})
+
 set_target_properties(AntennaTracker_libs PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2064,9 +2066,9 @@ set(bin_antennatracker_INCLUDES
 
 include_directories(${bin_antennatracker_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker")
-
 add_executable(bin_antennatracker ${bin_antennatracker_SOURCES})
+target_compile_definitions(bin_antennatracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+
 
 target_link_libraries(bin_antennatracker AntennaTracker_libs) #clean
 

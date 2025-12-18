@@ -25,9 +25,9 @@ set(objs_AP_AHRS_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_AHRS_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_AHRS_ArduCopter ${objs_AP_AHRS_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_AHRS_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_AHRS_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -63,9 +63,9 @@ set(objs_AP_Airspeed_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Airspeed_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Airspeed_ArduCopter ${objs_AP_Airspeed_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Airspeed_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Airspeed_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -101,9 +101,9 @@ set(objs_AP_Baro_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Baro_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Baro_ArduCopter ${objs_AP_Baro_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Baro_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Baro_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -138,9 +138,9 @@ set(objs_AP_BattMonitor_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_BattMonitor_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_BattMonitor_ArduCopter ${objs_AP_BattMonitor_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_BattMonitor_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_BattMonitor_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -174,9 +174,9 @@ set(objs_AP_BoardConfig_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_BoardConfig_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_BoardConfig_ArduCopter ${objs_AP_BoardConfig_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_BoardConfig_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_BoardConfig_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -210,9 +210,9 @@ set(objs_AP_HAL_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_HAL_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_HAL_ArduCopter ${objs_AP_HAL_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_HAL_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_HAL_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -249,9 +249,9 @@ set(objs_AP_InertialSensor_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_InertialSensor_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_InertialSensor_ArduCopter ${objs_AP_InertialSensor_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_InertialSensor_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_InertialSensor_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -285,9 +285,9 @@ set(objs_AP_Math_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Math_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Math_ArduCopter ${objs_AP_Math_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Math_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Math_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -321,9 +321,9 @@ set(objs_AP_Mission_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Mission_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Mission_ArduCopter ${objs_AP_Mission_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Mission_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Mission_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -360,9 +360,9 @@ set(objs_AP_DAL_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_DAL_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_DAL_ArduCopter ${objs_AP_DAL_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_DAL_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_DAL_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -397,9 +397,9 @@ set(objs_AP_NavEKF2_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_NavEKF2_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_NavEKF2_ArduCopter ${objs_AP_NavEKF2_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_NavEKF2_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_NavEKF2_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -445,9 +445,9 @@ set(objs_AP_NavEKF3_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_NavEKF3_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_NavEKF3_ArduCopter ${objs_AP_NavEKF3_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_NavEKF3_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_NavEKF3_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -481,9 +481,9 @@ set(objs_AP_Rally_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Rally_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Rally_ArduCopter ${objs_AP_Rally_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Rally_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Rally_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -517,9 +517,9 @@ set(objs_AP_Scheduler_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Scheduler_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Scheduler_ArduCopter ${objs_AP_Scheduler_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Scheduler_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Scheduler_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -553,9 +553,9 @@ set(objs_AP_Terrain_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Terrain_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Terrain_ArduCopter ${objs_AP_Terrain_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Terrain_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Terrain_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -589,9 +589,9 @@ set(objs_AP_Vehicle_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Vehicle_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Vehicle_ArduCopter ${objs_AP_Vehicle_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Vehicle_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Vehicle_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -628,9 +628,9 @@ set(objs_AP_Logger_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Logger_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Logger_ArduCopter ${objs_AP_Logger_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Logger_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Logger_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -664,9 +664,9 @@ set(objs_Filter_ArduCopter_INCLUDES
 
 include_directories(${objs_Filter_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_Filter_ArduCopter ${objs_Filter_ArduCopter_SOURCES})
+target_compile_definitions(objs_Filter_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_Filter_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -704,9 +704,9 @@ set(objs_GCS_MAVLink_ArduCopter_INCLUDES
 
 include_directories(${objs_GCS_MAVLink_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_GCS_MAVLink_ArduCopter ${objs_GCS_MAVLink_ArduCopter_SOURCES})
+target_compile_definitions(objs_GCS_MAVLink_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_GCS_MAVLink_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -740,9 +740,9 @@ set(objs_RC_Channel_ArduCopter_INCLUDES
 
 include_directories(${objs_RC_Channel_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_RC_Channel_ArduCopter ${objs_RC_Channel_ArduCopter_SOURCES})
+target_compile_definitions(objs_RC_Channel_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_RC_Channel_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -776,9 +776,9 @@ set(objs_StorageManager_ArduCopter_INCLUDES
 
 include_directories(${objs_StorageManager_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_StorageManager_ArduCopter ${objs_StorageManager_ArduCopter_SOURCES})
+target_compile_definitions(objs_StorageManager_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_StorageManager_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -812,9 +812,9 @@ set(objs_AP_Frsky_Telem_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Frsky_Telem_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Frsky_Telem_ArduCopter ${objs_AP_Frsky_Telem_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Frsky_Telem_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Frsky_Telem_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -848,9 +848,9 @@ set(objs_AP_IBus_Telem_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_IBus_Telem_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_IBus_Telem_ArduCopter ${objs_AP_IBus_Telem_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_IBus_Telem_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_IBus_Telem_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -884,9 +884,9 @@ set(objs_AP_Relay_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Relay_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Relay_ArduCopter ${objs_AP_Relay_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Relay_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Relay_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -926,9 +926,9 @@ set(objs_AP_RCProtocol_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_RCProtocol_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_RCProtocol_ArduCopter ${objs_AP_RCProtocol_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_RCProtocol_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_RCProtocol_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -962,9 +962,9 @@ set(objs_AP_BLHeli_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_BLHeli_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_BLHeli_ArduCopter ${objs_AP_BLHeli_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_BLHeli_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_BLHeli_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -998,9 +998,9 @@ set(objs_AP_Proximity_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Proximity_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Proximity_ArduCopter ${objs_AP_Proximity_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Proximity_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Proximity_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1035,9 +1035,9 @@ set(objs_AC_Fence_ArduCopter_INCLUDES
 
 include_directories(${objs_AC_Fence_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AC_Fence_ArduCopter ${objs_AC_Fence_ArduCopter_SOURCES})
+target_compile_definitions(objs_AC_Fence_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AC_Fence_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1073,9 +1073,9 @@ set(objs_AC_Avoidance_ArduCopter_INCLUDES
 
 include_directories(${objs_AC_Avoidance_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AC_Avoidance_ArduCopter ${objs_AC_Avoidance_ArduCopter_SOURCES})
+target_compile_definitions(objs_AC_Avoidance_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AC_Avoidance_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1109,9 +1109,9 @@ set(objs_AP_LandingGear_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_LandingGear_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_LandingGear_ArduCopter ${objs_AP_LandingGear_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_LandingGear_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_LandingGear_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1147,9 +1147,9 @@ set(objs_AP_OSD_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_OSD_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_OSD_ArduCopter ${objs_AP_OSD_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_OSD_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_OSD_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1183,9 +1183,9 @@ set(objs_AP_Filesystem_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Filesystem_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Filesystem_ArduCopter ${objs_AP_Filesystem_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Filesystem_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Filesystem_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1220,9 +1220,9 @@ set(objs_AP_ADSB_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_ADSB_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_ADSB_ArduCopter ${objs_AP_ADSB_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_ADSB_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_ADSB_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1256,9 +1256,9 @@ set(objs_AP_ESC_Telem_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_ESC_Telem_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_ESC_Telem_ArduCopter ${objs_AP_ESC_Telem_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_ESC_Telem_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_ESC_Telem_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1292,9 +1292,9 @@ set(objs_AP_GyroFFT_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_GyroFFT_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_GyroFFT_ArduCopter ${objs_AP_GyroFFT_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_GyroFFT_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_GyroFFT_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1329,9 +1329,9 @@ set(objs_AP_RCTelemetry_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_RCTelemetry_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_RCTelemetry_ArduCopter ${objs_AP_RCTelemetry_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_RCTelemetry_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_RCTelemetry_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1366,9 +1366,9 @@ set(objs_AP_ExternalAHRS_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_ExternalAHRS_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_ExternalAHRS_ArduCopter ${objs_AP_ExternalAHRS_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_ExternalAHRS_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_ExternalAHRS_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1402,9 +1402,9 @@ set(objs_AP_TemperatureSensor_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_TemperatureSensor_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_TemperatureSensor_ArduCopter ${objs_AP_TemperatureSensor_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_TemperatureSensor_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_TemperatureSensor_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1438,9 +1438,9 @@ set(objs_AP_AIS_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_AIS_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_AIS_ArduCopter ${objs_AP_AIS_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_AIS_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_AIS_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1474,9 +1474,9 @@ set(objs_AP_Arming_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Arming_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Arming_ArduCopter ${objs_AP_Arming_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Arming_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Arming_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1510,9 +1510,9 @@ set(objs_AP_Follow_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Follow_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Follow_ArduCopter ${objs_AP_Follow_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Follow_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Follow_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1548,9 +1548,9 @@ set(objs_AC_AttitudeControl_ArduCopter_INCLUDES
 
 include_directories(${objs_AC_AttitudeControl_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AC_AttitudeControl_ArduCopter ${objs_AC_AttitudeControl_ArduCopter_SOURCES})
+target_compile_definitions(objs_AC_AttitudeControl_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AC_AttitudeControl_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1584,9 +1584,9 @@ set(objs_AC_PrecLand_ArduCopter_INCLUDES
 
 include_directories(${objs_AC_PrecLand_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AC_PrecLand_ArduCopter ${objs_AC_PrecLand_ArduCopter_SOURCES})
+target_compile_definitions(objs_AC_PrecLand_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AC_PrecLand_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1620,9 +1620,9 @@ set(objs_AC_WPNav_ArduCopter_INCLUDES
 
 include_directories(${objs_AC_WPNav_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AC_WPNav_ArduCopter ${objs_AC_WPNav_ArduCopter_SOURCES})
+target_compile_definitions(objs_AC_WPNav_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AC_WPNav_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1659,9 +1659,9 @@ set(objs_AP_Motors_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Motors_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Motors_ArduCopter ${objs_AP_Motors_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Motors_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Motors_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1695,9 +1695,9 @@ set(objs_AP_Avoidance_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Avoidance_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Avoidance_ArduCopter ${objs_AP_Avoidance_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Avoidance_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Avoidance_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1732,9 +1732,9 @@ set(objs_AC_AutoTune_ArduCopter_INCLUDES
 
 include_directories(${objs_AC_AutoTune_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AC_AutoTune_ArduCopter ${objs_AC_AutoTune_ArduCopter_SOURCES})
+target_compile_definitions(objs_AC_AutoTune_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AC_AutoTune_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1770,9 +1770,9 @@ set(objs_AP_HAL_SITL_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_HAL_SITL_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_HAL_SITL_ArduCopter ${objs_AP_HAL_SITL_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_HAL_SITL_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_HAL_SITL_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1809,9 +1809,9 @@ set(objs_SITL_ArduCopter_INCLUDES
 
 include_directories(${objs_SITL_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_SITL_ArduCopter ${objs_SITL_ArduCopter_SOURCES})
+target_compile_definitions(objs_SITL_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_SITL_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1850,9 +1850,9 @@ set(objs_AP_Scripting_ArduCopter_INCLUDES
 
 include_directories(${objs_AP_Scripting_ArduCopter_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_library(objs_AP_Scripting_ArduCopter ${objs_AP_Scripting_ArduCopter_SOURCES})
+target_compile_definitions(objs_AP_Scripting_ArduCopter PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 set_target_properties(objs_AP_Scripting_ArduCopter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2062,6 +2062,7 @@ set(ArduCopter_libs_INCLUDES
 include_directories(${ArduCopter_libs_INCLUDES})
 
 add_library(ArduCopter_libs ${ArduCopter_libs_SOURCES})
+
 set_target_properties(ArduCopter_libs PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2294,9 +2295,9 @@ set(bin_arducopter_INCLUDES
 
 include_directories(${bin_arducopter_INCLUDES})
 
-add_definitions(-DFRAME_CONFIG=MULTICOPTER_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_executable(bin_arducopter ${bin_arducopter_SOURCES})
+target_compile_definitions(bin_arducopter PRIVATE -DFRAME_CONFIG=MULTICOPTER_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 
 target_link_libraries(bin_arducopter ArduCopter_libs) #clean
 
@@ -2397,9 +2398,9 @@ set(bin_arducopter-heli_INCLUDES
 
 include_directories(${bin_arducopter-heli_INCLUDES})
 
-add_definitions(-DFRAME_CONFIG=HELI_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter")
-
 add_executable(bin_arducopter-heli ${bin_arducopter-heli_SOURCES})
+target_compile_definitions(bin_arducopter-heli PRIVATE -DFRAME_CONFIG=HELI_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+
 
 target_link_libraries(bin_arducopter-heli ArduCopter_libs) #clean
 

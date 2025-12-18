@@ -25,9 +25,9 @@ set(objs_AP_AHRS_Rover_INCLUDES
 
 include_directories(${objs_AP_AHRS_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_AHRS_Rover ${objs_AP_AHRS_Rover_SOURCES})
+target_compile_definitions(objs_AP_AHRS_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_AHRS_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -63,9 +63,9 @@ set(objs_AP_Airspeed_Rover_INCLUDES
 
 include_directories(${objs_AP_Airspeed_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Airspeed_Rover ${objs_AP_Airspeed_Rover_SOURCES})
+target_compile_definitions(objs_AP_Airspeed_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Airspeed_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -101,9 +101,9 @@ set(objs_AP_Baro_Rover_INCLUDES
 
 include_directories(${objs_AP_Baro_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Baro_Rover ${objs_AP_Baro_Rover_SOURCES})
+target_compile_definitions(objs_AP_Baro_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Baro_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -138,9 +138,9 @@ set(objs_AP_BattMonitor_Rover_INCLUDES
 
 include_directories(${objs_AP_BattMonitor_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_BattMonitor_Rover ${objs_AP_BattMonitor_Rover_SOURCES})
+target_compile_definitions(objs_AP_BattMonitor_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_BattMonitor_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -174,9 +174,9 @@ set(objs_AP_BoardConfig_Rover_INCLUDES
 
 include_directories(${objs_AP_BoardConfig_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_BoardConfig_Rover ${objs_AP_BoardConfig_Rover_SOURCES})
+target_compile_definitions(objs_AP_BoardConfig_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_BoardConfig_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -210,9 +210,9 @@ set(objs_AP_HAL_Rover_INCLUDES
 
 include_directories(${objs_AP_HAL_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_HAL_Rover ${objs_AP_HAL_Rover_SOURCES})
+target_compile_definitions(objs_AP_HAL_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_HAL_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -249,9 +249,9 @@ set(objs_AP_InertialSensor_Rover_INCLUDES
 
 include_directories(${objs_AP_InertialSensor_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_InertialSensor_Rover ${objs_AP_InertialSensor_Rover_SOURCES})
+target_compile_definitions(objs_AP_InertialSensor_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_InertialSensor_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -285,9 +285,9 @@ set(objs_AP_Math_Rover_INCLUDES
 
 include_directories(${objs_AP_Math_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Math_Rover ${objs_AP_Math_Rover_SOURCES})
+target_compile_definitions(objs_AP_Math_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Math_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -321,9 +321,9 @@ set(objs_AP_Mission_Rover_INCLUDES
 
 include_directories(${objs_AP_Mission_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Mission_Rover ${objs_AP_Mission_Rover_SOURCES})
+target_compile_definitions(objs_AP_Mission_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Mission_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -360,9 +360,9 @@ set(objs_AP_DAL_Rover_INCLUDES
 
 include_directories(${objs_AP_DAL_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_DAL_Rover ${objs_AP_DAL_Rover_SOURCES})
+target_compile_definitions(objs_AP_DAL_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_DAL_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -397,9 +397,9 @@ set(objs_AP_NavEKF2_Rover_INCLUDES
 
 include_directories(${objs_AP_NavEKF2_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_NavEKF2_Rover ${objs_AP_NavEKF2_Rover_SOURCES})
+target_compile_definitions(objs_AP_NavEKF2_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_NavEKF2_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -445,9 +445,9 @@ set(objs_AP_NavEKF3_Rover_INCLUDES
 
 include_directories(${objs_AP_NavEKF3_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_NavEKF3_Rover ${objs_AP_NavEKF3_Rover_SOURCES})
+target_compile_definitions(objs_AP_NavEKF3_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_NavEKF3_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -481,9 +481,9 @@ set(objs_AP_Rally_Rover_INCLUDES
 
 include_directories(${objs_AP_Rally_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Rally_Rover ${objs_AP_Rally_Rover_SOURCES})
+target_compile_definitions(objs_AP_Rally_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Rally_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -517,9 +517,9 @@ set(objs_AP_Scheduler_Rover_INCLUDES
 
 include_directories(${objs_AP_Scheduler_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Scheduler_Rover ${objs_AP_Scheduler_Rover_SOURCES})
+target_compile_definitions(objs_AP_Scheduler_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Scheduler_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -553,9 +553,9 @@ set(objs_AP_Terrain_Rover_INCLUDES
 
 include_directories(${objs_AP_Terrain_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Terrain_Rover ${objs_AP_Terrain_Rover_SOURCES})
+target_compile_definitions(objs_AP_Terrain_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Terrain_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -589,9 +589,9 @@ set(objs_AP_Vehicle_Rover_INCLUDES
 
 include_directories(${objs_AP_Vehicle_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Vehicle_Rover ${objs_AP_Vehicle_Rover_SOURCES})
+target_compile_definitions(objs_AP_Vehicle_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Vehicle_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -628,9 +628,9 @@ set(objs_AP_Logger_Rover_INCLUDES
 
 include_directories(${objs_AP_Logger_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Logger_Rover ${objs_AP_Logger_Rover_SOURCES})
+target_compile_definitions(objs_AP_Logger_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Logger_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -664,9 +664,9 @@ set(objs_Filter_Rover_INCLUDES
 
 include_directories(${objs_Filter_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_Filter_Rover ${objs_Filter_Rover_SOURCES})
+target_compile_definitions(objs_Filter_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_Filter_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -704,9 +704,9 @@ set(objs_GCS_MAVLink_Rover_INCLUDES
 
 include_directories(${objs_GCS_MAVLink_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_GCS_MAVLink_Rover ${objs_GCS_MAVLink_Rover_SOURCES})
+target_compile_definitions(objs_GCS_MAVLink_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_GCS_MAVLink_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -740,9 +740,9 @@ set(objs_RC_Channel_Rover_INCLUDES
 
 include_directories(${objs_RC_Channel_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_RC_Channel_Rover ${objs_RC_Channel_Rover_SOURCES})
+target_compile_definitions(objs_RC_Channel_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_RC_Channel_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -776,9 +776,9 @@ set(objs_StorageManager_Rover_INCLUDES
 
 include_directories(${objs_StorageManager_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_StorageManager_Rover ${objs_StorageManager_Rover_SOURCES})
+target_compile_definitions(objs_StorageManager_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_StorageManager_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -812,9 +812,9 @@ set(objs_AP_Frsky_Telem_Rover_INCLUDES
 
 include_directories(${objs_AP_Frsky_Telem_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Frsky_Telem_Rover ${objs_AP_Frsky_Telem_Rover_SOURCES})
+target_compile_definitions(objs_AP_Frsky_Telem_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Frsky_Telem_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -848,9 +848,9 @@ set(objs_AP_IBus_Telem_Rover_INCLUDES
 
 include_directories(${objs_AP_IBus_Telem_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_IBus_Telem_Rover ${objs_AP_IBus_Telem_Rover_SOURCES})
+target_compile_definitions(objs_AP_IBus_Telem_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_IBus_Telem_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -884,9 +884,9 @@ set(objs_AP_Relay_Rover_INCLUDES
 
 include_directories(${objs_AP_Relay_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Relay_Rover ${objs_AP_Relay_Rover_SOURCES})
+target_compile_definitions(objs_AP_Relay_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Relay_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -926,9 +926,9 @@ set(objs_AP_RCProtocol_Rover_INCLUDES
 
 include_directories(${objs_AP_RCProtocol_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_RCProtocol_Rover ${objs_AP_RCProtocol_Rover_SOURCES})
+target_compile_definitions(objs_AP_RCProtocol_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_RCProtocol_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -962,9 +962,9 @@ set(objs_AP_BLHeli_Rover_INCLUDES
 
 include_directories(${objs_AP_BLHeli_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_BLHeli_Rover ${objs_AP_BLHeli_Rover_SOURCES})
+target_compile_definitions(objs_AP_BLHeli_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_BLHeli_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -998,9 +998,9 @@ set(objs_AP_Proximity_Rover_INCLUDES
 
 include_directories(${objs_AP_Proximity_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Proximity_Rover ${objs_AP_Proximity_Rover_SOURCES})
+target_compile_definitions(objs_AP_Proximity_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Proximity_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1035,9 +1035,9 @@ set(objs_AC_Fence_Rover_INCLUDES
 
 include_directories(${objs_AC_Fence_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AC_Fence_Rover ${objs_AC_Fence_Rover_SOURCES})
+target_compile_definitions(objs_AC_Fence_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AC_Fence_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1073,9 +1073,9 @@ set(objs_AC_Avoidance_Rover_INCLUDES
 
 include_directories(${objs_AC_Avoidance_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AC_Avoidance_Rover ${objs_AC_Avoidance_Rover_SOURCES})
+target_compile_definitions(objs_AC_Avoidance_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AC_Avoidance_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1109,9 +1109,9 @@ set(objs_AP_LandingGear_Rover_INCLUDES
 
 include_directories(${objs_AP_LandingGear_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_LandingGear_Rover ${objs_AP_LandingGear_Rover_SOURCES})
+target_compile_definitions(objs_AP_LandingGear_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_LandingGear_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1147,9 +1147,9 @@ set(objs_AP_OSD_Rover_INCLUDES
 
 include_directories(${objs_AP_OSD_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_OSD_Rover ${objs_AP_OSD_Rover_SOURCES})
+target_compile_definitions(objs_AP_OSD_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_OSD_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1183,9 +1183,9 @@ set(objs_AP_Filesystem_Rover_INCLUDES
 
 include_directories(${objs_AP_Filesystem_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Filesystem_Rover ${objs_AP_Filesystem_Rover_SOURCES})
+target_compile_definitions(objs_AP_Filesystem_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Filesystem_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1220,9 +1220,9 @@ set(objs_AP_ADSB_Rover_INCLUDES
 
 include_directories(${objs_AP_ADSB_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_ADSB_Rover ${objs_AP_ADSB_Rover_SOURCES})
+target_compile_definitions(objs_AP_ADSB_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_ADSB_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1256,9 +1256,9 @@ set(objs_AP_ESC_Telem_Rover_INCLUDES
 
 include_directories(${objs_AP_ESC_Telem_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_ESC_Telem_Rover ${objs_AP_ESC_Telem_Rover_SOURCES})
+target_compile_definitions(objs_AP_ESC_Telem_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_ESC_Telem_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1292,9 +1292,9 @@ set(objs_AP_GyroFFT_Rover_INCLUDES
 
 include_directories(${objs_AP_GyroFFT_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_GyroFFT_Rover ${objs_AP_GyroFFT_Rover_SOURCES})
+target_compile_definitions(objs_AP_GyroFFT_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_GyroFFT_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1329,9 +1329,9 @@ set(objs_AP_RCTelemetry_Rover_INCLUDES
 
 include_directories(${objs_AP_RCTelemetry_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_RCTelemetry_Rover ${objs_AP_RCTelemetry_Rover_SOURCES})
+target_compile_definitions(objs_AP_RCTelemetry_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_RCTelemetry_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1366,9 +1366,9 @@ set(objs_AP_ExternalAHRS_Rover_INCLUDES
 
 include_directories(${objs_AP_ExternalAHRS_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_ExternalAHRS_Rover ${objs_AP_ExternalAHRS_Rover_SOURCES})
+target_compile_definitions(objs_AP_ExternalAHRS_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_ExternalAHRS_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1402,9 +1402,9 @@ set(objs_AP_TemperatureSensor_Rover_INCLUDES
 
 include_directories(${objs_AP_TemperatureSensor_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_TemperatureSensor_Rover ${objs_AP_TemperatureSensor_Rover_SOURCES})
+target_compile_definitions(objs_AP_TemperatureSensor_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_TemperatureSensor_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1438,9 +1438,9 @@ set(objs_AP_AIS_Rover_INCLUDES
 
 include_directories(${objs_AP_AIS_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_AIS_Rover ${objs_AP_AIS_Rover_SOURCES})
+target_compile_definitions(objs_AP_AIS_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_AIS_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1474,9 +1474,9 @@ set(objs_AP_Arming_Rover_INCLUDES
 
 include_directories(${objs_AP_Arming_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Arming_Rover ${objs_AP_Arming_Rover_SOURCES})
+target_compile_definitions(objs_AP_Arming_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Arming_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1510,9 +1510,9 @@ set(objs_AP_Follow_Rover_INCLUDES
 
 include_directories(${objs_AP_Follow_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Follow_Rover ${objs_AP_Follow_Rover_SOURCES})
+target_compile_definitions(objs_AP_Follow_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Follow_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1548,9 +1548,9 @@ set(objs_AC_AttitudeControl_Rover_INCLUDES
 
 include_directories(${objs_AC_AttitudeControl_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AC_AttitudeControl_Rover ${objs_AC_AttitudeControl_Rover_SOURCES})
+target_compile_definitions(objs_AC_AttitudeControl_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AC_AttitudeControl_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1584,9 +1584,9 @@ set(objs_AC_PrecLand_Rover_INCLUDES
 
 include_directories(${objs_AC_PrecLand_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AC_PrecLand_Rover ${objs_AC_PrecLand_Rover_SOURCES})
+target_compile_definitions(objs_AC_PrecLand_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AC_PrecLand_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1622,9 +1622,9 @@ set(objs_AP_HAL_SITL_Rover_INCLUDES
 
 include_directories(${objs_AP_HAL_SITL_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_HAL_SITL_Rover ${objs_AP_HAL_SITL_Rover_SOURCES})
+target_compile_definitions(objs_AP_HAL_SITL_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_HAL_SITL_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1661,9 +1661,9 @@ set(objs_SITL_Rover_INCLUDES
 
 include_directories(${objs_SITL_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_SITL_Rover ${objs_SITL_Rover_SOURCES})
+target_compile_definitions(objs_SITL_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_SITL_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1702,9 +1702,9 @@ set(objs_AP_Scripting_Rover_INCLUDES
 
 include_directories(${objs_AP_Scripting_Rover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_library(objs_AP_Scripting_Rover ${objs_AP_Scripting_Rover_SOURCES})
+target_compile_definitions(objs_AP_Scripting_Rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 set_target_properties(objs_AP_Scripting_Rover PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1914,6 +1914,7 @@ set(Rover_libs_INCLUDES
 include_directories(${Rover_libs_INCLUDES})
 
 add_library(Rover_libs ${Rover_libs_SOURCES})
+
 set_target_properties(Rover_libs PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2107,9 +2108,9 @@ set(bin_ardurover_INCLUDES
 
 include_directories(${bin_ardurover_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover")
-
 add_executable(bin_ardurover ${bin_ardurover_SOURCES})
+target_compile_definitions(bin_ardurover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+
 
 target_link_libraries(bin_ardurover Rover_libs) #clean
 

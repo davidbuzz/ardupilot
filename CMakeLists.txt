@@ -3,7 +3,7 @@ project (ArduPilot)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 
-add_definitions(-DAP_BARO_PROBE_EXTERNAL_I2C_BUSES=1 -DAP_CUSTOMCONTROL_ENABLED=1 -DAP_DDS_ENABLED=0 -DAP_SCRIPTING_CHECKS=1 -DCANARD_ALLOCATE_SEM=1 -DCANARD_ENABLE_ASSERTS=1 -DCANARD_ENABLE_CANFD=1 -DCANARD_ENABLE_DEADLINE=1 -DCANARD_IFACE_ALL=3 -DCANARD_MULTI_IFACE=1 -DCONFIG_HAL_BOARD=HAL_BOARD_SITL -DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE -DDRONECAN_CXX_WRAPPERS=1 -DENABLE_ONVIF=0 -DLUA_32BITS=1 -DUSE_USER_HELPERS=1)
+add_definitions(-DAP_BARO_PROBE_EXTERNAL_I2C_BUSES=1 -DAP_CUSTOMCONTROL_ENABLED=1 -DAP_DDS_ENABLED=0 -DAP_SCRIPTING_CHECKS=1 -DCANARD_ALLOCATE_SEM=1 -DCANARD_ENABLE_ASSERTS=1 -DCANARD_ENABLE_CANFD=1 -DCANARD_ENABLE_DEADLINE=1 -DCANARD_IFACE_ALL=3 -DCANARD_MULTI_IFACE=1 -DCONFIG_HAL_BOARD=HAL_BOARD_SITL -DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE -DDRONECAN_CXX_WRAPPERS=1 -DENABLE_ONVIF=0 -DLUA_32BITS=1 -DUSE_USER_HELPERS=1) #1
 
 set(CMAKE_C_FLAGS "-ffunction-sections -fdata-sections -fsigned-char -Wall -Wextra -Werror=format -Wpointer-arith -Wcast-align -Wno-missing-field-initializers -Wno-unused-parameter -Wno-redundant-decls -Wno-unknown-pragmas -Wno-trigraphs -Werror=return-type -Werror=unused-result -Werror=unused-variable -Werror=narrowing -Werror=attributes -Werror=overflow -Werror=parentheses -Werror=format-extra-args -Werror=ignored-qualifiers -Werror=undef -DARDUPILOT_BUILD -Wno-format-contains-nul -fsingle-precision-constant -Werror=use-after-free -DCANARD_64_BIT=1 -MMD -ffile-prefix-map=../..=../..")
 set(CMAKE_CXX_FLAGS "-std=gnu++11 -fdata-sections -ffunction-sections -fno-exceptions -fsigned-char -Wall -Wextra -Wpointer-arith -Wno-unused-parameter -Wno-missing-field-initializers -Wno-redundant-decls -Wno-unknown-pragmas -Wno-expansion-to-defined -Werror=reorder -Werror=cast-align -Werror=attributes -Werror=format-security -Werror=format-extra-args -Werror=enum-compare -Werror=format -Werror=array-bounds -Werror=uninitialized -Werror=init-self -Werror=narrowing -Werror=return-type -Werror=switch -Werror=sign-compare -Werror=type-limits -Werror=undef -Werror=unused-result -Werror=unused-value -Werror=unused-variable -Werror=delete-non-virtual-dtor -Wfatal-errors -Wno-trigraphs -Werror=parentheses -DARDUPILOT_BUILD -Wuninitialized -Warray-bounds -Wno-format-contains-nul -Werror=unused-but-set-variable -fsingle-precision-constant -Wno-psabi -Werror=suggest-override -Werror=implicit-fallthrough -Werror=maybe-uninitialized -Werror=duplicated-cond -Werror=sizeof-pointer-div -Werror=use-after-free -D__AP_LINE__=__LINE__ -DAP_MAVLINK_RALLY_POINT_PROTOCOL_ENABLED=HAL_GCS_ENABLED -DAC_POLYFENCE_FENCE_POINT_PROTOCOL_SUPPORT=HAL_GCS_ENABLED -DHAL_NAVEKF2_AVAILABLE=1 -DCANARD_64_BIT=1 -Werror=float-equal -Werror=missing-declarations -DAP_NETWORKING_ENABLED=1 -O3 -MMD -ffile-prefix-map=../..=../.. -include ap_config.h -DHAL_HAVE_AP_ROMFS_EMBEDDED_H")
@@ -24,9 +24,9 @@ set(littlefs_INCLUDES
 
 include_directories(${littlefs_INCLUDES})
 
-add_definitions(-DLFS_NO_DEBUG -DLFS_NO_WARN -DLFS_NO_ERROR -DLFS_NO_ASSERT)
-
 add_library(littlefs ${littlefs_SOURCES})
+target_compile_definitions(littlefs PRIVATE -DLFS_NO_DEBUG -DLFS_NO_WARN -DLFS_NO_ERROR -DLFS_NO_ASSERT) #2
+
 set_target_properties(littlefs PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -63,6 +63,7 @@ set(objs_AC_AttitudeControl_INCLUDES
 include_directories(${objs_AC_AttitudeControl_INCLUDES})
 
 add_library(objs_AC_AttitudeControl ${objs_AC_AttitudeControl_SOURCES})
+
 set_target_properties(objs_AC_AttitudeControl PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -98,6 +99,7 @@ set(objs_AC_AutoTune_INCLUDES
 include_directories(${objs_AC_AutoTune_INCLUDES})
 
 add_library(objs_AC_AutoTune ${objs_AC_AutoTune_SOURCES})
+
 set_target_properties(objs_AC_AutoTune PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -133,6 +135,7 @@ set(objs_AC_Autorotation_INCLUDES
 include_directories(${objs_AC_Autorotation_INCLUDES})
 
 add_library(objs_AC_Autorotation ${objs_AC_Autorotation_SOURCES})
+
 set_target_properties(objs_AC_Autorotation PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -170,6 +173,7 @@ set(objs_AC_Avoidance_INCLUDES
 include_directories(${objs_AC_Avoidance_INCLUDES})
 
 add_library(objs_AC_Avoidance ${objs_AC_Avoidance_SOURCES})
+
 set_target_properties(objs_AC_Avoidance PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -206,6 +210,7 @@ set(objs_AC_CustomControl_INCLUDES
 include_directories(${objs_AC_CustomControl_INCLUDES})
 
 add_library(objs_AC_CustomControl ${objs_AC_CustomControl_SOURCES})
+
 set_target_properties(objs_AC_CustomControl PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -241,6 +246,7 @@ set(objs_AC_InputManager_INCLUDES
 include_directories(${objs_AC_InputManager_INCLUDES})
 
 add_library(objs_AC_InputManager ${objs_AC_InputManager_SOURCES})
+
 set_target_properties(objs_AC_InputManager PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -283,6 +289,7 @@ set(objs_AC_PID_INCLUDES
 include_directories(${objs_AC_PID_INCLUDES})
 
 add_library(objs_AC_PID ${objs_AC_PID_SOURCES})
+
 set_target_properties(objs_AC_PID PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -322,6 +329,7 @@ set(objs_AC_PrecLand_INCLUDES
 include_directories(${objs_AC_PrecLand_INCLUDES})
 
 add_library(objs_AC_PrecLand ${objs_AC_PrecLand_SOURCES})
+
 set_target_properties(objs_AC_PrecLand PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -356,6 +364,7 @@ set(objs_AC_Sprayer_INCLUDES
 include_directories(${objs_AC_Sprayer_INCLUDES})
 
 add_library(objs_AC_Sprayer ${objs_AC_Sprayer_SOURCES})
+
 set_target_properties(objs_AC_Sprayer PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -392,6 +401,7 @@ set(objs_AC_WPNav_INCLUDES
 include_directories(${objs_AC_WPNav_INCLUDES})
 
 add_library(objs_AC_WPNav ${objs_AC_WPNav_SOURCES})
+
 set_target_properties(objs_AC_WPNav PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -433,6 +443,7 @@ set(objs_APM_Control_INCLUDES
 include_directories(${objs_APM_Control_INCLUDES})
 
 add_library(objs_APM_Control ${objs_APM_Control_SOURCES})
+
 set_target_properties(objs_APM_Control PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -467,6 +478,7 @@ set(objs_AP_ADC_INCLUDES
 include_directories(${objs_AP_ADC_INCLUDES})
 
 add_library(objs_AP_ADC ${objs_AP_ADC_SOURCES})
+
 set_target_properties(objs_AP_ADC PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -504,6 +516,7 @@ set(objs_AP_ADSB_INCLUDES
 include_directories(${objs_AP_ADSB_INCLUDES})
 
 add_library(objs_AP_ADSB ${objs_AP_ADSB_SOURCES})
+
 set_target_properties(objs_AP_ADSB PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -541,6 +554,7 @@ set(objs_AP_AHRS_INCLUDES
 include_directories(${objs_AP_AHRS_INCLUDES})
 
 add_library(objs_AP_AHRS ${objs_AP_AHRS_SOURCES})
+
 set_target_properties(objs_AP_AHRS PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -576,6 +590,7 @@ set(objs_AP_AccelCal_INCLUDES
 include_directories(${objs_AP_AccelCal_INCLUDES})
 
 add_library(objs_AP_AccelCal ${objs_AP_AccelCal_SOURCES})
+
 set_target_properties(objs_AP_AccelCal PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -610,6 +625,7 @@ set(objs_AP_AdvancedFailsafe_INCLUDES
 include_directories(${objs_AP_AdvancedFailsafe_INCLUDES})
 
 add_library(objs_AP_AdvancedFailsafe ${objs_AP_AdvancedFailsafe_SOURCES})
+
 set_target_properties(objs_AP_AdvancedFailsafe PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -657,6 +673,7 @@ set(objs_AP_Airspeed_INCLUDES
 include_directories(${objs_AP_Airspeed_INCLUDES})
 
 add_library(objs_AP_Airspeed ${objs_AP_Airspeed_SOURCES})
+
 set_target_properties(objs_AP_Airspeed PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -712,6 +729,7 @@ set(objs_AP_Baro_INCLUDES
 include_directories(${objs_AP_Baro_INCLUDES})
 
 add_library(objs_AP_Baro ${objs_AP_Baro_SOURCES})
+
 set_target_properties(objs_AP_Baro PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -771,6 +789,7 @@ set(objs_AP_BattMonitor_INCLUDES
 include_directories(${objs_AP_BattMonitor_INCLUDES})
 
 add_library(objs_AP_BattMonitor ${objs_AP_BattMonitor_SOURCES})
+
 set_target_properties(objs_AP_BattMonitor PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -810,6 +829,7 @@ set(objs_AP_Beacon_INCLUDES
 include_directories(${objs_AP_Beacon_INCLUDES})
 
 add_library(objs_AP_Beacon ${objs_AP_Beacon_SOURCES})
+
 set_target_properties(objs_AP_Beacon PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -845,6 +865,7 @@ set(objs_AP_BoardConfig_INCLUDES
 include_directories(${objs_AP_BoardConfig_INCLUDES})
 
 add_library(objs_AP_BoardConfig ${objs_AP_BoardConfig_SOURCES})
+
 set_target_properties(objs_AP_BoardConfig PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -879,6 +900,7 @@ set(objs_AP_Button_INCLUDES
 include_directories(${objs_AP_Button_INCLUDES})
 
 add_library(objs_AP_Button ${objs_AP_Button_SOURCES})
+
 set_target_properties(objs_AP_Button PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -918,6 +940,7 @@ set(objs_AP_CANManager_INCLUDES
 include_directories(${objs_AP_CANManager_INCLUDES})
 
 add_library(objs_AP_CANManager ${objs_AP_CANManager_SOURCES})
+
 set_target_properties(objs_AP_CANManager PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -952,6 +975,7 @@ set(objs_AP_CSVReader_INCLUDES
 include_directories(${objs_AP_CSVReader_INCLUDES})
 
 add_library(objs_AP_CSVReader ${objs_AP_CSVReader_SOURCES})
+
 set_target_properties(objs_AP_CSVReader PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -997,6 +1021,7 @@ set(objs_AP_Camera_INCLUDES
 include_directories(${objs_AP_Camera_INCLUDES})
 
 add_library(objs_AP_Camera ${objs_AP_Camera_SOURCES})
+
 set_target_properties(objs_AP_Camera PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1033,6 +1058,7 @@ set(objs_AP_CheckFirmware_INCLUDES
 include_directories(${objs_AP_CheckFirmware_INCLUDES})
 
 add_library(objs_AP_CheckFirmware ${objs_AP_CheckFirmware_SOURCES})
+
 set_target_properties(objs_AP_CheckFirmware PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1076,6 +1102,7 @@ set(objs_AP_Common_INCLUDES
 include_directories(${objs_AP_Common_INCLUDES})
 
 add_library(objs_AP_Common ${objs_AP_Common_SOURCES})
+
 set_target_properties(objs_AP_Common PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1137,6 +1164,7 @@ set(objs_AP_Compass_INCLUDES
 include_directories(${objs_AP_Compass_INCLUDES})
 
 add_library(objs_AP_Compass ${objs_AP_Compass_SOURCES})
+
 set_target_properties(objs_AP_Compass PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1172,6 +1200,7 @@ set(objs_AP_CustomRotations_INCLUDES
 include_directories(${objs_AP_CustomRotations_INCLUDES})
 
 add_library(objs_AP_CustomRotations ${objs_AP_CustomRotations_SOURCES})
+
 set_target_properties(objs_AP_CustomRotations PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1210,6 +1239,7 @@ set(objs_AP_DAL_INCLUDES
 include_directories(${objs_AP_DAL_INCLUDES})
 
 add_library(objs_AP_DAL ${objs_AP_DAL_SOURCES})
+
 set_target_properties(objs_AP_DAL PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1249,6 +1279,7 @@ set(objs_AP_DDS_INCLUDES
 include_directories(${objs_AP_DDS_INCLUDES})
 
 add_library(objs_AP_DDS ${objs_AP_DDS_SOURCES})
+
 set_target_properties(objs_AP_DDS PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1284,6 +1315,7 @@ set(objs_AP_Declination_INCLUDES
 include_directories(${objs_AP_Declination_INCLUDES})
 
 add_library(objs_AP_Declination ${objs_AP_Declination_SOURCES})
+
 set_target_properties(objs_AP_Declination PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1318,6 +1350,7 @@ set(objs_AP_Devo_Telem_INCLUDES
 include_directories(${objs_AP_Devo_Telem_INCLUDES})
 
 add_library(objs_AP_Devo_Telem ${objs_AP_Devo_Telem_SOURCES})
+
 set_target_properties(objs_AP_Devo_Telem PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1355,6 +1388,7 @@ set(objs_AP_DroneCAN_INCLUDES
 include_directories(${objs_AP_DroneCAN_INCLUDES})
 
 add_library(objs_AP_DroneCAN ${objs_AP_DroneCAN_SOURCES})
+
 set_target_properties(objs_AP_DroneCAN PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1400,6 +1434,7 @@ set(objs_AP_EFI_INCLUDES
 include_directories(${objs_AP_EFI_INCLUDES})
 
 add_library(objs_AP_EFI ${objs_AP_EFI_SOURCES})
+
 set_target_properties(objs_AP_EFI PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1435,6 +1470,7 @@ set(objs_AP_ESC_Telem_INCLUDES
 include_directories(${objs_AP_ESC_Telem_INCLUDES})
 
 add_library(objs_AP_ESC_Telem ${objs_AP_ESC_Telem_SOURCES})
+
 set_target_properties(objs_AP_ESC_Telem PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1474,6 +1510,7 @@ set(objs_AP_ExternalAHRS_INCLUDES
 include_directories(${objs_AP_ExternalAHRS_INCLUDES})
 
 add_library(objs_AP_ExternalAHRS ${objs_AP_ExternalAHRS_SOURCES})
+
 set_target_properties(objs_AP_ExternalAHRS PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1508,6 +1545,7 @@ set(objs_AP_ExternalControl_INCLUDES
 include_directories(${objs_AP_ExternalControl_INCLUDES})
 
 add_library(objs_AP_ExternalControl ${objs_AP_ExternalControl_SOURCES})
+
 set_target_properties(objs_AP_ExternalControl PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1542,6 +1580,7 @@ set(objs_AP_FETtecOneWire_INCLUDES
 include_directories(${objs_AP_FETtecOneWire_INCLUDES})
 
 add_library(objs_AP_FETtecOneWire ${objs_AP_FETtecOneWire_SOURCES})
+
 set_target_properties(objs_AP_FETtecOneWire PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1585,6 +1624,7 @@ set(objs_AP_Filesystem_INCLUDES
 include_directories(${objs_AP_Filesystem_INCLUDES})
 
 add_library(objs_AP_Filesystem ${objs_AP_Filesystem_SOURCES})
+
 set_target_properties(objs_AP_Filesystem PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1619,6 +1659,7 @@ set(objs_AP_FlashStorage_INCLUDES
 include_directories(${objs_AP_FlashStorage_INCLUDES})
 
 add_library(objs_AP_FlashStorage ${objs_AP_FlashStorage_SOURCES})
+
 set_target_properties(objs_AP_FlashStorage PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1661,6 +1702,7 @@ set(objs_AP_Frsky_Telem_INCLUDES
 include_directories(${objs_AP_Frsky_Telem_INCLUDES})
 
 add_library(objs_AP_Frsky_Telem ${objs_AP_Frsky_Telem_SOURCES})
+
 set_target_properties(objs_AP_Frsky_Telem PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1714,6 +1756,7 @@ set(objs_AP_GPS_INCLUDES
 include_directories(${objs_AP_GPS_INCLUDES})
 
 add_library(objs_AP_GPS ${objs_AP_GPS_SOURCES})
+
 set_target_properties(objs_AP_GPS PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1748,6 +1791,7 @@ set(objs_AP_GSOF_INCLUDES
 include_directories(${objs_AP_GSOF_INCLUDES})
 
 add_library(objs_AP_GSOF ${objs_AP_GSOF_SOURCES})
+
 set_target_properties(objs_AP_GSOF PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1789,6 +1833,7 @@ set(objs_AP_Generator_INCLUDES
 include_directories(${objs_AP_Generator_INCLUDES})
 
 add_library(objs_AP_Generator ${objs_AP_Generator_SOURCES})
+
 set_target_properties(objs_AP_Generator PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1826,6 +1871,7 @@ set(objs_AP_Gripper_INCLUDES
 include_directories(${objs_AP_Gripper_INCLUDES})
 
 add_library(objs_AP_Gripper ${objs_AP_Gripper_SOURCES})
+
 set_target_properties(objs_AP_Gripper PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1860,6 +1906,7 @@ set(objs_AP_Hott_Telem_INCLUDES
 include_directories(${objs_AP_Hott_Telem_INCLUDES})
 
 add_library(objs_AP_Hott_Telem ${objs_AP_Hott_Telem_SOURCES})
+
 set_target_properties(objs_AP_Hott_Telem PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1895,6 +1942,7 @@ set(objs_AP_ICEngine_INCLUDES
 include_directories(${objs_AP_ICEngine_INCLUDES})
 
 add_library(objs_AP_ICEngine ${objs_AP_ICEngine_SOURCES})
+
 set_target_properties(objs_AP_ICEngine PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1930,6 +1978,7 @@ set(objs_AP_IOMCU_INCLUDES
 include_directories(${objs_AP_IOMCU_INCLUDES})
 
 add_library(objs_AP_IOMCU ${objs_AP_IOMCU_SOURCES})
+
 set_target_properties(objs_AP_IOMCU PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1967,6 +2016,7 @@ set(objs_AP_IRLock_INCLUDES
 include_directories(${objs_AP_IRLock_INCLUDES})
 
 add_library(objs_AP_IRLock ${objs_AP_IRLock_SOURCES})
+
 set_target_properties(objs_AP_IRLock PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2001,6 +2051,7 @@ set(objs_AP_InertialNav_INCLUDES
 include_directories(${objs_AP_InertialNav_INCLUDES})
 
 add_library(objs_AP_InertialNav ${objs_AP_InertialNav_SOURCES})
+
 set_target_properties(objs_AP_InertialNav PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2053,6 +2104,7 @@ set(objs_AP_InertialSensor_INCLUDES
 include_directories(${objs_AP_InertialSensor_INCLUDES})
 
 add_library(objs_AP_InertialSensor ${objs_AP_InertialSensor_SOURCES})
+
 set_target_properties(objs_AP_InertialSensor PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2087,6 +2139,7 @@ set(objs_AP_InternalError_INCLUDES
 include_directories(${objs_AP_InternalError_INCLUDES})
 
 add_library(objs_AP_InternalError ${objs_AP_InternalError_SOURCES})
+
 set_target_properties(objs_AP_InternalError PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2121,6 +2174,7 @@ set(objs_AP_JSButton_INCLUDES
 include_directories(${objs_AP_JSButton_INCLUDES})
 
 add_library(objs_AP_JSButton ${objs_AP_JSButton_SOURCES})
+
 set_target_properties(objs_AP_JSButton PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2155,6 +2209,7 @@ set(objs_AP_JSON_INCLUDES
 include_directories(${objs_AP_JSON_INCLUDES})
 
 add_library(objs_AP_JSON ${objs_AP_JSON_SOURCES})
+
 set_target_properties(objs_AP_JSON PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2189,6 +2244,7 @@ set(objs_AP_KDECAN_INCLUDES
 include_directories(${objs_AP_KDECAN_INCLUDES})
 
 add_library(objs_AP_KDECAN ${objs_AP_KDECAN_SOURCES})
+
 set_target_properties(objs_AP_KDECAN PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2223,6 +2279,7 @@ set(objs_AP_L1_Control_INCLUDES
 include_directories(${objs_AP_L1_Control_INCLUDES})
 
 add_library(objs_AP_L1_Control ${objs_AP_L1_Control_SOURCES})
+
 set_target_properties(objs_AP_L1_Control PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2257,6 +2314,7 @@ set(objs_AP_LTM_Telem_INCLUDES
 include_directories(${objs_AP_LTM_Telem_INCLUDES})
 
 add_library(objs_AP_LTM_Telem ${objs_AP_LTM_Telem_SOURCES})
+
 set_target_properties(objs_AP_LTM_Telem PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2292,6 +2350,7 @@ set(objs_AP_Landing_INCLUDES
 include_directories(${objs_AP_Landing_INCLUDES})
 
 add_library(objs_AP_Landing ${objs_AP_Landing_SOURCES})
+
 set_target_properties(objs_AP_Landing PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2329,6 +2388,7 @@ set(objs_AP_LeakDetector_INCLUDES
 include_directories(${objs_AP_LeakDetector_INCLUDES})
 
 add_library(objs_AP_LeakDetector ${objs_AP_LeakDetector_SOURCES})
+
 set_target_properties(objs_AP_LeakDetector PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2363,6 +2423,7 @@ set(objs_AP_LightWareSerial_INCLUDES
 include_directories(${objs_AP_LightWareSerial_INCLUDES})
 
 add_library(objs_AP_LightWareSerial ${objs_AP_LightWareSerial_SOURCES})
+
 set_target_properties(objs_AP_LightWareSerial PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2402,6 +2463,7 @@ set(objs_AP_Logger_INCLUDES
 include_directories(${objs_AP_Logger_INCLUDES})
 
 add_library(objs_AP_Logger ${objs_AP_Logger_SOURCES})
+
 set_target_properties(objs_AP_Logger PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2442,6 +2504,7 @@ set(objs_AP_MSP_INCLUDES
 include_directories(${objs_AP_MSP_INCLUDES})
 
 add_library(objs_AP_MSP ${objs_AP_MSP_SOURCES})
+
 set_target_properties(objs_AP_MSP PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2492,6 +2555,7 @@ set(objs_AP_Math_INCLUDES
 include_directories(${objs_AP_Math_INCLUDES})
 
 add_library(objs_AP_Math ${objs_AP_Math_SOURCES})
+
 set_target_properties(objs_AP_Math PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2527,6 +2591,7 @@ set(objs_AP_Mission_INCLUDES
 include_directories(${objs_AP_Mission_INCLUDES})
 
 add_library(objs_AP_Mission ${objs_AP_Mission_SOURCES})
+
 set_target_properties(objs_AP_Mission PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2561,6 +2626,7 @@ set(objs_AP_Module_INCLUDES
 include_directories(${objs_AP_Module_INCLUDES})
 
 add_library(objs_AP_Module ${objs_AP_Module_SOURCES})
+
 set_target_properties(objs_AP_Module PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2607,6 +2673,7 @@ set(objs_AP_Motors_INCLUDES
 include_directories(${objs_AP_Motors_INCLUDES})
 
 add_library(objs_AP_Motors ${objs_AP_Motors_SOURCES})
+
 set_target_properties(objs_AP_Motors PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2660,6 +2727,7 @@ set(objs_AP_Mount_INCLUDES
 include_directories(${objs_AP_Mount_INCLUDES})
 
 add_library(objs_AP_Mount ${objs_AP_Mount_SOURCES})
+
 set_target_properties(objs_AP_Mount PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2696,6 +2764,7 @@ set(objs_AP_MultiHeap_INCLUDES
 include_directories(${objs_AP_MultiHeap_INCLUDES})
 
 add_library(objs_AP_MultiHeap ${objs_AP_MultiHeap_SOURCES})
+
 set_target_properties(objs_AP_MultiHeap PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2730,6 +2799,7 @@ set(objs_AP_NMEA_Output_INCLUDES
 include_directories(${objs_AP_NMEA_Output_INCLUDES})
 
 add_library(objs_AP_NMEA_Output ${objs_AP_NMEA_Output_SOURCES})
+
 set_target_properties(objs_AP_NMEA_Output PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2768,6 +2838,7 @@ set(objs_AP_NavEKF_INCLUDES
 include_directories(${objs_AP_NavEKF_INCLUDES})
 
 add_library(objs_AP_NavEKF ${objs_AP_NavEKF_SOURCES})
+
 set_target_properties(objs_AP_NavEKF PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2812,6 +2883,7 @@ set(objs_AP_NavEKF2_INCLUDES
 include_directories(${objs_AP_NavEKF2_INCLUDES})
 
 add_library(objs_AP_NavEKF2 ${objs_AP_NavEKF2_SOURCES})
+
 set_target_properties(objs_AP_NavEKF2 PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2926,6 +2998,7 @@ set(objs_AP_Networking_INCLUDES
 include_directories(${objs_AP_Networking_INCLUDES})
 
 add_library(objs_AP_Networking ${objs_AP_Networking_SOURCES})
+
 set_target_properties(objs_AP_Networking PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2992,6 +3065,7 @@ set(objs_AP_Notify_INCLUDES
 include_directories(${objs_AP_Notify_INCLUDES})
 
 add_library(objs_AP_Notify ${objs_AP_Notify_SOURCES})
+
 set_target_properties(objs_AP_Notify PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3026,6 +3100,7 @@ set(objs_AP_OLC_INCLUDES
 include_directories(${objs_AP_OLC_INCLUDES})
 
 add_library(objs_AP_OLC ${objs_AP_OLC_SOURCES})
+
 set_target_properties(objs_AP_OLC PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3066,6 +3141,7 @@ set(objs_AP_OSD_INCLUDES
 include_directories(${objs_AP_OSD_INCLUDES})
 
 add_library(objs_AP_OSD ${objs_AP_OSD_SOURCES})
+
 set_target_properties(objs_AP_OSD PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3101,6 +3177,7 @@ set(objs_AP_OpenDroneID_INCLUDES
 include_directories(${objs_AP_OpenDroneID_INCLUDES})
 
 add_library(objs_AP_OpenDroneID ${objs_AP_OpenDroneID_SOURCES})
+
 set_target_properties(objs_AP_OpenDroneID PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3146,6 +3223,7 @@ set(objs_AP_OpticalFlow_INCLUDES
 include_directories(${objs_AP_OpticalFlow_INCLUDES})
 
 add_library(objs_AP_OpticalFlow ${objs_AP_OpticalFlow_SOURCES})
+
 set_target_properties(objs_AP_OpticalFlow PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3180,6 +3258,7 @@ set(objs_AP_Parachute_INCLUDES
 include_directories(${objs_AP_Parachute_INCLUDES})
 
 add_library(objs_AP_Parachute ${objs_AP_Parachute_SOURCES})
+
 set_target_properties(objs_AP_Parachute PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3215,6 +3294,7 @@ set(objs_AP_Param_INCLUDES
 include_directories(${objs_AP_Param_INCLUDES})
 
 add_library(objs_AP_Param ${objs_AP_Param_SOURCES})
+
 set_target_properties(objs_AP_Param PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3253,6 +3333,7 @@ set(objs_AP_PiccoloCAN_INCLUDES
 include_directories(${objs_AP_PiccoloCAN_INCLUDES})
 
 add_library(objs_AP_PiccoloCAN ${objs_AP_PiccoloCAN_SOURCES})
+
 set_target_properties(objs_AP_PiccoloCAN PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3305,6 +3386,7 @@ set(objs_AP_Proximity_INCLUDES
 include_directories(${objs_AP_Proximity_INCLUDES})
 
 add_library(objs_AP_Proximity ${objs_AP_Proximity_SOURCES})
+
 set_target_properties(objs_AP_Proximity PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3339,6 +3421,7 @@ set(objs_AP_Quicktune_INCLUDES
 include_directories(${objs_AP_Quicktune_INCLUDES})
 
 add_library(objs_AP_Quicktune ${objs_AP_Quicktune_SOURCES})
+
 set_target_properties(objs_AP_Quicktune PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3373,6 +3456,7 @@ set(objs_AP_RAMTRON_INCLUDES
 include_directories(${objs_AP_RAMTRON_INCLUDES})
 
 add_library(objs_AP_RAMTRON ${objs_AP_RAMTRON_SOURCES})
+
 set_target_properties(objs_AP_RAMTRON PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3407,6 +3491,7 @@ set(objs_AP_RCMapper_INCLUDES
 include_directories(${objs_AP_RCMapper_INCLUDES})
 
 add_library(objs_AP_RCMapper ${objs_AP_RCMapper_SOURCES})
+
 set_target_properties(objs_AP_RCMapper PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3457,6 +3542,7 @@ set(objs_AP_RCProtocol_INCLUDES
 include_directories(${objs_AP_RCProtocol_INCLUDES})
 
 add_library(objs_AP_RCProtocol ${objs_AP_RCProtocol_SOURCES})
+
 set_target_properties(objs_AP_RCProtocol PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3492,6 +3578,7 @@ set(objs_AP_RCTelemetry_INCLUDES
 include_directories(${objs_AP_RCTelemetry_INCLUDES})
 
 add_library(objs_AP_RCTelemetry ${objs_AP_RCTelemetry_SOURCES})
+
 set_target_properties(objs_AP_RCTelemetry PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3527,6 +3614,7 @@ set(objs_AP_ROMFS_INCLUDES
 include_directories(${objs_AP_ROMFS_INCLUDES})
 
 add_library(objs_AP_ROMFS ${objs_AP_ROMFS_SOURCES})
+
 set_target_properties(objs_AP_ROMFS PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3570,6 +3658,7 @@ set(objs_AP_RPM_INCLUDES
 include_directories(${objs_AP_RPM_INCLUDES})
 
 add_library(objs_AP_RPM ${objs_AP_RPM_SOURCES})
+
 set_target_properties(objs_AP_RPM PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3604,6 +3693,7 @@ set(objs_AP_RSSI_INCLUDES
 include_directories(${objs_AP_RSSI_INCLUDES})
 
 add_library(objs_AP_RSSI ${objs_AP_RSSI_SOURCES})
+
 set_target_properties(objs_AP_RSSI PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3639,6 +3729,7 @@ set(objs_AP_RTC_INCLUDES
 include_directories(${objs_AP_RTC_INCLUDES})
 
 add_library(objs_AP_RTC ${objs_AP_RTC_SOURCES})
+
 set_target_properties(objs_AP_RTC PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3679,6 +3770,7 @@ set(objs_AP_Radio_INCLUDES
 include_directories(${objs_AP_Radio_INCLUDES})
 
 add_library(objs_AP_Radio ${objs_AP_Radio_SOURCES})
+
 set_target_properties(objs_AP_Radio PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3757,6 +3849,7 @@ set(objs_AP_RangeFinder_INCLUDES
 include_directories(${objs_AP_RangeFinder_INCLUDES})
 
 add_library(objs_AP_RangeFinder ${objs_AP_RangeFinder_SOURCES})
+
 set_target_properties(objs_AP_RangeFinder PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3791,6 +3884,7 @@ set(objs_AP_Relay_INCLUDES
 include_directories(${objs_AP_Relay_INCLUDES})
 
 add_library(objs_AP_Relay ${objs_AP_Relay_SOURCES})
+
 set_target_properties(objs_AP_Relay PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3825,6 +3919,7 @@ set(objs_AP_RobotisServo_INCLUDES
 include_directories(${objs_AP_RobotisServo_INCLUDES})
 
 add_library(objs_AP_RobotisServo ${objs_AP_RobotisServo_SOURCES})
+
 set_target_properties(objs_AP_RobotisServo PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3859,6 +3954,7 @@ set(objs_AP_SBusOut_INCLUDES
 include_directories(${objs_AP_SBusOut_INCLUDES})
 
 add_library(objs_AP_SBusOut ${objs_AP_SBusOut_SOURCES})
+
 set_target_properties(objs_AP_SBusOut PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3893,6 +3989,7 @@ set(objs_AP_Scheduler_INCLUDES
 include_directories(${objs_AP_Scheduler_INCLUDES})
 
 add_library(objs_AP_Scheduler ${objs_AP_Scheduler_SOURCES})
+
 set_target_properties(objs_AP_Scheduler PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3927,6 +4024,7 @@ set(objs_AP_SerialLED_INCLUDES
 include_directories(${objs_AP_SerialLED_INCLUDES})
 
 add_library(objs_AP_SerialLED ${objs_AP_SerialLED_SOURCES})
+
 set_target_properties(objs_AP_SerialLED PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3961,6 +4059,7 @@ set(objs_AP_SerialManager_INCLUDES
 include_directories(${objs_AP_SerialManager_INCLUDES})
 
 add_library(objs_AP_SerialManager ${objs_AP_SerialManager_SOURCES})
+
 set_target_properties(objs_AP_SerialManager PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -3995,6 +4094,7 @@ set(objs_AP_ServoRelayEvents_INCLUDES
 include_directories(${objs_AP_ServoRelayEvents_INCLUDES})
 
 add_library(objs_AP_ServoRelayEvents ${objs_AP_ServoRelayEvents_SOURCES})
+
 set_target_properties(objs_AP_ServoRelayEvents PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4029,6 +4129,7 @@ set(objs_AP_Servo_Telem_INCLUDES
 include_directories(${objs_AP_Servo_Telem_INCLUDES})
 
 add_library(objs_AP_Servo_Telem ${objs_AP_Servo_Telem_SOURCES})
+
 set_target_properties(objs_AP_Servo_Telem PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4063,6 +4164,7 @@ set(objs_AP_SmartRTL_INCLUDES
 include_directories(${objs_AP_SmartRTL_INCLUDES})
 
 add_library(objs_AP_SmartRTL ${objs_AP_SmartRTL_SOURCES})
+
 set_target_properties(objs_AP_SmartRTL PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4100,6 +4202,7 @@ set(objs_AP_Soaring_INCLUDES
 include_directories(${objs_AP_Soaring_INCLUDES})
 
 add_library(objs_AP_Soaring ${objs_AP_Soaring_SOURCES})
+
 set_target_properties(objs_AP_Soaring PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4134,6 +4237,7 @@ set(objs_AP_Stats_INCLUDES
 include_directories(${objs_AP_Stats_INCLUDES})
 
 add_library(objs_AP_Stats ${objs_AP_Stats_SOURCES})
+
 set_target_properties(objs_AP_Stats PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4168,6 +4272,7 @@ set(objs_AP_SurfaceDistance_INCLUDES
 include_directories(${objs_AP_SurfaceDistance_INCLUDES})
 
 add_library(objs_AP_SurfaceDistance ${objs_AP_SurfaceDistance_SOURCES})
+
 set_target_properties(objs_AP_SurfaceDistance PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4202,6 +4307,7 @@ set(objs_AP_TECS_INCLUDES
 include_directories(${objs_AP_TECS_INCLUDES})
 
 add_library(objs_AP_TECS ${objs_AP_TECS_SOURCES})
+
 set_target_properties(objs_AP_TECS PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4236,6 +4342,7 @@ set(objs_AP_TempCalibration_INCLUDES
 include_directories(${objs_AP_TempCalibration_INCLUDES})
 
 add_library(objs_AP_TempCalibration ${objs_AP_TempCalibration_SOURCES})
+
 set_target_properties(objs_AP_TempCalibration PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4279,6 +4386,7 @@ set(objs_AP_TemperatureSensor_INCLUDES
 include_directories(${objs_AP_TemperatureSensor_INCLUDES})
 
 add_library(objs_AP_TemperatureSensor ${objs_AP_TemperatureSensor_SOURCES})
+
 set_target_properties(objs_AP_TemperatureSensor PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4316,6 +4424,7 @@ set(objs_AP_Terrain_INCLUDES
 include_directories(${objs_AP_Terrain_INCLUDES})
 
 add_library(objs_AP_Terrain ${objs_AP_Terrain_SOURCES})
+
 set_target_properties(objs_AP_Terrain PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4353,6 +4462,7 @@ set(objs_AP_Torqeedo_INCLUDES
 include_directories(${objs_AP_Torqeedo_INCLUDES})
 
 add_library(objs_AP_Torqeedo ${objs_AP_Torqeedo_SOURCES})
+
 set_target_properties(objs_AP_Torqeedo PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4387,6 +4497,7 @@ set(objs_AP_Tuning_INCLUDES
 include_directories(${objs_AP_Tuning_INCLUDES})
 
 add_library(objs_AP_Tuning ${objs_AP_Tuning_SOURCES})
+
 set_target_properties(objs_AP_Tuning PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4421,6 +4532,7 @@ set(objs_AP_Vehicle_INCLUDES
 include_directories(${objs_AP_Vehicle_INCLUDES})
 
 add_library(objs_AP_Vehicle ${objs_AP_Vehicle_SOURCES})
+
 set_target_properties(objs_AP_Vehicle PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4457,6 +4569,7 @@ set(objs_AP_VideoTX_INCLUDES
 include_directories(${objs_AP_VideoTX_INCLUDES})
 
 add_library(objs_AP_VideoTX ${objs_AP_VideoTX_SOURCES})
+
 set_target_properties(objs_AP_VideoTX PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4495,6 +4608,7 @@ set(objs_AP_VisualOdom_INCLUDES
 include_directories(${objs_AP_VisualOdom_INCLUDES})
 
 add_library(objs_AP_VisualOdom ${objs_AP_VisualOdom_SOURCES})
+
 set_target_properties(objs_AP_VisualOdom PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4529,6 +4643,7 @@ set(objs_AP_Volz_Protocol_INCLUDES
 include_directories(${objs_AP_Volz_Protocol_INCLUDES})
 
 add_library(objs_AP_Volz_Protocol ${objs_AP_Volz_Protocol_SOURCES})
+
 set_target_properties(objs_AP_Volz_Protocol PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4567,6 +4682,7 @@ set(objs_AP_WheelEncoder_INCLUDES
 include_directories(${objs_AP_WheelEncoder_INCLUDES})
 
 add_library(objs_AP_WheelEncoder ${objs_AP_WheelEncoder_SOURCES})
+
 set_target_properties(objs_AP_WheelEncoder PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4604,6 +4720,7 @@ set(objs_AP_Winch_INCLUDES
 include_directories(${objs_AP_Winch_INCLUDES})
 
 add_library(objs_AP_Winch ${objs_AP_Winch_SOURCES})
+
 set_target_properties(objs_AP_Winch PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4646,6 +4763,7 @@ set(objs_AP_WindVane_INCLUDES
 include_directories(${objs_AP_WindVane_INCLUDES})
 
 add_library(objs_AP_WindVane ${objs_AP_WindVane_SOURCES})
+
 set_target_properties(objs_AP_WindVane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4680,6 +4798,7 @@ set(objs_AR_Motors_INCLUDES
 include_directories(${objs_AR_Motors_INCLUDES})
 
 add_library(objs_AR_Motors ${objs_AR_Motors_SOURCES})
+
 set_target_properties(objs_AR_Motors PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4716,6 +4835,7 @@ set(objs_AR_WPNav_INCLUDES
 include_directories(${objs_AR_WPNav_INCLUDES})
 
 add_library(objs_AR_WPNav ${objs_AR_WPNav_SOURCES})
+
 set_target_properties(objs_AR_WPNav PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4758,6 +4878,7 @@ set(objs_Filter_INCLUDES
 include_directories(${objs_Filter_INCLUDES})
 
 add_library(objs_Filter ${objs_Filter_SOURCES})
+
 set_target_properties(objs_Filter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4804,6 +4925,7 @@ set(objs_GCS_MAVLink_INCLUDES
 include_directories(${objs_GCS_MAVLink_INCLUDES})
 
 add_library(objs_GCS_MAVLink ${objs_GCS_MAVLink_SOURCES})
+
 set_target_properties(objs_GCS_MAVLink PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4838,6 +4960,7 @@ set(objs_PID_INCLUDES
 include_directories(${objs_PID_INCLUDES})
 
 add_library(objs_PID ${objs_PID_SOURCES})
+
 set_target_properties(objs_PID PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4872,6 +4995,7 @@ set(objs_RC_Channel_INCLUDES
 include_directories(${objs_RC_Channel_INCLUDES})
 
 add_library(objs_RC_Channel ${objs_RC_Channel_SOURCES})
+
 set_target_properties(objs_RC_Channel PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4908,6 +5032,7 @@ set(objs_SRV_Channel_INCLUDES
 include_directories(${objs_SRV_Channel_INCLUDES})
 
 add_library(objs_SRV_Channel ${objs_SRV_Channel_SOURCES})
+
 set_target_properties(objs_SRV_Channel PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -4970,6 +5095,7 @@ set(objs_AP_HAL_INCLUDES
 include_directories(${objs_AP_HAL_INCLUDES})
 
 add_library(objs_AP_HAL ${objs_AP_HAL_SOURCES})
+
 set_target_properties(objs_AP_HAL PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -5011,6 +5137,7 @@ set(objs_AP_HAL_Empty_INCLUDES
 include_directories(${objs_AP_HAL_Empty_INCLUDES})
 
 add_library(objs_AP_HAL_Empty ${objs_AP_HAL_Empty_SOURCES})
+
 set_target_properties(objs_AP_HAL_Empty PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -5063,6 +5190,7 @@ set(objs_AP_PiccoloCAN_piccolo_protocol_INCLUDES
 include_directories(${objs_AP_PiccoloCAN_piccolo_protocol_INCLUDES})
 
 add_library(objs_AP_PiccoloCAN_piccolo_protocol ${objs_AP_PiccoloCAN_piccolo_protocol_SOURCES})
+
 set_target_properties(objs_AP_PiccoloCAN_piccolo_protocol PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -5118,6 +5246,7 @@ set(objs_AP_HAL_SITL_INCLUDES
 include_directories(${objs_AP_HAL_SITL_INCLUDES})
 
 add_library(objs_AP_HAL_SITL ${objs_AP_HAL_SITL_SOURCES})
+
 set_target_properties(objs_AP_HAL_SITL PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -5296,6 +5425,7 @@ set(objs_SITL_INCLUDES
 include_directories(${objs_SITL_INCLUDES})
 
 add_library(objs_SITL ${objs_SITL_SOURCES})
+
 set_target_properties(objs_SITL PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -5333,6 +5463,7 @@ set(objs_AP_Scripting_INCLUDES
 include_directories(${objs_AP_Scripting_INCLUDES})
 
 add_library(objs_AP_Scripting ${objs_AP_Scripting_SOURCES})
+
 set_target_properties(objs_AP_Scripting PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -5401,6 +5532,7 @@ set(objs_AP_Scripting_lua_src_INCLUDES
 include_directories(${objs_AP_Scripting_lua_src_INCLUDES})
 
 add_library(objs_AP_Scripting_lua_src ${objs_AP_Scripting_lua_src_SOURCES})
+
 set_target_properties(objs_AP_Scripting_lua_src PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )

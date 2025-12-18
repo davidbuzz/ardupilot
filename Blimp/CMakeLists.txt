@@ -25,9 +25,9 @@ set(objs_AP_AHRS_Blimp_INCLUDES
 
 include_directories(${objs_AP_AHRS_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_AHRS_Blimp ${objs_AP_AHRS_Blimp_SOURCES})
+target_compile_definitions(objs_AP_AHRS_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_AHRS_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -63,9 +63,9 @@ set(objs_AP_Airspeed_Blimp_INCLUDES
 
 include_directories(${objs_AP_Airspeed_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Airspeed_Blimp ${objs_AP_Airspeed_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Airspeed_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Airspeed_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -101,9 +101,9 @@ set(objs_AP_Baro_Blimp_INCLUDES
 
 include_directories(${objs_AP_Baro_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Baro_Blimp ${objs_AP_Baro_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Baro_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Baro_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -138,9 +138,9 @@ set(objs_AP_BattMonitor_Blimp_INCLUDES
 
 include_directories(${objs_AP_BattMonitor_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_BattMonitor_Blimp ${objs_AP_BattMonitor_Blimp_SOURCES})
+target_compile_definitions(objs_AP_BattMonitor_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_BattMonitor_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -174,9 +174,9 @@ set(objs_AP_BoardConfig_Blimp_INCLUDES
 
 include_directories(${objs_AP_BoardConfig_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_BoardConfig_Blimp ${objs_AP_BoardConfig_Blimp_SOURCES})
+target_compile_definitions(objs_AP_BoardConfig_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_BoardConfig_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -210,9 +210,9 @@ set(objs_AP_HAL_Blimp_INCLUDES
 
 include_directories(${objs_AP_HAL_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_HAL_Blimp ${objs_AP_HAL_Blimp_SOURCES})
+target_compile_definitions(objs_AP_HAL_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_HAL_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -249,9 +249,9 @@ set(objs_AP_InertialSensor_Blimp_INCLUDES
 
 include_directories(${objs_AP_InertialSensor_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_InertialSensor_Blimp ${objs_AP_InertialSensor_Blimp_SOURCES})
+target_compile_definitions(objs_AP_InertialSensor_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_InertialSensor_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -285,9 +285,9 @@ set(objs_AP_Math_Blimp_INCLUDES
 
 include_directories(${objs_AP_Math_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Math_Blimp ${objs_AP_Math_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Math_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Math_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -321,9 +321,9 @@ set(objs_AP_Mission_Blimp_INCLUDES
 
 include_directories(${objs_AP_Mission_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Mission_Blimp ${objs_AP_Mission_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Mission_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Mission_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -360,9 +360,9 @@ set(objs_AP_DAL_Blimp_INCLUDES
 
 include_directories(${objs_AP_DAL_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_DAL_Blimp ${objs_AP_DAL_Blimp_SOURCES})
+target_compile_definitions(objs_AP_DAL_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_DAL_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -397,9 +397,9 @@ set(objs_AP_NavEKF2_Blimp_INCLUDES
 
 include_directories(${objs_AP_NavEKF2_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_NavEKF2_Blimp ${objs_AP_NavEKF2_Blimp_SOURCES})
+target_compile_definitions(objs_AP_NavEKF2_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_NavEKF2_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -445,9 +445,9 @@ set(objs_AP_NavEKF3_Blimp_INCLUDES
 
 include_directories(${objs_AP_NavEKF3_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_NavEKF3_Blimp ${objs_AP_NavEKF3_Blimp_SOURCES})
+target_compile_definitions(objs_AP_NavEKF3_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_NavEKF3_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -481,9 +481,9 @@ set(objs_AP_Rally_Blimp_INCLUDES
 
 include_directories(${objs_AP_Rally_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Rally_Blimp ${objs_AP_Rally_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Rally_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Rally_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -517,9 +517,9 @@ set(objs_AP_Scheduler_Blimp_INCLUDES
 
 include_directories(${objs_AP_Scheduler_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Scheduler_Blimp ${objs_AP_Scheduler_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Scheduler_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Scheduler_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -553,9 +553,9 @@ set(objs_AP_Terrain_Blimp_INCLUDES
 
 include_directories(${objs_AP_Terrain_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Terrain_Blimp ${objs_AP_Terrain_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Terrain_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Terrain_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -589,9 +589,9 @@ set(objs_AP_Vehicle_Blimp_INCLUDES
 
 include_directories(${objs_AP_Vehicle_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Vehicle_Blimp ${objs_AP_Vehicle_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Vehicle_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Vehicle_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -628,9 +628,9 @@ set(objs_AP_Logger_Blimp_INCLUDES
 
 include_directories(${objs_AP_Logger_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Logger_Blimp ${objs_AP_Logger_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Logger_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Logger_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -664,9 +664,9 @@ set(objs_Filter_Blimp_INCLUDES
 
 include_directories(${objs_Filter_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_Filter_Blimp ${objs_Filter_Blimp_SOURCES})
+target_compile_definitions(objs_Filter_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_Filter_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -704,9 +704,9 @@ set(objs_GCS_MAVLink_Blimp_INCLUDES
 
 include_directories(${objs_GCS_MAVLink_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_GCS_MAVLink_Blimp ${objs_GCS_MAVLink_Blimp_SOURCES})
+target_compile_definitions(objs_GCS_MAVLink_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_GCS_MAVLink_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -740,9 +740,9 @@ set(objs_RC_Channel_Blimp_INCLUDES
 
 include_directories(${objs_RC_Channel_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_RC_Channel_Blimp ${objs_RC_Channel_Blimp_SOURCES})
+target_compile_definitions(objs_RC_Channel_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_RC_Channel_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -776,9 +776,9 @@ set(objs_StorageManager_Blimp_INCLUDES
 
 include_directories(${objs_StorageManager_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_StorageManager_Blimp ${objs_StorageManager_Blimp_SOURCES})
+target_compile_definitions(objs_StorageManager_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_StorageManager_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -812,9 +812,9 @@ set(objs_AP_Frsky_Telem_Blimp_INCLUDES
 
 include_directories(${objs_AP_Frsky_Telem_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Frsky_Telem_Blimp ${objs_AP_Frsky_Telem_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Frsky_Telem_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Frsky_Telem_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -848,9 +848,9 @@ set(objs_AP_IBus_Telem_Blimp_INCLUDES
 
 include_directories(${objs_AP_IBus_Telem_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_IBus_Telem_Blimp ${objs_AP_IBus_Telem_Blimp_SOURCES})
+target_compile_definitions(objs_AP_IBus_Telem_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_IBus_Telem_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -884,9 +884,9 @@ set(objs_AP_Relay_Blimp_INCLUDES
 
 include_directories(${objs_AP_Relay_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Relay_Blimp ${objs_AP_Relay_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Relay_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Relay_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -926,9 +926,9 @@ set(objs_AP_RCProtocol_Blimp_INCLUDES
 
 include_directories(${objs_AP_RCProtocol_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_RCProtocol_Blimp ${objs_AP_RCProtocol_Blimp_SOURCES})
+target_compile_definitions(objs_AP_RCProtocol_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_RCProtocol_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -962,9 +962,9 @@ set(objs_AP_BLHeli_Blimp_INCLUDES
 
 include_directories(${objs_AP_BLHeli_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_BLHeli_Blimp ${objs_AP_BLHeli_Blimp_SOURCES})
+target_compile_definitions(objs_AP_BLHeli_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_BLHeli_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -998,9 +998,9 @@ set(objs_AP_Proximity_Blimp_INCLUDES
 
 include_directories(${objs_AP_Proximity_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Proximity_Blimp ${objs_AP_Proximity_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Proximity_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Proximity_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1035,9 +1035,9 @@ set(objs_AC_Fence_Blimp_INCLUDES
 
 include_directories(${objs_AC_Fence_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AC_Fence_Blimp ${objs_AC_Fence_Blimp_SOURCES})
+target_compile_definitions(objs_AC_Fence_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AC_Fence_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1073,9 +1073,9 @@ set(objs_AC_Avoidance_Blimp_INCLUDES
 
 include_directories(${objs_AC_Avoidance_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AC_Avoidance_Blimp ${objs_AC_Avoidance_Blimp_SOURCES})
+target_compile_definitions(objs_AC_Avoidance_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AC_Avoidance_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1109,9 +1109,9 @@ set(objs_AP_LandingGear_Blimp_INCLUDES
 
 include_directories(${objs_AP_LandingGear_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_LandingGear_Blimp ${objs_AP_LandingGear_Blimp_SOURCES})
+target_compile_definitions(objs_AP_LandingGear_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_LandingGear_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1147,9 +1147,9 @@ set(objs_AP_OSD_Blimp_INCLUDES
 
 include_directories(${objs_AP_OSD_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_OSD_Blimp ${objs_AP_OSD_Blimp_SOURCES})
+target_compile_definitions(objs_AP_OSD_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_OSD_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1183,9 +1183,9 @@ set(objs_AP_Filesystem_Blimp_INCLUDES
 
 include_directories(${objs_AP_Filesystem_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Filesystem_Blimp ${objs_AP_Filesystem_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Filesystem_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Filesystem_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1220,9 +1220,9 @@ set(objs_AP_ADSB_Blimp_INCLUDES
 
 include_directories(${objs_AP_ADSB_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_ADSB_Blimp ${objs_AP_ADSB_Blimp_SOURCES})
+target_compile_definitions(objs_AP_ADSB_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_ADSB_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1256,9 +1256,9 @@ set(objs_AP_ESC_Telem_Blimp_INCLUDES
 
 include_directories(${objs_AP_ESC_Telem_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_ESC_Telem_Blimp ${objs_AP_ESC_Telem_Blimp_SOURCES})
+target_compile_definitions(objs_AP_ESC_Telem_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_ESC_Telem_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1292,9 +1292,9 @@ set(objs_AP_GyroFFT_Blimp_INCLUDES
 
 include_directories(${objs_AP_GyroFFT_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_GyroFFT_Blimp ${objs_AP_GyroFFT_Blimp_SOURCES})
+target_compile_definitions(objs_AP_GyroFFT_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_GyroFFT_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1329,9 +1329,9 @@ set(objs_AP_RCTelemetry_Blimp_INCLUDES
 
 include_directories(${objs_AP_RCTelemetry_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_RCTelemetry_Blimp ${objs_AP_RCTelemetry_Blimp_SOURCES})
+target_compile_definitions(objs_AP_RCTelemetry_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_RCTelemetry_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1366,9 +1366,9 @@ set(objs_AP_ExternalAHRS_Blimp_INCLUDES
 
 include_directories(${objs_AP_ExternalAHRS_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_ExternalAHRS_Blimp ${objs_AP_ExternalAHRS_Blimp_SOURCES})
+target_compile_definitions(objs_AP_ExternalAHRS_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_ExternalAHRS_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1402,9 +1402,9 @@ set(objs_AP_TemperatureSensor_Blimp_INCLUDES
 
 include_directories(${objs_AP_TemperatureSensor_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_TemperatureSensor_Blimp ${objs_AP_TemperatureSensor_Blimp_SOURCES})
+target_compile_definitions(objs_AP_TemperatureSensor_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_TemperatureSensor_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1438,9 +1438,9 @@ set(objs_AP_AIS_Blimp_INCLUDES
 
 include_directories(${objs_AP_AIS_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_AIS_Blimp ${objs_AP_AIS_Blimp_SOURCES})
+target_compile_definitions(objs_AP_AIS_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_AIS_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1474,9 +1474,9 @@ set(objs_AP_Arming_Blimp_INCLUDES
 
 include_directories(${objs_AP_Arming_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Arming_Blimp ${objs_AP_Arming_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Arming_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Arming_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1510,9 +1510,9 @@ set(objs_AP_Follow_Blimp_INCLUDES
 
 include_directories(${objs_AP_Follow_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Follow_Blimp ${objs_AP_Follow_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Follow_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Follow_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1546,9 +1546,9 @@ set(objs_AP_Avoidance_Blimp_INCLUDES
 
 include_directories(${objs_AP_Avoidance_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Avoidance_Blimp ${objs_AP_Avoidance_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Avoidance_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Avoidance_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1584,9 +1584,9 @@ set(objs_AC_AttitudeControl_Blimp_INCLUDES
 
 include_directories(${objs_AC_AttitudeControl_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AC_AttitudeControl_Blimp ${objs_AC_AttitudeControl_Blimp_SOURCES})
+target_compile_definitions(objs_AC_AttitudeControl_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AC_AttitudeControl_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1622,9 +1622,9 @@ set(objs_AP_HAL_SITL_Blimp_INCLUDES
 
 include_directories(${objs_AP_HAL_SITL_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_HAL_SITL_Blimp ${objs_AP_HAL_SITL_Blimp_SOURCES})
+target_compile_definitions(objs_AP_HAL_SITL_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_HAL_SITL_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1661,9 +1661,9 @@ set(objs_SITL_Blimp_INCLUDES
 
 include_directories(${objs_SITL_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_SITL_Blimp ${objs_SITL_Blimp_SOURCES})
+target_compile_definitions(objs_SITL_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_SITL_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1702,9 +1702,9 @@ set(objs_AP_Scripting_Blimp_INCLUDES
 
 include_directories(${objs_AP_Scripting_Blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_library(objs_AP_Scripting_Blimp ${objs_AP_Scripting_Blimp_SOURCES})
+target_compile_definitions(objs_AP_Scripting_Blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 set_target_properties(objs_AP_Scripting_Blimp PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -1914,6 +1914,7 @@ set(Blimp_libs_INCLUDES
 include_directories(${Blimp_libs_INCLUDES})
 
 add_library(Blimp_libs ${Blimp_libs_SOURCES})
+
 set_target_properties(Blimp_libs PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
@@ -2089,9 +2090,9 @@ set(bin_blimp_INCLUDES
 
 include_directories(${bin_blimp_INCLUDES})
 
-add_definitions(-DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp")
-
 add_executable(bin_blimp ${bin_blimp_SOURCES})
+target_compile_definitions(bin_blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+
 
 target_link_libraries(bin_blimp Blimp_libs) #clean
 
