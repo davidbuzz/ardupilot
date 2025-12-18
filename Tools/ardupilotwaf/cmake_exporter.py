@@ -361,10 +361,19 @@ class CMakeExporter(object):
 					shutil.copyfile(ap_config_h_src, ap_config_h_dst)
 					print ('copied: %s to %s' % (ap_config_h_src, ap_config_h_dst))
 			
-			content += 'cmake_minimum_required (VERSION 2.8.13)\n'
+			content += 'cmake_minimum_required (VERSION 3.2)\n'
 			#content += 'project (%s)\n' % (getattr(Context.g_module, Context.APPNAME))
 			content += 'project (ArduPilot)\n'
 			content += '\n'
+
+			# add_definitions(-I.)
+			# add_definitions(-I..)
+			# add_definitions(-I../..)
+			# add_definitions(-I../../..)
+			content += 'include_directories(.)\n'
+			content += 'include_directories(..)\n'
+			content += 'include_directories(../..)\n'
+			content += 'include_directories(../../..)\n'
 
 			#set(ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 			content += 'set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")\n'
@@ -515,7 +524,13 @@ class CMakeExporter(object):
 					# does strip_lib end in /ArduCopter, ie has a / ?
 					if '/' in strip_lib:
 						continue
-					content += 'target_link_libraries(%s libobjs_%s.a) #stripped\n' % (cleanedname, strip_lib)
+					cleaned_name_bits = cleanedname.split('_')
+					is_lib = cleaned_name_bits[1]
+					is_loc = cleaned_name_bits[0]
+					if is_lib == 'libs'  and self.location == is_loc:
+						content += 'target_link_libraries(%s objs_%s_%s) #stripped2\n' % (cleanedname, strip_lib, is_loc)
+					else:
+						content += 'target_link_libraries(%s objs_%s_%s) #stripped\n' % (cleanedname, strip_lib,)
 				else:
 					content += 'target_link_libraries(%s %s) #clean\n' % (cleanedname, lib)
 			content += '\n'
