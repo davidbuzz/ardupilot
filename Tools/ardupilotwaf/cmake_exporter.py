@@ -581,7 +581,7 @@ class CMakeExporter(object):
 						#content += 'target_link_libraries(%s ../libobjs_%s_%s.a) #stripped2\n' % (cleanedname, strip_lib, is_loc)
 						content += 'target_link_libraries(%s ../libobjs_%s.a) #stripped2\n' % (cleanedname, strip_lib)
 					else:
-						content += 'target_link_libraries(%s objs_%s_%s) #stripped\n' % (cleanedname, strip_lib,)
+						content += 'target_link_libraries(%s objs_%s_%s) #stripped\n' % (cleanedname, strip_lib,is_loc)
 				else:
 					content += 'target_link_libraries(%s %s) #clean\n' % (cleanedname, lib)
 			content += '\n'
