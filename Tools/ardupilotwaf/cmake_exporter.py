@@ -364,7 +364,10 @@ class CMakeExporter(object):
 					print ('copied: %s to %s' % (ap_config_h_src, ap_config_h_dst))
 			
 			# 3.13 need to enable the NEW behavior of policy CMP0079 in your CMake project
-			content += 'cmake_minimum_required (VERSION 3.13)\n'
+			# 3.1 also introduced target_sources
+			# 3.23 introduced File Sets, we dont use those.
+			# 3.13.0 changed the default behavior to treating relative paths as being relative to the current source directory
+			content += 'cmake_minimum_required (VERSION 3.13.0)\n'
 			#content += 'project (%s)\n' % (getattr(Context.g_module, Context.APPNAME))
 			content += 'project (ArduPilot)\n'
 			content += '\n'
@@ -426,6 +429,15 @@ class CMakeExporter(object):
 			content += '\n'
 			for tgen in self.tgens:
 				t = tgen.get_name()
+				# list of libraries for ardupilot
+				ap_libraries = tgen.ap_libraries if hasattr(tgen, 'ap_vehicle') else None
+				# eg 'ArduCopter'
+				ap_vehicle = tgen.ap_vehicle if hasattr(tgen, 'ap_vehicle') else None
+				# list of source files, may include generated .c/cpp file from 'build' dir
+				ap_sources = tgen.source if hasattr(tgen, 'source') else None
+				# list of includes
+				ap_includes = tgen.includes if hasattr(tgen, 'includes') else None
+
 				#print('Debug: Generating cmake content for tgen: %s ' % t)
 				content += self.get_tgen_content(tgen)
 
@@ -443,7 +455,7 @@ class CMakeExporter(object):
 		# if name has two /'s in it, is a mid-level target, break it into pieces and remove the lastm which should be self.location
 		# eg objs/AP_Scripting/ArduCopter  becomes objs/AP_Scripting
 		parts = name.split('/')
-		if len(parts) == 3:
+		if len(parts) >= 3 and parts[-1] == self.location:
 			parts = parts[:-1] # remove last part
 			name = '/'.join(parts)
 
@@ -471,10 +483,16 @@ class CMakeExporter(object):
 		print('Registering Library: %s' % cleanedname)
 		register_lib(cleanedname)
 
+		#-------------------
+		content += '#------------------------------------------------\n\n'
 		content += 'set(%s_SOURCES' % (cleanedname)
 		for src in tgen.source:
 			content += '\n    %s' % (src.path_from(tgen.path).replace('\\','/'))
 		content += ')\n\n'
+
+		#break here 'ArduCopter_libs'
+		if cleanedname == 'ArduCopter_libs':
+			print('Debug: reached ArduCopter_libs source listing')
 
 		includes = self.get_includes(tgen)
 		includes.extend(tgen.env.INCLUDES)
@@ -483,25 +501,28 @@ class CMakeExporter(object):
 			for include in includes:
 				content += '\n    %s' % include
 			content += ')\n\n'
-			content += 'include_directories(${%s_INCLUDES})\n' % (cleanedname)
-			content += '\n'
+			#content += 'include_directories(${%s_INCLUDES})\n' % (cleanedname)
+			#content += '\n'
 
 		defines = self.get_genlist(tgen, 'defines')
 		#if len(defines):
 		#	content += 'add_definitions(-D%s) #2\n' % (' -D'.join(defines))
 		#	content += '\n'
 
-
 		if set(('cprogram', 'cxxprogram')) & set(tgen.features):
 			content += 'add_executable(%s ${%s_SOURCES})\n' % (cleanedname, cleanedname)
 			if len(defines):
 				content += 'target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
+			if len(includes):
+				content += 'target_include_directories(%s PRIVATE ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
 			content += '\n'
 
 		elif set(('cshlib', 'cxxshlib')) & set(tgen.features):
 			content += 'add_library(%s SHARED ${%s_SOURCES}) #1\n' % (cleanedname, cleanedname)
 			if len(defines):
 				content += 'target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
+			if len(includes):
+				content += 'target_include_directories(%s PRIVATE ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
 			content += '\n'
 
 			#set_target_properties(JE3D PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/library)
@@ -513,12 +534,15 @@ class CMakeExporter(object):
 			content += 'add_library(%s ${%s_SOURCES}) #2\n' % (cleanedname, cleanedname)
 			if len(defines):
 				content += 'target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
+			if len(includes):
+				content += 'target_include_directories(%s PRIVATE ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
 			content += '\n'
 
 			#set_target_properties(JE3D PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/library)
 			content += 'set_target_properties(%s PROPERTIES\n' % (cleanedname)
 			content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"\n'
 			content += ')\n\n'
+		#-------------------
 
 		#libs = getattr(tgen, 'use', []) + getattr(tgen, 'lib', [])
 		# TypeError: can only concatenate str (not "list") to str

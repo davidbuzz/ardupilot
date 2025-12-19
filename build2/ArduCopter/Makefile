@@ -65,16 +65,6 @@ CMAKE_BINARY_DIR = /home/buzz2/ardupilot/build2
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/local/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
@@ -84,6 +74,16 @@ edit_cache:
 # Special rule for the target edit_cache
 edit_cache/fast: edit_cache
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/local/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -117,60 +117,18 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-ArduCopter/CMakeFiles/bin_arducopter-heli.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/bin_arducopter-heli.dir/rule
-.PHONY : ArduCopter/CMakeFiles/bin_arducopter-heli.dir/rule
+ArduCopter/CMakeFiles/objs_AP_Avoidance.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Avoidance.dir/rule
+.PHONY : ArduCopter/CMakeFiles/objs_AP_Avoidance.dir/rule
 
 # Convenience name for target.
-bin_arducopter-heli: ArduCopter/CMakeFiles/bin_arducopter-heli.dir/rule
-.PHONY : bin_arducopter-heli
+objs_AP_Avoidance: ArduCopter/CMakeFiles/objs_AP_Avoidance.dir/rule
+.PHONY : objs_AP_Avoidance
 
 # fast build rule for target.
-bin_arducopter-heli/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build
-.PHONY : bin_arducopter-heli/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_HAL_SITL_ArduCopter: ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/rule
-.PHONY : objs_AP_HAL_SITL_ArduCopter
-
-# fast build rule for target.
-objs_AP_HAL_SITL_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/build
-.PHONY : objs_AP_HAL_SITL_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AC_AutoTune_ArduCopter: ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/rule
-.PHONY : objs_AC_AutoTune_ArduCopter
-
-# fast build rule for target.
-objs_AC_AutoTune_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/build
-.PHONY : objs_AC_AutoTune_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_RC_Channel_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_RC_Channel_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_RC_Channel_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_RC_Channel_ArduCopter: ArduCopter/CMakeFiles/objs_RC_Channel_ArduCopter.dir/rule
-.PHONY : objs_RC_Channel_ArduCopter
-
-# fast build rule for target.
-objs_RC_Channel_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_RC_Channel_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_RC_Channel_ArduCopter.dir/build
-.PHONY : objs_RC_Channel_ArduCopter/fast
+objs_AP_Avoidance/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Avoidance.dir/build.make ArduCopter/CMakeFiles/objs_AP_Avoidance.dir/build
+.PHONY : objs_AP_Avoidance/fast
 
 # Convenience name for target.
 ArduCopter/CMakeFiles/ArduCopter_libs.dir/rule:
@@ -187,104 +145,6 @@ ArduCopter_libs/fast:
 .PHONY : ArduCopter_libs/fast
 
 # Convenience name for target.
-ArduCopter/CMakeFiles/objs_Filter_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_Filter_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_Filter_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_Filter_ArduCopter: ArduCopter/CMakeFiles/objs_Filter_ArduCopter.dir/rule
-.PHONY : objs_Filter_ArduCopter
-
-# fast build rule for target.
-objs_Filter_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_Filter_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_Filter_ArduCopter.dir/build
-.PHONY : objs_Filter_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Terrain_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Terrain_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Terrain_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Terrain_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Terrain_ArduCopter.dir/rule
-.PHONY : objs_AP_Terrain_ArduCopter
-
-# fast build rule for target.
-objs_AP_Terrain_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Terrain_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Terrain_ArduCopter.dir/build
-.PHONY : objs_AP_Terrain_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Relay_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Relay_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Relay_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Relay_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Relay_ArduCopter.dir/rule
-.PHONY : objs_AP_Relay_ArduCopter
-
-# fast build rule for target.
-objs_AP_Relay_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Relay_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Relay_ArduCopter.dir/build
-.PHONY : objs_AP_Relay_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_SITL_ArduCopter: ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/rule
-.PHONY : objs_SITL_ArduCopter
-
-# fast build rule for target.
-objs_SITL_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/build
-.PHONY : objs_SITL_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Logger_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/rule
-.PHONY : objs_AP_Logger_ArduCopter
-
-# fast build rule for target.
-objs_AP_Logger_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/build
-.PHONY : objs_AP_Logger_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_AIS_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_AIS_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_AIS_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_AIS_ArduCopter: ArduCopter/CMakeFiles/objs_AP_AIS_ArduCopter.dir/rule
-.PHONY : objs_AP_AIS_ArduCopter
-
-# fast build rule for target.
-objs_AP_AIS_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_AIS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_AIS_ArduCopter.dir/build
-.PHONY : objs_AP_AIS_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Arming_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Arming_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Arming_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Arming_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Arming_ArduCopter.dir/rule
-.PHONY : objs_AP_Arming_ArduCopter
-
-# fast build rule for target.
-objs_AP_Arming_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Arming_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Arming_ArduCopter.dir/build
-.PHONY : objs_AP_Arming_ArduCopter/fast
-
-# Convenience name for target.
 ArduCopter/CMakeFiles/bin_arducopter.dir/rule:
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/bin_arducopter.dir/rule
 .PHONY : ArduCopter/CMakeFiles/bin_arducopter.dir/rule
@@ -299,572 +159,26 @@ bin_arducopter/fast:
 .PHONY : bin_arducopter/fast
 
 # Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Scheduler_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Scheduler_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Scheduler_ArduCopter.dir/rule
+ArduCopter/CMakeFiles/bin_arducopter-heli.dir/rule:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/bin_arducopter-heli.dir/rule
+.PHONY : ArduCopter/CMakeFiles/bin_arducopter-heli.dir/rule
 
 # Convenience name for target.
-objs_AP_Scheduler_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Scheduler_ArduCopter.dir/rule
-.PHONY : objs_AP_Scheduler_ArduCopter
-
-# fast build rule for target.
-objs_AP_Scheduler_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scheduler_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scheduler_ArduCopter.dir/build
-.PHONY : objs_AP_Scheduler_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Airspeed_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/rule
-.PHONY : objs_AP_Airspeed_ArduCopter
+bin_arducopter-heli: ArduCopter/CMakeFiles/bin_arducopter-heli.dir/rule
+.PHONY : bin_arducopter-heli
 
 # fast build rule for target.
-objs_AP_Airspeed_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/build
-.PHONY : objs_AP_Airspeed_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AC_Avoidance_ArduCopter: ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/rule
-.PHONY : objs_AC_Avoidance_ArduCopter
-
-# fast build rule for target.
-objs_AC_Avoidance_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/build
-.PHONY : objs_AC_Avoidance_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Rally_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Rally_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Rally_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Rally_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Rally_ArduCopter.dir/rule
-.PHONY : objs_AP_Rally_ArduCopter
-
-# fast build rule for target.
-objs_AP_Rally_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Rally_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Rally_ArduCopter.dir/build
-.PHONY : objs_AP_Rally_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_GCS_MAVLink_ArduCopter: ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/rule
-.PHONY : objs_GCS_MAVLink_ArduCopter
-
-# fast build rule for target.
-objs_GCS_MAVLink_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build
-.PHONY : objs_GCS_MAVLink_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_ExternalAHRS_ArduCopter: ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/rule
-.PHONY : objs_AP_ExternalAHRS_ArduCopter
-
-# fast build rule for target.
-objs_AP_ExternalAHRS_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/build
-.PHONY : objs_AP_ExternalAHRS_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Vehicle_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Vehicle_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Vehicle_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Vehicle_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Vehicle_ArduCopter.dir/rule
-.PHONY : objs_AP_Vehicle_ArduCopter
-
-# fast build rule for target.
-objs_AP_Vehicle_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Vehicle_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Vehicle_ArduCopter.dir/build
-.PHONY : objs_AP_Vehicle_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Mission_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Mission_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Mission_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Mission_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Mission_ArduCopter.dir/rule
-.PHONY : objs_AP_Mission_ArduCopter
-
-# fast build rule for target.
-objs_AP_Mission_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Mission_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Mission_ArduCopter.dir/build
-.PHONY : objs_AP_Mission_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_NavEKF3_ArduCopter: ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/rule
-.PHONY : objs_AP_NavEKF3_ArduCopter
-
-# fast build rule for target.
-objs_AP_NavEKF3_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build
-.PHONY : objs_AP_NavEKF3_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_NavEKF2_ArduCopter: ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/rule
-.PHONY : objs_AP_NavEKF2_ArduCopter
-
-# fast build rule for target.
-objs_AP_NavEKF2_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/build
-.PHONY : objs_AP_NavEKF2_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AC_Fence_ArduCopter: ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/rule
-.PHONY : objs_AC_Fence_ArduCopter
-
-# fast build rule for target.
-objs_AC_Fence_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/build
-.PHONY : objs_AC_Fence_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_AHRS_ArduCopter: ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/rule
-.PHONY : objs_AP_AHRS_ArduCopter
-
-# fast build rule for target.
-objs_AP_AHRS_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/build
-.PHONY : objs_AP_AHRS_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Frsky_Telem_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Frsky_Telem_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Frsky_Telem_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Frsky_Telem_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Frsky_Telem_ArduCopter.dir/rule
-.PHONY : objs_AP_Frsky_Telem_ArduCopter
-
-# fast build rule for target.
-objs_AP_Frsky_Telem_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Frsky_Telem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Frsky_Telem_ArduCopter.dir/build
-.PHONY : objs_AP_Frsky_Telem_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_InertialSensor_ArduCopter: ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/rule
-.PHONY : objs_AP_InertialSensor_ArduCopter
-
-# fast build rule for target.
-objs_AP_InertialSensor_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/build
-.PHONY : objs_AP_InertialSensor_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_BLHeli_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_BLHeli_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_BLHeli_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_BLHeli_ArduCopter: ArduCopter/CMakeFiles/objs_AP_BLHeli_ArduCopter.dir/rule
-.PHONY : objs_AP_BLHeli_ArduCopter
-
-# fast build rule for target.
-objs_AP_BLHeli_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BLHeli_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BLHeli_ArduCopter.dir/build
-.PHONY : objs_AP_BLHeli_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_StorageManager_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_StorageManager_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_StorageManager_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_StorageManager_ArduCopter: ArduCopter/CMakeFiles/objs_StorageManager_ArduCopter.dir/rule
-.PHONY : objs_StorageManager_ArduCopter
-
-# fast build rule for target.
-objs_StorageManager_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_StorageManager_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_StorageManager_ArduCopter.dir/build
-.PHONY : objs_StorageManager_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_DAL_ArduCopter: ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/rule
-.PHONY : objs_AP_DAL_ArduCopter
-
-# fast build rule for target.
-objs_AP_DAL_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/build
-.PHONY : objs_AP_DAL_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_RCProtocol_ArduCopter: ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/rule
-.PHONY : objs_AP_RCProtocol_ArduCopter
-
-# fast build rule for target.
-objs_AP_RCProtocol_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build
-.PHONY : objs_AP_RCProtocol_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_ESC_Telem_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_ESC_Telem_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_ESC_Telem_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_ESC_Telem_ArduCopter: ArduCopter/CMakeFiles/objs_AP_ESC_Telem_ArduCopter.dir/rule
-.PHONY : objs_AP_ESC_Telem_ArduCopter
-
-# fast build rule for target.
-objs_AP_ESC_Telem_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ESC_Telem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ESC_Telem_ArduCopter.dir/build
-.PHONY : objs_AP_ESC_Telem_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_RCTelemetry_ArduCopter: ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/rule
-.PHONY : objs_AP_RCTelemetry_ArduCopter
-
-# fast build rule for target.
-objs_AP_RCTelemetry_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/build
-.PHONY : objs_AP_RCTelemetry_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_IBus_Telem_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_IBus_Telem_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_IBus_Telem_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_IBus_Telem_ArduCopter: ArduCopter/CMakeFiles/objs_AP_IBus_Telem_ArduCopter.dir/rule
-.PHONY : objs_AP_IBus_Telem_ArduCopter
-
-# fast build rule for target.
-objs_AP_IBus_Telem_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_IBus_Telem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_IBus_Telem_ArduCopter.dir/build
-.PHONY : objs_AP_IBus_Telem_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Proximity_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Proximity_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Proximity_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Proximity_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Proximity_ArduCopter.dir/rule
-.PHONY : objs_AP_Proximity_ArduCopter
-
-# fast build rule for target.
-objs_AP_Proximity_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Proximity_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Proximity_ArduCopter.dir/build
-.PHONY : objs_AP_Proximity_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Baro_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/rule
-.PHONY : objs_AP_Baro_ArduCopter
-
-# fast build rule for target.
-objs_AP_Baro_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/build
-.PHONY : objs_AP_Baro_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Math_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Math_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Math_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Math_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Math_ArduCopter.dir/rule
-.PHONY : objs_AP_Math_ArduCopter
-
-# fast build rule for target.
-objs_AP_Math_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Math_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Math_ArduCopter.dir/build
-.PHONY : objs_AP_Math_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_LandingGear_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_LandingGear_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_LandingGear_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_LandingGear_ArduCopter: ArduCopter/CMakeFiles/objs_AP_LandingGear_ArduCopter.dir/rule
-.PHONY : objs_AP_LandingGear_ArduCopter
-
-# fast build rule for target.
-objs_AP_LandingGear_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_LandingGear_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_LandingGear_ArduCopter.dir/build
-.PHONY : objs_AP_LandingGear_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_OSD_ArduCopter: ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/rule
-.PHONY : objs_AP_OSD_ArduCopter
-
-# fast build rule for target.
-objs_AP_OSD_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/build
-.PHONY : objs_AP_OSD_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_ADSB_ArduCopter: ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/rule
-.PHONY : objs_AP_ADSB_ArduCopter
-
-# fast build rule for target.
-objs_AP_ADSB_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/build
-.PHONY : objs_AP_ADSB_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_BoardConfig_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_BoardConfig_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_BoardConfig_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_BoardConfig_ArduCopter: ArduCopter/CMakeFiles/objs_AP_BoardConfig_ArduCopter.dir/rule
-.PHONY : objs_AP_BoardConfig_ArduCopter
-
-# fast build rule for target.
-objs_AP_BoardConfig_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BoardConfig_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BoardConfig_ArduCopter.dir/build
-.PHONY : objs_AP_BoardConfig_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Follow_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Follow_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Follow_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Follow_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Follow_ArduCopter.dir/rule
-.PHONY : objs_AP_Follow_ArduCopter
-
-# fast build rule for target.
-objs_AP_Follow_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Follow_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Follow_ArduCopter.dir/build
-.PHONY : objs_AP_Follow_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Scripting_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/rule
-.PHONY : objs_AP_Scripting_ArduCopter
-
-# fast build rule for target.
-objs_AP_Scripting_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build
-.PHONY : objs_AP_Scripting_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Filesystem_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Filesystem_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Filesystem_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Filesystem_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Filesystem_ArduCopter.dir/rule
-.PHONY : objs_AP_Filesystem_ArduCopter
-
-# fast build rule for target.
-objs_AP_Filesystem_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Filesystem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Filesystem_ArduCopter.dir/build
-.PHONY : objs_AP_Filesystem_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_GyroFFT_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_GyroFFT_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_GyroFFT_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_GyroFFT_ArduCopter: ArduCopter/CMakeFiles/objs_AP_GyroFFT_ArduCopter.dir/rule
-.PHONY : objs_AP_GyroFFT_ArduCopter
-
-# fast build rule for target.
-objs_AP_GyroFFT_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_GyroFFT_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_GyroFFT_ArduCopter.dir/build
-.PHONY : objs_AP_GyroFFT_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_TemperatureSensor_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_TemperatureSensor_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_TemperatureSensor_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_TemperatureSensor_ArduCopter: ArduCopter/CMakeFiles/objs_AP_TemperatureSensor_ArduCopter.dir/rule
-.PHONY : objs_AP_TemperatureSensor_ArduCopter
-
-# fast build rule for target.
-objs_AP_TemperatureSensor_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_TemperatureSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_TemperatureSensor_ArduCopter.dir/build
-.PHONY : objs_AP_TemperatureSensor_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AC_AttitudeControl_ArduCopter: ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/rule
-.PHONY : objs_AC_AttitudeControl_ArduCopter
-
-# fast build rule for target.
-objs_AC_AttitudeControl_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/build
-.PHONY : objs_AC_AttitudeControl_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_BattMonitor_ArduCopter: ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/rule
-.PHONY : objs_AP_BattMonitor_ArduCopter
-
-# fast build rule for target.
-objs_AP_BattMonitor_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/build
-.PHONY : objs_AP_BattMonitor_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AC_PrecLand_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AC_PrecLand_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AC_PrecLand_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AC_PrecLand_ArduCopter: ArduCopter/CMakeFiles/objs_AC_PrecLand_ArduCopter.dir/rule
-.PHONY : objs_AC_PrecLand_ArduCopter
-
-# fast build rule for target.
-objs_AC_PrecLand_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_PrecLand_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_PrecLand_ArduCopter.dir/build
-.PHONY : objs_AC_PrecLand_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Avoidance_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Avoidance_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Avoidance_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Avoidance_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Avoidance_ArduCopter.dir/rule
-.PHONY : objs_AP_Avoidance_ArduCopter
-
-# fast build rule for target.
-objs_AP_Avoidance_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Avoidance_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Avoidance_ArduCopter.dir/build
-.PHONY : objs_AP_Avoidance_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AC_WPNav_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AC_WPNav_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AC_WPNav_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AC_WPNav_ArduCopter: ArduCopter/CMakeFiles/objs_AC_WPNav_ArduCopter.dir/rule
-.PHONY : objs_AC_WPNav_ArduCopter
-
-# fast build rule for target.
-objs_AC_WPNav_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_WPNav_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_WPNav_ArduCopter.dir/build
-.PHONY : objs_AC_WPNav_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_HAL_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_HAL_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_HAL_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_HAL_ArduCopter: ArduCopter/CMakeFiles/objs_AP_HAL_ArduCopter.dir/rule
-.PHONY : objs_AP_HAL_ArduCopter
-
-# fast build rule for target.
-objs_AP_HAL_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_HAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_HAL_ArduCopter.dir/build
-.PHONY : objs_AP_HAL_ArduCopter/fast
-
-# Convenience name for target.
-ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/rule:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/rule
-.PHONY : ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/rule
-
-# Convenience name for target.
-objs_AP_Motors_ArduCopter: ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/rule
-.PHONY : objs_AP_Motors_ArduCopter
-
-# fast build rule for target.
-objs_AP_Motors_ArduCopter/fast:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/build
-.PHONY : objs_AP_Motors_ArduCopter/fast
+bin_arducopter-heli/fast:
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build
+.PHONY : bin_arducopter-heli/fast
 
 AP_Arming_Copter.o: AP_Arming_Copter.cpp.o
 .PHONY : AP_Arming_Copter.o
 
 # target to build an object file
 AP_Arming_Copter.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_Arming_Copter.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/AP_Arming_Copter.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_Arming_Copter.cpp.o
 .PHONY : AP_Arming_Copter.cpp.o
 
 AP_Arming_Copter.i: AP_Arming_Copter.cpp.i
@@ -872,8 +186,8 @@ AP_Arming_Copter.i: AP_Arming_Copter.cpp.i
 
 # target to preprocess a source file
 AP_Arming_Copter.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_Arming_Copter.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/AP_Arming_Copter.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_Arming_Copter.cpp.i
 .PHONY : AP_Arming_Copter.cpp.i
 
 AP_Arming_Copter.s: AP_Arming_Copter.cpp.s
@@ -881,8 +195,8 @@ AP_Arming_Copter.s: AP_Arming_Copter.cpp.s
 
 # target to generate assembly for a file
 AP_Arming_Copter.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_Arming_Copter.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/AP_Arming_Copter.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_Arming_Copter.cpp.s
 .PHONY : AP_Arming_Copter.cpp.s
 
 AP_ExternalControl_Copter.o: AP_ExternalControl_Copter.cpp.o
@@ -890,8 +204,8 @@ AP_ExternalControl_Copter.o: AP_ExternalControl_Copter.cpp.o
 
 # target to build an object file
 AP_ExternalControl_Copter.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_ExternalControl_Copter.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/AP_ExternalControl_Copter.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_ExternalControl_Copter.cpp.o
 .PHONY : AP_ExternalControl_Copter.cpp.o
 
 AP_ExternalControl_Copter.i: AP_ExternalControl_Copter.cpp.i
@@ -899,8 +213,8 @@ AP_ExternalControl_Copter.i: AP_ExternalControl_Copter.cpp.i
 
 # target to preprocess a source file
 AP_ExternalControl_Copter.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_ExternalControl_Copter.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/AP_ExternalControl_Copter.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_ExternalControl_Copter.cpp.i
 .PHONY : AP_ExternalControl_Copter.cpp.i
 
 AP_ExternalControl_Copter.s: AP_ExternalControl_Copter.cpp.s
@@ -908,8 +222,8 @@ AP_ExternalControl_Copter.s: AP_ExternalControl_Copter.cpp.s
 
 # target to generate assembly for a file
 AP_ExternalControl_Copter.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_ExternalControl_Copter.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/AP_ExternalControl_Copter.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_ExternalControl_Copter.cpp.s
 .PHONY : AP_ExternalControl_Copter.cpp.s
 
 AP_Rally.o: AP_Rally.cpp.o
@@ -917,8 +231,8 @@ AP_Rally.o: AP_Rally.cpp.o
 
 # target to build an object file
 AP_Rally.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_Rally.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/AP_Rally.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_Rally.cpp.o
 .PHONY : AP_Rally.cpp.o
 
 AP_Rally.i: AP_Rally.cpp.i
@@ -926,8 +240,8 @@ AP_Rally.i: AP_Rally.cpp.i
 
 # target to preprocess a source file
 AP_Rally.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_Rally.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/AP_Rally.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_Rally.cpp.i
 .PHONY : AP_Rally.cpp.i
 
 AP_Rally.s: AP_Rally.cpp.s
@@ -935,8 +249,8 @@ AP_Rally.s: AP_Rally.cpp.s
 
 # target to generate assembly for a file
 AP_Rally.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_Rally.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/AP_Rally.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_Rally.cpp.s
 .PHONY : AP_Rally.cpp.s
 
 AP_State.o: AP_State.cpp.o
@@ -944,8 +258,8 @@ AP_State.o: AP_State.cpp.o
 
 # target to build an object file
 AP_State.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_State.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/AP_State.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_State.cpp.o
 .PHONY : AP_State.cpp.o
 
 AP_State.i: AP_State.cpp.i
@@ -953,8 +267,8 @@ AP_State.i: AP_State.cpp.i
 
 # target to preprocess a source file
 AP_State.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_State.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/AP_State.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_State.cpp.i
 .PHONY : AP_State.cpp.i
 
 AP_State.s: AP_State.cpp.s
@@ -962,8 +276,8 @@ AP_State.s: AP_State.cpp.s
 
 # target to generate assembly for a file
 AP_State.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_State.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/AP_State.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/AP_State.cpp.s
 .PHONY : AP_State.cpp.s
 
 Attitude.o: Attitude.cpp.o
@@ -971,8 +285,8 @@ Attitude.o: Attitude.cpp.o
 
 # target to build an object file
 Attitude.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Attitude.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/Attitude.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Attitude.cpp.o
 .PHONY : Attitude.cpp.o
 
 Attitude.i: Attitude.cpp.i
@@ -980,8 +294,8 @@ Attitude.i: Attitude.cpp.i
 
 # target to preprocess a source file
 Attitude.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Attitude.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/Attitude.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Attitude.cpp.i
 .PHONY : Attitude.cpp.i
 
 Attitude.s: Attitude.cpp.s
@@ -989,8 +303,8 @@ Attitude.s: Attitude.cpp.s
 
 # target to generate assembly for a file
 Attitude.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Attitude.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/Attitude.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Attitude.cpp.s
 .PHONY : Attitude.cpp.s
 
 Copter.o: Copter.cpp.o
@@ -998,8 +312,8 @@ Copter.o: Copter.cpp.o
 
 # target to build an object file
 Copter.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Copter.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/Copter.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Copter.cpp.o
 .PHONY : Copter.cpp.o
 
 Copter.i: Copter.cpp.i
@@ -1007,8 +321,8 @@ Copter.i: Copter.cpp.i
 
 # target to preprocess a source file
 Copter.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Copter.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/Copter.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Copter.cpp.i
 .PHONY : Copter.cpp.i
 
 Copter.s: Copter.cpp.s
@@ -1016,8 +330,8 @@ Copter.s: Copter.cpp.s
 
 # target to generate assembly for a file
 Copter.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Copter.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/Copter.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Copter.cpp.s
 .PHONY : Copter.cpp.s
 
 GCS_Copter.o: GCS_Copter.cpp.o
@@ -1025,8 +339,8 @@ GCS_Copter.o: GCS_Copter.cpp.o
 
 # target to build an object file
 GCS_Copter.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/GCS_Copter.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/GCS_Copter.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/GCS_Copter.cpp.o
 .PHONY : GCS_Copter.cpp.o
 
 GCS_Copter.i: GCS_Copter.cpp.i
@@ -1034,8 +348,8 @@ GCS_Copter.i: GCS_Copter.cpp.i
 
 # target to preprocess a source file
 GCS_Copter.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/GCS_Copter.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/GCS_Copter.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/GCS_Copter.cpp.i
 .PHONY : GCS_Copter.cpp.i
 
 GCS_Copter.s: GCS_Copter.cpp.s
@@ -1043,8 +357,8 @@ GCS_Copter.s: GCS_Copter.cpp.s
 
 # target to generate assembly for a file
 GCS_Copter.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/GCS_Copter.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/GCS_Copter.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/GCS_Copter.cpp.s
 .PHONY : GCS_Copter.cpp.s
 
 GCS_MAVLink_Copter.o: GCS_MAVLink_Copter.cpp.o
@@ -1052,8 +366,8 @@ GCS_MAVLink_Copter.o: GCS_MAVLink_Copter.cpp.o
 
 # target to build an object file
 GCS_MAVLink_Copter.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/GCS_MAVLink_Copter.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/GCS_MAVLink_Copter.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/GCS_MAVLink_Copter.cpp.o
 .PHONY : GCS_MAVLink_Copter.cpp.o
 
 GCS_MAVLink_Copter.i: GCS_MAVLink_Copter.cpp.i
@@ -1061,8 +375,8 @@ GCS_MAVLink_Copter.i: GCS_MAVLink_Copter.cpp.i
 
 # target to preprocess a source file
 GCS_MAVLink_Copter.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/GCS_MAVLink_Copter.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/GCS_MAVLink_Copter.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/GCS_MAVLink_Copter.cpp.i
 .PHONY : GCS_MAVLink_Copter.cpp.i
 
 GCS_MAVLink_Copter.s: GCS_MAVLink_Copter.cpp.s
@@ -1070,8 +384,8 @@ GCS_MAVLink_Copter.s: GCS_MAVLink_Copter.cpp.s
 
 # target to generate assembly for a file
 GCS_MAVLink_Copter.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/GCS_MAVLink_Copter.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/GCS_MAVLink_Copter.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/GCS_MAVLink_Copter.cpp.s
 .PHONY : GCS_MAVLink_Copter.cpp.s
 
 Log.o: Log.cpp.o
@@ -1079,8 +393,8 @@ Log.o: Log.cpp.o
 
 # target to build an object file
 Log.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Log.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/Log.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Log.cpp.o
 .PHONY : Log.cpp.o
 
 Log.i: Log.cpp.i
@@ -1088,8 +402,8 @@ Log.i: Log.cpp.i
 
 # target to preprocess a source file
 Log.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Log.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/Log.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Log.cpp.i
 .PHONY : Log.cpp.i
 
 Log.s: Log.cpp.s
@@ -1097,8 +411,8 @@ Log.s: Log.cpp.s
 
 # target to generate assembly for a file
 Log.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Log.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/Log.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Log.cpp.s
 .PHONY : Log.cpp.s
 
 Parameters.o: Parameters.cpp.o
@@ -1106,8 +420,8 @@ Parameters.o: Parameters.cpp.o
 
 # target to build an object file
 Parameters.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Parameters.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/Parameters.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Parameters.cpp.o
 .PHONY : Parameters.cpp.o
 
 Parameters.i: Parameters.cpp.i
@@ -1115,8 +429,8 @@ Parameters.i: Parameters.cpp.i
 
 # target to preprocess a source file
 Parameters.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Parameters.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/Parameters.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Parameters.cpp.i
 .PHONY : Parameters.cpp.i
 
 Parameters.s: Parameters.cpp.s
@@ -1124,8 +438,8 @@ Parameters.s: Parameters.cpp.s
 
 # target to generate assembly for a file
 Parameters.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Parameters.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/Parameters.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/Parameters.cpp.s
 .PHONY : Parameters.cpp.s
 
 RC_Channel_Copter.o: RC_Channel_Copter.cpp.o
@@ -1133,8 +447,8 @@ RC_Channel_Copter.o: RC_Channel_Copter.cpp.o
 
 # target to build an object file
 RC_Channel_Copter.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/RC_Channel_Copter.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/RC_Channel_Copter.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/RC_Channel_Copter.cpp.o
 .PHONY : RC_Channel_Copter.cpp.o
 
 RC_Channel_Copter.i: RC_Channel_Copter.cpp.i
@@ -1142,8 +456,8 @@ RC_Channel_Copter.i: RC_Channel_Copter.cpp.i
 
 # target to preprocess a source file
 RC_Channel_Copter.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/RC_Channel_Copter.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/RC_Channel_Copter.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/RC_Channel_Copter.cpp.i
 .PHONY : RC_Channel_Copter.cpp.i
 
 RC_Channel_Copter.s: RC_Channel_Copter.cpp.s
@@ -1151,8 +465,8 @@ RC_Channel_Copter.s: RC_Channel_Copter.cpp.s
 
 # target to generate assembly for a file
 RC_Channel_Copter.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/RC_Channel_Copter.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/RC_Channel_Copter.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/RC_Channel_Copter.cpp.s
 .PHONY : RC_Channel_Copter.cpp.s
 
 UserCode.o: UserCode.cpp.o
@@ -1160,8 +474,8 @@ UserCode.o: UserCode.cpp.o
 
 # target to build an object file
 UserCode.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/UserCode.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/UserCode.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/UserCode.cpp.o
 .PHONY : UserCode.cpp.o
 
 UserCode.i: UserCode.cpp.i
@@ -1169,8 +483,8 @@ UserCode.i: UserCode.cpp.i
 
 # target to preprocess a source file
 UserCode.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/UserCode.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/UserCode.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/UserCode.cpp.i
 .PHONY : UserCode.cpp.i
 
 UserCode.s: UserCode.cpp.s
@@ -1178,8 +492,8 @@ UserCode.s: UserCode.cpp.s
 
 # target to generate assembly for a file
 UserCode.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/UserCode.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/UserCode.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/UserCode.cpp.s
 .PHONY : UserCode.cpp.s
 
 UserParameters.o: UserParameters.cpp.o
@@ -1187,8 +501,8 @@ UserParameters.o: UserParameters.cpp.o
 
 # target to build an object file
 UserParameters.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/UserParameters.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/UserParameters.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/UserParameters.cpp.o
 .PHONY : UserParameters.cpp.o
 
 UserParameters.i: UserParameters.cpp.i
@@ -1196,8 +510,8 @@ UserParameters.i: UserParameters.cpp.i
 
 # target to preprocess a source file
 UserParameters.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/UserParameters.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/UserParameters.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/UserParameters.cpp.i
 .PHONY : UserParameters.cpp.i
 
 UserParameters.s: UserParameters.cpp.s
@@ -1205,33 +519,9 @@ UserParameters.s: UserParameters.cpp.s
 
 # target to generate assembly for a file
 UserParameters.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/UserParameters.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/UserParameters.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/UserParameters.cpp.s
 .PHONY : UserParameters.cpp.s
-
-__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.o: __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.o
-.PHONY : __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.o
-
-# target to build an object file
-__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.o
-.PHONY : __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.o
-
-__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.i: __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.i
-.PHONY : __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.i
-
-# target to preprocess a source file
-__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.i
-.PHONY : __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.i
-
-__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.s: __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.s
-.PHONY : __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.s
-
-# target to generate assembly for a file
-__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.s
-.PHONY : __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.s
 
 __/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.o: __/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c.o
 .PHONY : __/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.o
@@ -5457,540 +4747,12 @@ __/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targe
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/ArduCopter_libs.dir/build.make ArduCopter/CMakeFiles/ArduCopter_libs.dir/__/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c.s
 .PHONY : __/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c.s
 
-__/libraries/AC_AttitudeControl/AC_AttitudeControl.o: __/libraries/AC_AttitudeControl/AC_AttitudeControl.cpp.o
-.PHONY : __/libraries/AC_AttitudeControl/AC_AttitudeControl.o
-
-# target to build an object file
-__/libraries/AC_AttitudeControl/AC_AttitudeControl.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/__/libraries/AC_AttitudeControl/AC_AttitudeControl.cpp.o
-.PHONY : __/libraries/AC_AttitudeControl/AC_AttitudeControl.cpp.o
-
-__/libraries/AC_AttitudeControl/AC_AttitudeControl.i: __/libraries/AC_AttitudeControl/AC_AttitudeControl.cpp.i
-.PHONY : __/libraries/AC_AttitudeControl/AC_AttitudeControl.i
-
-# target to preprocess a source file
-__/libraries/AC_AttitudeControl/AC_AttitudeControl.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/__/libraries/AC_AttitudeControl/AC_AttitudeControl.cpp.i
-.PHONY : __/libraries/AC_AttitudeControl/AC_AttitudeControl.cpp.i
-
-__/libraries/AC_AttitudeControl/AC_AttitudeControl.s: __/libraries/AC_AttitudeControl/AC_AttitudeControl.cpp.s
-.PHONY : __/libraries/AC_AttitudeControl/AC_AttitudeControl.s
-
-# target to generate assembly for a file
-__/libraries/AC_AttitudeControl/AC_AttitudeControl.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/__/libraries/AC_AttitudeControl/AC_AttitudeControl.cpp.s
-.PHONY : __/libraries/AC_AttitudeControl/AC_AttitudeControl.cpp.s
-
-__/libraries/AC_AttitudeControl/AC_PosControl.o: __/libraries/AC_AttitudeControl/AC_PosControl.cpp.o
-.PHONY : __/libraries/AC_AttitudeControl/AC_PosControl.o
-
-# target to build an object file
-__/libraries/AC_AttitudeControl/AC_PosControl.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/__/libraries/AC_AttitudeControl/AC_PosControl.cpp.o
-.PHONY : __/libraries/AC_AttitudeControl/AC_PosControl.cpp.o
-
-__/libraries/AC_AttitudeControl/AC_PosControl.i: __/libraries/AC_AttitudeControl/AC_PosControl.cpp.i
-.PHONY : __/libraries/AC_AttitudeControl/AC_PosControl.i
-
-# target to preprocess a source file
-__/libraries/AC_AttitudeControl/AC_PosControl.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/__/libraries/AC_AttitudeControl/AC_PosControl.cpp.i
-.PHONY : __/libraries/AC_AttitudeControl/AC_PosControl.cpp.i
-
-__/libraries/AC_AttitudeControl/AC_PosControl.s: __/libraries/AC_AttitudeControl/AC_PosControl.cpp.s
-.PHONY : __/libraries/AC_AttitudeControl/AC_PosControl.s
-
-# target to generate assembly for a file
-__/libraries/AC_AttitudeControl/AC_PosControl.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/__/libraries/AC_AttitudeControl/AC_PosControl.cpp.s
-.PHONY : __/libraries/AC_AttitudeControl/AC_PosControl.cpp.s
-
-__/libraries/AC_AttitudeControl/AC_WeatherVane.o: __/libraries/AC_AttitudeControl/AC_WeatherVane.cpp.o
-.PHONY : __/libraries/AC_AttitudeControl/AC_WeatherVane.o
-
-# target to build an object file
-__/libraries/AC_AttitudeControl/AC_WeatherVane.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/__/libraries/AC_AttitudeControl/AC_WeatherVane.cpp.o
-.PHONY : __/libraries/AC_AttitudeControl/AC_WeatherVane.cpp.o
-
-__/libraries/AC_AttitudeControl/AC_WeatherVane.i: __/libraries/AC_AttitudeControl/AC_WeatherVane.cpp.i
-.PHONY : __/libraries/AC_AttitudeControl/AC_WeatherVane.i
-
-# target to preprocess a source file
-__/libraries/AC_AttitudeControl/AC_WeatherVane.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/__/libraries/AC_AttitudeControl/AC_WeatherVane.cpp.i
-.PHONY : __/libraries/AC_AttitudeControl/AC_WeatherVane.cpp.i
-
-__/libraries/AC_AttitudeControl/AC_WeatherVane.s: __/libraries/AC_AttitudeControl/AC_WeatherVane.cpp.s
-.PHONY : __/libraries/AC_AttitudeControl/AC_WeatherVane.s
-
-# target to generate assembly for a file
-__/libraries/AC_AttitudeControl/AC_WeatherVane.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AttitudeControl_ArduCopter.dir/__/libraries/AC_AttitudeControl/AC_WeatherVane.cpp.s
-.PHONY : __/libraries/AC_AttitudeControl/AC_WeatherVane.cpp.s
-
-__/libraries/AC_AutoTune/AC_AutoTune.o: __/libraries/AC_AutoTune/AC_AutoTune.cpp.o
-.PHONY : __/libraries/AC_AutoTune/AC_AutoTune.o
-
-# target to build an object file
-__/libraries/AC_AutoTune/AC_AutoTune.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/__/libraries/AC_AutoTune/AC_AutoTune.cpp.o
-.PHONY : __/libraries/AC_AutoTune/AC_AutoTune.cpp.o
-
-__/libraries/AC_AutoTune/AC_AutoTune.i: __/libraries/AC_AutoTune/AC_AutoTune.cpp.i
-.PHONY : __/libraries/AC_AutoTune/AC_AutoTune.i
-
-# target to preprocess a source file
-__/libraries/AC_AutoTune/AC_AutoTune.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/__/libraries/AC_AutoTune/AC_AutoTune.cpp.i
-.PHONY : __/libraries/AC_AutoTune/AC_AutoTune.cpp.i
-
-__/libraries/AC_AutoTune/AC_AutoTune.s: __/libraries/AC_AutoTune/AC_AutoTune.cpp.s
-.PHONY : __/libraries/AC_AutoTune/AC_AutoTune.s
-
-# target to generate assembly for a file
-__/libraries/AC_AutoTune/AC_AutoTune.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/__/libraries/AC_AutoTune/AC_AutoTune.cpp.s
-.PHONY : __/libraries/AC_AutoTune/AC_AutoTune.cpp.s
-
-__/libraries/AC_AutoTune/AC_AutoTune_Multi.o: __/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.o
-.PHONY : __/libraries/AC_AutoTune/AC_AutoTune_Multi.o
-
-# target to build an object file
-__/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/__/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.o
-.PHONY : __/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.o
-
-__/libraries/AC_AutoTune/AC_AutoTune_Multi.i: __/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.i
-.PHONY : __/libraries/AC_AutoTune/AC_AutoTune_Multi.i
-
-# target to preprocess a source file
-__/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/__/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.i
-.PHONY : __/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.i
-
-__/libraries/AC_AutoTune/AC_AutoTune_Multi.s: __/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.s
-.PHONY : __/libraries/AC_AutoTune/AC_AutoTune_Multi.s
-
-# target to generate assembly for a file
-__/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_AutoTune_ArduCopter.dir/__/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.s
-.PHONY : __/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.s
-
-__/libraries/AC_Avoidance/AC_Avoid.o: __/libraries/AC_Avoidance/AC_Avoid.cpp.o
-.PHONY : __/libraries/AC_Avoidance/AC_Avoid.o
-
-# target to build an object file
-__/libraries/AC_Avoidance/AC_Avoid.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/__/libraries/AC_Avoidance/AC_Avoid.cpp.o
-.PHONY : __/libraries/AC_Avoidance/AC_Avoid.cpp.o
-
-__/libraries/AC_Avoidance/AC_Avoid.i: __/libraries/AC_Avoidance/AC_Avoid.cpp.i
-.PHONY : __/libraries/AC_Avoidance/AC_Avoid.i
-
-# target to preprocess a source file
-__/libraries/AC_Avoidance/AC_Avoid.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/__/libraries/AC_Avoidance/AC_Avoid.cpp.i
-.PHONY : __/libraries/AC_Avoidance/AC_Avoid.cpp.i
-
-__/libraries/AC_Avoidance/AC_Avoid.s: __/libraries/AC_Avoidance/AC_Avoid.cpp.s
-.PHONY : __/libraries/AC_Avoidance/AC_Avoid.s
-
-# target to generate assembly for a file
-__/libraries/AC_Avoidance/AC_Avoid.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/__/libraries/AC_Avoidance/AC_Avoid.cpp.s
-.PHONY : __/libraries/AC_Avoidance/AC_Avoid.cpp.s
-
-__/libraries/AC_Avoidance/AP_OABendyRuler.o: __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.o
-.PHONY : __/libraries/AC_Avoidance/AP_OABendyRuler.o
-
-# target to build an object file
-__/libraries/AC_Avoidance/AP_OABendyRuler.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/__/libraries/AC_Avoidance/AP_OABendyRuler.cpp.o
-.PHONY : __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.o
-
-__/libraries/AC_Avoidance/AP_OABendyRuler.i: __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.i
-.PHONY : __/libraries/AC_Avoidance/AP_OABendyRuler.i
-
-# target to preprocess a source file
-__/libraries/AC_Avoidance/AP_OABendyRuler.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/__/libraries/AC_Avoidance/AP_OABendyRuler.cpp.i
-.PHONY : __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.i
-
-__/libraries/AC_Avoidance/AP_OABendyRuler.s: __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.s
-.PHONY : __/libraries/AC_Avoidance/AP_OABendyRuler.s
-
-# target to generate assembly for a file
-__/libraries/AC_Avoidance/AP_OABendyRuler.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/__/libraries/AC_Avoidance/AP_OABendyRuler.cpp.s
-.PHONY : __/libraries/AC_Avoidance/AP_OABendyRuler.cpp.s
-
-__/libraries/AC_Avoidance/AP_OADatabase.o: __/libraries/AC_Avoidance/AP_OADatabase.cpp.o
-.PHONY : __/libraries/AC_Avoidance/AP_OADatabase.o
-
-# target to build an object file
-__/libraries/AC_Avoidance/AP_OADatabase.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/__/libraries/AC_Avoidance/AP_OADatabase.cpp.o
-.PHONY : __/libraries/AC_Avoidance/AP_OADatabase.cpp.o
-
-__/libraries/AC_Avoidance/AP_OADatabase.i: __/libraries/AC_Avoidance/AP_OADatabase.cpp.i
-.PHONY : __/libraries/AC_Avoidance/AP_OADatabase.i
-
-# target to preprocess a source file
-__/libraries/AC_Avoidance/AP_OADatabase.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/__/libraries/AC_Avoidance/AP_OADatabase.cpp.i
-.PHONY : __/libraries/AC_Avoidance/AP_OADatabase.cpp.i
-
-__/libraries/AC_Avoidance/AP_OADatabase.s: __/libraries/AC_Avoidance/AP_OADatabase.cpp.s
-.PHONY : __/libraries/AC_Avoidance/AP_OADatabase.s
-
-# target to generate assembly for a file
-__/libraries/AC_Avoidance/AP_OADatabase.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Avoidance_ArduCopter.dir/__/libraries/AC_Avoidance/AP_OADatabase.cpp.s
-.PHONY : __/libraries/AC_Avoidance/AP_OADatabase.cpp.s
-
-__/libraries/AC_Fence/AC_Fence.o: __/libraries/AC_Fence/AC_Fence.cpp.o
-.PHONY : __/libraries/AC_Fence/AC_Fence.o
-
-# target to build an object file
-__/libraries/AC_Fence/AC_Fence.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/__/libraries/AC_Fence/AC_Fence.cpp.o
-.PHONY : __/libraries/AC_Fence/AC_Fence.cpp.o
-
-__/libraries/AC_Fence/AC_Fence.i: __/libraries/AC_Fence/AC_Fence.cpp.i
-.PHONY : __/libraries/AC_Fence/AC_Fence.i
-
-# target to preprocess a source file
-__/libraries/AC_Fence/AC_Fence.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/__/libraries/AC_Fence/AC_Fence.cpp.i
-.PHONY : __/libraries/AC_Fence/AC_Fence.cpp.i
-
-__/libraries/AC_Fence/AC_Fence.s: __/libraries/AC_Fence/AC_Fence.cpp.s
-.PHONY : __/libraries/AC_Fence/AC_Fence.s
-
-# target to generate assembly for a file
-__/libraries/AC_Fence/AC_Fence.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/__/libraries/AC_Fence/AC_Fence.cpp.s
-.PHONY : __/libraries/AC_Fence/AC_Fence.cpp.s
-
-__/libraries/AC_Fence/AC_PolyFence_loader.o: __/libraries/AC_Fence/AC_PolyFence_loader.cpp.o
-.PHONY : __/libraries/AC_Fence/AC_PolyFence_loader.o
-
-# target to build an object file
-__/libraries/AC_Fence/AC_PolyFence_loader.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/__/libraries/AC_Fence/AC_PolyFence_loader.cpp.o
-.PHONY : __/libraries/AC_Fence/AC_PolyFence_loader.cpp.o
-
-__/libraries/AC_Fence/AC_PolyFence_loader.i: __/libraries/AC_Fence/AC_PolyFence_loader.cpp.i
-.PHONY : __/libraries/AC_Fence/AC_PolyFence_loader.i
-
-# target to preprocess a source file
-__/libraries/AC_Fence/AC_PolyFence_loader.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/__/libraries/AC_Fence/AC_PolyFence_loader.cpp.i
-.PHONY : __/libraries/AC_Fence/AC_PolyFence_loader.cpp.i
-
-__/libraries/AC_Fence/AC_PolyFence_loader.s: __/libraries/AC_Fence/AC_PolyFence_loader.cpp.s
-.PHONY : __/libraries/AC_Fence/AC_PolyFence_loader.s
-
-# target to generate assembly for a file
-__/libraries/AC_Fence/AC_PolyFence_loader.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_Fence_ArduCopter.dir/__/libraries/AC_Fence/AC_PolyFence_loader.cpp.s
-.PHONY : __/libraries/AC_Fence/AC_PolyFence_loader.cpp.s
-
-__/libraries/AC_PrecLand/AC_PrecLand.o: __/libraries/AC_PrecLand/AC_PrecLand.cpp.o
-.PHONY : __/libraries/AC_PrecLand/AC_PrecLand.o
-
-# target to build an object file
-__/libraries/AC_PrecLand/AC_PrecLand.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_PrecLand_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_PrecLand_ArduCopter.dir/__/libraries/AC_PrecLand/AC_PrecLand.cpp.o
-.PHONY : __/libraries/AC_PrecLand/AC_PrecLand.cpp.o
-
-__/libraries/AC_PrecLand/AC_PrecLand.i: __/libraries/AC_PrecLand/AC_PrecLand.cpp.i
-.PHONY : __/libraries/AC_PrecLand/AC_PrecLand.i
-
-# target to preprocess a source file
-__/libraries/AC_PrecLand/AC_PrecLand.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_PrecLand_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_PrecLand_ArduCopter.dir/__/libraries/AC_PrecLand/AC_PrecLand.cpp.i
-.PHONY : __/libraries/AC_PrecLand/AC_PrecLand.cpp.i
-
-__/libraries/AC_PrecLand/AC_PrecLand.s: __/libraries/AC_PrecLand/AC_PrecLand.cpp.s
-.PHONY : __/libraries/AC_PrecLand/AC_PrecLand.s
-
-# target to generate assembly for a file
-__/libraries/AC_PrecLand/AC_PrecLand.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_PrecLand_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_PrecLand_ArduCopter.dir/__/libraries/AC_PrecLand/AC_PrecLand.cpp.s
-.PHONY : __/libraries/AC_PrecLand/AC_PrecLand.cpp.s
-
-__/libraries/AC_WPNav/AC_Loiter.o: __/libraries/AC_WPNav/AC_Loiter.cpp.o
-.PHONY : __/libraries/AC_WPNav/AC_Loiter.o
-
-# target to build an object file
-__/libraries/AC_WPNav/AC_Loiter.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_WPNav_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_WPNav_ArduCopter.dir/__/libraries/AC_WPNav/AC_Loiter.cpp.o
-.PHONY : __/libraries/AC_WPNav/AC_Loiter.cpp.o
-
-__/libraries/AC_WPNav/AC_Loiter.i: __/libraries/AC_WPNav/AC_Loiter.cpp.i
-.PHONY : __/libraries/AC_WPNav/AC_Loiter.i
-
-# target to preprocess a source file
-__/libraries/AC_WPNav/AC_Loiter.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_WPNav_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_WPNav_ArduCopter.dir/__/libraries/AC_WPNav/AC_Loiter.cpp.i
-.PHONY : __/libraries/AC_WPNav/AC_Loiter.cpp.i
-
-__/libraries/AC_WPNav/AC_Loiter.s: __/libraries/AC_WPNav/AC_Loiter.cpp.s
-.PHONY : __/libraries/AC_WPNav/AC_Loiter.s
-
-# target to generate assembly for a file
-__/libraries/AC_WPNav/AC_Loiter.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AC_WPNav_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AC_WPNav_ArduCopter.dir/__/libraries/AC_WPNav/AC_Loiter.cpp.s
-.PHONY : __/libraries/AC_WPNav/AC_Loiter.cpp.s
-
-__/libraries/AP_ADSB/AP_ADSB.o: __/libraries/AP_ADSB/AP_ADSB.cpp.o
-.PHONY : __/libraries/AP_ADSB/AP_ADSB.o
-
-# target to build an object file
-__/libraries/AP_ADSB/AP_ADSB.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/__/libraries/AP_ADSB/AP_ADSB.cpp.o
-.PHONY : __/libraries/AP_ADSB/AP_ADSB.cpp.o
-
-__/libraries/AP_ADSB/AP_ADSB.i: __/libraries/AP_ADSB/AP_ADSB.cpp.i
-.PHONY : __/libraries/AP_ADSB/AP_ADSB.i
-
-# target to preprocess a source file
-__/libraries/AP_ADSB/AP_ADSB.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/__/libraries/AP_ADSB/AP_ADSB.cpp.i
-.PHONY : __/libraries/AP_ADSB/AP_ADSB.cpp.i
-
-__/libraries/AP_ADSB/AP_ADSB.s: __/libraries/AP_ADSB/AP_ADSB.cpp.s
-.PHONY : __/libraries/AP_ADSB/AP_ADSB.s
-
-# target to generate assembly for a file
-__/libraries/AP_ADSB/AP_ADSB.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/__/libraries/AP_ADSB/AP_ADSB.cpp.s
-.PHONY : __/libraries/AP_ADSB/AP_ADSB.cpp.s
-
-__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.o: __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.o
-.PHONY : __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.o
-
-# target to build an object file
-__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.o
-.PHONY : __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.o
-
-__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.i: __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.i
-.PHONY : __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.i
-
-# target to preprocess a source file
-__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.i
-.PHONY : __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.i
-
-__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.s: __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.s
-.PHONY : __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.s
-
-# target to generate assembly for a file
-__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ADSB_ArduCopter.dir/__/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.s
-.PHONY : __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.s
-
-__/libraries/AP_AHRS/AP_AHRS.o: __/libraries/AP_AHRS/AP_AHRS.cpp.o
-.PHONY : __/libraries/AP_AHRS/AP_AHRS.o
-
-# target to build an object file
-__/libraries/AP_AHRS/AP_AHRS.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/__/libraries/AP_AHRS/AP_AHRS.cpp.o
-.PHONY : __/libraries/AP_AHRS/AP_AHRS.cpp.o
-
-__/libraries/AP_AHRS/AP_AHRS.i: __/libraries/AP_AHRS/AP_AHRS.cpp.i
-.PHONY : __/libraries/AP_AHRS/AP_AHRS.i
-
-# target to preprocess a source file
-__/libraries/AP_AHRS/AP_AHRS.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/__/libraries/AP_AHRS/AP_AHRS.cpp.i
-.PHONY : __/libraries/AP_AHRS/AP_AHRS.cpp.i
-
-__/libraries/AP_AHRS/AP_AHRS.s: __/libraries/AP_AHRS/AP_AHRS.cpp.s
-.PHONY : __/libraries/AP_AHRS/AP_AHRS.s
-
-# target to generate assembly for a file
-__/libraries/AP_AHRS/AP_AHRS.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/__/libraries/AP_AHRS/AP_AHRS.cpp.s
-.PHONY : __/libraries/AP_AHRS/AP_AHRS.cpp.s
-
-__/libraries/AP_AHRS/AP_AHRS_Backend.o: __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
-.PHONY : __/libraries/AP_AHRS/AP_AHRS_Backend.o
-
-# target to build an object file
-__/libraries/AP_AHRS/AP_AHRS_Backend.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/__/libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
-.PHONY : __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
-
-__/libraries/AP_AHRS/AP_AHRS_Backend.i: __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
-.PHONY : __/libraries/AP_AHRS/AP_AHRS_Backend.i
-
-# target to preprocess a source file
-__/libraries/AP_AHRS/AP_AHRS_Backend.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/__/libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
-.PHONY : __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
-
-__/libraries/AP_AHRS/AP_AHRS_Backend.s: __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
-.PHONY : __/libraries/AP_AHRS/AP_AHRS_Backend.s
-
-# target to generate assembly for a file
-__/libraries/AP_AHRS/AP_AHRS_Backend.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/__/libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
-.PHONY : __/libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
-
-__/libraries/AP_AHRS/AP_AHRS_DCM.o: __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
-.PHONY : __/libraries/AP_AHRS/AP_AHRS_DCM.o
-
-# target to build an object file
-__/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/__/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
-.PHONY : __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
-
-__/libraries/AP_AHRS/AP_AHRS_DCM.i: __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
-.PHONY : __/libraries/AP_AHRS/AP_AHRS_DCM.i
-
-# target to preprocess a source file
-__/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/__/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
-.PHONY : __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
-
-__/libraries/AP_AHRS/AP_AHRS_DCM.s: __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
-.PHONY : __/libraries/AP_AHRS/AP_AHRS_DCM.s
-
-# target to generate assembly for a file
-__/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_AHRS_ArduCopter.dir/__/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
-.PHONY : __/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
-
-__/libraries/AP_AIS/AP_AIS.o: __/libraries/AP_AIS/AP_AIS.cpp.o
-.PHONY : __/libraries/AP_AIS/AP_AIS.o
-
-# target to build an object file
-__/libraries/AP_AIS/AP_AIS.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_AIS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_AIS_ArduCopter.dir/__/libraries/AP_AIS/AP_AIS.cpp.o
-.PHONY : __/libraries/AP_AIS/AP_AIS.cpp.o
-
-__/libraries/AP_AIS/AP_AIS.i: __/libraries/AP_AIS/AP_AIS.cpp.i
-.PHONY : __/libraries/AP_AIS/AP_AIS.i
-
-# target to preprocess a source file
-__/libraries/AP_AIS/AP_AIS.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_AIS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_AIS_ArduCopter.dir/__/libraries/AP_AIS/AP_AIS.cpp.i
-.PHONY : __/libraries/AP_AIS/AP_AIS.cpp.i
-
-__/libraries/AP_AIS/AP_AIS.s: __/libraries/AP_AIS/AP_AIS.cpp.s
-.PHONY : __/libraries/AP_AIS/AP_AIS.s
-
-# target to generate assembly for a file
-__/libraries/AP_AIS/AP_AIS.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_AIS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_AIS_ArduCopter.dir/__/libraries/AP_AIS/AP_AIS.cpp.s
-.PHONY : __/libraries/AP_AIS/AP_AIS.cpp.s
-
-__/libraries/AP_Airspeed/AP_Airspeed.o: __/libraries/AP_Airspeed/AP_Airspeed.cpp.o
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed.o
-
-# target to build an object file
-__/libraries/AP_Airspeed/AP_Airspeed.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/__/libraries/AP_Airspeed/AP_Airspeed.cpp.o
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed.cpp.o
-
-__/libraries/AP_Airspeed/AP_Airspeed.i: __/libraries/AP_Airspeed/AP_Airspeed.cpp.i
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed.i
-
-# target to preprocess a source file
-__/libraries/AP_Airspeed/AP_Airspeed.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/__/libraries/AP_Airspeed/AP_Airspeed.cpp.i
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed.cpp.i
-
-__/libraries/AP_Airspeed/AP_Airspeed.s: __/libraries/AP_Airspeed/AP_Airspeed.cpp.s
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed.s
-
-# target to generate assembly for a file
-__/libraries/AP_Airspeed/AP_Airspeed.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/__/libraries/AP_Airspeed/AP_Airspeed.cpp.s
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed.cpp.s
-
-__/libraries/AP_Airspeed/AP_Airspeed_NMEA.o: __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.o
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed_NMEA.o
-
-# target to build an object file
-__/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/__/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.o
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.o
-
-__/libraries/AP_Airspeed/AP_Airspeed_NMEA.i: __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.i
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed_NMEA.i
-
-# target to preprocess a source file
-__/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/__/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.i
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.i
-
-__/libraries/AP_Airspeed/AP_Airspeed_NMEA.s: __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.s
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed_NMEA.s
-
-# target to generate assembly for a file
-__/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/__/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.s
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.s
-
-__/libraries/AP_Airspeed/AP_Airspeed_Params.o: __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.o
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed_Params.o
-
-# target to build an object file
-__/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/__/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.o
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.o
-
-__/libraries/AP_Airspeed/AP_Airspeed_Params.i: __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.i
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed_Params.i
-
-# target to preprocess a source file
-__/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/__/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.i
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.i
-
-__/libraries/AP_Airspeed/AP_Airspeed_Params.s: __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.s
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed_Params.s
-
-# target to generate assembly for a file
-__/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Airspeed_ArduCopter.dir/__/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.s
-.PHONY : __/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.s
-
-__/libraries/AP_Arming/AP_Arming.o: __/libraries/AP_Arming/AP_Arming.cpp.o
-.PHONY : __/libraries/AP_Arming/AP_Arming.o
-
-# target to build an object file
-__/libraries/AP_Arming/AP_Arming.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Arming_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Arming_ArduCopter.dir/__/libraries/AP_Arming/AP_Arming.cpp.o
-.PHONY : __/libraries/AP_Arming/AP_Arming.cpp.o
-
-__/libraries/AP_Arming/AP_Arming.i: __/libraries/AP_Arming/AP_Arming.cpp.i
-.PHONY : __/libraries/AP_Arming/AP_Arming.i
-
-# target to preprocess a source file
-__/libraries/AP_Arming/AP_Arming.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Arming_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Arming_ArduCopter.dir/__/libraries/AP_Arming/AP_Arming.cpp.i
-.PHONY : __/libraries/AP_Arming/AP_Arming.cpp.i
-
-__/libraries/AP_Arming/AP_Arming.s: __/libraries/AP_Arming/AP_Arming.cpp.s
-.PHONY : __/libraries/AP_Arming/AP_Arming.s
-
-# target to generate assembly for a file
-__/libraries/AP_Arming/AP_Arming.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Arming_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Arming_ArduCopter.dir/__/libraries/AP_Arming/AP_Arming.cpp.s
-.PHONY : __/libraries/AP_Arming/AP_Arming.cpp.s
-
 __/libraries/AP_Avoidance/AP_Avoidance.o: __/libraries/AP_Avoidance/AP_Avoidance.cpp.o
 .PHONY : __/libraries/AP_Avoidance/AP_Avoidance.o
 
 # target to build an object file
 __/libraries/AP_Avoidance/AP_Avoidance.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Avoidance_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Avoidance_ArduCopter.dir/__/libraries/AP_Avoidance/AP_Avoidance.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Avoidance.dir/build.make ArduCopter/CMakeFiles/objs_AP_Avoidance.dir/__/libraries/AP_Avoidance/AP_Avoidance.cpp.o
 .PHONY : __/libraries/AP_Avoidance/AP_Avoidance.cpp.o
 
 __/libraries/AP_Avoidance/AP_Avoidance.i: __/libraries/AP_Avoidance/AP_Avoidance.cpp.i
@@ -5998,7 +4760,7 @@ __/libraries/AP_Avoidance/AP_Avoidance.i: __/libraries/AP_Avoidance/AP_Avoidance
 
 # target to preprocess a source file
 __/libraries/AP_Avoidance/AP_Avoidance.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Avoidance_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Avoidance_ArduCopter.dir/__/libraries/AP_Avoidance/AP_Avoidance.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Avoidance.dir/build.make ArduCopter/CMakeFiles/objs_AP_Avoidance.dir/__/libraries/AP_Avoidance/AP_Avoidance.cpp.i
 .PHONY : __/libraries/AP_Avoidance/AP_Avoidance.cpp.i
 
 __/libraries/AP_Avoidance/AP_Avoidance.s: __/libraries/AP_Avoidance/AP_Avoidance.cpp.s
@@ -6006,2152 +4768,16 @@ __/libraries/AP_Avoidance/AP_Avoidance.s: __/libraries/AP_Avoidance/AP_Avoidance
 
 # target to generate assembly for a file
 __/libraries/AP_Avoidance/AP_Avoidance.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Avoidance_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Avoidance_ArduCopter.dir/__/libraries/AP_Avoidance/AP_Avoidance.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Avoidance.dir/build.make ArduCopter/CMakeFiles/objs_AP_Avoidance.dir/__/libraries/AP_Avoidance/AP_Avoidance.cpp.s
 .PHONY : __/libraries/AP_Avoidance/AP_Avoidance.cpp.s
-
-__/libraries/AP_BLHeli/AP_BLHeli.o: __/libraries/AP_BLHeli/AP_BLHeli.cpp.o
-.PHONY : __/libraries/AP_BLHeli/AP_BLHeli.o
-
-# target to build an object file
-__/libraries/AP_BLHeli/AP_BLHeli.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BLHeli_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BLHeli_ArduCopter.dir/__/libraries/AP_BLHeli/AP_BLHeli.cpp.o
-.PHONY : __/libraries/AP_BLHeli/AP_BLHeli.cpp.o
-
-__/libraries/AP_BLHeli/AP_BLHeli.i: __/libraries/AP_BLHeli/AP_BLHeli.cpp.i
-.PHONY : __/libraries/AP_BLHeli/AP_BLHeli.i
-
-# target to preprocess a source file
-__/libraries/AP_BLHeli/AP_BLHeli.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BLHeli_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BLHeli_ArduCopter.dir/__/libraries/AP_BLHeli/AP_BLHeli.cpp.i
-.PHONY : __/libraries/AP_BLHeli/AP_BLHeli.cpp.i
-
-__/libraries/AP_BLHeli/AP_BLHeli.s: __/libraries/AP_BLHeli/AP_BLHeli.cpp.s
-.PHONY : __/libraries/AP_BLHeli/AP_BLHeli.s
-
-# target to generate assembly for a file
-__/libraries/AP_BLHeli/AP_BLHeli.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BLHeli_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BLHeli_ArduCopter.dir/__/libraries/AP_BLHeli/AP_BLHeli.cpp.s
-.PHONY : __/libraries/AP_BLHeli/AP_BLHeli.cpp.s
-
-__/libraries/AP_Baro/AP_Baro.o: __/libraries/AP_Baro/AP_Baro.cpp.o
-.PHONY : __/libraries/AP_Baro/AP_Baro.o
-
-# target to build an object file
-__/libraries/AP_Baro/AP_Baro.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/__/libraries/AP_Baro/AP_Baro.cpp.o
-.PHONY : __/libraries/AP_Baro/AP_Baro.cpp.o
-
-__/libraries/AP_Baro/AP_Baro.i: __/libraries/AP_Baro/AP_Baro.cpp.i
-.PHONY : __/libraries/AP_Baro/AP_Baro.i
-
-# target to preprocess a source file
-__/libraries/AP_Baro/AP_Baro.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/__/libraries/AP_Baro/AP_Baro.cpp.i
-.PHONY : __/libraries/AP_Baro/AP_Baro.cpp.i
-
-__/libraries/AP_Baro/AP_Baro.s: __/libraries/AP_Baro/AP_Baro.cpp.s
-.PHONY : __/libraries/AP_Baro/AP_Baro.s
-
-# target to generate assembly for a file
-__/libraries/AP_Baro/AP_Baro.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/__/libraries/AP_Baro/AP_Baro.cpp.s
-.PHONY : __/libraries/AP_Baro/AP_Baro.cpp.s
-
-__/libraries/AP_Baro/AP_Baro_Backend.o: __/libraries/AP_Baro/AP_Baro_Backend.cpp.o
-.PHONY : __/libraries/AP_Baro/AP_Baro_Backend.o
-
-# target to build an object file
-__/libraries/AP_Baro/AP_Baro_Backend.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/__/libraries/AP_Baro/AP_Baro_Backend.cpp.o
-.PHONY : __/libraries/AP_Baro/AP_Baro_Backend.cpp.o
-
-__/libraries/AP_Baro/AP_Baro_Backend.i: __/libraries/AP_Baro/AP_Baro_Backend.cpp.i
-.PHONY : __/libraries/AP_Baro/AP_Baro_Backend.i
-
-# target to preprocess a source file
-__/libraries/AP_Baro/AP_Baro_Backend.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/__/libraries/AP_Baro/AP_Baro_Backend.cpp.i
-.PHONY : __/libraries/AP_Baro/AP_Baro_Backend.cpp.i
-
-__/libraries/AP_Baro/AP_Baro_Backend.s: __/libraries/AP_Baro/AP_Baro_Backend.cpp.s
-.PHONY : __/libraries/AP_Baro/AP_Baro_Backend.s
-
-# target to generate assembly for a file
-__/libraries/AP_Baro/AP_Baro_Backend.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/__/libraries/AP_Baro/AP_Baro_Backend.cpp.s
-.PHONY : __/libraries/AP_Baro/AP_Baro_Backend.cpp.s
-
-__/libraries/AP_Baro/AP_Baro_SITL.o: __/libraries/AP_Baro/AP_Baro_SITL.cpp.o
-.PHONY : __/libraries/AP_Baro/AP_Baro_SITL.o
-
-# target to build an object file
-__/libraries/AP_Baro/AP_Baro_SITL.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/__/libraries/AP_Baro/AP_Baro_SITL.cpp.o
-.PHONY : __/libraries/AP_Baro/AP_Baro_SITL.cpp.o
-
-__/libraries/AP_Baro/AP_Baro_SITL.i: __/libraries/AP_Baro/AP_Baro_SITL.cpp.i
-.PHONY : __/libraries/AP_Baro/AP_Baro_SITL.i
-
-# target to preprocess a source file
-__/libraries/AP_Baro/AP_Baro_SITL.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/__/libraries/AP_Baro/AP_Baro_SITL.cpp.i
-.PHONY : __/libraries/AP_Baro/AP_Baro_SITL.cpp.i
-
-__/libraries/AP_Baro/AP_Baro_SITL.s: __/libraries/AP_Baro/AP_Baro_SITL.cpp.s
-.PHONY : __/libraries/AP_Baro/AP_Baro_SITL.s
-
-# target to generate assembly for a file
-__/libraries/AP_Baro/AP_Baro_SITL.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Baro_ArduCopter.dir/__/libraries/AP_Baro/AP_Baro_SITL.cpp.s
-.PHONY : __/libraries/AP_Baro/AP_Baro_SITL.cpp.s
-
-__/libraries/AP_BattMonitor/AP_BattMonitor.o: __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.o
-.PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor.o
-
-# target to build an object file
-__/libraries/AP_BattMonitor/AP_BattMonitor.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/__/libraries/AP_BattMonitor/AP_BattMonitor.cpp.o
-.PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.o
-
-__/libraries/AP_BattMonitor/AP_BattMonitor.i: __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.i
-.PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor.i
-
-# target to preprocess a source file
-__/libraries/AP_BattMonitor/AP_BattMonitor.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/__/libraries/AP_BattMonitor/AP_BattMonitor.cpp.i
-.PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.i
-
-__/libraries/AP_BattMonitor/AP_BattMonitor.s: __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.s
-.PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor.s
-
-# target to generate assembly for a file
-__/libraries/AP_BattMonitor/AP_BattMonitor.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/__/libraries/AP_BattMonitor/AP_BattMonitor.cpp.s
-.PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor.cpp.s
-
-__/libraries/AP_BattMonitor/AP_BattMonitor_Params.o: __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.o
-.PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor_Params.o
-
-# target to build an object file
-__/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/__/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.o
-.PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.o
-
-__/libraries/AP_BattMonitor/AP_BattMonitor_Params.i: __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.i
-.PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor_Params.i
-
-# target to preprocess a source file
-__/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/__/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.i
-.PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.i
-
-__/libraries/AP_BattMonitor/AP_BattMonitor_Params.s: __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.s
-.PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor_Params.s
-
-# target to generate assembly for a file
-__/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BattMonitor_ArduCopter.dir/__/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.s
-.PHONY : __/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.s
-
-__/libraries/AP_BoardConfig/AP_BoardConfig.o: __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.o
-.PHONY : __/libraries/AP_BoardConfig/AP_BoardConfig.o
-
-# target to build an object file
-__/libraries/AP_BoardConfig/AP_BoardConfig.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BoardConfig_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BoardConfig_ArduCopter.dir/__/libraries/AP_BoardConfig/AP_BoardConfig.cpp.o
-.PHONY : __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.o
-
-__/libraries/AP_BoardConfig/AP_BoardConfig.i: __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.i
-.PHONY : __/libraries/AP_BoardConfig/AP_BoardConfig.i
-
-# target to preprocess a source file
-__/libraries/AP_BoardConfig/AP_BoardConfig.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BoardConfig_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BoardConfig_ArduCopter.dir/__/libraries/AP_BoardConfig/AP_BoardConfig.cpp.i
-.PHONY : __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.i
-
-__/libraries/AP_BoardConfig/AP_BoardConfig.s: __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.s
-.PHONY : __/libraries/AP_BoardConfig/AP_BoardConfig.s
-
-# target to generate assembly for a file
-__/libraries/AP_BoardConfig/AP_BoardConfig.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_BoardConfig_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_BoardConfig_ArduCopter.dir/__/libraries/AP_BoardConfig/AP_BoardConfig.cpp.s
-.PHONY : __/libraries/AP_BoardConfig/AP_BoardConfig.cpp.s
-
-__/libraries/AP_DAL/AP_DAL.o: __/libraries/AP_DAL/AP_DAL.cpp.o
-.PHONY : __/libraries/AP_DAL/AP_DAL.o
-
-# target to build an object file
-__/libraries/AP_DAL/AP_DAL.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/__/libraries/AP_DAL/AP_DAL.cpp.o
-.PHONY : __/libraries/AP_DAL/AP_DAL.cpp.o
-
-__/libraries/AP_DAL/AP_DAL.i: __/libraries/AP_DAL/AP_DAL.cpp.i
-.PHONY : __/libraries/AP_DAL/AP_DAL.i
-
-# target to preprocess a source file
-__/libraries/AP_DAL/AP_DAL.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/__/libraries/AP_DAL/AP_DAL.cpp.i
-.PHONY : __/libraries/AP_DAL/AP_DAL.cpp.i
-
-__/libraries/AP_DAL/AP_DAL.s: __/libraries/AP_DAL/AP_DAL.cpp.s
-.PHONY : __/libraries/AP_DAL/AP_DAL.s
-
-# target to generate assembly for a file
-__/libraries/AP_DAL/AP_DAL.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/__/libraries/AP_DAL/AP_DAL.cpp.s
-.PHONY : __/libraries/AP_DAL/AP_DAL.cpp.s
-
-__/libraries/AP_DAL/AP_DAL_Beacon.o: __/libraries/AP_DAL/AP_DAL_Beacon.cpp.o
-.PHONY : __/libraries/AP_DAL/AP_DAL_Beacon.o
-
-# target to build an object file
-__/libraries/AP_DAL/AP_DAL_Beacon.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/__/libraries/AP_DAL/AP_DAL_Beacon.cpp.o
-.PHONY : __/libraries/AP_DAL/AP_DAL_Beacon.cpp.o
-
-__/libraries/AP_DAL/AP_DAL_Beacon.i: __/libraries/AP_DAL/AP_DAL_Beacon.cpp.i
-.PHONY : __/libraries/AP_DAL/AP_DAL_Beacon.i
-
-# target to preprocess a source file
-__/libraries/AP_DAL/AP_DAL_Beacon.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/__/libraries/AP_DAL/AP_DAL_Beacon.cpp.i
-.PHONY : __/libraries/AP_DAL/AP_DAL_Beacon.cpp.i
-
-__/libraries/AP_DAL/AP_DAL_Beacon.s: __/libraries/AP_DAL/AP_DAL_Beacon.cpp.s
-.PHONY : __/libraries/AP_DAL/AP_DAL_Beacon.s
-
-# target to generate assembly for a file
-__/libraries/AP_DAL/AP_DAL_Beacon.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/__/libraries/AP_DAL/AP_DAL_Beacon.cpp.s
-.PHONY : __/libraries/AP_DAL/AP_DAL_Beacon.cpp.s
-
-__/libraries/AP_DAL/AP_DAL_RangeFinder.o: __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
-.PHONY : __/libraries/AP_DAL/AP_DAL_RangeFinder.o
-
-# target to build an object file
-__/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/__/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
-.PHONY : __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
-
-__/libraries/AP_DAL/AP_DAL_RangeFinder.i: __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
-.PHONY : __/libraries/AP_DAL/AP_DAL_RangeFinder.i
-
-# target to preprocess a source file
-__/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/__/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
-.PHONY : __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
-
-__/libraries/AP_DAL/AP_DAL_RangeFinder.s: __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
-.PHONY : __/libraries/AP_DAL/AP_DAL_RangeFinder.s
-
-# target to generate assembly for a file
-__/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/__/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
-.PHONY : __/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
-
-__/libraries/AP_DAL/AP_DAL_VisualOdom.o: __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
-.PHONY : __/libraries/AP_DAL/AP_DAL_VisualOdom.o
-
-# target to build an object file
-__/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/__/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
-.PHONY : __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
-
-__/libraries/AP_DAL/AP_DAL_VisualOdom.i: __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
-.PHONY : __/libraries/AP_DAL/AP_DAL_VisualOdom.i
-
-# target to preprocess a source file
-__/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/__/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
-.PHONY : __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
-
-__/libraries/AP_DAL/AP_DAL_VisualOdom.s: __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
-.PHONY : __/libraries/AP_DAL/AP_DAL_VisualOdom.s
-
-# target to generate assembly for a file
-__/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_DAL_ArduCopter.dir/__/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
-.PHONY : __/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
-
-__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.o: __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.o
-.PHONY : __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.o
-
-# target to build an object file
-__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ESC_Telem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ESC_Telem_ArduCopter.dir/__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.o
-.PHONY : __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.o
-
-__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.i: __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.i
-.PHONY : __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.i
-
-# target to preprocess a source file
-__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ESC_Telem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ESC_Telem_ArduCopter.dir/__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.i
-.PHONY : __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.i
-
-__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.s: __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.s
-.PHONY : __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.s
-
-# target to generate assembly for a file
-__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ESC_Telem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ESC_Telem_ArduCopter.dir/__/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.s
-.PHONY : __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.s
-
-__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.o: __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.o
-.PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.o
-
-# target to build an object file
-__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.o
-.PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.o
-
-__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.i: __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.i
-.PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.i
-
-# target to preprocess a source file
-__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.i
-.PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.i
-
-__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.s: __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.s
-.PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.s
-
-# target to generate assembly for a file
-__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.s
-.PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.s
-
-__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.o: __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.o
-.PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.o
-
-# target to build an object file
-__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.o
-.PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.o
-
-__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.i: __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.i
-.PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.i
-
-# target to preprocess a source file
-__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.i
-.PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.i
-
-__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.s: __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.s
-.PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.s
-
-# target to generate assembly for a file
-__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_ExternalAHRS_ArduCopter.dir/__/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.s
-.PHONY : __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.s
-
-__/libraries/AP_Filesystem/AP_Filesystem_posix.o: __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.o
-.PHONY : __/libraries/AP_Filesystem/AP_Filesystem_posix.o
-
-# target to build an object file
-__/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Filesystem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Filesystem_ArduCopter.dir/__/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.o
-.PHONY : __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.o
-
-__/libraries/AP_Filesystem/AP_Filesystem_posix.i: __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.i
-.PHONY : __/libraries/AP_Filesystem/AP_Filesystem_posix.i
-
-# target to preprocess a source file
-__/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Filesystem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Filesystem_ArduCopter.dir/__/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.i
-.PHONY : __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.i
-
-__/libraries/AP_Filesystem/AP_Filesystem_posix.s: __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.s
-.PHONY : __/libraries/AP_Filesystem/AP_Filesystem_posix.s
-
-# target to generate assembly for a file
-__/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Filesystem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Filesystem_ArduCopter.dir/__/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.s
-.PHONY : __/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.s
-
-__/libraries/AP_Follow/AP_Follow.o: __/libraries/AP_Follow/AP_Follow.cpp.o
-.PHONY : __/libraries/AP_Follow/AP_Follow.o
-
-# target to build an object file
-__/libraries/AP_Follow/AP_Follow.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Follow_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Follow_ArduCopter.dir/__/libraries/AP_Follow/AP_Follow.cpp.o
-.PHONY : __/libraries/AP_Follow/AP_Follow.cpp.o
-
-__/libraries/AP_Follow/AP_Follow.i: __/libraries/AP_Follow/AP_Follow.cpp.i
-.PHONY : __/libraries/AP_Follow/AP_Follow.i
-
-# target to preprocess a source file
-__/libraries/AP_Follow/AP_Follow.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Follow_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Follow_ArduCopter.dir/__/libraries/AP_Follow/AP_Follow.cpp.i
-.PHONY : __/libraries/AP_Follow/AP_Follow.cpp.i
-
-__/libraries/AP_Follow/AP_Follow.s: __/libraries/AP_Follow/AP_Follow.cpp.s
-.PHONY : __/libraries/AP_Follow/AP_Follow.s
-
-# target to generate assembly for a file
-__/libraries/AP_Follow/AP_Follow.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Follow_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Follow_ArduCopter.dir/__/libraries/AP_Follow/AP_Follow.cpp.s
-.PHONY : __/libraries/AP_Follow/AP_Follow.cpp.s
-
-__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.o: __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.o
-.PHONY : __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.o
-
-# target to build an object file
-__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Frsky_Telem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Frsky_Telem_ArduCopter.dir/__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.o
-.PHONY : __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.o
-
-__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.i: __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.i
-.PHONY : __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.i
-
-# target to preprocess a source file
-__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Frsky_Telem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Frsky_Telem_ArduCopter.dir/__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.i
-.PHONY : __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.i
-
-__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.s: __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.s
-.PHONY : __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.s
-
-# target to generate assembly for a file
-__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Frsky_Telem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Frsky_Telem_ArduCopter.dir/__/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.s
-.PHONY : __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.s
-
-__/libraries/AP_GyroFFT/AP_GyroFFT.o: __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.o
-.PHONY : __/libraries/AP_GyroFFT/AP_GyroFFT.o
-
-# target to build an object file
-__/libraries/AP_GyroFFT/AP_GyroFFT.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_GyroFFT_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_GyroFFT_ArduCopter.dir/__/libraries/AP_GyroFFT/AP_GyroFFT.cpp.o
-.PHONY : __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.o
-
-__/libraries/AP_GyroFFT/AP_GyroFFT.i: __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.i
-.PHONY : __/libraries/AP_GyroFFT/AP_GyroFFT.i
-
-# target to preprocess a source file
-__/libraries/AP_GyroFFT/AP_GyroFFT.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_GyroFFT_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_GyroFFT_ArduCopter.dir/__/libraries/AP_GyroFFT/AP_GyroFFT.cpp.i
-.PHONY : __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.i
-
-__/libraries/AP_GyroFFT/AP_GyroFFT.s: __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.s
-.PHONY : __/libraries/AP_GyroFFT/AP_GyroFFT.s
-
-# target to generate assembly for a file
-__/libraries/AP_GyroFFT/AP_GyroFFT.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_GyroFFT_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_GyroFFT_ArduCopter.dir/__/libraries/AP_GyroFFT/AP_GyroFFT.cpp.s
-.PHONY : __/libraries/AP_GyroFFT/AP_GyroFFT.cpp.s
-
-__/libraries/AP_HAL/SIMState.o: __/libraries/AP_HAL/SIMState.cpp.o
-.PHONY : __/libraries/AP_HAL/SIMState.o
-
-# target to build an object file
-__/libraries/AP_HAL/SIMState.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_HAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_HAL_ArduCopter.dir/__/libraries/AP_HAL/SIMState.cpp.o
-.PHONY : __/libraries/AP_HAL/SIMState.cpp.o
-
-__/libraries/AP_HAL/SIMState.i: __/libraries/AP_HAL/SIMState.cpp.i
-.PHONY : __/libraries/AP_HAL/SIMState.i
-
-# target to preprocess a source file
-__/libraries/AP_HAL/SIMState.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_HAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_HAL_ArduCopter.dir/__/libraries/AP_HAL/SIMState.cpp.i
-.PHONY : __/libraries/AP_HAL/SIMState.cpp.i
-
-__/libraries/AP_HAL/SIMState.s: __/libraries/AP_HAL/SIMState.cpp.s
-.PHONY : __/libraries/AP_HAL/SIMState.s
-
-# target to generate assembly for a file
-__/libraries/AP_HAL/SIMState.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_HAL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_HAL_ArduCopter.dir/__/libraries/AP_HAL/SIMState.cpp.s
-.PHONY : __/libraries/AP_HAL/SIMState.cpp.s
-
-__/libraries/AP_HAL_SITL/SITL_cmdline.o: __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
-.PHONY : __/libraries/AP_HAL_SITL/SITL_cmdline.o
-
-# target to build an object file
-__/libraries/AP_HAL_SITL/SITL_cmdline.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/__/libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
-.PHONY : __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
-
-__/libraries/AP_HAL_SITL/SITL_cmdline.i: __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
-.PHONY : __/libraries/AP_HAL_SITL/SITL_cmdline.i
-
-# target to preprocess a source file
-__/libraries/AP_HAL_SITL/SITL_cmdline.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/__/libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
-.PHONY : __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
-
-__/libraries/AP_HAL_SITL/SITL_cmdline.s: __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
-.PHONY : __/libraries/AP_HAL_SITL/SITL_cmdline.s
-
-# target to generate assembly for a file
-__/libraries/AP_HAL_SITL/SITL_cmdline.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/__/libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
-.PHONY : __/libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
-
-__/libraries/AP_HAL_SITL/Storage.o: __/libraries/AP_HAL_SITL/Storage.cpp.o
-.PHONY : __/libraries/AP_HAL_SITL/Storage.o
-
-# target to build an object file
-__/libraries/AP_HAL_SITL/Storage.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/__/libraries/AP_HAL_SITL/Storage.cpp.o
-.PHONY : __/libraries/AP_HAL_SITL/Storage.cpp.o
-
-__/libraries/AP_HAL_SITL/Storage.i: __/libraries/AP_HAL_SITL/Storage.cpp.i
-.PHONY : __/libraries/AP_HAL_SITL/Storage.i
-
-# target to preprocess a source file
-__/libraries/AP_HAL_SITL/Storage.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/__/libraries/AP_HAL_SITL/Storage.cpp.i
-.PHONY : __/libraries/AP_HAL_SITL/Storage.cpp.i
-
-__/libraries/AP_HAL_SITL/Storage.s: __/libraries/AP_HAL_SITL/Storage.cpp.s
-.PHONY : __/libraries/AP_HAL_SITL/Storage.s
-
-# target to generate assembly for a file
-__/libraries/AP_HAL_SITL/Storage.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/__/libraries/AP_HAL_SITL/Storage.cpp.s
-.PHONY : __/libraries/AP_HAL_SITL/Storage.cpp.s
-
-__/libraries/AP_HAL_SITL/UARTDriver.o: __/libraries/AP_HAL_SITL/UARTDriver.cpp.o
-.PHONY : __/libraries/AP_HAL_SITL/UARTDriver.o
-
-# target to build an object file
-__/libraries/AP_HAL_SITL/UARTDriver.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/__/libraries/AP_HAL_SITL/UARTDriver.cpp.o
-.PHONY : __/libraries/AP_HAL_SITL/UARTDriver.cpp.o
-
-__/libraries/AP_HAL_SITL/UARTDriver.i: __/libraries/AP_HAL_SITL/UARTDriver.cpp.i
-.PHONY : __/libraries/AP_HAL_SITL/UARTDriver.i
-
-# target to preprocess a source file
-__/libraries/AP_HAL_SITL/UARTDriver.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/__/libraries/AP_HAL_SITL/UARTDriver.cpp.i
-.PHONY : __/libraries/AP_HAL_SITL/UARTDriver.cpp.i
-
-__/libraries/AP_HAL_SITL/UARTDriver.s: __/libraries/AP_HAL_SITL/UARTDriver.cpp.s
-.PHONY : __/libraries/AP_HAL_SITL/UARTDriver.s
-
-# target to generate assembly for a file
-__/libraries/AP_HAL_SITL/UARTDriver.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_HAL_SITL_ArduCopter.dir/__/libraries/AP_HAL_SITL/UARTDriver.cpp.s
-.PHONY : __/libraries/AP_HAL_SITL/UARTDriver.cpp.s
-
-__/libraries/AP_IBus_Telem/AP_IBus_Telem.o: __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.o
-.PHONY : __/libraries/AP_IBus_Telem/AP_IBus_Telem.o
-
-# target to build an object file
-__/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_IBus_Telem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_IBus_Telem_ArduCopter.dir/__/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.o
-.PHONY : __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.o
-
-__/libraries/AP_IBus_Telem/AP_IBus_Telem.i: __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.i
-.PHONY : __/libraries/AP_IBus_Telem/AP_IBus_Telem.i
-
-# target to preprocess a source file
-__/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_IBus_Telem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_IBus_Telem_ArduCopter.dir/__/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.i
-.PHONY : __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.i
-
-__/libraries/AP_IBus_Telem/AP_IBus_Telem.s: __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.s
-.PHONY : __/libraries/AP_IBus_Telem/AP_IBus_Telem.s
-
-# target to generate assembly for a file
-__/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_IBus_Telem_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_IBus_Telem_ArduCopter.dir/__/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.s
-.PHONY : __/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.s
-
-__/libraries/AP_InertialSensor/AP_InertialSensor.o: __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.o
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor.o
-
-# target to build an object file
-__/libraries/AP_InertialSensor/AP_InertialSensor.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/__/libraries/AP_InertialSensor/AP_InertialSensor.cpp.o
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.o
-
-__/libraries/AP_InertialSensor/AP_InertialSensor.i: __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.i
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor.i
-
-# target to preprocess a source file
-__/libraries/AP_InertialSensor/AP_InertialSensor.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/__/libraries/AP_InertialSensor/AP_InertialSensor.cpp.i
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.i
-
-__/libraries/AP_InertialSensor/AP_InertialSensor.s: __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.s
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor.s
-
-# target to generate assembly for a file
-__/libraries/AP_InertialSensor/AP_InertialSensor.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/__/libraries/AP_InertialSensor/AP_InertialSensor.cpp.s
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor.cpp.s
-
-__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.o: __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.o
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.o
-
-# target to build an object file
-__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.o
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.o
-
-__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.i: __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.i
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.i
-
-# target to preprocess a source file
-__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.i
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.i
-
-__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.s: __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.s
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.s
-
-# target to generate assembly for a file
-__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.s
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.s
-
-__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.o: __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.o
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.o
-
-# target to build an object file
-__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.o
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.o
-
-__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.i: __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.i
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.i
-
-# target to preprocess a source file
-__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.i
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.i
-
-__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.s: __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.s
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.s
-
-# target to generate assembly for a file
-__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/__/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.s
-.PHONY : __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.s
-
-__/libraries/AP_InertialSensor/FastRateBuffer.o: __/libraries/AP_InertialSensor/FastRateBuffer.cpp.o
-.PHONY : __/libraries/AP_InertialSensor/FastRateBuffer.o
-
-# target to build an object file
-__/libraries/AP_InertialSensor/FastRateBuffer.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/__/libraries/AP_InertialSensor/FastRateBuffer.cpp.o
-.PHONY : __/libraries/AP_InertialSensor/FastRateBuffer.cpp.o
-
-__/libraries/AP_InertialSensor/FastRateBuffer.i: __/libraries/AP_InertialSensor/FastRateBuffer.cpp.i
-.PHONY : __/libraries/AP_InertialSensor/FastRateBuffer.i
-
-# target to preprocess a source file
-__/libraries/AP_InertialSensor/FastRateBuffer.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/__/libraries/AP_InertialSensor/FastRateBuffer.cpp.i
-.PHONY : __/libraries/AP_InertialSensor/FastRateBuffer.cpp.i
-
-__/libraries/AP_InertialSensor/FastRateBuffer.s: __/libraries/AP_InertialSensor/FastRateBuffer.cpp.s
-.PHONY : __/libraries/AP_InertialSensor/FastRateBuffer.s
-
-# target to generate assembly for a file
-__/libraries/AP_InertialSensor/FastRateBuffer.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_InertialSensor_ArduCopter.dir/__/libraries/AP_InertialSensor/FastRateBuffer.cpp.s
-.PHONY : __/libraries/AP_InertialSensor/FastRateBuffer.cpp.s
-
-__/libraries/AP_LandingGear/AP_LandingGear.o: __/libraries/AP_LandingGear/AP_LandingGear.cpp.o
-.PHONY : __/libraries/AP_LandingGear/AP_LandingGear.o
-
-# target to build an object file
-__/libraries/AP_LandingGear/AP_LandingGear.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_LandingGear_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_LandingGear_ArduCopter.dir/__/libraries/AP_LandingGear/AP_LandingGear.cpp.o
-.PHONY : __/libraries/AP_LandingGear/AP_LandingGear.cpp.o
-
-__/libraries/AP_LandingGear/AP_LandingGear.i: __/libraries/AP_LandingGear/AP_LandingGear.cpp.i
-.PHONY : __/libraries/AP_LandingGear/AP_LandingGear.i
-
-# target to preprocess a source file
-__/libraries/AP_LandingGear/AP_LandingGear.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_LandingGear_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_LandingGear_ArduCopter.dir/__/libraries/AP_LandingGear/AP_LandingGear.cpp.i
-.PHONY : __/libraries/AP_LandingGear/AP_LandingGear.cpp.i
-
-__/libraries/AP_LandingGear/AP_LandingGear.s: __/libraries/AP_LandingGear/AP_LandingGear.cpp.s
-.PHONY : __/libraries/AP_LandingGear/AP_LandingGear.s
-
-# target to generate assembly for a file
-__/libraries/AP_LandingGear/AP_LandingGear.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_LandingGear_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_LandingGear_ArduCopter.dir/__/libraries/AP_LandingGear/AP_LandingGear.cpp.s
-.PHONY : __/libraries/AP_LandingGear/AP_LandingGear.cpp.s
-
-__/libraries/AP_Logger/AP_Logger.o: __/libraries/AP_Logger/AP_Logger.cpp.o
-.PHONY : __/libraries/AP_Logger/AP_Logger.o
-
-# target to build an object file
-__/libraries/AP_Logger/AP_Logger.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/__/libraries/AP_Logger/AP_Logger.cpp.o
-.PHONY : __/libraries/AP_Logger/AP_Logger.cpp.o
-
-__/libraries/AP_Logger/AP_Logger.i: __/libraries/AP_Logger/AP_Logger.cpp.i
-.PHONY : __/libraries/AP_Logger/AP_Logger.i
-
-# target to preprocess a source file
-__/libraries/AP_Logger/AP_Logger.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/__/libraries/AP_Logger/AP_Logger.cpp.i
-.PHONY : __/libraries/AP_Logger/AP_Logger.cpp.i
-
-__/libraries/AP_Logger/AP_Logger.s: __/libraries/AP_Logger/AP_Logger.cpp.s
-.PHONY : __/libraries/AP_Logger/AP_Logger.s
-
-# target to generate assembly for a file
-__/libraries/AP_Logger/AP_Logger.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/__/libraries/AP_Logger/AP_Logger.cpp.s
-.PHONY : __/libraries/AP_Logger/AP_Logger.cpp.s
-
-__/libraries/AP_Logger/AP_Logger_Backend.o: __/libraries/AP_Logger/AP_Logger_Backend.cpp.o
-.PHONY : __/libraries/AP_Logger/AP_Logger_Backend.o
-
-# target to build an object file
-__/libraries/AP_Logger/AP_Logger_Backend.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/__/libraries/AP_Logger/AP_Logger_Backend.cpp.o
-.PHONY : __/libraries/AP_Logger/AP_Logger_Backend.cpp.o
-
-__/libraries/AP_Logger/AP_Logger_Backend.i: __/libraries/AP_Logger/AP_Logger_Backend.cpp.i
-.PHONY : __/libraries/AP_Logger/AP_Logger_Backend.i
-
-# target to preprocess a source file
-__/libraries/AP_Logger/AP_Logger_Backend.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/__/libraries/AP_Logger/AP_Logger_Backend.cpp.i
-.PHONY : __/libraries/AP_Logger/AP_Logger_Backend.cpp.i
-
-__/libraries/AP_Logger/AP_Logger_Backend.s: __/libraries/AP_Logger/AP_Logger_Backend.cpp.s
-.PHONY : __/libraries/AP_Logger/AP_Logger_Backend.s
-
-# target to generate assembly for a file
-__/libraries/AP_Logger/AP_Logger_Backend.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/__/libraries/AP_Logger/AP_Logger_Backend.cpp.s
-.PHONY : __/libraries/AP_Logger/AP_Logger_Backend.cpp.s
-
-__/libraries/AP_Logger/AP_Logger_File.o: __/libraries/AP_Logger/AP_Logger_File.cpp.o
-.PHONY : __/libraries/AP_Logger/AP_Logger_File.o
-
-# target to build an object file
-__/libraries/AP_Logger/AP_Logger_File.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/__/libraries/AP_Logger/AP_Logger_File.cpp.o
-.PHONY : __/libraries/AP_Logger/AP_Logger_File.cpp.o
-
-__/libraries/AP_Logger/AP_Logger_File.i: __/libraries/AP_Logger/AP_Logger_File.cpp.i
-.PHONY : __/libraries/AP_Logger/AP_Logger_File.i
-
-# target to preprocess a source file
-__/libraries/AP_Logger/AP_Logger_File.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/__/libraries/AP_Logger/AP_Logger_File.cpp.i
-.PHONY : __/libraries/AP_Logger/AP_Logger_File.cpp.i
-
-__/libraries/AP_Logger/AP_Logger_File.s: __/libraries/AP_Logger/AP_Logger_File.cpp.s
-.PHONY : __/libraries/AP_Logger/AP_Logger_File.s
-
-# target to generate assembly for a file
-__/libraries/AP_Logger/AP_Logger_File.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/__/libraries/AP_Logger/AP_Logger_File.cpp.s
-.PHONY : __/libraries/AP_Logger/AP_Logger_File.cpp.s
-
-__/libraries/AP_Logger/LoggerMessageWriter.o: __/libraries/AP_Logger/LoggerMessageWriter.cpp.o
-.PHONY : __/libraries/AP_Logger/LoggerMessageWriter.o
-
-# target to build an object file
-__/libraries/AP_Logger/LoggerMessageWriter.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/__/libraries/AP_Logger/LoggerMessageWriter.cpp.o
-.PHONY : __/libraries/AP_Logger/LoggerMessageWriter.cpp.o
-
-__/libraries/AP_Logger/LoggerMessageWriter.i: __/libraries/AP_Logger/LoggerMessageWriter.cpp.i
-.PHONY : __/libraries/AP_Logger/LoggerMessageWriter.i
-
-# target to preprocess a source file
-__/libraries/AP_Logger/LoggerMessageWriter.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/__/libraries/AP_Logger/LoggerMessageWriter.cpp.i
-.PHONY : __/libraries/AP_Logger/LoggerMessageWriter.cpp.i
-
-__/libraries/AP_Logger/LoggerMessageWriter.s: __/libraries/AP_Logger/LoggerMessageWriter.cpp.s
-.PHONY : __/libraries/AP_Logger/LoggerMessageWriter.s
-
-# target to generate assembly for a file
-__/libraries/AP_Logger/LoggerMessageWriter.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Logger_ArduCopter.dir/__/libraries/AP_Logger/LoggerMessageWriter.cpp.s
-.PHONY : __/libraries/AP_Logger/LoggerMessageWriter.cpp.s
-
-__/libraries/AP_Math/SCurve.o: __/libraries/AP_Math/SCurve.cpp.o
-.PHONY : __/libraries/AP_Math/SCurve.o
-
-# target to build an object file
-__/libraries/AP_Math/SCurve.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Math_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Math_ArduCopter.dir/__/libraries/AP_Math/SCurve.cpp.o
-.PHONY : __/libraries/AP_Math/SCurve.cpp.o
-
-__/libraries/AP_Math/SCurve.i: __/libraries/AP_Math/SCurve.cpp.i
-.PHONY : __/libraries/AP_Math/SCurve.i
-
-# target to preprocess a source file
-__/libraries/AP_Math/SCurve.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Math_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Math_ArduCopter.dir/__/libraries/AP_Math/SCurve.cpp.i
-.PHONY : __/libraries/AP_Math/SCurve.cpp.i
-
-__/libraries/AP_Math/SCurve.s: __/libraries/AP_Math/SCurve.cpp.s
-.PHONY : __/libraries/AP_Math/SCurve.s
-
-# target to generate assembly for a file
-__/libraries/AP_Math/SCurve.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Math_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Math_ArduCopter.dir/__/libraries/AP_Math/SCurve.cpp.s
-.PHONY : __/libraries/AP_Math/SCurve.cpp.s
-
-__/libraries/AP_Mission/AP_Mission.o: __/libraries/AP_Mission/AP_Mission.cpp.o
-.PHONY : __/libraries/AP_Mission/AP_Mission.o
-
-# target to build an object file
-__/libraries/AP_Mission/AP_Mission.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Mission_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Mission_ArduCopter.dir/__/libraries/AP_Mission/AP_Mission.cpp.o
-.PHONY : __/libraries/AP_Mission/AP_Mission.cpp.o
-
-__/libraries/AP_Mission/AP_Mission.i: __/libraries/AP_Mission/AP_Mission.cpp.i
-.PHONY : __/libraries/AP_Mission/AP_Mission.i
-
-# target to preprocess a source file
-__/libraries/AP_Mission/AP_Mission.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Mission_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Mission_ArduCopter.dir/__/libraries/AP_Mission/AP_Mission.cpp.i
-.PHONY : __/libraries/AP_Mission/AP_Mission.cpp.i
-
-__/libraries/AP_Mission/AP_Mission.s: __/libraries/AP_Mission/AP_Mission.cpp.s
-.PHONY : __/libraries/AP_Mission/AP_Mission.s
-
-# target to generate assembly for a file
-__/libraries/AP_Mission/AP_Mission.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Mission_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Mission_ArduCopter.dir/__/libraries/AP_Mission/AP_Mission.cpp.s
-.PHONY : __/libraries/AP_Mission/AP_Mission.cpp.s
-
-__/libraries/AP_Motors/AP_MotorsMatrix.o: __/libraries/AP_Motors/AP_MotorsMatrix.cpp.o
-.PHONY : __/libraries/AP_Motors/AP_MotorsMatrix.o
-
-# target to build an object file
-__/libraries/AP_Motors/AP_MotorsMatrix.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/__/libraries/AP_Motors/AP_MotorsMatrix.cpp.o
-.PHONY : __/libraries/AP_Motors/AP_MotorsMatrix.cpp.o
-
-__/libraries/AP_Motors/AP_MotorsMatrix.i: __/libraries/AP_Motors/AP_MotorsMatrix.cpp.i
-.PHONY : __/libraries/AP_Motors/AP_MotorsMatrix.i
-
-# target to preprocess a source file
-__/libraries/AP_Motors/AP_MotorsMatrix.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/__/libraries/AP_Motors/AP_MotorsMatrix.cpp.i
-.PHONY : __/libraries/AP_Motors/AP_MotorsMatrix.cpp.i
-
-__/libraries/AP_Motors/AP_MotorsMatrix.s: __/libraries/AP_Motors/AP_MotorsMatrix.cpp.s
-.PHONY : __/libraries/AP_Motors/AP_MotorsMatrix.s
-
-# target to generate assembly for a file
-__/libraries/AP_Motors/AP_MotorsMatrix.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/__/libraries/AP_Motors/AP_MotorsMatrix.cpp.s
-.PHONY : __/libraries/AP_Motors/AP_MotorsMatrix.cpp.s
-
-__/libraries/AP_Motors/AP_MotorsMulticopter.o: __/libraries/AP_Motors/AP_MotorsMulticopter.cpp.o
-.PHONY : __/libraries/AP_Motors/AP_MotorsMulticopter.o
-
-# target to build an object file
-__/libraries/AP_Motors/AP_MotorsMulticopter.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/__/libraries/AP_Motors/AP_MotorsMulticopter.cpp.o
-.PHONY : __/libraries/AP_Motors/AP_MotorsMulticopter.cpp.o
-
-__/libraries/AP_Motors/AP_MotorsMulticopter.i: __/libraries/AP_Motors/AP_MotorsMulticopter.cpp.i
-.PHONY : __/libraries/AP_Motors/AP_MotorsMulticopter.i
-
-# target to preprocess a source file
-__/libraries/AP_Motors/AP_MotorsMulticopter.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/__/libraries/AP_Motors/AP_MotorsMulticopter.cpp.i
-.PHONY : __/libraries/AP_Motors/AP_MotorsMulticopter.cpp.i
-
-__/libraries/AP_Motors/AP_MotorsMulticopter.s: __/libraries/AP_Motors/AP_MotorsMulticopter.cpp.s
-.PHONY : __/libraries/AP_Motors/AP_MotorsMulticopter.s
-
-# target to generate assembly for a file
-__/libraries/AP_Motors/AP_MotorsMulticopter.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/__/libraries/AP_Motors/AP_MotorsMulticopter.cpp.s
-.PHONY : __/libraries/AP_Motors/AP_MotorsMulticopter.cpp.s
-
-__/libraries/AP_Motors/AP_MotorsTri.o: __/libraries/AP_Motors/AP_MotorsTri.cpp.o
-.PHONY : __/libraries/AP_Motors/AP_MotorsTri.o
-
-# target to build an object file
-__/libraries/AP_Motors/AP_MotorsTri.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/__/libraries/AP_Motors/AP_MotorsTri.cpp.o
-.PHONY : __/libraries/AP_Motors/AP_MotorsTri.cpp.o
-
-__/libraries/AP_Motors/AP_MotorsTri.i: __/libraries/AP_Motors/AP_MotorsTri.cpp.i
-.PHONY : __/libraries/AP_Motors/AP_MotorsTri.i
-
-# target to preprocess a source file
-__/libraries/AP_Motors/AP_MotorsTri.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/__/libraries/AP_Motors/AP_MotorsTri.cpp.i
-.PHONY : __/libraries/AP_Motors/AP_MotorsTri.cpp.i
-
-__/libraries/AP_Motors/AP_MotorsTri.s: __/libraries/AP_Motors/AP_MotorsTri.cpp.s
-.PHONY : __/libraries/AP_Motors/AP_MotorsTri.s
-
-# target to generate assembly for a file
-__/libraries/AP_Motors/AP_MotorsTri.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/__/libraries/AP_Motors/AP_MotorsTri.cpp.s
-.PHONY : __/libraries/AP_Motors/AP_MotorsTri.cpp.s
-
-__/libraries/AP_Motors/AP_Motors_Thrust_Linearization.o: __/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.o
-.PHONY : __/libraries/AP_Motors/AP_Motors_Thrust_Linearization.o
-
-# target to build an object file
-__/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/__/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.o
-.PHONY : __/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.o
-
-__/libraries/AP_Motors/AP_Motors_Thrust_Linearization.i: __/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.i
-.PHONY : __/libraries/AP_Motors/AP_Motors_Thrust_Linearization.i
-
-# target to preprocess a source file
-__/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/__/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.i
-.PHONY : __/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.i
-
-__/libraries/AP_Motors/AP_Motors_Thrust_Linearization.s: __/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.s
-.PHONY : __/libraries/AP_Motors/AP_Motors_Thrust_Linearization.s
-
-# target to generate assembly for a file
-__/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Motors_ArduCopter.dir/__/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.s
-.PHONY : __/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.s
-
-__/libraries/AP_NavEKF2/AP_NavEKF2.o: __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.o
-.PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2.o
-
-# target to build an object file
-__/libraries/AP_NavEKF2/AP_NavEKF2.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/__/libraries/AP_NavEKF2/AP_NavEKF2.cpp.o
-.PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.o
-
-__/libraries/AP_NavEKF2/AP_NavEKF2.i: __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.i
-.PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF2/AP_NavEKF2.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/__/libraries/AP_NavEKF2/AP_NavEKF2.cpp.i
-.PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.i
-
-__/libraries/AP_NavEKF2/AP_NavEKF2.s: __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.s
-.PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF2/AP_NavEKF2.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/__/libraries/AP_NavEKF2/AP_NavEKF2.cpp.s
-.PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2.cpp.s
-
-__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.o: __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.o
-.PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.o
-
-# target to build an object file
-__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.o
-.PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.o
-
-__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.i: __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.i
-.PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.i
-.PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.i
-
-__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.s: __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.s
-.PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF2_ArduCopter.dir/__/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.s
-.PHONY : __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.s
-
-__/libraries/AP_NavEKF3/AP_NavEKF3.o: __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3.o
-
-# target to build an object file
-__/libraries/AP_NavEKF3/AP_NavEKF3.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.o
-
-__/libraries/AP_NavEKF3/AP_NavEKF3.i: __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF3/AP_NavEKF3.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.i
-
-__/libraries/AP_NavEKF3/AP_NavEKF3.s: __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF3/AP_NavEKF3.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3.cpp.s
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.o: __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.o
-
-# target to build an object file
-__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.o
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.i: __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.i
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.s: __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.s
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_Control.o: __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Control.o
-
-# target to build an object file
-__/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.o
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_Control.i: __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Control.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.i
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_Control.s: __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Control.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.s
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.o: __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.o
-
-# target to build an object file
-__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.o
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.i: __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.i
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.s: __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.s
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.o: __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.o
-
-# target to build an object file
-__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.o
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.i: __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.i
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.s: __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.s
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.o: __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.o
-
-# target to build an object file
-__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.o
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.i: __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.i
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.s: __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.s
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.o: __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.o
-
-# target to build an object file
-__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.o
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.i: __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.i
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.s: __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.s
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.o: __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.o
-
-# target to build an object file
-__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.o
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.i: __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.i
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.s: __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.s
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.o: __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.o
-
-# target to build an object file
-__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.o
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.i: __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.i
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.s: __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.s
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.o: __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.o
-
-# target to build an object file
-__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.o
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.i: __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.i
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.s: __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.s
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.o: __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.o
-
-# target to build an object file
-__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.o
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.i: __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.i
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.s: __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.s
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.o: __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.o
-
-# target to build an object file
-__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.o
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.i: __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.i
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.s: __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.s
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_core.o: __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_core.o
-
-# target to build an object file
-__/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.o
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.o
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_core.i: __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_core.i
-
-# target to preprocess a source file
-__/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.i
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.i
-
-__/libraries/AP_NavEKF3/AP_NavEKF3_core.s: __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_core.s
-
-# target to generate assembly for a file
-__/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_NavEKF3_ArduCopter.dir/__/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.s
-.PHONY : __/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.s
-
-__/libraries/AP_OSD/AP_OSD_ParamScreen.o: __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
-.PHONY : __/libraries/AP_OSD/AP_OSD_ParamScreen.o
-
-# target to build an object file
-__/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/__/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
-.PHONY : __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
-
-__/libraries/AP_OSD/AP_OSD_ParamScreen.i: __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
-.PHONY : __/libraries/AP_OSD/AP_OSD_ParamScreen.i
-
-# target to preprocess a source file
-__/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/__/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
-.PHONY : __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
-
-__/libraries/AP_OSD/AP_OSD_ParamScreen.s: __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
-.PHONY : __/libraries/AP_OSD/AP_OSD_ParamScreen.s
-
-# target to generate assembly for a file
-__/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/__/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
-.PHONY : __/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
-
-__/libraries/AP_OSD/AP_OSD_ParamSetting.o: __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
-.PHONY : __/libraries/AP_OSD/AP_OSD_ParamSetting.o
-
-# target to build an object file
-__/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/__/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
-.PHONY : __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
-
-__/libraries/AP_OSD/AP_OSD_ParamSetting.i: __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
-.PHONY : __/libraries/AP_OSD/AP_OSD_ParamSetting.i
-
-# target to preprocess a source file
-__/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/__/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
-.PHONY : __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
-
-__/libraries/AP_OSD/AP_OSD_ParamSetting.s: __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
-.PHONY : __/libraries/AP_OSD/AP_OSD_ParamSetting.s
-
-# target to generate assembly for a file
-__/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/__/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
-.PHONY : __/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
-
-__/libraries/AP_OSD/AP_OSD_Screen.o: __/libraries/AP_OSD/AP_OSD_Screen.cpp.o
-.PHONY : __/libraries/AP_OSD/AP_OSD_Screen.o
-
-# target to build an object file
-__/libraries/AP_OSD/AP_OSD_Screen.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/__/libraries/AP_OSD/AP_OSD_Screen.cpp.o
-.PHONY : __/libraries/AP_OSD/AP_OSD_Screen.cpp.o
-
-__/libraries/AP_OSD/AP_OSD_Screen.i: __/libraries/AP_OSD/AP_OSD_Screen.cpp.i
-.PHONY : __/libraries/AP_OSD/AP_OSD_Screen.i
-
-# target to preprocess a source file
-__/libraries/AP_OSD/AP_OSD_Screen.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/__/libraries/AP_OSD/AP_OSD_Screen.cpp.i
-.PHONY : __/libraries/AP_OSD/AP_OSD_Screen.cpp.i
-
-__/libraries/AP_OSD/AP_OSD_Screen.s: __/libraries/AP_OSD/AP_OSD_Screen.cpp.s
-.PHONY : __/libraries/AP_OSD/AP_OSD_Screen.s
-
-# target to generate assembly for a file
-__/libraries/AP_OSD/AP_OSD_Screen.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_OSD_ArduCopter.dir/__/libraries/AP_OSD/AP_OSD_Screen.cpp.s
-.PHONY : __/libraries/AP_OSD/AP_OSD_Screen.cpp.s
-
-__/libraries/AP_Proximity/AP_Proximity_Utils.o: __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.o
-.PHONY : __/libraries/AP_Proximity/AP_Proximity_Utils.o
-
-# target to build an object file
-__/libraries/AP_Proximity/AP_Proximity_Utils.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Proximity_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Proximity_ArduCopter.dir/__/libraries/AP_Proximity/AP_Proximity_Utils.cpp.o
-.PHONY : __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.o
-
-__/libraries/AP_Proximity/AP_Proximity_Utils.i: __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.i
-.PHONY : __/libraries/AP_Proximity/AP_Proximity_Utils.i
-
-# target to preprocess a source file
-__/libraries/AP_Proximity/AP_Proximity_Utils.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Proximity_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Proximity_ArduCopter.dir/__/libraries/AP_Proximity/AP_Proximity_Utils.cpp.i
-.PHONY : __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.i
-
-__/libraries/AP_Proximity/AP_Proximity_Utils.s: __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.s
-.PHONY : __/libraries/AP_Proximity/AP_Proximity_Utils.s
-
-# target to generate assembly for a file
-__/libraries/AP_Proximity/AP_Proximity_Utils.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Proximity_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Proximity_ArduCopter.dir/__/libraries/AP_Proximity/AP_Proximity_Utils.cpp.s
-.PHONY : __/libraries/AP_Proximity/AP_Proximity_Utils.cpp.s
-
-__/libraries/AP_RCProtocol/AP_RCProtocol.o: __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.o
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol.o
-
-# target to build an object file
-__/libraries/AP_RCProtocol/AP_RCProtocol.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol.cpp.o
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.o
-
-__/libraries/AP_RCProtocol/AP_RCProtocol.i: __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.i
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol.i
-
-# target to preprocess a source file
-__/libraries/AP_RCProtocol/AP_RCProtocol.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol.cpp.i
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.i
-
-__/libraries/AP_RCProtocol/AP_RCProtocol.s: __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.s
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol.s
-
-# target to generate assembly for a file
-__/libraries/AP_RCProtocol/AP_RCProtocol.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol.cpp.s
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol.cpp.s
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.o: __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.o
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.o
-
-# target to build an object file
-__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.o
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.o
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.i: __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.i
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.i
-
-# target to preprocess a source file
-__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.i
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.i
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.s: __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.s
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.s
-
-# target to generate assembly for a file
-__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.s
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.s
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.o: __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.o
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.o
-
-# target to build an object file
-__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.o
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.o
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.i: __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.i
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.i
-
-# target to preprocess a source file
-__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.i
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.i
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.s: __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.s
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.s
-
-# target to generate assembly for a file
-__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.s
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.s
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.o: __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.o
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.o
-
-# target to build an object file
-__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.o
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.o
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.i: __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.i
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.i
-
-# target to preprocess a source file
-__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.i
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.i
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.s: __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.s
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.s
-
-# target to generate assembly for a file
-__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.s
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.s
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.o: __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.o
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.o
-
-# target to build an object file
-__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.o
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.o
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.i: __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.i
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.i
-
-# target to preprocess a source file
-__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.i
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.i
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.s: __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.s
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.s
-
-# target to generate assembly for a file
-__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.s
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.s
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.o: __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.o
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.o
-
-# target to build an object file
-__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.o
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.o
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.i: __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.i
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.i
-
-# target to preprocess a source file
-__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.i
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.i
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.s: __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.s
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.s
-
-# target to generate assembly for a file
-__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.s
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.s
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.o: __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.o
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.o
-
-# target to build an object file
-__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.o
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.o
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.i: __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.i
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.i
-
-# target to preprocess a source file
-__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.i
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.i
-
-__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.s: __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.s
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.s
-
-# target to generate assembly for a file
-__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCProtocol_ArduCopter.dir/__/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.s
-.PHONY : __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.s
-
-__/libraries/AP_RCTelemetry/AP_CRSF_Telem.o: __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.o
-.PHONY : __/libraries/AP_RCTelemetry/AP_CRSF_Telem.o
-
-# target to build an object file
-__/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/__/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.o
-.PHONY : __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.o
-
-__/libraries/AP_RCTelemetry/AP_CRSF_Telem.i: __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.i
-.PHONY : __/libraries/AP_RCTelemetry/AP_CRSF_Telem.i
-
-# target to preprocess a source file
-__/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/__/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.i
-.PHONY : __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.i
-
-__/libraries/AP_RCTelemetry/AP_CRSF_Telem.s: __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.s
-.PHONY : __/libraries/AP_RCTelemetry/AP_CRSF_Telem.s
-
-# target to generate assembly for a file
-__/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/__/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.s
-.PHONY : __/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.s
-
-__/libraries/AP_RCTelemetry/AP_RCTelemetry.o: __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.o
-.PHONY : __/libraries/AP_RCTelemetry/AP_RCTelemetry.o
-
-# target to build an object file
-__/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/__/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.o
-.PHONY : __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.o
-
-__/libraries/AP_RCTelemetry/AP_RCTelemetry.i: __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.i
-.PHONY : __/libraries/AP_RCTelemetry/AP_RCTelemetry.i
-
-# target to preprocess a source file
-__/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/__/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.i
-.PHONY : __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.i
-
-__/libraries/AP_RCTelemetry/AP_RCTelemetry.s: __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.s
-.PHONY : __/libraries/AP_RCTelemetry/AP_RCTelemetry.s
-
-# target to generate assembly for a file
-__/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_RCTelemetry_ArduCopter.dir/__/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.s
-.PHONY : __/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.s
-
-__/libraries/AP_Rally/AP_Rally.o: __/libraries/AP_Rally/AP_Rally.cpp.o
-.PHONY : __/libraries/AP_Rally/AP_Rally.o
-
-# target to build an object file
-__/libraries/AP_Rally/AP_Rally.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Rally_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Rally_ArduCopter.dir/__/libraries/AP_Rally/AP_Rally.cpp.o
-.PHONY : __/libraries/AP_Rally/AP_Rally.cpp.o
-
-__/libraries/AP_Rally/AP_Rally.i: __/libraries/AP_Rally/AP_Rally.cpp.i
-.PHONY : __/libraries/AP_Rally/AP_Rally.i
-
-# target to preprocess a source file
-__/libraries/AP_Rally/AP_Rally.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Rally_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Rally_ArduCopter.dir/__/libraries/AP_Rally/AP_Rally.cpp.i
-.PHONY : __/libraries/AP_Rally/AP_Rally.cpp.i
-
-__/libraries/AP_Rally/AP_Rally.s: __/libraries/AP_Rally/AP_Rally.cpp.s
-.PHONY : __/libraries/AP_Rally/AP_Rally.s
-
-# target to generate assembly for a file
-__/libraries/AP_Rally/AP_Rally.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Rally_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Rally_ArduCopter.dir/__/libraries/AP_Rally/AP_Rally.cpp.s
-.PHONY : __/libraries/AP_Rally/AP_Rally.cpp.s
-
-__/libraries/AP_Relay/AP_Relay.o: __/libraries/AP_Relay/AP_Relay.cpp.o
-.PHONY : __/libraries/AP_Relay/AP_Relay.o
-
-# target to build an object file
-__/libraries/AP_Relay/AP_Relay.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Relay_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Relay_ArduCopter.dir/__/libraries/AP_Relay/AP_Relay.cpp.o
-.PHONY : __/libraries/AP_Relay/AP_Relay.cpp.o
-
-__/libraries/AP_Relay/AP_Relay.i: __/libraries/AP_Relay/AP_Relay.cpp.i
-.PHONY : __/libraries/AP_Relay/AP_Relay.i
-
-# target to preprocess a source file
-__/libraries/AP_Relay/AP_Relay.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Relay_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Relay_ArduCopter.dir/__/libraries/AP_Relay/AP_Relay.cpp.i
-.PHONY : __/libraries/AP_Relay/AP_Relay.cpp.i
-
-__/libraries/AP_Relay/AP_Relay.s: __/libraries/AP_Relay/AP_Relay.cpp.s
-.PHONY : __/libraries/AP_Relay/AP_Relay.s
-
-# target to generate assembly for a file
-__/libraries/AP_Relay/AP_Relay.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Relay_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Relay_ArduCopter.dir/__/libraries/AP_Relay/AP_Relay.cpp.s
-.PHONY : __/libraries/AP_Relay/AP_Relay.cpp.s
-
-__/libraries/AP_Scheduler/AP_Scheduler.o: __/libraries/AP_Scheduler/AP_Scheduler.cpp.o
-.PHONY : __/libraries/AP_Scheduler/AP_Scheduler.o
-
-# target to build an object file
-__/libraries/AP_Scheduler/AP_Scheduler.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scheduler_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scheduler_ArduCopter.dir/__/libraries/AP_Scheduler/AP_Scheduler.cpp.o
-.PHONY : __/libraries/AP_Scheduler/AP_Scheduler.cpp.o
-
-__/libraries/AP_Scheduler/AP_Scheduler.i: __/libraries/AP_Scheduler/AP_Scheduler.cpp.i
-.PHONY : __/libraries/AP_Scheduler/AP_Scheduler.i
-
-# target to preprocess a source file
-__/libraries/AP_Scheduler/AP_Scheduler.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scheduler_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scheduler_ArduCopter.dir/__/libraries/AP_Scheduler/AP_Scheduler.cpp.i
-.PHONY : __/libraries/AP_Scheduler/AP_Scheduler.cpp.i
-
-__/libraries/AP_Scheduler/AP_Scheduler.s: __/libraries/AP_Scheduler/AP_Scheduler.cpp.s
-.PHONY : __/libraries/AP_Scheduler/AP_Scheduler.s
-
-# target to generate assembly for a file
-__/libraries/AP_Scheduler/AP_Scheduler.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scheduler_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scheduler_ArduCopter.dir/__/libraries/AP_Scheduler/AP_Scheduler.cpp.s
-.PHONY : __/libraries/AP_Scheduler/AP_Scheduler.cpp.s
-
-__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.o: __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.o
-.PHONY : __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.o
-
-# target to build an object file
-__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.o
-.PHONY : __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.o
-
-__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.i: __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.i
-.PHONY : __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.i
-
-# target to preprocess a source file
-__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.i
-.PHONY : __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.i
-
-__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.s: __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.s
-.PHONY : __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.s
-
-# target to generate assembly for a file
-__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.s
-.PHONY : __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.s
-
-__/libraries/AP_Scripting/AP_Scripting_helpers.o: __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.o
-.PHONY : __/libraries/AP_Scripting/AP_Scripting_helpers.o
-
-# target to build an object file
-__/libraries/AP_Scripting/AP_Scripting_helpers.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/AP_Scripting_helpers.cpp.o
-.PHONY : __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.o
-
-__/libraries/AP_Scripting/AP_Scripting_helpers.i: __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.i
-.PHONY : __/libraries/AP_Scripting/AP_Scripting_helpers.i
-
-# target to preprocess a source file
-__/libraries/AP_Scripting/AP_Scripting_helpers.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/AP_Scripting_helpers.cpp.i
-.PHONY : __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.i
-
-__/libraries/AP_Scripting/AP_Scripting_helpers.s: __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.s
-.PHONY : __/libraries/AP_Scripting/AP_Scripting_helpers.s
-
-# target to generate assembly for a file
-__/libraries/AP_Scripting/AP_Scripting_helpers.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/AP_Scripting_helpers.cpp.s
-.PHONY : __/libraries/AP_Scripting/AP_Scripting_helpers.cpp.s
-
-__/libraries/AP_Scripting/lua_bindings.o: __/libraries/AP_Scripting/lua_bindings.cpp.o
-.PHONY : __/libraries/AP_Scripting/lua_bindings.o
-
-# target to build an object file
-__/libraries/AP_Scripting/lua_bindings.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/lua_bindings.cpp.o
-.PHONY : __/libraries/AP_Scripting/lua_bindings.cpp.o
-
-__/libraries/AP_Scripting/lua_bindings.i: __/libraries/AP_Scripting/lua_bindings.cpp.i
-.PHONY : __/libraries/AP_Scripting/lua_bindings.i
-
-# target to preprocess a source file
-__/libraries/AP_Scripting/lua_bindings.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/lua_bindings.cpp.i
-.PHONY : __/libraries/AP_Scripting/lua_bindings.cpp.i
-
-__/libraries/AP_Scripting/lua_bindings.s: __/libraries/AP_Scripting/lua_bindings.cpp.s
-.PHONY : __/libraries/AP_Scripting/lua_bindings.s
-
-# target to generate assembly for a file
-__/libraries/AP_Scripting/lua_bindings.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/lua_bindings.cpp.s
-.PHONY : __/libraries/AP_Scripting/lua_bindings.cpp.s
-
-__/libraries/AP_Scripting/lua_boxed_numerics.o: __/libraries/AP_Scripting/lua_boxed_numerics.cpp.o
-.PHONY : __/libraries/AP_Scripting/lua_boxed_numerics.o
-
-# target to build an object file
-__/libraries/AP_Scripting/lua_boxed_numerics.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/lua_boxed_numerics.cpp.o
-.PHONY : __/libraries/AP_Scripting/lua_boxed_numerics.cpp.o
-
-__/libraries/AP_Scripting/lua_boxed_numerics.i: __/libraries/AP_Scripting/lua_boxed_numerics.cpp.i
-.PHONY : __/libraries/AP_Scripting/lua_boxed_numerics.i
-
-# target to preprocess a source file
-__/libraries/AP_Scripting/lua_boxed_numerics.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/lua_boxed_numerics.cpp.i
-.PHONY : __/libraries/AP_Scripting/lua_boxed_numerics.cpp.i
-
-__/libraries/AP_Scripting/lua_boxed_numerics.s: __/libraries/AP_Scripting/lua_boxed_numerics.cpp.s
-.PHONY : __/libraries/AP_Scripting/lua_boxed_numerics.s
-
-# target to generate assembly for a file
-__/libraries/AP_Scripting/lua_boxed_numerics.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/lua_boxed_numerics.cpp.s
-.PHONY : __/libraries/AP_Scripting/lua_boxed_numerics.cpp.s
-
-__/libraries/AP_Scripting/lua_scripts.o: __/libraries/AP_Scripting/lua_scripts.cpp.o
-.PHONY : __/libraries/AP_Scripting/lua_scripts.o
-
-# target to build an object file
-__/libraries/AP_Scripting/lua_scripts.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/lua_scripts.cpp.o
-.PHONY : __/libraries/AP_Scripting/lua_scripts.cpp.o
-
-__/libraries/AP_Scripting/lua_scripts.i: __/libraries/AP_Scripting/lua_scripts.cpp.i
-.PHONY : __/libraries/AP_Scripting/lua_scripts.i
-
-# target to preprocess a source file
-__/libraries/AP_Scripting/lua_scripts.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/lua_scripts.cpp.i
-.PHONY : __/libraries/AP_Scripting/lua_scripts.cpp.i
-
-__/libraries/AP_Scripting/lua_scripts.s: __/libraries/AP_Scripting/lua_scripts.cpp.s
-.PHONY : __/libraries/AP_Scripting/lua_scripts.s
-
-# target to generate assembly for a file
-__/libraries/AP_Scripting/lua_scripts.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Scripting_ArduCopter.dir/__/libraries/AP_Scripting/lua_scripts.cpp.s
-.PHONY : __/libraries/AP_Scripting/lua_scripts.cpp.s
-
-__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.o: __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.o
-.PHONY : __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.o
-
-# target to build an object file
-__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_TemperatureSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_TemperatureSensor_ArduCopter.dir/__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.o
-.PHONY : __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.o
-
-__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.i: __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.i
-.PHONY : __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.i
-
-# target to preprocess a source file
-__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_TemperatureSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_TemperatureSensor_ArduCopter.dir/__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.i
-.PHONY : __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.i
-
-__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.s: __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.s
-.PHONY : __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.s
-
-# target to generate assembly for a file
-__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_TemperatureSensor_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_TemperatureSensor_ArduCopter.dir/__/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.s
-.PHONY : __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.s
-
-__/libraries/AP_Terrain/AP_Terrain.o: __/libraries/AP_Terrain/AP_Terrain.cpp.o
-.PHONY : __/libraries/AP_Terrain/AP_Terrain.o
-
-# target to build an object file
-__/libraries/AP_Terrain/AP_Terrain.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Terrain_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Terrain_ArduCopter.dir/__/libraries/AP_Terrain/AP_Terrain.cpp.o
-.PHONY : __/libraries/AP_Terrain/AP_Terrain.cpp.o
-
-__/libraries/AP_Terrain/AP_Terrain.i: __/libraries/AP_Terrain/AP_Terrain.cpp.i
-.PHONY : __/libraries/AP_Terrain/AP_Terrain.i
-
-# target to preprocess a source file
-__/libraries/AP_Terrain/AP_Terrain.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Terrain_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Terrain_ArduCopter.dir/__/libraries/AP_Terrain/AP_Terrain.cpp.i
-.PHONY : __/libraries/AP_Terrain/AP_Terrain.cpp.i
-
-__/libraries/AP_Terrain/AP_Terrain.s: __/libraries/AP_Terrain/AP_Terrain.cpp.s
-.PHONY : __/libraries/AP_Terrain/AP_Terrain.s
-
-# target to generate assembly for a file
-__/libraries/AP_Terrain/AP_Terrain.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Terrain_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Terrain_ArduCopter.dir/__/libraries/AP_Terrain/AP_Terrain.cpp.s
-.PHONY : __/libraries/AP_Terrain/AP_Terrain.cpp.s
-
-__/libraries/AP_Vehicle/AP_Vehicle.o: __/libraries/AP_Vehicle/AP_Vehicle.cpp.o
-.PHONY : __/libraries/AP_Vehicle/AP_Vehicle.o
-
-# target to build an object file
-__/libraries/AP_Vehicle/AP_Vehicle.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Vehicle_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Vehicle_ArduCopter.dir/__/libraries/AP_Vehicle/AP_Vehicle.cpp.o
-.PHONY : __/libraries/AP_Vehicle/AP_Vehicle.cpp.o
-
-__/libraries/AP_Vehicle/AP_Vehicle.i: __/libraries/AP_Vehicle/AP_Vehicle.cpp.i
-.PHONY : __/libraries/AP_Vehicle/AP_Vehicle.i
-
-# target to preprocess a source file
-__/libraries/AP_Vehicle/AP_Vehicle.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Vehicle_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Vehicle_ArduCopter.dir/__/libraries/AP_Vehicle/AP_Vehicle.cpp.i
-.PHONY : __/libraries/AP_Vehicle/AP_Vehicle.cpp.i
-
-__/libraries/AP_Vehicle/AP_Vehicle.s: __/libraries/AP_Vehicle/AP_Vehicle.cpp.s
-.PHONY : __/libraries/AP_Vehicle/AP_Vehicle.s
-
-# target to generate assembly for a file
-__/libraries/AP_Vehicle/AP_Vehicle.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_AP_Vehicle_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_AP_Vehicle_ArduCopter.dir/__/libraries/AP_Vehicle/AP_Vehicle.cpp.s
-.PHONY : __/libraries/AP_Vehicle/AP_Vehicle.cpp.s
-
-__/libraries/Filter/HarmonicNotchFilter.o: __/libraries/Filter/HarmonicNotchFilter.cpp.o
-.PHONY : __/libraries/Filter/HarmonicNotchFilter.o
-
-# target to build an object file
-__/libraries/Filter/HarmonicNotchFilter.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_Filter_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_Filter_ArduCopter.dir/__/libraries/Filter/HarmonicNotchFilter.cpp.o
-.PHONY : __/libraries/Filter/HarmonicNotchFilter.cpp.o
-
-__/libraries/Filter/HarmonicNotchFilter.i: __/libraries/Filter/HarmonicNotchFilter.cpp.i
-.PHONY : __/libraries/Filter/HarmonicNotchFilter.i
-
-# target to preprocess a source file
-__/libraries/Filter/HarmonicNotchFilter.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_Filter_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_Filter_ArduCopter.dir/__/libraries/Filter/HarmonicNotchFilter.cpp.i
-.PHONY : __/libraries/Filter/HarmonicNotchFilter.cpp.i
-
-__/libraries/Filter/HarmonicNotchFilter.s: __/libraries/Filter/HarmonicNotchFilter.cpp.s
-.PHONY : __/libraries/Filter/HarmonicNotchFilter.s
-
-# target to generate assembly for a file
-__/libraries/Filter/HarmonicNotchFilter.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_Filter_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_Filter_ArduCopter.dir/__/libraries/Filter/HarmonicNotchFilter.cpp.s
-.PHONY : __/libraries/Filter/HarmonicNotchFilter.cpp.s
-
-__/libraries/GCS_MAVLink/GCS.o: __/libraries/GCS_MAVLink/GCS.cpp.o
-.PHONY : __/libraries/GCS_MAVLink/GCS.o
-
-# target to build an object file
-__/libraries/GCS_MAVLink/GCS.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS.cpp.o
-.PHONY : __/libraries/GCS_MAVLink/GCS.cpp.o
-
-__/libraries/GCS_MAVLink/GCS.i: __/libraries/GCS_MAVLink/GCS.cpp.i
-.PHONY : __/libraries/GCS_MAVLink/GCS.i
-
-# target to preprocess a source file
-__/libraries/GCS_MAVLink/GCS.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS.cpp.i
-.PHONY : __/libraries/GCS_MAVLink/GCS.cpp.i
-
-__/libraries/GCS_MAVLink/GCS.s: __/libraries/GCS_MAVLink/GCS.cpp.s
-.PHONY : __/libraries/GCS_MAVLink/GCS.s
-
-# target to generate assembly for a file
-__/libraries/GCS_MAVLink/GCS.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS.cpp.s
-.PHONY : __/libraries/GCS_MAVLink/GCS.cpp.s
-
-__/libraries/GCS_MAVLink/GCS_Common.o: __/libraries/GCS_MAVLink/GCS_Common.cpp.o
-.PHONY : __/libraries/GCS_MAVLink/GCS_Common.o
-
-# target to build an object file
-__/libraries/GCS_MAVLink/GCS_Common.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS_Common.cpp.o
-.PHONY : __/libraries/GCS_MAVLink/GCS_Common.cpp.o
-
-__/libraries/GCS_MAVLink/GCS_Common.i: __/libraries/GCS_MAVLink/GCS_Common.cpp.i
-.PHONY : __/libraries/GCS_MAVLink/GCS_Common.i
-
-# target to preprocess a source file
-__/libraries/GCS_MAVLink/GCS_Common.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS_Common.cpp.i
-.PHONY : __/libraries/GCS_MAVLink/GCS_Common.cpp.i
-
-__/libraries/GCS_MAVLink/GCS_Common.s: __/libraries/GCS_MAVLink/GCS_Common.cpp.s
-.PHONY : __/libraries/GCS_MAVLink/GCS_Common.s
-
-# target to generate assembly for a file
-__/libraries/GCS_MAVLink/GCS_Common.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS_Common.cpp.s
-.PHONY : __/libraries/GCS_MAVLink/GCS_Common.cpp.s
-
-__/libraries/GCS_MAVLink/GCS_Dummy.o: __/libraries/GCS_MAVLink/GCS_Dummy.cpp.o
-.PHONY : __/libraries/GCS_MAVLink/GCS_Dummy.o
-
-# target to build an object file
-__/libraries/GCS_MAVLink/GCS_Dummy.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS_Dummy.cpp.o
-.PHONY : __/libraries/GCS_MAVLink/GCS_Dummy.cpp.o
-
-__/libraries/GCS_MAVLink/GCS_Dummy.i: __/libraries/GCS_MAVLink/GCS_Dummy.cpp.i
-.PHONY : __/libraries/GCS_MAVLink/GCS_Dummy.i
-
-# target to preprocess a source file
-__/libraries/GCS_MAVLink/GCS_Dummy.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS_Dummy.cpp.i
-.PHONY : __/libraries/GCS_MAVLink/GCS_Dummy.cpp.i
-
-__/libraries/GCS_MAVLink/GCS_Dummy.s: __/libraries/GCS_MAVLink/GCS_Dummy.cpp.s
-.PHONY : __/libraries/GCS_MAVLink/GCS_Dummy.s
-
-# target to generate assembly for a file
-__/libraries/GCS_MAVLink/GCS_Dummy.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS_Dummy.cpp.s
-.PHONY : __/libraries/GCS_MAVLink/GCS_Dummy.cpp.s
-
-__/libraries/GCS_MAVLink/GCS_Fence.o: __/libraries/GCS_MAVLink/GCS_Fence.cpp.o
-.PHONY : __/libraries/GCS_MAVLink/GCS_Fence.o
-
-# target to build an object file
-__/libraries/GCS_MAVLink/GCS_Fence.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS_Fence.cpp.o
-.PHONY : __/libraries/GCS_MAVLink/GCS_Fence.cpp.o
-
-__/libraries/GCS_MAVLink/GCS_Fence.i: __/libraries/GCS_MAVLink/GCS_Fence.cpp.i
-.PHONY : __/libraries/GCS_MAVLink/GCS_Fence.i
-
-# target to preprocess a source file
-__/libraries/GCS_MAVLink/GCS_Fence.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS_Fence.cpp.i
-.PHONY : __/libraries/GCS_MAVLink/GCS_Fence.cpp.i
-
-__/libraries/GCS_MAVLink/GCS_Fence.s: __/libraries/GCS_MAVLink/GCS_Fence.cpp.s
-.PHONY : __/libraries/GCS_MAVLink/GCS_Fence.s
-
-# target to generate assembly for a file
-__/libraries/GCS_MAVLink/GCS_Fence.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS_Fence.cpp.s
-.PHONY : __/libraries/GCS_MAVLink/GCS_Fence.cpp.s
-
-__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.o: __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.o
-.PHONY : __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.o
-
-# target to build an object file
-__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.o
-.PHONY : __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.o
-
-__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.i: __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.i
-.PHONY : __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.i
-
-# target to preprocess a source file
-__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.i
-.PHONY : __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.i
-
-__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.s: __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.s
-.PHONY : __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.s
-
-# target to generate assembly for a file
-__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_GCS_MAVLink_ArduCopter.dir/__/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.s
-.PHONY : __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.s
-
-__/libraries/RC_Channel/RC_Channel.o: __/libraries/RC_Channel/RC_Channel.cpp.o
-.PHONY : __/libraries/RC_Channel/RC_Channel.o
-
-# target to build an object file
-__/libraries/RC_Channel/RC_Channel.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_RC_Channel_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_RC_Channel_ArduCopter.dir/__/libraries/RC_Channel/RC_Channel.cpp.o
-.PHONY : __/libraries/RC_Channel/RC_Channel.cpp.o
-
-__/libraries/RC_Channel/RC_Channel.i: __/libraries/RC_Channel/RC_Channel.cpp.i
-.PHONY : __/libraries/RC_Channel/RC_Channel.i
-
-# target to preprocess a source file
-__/libraries/RC_Channel/RC_Channel.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_RC_Channel_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_RC_Channel_ArduCopter.dir/__/libraries/RC_Channel/RC_Channel.cpp.i
-.PHONY : __/libraries/RC_Channel/RC_Channel.cpp.i
-
-__/libraries/RC_Channel/RC_Channel.s: __/libraries/RC_Channel/RC_Channel.cpp.s
-.PHONY : __/libraries/RC_Channel/RC_Channel.s
-
-# target to generate assembly for a file
-__/libraries/RC_Channel/RC_Channel.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_RC_Channel_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_RC_Channel_ArduCopter.dir/__/libraries/RC_Channel/RC_Channel.cpp.s
-.PHONY : __/libraries/RC_Channel/RC_Channel.cpp.s
-
-__/libraries/SITL/SIM_Aircraft.o: __/libraries/SITL/SIM_Aircraft.cpp.o
-.PHONY : __/libraries/SITL/SIM_Aircraft.o
-
-# target to build an object file
-__/libraries/SITL/SIM_Aircraft.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/__/libraries/SITL/SIM_Aircraft.cpp.o
-.PHONY : __/libraries/SITL/SIM_Aircraft.cpp.o
-
-__/libraries/SITL/SIM_Aircraft.i: __/libraries/SITL/SIM_Aircraft.cpp.i
-.PHONY : __/libraries/SITL/SIM_Aircraft.i
-
-# target to preprocess a source file
-__/libraries/SITL/SIM_Aircraft.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/__/libraries/SITL/SIM_Aircraft.cpp.i
-.PHONY : __/libraries/SITL/SIM_Aircraft.cpp.i
-
-__/libraries/SITL/SIM_Aircraft.s: __/libraries/SITL/SIM_Aircraft.cpp.s
-.PHONY : __/libraries/SITL/SIM_Aircraft.s
-
-# target to generate assembly for a file
-__/libraries/SITL/SIM_Aircraft.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/__/libraries/SITL/SIM_Aircraft.cpp.s
-.PHONY : __/libraries/SITL/SIM_Aircraft.cpp.s
-
-__/libraries/SITL/SIM_DroneCANDevice.o: __/libraries/SITL/SIM_DroneCANDevice.cpp.o
-.PHONY : __/libraries/SITL/SIM_DroneCANDevice.o
-
-# target to build an object file
-__/libraries/SITL/SIM_DroneCANDevice.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/__/libraries/SITL/SIM_DroneCANDevice.cpp.o
-.PHONY : __/libraries/SITL/SIM_DroneCANDevice.cpp.o
-
-__/libraries/SITL/SIM_DroneCANDevice.i: __/libraries/SITL/SIM_DroneCANDevice.cpp.i
-.PHONY : __/libraries/SITL/SIM_DroneCANDevice.i
-
-# target to preprocess a source file
-__/libraries/SITL/SIM_DroneCANDevice.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/__/libraries/SITL/SIM_DroneCANDevice.cpp.i
-.PHONY : __/libraries/SITL/SIM_DroneCANDevice.cpp.i
-
-__/libraries/SITL/SIM_DroneCANDevice.s: __/libraries/SITL/SIM_DroneCANDevice.cpp.s
-.PHONY : __/libraries/SITL/SIM_DroneCANDevice.s
-
-# target to generate assembly for a file
-__/libraries/SITL/SIM_DroneCANDevice.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/__/libraries/SITL/SIM_DroneCANDevice.cpp.s
-.PHONY : __/libraries/SITL/SIM_DroneCANDevice.cpp.s
-
-__/libraries/SITL/SIM_XPlane.o: __/libraries/SITL/SIM_XPlane.cpp.o
-.PHONY : __/libraries/SITL/SIM_XPlane.o
-
-# target to build an object file
-__/libraries/SITL/SIM_XPlane.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/__/libraries/SITL/SIM_XPlane.cpp.o
-.PHONY : __/libraries/SITL/SIM_XPlane.cpp.o
-
-__/libraries/SITL/SIM_XPlane.i: __/libraries/SITL/SIM_XPlane.cpp.i
-.PHONY : __/libraries/SITL/SIM_XPlane.i
-
-# target to preprocess a source file
-__/libraries/SITL/SIM_XPlane.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/__/libraries/SITL/SIM_XPlane.cpp.i
-.PHONY : __/libraries/SITL/SIM_XPlane.cpp.i
-
-__/libraries/SITL/SIM_XPlane.s: __/libraries/SITL/SIM_XPlane.cpp.s
-.PHONY : __/libraries/SITL/SIM_XPlane.s
-
-# target to generate assembly for a file
-__/libraries/SITL/SIM_XPlane.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/__/libraries/SITL/SIM_XPlane.cpp.s
-.PHONY : __/libraries/SITL/SIM_XPlane.cpp.s
-
-__/libraries/SITL/SITL.o: __/libraries/SITL/SITL.cpp.o
-.PHONY : __/libraries/SITL/SITL.o
-
-# target to build an object file
-__/libraries/SITL/SITL.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/__/libraries/SITL/SITL.cpp.o
-.PHONY : __/libraries/SITL/SITL.cpp.o
-
-__/libraries/SITL/SITL.i: __/libraries/SITL/SITL.cpp.i
-.PHONY : __/libraries/SITL/SITL.i
-
-# target to preprocess a source file
-__/libraries/SITL/SITL.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/__/libraries/SITL/SITL.cpp.i
-.PHONY : __/libraries/SITL/SITL.cpp.i
-
-__/libraries/SITL/SITL.s: __/libraries/SITL/SITL.cpp.s
-.PHONY : __/libraries/SITL/SITL.s
-
-# target to generate assembly for a file
-__/libraries/SITL/SITL.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_SITL_ArduCopter.dir/__/libraries/SITL/SITL.cpp.s
-.PHONY : __/libraries/SITL/SITL.cpp.s
-
-__/libraries/StorageManager/StorageManager.o: __/libraries/StorageManager/StorageManager.cpp.o
-.PHONY : __/libraries/StorageManager/StorageManager.o
-
-# target to build an object file
-__/libraries/StorageManager/StorageManager.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_StorageManager_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_StorageManager_ArduCopter.dir/__/libraries/StorageManager/StorageManager.cpp.o
-.PHONY : __/libraries/StorageManager/StorageManager.cpp.o
-
-__/libraries/StorageManager/StorageManager.i: __/libraries/StorageManager/StorageManager.cpp.i
-.PHONY : __/libraries/StorageManager/StorageManager.i
-
-# target to preprocess a source file
-__/libraries/StorageManager/StorageManager.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_StorageManager_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_StorageManager_ArduCopter.dir/__/libraries/StorageManager/StorageManager.cpp.i
-.PHONY : __/libraries/StorageManager/StorageManager.cpp.i
-
-__/libraries/StorageManager/StorageManager.s: __/libraries/StorageManager/StorageManager.cpp.s
-.PHONY : __/libraries/StorageManager/StorageManager.s
-
-# target to generate assembly for a file
-__/libraries/StorageManager/StorageManager.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/objs_StorageManager_ArduCopter.dir/build.make ArduCopter/CMakeFiles/objs_StorageManager_ArduCopter.dir/__/libraries/StorageManager/StorageManager.cpp.s
-.PHONY : __/libraries/StorageManager/StorageManager.cpp.s
 
 afs_copter.o: afs_copter.cpp.o
 .PHONY : afs_copter.o
 
 # target to build an object file
 afs_copter.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/afs_copter.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/afs_copter.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/afs_copter.cpp.o
 .PHONY : afs_copter.cpp.o
 
 afs_copter.i: afs_copter.cpp.i
@@ -8159,8 +4785,8 @@ afs_copter.i: afs_copter.cpp.i
 
 # target to preprocess a source file
 afs_copter.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/afs_copter.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/afs_copter.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/afs_copter.cpp.i
 .PHONY : afs_copter.cpp.i
 
 afs_copter.s: afs_copter.cpp.s
@@ -8168,8 +4794,8 @@ afs_copter.s: afs_copter.cpp.s
 
 # target to generate assembly for a file
 afs_copter.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/afs_copter.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/afs_copter.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/afs_copter.cpp.s
 .PHONY : afs_copter.cpp.s
 
 autoyaw.o: autoyaw.cpp.o
@@ -8177,8 +4803,8 @@ autoyaw.o: autoyaw.cpp.o
 
 # target to build an object file
 autoyaw.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/autoyaw.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/autoyaw.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/autoyaw.cpp.o
 .PHONY : autoyaw.cpp.o
 
 autoyaw.i: autoyaw.cpp.i
@@ -8186,8 +4812,8 @@ autoyaw.i: autoyaw.cpp.i
 
 # target to preprocess a source file
 autoyaw.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/autoyaw.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/autoyaw.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/autoyaw.cpp.i
 .PHONY : autoyaw.cpp.i
 
 autoyaw.s: autoyaw.cpp.s
@@ -8195,8 +4821,8 @@ autoyaw.s: autoyaw.cpp.s
 
 # target to generate assembly for a file
 autoyaw.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/autoyaw.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/autoyaw.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/autoyaw.cpp.s
 .PHONY : autoyaw.cpp.s
 
 avoidance.o: avoidance.cpp.o
@@ -8204,8 +4830,8 @@ avoidance.o: avoidance.cpp.o
 
 # target to build an object file
 avoidance.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/avoidance.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/avoidance.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/avoidance.cpp.o
 .PHONY : avoidance.cpp.o
 
 avoidance.i: avoidance.cpp.i
@@ -8213,8 +4839,8 @@ avoidance.i: avoidance.cpp.i
 
 # target to preprocess a source file
 avoidance.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/avoidance.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/avoidance.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/avoidance.cpp.i
 .PHONY : avoidance.cpp.i
 
 avoidance.s: avoidance.cpp.s
@@ -8222,8 +4848,8 @@ avoidance.s: avoidance.cpp.s
 
 # target to generate assembly for a file
 avoidance.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/avoidance.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/avoidance.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/avoidance.cpp.s
 .PHONY : avoidance.cpp.s
 
 avoidance_adsb.o: avoidance_adsb.cpp.o
@@ -8231,8 +4857,8 @@ avoidance_adsb.o: avoidance_adsb.cpp.o
 
 # target to build an object file
 avoidance_adsb.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/avoidance_adsb.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/avoidance_adsb.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/avoidance_adsb.cpp.o
 .PHONY : avoidance_adsb.cpp.o
 
 avoidance_adsb.i: avoidance_adsb.cpp.i
@@ -8240,8 +4866,8 @@ avoidance_adsb.i: avoidance_adsb.cpp.i
 
 # target to preprocess a source file
 avoidance_adsb.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/avoidance_adsb.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/avoidance_adsb.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/avoidance_adsb.cpp.i
 .PHONY : avoidance_adsb.cpp.i
 
 avoidance_adsb.s: avoidance_adsb.cpp.s
@@ -8249,8 +4875,8 @@ avoidance_adsb.s: avoidance_adsb.cpp.s
 
 # target to generate assembly for a file
 avoidance_adsb.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/avoidance_adsb.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/avoidance_adsb.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/avoidance_adsb.cpp.s
 .PHONY : avoidance_adsb.cpp.s
 
 baro_ground_effect.o: baro_ground_effect.cpp.o
@@ -8258,8 +4884,8 @@ baro_ground_effect.o: baro_ground_effect.cpp.o
 
 # target to build an object file
 baro_ground_effect.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/baro_ground_effect.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/baro_ground_effect.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/baro_ground_effect.cpp.o
 .PHONY : baro_ground_effect.cpp.o
 
 baro_ground_effect.i: baro_ground_effect.cpp.i
@@ -8267,8 +4893,8 @@ baro_ground_effect.i: baro_ground_effect.cpp.i
 
 # target to preprocess a source file
 baro_ground_effect.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/baro_ground_effect.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/baro_ground_effect.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/baro_ground_effect.cpp.i
 .PHONY : baro_ground_effect.cpp.i
 
 baro_ground_effect.s: baro_ground_effect.cpp.s
@@ -8276,8 +4902,8 @@ baro_ground_effect.s: baro_ground_effect.cpp.s
 
 # target to generate assembly for a file
 baro_ground_effect.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/baro_ground_effect.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/baro_ground_effect.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/baro_ground_effect.cpp.s
 .PHONY : baro_ground_effect.cpp.s
 
 commands.o: commands.cpp.o
@@ -8285,8 +4911,8 @@ commands.o: commands.cpp.o
 
 # target to build an object file
 commands.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/commands.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/commands.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/commands.cpp.o
 .PHONY : commands.cpp.o
 
 commands.i: commands.cpp.i
@@ -8294,8 +4920,8 @@ commands.i: commands.cpp.i
 
 # target to preprocess a source file
 commands.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/commands.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/commands.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/commands.cpp.i
 .PHONY : commands.cpp.i
 
 commands.s: commands.cpp.s
@@ -8303,8 +4929,8 @@ commands.s: commands.cpp.s
 
 # target to generate assembly for a file
 commands.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/commands.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/commands.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/commands.cpp.s
 .PHONY : commands.cpp.s
 
 compassmot.o: compassmot.cpp.o
@@ -8312,8 +4938,8 @@ compassmot.o: compassmot.cpp.o
 
 # target to build an object file
 compassmot.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/compassmot.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/compassmot.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/compassmot.cpp.o
 .PHONY : compassmot.cpp.o
 
 compassmot.i: compassmot.cpp.i
@@ -8321,8 +4947,8 @@ compassmot.i: compassmot.cpp.i
 
 # target to preprocess a source file
 compassmot.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/compassmot.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/compassmot.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/compassmot.cpp.i
 .PHONY : compassmot.cpp.i
 
 compassmot.s: compassmot.cpp.s
@@ -8330,8 +4956,8 @@ compassmot.s: compassmot.cpp.s
 
 # target to generate assembly for a file
 compassmot.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/compassmot.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/compassmot.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/compassmot.cpp.s
 .PHONY : compassmot.cpp.s
 
 crash_check.o: crash_check.cpp.o
@@ -8339,8 +4965,8 @@ crash_check.o: crash_check.cpp.o
 
 # target to build an object file
 crash_check.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/crash_check.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/crash_check.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/crash_check.cpp.o
 .PHONY : crash_check.cpp.o
 
 crash_check.i: crash_check.cpp.i
@@ -8348,8 +4974,8 @@ crash_check.i: crash_check.cpp.i
 
 # target to preprocess a source file
 crash_check.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/crash_check.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/crash_check.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/crash_check.cpp.i
 .PHONY : crash_check.cpp.i
 
 crash_check.s: crash_check.cpp.s
@@ -8357,8 +4983,8 @@ crash_check.s: crash_check.cpp.s
 
 # target to generate assembly for a file
 crash_check.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/crash_check.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/crash_check.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/crash_check.cpp.s
 .PHONY : crash_check.cpp.s
 
 ekf_check.o: ekf_check.cpp.o
@@ -8366,8 +4992,8 @@ ekf_check.o: ekf_check.cpp.o
 
 # target to build an object file
 ekf_check.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/ekf_check.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/ekf_check.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/ekf_check.cpp.o
 .PHONY : ekf_check.cpp.o
 
 ekf_check.i: ekf_check.cpp.i
@@ -8375,8 +5001,8 @@ ekf_check.i: ekf_check.cpp.i
 
 # target to preprocess a source file
 ekf_check.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/ekf_check.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/ekf_check.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/ekf_check.cpp.i
 .PHONY : ekf_check.cpp.i
 
 ekf_check.s: ekf_check.cpp.s
@@ -8384,8 +5010,8 @@ ekf_check.s: ekf_check.cpp.s
 
 # target to generate assembly for a file
 ekf_check.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/ekf_check.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/ekf_check.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/ekf_check.cpp.s
 .PHONY : ekf_check.cpp.s
 
 esc_calibration.o: esc_calibration.cpp.o
@@ -8393,8 +5019,8 @@ esc_calibration.o: esc_calibration.cpp.o
 
 # target to build an object file
 esc_calibration.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/esc_calibration.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/esc_calibration.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/esc_calibration.cpp.o
 .PHONY : esc_calibration.cpp.o
 
 esc_calibration.i: esc_calibration.cpp.i
@@ -8402,8 +5028,8 @@ esc_calibration.i: esc_calibration.cpp.i
 
 # target to preprocess a source file
 esc_calibration.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/esc_calibration.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/esc_calibration.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/esc_calibration.cpp.i
 .PHONY : esc_calibration.cpp.i
 
 esc_calibration.s: esc_calibration.cpp.s
@@ -8411,8 +5037,8 @@ esc_calibration.s: esc_calibration.cpp.s
 
 # target to generate assembly for a file
 esc_calibration.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/esc_calibration.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/esc_calibration.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/esc_calibration.cpp.s
 .PHONY : esc_calibration.cpp.s
 
 events.o: events.cpp.o
@@ -8420,8 +5046,8 @@ events.o: events.cpp.o
 
 # target to build an object file
 events.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/events.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/events.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/events.cpp.o
 .PHONY : events.cpp.o
 
 events.i: events.cpp.i
@@ -8429,8 +5055,8 @@ events.i: events.cpp.i
 
 # target to preprocess a source file
 events.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/events.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/events.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/events.cpp.i
 .PHONY : events.cpp.i
 
 events.s: events.cpp.s
@@ -8438,8 +5064,8 @@ events.s: events.cpp.s
 
 # target to generate assembly for a file
 events.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/events.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/events.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/events.cpp.s
 .PHONY : events.cpp.s
 
 failsafe.o: failsafe.cpp.o
@@ -8447,8 +5073,8 @@ failsafe.o: failsafe.cpp.o
 
 # target to build an object file
 failsafe.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/failsafe.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/failsafe.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/failsafe.cpp.o
 .PHONY : failsafe.cpp.o
 
 failsafe.i: failsafe.cpp.i
@@ -8456,8 +5082,8 @@ failsafe.i: failsafe.cpp.i
 
 # target to preprocess a source file
 failsafe.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/failsafe.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/failsafe.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/failsafe.cpp.i
 .PHONY : failsafe.cpp.i
 
 failsafe.s: failsafe.cpp.s
@@ -8465,8 +5091,8 @@ failsafe.s: failsafe.cpp.s
 
 # target to generate assembly for a file
 failsafe.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/failsafe.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/failsafe.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/failsafe.cpp.s
 .PHONY : failsafe.cpp.s
 
 fence.o: fence.cpp.o
@@ -8474,8 +5100,8 @@ fence.o: fence.cpp.o
 
 # target to build an object file
 fence.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/fence.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/fence.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/fence.cpp.o
 .PHONY : fence.cpp.o
 
 fence.i: fence.cpp.i
@@ -8483,8 +5109,8 @@ fence.i: fence.cpp.i
 
 # target to preprocess a source file
 fence.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/fence.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/fence.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/fence.cpp.i
 .PHONY : fence.cpp.i
 
 fence.s: fence.cpp.s
@@ -8492,8 +5118,8 @@ fence.s: fence.cpp.s
 
 # target to generate assembly for a file
 fence.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/fence.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/fence.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/fence.cpp.s
 .PHONY : fence.cpp.s
 
 heli.o: heli.cpp.o
@@ -8501,8 +5127,8 @@ heli.o: heli.cpp.o
 
 # target to build an object file
 heli.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/heli.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/heli.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/heli.cpp.o
 .PHONY : heli.cpp.o
 
 heli.i: heli.cpp.i
@@ -8510,8 +5136,8 @@ heli.i: heli.cpp.i
 
 # target to preprocess a source file
 heli.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/heli.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/heli.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/heli.cpp.i
 .PHONY : heli.cpp.i
 
 heli.s: heli.cpp.s
@@ -8519,8 +5145,8 @@ heli.s: heli.cpp.s
 
 # target to generate assembly for a file
 heli.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/heli.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/heli.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/heli.cpp.s
 .PHONY : heli.cpp.s
 
 inertia.o: inertia.cpp.o
@@ -8528,8 +5154,8 @@ inertia.o: inertia.cpp.o
 
 # target to build an object file
 inertia.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/inertia.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/inertia.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/inertia.cpp.o
 .PHONY : inertia.cpp.o
 
 inertia.i: inertia.cpp.i
@@ -8537,8 +5163,8 @@ inertia.i: inertia.cpp.i
 
 # target to preprocess a source file
 inertia.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/inertia.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/inertia.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/inertia.cpp.i
 .PHONY : inertia.cpp.i
 
 inertia.s: inertia.cpp.s
@@ -8546,8 +5172,8 @@ inertia.s: inertia.cpp.s
 
 # target to generate assembly for a file
 inertia.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/inertia.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/inertia.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/inertia.cpp.s
 .PHONY : inertia.cpp.s
 
 land_detector.o: land_detector.cpp.o
@@ -8555,8 +5181,8 @@ land_detector.o: land_detector.cpp.o
 
 # target to build an object file
 land_detector.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/land_detector.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/land_detector.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/land_detector.cpp.o
 .PHONY : land_detector.cpp.o
 
 land_detector.i: land_detector.cpp.i
@@ -8564,8 +5190,8 @@ land_detector.i: land_detector.cpp.i
 
 # target to preprocess a source file
 land_detector.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/land_detector.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/land_detector.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/land_detector.cpp.i
 .PHONY : land_detector.cpp.i
 
 land_detector.s: land_detector.cpp.s
@@ -8573,8 +5199,8 @@ land_detector.s: land_detector.cpp.s
 
 # target to generate assembly for a file
 land_detector.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/land_detector.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/land_detector.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/land_detector.cpp.s
 .PHONY : land_detector.cpp.s
 
 landing_gear.o: landing_gear.cpp.o
@@ -8582,8 +5208,8 @@ landing_gear.o: landing_gear.cpp.o
 
 # target to build an object file
 landing_gear.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/landing_gear.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/landing_gear.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/landing_gear.cpp.o
 .PHONY : landing_gear.cpp.o
 
 landing_gear.i: landing_gear.cpp.i
@@ -8591,8 +5217,8 @@ landing_gear.i: landing_gear.cpp.i
 
 # target to preprocess a source file
 landing_gear.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/landing_gear.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/landing_gear.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/landing_gear.cpp.i
 .PHONY : landing_gear.cpp.i
 
 landing_gear.s: landing_gear.cpp.s
@@ -8600,8 +5226,8 @@ landing_gear.s: landing_gear.cpp.s
 
 # target to generate assembly for a file
 landing_gear.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/landing_gear.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/landing_gear.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/landing_gear.cpp.s
 .PHONY : landing_gear.cpp.s
 
 mode.o: mode.cpp.o
@@ -8609,8 +5235,8 @@ mode.o: mode.cpp.o
 
 # target to build an object file
 mode.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode.cpp.o
 .PHONY : mode.cpp.o
 
 mode.i: mode.cpp.i
@@ -8618,8 +5244,8 @@ mode.i: mode.cpp.i
 
 # target to preprocess a source file
 mode.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode.cpp.i
 .PHONY : mode.cpp.i
 
 mode.s: mode.cpp.s
@@ -8627,8 +5253,8 @@ mode.s: mode.cpp.s
 
 # target to generate assembly for a file
 mode.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode.cpp.s
 .PHONY : mode.cpp.s
 
 mode_acro.o: mode_acro.cpp.o
@@ -8636,8 +5262,8 @@ mode_acro.o: mode_acro.cpp.o
 
 # target to build an object file
 mode_acro.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_acro.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_acro.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_acro.cpp.o
 .PHONY : mode_acro.cpp.o
 
 mode_acro.i: mode_acro.cpp.i
@@ -8645,8 +5271,8 @@ mode_acro.i: mode_acro.cpp.i
 
 # target to preprocess a source file
 mode_acro.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_acro.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_acro.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_acro.cpp.i
 .PHONY : mode_acro.cpp.i
 
 mode_acro.s: mode_acro.cpp.s
@@ -8654,8 +5280,8 @@ mode_acro.s: mode_acro.cpp.s
 
 # target to generate assembly for a file
 mode_acro.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_acro.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_acro.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_acro.cpp.s
 .PHONY : mode_acro.cpp.s
 
 mode_acro_heli.o: mode_acro_heli.cpp.o
@@ -8663,8 +5289,8 @@ mode_acro_heli.o: mode_acro_heli.cpp.o
 
 # target to build an object file
 mode_acro_heli.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_acro_heli.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_acro_heli.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_acro_heli.cpp.o
 .PHONY : mode_acro_heli.cpp.o
 
 mode_acro_heli.i: mode_acro_heli.cpp.i
@@ -8672,8 +5298,8 @@ mode_acro_heli.i: mode_acro_heli.cpp.i
 
 # target to preprocess a source file
 mode_acro_heli.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_acro_heli.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_acro_heli.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_acro_heli.cpp.i
 .PHONY : mode_acro_heli.cpp.i
 
 mode_acro_heli.s: mode_acro_heli.cpp.s
@@ -8681,8 +5307,8 @@ mode_acro_heli.s: mode_acro_heli.cpp.s
 
 # target to generate assembly for a file
 mode_acro_heli.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_acro_heli.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_acro_heli.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_acro_heli.cpp.s
 .PHONY : mode_acro_heli.cpp.s
 
 mode_althold.o: mode_althold.cpp.o
@@ -8690,8 +5316,8 @@ mode_althold.o: mode_althold.cpp.o
 
 # target to build an object file
 mode_althold.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_althold.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_althold.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_althold.cpp.o
 .PHONY : mode_althold.cpp.o
 
 mode_althold.i: mode_althold.cpp.i
@@ -8699,8 +5325,8 @@ mode_althold.i: mode_althold.cpp.i
 
 # target to preprocess a source file
 mode_althold.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_althold.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_althold.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_althold.cpp.i
 .PHONY : mode_althold.cpp.i
 
 mode_althold.s: mode_althold.cpp.s
@@ -8708,8 +5334,8 @@ mode_althold.s: mode_althold.cpp.s
 
 # target to generate assembly for a file
 mode_althold.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_althold.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_althold.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_althold.cpp.s
 .PHONY : mode_althold.cpp.s
 
 mode_auto.o: mode_auto.cpp.o
@@ -8717,8 +5343,8 @@ mode_auto.o: mode_auto.cpp.o
 
 # target to build an object file
 mode_auto.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_auto.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_auto.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_auto.cpp.o
 .PHONY : mode_auto.cpp.o
 
 mode_auto.i: mode_auto.cpp.i
@@ -8726,8 +5352,8 @@ mode_auto.i: mode_auto.cpp.i
 
 # target to preprocess a source file
 mode_auto.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_auto.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_auto.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_auto.cpp.i
 .PHONY : mode_auto.cpp.i
 
 mode_auto.s: mode_auto.cpp.s
@@ -8735,8 +5361,8 @@ mode_auto.s: mode_auto.cpp.s
 
 # target to generate assembly for a file
 mode_auto.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_auto.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_auto.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_auto.cpp.s
 .PHONY : mode_auto.cpp.s
 
 mode_autorotate.o: mode_autorotate.cpp.o
@@ -8744,8 +5370,8 @@ mode_autorotate.o: mode_autorotate.cpp.o
 
 # target to build an object file
 mode_autorotate.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_autorotate.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_autorotate.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_autorotate.cpp.o
 .PHONY : mode_autorotate.cpp.o
 
 mode_autorotate.i: mode_autorotate.cpp.i
@@ -8753,8 +5379,8 @@ mode_autorotate.i: mode_autorotate.cpp.i
 
 # target to preprocess a source file
 mode_autorotate.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_autorotate.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_autorotate.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_autorotate.cpp.i
 .PHONY : mode_autorotate.cpp.i
 
 mode_autorotate.s: mode_autorotate.cpp.s
@@ -8762,8 +5388,8 @@ mode_autorotate.s: mode_autorotate.cpp.s
 
 # target to generate assembly for a file
 mode_autorotate.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_autorotate.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_autorotate.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_autorotate.cpp.s
 .PHONY : mode_autorotate.cpp.s
 
 mode_autotune.o: mode_autotune.cpp.o
@@ -8771,8 +5397,8 @@ mode_autotune.o: mode_autotune.cpp.o
 
 # target to build an object file
 mode_autotune.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_autotune.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_autotune.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_autotune.cpp.o
 .PHONY : mode_autotune.cpp.o
 
 mode_autotune.i: mode_autotune.cpp.i
@@ -8780,8 +5406,8 @@ mode_autotune.i: mode_autotune.cpp.i
 
 # target to preprocess a source file
 mode_autotune.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_autotune.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_autotune.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_autotune.cpp.i
 .PHONY : mode_autotune.cpp.i
 
 mode_autotune.s: mode_autotune.cpp.s
@@ -8789,8 +5415,8 @@ mode_autotune.s: mode_autotune.cpp.s
 
 # target to generate assembly for a file
 mode_autotune.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_autotune.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_autotune.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_autotune.cpp.s
 .PHONY : mode_autotune.cpp.s
 
 mode_avoid_adsb.o: mode_avoid_adsb.cpp.o
@@ -8798,8 +5424,8 @@ mode_avoid_adsb.o: mode_avoid_adsb.cpp.o
 
 # target to build an object file
 mode_avoid_adsb.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_avoid_adsb.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_avoid_adsb.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_avoid_adsb.cpp.o
 .PHONY : mode_avoid_adsb.cpp.o
 
 mode_avoid_adsb.i: mode_avoid_adsb.cpp.i
@@ -8807,8 +5433,8 @@ mode_avoid_adsb.i: mode_avoid_adsb.cpp.i
 
 # target to preprocess a source file
 mode_avoid_adsb.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_avoid_adsb.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_avoid_adsb.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_avoid_adsb.cpp.i
 .PHONY : mode_avoid_adsb.cpp.i
 
 mode_avoid_adsb.s: mode_avoid_adsb.cpp.s
@@ -8816,8 +5442,8 @@ mode_avoid_adsb.s: mode_avoid_adsb.cpp.s
 
 # target to generate assembly for a file
 mode_avoid_adsb.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_avoid_adsb.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_avoid_adsb.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_avoid_adsb.cpp.s
 .PHONY : mode_avoid_adsb.cpp.s
 
 mode_brake.o: mode_brake.cpp.o
@@ -8825,8 +5451,8 @@ mode_brake.o: mode_brake.cpp.o
 
 # target to build an object file
 mode_brake.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_brake.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_brake.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_brake.cpp.o
 .PHONY : mode_brake.cpp.o
 
 mode_brake.i: mode_brake.cpp.i
@@ -8834,8 +5460,8 @@ mode_brake.i: mode_brake.cpp.i
 
 # target to preprocess a source file
 mode_brake.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_brake.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_brake.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_brake.cpp.i
 .PHONY : mode_brake.cpp.i
 
 mode_brake.s: mode_brake.cpp.s
@@ -8843,8 +5469,8 @@ mode_brake.s: mode_brake.cpp.s
 
 # target to generate assembly for a file
 mode_brake.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_brake.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_brake.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_brake.cpp.s
 .PHONY : mode_brake.cpp.s
 
 mode_circle.o: mode_circle.cpp.o
@@ -8852,8 +5478,8 @@ mode_circle.o: mode_circle.cpp.o
 
 # target to build an object file
 mode_circle.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_circle.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_circle.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_circle.cpp.o
 .PHONY : mode_circle.cpp.o
 
 mode_circle.i: mode_circle.cpp.i
@@ -8861,8 +5487,8 @@ mode_circle.i: mode_circle.cpp.i
 
 # target to preprocess a source file
 mode_circle.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_circle.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_circle.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_circle.cpp.i
 .PHONY : mode_circle.cpp.i
 
 mode_circle.s: mode_circle.cpp.s
@@ -8870,8 +5496,8 @@ mode_circle.s: mode_circle.cpp.s
 
 # target to generate assembly for a file
 mode_circle.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_circle.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_circle.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_circle.cpp.s
 .PHONY : mode_circle.cpp.s
 
 mode_drift.o: mode_drift.cpp.o
@@ -8879,8 +5505,8 @@ mode_drift.o: mode_drift.cpp.o
 
 # target to build an object file
 mode_drift.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_drift.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_drift.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_drift.cpp.o
 .PHONY : mode_drift.cpp.o
 
 mode_drift.i: mode_drift.cpp.i
@@ -8888,8 +5514,8 @@ mode_drift.i: mode_drift.cpp.i
 
 # target to preprocess a source file
 mode_drift.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_drift.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_drift.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_drift.cpp.i
 .PHONY : mode_drift.cpp.i
 
 mode_drift.s: mode_drift.cpp.s
@@ -8897,8 +5523,8 @@ mode_drift.s: mode_drift.cpp.s
 
 # target to generate assembly for a file
 mode_drift.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_drift.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_drift.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_drift.cpp.s
 .PHONY : mode_drift.cpp.s
 
 mode_flip.o: mode_flip.cpp.o
@@ -8906,8 +5532,8 @@ mode_flip.o: mode_flip.cpp.o
 
 # target to build an object file
 mode_flip.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_flip.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_flip.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_flip.cpp.o
 .PHONY : mode_flip.cpp.o
 
 mode_flip.i: mode_flip.cpp.i
@@ -8915,8 +5541,8 @@ mode_flip.i: mode_flip.cpp.i
 
 # target to preprocess a source file
 mode_flip.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_flip.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_flip.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_flip.cpp.i
 .PHONY : mode_flip.cpp.i
 
 mode_flip.s: mode_flip.cpp.s
@@ -8924,8 +5550,8 @@ mode_flip.s: mode_flip.cpp.s
 
 # target to generate assembly for a file
 mode_flip.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_flip.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_flip.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_flip.cpp.s
 .PHONY : mode_flip.cpp.s
 
 mode_flowhold.o: mode_flowhold.cpp.o
@@ -8933,8 +5559,8 @@ mode_flowhold.o: mode_flowhold.cpp.o
 
 # target to build an object file
 mode_flowhold.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_flowhold.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_flowhold.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_flowhold.cpp.o
 .PHONY : mode_flowhold.cpp.o
 
 mode_flowhold.i: mode_flowhold.cpp.i
@@ -8942,8 +5568,8 @@ mode_flowhold.i: mode_flowhold.cpp.i
 
 # target to preprocess a source file
 mode_flowhold.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_flowhold.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_flowhold.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_flowhold.cpp.i
 .PHONY : mode_flowhold.cpp.i
 
 mode_flowhold.s: mode_flowhold.cpp.s
@@ -8951,8 +5577,8 @@ mode_flowhold.s: mode_flowhold.cpp.s
 
 # target to generate assembly for a file
 mode_flowhold.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_flowhold.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_flowhold.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_flowhold.cpp.s
 .PHONY : mode_flowhold.cpp.s
 
 mode_follow.o: mode_follow.cpp.o
@@ -8960,8 +5586,8 @@ mode_follow.o: mode_follow.cpp.o
 
 # target to build an object file
 mode_follow.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_follow.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_follow.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_follow.cpp.o
 .PHONY : mode_follow.cpp.o
 
 mode_follow.i: mode_follow.cpp.i
@@ -8969,8 +5595,8 @@ mode_follow.i: mode_follow.cpp.i
 
 # target to preprocess a source file
 mode_follow.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_follow.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_follow.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_follow.cpp.i
 .PHONY : mode_follow.cpp.i
 
 mode_follow.s: mode_follow.cpp.s
@@ -8978,8 +5604,8 @@ mode_follow.s: mode_follow.cpp.s
 
 # target to generate assembly for a file
 mode_follow.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_follow.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_follow.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_follow.cpp.s
 .PHONY : mode_follow.cpp.s
 
 mode_guided.o: mode_guided.cpp.o
@@ -8987,8 +5613,8 @@ mode_guided.o: mode_guided.cpp.o
 
 # target to build an object file
 mode_guided.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_guided.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided.cpp.o
 .PHONY : mode_guided.cpp.o
 
 mode_guided.i: mode_guided.cpp.i
@@ -8996,8 +5622,8 @@ mode_guided.i: mode_guided.cpp.i
 
 # target to preprocess a source file
 mode_guided.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_guided.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided.cpp.i
 .PHONY : mode_guided.cpp.i
 
 mode_guided.s: mode_guided.cpp.s
@@ -9005,8 +5631,8 @@ mode_guided.s: mode_guided.cpp.s
 
 # target to generate assembly for a file
 mode_guided.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_guided.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided.cpp.s
 .PHONY : mode_guided.cpp.s
 
 mode_guided_custom.o: mode_guided_custom.cpp.o
@@ -9014,8 +5640,8 @@ mode_guided_custom.o: mode_guided_custom.cpp.o
 
 # target to build an object file
 mode_guided_custom.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided_custom.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_guided_custom.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided_custom.cpp.o
 .PHONY : mode_guided_custom.cpp.o
 
 mode_guided_custom.i: mode_guided_custom.cpp.i
@@ -9023,8 +5649,8 @@ mode_guided_custom.i: mode_guided_custom.cpp.i
 
 # target to preprocess a source file
 mode_guided_custom.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided_custom.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_guided_custom.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided_custom.cpp.i
 .PHONY : mode_guided_custom.cpp.i
 
 mode_guided_custom.s: mode_guided_custom.cpp.s
@@ -9032,8 +5658,8 @@ mode_guided_custom.s: mode_guided_custom.cpp.s
 
 # target to generate assembly for a file
 mode_guided_custom.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided_custom.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_guided_custom.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided_custom.cpp.s
 .PHONY : mode_guided_custom.cpp.s
 
 mode_guided_nogps.o: mode_guided_nogps.cpp.o
@@ -9041,8 +5667,8 @@ mode_guided_nogps.o: mode_guided_nogps.cpp.o
 
 # target to build an object file
 mode_guided_nogps.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided_nogps.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_guided_nogps.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided_nogps.cpp.o
 .PHONY : mode_guided_nogps.cpp.o
 
 mode_guided_nogps.i: mode_guided_nogps.cpp.i
@@ -9050,8 +5676,8 @@ mode_guided_nogps.i: mode_guided_nogps.cpp.i
 
 # target to preprocess a source file
 mode_guided_nogps.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided_nogps.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_guided_nogps.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided_nogps.cpp.i
 .PHONY : mode_guided_nogps.cpp.i
 
 mode_guided_nogps.s: mode_guided_nogps.cpp.s
@@ -9059,8 +5685,8 @@ mode_guided_nogps.s: mode_guided_nogps.cpp.s
 
 # target to generate assembly for a file
 mode_guided_nogps.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided_nogps.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_guided_nogps.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_guided_nogps.cpp.s
 .PHONY : mode_guided_nogps.cpp.s
 
 mode_land.o: mode_land.cpp.o
@@ -9068,8 +5694,8 @@ mode_land.o: mode_land.cpp.o
 
 # target to build an object file
 mode_land.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_land.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_land.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_land.cpp.o
 .PHONY : mode_land.cpp.o
 
 mode_land.i: mode_land.cpp.i
@@ -9077,8 +5703,8 @@ mode_land.i: mode_land.cpp.i
 
 # target to preprocess a source file
 mode_land.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_land.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_land.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_land.cpp.i
 .PHONY : mode_land.cpp.i
 
 mode_land.s: mode_land.cpp.s
@@ -9086,8 +5712,8 @@ mode_land.s: mode_land.cpp.s
 
 # target to generate assembly for a file
 mode_land.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_land.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_land.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_land.cpp.s
 .PHONY : mode_land.cpp.s
 
 mode_loiter.o: mode_loiter.cpp.o
@@ -9095,8 +5721,8 @@ mode_loiter.o: mode_loiter.cpp.o
 
 # target to build an object file
 mode_loiter.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_loiter.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_loiter.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_loiter.cpp.o
 .PHONY : mode_loiter.cpp.o
 
 mode_loiter.i: mode_loiter.cpp.i
@@ -9104,8 +5730,8 @@ mode_loiter.i: mode_loiter.cpp.i
 
 # target to preprocess a source file
 mode_loiter.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_loiter.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_loiter.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_loiter.cpp.i
 .PHONY : mode_loiter.cpp.i
 
 mode_loiter.s: mode_loiter.cpp.s
@@ -9113,8 +5739,8 @@ mode_loiter.s: mode_loiter.cpp.s
 
 # target to generate assembly for a file
 mode_loiter.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_loiter.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_loiter.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_loiter.cpp.s
 .PHONY : mode_loiter.cpp.s
 
 mode_poshold.o: mode_poshold.cpp.o
@@ -9122,8 +5748,8 @@ mode_poshold.o: mode_poshold.cpp.o
 
 # target to build an object file
 mode_poshold.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_poshold.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_poshold.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_poshold.cpp.o
 .PHONY : mode_poshold.cpp.o
 
 mode_poshold.i: mode_poshold.cpp.i
@@ -9131,8 +5757,8 @@ mode_poshold.i: mode_poshold.cpp.i
 
 # target to preprocess a source file
 mode_poshold.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_poshold.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_poshold.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_poshold.cpp.i
 .PHONY : mode_poshold.cpp.i
 
 mode_poshold.s: mode_poshold.cpp.s
@@ -9140,8 +5766,8 @@ mode_poshold.s: mode_poshold.cpp.s
 
 # target to generate assembly for a file
 mode_poshold.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_poshold.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_poshold.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_poshold.cpp.s
 .PHONY : mode_poshold.cpp.s
 
 mode_rtl.o: mode_rtl.cpp.o
@@ -9149,8 +5775,8 @@ mode_rtl.o: mode_rtl.cpp.o
 
 # target to build an object file
 mode_rtl.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_rtl.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_rtl.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_rtl.cpp.o
 .PHONY : mode_rtl.cpp.o
 
 mode_rtl.i: mode_rtl.cpp.i
@@ -9158,8 +5784,8 @@ mode_rtl.i: mode_rtl.cpp.i
 
 # target to preprocess a source file
 mode_rtl.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_rtl.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_rtl.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_rtl.cpp.i
 .PHONY : mode_rtl.cpp.i
 
 mode_rtl.s: mode_rtl.cpp.s
@@ -9167,8 +5793,8 @@ mode_rtl.s: mode_rtl.cpp.s
 
 # target to generate assembly for a file
 mode_rtl.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_rtl.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_rtl.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_rtl.cpp.s
 .PHONY : mode_rtl.cpp.s
 
 mode_smart_rtl.o: mode_smart_rtl.cpp.o
@@ -9176,8 +5802,8 @@ mode_smart_rtl.o: mode_smart_rtl.cpp.o
 
 # target to build an object file
 mode_smart_rtl.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_smart_rtl.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_smart_rtl.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_smart_rtl.cpp.o
 .PHONY : mode_smart_rtl.cpp.o
 
 mode_smart_rtl.i: mode_smart_rtl.cpp.i
@@ -9185,8 +5811,8 @@ mode_smart_rtl.i: mode_smart_rtl.cpp.i
 
 # target to preprocess a source file
 mode_smart_rtl.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_smart_rtl.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_smart_rtl.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_smart_rtl.cpp.i
 .PHONY : mode_smart_rtl.cpp.i
 
 mode_smart_rtl.s: mode_smart_rtl.cpp.s
@@ -9194,8 +5820,8 @@ mode_smart_rtl.s: mode_smart_rtl.cpp.s
 
 # target to generate assembly for a file
 mode_smart_rtl.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_smart_rtl.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_smart_rtl.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_smart_rtl.cpp.s
 .PHONY : mode_smart_rtl.cpp.s
 
 mode_sport.o: mode_sport.cpp.o
@@ -9203,8 +5829,8 @@ mode_sport.o: mode_sport.cpp.o
 
 # target to build an object file
 mode_sport.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_sport.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_sport.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_sport.cpp.o
 .PHONY : mode_sport.cpp.o
 
 mode_sport.i: mode_sport.cpp.i
@@ -9212,8 +5838,8 @@ mode_sport.i: mode_sport.cpp.i
 
 # target to preprocess a source file
 mode_sport.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_sport.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_sport.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_sport.cpp.i
 .PHONY : mode_sport.cpp.i
 
 mode_sport.s: mode_sport.cpp.s
@@ -9221,8 +5847,8 @@ mode_sport.s: mode_sport.cpp.s
 
 # target to generate assembly for a file
 mode_sport.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_sport.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_sport.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_sport.cpp.s
 .PHONY : mode_sport.cpp.s
 
 mode_stabilize.o: mode_stabilize.cpp.o
@@ -9230,8 +5856,8 @@ mode_stabilize.o: mode_stabilize.cpp.o
 
 # target to build an object file
 mode_stabilize.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_stabilize.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_stabilize.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_stabilize.cpp.o
 .PHONY : mode_stabilize.cpp.o
 
 mode_stabilize.i: mode_stabilize.cpp.i
@@ -9239,8 +5865,8 @@ mode_stabilize.i: mode_stabilize.cpp.i
 
 # target to preprocess a source file
 mode_stabilize.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_stabilize.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_stabilize.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_stabilize.cpp.i
 .PHONY : mode_stabilize.cpp.i
 
 mode_stabilize.s: mode_stabilize.cpp.s
@@ -9248,8 +5874,8 @@ mode_stabilize.s: mode_stabilize.cpp.s
 
 # target to generate assembly for a file
 mode_stabilize.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_stabilize.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_stabilize.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_stabilize.cpp.s
 .PHONY : mode_stabilize.cpp.s
 
 mode_stabilize_heli.o: mode_stabilize_heli.cpp.o
@@ -9257,8 +5883,8 @@ mode_stabilize_heli.o: mode_stabilize_heli.cpp.o
 
 # target to build an object file
 mode_stabilize_heli.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_stabilize_heli.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_stabilize_heli.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_stabilize_heli.cpp.o
 .PHONY : mode_stabilize_heli.cpp.o
 
 mode_stabilize_heli.i: mode_stabilize_heli.cpp.i
@@ -9266,8 +5892,8 @@ mode_stabilize_heli.i: mode_stabilize_heli.cpp.i
 
 # target to preprocess a source file
 mode_stabilize_heli.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_stabilize_heli.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_stabilize_heli.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_stabilize_heli.cpp.i
 .PHONY : mode_stabilize_heli.cpp.i
 
 mode_stabilize_heli.s: mode_stabilize_heli.cpp.s
@@ -9275,8 +5901,8 @@ mode_stabilize_heli.s: mode_stabilize_heli.cpp.s
 
 # target to generate assembly for a file
 mode_stabilize_heli.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_stabilize_heli.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_stabilize_heli.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_stabilize_heli.cpp.s
 .PHONY : mode_stabilize_heli.cpp.s
 
 mode_systemid.o: mode_systemid.cpp.o
@@ -9284,8 +5910,8 @@ mode_systemid.o: mode_systemid.cpp.o
 
 # target to build an object file
 mode_systemid.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_systemid.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_systemid.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_systemid.cpp.o
 .PHONY : mode_systemid.cpp.o
 
 mode_systemid.i: mode_systemid.cpp.i
@@ -9293,8 +5919,8 @@ mode_systemid.i: mode_systemid.cpp.i
 
 # target to preprocess a source file
 mode_systemid.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_systemid.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_systemid.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_systemid.cpp.i
 .PHONY : mode_systemid.cpp.i
 
 mode_systemid.s: mode_systemid.cpp.s
@@ -9302,8 +5928,8 @@ mode_systemid.s: mode_systemid.cpp.s
 
 # target to generate assembly for a file
 mode_systemid.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_systemid.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_systemid.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_systemid.cpp.s
 .PHONY : mode_systemid.cpp.s
 
 mode_throw.o: mode_throw.cpp.o
@@ -9311,8 +5937,8 @@ mode_throw.o: mode_throw.cpp.o
 
 # target to build an object file
 mode_throw.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_throw.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_throw.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_throw.cpp.o
 .PHONY : mode_throw.cpp.o
 
 mode_throw.i: mode_throw.cpp.i
@@ -9320,8 +5946,8 @@ mode_throw.i: mode_throw.cpp.i
 
 # target to preprocess a source file
 mode_throw.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_throw.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_throw.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_throw.cpp.i
 .PHONY : mode_throw.cpp.i
 
 mode_throw.s: mode_throw.cpp.s
@@ -9329,8 +5955,8 @@ mode_throw.s: mode_throw.cpp.s
 
 # target to generate assembly for a file
 mode_throw.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_throw.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_throw.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_throw.cpp.s
 .PHONY : mode_throw.cpp.s
 
 mode_turtle.o: mode_turtle.cpp.o
@@ -9338,8 +5964,8 @@ mode_turtle.o: mode_turtle.cpp.o
 
 # target to build an object file
 mode_turtle.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_turtle.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_turtle.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_turtle.cpp.o
 .PHONY : mode_turtle.cpp.o
 
 mode_turtle.i: mode_turtle.cpp.i
@@ -9347,8 +5973,8 @@ mode_turtle.i: mode_turtle.cpp.i
 
 # target to preprocess a source file
 mode_turtle.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_turtle.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_turtle.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_turtle.cpp.i
 .PHONY : mode_turtle.cpp.i
 
 mode_turtle.s: mode_turtle.cpp.s
@@ -9356,8 +5982,8 @@ mode_turtle.s: mode_turtle.cpp.s
 
 # target to generate assembly for a file
 mode_turtle.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_turtle.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_turtle.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_turtle.cpp.s
 .PHONY : mode_turtle.cpp.s
 
 mode_zigzag.o: mode_zigzag.cpp.o
@@ -9365,8 +5991,8 @@ mode_zigzag.o: mode_zigzag.cpp.o
 
 # target to build an object file
 mode_zigzag.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_zigzag.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_zigzag.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_zigzag.cpp.o
 .PHONY : mode_zigzag.cpp.o
 
 mode_zigzag.i: mode_zigzag.cpp.i
@@ -9374,8 +6000,8 @@ mode_zigzag.i: mode_zigzag.cpp.i
 
 # target to preprocess a source file
 mode_zigzag.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_zigzag.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_zigzag.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_zigzag.cpp.i
 .PHONY : mode_zigzag.cpp.i
 
 mode_zigzag.s: mode_zigzag.cpp.s
@@ -9383,8 +6009,8 @@ mode_zigzag.s: mode_zigzag.cpp.s
 
 # target to generate assembly for a file
 mode_zigzag.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_zigzag.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/mode_zigzag.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/mode_zigzag.cpp.s
 .PHONY : mode_zigzag.cpp.s
 
 motor_test.o: motor_test.cpp.o
@@ -9392,8 +6018,8 @@ motor_test.o: motor_test.cpp.o
 
 # target to build an object file
 motor_test.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/motor_test.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/motor_test.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/motor_test.cpp.o
 .PHONY : motor_test.cpp.o
 
 motor_test.i: motor_test.cpp.i
@@ -9401,8 +6027,8 @@ motor_test.i: motor_test.cpp.i
 
 # target to preprocess a source file
 motor_test.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/motor_test.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/motor_test.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/motor_test.cpp.i
 .PHONY : motor_test.cpp.i
 
 motor_test.s: motor_test.cpp.s
@@ -9410,8 +6036,8 @@ motor_test.s: motor_test.cpp.s
 
 # target to generate assembly for a file
 motor_test.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/motor_test.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/motor_test.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/motor_test.cpp.s
 .PHONY : motor_test.cpp.s
 
 motors.o: motors.cpp.o
@@ -9419,8 +6045,8 @@ motors.o: motors.cpp.o
 
 # target to build an object file
 motors.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/motors.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/motors.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/motors.cpp.o
 .PHONY : motors.cpp.o
 
 motors.i: motors.cpp.i
@@ -9428,8 +6054,8 @@ motors.i: motors.cpp.i
 
 # target to preprocess a source file
 motors.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/motors.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/motors.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/motors.cpp.i
 .PHONY : motors.cpp.i
 
 motors.s: motors.cpp.s
@@ -9437,8 +6063,8 @@ motors.s: motors.cpp.s
 
 # target to generate assembly for a file
 motors.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/motors.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/motors.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/motors.cpp.s
 .PHONY : motors.cpp.s
 
 navigation.o: navigation.cpp.o
@@ -9446,8 +6072,8 @@ navigation.o: navigation.cpp.o
 
 # target to build an object file
 navigation.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/navigation.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/navigation.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/navigation.cpp.o
 .PHONY : navigation.cpp.o
 
 navigation.i: navigation.cpp.i
@@ -9455,8 +6081,8 @@ navigation.i: navigation.cpp.i
 
 # target to preprocess a source file
 navigation.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/navigation.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/navigation.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/navigation.cpp.i
 .PHONY : navigation.cpp.i
 
 navigation.s: navigation.cpp.s
@@ -9464,8 +6090,8 @@ navigation.s: navigation.cpp.s
 
 # target to generate assembly for a file
 navigation.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/navigation.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/navigation.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/navigation.cpp.s
 .PHONY : navigation.cpp.s
 
 precision_landing.o: precision_landing.cpp.o
@@ -9473,8 +6099,8 @@ precision_landing.o: precision_landing.cpp.o
 
 # target to build an object file
 precision_landing.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/precision_landing.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/precision_landing.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/precision_landing.cpp.o
 .PHONY : precision_landing.cpp.o
 
 precision_landing.i: precision_landing.cpp.i
@@ -9482,8 +6108,8 @@ precision_landing.i: precision_landing.cpp.i
 
 # target to preprocess a source file
 precision_landing.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/precision_landing.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/precision_landing.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/precision_landing.cpp.i
 .PHONY : precision_landing.cpp.i
 
 precision_landing.s: precision_landing.cpp.s
@@ -9491,8 +6117,8 @@ precision_landing.s: precision_landing.cpp.s
 
 # target to generate assembly for a file
 precision_landing.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/precision_landing.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/precision_landing.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/precision_landing.cpp.s
 .PHONY : precision_landing.cpp.s
 
 radio.o: radio.cpp.o
@@ -9500,8 +6126,8 @@ radio.o: radio.cpp.o
 
 # target to build an object file
 radio.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/radio.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/radio.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/radio.cpp.o
 .PHONY : radio.cpp.o
 
 radio.i: radio.cpp.i
@@ -9509,8 +6135,8 @@ radio.i: radio.cpp.i
 
 # target to preprocess a source file
 radio.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/radio.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/radio.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/radio.cpp.i
 .PHONY : radio.cpp.i
 
 radio.s: radio.cpp.s
@@ -9518,8 +6144,8 @@ radio.s: radio.cpp.s
 
 # target to generate assembly for a file
 radio.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/radio.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/radio.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/radio.cpp.s
 .PHONY : radio.cpp.s
 
 rate_thread.o: rate_thread.cpp.o
@@ -9527,8 +6153,8 @@ rate_thread.o: rate_thread.cpp.o
 
 # target to build an object file
 rate_thread.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/rate_thread.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/rate_thread.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/rate_thread.cpp.o
 .PHONY : rate_thread.cpp.o
 
 rate_thread.i: rate_thread.cpp.i
@@ -9536,8 +6162,8 @@ rate_thread.i: rate_thread.cpp.i
 
 # target to preprocess a source file
 rate_thread.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/rate_thread.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/rate_thread.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/rate_thread.cpp.i
 .PHONY : rate_thread.cpp.i
 
 rate_thread.s: rate_thread.cpp.s
@@ -9545,8 +6171,8 @@ rate_thread.s: rate_thread.cpp.s
 
 # target to generate assembly for a file
 rate_thread.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/rate_thread.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/rate_thread.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/rate_thread.cpp.s
 .PHONY : rate_thread.cpp.s
 
 sensors.o: sensors.cpp.o
@@ -9554,8 +6180,8 @@ sensors.o: sensors.cpp.o
 
 # target to build an object file
 sensors.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/sensors.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/sensors.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/sensors.cpp.o
 .PHONY : sensors.cpp.o
 
 sensors.i: sensors.cpp.i
@@ -9563,8 +6189,8 @@ sensors.i: sensors.cpp.i
 
 # target to preprocess a source file
 sensors.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/sensors.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/sensors.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/sensors.cpp.i
 .PHONY : sensors.cpp.i
 
 sensors.s: sensors.cpp.s
@@ -9572,8 +6198,8 @@ sensors.s: sensors.cpp.s
 
 # target to generate assembly for a file
 sensors.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/sensors.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/sensors.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/sensors.cpp.s
 .PHONY : sensors.cpp.s
 
 standby.o: standby.cpp.o
@@ -9581,8 +6207,8 @@ standby.o: standby.cpp.o
 
 # target to build an object file
 standby.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/standby.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/standby.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/standby.cpp.o
 .PHONY : standby.cpp.o
 
 standby.i: standby.cpp.i
@@ -9590,8 +6216,8 @@ standby.i: standby.cpp.i
 
 # target to preprocess a source file
 standby.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/standby.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/standby.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/standby.cpp.i
 .PHONY : standby.cpp.i
 
 standby.s: standby.cpp.s
@@ -9599,8 +6225,8 @@ standby.s: standby.cpp.s
 
 # target to generate assembly for a file
 standby.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/standby.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/standby.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/standby.cpp.s
 .PHONY : standby.cpp.s
 
 surface_tracking.o: surface_tracking.cpp.o
@@ -9608,8 +6234,8 @@ surface_tracking.o: surface_tracking.cpp.o
 
 # target to build an object file
 surface_tracking.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/surface_tracking.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/surface_tracking.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/surface_tracking.cpp.o
 .PHONY : surface_tracking.cpp.o
 
 surface_tracking.i: surface_tracking.cpp.i
@@ -9617,8 +6243,8 @@ surface_tracking.i: surface_tracking.cpp.i
 
 # target to preprocess a source file
 surface_tracking.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/surface_tracking.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/surface_tracking.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/surface_tracking.cpp.i
 .PHONY : surface_tracking.cpp.i
 
 surface_tracking.s: surface_tracking.cpp.s
@@ -9626,8 +6252,8 @@ surface_tracking.s: surface_tracking.cpp.s
 
 # target to generate assembly for a file
 surface_tracking.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/surface_tracking.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/surface_tracking.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/surface_tracking.cpp.s
 .PHONY : surface_tracking.cpp.s
 
 system.o: system.cpp.o
@@ -9635,8 +6261,8 @@ system.o: system.cpp.o
 
 # target to build an object file
 system.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/system.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/system.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/system.cpp.o
 .PHONY : system.cpp.o
 
 system.i: system.cpp.i
@@ -9644,8 +6270,8 @@ system.i: system.cpp.i
 
 # target to preprocess a source file
 system.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/system.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/system.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/system.cpp.i
 .PHONY : system.cpp.i
 
 system.s: system.cpp.s
@@ -9653,8 +6279,8 @@ system.s: system.cpp.s
 
 # target to generate assembly for a file
 system.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/system.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/system.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/system.cpp.s
 .PHONY : system.cpp.s
 
 takeoff.o: takeoff.cpp.o
@@ -9662,8 +6288,8 @@ takeoff.o: takeoff.cpp.o
 
 # target to build an object file
 takeoff.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/takeoff.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/takeoff.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/takeoff.cpp.o
 .PHONY : takeoff.cpp.o
 
 takeoff.i: takeoff.cpp.i
@@ -9671,8 +6297,8 @@ takeoff.i: takeoff.cpp.i
 
 # target to preprocess a source file
 takeoff.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/takeoff.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/takeoff.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/takeoff.cpp.i
 .PHONY : takeoff.cpp.i
 
 takeoff.s: takeoff.cpp.s
@@ -9680,8 +6306,8 @@ takeoff.s: takeoff.cpp.s
 
 # target to generate assembly for a file
 takeoff.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/takeoff.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/takeoff.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/takeoff.cpp.s
 .PHONY : takeoff.cpp.s
 
 takeoff_check.o: takeoff_check.cpp.o
@@ -9689,8 +6315,8 @@ takeoff_check.o: takeoff_check.cpp.o
 
 # target to build an object file
 takeoff_check.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/takeoff_check.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/takeoff_check.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/takeoff_check.cpp.o
 .PHONY : takeoff_check.cpp.o
 
 takeoff_check.i: takeoff_check.cpp.i
@@ -9698,8 +6324,8 @@ takeoff_check.i: takeoff_check.cpp.i
 
 # target to preprocess a source file
 takeoff_check.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/takeoff_check.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/takeoff_check.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/takeoff_check.cpp.i
 .PHONY : takeoff_check.cpp.i
 
 takeoff_check.s: takeoff_check.cpp.s
@@ -9707,8 +6333,8 @@ takeoff_check.s: takeoff_check.cpp.s
 
 # target to generate assembly for a file
 takeoff_check.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/takeoff_check.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/takeoff_check.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/takeoff_check.cpp.s
 .PHONY : takeoff_check.cpp.s
 
 terrain.o: terrain.cpp.o
@@ -9716,8 +6342,8 @@ terrain.o: terrain.cpp.o
 
 # target to build an object file
 terrain.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/terrain.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/terrain.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/terrain.cpp.o
 .PHONY : terrain.cpp.o
 
 terrain.i: terrain.cpp.i
@@ -9725,8 +6351,8 @@ terrain.i: terrain.cpp.i
 
 # target to preprocess a source file
 terrain.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/terrain.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/terrain.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/terrain.cpp.i
 .PHONY : terrain.cpp.i
 
 terrain.s: terrain.cpp.s
@@ -9734,8 +6360,8 @@ terrain.s: terrain.cpp.s
 
 # target to generate assembly for a file
 terrain.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/terrain.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/terrain.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/terrain.cpp.s
 .PHONY : terrain.cpp.s
 
 toy_mode.o: toy_mode.cpp.o
@@ -9743,8 +6369,8 @@ toy_mode.o: toy_mode.cpp.o
 
 # target to build an object file
 toy_mode.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/toy_mode.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/toy_mode.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/toy_mode.cpp.o
 .PHONY : toy_mode.cpp.o
 
 toy_mode.i: toy_mode.cpp.i
@@ -9752,8 +6378,8 @@ toy_mode.i: toy_mode.cpp.i
 
 # target to preprocess a source file
 toy_mode.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/toy_mode.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/toy_mode.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/toy_mode.cpp.i
 .PHONY : toy_mode.cpp.i
 
 toy_mode.s: toy_mode.cpp.s
@@ -9761,8 +6387,8 @@ toy_mode.s: toy_mode.cpp.s
 
 # target to generate assembly for a file
 toy_mode.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/toy_mode.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/toy_mode.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/toy_mode.cpp.s
 .PHONY : toy_mode.cpp.s
 
 tuning.o: tuning.cpp.o
@@ -9770,8 +6396,8 @@ tuning.o: tuning.cpp.o
 
 # target to build an object file
 tuning.cpp.o:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/tuning.cpp.o
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/tuning.cpp.o
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/tuning.cpp.o
 .PHONY : tuning.cpp.o
 
 tuning.i: tuning.cpp.i
@@ -9779,8 +6405,8 @@ tuning.i: tuning.cpp.i
 
 # target to preprocess a source file
 tuning.cpp.i:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/tuning.cpp.i
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/tuning.cpp.i
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/tuning.cpp.i
 .PHONY : tuning.cpp.i
 
 tuning.s: tuning.cpp.s
@@ -9788,8 +6414,8 @@ tuning.s: tuning.cpp.s
 
 # target to generate assembly for a file
 tuning.cpp.s:
-	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/tuning.cpp.s
 	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter.dir/build.make ArduCopter/CMakeFiles/bin_arducopter.dir/tuning.cpp.s
+	cd /home/buzz2/ardupilot/build2 && $(MAKE) $(MAKESILENT) -f ArduCopter/CMakeFiles/bin_arducopter-heli.dir/build.make ArduCopter/CMakeFiles/bin_arducopter-heli.dir/tuning.cpp.s
 .PHONY : tuning.cpp.s
 
 # Help Target
@@ -9803,56 +6429,7 @@ help:
 	@echo "... ArduCopter_libs"
 	@echo "... bin_arducopter"
 	@echo "... bin_arducopter-heli"
-	@echo "... objs_AC_AttitudeControl_ArduCopter"
-	@echo "... objs_AC_AutoTune_ArduCopter"
-	@echo "... objs_AC_Avoidance_ArduCopter"
-	@echo "... objs_AC_Fence_ArduCopter"
-	@echo "... objs_AC_PrecLand_ArduCopter"
-	@echo "... objs_AC_WPNav_ArduCopter"
-	@echo "... objs_AP_ADSB_ArduCopter"
-	@echo "... objs_AP_AHRS_ArduCopter"
-	@echo "... objs_AP_AIS_ArduCopter"
-	@echo "... objs_AP_Airspeed_ArduCopter"
-	@echo "... objs_AP_Arming_ArduCopter"
-	@echo "... objs_AP_Avoidance_ArduCopter"
-	@echo "... objs_AP_BLHeli_ArduCopter"
-	@echo "... objs_AP_Baro_ArduCopter"
-	@echo "... objs_AP_BattMonitor_ArduCopter"
-	@echo "... objs_AP_BoardConfig_ArduCopter"
-	@echo "... objs_AP_DAL_ArduCopter"
-	@echo "... objs_AP_ESC_Telem_ArduCopter"
-	@echo "... objs_AP_ExternalAHRS_ArduCopter"
-	@echo "... objs_AP_Filesystem_ArduCopter"
-	@echo "... objs_AP_Follow_ArduCopter"
-	@echo "... objs_AP_Frsky_Telem_ArduCopter"
-	@echo "... objs_AP_GyroFFT_ArduCopter"
-	@echo "... objs_AP_HAL_ArduCopter"
-	@echo "... objs_AP_HAL_SITL_ArduCopter"
-	@echo "... objs_AP_IBus_Telem_ArduCopter"
-	@echo "... objs_AP_InertialSensor_ArduCopter"
-	@echo "... objs_AP_LandingGear_ArduCopter"
-	@echo "... objs_AP_Logger_ArduCopter"
-	@echo "... objs_AP_Math_ArduCopter"
-	@echo "... objs_AP_Mission_ArduCopter"
-	@echo "... objs_AP_Motors_ArduCopter"
-	@echo "... objs_AP_NavEKF2_ArduCopter"
-	@echo "... objs_AP_NavEKF3_ArduCopter"
-	@echo "... objs_AP_OSD_ArduCopter"
-	@echo "... objs_AP_Proximity_ArduCopter"
-	@echo "... objs_AP_RCProtocol_ArduCopter"
-	@echo "... objs_AP_RCTelemetry_ArduCopter"
-	@echo "... objs_AP_Rally_ArduCopter"
-	@echo "... objs_AP_Relay_ArduCopter"
-	@echo "... objs_AP_Scheduler_ArduCopter"
-	@echo "... objs_AP_Scripting_ArduCopter"
-	@echo "... objs_AP_TemperatureSensor_ArduCopter"
-	@echo "... objs_AP_Terrain_ArduCopter"
-	@echo "... objs_AP_Vehicle_ArduCopter"
-	@echo "... objs_Filter_ArduCopter"
-	@echo "... objs_GCS_MAVLink_ArduCopter"
-	@echo "... objs_RC_Channel_ArduCopter"
-	@echo "... objs_SITL_ArduCopter"
-	@echo "... objs_StorageManager_ArduCopter"
+	@echo "... objs_AP_Avoidance"
 	@echo "... AP_Arming_Copter.o"
 	@echo "... AP_Arming_Copter.i"
 	@echo "... AP_Arming_Copter.s"
@@ -9892,9 +6469,6 @@ help:
 	@echo "... UserParameters.o"
 	@echo "... UserParameters.i"
 	@echo "... UserParameters.s"
-	@echo "... __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.o"
-	@echo "... __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.i"
-	@echo "... __/build/sitl/libraries/AP_Scripting/lua_generated_bindings.s"
 	@echo "... __/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.o"
 	@echo "... __/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.i"
 	@echo "... __/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.s"
@@ -10423,342 +6997,9 @@ help:
 	@echo "... __/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.o"
 	@echo "... __/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.i"
 	@echo "... __/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.s"
-	@echo "... __/libraries/AC_AttitudeControl/AC_AttitudeControl.o"
-	@echo "... __/libraries/AC_AttitudeControl/AC_AttitudeControl.i"
-	@echo "... __/libraries/AC_AttitudeControl/AC_AttitudeControl.s"
-	@echo "... __/libraries/AC_AttitudeControl/AC_PosControl.o"
-	@echo "... __/libraries/AC_AttitudeControl/AC_PosControl.i"
-	@echo "... __/libraries/AC_AttitudeControl/AC_PosControl.s"
-	@echo "... __/libraries/AC_AttitudeControl/AC_WeatherVane.o"
-	@echo "... __/libraries/AC_AttitudeControl/AC_WeatherVane.i"
-	@echo "... __/libraries/AC_AttitudeControl/AC_WeatherVane.s"
-	@echo "... __/libraries/AC_AutoTune/AC_AutoTune.o"
-	@echo "... __/libraries/AC_AutoTune/AC_AutoTune.i"
-	@echo "... __/libraries/AC_AutoTune/AC_AutoTune.s"
-	@echo "... __/libraries/AC_AutoTune/AC_AutoTune_Multi.o"
-	@echo "... __/libraries/AC_AutoTune/AC_AutoTune_Multi.i"
-	@echo "... __/libraries/AC_AutoTune/AC_AutoTune_Multi.s"
-	@echo "... __/libraries/AC_Avoidance/AC_Avoid.o"
-	@echo "... __/libraries/AC_Avoidance/AC_Avoid.i"
-	@echo "... __/libraries/AC_Avoidance/AC_Avoid.s"
-	@echo "... __/libraries/AC_Avoidance/AP_OABendyRuler.o"
-	@echo "... __/libraries/AC_Avoidance/AP_OABendyRuler.i"
-	@echo "... __/libraries/AC_Avoidance/AP_OABendyRuler.s"
-	@echo "... __/libraries/AC_Avoidance/AP_OADatabase.o"
-	@echo "... __/libraries/AC_Avoidance/AP_OADatabase.i"
-	@echo "... __/libraries/AC_Avoidance/AP_OADatabase.s"
-	@echo "... __/libraries/AC_Fence/AC_Fence.o"
-	@echo "... __/libraries/AC_Fence/AC_Fence.i"
-	@echo "... __/libraries/AC_Fence/AC_Fence.s"
-	@echo "... __/libraries/AC_Fence/AC_PolyFence_loader.o"
-	@echo "... __/libraries/AC_Fence/AC_PolyFence_loader.i"
-	@echo "... __/libraries/AC_Fence/AC_PolyFence_loader.s"
-	@echo "... __/libraries/AC_PrecLand/AC_PrecLand.o"
-	@echo "... __/libraries/AC_PrecLand/AC_PrecLand.i"
-	@echo "... __/libraries/AC_PrecLand/AC_PrecLand.s"
-	@echo "... __/libraries/AC_WPNav/AC_Loiter.o"
-	@echo "... __/libraries/AC_WPNav/AC_Loiter.i"
-	@echo "... __/libraries/AC_WPNav/AC_Loiter.s"
-	@echo "... __/libraries/AP_ADSB/AP_ADSB.o"
-	@echo "... __/libraries/AP_ADSB/AP_ADSB.i"
-	@echo "... __/libraries/AP_ADSB/AP_ADSB.s"
-	@echo "... __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.o"
-	@echo "... __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.i"
-	@echo "... __/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.s"
-	@echo "... __/libraries/AP_AHRS/AP_AHRS.o"
-	@echo "... __/libraries/AP_AHRS/AP_AHRS.i"
-	@echo "... __/libraries/AP_AHRS/AP_AHRS.s"
-	@echo "... __/libraries/AP_AHRS/AP_AHRS_Backend.o"
-	@echo "... __/libraries/AP_AHRS/AP_AHRS_Backend.i"
-	@echo "... __/libraries/AP_AHRS/AP_AHRS_Backend.s"
-	@echo "... __/libraries/AP_AHRS/AP_AHRS_DCM.o"
-	@echo "... __/libraries/AP_AHRS/AP_AHRS_DCM.i"
-	@echo "... __/libraries/AP_AHRS/AP_AHRS_DCM.s"
-	@echo "... __/libraries/AP_AIS/AP_AIS.o"
-	@echo "... __/libraries/AP_AIS/AP_AIS.i"
-	@echo "... __/libraries/AP_AIS/AP_AIS.s"
-	@echo "... __/libraries/AP_Airspeed/AP_Airspeed.o"
-	@echo "... __/libraries/AP_Airspeed/AP_Airspeed.i"
-	@echo "... __/libraries/AP_Airspeed/AP_Airspeed.s"
-	@echo "... __/libraries/AP_Airspeed/AP_Airspeed_NMEA.o"
-	@echo "... __/libraries/AP_Airspeed/AP_Airspeed_NMEA.i"
-	@echo "... __/libraries/AP_Airspeed/AP_Airspeed_NMEA.s"
-	@echo "... __/libraries/AP_Airspeed/AP_Airspeed_Params.o"
-	@echo "... __/libraries/AP_Airspeed/AP_Airspeed_Params.i"
-	@echo "... __/libraries/AP_Airspeed/AP_Airspeed_Params.s"
-	@echo "... __/libraries/AP_Arming/AP_Arming.o"
-	@echo "... __/libraries/AP_Arming/AP_Arming.i"
-	@echo "... __/libraries/AP_Arming/AP_Arming.s"
 	@echo "... __/libraries/AP_Avoidance/AP_Avoidance.o"
 	@echo "... __/libraries/AP_Avoidance/AP_Avoidance.i"
 	@echo "... __/libraries/AP_Avoidance/AP_Avoidance.s"
-	@echo "... __/libraries/AP_BLHeli/AP_BLHeli.o"
-	@echo "... __/libraries/AP_BLHeli/AP_BLHeli.i"
-	@echo "... __/libraries/AP_BLHeli/AP_BLHeli.s"
-	@echo "... __/libraries/AP_Baro/AP_Baro.o"
-	@echo "... __/libraries/AP_Baro/AP_Baro.i"
-	@echo "... __/libraries/AP_Baro/AP_Baro.s"
-	@echo "... __/libraries/AP_Baro/AP_Baro_Backend.o"
-	@echo "... __/libraries/AP_Baro/AP_Baro_Backend.i"
-	@echo "... __/libraries/AP_Baro/AP_Baro_Backend.s"
-	@echo "... __/libraries/AP_Baro/AP_Baro_SITL.o"
-	@echo "... __/libraries/AP_Baro/AP_Baro_SITL.i"
-	@echo "... __/libraries/AP_Baro/AP_Baro_SITL.s"
-	@echo "... __/libraries/AP_BattMonitor/AP_BattMonitor.o"
-	@echo "... __/libraries/AP_BattMonitor/AP_BattMonitor.i"
-	@echo "... __/libraries/AP_BattMonitor/AP_BattMonitor.s"
-	@echo "... __/libraries/AP_BattMonitor/AP_BattMonitor_Params.o"
-	@echo "... __/libraries/AP_BattMonitor/AP_BattMonitor_Params.i"
-	@echo "... __/libraries/AP_BattMonitor/AP_BattMonitor_Params.s"
-	@echo "... __/libraries/AP_BoardConfig/AP_BoardConfig.o"
-	@echo "... __/libraries/AP_BoardConfig/AP_BoardConfig.i"
-	@echo "... __/libraries/AP_BoardConfig/AP_BoardConfig.s"
-	@echo "... __/libraries/AP_DAL/AP_DAL.o"
-	@echo "... __/libraries/AP_DAL/AP_DAL.i"
-	@echo "... __/libraries/AP_DAL/AP_DAL.s"
-	@echo "... __/libraries/AP_DAL/AP_DAL_Beacon.o"
-	@echo "... __/libraries/AP_DAL/AP_DAL_Beacon.i"
-	@echo "... __/libraries/AP_DAL/AP_DAL_Beacon.s"
-	@echo "... __/libraries/AP_DAL/AP_DAL_RangeFinder.o"
-	@echo "... __/libraries/AP_DAL/AP_DAL_RangeFinder.i"
-	@echo "... __/libraries/AP_DAL/AP_DAL_RangeFinder.s"
-	@echo "... __/libraries/AP_DAL/AP_DAL_VisualOdom.o"
-	@echo "... __/libraries/AP_DAL/AP_DAL_VisualOdom.i"
-	@echo "... __/libraries/AP_DAL/AP_DAL_VisualOdom.s"
-	@echo "... __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.o"
-	@echo "... __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.i"
-	@echo "... __/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.s"
-	@echo "... __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.o"
-	@echo "... __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.i"
-	@echo "... __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.s"
-	@echo "... __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.o"
-	@echo "... __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.i"
-	@echo "... __/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.s"
-	@echo "... __/libraries/AP_Filesystem/AP_Filesystem_posix.o"
-	@echo "... __/libraries/AP_Filesystem/AP_Filesystem_posix.i"
-	@echo "... __/libraries/AP_Filesystem/AP_Filesystem_posix.s"
-	@echo "... __/libraries/AP_Follow/AP_Follow.o"
-	@echo "... __/libraries/AP_Follow/AP_Follow.i"
-	@echo "... __/libraries/AP_Follow/AP_Follow.s"
-	@echo "... __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.o"
-	@echo "... __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.i"
-	@echo "... __/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.s"
-	@echo "... __/libraries/AP_GyroFFT/AP_GyroFFT.o"
-	@echo "... __/libraries/AP_GyroFFT/AP_GyroFFT.i"
-	@echo "... __/libraries/AP_GyroFFT/AP_GyroFFT.s"
-	@echo "... __/libraries/AP_HAL/SIMState.o"
-	@echo "... __/libraries/AP_HAL/SIMState.i"
-	@echo "... __/libraries/AP_HAL/SIMState.s"
-	@echo "... __/libraries/AP_HAL_SITL/SITL_cmdline.o"
-	@echo "... __/libraries/AP_HAL_SITL/SITL_cmdline.i"
-	@echo "... __/libraries/AP_HAL_SITL/SITL_cmdline.s"
-	@echo "... __/libraries/AP_HAL_SITL/Storage.o"
-	@echo "... __/libraries/AP_HAL_SITL/Storage.i"
-	@echo "... __/libraries/AP_HAL_SITL/Storage.s"
-	@echo "... __/libraries/AP_HAL_SITL/UARTDriver.o"
-	@echo "... __/libraries/AP_HAL_SITL/UARTDriver.i"
-	@echo "... __/libraries/AP_HAL_SITL/UARTDriver.s"
-	@echo "... __/libraries/AP_IBus_Telem/AP_IBus_Telem.o"
-	@echo "... __/libraries/AP_IBus_Telem/AP_IBus_Telem.i"
-	@echo "... __/libraries/AP_IBus_Telem/AP_IBus_Telem.s"
-	@echo "... __/libraries/AP_InertialSensor/AP_InertialSensor.o"
-	@echo "... __/libraries/AP_InertialSensor/AP_InertialSensor.i"
-	@echo "... __/libraries/AP_InertialSensor/AP_InertialSensor.s"
-	@echo "... __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.o"
-	@echo "... __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.i"
-	@echo "... __/libraries/AP_InertialSensor/AP_InertialSensor_Backend.s"
-	@echo "... __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.o"
-	@echo "... __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.i"
-	@echo "... __/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.s"
-	@echo "... __/libraries/AP_InertialSensor/FastRateBuffer.o"
-	@echo "... __/libraries/AP_InertialSensor/FastRateBuffer.i"
-	@echo "... __/libraries/AP_InertialSensor/FastRateBuffer.s"
-	@echo "... __/libraries/AP_LandingGear/AP_LandingGear.o"
-	@echo "... __/libraries/AP_LandingGear/AP_LandingGear.i"
-	@echo "... __/libraries/AP_LandingGear/AP_LandingGear.s"
-	@echo "... __/libraries/AP_Logger/AP_Logger.o"
-	@echo "... __/libraries/AP_Logger/AP_Logger.i"
-	@echo "... __/libraries/AP_Logger/AP_Logger.s"
-	@echo "... __/libraries/AP_Logger/AP_Logger_Backend.o"
-	@echo "... __/libraries/AP_Logger/AP_Logger_Backend.i"
-	@echo "... __/libraries/AP_Logger/AP_Logger_Backend.s"
-	@echo "... __/libraries/AP_Logger/AP_Logger_File.o"
-	@echo "... __/libraries/AP_Logger/AP_Logger_File.i"
-	@echo "... __/libraries/AP_Logger/AP_Logger_File.s"
-	@echo "... __/libraries/AP_Logger/LoggerMessageWriter.o"
-	@echo "... __/libraries/AP_Logger/LoggerMessageWriter.i"
-	@echo "... __/libraries/AP_Logger/LoggerMessageWriter.s"
-	@echo "... __/libraries/AP_Math/SCurve.o"
-	@echo "... __/libraries/AP_Math/SCurve.i"
-	@echo "... __/libraries/AP_Math/SCurve.s"
-	@echo "... __/libraries/AP_Mission/AP_Mission.o"
-	@echo "... __/libraries/AP_Mission/AP_Mission.i"
-	@echo "... __/libraries/AP_Mission/AP_Mission.s"
-	@echo "... __/libraries/AP_Motors/AP_MotorsMatrix.o"
-	@echo "... __/libraries/AP_Motors/AP_MotorsMatrix.i"
-	@echo "... __/libraries/AP_Motors/AP_MotorsMatrix.s"
-	@echo "... __/libraries/AP_Motors/AP_MotorsMulticopter.o"
-	@echo "... __/libraries/AP_Motors/AP_MotorsMulticopter.i"
-	@echo "... __/libraries/AP_Motors/AP_MotorsMulticopter.s"
-	@echo "... __/libraries/AP_Motors/AP_MotorsTri.o"
-	@echo "... __/libraries/AP_Motors/AP_MotorsTri.i"
-	@echo "... __/libraries/AP_Motors/AP_MotorsTri.s"
-	@echo "... __/libraries/AP_Motors/AP_Motors_Thrust_Linearization.o"
-	@echo "... __/libraries/AP_Motors/AP_Motors_Thrust_Linearization.i"
-	@echo "... __/libraries/AP_Motors/AP_Motors_Thrust_Linearization.s"
-	@echo "... __/libraries/AP_NavEKF2/AP_NavEKF2.o"
-	@echo "... __/libraries/AP_NavEKF2/AP_NavEKF2.i"
-	@echo "... __/libraries/AP_NavEKF2/AP_NavEKF2.s"
-	@echo "... __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.o"
-	@echo "... __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.i"
-	@echo "... __/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.s"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3.o"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3.i"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3.s"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.o"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.i"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.s"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_Control.o"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_Control.i"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_Control.s"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.o"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.i"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.s"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.o"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.i"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_Logging.s"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.o"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.i"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.s"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.o"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.i"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.s"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.o"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.i"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.s"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.o"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.i"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.s"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.o"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.i"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.s"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.o"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.i"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.s"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.o"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.i"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.s"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_core.o"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_core.i"
-	@echo "... __/libraries/AP_NavEKF3/AP_NavEKF3_core.s"
-	@echo "... __/libraries/AP_OSD/AP_OSD_ParamScreen.o"
-	@echo "... __/libraries/AP_OSD/AP_OSD_ParamScreen.i"
-	@echo "... __/libraries/AP_OSD/AP_OSD_ParamScreen.s"
-	@echo "... __/libraries/AP_OSD/AP_OSD_ParamSetting.o"
-	@echo "... __/libraries/AP_OSD/AP_OSD_ParamSetting.i"
-	@echo "... __/libraries/AP_OSD/AP_OSD_ParamSetting.s"
-	@echo "... __/libraries/AP_OSD/AP_OSD_Screen.o"
-	@echo "... __/libraries/AP_OSD/AP_OSD_Screen.i"
-	@echo "... __/libraries/AP_OSD/AP_OSD_Screen.s"
-	@echo "... __/libraries/AP_Proximity/AP_Proximity_Utils.o"
-	@echo "... __/libraries/AP_Proximity/AP_Proximity_Utils.i"
-	@echo "... __/libraries/AP_Proximity/AP_Proximity_Utils.s"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol.o"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol.i"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol.s"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.o"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.i"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.s"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.o"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.i"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_FPort.s"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.o"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.i"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.s"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.o"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.i"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_GHST.s"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.o"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.i"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.s"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.o"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.i"
-	@echo "... __/libraries/AP_RCProtocol/AP_RCProtocol_UDP.s"
-	@echo "... __/libraries/AP_RCTelemetry/AP_CRSF_Telem.o"
-	@echo "... __/libraries/AP_RCTelemetry/AP_CRSF_Telem.i"
-	@echo "... __/libraries/AP_RCTelemetry/AP_CRSF_Telem.s"
-	@echo "... __/libraries/AP_RCTelemetry/AP_RCTelemetry.o"
-	@echo "... __/libraries/AP_RCTelemetry/AP_RCTelemetry.i"
-	@echo "... __/libraries/AP_RCTelemetry/AP_RCTelemetry.s"
-	@echo "... __/libraries/AP_Rally/AP_Rally.o"
-	@echo "... __/libraries/AP_Rally/AP_Rally.i"
-	@echo "... __/libraries/AP_Rally/AP_Rally.s"
-	@echo "... __/libraries/AP_Relay/AP_Relay.o"
-	@echo "... __/libraries/AP_Relay/AP_Relay.i"
-	@echo "... __/libraries/AP_Relay/AP_Relay.s"
-	@echo "... __/libraries/AP_Scheduler/AP_Scheduler.o"
-	@echo "... __/libraries/AP_Scheduler/AP_Scheduler.i"
-	@echo "... __/libraries/AP_Scheduler/AP_Scheduler.s"
-	@echo "... __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.o"
-	@echo "... __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.i"
-	@echo "... __/libraries/AP_Scripting/AP_Scripting_CRSFMenu.s"
-	@echo "... __/libraries/AP_Scripting/AP_Scripting_helpers.o"
-	@echo "... __/libraries/AP_Scripting/AP_Scripting_helpers.i"
-	@echo "... __/libraries/AP_Scripting/AP_Scripting_helpers.s"
-	@echo "... __/libraries/AP_Scripting/lua_bindings.o"
-	@echo "... __/libraries/AP_Scripting/lua_bindings.i"
-	@echo "... __/libraries/AP_Scripting/lua_bindings.s"
-	@echo "... __/libraries/AP_Scripting/lua_boxed_numerics.o"
-	@echo "... __/libraries/AP_Scripting/lua_boxed_numerics.i"
-	@echo "... __/libraries/AP_Scripting/lua_boxed_numerics.s"
-	@echo "... __/libraries/AP_Scripting/lua_scripts.o"
-	@echo "... __/libraries/AP_Scripting/lua_scripts.i"
-	@echo "... __/libraries/AP_Scripting/lua_scripts.s"
-	@echo "... __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.o"
-	@echo "... __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.i"
-	@echo "... __/libraries/AP_TemperatureSensor/AP_TemperatureSensor.s"
-	@echo "... __/libraries/AP_Terrain/AP_Terrain.o"
-	@echo "... __/libraries/AP_Terrain/AP_Terrain.i"
-	@echo "... __/libraries/AP_Terrain/AP_Terrain.s"
-	@echo "... __/libraries/AP_Vehicle/AP_Vehicle.o"
-	@echo "... __/libraries/AP_Vehicle/AP_Vehicle.i"
-	@echo "... __/libraries/AP_Vehicle/AP_Vehicle.s"
-	@echo "... __/libraries/Filter/HarmonicNotchFilter.o"
-	@echo "... __/libraries/Filter/HarmonicNotchFilter.i"
-	@echo "... __/libraries/Filter/HarmonicNotchFilter.s"
-	@echo "... __/libraries/GCS_MAVLink/GCS.o"
-	@echo "... __/libraries/GCS_MAVLink/GCS.i"
-	@echo "... __/libraries/GCS_MAVLink/GCS.s"
-	@echo "... __/libraries/GCS_MAVLink/GCS_Common.o"
-	@echo "... __/libraries/GCS_MAVLink/GCS_Common.i"
-	@echo "... __/libraries/GCS_MAVLink/GCS_Common.s"
-	@echo "... __/libraries/GCS_MAVLink/GCS_Dummy.o"
-	@echo "... __/libraries/GCS_MAVLink/GCS_Dummy.i"
-	@echo "... __/libraries/GCS_MAVLink/GCS_Dummy.s"
-	@echo "... __/libraries/GCS_MAVLink/GCS_Fence.o"
-	@echo "... __/libraries/GCS_MAVLink/GCS_Fence.i"
-	@echo "... __/libraries/GCS_MAVLink/GCS_Fence.s"
-	@echo "... __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.o"
-	@echo "... __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.i"
-	@echo "... __/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.s"
-	@echo "... __/libraries/RC_Channel/RC_Channel.o"
-	@echo "... __/libraries/RC_Channel/RC_Channel.i"
-	@echo "... __/libraries/RC_Channel/RC_Channel.s"
-	@echo "... __/libraries/SITL/SIM_Aircraft.o"
-	@echo "... __/libraries/SITL/SIM_Aircraft.i"
-	@echo "... __/libraries/SITL/SIM_Aircraft.s"
-	@echo "... __/libraries/SITL/SIM_DroneCANDevice.o"
-	@echo "... __/libraries/SITL/SIM_DroneCANDevice.i"
-	@echo "... __/libraries/SITL/SIM_DroneCANDevice.s"
-	@echo "... __/libraries/SITL/SIM_XPlane.o"
-	@echo "... __/libraries/SITL/SIM_XPlane.i"
-	@echo "... __/libraries/SITL/SIM_XPlane.s"
-	@echo "... __/libraries/SITL/SITL.o"
-	@echo "... __/libraries/SITL/SITL.i"
-	@echo "... __/libraries/SITL/SITL.s"
-	@echo "... __/libraries/StorageManager/StorageManager.o"
-	@echo "... __/libraries/StorageManager/StorageManager.i"
-	@echo "... __/libraries/StorageManager/StorageManager.s"
 	@echo "... afs_copter.o"
 	@echo "... afs_copter.i"
 	@echo "... afs_copter.s"

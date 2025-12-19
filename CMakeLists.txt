@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.2)
+cmake_minimum_required (VERSION 3.13.0)
 project (ArduPilot)
 
 include_directories(.)
@@ -11,6 +11,8 @@ add_definitions(-DAP_BARO_PROBE_EXTERNAL_I2C_BUSES=1 -DAP_CUSTOMCONTROL_ENABLED=
 
 set(CMAKE_C_FLAGS "-ffunction-sections -fdata-sections -fsigned-char -Wall -Wextra -Werror=format -Wpointer-arith -Wcast-align -Wno-missing-field-initializers -Wno-unused-parameter -Wno-redundant-decls -Wno-unknown-pragmas -Wno-trigraphs -Werror=return-type -Werror=unused-result -Werror=unused-variable -Werror=narrowing -Werror=attributes -Werror=overflow -Werror=parentheses -Werror=format-extra-args -Werror=ignored-qualifiers -Werror=undef -DARDUPILOT_BUILD -Wno-format-contains-nul -fsingle-precision-constant -Werror=use-after-free -DCANARD_64_BIT=1 -MMD -ffile-prefix-map=../..=../..")
 set(CMAKE_CXX_FLAGS "-std=gnu++11 -fdata-sections -ffunction-sections -fno-exceptions -fsigned-char -Wall -Wextra -Wpointer-arith -Wno-unused-parameter -Wno-missing-field-initializers -Wno-redundant-decls -Wno-unknown-pragmas -Wno-expansion-to-defined -Werror=reorder -Werror=cast-align -Werror=attributes -Werror=format-security -Werror=format-extra-args -Werror=enum-compare -Werror=format -Werror=array-bounds -Werror=uninitialized -Werror=init-self -Werror=narrowing -Werror=return-type -Werror=switch -Werror=sign-compare -Werror=type-limits -Werror=undef -Werror=unused-result -Werror=unused-value -Werror=unused-variable -Werror=delete-non-virtual-dtor -Wfatal-errors -Wno-trigraphs -Werror=parentheses -DARDUPILOT_BUILD -Wuninitialized -Warray-bounds -Wno-format-contains-nul -Werror=unused-but-set-variable -fsingle-precision-constant -Wno-psabi -Werror=suggest-override -Werror=implicit-fallthrough -Werror=maybe-uninitialized -Werror=duplicated-cond -Werror=sizeof-pointer-div -Werror=use-after-free -D__AP_LINE__=__LINE__ -DAP_MAVLINK_RALLY_POINT_PROTOCOL_ENABLED=HAL_GCS_ENABLED -DAC_POLYFENCE_FENCE_POINT_PROTOCOL_SUPPORT=HAL_GCS_ENABLED -DHAL_NAVEKF2_AVAILABLE=1 -DCANARD_64_BIT=1 -Werror=float-equal -Werror=missing-declarations -DAP_NETWORKING_ENABLED=1 -O3 -MMD -ffile-prefix-map=../..=../.. -include ap_config.h -DHAL_HAVE_AP_ROMFS_EMBEDDED_H")
+
+#------------------------------------------------
 
 set(littlefs_SOURCES
     modules/littlefs/lfs.c
@@ -26,14 +28,15 @@ set(littlefs_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include)
 
-include_directories(${littlefs_INCLUDES})
-
-add_library(littlefs ${littlefs_SOURCES})
+add_library(littlefs ${littlefs_SOURCES}) #2
 target_compile_definitions(littlefs PRIVATE -DLFS_NO_DEBUG -DLFS_NO_WARN -DLFS_NO_ERROR -DLFS_NO_ASSERT) #2
+target_include_directories(littlefs PRIVATE ${littlefs_INCLUDES})
 
 set_target_properties(littlefs PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
+
+#------------------------------------------------
 
 set(objs_AC_AttitudeControl_SOURCES
     libraries/AC_AttitudeControl/AC_AttitudeControl_Heli.cpp
@@ -64,9 +67,8 @@ set(objs_AC_AttitudeControl_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AC_AttitudeControl_INCLUDES})
-
-add_library(objs_AC_AttitudeControl ${objs_AC_AttitudeControl_SOURCES})
+add_library(objs_AC_AttitudeControl ${objs_AC_AttitudeControl_SOURCES}) #2
+target_include_directories(objs_AC_AttitudeControl PRIVATE ${objs_AC_AttitudeControl_INCLUDES})
 
 set_target_properties(objs_AC_AttitudeControl PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -76,6 +78,8 @@ set_target_properties(objs_AC_AttitudeControl PROPERTIES
 target_link_libraries(objs_AC_AttitudeControl mavlink) #clean
 target_link_libraries(objs_AC_AttitudeControl dronecan) #clean
 target_link_libraries(objs_AC_AttitudeControl littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AC_AutoTune_SOURCES
     libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp
@@ -100,9 +104,8 @@ set(objs_AC_AutoTune_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AC_AutoTune_INCLUDES})
-
-add_library(objs_AC_AutoTune ${objs_AC_AutoTune_SOURCES})
+add_library(objs_AC_AutoTune ${objs_AC_AutoTune_SOURCES}) #2
+target_include_directories(objs_AC_AutoTune PRIVATE ${objs_AC_AutoTune_INCLUDES})
 
 set_target_properties(objs_AC_AutoTune PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -112,6 +115,8 @@ set_target_properties(objs_AC_AutoTune PROPERTIES
 target_link_libraries(objs_AC_AutoTune mavlink) #clean
 target_link_libraries(objs_AC_AutoTune dronecan) #clean
 target_link_libraries(objs_AC_AutoTune littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AC_Autorotation_SOURCES
     libraries/AC_Autorotation/AC_Autorotation.cpp
@@ -136,9 +141,8 @@ set(objs_AC_Autorotation_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AC_Autorotation_INCLUDES})
-
-add_library(objs_AC_Autorotation ${objs_AC_Autorotation_SOURCES})
+add_library(objs_AC_Autorotation ${objs_AC_Autorotation_SOURCES}) #2
+target_include_directories(objs_AC_Autorotation PRIVATE ${objs_AC_Autorotation_INCLUDES})
 
 set_target_properties(objs_AC_Autorotation PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -148,6 +152,8 @@ set_target_properties(objs_AC_Autorotation PROPERTIES
 target_link_libraries(objs_AC_Autorotation mavlink) #clean
 target_link_libraries(objs_AC_Autorotation dronecan) #clean
 target_link_libraries(objs_AC_Autorotation littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AC_Avoidance_SOURCES
     libraries/AC_Avoidance/AC_Avoidance_Logging.cpp
@@ -174,9 +180,8 @@ set(objs_AC_Avoidance_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AC_Avoidance_INCLUDES})
-
-add_library(objs_AC_Avoidance ${objs_AC_Avoidance_SOURCES})
+add_library(objs_AC_Avoidance ${objs_AC_Avoidance_SOURCES}) #2
+target_include_directories(objs_AC_Avoidance PRIVATE ${objs_AC_Avoidance_INCLUDES})
 
 set_target_properties(objs_AC_Avoidance PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -186,6 +191,8 @@ set_target_properties(objs_AC_Avoidance PROPERTIES
 target_link_libraries(objs_AC_Avoidance mavlink) #clean
 target_link_libraries(objs_AC_Avoidance dronecan) #clean
 target_link_libraries(objs_AC_Avoidance littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AC_CustomControl_SOURCES
     libraries/AC_CustomControl/AC_CustomControl.cpp
@@ -211,9 +218,8 @@ set(objs_AC_CustomControl_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AC_CustomControl_INCLUDES})
-
-add_library(objs_AC_CustomControl ${objs_AC_CustomControl_SOURCES})
+add_library(objs_AC_CustomControl ${objs_AC_CustomControl_SOURCES}) #2
+target_include_directories(objs_AC_CustomControl PRIVATE ${objs_AC_CustomControl_INCLUDES})
 
 set_target_properties(objs_AC_CustomControl PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -223,6 +229,8 @@ set_target_properties(objs_AC_CustomControl PROPERTIES
 target_link_libraries(objs_AC_CustomControl mavlink) #clean
 target_link_libraries(objs_AC_CustomControl dronecan) #clean
 target_link_libraries(objs_AC_CustomControl littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AC_InputManager_SOURCES
     libraries/AC_InputManager/AC_InputManager.cpp
@@ -247,9 +255,8 @@ set(objs_AC_InputManager_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AC_InputManager_INCLUDES})
-
-add_library(objs_AC_InputManager ${objs_AC_InputManager_SOURCES})
+add_library(objs_AC_InputManager ${objs_AC_InputManager_SOURCES}) #2
+target_include_directories(objs_AC_InputManager PRIVATE ${objs_AC_InputManager_INCLUDES})
 
 set_target_properties(objs_AC_InputManager PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -259,6 +266,8 @@ set_target_properties(objs_AC_InputManager PROPERTIES
 target_link_libraries(objs_AC_InputManager mavlink) #clean
 target_link_libraries(objs_AC_InputManager dronecan) #clean
 target_link_libraries(objs_AC_InputManager littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AC_PID_SOURCES
     libraries/AC_PID/AC_HELI_PID.cpp
@@ -290,9 +299,8 @@ set(objs_AC_PID_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AC_PID_INCLUDES})
-
-add_library(objs_AC_PID ${objs_AC_PID_SOURCES})
+add_library(objs_AC_PID ${objs_AC_PID_SOURCES}) #2
+target_include_directories(objs_AC_PID PRIVATE ${objs_AC_PID_INCLUDES})
 
 set_target_properties(objs_AC_PID PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -302,6 +310,8 @@ set_target_properties(objs_AC_PID PROPERTIES
 target_link_libraries(objs_AC_PID mavlink) #clean
 target_link_libraries(objs_AC_PID dronecan) #clean
 target_link_libraries(objs_AC_PID littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AC_PrecLand_SOURCES
     libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp
@@ -330,9 +340,8 @@ set(objs_AC_PrecLand_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AC_PrecLand_INCLUDES})
-
-add_library(objs_AC_PrecLand ${objs_AC_PrecLand_SOURCES})
+add_library(objs_AC_PrecLand ${objs_AC_PrecLand_SOURCES}) #2
+target_include_directories(objs_AC_PrecLand PRIVATE ${objs_AC_PrecLand_INCLUDES})
 
 set_target_properties(objs_AC_PrecLand PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -342,6 +351,8 @@ set_target_properties(objs_AC_PrecLand PROPERTIES
 target_link_libraries(objs_AC_PrecLand mavlink) #clean
 target_link_libraries(objs_AC_PrecLand dronecan) #clean
 target_link_libraries(objs_AC_PrecLand littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AC_Sprayer_SOURCES
     libraries/AC_Sprayer/AC_Sprayer.cpp)
@@ -365,9 +376,8 @@ set(objs_AC_Sprayer_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AC_Sprayer_INCLUDES})
-
-add_library(objs_AC_Sprayer ${objs_AC_Sprayer_SOURCES})
+add_library(objs_AC_Sprayer ${objs_AC_Sprayer_SOURCES}) #2
+target_include_directories(objs_AC_Sprayer PRIVATE ${objs_AC_Sprayer_INCLUDES})
 
 set_target_properties(objs_AC_Sprayer PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -377,6 +387,8 @@ set_target_properties(objs_AC_Sprayer PROPERTIES
 target_link_libraries(objs_AC_Sprayer mavlink) #clean
 target_link_libraries(objs_AC_Sprayer dronecan) #clean
 target_link_libraries(objs_AC_Sprayer littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AC_WPNav_SOURCES
     libraries/AC_WPNav/AC_Circle.cpp
@@ -402,9 +414,8 @@ set(objs_AC_WPNav_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AC_WPNav_INCLUDES})
-
-add_library(objs_AC_WPNav ${objs_AC_WPNav_SOURCES})
+add_library(objs_AC_WPNav ${objs_AC_WPNav_SOURCES}) #2
+target_include_directories(objs_AC_WPNav PRIVATE ${objs_AC_WPNav_INCLUDES})
 
 set_target_properties(objs_AC_WPNav PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -414,6 +425,8 @@ set_target_properties(objs_AC_WPNav PROPERTIES
 target_link_libraries(objs_AC_WPNav mavlink) #clean
 target_link_libraries(objs_AC_WPNav dronecan) #clean
 target_link_libraries(objs_AC_WPNav littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_APM_Control_SOURCES
     libraries/APM_Control/AP_AutoTune.cpp
@@ -444,9 +457,8 @@ set(objs_APM_Control_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_APM_Control_INCLUDES})
-
-add_library(objs_APM_Control ${objs_APM_Control_SOURCES})
+add_library(objs_APM_Control ${objs_APM_Control_SOURCES}) #2
+target_include_directories(objs_APM_Control PRIVATE ${objs_APM_Control_INCLUDES})
 
 set_target_properties(objs_APM_Control PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -456,6 +468,8 @@ set_target_properties(objs_APM_Control PROPERTIES
 target_link_libraries(objs_APM_Control mavlink) #clean
 target_link_libraries(objs_APM_Control dronecan) #clean
 target_link_libraries(objs_APM_Control littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_ADC_SOURCES
     libraries/AP_ADC/AP_ADC_ADS1115.cpp)
@@ -479,9 +493,8 @@ set(objs_AP_ADC_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_ADC_INCLUDES})
-
-add_library(objs_AP_ADC ${objs_AP_ADC_SOURCES})
+add_library(objs_AP_ADC ${objs_AP_ADC_SOURCES}) #2
+target_include_directories(objs_AP_ADC PRIVATE ${objs_AP_ADC_INCLUDES})
 
 set_target_properties(objs_AP_ADC PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -491,6 +504,8 @@ set_target_properties(objs_AP_ADC PROPERTIES
 target_link_libraries(objs_AP_ADC mavlink) #clean
 target_link_libraries(objs_AP_ADC dronecan) #clean
 target_link_libraries(objs_AP_ADC littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_ADSB_SOURCES
     libraries/AP_ADSB/AP_ADSB_Backend.cpp
@@ -517,9 +532,8 @@ set(objs_AP_ADSB_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_ADSB_INCLUDES})
-
-add_library(objs_AP_ADSB ${objs_AP_ADSB_SOURCES})
+add_library(objs_AP_ADSB ${objs_AP_ADSB_SOURCES}) #2
+target_include_directories(objs_AP_ADSB PRIVATE ${objs_AP_ADSB_INCLUDES})
 
 set_target_properties(objs_AP_ADSB PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -529,6 +543,8 @@ set_target_properties(objs_AP_ADSB PROPERTIES
 target_link_libraries(objs_AP_ADSB mavlink) #clean
 target_link_libraries(objs_AP_ADSB dronecan) #clean
 target_link_libraries(objs_AP_ADSB littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_AHRS_SOURCES
     libraries/AP_AHRS/AP_AHRS_External.cpp
@@ -555,9 +571,8 @@ set(objs_AP_AHRS_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_AHRS_INCLUDES})
-
-add_library(objs_AP_AHRS ${objs_AP_AHRS_SOURCES})
+add_library(objs_AP_AHRS ${objs_AP_AHRS_SOURCES}) #2
+target_include_directories(objs_AP_AHRS PRIVATE ${objs_AP_AHRS_INCLUDES})
 
 set_target_properties(objs_AP_AHRS PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -567,6 +582,8 @@ set_target_properties(objs_AP_AHRS PROPERTIES
 target_link_libraries(objs_AP_AHRS mavlink) #clean
 target_link_libraries(objs_AP_AHRS dronecan) #clean
 target_link_libraries(objs_AP_AHRS littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_AccelCal_SOURCES
     libraries/AP_AccelCal/AP_AccelCal.cpp
@@ -591,9 +608,8 @@ set(objs_AP_AccelCal_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_AccelCal_INCLUDES})
-
-add_library(objs_AP_AccelCal ${objs_AP_AccelCal_SOURCES})
+add_library(objs_AP_AccelCal ${objs_AP_AccelCal_SOURCES}) #2
+target_include_directories(objs_AP_AccelCal PRIVATE ${objs_AP_AccelCal_INCLUDES})
 
 set_target_properties(objs_AP_AccelCal PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -603,6 +619,8 @@ set_target_properties(objs_AP_AccelCal PROPERTIES
 target_link_libraries(objs_AP_AccelCal mavlink) #clean
 target_link_libraries(objs_AP_AccelCal dronecan) #clean
 target_link_libraries(objs_AP_AccelCal littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_AdvancedFailsafe_SOURCES
     libraries/AP_AdvancedFailsafe/AP_AdvancedFailsafe.cpp)
@@ -626,9 +644,8 @@ set(objs_AP_AdvancedFailsafe_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_AdvancedFailsafe_INCLUDES})
-
-add_library(objs_AP_AdvancedFailsafe ${objs_AP_AdvancedFailsafe_SOURCES})
+add_library(objs_AP_AdvancedFailsafe ${objs_AP_AdvancedFailsafe_SOURCES}) #2
+target_include_directories(objs_AP_AdvancedFailsafe PRIVATE ${objs_AP_AdvancedFailsafe_INCLUDES})
 
 set_target_properties(objs_AP_AdvancedFailsafe PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -638,6 +655,8 @@ set_target_properties(objs_AP_AdvancedFailsafe PROPERTIES
 target_link_libraries(objs_AP_AdvancedFailsafe mavlink) #clean
 target_link_libraries(objs_AP_AdvancedFailsafe dronecan) #clean
 target_link_libraries(objs_AP_AdvancedFailsafe littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Airspeed_SOURCES
     libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp
@@ -674,9 +693,8 @@ set(objs_AP_Airspeed_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Airspeed_INCLUDES})
-
-add_library(objs_AP_Airspeed ${objs_AP_Airspeed_SOURCES})
+add_library(objs_AP_Airspeed ${objs_AP_Airspeed_SOURCES}) #2
+target_include_directories(objs_AP_Airspeed PRIVATE ${objs_AP_Airspeed_INCLUDES})
 
 set_target_properties(objs_AP_Airspeed PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -686,6 +704,8 @@ set_target_properties(objs_AP_Airspeed PROPERTIES
 target_link_libraries(objs_AP_Airspeed mavlink) #clean
 target_link_libraries(objs_AP_Airspeed dronecan) #clean
 target_link_libraries(objs_AP_Airspeed littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Baro_SOURCES
     libraries/AP_Baro/AP_Baro_AUAV.cpp
@@ -730,9 +750,8 @@ set(objs_AP_Baro_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Baro_INCLUDES})
-
-add_library(objs_AP_Baro ${objs_AP_Baro_SOURCES})
+add_library(objs_AP_Baro ${objs_AP_Baro_SOURCES}) #2
+target_include_directories(objs_AP_Baro PRIVATE ${objs_AP_Baro_INCLUDES})
 
 set_target_properties(objs_AP_Baro PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -742,6 +761,8 @@ set_target_properties(objs_AP_Baro PROPERTIES
 target_link_libraries(objs_AP_Baro mavlink) #clean
 target_link_libraries(objs_AP_Baro dronecan) #clean
 target_link_libraries(objs_AP_Baro littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_BattMonitor_SOURCES
     libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp
@@ -790,9 +811,8 @@ set(objs_AP_BattMonitor_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_BattMonitor_INCLUDES})
-
-add_library(objs_AP_BattMonitor ${objs_AP_BattMonitor_SOURCES})
+add_library(objs_AP_BattMonitor ${objs_AP_BattMonitor_SOURCES}) #2
+target_include_directories(objs_AP_BattMonitor PRIVATE ${objs_AP_BattMonitor_INCLUDES})
 
 set_target_properties(objs_AP_BattMonitor PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -802,6 +822,8 @@ set_target_properties(objs_AP_BattMonitor PROPERTIES
 target_link_libraries(objs_AP_BattMonitor mavlink) #clean
 target_link_libraries(objs_AP_BattMonitor dronecan) #clean
 target_link_libraries(objs_AP_BattMonitor littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Beacon_SOURCES
     libraries/AP_Beacon/AP_Beacon.cpp
@@ -830,9 +852,8 @@ set(objs_AP_Beacon_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Beacon_INCLUDES})
-
-add_library(objs_AP_Beacon ${objs_AP_Beacon_SOURCES})
+add_library(objs_AP_Beacon ${objs_AP_Beacon_SOURCES}) #2
+target_include_directories(objs_AP_Beacon PRIVATE ${objs_AP_Beacon_INCLUDES})
 
 set_target_properties(objs_AP_Beacon PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -842,6 +863,8 @@ set_target_properties(objs_AP_Beacon PROPERTIES
 target_link_libraries(objs_AP_Beacon mavlink) #clean
 target_link_libraries(objs_AP_Beacon dronecan) #clean
 target_link_libraries(objs_AP_Beacon littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_BoardConfig_SOURCES
     libraries/AP_BoardConfig/IMU_heater.cpp
@@ -866,9 +889,8 @@ set(objs_AP_BoardConfig_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_BoardConfig_INCLUDES})
-
-add_library(objs_AP_BoardConfig ${objs_AP_BoardConfig_SOURCES})
+add_library(objs_AP_BoardConfig ${objs_AP_BoardConfig_SOURCES}) #2
+target_include_directories(objs_AP_BoardConfig PRIVATE ${objs_AP_BoardConfig_INCLUDES})
 
 set_target_properties(objs_AP_BoardConfig PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -878,6 +900,8 @@ set_target_properties(objs_AP_BoardConfig PROPERTIES
 target_link_libraries(objs_AP_BoardConfig mavlink) #clean
 target_link_libraries(objs_AP_BoardConfig dronecan) #clean
 target_link_libraries(objs_AP_BoardConfig littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Button_SOURCES
     libraries/AP_Button/AP_Button.cpp)
@@ -901,9 +925,8 @@ set(objs_AP_Button_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Button_INCLUDES})
-
-add_library(objs_AP_Button ${objs_AP_Button_SOURCES})
+add_library(objs_AP_Button ${objs_AP_Button_SOURCES}) #2
+target_include_directories(objs_AP_Button PRIVATE ${objs_AP_Button_INCLUDES})
 
 set_target_properties(objs_AP_Button PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -913,6 +936,8 @@ set_target_properties(objs_AP_Button PROPERTIES
 target_link_libraries(objs_AP_Button mavlink) #clean
 target_link_libraries(objs_AP_Button dronecan) #clean
 target_link_libraries(objs_AP_Button littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_CANManager_SOURCES
     libraries/AP_CANManager/AP_CANIfaceParams.cpp
@@ -941,9 +966,8 @@ set(objs_AP_CANManager_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_CANManager_INCLUDES})
-
-add_library(objs_AP_CANManager ${objs_AP_CANManager_SOURCES})
+add_library(objs_AP_CANManager ${objs_AP_CANManager_SOURCES}) #2
+target_include_directories(objs_AP_CANManager PRIVATE ${objs_AP_CANManager_INCLUDES})
 
 set_target_properties(objs_AP_CANManager PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -953,6 +977,8 @@ set_target_properties(objs_AP_CANManager PROPERTIES
 target_link_libraries(objs_AP_CANManager mavlink) #clean
 target_link_libraries(objs_AP_CANManager dronecan) #clean
 target_link_libraries(objs_AP_CANManager littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_CSVReader_SOURCES
     libraries/AP_CSVReader/AP_CSVReader.cpp)
@@ -976,9 +1002,8 @@ set(objs_AP_CSVReader_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_CSVReader_INCLUDES})
-
-add_library(objs_AP_CSVReader ${objs_AP_CSVReader_SOURCES})
+add_library(objs_AP_CSVReader ${objs_AP_CSVReader_SOURCES}) #2
+target_include_directories(objs_AP_CSVReader PRIVATE ${objs_AP_CSVReader_INCLUDES})
 
 set_target_properties(objs_AP_CSVReader PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -988,6 +1013,8 @@ set_target_properties(objs_AP_CSVReader PROPERTIES
 target_link_libraries(objs_AP_CSVReader mavlink) #clean
 target_link_libraries(objs_AP_CSVReader dronecan) #clean
 target_link_libraries(objs_AP_CSVReader littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Camera_SOURCES
     libraries/AP_Camera/AP_Camera.cpp
@@ -1022,9 +1049,8 @@ set(objs_AP_Camera_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Camera_INCLUDES})
-
-add_library(objs_AP_Camera ${objs_AP_Camera_SOURCES})
+add_library(objs_AP_Camera ${objs_AP_Camera_SOURCES}) #2
+target_include_directories(objs_AP_Camera PRIVATE ${objs_AP_Camera_INCLUDES})
 
 set_target_properties(objs_AP_Camera PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1034,6 +1060,8 @@ set_target_properties(objs_AP_Camera PROPERTIES
 target_link_libraries(objs_AP_Camera mavlink) #clean
 target_link_libraries(objs_AP_Camera dronecan) #clean
 target_link_libraries(objs_AP_Camera littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_CheckFirmware_SOURCES
     libraries/AP_CheckFirmware/AP_CheckFirmware.cpp
@@ -1059,9 +1087,8 @@ set(objs_AP_CheckFirmware_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_CheckFirmware_INCLUDES})
-
-add_library(objs_AP_CheckFirmware ${objs_AP_CheckFirmware_SOURCES})
+add_library(objs_AP_CheckFirmware ${objs_AP_CheckFirmware_SOURCES}) #2
+target_include_directories(objs_AP_CheckFirmware PRIVATE ${objs_AP_CheckFirmware_INCLUDES})
 
 set_target_properties(objs_AP_CheckFirmware PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1071,6 +1098,8 @@ set_target_properties(objs_AP_CheckFirmware PROPERTIES
 target_link_libraries(objs_AP_CheckFirmware mavlink) #clean
 target_link_libraries(objs_AP_CheckFirmware dronecan) #clean
 target_link_libraries(objs_AP_CheckFirmware littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Common_SOURCES
     libraries/AP_Common/AP_Common.cpp
@@ -1103,9 +1132,8 @@ set(objs_AP_Common_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Common_INCLUDES})
-
-add_library(objs_AP_Common ${objs_AP_Common_SOURCES})
+add_library(objs_AP_Common ${objs_AP_Common_SOURCES}) #2
+target_include_directories(objs_AP_Common PRIVATE ${objs_AP_Common_INCLUDES})
 
 set_target_properties(objs_AP_Common PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1115,6 +1143,8 @@ set_target_properties(objs_AP_Common PROPERTIES
 target_link_libraries(objs_AP_Common mavlink) #clean
 target_link_libraries(objs_AP_Common dronecan) #clean
 target_link_libraries(objs_AP_Common littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Compass_SOURCES
     libraries/AP_Compass/AP_Compass.cpp
@@ -1165,9 +1195,8 @@ set(objs_AP_Compass_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Compass_INCLUDES})
-
-add_library(objs_AP_Compass ${objs_AP_Compass_SOURCES})
+add_library(objs_AP_Compass ${objs_AP_Compass_SOURCES}) #2
+target_include_directories(objs_AP_Compass PRIVATE ${objs_AP_Compass_INCLUDES})
 
 set_target_properties(objs_AP_Compass PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1177,6 +1206,8 @@ set_target_properties(objs_AP_Compass PROPERTIES
 target_link_libraries(objs_AP_Compass mavlink) #clean
 target_link_libraries(objs_AP_Compass dronecan) #clean
 target_link_libraries(objs_AP_Compass littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_CustomRotations_SOURCES
     libraries/AP_CustomRotations/AP_CustomRotations.cpp
@@ -1201,9 +1232,8 @@ set(objs_AP_CustomRotations_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_CustomRotations_INCLUDES})
-
-add_library(objs_AP_CustomRotations ${objs_AP_CustomRotations_SOURCES})
+add_library(objs_AP_CustomRotations ${objs_AP_CustomRotations_SOURCES}) #2
+target_include_directories(objs_AP_CustomRotations PRIVATE ${objs_AP_CustomRotations_INCLUDES})
 
 set_target_properties(objs_AP_CustomRotations PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1213,6 +1243,8 @@ set_target_properties(objs_AP_CustomRotations PROPERTIES
 target_link_libraries(objs_AP_CustomRotations mavlink) #clean
 target_link_libraries(objs_AP_CustomRotations dronecan) #clean
 target_link_libraries(objs_AP_CustomRotations littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_DAL_SOURCES
     libraries/AP_DAL/AP_DAL_Airspeed.cpp
@@ -1240,9 +1272,8 @@ set(objs_AP_DAL_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_DAL_INCLUDES})
-
-add_library(objs_AP_DAL ${objs_AP_DAL_SOURCES})
+add_library(objs_AP_DAL ${objs_AP_DAL_SOURCES}) #2
+target_include_directories(objs_AP_DAL PRIVATE ${objs_AP_DAL_INCLUDES})
 
 set_target_properties(objs_AP_DAL PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1252,6 +1283,8 @@ set_target_properties(objs_AP_DAL PROPERTIES
 target_link_libraries(objs_AP_DAL mavlink) #clean
 target_link_libraries(objs_AP_DAL dronecan) #clean
 target_link_libraries(objs_AP_DAL littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_DDS_SOURCES
     libraries/AP_DDS/AP_DDS_Client.cpp
@@ -1280,9 +1313,8 @@ set(objs_AP_DDS_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_DDS_INCLUDES})
-
-add_library(objs_AP_DDS ${objs_AP_DDS_SOURCES})
+add_library(objs_AP_DDS ${objs_AP_DDS_SOURCES}) #2
+target_include_directories(objs_AP_DDS PRIVATE ${objs_AP_DDS_INCLUDES})
 
 set_target_properties(objs_AP_DDS PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1292,6 +1324,8 @@ set_target_properties(objs_AP_DDS PROPERTIES
 target_link_libraries(objs_AP_DDS mavlink) #clean
 target_link_libraries(objs_AP_DDS dronecan) #clean
 target_link_libraries(objs_AP_DDS littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Declination_SOURCES
     libraries/AP_Declination/AP_Declination.cpp
@@ -1316,9 +1350,8 @@ set(objs_AP_Declination_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Declination_INCLUDES})
-
-add_library(objs_AP_Declination ${objs_AP_Declination_SOURCES})
+add_library(objs_AP_Declination ${objs_AP_Declination_SOURCES}) #2
+target_include_directories(objs_AP_Declination PRIVATE ${objs_AP_Declination_INCLUDES})
 
 set_target_properties(objs_AP_Declination PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1328,6 +1361,8 @@ set_target_properties(objs_AP_Declination PROPERTIES
 target_link_libraries(objs_AP_Declination mavlink) #clean
 target_link_libraries(objs_AP_Declination dronecan) #clean
 target_link_libraries(objs_AP_Declination littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Devo_Telem_SOURCES
     libraries/AP_Devo_Telem/AP_Devo_Telem.cpp)
@@ -1351,9 +1386,8 @@ set(objs_AP_Devo_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Devo_Telem_INCLUDES})
-
-add_library(objs_AP_Devo_Telem ${objs_AP_Devo_Telem_SOURCES})
+add_library(objs_AP_Devo_Telem ${objs_AP_Devo_Telem_SOURCES}) #2
+target_include_directories(objs_AP_Devo_Telem PRIVATE ${objs_AP_Devo_Telem_INCLUDES})
 
 set_target_properties(objs_AP_Devo_Telem PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1363,6 +1397,8 @@ set_target_properties(objs_AP_Devo_Telem PROPERTIES
 target_link_libraries(objs_AP_Devo_Telem mavlink) #clean
 target_link_libraries(objs_AP_Devo_Telem dronecan) #clean
 target_link_libraries(objs_AP_Devo_Telem littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_DroneCAN_SOURCES
     libraries/AP_DroneCAN/AP_Canard_iface.cpp
@@ -1389,9 +1425,8 @@ set(objs_AP_DroneCAN_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_DroneCAN_INCLUDES})
-
-add_library(objs_AP_DroneCAN ${objs_AP_DroneCAN_SOURCES})
+add_library(objs_AP_DroneCAN ${objs_AP_DroneCAN_SOURCES}) #2
+target_include_directories(objs_AP_DroneCAN PRIVATE ${objs_AP_DroneCAN_INCLUDES})
 
 set_target_properties(objs_AP_DroneCAN PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1401,6 +1436,8 @@ set_target_properties(objs_AP_DroneCAN PROPERTIES
 target_link_libraries(objs_AP_DroneCAN mavlink) #clean
 target_link_libraries(objs_AP_DroneCAN dronecan) #clean
 target_link_libraries(objs_AP_DroneCAN littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_EFI_SOURCES
     libraries/AP_EFI/AP_EFI.cpp
@@ -1435,9 +1472,8 @@ set(objs_AP_EFI_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_EFI_INCLUDES})
-
-add_library(objs_AP_EFI ${objs_AP_EFI_SOURCES})
+add_library(objs_AP_EFI ${objs_AP_EFI_SOURCES}) #2
+target_include_directories(objs_AP_EFI PRIVATE ${objs_AP_EFI_INCLUDES})
 
 set_target_properties(objs_AP_EFI PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1447,6 +1483,8 @@ set_target_properties(objs_AP_EFI PROPERTIES
 target_link_libraries(objs_AP_EFI mavlink) #clean
 target_link_libraries(objs_AP_EFI dronecan) #clean
 target_link_libraries(objs_AP_EFI littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_ESC_Telem_SOURCES
     libraries/AP_ESC_Telem/AP_ESC_Telem.cpp
@@ -1471,9 +1509,8 @@ set(objs_AP_ESC_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_ESC_Telem_INCLUDES})
-
-add_library(objs_AP_ESC_Telem ${objs_AP_ESC_Telem_SOURCES})
+add_library(objs_AP_ESC_Telem ${objs_AP_ESC_Telem_SOURCES}) #2
+target_include_directories(objs_AP_ESC_Telem PRIVATE ${objs_AP_ESC_Telem_INCLUDES})
 
 set_target_properties(objs_AP_ESC_Telem PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1483,6 +1520,8 @@ set_target_properties(objs_AP_ESC_Telem PROPERTIES
 target_link_libraries(objs_AP_ESC_Telem mavlink) #clean
 target_link_libraries(objs_AP_ESC_Telem dronecan) #clean
 target_link_libraries(objs_AP_ESC_Telem littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_ExternalAHRS_SOURCES
     libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp
@@ -1511,9 +1550,8 @@ set(objs_AP_ExternalAHRS_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_ExternalAHRS_INCLUDES})
-
-add_library(objs_AP_ExternalAHRS ${objs_AP_ExternalAHRS_SOURCES})
+add_library(objs_AP_ExternalAHRS ${objs_AP_ExternalAHRS_SOURCES}) #2
+target_include_directories(objs_AP_ExternalAHRS PRIVATE ${objs_AP_ExternalAHRS_INCLUDES})
 
 set_target_properties(objs_AP_ExternalAHRS PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1523,6 +1561,8 @@ set_target_properties(objs_AP_ExternalAHRS PROPERTIES
 target_link_libraries(objs_AP_ExternalAHRS mavlink) #clean
 target_link_libraries(objs_AP_ExternalAHRS dronecan) #clean
 target_link_libraries(objs_AP_ExternalAHRS littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_ExternalControl_SOURCES
     libraries/AP_ExternalControl/AP_ExternalControl.cpp)
@@ -1546,9 +1586,8 @@ set(objs_AP_ExternalControl_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_ExternalControl_INCLUDES})
-
-add_library(objs_AP_ExternalControl ${objs_AP_ExternalControl_SOURCES})
+add_library(objs_AP_ExternalControl ${objs_AP_ExternalControl_SOURCES}) #2
+target_include_directories(objs_AP_ExternalControl PRIVATE ${objs_AP_ExternalControl_INCLUDES})
 
 set_target_properties(objs_AP_ExternalControl PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1558,6 +1597,8 @@ set_target_properties(objs_AP_ExternalControl PROPERTIES
 target_link_libraries(objs_AP_ExternalControl mavlink) #clean
 target_link_libraries(objs_AP_ExternalControl dronecan) #clean
 target_link_libraries(objs_AP_ExternalControl littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_FETtecOneWire_SOURCES
     libraries/AP_FETtecOneWire/AP_FETtecOneWire.cpp)
@@ -1581,9 +1622,8 @@ set(objs_AP_FETtecOneWire_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_FETtecOneWire_INCLUDES})
-
-add_library(objs_AP_FETtecOneWire ${objs_AP_FETtecOneWire_SOURCES})
+add_library(objs_AP_FETtecOneWire ${objs_AP_FETtecOneWire_SOURCES}) #2
+target_include_directories(objs_AP_FETtecOneWire PRIVATE ${objs_AP_FETtecOneWire_INCLUDES})
 
 set_target_properties(objs_AP_FETtecOneWire PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1593,6 +1633,8 @@ set_target_properties(objs_AP_FETtecOneWire PROPERTIES
 target_link_libraries(objs_AP_FETtecOneWire mavlink) #clean
 target_link_libraries(objs_AP_FETtecOneWire dronecan) #clean
 target_link_libraries(objs_AP_FETtecOneWire littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Filesystem_SOURCES
     libraries/AP_Filesystem/AP_Filesystem.cpp
@@ -1625,9 +1667,8 @@ set(objs_AP_Filesystem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Filesystem_INCLUDES})
-
-add_library(objs_AP_Filesystem ${objs_AP_Filesystem_SOURCES})
+add_library(objs_AP_Filesystem ${objs_AP_Filesystem_SOURCES}) #2
+target_include_directories(objs_AP_Filesystem PRIVATE ${objs_AP_Filesystem_INCLUDES})
 
 set_target_properties(objs_AP_Filesystem PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1637,6 +1678,8 @@ set_target_properties(objs_AP_Filesystem PROPERTIES
 target_link_libraries(objs_AP_Filesystem mavlink) #clean
 target_link_libraries(objs_AP_Filesystem dronecan) #clean
 target_link_libraries(objs_AP_Filesystem littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_FlashStorage_SOURCES
     libraries/AP_FlashStorage/AP_FlashStorage.cpp)
@@ -1660,9 +1703,8 @@ set(objs_AP_FlashStorage_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_FlashStorage_INCLUDES})
-
-add_library(objs_AP_FlashStorage ${objs_AP_FlashStorage_SOURCES})
+add_library(objs_AP_FlashStorage ${objs_AP_FlashStorage_SOURCES}) #2
+target_include_directories(objs_AP_FlashStorage PRIVATE ${objs_AP_FlashStorage_INCLUDES})
 
 set_target_properties(objs_AP_FlashStorage PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1672,6 +1714,8 @@ set_target_properties(objs_AP_FlashStorage PROPERTIES
 target_link_libraries(objs_AP_FlashStorage mavlink) #clean
 target_link_libraries(objs_AP_FlashStorage dronecan) #clean
 target_link_libraries(objs_AP_FlashStorage littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Frsky_Telem_SOURCES
     libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp
@@ -1703,9 +1747,8 @@ set(objs_AP_Frsky_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Frsky_Telem_INCLUDES})
-
-add_library(objs_AP_Frsky_Telem ${objs_AP_Frsky_Telem_SOURCES})
+add_library(objs_AP_Frsky_Telem ${objs_AP_Frsky_Telem_SOURCES}) #2
+target_include_directories(objs_AP_Frsky_Telem PRIVATE ${objs_AP_Frsky_Telem_INCLUDES})
 
 set_target_properties(objs_AP_Frsky_Telem PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1715,6 +1758,8 @@ set_target_properties(objs_AP_Frsky_Telem PROPERTIES
 target_link_libraries(objs_AP_Frsky_Telem mavlink) #clean
 target_link_libraries(objs_AP_Frsky_Telem dronecan) #clean
 target_link_libraries(objs_AP_Frsky_Telem littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_GPS_SOURCES
     libraries/AP_GPS/AP_GPS.cpp
@@ -1757,9 +1802,8 @@ set(objs_AP_GPS_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_GPS_INCLUDES})
-
-add_library(objs_AP_GPS ${objs_AP_GPS_SOURCES})
+add_library(objs_AP_GPS ${objs_AP_GPS_SOURCES}) #2
+target_include_directories(objs_AP_GPS PRIVATE ${objs_AP_GPS_INCLUDES})
 
 set_target_properties(objs_AP_GPS PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1769,6 +1813,8 @@ set_target_properties(objs_AP_GPS PROPERTIES
 target_link_libraries(objs_AP_GPS mavlink) #clean
 target_link_libraries(objs_AP_GPS dronecan) #clean
 target_link_libraries(objs_AP_GPS littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_GSOF_SOURCES
     libraries/AP_GSOF/AP_GSOF.cpp)
@@ -1792,9 +1838,8 @@ set(objs_AP_GSOF_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_GSOF_INCLUDES})
-
-add_library(objs_AP_GSOF ${objs_AP_GSOF_SOURCES})
+add_library(objs_AP_GSOF ${objs_AP_GSOF_SOURCES}) #2
+target_include_directories(objs_AP_GSOF PRIVATE ${objs_AP_GSOF_INCLUDES})
 
 set_target_properties(objs_AP_GSOF PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1804,6 +1849,8 @@ set_target_properties(objs_AP_GSOF PROPERTIES
 target_link_libraries(objs_AP_GSOF mavlink) #clean
 target_link_libraries(objs_AP_GSOF dronecan) #clean
 target_link_libraries(objs_AP_GSOF littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Generator_SOURCES
     libraries/AP_Generator/AP_Generator.cpp
@@ -1834,9 +1881,8 @@ set(objs_AP_Generator_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Generator_INCLUDES})
-
-add_library(objs_AP_Generator ${objs_AP_Generator_SOURCES})
+add_library(objs_AP_Generator ${objs_AP_Generator_SOURCES}) #2
+target_include_directories(objs_AP_Generator PRIVATE ${objs_AP_Generator_INCLUDES})
 
 set_target_properties(objs_AP_Generator PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1846,6 +1892,8 @@ set_target_properties(objs_AP_Generator PROPERTIES
 target_link_libraries(objs_AP_Generator mavlink) #clean
 target_link_libraries(objs_AP_Generator dronecan) #clean
 target_link_libraries(objs_AP_Generator littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Gripper_SOURCES
     libraries/AP_Gripper/AP_Gripper.cpp
@@ -1872,9 +1920,8 @@ set(objs_AP_Gripper_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Gripper_INCLUDES})
-
-add_library(objs_AP_Gripper ${objs_AP_Gripper_SOURCES})
+add_library(objs_AP_Gripper ${objs_AP_Gripper_SOURCES}) #2
+target_include_directories(objs_AP_Gripper PRIVATE ${objs_AP_Gripper_INCLUDES})
 
 set_target_properties(objs_AP_Gripper PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1884,6 +1931,8 @@ set_target_properties(objs_AP_Gripper PROPERTIES
 target_link_libraries(objs_AP_Gripper mavlink) #clean
 target_link_libraries(objs_AP_Gripper dronecan) #clean
 target_link_libraries(objs_AP_Gripper littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Hott_Telem_SOURCES
     libraries/AP_Hott_Telem/AP_Hott_Telem.cpp)
@@ -1907,9 +1956,8 @@ set(objs_AP_Hott_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Hott_Telem_INCLUDES})
-
-add_library(objs_AP_Hott_Telem ${objs_AP_Hott_Telem_SOURCES})
+add_library(objs_AP_Hott_Telem ${objs_AP_Hott_Telem_SOURCES}) #2
+target_include_directories(objs_AP_Hott_Telem PRIVATE ${objs_AP_Hott_Telem_INCLUDES})
 
 set_target_properties(objs_AP_Hott_Telem PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1919,6 +1967,8 @@ set_target_properties(objs_AP_Hott_Telem PROPERTIES
 target_link_libraries(objs_AP_Hott_Telem mavlink) #clean
 target_link_libraries(objs_AP_Hott_Telem dronecan) #clean
 target_link_libraries(objs_AP_Hott_Telem littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_ICEngine_SOURCES
     libraries/AP_ICEngine/AP_ICEngine.cpp
@@ -1943,9 +1993,8 @@ set(objs_AP_ICEngine_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_ICEngine_INCLUDES})
-
-add_library(objs_AP_ICEngine ${objs_AP_ICEngine_SOURCES})
+add_library(objs_AP_ICEngine ${objs_AP_ICEngine_SOURCES}) #2
+target_include_directories(objs_AP_ICEngine PRIVATE ${objs_AP_ICEngine_INCLUDES})
 
 set_target_properties(objs_AP_ICEngine PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1955,6 +2004,8 @@ set_target_properties(objs_AP_ICEngine PROPERTIES
 target_link_libraries(objs_AP_ICEngine mavlink) #clean
 target_link_libraries(objs_AP_ICEngine dronecan) #clean
 target_link_libraries(objs_AP_ICEngine littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_IOMCU_SOURCES
     libraries/AP_IOMCU/AP_IOMCU.cpp
@@ -1979,9 +2030,8 @@ set(objs_AP_IOMCU_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_IOMCU_INCLUDES})
-
-add_library(objs_AP_IOMCU ${objs_AP_IOMCU_SOURCES})
+add_library(objs_AP_IOMCU ${objs_AP_IOMCU_SOURCES}) #2
+target_include_directories(objs_AP_IOMCU PRIVATE ${objs_AP_IOMCU_INCLUDES})
 
 set_target_properties(objs_AP_IOMCU PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -1991,6 +2041,8 @@ set_target_properties(objs_AP_IOMCU PROPERTIES
 target_link_libraries(objs_AP_IOMCU mavlink) #clean
 target_link_libraries(objs_AP_IOMCU dronecan) #clean
 target_link_libraries(objs_AP_IOMCU littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_IRLock_SOURCES
     libraries/AP_IRLock/AP_IRLock.cpp
@@ -2017,9 +2069,8 @@ set(objs_AP_IRLock_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_IRLock_INCLUDES})
-
-add_library(objs_AP_IRLock ${objs_AP_IRLock_SOURCES})
+add_library(objs_AP_IRLock ${objs_AP_IRLock_SOURCES}) #2
+target_include_directories(objs_AP_IRLock PRIVATE ${objs_AP_IRLock_INCLUDES})
 
 set_target_properties(objs_AP_IRLock PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2029,6 +2080,8 @@ set_target_properties(objs_AP_IRLock PROPERTIES
 target_link_libraries(objs_AP_IRLock mavlink) #clean
 target_link_libraries(objs_AP_IRLock dronecan) #clean
 target_link_libraries(objs_AP_IRLock littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_InertialNav_SOURCES
     libraries/AP_InertialNav/AP_InertialNav.cpp)
@@ -2052,9 +2105,8 @@ set(objs_AP_InertialNav_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_InertialNav_INCLUDES})
-
-add_library(objs_AP_InertialNav ${objs_AP_InertialNav_SOURCES})
+add_library(objs_AP_InertialNav ${objs_AP_InertialNav_SOURCES}) #2
+target_include_directories(objs_AP_InertialNav PRIVATE ${objs_AP_InertialNav_INCLUDES})
 
 set_target_properties(objs_AP_InertialNav PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2064,6 +2116,8 @@ set_target_properties(objs_AP_InertialNav PROPERTIES
 target_link_libraries(objs_AP_InertialNav mavlink) #clean
 target_link_libraries(objs_AP_InertialNav dronecan) #clean
 target_link_libraries(objs_AP_InertialNav littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_InertialSensor_SOURCES
     libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp
@@ -2105,9 +2159,8 @@ set(objs_AP_InertialSensor_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_InertialSensor_INCLUDES})
-
-add_library(objs_AP_InertialSensor ${objs_AP_InertialSensor_SOURCES})
+add_library(objs_AP_InertialSensor ${objs_AP_InertialSensor_SOURCES}) #2
+target_include_directories(objs_AP_InertialSensor PRIVATE ${objs_AP_InertialSensor_INCLUDES})
 
 set_target_properties(objs_AP_InertialSensor PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2117,6 +2170,8 @@ set_target_properties(objs_AP_InertialSensor PROPERTIES
 target_link_libraries(objs_AP_InertialSensor mavlink) #clean
 target_link_libraries(objs_AP_InertialSensor dronecan) #clean
 target_link_libraries(objs_AP_InertialSensor littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_InternalError_SOURCES
     libraries/AP_InternalError/AP_InternalError.cpp)
@@ -2140,9 +2195,8 @@ set(objs_AP_InternalError_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_InternalError_INCLUDES})
-
-add_library(objs_AP_InternalError ${objs_AP_InternalError_SOURCES})
+add_library(objs_AP_InternalError ${objs_AP_InternalError_SOURCES}) #2
+target_include_directories(objs_AP_InternalError PRIVATE ${objs_AP_InternalError_INCLUDES})
 
 set_target_properties(objs_AP_InternalError PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2152,6 +2206,8 @@ set_target_properties(objs_AP_InternalError PROPERTIES
 target_link_libraries(objs_AP_InternalError mavlink) #clean
 target_link_libraries(objs_AP_InternalError dronecan) #clean
 target_link_libraries(objs_AP_InternalError littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_JSButton_SOURCES
     libraries/AP_JSButton/AP_JSButton.cpp)
@@ -2175,9 +2231,8 @@ set(objs_AP_JSButton_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_JSButton_INCLUDES})
-
-add_library(objs_AP_JSButton ${objs_AP_JSButton_SOURCES})
+add_library(objs_AP_JSButton ${objs_AP_JSButton_SOURCES}) #2
+target_include_directories(objs_AP_JSButton PRIVATE ${objs_AP_JSButton_INCLUDES})
 
 set_target_properties(objs_AP_JSButton PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2187,6 +2242,8 @@ set_target_properties(objs_AP_JSButton PROPERTIES
 target_link_libraries(objs_AP_JSButton mavlink) #clean
 target_link_libraries(objs_AP_JSButton dronecan) #clean
 target_link_libraries(objs_AP_JSButton littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_JSON_SOURCES
     libraries/AP_JSON/AP_JSON.cpp)
@@ -2210,9 +2267,8 @@ set(objs_AP_JSON_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_JSON_INCLUDES})
-
-add_library(objs_AP_JSON ${objs_AP_JSON_SOURCES})
+add_library(objs_AP_JSON ${objs_AP_JSON_SOURCES}) #2
+target_include_directories(objs_AP_JSON PRIVATE ${objs_AP_JSON_INCLUDES})
 
 set_target_properties(objs_AP_JSON PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2222,6 +2278,8 @@ set_target_properties(objs_AP_JSON PROPERTIES
 target_link_libraries(objs_AP_JSON mavlink) #clean
 target_link_libraries(objs_AP_JSON dronecan) #clean
 target_link_libraries(objs_AP_JSON littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_KDECAN_SOURCES
     libraries/AP_KDECAN/AP_KDECAN.cpp)
@@ -2245,9 +2303,8 @@ set(objs_AP_KDECAN_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_KDECAN_INCLUDES})
-
-add_library(objs_AP_KDECAN ${objs_AP_KDECAN_SOURCES})
+add_library(objs_AP_KDECAN ${objs_AP_KDECAN_SOURCES}) #2
+target_include_directories(objs_AP_KDECAN PRIVATE ${objs_AP_KDECAN_INCLUDES})
 
 set_target_properties(objs_AP_KDECAN PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2257,6 +2314,8 @@ set_target_properties(objs_AP_KDECAN PROPERTIES
 target_link_libraries(objs_AP_KDECAN mavlink) #clean
 target_link_libraries(objs_AP_KDECAN dronecan) #clean
 target_link_libraries(objs_AP_KDECAN littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_L1_Control_SOURCES
     libraries/AP_L1_Control/AP_L1_Control.cpp)
@@ -2280,9 +2339,8 @@ set(objs_AP_L1_Control_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_L1_Control_INCLUDES})
-
-add_library(objs_AP_L1_Control ${objs_AP_L1_Control_SOURCES})
+add_library(objs_AP_L1_Control ${objs_AP_L1_Control_SOURCES}) #2
+target_include_directories(objs_AP_L1_Control PRIVATE ${objs_AP_L1_Control_INCLUDES})
 
 set_target_properties(objs_AP_L1_Control PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2292,6 +2350,8 @@ set_target_properties(objs_AP_L1_Control PROPERTIES
 target_link_libraries(objs_AP_L1_Control mavlink) #clean
 target_link_libraries(objs_AP_L1_Control dronecan) #clean
 target_link_libraries(objs_AP_L1_Control littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_LTM_Telem_SOURCES
     libraries/AP_LTM_Telem/AP_LTM_Telem.cpp)
@@ -2315,9 +2375,8 @@ set(objs_AP_LTM_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_LTM_Telem_INCLUDES})
-
-add_library(objs_AP_LTM_Telem ${objs_AP_LTM_Telem_SOURCES})
+add_library(objs_AP_LTM_Telem ${objs_AP_LTM_Telem_SOURCES}) #2
+target_include_directories(objs_AP_LTM_Telem PRIVATE ${objs_AP_LTM_Telem_INCLUDES})
 
 set_target_properties(objs_AP_LTM_Telem PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2327,6 +2386,8 @@ set_target_properties(objs_AP_LTM_Telem PROPERTIES
 target_link_libraries(objs_AP_LTM_Telem mavlink) #clean
 target_link_libraries(objs_AP_LTM_Telem dronecan) #clean
 target_link_libraries(objs_AP_LTM_Telem littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Landing_SOURCES
     libraries/AP_Landing/AP_Landing.cpp
@@ -2351,9 +2412,8 @@ set(objs_AP_Landing_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Landing_INCLUDES})
-
-add_library(objs_AP_Landing ${objs_AP_Landing_SOURCES})
+add_library(objs_AP_Landing ${objs_AP_Landing_SOURCES}) #2
+target_include_directories(objs_AP_Landing PRIVATE ${objs_AP_Landing_INCLUDES})
 
 set_target_properties(objs_AP_Landing PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2363,6 +2423,8 @@ set_target_properties(objs_AP_Landing PROPERTIES
 target_link_libraries(objs_AP_Landing mavlink) #clean
 target_link_libraries(objs_AP_Landing dronecan) #clean
 target_link_libraries(objs_AP_Landing littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_LeakDetector_SOURCES
     libraries/AP_LeakDetector/AP_LeakDetector.cpp
@@ -2389,9 +2451,8 @@ set(objs_AP_LeakDetector_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_LeakDetector_INCLUDES})
-
-add_library(objs_AP_LeakDetector ${objs_AP_LeakDetector_SOURCES})
+add_library(objs_AP_LeakDetector ${objs_AP_LeakDetector_SOURCES}) #2
+target_include_directories(objs_AP_LeakDetector PRIVATE ${objs_AP_LeakDetector_INCLUDES})
 
 set_target_properties(objs_AP_LeakDetector PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2401,6 +2462,8 @@ set_target_properties(objs_AP_LeakDetector PROPERTIES
 target_link_libraries(objs_AP_LeakDetector mavlink) #clean
 target_link_libraries(objs_AP_LeakDetector dronecan) #clean
 target_link_libraries(objs_AP_LeakDetector littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_LightWareSerial_SOURCES
     libraries/AP_LightWareSerial/AP_LightWareSerial.cpp)
@@ -2424,9 +2487,8 @@ set(objs_AP_LightWareSerial_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_LightWareSerial_INCLUDES})
-
-add_library(objs_AP_LightWareSerial ${objs_AP_LightWareSerial_SOURCES})
+add_library(objs_AP_LightWareSerial ${objs_AP_LightWareSerial_SOURCES}) #2
+target_include_directories(objs_AP_LightWareSerial PRIVATE ${objs_AP_LightWareSerial_INCLUDES})
 
 set_target_properties(objs_AP_LightWareSerial PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2436,6 +2498,8 @@ set_target_properties(objs_AP_LightWareSerial PROPERTIES
 target_link_libraries(objs_AP_LightWareSerial mavlink) #clean
 target_link_libraries(objs_AP_LightWareSerial dronecan) #clean
 target_link_libraries(objs_AP_LightWareSerial littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Logger_SOURCES
     libraries/AP_Logger/AP_Logger_Block.cpp
@@ -2464,9 +2528,8 @@ set(objs_AP_Logger_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Logger_INCLUDES})
-
-add_library(objs_AP_Logger ${objs_AP_Logger_SOURCES})
+add_library(objs_AP_Logger ${objs_AP_Logger_SOURCES}) #2
+target_include_directories(objs_AP_Logger PRIVATE ${objs_AP_Logger_INCLUDES})
 
 set_target_properties(objs_AP_Logger PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2476,6 +2539,8 @@ set_target_properties(objs_AP_Logger PROPERTIES
 target_link_libraries(objs_AP_Logger mavlink) #clean
 target_link_libraries(objs_AP_Logger dronecan) #clean
 target_link_libraries(objs_AP_Logger littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_MSP_SOURCES
     libraries/AP_MSP/AP_MSP.cpp
@@ -2505,9 +2570,8 @@ set(objs_AP_MSP_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_MSP_INCLUDES})
-
-add_library(objs_AP_MSP ${objs_AP_MSP_SOURCES})
+add_library(objs_AP_MSP ${objs_AP_MSP_SOURCES}) #2
+target_include_directories(objs_AP_MSP PRIVATE ${objs_AP_MSP_INCLUDES})
 
 set_target_properties(objs_AP_MSP PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2517,6 +2581,8 @@ set_target_properties(objs_AP_MSP PROPERTIES
 target_link_libraries(objs_AP_MSP mavlink) #clean
 target_link_libraries(objs_AP_MSP dronecan) #clean
 target_link_libraries(objs_AP_MSP littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Math_SOURCES
     libraries/AP_Math/AP_GeodesicGrid.cpp
@@ -2556,9 +2622,8 @@ set(objs_AP_Math_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Math_INCLUDES})
-
-add_library(objs_AP_Math ${objs_AP_Math_SOURCES})
+add_library(objs_AP_Math ${objs_AP_Math_SOURCES}) #2
+target_include_directories(objs_AP_Math PRIVATE ${objs_AP_Math_INCLUDES})
 
 set_target_properties(objs_AP_Math PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2568,6 +2633,8 @@ set_target_properties(objs_AP_Math PROPERTIES
 target_link_libraries(objs_AP_Math mavlink) #clean
 target_link_libraries(objs_AP_Math dronecan) #clean
 target_link_libraries(objs_AP_Math littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Mission_SOURCES
     libraries/AP_Mission/AP_Mission_ChangeDetector.cpp
@@ -2592,9 +2659,8 @@ set(objs_AP_Mission_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Mission_INCLUDES})
-
-add_library(objs_AP_Mission ${objs_AP_Mission_SOURCES})
+add_library(objs_AP_Mission ${objs_AP_Mission_SOURCES}) #2
+target_include_directories(objs_AP_Mission PRIVATE ${objs_AP_Mission_INCLUDES})
 
 set_target_properties(objs_AP_Mission PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2604,6 +2670,8 @@ set_target_properties(objs_AP_Mission PROPERTIES
 target_link_libraries(objs_AP_Mission mavlink) #clean
 target_link_libraries(objs_AP_Mission dronecan) #clean
 target_link_libraries(objs_AP_Mission littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Module_SOURCES
     libraries/AP_Module/AP_Module.cpp)
@@ -2627,9 +2695,8 @@ set(objs_AP_Module_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Module_INCLUDES})
-
-add_library(objs_AP_Module ${objs_AP_Module_SOURCES})
+add_library(objs_AP_Module ${objs_AP_Module_SOURCES}) #2
+target_include_directories(objs_AP_Module PRIVATE ${objs_AP_Module_INCLUDES})
 
 set_target_properties(objs_AP_Module PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2639,6 +2706,8 @@ set_target_properties(objs_AP_Module PROPERTIES
 target_link_libraries(objs_AP_Module mavlink) #clean
 target_link_libraries(objs_AP_Module dronecan) #clean
 target_link_libraries(objs_AP_Module littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Motors_SOURCES
     libraries/AP_Motors/AP_Motors6DOF.cpp
@@ -2674,9 +2743,8 @@ set(objs_AP_Motors_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Motors_INCLUDES})
-
-add_library(objs_AP_Motors ${objs_AP_Motors_SOURCES})
+add_library(objs_AP_Motors ${objs_AP_Motors_SOURCES}) #2
+target_include_directories(objs_AP_Motors PRIVATE ${objs_AP_Motors_INCLUDES})
 
 set_target_properties(objs_AP_Motors PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2686,6 +2754,8 @@ set_target_properties(objs_AP_Motors PROPERTIES
 target_link_libraries(objs_AP_Motors mavlink) #clean
 target_link_libraries(objs_AP_Motors dronecan) #clean
 target_link_libraries(objs_AP_Motors littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Mount_SOURCES
     libraries/AP_Mount/AP_Mount.cpp
@@ -2728,9 +2798,8 @@ set(objs_AP_Mount_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Mount_INCLUDES})
-
-add_library(objs_AP_Mount ${objs_AP_Mount_SOURCES})
+add_library(objs_AP_Mount ${objs_AP_Mount_SOURCES}) #2
+target_include_directories(objs_AP_Mount PRIVATE ${objs_AP_Mount_INCLUDES})
 
 set_target_properties(objs_AP_Mount PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2740,6 +2809,8 @@ set_target_properties(objs_AP_Mount PROPERTIES
 target_link_libraries(objs_AP_Mount mavlink) #clean
 target_link_libraries(objs_AP_Mount dronecan) #clean
 target_link_libraries(objs_AP_Mount littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_MultiHeap_SOURCES
     libraries/AP_MultiHeap/AP_MultiHeap.cpp
@@ -2765,9 +2836,8 @@ set(objs_AP_MultiHeap_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_MultiHeap_INCLUDES})
-
-add_library(objs_AP_MultiHeap ${objs_AP_MultiHeap_SOURCES})
+add_library(objs_AP_MultiHeap ${objs_AP_MultiHeap_SOURCES}) #2
+target_include_directories(objs_AP_MultiHeap PRIVATE ${objs_AP_MultiHeap_INCLUDES})
 
 set_target_properties(objs_AP_MultiHeap PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2777,6 +2847,8 @@ set_target_properties(objs_AP_MultiHeap PROPERTIES
 target_link_libraries(objs_AP_MultiHeap mavlink) #clean
 target_link_libraries(objs_AP_MultiHeap dronecan) #clean
 target_link_libraries(objs_AP_MultiHeap littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_NMEA_Output_SOURCES
     libraries/AP_NMEA_Output/AP_NMEA_Output.cpp)
@@ -2800,9 +2872,8 @@ set(objs_AP_NMEA_Output_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_NMEA_Output_INCLUDES})
-
-add_library(objs_AP_NMEA_Output ${objs_AP_NMEA_Output_SOURCES})
+add_library(objs_AP_NMEA_Output ${objs_AP_NMEA_Output_SOURCES}) #2
+target_include_directories(objs_AP_NMEA_Output PRIVATE ${objs_AP_NMEA_Output_INCLUDES})
 
 set_target_properties(objs_AP_NMEA_Output PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2812,6 +2883,8 @@ set_target_properties(objs_AP_NMEA_Output PROPERTIES
 target_link_libraries(objs_AP_NMEA_Output mavlink) #clean
 target_link_libraries(objs_AP_NMEA_Output dronecan) #clean
 target_link_libraries(objs_AP_NMEA_Output littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_NavEKF_SOURCES
     libraries/AP_NavEKF/AP_NavEKF_Source.cpp
@@ -2839,9 +2912,8 @@ set(objs_AP_NavEKF_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_NavEKF_INCLUDES})
-
-add_library(objs_AP_NavEKF ${objs_AP_NavEKF_SOURCES})
+add_library(objs_AP_NavEKF ${objs_AP_NavEKF_SOURCES}) #2
+target_include_directories(objs_AP_NavEKF PRIVATE ${objs_AP_NavEKF_INCLUDES})
 
 set_target_properties(objs_AP_NavEKF PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2851,6 +2923,8 @@ set_target_properties(objs_AP_NavEKF PROPERTIES
 target_link_libraries(objs_AP_NavEKF mavlink) #clean
 target_link_libraries(objs_AP_NavEKF dronecan) #clean
 target_link_libraries(objs_AP_NavEKF littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_NavEKF2_SOURCES
     libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp
@@ -2884,9 +2958,8 @@ set(objs_AP_NavEKF2_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_NavEKF2_INCLUDES})
-
-add_library(objs_AP_NavEKF2 ${objs_AP_NavEKF2_SOURCES})
+add_library(objs_AP_NavEKF2 ${objs_AP_NavEKF2_SOURCES}) #2
+target_include_directories(objs_AP_NavEKF2 PRIVATE ${objs_AP_NavEKF2_INCLUDES})
 
 set_target_properties(objs_AP_NavEKF2 PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -2896,6 +2969,8 @@ set_target_properties(objs_AP_NavEKF2 PROPERTIES
 target_link_libraries(objs_AP_NavEKF2 mavlink) #clean
 target_link_libraries(objs_AP_NavEKF2 dronecan) #clean
 target_link_libraries(objs_AP_NavEKF2 littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Networking_SOURCES
     libraries/AP_Networking/AP_Networking.cpp
@@ -2999,9 +3074,8 @@ set(objs_AP_Networking_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Networking_INCLUDES})
-
-add_library(objs_AP_Networking ${objs_AP_Networking_SOURCES})
+add_library(objs_AP_Networking ${objs_AP_Networking_SOURCES}) #2
+target_include_directories(objs_AP_Networking PRIVATE ${objs_AP_Networking_INCLUDES})
 
 set_target_properties(objs_AP_Networking PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3011,6 +3085,8 @@ set_target_properties(objs_AP_Networking PROPERTIES
 target_link_libraries(objs_AP_Networking mavlink) #clean
 target_link_libraries(objs_AP_Networking dronecan) #clean
 target_link_libraries(objs_AP_Networking littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Notify_SOURCES
     libraries/AP_Notify/AP_BoardLED.cpp
@@ -3066,9 +3142,8 @@ set(objs_AP_Notify_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Notify_INCLUDES})
-
-add_library(objs_AP_Notify ${objs_AP_Notify_SOURCES})
+add_library(objs_AP_Notify ${objs_AP_Notify_SOURCES}) #2
+target_include_directories(objs_AP_Notify PRIVATE ${objs_AP_Notify_INCLUDES})
 
 set_target_properties(objs_AP_Notify PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3078,6 +3153,8 @@ set_target_properties(objs_AP_Notify PROPERTIES
 target_link_libraries(objs_AP_Notify mavlink) #clean
 target_link_libraries(objs_AP_Notify dronecan) #clean
 target_link_libraries(objs_AP_Notify littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_OLC_SOURCES
     libraries/AP_OLC/AP_OLC.cpp)
@@ -3101,9 +3178,8 @@ set(objs_AP_OLC_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_OLC_INCLUDES})
-
-add_library(objs_AP_OLC ${objs_AP_OLC_SOURCES})
+add_library(objs_AP_OLC ${objs_AP_OLC_SOURCES}) #2
+target_include_directories(objs_AP_OLC PRIVATE ${objs_AP_OLC_INCLUDES})
 
 set_target_properties(objs_AP_OLC PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3113,6 +3189,8 @@ set_target_properties(objs_AP_OLC PROPERTIES
 target_link_libraries(objs_AP_OLC mavlink) #clean
 target_link_libraries(objs_AP_OLC dronecan) #clean
 target_link_libraries(objs_AP_OLC littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_OSD_SOURCES
     libraries/AP_OSD/AP_OSD.cpp
@@ -3142,9 +3220,8 @@ set(objs_AP_OSD_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_OSD_INCLUDES})
-
-add_library(objs_AP_OSD ${objs_AP_OSD_SOURCES})
+add_library(objs_AP_OSD ${objs_AP_OSD_SOURCES}) #2
+target_include_directories(objs_AP_OSD PRIVATE ${objs_AP_OSD_INCLUDES})
 
 set_target_properties(objs_AP_OSD PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3154,6 +3231,8 @@ set_target_properties(objs_AP_OSD PROPERTIES
 target_link_libraries(objs_AP_OSD mavlink) #clean
 target_link_libraries(objs_AP_OSD dronecan) #clean
 target_link_libraries(objs_AP_OSD littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_OpenDroneID_SOURCES
     libraries/AP_OpenDroneID/AP_OpenDroneID.cpp
@@ -3178,9 +3257,8 @@ set(objs_AP_OpenDroneID_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_OpenDroneID_INCLUDES})
-
-add_library(objs_AP_OpenDroneID ${objs_AP_OpenDroneID_SOURCES})
+add_library(objs_AP_OpenDroneID ${objs_AP_OpenDroneID_SOURCES}) #2
+target_include_directories(objs_AP_OpenDroneID PRIVATE ${objs_AP_OpenDroneID_INCLUDES})
 
 set_target_properties(objs_AP_OpenDroneID PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3190,6 +3268,8 @@ set_target_properties(objs_AP_OpenDroneID PROPERTIES
 target_link_libraries(objs_AP_OpenDroneID mavlink) #clean
 target_link_libraries(objs_AP_OpenDroneID dronecan) #clean
 target_link_libraries(objs_AP_OpenDroneID littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_OpticalFlow_SOURCES
     libraries/AP_OpticalFlow/AP_OpticalFlow.cpp
@@ -3224,9 +3304,8 @@ set(objs_AP_OpticalFlow_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_OpticalFlow_INCLUDES})
-
-add_library(objs_AP_OpticalFlow ${objs_AP_OpticalFlow_SOURCES})
+add_library(objs_AP_OpticalFlow ${objs_AP_OpticalFlow_SOURCES}) #2
+target_include_directories(objs_AP_OpticalFlow PRIVATE ${objs_AP_OpticalFlow_INCLUDES})
 
 set_target_properties(objs_AP_OpticalFlow PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3236,6 +3315,8 @@ set_target_properties(objs_AP_OpticalFlow PROPERTIES
 target_link_libraries(objs_AP_OpticalFlow mavlink) #clean
 target_link_libraries(objs_AP_OpticalFlow dronecan) #clean
 target_link_libraries(objs_AP_OpticalFlow littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Parachute_SOURCES
     libraries/AP_Parachute/AP_Parachute.cpp)
@@ -3259,9 +3340,8 @@ set(objs_AP_Parachute_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Parachute_INCLUDES})
-
-add_library(objs_AP_Parachute ${objs_AP_Parachute_SOURCES})
+add_library(objs_AP_Parachute ${objs_AP_Parachute_SOURCES}) #2
+target_include_directories(objs_AP_Parachute PRIVATE ${objs_AP_Parachute_INCLUDES})
 
 set_target_properties(objs_AP_Parachute PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3271,6 +3351,8 @@ set_target_properties(objs_AP_Parachute PROPERTIES
 target_link_libraries(objs_AP_Parachute mavlink) #clean
 target_link_libraries(objs_AP_Parachute dronecan) #clean
 target_link_libraries(objs_AP_Parachute littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Param_SOURCES
     libraries/AP_Param/AP_Param.cpp
@@ -3295,9 +3377,8 @@ set(objs_AP_Param_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Param_INCLUDES})
-
-add_library(objs_AP_Param ${objs_AP_Param_SOURCES})
+add_library(objs_AP_Param ${objs_AP_Param_SOURCES}) #2
+target_include_directories(objs_AP_Param PRIVATE ${objs_AP_Param_INCLUDES})
 
 set_target_properties(objs_AP_Param PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3307,6 +3388,8 @@ set_target_properties(objs_AP_Param PROPERTIES
 target_link_libraries(objs_AP_Param mavlink) #clean
 target_link_libraries(objs_AP_Param dronecan) #clean
 target_link_libraries(objs_AP_Param littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_PiccoloCAN_SOURCES
     libraries/AP_PiccoloCAN/AP_PiccoloCAN.cpp
@@ -3334,9 +3417,8 @@ set(objs_AP_PiccoloCAN_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_PiccoloCAN_INCLUDES})
-
-add_library(objs_AP_PiccoloCAN ${objs_AP_PiccoloCAN_SOURCES})
+add_library(objs_AP_PiccoloCAN ${objs_AP_PiccoloCAN_SOURCES}) #2
+target_include_directories(objs_AP_PiccoloCAN PRIVATE ${objs_AP_PiccoloCAN_INCLUDES})
 
 set_target_properties(objs_AP_PiccoloCAN PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3346,6 +3428,8 @@ set_target_properties(objs_AP_PiccoloCAN PROPERTIES
 target_link_libraries(objs_AP_PiccoloCAN mavlink) #clean
 target_link_libraries(objs_AP_PiccoloCAN dronecan) #clean
 target_link_libraries(objs_AP_PiccoloCAN littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Proximity_SOURCES
     libraries/AP_Proximity/AP_Proximity.cpp
@@ -3387,9 +3471,8 @@ set(objs_AP_Proximity_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Proximity_INCLUDES})
-
-add_library(objs_AP_Proximity ${objs_AP_Proximity_SOURCES})
+add_library(objs_AP_Proximity ${objs_AP_Proximity_SOURCES}) #2
+target_include_directories(objs_AP_Proximity PRIVATE ${objs_AP_Proximity_INCLUDES})
 
 set_target_properties(objs_AP_Proximity PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3399,6 +3482,8 @@ set_target_properties(objs_AP_Proximity PROPERTIES
 target_link_libraries(objs_AP_Proximity mavlink) #clean
 target_link_libraries(objs_AP_Proximity dronecan) #clean
 target_link_libraries(objs_AP_Proximity littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Quicktune_SOURCES
     libraries/AP_Quicktune/AP_Quicktune.cpp)
@@ -3422,9 +3507,8 @@ set(objs_AP_Quicktune_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Quicktune_INCLUDES})
-
-add_library(objs_AP_Quicktune ${objs_AP_Quicktune_SOURCES})
+add_library(objs_AP_Quicktune ${objs_AP_Quicktune_SOURCES}) #2
+target_include_directories(objs_AP_Quicktune PRIVATE ${objs_AP_Quicktune_INCLUDES})
 
 set_target_properties(objs_AP_Quicktune PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3434,6 +3518,8 @@ set_target_properties(objs_AP_Quicktune PROPERTIES
 target_link_libraries(objs_AP_Quicktune mavlink) #clean
 target_link_libraries(objs_AP_Quicktune dronecan) #clean
 target_link_libraries(objs_AP_Quicktune littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_RAMTRON_SOURCES
     libraries/AP_RAMTRON/AP_RAMTRON.cpp)
@@ -3457,9 +3543,8 @@ set(objs_AP_RAMTRON_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_RAMTRON_INCLUDES})
-
-add_library(objs_AP_RAMTRON ${objs_AP_RAMTRON_SOURCES})
+add_library(objs_AP_RAMTRON ${objs_AP_RAMTRON_SOURCES}) #2
+target_include_directories(objs_AP_RAMTRON PRIVATE ${objs_AP_RAMTRON_INCLUDES})
 
 set_target_properties(objs_AP_RAMTRON PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3469,6 +3554,8 @@ set_target_properties(objs_AP_RAMTRON PROPERTIES
 target_link_libraries(objs_AP_RAMTRON mavlink) #clean
 target_link_libraries(objs_AP_RAMTRON dronecan) #clean
 target_link_libraries(objs_AP_RAMTRON littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_RCMapper_SOURCES
     libraries/AP_RCMapper/AP_RCMapper.cpp)
@@ -3492,9 +3579,8 @@ set(objs_AP_RCMapper_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_RCMapper_INCLUDES})
-
-add_library(objs_AP_RCMapper ${objs_AP_RCMapper_SOURCES})
+add_library(objs_AP_RCMapper ${objs_AP_RCMapper_SOURCES}) #2
+target_include_directories(objs_AP_RCMapper PRIVATE ${objs_AP_RCMapper_INCLUDES})
 
 set_target_properties(objs_AP_RCMapper PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3504,6 +3590,8 @@ set_target_properties(objs_AP_RCMapper PROPERTIES
 target_link_libraries(objs_AP_RCMapper mavlink) #clean
 target_link_libraries(objs_AP_RCMapper dronecan) #clean
 target_link_libraries(objs_AP_RCMapper littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_RCProtocol_SOURCES
     libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp
@@ -3543,9 +3631,8 @@ set(objs_AP_RCProtocol_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_RCProtocol_INCLUDES})
-
-add_library(objs_AP_RCProtocol ${objs_AP_RCProtocol_SOURCES})
+add_library(objs_AP_RCProtocol ${objs_AP_RCProtocol_SOURCES}) #2
+target_include_directories(objs_AP_RCProtocol PRIVATE ${objs_AP_RCProtocol_INCLUDES})
 
 set_target_properties(objs_AP_RCProtocol PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3555,6 +3642,8 @@ set_target_properties(objs_AP_RCProtocol PROPERTIES
 target_link_libraries(objs_AP_RCProtocol mavlink) #clean
 target_link_libraries(objs_AP_RCProtocol dronecan) #clean
 target_link_libraries(objs_AP_RCProtocol littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_RCTelemetry_SOURCES
     libraries/AP_RCTelemetry/AP_GHST_Telem.cpp
@@ -3579,9 +3668,8 @@ set(objs_AP_RCTelemetry_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_RCTelemetry_INCLUDES})
-
-add_library(objs_AP_RCTelemetry ${objs_AP_RCTelemetry_SOURCES})
+add_library(objs_AP_RCTelemetry ${objs_AP_RCTelemetry_SOURCES}) #2
+target_include_directories(objs_AP_RCTelemetry PRIVATE ${objs_AP_RCTelemetry_INCLUDES})
 
 set_target_properties(objs_AP_RCTelemetry PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3591,6 +3679,8 @@ set_target_properties(objs_AP_RCTelemetry PROPERTIES
 target_link_libraries(objs_AP_RCTelemetry mavlink) #clean
 target_link_libraries(objs_AP_RCTelemetry dronecan) #clean
 target_link_libraries(objs_AP_RCTelemetry littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_ROMFS_SOURCES
     libraries/AP_ROMFS/AP_ROMFS.cpp
@@ -3615,9 +3705,8 @@ set(objs_AP_ROMFS_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_ROMFS_INCLUDES})
-
-add_library(objs_AP_ROMFS ${objs_AP_ROMFS_SOURCES})
+add_library(objs_AP_ROMFS ${objs_AP_ROMFS_SOURCES}) #2
+target_include_directories(objs_AP_ROMFS PRIVATE ${objs_AP_ROMFS_INCLUDES})
 
 set_target_properties(objs_AP_ROMFS PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3627,6 +3716,8 @@ set_target_properties(objs_AP_ROMFS PROPERTIES
 target_link_libraries(objs_AP_ROMFS mavlink) #clean
 target_link_libraries(objs_AP_ROMFS dronecan) #clean
 target_link_libraries(objs_AP_ROMFS littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_RPM_SOURCES
     libraries/AP_RPM/AP_RPM.cpp
@@ -3659,9 +3750,8 @@ set(objs_AP_RPM_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_RPM_INCLUDES})
-
-add_library(objs_AP_RPM ${objs_AP_RPM_SOURCES})
+add_library(objs_AP_RPM ${objs_AP_RPM_SOURCES}) #2
+target_include_directories(objs_AP_RPM PRIVATE ${objs_AP_RPM_INCLUDES})
 
 set_target_properties(objs_AP_RPM PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3671,6 +3761,8 @@ set_target_properties(objs_AP_RPM PROPERTIES
 target_link_libraries(objs_AP_RPM mavlink) #clean
 target_link_libraries(objs_AP_RPM dronecan) #clean
 target_link_libraries(objs_AP_RPM littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_RSSI_SOURCES
     libraries/AP_RSSI/AP_RSSI.cpp)
@@ -3694,9 +3786,8 @@ set(objs_AP_RSSI_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_RSSI_INCLUDES})
-
-add_library(objs_AP_RSSI ${objs_AP_RSSI_SOURCES})
+add_library(objs_AP_RSSI ${objs_AP_RSSI_SOURCES}) #2
+target_include_directories(objs_AP_RSSI PRIVATE ${objs_AP_RSSI_INCLUDES})
 
 set_target_properties(objs_AP_RSSI PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3706,6 +3797,8 @@ set_target_properties(objs_AP_RSSI PROPERTIES
 target_link_libraries(objs_AP_RSSI mavlink) #clean
 target_link_libraries(objs_AP_RSSI dronecan) #clean
 target_link_libraries(objs_AP_RSSI littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_RTC_SOURCES
     libraries/AP_RTC/AP_RTC.cpp
@@ -3730,9 +3823,8 @@ set(objs_AP_RTC_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_RTC_INCLUDES})
-
-add_library(objs_AP_RTC ${objs_AP_RTC_SOURCES})
+add_library(objs_AP_RTC ${objs_AP_RTC_SOURCES}) #2
+target_include_directories(objs_AP_RTC PRIVATE ${objs_AP_RTC_INCLUDES})
 
 set_target_properties(objs_AP_RTC PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3742,6 +3834,8 @@ set_target_properties(objs_AP_RTC PROPERTIES
 target_link_libraries(objs_AP_RTC mavlink) #clean
 target_link_libraries(objs_AP_RTC dronecan) #clean
 target_link_libraries(objs_AP_RTC littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Radio_SOURCES
     libraries/AP_Radio/AP_Radio.cpp
@@ -3771,9 +3865,8 @@ set(objs_AP_Radio_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Radio_INCLUDES})
-
-add_library(objs_AP_Radio ${objs_AP_Radio_SOURCES})
+add_library(objs_AP_Radio ${objs_AP_Radio_SOURCES}) #2
+target_include_directories(objs_AP_Radio PRIVATE ${objs_AP_Radio_INCLUDES})
 
 set_target_properties(objs_AP_Radio PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3783,6 +3876,8 @@ set_target_properties(objs_AP_Radio PROPERTIES
 target_link_libraries(objs_AP_Radio mavlink) #clean
 target_link_libraries(objs_AP_Radio dronecan) #clean
 target_link_libraries(objs_AP_Radio littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_RangeFinder_SOURCES
     libraries/AP_RangeFinder/AP_RangeFinder.cpp
@@ -3850,9 +3945,8 @@ set(objs_AP_RangeFinder_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_RangeFinder_INCLUDES})
-
-add_library(objs_AP_RangeFinder ${objs_AP_RangeFinder_SOURCES})
+add_library(objs_AP_RangeFinder ${objs_AP_RangeFinder_SOURCES}) #2
+target_include_directories(objs_AP_RangeFinder PRIVATE ${objs_AP_RangeFinder_INCLUDES})
 
 set_target_properties(objs_AP_RangeFinder PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3862,6 +3956,8 @@ set_target_properties(objs_AP_RangeFinder PROPERTIES
 target_link_libraries(objs_AP_RangeFinder mavlink) #clean
 target_link_libraries(objs_AP_RangeFinder dronecan) #clean
 target_link_libraries(objs_AP_RangeFinder littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Relay_SOURCES
     libraries/AP_Relay/AP_Relay_Params.cpp)
@@ -3885,9 +3981,8 @@ set(objs_AP_Relay_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Relay_INCLUDES})
-
-add_library(objs_AP_Relay ${objs_AP_Relay_SOURCES})
+add_library(objs_AP_Relay ${objs_AP_Relay_SOURCES}) #2
+target_include_directories(objs_AP_Relay PRIVATE ${objs_AP_Relay_INCLUDES})
 
 set_target_properties(objs_AP_Relay PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3897,6 +3992,8 @@ set_target_properties(objs_AP_Relay PROPERTIES
 target_link_libraries(objs_AP_Relay mavlink) #clean
 target_link_libraries(objs_AP_Relay dronecan) #clean
 target_link_libraries(objs_AP_Relay littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_RobotisServo_SOURCES
     libraries/AP_RobotisServo/AP_RobotisServo.cpp)
@@ -3920,9 +4017,8 @@ set(objs_AP_RobotisServo_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_RobotisServo_INCLUDES})
-
-add_library(objs_AP_RobotisServo ${objs_AP_RobotisServo_SOURCES})
+add_library(objs_AP_RobotisServo ${objs_AP_RobotisServo_SOURCES}) #2
+target_include_directories(objs_AP_RobotisServo PRIVATE ${objs_AP_RobotisServo_INCLUDES})
 
 set_target_properties(objs_AP_RobotisServo PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3932,6 +4028,8 @@ set_target_properties(objs_AP_RobotisServo PROPERTIES
 target_link_libraries(objs_AP_RobotisServo mavlink) #clean
 target_link_libraries(objs_AP_RobotisServo dronecan) #clean
 target_link_libraries(objs_AP_RobotisServo littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_SBusOut_SOURCES
     libraries/AP_SBusOut/AP_SBusOut.cpp)
@@ -3955,9 +4053,8 @@ set(objs_AP_SBusOut_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_SBusOut_INCLUDES})
-
-add_library(objs_AP_SBusOut ${objs_AP_SBusOut_SOURCES})
+add_library(objs_AP_SBusOut ${objs_AP_SBusOut_SOURCES}) #2
+target_include_directories(objs_AP_SBusOut PRIVATE ${objs_AP_SBusOut_INCLUDES})
 
 set_target_properties(objs_AP_SBusOut PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -3967,6 +4064,8 @@ set_target_properties(objs_AP_SBusOut PROPERTIES
 target_link_libraries(objs_AP_SBusOut mavlink) #clean
 target_link_libraries(objs_AP_SBusOut dronecan) #clean
 target_link_libraries(objs_AP_SBusOut littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Scheduler_SOURCES
     libraries/AP_Scheduler/PerfInfo.cpp)
@@ -3990,9 +4089,8 @@ set(objs_AP_Scheduler_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Scheduler_INCLUDES})
-
-add_library(objs_AP_Scheduler ${objs_AP_Scheduler_SOURCES})
+add_library(objs_AP_Scheduler ${objs_AP_Scheduler_SOURCES}) #2
+target_include_directories(objs_AP_Scheduler PRIVATE ${objs_AP_Scheduler_INCLUDES})
 
 set_target_properties(objs_AP_Scheduler PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4002,6 +4100,8 @@ set_target_properties(objs_AP_Scheduler PROPERTIES
 target_link_libraries(objs_AP_Scheduler mavlink) #clean
 target_link_libraries(objs_AP_Scheduler dronecan) #clean
 target_link_libraries(objs_AP_Scheduler littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_SerialLED_SOURCES
     libraries/AP_SerialLED/AP_SerialLED.cpp)
@@ -4025,9 +4125,8 @@ set(objs_AP_SerialLED_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_SerialLED_INCLUDES})
-
-add_library(objs_AP_SerialLED ${objs_AP_SerialLED_SOURCES})
+add_library(objs_AP_SerialLED ${objs_AP_SerialLED_SOURCES}) #2
+target_include_directories(objs_AP_SerialLED PRIVATE ${objs_AP_SerialLED_INCLUDES})
 
 set_target_properties(objs_AP_SerialLED PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4037,6 +4136,8 @@ set_target_properties(objs_AP_SerialLED PROPERTIES
 target_link_libraries(objs_AP_SerialLED mavlink) #clean
 target_link_libraries(objs_AP_SerialLED dronecan) #clean
 target_link_libraries(objs_AP_SerialLED littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_SerialManager_SOURCES
     libraries/AP_SerialManager/AP_SerialManager.cpp)
@@ -4060,9 +4161,8 @@ set(objs_AP_SerialManager_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_SerialManager_INCLUDES})
-
-add_library(objs_AP_SerialManager ${objs_AP_SerialManager_SOURCES})
+add_library(objs_AP_SerialManager ${objs_AP_SerialManager_SOURCES}) #2
+target_include_directories(objs_AP_SerialManager PRIVATE ${objs_AP_SerialManager_INCLUDES})
 
 set_target_properties(objs_AP_SerialManager PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4072,6 +4172,8 @@ set_target_properties(objs_AP_SerialManager PROPERTIES
 target_link_libraries(objs_AP_SerialManager mavlink) #clean
 target_link_libraries(objs_AP_SerialManager dronecan) #clean
 target_link_libraries(objs_AP_SerialManager littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_ServoRelayEvents_SOURCES
     libraries/AP_ServoRelayEvents/AP_ServoRelayEvents.cpp)
@@ -4095,9 +4197,8 @@ set(objs_AP_ServoRelayEvents_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_ServoRelayEvents_INCLUDES})
-
-add_library(objs_AP_ServoRelayEvents ${objs_AP_ServoRelayEvents_SOURCES})
+add_library(objs_AP_ServoRelayEvents ${objs_AP_ServoRelayEvents_SOURCES}) #2
+target_include_directories(objs_AP_ServoRelayEvents PRIVATE ${objs_AP_ServoRelayEvents_INCLUDES})
 
 set_target_properties(objs_AP_ServoRelayEvents PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4107,6 +4208,8 @@ set_target_properties(objs_AP_ServoRelayEvents PROPERTIES
 target_link_libraries(objs_AP_ServoRelayEvents mavlink) #clean
 target_link_libraries(objs_AP_ServoRelayEvents dronecan) #clean
 target_link_libraries(objs_AP_ServoRelayEvents littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Servo_Telem_SOURCES
     libraries/AP_Servo_Telem/AP_Servo_Telem.cpp)
@@ -4130,9 +4233,8 @@ set(objs_AP_Servo_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Servo_Telem_INCLUDES})
-
-add_library(objs_AP_Servo_Telem ${objs_AP_Servo_Telem_SOURCES})
+add_library(objs_AP_Servo_Telem ${objs_AP_Servo_Telem_SOURCES}) #2
+target_include_directories(objs_AP_Servo_Telem PRIVATE ${objs_AP_Servo_Telem_INCLUDES})
 
 set_target_properties(objs_AP_Servo_Telem PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4142,6 +4244,8 @@ set_target_properties(objs_AP_Servo_Telem PROPERTIES
 target_link_libraries(objs_AP_Servo_Telem mavlink) #clean
 target_link_libraries(objs_AP_Servo_Telem dronecan) #clean
 target_link_libraries(objs_AP_Servo_Telem littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_SmartRTL_SOURCES
     libraries/AP_SmartRTL/AP_SmartRTL.cpp)
@@ -4165,9 +4269,8 @@ set(objs_AP_SmartRTL_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_SmartRTL_INCLUDES})
-
-add_library(objs_AP_SmartRTL ${objs_AP_SmartRTL_SOURCES})
+add_library(objs_AP_SmartRTL ${objs_AP_SmartRTL_SOURCES}) #2
+target_include_directories(objs_AP_SmartRTL PRIVATE ${objs_AP_SmartRTL_INCLUDES})
 
 set_target_properties(objs_AP_SmartRTL PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4177,6 +4280,8 @@ set_target_properties(objs_AP_SmartRTL PROPERTIES
 target_link_libraries(objs_AP_SmartRTL mavlink) #clean
 target_link_libraries(objs_AP_SmartRTL dronecan) #clean
 target_link_libraries(objs_AP_SmartRTL littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Soaring_SOURCES
     libraries/AP_Soaring/AP_Soaring.cpp
@@ -4203,9 +4308,8 @@ set(objs_AP_Soaring_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Soaring_INCLUDES})
-
-add_library(objs_AP_Soaring ${objs_AP_Soaring_SOURCES})
+add_library(objs_AP_Soaring ${objs_AP_Soaring_SOURCES}) #2
+target_include_directories(objs_AP_Soaring PRIVATE ${objs_AP_Soaring_INCLUDES})
 
 set_target_properties(objs_AP_Soaring PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4215,6 +4319,8 @@ set_target_properties(objs_AP_Soaring PROPERTIES
 target_link_libraries(objs_AP_Soaring mavlink) #clean
 target_link_libraries(objs_AP_Soaring dronecan) #clean
 target_link_libraries(objs_AP_Soaring littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Stats_SOURCES
     libraries/AP_Stats/AP_Stats.cpp)
@@ -4238,9 +4344,8 @@ set(objs_AP_Stats_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Stats_INCLUDES})
-
-add_library(objs_AP_Stats ${objs_AP_Stats_SOURCES})
+add_library(objs_AP_Stats ${objs_AP_Stats_SOURCES}) #2
+target_include_directories(objs_AP_Stats PRIVATE ${objs_AP_Stats_INCLUDES})
 
 set_target_properties(objs_AP_Stats PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4250,6 +4355,8 @@ set_target_properties(objs_AP_Stats PROPERTIES
 target_link_libraries(objs_AP_Stats mavlink) #clean
 target_link_libraries(objs_AP_Stats dronecan) #clean
 target_link_libraries(objs_AP_Stats littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_SurfaceDistance_SOURCES
     libraries/AP_SurfaceDistance/AP_SurfaceDistance.cpp)
@@ -4273,9 +4380,8 @@ set(objs_AP_SurfaceDistance_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_SurfaceDistance_INCLUDES})
-
-add_library(objs_AP_SurfaceDistance ${objs_AP_SurfaceDistance_SOURCES})
+add_library(objs_AP_SurfaceDistance ${objs_AP_SurfaceDistance_SOURCES}) #2
+target_include_directories(objs_AP_SurfaceDistance PRIVATE ${objs_AP_SurfaceDistance_INCLUDES})
 
 set_target_properties(objs_AP_SurfaceDistance PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4285,6 +4391,8 @@ set_target_properties(objs_AP_SurfaceDistance PROPERTIES
 target_link_libraries(objs_AP_SurfaceDistance mavlink) #clean
 target_link_libraries(objs_AP_SurfaceDistance dronecan) #clean
 target_link_libraries(objs_AP_SurfaceDistance littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_TECS_SOURCES
     libraries/AP_TECS/AP_TECS.cpp)
@@ -4308,9 +4416,8 @@ set(objs_AP_TECS_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_TECS_INCLUDES})
-
-add_library(objs_AP_TECS ${objs_AP_TECS_SOURCES})
+add_library(objs_AP_TECS ${objs_AP_TECS_SOURCES}) #2
+target_include_directories(objs_AP_TECS PRIVATE ${objs_AP_TECS_INCLUDES})
 
 set_target_properties(objs_AP_TECS PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4320,6 +4427,8 @@ set_target_properties(objs_AP_TECS PROPERTIES
 target_link_libraries(objs_AP_TECS mavlink) #clean
 target_link_libraries(objs_AP_TECS dronecan) #clean
 target_link_libraries(objs_AP_TECS littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_TempCalibration_SOURCES
     libraries/AP_TempCalibration/AP_TempCalibration.cpp)
@@ -4343,9 +4452,8 @@ set(objs_AP_TempCalibration_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_TempCalibration_INCLUDES})
-
-add_library(objs_AP_TempCalibration ${objs_AP_TempCalibration_SOURCES})
+add_library(objs_AP_TempCalibration ${objs_AP_TempCalibration_SOURCES}) #2
+target_include_directories(objs_AP_TempCalibration PRIVATE ${objs_AP_TempCalibration_INCLUDES})
 
 set_target_properties(objs_AP_TempCalibration PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4355,6 +4463,8 @@ set_target_properties(objs_AP_TempCalibration PROPERTIES
 target_link_libraries(objs_AP_TempCalibration mavlink) #clean
 target_link_libraries(objs_AP_TempCalibration dronecan) #clean
 target_link_libraries(objs_AP_TempCalibration littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_TemperatureSensor_SOURCES
     libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp
@@ -4387,9 +4497,8 @@ set(objs_AP_TemperatureSensor_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_TemperatureSensor_INCLUDES})
-
-add_library(objs_AP_TemperatureSensor ${objs_AP_TemperatureSensor_SOURCES})
+add_library(objs_AP_TemperatureSensor ${objs_AP_TemperatureSensor_SOURCES}) #2
+target_include_directories(objs_AP_TemperatureSensor PRIVATE ${objs_AP_TemperatureSensor_INCLUDES})
 
 set_target_properties(objs_AP_TemperatureSensor PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4399,6 +4508,8 @@ set_target_properties(objs_AP_TemperatureSensor PROPERTIES
 target_link_libraries(objs_AP_TemperatureSensor mavlink) #clean
 target_link_libraries(objs_AP_TemperatureSensor dronecan) #clean
 target_link_libraries(objs_AP_TemperatureSensor littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Terrain_SOURCES
     libraries/AP_Terrain/TerrainGCS.cpp
@@ -4425,9 +4536,8 @@ set(objs_AP_Terrain_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Terrain_INCLUDES})
-
-add_library(objs_AP_Terrain ${objs_AP_Terrain_SOURCES})
+add_library(objs_AP_Terrain ${objs_AP_Terrain_SOURCES}) #2
+target_include_directories(objs_AP_Terrain PRIVATE ${objs_AP_Terrain_INCLUDES})
 
 set_target_properties(objs_AP_Terrain PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4437,6 +4547,8 @@ set_target_properties(objs_AP_Terrain PROPERTIES
 target_link_libraries(objs_AP_Terrain mavlink) #clean
 target_link_libraries(objs_AP_Terrain dronecan) #clean
 target_link_libraries(objs_AP_Terrain littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Torqeedo_SOURCES
     libraries/AP_Torqeedo/AP_Torqeedo.cpp
@@ -4463,9 +4575,8 @@ set(objs_AP_Torqeedo_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Torqeedo_INCLUDES})
-
-add_library(objs_AP_Torqeedo ${objs_AP_Torqeedo_SOURCES})
+add_library(objs_AP_Torqeedo ${objs_AP_Torqeedo_SOURCES}) #2
+target_include_directories(objs_AP_Torqeedo PRIVATE ${objs_AP_Torqeedo_INCLUDES})
 
 set_target_properties(objs_AP_Torqeedo PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4475,6 +4586,8 @@ set_target_properties(objs_AP_Torqeedo PROPERTIES
 target_link_libraries(objs_AP_Torqeedo mavlink) #clean
 target_link_libraries(objs_AP_Torqeedo dronecan) #clean
 target_link_libraries(objs_AP_Torqeedo littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Tuning_SOURCES
     libraries/AP_Tuning/AP_Tuning.cpp)
@@ -4498,9 +4611,8 @@ set(objs_AP_Tuning_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Tuning_INCLUDES})
-
-add_library(objs_AP_Tuning ${objs_AP_Tuning_SOURCES})
+add_library(objs_AP_Tuning ${objs_AP_Tuning_SOURCES}) #2
+target_include_directories(objs_AP_Tuning PRIVATE ${objs_AP_Tuning_INCLUDES})
 
 set_target_properties(objs_AP_Tuning PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4510,6 +4622,8 @@ set_target_properties(objs_AP_Tuning PROPERTIES
 target_link_libraries(objs_AP_Tuning mavlink) #clean
 target_link_libraries(objs_AP_Tuning dronecan) #clean
 target_link_libraries(objs_AP_Tuning littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Vehicle_SOURCES
     libraries/AP_Vehicle/Parameters.cpp)
@@ -4533,9 +4647,8 @@ set(objs_AP_Vehicle_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Vehicle_INCLUDES})
-
-add_library(objs_AP_Vehicle ${objs_AP_Vehicle_SOURCES})
+add_library(objs_AP_Vehicle ${objs_AP_Vehicle_SOURCES}) #2
+target_include_directories(objs_AP_Vehicle PRIVATE ${objs_AP_Vehicle_INCLUDES})
 
 set_target_properties(objs_AP_Vehicle PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4545,6 +4658,8 @@ set_target_properties(objs_AP_Vehicle PROPERTIES
 target_link_libraries(objs_AP_Vehicle mavlink) #clean
 target_link_libraries(objs_AP_Vehicle dronecan) #clean
 target_link_libraries(objs_AP_Vehicle littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_VideoTX_SOURCES
     libraries/AP_VideoTX/AP_SmartAudio.cpp
@@ -4570,9 +4685,8 @@ set(objs_AP_VideoTX_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_VideoTX_INCLUDES})
-
-add_library(objs_AP_VideoTX ${objs_AP_VideoTX_SOURCES})
+add_library(objs_AP_VideoTX ${objs_AP_VideoTX_SOURCES}) #2
+target_include_directories(objs_AP_VideoTX PRIVATE ${objs_AP_VideoTX_INCLUDES})
 
 set_target_properties(objs_AP_VideoTX PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4582,6 +4696,8 @@ set_target_properties(objs_AP_VideoTX PROPERTIES
 target_link_libraries(objs_AP_VideoTX mavlink) #clean
 target_link_libraries(objs_AP_VideoTX dronecan) #clean
 target_link_libraries(objs_AP_VideoTX littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_VisualOdom_SOURCES
     libraries/AP_VisualOdom/AP_VisualOdom.cpp
@@ -4609,9 +4725,8 @@ set(objs_AP_VisualOdom_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_VisualOdom_INCLUDES})
-
-add_library(objs_AP_VisualOdom ${objs_AP_VisualOdom_SOURCES})
+add_library(objs_AP_VisualOdom ${objs_AP_VisualOdom_SOURCES}) #2
+target_include_directories(objs_AP_VisualOdom PRIVATE ${objs_AP_VisualOdom_INCLUDES})
 
 set_target_properties(objs_AP_VisualOdom PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4621,6 +4736,8 @@ set_target_properties(objs_AP_VisualOdom PROPERTIES
 target_link_libraries(objs_AP_VisualOdom mavlink) #clean
 target_link_libraries(objs_AP_VisualOdom dronecan) #clean
 target_link_libraries(objs_AP_VisualOdom littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Volz_Protocol_SOURCES
     libraries/AP_Volz_Protocol/AP_Volz_Protocol.cpp)
@@ -4644,9 +4761,8 @@ set(objs_AP_Volz_Protocol_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Volz_Protocol_INCLUDES})
-
-add_library(objs_AP_Volz_Protocol ${objs_AP_Volz_Protocol_SOURCES})
+add_library(objs_AP_Volz_Protocol ${objs_AP_Volz_Protocol_SOURCES}) #2
+target_include_directories(objs_AP_Volz_Protocol PRIVATE ${objs_AP_Volz_Protocol_INCLUDES})
 
 set_target_properties(objs_AP_Volz_Protocol PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4656,6 +4772,8 @@ set_target_properties(objs_AP_Volz_Protocol PROPERTIES
 target_link_libraries(objs_AP_Volz_Protocol mavlink) #clean
 target_link_libraries(objs_AP_Volz_Protocol dronecan) #clean
 target_link_libraries(objs_AP_Volz_Protocol littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_WheelEncoder_SOURCES
     libraries/AP_WheelEncoder/AP_WheelEncoder.cpp
@@ -4683,9 +4801,8 @@ set(objs_AP_WheelEncoder_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_WheelEncoder_INCLUDES})
-
-add_library(objs_AP_WheelEncoder ${objs_AP_WheelEncoder_SOURCES})
+add_library(objs_AP_WheelEncoder ${objs_AP_WheelEncoder_SOURCES}) #2
+target_include_directories(objs_AP_WheelEncoder PRIVATE ${objs_AP_WheelEncoder_INCLUDES})
 
 set_target_properties(objs_AP_WheelEncoder PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4695,6 +4812,8 @@ set_target_properties(objs_AP_WheelEncoder PROPERTIES
 target_link_libraries(objs_AP_WheelEncoder mavlink) #clean
 target_link_libraries(objs_AP_WheelEncoder dronecan) #clean
 target_link_libraries(objs_AP_WheelEncoder littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Winch_SOURCES
     libraries/AP_Winch/AP_Winch.cpp
@@ -4721,9 +4840,8 @@ set(objs_AP_Winch_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Winch_INCLUDES})
-
-add_library(objs_AP_Winch ${objs_AP_Winch_SOURCES})
+add_library(objs_AP_Winch ${objs_AP_Winch_SOURCES}) #2
+target_include_directories(objs_AP_Winch PRIVATE ${objs_AP_Winch_INCLUDES})
 
 set_target_properties(objs_AP_Winch PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4733,6 +4851,8 @@ set_target_properties(objs_AP_Winch PROPERTIES
 target_link_libraries(objs_AP_Winch mavlink) #clean
 target_link_libraries(objs_AP_Winch dronecan) #clean
 target_link_libraries(objs_AP_Winch littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_WindVane_SOURCES
     libraries/AP_WindVane/AP_WindVane.cpp
@@ -4764,9 +4884,8 @@ set(objs_AP_WindVane_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_WindVane_INCLUDES})
-
-add_library(objs_AP_WindVane ${objs_AP_WindVane_SOURCES})
+add_library(objs_AP_WindVane ${objs_AP_WindVane_SOURCES}) #2
+target_include_directories(objs_AP_WindVane PRIVATE ${objs_AP_WindVane_INCLUDES})
 
 set_target_properties(objs_AP_WindVane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4776,6 +4895,8 @@ set_target_properties(objs_AP_WindVane PROPERTIES
 target_link_libraries(objs_AP_WindVane mavlink) #clean
 target_link_libraries(objs_AP_WindVane dronecan) #clean
 target_link_libraries(objs_AP_WindVane littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AR_Motors_SOURCES
     libraries/AR_Motors/AP_MotorsUGV.cpp)
@@ -4799,9 +4920,8 @@ set(objs_AR_Motors_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AR_Motors_INCLUDES})
-
-add_library(objs_AR_Motors ${objs_AR_Motors_SOURCES})
+add_library(objs_AR_Motors ${objs_AR_Motors_SOURCES}) #2
+target_include_directories(objs_AR_Motors PRIVATE ${objs_AR_Motors_INCLUDES})
 
 set_target_properties(objs_AR_Motors PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4811,6 +4931,8 @@ set_target_properties(objs_AR_Motors PROPERTIES
 target_link_libraries(objs_AR_Motors mavlink) #clean
 target_link_libraries(objs_AR_Motors dronecan) #clean
 target_link_libraries(objs_AR_Motors littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AR_WPNav_SOURCES
     libraries/AR_WPNav/AR_PivotTurn.cpp
@@ -4836,9 +4958,8 @@ set(objs_AR_WPNav_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AR_WPNav_INCLUDES})
-
-add_library(objs_AR_WPNav ${objs_AR_WPNav_SOURCES})
+add_library(objs_AR_WPNav ${objs_AR_WPNav_SOURCES}) #2
+target_include_directories(objs_AR_WPNav PRIVATE ${objs_AR_WPNav_INCLUDES})
 
 set_target_properties(objs_AR_WPNav PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4848,6 +4969,8 @@ set_target_properties(objs_AR_WPNav PROPERTIES
 target_link_libraries(objs_AR_WPNav mavlink) #clean
 target_link_libraries(objs_AR_WPNav dronecan) #clean
 target_link_libraries(objs_AR_WPNav littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_Filter_SOURCES
     libraries/Filter/AP_Filter.cpp
@@ -4879,9 +5002,8 @@ set(objs_Filter_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_Filter_INCLUDES})
-
-add_library(objs_Filter ${objs_Filter_SOURCES})
+add_library(objs_Filter ${objs_Filter_SOURCES}) #2
+target_include_directories(objs_Filter PRIVATE ${objs_Filter_INCLUDES})
 
 set_target_properties(objs_Filter PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4891,6 +5013,8 @@ set_target_properties(objs_Filter PROPERTIES
 target_link_libraries(objs_Filter mavlink) #clean
 target_link_libraries(objs_Filter dronecan) #clean
 target_link_libraries(objs_Filter littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_GCS_MAVLink_SOURCES
     libraries/GCS_MAVLink/GCS_DeviceOp.cpp
@@ -4926,9 +5050,8 @@ set(objs_GCS_MAVLink_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_GCS_MAVLink_INCLUDES})
-
-add_library(objs_GCS_MAVLink ${objs_GCS_MAVLink_SOURCES})
+add_library(objs_GCS_MAVLink ${objs_GCS_MAVLink_SOURCES}) #2
+target_include_directories(objs_GCS_MAVLink PRIVATE ${objs_GCS_MAVLink_INCLUDES})
 
 set_target_properties(objs_GCS_MAVLink PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4938,6 +5061,8 @@ set_target_properties(objs_GCS_MAVLink PROPERTIES
 target_link_libraries(objs_GCS_MAVLink mavlink) #clean
 target_link_libraries(objs_GCS_MAVLink dronecan) #clean
 target_link_libraries(objs_GCS_MAVLink littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_PID_SOURCES
     libraries/PID/PID.cpp)
@@ -4961,9 +5086,8 @@ set(objs_PID_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_PID_INCLUDES})
-
-add_library(objs_PID ${objs_PID_SOURCES})
+add_library(objs_PID ${objs_PID_SOURCES}) #2
+target_include_directories(objs_PID PRIVATE ${objs_PID_INCLUDES})
 
 set_target_properties(objs_PID PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -4973,6 +5097,8 @@ set_target_properties(objs_PID PROPERTIES
 target_link_libraries(objs_PID mavlink) #clean
 target_link_libraries(objs_PID dronecan) #clean
 target_link_libraries(objs_PID littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_RC_Channel_SOURCES
     libraries/RC_Channel/RC_Channels.cpp)
@@ -4996,9 +5122,8 @@ set(objs_RC_Channel_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_RC_Channel_INCLUDES})
-
-add_library(objs_RC_Channel ${objs_RC_Channel_SOURCES})
+add_library(objs_RC_Channel ${objs_RC_Channel_SOURCES}) #2
+target_include_directories(objs_RC_Channel PRIVATE ${objs_RC_Channel_INCLUDES})
 
 set_target_properties(objs_RC_Channel PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -5008,6 +5133,8 @@ set_target_properties(objs_RC_Channel PROPERTIES
 target_link_libraries(objs_RC_Channel mavlink) #clean
 target_link_libraries(objs_RC_Channel dronecan) #clean
 target_link_libraries(objs_RC_Channel littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_SRV_Channel_SOURCES
     libraries/SRV_Channel/SRV_Channel.cpp
@@ -5033,9 +5160,8 @@ set(objs_SRV_Channel_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_SRV_Channel_INCLUDES})
-
-add_library(objs_SRV_Channel ${objs_SRV_Channel_SOURCES})
+add_library(objs_SRV_Channel ${objs_SRV_Channel_SOURCES}) #2
+target_include_directories(objs_SRV_Channel PRIVATE ${objs_SRV_Channel_INCLUDES})
 
 set_target_properties(objs_SRV_Channel PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -5045,6 +5171,8 @@ set_target_properties(objs_SRV_Channel PROPERTIES
 target_link_libraries(objs_SRV_Channel mavlink) #clean
 target_link_libraries(objs_SRV_Channel dronecan) #clean
 target_link_libraries(objs_SRV_Channel littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_HAL_SOURCES
     libraries/AP_HAL/CANIface.cpp
@@ -5096,9 +5224,8 @@ set(objs_AP_HAL_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_HAL_INCLUDES})
-
-add_library(objs_AP_HAL ${objs_AP_HAL_SOURCES})
+add_library(objs_AP_HAL ${objs_AP_HAL_SOURCES}) #2
+target_include_directories(objs_AP_HAL PRIVATE ${objs_AP_HAL_INCLUDES})
 
 set_target_properties(objs_AP_HAL PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -5108,6 +5235,8 @@ set_target_properties(objs_AP_HAL PROPERTIES
 target_link_libraries(objs_AP_HAL mavlink) #clean
 target_link_libraries(objs_AP_HAL dronecan) #clean
 target_link_libraries(objs_AP_HAL littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_HAL_Empty_SOURCES
     libraries/AP_HAL_Empty/AnalogIn.cpp
@@ -5138,9 +5267,8 @@ set(objs_AP_HAL_Empty_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_HAL_Empty_INCLUDES})
-
-add_library(objs_AP_HAL_Empty ${objs_AP_HAL_Empty_SOURCES})
+add_library(objs_AP_HAL_Empty ${objs_AP_HAL_Empty_SOURCES}) #2
+target_include_directories(objs_AP_HAL_Empty PRIVATE ${objs_AP_HAL_Empty_INCLUDES})
 
 set_target_properties(objs_AP_HAL_Empty PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -5150,6 +5278,8 @@ set_target_properties(objs_AP_HAL_Empty PROPERTIES
 target_link_libraries(objs_AP_HAL_Empty mavlink) #clean
 target_link_libraries(objs_AP_HAL_Empty dronecan) #clean
 target_link_libraries(objs_AP_HAL_Empty littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_PiccoloCAN_piccolo_protocol_SOURCES
     libraries/AP_PiccoloCAN/piccolo_protocol/CortexDefines.c
@@ -5191,9 +5321,8 @@ set(objs_AP_PiccoloCAN_piccolo_protocol_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_PiccoloCAN_piccolo_protocol_INCLUDES})
-
-add_library(objs_AP_PiccoloCAN_piccolo_protocol ${objs_AP_PiccoloCAN_piccolo_protocol_SOURCES})
+add_library(objs_AP_PiccoloCAN_piccolo_protocol ${objs_AP_PiccoloCAN_piccolo_protocol_SOURCES}) #2
+target_include_directories(objs_AP_PiccoloCAN_piccolo_protocol PRIVATE ${objs_AP_PiccoloCAN_piccolo_protocol_INCLUDES})
 
 set_target_properties(objs_AP_PiccoloCAN_piccolo_protocol PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -5203,6 +5332,8 @@ set_target_properties(objs_AP_PiccoloCAN_piccolo_protocol PROPERTIES
 target_link_libraries(objs_AP_PiccoloCAN_piccolo_protocol mavlink) #clean
 target_link_libraries(objs_AP_PiccoloCAN_piccolo_protocol dronecan) #clean
 target_link_libraries(objs_AP_PiccoloCAN_piccolo_protocol littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_HAL_SITL_SOURCES
     libraries/AP_HAL_SITL/AnalogIn.cpp
@@ -5247,9 +5378,8 @@ set(objs_AP_HAL_SITL_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_HAL_SITL_INCLUDES})
-
-add_library(objs_AP_HAL_SITL ${objs_AP_HAL_SITL_SOURCES})
+add_library(objs_AP_HAL_SITL ${objs_AP_HAL_SITL_SOURCES}) #2
+target_include_directories(objs_AP_HAL_SITL PRIVATE ${objs_AP_HAL_SITL_INCLUDES})
 
 set_target_properties(objs_AP_HAL_SITL PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -5259,6 +5389,8 @@ set_target_properties(objs_AP_HAL_SITL PROPERTIES
 target_link_libraries(objs_AP_HAL_SITL mavlink) #clean
 target_link_libraries(objs_AP_HAL_SITL dronecan) #clean
 target_link_libraries(objs_AP_HAL_SITL littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_SITL_SOURCES
     libraries/SITL/SIM_ADSB.cpp
@@ -5426,9 +5558,8 @@ set(objs_SITL_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_SITL_INCLUDES})
-
-add_library(objs_SITL ${objs_SITL_SOURCES})
+add_library(objs_SITL ${objs_SITL_SOURCES}) #2
+target_include_directories(objs_SITL PRIVATE ${objs_SITL_INCLUDES})
 
 set_target_properties(objs_SITL PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -5438,6 +5569,8 @@ set_target_properties(objs_SITL PROPERTIES
 target_link_libraries(objs_SITL mavlink) #clean
 target_link_libraries(objs_SITL dronecan) #clean
 target_link_libraries(objs_SITL littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Scripting_SOURCES
     libraries/AP_Scripting/AP_Scripting.cpp
@@ -5464,9 +5597,8 @@ set(objs_AP_Scripting_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Scripting_INCLUDES})
-
-add_library(objs_AP_Scripting ${objs_AP_Scripting_SOURCES})
+add_library(objs_AP_Scripting ${objs_AP_Scripting_SOURCES}) #2
+target_include_directories(objs_AP_Scripting PRIVATE ${objs_AP_Scripting_INCLUDES})
 
 set_target_properties(objs_AP_Scripting PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -5476,6 +5608,8 @@ set_target_properties(objs_AP_Scripting PROPERTIES
 target_link_libraries(objs_AP_Scripting mavlink) #clean
 target_link_libraries(objs_AP_Scripting dronecan) #clean
 target_link_libraries(objs_AP_Scripting littlefs) #clean
+
+#------------------------------------------------
 
 set(objs_AP_Scripting_lua_src_SOURCES
     libraries/AP_Scripting/lua/src/lapi.c
@@ -5533,9 +5667,8 @@ set(objs_AP_Scripting_lua_src_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-include_directories(${objs_AP_Scripting_lua_src_INCLUDES})
-
-add_library(objs_AP_Scripting_lua_src ${objs_AP_Scripting_lua_src_SOURCES})
+add_library(objs_AP_Scripting_lua_src ${objs_AP_Scripting_lua_src_SOURCES}) #2
+target_include_directories(objs_AP_Scripting_lua_src PRIVATE ${objs_AP_Scripting_lua_src_INCLUDES})
 
 set_target_properties(objs_AP_Scripting_lua_src PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
