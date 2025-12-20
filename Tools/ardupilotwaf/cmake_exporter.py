@@ -222,6 +222,7 @@ class CMakeExporterContext(BuildContext):
 			cleanup(self)
 		else:
 			export(self)
+			pass
 		self.timer = Utils.Timer()
 
 
@@ -239,31 +240,39 @@ def export(bld):
 	loc = bld.path.relpath().replace('\\', '/')  # eg loc = '.'
 	#print('ZZCreating new CMakeExporter for location: %s ' % (loc))
 	top = CMakeExporter(bld, loc)
-	cmakes[loc] = top
+	#cmakes[loc] = top
 	targets = waftools.deps.get_targets(bld)
-	#unique_targets = set()
-	#for t in targets:
-	#	unique_targets.add(t)
-	#print('unique_targets:', unique_targets)
-	
+	unique_targets = set()
+	# for t in targets:
+	# 	unique_targets.add(t)
+	# print('unique_targets:', unique_targets)
+
+	#print bld
+	#print( "loc:",loc)
+	_cmakes = [] # tmp storage to avoid dupes, not  same as self.cmakes
+
 	for tgen in bld.task_gen_cache_names.values():
 		if targets and tgen.get_name() not in targets:
 			#print('skipping tgen:', tgen.get_name())
-			# examples, tests, etc
+			# examples, tests, replay, etcetc
 			continue
 		if getattr(tgen, 'cmake_skipme', False):
 			continue
 		if set(('c', 'cxx')) & set(getattr(tgen, 'features', [])):
 			loc = tgen.path.relpath().replace('\\', '/') # eg loc = 'Rover' or 'ArduPlane' etc
-			if loc not in cmakes:
-				#print('Creating new CMakeExporter for location: %s ' % (loc))
-				cmake = CMakeExporter(bld, loc)
-				cmakes[loc] = cmake
-				top.add_child(cmake)
-			cmakes[loc].add_tgen(tgen)
+			top.add_tgen(tgen)
+			if loc not in _cmakes:
+				print('Exporting location: %s ' % (loc))
+				#cmake = CMakeExporter(bld, loc)
+				#cmake = CMakeExporter(bld, ".")
+				#cmakes[loc] = cmake # we dont add child cmkes to 'cmakes' list, only top level, result, we only export top level.
+				#top.add_child(cmake) # but the top knows about its children this way.
+				_cmakes.append(loc) # to avoid dupes
+			#_cmakes[loc].add_tgen(tgen)
 
-	for cmake in cmakes.values():
-		cmake.export()
+	#for cmake in cmakes.values():
+	#	cmake.export() # just exports the top one.
+	top.export() # just export the top one.
 
 
 def cleanup(bld):
@@ -295,18 +304,21 @@ class CMakeExporter(object):
 		self.location = location # relative path from top level dir and 'ArduPlane' or 'Rover' etc
 		self.cmakes = []
 		self.tgens = []
-		print('CMakeExporter initialized for location: %s' % (self.location))
+		#print('CMakeExporter initialized for location: %s' % (self.location))
 
 	def export(self):
 		content = self.get_content()
 		if not content:
-			return
+			return ''
 
 		node = self.make_node()
 		if not node:
-			return
+			return ''
 		node.write(content)
-		Logs.pprint('YELLOW', 'exported: %s' % node.abspath())
+		loc = self.location
+		# too many dupes as its  done a few hundred times
+		#Logs.pprint('YELLOW', 'exported: %s for loc: %s' % (node.abspath(), loc))
+		return content
 
 	def cleanup(self):
 		node = self.find_node()
@@ -315,26 +327,24 @@ class CMakeExporter(object):
 			Logs.pprint('YELLOW', 'removed: %s' % node.abspath())
 
 	def add_child(self, cmake):
+		#print("len:", len(self.cmakes)) # obj targets and bin targets etc ~430
 		self.cmakes.append(cmake)
 
 	def add_tgen(self, tgen):
+		print('CMakeExporter adding tgen: %s for location: %s' % (tgen.get_name(), self.location))
 		self.tgens.append(tgen)
 
-	def get_location(self):
-		return self.location
-
-	def get_fname(self):
-		name = '%s/CMakeLists.txt' % (self.location)
-		return name
-
+	#def get_location(self):
+	#	return self.location
+	#
 	def find_node(self):
-		name = self.get_fname()
+		name = '%s/CMakeLists.txt' % (self.location)
 		if not name:
 			return None    
 		return self.bld.srcnode.find_node(name)
 
 	def make_node(self):
-		name = self.get_fname()
+		name = '%s/CMakeLists.txt' % (self.location)
 		if not name:
 			return None    
 		return self.bld.srcnode.make_node(name)
@@ -343,7 +353,7 @@ class CMakeExporter(object):
 		is_top = (self.location == self.bld.path.relpath())
 
 		content = ''
-		if is_top:
+		if is_top and self.location == ".":
 			pre_run_ = './gen-bindings -o libraries/AP_Scripting/lua_generated_bindings -i ../../libraries/AP_Scripting/generator/description/bindings.desc'
 			pre_run_dir = self.bld.srcnode.abspath() + '/build/sitl'
 			# set cwd to ./build/sitl first.
@@ -371,6 +381,25 @@ class CMakeExporter(object):
 			#content += 'project (%s)\n' % (getattr(Context.g_module, Context.APPNAME))
 			content += 'project (ArduPilot)\n'
 			content += '\n'
+
+			#content += '#function(combine_archives output_archive list_of_input_archives)\n\
+    #set(mri_file ${TEMP_DIR}/${output_archive}.mri)\n\
+    #set(FULL_OUTPUT_PATH ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/lib${output_archive}.a)\n\
+    #file(WRITE ${mri_file} "create ${FULL_OUTPUT_PATH}\n")\n\
+    #FOREACH(in_archive ${list_of_input_archives})\n\
+    #    file(APPEND ${mri_file} "addlib ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/lib${in_archive}.a\n")\n\
+    #ENDFOREACH()\n\
+    #file(APPEND ${mri_file} "save\n")\n\
+    #file(APPEND ${mri_file} "end\n")\n\
+    #set(output_archive_dummy_file ${TEMP_DIR}/${output_archive}.dummy.cpp)\n\
+    #add_custom_command(OUTPUT ${output_archive_dummy_file}\n\
+    #                   COMMAND touch ${output_archive_dummy_file}\n\
+    #                   DEPENDS ${list_of_input_archives})\n\
+    #add_library(${output_archive} STATIC ${output_archive_dummy_file})\n\
+    #add_custom_command(TARGET ${output_archive}\n\
+    #                   POST_BUILD\n\
+    #                   COMMAND ar -M < ${mri_file})\n\
+#endfunction(combine_archives)\n'
 
 			# add_definitions(-I.)
 			# add_definitions(-I..)
@@ -437,6 +466,8 @@ class CMakeExporter(object):
 				ap_sources = tgen.source if hasattr(tgen, 'source') else None
 				# list of includes
 				ap_includes = tgen.includes if hasattr(tgen, 'includes') else None
+				if ap_vehicle is not None:
+					print('AP Vehicle: %s %s' % (ap_vehicle, t))
 
 				#print('Debug: Generating cmake content for tgen: %s ' % t)
 				content += self.get_tgen_content(tgen)
@@ -444,7 +475,9 @@ class CMakeExporter(object):
 		if len(self.cmakes):
 			content += '\n'
 			for cmake in self.cmakes:
-				content += 'add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/%s)\n' % (cmake.get_location())
+				#content += 'add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/%s)\n' % (cmake.get_location())
+				t = cmake.export()
+				content += t
 
 		return content
 
@@ -478,9 +511,9 @@ class CMakeExporter(object):
 		
 		reg_status = is_lib_registered(cleanedname)
 		if reg_status:
-			print('Warning: Skipping already registered library: %s' % cleanedname)
+			#print('Warning: Skipping already registered library: %s' % cleanedname)
 			return ''
-		print('Registering Library: %s' % cleanedname)
+		#print('Registering Library: %s' % cleanedname)
 		register_lib(cleanedname)
 
 		#-------------------
