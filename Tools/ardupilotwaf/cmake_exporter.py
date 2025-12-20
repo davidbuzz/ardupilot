@@ -618,7 +618,7 @@ class CMakeExporter(object):
 						content += 'target_link_libraries(%s objs_%s) #stripped\n' % (cleanedname, strip_lib)
 				else:
 					# binary linking:
-					content += '#target_link_libraries(%s %s) #clean\n' % (cleanedname, lib)
+					content += 'target_link_libraries(%s %s) #clean\n' % (cleanedname, lib)
 			content += '\n'
 
 		return content
