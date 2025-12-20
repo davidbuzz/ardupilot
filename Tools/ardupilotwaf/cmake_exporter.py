@@ -487,8 +487,9 @@ class CMakeExporter(object):
 
 		# if name has two /'s in it, is a mid-level target, break it into pieces and remove the lastm which should be self.location
 		# eg objs/AP_Scripting/ArduCopter  becomes objs/AP_Scripting
+		strip_list= ['Rover', 'ArduPlane', 'ArduCopter', 'AntennaTracker', 'Blimp', 'ArduSub']
 		parts = name.split('/')
-		if len(parts) >= 3 and parts[-1] == self.location:
+		if len(parts) >= 3 and parts[-1]  in strip_list:
 			parts = parts[:-1] # remove last part
 			name = '/'.join(parts)
 
@@ -543,11 +544,11 @@ class CMakeExporter(object):
 		#	content += '\n'
 
 		if set(('cprogram', 'cxxprogram')) & set(tgen.features):
-			content += 'add_executable(%s ${%s_SOURCES})\n' % (cleanedname, cleanedname)
+			content += '#add_executable(%s ${%s_SOURCES})\n' % (cleanedname, cleanedname)
 			if len(defines):
-				content += 'target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
+				content += '#target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
 			if len(includes):
-				content += 'target_include_directories(%s PRIVATE ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
+				content += '#target_include_directories(%s PRIVATE ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
 			content += '\n'
 
 		elif set(('cshlib', 'cxxshlib')) & set(tgen.features):
@@ -614,9 +615,10 @@ class CMakeExporter(object):
 						#content += 'target_link_libraries(%s ../libobjs_%s_%s.a) #stripped2\n' % (cleanedname, strip_lib, is_loc)
 						content += 'target_link_libraries(%s ../libobjs_%s.a) #stripped2\n' % (cleanedname, strip_lib)
 					else:
-						content += 'target_link_libraries(%s objs_%s_%s) #stripped\n' % (cleanedname, strip_lib,is_loc)
+						content += 'target_link_libraries(%s objs_%s) #stripped\n' % (cleanedname, strip_lib)
 				else:
-					content += 'target_link_libraries(%s %s) #clean\n' % (cleanedname, lib)
+					# binary linking:
+					content += '#target_link_libraries(%s %s) #clean\n' % (cleanedname, lib)
 			content += '\n'
 
 		return content
