@@ -10,7 +10,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 add_definitions(-DAP_BARO_PROBE_EXTERNAL_I2C_BUSES=1 -DAP_CUSTOMCONTROL_ENABLED=1 -DAP_DDS_ENABLED=0 -DAP_SCRIPTING_CHECKS=1 -DCANARD_ALLOCATE_SEM=1 -DCANARD_ENABLE_ASSERTS=1 -DCANARD_ENABLE_CANFD=1 -DCANARD_ENABLE_DEADLINE=1 -DCANARD_IFACE_ALL=3 -DCANARD_MULTI_IFACE=1 -DCONFIG_HAL_BOARD=HAL_BOARD_SITL -DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE -DDRONECAN_CXX_WRAPPERS=1 -DENABLE_ONVIF=0 -DLUA_32BITS=1 -DUSE_USER_HELPERS=1) #1
 
 set(CMAKE_C_FLAGS "-ffunction-sections -fdata-sections -fsigned-char -Wall -Wextra -Werror=format -Wpointer-arith -Wcast-align -Wno-missing-field-initializers -Wno-unused-parameter -Wno-redundant-decls -Wno-unknown-pragmas -Wno-trigraphs -Werror=return-type -Werror=unused-result -Werror=unused-variable -Werror=narrowing -Werror=attributes -Werror=overflow -Werror=parentheses -Werror=format-extra-args -Werror=ignored-qualifiers -Werror=undef -DARDUPILOT_BUILD -Wno-format-contains-nul -fsingle-precision-constant -Werror=use-after-free -DCANARD_64_BIT=1 -MMD -ffile-prefix-map=../..=../..")
-set(CMAKE_CXX_FLAGS "-std=gnu++11 -fdata-sections -ffunction-sections -fno-exceptions -fsigned-char -Wall -Wextra -Wpointer-arith -Wno-unused-parameter -Wno-missing-field-initializers -Wno-redundant-decls -Wno-unknown-pragmas -Wno-expansion-to-defined -Werror=reorder -Werror=cast-align -Werror=attributes -Werror=format-security -Werror=format-extra-args -Werror=enum-compare -Werror=format -Werror=array-bounds -Werror=uninitialized -Werror=init-self -Werror=narrowing -Werror=return-type -Werror=switch -Werror=sign-compare -Werror=type-limits -Werror=undef -Werror=unused-result -Werror=unused-value -Werror=unused-variable -Werror=delete-non-virtual-dtor -Wfatal-errors -Wno-trigraphs -Werror=parentheses -DARDUPILOT_BUILD -Wuninitialized -Warray-bounds -Wno-format-contains-nul -Werror=unused-but-set-variable -fsingle-precision-constant -Wno-psabi -Werror=suggest-override -Werror=implicit-fallthrough -Werror=maybe-uninitialized -Werror=duplicated-cond -Werror=sizeof-pointer-div -Werror=use-after-free -D__AP_LINE__=__LINE__ -DAP_MAVLINK_RALLY_POINT_PROTOCOL_ENABLED=HAL_GCS_ENABLED -DAC_POLYFENCE_FENCE_POINT_PROTOCOL_SUPPORT=HAL_GCS_ENABLED -DHAL_NAVEKF2_AVAILABLE=1 -DCANARD_64_BIT=1 -Werror=float-equal -Werror=missing-declarations -DAP_NETWORKING_ENABLED=1 -O3 -MMD -ffile-prefix-map=../..=../.. -include ap_config.h -DHAL_HAVE_AP_ROMFS_EMBEDDED_H")
+set(CMAKE_CXX_FLAGS "-std=gnu++11 -fdata-sections -ffunction-sections -fno-exceptions -fsigned-char -Wall -Wextra -Wpointer-arith -Wno-unused-parameter -Wno-missing-field-initializers -Wno-redundant-decls -Wno-unknown-pragmas -Wno-expansion-to-defined -Werror=reorder -Werror=cast-align -Werror=attributes -Werror=format-security -Werror=format-extra-args -Werror=enum-compare -Werror=format -Werror=array-bounds -Werror=uninitialized -Werror=init-self -Werror=narrowing -Werror=return-type -Werror=switch -Werror=sign-compare -Werror=type-limits -Werror=undef -Werror=unused-result -Werror=unused-value -Werror=unused-variable -Werror=delete-non-virtual-dtor -Wfatal-errors -Wno-trigraphs -Werror=parentheses -DARDUPILOT_BUILD -Wuninitialized -Warray-bounds -Wno-format-contains-nul -Werror=unused-but-set-variable -fsingle-precision-constant -Wno-psabi -Werror=suggest-override -Werror=implicit-fallthrough -Werror=maybe-uninitialized -Werror=duplicated-cond -Werror=sizeof-pointer-div -Werror=use-after-free -D__AP_LINE__=__LINE__ -DAP_MAVLINK_RALLY_POINT_PROTOCOL_ENABLED=HAL_GCS_ENABLED -DAC_POLYFENCE_FENCE_POINT_PROTOCOL_SUPPORT=HAL_GCS_ENABLED -DHAL_NAVEKF2_AVAILABLE=1 -DCANARD_64_BIT=1 -Werror=float-equal -Werror=missing-declarations -DAP_NETWORKING_ENABLED=1 -O3 -MMD -ffile-prefix-map=../..=../.. -DHAL_HAVE_AP_ROMFS_EMBEDDED_H  -D_AP_CONFIG_H_=1 -DWAF_BUILD=1 -D__STDC_FORMAT_MACROS=1 -DAP_SIM_ENABLED=1 -DHAL_WITH_SPI=1 -DHAL_WITH_RAMTRON=1 -DAP_OPENDRONEID_ENABLED=1 -DAP_SIGNED_FIRMWARE=0 -DAP_NOTIFY_LP5562_BUS=2 -DAP_NOTIFY_LP5562_ADDR=48 -DHAL_NUM_CAN_IFACES=2 -DHAL_CAN_WITH_SOCKETCAN=1 -DHAVE_FEENABLEEXCEPT=1 -DHAVE_CMATH_ISFINITE=1 -DHAVE_CMATH_ISINF=1 -DHAVE_CMATH_ISNAN=1 -DNEED_CMATH_ISFINITE_STD_NAMESPACE=1 -DNEED_CMATH_ISINF_STD_NAMESPACE=1 -DNEED_CMATH_ISNAN_STD_NAMESPACE=1 -DHAVE_ENDIAN_H=1 -DHAVE_BYTESWAP_H=1 -DHAVE_MEMRCHR=1 -D_GNU_SOURCE=1")
 
 #------------------------------------------------
 
@@ -6490,23 +6490,23 @@ target_link_libraries(AntennaTracker_libs objs_AC_CustomControl) #stripped
 #------------------------------------------------
 
 set(bin_antennatracker_SOURCES
-    GCS_MAVLink_Tracker.cpp
-    GCS_Tracker.cpp
-    Log.cpp
-    Parameters.cpp
-    RC_Channel_Tracker.cpp
-    Tracker.cpp
-    mode.cpp
-    mode_auto.cpp
-    mode_guided.cpp
-    mode_manual.cpp
-    mode_scan.cpp
-    mode_servotest.cpp
-    radio.cpp
-    sensors.cpp
-    servos.cpp
-    system.cpp
-    tracking.cpp)
+    AntennaTracker/GCS_MAVLink_Tracker.cpp
+    AntennaTracker/GCS_Tracker.cpp
+    AntennaTracker/Log.cpp
+    AntennaTracker/Parameters.cpp
+    AntennaTracker/RC_Channel_Tracker.cpp
+    AntennaTracker/Tracker.cpp
+    AntennaTracker/mode.cpp
+    AntennaTracker/mode_auto.cpp
+    AntennaTracker/mode_guided.cpp
+    AntennaTracker/mode_manual.cpp
+    AntennaTracker/mode_scan.cpp
+    AntennaTracker/mode_servotest.cpp
+    AntennaTracker/radio.cpp
+    AntennaTracker/sensors.cpp
+    AntennaTracker/servos.cpp
+    AntennaTracker/system.cpp
+    AntennaTracker/tracking.cpp)
 
 set(bin_antennatracker_INCLUDES
     ../build/sitl/libraries
@@ -6527,12 +6527,12 @@ set(bin_antennatracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-#add_executable(bin_antennatracker ${bin_antennatracker_SOURCES})
+add_executable(bin_antennatracker ${bin_antennatracker_SOURCES})
 #target_compile_definitions(bin_antennatracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
 #target_include_directories(bin_antennatracker PRIVATE ${bin_antennatracker_INCLUDES})
 
 
-#target_link_libraries(bin_antennatracker AntennaTracker_libs) #clean
+target_link_libraries(bin_antennatracker AntennaTracker_libs) #clean
 
 #------------------------------------------------
 
@@ -6911,80 +6911,80 @@ target_link_libraries(ArduCopter_libs objs_AC_CustomControl) #stripped
 #------------------------------------------------
 
 set(bin_arducopter_SOURCES
-    AP_Arming_Copter.cpp
-    AP_ExternalControl_Copter.cpp
-    AP_Rally.cpp
-    AP_State.cpp
-    Attitude.cpp
-    Copter.cpp
-    GCS_Copter.cpp
-    GCS_MAVLink_Copter.cpp
-    Log.cpp
-    Parameters.cpp
-    RC_Channel_Copter.cpp
-    UserCode.cpp
-    UserParameters.cpp
-    afs_copter.cpp
-    autoyaw.cpp
-    avoidance.cpp
-    avoidance_adsb.cpp
-    baro_ground_effect.cpp
-    commands.cpp
-    compassmot.cpp
-    crash_check.cpp
-    ekf_check.cpp
-    esc_calibration.cpp
-    events.cpp
-    failsafe.cpp
-    fence.cpp
-    heli.cpp
-    inertia.cpp
-    land_detector.cpp
-    landing_gear.cpp
-    mode.cpp
-    mode_acro.cpp
-    mode_acro_heli.cpp
-    mode_althold.cpp
-    mode_auto.cpp
-    mode_autorotate.cpp
-    mode_autotune.cpp
-    mode_avoid_adsb.cpp
-    mode_brake.cpp
-    mode_circle.cpp
-    mode_drift.cpp
-    mode_flip.cpp
-    mode_flowhold.cpp
-    mode_follow.cpp
-    mode_guided.cpp
-    mode_guided_custom.cpp
-    mode_guided_nogps.cpp
-    mode_land.cpp
-    mode_loiter.cpp
-    mode_poshold.cpp
-    mode_rtl.cpp
-    mode_smart_rtl.cpp
-    mode_sport.cpp
-    mode_stabilize.cpp
-    mode_stabilize_heli.cpp
-    mode_systemid.cpp
-    mode_throw.cpp
-    mode_turtle.cpp
-    mode_zigzag.cpp
-    motor_test.cpp
-    motors.cpp
-    navigation.cpp
-    precision_landing.cpp
-    radio.cpp
-    rate_thread.cpp
-    sensors.cpp
-    standby.cpp
-    surface_tracking.cpp
-    system.cpp
-    takeoff.cpp
-    takeoff_check.cpp
-    terrain.cpp
-    toy_mode.cpp
-    tuning.cpp)
+    ArduCopter/AP_Arming_Copter.cpp
+    ArduCopter/AP_ExternalControl_Copter.cpp
+    ArduCopter/AP_Rally.cpp
+    ArduCopter/AP_State.cpp
+    ArduCopter/Attitude.cpp
+    ArduCopter/Copter.cpp
+    ArduCopter/GCS_Copter.cpp
+    ArduCopter/GCS_MAVLink_Copter.cpp
+    ArduCopter/Log.cpp
+    ArduCopter/Parameters.cpp
+    ArduCopter/RC_Channel_Copter.cpp
+    ArduCopter/UserCode.cpp
+    ArduCopter/UserParameters.cpp
+    ArduCopter/afs_copter.cpp
+    ArduCopter/autoyaw.cpp
+    ArduCopter/avoidance.cpp
+    ArduCopter/avoidance_adsb.cpp
+    ArduCopter/baro_ground_effect.cpp
+    ArduCopter/commands.cpp
+    ArduCopter/compassmot.cpp
+    ArduCopter/crash_check.cpp
+    ArduCopter/ekf_check.cpp
+    ArduCopter/esc_calibration.cpp
+    ArduCopter/events.cpp
+    ArduCopter/failsafe.cpp
+    ArduCopter/fence.cpp
+    ArduCopter/heli.cpp
+    ArduCopter/inertia.cpp
+    ArduCopter/land_detector.cpp
+    ArduCopter/landing_gear.cpp
+    ArduCopter/mode.cpp
+    ArduCopter/mode_acro.cpp
+    ArduCopter/mode_acro_heli.cpp
+    ArduCopter/mode_althold.cpp
+    ArduCopter/mode_auto.cpp
+    ArduCopter/mode_autorotate.cpp
+    ArduCopter/mode_autotune.cpp
+    ArduCopter/mode_avoid_adsb.cpp
+    ArduCopter/mode_brake.cpp
+    ArduCopter/mode_circle.cpp
+    ArduCopter/mode_drift.cpp
+    ArduCopter/mode_flip.cpp
+    ArduCopter/mode_flowhold.cpp
+    ArduCopter/mode_follow.cpp
+    ArduCopter/mode_guided.cpp
+    ArduCopter/mode_guided_custom.cpp
+    ArduCopter/mode_guided_nogps.cpp
+    ArduCopter/mode_land.cpp
+    ArduCopter/mode_loiter.cpp
+    ArduCopter/mode_poshold.cpp
+    ArduCopter/mode_rtl.cpp
+    ArduCopter/mode_smart_rtl.cpp
+    ArduCopter/mode_sport.cpp
+    ArduCopter/mode_stabilize.cpp
+    ArduCopter/mode_stabilize_heli.cpp
+    ArduCopter/mode_systemid.cpp
+    ArduCopter/mode_throw.cpp
+    ArduCopter/mode_turtle.cpp
+    ArduCopter/mode_zigzag.cpp
+    ArduCopter/motor_test.cpp
+    ArduCopter/motors.cpp
+    ArduCopter/navigation.cpp
+    ArduCopter/precision_landing.cpp
+    ArduCopter/radio.cpp
+    ArduCopter/rate_thread.cpp
+    ArduCopter/sensors.cpp
+    ArduCopter/standby.cpp
+    ArduCopter/surface_tracking.cpp
+    ArduCopter/system.cpp
+    ArduCopter/takeoff.cpp
+    ArduCopter/takeoff_check.cpp
+    ArduCopter/terrain.cpp
+    ArduCopter/toy_mode.cpp
+    ArduCopter/tuning.cpp)
 
 set(bin_arducopter_INCLUDES
     ../build/sitl/libraries
@@ -7005,90 +7005,90 @@ set(bin_arducopter_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-#add_executable(bin_arducopter ${bin_arducopter_SOURCES})
+add_executable(bin_arducopter ${bin_arducopter_SOURCES})
 #target_compile_definitions(bin_arducopter PRIVATE -DFRAME_CONFIG=MULTICOPTER_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
 #target_include_directories(bin_arducopter PRIVATE ${bin_arducopter_INCLUDES})
 
 
-#target_link_libraries(bin_arducopter ArduCopter_libs) #clean
+target_link_libraries(bin_arducopter ArduCopter_libs) #clean
 
 #------------------------------------------------
 
 set(bin_arducopter-heli_SOURCES
-    AP_Arming_Copter.cpp
-    AP_ExternalControl_Copter.cpp
-    AP_Rally.cpp
-    AP_State.cpp
-    Attitude.cpp
-    Copter.cpp
-    GCS_Copter.cpp
-    GCS_MAVLink_Copter.cpp
-    Log.cpp
-    Parameters.cpp
-    RC_Channel_Copter.cpp
-    UserCode.cpp
-    UserParameters.cpp
-    afs_copter.cpp
-    autoyaw.cpp
-    avoidance.cpp
-    avoidance_adsb.cpp
-    baro_ground_effect.cpp
-    commands.cpp
-    compassmot.cpp
-    crash_check.cpp
-    ekf_check.cpp
-    esc_calibration.cpp
-    events.cpp
-    failsafe.cpp
-    fence.cpp
-    heli.cpp
-    inertia.cpp
-    land_detector.cpp
-    landing_gear.cpp
-    mode.cpp
-    mode_acro.cpp
-    mode_acro_heli.cpp
-    mode_althold.cpp
-    mode_auto.cpp
-    mode_autorotate.cpp
-    mode_autotune.cpp
-    mode_avoid_adsb.cpp
-    mode_brake.cpp
-    mode_circle.cpp
-    mode_drift.cpp
-    mode_flip.cpp
-    mode_flowhold.cpp
-    mode_follow.cpp
-    mode_guided.cpp
-    mode_guided_custom.cpp
-    mode_guided_nogps.cpp
-    mode_land.cpp
-    mode_loiter.cpp
-    mode_poshold.cpp
-    mode_rtl.cpp
-    mode_smart_rtl.cpp
-    mode_sport.cpp
-    mode_stabilize.cpp
-    mode_stabilize_heli.cpp
-    mode_systemid.cpp
-    mode_throw.cpp
-    mode_turtle.cpp
-    mode_zigzag.cpp
-    motor_test.cpp
-    motors.cpp
-    navigation.cpp
-    precision_landing.cpp
-    radio.cpp
-    rate_thread.cpp
-    sensors.cpp
-    standby.cpp
-    surface_tracking.cpp
-    system.cpp
-    takeoff.cpp
-    takeoff_check.cpp
-    terrain.cpp
-    toy_mode.cpp
-    tuning.cpp)
+    ArduCopter/AP_Arming_Copter.cpp
+    ArduCopter/AP_ExternalControl_Copter.cpp
+    ArduCopter/AP_Rally.cpp
+    ArduCopter/AP_State.cpp
+    ArduCopter/Attitude.cpp
+    ArduCopter/Copter.cpp
+    ArduCopter/GCS_Copter.cpp
+    ArduCopter/GCS_MAVLink_Copter.cpp
+    ArduCopter/Log.cpp
+    ArduCopter/Parameters.cpp
+    ArduCopter/RC_Channel_Copter.cpp
+    ArduCopter/UserCode.cpp
+    ArduCopter/UserParameters.cpp
+    ArduCopter/afs_copter.cpp
+    ArduCopter/autoyaw.cpp
+    ArduCopter/avoidance.cpp
+    ArduCopter/avoidance_adsb.cpp
+    ArduCopter/baro_ground_effect.cpp
+    ArduCopter/commands.cpp
+    ArduCopter/compassmot.cpp
+    ArduCopter/crash_check.cpp
+    ArduCopter/ekf_check.cpp
+    ArduCopter/esc_calibration.cpp
+    ArduCopter/events.cpp
+    ArduCopter/failsafe.cpp
+    ArduCopter/fence.cpp
+    ArduCopter/heli.cpp
+    ArduCopter/inertia.cpp
+    ArduCopter/land_detector.cpp
+    ArduCopter/landing_gear.cpp
+    ArduCopter/mode.cpp
+    ArduCopter/mode_acro.cpp
+    ArduCopter/mode_acro_heli.cpp
+    ArduCopter/mode_althold.cpp
+    ArduCopter/mode_auto.cpp
+    ArduCopter/mode_autorotate.cpp
+    ArduCopter/mode_autotune.cpp
+    ArduCopter/mode_avoid_adsb.cpp
+    ArduCopter/mode_brake.cpp
+    ArduCopter/mode_circle.cpp
+    ArduCopter/mode_drift.cpp
+    ArduCopter/mode_flip.cpp
+    ArduCopter/mode_flowhold.cpp
+    ArduCopter/mode_follow.cpp
+    ArduCopter/mode_guided.cpp
+    ArduCopter/mode_guided_custom.cpp
+    ArduCopter/mode_guided_nogps.cpp
+    ArduCopter/mode_land.cpp
+    ArduCopter/mode_loiter.cpp
+    ArduCopter/mode_poshold.cpp
+    ArduCopter/mode_rtl.cpp
+    ArduCopter/mode_smart_rtl.cpp
+    ArduCopter/mode_sport.cpp
+    ArduCopter/mode_stabilize.cpp
+    ArduCopter/mode_stabilize_heli.cpp
+    ArduCopter/mode_systemid.cpp
+    ArduCopter/mode_throw.cpp
+    ArduCopter/mode_turtle.cpp
+    ArduCopter/mode_zigzag.cpp
+    ArduCopter/motor_test.cpp
+    ArduCopter/motors.cpp
+    ArduCopter/navigation.cpp
+    ArduCopter/precision_landing.cpp
+    ArduCopter/radio.cpp
+    ArduCopter/rate_thread.cpp
+    ArduCopter/sensors.cpp
+    ArduCopter/standby.cpp
+    ArduCopter/surface_tracking.cpp
+    ArduCopter/system.cpp
+    ArduCopter/takeoff.cpp
+    ArduCopter/takeoff_check.cpp
+    ArduCopter/terrain.cpp
+    ArduCopter/toy_mode.cpp
+    ArduCopter/tuning.cpp)
 
 set(bin_arducopter-heli_INCLUDES
     ../build/sitl/libraries
@@ -7109,12 +7109,12 @@ set(bin_arducopter-heli_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-#add_executable(bin_arducopter-heli ${bin_arducopter-heli_SOURCES})
+add_executable(bin_arducopter-heli ${bin_arducopter-heli_SOURCES})
 #target_compile_definitions(bin_arducopter-heli PRIVATE -DFRAME_CONFIG=HELI_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
 #target_include_directories(bin_arducopter-heli PRIVATE ${bin_arducopter-heli_INCLUDES})
 
 
-#target_link_libraries(bin_arducopter-heli ArduCopter_libs) #clean
+target_link_libraries(bin_arducopter-heli ArduCopter_libs) #clean
 
 #------------------------------------------------
 
@@ -7460,70 +7460,70 @@ target_link_libraries(ArduPlane_libs objs_AC_CustomControl) #stripped
 #------------------------------------------------
 
 set(bin_arduplane_SOURCES
-    AP_Arming_Plane.cpp
-    AP_ExternalControl_Plane.cpp
-    Attitude.cpp
-    GCS_MAVLink_Plane.cpp
-    GCS_Plane.cpp
-    Log.cpp
-    Parameters.cpp
-    Plane.cpp
-    RC_Channel_Plane.cpp
-    VTOL_Assist.cpp
-    afs_plane.cpp
-    altitude.cpp
-    avoidance_adsb.cpp
-    commands.cpp
-    commands_logic.cpp
-    control_modes.cpp
-    ekf_check.cpp
-    events.cpp
-    failsafe.cpp
-    fence.cpp
-    is_flying.cpp
-    mode.cpp
-    mode_LoiterAltQLand.cpp
-    mode_acro.cpp
-    mode_auto.cpp
-    mode_autoland.cpp
-    mode_autotune.cpp
-    mode_avoidADSB.cpp
-    mode_circle.cpp
-    mode_cruise.cpp
-    mode_fbwa.cpp
-    mode_fbwb.cpp
-    mode_guided.cpp
-    mode_loiter.cpp
-    mode_manual.cpp
-    mode_qacro.cpp
-    mode_qautotune.cpp
-    mode_qhover.cpp
-    mode_qland.cpp
-    mode_qloiter.cpp
-    mode_qrtl.cpp
-    mode_qstabilize.cpp
-    mode_rtl.cpp
-    mode_stabilize.cpp
-    mode_takeoff.cpp
-    mode_thermal.cpp
-    mode_training.cpp
-    motor_test.cpp
-    navigation.cpp
-    parachute.cpp
-    pullup.cpp
-    qautotune.cpp
-    quadplane.cpp
-    radio.cpp
-    reverse_thrust.cpp
-    sensors.cpp
-    servos.cpp
-    soaring.cpp
-    system.cpp
-    systemid.cpp
-    tailsitter.cpp
-    takeoff.cpp
-    tiltrotor.cpp
-    tuning.cpp)
+    ArduPlane/AP_Arming_Plane.cpp
+    ArduPlane/AP_ExternalControl_Plane.cpp
+    ArduPlane/Attitude.cpp
+    ArduPlane/GCS_MAVLink_Plane.cpp
+    ArduPlane/GCS_Plane.cpp
+    ArduPlane/Log.cpp
+    ArduPlane/Parameters.cpp
+    ArduPlane/Plane.cpp
+    ArduPlane/RC_Channel_Plane.cpp
+    ArduPlane/VTOL_Assist.cpp
+    ArduPlane/afs_plane.cpp
+    ArduPlane/altitude.cpp
+    ArduPlane/avoidance_adsb.cpp
+    ArduPlane/commands.cpp
+    ArduPlane/commands_logic.cpp
+    ArduPlane/control_modes.cpp
+    ArduPlane/ekf_check.cpp
+    ArduPlane/events.cpp
+    ArduPlane/failsafe.cpp
+    ArduPlane/fence.cpp
+    ArduPlane/is_flying.cpp
+    ArduPlane/mode.cpp
+    ArduPlane/mode_LoiterAltQLand.cpp
+    ArduPlane/mode_acro.cpp
+    ArduPlane/mode_auto.cpp
+    ArduPlane/mode_autoland.cpp
+    ArduPlane/mode_autotune.cpp
+    ArduPlane/mode_avoidADSB.cpp
+    ArduPlane/mode_circle.cpp
+    ArduPlane/mode_cruise.cpp
+    ArduPlane/mode_fbwa.cpp
+    ArduPlane/mode_fbwb.cpp
+    ArduPlane/mode_guided.cpp
+    ArduPlane/mode_loiter.cpp
+    ArduPlane/mode_manual.cpp
+    ArduPlane/mode_qacro.cpp
+    ArduPlane/mode_qautotune.cpp
+    ArduPlane/mode_qhover.cpp
+    ArduPlane/mode_qland.cpp
+    ArduPlane/mode_qloiter.cpp
+    ArduPlane/mode_qrtl.cpp
+    ArduPlane/mode_qstabilize.cpp
+    ArduPlane/mode_rtl.cpp
+    ArduPlane/mode_stabilize.cpp
+    ArduPlane/mode_takeoff.cpp
+    ArduPlane/mode_thermal.cpp
+    ArduPlane/mode_training.cpp
+    ArduPlane/motor_test.cpp
+    ArduPlane/navigation.cpp
+    ArduPlane/parachute.cpp
+    ArduPlane/pullup.cpp
+    ArduPlane/qautotune.cpp
+    ArduPlane/quadplane.cpp
+    ArduPlane/radio.cpp
+    ArduPlane/reverse_thrust.cpp
+    ArduPlane/sensors.cpp
+    ArduPlane/servos.cpp
+    ArduPlane/soaring.cpp
+    ArduPlane/system.cpp
+    ArduPlane/systemid.cpp
+    ArduPlane/tailsitter.cpp
+    ArduPlane/takeoff.cpp
+    ArduPlane/tiltrotor.cpp
+    ArduPlane/tuning.cpp)
 
 set(bin_arduplane_INCLUDES
     ../build/sitl/libraries
@@ -7549,7 +7549,7 @@ add_executable(bin_arduplane ${bin_arduplane_SOURCES})
 #target_include_directories(bin_arduplane PRIVATE ${bin_arduplane_INCLUDES})
 
 
-#target_link_libraries(bin_arduplane ArduPlane_libs) #clean
+target_link_libraries(bin_arduplane ArduPlane_libs) #clean
 
 #------------------------------------------------
 
@@ -7882,43 +7882,43 @@ target_link_libraries(ArduSub_libs objs_AC_CustomControl) #stripped
 #------------------------------------------------
 
 set(bin_ardusub_SOURCES
-    AP_Arming_Sub.cpp
-    AP_State.cpp
-    Attitude.cpp
-    GCS_MAVLink_Sub.cpp
-    GCS_Sub.cpp
-    Log.cpp
-    Parameters.cpp
-    RC_Channel_Sub.cpp
-    Sub.cpp
-    UserCode.cpp
-    actuators.cpp
-    commands.cpp
-    commands_logic.cpp
-    failsafe.cpp
-    fence.cpp
-    inertia.cpp
-    joystick.cpp
-    mode.cpp
-    mode_acro.cpp
-    mode_althold.cpp
-    mode_auto.cpp
-    mode_circle.cpp
-    mode_guided.cpp
-    mode_manual.cpp
-    mode_motordetect.cpp
-    mode_poshold.cpp
-    mode_stabilize.cpp
-    mode_surface.cpp
-    mode_surftrak.cpp
-    motors.cpp
-    radio.cpp
-    script_button.cpp
-    sensors.cpp
-    surface_bottom_detector.cpp
-    system.cpp
-    terrain.cpp
-    turn_counter.cpp)
+    ArduSub/AP_Arming_Sub.cpp
+    ArduSub/AP_State.cpp
+    ArduSub/Attitude.cpp
+    ArduSub/GCS_MAVLink_Sub.cpp
+    ArduSub/GCS_Sub.cpp
+    ArduSub/Log.cpp
+    ArduSub/Parameters.cpp
+    ArduSub/RC_Channel_Sub.cpp
+    ArduSub/Sub.cpp
+    ArduSub/UserCode.cpp
+    ArduSub/actuators.cpp
+    ArduSub/commands.cpp
+    ArduSub/commands_logic.cpp
+    ArduSub/failsafe.cpp
+    ArduSub/fence.cpp
+    ArduSub/inertia.cpp
+    ArduSub/joystick.cpp
+    ArduSub/mode.cpp
+    ArduSub/mode_acro.cpp
+    ArduSub/mode_althold.cpp
+    ArduSub/mode_auto.cpp
+    ArduSub/mode_circle.cpp
+    ArduSub/mode_guided.cpp
+    ArduSub/mode_manual.cpp
+    ArduSub/mode_motordetect.cpp
+    ArduSub/mode_poshold.cpp
+    ArduSub/mode_stabilize.cpp
+    ArduSub/mode_surface.cpp
+    ArduSub/mode_surftrak.cpp
+    ArduSub/motors.cpp
+    ArduSub/radio.cpp
+    ArduSub/script_button.cpp
+    ArduSub/sensors.cpp
+    ArduSub/surface_bottom_detector.cpp
+    ArduSub/system.cpp
+    ArduSub/terrain.cpp
+    ArduSub/turn_counter.cpp)
 
 set(bin_ardusub_INCLUDES
     ../build/sitl/libraries
@@ -7939,12 +7939,12 @@ set(bin_ardusub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-#add_executable(bin_ardusub ${bin_ardusub_SOURCES})
+add_executable(bin_ardusub ${bin_ardusub_SOURCES})
 #target_compile_definitions(bin_ardusub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
 #target_include_directories(bin_ardusub PRIVATE ${bin_ardusub_INCLUDES})
 
 
-#target_link_libraries(bin_ardusub ArduSub_libs) #clean
+target_link_libraries(bin_ardusub ArduSub_libs) #clean
 
 #------------------------------------------------
 
@@ -8278,31 +8278,31 @@ target_link_libraries(Blimp_libs objs_AC_CustomControl) #stripped
 #------------------------------------------------
 
 set(bin_blimp_SOURCES
-    AP_Arming_Blimp.cpp
-    AP_State.cpp
-    Blimp.cpp
-    Fins.cpp
-    GCS_Blimp.cpp
-    GCS_MAVLink_Blimp.cpp
-    Log.cpp
-    Loiter.cpp
-    Parameters.cpp
-    RC_Channel_Blimp.cpp
-    commands.cpp
-    ekf_check.cpp
-    events.cpp
-    failsafe.cpp
-    inertia.cpp
-    mode.cpp
-    mode_land.cpp
-    mode_loiter.cpp
-    mode_manual.cpp
-    mode_rtl.cpp
-    mode_velocity.cpp
-    motors.cpp
-    radio.cpp
-    sensors.cpp
-    system.cpp)
+    Blimp/AP_Arming_Blimp.cpp
+    Blimp/AP_State.cpp
+    Blimp/Blimp.cpp
+    Blimp/Fins.cpp
+    Blimp/GCS_Blimp.cpp
+    Blimp/GCS_MAVLink_Blimp.cpp
+    Blimp/Log.cpp
+    Blimp/Loiter.cpp
+    Blimp/Parameters.cpp
+    Blimp/RC_Channel_Blimp.cpp
+    Blimp/commands.cpp
+    Blimp/ekf_check.cpp
+    Blimp/events.cpp
+    Blimp/failsafe.cpp
+    Blimp/inertia.cpp
+    Blimp/mode.cpp
+    Blimp/mode_land.cpp
+    Blimp/mode_loiter.cpp
+    Blimp/mode_manual.cpp
+    Blimp/mode_rtl.cpp
+    Blimp/mode_velocity.cpp
+    Blimp/motors.cpp
+    Blimp/radio.cpp
+    Blimp/sensors.cpp
+    Blimp/system.cpp)
 
 set(bin_blimp_INCLUDES
     ../build/sitl/libraries
@@ -8323,12 +8323,12 @@ set(bin_blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-#add_executable(bin_blimp ${bin_blimp_SOURCES})
+add_executable(bin_blimp ${bin_blimp_SOURCES})
 #target_compile_definitions(bin_blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
 #target_include_directories(bin_blimp PRIVATE ${bin_blimp_INCLUDES})
 
 
-#target_link_libraries(bin_blimp Blimp_libs) #clean
+target_link_libraries(bin_blimp Blimp_libs) #clean
 
 #------------------------------------------------
 
@@ -8667,44 +8667,44 @@ target_link_libraries(Rover_libs objs_AC_CustomControl) #stripped
 #------------------------------------------------
 
 set(bin_ardurover_SOURCES
-    AP_Arming_Rover.cpp
-    AP_ExternalControl_Rover.cpp
-    AP_Rally.cpp
-    GCS_MAVLink_Rover.cpp
-    GCS_Rover.cpp
-    Log.cpp
-    Parameters.cpp
-    RC_Channel_Rover.cpp
-    Rover.cpp
-    Steering.cpp
-    afs_rover.cpp
-    balance_bot.cpp
-    commands.cpp
-    crash_check.cpp
-    cruise_learn.cpp
-    ekf_check.cpp
-    failsafe.cpp
-    fence.cpp
-    mode.cpp
-    mode_acro.cpp
-    mode_auto.cpp
-    mode_circle.cpp
-    mode_dock.cpp
-    mode_follow.cpp
-    mode_guided.cpp
-    mode_hold.cpp
-    mode_loiter.cpp
-    mode_manual.cpp
-    mode_rtl.cpp
-    mode_simple.cpp
-    mode_smart_rtl.cpp
-    mode_steering.cpp
-    motor_test.cpp
-    precision_landing.cpp
-    radio.cpp
-    sailboat.cpp
-    sensors.cpp
-    system.cpp)
+    Rover/AP_Arming_Rover.cpp
+    Rover/AP_ExternalControl_Rover.cpp
+    Rover/AP_Rally.cpp
+    Rover/GCS_MAVLink_Rover.cpp
+    Rover/GCS_Rover.cpp
+    Rover/Log.cpp
+    Rover/Parameters.cpp
+    Rover/RC_Channel_Rover.cpp
+    Rover/Rover.cpp
+    Rover/Steering.cpp
+    Rover/afs_rover.cpp
+    Rover/balance_bot.cpp
+    Rover/commands.cpp
+    Rover/crash_check.cpp
+    Rover/cruise_learn.cpp
+    Rover/ekf_check.cpp
+    Rover/failsafe.cpp
+    Rover/fence.cpp
+    Rover/mode.cpp
+    Rover/mode_acro.cpp
+    Rover/mode_auto.cpp
+    Rover/mode_circle.cpp
+    Rover/mode_dock.cpp
+    Rover/mode_follow.cpp
+    Rover/mode_guided.cpp
+    Rover/mode_hold.cpp
+    Rover/mode_loiter.cpp
+    Rover/mode_manual.cpp
+    Rover/mode_rtl.cpp
+    Rover/mode_simple.cpp
+    Rover/mode_smart_rtl.cpp
+    Rover/mode_steering.cpp
+    Rover/motor_test.cpp
+    Rover/precision_landing.cpp
+    Rover/radio.cpp
+    Rover/sailboat.cpp
+    Rover/sensors.cpp
+    Rover/system.cpp)
 
 set(bin_ardurover_INCLUDES
     ../build/sitl/libraries
@@ -8725,10 +8725,10 @@ set(bin_ardurover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-#add_executable(bin_ardurover ${bin_ardurover_SOURCES})
+add_executable(bin_ardurover ${bin_ardurover_SOURCES})
 #target_compile_definitions(bin_ardurover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
 #target_include_directories(bin_ardurover PRIVATE ${bin_ardurover_INCLUDES})
 
 
-#target_link_libraries(bin_ardurover Rover_libs) #clean
+target_link_libraries(bin_ardurover Rover_libs) #clean
 

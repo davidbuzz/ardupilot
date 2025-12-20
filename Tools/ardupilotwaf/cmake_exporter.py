@@ -401,6 +401,10 @@ class CMakeExporter(object):
     #                   COMMAND ar -M < ${mri_file})\n\
 #endfunction(combine_archives)\n'
 
+# 
+			#-include ap_config.h 
+			AP_CONFIG_FLAGS = ' -D_AP_CONFIG_H_=1 -DWAF_BUILD=1 -D__STDC_FORMAT_MACROS=1 -DAP_SIM_ENABLED=1 -DHAL_WITH_SPI=1 -DHAL_WITH_RAMTRON=1 -DAP_OPENDRONEID_ENABLED=1 -DAP_SIGNED_FIRMWARE=0 -DAP_NOTIFY_LP5562_BUS=2 -DAP_NOTIFY_LP5562_ADDR=48 -DHAL_NUM_CAN_IFACES=2 -DHAL_CAN_WITH_SOCKETCAN=1 -DHAVE_FEENABLEEXCEPT=1 -DHAVE_CMATH_ISFINITE=1 -DHAVE_CMATH_ISINF=1 -DHAVE_CMATH_ISNAN=1 -DNEED_CMATH_ISFINITE_STD_NAMESPACE=1 -DNEED_CMATH_ISINF_STD_NAMESPACE=1 -DNEED_CMATH_ISNAN_STD_NAMESPACE=1 -DHAVE_ENDIAN_H=1 -DHAVE_BYTESWAP_H=1 -DHAVE_MEMRCHR=1 -D_GNU_SOURCE=1' 
+
 			# add_definitions(-I.)
 			# add_definitions(-I..)
 			# add_definitions(-I../..)
@@ -423,6 +427,7 @@ class CMakeExporter(object):
 			# drop '-Werror=shadow' from CFLAGS and CXXFLAGS
 			env.CFLAGS = [f for f in env.CFLAGS if f != '-Werror=shadow']
 			env.CXXFLAGS = [f for f in env.CXXFLAGS if f != '-Werror=shadow']
+			env.CXXFLAGS = [f for f in env.CXXFLAGS if f != '-include ap_config.h']
 			# convert 'HAL_GCS_ENABLED&&HAL_RALLY_ENABLED' to 'HAL_GCS_ENABLED' in CFLAGS and CXXFLAGS
 			def clean_flags(flags):
 				new_flags = []
@@ -441,6 +446,12 @@ class CMakeExporter(object):
 							new_flags.append(f)
 							FRAME_CONFIG_seen = True
 						continue
+					if 'ap_config.h' in f:
+						# skip this flag
+						continue
+					if '-include' in f:
+						# skip this flag
+						continue
 					new_flags.append(f)
 				return new_flags
 
@@ -449,6 +460,7 @@ class CMakeExporter(object):
 				content += 'set(CMAKE_C_FLAGS "%s")\n' % (' '.join(flags1))
 
 			flags2 = clean_flags(env.CXXFLAGS)
+			flags2 += AP_CONFIG_FLAGS.split(' ')
 			if len(flags2):
 				content += 'set(CMAKE_CXX_FLAGS "%s")\n' % (' '.join(flags2))
 		else:
@@ -502,8 +514,24 @@ class CMakeExporter(object):
 		# eg objs/AP_Scripting/ArduCopter
 
 		# does name start with bin/ ? if so print debug statement
-		if name.startswith('bin'):
+		if name.startswith('bin'):  # name like 'bin/arducopter'
 			print('Debug: Task generator name starts with bin: %s' % name)
+		
+		_dir = ''
+		if cleanedname.startswith('bin_arduplane'):
+			_dir = 'ArduPlane'
+		if cleanedname.startswith('bin_arducopter'):
+			_dir = 'ArduCopter'
+		if cleanedname.startswith('bin_ardusub'):
+			_dir = 'ArduSub'
+		if cleanedname.startswith('bin_antennatracker'):
+			_dir = 'AntennaTracker'
+		if cleanedname.startswith('bin_blimp'):
+			_dir = 'Blimp'
+		if cleanedname.startswith('bin_ardurover'):
+			_dir = 'Rover'
+		if cleanedname.startswith('bin_antennatracker'):
+			_dir = 'AntennaTracker'
 
 		# check if 'name' starts with an *, as in '*.c' or similar.
 		if '*' in name:
@@ -521,7 +549,10 @@ class CMakeExporter(object):
 		content += '#------------------------------------------------\n\n'
 		content += 'set(%s_SOURCES' % (cleanedname)
 		for src in tgen.source:
-			content += '\n    %s' % (src.path_from(tgen.path).replace('\\','/'))
+			x = src.path_from(tgen.path).replace('\\','/')
+			if _dir != '':
+				x = _dir + '/' + x
+			content += '\n    %s' % (x)
 		content += ')\n\n'
 
 		#break here 'ArduCopter_libs'
@@ -544,7 +575,7 @@ class CMakeExporter(object):
 		#	content += '\n'
 
 		if set(('cprogram', 'cxxprogram')) & set(tgen.features):
-			content += '#add_executable(%s ${%s_SOURCES})\n' % (cleanedname, cleanedname)
+			content += 'add_executable(%s ${%s_SOURCES})\n' % (cleanedname, cleanedname)
 			if len(defines):
 				content += '#target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
 			if len(includes):
