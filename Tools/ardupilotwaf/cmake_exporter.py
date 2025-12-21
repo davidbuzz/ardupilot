@@ -83,6 +83,20 @@ from waflib import Utils, Logs, Context, Errors
 import waftools
 from waftools import deps
 
+# quick utility function to run a shell command and print its output to stdout
+def run_shell_cmd(cmd):
+	import subprocess
+	print('Running shell command: %s ' % cmd)
+	process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	stdout, stderr = process.communicate()
+	if process.returncode != 0:
+		print('Error running command: %s ' % cmd)
+		print('stderr: %s ' % stderr.decode())
+	else:
+		print('stdout: %s ' % stdout.decode())
+		print('stderr: %s ' % stderr.decode())
+	return process.returncode, stdout.decode(), stderr.decode()
+
 
 def options(opt):
 	'''Adds command line options for the CMakeExporter *waftool*.
@@ -131,26 +145,42 @@ class CMakeExporterContext(BuildContext):
 		export_includes = kw.get('export_includes', True)
 
 		import os
+		from pathlib import Path
 
-		namelist = ['mavlink','dronecan','ap_version','ap_config']
+		bld_root_dir = self.bldnode.abspath() + '/../..'
+		actual_root_path = Path(bld_root_dir).resolve()
+
+		pwd = os.getcwd()
+		#print("pwd: %s " % pwd_output)
+		#print("root: %s " % actual_root_path)
+		
+
+		namelist = ['mavlink','dronecan','ap_version','ap_config','mavgen']
 		if name in namelist:
 			print('Debug: CMakeExporterContext __call__ for name: %s ' % name)
 			if name == 'mavlink':
-				shell_cmd1 = 'gcc -std=c99 -Wno-error=missing-field-initializers -Wall -Werror -Wextra -o gen-bindings ../../libraries/AP_Scripting/generator/src/main.c'
-				print('mavlink: Running shell command: %s ' % shell_cmd1)
-				os.system(shell_cmd1)
+				shell_cmd1 = 'mkdir -p build2/sitl ; cd build2/sitl ; gcc -std=c99 -Wno-error=missing-field-initializers -Wall -Werror -Wextra -o gen-bindings ../../libraries/AP_Scripting/generator/src/main.c; file gen-bindings ; cd '+pwd
+				run_shell_cmd(shell_cmd1)
+				# needs to be run from build2/sitl/ folder as thats where gen-bindings wants to run from.
+				shell_cmd2 = 'cd build2/sitl ; mkdir -p libraries/AP_Scripting/lua_generated_bindings ;./gen-bindings -o libraries/AP_Scripting/lua_generated_bindings -i ../../libraries/AP_Scripting/generator/description/bindings.desc; ls -l libraries/AP_Scripting/lua_generated_bindings/* ; cd '+pwd
+				run_shell_cmd(shell_cmd2)
+				#source='modules/mavlink/message_definitions/v1.0/all.xml',
+            	#output_dir='libraries/GCS_MAVLink/include/mavlink/v2.0/',
+				shell_cmd3 = 'mkdir -p build2/sitl/libraries/GCS_MAVLink/include/mavlink/v2.0/ ; /usr/bin/python3 ./modules/mavlink/pymavlink/tools/mavgen.py --lang C ./modules/mavlink/message_definitions/v1.0/all.xml -o build2/sitl/libraries/GCS_MAVLink/include/mavlink/v2.0/ --wire-protocol=2.0; cd '+pwd
+				run_shell_cmd(shell_cmd3)
 
 			if name == 'dronecan':
-				shell_cmd = '/usr/bin/python3 /home/buzz2/ardupilot/modules/DroneCAN/dronecan_dsdlc/dronecan_dsdlc.py -O/home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated /home/buzz2/ardupilot/modules/DroneCAN/DSDL/ardupilot /home/buzz2/ardupilot/modules/DroneCAN/DSDL/com /home/buzz2/ardupilot/modules/DroneCAN/DSDL/cuav /home/buzz2/ardupilot/modules/DroneCAN/DSDL/dronecan /home/buzz2/ardupilot/modules/DroneCAN/DSDL/mppt /home/buzz2/ardupilot/modules/DroneCAN/DSDL/tests /home/buzz2/ardupilot/modules/DroneCAN/DSDL/uavcan >/dev/null 2>&1'
-				print('dronecan: Running shell command: %s ' % shell_cmd)
-				os.system(shell_cmd)
+				#blddir = self.bldnode.abspath() #eg build/sitl from waf, its wrong for cmake, thats build2/sitl	
+				#blddir = self.bldnode.abspath() + '/../../build2/sitl' # build2/sitl for cmake
+				shell_cmd = '/usr/bin/python3 /home/buzz2/ardupilot/modules/DroneCAN/dronecan_dsdlc/dronecan_dsdlc.py -O/home/buzz2/ardupilot/build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated /home/buzz2/ardupilot/modules/DroneCAN/DSDL/ardupilot /home/buzz2/ardupilot/modules/DroneCAN/DSDL/com /home/buzz2/ardupilot/modules/DroneCAN/DSDL/cuav /home/buzz2/ardupilot/modules/DroneCAN/DSDL/dronecan /home/buzz2/ardupilot/modules/DroneCAN/DSDL/mppt /home/buzz2/ardupilot/modules/DroneCAN/DSDL/tests /home/buzz2/ardupilot/modules/DroneCAN/DSDL/uavcan >/dev/null 2>&1'
+				run_shell_cmd(shell_cmd)
 
 			if name == 'ap_version':
-				builddir = self.bldnode.abspath() #eg build/sitl
+				builddir = self.bldnode.abspath() #waf build dir, not cmake . build/sitl
 				# shell. `mkdir -p build2/sitl`
 				shell_cmd = 'mkdir -p build2/sitl'
 				print('ap_version: Running shell command: %s ' % shell_cmd)
-				os.system(shell_cmd)
+				run_shell_cmd(shell_cmd)
 				# write ap_version.h
 				tgt = 'build2/sitl/ap_config.h'
 				print('Debug: Writing ap_config.h to: %s ' % tgt)
@@ -305,6 +335,8 @@ class CMakeExporter(object):
 		self.cmakes = []
 		self.tgens = []
 		#print('CMakeExporter initialized for location: %s' % (self.location))
+		self.app_root_path = bld.srcnode.abspath() # resolves to top level dir of ardupilot, ie below 'build' or 'build2' dir.
+		self.app_cmake_build_path = bld.bldnode.abspath() # resolves to cmake build dir, ie 'build2' dir.
 
 	def export(self):
 		content = self.get_content()
@@ -331,7 +363,7 @@ class CMakeExporter(object):
 		self.cmakes.append(cmake)
 
 	def add_tgen(self, tgen):
-		print('CMakeExporter adding tgen: %s for location: %s' % (tgen.get_name(), self.location))
+		#print('CMakeExporter adding tgen: %s for location: %s' % (tgen.get_name(), self.location))
 		self.tgens.append(tgen)
 
 	#def get_location(self):
@@ -354,14 +386,6 @@ class CMakeExporter(object):
 
 		content = ''
 		if is_top and self.location == ".":
-			pre_run_ = './gen-bindings -o libraries/AP_Scripting/lua_generated_bindings -i ../../libraries/AP_Scripting/generator/description/bindings.desc'
-			pre_run_dir = self.bld.srcnode.abspath() + '/build/sitl'
-			# set cwd to ./build/sitl first.
-			pre_run_1 = 'cd %s && %s' % (pre_run_dir, pre_run_)
-			# run the above now with ``os.system`` so that the generated bindings are present for cmake build
-			import os
-			x = os.system(pre_run_1)
-			print ('ran: %s , returned: %s dir: %s' % (pre_run_1, x, pre_run_dir))
 
 			#pre_run_2 = 'todo copy.. cp ../build/sitl/ap_config.h .'  to build2 dir
 			if is_top == "." :
@@ -413,6 +437,27 @@ class CMakeExporter(object):
 			content += 'include_directories(..)\n'
 			content += 'include_directories(../..)\n'
 			content += 'include_directories(../../..)\n'
+
+			# fatal error: AP_HAL/AP_HAL.h: No such file or directory
+			content += 'include_directories(\n'
+			content += '${CMAKE_CURRENT_SOURCE_DIR}\n'
+			content += '${CMAKE_CURRENT_SOURCE_DIR}/AP_Common\n'
+			content += '${CMAKE_CURRENT_SOURCE_DIR}/AP_HAL\n'
+			content += '${CMAKE_CURRENT_SOURCE_DIR}/AP_HAL/board\n'
+			content += '${CMAKE_CURRENT_SOURCE_DIR}/libraries\n'
+			# generated mavlink needs these:
+			#bld.bldnode.make_node('libraries').abspath(),
+            #bld.bldnode.make_node('libraries/GCS_MAVLink').abspath(),
+			content += '"${CMAKE_BINARY_DIR}/sitl/libraries"\n'
+			content += '"${CMAKE_BINARY_DIR}/sitl/libraries/GCS_MAVLink"\n'
+			# dronecan needs canard/interface.h
+			content += '${CMAKE_CURRENT_SOURCE_DIR}/modules/DroneCAN/libcanard\n'
+			# droncan need canard_helpers_user.h
+			content += '${CMAKE_CURRENT_SOURCE_DIR}/libraries/AP_DroneCAN/canard \n'
+			# dronecan needs dronecan_msgs.h
+			content += '"${CMAKE_BINARY_DIR}/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include" \n'
+			content += ')\n'
+
 
 			#set(ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 			content += 'set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")\n'
@@ -538,6 +583,10 @@ class CMakeExporter(object):
 			print('Warning: Skipping task generator with wildcard name: %s' % name)
 			return ''
 		
+		# obj/whatever is simplified to whatrver.
+		if cleanedname.startswith('objs_'):
+			cleanedname = cleanedname[5:] # remove 'objs_'
+		
 		reg_status = is_lib_registered(cleanedname)
 		if reg_status:
 			#print('Warning: Skipping already registered library: %s' % cleanedname)
@@ -644,9 +693,9 @@ class CMakeExporter(object):
 					is_loc = cleaned_name_bits[0]
 					if is_lib == 'libs'  and self.location == is_loc:
 						#content += 'target_link_libraries(%s ../libobjs_%s_%s.a) #stripped2\n' % (cleanedname, strip_lib, is_loc)
-						content += 'target_link_libraries(%s ../libobjs_%s.a) #stripped2\n' % (cleanedname, strip_lib)
+						content += 'target_link_libraries(%s ../lib%s.a) #stripped2\n' % (cleanedname, strip_lib)
 					else:
-						content += 'target_link_libraries(%s objs_%s) #stripped\n' % (cleanedname, strip_lib)
+						content += 'target_link_libraries(%s %s) #stripped\n' % (cleanedname, strip_lib)
 				else:
 					# binary linking:
 					content += 'target_link_libraries(%s %s) #clean\n' % (cleanedname, lib)
