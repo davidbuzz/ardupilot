@@ -7703,7 +7703,7 @@ target_link_libraries(AntennaTracker_libs AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(bin_antennatracker_SOURCES #3
+set(tracker_SOURCES #3
     AntennaTracker/AP_Arming_Tracker.h
     AntennaTracker/GCS_MAVLink_Tracker.h
     AntennaTracker/GCS_Tracker.h
@@ -7732,7 +7732,7 @@ set(bin_antennatracker_SOURCES #3
     AntennaTracker/system.cpp
     AntennaTracker/tracking.cpp)
 
-set(bin_antennatracker_INCLUDES
+set(tracker_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -7751,12 +7751,12 @@ set(bin_antennatracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(bin_antennatracker ${bin_antennatracker_SOURCES}) #2
-target_compile_definitions(bin_antennatracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
-#target_include_directories(bin_antennatracker PRIVATE ${bin_antennatracker_INCLUDES})
+add_executable(tracker ${tracker_SOURCES}) #2
+target_compile_definitions(tracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+#target_include_directories(tracker PRIVATE ${tracker_INCLUDES})
 
 
-target_link_libraries(bin_antennatracker AntennaTracker_libs) #clean
+target_link_libraries(tracker AntennaTracker_libs) #clean
 
 #------------------------------------------------
 
@@ -8136,7 +8136,7 @@ target_link_libraries(ArduCopter_libs AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(bin_arducopter_SOURCES #3
+set(copter_SOURCES #3
     ArduCopter/APM_Config.h
     ArduCopter/AP_Arming_Copter.h
     ArduCopter/AP_ExternalControl_Copter.h
@@ -8230,7 +8230,7 @@ set(bin_arducopter_SOURCES #3
     ArduCopter/toy_mode.cpp
     ArduCopter/tuning.cpp)
 
-set(bin_arducopter_INCLUDES
+set(copter_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -8249,16 +8249,16 @@ set(bin_arducopter_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(bin_arducopter ${bin_arducopter_SOURCES}) #2
-target_compile_definitions(bin_arducopter PRIVATE -DFRAME_CONFIG=MULTICOPTER_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
-#target_include_directories(bin_arducopter PRIVATE ${bin_arducopter_INCLUDES})
+add_executable(copter ${copter_SOURCES}) #2
+target_compile_definitions(copter PRIVATE -DFRAME_CONFIG=MULTICOPTER_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+#target_include_directories(copter PRIVATE ${copter_INCLUDES})
 
 
-target_link_libraries(bin_arducopter ArduCopter_libs) #clean
+target_link_libraries(copter ArduCopter_libs) #clean
 
 #------------------------------------------------
 
-set(bin_arducopter-heli_SOURCES #3
+set(copter-heli_SOURCES #3
     ArduCopter/APM_Config.h
     ArduCopter/AP_Arming_Copter.h
     ArduCopter/AP_ExternalControl_Copter.h
@@ -8352,7 +8352,7 @@ set(bin_arducopter-heli_SOURCES #3
     ArduCopter/toy_mode.cpp
     ArduCopter/tuning.cpp)
 
-set(bin_arducopter-heli_INCLUDES
+set(copter-heli_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -8371,12 +8371,12 @@ set(bin_arducopter-heli_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(bin_arducopter-heli ${bin_arducopter-heli_SOURCES}) #2
-target_compile_definitions(bin_arducopter-heli PRIVATE -DFRAME_CONFIG=HELI_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
-#target_include_directories(bin_arducopter-heli PRIVATE ${bin_arducopter-heli_INCLUDES})
+add_executable(copter-heli ${copter-heli_SOURCES}) #2
+target_compile_definitions(copter-heli PRIVATE -DFRAME_CONFIG=HELI_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+#target_include_directories(copter-heli PRIVATE ${copter-heli_INCLUDES})
 
 
-target_link_libraries(bin_arducopter-heli ArduCopter_libs) #clean
+target_link_libraries(copter-heli ArduCopter_libs) #clean
 
 #------------------------------------------------
 
@@ -8721,7 +8721,7 @@ target_link_libraries(ArduPlane_libs AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(bin_arduplane_SOURCES #3
+set(plane_SOURCES #3
     ArduPlane/AP_Arming_Plane.h
     ArduPlane/AP_ExternalControl_Plane.h
     ArduPlane/GCS_MAVLink_Plane.h
@@ -8809,7 +8809,7 @@ set(bin_arduplane_SOURCES #3
     ArduPlane/tiltrotor.cpp
     ArduPlane/tuning.cpp)
 
-set(bin_arduplane_INCLUDES
+set(plane_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -8828,12 +8828,12 @@ set(bin_arduplane_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(bin_arduplane ${bin_arduplane_SOURCES}) #2
-target_compile_definitions(bin_arduplane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
-#target_include_directories(bin_arduplane PRIVATE ${bin_arduplane_INCLUDES})
+add_executable(plane ${plane_SOURCES}) #2
+target_compile_definitions(plane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+#target_include_directories(plane PRIVATE ${plane_INCLUDES})
 
 
-target_link_libraries(bin_arduplane ArduPlane_libs) #clean
+target_link_libraries(plane ArduPlane_libs) #clean
 
 #------------------------------------------------
 
@@ -9165,7 +9165,7 @@ target_link_libraries(ArduSub_libs AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(bin_ardusub_SOURCES #3
+set(sub_SOURCES #3
     ArduSub/AP_Arming_Sub.h
     ArduSub/GCS_MAVLink_Sub.h
     ArduSub/GCS_Sub.h
@@ -9217,7 +9217,7 @@ set(bin_ardusub_SOURCES #3
     ArduSub/terrain.cpp
     ArduSub/turn_counter.cpp)
 
-set(bin_ardusub_INCLUDES
+set(sub_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -9236,12 +9236,12 @@ set(bin_ardusub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(bin_ardusub ${bin_ardusub_SOURCES}) #2
-target_compile_definitions(bin_ardusub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
-#target_include_directories(bin_ardusub PRIVATE ${bin_ardusub_INCLUDES})
+add_executable(sub ${sub_SOURCES}) #2
+target_compile_definitions(sub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+#target_include_directories(sub PRIVATE ${sub_INCLUDES})
 
 
-target_link_libraries(bin_ardusub ArduSub_libs) #clean
+target_link_libraries(sub ArduSub_libs) #clean
 
 #------------------------------------------------
 
@@ -9574,7 +9574,7 @@ target_link_libraries(Blimp_libs AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(bin_blimp_SOURCES #3
+set(blimp_SOURCES #3
     Blimp/AP_Arming_Blimp.h
     Blimp/Blimp.h
     Blimp/Fins.h
@@ -9613,7 +9613,7 @@ set(bin_blimp_SOURCES #3
     Blimp/sensors.cpp
     Blimp/system.cpp)
 
-set(bin_blimp_INCLUDES
+set(blimp_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -9632,12 +9632,12 @@ set(bin_blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(bin_blimp ${bin_blimp_SOURCES}) #2
-target_compile_definitions(bin_blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
-#target_include_directories(bin_blimp PRIVATE ${bin_blimp_INCLUDES})
+add_executable(blimp ${blimp_SOURCES}) #2
+target_compile_definitions(blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+#target_include_directories(blimp PRIVATE ${blimp_INCLUDES})
 
 
-target_link_libraries(bin_blimp Blimp_libs) #clean
+target_link_libraries(blimp Blimp_libs) #clean
 
 #------------------------------------------------
 
@@ -9975,7 +9975,7 @@ target_link_libraries(Rover_libs AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(bin_ardurover_SOURCES #3
+set(rover_SOURCES #3
     Rover/AP_Arming_Rover.h
     Rover/AP_ExternalControl_Rover.h
     Rover/AP_Rally.h
@@ -10029,7 +10029,7 @@ set(bin_ardurover_SOURCES #3
     Rover/sensors.cpp
     Rover/system.cpp)
 
-set(bin_ardurover_INCLUDES
+set(rover_INCLUDES
     ../build/sitl/libraries
     ../build/sitl/libraries/GCS_MAVLink
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
@@ -10048,10 +10048,10 @@ set(bin_ardurover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(bin_ardurover ${bin_ardurover_SOURCES}) #2
-target_compile_definitions(bin_ardurover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
-#target_include_directories(bin_ardurover PRIVATE ${bin_ardurover_INCLUDES})
+add_executable(rover ${rover_SOURCES}) #2
+target_compile_definitions(rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+#target_include_directories(rover PRIVATE ${rover_INCLUDES})
 
 
-target_link_libraries(bin_ardurover Rover_libs) #clean
+target_link_libraries(rover Rover_libs) #clean
 

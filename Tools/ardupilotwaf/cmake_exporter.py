@@ -629,18 +629,24 @@ class CMakeExporter(object):
 		_dir = ''
 		if cleanedname.startswith('bin_arduplane'):
 			_dir = 'ArduPlane'
+			cleanedname='plane'
 		if cleanedname.startswith('bin_arducopter'):
 			_dir = 'ArduCopter'
+			# strip 'bin_ardu' from front on copters due to -heli
+			_c = cleanedname[8:]
+			cleanedname=_c
 		if cleanedname.startswith('bin_ardusub'):
 			_dir = 'ArduSub'
+			cleanedname='sub'
 		if cleanedname.startswith('bin_antennatracker'):
 			_dir = 'AntennaTracker'
+			cleanedname='tracker'
 		if cleanedname.startswith('bin_blimp'):
 			_dir = 'Blimp'
+			cleanedname='blimp'
 		if cleanedname.startswith('bin_ardurover'):
 			_dir = 'Rover'
-		if cleanedname.startswith('bin_antennatracker'):
-			_dir = 'AntennaTracker'
+			cleanedname='rover'
 
 		# check if 'name' starts with an *, as in '*.c' or similar.
 		if '*' in name:

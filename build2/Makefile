@@ -117,19 +117,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named bin_ardurover
-
-# Build rule for target.
-bin_ardurover: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bin_ardurover
-.PHONY : bin_ardurover
-
-# fast build rule for target.
-bin_ardurover/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/build
-.PHONY : bin_ardurover/fast
-
-#=============================================================================
 # Target rules for targets named Rover_libs
 
 # Build rule for target.
@@ -141,19 +128,6 @@ Rover_libs: cmake_check_build_system
 Rover_libs/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Rover_libs.dir/build.make CMakeFiles/Rover_libs.dir/build
 .PHONY : Rover_libs/fast
-
-#=============================================================================
-# Target rules for targets named bin_blimp
-
-# Build rule for target.
-bin_blimp: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bin_blimp
-.PHONY : bin_blimp
-
-# fast build rule for target.
-bin_blimp/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/build
-.PHONY : bin_blimp/fast
 
 #=============================================================================
 # Target rules for targets named ArduSub_libs
@@ -169,43 +143,30 @@ ArduSub_libs/fast:
 .PHONY : ArduSub_libs/fast
 
 #=============================================================================
-# Target rules for targets named bin_arduplane
+# Target rules for targets named copter-heli
 
 # Build rule for target.
-bin_arduplane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bin_arduplane
-.PHONY : bin_arduplane
+copter-heli: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 copter-heli
+.PHONY : copter-heli
 
 # fast build rule for target.
-bin_arduplane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/build
-.PHONY : bin_arduplane/fast
+copter-heli/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/build
+.PHONY : copter-heli/fast
 
 #=============================================================================
-# Target rules for targets named bin_arducopter-heli
+# Target rules for targets named copter
 
 # Build rule for target.
-bin_arducopter-heli: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bin_arducopter-heli
-.PHONY : bin_arducopter-heli
+copter: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 copter
+.PHONY : copter
 
 # fast build rule for target.
-bin_arducopter-heli/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/build
-.PHONY : bin_arducopter-heli/fast
-
-#=============================================================================
-# Target rules for targets named bin_arducopter
-
-# Build rule for target.
-bin_arducopter: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bin_arducopter
-.PHONY : bin_arducopter
-
-# fast build rule for target.
-bin_arducopter/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/build
-.PHONY : bin_arducopter/fast
+copter/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/build
+.PHONY : copter/fast
 
 #=============================================================================
 # Target rules for targets named ArduCopter_libs
@@ -232,6 +193,19 @@ AP_Avoidance: cmake_check_build_system
 AP_Avoidance/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Avoidance.dir/build.make CMakeFiles/AP_Avoidance.dir/build
 .PHONY : AP_Avoidance/fast
+
+#=============================================================================
+# Target rules for targets named tracker
+
+# Build rule for target.
+tracker: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tracker
+.PHONY : tracker
+
+# fast build rule for target.
+tracker/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/build
+.PHONY : tracker/fast
 
 #=============================================================================
 # Target rules for targets named AC_Fence
@@ -427,19 +401,6 @@ AP_Tuning: cmake_check_build_system
 AP_Tuning/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Tuning.dir/build.make CMakeFiles/AP_Tuning.dir/build
 .PHONY : AP_Tuning/fast
-
-#=============================================================================
-# Target rules for targets named bin_antennatracker
-
-# Build rule for target.
-bin_antennatracker: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bin_antennatracker
-.PHONY : bin_antennatracker
-
-# fast build rule for target.
-bin_antennatracker/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/build
-.PHONY : bin_antennatracker/fast
 
 #=============================================================================
 # Target rules for targets named AP_Terrain
@@ -988,17 +949,95 @@ AC_WPNav/fast:
 .PHONY : AC_WPNav/fast
 
 #=============================================================================
-# Target rules for targets named AP_Button
+# Target rules for targets named AP_Volz_Protocol
 
 # Build rule for target.
-AP_Button: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Button
-.PHONY : AP_Button
+AP_Volz_Protocol: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Volz_Protocol
+.PHONY : AP_Volz_Protocol
 
 # fast build rule for target.
-AP_Button/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Button.dir/build.make CMakeFiles/AP_Button.dir/build
-.PHONY : AP_Button/fast
+AP_Volz_Protocol/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Volz_Protocol.dir/build.make CMakeFiles/AP_Volz_Protocol.dir/build
+.PHONY : AP_Volz_Protocol/fast
+
+#=============================================================================
+# Target rules for targets named AP_DAL
+
+# Build rule for target.
+AP_DAL: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_DAL
+.PHONY : AP_DAL
+
+# fast build rule for target.
+AP_DAL/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/build
+.PHONY : AP_DAL/fast
+
+#=============================================================================
+# Target rules for targets named AC_PrecLand
+
+# Build rule for target.
+AC_PrecLand: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_PrecLand
+.PHONY : AC_PrecLand
+
+# fast build rule for target.
+AC_PrecLand/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/build
+.PHONY : AC_PrecLand/fast
+
+#=============================================================================
+# Target rules for targets named blimp
+
+# Build rule for target.
+blimp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 blimp
+.PHONY : blimp
+
+# fast build rule for target.
+blimp/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/build
+.PHONY : blimp/fast
+
+#=============================================================================
+# Target rules for targets named AP_AccelCal
+
+# Build rule for target.
+AP_AccelCal: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AccelCal
+.PHONY : AP_AccelCal
+
+# fast build rule for target.
+AP_AccelCal/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AccelCal.dir/build.make CMakeFiles/AP_AccelCal.dir/build
+.PHONY : AP_AccelCal/fast
+
+#=============================================================================
+# Target rules for targets named AP_Frsky_Telem
+
+# Build rule for target.
+AP_Frsky_Telem: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Frsky_Telem
+.PHONY : AP_Frsky_Telem
+
+# fast build rule for target.
+AP_Frsky_Telem/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/build
+.PHONY : AP_Frsky_Telem/fast
+
+#=============================================================================
+# Target rules for targets named AC_Autorotation
+
+# Build rule for target.
+AC_Autorotation: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Autorotation
+.PHONY : AC_Autorotation
+
+# fast build rule for target.
+AC_Autorotation/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Autorotation.dir/build.make CMakeFiles/AC_Autorotation.dir/build
+.PHONY : AC_Autorotation/fast
 
 #=============================================================================
 # Target rules for targets named AP_IBus_Telem
@@ -1090,58 +1129,6 @@ AP_BattMonitor: cmake_check_build_system
 AP_BattMonitor/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/build
 .PHONY : AP_BattMonitor/fast
-
-#=============================================================================
-# Target rules for targets named AP_Generator
-
-# Build rule for target.
-AP_Generator: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Generator
-.PHONY : AP_Generator
-
-# fast build rule for target.
-AP_Generator/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Generator.dir/build.make CMakeFiles/AP_Generator.dir/build
-.PHONY : AP_Generator/fast
-
-#=============================================================================
-# Target rules for targets named AP_NavEKF2
-
-# Build rule for target.
-AP_NavEKF2: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NavEKF2
-.PHONY : AP_NavEKF2
-
-# fast build rule for target.
-AP_NavEKF2/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/build
-.PHONY : AP_NavEKF2/fast
-
-#=============================================================================
-# Target rules for targets named AC_PID
-
-# Build rule for target.
-AC_PID: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_PID
-.PHONY : AC_PID
-
-# fast build rule for target.
-AC_PID/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PID.dir/build.make CMakeFiles/AC_PID.dir/build
-.PHONY : AC_PID/fast
-
-#=============================================================================
-# Target rules for targets named AP_Quicktune
-
-# Build rule for target.
-AP_Quicktune: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Quicktune
-.PHONY : AP_Quicktune
-
-# fast build rule for target.
-AP_Quicktune/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Quicktune.dir/build.make CMakeFiles/AP_Quicktune.dir/build
-.PHONY : AP_Quicktune/fast
 
 #=============================================================================
 # Target rules for targets named AP_CANManager
@@ -1287,82 +1274,30 @@ AP_Landing/fast:
 .PHONY : AP_Landing/fast
 
 #=============================================================================
-# Target rules for targets named AP_Volz_Protocol
+# Target rules for targets named rover
 
 # Build rule for target.
-AP_Volz_Protocol: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Volz_Protocol
-.PHONY : AP_Volz_Protocol
+rover: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rover
+.PHONY : rover
 
 # fast build rule for target.
-AP_Volz_Protocol/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Volz_Protocol.dir/build.make CMakeFiles/AP_Volz_Protocol.dir/build
-.PHONY : AP_Volz_Protocol/fast
+rover/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/build
+.PHONY : rover/fast
 
 #=============================================================================
-# Target rules for targets named AP_DAL
+# Target rules for targets named AP_Button
 
 # Build rule for target.
-AP_DAL: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_DAL
-.PHONY : AP_DAL
+AP_Button: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Button
+.PHONY : AP_Button
 
 # fast build rule for target.
-AP_DAL/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/build
-.PHONY : AP_DAL/fast
-
-#=============================================================================
-# Target rules for targets named AC_PrecLand
-
-# Build rule for target.
-AC_PrecLand: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_PrecLand
-.PHONY : AC_PrecLand
-
-# fast build rule for target.
-AC_PrecLand/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/build
-.PHONY : AC_PrecLand/fast
-
-#=============================================================================
-# Target rules for targets named AP_AccelCal
-
-# Build rule for target.
-AP_AccelCal: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AccelCal
-.PHONY : AP_AccelCal
-
-# fast build rule for target.
-AP_AccelCal/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AccelCal.dir/build.make CMakeFiles/AP_AccelCal.dir/build
-.PHONY : AP_AccelCal/fast
-
-#=============================================================================
-# Target rules for targets named AP_Frsky_Telem
-
-# Build rule for target.
-AP_Frsky_Telem: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Frsky_Telem
-.PHONY : AP_Frsky_Telem
-
-# fast build rule for target.
-AP_Frsky_Telem/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/build
-.PHONY : AP_Frsky_Telem/fast
-
-#=============================================================================
-# Target rules for targets named AC_Autorotation
-
-# Build rule for target.
-AC_Autorotation: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Autorotation
-.PHONY : AC_Autorotation
-
-# fast build rule for target.
-AC_Autorotation/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Autorotation.dir/build.make CMakeFiles/AC_Autorotation.dir/build
-.PHONY : AC_Autorotation/fast
+AP_Button/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Button.dir/build.make CMakeFiles/AP_Button.dir/build
+.PHONY : AP_Button/fast
 
 #=============================================================================
 # Target rules for targets named AP_GyroFFT
@@ -1508,6 +1443,19 @@ AP_RAMTRON/fast:
 .PHONY : AP_RAMTRON/fast
 
 #=============================================================================
+# Target rules for targets named plane
+
+# Build rule for target.
+plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 plane
+.PHONY : plane
+
+# fast build rule for target.
+plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/build
+.PHONY : plane/fast
+
+#=============================================================================
 # Target rules for targets named AP_AIS
 
 # Build rule for target.
@@ -1545,19 +1493,6 @@ AP_ExternalControl: cmake_check_build_system
 AP_ExternalControl/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalControl.dir/build.make CMakeFiles/AP_ExternalControl.dir/build
 .PHONY : AP_ExternalControl/fast
-
-#=============================================================================
-# Target rules for targets named bin_ardusub
-
-# Build rule for target.
-bin_ardusub: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bin_ardusub
-.PHONY : bin_ardusub
-
-# fast build rule for target.
-bin_ardusub/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/build
-.PHONY : bin_ardusub/fast
 
 #=============================================================================
 # Target rules for targets named AP_CSVReader
@@ -1649,6 +1584,71 @@ AP_Networking: cmake_check_build_system
 AP_Networking/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Networking.dir/build.make CMakeFiles/AP_Networking.dir/build
 .PHONY : AP_Networking/fast
+
+#=============================================================================
+# Target rules for targets named AP_Generator
+
+# Build rule for target.
+AP_Generator: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Generator
+.PHONY : AP_Generator
+
+# fast build rule for target.
+AP_Generator/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Generator.dir/build.make CMakeFiles/AP_Generator.dir/build
+.PHONY : AP_Generator/fast
+
+#=============================================================================
+# Target rules for targets named AP_NavEKF2
+
+# Build rule for target.
+AP_NavEKF2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NavEKF2
+.PHONY : AP_NavEKF2
+
+# fast build rule for target.
+AP_NavEKF2/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/build
+.PHONY : AP_NavEKF2/fast
+
+#=============================================================================
+# Target rules for targets named sub
+
+# Build rule for target.
+sub: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sub
+.PHONY : sub
+
+# fast build rule for target.
+sub/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/build
+.PHONY : sub/fast
+
+#=============================================================================
+# Target rules for targets named AC_PID
+
+# Build rule for target.
+AC_PID: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_PID
+.PHONY : AC_PID
+
+# fast build rule for target.
+AC_PID/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PID.dir/build.make CMakeFiles/AC_PID.dir/build
+.PHONY : AC_PID/fast
+
+#=============================================================================
+# Target rules for targets named AP_Quicktune
+
+# Build rule for target.
+AP_Quicktune: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Quicktune
+.PHONY : AP_Quicktune
+
+# fast build rule for target.
+AP_Quicktune/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Quicktune.dir/build.make CMakeFiles/AP_Quicktune.dir/build
+.PHONY : AP_Quicktune/fast
 
 #=============================================================================
 # Target rules for targets named AP_IOMCU
@@ -2188,7 +2188,7 @@ AntennaTracker/GCS_MAVLink_Tracker.o: AntennaTracker/GCS_MAVLink_Tracker.cpp.o
 
 # target to build an object file
 AntennaTracker/GCS_MAVLink_Tracker.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/GCS_MAVLink_Tracker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/GCS_MAVLink_Tracker.cpp.o
 .PHONY : AntennaTracker/GCS_MAVLink_Tracker.cpp.o
 
 AntennaTracker/GCS_MAVLink_Tracker.i: AntennaTracker/GCS_MAVLink_Tracker.cpp.i
@@ -2196,7 +2196,7 @@ AntennaTracker/GCS_MAVLink_Tracker.i: AntennaTracker/GCS_MAVLink_Tracker.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/GCS_MAVLink_Tracker.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/GCS_MAVLink_Tracker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/GCS_MAVLink_Tracker.cpp.i
 .PHONY : AntennaTracker/GCS_MAVLink_Tracker.cpp.i
 
 AntennaTracker/GCS_MAVLink_Tracker.s: AntennaTracker/GCS_MAVLink_Tracker.cpp.s
@@ -2204,7 +2204,7 @@ AntennaTracker/GCS_MAVLink_Tracker.s: AntennaTracker/GCS_MAVLink_Tracker.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/GCS_MAVLink_Tracker.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/GCS_MAVLink_Tracker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/GCS_MAVLink_Tracker.cpp.s
 .PHONY : AntennaTracker/GCS_MAVLink_Tracker.cpp.s
 
 AntennaTracker/GCS_Tracker.o: AntennaTracker/GCS_Tracker.cpp.o
@@ -2212,7 +2212,7 @@ AntennaTracker/GCS_Tracker.o: AntennaTracker/GCS_Tracker.cpp.o
 
 # target to build an object file
 AntennaTracker/GCS_Tracker.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/GCS_Tracker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/GCS_Tracker.cpp.o
 .PHONY : AntennaTracker/GCS_Tracker.cpp.o
 
 AntennaTracker/GCS_Tracker.i: AntennaTracker/GCS_Tracker.cpp.i
@@ -2220,7 +2220,7 @@ AntennaTracker/GCS_Tracker.i: AntennaTracker/GCS_Tracker.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/GCS_Tracker.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/GCS_Tracker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/GCS_Tracker.cpp.i
 .PHONY : AntennaTracker/GCS_Tracker.cpp.i
 
 AntennaTracker/GCS_Tracker.s: AntennaTracker/GCS_Tracker.cpp.s
@@ -2228,7 +2228,7 @@ AntennaTracker/GCS_Tracker.s: AntennaTracker/GCS_Tracker.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/GCS_Tracker.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/GCS_Tracker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/GCS_Tracker.cpp.s
 .PHONY : AntennaTracker/GCS_Tracker.cpp.s
 
 AntennaTracker/Log.o: AntennaTracker/Log.cpp.o
@@ -2236,7 +2236,7 @@ AntennaTracker/Log.o: AntennaTracker/Log.cpp.o
 
 # target to build an object file
 AntennaTracker/Log.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/Log.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/Log.cpp.o
 .PHONY : AntennaTracker/Log.cpp.o
 
 AntennaTracker/Log.i: AntennaTracker/Log.cpp.i
@@ -2244,7 +2244,7 @@ AntennaTracker/Log.i: AntennaTracker/Log.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/Log.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/Log.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/Log.cpp.i
 .PHONY : AntennaTracker/Log.cpp.i
 
 AntennaTracker/Log.s: AntennaTracker/Log.cpp.s
@@ -2252,7 +2252,7 @@ AntennaTracker/Log.s: AntennaTracker/Log.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/Log.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/Log.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/Log.cpp.s
 .PHONY : AntennaTracker/Log.cpp.s
 
 AntennaTracker/Parameters.o: AntennaTracker/Parameters.cpp.o
@@ -2260,7 +2260,7 @@ AntennaTracker/Parameters.o: AntennaTracker/Parameters.cpp.o
 
 # target to build an object file
 AntennaTracker/Parameters.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/Parameters.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/Parameters.cpp.o
 .PHONY : AntennaTracker/Parameters.cpp.o
 
 AntennaTracker/Parameters.i: AntennaTracker/Parameters.cpp.i
@@ -2268,7 +2268,7 @@ AntennaTracker/Parameters.i: AntennaTracker/Parameters.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/Parameters.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/Parameters.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/Parameters.cpp.i
 .PHONY : AntennaTracker/Parameters.cpp.i
 
 AntennaTracker/Parameters.s: AntennaTracker/Parameters.cpp.s
@@ -2276,7 +2276,7 @@ AntennaTracker/Parameters.s: AntennaTracker/Parameters.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/Parameters.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/Parameters.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/Parameters.cpp.s
 .PHONY : AntennaTracker/Parameters.cpp.s
 
 AntennaTracker/RC_Channel_Tracker.o: AntennaTracker/RC_Channel_Tracker.cpp.o
@@ -2284,7 +2284,7 @@ AntennaTracker/RC_Channel_Tracker.o: AntennaTracker/RC_Channel_Tracker.cpp.o
 
 # target to build an object file
 AntennaTracker/RC_Channel_Tracker.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/RC_Channel_Tracker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/RC_Channel_Tracker.cpp.o
 .PHONY : AntennaTracker/RC_Channel_Tracker.cpp.o
 
 AntennaTracker/RC_Channel_Tracker.i: AntennaTracker/RC_Channel_Tracker.cpp.i
@@ -2292,7 +2292,7 @@ AntennaTracker/RC_Channel_Tracker.i: AntennaTracker/RC_Channel_Tracker.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/RC_Channel_Tracker.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/RC_Channel_Tracker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/RC_Channel_Tracker.cpp.i
 .PHONY : AntennaTracker/RC_Channel_Tracker.cpp.i
 
 AntennaTracker/RC_Channel_Tracker.s: AntennaTracker/RC_Channel_Tracker.cpp.s
@@ -2300,7 +2300,7 @@ AntennaTracker/RC_Channel_Tracker.s: AntennaTracker/RC_Channel_Tracker.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/RC_Channel_Tracker.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/RC_Channel_Tracker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/RC_Channel_Tracker.cpp.s
 .PHONY : AntennaTracker/RC_Channel_Tracker.cpp.s
 
 AntennaTracker/Tracker.o: AntennaTracker/Tracker.cpp.o
@@ -2308,7 +2308,7 @@ AntennaTracker/Tracker.o: AntennaTracker/Tracker.cpp.o
 
 # target to build an object file
 AntennaTracker/Tracker.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/Tracker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/Tracker.cpp.o
 .PHONY : AntennaTracker/Tracker.cpp.o
 
 AntennaTracker/Tracker.i: AntennaTracker/Tracker.cpp.i
@@ -2316,7 +2316,7 @@ AntennaTracker/Tracker.i: AntennaTracker/Tracker.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/Tracker.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/Tracker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/Tracker.cpp.i
 .PHONY : AntennaTracker/Tracker.cpp.i
 
 AntennaTracker/Tracker.s: AntennaTracker/Tracker.cpp.s
@@ -2324,7 +2324,7 @@ AntennaTracker/Tracker.s: AntennaTracker/Tracker.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/Tracker.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/Tracker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/Tracker.cpp.s
 .PHONY : AntennaTracker/Tracker.cpp.s
 
 AntennaTracker/mode.o: AntennaTracker/mode.cpp.o
@@ -2332,7 +2332,7 @@ AntennaTracker/mode.o: AntennaTracker/mode.cpp.o
 
 # target to build an object file
 AntennaTracker/mode.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode.cpp.o
 .PHONY : AntennaTracker/mode.cpp.o
 
 AntennaTracker/mode.i: AntennaTracker/mode.cpp.i
@@ -2340,7 +2340,7 @@ AntennaTracker/mode.i: AntennaTracker/mode.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/mode.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode.cpp.i
 .PHONY : AntennaTracker/mode.cpp.i
 
 AntennaTracker/mode.s: AntennaTracker/mode.cpp.s
@@ -2348,7 +2348,7 @@ AntennaTracker/mode.s: AntennaTracker/mode.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/mode.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode.cpp.s
 .PHONY : AntennaTracker/mode.cpp.s
 
 AntennaTracker/mode_auto.o: AntennaTracker/mode_auto.cpp.o
@@ -2356,7 +2356,7 @@ AntennaTracker/mode_auto.o: AntennaTracker/mode_auto.cpp.o
 
 # target to build an object file
 AntennaTracker/mode_auto.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_auto.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_auto.cpp.o
 .PHONY : AntennaTracker/mode_auto.cpp.o
 
 AntennaTracker/mode_auto.i: AntennaTracker/mode_auto.cpp.i
@@ -2364,7 +2364,7 @@ AntennaTracker/mode_auto.i: AntennaTracker/mode_auto.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/mode_auto.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_auto.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_auto.cpp.i
 .PHONY : AntennaTracker/mode_auto.cpp.i
 
 AntennaTracker/mode_auto.s: AntennaTracker/mode_auto.cpp.s
@@ -2372,7 +2372,7 @@ AntennaTracker/mode_auto.s: AntennaTracker/mode_auto.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/mode_auto.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_auto.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_auto.cpp.s
 .PHONY : AntennaTracker/mode_auto.cpp.s
 
 AntennaTracker/mode_guided.o: AntennaTracker/mode_guided.cpp.o
@@ -2380,7 +2380,7 @@ AntennaTracker/mode_guided.o: AntennaTracker/mode_guided.cpp.o
 
 # target to build an object file
 AntennaTracker/mode_guided.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_guided.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_guided.cpp.o
 .PHONY : AntennaTracker/mode_guided.cpp.o
 
 AntennaTracker/mode_guided.i: AntennaTracker/mode_guided.cpp.i
@@ -2388,7 +2388,7 @@ AntennaTracker/mode_guided.i: AntennaTracker/mode_guided.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/mode_guided.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_guided.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_guided.cpp.i
 .PHONY : AntennaTracker/mode_guided.cpp.i
 
 AntennaTracker/mode_guided.s: AntennaTracker/mode_guided.cpp.s
@@ -2396,7 +2396,7 @@ AntennaTracker/mode_guided.s: AntennaTracker/mode_guided.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/mode_guided.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_guided.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_guided.cpp.s
 .PHONY : AntennaTracker/mode_guided.cpp.s
 
 AntennaTracker/mode_manual.o: AntennaTracker/mode_manual.cpp.o
@@ -2404,7 +2404,7 @@ AntennaTracker/mode_manual.o: AntennaTracker/mode_manual.cpp.o
 
 # target to build an object file
 AntennaTracker/mode_manual.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_manual.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_manual.cpp.o
 .PHONY : AntennaTracker/mode_manual.cpp.o
 
 AntennaTracker/mode_manual.i: AntennaTracker/mode_manual.cpp.i
@@ -2412,7 +2412,7 @@ AntennaTracker/mode_manual.i: AntennaTracker/mode_manual.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/mode_manual.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_manual.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_manual.cpp.i
 .PHONY : AntennaTracker/mode_manual.cpp.i
 
 AntennaTracker/mode_manual.s: AntennaTracker/mode_manual.cpp.s
@@ -2420,7 +2420,7 @@ AntennaTracker/mode_manual.s: AntennaTracker/mode_manual.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/mode_manual.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_manual.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_manual.cpp.s
 .PHONY : AntennaTracker/mode_manual.cpp.s
 
 AntennaTracker/mode_scan.o: AntennaTracker/mode_scan.cpp.o
@@ -2428,7 +2428,7 @@ AntennaTracker/mode_scan.o: AntennaTracker/mode_scan.cpp.o
 
 # target to build an object file
 AntennaTracker/mode_scan.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_scan.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_scan.cpp.o
 .PHONY : AntennaTracker/mode_scan.cpp.o
 
 AntennaTracker/mode_scan.i: AntennaTracker/mode_scan.cpp.i
@@ -2436,7 +2436,7 @@ AntennaTracker/mode_scan.i: AntennaTracker/mode_scan.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/mode_scan.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_scan.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_scan.cpp.i
 .PHONY : AntennaTracker/mode_scan.cpp.i
 
 AntennaTracker/mode_scan.s: AntennaTracker/mode_scan.cpp.s
@@ -2444,7 +2444,7 @@ AntennaTracker/mode_scan.s: AntennaTracker/mode_scan.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/mode_scan.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_scan.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_scan.cpp.s
 .PHONY : AntennaTracker/mode_scan.cpp.s
 
 AntennaTracker/mode_servotest.o: AntennaTracker/mode_servotest.cpp.o
@@ -2452,7 +2452,7 @@ AntennaTracker/mode_servotest.o: AntennaTracker/mode_servotest.cpp.o
 
 # target to build an object file
 AntennaTracker/mode_servotest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_servotest.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_servotest.cpp.o
 .PHONY : AntennaTracker/mode_servotest.cpp.o
 
 AntennaTracker/mode_servotest.i: AntennaTracker/mode_servotest.cpp.i
@@ -2460,7 +2460,7 @@ AntennaTracker/mode_servotest.i: AntennaTracker/mode_servotest.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/mode_servotest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_servotest.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_servotest.cpp.i
 .PHONY : AntennaTracker/mode_servotest.cpp.i
 
 AntennaTracker/mode_servotest.s: AntennaTracker/mode_servotest.cpp.s
@@ -2468,7 +2468,7 @@ AntennaTracker/mode_servotest.s: AntennaTracker/mode_servotest.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/mode_servotest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/mode_servotest.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/mode_servotest.cpp.s
 .PHONY : AntennaTracker/mode_servotest.cpp.s
 
 AntennaTracker/radio.o: AntennaTracker/radio.cpp.o
@@ -2476,7 +2476,7 @@ AntennaTracker/radio.o: AntennaTracker/radio.cpp.o
 
 # target to build an object file
 AntennaTracker/radio.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/radio.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/radio.cpp.o
 .PHONY : AntennaTracker/radio.cpp.o
 
 AntennaTracker/radio.i: AntennaTracker/radio.cpp.i
@@ -2484,7 +2484,7 @@ AntennaTracker/radio.i: AntennaTracker/radio.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/radio.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/radio.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/radio.cpp.i
 .PHONY : AntennaTracker/radio.cpp.i
 
 AntennaTracker/radio.s: AntennaTracker/radio.cpp.s
@@ -2492,7 +2492,7 @@ AntennaTracker/radio.s: AntennaTracker/radio.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/radio.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/radio.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/radio.cpp.s
 .PHONY : AntennaTracker/radio.cpp.s
 
 AntennaTracker/sensors.o: AntennaTracker/sensors.cpp.o
@@ -2500,7 +2500,7 @@ AntennaTracker/sensors.o: AntennaTracker/sensors.cpp.o
 
 # target to build an object file
 AntennaTracker/sensors.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/sensors.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/sensors.cpp.o
 .PHONY : AntennaTracker/sensors.cpp.o
 
 AntennaTracker/sensors.i: AntennaTracker/sensors.cpp.i
@@ -2508,7 +2508,7 @@ AntennaTracker/sensors.i: AntennaTracker/sensors.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/sensors.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/sensors.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/sensors.cpp.i
 .PHONY : AntennaTracker/sensors.cpp.i
 
 AntennaTracker/sensors.s: AntennaTracker/sensors.cpp.s
@@ -2516,7 +2516,7 @@ AntennaTracker/sensors.s: AntennaTracker/sensors.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/sensors.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/sensors.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/sensors.cpp.s
 .PHONY : AntennaTracker/sensors.cpp.s
 
 AntennaTracker/servos.o: AntennaTracker/servos.cpp.o
@@ -2524,7 +2524,7 @@ AntennaTracker/servos.o: AntennaTracker/servos.cpp.o
 
 # target to build an object file
 AntennaTracker/servos.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/servos.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/servos.cpp.o
 .PHONY : AntennaTracker/servos.cpp.o
 
 AntennaTracker/servos.i: AntennaTracker/servos.cpp.i
@@ -2532,7 +2532,7 @@ AntennaTracker/servos.i: AntennaTracker/servos.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/servos.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/servos.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/servos.cpp.i
 .PHONY : AntennaTracker/servos.cpp.i
 
 AntennaTracker/servos.s: AntennaTracker/servos.cpp.s
@@ -2540,7 +2540,7 @@ AntennaTracker/servos.s: AntennaTracker/servos.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/servos.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/servos.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/servos.cpp.s
 .PHONY : AntennaTracker/servos.cpp.s
 
 AntennaTracker/system.o: AntennaTracker/system.cpp.o
@@ -2548,7 +2548,7 @@ AntennaTracker/system.o: AntennaTracker/system.cpp.o
 
 # target to build an object file
 AntennaTracker/system.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/system.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/system.cpp.o
 .PHONY : AntennaTracker/system.cpp.o
 
 AntennaTracker/system.i: AntennaTracker/system.cpp.i
@@ -2556,7 +2556,7 @@ AntennaTracker/system.i: AntennaTracker/system.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/system.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/system.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/system.cpp.i
 .PHONY : AntennaTracker/system.cpp.i
 
 AntennaTracker/system.s: AntennaTracker/system.cpp.s
@@ -2564,7 +2564,7 @@ AntennaTracker/system.s: AntennaTracker/system.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/system.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/system.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/system.cpp.s
 .PHONY : AntennaTracker/system.cpp.s
 
 AntennaTracker/tracking.o: AntennaTracker/tracking.cpp.o
@@ -2572,7 +2572,7 @@ AntennaTracker/tracking.o: AntennaTracker/tracking.cpp.o
 
 # target to build an object file
 AntennaTracker/tracking.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/tracking.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/tracking.cpp.o
 .PHONY : AntennaTracker/tracking.cpp.o
 
 AntennaTracker/tracking.i: AntennaTracker/tracking.cpp.i
@@ -2580,7 +2580,7 @@ AntennaTracker/tracking.i: AntennaTracker/tracking.cpp.i
 
 # target to preprocess a source file
 AntennaTracker/tracking.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/tracking.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/tracking.cpp.i
 .PHONY : AntennaTracker/tracking.cpp.i
 
 AntennaTracker/tracking.s: AntennaTracker/tracking.cpp.s
@@ -2588,7 +2588,7 @@ AntennaTracker/tracking.s: AntennaTracker/tracking.cpp.s
 
 # target to generate assembly for a file
 AntennaTracker/tracking.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_antennatracker.dir/build.make CMakeFiles/bin_antennatracker.dir/AntennaTracker/tracking.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/AntennaTracker/tracking.cpp.s
 .PHONY : AntennaTracker/tracking.cpp.s
 
 ArduCopter/AP_Arming_Copter.o: ArduCopter/AP_Arming_Copter.cpp.o
@@ -2596,8 +2596,8 @@ ArduCopter/AP_Arming_Copter.o: ArduCopter/AP_Arming_Copter.cpp.o
 
 # target to build an object file
 ArduCopter/AP_Arming_Copter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/AP_Arming_Copter.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/AP_Arming_Copter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/AP_Arming_Copter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/AP_Arming_Copter.cpp.o
 .PHONY : ArduCopter/AP_Arming_Copter.cpp.o
 
 ArduCopter/AP_Arming_Copter.i: ArduCopter/AP_Arming_Copter.cpp.i
@@ -2605,8 +2605,8 @@ ArduCopter/AP_Arming_Copter.i: ArduCopter/AP_Arming_Copter.cpp.i
 
 # target to preprocess a source file
 ArduCopter/AP_Arming_Copter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/AP_Arming_Copter.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/AP_Arming_Copter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/AP_Arming_Copter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/AP_Arming_Copter.cpp.i
 .PHONY : ArduCopter/AP_Arming_Copter.cpp.i
 
 ArduCopter/AP_Arming_Copter.s: ArduCopter/AP_Arming_Copter.cpp.s
@@ -2614,8 +2614,8 @@ ArduCopter/AP_Arming_Copter.s: ArduCopter/AP_Arming_Copter.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/AP_Arming_Copter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/AP_Arming_Copter.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/AP_Arming_Copter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/AP_Arming_Copter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/AP_Arming_Copter.cpp.s
 .PHONY : ArduCopter/AP_Arming_Copter.cpp.s
 
 ArduCopter/AP_ExternalControl_Copter.o: ArduCopter/AP_ExternalControl_Copter.cpp.o
@@ -2623,8 +2623,8 @@ ArduCopter/AP_ExternalControl_Copter.o: ArduCopter/AP_ExternalControl_Copter.cpp
 
 # target to build an object file
 ArduCopter/AP_ExternalControl_Copter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/AP_ExternalControl_Copter.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/AP_ExternalControl_Copter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/AP_ExternalControl_Copter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/AP_ExternalControl_Copter.cpp.o
 .PHONY : ArduCopter/AP_ExternalControl_Copter.cpp.o
 
 ArduCopter/AP_ExternalControl_Copter.i: ArduCopter/AP_ExternalControl_Copter.cpp.i
@@ -2632,8 +2632,8 @@ ArduCopter/AP_ExternalControl_Copter.i: ArduCopter/AP_ExternalControl_Copter.cpp
 
 # target to preprocess a source file
 ArduCopter/AP_ExternalControl_Copter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/AP_ExternalControl_Copter.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/AP_ExternalControl_Copter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/AP_ExternalControl_Copter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/AP_ExternalControl_Copter.cpp.i
 .PHONY : ArduCopter/AP_ExternalControl_Copter.cpp.i
 
 ArduCopter/AP_ExternalControl_Copter.s: ArduCopter/AP_ExternalControl_Copter.cpp.s
@@ -2641,8 +2641,8 @@ ArduCopter/AP_ExternalControl_Copter.s: ArduCopter/AP_ExternalControl_Copter.cpp
 
 # target to generate assembly for a file
 ArduCopter/AP_ExternalControl_Copter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/AP_ExternalControl_Copter.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/AP_ExternalControl_Copter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/AP_ExternalControl_Copter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/AP_ExternalControl_Copter.cpp.s
 .PHONY : ArduCopter/AP_ExternalControl_Copter.cpp.s
 
 ArduCopter/AP_Rally.o: ArduCopter/AP_Rally.cpp.o
@@ -2650,8 +2650,8 @@ ArduCopter/AP_Rally.o: ArduCopter/AP_Rally.cpp.o
 
 # target to build an object file
 ArduCopter/AP_Rally.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/AP_Rally.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/AP_Rally.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/AP_Rally.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/AP_Rally.cpp.o
 .PHONY : ArduCopter/AP_Rally.cpp.o
 
 ArduCopter/AP_Rally.i: ArduCopter/AP_Rally.cpp.i
@@ -2659,8 +2659,8 @@ ArduCopter/AP_Rally.i: ArduCopter/AP_Rally.cpp.i
 
 # target to preprocess a source file
 ArduCopter/AP_Rally.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/AP_Rally.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/AP_Rally.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/AP_Rally.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/AP_Rally.cpp.i
 .PHONY : ArduCopter/AP_Rally.cpp.i
 
 ArduCopter/AP_Rally.s: ArduCopter/AP_Rally.cpp.s
@@ -2668,8 +2668,8 @@ ArduCopter/AP_Rally.s: ArduCopter/AP_Rally.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/AP_Rally.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/AP_Rally.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/AP_Rally.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/AP_Rally.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/AP_Rally.cpp.s
 .PHONY : ArduCopter/AP_Rally.cpp.s
 
 ArduCopter/AP_State.o: ArduCopter/AP_State.cpp.o
@@ -2677,8 +2677,8 @@ ArduCopter/AP_State.o: ArduCopter/AP_State.cpp.o
 
 # target to build an object file
 ArduCopter/AP_State.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/AP_State.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/AP_State.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/AP_State.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/AP_State.cpp.o
 .PHONY : ArduCopter/AP_State.cpp.o
 
 ArduCopter/AP_State.i: ArduCopter/AP_State.cpp.i
@@ -2686,8 +2686,8 @@ ArduCopter/AP_State.i: ArduCopter/AP_State.cpp.i
 
 # target to preprocess a source file
 ArduCopter/AP_State.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/AP_State.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/AP_State.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/AP_State.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/AP_State.cpp.i
 .PHONY : ArduCopter/AP_State.cpp.i
 
 ArduCopter/AP_State.s: ArduCopter/AP_State.cpp.s
@@ -2695,8 +2695,8 @@ ArduCopter/AP_State.s: ArduCopter/AP_State.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/AP_State.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/AP_State.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/AP_State.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/AP_State.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/AP_State.cpp.s
 .PHONY : ArduCopter/AP_State.cpp.s
 
 ArduCopter/Attitude.o: ArduCopter/Attitude.cpp.o
@@ -2704,8 +2704,8 @@ ArduCopter/Attitude.o: ArduCopter/Attitude.cpp.o
 
 # target to build an object file
 ArduCopter/Attitude.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/Attitude.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/Attitude.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/Attitude.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/Attitude.cpp.o
 .PHONY : ArduCopter/Attitude.cpp.o
 
 ArduCopter/Attitude.i: ArduCopter/Attitude.cpp.i
@@ -2713,8 +2713,8 @@ ArduCopter/Attitude.i: ArduCopter/Attitude.cpp.i
 
 # target to preprocess a source file
 ArduCopter/Attitude.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/Attitude.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/Attitude.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/Attitude.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/Attitude.cpp.i
 .PHONY : ArduCopter/Attitude.cpp.i
 
 ArduCopter/Attitude.s: ArduCopter/Attitude.cpp.s
@@ -2722,8 +2722,8 @@ ArduCopter/Attitude.s: ArduCopter/Attitude.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/Attitude.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/Attitude.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/Attitude.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/Attitude.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/Attitude.cpp.s
 .PHONY : ArduCopter/Attitude.cpp.s
 
 ArduCopter/Copter.o: ArduCopter/Copter.cpp.o
@@ -2731,8 +2731,8 @@ ArduCopter/Copter.o: ArduCopter/Copter.cpp.o
 
 # target to build an object file
 ArduCopter/Copter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/Copter.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/Copter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/Copter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/Copter.cpp.o
 .PHONY : ArduCopter/Copter.cpp.o
 
 ArduCopter/Copter.i: ArduCopter/Copter.cpp.i
@@ -2740,8 +2740,8 @@ ArduCopter/Copter.i: ArduCopter/Copter.cpp.i
 
 # target to preprocess a source file
 ArduCopter/Copter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/Copter.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/Copter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/Copter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/Copter.cpp.i
 .PHONY : ArduCopter/Copter.cpp.i
 
 ArduCopter/Copter.s: ArduCopter/Copter.cpp.s
@@ -2749,8 +2749,8 @@ ArduCopter/Copter.s: ArduCopter/Copter.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/Copter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/Copter.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/Copter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/Copter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/Copter.cpp.s
 .PHONY : ArduCopter/Copter.cpp.s
 
 ArduCopter/GCS_Copter.o: ArduCopter/GCS_Copter.cpp.o
@@ -2758,8 +2758,8 @@ ArduCopter/GCS_Copter.o: ArduCopter/GCS_Copter.cpp.o
 
 # target to build an object file
 ArduCopter/GCS_Copter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/GCS_Copter.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/GCS_Copter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/GCS_Copter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/GCS_Copter.cpp.o
 .PHONY : ArduCopter/GCS_Copter.cpp.o
 
 ArduCopter/GCS_Copter.i: ArduCopter/GCS_Copter.cpp.i
@@ -2767,8 +2767,8 @@ ArduCopter/GCS_Copter.i: ArduCopter/GCS_Copter.cpp.i
 
 # target to preprocess a source file
 ArduCopter/GCS_Copter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/GCS_Copter.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/GCS_Copter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/GCS_Copter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/GCS_Copter.cpp.i
 .PHONY : ArduCopter/GCS_Copter.cpp.i
 
 ArduCopter/GCS_Copter.s: ArduCopter/GCS_Copter.cpp.s
@@ -2776,8 +2776,8 @@ ArduCopter/GCS_Copter.s: ArduCopter/GCS_Copter.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/GCS_Copter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/GCS_Copter.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/GCS_Copter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/GCS_Copter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/GCS_Copter.cpp.s
 .PHONY : ArduCopter/GCS_Copter.cpp.s
 
 ArduCopter/GCS_MAVLink_Copter.o: ArduCopter/GCS_MAVLink_Copter.cpp.o
@@ -2785,8 +2785,8 @@ ArduCopter/GCS_MAVLink_Copter.o: ArduCopter/GCS_MAVLink_Copter.cpp.o
 
 # target to build an object file
 ArduCopter/GCS_MAVLink_Copter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/GCS_MAVLink_Copter.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/GCS_MAVLink_Copter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/GCS_MAVLink_Copter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/GCS_MAVLink_Copter.cpp.o
 .PHONY : ArduCopter/GCS_MAVLink_Copter.cpp.o
 
 ArduCopter/GCS_MAVLink_Copter.i: ArduCopter/GCS_MAVLink_Copter.cpp.i
@@ -2794,8 +2794,8 @@ ArduCopter/GCS_MAVLink_Copter.i: ArduCopter/GCS_MAVLink_Copter.cpp.i
 
 # target to preprocess a source file
 ArduCopter/GCS_MAVLink_Copter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/GCS_MAVLink_Copter.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/GCS_MAVLink_Copter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/GCS_MAVLink_Copter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/GCS_MAVLink_Copter.cpp.i
 .PHONY : ArduCopter/GCS_MAVLink_Copter.cpp.i
 
 ArduCopter/GCS_MAVLink_Copter.s: ArduCopter/GCS_MAVLink_Copter.cpp.s
@@ -2803,8 +2803,8 @@ ArduCopter/GCS_MAVLink_Copter.s: ArduCopter/GCS_MAVLink_Copter.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/GCS_MAVLink_Copter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/GCS_MAVLink_Copter.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/GCS_MAVLink_Copter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/GCS_MAVLink_Copter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/GCS_MAVLink_Copter.cpp.s
 .PHONY : ArduCopter/GCS_MAVLink_Copter.cpp.s
 
 ArduCopter/Log.o: ArduCopter/Log.cpp.o
@@ -2812,8 +2812,8 @@ ArduCopter/Log.o: ArduCopter/Log.cpp.o
 
 # target to build an object file
 ArduCopter/Log.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/Log.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/Log.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/Log.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/Log.cpp.o
 .PHONY : ArduCopter/Log.cpp.o
 
 ArduCopter/Log.i: ArduCopter/Log.cpp.i
@@ -2821,8 +2821,8 @@ ArduCopter/Log.i: ArduCopter/Log.cpp.i
 
 # target to preprocess a source file
 ArduCopter/Log.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/Log.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/Log.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/Log.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/Log.cpp.i
 .PHONY : ArduCopter/Log.cpp.i
 
 ArduCopter/Log.s: ArduCopter/Log.cpp.s
@@ -2830,8 +2830,8 @@ ArduCopter/Log.s: ArduCopter/Log.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/Log.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/Log.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/Log.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/Log.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/Log.cpp.s
 .PHONY : ArduCopter/Log.cpp.s
 
 ArduCopter/Parameters.o: ArduCopter/Parameters.cpp.o
@@ -2839,8 +2839,8 @@ ArduCopter/Parameters.o: ArduCopter/Parameters.cpp.o
 
 # target to build an object file
 ArduCopter/Parameters.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/Parameters.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/Parameters.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/Parameters.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/Parameters.cpp.o
 .PHONY : ArduCopter/Parameters.cpp.o
 
 ArduCopter/Parameters.i: ArduCopter/Parameters.cpp.i
@@ -2848,8 +2848,8 @@ ArduCopter/Parameters.i: ArduCopter/Parameters.cpp.i
 
 # target to preprocess a source file
 ArduCopter/Parameters.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/Parameters.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/Parameters.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/Parameters.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/Parameters.cpp.i
 .PHONY : ArduCopter/Parameters.cpp.i
 
 ArduCopter/Parameters.s: ArduCopter/Parameters.cpp.s
@@ -2857,8 +2857,8 @@ ArduCopter/Parameters.s: ArduCopter/Parameters.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/Parameters.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/Parameters.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/Parameters.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/Parameters.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/Parameters.cpp.s
 .PHONY : ArduCopter/Parameters.cpp.s
 
 ArduCopter/RC_Channel_Copter.o: ArduCopter/RC_Channel_Copter.cpp.o
@@ -2866,8 +2866,8 @@ ArduCopter/RC_Channel_Copter.o: ArduCopter/RC_Channel_Copter.cpp.o
 
 # target to build an object file
 ArduCopter/RC_Channel_Copter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/RC_Channel_Copter.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/RC_Channel_Copter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/RC_Channel_Copter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/RC_Channel_Copter.cpp.o
 .PHONY : ArduCopter/RC_Channel_Copter.cpp.o
 
 ArduCopter/RC_Channel_Copter.i: ArduCopter/RC_Channel_Copter.cpp.i
@@ -2875,8 +2875,8 @@ ArduCopter/RC_Channel_Copter.i: ArduCopter/RC_Channel_Copter.cpp.i
 
 # target to preprocess a source file
 ArduCopter/RC_Channel_Copter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/RC_Channel_Copter.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/RC_Channel_Copter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/RC_Channel_Copter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/RC_Channel_Copter.cpp.i
 .PHONY : ArduCopter/RC_Channel_Copter.cpp.i
 
 ArduCopter/RC_Channel_Copter.s: ArduCopter/RC_Channel_Copter.cpp.s
@@ -2884,8 +2884,8 @@ ArduCopter/RC_Channel_Copter.s: ArduCopter/RC_Channel_Copter.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/RC_Channel_Copter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/RC_Channel_Copter.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/RC_Channel_Copter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/RC_Channel_Copter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/RC_Channel_Copter.cpp.s
 .PHONY : ArduCopter/RC_Channel_Copter.cpp.s
 
 ArduCopter/UserCode.o: ArduCopter/UserCode.cpp.o
@@ -2893,8 +2893,8 @@ ArduCopter/UserCode.o: ArduCopter/UserCode.cpp.o
 
 # target to build an object file
 ArduCopter/UserCode.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/UserCode.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/UserCode.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/UserCode.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/UserCode.cpp.o
 .PHONY : ArduCopter/UserCode.cpp.o
 
 ArduCopter/UserCode.i: ArduCopter/UserCode.cpp.i
@@ -2902,8 +2902,8 @@ ArduCopter/UserCode.i: ArduCopter/UserCode.cpp.i
 
 # target to preprocess a source file
 ArduCopter/UserCode.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/UserCode.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/UserCode.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/UserCode.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/UserCode.cpp.i
 .PHONY : ArduCopter/UserCode.cpp.i
 
 ArduCopter/UserCode.s: ArduCopter/UserCode.cpp.s
@@ -2911,8 +2911,8 @@ ArduCopter/UserCode.s: ArduCopter/UserCode.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/UserCode.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/UserCode.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/UserCode.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/UserCode.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/UserCode.cpp.s
 .PHONY : ArduCopter/UserCode.cpp.s
 
 ArduCopter/UserParameters.o: ArduCopter/UserParameters.cpp.o
@@ -2920,8 +2920,8 @@ ArduCopter/UserParameters.o: ArduCopter/UserParameters.cpp.o
 
 # target to build an object file
 ArduCopter/UserParameters.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/UserParameters.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/UserParameters.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/UserParameters.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/UserParameters.cpp.o
 .PHONY : ArduCopter/UserParameters.cpp.o
 
 ArduCopter/UserParameters.i: ArduCopter/UserParameters.cpp.i
@@ -2929,8 +2929,8 @@ ArduCopter/UserParameters.i: ArduCopter/UserParameters.cpp.i
 
 # target to preprocess a source file
 ArduCopter/UserParameters.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/UserParameters.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/UserParameters.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/UserParameters.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/UserParameters.cpp.i
 .PHONY : ArduCopter/UserParameters.cpp.i
 
 ArduCopter/UserParameters.s: ArduCopter/UserParameters.cpp.s
@@ -2938,8 +2938,8 @@ ArduCopter/UserParameters.s: ArduCopter/UserParameters.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/UserParameters.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/UserParameters.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/UserParameters.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/UserParameters.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/UserParameters.cpp.s
 .PHONY : ArduCopter/UserParameters.cpp.s
 
 ArduCopter/afs_copter.o: ArduCopter/afs_copter.cpp.o
@@ -2947,8 +2947,8 @@ ArduCopter/afs_copter.o: ArduCopter/afs_copter.cpp.o
 
 # target to build an object file
 ArduCopter/afs_copter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/afs_copter.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/afs_copter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/afs_copter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/afs_copter.cpp.o
 .PHONY : ArduCopter/afs_copter.cpp.o
 
 ArduCopter/afs_copter.i: ArduCopter/afs_copter.cpp.i
@@ -2956,8 +2956,8 @@ ArduCopter/afs_copter.i: ArduCopter/afs_copter.cpp.i
 
 # target to preprocess a source file
 ArduCopter/afs_copter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/afs_copter.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/afs_copter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/afs_copter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/afs_copter.cpp.i
 .PHONY : ArduCopter/afs_copter.cpp.i
 
 ArduCopter/afs_copter.s: ArduCopter/afs_copter.cpp.s
@@ -2965,8 +2965,8 @@ ArduCopter/afs_copter.s: ArduCopter/afs_copter.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/afs_copter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/afs_copter.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/afs_copter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/afs_copter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/afs_copter.cpp.s
 .PHONY : ArduCopter/afs_copter.cpp.s
 
 ArduCopter/autoyaw.o: ArduCopter/autoyaw.cpp.o
@@ -2974,8 +2974,8 @@ ArduCopter/autoyaw.o: ArduCopter/autoyaw.cpp.o
 
 # target to build an object file
 ArduCopter/autoyaw.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/autoyaw.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/autoyaw.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/autoyaw.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/autoyaw.cpp.o
 .PHONY : ArduCopter/autoyaw.cpp.o
 
 ArduCopter/autoyaw.i: ArduCopter/autoyaw.cpp.i
@@ -2983,8 +2983,8 @@ ArduCopter/autoyaw.i: ArduCopter/autoyaw.cpp.i
 
 # target to preprocess a source file
 ArduCopter/autoyaw.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/autoyaw.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/autoyaw.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/autoyaw.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/autoyaw.cpp.i
 .PHONY : ArduCopter/autoyaw.cpp.i
 
 ArduCopter/autoyaw.s: ArduCopter/autoyaw.cpp.s
@@ -2992,8 +2992,8 @@ ArduCopter/autoyaw.s: ArduCopter/autoyaw.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/autoyaw.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/autoyaw.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/autoyaw.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/autoyaw.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/autoyaw.cpp.s
 .PHONY : ArduCopter/autoyaw.cpp.s
 
 ArduCopter/avoidance.o: ArduCopter/avoidance.cpp.o
@@ -3001,8 +3001,8 @@ ArduCopter/avoidance.o: ArduCopter/avoidance.cpp.o
 
 # target to build an object file
 ArduCopter/avoidance.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/avoidance.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/avoidance.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/avoidance.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/avoidance.cpp.o
 .PHONY : ArduCopter/avoidance.cpp.o
 
 ArduCopter/avoidance.i: ArduCopter/avoidance.cpp.i
@@ -3010,8 +3010,8 @@ ArduCopter/avoidance.i: ArduCopter/avoidance.cpp.i
 
 # target to preprocess a source file
 ArduCopter/avoidance.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/avoidance.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/avoidance.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/avoidance.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/avoidance.cpp.i
 .PHONY : ArduCopter/avoidance.cpp.i
 
 ArduCopter/avoidance.s: ArduCopter/avoidance.cpp.s
@@ -3019,8 +3019,8 @@ ArduCopter/avoidance.s: ArduCopter/avoidance.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/avoidance.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/avoidance.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/avoidance.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/avoidance.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/avoidance.cpp.s
 .PHONY : ArduCopter/avoidance.cpp.s
 
 ArduCopter/avoidance_adsb.o: ArduCopter/avoidance_adsb.cpp.o
@@ -3028,8 +3028,8 @@ ArduCopter/avoidance_adsb.o: ArduCopter/avoidance_adsb.cpp.o
 
 # target to build an object file
 ArduCopter/avoidance_adsb.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/avoidance_adsb.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/avoidance_adsb.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/avoidance_adsb.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/avoidance_adsb.cpp.o
 .PHONY : ArduCopter/avoidance_adsb.cpp.o
 
 ArduCopter/avoidance_adsb.i: ArduCopter/avoidance_adsb.cpp.i
@@ -3037,8 +3037,8 @@ ArduCopter/avoidance_adsb.i: ArduCopter/avoidance_adsb.cpp.i
 
 # target to preprocess a source file
 ArduCopter/avoidance_adsb.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/avoidance_adsb.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/avoidance_adsb.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/avoidance_adsb.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/avoidance_adsb.cpp.i
 .PHONY : ArduCopter/avoidance_adsb.cpp.i
 
 ArduCopter/avoidance_adsb.s: ArduCopter/avoidance_adsb.cpp.s
@@ -3046,8 +3046,8 @@ ArduCopter/avoidance_adsb.s: ArduCopter/avoidance_adsb.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/avoidance_adsb.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/avoidance_adsb.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/avoidance_adsb.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/avoidance_adsb.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/avoidance_adsb.cpp.s
 .PHONY : ArduCopter/avoidance_adsb.cpp.s
 
 ArduCopter/baro_ground_effect.o: ArduCopter/baro_ground_effect.cpp.o
@@ -3055,8 +3055,8 @@ ArduCopter/baro_ground_effect.o: ArduCopter/baro_ground_effect.cpp.o
 
 # target to build an object file
 ArduCopter/baro_ground_effect.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/baro_ground_effect.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/baro_ground_effect.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/baro_ground_effect.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/baro_ground_effect.cpp.o
 .PHONY : ArduCopter/baro_ground_effect.cpp.o
 
 ArduCopter/baro_ground_effect.i: ArduCopter/baro_ground_effect.cpp.i
@@ -3064,8 +3064,8 @@ ArduCopter/baro_ground_effect.i: ArduCopter/baro_ground_effect.cpp.i
 
 # target to preprocess a source file
 ArduCopter/baro_ground_effect.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/baro_ground_effect.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/baro_ground_effect.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/baro_ground_effect.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/baro_ground_effect.cpp.i
 .PHONY : ArduCopter/baro_ground_effect.cpp.i
 
 ArduCopter/baro_ground_effect.s: ArduCopter/baro_ground_effect.cpp.s
@@ -3073,8 +3073,8 @@ ArduCopter/baro_ground_effect.s: ArduCopter/baro_ground_effect.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/baro_ground_effect.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/baro_ground_effect.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/baro_ground_effect.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/baro_ground_effect.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/baro_ground_effect.cpp.s
 .PHONY : ArduCopter/baro_ground_effect.cpp.s
 
 ArduCopter/commands.o: ArduCopter/commands.cpp.o
@@ -3082,8 +3082,8 @@ ArduCopter/commands.o: ArduCopter/commands.cpp.o
 
 # target to build an object file
 ArduCopter/commands.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/commands.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/commands.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/commands.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/commands.cpp.o
 .PHONY : ArduCopter/commands.cpp.o
 
 ArduCopter/commands.i: ArduCopter/commands.cpp.i
@@ -3091,8 +3091,8 @@ ArduCopter/commands.i: ArduCopter/commands.cpp.i
 
 # target to preprocess a source file
 ArduCopter/commands.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/commands.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/commands.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/commands.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/commands.cpp.i
 .PHONY : ArduCopter/commands.cpp.i
 
 ArduCopter/commands.s: ArduCopter/commands.cpp.s
@@ -3100,8 +3100,8 @@ ArduCopter/commands.s: ArduCopter/commands.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/commands.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/commands.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/commands.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/commands.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/commands.cpp.s
 .PHONY : ArduCopter/commands.cpp.s
 
 ArduCopter/compassmot.o: ArduCopter/compassmot.cpp.o
@@ -3109,8 +3109,8 @@ ArduCopter/compassmot.o: ArduCopter/compassmot.cpp.o
 
 # target to build an object file
 ArduCopter/compassmot.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/compassmot.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/compassmot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/compassmot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/compassmot.cpp.o
 .PHONY : ArduCopter/compassmot.cpp.o
 
 ArduCopter/compassmot.i: ArduCopter/compassmot.cpp.i
@@ -3118,8 +3118,8 @@ ArduCopter/compassmot.i: ArduCopter/compassmot.cpp.i
 
 # target to preprocess a source file
 ArduCopter/compassmot.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/compassmot.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/compassmot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/compassmot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/compassmot.cpp.i
 .PHONY : ArduCopter/compassmot.cpp.i
 
 ArduCopter/compassmot.s: ArduCopter/compassmot.cpp.s
@@ -3127,8 +3127,8 @@ ArduCopter/compassmot.s: ArduCopter/compassmot.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/compassmot.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/compassmot.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/compassmot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/compassmot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/compassmot.cpp.s
 .PHONY : ArduCopter/compassmot.cpp.s
 
 ArduCopter/crash_check.o: ArduCopter/crash_check.cpp.o
@@ -3136,8 +3136,8 @@ ArduCopter/crash_check.o: ArduCopter/crash_check.cpp.o
 
 # target to build an object file
 ArduCopter/crash_check.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/crash_check.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/crash_check.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/crash_check.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/crash_check.cpp.o
 .PHONY : ArduCopter/crash_check.cpp.o
 
 ArduCopter/crash_check.i: ArduCopter/crash_check.cpp.i
@@ -3145,8 +3145,8 @@ ArduCopter/crash_check.i: ArduCopter/crash_check.cpp.i
 
 # target to preprocess a source file
 ArduCopter/crash_check.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/crash_check.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/crash_check.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/crash_check.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/crash_check.cpp.i
 .PHONY : ArduCopter/crash_check.cpp.i
 
 ArduCopter/crash_check.s: ArduCopter/crash_check.cpp.s
@@ -3154,8 +3154,8 @@ ArduCopter/crash_check.s: ArduCopter/crash_check.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/crash_check.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/crash_check.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/crash_check.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/crash_check.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/crash_check.cpp.s
 .PHONY : ArduCopter/crash_check.cpp.s
 
 ArduCopter/ekf_check.o: ArduCopter/ekf_check.cpp.o
@@ -3163,8 +3163,8 @@ ArduCopter/ekf_check.o: ArduCopter/ekf_check.cpp.o
 
 # target to build an object file
 ArduCopter/ekf_check.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/ekf_check.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/ekf_check.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/ekf_check.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/ekf_check.cpp.o
 .PHONY : ArduCopter/ekf_check.cpp.o
 
 ArduCopter/ekf_check.i: ArduCopter/ekf_check.cpp.i
@@ -3172,8 +3172,8 @@ ArduCopter/ekf_check.i: ArduCopter/ekf_check.cpp.i
 
 # target to preprocess a source file
 ArduCopter/ekf_check.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/ekf_check.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/ekf_check.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/ekf_check.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/ekf_check.cpp.i
 .PHONY : ArduCopter/ekf_check.cpp.i
 
 ArduCopter/ekf_check.s: ArduCopter/ekf_check.cpp.s
@@ -3181,8 +3181,8 @@ ArduCopter/ekf_check.s: ArduCopter/ekf_check.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/ekf_check.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/ekf_check.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/ekf_check.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/ekf_check.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/ekf_check.cpp.s
 .PHONY : ArduCopter/ekf_check.cpp.s
 
 ArduCopter/esc_calibration.o: ArduCopter/esc_calibration.cpp.o
@@ -3190,8 +3190,8 @@ ArduCopter/esc_calibration.o: ArduCopter/esc_calibration.cpp.o
 
 # target to build an object file
 ArduCopter/esc_calibration.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/esc_calibration.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/esc_calibration.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/esc_calibration.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/esc_calibration.cpp.o
 .PHONY : ArduCopter/esc_calibration.cpp.o
 
 ArduCopter/esc_calibration.i: ArduCopter/esc_calibration.cpp.i
@@ -3199,8 +3199,8 @@ ArduCopter/esc_calibration.i: ArduCopter/esc_calibration.cpp.i
 
 # target to preprocess a source file
 ArduCopter/esc_calibration.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/esc_calibration.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/esc_calibration.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/esc_calibration.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/esc_calibration.cpp.i
 .PHONY : ArduCopter/esc_calibration.cpp.i
 
 ArduCopter/esc_calibration.s: ArduCopter/esc_calibration.cpp.s
@@ -3208,8 +3208,8 @@ ArduCopter/esc_calibration.s: ArduCopter/esc_calibration.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/esc_calibration.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/esc_calibration.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/esc_calibration.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/esc_calibration.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/esc_calibration.cpp.s
 .PHONY : ArduCopter/esc_calibration.cpp.s
 
 ArduCopter/events.o: ArduCopter/events.cpp.o
@@ -3217,8 +3217,8 @@ ArduCopter/events.o: ArduCopter/events.cpp.o
 
 # target to build an object file
 ArduCopter/events.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/events.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/events.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/events.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/events.cpp.o
 .PHONY : ArduCopter/events.cpp.o
 
 ArduCopter/events.i: ArduCopter/events.cpp.i
@@ -3226,8 +3226,8 @@ ArduCopter/events.i: ArduCopter/events.cpp.i
 
 # target to preprocess a source file
 ArduCopter/events.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/events.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/events.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/events.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/events.cpp.i
 .PHONY : ArduCopter/events.cpp.i
 
 ArduCopter/events.s: ArduCopter/events.cpp.s
@@ -3235,8 +3235,8 @@ ArduCopter/events.s: ArduCopter/events.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/events.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/events.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/events.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/events.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/events.cpp.s
 .PHONY : ArduCopter/events.cpp.s
 
 ArduCopter/failsafe.o: ArduCopter/failsafe.cpp.o
@@ -3244,8 +3244,8 @@ ArduCopter/failsafe.o: ArduCopter/failsafe.cpp.o
 
 # target to build an object file
 ArduCopter/failsafe.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/failsafe.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/failsafe.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/failsafe.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/failsafe.cpp.o
 .PHONY : ArduCopter/failsafe.cpp.o
 
 ArduCopter/failsafe.i: ArduCopter/failsafe.cpp.i
@@ -3253,8 +3253,8 @@ ArduCopter/failsafe.i: ArduCopter/failsafe.cpp.i
 
 # target to preprocess a source file
 ArduCopter/failsafe.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/failsafe.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/failsafe.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/failsafe.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/failsafe.cpp.i
 .PHONY : ArduCopter/failsafe.cpp.i
 
 ArduCopter/failsafe.s: ArduCopter/failsafe.cpp.s
@@ -3262,8 +3262,8 @@ ArduCopter/failsafe.s: ArduCopter/failsafe.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/failsafe.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/failsafe.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/failsafe.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/failsafe.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/failsafe.cpp.s
 .PHONY : ArduCopter/failsafe.cpp.s
 
 ArduCopter/fence.o: ArduCopter/fence.cpp.o
@@ -3271,8 +3271,8 @@ ArduCopter/fence.o: ArduCopter/fence.cpp.o
 
 # target to build an object file
 ArduCopter/fence.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/fence.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/fence.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/fence.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/fence.cpp.o
 .PHONY : ArduCopter/fence.cpp.o
 
 ArduCopter/fence.i: ArduCopter/fence.cpp.i
@@ -3280,8 +3280,8 @@ ArduCopter/fence.i: ArduCopter/fence.cpp.i
 
 # target to preprocess a source file
 ArduCopter/fence.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/fence.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/fence.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/fence.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/fence.cpp.i
 .PHONY : ArduCopter/fence.cpp.i
 
 ArduCopter/fence.s: ArduCopter/fence.cpp.s
@@ -3289,8 +3289,8 @@ ArduCopter/fence.s: ArduCopter/fence.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/fence.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/fence.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/fence.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/fence.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/fence.cpp.s
 .PHONY : ArduCopter/fence.cpp.s
 
 ArduCopter/heli.o: ArduCopter/heli.cpp.o
@@ -3298,8 +3298,8 @@ ArduCopter/heli.o: ArduCopter/heli.cpp.o
 
 # target to build an object file
 ArduCopter/heli.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/heli.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/heli.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/heli.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/heli.cpp.o
 .PHONY : ArduCopter/heli.cpp.o
 
 ArduCopter/heli.i: ArduCopter/heli.cpp.i
@@ -3307,8 +3307,8 @@ ArduCopter/heli.i: ArduCopter/heli.cpp.i
 
 # target to preprocess a source file
 ArduCopter/heli.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/heli.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/heli.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/heli.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/heli.cpp.i
 .PHONY : ArduCopter/heli.cpp.i
 
 ArduCopter/heli.s: ArduCopter/heli.cpp.s
@@ -3316,8 +3316,8 @@ ArduCopter/heli.s: ArduCopter/heli.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/heli.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/heli.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/heli.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/heli.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/heli.cpp.s
 .PHONY : ArduCopter/heli.cpp.s
 
 ArduCopter/inertia.o: ArduCopter/inertia.cpp.o
@@ -3325,8 +3325,8 @@ ArduCopter/inertia.o: ArduCopter/inertia.cpp.o
 
 # target to build an object file
 ArduCopter/inertia.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/inertia.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/inertia.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/inertia.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/inertia.cpp.o
 .PHONY : ArduCopter/inertia.cpp.o
 
 ArduCopter/inertia.i: ArduCopter/inertia.cpp.i
@@ -3334,8 +3334,8 @@ ArduCopter/inertia.i: ArduCopter/inertia.cpp.i
 
 # target to preprocess a source file
 ArduCopter/inertia.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/inertia.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/inertia.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/inertia.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/inertia.cpp.i
 .PHONY : ArduCopter/inertia.cpp.i
 
 ArduCopter/inertia.s: ArduCopter/inertia.cpp.s
@@ -3343,8 +3343,8 @@ ArduCopter/inertia.s: ArduCopter/inertia.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/inertia.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/inertia.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/inertia.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/inertia.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/inertia.cpp.s
 .PHONY : ArduCopter/inertia.cpp.s
 
 ArduCopter/land_detector.o: ArduCopter/land_detector.cpp.o
@@ -3352,8 +3352,8 @@ ArduCopter/land_detector.o: ArduCopter/land_detector.cpp.o
 
 # target to build an object file
 ArduCopter/land_detector.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/land_detector.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/land_detector.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/land_detector.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/land_detector.cpp.o
 .PHONY : ArduCopter/land_detector.cpp.o
 
 ArduCopter/land_detector.i: ArduCopter/land_detector.cpp.i
@@ -3361,8 +3361,8 @@ ArduCopter/land_detector.i: ArduCopter/land_detector.cpp.i
 
 # target to preprocess a source file
 ArduCopter/land_detector.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/land_detector.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/land_detector.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/land_detector.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/land_detector.cpp.i
 .PHONY : ArduCopter/land_detector.cpp.i
 
 ArduCopter/land_detector.s: ArduCopter/land_detector.cpp.s
@@ -3370,8 +3370,8 @@ ArduCopter/land_detector.s: ArduCopter/land_detector.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/land_detector.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/land_detector.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/land_detector.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/land_detector.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/land_detector.cpp.s
 .PHONY : ArduCopter/land_detector.cpp.s
 
 ArduCopter/landing_gear.o: ArduCopter/landing_gear.cpp.o
@@ -3379,8 +3379,8 @@ ArduCopter/landing_gear.o: ArduCopter/landing_gear.cpp.o
 
 # target to build an object file
 ArduCopter/landing_gear.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/landing_gear.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/landing_gear.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/landing_gear.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/landing_gear.cpp.o
 .PHONY : ArduCopter/landing_gear.cpp.o
 
 ArduCopter/landing_gear.i: ArduCopter/landing_gear.cpp.i
@@ -3388,8 +3388,8 @@ ArduCopter/landing_gear.i: ArduCopter/landing_gear.cpp.i
 
 # target to preprocess a source file
 ArduCopter/landing_gear.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/landing_gear.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/landing_gear.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/landing_gear.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/landing_gear.cpp.i
 .PHONY : ArduCopter/landing_gear.cpp.i
 
 ArduCopter/landing_gear.s: ArduCopter/landing_gear.cpp.s
@@ -3397,8 +3397,8 @@ ArduCopter/landing_gear.s: ArduCopter/landing_gear.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/landing_gear.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/landing_gear.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/landing_gear.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/landing_gear.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/landing_gear.cpp.s
 .PHONY : ArduCopter/landing_gear.cpp.s
 
 ArduCopter/mode.o: ArduCopter/mode.cpp.o
@@ -3406,8 +3406,8 @@ ArduCopter/mode.o: ArduCopter/mode.cpp.o
 
 # target to build an object file
 ArduCopter/mode.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode.cpp.o
 .PHONY : ArduCopter/mode.cpp.o
 
 ArduCopter/mode.i: ArduCopter/mode.cpp.i
@@ -3415,8 +3415,8 @@ ArduCopter/mode.i: ArduCopter/mode.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode.cpp.i
 .PHONY : ArduCopter/mode.cpp.i
 
 ArduCopter/mode.s: ArduCopter/mode.cpp.s
@@ -3424,8 +3424,8 @@ ArduCopter/mode.s: ArduCopter/mode.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode.cpp.s
 .PHONY : ArduCopter/mode.cpp.s
 
 ArduCopter/mode_acro.o: ArduCopter/mode_acro.cpp.o
@@ -3433,8 +3433,8 @@ ArduCopter/mode_acro.o: ArduCopter/mode_acro.cpp.o
 
 # target to build an object file
 ArduCopter/mode_acro.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_acro.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_acro.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_acro.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_acro.cpp.o
 .PHONY : ArduCopter/mode_acro.cpp.o
 
 ArduCopter/mode_acro.i: ArduCopter/mode_acro.cpp.i
@@ -3442,8 +3442,8 @@ ArduCopter/mode_acro.i: ArduCopter/mode_acro.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_acro.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_acro.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_acro.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_acro.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_acro.cpp.i
 .PHONY : ArduCopter/mode_acro.cpp.i
 
 ArduCopter/mode_acro.s: ArduCopter/mode_acro.cpp.s
@@ -3451,8 +3451,8 @@ ArduCopter/mode_acro.s: ArduCopter/mode_acro.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_acro.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_acro.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_acro.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_acro.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_acro.cpp.s
 .PHONY : ArduCopter/mode_acro.cpp.s
 
 ArduCopter/mode_acro_heli.o: ArduCopter/mode_acro_heli.cpp.o
@@ -3460,8 +3460,8 @@ ArduCopter/mode_acro_heli.o: ArduCopter/mode_acro_heli.cpp.o
 
 # target to build an object file
 ArduCopter/mode_acro_heli.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_acro_heli.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_acro_heli.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_acro_heli.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_acro_heli.cpp.o
 .PHONY : ArduCopter/mode_acro_heli.cpp.o
 
 ArduCopter/mode_acro_heli.i: ArduCopter/mode_acro_heli.cpp.i
@@ -3469,8 +3469,8 @@ ArduCopter/mode_acro_heli.i: ArduCopter/mode_acro_heli.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_acro_heli.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_acro_heli.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_acro_heli.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_acro_heli.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_acro_heli.cpp.i
 .PHONY : ArduCopter/mode_acro_heli.cpp.i
 
 ArduCopter/mode_acro_heli.s: ArduCopter/mode_acro_heli.cpp.s
@@ -3478,8 +3478,8 @@ ArduCopter/mode_acro_heli.s: ArduCopter/mode_acro_heli.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_acro_heli.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_acro_heli.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_acro_heli.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_acro_heli.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_acro_heli.cpp.s
 .PHONY : ArduCopter/mode_acro_heli.cpp.s
 
 ArduCopter/mode_althold.o: ArduCopter/mode_althold.cpp.o
@@ -3487,8 +3487,8 @@ ArduCopter/mode_althold.o: ArduCopter/mode_althold.cpp.o
 
 # target to build an object file
 ArduCopter/mode_althold.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_althold.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_althold.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_althold.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_althold.cpp.o
 .PHONY : ArduCopter/mode_althold.cpp.o
 
 ArduCopter/mode_althold.i: ArduCopter/mode_althold.cpp.i
@@ -3496,8 +3496,8 @@ ArduCopter/mode_althold.i: ArduCopter/mode_althold.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_althold.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_althold.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_althold.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_althold.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_althold.cpp.i
 .PHONY : ArduCopter/mode_althold.cpp.i
 
 ArduCopter/mode_althold.s: ArduCopter/mode_althold.cpp.s
@@ -3505,8 +3505,8 @@ ArduCopter/mode_althold.s: ArduCopter/mode_althold.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_althold.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_althold.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_althold.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_althold.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_althold.cpp.s
 .PHONY : ArduCopter/mode_althold.cpp.s
 
 ArduCopter/mode_auto.o: ArduCopter/mode_auto.cpp.o
@@ -3514,8 +3514,8 @@ ArduCopter/mode_auto.o: ArduCopter/mode_auto.cpp.o
 
 # target to build an object file
 ArduCopter/mode_auto.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_auto.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_auto.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_auto.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_auto.cpp.o
 .PHONY : ArduCopter/mode_auto.cpp.o
 
 ArduCopter/mode_auto.i: ArduCopter/mode_auto.cpp.i
@@ -3523,8 +3523,8 @@ ArduCopter/mode_auto.i: ArduCopter/mode_auto.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_auto.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_auto.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_auto.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_auto.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_auto.cpp.i
 .PHONY : ArduCopter/mode_auto.cpp.i
 
 ArduCopter/mode_auto.s: ArduCopter/mode_auto.cpp.s
@@ -3532,8 +3532,8 @@ ArduCopter/mode_auto.s: ArduCopter/mode_auto.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_auto.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_auto.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_auto.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_auto.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_auto.cpp.s
 .PHONY : ArduCopter/mode_auto.cpp.s
 
 ArduCopter/mode_autorotate.o: ArduCopter/mode_autorotate.cpp.o
@@ -3541,8 +3541,8 @@ ArduCopter/mode_autorotate.o: ArduCopter/mode_autorotate.cpp.o
 
 # target to build an object file
 ArduCopter/mode_autorotate.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_autorotate.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_autorotate.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_autorotate.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_autorotate.cpp.o
 .PHONY : ArduCopter/mode_autorotate.cpp.o
 
 ArduCopter/mode_autorotate.i: ArduCopter/mode_autorotate.cpp.i
@@ -3550,8 +3550,8 @@ ArduCopter/mode_autorotate.i: ArduCopter/mode_autorotate.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_autorotate.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_autorotate.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_autorotate.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_autorotate.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_autorotate.cpp.i
 .PHONY : ArduCopter/mode_autorotate.cpp.i
 
 ArduCopter/mode_autorotate.s: ArduCopter/mode_autorotate.cpp.s
@@ -3559,8 +3559,8 @@ ArduCopter/mode_autorotate.s: ArduCopter/mode_autorotate.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_autorotate.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_autorotate.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_autorotate.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_autorotate.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_autorotate.cpp.s
 .PHONY : ArduCopter/mode_autorotate.cpp.s
 
 ArduCopter/mode_autotune.o: ArduCopter/mode_autotune.cpp.o
@@ -3568,8 +3568,8 @@ ArduCopter/mode_autotune.o: ArduCopter/mode_autotune.cpp.o
 
 # target to build an object file
 ArduCopter/mode_autotune.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_autotune.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_autotune.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_autotune.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_autotune.cpp.o
 .PHONY : ArduCopter/mode_autotune.cpp.o
 
 ArduCopter/mode_autotune.i: ArduCopter/mode_autotune.cpp.i
@@ -3577,8 +3577,8 @@ ArduCopter/mode_autotune.i: ArduCopter/mode_autotune.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_autotune.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_autotune.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_autotune.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_autotune.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_autotune.cpp.i
 .PHONY : ArduCopter/mode_autotune.cpp.i
 
 ArduCopter/mode_autotune.s: ArduCopter/mode_autotune.cpp.s
@@ -3586,8 +3586,8 @@ ArduCopter/mode_autotune.s: ArduCopter/mode_autotune.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_autotune.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_autotune.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_autotune.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_autotune.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_autotune.cpp.s
 .PHONY : ArduCopter/mode_autotune.cpp.s
 
 ArduCopter/mode_avoid_adsb.o: ArduCopter/mode_avoid_adsb.cpp.o
@@ -3595,8 +3595,8 @@ ArduCopter/mode_avoid_adsb.o: ArduCopter/mode_avoid_adsb.cpp.o
 
 # target to build an object file
 ArduCopter/mode_avoid_adsb.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_avoid_adsb.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_avoid_adsb.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_avoid_adsb.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_avoid_adsb.cpp.o
 .PHONY : ArduCopter/mode_avoid_adsb.cpp.o
 
 ArduCopter/mode_avoid_adsb.i: ArduCopter/mode_avoid_adsb.cpp.i
@@ -3604,8 +3604,8 @@ ArduCopter/mode_avoid_adsb.i: ArduCopter/mode_avoid_adsb.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_avoid_adsb.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_avoid_adsb.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_avoid_adsb.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_avoid_adsb.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_avoid_adsb.cpp.i
 .PHONY : ArduCopter/mode_avoid_adsb.cpp.i
 
 ArduCopter/mode_avoid_adsb.s: ArduCopter/mode_avoid_adsb.cpp.s
@@ -3613,8 +3613,8 @@ ArduCopter/mode_avoid_adsb.s: ArduCopter/mode_avoid_adsb.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_avoid_adsb.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_avoid_adsb.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_avoid_adsb.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_avoid_adsb.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_avoid_adsb.cpp.s
 .PHONY : ArduCopter/mode_avoid_adsb.cpp.s
 
 ArduCopter/mode_brake.o: ArduCopter/mode_brake.cpp.o
@@ -3622,8 +3622,8 @@ ArduCopter/mode_brake.o: ArduCopter/mode_brake.cpp.o
 
 # target to build an object file
 ArduCopter/mode_brake.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_brake.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_brake.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_brake.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_brake.cpp.o
 .PHONY : ArduCopter/mode_brake.cpp.o
 
 ArduCopter/mode_brake.i: ArduCopter/mode_brake.cpp.i
@@ -3631,8 +3631,8 @@ ArduCopter/mode_brake.i: ArduCopter/mode_brake.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_brake.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_brake.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_brake.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_brake.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_brake.cpp.i
 .PHONY : ArduCopter/mode_brake.cpp.i
 
 ArduCopter/mode_brake.s: ArduCopter/mode_brake.cpp.s
@@ -3640,8 +3640,8 @@ ArduCopter/mode_brake.s: ArduCopter/mode_brake.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_brake.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_brake.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_brake.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_brake.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_brake.cpp.s
 .PHONY : ArduCopter/mode_brake.cpp.s
 
 ArduCopter/mode_circle.o: ArduCopter/mode_circle.cpp.o
@@ -3649,8 +3649,8 @@ ArduCopter/mode_circle.o: ArduCopter/mode_circle.cpp.o
 
 # target to build an object file
 ArduCopter/mode_circle.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_circle.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_circle.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_circle.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_circle.cpp.o
 .PHONY : ArduCopter/mode_circle.cpp.o
 
 ArduCopter/mode_circle.i: ArduCopter/mode_circle.cpp.i
@@ -3658,8 +3658,8 @@ ArduCopter/mode_circle.i: ArduCopter/mode_circle.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_circle.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_circle.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_circle.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_circle.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_circle.cpp.i
 .PHONY : ArduCopter/mode_circle.cpp.i
 
 ArduCopter/mode_circle.s: ArduCopter/mode_circle.cpp.s
@@ -3667,8 +3667,8 @@ ArduCopter/mode_circle.s: ArduCopter/mode_circle.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_circle.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_circle.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_circle.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_circle.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_circle.cpp.s
 .PHONY : ArduCopter/mode_circle.cpp.s
 
 ArduCopter/mode_drift.o: ArduCopter/mode_drift.cpp.o
@@ -3676,8 +3676,8 @@ ArduCopter/mode_drift.o: ArduCopter/mode_drift.cpp.o
 
 # target to build an object file
 ArduCopter/mode_drift.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_drift.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_drift.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_drift.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_drift.cpp.o
 .PHONY : ArduCopter/mode_drift.cpp.o
 
 ArduCopter/mode_drift.i: ArduCopter/mode_drift.cpp.i
@@ -3685,8 +3685,8 @@ ArduCopter/mode_drift.i: ArduCopter/mode_drift.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_drift.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_drift.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_drift.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_drift.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_drift.cpp.i
 .PHONY : ArduCopter/mode_drift.cpp.i
 
 ArduCopter/mode_drift.s: ArduCopter/mode_drift.cpp.s
@@ -3694,8 +3694,8 @@ ArduCopter/mode_drift.s: ArduCopter/mode_drift.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_drift.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_drift.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_drift.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_drift.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_drift.cpp.s
 .PHONY : ArduCopter/mode_drift.cpp.s
 
 ArduCopter/mode_flip.o: ArduCopter/mode_flip.cpp.o
@@ -3703,8 +3703,8 @@ ArduCopter/mode_flip.o: ArduCopter/mode_flip.cpp.o
 
 # target to build an object file
 ArduCopter/mode_flip.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_flip.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_flip.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_flip.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_flip.cpp.o
 .PHONY : ArduCopter/mode_flip.cpp.o
 
 ArduCopter/mode_flip.i: ArduCopter/mode_flip.cpp.i
@@ -3712,8 +3712,8 @@ ArduCopter/mode_flip.i: ArduCopter/mode_flip.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_flip.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_flip.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_flip.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_flip.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_flip.cpp.i
 .PHONY : ArduCopter/mode_flip.cpp.i
 
 ArduCopter/mode_flip.s: ArduCopter/mode_flip.cpp.s
@@ -3721,8 +3721,8 @@ ArduCopter/mode_flip.s: ArduCopter/mode_flip.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_flip.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_flip.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_flip.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_flip.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_flip.cpp.s
 .PHONY : ArduCopter/mode_flip.cpp.s
 
 ArduCopter/mode_flowhold.o: ArduCopter/mode_flowhold.cpp.o
@@ -3730,8 +3730,8 @@ ArduCopter/mode_flowhold.o: ArduCopter/mode_flowhold.cpp.o
 
 # target to build an object file
 ArduCopter/mode_flowhold.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_flowhold.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_flowhold.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_flowhold.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_flowhold.cpp.o
 .PHONY : ArduCopter/mode_flowhold.cpp.o
 
 ArduCopter/mode_flowhold.i: ArduCopter/mode_flowhold.cpp.i
@@ -3739,8 +3739,8 @@ ArduCopter/mode_flowhold.i: ArduCopter/mode_flowhold.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_flowhold.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_flowhold.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_flowhold.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_flowhold.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_flowhold.cpp.i
 .PHONY : ArduCopter/mode_flowhold.cpp.i
 
 ArduCopter/mode_flowhold.s: ArduCopter/mode_flowhold.cpp.s
@@ -3748,8 +3748,8 @@ ArduCopter/mode_flowhold.s: ArduCopter/mode_flowhold.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_flowhold.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_flowhold.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_flowhold.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_flowhold.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_flowhold.cpp.s
 .PHONY : ArduCopter/mode_flowhold.cpp.s
 
 ArduCopter/mode_follow.o: ArduCopter/mode_follow.cpp.o
@@ -3757,8 +3757,8 @@ ArduCopter/mode_follow.o: ArduCopter/mode_follow.cpp.o
 
 # target to build an object file
 ArduCopter/mode_follow.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_follow.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_follow.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_follow.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_follow.cpp.o
 .PHONY : ArduCopter/mode_follow.cpp.o
 
 ArduCopter/mode_follow.i: ArduCopter/mode_follow.cpp.i
@@ -3766,8 +3766,8 @@ ArduCopter/mode_follow.i: ArduCopter/mode_follow.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_follow.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_follow.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_follow.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_follow.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_follow.cpp.i
 .PHONY : ArduCopter/mode_follow.cpp.i
 
 ArduCopter/mode_follow.s: ArduCopter/mode_follow.cpp.s
@@ -3775,8 +3775,8 @@ ArduCopter/mode_follow.s: ArduCopter/mode_follow.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_follow.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_follow.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_follow.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_follow.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_follow.cpp.s
 .PHONY : ArduCopter/mode_follow.cpp.s
 
 ArduCopter/mode_guided.o: ArduCopter/mode_guided.cpp.o
@@ -3784,8 +3784,8 @@ ArduCopter/mode_guided.o: ArduCopter/mode_guided.cpp.o
 
 # target to build an object file
 ArduCopter/mode_guided.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_guided.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_guided.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_guided.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_guided.cpp.o
 .PHONY : ArduCopter/mode_guided.cpp.o
 
 ArduCopter/mode_guided.i: ArduCopter/mode_guided.cpp.i
@@ -3793,8 +3793,8 @@ ArduCopter/mode_guided.i: ArduCopter/mode_guided.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_guided.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_guided.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_guided.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_guided.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_guided.cpp.i
 .PHONY : ArduCopter/mode_guided.cpp.i
 
 ArduCopter/mode_guided.s: ArduCopter/mode_guided.cpp.s
@@ -3802,8 +3802,8 @@ ArduCopter/mode_guided.s: ArduCopter/mode_guided.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_guided.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_guided.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_guided.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_guided.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_guided.cpp.s
 .PHONY : ArduCopter/mode_guided.cpp.s
 
 ArduCopter/mode_guided_custom.o: ArduCopter/mode_guided_custom.cpp.o
@@ -3811,8 +3811,8 @@ ArduCopter/mode_guided_custom.o: ArduCopter/mode_guided_custom.cpp.o
 
 # target to build an object file
 ArduCopter/mode_guided_custom.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_guided_custom.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_guided_custom.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_guided_custom.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_guided_custom.cpp.o
 .PHONY : ArduCopter/mode_guided_custom.cpp.o
 
 ArduCopter/mode_guided_custom.i: ArduCopter/mode_guided_custom.cpp.i
@@ -3820,8 +3820,8 @@ ArduCopter/mode_guided_custom.i: ArduCopter/mode_guided_custom.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_guided_custom.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_guided_custom.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_guided_custom.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_guided_custom.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_guided_custom.cpp.i
 .PHONY : ArduCopter/mode_guided_custom.cpp.i
 
 ArduCopter/mode_guided_custom.s: ArduCopter/mode_guided_custom.cpp.s
@@ -3829,8 +3829,8 @@ ArduCopter/mode_guided_custom.s: ArduCopter/mode_guided_custom.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_guided_custom.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_guided_custom.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_guided_custom.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_guided_custom.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_guided_custom.cpp.s
 .PHONY : ArduCopter/mode_guided_custom.cpp.s
 
 ArduCopter/mode_guided_nogps.o: ArduCopter/mode_guided_nogps.cpp.o
@@ -3838,8 +3838,8 @@ ArduCopter/mode_guided_nogps.o: ArduCopter/mode_guided_nogps.cpp.o
 
 # target to build an object file
 ArduCopter/mode_guided_nogps.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_guided_nogps.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_guided_nogps.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_guided_nogps.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_guided_nogps.cpp.o
 .PHONY : ArduCopter/mode_guided_nogps.cpp.o
 
 ArduCopter/mode_guided_nogps.i: ArduCopter/mode_guided_nogps.cpp.i
@@ -3847,8 +3847,8 @@ ArduCopter/mode_guided_nogps.i: ArduCopter/mode_guided_nogps.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_guided_nogps.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_guided_nogps.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_guided_nogps.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_guided_nogps.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_guided_nogps.cpp.i
 .PHONY : ArduCopter/mode_guided_nogps.cpp.i
 
 ArduCopter/mode_guided_nogps.s: ArduCopter/mode_guided_nogps.cpp.s
@@ -3856,8 +3856,8 @@ ArduCopter/mode_guided_nogps.s: ArduCopter/mode_guided_nogps.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_guided_nogps.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_guided_nogps.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_guided_nogps.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_guided_nogps.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_guided_nogps.cpp.s
 .PHONY : ArduCopter/mode_guided_nogps.cpp.s
 
 ArduCopter/mode_land.o: ArduCopter/mode_land.cpp.o
@@ -3865,8 +3865,8 @@ ArduCopter/mode_land.o: ArduCopter/mode_land.cpp.o
 
 # target to build an object file
 ArduCopter/mode_land.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_land.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_land.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_land.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_land.cpp.o
 .PHONY : ArduCopter/mode_land.cpp.o
 
 ArduCopter/mode_land.i: ArduCopter/mode_land.cpp.i
@@ -3874,8 +3874,8 @@ ArduCopter/mode_land.i: ArduCopter/mode_land.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_land.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_land.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_land.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_land.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_land.cpp.i
 .PHONY : ArduCopter/mode_land.cpp.i
 
 ArduCopter/mode_land.s: ArduCopter/mode_land.cpp.s
@@ -3883,8 +3883,8 @@ ArduCopter/mode_land.s: ArduCopter/mode_land.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_land.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_land.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_land.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_land.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_land.cpp.s
 .PHONY : ArduCopter/mode_land.cpp.s
 
 ArduCopter/mode_loiter.o: ArduCopter/mode_loiter.cpp.o
@@ -3892,8 +3892,8 @@ ArduCopter/mode_loiter.o: ArduCopter/mode_loiter.cpp.o
 
 # target to build an object file
 ArduCopter/mode_loiter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_loiter.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_loiter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_loiter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_loiter.cpp.o
 .PHONY : ArduCopter/mode_loiter.cpp.o
 
 ArduCopter/mode_loiter.i: ArduCopter/mode_loiter.cpp.i
@@ -3901,8 +3901,8 @@ ArduCopter/mode_loiter.i: ArduCopter/mode_loiter.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_loiter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_loiter.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_loiter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_loiter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_loiter.cpp.i
 .PHONY : ArduCopter/mode_loiter.cpp.i
 
 ArduCopter/mode_loiter.s: ArduCopter/mode_loiter.cpp.s
@@ -3910,8 +3910,8 @@ ArduCopter/mode_loiter.s: ArduCopter/mode_loiter.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_loiter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_loiter.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_loiter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_loiter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_loiter.cpp.s
 .PHONY : ArduCopter/mode_loiter.cpp.s
 
 ArduCopter/mode_poshold.o: ArduCopter/mode_poshold.cpp.o
@@ -3919,8 +3919,8 @@ ArduCopter/mode_poshold.o: ArduCopter/mode_poshold.cpp.o
 
 # target to build an object file
 ArduCopter/mode_poshold.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_poshold.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_poshold.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_poshold.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_poshold.cpp.o
 .PHONY : ArduCopter/mode_poshold.cpp.o
 
 ArduCopter/mode_poshold.i: ArduCopter/mode_poshold.cpp.i
@@ -3928,8 +3928,8 @@ ArduCopter/mode_poshold.i: ArduCopter/mode_poshold.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_poshold.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_poshold.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_poshold.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_poshold.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_poshold.cpp.i
 .PHONY : ArduCopter/mode_poshold.cpp.i
 
 ArduCopter/mode_poshold.s: ArduCopter/mode_poshold.cpp.s
@@ -3937,8 +3937,8 @@ ArduCopter/mode_poshold.s: ArduCopter/mode_poshold.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_poshold.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_poshold.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_poshold.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_poshold.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_poshold.cpp.s
 .PHONY : ArduCopter/mode_poshold.cpp.s
 
 ArduCopter/mode_rtl.o: ArduCopter/mode_rtl.cpp.o
@@ -3946,8 +3946,8 @@ ArduCopter/mode_rtl.o: ArduCopter/mode_rtl.cpp.o
 
 # target to build an object file
 ArduCopter/mode_rtl.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_rtl.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_rtl.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_rtl.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_rtl.cpp.o
 .PHONY : ArduCopter/mode_rtl.cpp.o
 
 ArduCopter/mode_rtl.i: ArduCopter/mode_rtl.cpp.i
@@ -3955,8 +3955,8 @@ ArduCopter/mode_rtl.i: ArduCopter/mode_rtl.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_rtl.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_rtl.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_rtl.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_rtl.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_rtl.cpp.i
 .PHONY : ArduCopter/mode_rtl.cpp.i
 
 ArduCopter/mode_rtl.s: ArduCopter/mode_rtl.cpp.s
@@ -3964,8 +3964,8 @@ ArduCopter/mode_rtl.s: ArduCopter/mode_rtl.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_rtl.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_rtl.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_rtl.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_rtl.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_rtl.cpp.s
 .PHONY : ArduCopter/mode_rtl.cpp.s
 
 ArduCopter/mode_smart_rtl.o: ArduCopter/mode_smart_rtl.cpp.o
@@ -3973,8 +3973,8 @@ ArduCopter/mode_smart_rtl.o: ArduCopter/mode_smart_rtl.cpp.o
 
 # target to build an object file
 ArduCopter/mode_smart_rtl.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_smart_rtl.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_smart_rtl.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_smart_rtl.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_smart_rtl.cpp.o
 .PHONY : ArduCopter/mode_smart_rtl.cpp.o
 
 ArduCopter/mode_smart_rtl.i: ArduCopter/mode_smart_rtl.cpp.i
@@ -3982,8 +3982,8 @@ ArduCopter/mode_smart_rtl.i: ArduCopter/mode_smart_rtl.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_smart_rtl.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_smart_rtl.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_smart_rtl.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_smart_rtl.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_smart_rtl.cpp.i
 .PHONY : ArduCopter/mode_smart_rtl.cpp.i
 
 ArduCopter/mode_smart_rtl.s: ArduCopter/mode_smart_rtl.cpp.s
@@ -3991,8 +3991,8 @@ ArduCopter/mode_smart_rtl.s: ArduCopter/mode_smart_rtl.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_smart_rtl.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_smart_rtl.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_smart_rtl.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_smart_rtl.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_smart_rtl.cpp.s
 .PHONY : ArduCopter/mode_smart_rtl.cpp.s
 
 ArduCopter/mode_sport.o: ArduCopter/mode_sport.cpp.o
@@ -4000,8 +4000,8 @@ ArduCopter/mode_sport.o: ArduCopter/mode_sport.cpp.o
 
 # target to build an object file
 ArduCopter/mode_sport.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_sport.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_sport.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_sport.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_sport.cpp.o
 .PHONY : ArduCopter/mode_sport.cpp.o
 
 ArduCopter/mode_sport.i: ArduCopter/mode_sport.cpp.i
@@ -4009,8 +4009,8 @@ ArduCopter/mode_sport.i: ArduCopter/mode_sport.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_sport.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_sport.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_sport.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_sport.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_sport.cpp.i
 .PHONY : ArduCopter/mode_sport.cpp.i
 
 ArduCopter/mode_sport.s: ArduCopter/mode_sport.cpp.s
@@ -4018,8 +4018,8 @@ ArduCopter/mode_sport.s: ArduCopter/mode_sport.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_sport.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_sport.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_sport.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_sport.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_sport.cpp.s
 .PHONY : ArduCopter/mode_sport.cpp.s
 
 ArduCopter/mode_stabilize.o: ArduCopter/mode_stabilize.cpp.o
@@ -4027,8 +4027,8 @@ ArduCopter/mode_stabilize.o: ArduCopter/mode_stabilize.cpp.o
 
 # target to build an object file
 ArduCopter/mode_stabilize.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_stabilize.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_stabilize.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_stabilize.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_stabilize.cpp.o
 .PHONY : ArduCopter/mode_stabilize.cpp.o
 
 ArduCopter/mode_stabilize.i: ArduCopter/mode_stabilize.cpp.i
@@ -4036,8 +4036,8 @@ ArduCopter/mode_stabilize.i: ArduCopter/mode_stabilize.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_stabilize.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_stabilize.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_stabilize.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_stabilize.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_stabilize.cpp.i
 .PHONY : ArduCopter/mode_stabilize.cpp.i
 
 ArduCopter/mode_stabilize.s: ArduCopter/mode_stabilize.cpp.s
@@ -4045,8 +4045,8 @@ ArduCopter/mode_stabilize.s: ArduCopter/mode_stabilize.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_stabilize.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_stabilize.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_stabilize.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_stabilize.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_stabilize.cpp.s
 .PHONY : ArduCopter/mode_stabilize.cpp.s
 
 ArduCopter/mode_stabilize_heli.o: ArduCopter/mode_stabilize_heli.cpp.o
@@ -4054,8 +4054,8 @@ ArduCopter/mode_stabilize_heli.o: ArduCopter/mode_stabilize_heli.cpp.o
 
 # target to build an object file
 ArduCopter/mode_stabilize_heli.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_stabilize_heli.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_stabilize_heli.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_stabilize_heli.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_stabilize_heli.cpp.o
 .PHONY : ArduCopter/mode_stabilize_heli.cpp.o
 
 ArduCopter/mode_stabilize_heli.i: ArduCopter/mode_stabilize_heli.cpp.i
@@ -4063,8 +4063,8 @@ ArduCopter/mode_stabilize_heli.i: ArduCopter/mode_stabilize_heli.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_stabilize_heli.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_stabilize_heli.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_stabilize_heli.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_stabilize_heli.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_stabilize_heli.cpp.i
 .PHONY : ArduCopter/mode_stabilize_heli.cpp.i
 
 ArduCopter/mode_stabilize_heli.s: ArduCopter/mode_stabilize_heli.cpp.s
@@ -4072,8 +4072,8 @@ ArduCopter/mode_stabilize_heli.s: ArduCopter/mode_stabilize_heli.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_stabilize_heli.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_stabilize_heli.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_stabilize_heli.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_stabilize_heli.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_stabilize_heli.cpp.s
 .PHONY : ArduCopter/mode_stabilize_heli.cpp.s
 
 ArduCopter/mode_systemid.o: ArduCopter/mode_systemid.cpp.o
@@ -4081,8 +4081,8 @@ ArduCopter/mode_systemid.o: ArduCopter/mode_systemid.cpp.o
 
 # target to build an object file
 ArduCopter/mode_systemid.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_systemid.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_systemid.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_systemid.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_systemid.cpp.o
 .PHONY : ArduCopter/mode_systemid.cpp.o
 
 ArduCopter/mode_systemid.i: ArduCopter/mode_systemid.cpp.i
@@ -4090,8 +4090,8 @@ ArduCopter/mode_systemid.i: ArduCopter/mode_systemid.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_systemid.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_systemid.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_systemid.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_systemid.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_systemid.cpp.i
 .PHONY : ArduCopter/mode_systemid.cpp.i
 
 ArduCopter/mode_systemid.s: ArduCopter/mode_systemid.cpp.s
@@ -4099,8 +4099,8 @@ ArduCopter/mode_systemid.s: ArduCopter/mode_systemid.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_systemid.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_systemid.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_systemid.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_systemid.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_systemid.cpp.s
 .PHONY : ArduCopter/mode_systemid.cpp.s
 
 ArduCopter/mode_throw.o: ArduCopter/mode_throw.cpp.o
@@ -4108,8 +4108,8 @@ ArduCopter/mode_throw.o: ArduCopter/mode_throw.cpp.o
 
 # target to build an object file
 ArduCopter/mode_throw.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_throw.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_throw.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_throw.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_throw.cpp.o
 .PHONY : ArduCopter/mode_throw.cpp.o
 
 ArduCopter/mode_throw.i: ArduCopter/mode_throw.cpp.i
@@ -4117,8 +4117,8 @@ ArduCopter/mode_throw.i: ArduCopter/mode_throw.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_throw.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_throw.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_throw.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_throw.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_throw.cpp.i
 .PHONY : ArduCopter/mode_throw.cpp.i
 
 ArduCopter/mode_throw.s: ArduCopter/mode_throw.cpp.s
@@ -4126,8 +4126,8 @@ ArduCopter/mode_throw.s: ArduCopter/mode_throw.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_throw.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_throw.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_throw.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_throw.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_throw.cpp.s
 .PHONY : ArduCopter/mode_throw.cpp.s
 
 ArduCopter/mode_turtle.o: ArduCopter/mode_turtle.cpp.o
@@ -4135,8 +4135,8 @@ ArduCopter/mode_turtle.o: ArduCopter/mode_turtle.cpp.o
 
 # target to build an object file
 ArduCopter/mode_turtle.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_turtle.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_turtle.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_turtle.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_turtle.cpp.o
 .PHONY : ArduCopter/mode_turtle.cpp.o
 
 ArduCopter/mode_turtle.i: ArduCopter/mode_turtle.cpp.i
@@ -4144,8 +4144,8 @@ ArduCopter/mode_turtle.i: ArduCopter/mode_turtle.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_turtle.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_turtle.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_turtle.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_turtle.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_turtle.cpp.i
 .PHONY : ArduCopter/mode_turtle.cpp.i
 
 ArduCopter/mode_turtle.s: ArduCopter/mode_turtle.cpp.s
@@ -4153,8 +4153,8 @@ ArduCopter/mode_turtle.s: ArduCopter/mode_turtle.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_turtle.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_turtle.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_turtle.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_turtle.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_turtle.cpp.s
 .PHONY : ArduCopter/mode_turtle.cpp.s
 
 ArduCopter/mode_zigzag.o: ArduCopter/mode_zigzag.cpp.o
@@ -4162,8 +4162,8 @@ ArduCopter/mode_zigzag.o: ArduCopter/mode_zigzag.cpp.o
 
 # target to build an object file
 ArduCopter/mode_zigzag.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_zigzag.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_zigzag.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_zigzag.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_zigzag.cpp.o
 .PHONY : ArduCopter/mode_zigzag.cpp.o
 
 ArduCopter/mode_zigzag.i: ArduCopter/mode_zigzag.cpp.i
@@ -4171,8 +4171,8 @@ ArduCopter/mode_zigzag.i: ArduCopter/mode_zigzag.cpp.i
 
 # target to preprocess a source file
 ArduCopter/mode_zigzag.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_zigzag.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_zigzag.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_zigzag.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_zigzag.cpp.i
 .PHONY : ArduCopter/mode_zigzag.cpp.i
 
 ArduCopter/mode_zigzag.s: ArduCopter/mode_zigzag.cpp.s
@@ -4180,8 +4180,8 @@ ArduCopter/mode_zigzag.s: ArduCopter/mode_zigzag.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/mode_zigzag.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/mode_zigzag.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/mode_zigzag.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/mode_zigzag.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/mode_zigzag.cpp.s
 .PHONY : ArduCopter/mode_zigzag.cpp.s
 
 ArduCopter/motor_test.o: ArduCopter/motor_test.cpp.o
@@ -4189,8 +4189,8 @@ ArduCopter/motor_test.o: ArduCopter/motor_test.cpp.o
 
 # target to build an object file
 ArduCopter/motor_test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/motor_test.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/motor_test.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/motor_test.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/motor_test.cpp.o
 .PHONY : ArduCopter/motor_test.cpp.o
 
 ArduCopter/motor_test.i: ArduCopter/motor_test.cpp.i
@@ -4198,8 +4198,8 @@ ArduCopter/motor_test.i: ArduCopter/motor_test.cpp.i
 
 # target to preprocess a source file
 ArduCopter/motor_test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/motor_test.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/motor_test.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/motor_test.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/motor_test.cpp.i
 .PHONY : ArduCopter/motor_test.cpp.i
 
 ArduCopter/motor_test.s: ArduCopter/motor_test.cpp.s
@@ -4207,8 +4207,8 @@ ArduCopter/motor_test.s: ArduCopter/motor_test.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/motor_test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/motor_test.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/motor_test.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/motor_test.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/motor_test.cpp.s
 .PHONY : ArduCopter/motor_test.cpp.s
 
 ArduCopter/motors.o: ArduCopter/motors.cpp.o
@@ -4216,8 +4216,8 @@ ArduCopter/motors.o: ArduCopter/motors.cpp.o
 
 # target to build an object file
 ArduCopter/motors.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/motors.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/motors.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/motors.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/motors.cpp.o
 .PHONY : ArduCopter/motors.cpp.o
 
 ArduCopter/motors.i: ArduCopter/motors.cpp.i
@@ -4225,8 +4225,8 @@ ArduCopter/motors.i: ArduCopter/motors.cpp.i
 
 # target to preprocess a source file
 ArduCopter/motors.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/motors.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/motors.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/motors.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/motors.cpp.i
 .PHONY : ArduCopter/motors.cpp.i
 
 ArduCopter/motors.s: ArduCopter/motors.cpp.s
@@ -4234,8 +4234,8 @@ ArduCopter/motors.s: ArduCopter/motors.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/motors.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/motors.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/motors.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/motors.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/motors.cpp.s
 .PHONY : ArduCopter/motors.cpp.s
 
 ArduCopter/navigation.o: ArduCopter/navigation.cpp.o
@@ -4243,8 +4243,8 @@ ArduCopter/navigation.o: ArduCopter/navigation.cpp.o
 
 # target to build an object file
 ArduCopter/navigation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/navigation.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/navigation.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/navigation.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/navigation.cpp.o
 .PHONY : ArduCopter/navigation.cpp.o
 
 ArduCopter/navigation.i: ArduCopter/navigation.cpp.i
@@ -4252,8 +4252,8 @@ ArduCopter/navigation.i: ArduCopter/navigation.cpp.i
 
 # target to preprocess a source file
 ArduCopter/navigation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/navigation.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/navigation.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/navigation.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/navigation.cpp.i
 .PHONY : ArduCopter/navigation.cpp.i
 
 ArduCopter/navigation.s: ArduCopter/navigation.cpp.s
@@ -4261,8 +4261,8 @@ ArduCopter/navigation.s: ArduCopter/navigation.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/navigation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/navigation.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/navigation.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/navigation.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/navigation.cpp.s
 .PHONY : ArduCopter/navigation.cpp.s
 
 ArduCopter/precision_landing.o: ArduCopter/precision_landing.cpp.o
@@ -4270,8 +4270,8 @@ ArduCopter/precision_landing.o: ArduCopter/precision_landing.cpp.o
 
 # target to build an object file
 ArduCopter/precision_landing.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/precision_landing.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/precision_landing.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/precision_landing.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/precision_landing.cpp.o
 .PHONY : ArduCopter/precision_landing.cpp.o
 
 ArduCopter/precision_landing.i: ArduCopter/precision_landing.cpp.i
@@ -4279,8 +4279,8 @@ ArduCopter/precision_landing.i: ArduCopter/precision_landing.cpp.i
 
 # target to preprocess a source file
 ArduCopter/precision_landing.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/precision_landing.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/precision_landing.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/precision_landing.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/precision_landing.cpp.i
 .PHONY : ArduCopter/precision_landing.cpp.i
 
 ArduCopter/precision_landing.s: ArduCopter/precision_landing.cpp.s
@@ -4288,8 +4288,8 @@ ArduCopter/precision_landing.s: ArduCopter/precision_landing.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/precision_landing.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/precision_landing.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/precision_landing.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/precision_landing.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/precision_landing.cpp.s
 .PHONY : ArduCopter/precision_landing.cpp.s
 
 ArduCopter/radio.o: ArduCopter/radio.cpp.o
@@ -4297,8 +4297,8 @@ ArduCopter/radio.o: ArduCopter/radio.cpp.o
 
 # target to build an object file
 ArduCopter/radio.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/radio.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/radio.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/radio.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/radio.cpp.o
 .PHONY : ArduCopter/radio.cpp.o
 
 ArduCopter/radio.i: ArduCopter/radio.cpp.i
@@ -4306,8 +4306,8 @@ ArduCopter/radio.i: ArduCopter/radio.cpp.i
 
 # target to preprocess a source file
 ArduCopter/radio.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/radio.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/radio.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/radio.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/radio.cpp.i
 .PHONY : ArduCopter/radio.cpp.i
 
 ArduCopter/radio.s: ArduCopter/radio.cpp.s
@@ -4315,8 +4315,8 @@ ArduCopter/radio.s: ArduCopter/radio.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/radio.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/radio.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/radio.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/radio.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/radio.cpp.s
 .PHONY : ArduCopter/radio.cpp.s
 
 ArduCopter/rate_thread.o: ArduCopter/rate_thread.cpp.o
@@ -4324,8 +4324,8 @@ ArduCopter/rate_thread.o: ArduCopter/rate_thread.cpp.o
 
 # target to build an object file
 ArduCopter/rate_thread.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/rate_thread.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/rate_thread.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/rate_thread.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/rate_thread.cpp.o
 .PHONY : ArduCopter/rate_thread.cpp.o
 
 ArduCopter/rate_thread.i: ArduCopter/rate_thread.cpp.i
@@ -4333,8 +4333,8 @@ ArduCopter/rate_thread.i: ArduCopter/rate_thread.cpp.i
 
 # target to preprocess a source file
 ArduCopter/rate_thread.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/rate_thread.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/rate_thread.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/rate_thread.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/rate_thread.cpp.i
 .PHONY : ArduCopter/rate_thread.cpp.i
 
 ArduCopter/rate_thread.s: ArduCopter/rate_thread.cpp.s
@@ -4342,8 +4342,8 @@ ArduCopter/rate_thread.s: ArduCopter/rate_thread.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/rate_thread.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/rate_thread.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/rate_thread.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/rate_thread.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/rate_thread.cpp.s
 .PHONY : ArduCopter/rate_thread.cpp.s
 
 ArduCopter/sensors.o: ArduCopter/sensors.cpp.o
@@ -4351,8 +4351,8 @@ ArduCopter/sensors.o: ArduCopter/sensors.cpp.o
 
 # target to build an object file
 ArduCopter/sensors.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/sensors.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/sensors.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/sensors.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/sensors.cpp.o
 .PHONY : ArduCopter/sensors.cpp.o
 
 ArduCopter/sensors.i: ArduCopter/sensors.cpp.i
@@ -4360,8 +4360,8 @@ ArduCopter/sensors.i: ArduCopter/sensors.cpp.i
 
 # target to preprocess a source file
 ArduCopter/sensors.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/sensors.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/sensors.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/sensors.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/sensors.cpp.i
 .PHONY : ArduCopter/sensors.cpp.i
 
 ArduCopter/sensors.s: ArduCopter/sensors.cpp.s
@@ -4369,8 +4369,8 @@ ArduCopter/sensors.s: ArduCopter/sensors.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/sensors.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/sensors.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/sensors.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/sensors.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/sensors.cpp.s
 .PHONY : ArduCopter/sensors.cpp.s
 
 ArduCopter/standby.o: ArduCopter/standby.cpp.o
@@ -4378,8 +4378,8 @@ ArduCopter/standby.o: ArduCopter/standby.cpp.o
 
 # target to build an object file
 ArduCopter/standby.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/standby.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/standby.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/standby.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/standby.cpp.o
 .PHONY : ArduCopter/standby.cpp.o
 
 ArduCopter/standby.i: ArduCopter/standby.cpp.i
@@ -4387,8 +4387,8 @@ ArduCopter/standby.i: ArduCopter/standby.cpp.i
 
 # target to preprocess a source file
 ArduCopter/standby.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/standby.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/standby.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/standby.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/standby.cpp.i
 .PHONY : ArduCopter/standby.cpp.i
 
 ArduCopter/standby.s: ArduCopter/standby.cpp.s
@@ -4396,8 +4396,8 @@ ArduCopter/standby.s: ArduCopter/standby.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/standby.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/standby.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/standby.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/standby.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/standby.cpp.s
 .PHONY : ArduCopter/standby.cpp.s
 
 ArduCopter/surface_tracking.o: ArduCopter/surface_tracking.cpp.o
@@ -4405,8 +4405,8 @@ ArduCopter/surface_tracking.o: ArduCopter/surface_tracking.cpp.o
 
 # target to build an object file
 ArduCopter/surface_tracking.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/surface_tracking.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/surface_tracking.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/surface_tracking.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/surface_tracking.cpp.o
 .PHONY : ArduCopter/surface_tracking.cpp.o
 
 ArduCopter/surface_tracking.i: ArduCopter/surface_tracking.cpp.i
@@ -4414,8 +4414,8 @@ ArduCopter/surface_tracking.i: ArduCopter/surface_tracking.cpp.i
 
 # target to preprocess a source file
 ArduCopter/surface_tracking.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/surface_tracking.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/surface_tracking.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/surface_tracking.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/surface_tracking.cpp.i
 .PHONY : ArduCopter/surface_tracking.cpp.i
 
 ArduCopter/surface_tracking.s: ArduCopter/surface_tracking.cpp.s
@@ -4423,8 +4423,8 @@ ArduCopter/surface_tracking.s: ArduCopter/surface_tracking.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/surface_tracking.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/surface_tracking.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/surface_tracking.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/surface_tracking.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/surface_tracking.cpp.s
 .PHONY : ArduCopter/surface_tracking.cpp.s
 
 ArduCopter/system.o: ArduCopter/system.cpp.o
@@ -4432,8 +4432,8 @@ ArduCopter/system.o: ArduCopter/system.cpp.o
 
 # target to build an object file
 ArduCopter/system.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/system.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/system.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/system.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/system.cpp.o
 .PHONY : ArduCopter/system.cpp.o
 
 ArduCopter/system.i: ArduCopter/system.cpp.i
@@ -4441,8 +4441,8 @@ ArduCopter/system.i: ArduCopter/system.cpp.i
 
 # target to preprocess a source file
 ArduCopter/system.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/system.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/system.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/system.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/system.cpp.i
 .PHONY : ArduCopter/system.cpp.i
 
 ArduCopter/system.s: ArduCopter/system.cpp.s
@@ -4450,8 +4450,8 @@ ArduCopter/system.s: ArduCopter/system.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/system.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/system.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/system.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/system.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/system.cpp.s
 .PHONY : ArduCopter/system.cpp.s
 
 ArduCopter/takeoff.o: ArduCopter/takeoff.cpp.o
@@ -4459,8 +4459,8 @@ ArduCopter/takeoff.o: ArduCopter/takeoff.cpp.o
 
 # target to build an object file
 ArduCopter/takeoff.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/takeoff.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/takeoff.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/takeoff.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/takeoff.cpp.o
 .PHONY : ArduCopter/takeoff.cpp.o
 
 ArduCopter/takeoff.i: ArduCopter/takeoff.cpp.i
@@ -4468,8 +4468,8 @@ ArduCopter/takeoff.i: ArduCopter/takeoff.cpp.i
 
 # target to preprocess a source file
 ArduCopter/takeoff.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/takeoff.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/takeoff.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/takeoff.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/takeoff.cpp.i
 .PHONY : ArduCopter/takeoff.cpp.i
 
 ArduCopter/takeoff.s: ArduCopter/takeoff.cpp.s
@@ -4477,8 +4477,8 @@ ArduCopter/takeoff.s: ArduCopter/takeoff.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/takeoff.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/takeoff.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/takeoff.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/takeoff.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/takeoff.cpp.s
 .PHONY : ArduCopter/takeoff.cpp.s
 
 ArduCopter/takeoff_check.o: ArduCopter/takeoff_check.cpp.o
@@ -4486,8 +4486,8 @@ ArduCopter/takeoff_check.o: ArduCopter/takeoff_check.cpp.o
 
 # target to build an object file
 ArduCopter/takeoff_check.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/takeoff_check.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/takeoff_check.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/takeoff_check.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/takeoff_check.cpp.o
 .PHONY : ArduCopter/takeoff_check.cpp.o
 
 ArduCopter/takeoff_check.i: ArduCopter/takeoff_check.cpp.i
@@ -4495,8 +4495,8 @@ ArduCopter/takeoff_check.i: ArduCopter/takeoff_check.cpp.i
 
 # target to preprocess a source file
 ArduCopter/takeoff_check.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/takeoff_check.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/takeoff_check.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/takeoff_check.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/takeoff_check.cpp.i
 .PHONY : ArduCopter/takeoff_check.cpp.i
 
 ArduCopter/takeoff_check.s: ArduCopter/takeoff_check.cpp.s
@@ -4504,8 +4504,8 @@ ArduCopter/takeoff_check.s: ArduCopter/takeoff_check.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/takeoff_check.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/takeoff_check.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/takeoff_check.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/takeoff_check.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/takeoff_check.cpp.s
 .PHONY : ArduCopter/takeoff_check.cpp.s
 
 ArduCopter/terrain.o: ArduCopter/terrain.cpp.o
@@ -4513,8 +4513,8 @@ ArduCopter/terrain.o: ArduCopter/terrain.cpp.o
 
 # target to build an object file
 ArduCopter/terrain.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/terrain.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/terrain.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/terrain.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/terrain.cpp.o
 .PHONY : ArduCopter/terrain.cpp.o
 
 ArduCopter/terrain.i: ArduCopter/terrain.cpp.i
@@ -4522,8 +4522,8 @@ ArduCopter/terrain.i: ArduCopter/terrain.cpp.i
 
 # target to preprocess a source file
 ArduCopter/terrain.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/terrain.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/terrain.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/terrain.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/terrain.cpp.i
 .PHONY : ArduCopter/terrain.cpp.i
 
 ArduCopter/terrain.s: ArduCopter/terrain.cpp.s
@@ -4531,8 +4531,8 @@ ArduCopter/terrain.s: ArduCopter/terrain.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/terrain.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/terrain.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/terrain.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/terrain.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/terrain.cpp.s
 .PHONY : ArduCopter/terrain.cpp.s
 
 ArduCopter/toy_mode.o: ArduCopter/toy_mode.cpp.o
@@ -4540,8 +4540,8 @@ ArduCopter/toy_mode.o: ArduCopter/toy_mode.cpp.o
 
 # target to build an object file
 ArduCopter/toy_mode.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/toy_mode.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/toy_mode.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/toy_mode.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/toy_mode.cpp.o
 .PHONY : ArduCopter/toy_mode.cpp.o
 
 ArduCopter/toy_mode.i: ArduCopter/toy_mode.cpp.i
@@ -4549,8 +4549,8 @@ ArduCopter/toy_mode.i: ArduCopter/toy_mode.cpp.i
 
 # target to preprocess a source file
 ArduCopter/toy_mode.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/toy_mode.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/toy_mode.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/toy_mode.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/toy_mode.cpp.i
 .PHONY : ArduCopter/toy_mode.cpp.i
 
 ArduCopter/toy_mode.s: ArduCopter/toy_mode.cpp.s
@@ -4558,8 +4558,8 @@ ArduCopter/toy_mode.s: ArduCopter/toy_mode.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/toy_mode.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/toy_mode.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/toy_mode.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/toy_mode.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/toy_mode.cpp.s
 .PHONY : ArduCopter/toy_mode.cpp.s
 
 ArduCopter/tuning.o: ArduCopter/tuning.cpp.o
@@ -4567,8 +4567,8 @@ ArduCopter/tuning.o: ArduCopter/tuning.cpp.o
 
 # target to build an object file
 ArduCopter/tuning.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/tuning.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/tuning.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/tuning.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/tuning.cpp.o
 .PHONY : ArduCopter/tuning.cpp.o
 
 ArduCopter/tuning.i: ArduCopter/tuning.cpp.i
@@ -4576,8 +4576,8 @@ ArduCopter/tuning.i: ArduCopter/tuning.cpp.i
 
 # target to preprocess a source file
 ArduCopter/tuning.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/tuning.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/tuning.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/tuning.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/tuning.cpp.i
 .PHONY : ArduCopter/tuning.cpp.i
 
 ArduCopter/tuning.s: ArduCopter/tuning.cpp.s
@@ -4585,8 +4585,8 @@ ArduCopter/tuning.s: ArduCopter/tuning.cpp.s
 
 # target to generate assembly for a file
 ArduCopter/tuning.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter-heli.dir/build.make CMakeFiles/bin_arducopter-heli.dir/ArduCopter/tuning.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arducopter.dir/build.make CMakeFiles/bin_arducopter.dir/ArduCopter/tuning.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter-heli.dir/build.make CMakeFiles/copter-heli.dir/ArduCopter/tuning.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/ArduCopter/tuning.cpp.s
 .PHONY : ArduCopter/tuning.cpp.s
 
 ArduPlane/AP_Arming_Plane.o: ArduPlane/AP_Arming_Plane.cpp.o
@@ -4594,7 +4594,7 @@ ArduPlane/AP_Arming_Plane.o: ArduPlane/AP_Arming_Plane.cpp.o
 
 # target to build an object file
 ArduPlane/AP_Arming_Plane.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/AP_Arming_Plane.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/AP_Arming_Plane.cpp.o
 .PHONY : ArduPlane/AP_Arming_Plane.cpp.o
 
 ArduPlane/AP_Arming_Plane.i: ArduPlane/AP_Arming_Plane.cpp.i
@@ -4602,7 +4602,7 @@ ArduPlane/AP_Arming_Plane.i: ArduPlane/AP_Arming_Plane.cpp.i
 
 # target to preprocess a source file
 ArduPlane/AP_Arming_Plane.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/AP_Arming_Plane.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/AP_Arming_Plane.cpp.i
 .PHONY : ArduPlane/AP_Arming_Plane.cpp.i
 
 ArduPlane/AP_Arming_Plane.s: ArduPlane/AP_Arming_Plane.cpp.s
@@ -4610,7 +4610,7 @@ ArduPlane/AP_Arming_Plane.s: ArduPlane/AP_Arming_Plane.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/AP_Arming_Plane.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/AP_Arming_Plane.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/AP_Arming_Plane.cpp.s
 .PHONY : ArduPlane/AP_Arming_Plane.cpp.s
 
 ArduPlane/AP_ExternalControl_Plane.o: ArduPlane/AP_ExternalControl_Plane.cpp.o
@@ -4618,7 +4618,7 @@ ArduPlane/AP_ExternalControl_Plane.o: ArduPlane/AP_ExternalControl_Plane.cpp.o
 
 # target to build an object file
 ArduPlane/AP_ExternalControl_Plane.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/AP_ExternalControl_Plane.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/AP_ExternalControl_Plane.cpp.o
 .PHONY : ArduPlane/AP_ExternalControl_Plane.cpp.o
 
 ArduPlane/AP_ExternalControl_Plane.i: ArduPlane/AP_ExternalControl_Plane.cpp.i
@@ -4626,7 +4626,7 @@ ArduPlane/AP_ExternalControl_Plane.i: ArduPlane/AP_ExternalControl_Plane.cpp.i
 
 # target to preprocess a source file
 ArduPlane/AP_ExternalControl_Plane.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/AP_ExternalControl_Plane.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/AP_ExternalControl_Plane.cpp.i
 .PHONY : ArduPlane/AP_ExternalControl_Plane.cpp.i
 
 ArduPlane/AP_ExternalControl_Plane.s: ArduPlane/AP_ExternalControl_Plane.cpp.s
@@ -4634,7 +4634,7 @@ ArduPlane/AP_ExternalControl_Plane.s: ArduPlane/AP_ExternalControl_Plane.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/AP_ExternalControl_Plane.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/AP_ExternalControl_Plane.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/AP_ExternalControl_Plane.cpp.s
 .PHONY : ArduPlane/AP_ExternalControl_Plane.cpp.s
 
 ArduPlane/Attitude.o: ArduPlane/Attitude.cpp.o
@@ -4642,7 +4642,7 @@ ArduPlane/Attitude.o: ArduPlane/Attitude.cpp.o
 
 # target to build an object file
 ArduPlane/Attitude.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/Attitude.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/Attitude.cpp.o
 .PHONY : ArduPlane/Attitude.cpp.o
 
 ArduPlane/Attitude.i: ArduPlane/Attitude.cpp.i
@@ -4650,7 +4650,7 @@ ArduPlane/Attitude.i: ArduPlane/Attitude.cpp.i
 
 # target to preprocess a source file
 ArduPlane/Attitude.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/Attitude.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/Attitude.cpp.i
 .PHONY : ArduPlane/Attitude.cpp.i
 
 ArduPlane/Attitude.s: ArduPlane/Attitude.cpp.s
@@ -4658,7 +4658,7 @@ ArduPlane/Attitude.s: ArduPlane/Attitude.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/Attitude.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/Attitude.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/Attitude.cpp.s
 .PHONY : ArduPlane/Attitude.cpp.s
 
 ArduPlane/GCS_MAVLink_Plane.o: ArduPlane/GCS_MAVLink_Plane.cpp.o
@@ -4666,7 +4666,7 @@ ArduPlane/GCS_MAVLink_Plane.o: ArduPlane/GCS_MAVLink_Plane.cpp.o
 
 # target to build an object file
 ArduPlane/GCS_MAVLink_Plane.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/GCS_MAVLink_Plane.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/GCS_MAVLink_Plane.cpp.o
 .PHONY : ArduPlane/GCS_MAVLink_Plane.cpp.o
 
 ArduPlane/GCS_MAVLink_Plane.i: ArduPlane/GCS_MAVLink_Plane.cpp.i
@@ -4674,7 +4674,7 @@ ArduPlane/GCS_MAVLink_Plane.i: ArduPlane/GCS_MAVLink_Plane.cpp.i
 
 # target to preprocess a source file
 ArduPlane/GCS_MAVLink_Plane.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/GCS_MAVLink_Plane.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/GCS_MAVLink_Plane.cpp.i
 .PHONY : ArduPlane/GCS_MAVLink_Plane.cpp.i
 
 ArduPlane/GCS_MAVLink_Plane.s: ArduPlane/GCS_MAVLink_Plane.cpp.s
@@ -4682,7 +4682,7 @@ ArduPlane/GCS_MAVLink_Plane.s: ArduPlane/GCS_MAVLink_Plane.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/GCS_MAVLink_Plane.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/GCS_MAVLink_Plane.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/GCS_MAVLink_Plane.cpp.s
 .PHONY : ArduPlane/GCS_MAVLink_Plane.cpp.s
 
 ArduPlane/GCS_Plane.o: ArduPlane/GCS_Plane.cpp.o
@@ -4690,7 +4690,7 @@ ArduPlane/GCS_Plane.o: ArduPlane/GCS_Plane.cpp.o
 
 # target to build an object file
 ArduPlane/GCS_Plane.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/GCS_Plane.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/GCS_Plane.cpp.o
 .PHONY : ArduPlane/GCS_Plane.cpp.o
 
 ArduPlane/GCS_Plane.i: ArduPlane/GCS_Plane.cpp.i
@@ -4698,7 +4698,7 @@ ArduPlane/GCS_Plane.i: ArduPlane/GCS_Plane.cpp.i
 
 # target to preprocess a source file
 ArduPlane/GCS_Plane.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/GCS_Plane.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/GCS_Plane.cpp.i
 .PHONY : ArduPlane/GCS_Plane.cpp.i
 
 ArduPlane/GCS_Plane.s: ArduPlane/GCS_Plane.cpp.s
@@ -4706,7 +4706,7 @@ ArduPlane/GCS_Plane.s: ArduPlane/GCS_Plane.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/GCS_Plane.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/GCS_Plane.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/GCS_Plane.cpp.s
 .PHONY : ArduPlane/GCS_Plane.cpp.s
 
 ArduPlane/Log.o: ArduPlane/Log.cpp.o
@@ -4714,7 +4714,7 @@ ArduPlane/Log.o: ArduPlane/Log.cpp.o
 
 # target to build an object file
 ArduPlane/Log.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/Log.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/Log.cpp.o
 .PHONY : ArduPlane/Log.cpp.o
 
 ArduPlane/Log.i: ArduPlane/Log.cpp.i
@@ -4722,7 +4722,7 @@ ArduPlane/Log.i: ArduPlane/Log.cpp.i
 
 # target to preprocess a source file
 ArduPlane/Log.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/Log.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/Log.cpp.i
 .PHONY : ArduPlane/Log.cpp.i
 
 ArduPlane/Log.s: ArduPlane/Log.cpp.s
@@ -4730,7 +4730,7 @@ ArduPlane/Log.s: ArduPlane/Log.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/Log.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/Log.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/Log.cpp.s
 .PHONY : ArduPlane/Log.cpp.s
 
 ArduPlane/Parameters.o: ArduPlane/Parameters.cpp.o
@@ -4738,7 +4738,7 @@ ArduPlane/Parameters.o: ArduPlane/Parameters.cpp.o
 
 # target to build an object file
 ArduPlane/Parameters.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/Parameters.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/Parameters.cpp.o
 .PHONY : ArduPlane/Parameters.cpp.o
 
 ArduPlane/Parameters.i: ArduPlane/Parameters.cpp.i
@@ -4746,7 +4746,7 @@ ArduPlane/Parameters.i: ArduPlane/Parameters.cpp.i
 
 # target to preprocess a source file
 ArduPlane/Parameters.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/Parameters.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/Parameters.cpp.i
 .PHONY : ArduPlane/Parameters.cpp.i
 
 ArduPlane/Parameters.s: ArduPlane/Parameters.cpp.s
@@ -4754,7 +4754,7 @@ ArduPlane/Parameters.s: ArduPlane/Parameters.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/Parameters.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/Parameters.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/Parameters.cpp.s
 .PHONY : ArduPlane/Parameters.cpp.s
 
 ArduPlane/Plane.o: ArduPlane/Plane.cpp.o
@@ -4762,7 +4762,7 @@ ArduPlane/Plane.o: ArduPlane/Plane.cpp.o
 
 # target to build an object file
 ArduPlane/Plane.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/Plane.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/Plane.cpp.o
 .PHONY : ArduPlane/Plane.cpp.o
 
 ArduPlane/Plane.i: ArduPlane/Plane.cpp.i
@@ -4770,7 +4770,7 @@ ArduPlane/Plane.i: ArduPlane/Plane.cpp.i
 
 # target to preprocess a source file
 ArduPlane/Plane.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/Plane.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/Plane.cpp.i
 .PHONY : ArduPlane/Plane.cpp.i
 
 ArduPlane/Plane.s: ArduPlane/Plane.cpp.s
@@ -4778,7 +4778,7 @@ ArduPlane/Plane.s: ArduPlane/Plane.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/Plane.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/Plane.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/Plane.cpp.s
 .PHONY : ArduPlane/Plane.cpp.s
 
 ArduPlane/RC_Channel_Plane.o: ArduPlane/RC_Channel_Plane.cpp.o
@@ -4786,7 +4786,7 @@ ArduPlane/RC_Channel_Plane.o: ArduPlane/RC_Channel_Plane.cpp.o
 
 # target to build an object file
 ArduPlane/RC_Channel_Plane.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/RC_Channel_Plane.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/RC_Channel_Plane.cpp.o
 .PHONY : ArduPlane/RC_Channel_Plane.cpp.o
 
 ArduPlane/RC_Channel_Plane.i: ArduPlane/RC_Channel_Plane.cpp.i
@@ -4794,7 +4794,7 @@ ArduPlane/RC_Channel_Plane.i: ArduPlane/RC_Channel_Plane.cpp.i
 
 # target to preprocess a source file
 ArduPlane/RC_Channel_Plane.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/RC_Channel_Plane.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/RC_Channel_Plane.cpp.i
 .PHONY : ArduPlane/RC_Channel_Plane.cpp.i
 
 ArduPlane/RC_Channel_Plane.s: ArduPlane/RC_Channel_Plane.cpp.s
@@ -4802,7 +4802,7 @@ ArduPlane/RC_Channel_Plane.s: ArduPlane/RC_Channel_Plane.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/RC_Channel_Plane.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/RC_Channel_Plane.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/RC_Channel_Plane.cpp.s
 .PHONY : ArduPlane/RC_Channel_Plane.cpp.s
 
 ArduPlane/VTOL_Assist.o: ArduPlane/VTOL_Assist.cpp.o
@@ -4810,7 +4810,7 @@ ArduPlane/VTOL_Assist.o: ArduPlane/VTOL_Assist.cpp.o
 
 # target to build an object file
 ArduPlane/VTOL_Assist.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/VTOL_Assist.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/VTOL_Assist.cpp.o
 .PHONY : ArduPlane/VTOL_Assist.cpp.o
 
 ArduPlane/VTOL_Assist.i: ArduPlane/VTOL_Assist.cpp.i
@@ -4818,7 +4818,7 @@ ArduPlane/VTOL_Assist.i: ArduPlane/VTOL_Assist.cpp.i
 
 # target to preprocess a source file
 ArduPlane/VTOL_Assist.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/VTOL_Assist.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/VTOL_Assist.cpp.i
 .PHONY : ArduPlane/VTOL_Assist.cpp.i
 
 ArduPlane/VTOL_Assist.s: ArduPlane/VTOL_Assist.cpp.s
@@ -4826,7 +4826,7 @@ ArduPlane/VTOL_Assist.s: ArduPlane/VTOL_Assist.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/VTOL_Assist.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/VTOL_Assist.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/VTOL_Assist.cpp.s
 .PHONY : ArduPlane/VTOL_Assist.cpp.s
 
 ArduPlane/afs_plane.o: ArduPlane/afs_plane.cpp.o
@@ -4834,7 +4834,7 @@ ArduPlane/afs_plane.o: ArduPlane/afs_plane.cpp.o
 
 # target to build an object file
 ArduPlane/afs_plane.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/afs_plane.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/afs_plane.cpp.o
 .PHONY : ArduPlane/afs_plane.cpp.o
 
 ArduPlane/afs_plane.i: ArduPlane/afs_plane.cpp.i
@@ -4842,7 +4842,7 @@ ArduPlane/afs_plane.i: ArduPlane/afs_plane.cpp.i
 
 # target to preprocess a source file
 ArduPlane/afs_plane.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/afs_plane.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/afs_plane.cpp.i
 .PHONY : ArduPlane/afs_plane.cpp.i
 
 ArduPlane/afs_plane.s: ArduPlane/afs_plane.cpp.s
@@ -4850,7 +4850,7 @@ ArduPlane/afs_plane.s: ArduPlane/afs_plane.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/afs_plane.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/afs_plane.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/afs_plane.cpp.s
 .PHONY : ArduPlane/afs_plane.cpp.s
 
 ArduPlane/altitude.o: ArduPlane/altitude.cpp.o
@@ -4858,7 +4858,7 @@ ArduPlane/altitude.o: ArduPlane/altitude.cpp.o
 
 # target to build an object file
 ArduPlane/altitude.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/altitude.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/altitude.cpp.o
 .PHONY : ArduPlane/altitude.cpp.o
 
 ArduPlane/altitude.i: ArduPlane/altitude.cpp.i
@@ -4866,7 +4866,7 @@ ArduPlane/altitude.i: ArduPlane/altitude.cpp.i
 
 # target to preprocess a source file
 ArduPlane/altitude.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/altitude.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/altitude.cpp.i
 .PHONY : ArduPlane/altitude.cpp.i
 
 ArduPlane/altitude.s: ArduPlane/altitude.cpp.s
@@ -4874,7 +4874,7 @@ ArduPlane/altitude.s: ArduPlane/altitude.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/altitude.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/altitude.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/altitude.cpp.s
 .PHONY : ArduPlane/altitude.cpp.s
 
 ArduPlane/avoidance_adsb.o: ArduPlane/avoidance_adsb.cpp.o
@@ -4882,7 +4882,7 @@ ArduPlane/avoidance_adsb.o: ArduPlane/avoidance_adsb.cpp.o
 
 # target to build an object file
 ArduPlane/avoidance_adsb.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/avoidance_adsb.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/avoidance_adsb.cpp.o
 .PHONY : ArduPlane/avoidance_adsb.cpp.o
 
 ArduPlane/avoidance_adsb.i: ArduPlane/avoidance_adsb.cpp.i
@@ -4890,7 +4890,7 @@ ArduPlane/avoidance_adsb.i: ArduPlane/avoidance_adsb.cpp.i
 
 # target to preprocess a source file
 ArduPlane/avoidance_adsb.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/avoidance_adsb.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/avoidance_adsb.cpp.i
 .PHONY : ArduPlane/avoidance_adsb.cpp.i
 
 ArduPlane/avoidance_adsb.s: ArduPlane/avoidance_adsb.cpp.s
@@ -4898,7 +4898,7 @@ ArduPlane/avoidance_adsb.s: ArduPlane/avoidance_adsb.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/avoidance_adsb.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/avoidance_adsb.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/avoidance_adsb.cpp.s
 .PHONY : ArduPlane/avoidance_adsb.cpp.s
 
 ArduPlane/commands.o: ArduPlane/commands.cpp.o
@@ -4906,7 +4906,7 @@ ArduPlane/commands.o: ArduPlane/commands.cpp.o
 
 # target to build an object file
 ArduPlane/commands.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/commands.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/commands.cpp.o
 .PHONY : ArduPlane/commands.cpp.o
 
 ArduPlane/commands.i: ArduPlane/commands.cpp.i
@@ -4914,7 +4914,7 @@ ArduPlane/commands.i: ArduPlane/commands.cpp.i
 
 # target to preprocess a source file
 ArduPlane/commands.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/commands.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/commands.cpp.i
 .PHONY : ArduPlane/commands.cpp.i
 
 ArduPlane/commands.s: ArduPlane/commands.cpp.s
@@ -4922,7 +4922,7 @@ ArduPlane/commands.s: ArduPlane/commands.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/commands.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/commands.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/commands.cpp.s
 .PHONY : ArduPlane/commands.cpp.s
 
 ArduPlane/commands_logic.o: ArduPlane/commands_logic.cpp.o
@@ -4930,7 +4930,7 @@ ArduPlane/commands_logic.o: ArduPlane/commands_logic.cpp.o
 
 # target to build an object file
 ArduPlane/commands_logic.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/commands_logic.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/commands_logic.cpp.o
 .PHONY : ArduPlane/commands_logic.cpp.o
 
 ArduPlane/commands_logic.i: ArduPlane/commands_logic.cpp.i
@@ -4938,7 +4938,7 @@ ArduPlane/commands_logic.i: ArduPlane/commands_logic.cpp.i
 
 # target to preprocess a source file
 ArduPlane/commands_logic.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/commands_logic.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/commands_logic.cpp.i
 .PHONY : ArduPlane/commands_logic.cpp.i
 
 ArduPlane/commands_logic.s: ArduPlane/commands_logic.cpp.s
@@ -4946,7 +4946,7 @@ ArduPlane/commands_logic.s: ArduPlane/commands_logic.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/commands_logic.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/commands_logic.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/commands_logic.cpp.s
 .PHONY : ArduPlane/commands_logic.cpp.s
 
 ArduPlane/control_modes.o: ArduPlane/control_modes.cpp.o
@@ -4954,7 +4954,7 @@ ArduPlane/control_modes.o: ArduPlane/control_modes.cpp.o
 
 # target to build an object file
 ArduPlane/control_modes.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/control_modes.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/control_modes.cpp.o
 .PHONY : ArduPlane/control_modes.cpp.o
 
 ArduPlane/control_modes.i: ArduPlane/control_modes.cpp.i
@@ -4962,7 +4962,7 @@ ArduPlane/control_modes.i: ArduPlane/control_modes.cpp.i
 
 # target to preprocess a source file
 ArduPlane/control_modes.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/control_modes.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/control_modes.cpp.i
 .PHONY : ArduPlane/control_modes.cpp.i
 
 ArduPlane/control_modes.s: ArduPlane/control_modes.cpp.s
@@ -4970,7 +4970,7 @@ ArduPlane/control_modes.s: ArduPlane/control_modes.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/control_modes.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/control_modes.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/control_modes.cpp.s
 .PHONY : ArduPlane/control_modes.cpp.s
 
 ArduPlane/ekf_check.o: ArduPlane/ekf_check.cpp.o
@@ -4978,7 +4978,7 @@ ArduPlane/ekf_check.o: ArduPlane/ekf_check.cpp.o
 
 # target to build an object file
 ArduPlane/ekf_check.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/ekf_check.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/ekf_check.cpp.o
 .PHONY : ArduPlane/ekf_check.cpp.o
 
 ArduPlane/ekf_check.i: ArduPlane/ekf_check.cpp.i
@@ -4986,7 +4986,7 @@ ArduPlane/ekf_check.i: ArduPlane/ekf_check.cpp.i
 
 # target to preprocess a source file
 ArduPlane/ekf_check.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/ekf_check.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/ekf_check.cpp.i
 .PHONY : ArduPlane/ekf_check.cpp.i
 
 ArduPlane/ekf_check.s: ArduPlane/ekf_check.cpp.s
@@ -4994,7 +4994,7 @@ ArduPlane/ekf_check.s: ArduPlane/ekf_check.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/ekf_check.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/ekf_check.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/ekf_check.cpp.s
 .PHONY : ArduPlane/ekf_check.cpp.s
 
 ArduPlane/events.o: ArduPlane/events.cpp.o
@@ -5002,7 +5002,7 @@ ArduPlane/events.o: ArduPlane/events.cpp.o
 
 # target to build an object file
 ArduPlane/events.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/events.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/events.cpp.o
 .PHONY : ArduPlane/events.cpp.o
 
 ArduPlane/events.i: ArduPlane/events.cpp.i
@@ -5010,7 +5010,7 @@ ArduPlane/events.i: ArduPlane/events.cpp.i
 
 # target to preprocess a source file
 ArduPlane/events.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/events.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/events.cpp.i
 .PHONY : ArduPlane/events.cpp.i
 
 ArduPlane/events.s: ArduPlane/events.cpp.s
@@ -5018,7 +5018,7 @@ ArduPlane/events.s: ArduPlane/events.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/events.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/events.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/events.cpp.s
 .PHONY : ArduPlane/events.cpp.s
 
 ArduPlane/failsafe.o: ArduPlane/failsafe.cpp.o
@@ -5026,7 +5026,7 @@ ArduPlane/failsafe.o: ArduPlane/failsafe.cpp.o
 
 # target to build an object file
 ArduPlane/failsafe.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/failsafe.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/failsafe.cpp.o
 .PHONY : ArduPlane/failsafe.cpp.o
 
 ArduPlane/failsafe.i: ArduPlane/failsafe.cpp.i
@@ -5034,7 +5034,7 @@ ArduPlane/failsafe.i: ArduPlane/failsafe.cpp.i
 
 # target to preprocess a source file
 ArduPlane/failsafe.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/failsafe.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/failsafe.cpp.i
 .PHONY : ArduPlane/failsafe.cpp.i
 
 ArduPlane/failsafe.s: ArduPlane/failsafe.cpp.s
@@ -5042,7 +5042,7 @@ ArduPlane/failsafe.s: ArduPlane/failsafe.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/failsafe.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/failsafe.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/failsafe.cpp.s
 .PHONY : ArduPlane/failsafe.cpp.s
 
 ArduPlane/fence.o: ArduPlane/fence.cpp.o
@@ -5050,7 +5050,7 @@ ArduPlane/fence.o: ArduPlane/fence.cpp.o
 
 # target to build an object file
 ArduPlane/fence.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/fence.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/fence.cpp.o
 .PHONY : ArduPlane/fence.cpp.o
 
 ArduPlane/fence.i: ArduPlane/fence.cpp.i
@@ -5058,7 +5058,7 @@ ArduPlane/fence.i: ArduPlane/fence.cpp.i
 
 # target to preprocess a source file
 ArduPlane/fence.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/fence.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/fence.cpp.i
 .PHONY : ArduPlane/fence.cpp.i
 
 ArduPlane/fence.s: ArduPlane/fence.cpp.s
@@ -5066,7 +5066,7 @@ ArduPlane/fence.s: ArduPlane/fence.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/fence.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/fence.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/fence.cpp.s
 .PHONY : ArduPlane/fence.cpp.s
 
 ArduPlane/is_flying.o: ArduPlane/is_flying.cpp.o
@@ -5074,7 +5074,7 @@ ArduPlane/is_flying.o: ArduPlane/is_flying.cpp.o
 
 # target to build an object file
 ArduPlane/is_flying.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/is_flying.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/is_flying.cpp.o
 .PHONY : ArduPlane/is_flying.cpp.o
 
 ArduPlane/is_flying.i: ArduPlane/is_flying.cpp.i
@@ -5082,7 +5082,7 @@ ArduPlane/is_flying.i: ArduPlane/is_flying.cpp.i
 
 # target to preprocess a source file
 ArduPlane/is_flying.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/is_flying.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/is_flying.cpp.i
 .PHONY : ArduPlane/is_flying.cpp.i
 
 ArduPlane/is_flying.s: ArduPlane/is_flying.cpp.s
@@ -5090,7 +5090,7 @@ ArduPlane/is_flying.s: ArduPlane/is_flying.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/is_flying.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/is_flying.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/is_flying.cpp.s
 .PHONY : ArduPlane/is_flying.cpp.s
 
 ArduPlane/mode.o: ArduPlane/mode.cpp.o
@@ -5098,7 +5098,7 @@ ArduPlane/mode.o: ArduPlane/mode.cpp.o
 
 # target to build an object file
 ArduPlane/mode.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode.cpp.o
 .PHONY : ArduPlane/mode.cpp.o
 
 ArduPlane/mode.i: ArduPlane/mode.cpp.i
@@ -5106,7 +5106,7 @@ ArduPlane/mode.i: ArduPlane/mode.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode.cpp.i
 .PHONY : ArduPlane/mode.cpp.i
 
 ArduPlane/mode.s: ArduPlane/mode.cpp.s
@@ -5114,7 +5114,7 @@ ArduPlane/mode.s: ArduPlane/mode.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode.cpp.s
 .PHONY : ArduPlane/mode.cpp.s
 
 ArduPlane/mode_LoiterAltQLand.o: ArduPlane/mode_LoiterAltQLand.cpp.o
@@ -5122,7 +5122,7 @@ ArduPlane/mode_LoiterAltQLand.o: ArduPlane/mode_LoiterAltQLand.cpp.o
 
 # target to build an object file
 ArduPlane/mode_LoiterAltQLand.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_LoiterAltQLand.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_LoiterAltQLand.cpp.o
 .PHONY : ArduPlane/mode_LoiterAltQLand.cpp.o
 
 ArduPlane/mode_LoiterAltQLand.i: ArduPlane/mode_LoiterAltQLand.cpp.i
@@ -5130,7 +5130,7 @@ ArduPlane/mode_LoiterAltQLand.i: ArduPlane/mode_LoiterAltQLand.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_LoiterAltQLand.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_LoiterAltQLand.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_LoiterAltQLand.cpp.i
 .PHONY : ArduPlane/mode_LoiterAltQLand.cpp.i
 
 ArduPlane/mode_LoiterAltQLand.s: ArduPlane/mode_LoiterAltQLand.cpp.s
@@ -5138,7 +5138,7 @@ ArduPlane/mode_LoiterAltQLand.s: ArduPlane/mode_LoiterAltQLand.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_LoiterAltQLand.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_LoiterAltQLand.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_LoiterAltQLand.cpp.s
 .PHONY : ArduPlane/mode_LoiterAltQLand.cpp.s
 
 ArduPlane/mode_acro.o: ArduPlane/mode_acro.cpp.o
@@ -5146,7 +5146,7 @@ ArduPlane/mode_acro.o: ArduPlane/mode_acro.cpp.o
 
 # target to build an object file
 ArduPlane/mode_acro.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_acro.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_acro.cpp.o
 .PHONY : ArduPlane/mode_acro.cpp.o
 
 ArduPlane/mode_acro.i: ArduPlane/mode_acro.cpp.i
@@ -5154,7 +5154,7 @@ ArduPlane/mode_acro.i: ArduPlane/mode_acro.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_acro.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_acro.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_acro.cpp.i
 .PHONY : ArduPlane/mode_acro.cpp.i
 
 ArduPlane/mode_acro.s: ArduPlane/mode_acro.cpp.s
@@ -5162,7 +5162,7 @@ ArduPlane/mode_acro.s: ArduPlane/mode_acro.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_acro.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_acro.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_acro.cpp.s
 .PHONY : ArduPlane/mode_acro.cpp.s
 
 ArduPlane/mode_auto.o: ArduPlane/mode_auto.cpp.o
@@ -5170,7 +5170,7 @@ ArduPlane/mode_auto.o: ArduPlane/mode_auto.cpp.o
 
 # target to build an object file
 ArduPlane/mode_auto.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_auto.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_auto.cpp.o
 .PHONY : ArduPlane/mode_auto.cpp.o
 
 ArduPlane/mode_auto.i: ArduPlane/mode_auto.cpp.i
@@ -5178,7 +5178,7 @@ ArduPlane/mode_auto.i: ArduPlane/mode_auto.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_auto.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_auto.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_auto.cpp.i
 .PHONY : ArduPlane/mode_auto.cpp.i
 
 ArduPlane/mode_auto.s: ArduPlane/mode_auto.cpp.s
@@ -5186,7 +5186,7 @@ ArduPlane/mode_auto.s: ArduPlane/mode_auto.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_auto.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_auto.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_auto.cpp.s
 .PHONY : ArduPlane/mode_auto.cpp.s
 
 ArduPlane/mode_autoland.o: ArduPlane/mode_autoland.cpp.o
@@ -5194,7 +5194,7 @@ ArduPlane/mode_autoland.o: ArduPlane/mode_autoland.cpp.o
 
 # target to build an object file
 ArduPlane/mode_autoland.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_autoland.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_autoland.cpp.o
 .PHONY : ArduPlane/mode_autoland.cpp.o
 
 ArduPlane/mode_autoland.i: ArduPlane/mode_autoland.cpp.i
@@ -5202,7 +5202,7 @@ ArduPlane/mode_autoland.i: ArduPlane/mode_autoland.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_autoland.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_autoland.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_autoland.cpp.i
 .PHONY : ArduPlane/mode_autoland.cpp.i
 
 ArduPlane/mode_autoland.s: ArduPlane/mode_autoland.cpp.s
@@ -5210,7 +5210,7 @@ ArduPlane/mode_autoland.s: ArduPlane/mode_autoland.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_autoland.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_autoland.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_autoland.cpp.s
 .PHONY : ArduPlane/mode_autoland.cpp.s
 
 ArduPlane/mode_autotune.o: ArduPlane/mode_autotune.cpp.o
@@ -5218,7 +5218,7 @@ ArduPlane/mode_autotune.o: ArduPlane/mode_autotune.cpp.o
 
 # target to build an object file
 ArduPlane/mode_autotune.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_autotune.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_autotune.cpp.o
 .PHONY : ArduPlane/mode_autotune.cpp.o
 
 ArduPlane/mode_autotune.i: ArduPlane/mode_autotune.cpp.i
@@ -5226,7 +5226,7 @@ ArduPlane/mode_autotune.i: ArduPlane/mode_autotune.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_autotune.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_autotune.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_autotune.cpp.i
 .PHONY : ArduPlane/mode_autotune.cpp.i
 
 ArduPlane/mode_autotune.s: ArduPlane/mode_autotune.cpp.s
@@ -5234,7 +5234,7 @@ ArduPlane/mode_autotune.s: ArduPlane/mode_autotune.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_autotune.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_autotune.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_autotune.cpp.s
 .PHONY : ArduPlane/mode_autotune.cpp.s
 
 ArduPlane/mode_avoidADSB.o: ArduPlane/mode_avoidADSB.cpp.o
@@ -5242,7 +5242,7 @@ ArduPlane/mode_avoidADSB.o: ArduPlane/mode_avoidADSB.cpp.o
 
 # target to build an object file
 ArduPlane/mode_avoidADSB.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_avoidADSB.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_avoidADSB.cpp.o
 .PHONY : ArduPlane/mode_avoidADSB.cpp.o
 
 ArduPlane/mode_avoidADSB.i: ArduPlane/mode_avoidADSB.cpp.i
@@ -5250,7 +5250,7 @@ ArduPlane/mode_avoidADSB.i: ArduPlane/mode_avoidADSB.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_avoidADSB.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_avoidADSB.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_avoidADSB.cpp.i
 .PHONY : ArduPlane/mode_avoidADSB.cpp.i
 
 ArduPlane/mode_avoidADSB.s: ArduPlane/mode_avoidADSB.cpp.s
@@ -5258,7 +5258,7 @@ ArduPlane/mode_avoidADSB.s: ArduPlane/mode_avoidADSB.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_avoidADSB.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_avoidADSB.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_avoidADSB.cpp.s
 .PHONY : ArduPlane/mode_avoidADSB.cpp.s
 
 ArduPlane/mode_circle.o: ArduPlane/mode_circle.cpp.o
@@ -5266,7 +5266,7 @@ ArduPlane/mode_circle.o: ArduPlane/mode_circle.cpp.o
 
 # target to build an object file
 ArduPlane/mode_circle.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_circle.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_circle.cpp.o
 .PHONY : ArduPlane/mode_circle.cpp.o
 
 ArduPlane/mode_circle.i: ArduPlane/mode_circle.cpp.i
@@ -5274,7 +5274,7 @@ ArduPlane/mode_circle.i: ArduPlane/mode_circle.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_circle.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_circle.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_circle.cpp.i
 .PHONY : ArduPlane/mode_circle.cpp.i
 
 ArduPlane/mode_circle.s: ArduPlane/mode_circle.cpp.s
@@ -5282,7 +5282,7 @@ ArduPlane/mode_circle.s: ArduPlane/mode_circle.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_circle.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_circle.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_circle.cpp.s
 .PHONY : ArduPlane/mode_circle.cpp.s
 
 ArduPlane/mode_cruise.o: ArduPlane/mode_cruise.cpp.o
@@ -5290,7 +5290,7 @@ ArduPlane/mode_cruise.o: ArduPlane/mode_cruise.cpp.o
 
 # target to build an object file
 ArduPlane/mode_cruise.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_cruise.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_cruise.cpp.o
 .PHONY : ArduPlane/mode_cruise.cpp.o
 
 ArduPlane/mode_cruise.i: ArduPlane/mode_cruise.cpp.i
@@ -5298,7 +5298,7 @@ ArduPlane/mode_cruise.i: ArduPlane/mode_cruise.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_cruise.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_cruise.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_cruise.cpp.i
 .PHONY : ArduPlane/mode_cruise.cpp.i
 
 ArduPlane/mode_cruise.s: ArduPlane/mode_cruise.cpp.s
@@ -5306,7 +5306,7 @@ ArduPlane/mode_cruise.s: ArduPlane/mode_cruise.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_cruise.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_cruise.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_cruise.cpp.s
 .PHONY : ArduPlane/mode_cruise.cpp.s
 
 ArduPlane/mode_fbwa.o: ArduPlane/mode_fbwa.cpp.o
@@ -5314,7 +5314,7 @@ ArduPlane/mode_fbwa.o: ArduPlane/mode_fbwa.cpp.o
 
 # target to build an object file
 ArduPlane/mode_fbwa.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_fbwa.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_fbwa.cpp.o
 .PHONY : ArduPlane/mode_fbwa.cpp.o
 
 ArduPlane/mode_fbwa.i: ArduPlane/mode_fbwa.cpp.i
@@ -5322,7 +5322,7 @@ ArduPlane/mode_fbwa.i: ArduPlane/mode_fbwa.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_fbwa.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_fbwa.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_fbwa.cpp.i
 .PHONY : ArduPlane/mode_fbwa.cpp.i
 
 ArduPlane/mode_fbwa.s: ArduPlane/mode_fbwa.cpp.s
@@ -5330,7 +5330,7 @@ ArduPlane/mode_fbwa.s: ArduPlane/mode_fbwa.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_fbwa.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_fbwa.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_fbwa.cpp.s
 .PHONY : ArduPlane/mode_fbwa.cpp.s
 
 ArduPlane/mode_fbwb.o: ArduPlane/mode_fbwb.cpp.o
@@ -5338,7 +5338,7 @@ ArduPlane/mode_fbwb.o: ArduPlane/mode_fbwb.cpp.o
 
 # target to build an object file
 ArduPlane/mode_fbwb.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_fbwb.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_fbwb.cpp.o
 .PHONY : ArduPlane/mode_fbwb.cpp.o
 
 ArduPlane/mode_fbwb.i: ArduPlane/mode_fbwb.cpp.i
@@ -5346,7 +5346,7 @@ ArduPlane/mode_fbwb.i: ArduPlane/mode_fbwb.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_fbwb.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_fbwb.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_fbwb.cpp.i
 .PHONY : ArduPlane/mode_fbwb.cpp.i
 
 ArduPlane/mode_fbwb.s: ArduPlane/mode_fbwb.cpp.s
@@ -5354,7 +5354,7 @@ ArduPlane/mode_fbwb.s: ArduPlane/mode_fbwb.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_fbwb.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_fbwb.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_fbwb.cpp.s
 .PHONY : ArduPlane/mode_fbwb.cpp.s
 
 ArduPlane/mode_guided.o: ArduPlane/mode_guided.cpp.o
@@ -5362,7 +5362,7 @@ ArduPlane/mode_guided.o: ArduPlane/mode_guided.cpp.o
 
 # target to build an object file
 ArduPlane/mode_guided.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_guided.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_guided.cpp.o
 .PHONY : ArduPlane/mode_guided.cpp.o
 
 ArduPlane/mode_guided.i: ArduPlane/mode_guided.cpp.i
@@ -5370,7 +5370,7 @@ ArduPlane/mode_guided.i: ArduPlane/mode_guided.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_guided.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_guided.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_guided.cpp.i
 .PHONY : ArduPlane/mode_guided.cpp.i
 
 ArduPlane/mode_guided.s: ArduPlane/mode_guided.cpp.s
@@ -5378,7 +5378,7 @@ ArduPlane/mode_guided.s: ArduPlane/mode_guided.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_guided.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_guided.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_guided.cpp.s
 .PHONY : ArduPlane/mode_guided.cpp.s
 
 ArduPlane/mode_loiter.o: ArduPlane/mode_loiter.cpp.o
@@ -5386,7 +5386,7 @@ ArduPlane/mode_loiter.o: ArduPlane/mode_loiter.cpp.o
 
 # target to build an object file
 ArduPlane/mode_loiter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_loiter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_loiter.cpp.o
 .PHONY : ArduPlane/mode_loiter.cpp.o
 
 ArduPlane/mode_loiter.i: ArduPlane/mode_loiter.cpp.i
@@ -5394,7 +5394,7 @@ ArduPlane/mode_loiter.i: ArduPlane/mode_loiter.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_loiter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_loiter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_loiter.cpp.i
 .PHONY : ArduPlane/mode_loiter.cpp.i
 
 ArduPlane/mode_loiter.s: ArduPlane/mode_loiter.cpp.s
@@ -5402,7 +5402,7 @@ ArduPlane/mode_loiter.s: ArduPlane/mode_loiter.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_loiter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_loiter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_loiter.cpp.s
 .PHONY : ArduPlane/mode_loiter.cpp.s
 
 ArduPlane/mode_manual.o: ArduPlane/mode_manual.cpp.o
@@ -5410,7 +5410,7 @@ ArduPlane/mode_manual.o: ArduPlane/mode_manual.cpp.o
 
 # target to build an object file
 ArduPlane/mode_manual.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_manual.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_manual.cpp.o
 .PHONY : ArduPlane/mode_manual.cpp.o
 
 ArduPlane/mode_manual.i: ArduPlane/mode_manual.cpp.i
@@ -5418,7 +5418,7 @@ ArduPlane/mode_manual.i: ArduPlane/mode_manual.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_manual.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_manual.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_manual.cpp.i
 .PHONY : ArduPlane/mode_manual.cpp.i
 
 ArduPlane/mode_manual.s: ArduPlane/mode_manual.cpp.s
@@ -5426,7 +5426,7 @@ ArduPlane/mode_manual.s: ArduPlane/mode_manual.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_manual.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_manual.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_manual.cpp.s
 .PHONY : ArduPlane/mode_manual.cpp.s
 
 ArduPlane/mode_qacro.o: ArduPlane/mode_qacro.cpp.o
@@ -5434,7 +5434,7 @@ ArduPlane/mode_qacro.o: ArduPlane/mode_qacro.cpp.o
 
 # target to build an object file
 ArduPlane/mode_qacro.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qacro.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qacro.cpp.o
 .PHONY : ArduPlane/mode_qacro.cpp.o
 
 ArduPlane/mode_qacro.i: ArduPlane/mode_qacro.cpp.i
@@ -5442,7 +5442,7 @@ ArduPlane/mode_qacro.i: ArduPlane/mode_qacro.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_qacro.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qacro.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qacro.cpp.i
 .PHONY : ArduPlane/mode_qacro.cpp.i
 
 ArduPlane/mode_qacro.s: ArduPlane/mode_qacro.cpp.s
@@ -5450,7 +5450,7 @@ ArduPlane/mode_qacro.s: ArduPlane/mode_qacro.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_qacro.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qacro.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qacro.cpp.s
 .PHONY : ArduPlane/mode_qacro.cpp.s
 
 ArduPlane/mode_qautotune.o: ArduPlane/mode_qautotune.cpp.o
@@ -5458,7 +5458,7 @@ ArduPlane/mode_qautotune.o: ArduPlane/mode_qautotune.cpp.o
 
 # target to build an object file
 ArduPlane/mode_qautotune.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qautotune.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qautotune.cpp.o
 .PHONY : ArduPlane/mode_qautotune.cpp.o
 
 ArduPlane/mode_qautotune.i: ArduPlane/mode_qautotune.cpp.i
@@ -5466,7 +5466,7 @@ ArduPlane/mode_qautotune.i: ArduPlane/mode_qautotune.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_qautotune.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qautotune.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qautotune.cpp.i
 .PHONY : ArduPlane/mode_qautotune.cpp.i
 
 ArduPlane/mode_qautotune.s: ArduPlane/mode_qautotune.cpp.s
@@ -5474,7 +5474,7 @@ ArduPlane/mode_qautotune.s: ArduPlane/mode_qautotune.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_qautotune.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qautotune.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qautotune.cpp.s
 .PHONY : ArduPlane/mode_qautotune.cpp.s
 
 ArduPlane/mode_qhover.o: ArduPlane/mode_qhover.cpp.o
@@ -5482,7 +5482,7 @@ ArduPlane/mode_qhover.o: ArduPlane/mode_qhover.cpp.o
 
 # target to build an object file
 ArduPlane/mode_qhover.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qhover.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qhover.cpp.o
 .PHONY : ArduPlane/mode_qhover.cpp.o
 
 ArduPlane/mode_qhover.i: ArduPlane/mode_qhover.cpp.i
@@ -5490,7 +5490,7 @@ ArduPlane/mode_qhover.i: ArduPlane/mode_qhover.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_qhover.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qhover.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qhover.cpp.i
 .PHONY : ArduPlane/mode_qhover.cpp.i
 
 ArduPlane/mode_qhover.s: ArduPlane/mode_qhover.cpp.s
@@ -5498,7 +5498,7 @@ ArduPlane/mode_qhover.s: ArduPlane/mode_qhover.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_qhover.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qhover.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qhover.cpp.s
 .PHONY : ArduPlane/mode_qhover.cpp.s
 
 ArduPlane/mode_qland.o: ArduPlane/mode_qland.cpp.o
@@ -5506,7 +5506,7 @@ ArduPlane/mode_qland.o: ArduPlane/mode_qland.cpp.o
 
 # target to build an object file
 ArduPlane/mode_qland.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qland.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qland.cpp.o
 .PHONY : ArduPlane/mode_qland.cpp.o
 
 ArduPlane/mode_qland.i: ArduPlane/mode_qland.cpp.i
@@ -5514,7 +5514,7 @@ ArduPlane/mode_qland.i: ArduPlane/mode_qland.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_qland.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qland.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qland.cpp.i
 .PHONY : ArduPlane/mode_qland.cpp.i
 
 ArduPlane/mode_qland.s: ArduPlane/mode_qland.cpp.s
@@ -5522,7 +5522,7 @@ ArduPlane/mode_qland.s: ArduPlane/mode_qland.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_qland.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qland.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qland.cpp.s
 .PHONY : ArduPlane/mode_qland.cpp.s
 
 ArduPlane/mode_qloiter.o: ArduPlane/mode_qloiter.cpp.o
@@ -5530,7 +5530,7 @@ ArduPlane/mode_qloiter.o: ArduPlane/mode_qloiter.cpp.o
 
 # target to build an object file
 ArduPlane/mode_qloiter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qloiter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qloiter.cpp.o
 .PHONY : ArduPlane/mode_qloiter.cpp.o
 
 ArduPlane/mode_qloiter.i: ArduPlane/mode_qloiter.cpp.i
@@ -5538,7 +5538,7 @@ ArduPlane/mode_qloiter.i: ArduPlane/mode_qloiter.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_qloiter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qloiter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qloiter.cpp.i
 .PHONY : ArduPlane/mode_qloiter.cpp.i
 
 ArduPlane/mode_qloiter.s: ArduPlane/mode_qloiter.cpp.s
@@ -5546,7 +5546,7 @@ ArduPlane/mode_qloiter.s: ArduPlane/mode_qloiter.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_qloiter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qloiter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qloiter.cpp.s
 .PHONY : ArduPlane/mode_qloiter.cpp.s
 
 ArduPlane/mode_qrtl.o: ArduPlane/mode_qrtl.cpp.o
@@ -5554,7 +5554,7 @@ ArduPlane/mode_qrtl.o: ArduPlane/mode_qrtl.cpp.o
 
 # target to build an object file
 ArduPlane/mode_qrtl.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qrtl.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qrtl.cpp.o
 .PHONY : ArduPlane/mode_qrtl.cpp.o
 
 ArduPlane/mode_qrtl.i: ArduPlane/mode_qrtl.cpp.i
@@ -5562,7 +5562,7 @@ ArduPlane/mode_qrtl.i: ArduPlane/mode_qrtl.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_qrtl.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qrtl.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qrtl.cpp.i
 .PHONY : ArduPlane/mode_qrtl.cpp.i
 
 ArduPlane/mode_qrtl.s: ArduPlane/mode_qrtl.cpp.s
@@ -5570,7 +5570,7 @@ ArduPlane/mode_qrtl.s: ArduPlane/mode_qrtl.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_qrtl.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qrtl.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qrtl.cpp.s
 .PHONY : ArduPlane/mode_qrtl.cpp.s
 
 ArduPlane/mode_qstabilize.o: ArduPlane/mode_qstabilize.cpp.o
@@ -5578,7 +5578,7 @@ ArduPlane/mode_qstabilize.o: ArduPlane/mode_qstabilize.cpp.o
 
 # target to build an object file
 ArduPlane/mode_qstabilize.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qstabilize.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qstabilize.cpp.o
 .PHONY : ArduPlane/mode_qstabilize.cpp.o
 
 ArduPlane/mode_qstabilize.i: ArduPlane/mode_qstabilize.cpp.i
@@ -5586,7 +5586,7 @@ ArduPlane/mode_qstabilize.i: ArduPlane/mode_qstabilize.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_qstabilize.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qstabilize.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qstabilize.cpp.i
 .PHONY : ArduPlane/mode_qstabilize.cpp.i
 
 ArduPlane/mode_qstabilize.s: ArduPlane/mode_qstabilize.cpp.s
@@ -5594,7 +5594,7 @@ ArduPlane/mode_qstabilize.s: ArduPlane/mode_qstabilize.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_qstabilize.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_qstabilize.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_qstabilize.cpp.s
 .PHONY : ArduPlane/mode_qstabilize.cpp.s
 
 ArduPlane/mode_rtl.o: ArduPlane/mode_rtl.cpp.o
@@ -5602,7 +5602,7 @@ ArduPlane/mode_rtl.o: ArduPlane/mode_rtl.cpp.o
 
 # target to build an object file
 ArduPlane/mode_rtl.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_rtl.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_rtl.cpp.o
 .PHONY : ArduPlane/mode_rtl.cpp.o
 
 ArduPlane/mode_rtl.i: ArduPlane/mode_rtl.cpp.i
@@ -5610,7 +5610,7 @@ ArduPlane/mode_rtl.i: ArduPlane/mode_rtl.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_rtl.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_rtl.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_rtl.cpp.i
 .PHONY : ArduPlane/mode_rtl.cpp.i
 
 ArduPlane/mode_rtl.s: ArduPlane/mode_rtl.cpp.s
@@ -5618,7 +5618,7 @@ ArduPlane/mode_rtl.s: ArduPlane/mode_rtl.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_rtl.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_rtl.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_rtl.cpp.s
 .PHONY : ArduPlane/mode_rtl.cpp.s
 
 ArduPlane/mode_stabilize.o: ArduPlane/mode_stabilize.cpp.o
@@ -5626,7 +5626,7 @@ ArduPlane/mode_stabilize.o: ArduPlane/mode_stabilize.cpp.o
 
 # target to build an object file
 ArduPlane/mode_stabilize.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_stabilize.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_stabilize.cpp.o
 .PHONY : ArduPlane/mode_stabilize.cpp.o
 
 ArduPlane/mode_stabilize.i: ArduPlane/mode_stabilize.cpp.i
@@ -5634,7 +5634,7 @@ ArduPlane/mode_stabilize.i: ArduPlane/mode_stabilize.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_stabilize.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_stabilize.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_stabilize.cpp.i
 .PHONY : ArduPlane/mode_stabilize.cpp.i
 
 ArduPlane/mode_stabilize.s: ArduPlane/mode_stabilize.cpp.s
@@ -5642,7 +5642,7 @@ ArduPlane/mode_stabilize.s: ArduPlane/mode_stabilize.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_stabilize.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_stabilize.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_stabilize.cpp.s
 .PHONY : ArduPlane/mode_stabilize.cpp.s
 
 ArduPlane/mode_takeoff.o: ArduPlane/mode_takeoff.cpp.o
@@ -5650,7 +5650,7 @@ ArduPlane/mode_takeoff.o: ArduPlane/mode_takeoff.cpp.o
 
 # target to build an object file
 ArduPlane/mode_takeoff.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_takeoff.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_takeoff.cpp.o
 .PHONY : ArduPlane/mode_takeoff.cpp.o
 
 ArduPlane/mode_takeoff.i: ArduPlane/mode_takeoff.cpp.i
@@ -5658,7 +5658,7 @@ ArduPlane/mode_takeoff.i: ArduPlane/mode_takeoff.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_takeoff.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_takeoff.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_takeoff.cpp.i
 .PHONY : ArduPlane/mode_takeoff.cpp.i
 
 ArduPlane/mode_takeoff.s: ArduPlane/mode_takeoff.cpp.s
@@ -5666,7 +5666,7 @@ ArduPlane/mode_takeoff.s: ArduPlane/mode_takeoff.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_takeoff.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_takeoff.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_takeoff.cpp.s
 .PHONY : ArduPlane/mode_takeoff.cpp.s
 
 ArduPlane/mode_thermal.o: ArduPlane/mode_thermal.cpp.o
@@ -5674,7 +5674,7 @@ ArduPlane/mode_thermal.o: ArduPlane/mode_thermal.cpp.o
 
 # target to build an object file
 ArduPlane/mode_thermal.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_thermal.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_thermal.cpp.o
 .PHONY : ArduPlane/mode_thermal.cpp.o
 
 ArduPlane/mode_thermal.i: ArduPlane/mode_thermal.cpp.i
@@ -5682,7 +5682,7 @@ ArduPlane/mode_thermal.i: ArduPlane/mode_thermal.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_thermal.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_thermal.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_thermal.cpp.i
 .PHONY : ArduPlane/mode_thermal.cpp.i
 
 ArduPlane/mode_thermal.s: ArduPlane/mode_thermal.cpp.s
@@ -5690,7 +5690,7 @@ ArduPlane/mode_thermal.s: ArduPlane/mode_thermal.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_thermal.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_thermal.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_thermal.cpp.s
 .PHONY : ArduPlane/mode_thermal.cpp.s
 
 ArduPlane/mode_training.o: ArduPlane/mode_training.cpp.o
@@ -5698,7 +5698,7 @@ ArduPlane/mode_training.o: ArduPlane/mode_training.cpp.o
 
 # target to build an object file
 ArduPlane/mode_training.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_training.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_training.cpp.o
 .PHONY : ArduPlane/mode_training.cpp.o
 
 ArduPlane/mode_training.i: ArduPlane/mode_training.cpp.i
@@ -5706,7 +5706,7 @@ ArduPlane/mode_training.i: ArduPlane/mode_training.cpp.i
 
 # target to preprocess a source file
 ArduPlane/mode_training.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_training.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_training.cpp.i
 .PHONY : ArduPlane/mode_training.cpp.i
 
 ArduPlane/mode_training.s: ArduPlane/mode_training.cpp.s
@@ -5714,7 +5714,7 @@ ArduPlane/mode_training.s: ArduPlane/mode_training.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/mode_training.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/mode_training.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/mode_training.cpp.s
 .PHONY : ArduPlane/mode_training.cpp.s
 
 ArduPlane/motor_test.o: ArduPlane/motor_test.cpp.o
@@ -5722,7 +5722,7 @@ ArduPlane/motor_test.o: ArduPlane/motor_test.cpp.o
 
 # target to build an object file
 ArduPlane/motor_test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/motor_test.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/motor_test.cpp.o
 .PHONY : ArduPlane/motor_test.cpp.o
 
 ArduPlane/motor_test.i: ArduPlane/motor_test.cpp.i
@@ -5730,7 +5730,7 @@ ArduPlane/motor_test.i: ArduPlane/motor_test.cpp.i
 
 # target to preprocess a source file
 ArduPlane/motor_test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/motor_test.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/motor_test.cpp.i
 .PHONY : ArduPlane/motor_test.cpp.i
 
 ArduPlane/motor_test.s: ArduPlane/motor_test.cpp.s
@@ -5738,7 +5738,7 @@ ArduPlane/motor_test.s: ArduPlane/motor_test.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/motor_test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/motor_test.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/motor_test.cpp.s
 .PHONY : ArduPlane/motor_test.cpp.s
 
 ArduPlane/navigation.o: ArduPlane/navigation.cpp.o
@@ -5746,7 +5746,7 @@ ArduPlane/navigation.o: ArduPlane/navigation.cpp.o
 
 # target to build an object file
 ArduPlane/navigation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/navigation.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/navigation.cpp.o
 .PHONY : ArduPlane/navigation.cpp.o
 
 ArduPlane/navigation.i: ArduPlane/navigation.cpp.i
@@ -5754,7 +5754,7 @@ ArduPlane/navigation.i: ArduPlane/navigation.cpp.i
 
 # target to preprocess a source file
 ArduPlane/navigation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/navigation.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/navigation.cpp.i
 .PHONY : ArduPlane/navigation.cpp.i
 
 ArduPlane/navigation.s: ArduPlane/navigation.cpp.s
@@ -5762,7 +5762,7 @@ ArduPlane/navigation.s: ArduPlane/navigation.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/navigation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/navigation.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/navigation.cpp.s
 .PHONY : ArduPlane/navigation.cpp.s
 
 ArduPlane/parachute.o: ArduPlane/parachute.cpp.o
@@ -5770,7 +5770,7 @@ ArduPlane/parachute.o: ArduPlane/parachute.cpp.o
 
 # target to build an object file
 ArduPlane/parachute.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/parachute.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/parachute.cpp.o
 .PHONY : ArduPlane/parachute.cpp.o
 
 ArduPlane/parachute.i: ArduPlane/parachute.cpp.i
@@ -5778,7 +5778,7 @@ ArduPlane/parachute.i: ArduPlane/parachute.cpp.i
 
 # target to preprocess a source file
 ArduPlane/parachute.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/parachute.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/parachute.cpp.i
 .PHONY : ArduPlane/parachute.cpp.i
 
 ArduPlane/parachute.s: ArduPlane/parachute.cpp.s
@@ -5786,7 +5786,7 @@ ArduPlane/parachute.s: ArduPlane/parachute.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/parachute.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/parachute.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/parachute.cpp.s
 .PHONY : ArduPlane/parachute.cpp.s
 
 ArduPlane/pullup.o: ArduPlane/pullup.cpp.o
@@ -5794,7 +5794,7 @@ ArduPlane/pullup.o: ArduPlane/pullup.cpp.o
 
 # target to build an object file
 ArduPlane/pullup.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/pullup.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/pullup.cpp.o
 .PHONY : ArduPlane/pullup.cpp.o
 
 ArduPlane/pullup.i: ArduPlane/pullup.cpp.i
@@ -5802,7 +5802,7 @@ ArduPlane/pullup.i: ArduPlane/pullup.cpp.i
 
 # target to preprocess a source file
 ArduPlane/pullup.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/pullup.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/pullup.cpp.i
 .PHONY : ArduPlane/pullup.cpp.i
 
 ArduPlane/pullup.s: ArduPlane/pullup.cpp.s
@@ -5810,7 +5810,7 @@ ArduPlane/pullup.s: ArduPlane/pullup.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/pullup.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/pullup.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/pullup.cpp.s
 .PHONY : ArduPlane/pullup.cpp.s
 
 ArduPlane/qautotune.o: ArduPlane/qautotune.cpp.o
@@ -5818,7 +5818,7 @@ ArduPlane/qautotune.o: ArduPlane/qautotune.cpp.o
 
 # target to build an object file
 ArduPlane/qautotune.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/qautotune.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/qautotune.cpp.o
 .PHONY : ArduPlane/qautotune.cpp.o
 
 ArduPlane/qautotune.i: ArduPlane/qautotune.cpp.i
@@ -5826,7 +5826,7 @@ ArduPlane/qautotune.i: ArduPlane/qautotune.cpp.i
 
 # target to preprocess a source file
 ArduPlane/qautotune.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/qautotune.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/qautotune.cpp.i
 .PHONY : ArduPlane/qautotune.cpp.i
 
 ArduPlane/qautotune.s: ArduPlane/qautotune.cpp.s
@@ -5834,7 +5834,7 @@ ArduPlane/qautotune.s: ArduPlane/qautotune.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/qautotune.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/qautotune.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/qautotune.cpp.s
 .PHONY : ArduPlane/qautotune.cpp.s
 
 ArduPlane/quadplane.o: ArduPlane/quadplane.cpp.o
@@ -5842,7 +5842,7 @@ ArduPlane/quadplane.o: ArduPlane/quadplane.cpp.o
 
 # target to build an object file
 ArduPlane/quadplane.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/quadplane.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/quadplane.cpp.o
 .PHONY : ArduPlane/quadplane.cpp.o
 
 ArduPlane/quadplane.i: ArduPlane/quadplane.cpp.i
@@ -5850,7 +5850,7 @@ ArduPlane/quadplane.i: ArduPlane/quadplane.cpp.i
 
 # target to preprocess a source file
 ArduPlane/quadplane.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/quadplane.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/quadplane.cpp.i
 .PHONY : ArduPlane/quadplane.cpp.i
 
 ArduPlane/quadplane.s: ArduPlane/quadplane.cpp.s
@@ -5858,7 +5858,7 @@ ArduPlane/quadplane.s: ArduPlane/quadplane.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/quadplane.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/quadplane.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/quadplane.cpp.s
 .PHONY : ArduPlane/quadplane.cpp.s
 
 ArduPlane/radio.o: ArduPlane/radio.cpp.o
@@ -5866,7 +5866,7 @@ ArduPlane/radio.o: ArduPlane/radio.cpp.o
 
 # target to build an object file
 ArduPlane/radio.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/radio.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/radio.cpp.o
 .PHONY : ArduPlane/radio.cpp.o
 
 ArduPlane/radio.i: ArduPlane/radio.cpp.i
@@ -5874,7 +5874,7 @@ ArduPlane/radio.i: ArduPlane/radio.cpp.i
 
 # target to preprocess a source file
 ArduPlane/radio.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/radio.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/radio.cpp.i
 .PHONY : ArduPlane/radio.cpp.i
 
 ArduPlane/radio.s: ArduPlane/radio.cpp.s
@@ -5882,7 +5882,7 @@ ArduPlane/radio.s: ArduPlane/radio.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/radio.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/radio.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/radio.cpp.s
 .PHONY : ArduPlane/radio.cpp.s
 
 ArduPlane/reverse_thrust.o: ArduPlane/reverse_thrust.cpp.o
@@ -5890,7 +5890,7 @@ ArduPlane/reverse_thrust.o: ArduPlane/reverse_thrust.cpp.o
 
 # target to build an object file
 ArduPlane/reverse_thrust.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/reverse_thrust.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/reverse_thrust.cpp.o
 .PHONY : ArduPlane/reverse_thrust.cpp.o
 
 ArduPlane/reverse_thrust.i: ArduPlane/reverse_thrust.cpp.i
@@ -5898,7 +5898,7 @@ ArduPlane/reverse_thrust.i: ArduPlane/reverse_thrust.cpp.i
 
 # target to preprocess a source file
 ArduPlane/reverse_thrust.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/reverse_thrust.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/reverse_thrust.cpp.i
 .PHONY : ArduPlane/reverse_thrust.cpp.i
 
 ArduPlane/reverse_thrust.s: ArduPlane/reverse_thrust.cpp.s
@@ -5906,7 +5906,7 @@ ArduPlane/reverse_thrust.s: ArduPlane/reverse_thrust.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/reverse_thrust.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/reverse_thrust.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/reverse_thrust.cpp.s
 .PHONY : ArduPlane/reverse_thrust.cpp.s
 
 ArduPlane/sensors.o: ArduPlane/sensors.cpp.o
@@ -5914,7 +5914,7 @@ ArduPlane/sensors.o: ArduPlane/sensors.cpp.o
 
 # target to build an object file
 ArduPlane/sensors.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/sensors.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/sensors.cpp.o
 .PHONY : ArduPlane/sensors.cpp.o
 
 ArduPlane/sensors.i: ArduPlane/sensors.cpp.i
@@ -5922,7 +5922,7 @@ ArduPlane/sensors.i: ArduPlane/sensors.cpp.i
 
 # target to preprocess a source file
 ArduPlane/sensors.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/sensors.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/sensors.cpp.i
 .PHONY : ArduPlane/sensors.cpp.i
 
 ArduPlane/sensors.s: ArduPlane/sensors.cpp.s
@@ -5930,7 +5930,7 @@ ArduPlane/sensors.s: ArduPlane/sensors.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/sensors.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/sensors.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/sensors.cpp.s
 .PHONY : ArduPlane/sensors.cpp.s
 
 ArduPlane/servos.o: ArduPlane/servos.cpp.o
@@ -5938,7 +5938,7 @@ ArduPlane/servos.o: ArduPlane/servos.cpp.o
 
 # target to build an object file
 ArduPlane/servos.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/servos.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/servos.cpp.o
 .PHONY : ArduPlane/servos.cpp.o
 
 ArduPlane/servos.i: ArduPlane/servos.cpp.i
@@ -5946,7 +5946,7 @@ ArduPlane/servos.i: ArduPlane/servos.cpp.i
 
 # target to preprocess a source file
 ArduPlane/servos.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/servos.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/servos.cpp.i
 .PHONY : ArduPlane/servos.cpp.i
 
 ArduPlane/servos.s: ArduPlane/servos.cpp.s
@@ -5954,7 +5954,7 @@ ArduPlane/servos.s: ArduPlane/servos.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/servos.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/servos.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/servos.cpp.s
 .PHONY : ArduPlane/servos.cpp.s
 
 ArduPlane/soaring.o: ArduPlane/soaring.cpp.o
@@ -5962,7 +5962,7 @@ ArduPlane/soaring.o: ArduPlane/soaring.cpp.o
 
 # target to build an object file
 ArduPlane/soaring.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/soaring.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/soaring.cpp.o
 .PHONY : ArduPlane/soaring.cpp.o
 
 ArduPlane/soaring.i: ArduPlane/soaring.cpp.i
@@ -5970,7 +5970,7 @@ ArduPlane/soaring.i: ArduPlane/soaring.cpp.i
 
 # target to preprocess a source file
 ArduPlane/soaring.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/soaring.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/soaring.cpp.i
 .PHONY : ArduPlane/soaring.cpp.i
 
 ArduPlane/soaring.s: ArduPlane/soaring.cpp.s
@@ -5978,7 +5978,7 @@ ArduPlane/soaring.s: ArduPlane/soaring.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/soaring.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/soaring.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/soaring.cpp.s
 .PHONY : ArduPlane/soaring.cpp.s
 
 ArduPlane/system.o: ArduPlane/system.cpp.o
@@ -5986,7 +5986,7 @@ ArduPlane/system.o: ArduPlane/system.cpp.o
 
 # target to build an object file
 ArduPlane/system.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/system.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/system.cpp.o
 .PHONY : ArduPlane/system.cpp.o
 
 ArduPlane/system.i: ArduPlane/system.cpp.i
@@ -5994,7 +5994,7 @@ ArduPlane/system.i: ArduPlane/system.cpp.i
 
 # target to preprocess a source file
 ArduPlane/system.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/system.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/system.cpp.i
 .PHONY : ArduPlane/system.cpp.i
 
 ArduPlane/system.s: ArduPlane/system.cpp.s
@@ -6002,7 +6002,7 @@ ArduPlane/system.s: ArduPlane/system.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/system.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/system.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/system.cpp.s
 .PHONY : ArduPlane/system.cpp.s
 
 ArduPlane/systemid.o: ArduPlane/systemid.cpp.o
@@ -6010,7 +6010,7 @@ ArduPlane/systemid.o: ArduPlane/systemid.cpp.o
 
 # target to build an object file
 ArduPlane/systemid.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/systemid.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/systemid.cpp.o
 .PHONY : ArduPlane/systemid.cpp.o
 
 ArduPlane/systemid.i: ArduPlane/systemid.cpp.i
@@ -6018,7 +6018,7 @@ ArduPlane/systemid.i: ArduPlane/systemid.cpp.i
 
 # target to preprocess a source file
 ArduPlane/systemid.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/systemid.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/systemid.cpp.i
 .PHONY : ArduPlane/systemid.cpp.i
 
 ArduPlane/systemid.s: ArduPlane/systemid.cpp.s
@@ -6026,7 +6026,7 @@ ArduPlane/systemid.s: ArduPlane/systemid.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/systemid.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/systemid.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/systemid.cpp.s
 .PHONY : ArduPlane/systemid.cpp.s
 
 ArduPlane/tailsitter.o: ArduPlane/tailsitter.cpp.o
@@ -6034,7 +6034,7 @@ ArduPlane/tailsitter.o: ArduPlane/tailsitter.cpp.o
 
 # target to build an object file
 ArduPlane/tailsitter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/tailsitter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/tailsitter.cpp.o
 .PHONY : ArduPlane/tailsitter.cpp.o
 
 ArduPlane/tailsitter.i: ArduPlane/tailsitter.cpp.i
@@ -6042,7 +6042,7 @@ ArduPlane/tailsitter.i: ArduPlane/tailsitter.cpp.i
 
 # target to preprocess a source file
 ArduPlane/tailsitter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/tailsitter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/tailsitter.cpp.i
 .PHONY : ArduPlane/tailsitter.cpp.i
 
 ArduPlane/tailsitter.s: ArduPlane/tailsitter.cpp.s
@@ -6050,7 +6050,7 @@ ArduPlane/tailsitter.s: ArduPlane/tailsitter.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/tailsitter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/tailsitter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/tailsitter.cpp.s
 .PHONY : ArduPlane/tailsitter.cpp.s
 
 ArduPlane/takeoff.o: ArduPlane/takeoff.cpp.o
@@ -6058,7 +6058,7 @@ ArduPlane/takeoff.o: ArduPlane/takeoff.cpp.o
 
 # target to build an object file
 ArduPlane/takeoff.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/takeoff.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/takeoff.cpp.o
 .PHONY : ArduPlane/takeoff.cpp.o
 
 ArduPlane/takeoff.i: ArduPlane/takeoff.cpp.i
@@ -6066,7 +6066,7 @@ ArduPlane/takeoff.i: ArduPlane/takeoff.cpp.i
 
 # target to preprocess a source file
 ArduPlane/takeoff.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/takeoff.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/takeoff.cpp.i
 .PHONY : ArduPlane/takeoff.cpp.i
 
 ArduPlane/takeoff.s: ArduPlane/takeoff.cpp.s
@@ -6074,7 +6074,7 @@ ArduPlane/takeoff.s: ArduPlane/takeoff.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/takeoff.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/takeoff.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/takeoff.cpp.s
 .PHONY : ArduPlane/takeoff.cpp.s
 
 ArduPlane/tiltrotor.o: ArduPlane/tiltrotor.cpp.o
@@ -6082,7 +6082,7 @@ ArduPlane/tiltrotor.o: ArduPlane/tiltrotor.cpp.o
 
 # target to build an object file
 ArduPlane/tiltrotor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/tiltrotor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/tiltrotor.cpp.o
 .PHONY : ArduPlane/tiltrotor.cpp.o
 
 ArduPlane/tiltrotor.i: ArduPlane/tiltrotor.cpp.i
@@ -6090,7 +6090,7 @@ ArduPlane/tiltrotor.i: ArduPlane/tiltrotor.cpp.i
 
 # target to preprocess a source file
 ArduPlane/tiltrotor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/tiltrotor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/tiltrotor.cpp.i
 .PHONY : ArduPlane/tiltrotor.cpp.i
 
 ArduPlane/tiltrotor.s: ArduPlane/tiltrotor.cpp.s
@@ -6098,7 +6098,7 @@ ArduPlane/tiltrotor.s: ArduPlane/tiltrotor.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/tiltrotor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/tiltrotor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/tiltrotor.cpp.s
 .PHONY : ArduPlane/tiltrotor.cpp.s
 
 ArduPlane/tuning.o: ArduPlane/tuning.cpp.o
@@ -6106,7 +6106,7 @@ ArduPlane/tuning.o: ArduPlane/tuning.cpp.o
 
 # target to build an object file
 ArduPlane/tuning.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/tuning.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/tuning.cpp.o
 .PHONY : ArduPlane/tuning.cpp.o
 
 ArduPlane/tuning.i: ArduPlane/tuning.cpp.i
@@ -6114,7 +6114,7 @@ ArduPlane/tuning.i: ArduPlane/tuning.cpp.i
 
 # target to preprocess a source file
 ArduPlane/tuning.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/tuning.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/tuning.cpp.i
 .PHONY : ArduPlane/tuning.cpp.i
 
 ArduPlane/tuning.s: ArduPlane/tuning.cpp.s
@@ -6122,7 +6122,7 @@ ArduPlane/tuning.s: ArduPlane/tuning.cpp.s
 
 # target to generate assembly for a file
 ArduPlane/tuning.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_arduplane.dir/build.make CMakeFiles/bin_arduplane.dir/ArduPlane/tuning.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/ArduPlane/tuning.cpp.s
 .PHONY : ArduPlane/tuning.cpp.s
 
 ArduSub/AP_Arming_Sub.o: ArduSub/AP_Arming_Sub.cpp.o
@@ -6130,7 +6130,7 @@ ArduSub/AP_Arming_Sub.o: ArduSub/AP_Arming_Sub.cpp.o
 
 # target to build an object file
 ArduSub/AP_Arming_Sub.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/AP_Arming_Sub.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/AP_Arming_Sub.cpp.o
 .PHONY : ArduSub/AP_Arming_Sub.cpp.o
 
 ArduSub/AP_Arming_Sub.i: ArduSub/AP_Arming_Sub.cpp.i
@@ -6138,7 +6138,7 @@ ArduSub/AP_Arming_Sub.i: ArduSub/AP_Arming_Sub.cpp.i
 
 # target to preprocess a source file
 ArduSub/AP_Arming_Sub.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/AP_Arming_Sub.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/AP_Arming_Sub.cpp.i
 .PHONY : ArduSub/AP_Arming_Sub.cpp.i
 
 ArduSub/AP_Arming_Sub.s: ArduSub/AP_Arming_Sub.cpp.s
@@ -6146,7 +6146,7 @@ ArduSub/AP_Arming_Sub.s: ArduSub/AP_Arming_Sub.cpp.s
 
 # target to generate assembly for a file
 ArduSub/AP_Arming_Sub.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/AP_Arming_Sub.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/AP_Arming_Sub.cpp.s
 .PHONY : ArduSub/AP_Arming_Sub.cpp.s
 
 ArduSub/AP_State.o: ArduSub/AP_State.cpp.o
@@ -6154,7 +6154,7 @@ ArduSub/AP_State.o: ArduSub/AP_State.cpp.o
 
 # target to build an object file
 ArduSub/AP_State.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/AP_State.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/AP_State.cpp.o
 .PHONY : ArduSub/AP_State.cpp.o
 
 ArduSub/AP_State.i: ArduSub/AP_State.cpp.i
@@ -6162,7 +6162,7 @@ ArduSub/AP_State.i: ArduSub/AP_State.cpp.i
 
 # target to preprocess a source file
 ArduSub/AP_State.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/AP_State.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/AP_State.cpp.i
 .PHONY : ArduSub/AP_State.cpp.i
 
 ArduSub/AP_State.s: ArduSub/AP_State.cpp.s
@@ -6170,7 +6170,7 @@ ArduSub/AP_State.s: ArduSub/AP_State.cpp.s
 
 # target to generate assembly for a file
 ArduSub/AP_State.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/AP_State.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/AP_State.cpp.s
 .PHONY : ArduSub/AP_State.cpp.s
 
 ArduSub/Attitude.o: ArduSub/Attitude.cpp.o
@@ -6178,7 +6178,7 @@ ArduSub/Attitude.o: ArduSub/Attitude.cpp.o
 
 # target to build an object file
 ArduSub/Attitude.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/Attitude.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/Attitude.cpp.o
 .PHONY : ArduSub/Attitude.cpp.o
 
 ArduSub/Attitude.i: ArduSub/Attitude.cpp.i
@@ -6186,7 +6186,7 @@ ArduSub/Attitude.i: ArduSub/Attitude.cpp.i
 
 # target to preprocess a source file
 ArduSub/Attitude.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/Attitude.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/Attitude.cpp.i
 .PHONY : ArduSub/Attitude.cpp.i
 
 ArduSub/Attitude.s: ArduSub/Attitude.cpp.s
@@ -6194,7 +6194,7 @@ ArduSub/Attitude.s: ArduSub/Attitude.cpp.s
 
 # target to generate assembly for a file
 ArduSub/Attitude.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/Attitude.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/Attitude.cpp.s
 .PHONY : ArduSub/Attitude.cpp.s
 
 ArduSub/GCS_MAVLink_Sub.o: ArduSub/GCS_MAVLink_Sub.cpp.o
@@ -6202,7 +6202,7 @@ ArduSub/GCS_MAVLink_Sub.o: ArduSub/GCS_MAVLink_Sub.cpp.o
 
 # target to build an object file
 ArduSub/GCS_MAVLink_Sub.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/GCS_MAVLink_Sub.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/GCS_MAVLink_Sub.cpp.o
 .PHONY : ArduSub/GCS_MAVLink_Sub.cpp.o
 
 ArduSub/GCS_MAVLink_Sub.i: ArduSub/GCS_MAVLink_Sub.cpp.i
@@ -6210,7 +6210,7 @@ ArduSub/GCS_MAVLink_Sub.i: ArduSub/GCS_MAVLink_Sub.cpp.i
 
 # target to preprocess a source file
 ArduSub/GCS_MAVLink_Sub.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/GCS_MAVLink_Sub.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/GCS_MAVLink_Sub.cpp.i
 .PHONY : ArduSub/GCS_MAVLink_Sub.cpp.i
 
 ArduSub/GCS_MAVLink_Sub.s: ArduSub/GCS_MAVLink_Sub.cpp.s
@@ -6218,7 +6218,7 @@ ArduSub/GCS_MAVLink_Sub.s: ArduSub/GCS_MAVLink_Sub.cpp.s
 
 # target to generate assembly for a file
 ArduSub/GCS_MAVLink_Sub.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/GCS_MAVLink_Sub.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/GCS_MAVLink_Sub.cpp.s
 .PHONY : ArduSub/GCS_MAVLink_Sub.cpp.s
 
 ArduSub/GCS_Sub.o: ArduSub/GCS_Sub.cpp.o
@@ -6226,7 +6226,7 @@ ArduSub/GCS_Sub.o: ArduSub/GCS_Sub.cpp.o
 
 # target to build an object file
 ArduSub/GCS_Sub.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/GCS_Sub.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/GCS_Sub.cpp.o
 .PHONY : ArduSub/GCS_Sub.cpp.o
 
 ArduSub/GCS_Sub.i: ArduSub/GCS_Sub.cpp.i
@@ -6234,7 +6234,7 @@ ArduSub/GCS_Sub.i: ArduSub/GCS_Sub.cpp.i
 
 # target to preprocess a source file
 ArduSub/GCS_Sub.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/GCS_Sub.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/GCS_Sub.cpp.i
 .PHONY : ArduSub/GCS_Sub.cpp.i
 
 ArduSub/GCS_Sub.s: ArduSub/GCS_Sub.cpp.s
@@ -6242,7 +6242,7 @@ ArduSub/GCS_Sub.s: ArduSub/GCS_Sub.cpp.s
 
 # target to generate assembly for a file
 ArduSub/GCS_Sub.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/GCS_Sub.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/GCS_Sub.cpp.s
 .PHONY : ArduSub/GCS_Sub.cpp.s
 
 ArduSub/Log.o: ArduSub/Log.cpp.o
@@ -6250,7 +6250,7 @@ ArduSub/Log.o: ArduSub/Log.cpp.o
 
 # target to build an object file
 ArduSub/Log.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/Log.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/Log.cpp.o
 .PHONY : ArduSub/Log.cpp.o
 
 ArduSub/Log.i: ArduSub/Log.cpp.i
@@ -6258,7 +6258,7 @@ ArduSub/Log.i: ArduSub/Log.cpp.i
 
 # target to preprocess a source file
 ArduSub/Log.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/Log.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/Log.cpp.i
 .PHONY : ArduSub/Log.cpp.i
 
 ArduSub/Log.s: ArduSub/Log.cpp.s
@@ -6266,7 +6266,7 @@ ArduSub/Log.s: ArduSub/Log.cpp.s
 
 # target to generate assembly for a file
 ArduSub/Log.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/Log.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/Log.cpp.s
 .PHONY : ArduSub/Log.cpp.s
 
 ArduSub/Parameters.o: ArduSub/Parameters.cpp.o
@@ -6274,7 +6274,7 @@ ArduSub/Parameters.o: ArduSub/Parameters.cpp.o
 
 # target to build an object file
 ArduSub/Parameters.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/Parameters.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/Parameters.cpp.o
 .PHONY : ArduSub/Parameters.cpp.o
 
 ArduSub/Parameters.i: ArduSub/Parameters.cpp.i
@@ -6282,7 +6282,7 @@ ArduSub/Parameters.i: ArduSub/Parameters.cpp.i
 
 # target to preprocess a source file
 ArduSub/Parameters.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/Parameters.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/Parameters.cpp.i
 .PHONY : ArduSub/Parameters.cpp.i
 
 ArduSub/Parameters.s: ArduSub/Parameters.cpp.s
@@ -6290,7 +6290,7 @@ ArduSub/Parameters.s: ArduSub/Parameters.cpp.s
 
 # target to generate assembly for a file
 ArduSub/Parameters.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/Parameters.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/Parameters.cpp.s
 .PHONY : ArduSub/Parameters.cpp.s
 
 ArduSub/RC_Channel_Sub.o: ArduSub/RC_Channel_Sub.cpp.o
@@ -6298,7 +6298,7 @@ ArduSub/RC_Channel_Sub.o: ArduSub/RC_Channel_Sub.cpp.o
 
 # target to build an object file
 ArduSub/RC_Channel_Sub.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/RC_Channel_Sub.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/RC_Channel_Sub.cpp.o
 .PHONY : ArduSub/RC_Channel_Sub.cpp.o
 
 ArduSub/RC_Channel_Sub.i: ArduSub/RC_Channel_Sub.cpp.i
@@ -6306,7 +6306,7 @@ ArduSub/RC_Channel_Sub.i: ArduSub/RC_Channel_Sub.cpp.i
 
 # target to preprocess a source file
 ArduSub/RC_Channel_Sub.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/RC_Channel_Sub.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/RC_Channel_Sub.cpp.i
 .PHONY : ArduSub/RC_Channel_Sub.cpp.i
 
 ArduSub/RC_Channel_Sub.s: ArduSub/RC_Channel_Sub.cpp.s
@@ -6314,7 +6314,7 @@ ArduSub/RC_Channel_Sub.s: ArduSub/RC_Channel_Sub.cpp.s
 
 # target to generate assembly for a file
 ArduSub/RC_Channel_Sub.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/RC_Channel_Sub.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/RC_Channel_Sub.cpp.s
 .PHONY : ArduSub/RC_Channel_Sub.cpp.s
 
 ArduSub/Sub.o: ArduSub/Sub.cpp.o
@@ -6322,7 +6322,7 @@ ArduSub/Sub.o: ArduSub/Sub.cpp.o
 
 # target to build an object file
 ArduSub/Sub.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/Sub.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/Sub.cpp.o
 .PHONY : ArduSub/Sub.cpp.o
 
 ArduSub/Sub.i: ArduSub/Sub.cpp.i
@@ -6330,7 +6330,7 @@ ArduSub/Sub.i: ArduSub/Sub.cpp.i
 
 # target to preprocess a source file
 ArduSub/Sub.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/Sub.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/Sub.cpp.i
 .PHONY : ArduSub/Sub.cpp.i
 
 ArduSub/Sub.s: ArduSub/Sub.cpp.s
@@ -6338,7 +6338,7 @@ ArduSub/Sub.s: ArduSub/Sub.cpp.s
 
 # target to generate assembly for a file
 ArduSub/Sub.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/Sub.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/Sub.cpp.s
 .PHONY : ArduSub/Sub.cpp.s
 
 ArduSub/UserCode.o: ArduSub/UserCode.cpp.o
@@ -6346,7 +6346,7 @@ ArduSub/UserCode.o: ArduSub/UserCode.cpp.o
 
 # target to build an object file
 ArduSub/UserCode.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/UserCode.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/UserCode.cpp.o
 .PHONY : ArduSub/UserCode.cpp.o
 
 ArduSub/UserCode.i: ArduSub/UserCode.cpp.i
@@ -6354,7 +6354,7 @@ ArduSub/UserCode.i: ArduSub/UserCode.cpp.i
 
 # target to preprocess a source file
 ArduSub/UserCode.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/UserCode.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/UserCode.cpp.i
 .PHONY : ArduSub/UserCode.cpp.i
 
 ArduSub/UserCode.s: ArduSub/UserCode.cpp.s
@@ -6362,7 +6362,7 @@ ArduSub/UserCode.s: ArduSub/UserCode.cpp.s
 
 # target to generate assembly for a file
 ArduSub/UserCode.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/UserCode.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/UserCode.cpp.s
 .PHONY : ArduSub/UserCode.cpp.s
 
 ArduSub/actuators.o: ArduSub/actuators.cpp.o
@@ -6370,7 +6370,7 @@ ArduSub/actuators.o: ArduSub/actuators.cpp.o
 
 # target to build an object file
 ArduSub/actuators.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/actuators.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/actuators.cpp.o
 .PHONY : ArduSub/actuators.cpp.o
 
 ArduSub/actuators.i: ArduSub/actuators.cpp.i
@@ -6378,7 +6378,7 @@ ArduSub/actuators.i: ArduSub/actuators.cpp.i
 
 # target to preprocess a source file
 ArduSub/actuators.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/actuators.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/actuators.cpp.i
 .PHONY : ArduSub/actuators.cpp.i
 
 ArduSub/actuators.s: ArduSub/actuators.cpp.s
@@ -6386,7 +6386,7 @@ ArduSub/actuators.s: ArduSub/actuators.cpp.s
 
 # target to generate assembly for a file
 ArduSub/actuators.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/actuators.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/actuators.cpp.s
 .PHONY : ArduSub/actuators.cpp.s
 
 ArduSub/commands.o: ArduSub/commands.cpp.o
@@ -6394,7 +6394,7 @@ ArduSub/commands.o: ArduSub/commands.cpp.o
 
 # target to build an object file
 ArduSub/commands.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/commands.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/commands.cpp.o
 .PHONY : ArduSub/commands.cpp.o
 
 ArduSub/commands.i: ArduSub/commands.cpp.i
@@ -6402,7 +6402,7 @@ ArduSub/commands.i: ArduSub/commands.cpp.i
 
 # target to preprocess a source file
 ArduSub/commands.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/commands.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/commands.cpp.i
 .PHONY : ArduSub/commands.cpp.i
 
 ArduSub/commands.s: ArduSub/commands.cpp.s
@@ -6410,7 +6410,7 @@ ArduSub/commands.s: ArduSub/commands.cpp.s
 
 # target to generate assembly for a file
 ArduSub/commands.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/commands.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/commands.cpp.s
 .PHONY : ArduSub/commands.cpp.s
 
 ArduSub/commands_logic.o: ArduSub/commands_logic.cpp.o
@@ -6418,7 +6418,7 @@ ArduSub/commands_logic.o: ArduSub/commands_logic.cpp.o
 
 # target to build an object file
 ArduSub/commands_logic.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/commands_logic.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/commands_logic.cpp.o
 .PHONY : ArduSub/commands_logic.cpp.o
 
 ArduSub/commands_logic.i: ArduSub/commands_logic.cpp.i
@@ -6426,7 +6426,7 @@ ArduSub/commands_logic.i: ArduSub/commands_logic.cpp.i
 
 # target to preprocess a source file
 ArduSub/commands_logic.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/commands_logic.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/commands_logic.cpp.i
 .PHONY : ArduSub/commands_logic.cpp.i
 
 ArduSub/commands_logic.s: ArduSub/commands_logic.cpp.s
@@ -6434,7 +6434,7 @@ ArduSub/commands_logic.s: ArduSub/commands_logic.cpp.s
 
 # target to generate assembly for a file
 ArduSub/commands_logic.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/commands_logic.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/commands_logic.cpp.s
 .PHONY : ArduSub/commands_logic.cpp.s
 
 ArduSub/failsafe.o: ArduSub/failsafe.cpp.o
@@ -6442,7 +6442,7 @@ ArduSub/failsafe.o: ArduSub/failsafe.cpp.o
 
 # target to build an object file
 ArduSub/failsafe.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/failsafe.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/failsafe.cpp.o
 .PHONY : ArduSub/failsafe.cpp.o
 
 ArduSub/failsafe.i: ArduSub/failsafe.cpp.i
@@ -6450,7 +6450,7 @@ ArduSub/failsafe.i: ArduSub/failsafe.cpp.i
 
 # target to preprocess a source file
 ArduSub/failsafe.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/failsafe.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/failsafe.cpp.i
 .PHONY : ArduSub/failsafe.cpp.i
 
 ArduSub/failsafe.s: ArduSub/failsafe.cpp.s
@@ -6458,7 +6458,7 @@ ArduSub/failsafe.s: ArduSub/failsafe.cpp.s
 
 # target to generate assembly for a file
 ArduSub/failsafe.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/failsafe.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/failsafe.cpp.s
 .PHONY : ArduSub/failsafe.cpp.s
 
 ArduSub/fence.o: ArduSub/fence.cpp.o
@@ -6466,7 +6466,7 @@ ArduSub/fence.o: ArduSub/fence.cpp.o
 
 # target to build an object file
 ArduSub/fence.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/fence.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/fence.cpp.o
 .PHONY : ArduSub/fence.cpp.o
 
 ArduSub/fence.i: ArduSub/fence.cpp.i
@@ -6474,7 +6474,7 @@ ArduSub/fence.i: ArduSub/fence.cpp.i
 
 # target to preprocess a source file
 ArduSub/fence.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/fence.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/fence.cpp.i
 .PHONY : ArduSub/fence.cpp.i
 
 ArduSub/fence.s: ArduSub/fence.cpp.s
@@ -6482,7 +6482,7 @@ ArduSub/fence.s: ArduSub/fence.cpp.s
 
 # target to generate assembly for a file
 ArduSub/fence.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/fence.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/fence.cpp.s
 .PHONY : ArduSub/fence.cpp.s
 
 ArduSub/inertia.o: ArduSub/inertia.cpp.o
@@ -6490,7 +6490,7 @@ ArduSub/inertia.o: ArduSub/inertia.cpp.o
 
 # target to build an object file
 ArduSub/inertia.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/inertia.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/inertia.cpp.o
 .PHONY : ArduSub/inertia.cpp.o
 
 ArduSub/inertia.i: ArduSub/inertia.cpp.i
@@ -6498,7 +6498,7 @@ ArduSub/inertia.i: ArduSub/inertia.cpp.i
 
 # target to preprocess a source file
 ArduSub/inertia.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/inertia.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/inertia.cpp.i
 .PHONY : ArduSub/inertia.cpp.i
 
 ArduSub/inertia.s: ArduSub/inertia.cpp.s
@@ -6506,7 +6506,7 @@ ArduSub/inertia.s: ArduSub/inertia.cpp.s
 
 # target to generate assembly for a file
 ArduSub/inertia.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/inertia.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/inertia.cpp.s
 .PHONY : ArduSub/inertia.cpp.s
 
 ArduSub/joystick.o: ArduSub/joystick.cpp.o
@@ -6514,7 +6514,7 @@ ArduSub/joystick.o: ArduSub/joystick.cpp.o
 
 # target to build an object file
 ArduSub/joystick.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/joystick.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/joystick.cpp.o
 .PHONY : ArduSub/joystick.cpp.o
 
 ArduSub/joystick.i: ArduSub/joystick.cpp.i
@@ -6522,7 +6522,7 @@ ArduSub/joystick.i: ArduSub/joystick.cpp.i
 
 # target to preprocess a source file
 ArduSub/joystick.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/joystick.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/joystick.cpp.i
 .PHONY : ArduSub/joystick.cpp.i
 
 ArduSub/joystick.s: ArduSub/joystick.cpp.s
@@ -6530,7 +6530,7 @@ ArduSub/joystick.s: ArduSub/joystick.cpp.s
 
 # target to generate assembly for a file
 ArduSub/joystick.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/joystick.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/joystick.cpp.s
 .PHONY : ArduSub/joystick.cpp.s
 
 ArduSub/mode.o: ArduSub/mode.cpp.o
@@ -6538,7 +6538,7 @@ ArduSub/mode.o: ArduSub/mode.cpp.o
 
 # target to build an object file
 ArduSub/mode.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode.cpp.o
 .PHONY : ArduSub/mode.cpp.o
 
 ArduSub/mode.i: ArduSub/mode.cpp.i
@@ -6546,7 +6546,7 @@ ArduSub/mode.i: ArduSub/mode.cpp.i
 
 # target to preprocess a source file
 ArduSub/mode.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode.cpp.i
 .PHONY : ArduSub/mode.cpp.i
 
 ArduSub/mode.s: ArduSub/mode.cpp.s
@@ -6554,7 +6554,7 @@ ArduSub/mode.s: ArduSub/mode.cpp.s
 
 # target to generate assembly for a file
 ArduSub/mode.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode.cpp.s
 .PHONY : ArduSub/mode.cpp.s
 
 ArduSub/mode_acro.o: ArduSub/mode_acro.cpp.o
@@ -6562,7 +6562,7 @@ ArduSub/mode_acro.o: ArduSub/mode_acro.cpp.o
 
 # target to build an object file
 ArduSub/mode_acro.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_acro.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_acro.cpp.o
 .PHONY : ArduSub/mode_acro.cpp.o
 
 ArduSub/mode_acro.i: ArduSub/mode_acro.cpp.i
@@ -6570,7 +6570,7 @@ ArduSub/mode_acro.i: ArduSub/mode_acro.cpp.i
 
 # target to preprocess a source file
 ArduSub/mode_acro.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_acro.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_acro.cpp.i
 .PHONY : ArduSub/mode_acro.cpp.i
 
 ArduSub/mode_acro.s: ArduSub/mode_acro.cpp.s
@@ -6578,7 +6578,7 @@ ArduSub/mode_acro.s: ArduSub/mode_acro.cpp.s
 
 # target to generate assembly for a file
 ArduSub/mode_acro.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_acro.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_acro.cpp.s
 .PHONY : ArduSub/mode_acro.cpp.s
 
 ArduSub/mode_althold.o: ArduSub/mode_althold.cpp.o
@@ -6586,7 +6586,7 @@ ArduSub/mode_althold.o: ArduSub/mode_althold.cpp.o
 
 # target to build an object file
 ArduSub/mode_althold.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_althold.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_althold.cpp.o
 .PHONY : ArduSub/mode_althold.cpp.o
 
 ArduSub/mode_althold.i: ArduSub/mode_althold.cpp.i
@@ -6594,7 +6594,7 @@ ArduSub/mode_althold.i: ArduSub/mode_althold.cpp.i
 
 # target to preprocess a source file
 ArduSub/mode_althold.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_althold.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_althold.cpp.i
 .PHONY : ArduSub/mode_althold.cpp.i
 
 ArduSub/mode_althold.s: ArduSub/mode_althold.cpp.s
@@ -6602,7 +6602,7 @@ ArduSub/mode_althold.s: ArduSub/mode_althold.cpp.s
 
 # target to generate assembly for a file
 ArduSub/mode_althold.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_althold.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_althold.cpp.s
 .PHONY : ArduSub/mode_althold.cpp.s
 
 ArduSub/mode_auto.o: ArduSub/mode_auto.cpp.o
@@ -6610,7 +6610,7 @@ ArduSub/mode_auto.o: ArduSub/mode_auto.cpp.o
 
 # target to build an object file
 ArduSub/mode_auto.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_auto.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_auto.cpp.o
 .PHONY : ArduSub/mode_auto.cpp.o
 
 ArduSub/mode_auto.i: ArduSub/mode_auto.cpp.i
@@ -6618,7 +6618,7 @@ ArduSub/mode_auto.i: ArduSub/mode_auto.cpp.i
 
 # target to preprocess a source file
 ArduSub/mode_auto.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_auto.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_auto.cpp.i
 .PHONY : ArduSub/mode_auto.cpp.i
 
 ArduSub/mode_auto.s: ArduSub/mode_auto.cpp.s
@@ -6626,7 +6626,7 @@ ArduSub/mode_auto.s: ArduSub/mode_auto.cpp.s
 
 # target to generate assembly for a file
 ArduSub/mode_auto.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_auto.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_auto.cpp.s
 .PHONY : ArduSub/mode_auto.cpp.s
 
 ArduSub/mode_circle.o: ArduSub/mode_circle.cpp.o
@@ -6634,7 +6634,7 @@ ArduSub/mode_circle.o: ArduSub/mode_circle.cpp.o
 
 # target to build an object file
 ArduSub/mode_circle.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_circle.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_circle.cpp.o
 .PHONY : ArduSub/mode_circle.cpp.o
 
 ArduSub/mode_circle.i: ArduSub/mode_circle.cpp.i
@@ -6642,7 +6642,7 @@ ArduSub/mode_circle.i: ArduSub/mode_circle.cpp.i
 
 # target to preprocess a source file
 ArduSub/mode_circle.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_circle.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_circle.cpp.i
 .PHONY : ArduSub/mode_circle.cpp.i
 
 ArduSub/mode_circle.s: ArduSub/mode_circle.cpp.s
@@ -6650,7 +6650,7 @@ ArduSub/mode_circle.s: ArduSub/mode_circle.cpp.s
 
 # target to generate assembly for a file
 ArduSub/mode_circle.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_circle.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_circle.cpp.s
 .PHONY : ArduSub/mode_circle.cpp.s
 
 ArduSub/mode_guided.o: ArduSub/mode_guided.cpp.o
@@ -6658,7 +6658,7 @@ ArduSub/mode_guided.o: ArduSub/mode_guided.cpp.o
 
 # target to build an object file
 ArduSub/mode_guided.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_guided.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_guided.cpp.o
 .PHONY : ArduSub/mode_guided.cpp.o
 
 ArduSub/mode_guided.i: ArduSub/mode_guided.cpp.i
@@ -6666,7 +6666,7 @@ ArduSub/mode_guided.i: ArduSub/mode_guided.cpp.i
 
 # target to preprocess a source file
 ArduSub/mode_guided.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_guided.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_guided.cpp.i
 .PHONY : ArduSub/mode_guided.cpp.i
 
 ArduSub/mode_guided.s: ArduSub/mode_guided.cpp.s
@@ -6674,7 +6674,7 @@ ArduSub/mode_guided.s: ArduSub/mode_guided.cpp.s
 
 # target to generate assembly for a file
 ArduSub/mode_guided.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_guided.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_guided.cpp.s
 .PHONY : ArduSub/mode_guided.cpp.s
 
 ArduSub/mode_manual.o: ArduSub/mode_manual.cpp.o
@@ -6682,7 +6682,7 @@ ArduSub/mode_manual.o: ArduSub/mode_manual.cpp.o
 
 # target to build an object file
 ArduSub/mode_manual.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_manual.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_manual.cpp.o
 .PHONY : ArduSub/mode_manual.cpp.o
 
 ArduSub/mode_manual.i: ArduSub/mode_manual.cpp.i
@@ -6690,7 +6690,7 @@ ArduSub/mode_manual.i: ArduSub/mode_manual.cpp.i
 
 # target to preprocess a source file
 ArduSub/mode_manual.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_manual.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_manual.cpp.i
 .PHONY : ArduSub/mode_manual.cpp.i
 
 ArduSub/mode_manual.s: ArduSub/mode_manual.cpp.s
@@ -6698,7 +6698,7 @@ ArduSub/mode_manual.s: ArduSub/mode_manual.cpp.s
 
 # target to generate assembly for a file
 ArduSub/mode_manual.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_manual.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_manual.cpp.s
 .PHONY : ArduSub/mode_manual.cpp.s
 
 ArduSub/mode_motordetect.o: ArduSub/mode_motordetect.cpp.o
@@ -6706,7 +6706,7 @@ ArduSub/mode_motordetect.o: ArduSub/mode_motordetect.cpp.o
 
 # target to build an object file
 ArduSub/mode_motordetect.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_motordetect.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_motordetect.cpp.o
 .PHONY : ArduSub/mode_motordetect.cpp.o
 
 ArduSub/mode_motordetect.i: ArduSub/mode_motordetect.cpp.i
@@ -6714,7 +6714,7 @@ ArduSub/mode_motordetect.i: ArduSub/mode_motordetect.cpp.i
 
 # target to preprocess a source file
 ArduSub/mode_motordetect.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_motordetect.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_motordetect.cpp.i
 .PHONY : ArduSub/mode_motordetect.cpp.i
 
 ArduSub/mode_motordetect.s: ArduSub/mode_motordetect.cpp.s
@@ -6722,7 +6722,7 @@ ArduSub/mode_motordetect.s: ArduSub/mode_motordetect.cpp.s
 
 # target to generate assembly for a file
 ArduSub/mode_motordetect.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_motordetect.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_motordetect.cpp.s
 .PHONY : ArduSub/mode_motordetect.cpp.s
 
 ArduSub/mode_poshold.o: ArduSub/mode_poshold.cpp.o
@@ -6730,7 +6730,7 @@ ArduSub/mode_poshold.o: ArduSub/mode_poshold.cpp.o
 
 # target to build an object file
 ArduSub/mode_poshold.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_poshold.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_poshold.cpp.o
 .PHONY : ArduSub/mode_poshold.cpp.o
 
 ArduSub/mode_poshold.i: ArduSub/mode_poshold.cpp.i
@@ -6738,7 +6738,7 @@ ArduSub/mode_poshold.i: ArduSub/mode_poshold.cpp.i
 
 # target to preprocess a source file
 ArduSub/mode_poshold.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_poshold.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_poshold.cpp.i
 .PHONY : ArduSub/mode_poshold.cpp.i
 
 ArduSub/mode_poshold.s: ArduSub/mode_poshold.cpp.s
@@ -6746,7 +6746,7 @@ ArduSub/mode_poshold.s: ArduSub/mode_poshold.cpp.s
 
 # target to generate assembly for a file
 ArduSub/mode_poshold.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_poshold.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_poshold.cpp.s
 .PHONY : ArduSub/mode_poshold.cpp.s
 
 ArduSub/mode_stabilize.o: ArduSub/mode_stabilize.cpp.o
@@ -6754,7 +6754,7 @@ ArduSub/mode_stabilize.o: ArduSub/mode_stabilize.cpp.o
 
 # target to build an object file
 ArduSub/mode_stabilize.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_stabilize.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_stabilize.cpp.o
 .PHONY : ArduSub/mode_stabilize.cpp.o
 
 ArduSub/mode_stabilize.i: ArduSub/mode_stabilize.cpp.i
@@ -6762,7 +6762,7 @@ ArduSub/mode_stabilize.i: ArduSub/mode_stabilize.cpp.i
 
 # target to preprocess a source file
 ArduSub/mode_stabilize.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_stabilize.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_stabilize.cpp.i
 .PHONY : ArduSub/mode_stabilize.cpp.i
 
 ArduSub/mode_stabilize.s: ArduSub/mode_stabilize.cpp.s
@@ -6770,7 +6770,7 @@ ArduSub/mode_stabilize.s: ArduSub/mode_stabilize.cpp.s
 
 # target to generate assembly for a file
 ArduSub/mode_stabilize.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_stabilize.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_stabilize.cpp.s
 .PHONY : ArduSub/mode_stabilize.cpp.s
 
 ArduSub/mode_surface.o: ArduSub/mode_surface.cpp.o
@@ -6778,7 +6778,7 @@ ArduSub/mode_surface.o: ArduSub/mode_surface.cpp.o
 
 # target to build an object file
 ArduSub/mode_surface.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_surface.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_surface.cpp.o
 .PHONY : ArduSub/mode_surface.cpp.o
 
 ArduSub/mode_surface.i: ArduSub/mode_surface.cpp.i
@@ -6786,7 +6786,7 @@ ArduSub/mode_surface.i: ArduSub/mode_surface.cpp.i
 
 # target to preprocess a source file
 ArduSub/mode_surface.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_surface.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_surface.cpp.i
 .PHONY : ArduSub/mode_surface.cpp.i
 
 ArduSub/mode_surface.s: ArduSub/mode_surface.cpp.s
@@ -6794,7 +6794,7 @@ ArduSub/mode_surface.s: ArduSub/mode_surface.cpp.s
 
 # target to generate assembly for a file
 ArduSub/mode_surface.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_surface.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_surface.cpp.s
 .PHONY : ArduSub/mode_surface.cpp.s
 
 ArduSub/mode_surftrak.o: ArduSub/mode_surftrak.cpp.o
@@ -6802,7 +6802,7 @@ ArduSub/mode_surftrak.o: ArduSub/mode_surftrak.cpp.o
 
 # target to build an object file
 ArduSub/mode_surftrak.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_surftrak.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_surftrak.cpp.o
 .PHONY : ArduSub/mode_surftrak.cpp.o
 
 ArduSub/mode_surftrak.i: ArduSub/mode_surftrak.cpp.i
@@ -6810,7 +6810,7 @@ ArduSub/mode_surftrak.i: ArduSub/mode_surftrak.cpp.i
 
 # target to preprocess a source file
 ArduSub/mode_surftrak.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_surftrak.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_surftrak.cpp.i
 .PHONY : ArduSub/mode_surftrak.cpp.i
 
 ArduSub/mode_surftrak.s: ArduSub/mode_surftrak.cpp.s
@@ -6818,7 +6818,7 @@ ArduSub/mode_surftrak.s: ArduSub/mode_surftrak.cpp.s
 
 # target to generate assembly for a file
 ArduSub/mode_surftrak.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/mode_surftrak.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/mode_surftrak.cpp.s
 .PHONY : ArduSub/mode_surftrak.cpp.s
 
 ArduSub/motors.o: ArduSub/motors.cpp.o
@@ -6826,7 +6826,7 @@ ArduSub/motors.o: ArduSub/motors.cpp.o
 
 # target to build an object file
 ArduSub/motors.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/motors.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/motors.cpp.o
 .PHONY : ArduSub/motors.cpp.o
 
 ArduSub/motors.i: ArduSub/motors.cpp.i
@@ -6834,7 +6834,7 @@ ArduSub/motors.i: ArduSub/motors.cpp.i
 
 # target to preprocess a source file
 ArduSub/motors.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/motors.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/motors.cpp.i
 .PHONY : ArduSub/motors.cpp.i
 
 ArduSub/motors.s: ArduSub/motors.cpp.s
@@ -6842,7 +6842,7 @@ ArduSub/motors.s: ArduSub/motors.cpp.s
 
 # target to generate assembly for a file
 ArduSub/motors.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/motors.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/motors.cpp.s
 .PHONY : ArduSub/motors.cpp.s
 
 ArduSub/radio.o: ArduSub/radio.cpp.o
@@ -6850,7 +6850,7 @@ ArduSub/radio.o: ArduSub/radio.cpp.o
 
 # target to build an object file
 ArduSub/radio.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/radio.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/radio.cpp.o
 .PHONY : ArduSub/radio.cpp.o
 
 ArduSub/radio.i: ArduSub/radio.cpp.i
@@ -6858,7 +6858,7 @@ ArduSub/radio.i: ArduSub/radio.cpp.i
 
 # target to preprocess a source file
 ArduSub/radio.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/radio.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/radio.cpp.i
 .PHONY : ArduSub/radio.cpp.i
 
 ArduSub/radio.s: ArduSub/radio.cpp.s
@@ -6866,7 +6866,7 @@ ArduSub/radio.s: ArduSub/radio.cpp.s
 
 # target to generate assembly for a file
 ArduSub/radio.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/radio.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/radio.cpp.s
 .PHONY : ArduSub/radio.cpp.s
 
 ArduSub/script_button.o: ArduSub/script_button.cpp.o
@@ -6874,7 +6874,7 @@ ArduSub/script_button.o: ArduSub/script_button.cpp.o
 
 # target to build an object file
 ArduSub/script_button.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/script_button.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/script_button.cpp.o
 .PHONY : ArduSub/script_button.cpp.o
 
 ArduSub/script_button.i: ArduSub/script_button.cpp.i
@@ -6882,7 +6882,7 @@ ArduSub/script_button.i: ArduSub/script_button.cpp.i
 
 # target to preprocess a source file
 ArduSub/script_button.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/script_button.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/script_button.cpp.i
 .PHONY : ArduSub/script_button.cpp.i
 
 ArduSub/script_button.s: ArduSub/script_button.cpp.s
@@ -6890,7 +6890,7 @@ ArduSub/script_button.s: ArduSub/script_button.cpp.s
 
 # target to generate assembly for a file
 ArduSub/script_button.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/script_button.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/script_button.cpp.s
 .PHONY : ArduSub/script_button.cpp.s
 
 ArduSub/sensors.o: ArduSub/sensors.cpp.o
@@ -6898,7 +6898,7 @@ ArduSub/sensors.o: ArduSub/sensors.cpp.o
 
 # target to build an object file
 ArduSub/sensors.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/sensors.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/sensors.cpp.o
 .PHONY : ArduSub/sensors.cpp.o
 
 ArduSub/sensors.i: ArduSub/sensors.cpp.i
@@ -6906,7 +6906,7 @@ ArduSub/sensors.i: ArduSub/sensors.cpp.i
 
 # target to preprocess a source file
 ArduSub/sensors.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/sensors.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/sensors.cpp.i
 .PHONY : ArduSub/sensors.cpp.i
 
 ArduSub/sensors.s: ArduSub/sensors.cpp.s
@@ -6914,7 +6914,7 @@ ArduSub/sensors.s: ArduSub/sensors.cpp.s
 
 # target to generate assembly for a file
 ArduSub/sensors.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/sensors.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/sensors.cpp.s
 .PHONY : ArduSub/sensors.cpp.s
 
 ArduSub/surface_bottom_detector.o: ArduSub/surface_bottom_detector.cpp.o
@@ -6922,7 +6922,7 @@ ArduSub/surface_bottom_detector.o: ArduSub/surface_bottom_detector.cpp.o
 
 # target to build an object file
 ArduSub/surface_bottom_detector.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/surface_bottom_detector.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/surface_bottom_detector.cpp.o
 .PHONY : ArduSub/surface_bottom_detector.cpp.o
 
 ArduSub/surface_bottom_detector.i: ArduSub/surface_bottom_detector.cpp.i
@@ -6930,7 +6930,7 @@ ArduSub/surface_bottom_detector.i: ArduSub/surface_bottom_detector.cpp.i
 
 # target to preprocess a source file
 ArduSub/surface_bottom_detector.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/surface_bottom_detector.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/surface_bottom_detector.cpp.i
 .PHONY : ArduSub/surface_bottom_detector.cpp.i
 
 ArduSub/surface_bottom_detector.s: ArduSub/surface_bottom_detector.cpp.s
@@ -6938,7 +6938,7 @@ ArduSub/surface_bottom_detector.s: ArduSub/surface_bottom_detector.cpp.s
 
 # target to generate assembly for a file
 ArduSub/surface_bottom_detector.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/surface_bottom_detector.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/surface_bottom_detector.cpp.s
 .PHONY : ArduSub/surface_bottom_detector.cpp.s
 
 ArduSub/system.o: ArduSub/system.cpp.o
@@ -6946,7 +6946,7 @@ ArduSub/system.o: ArduSub/system.cpp.o
 
 # target to build an object file
 ArduSub/system.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/system.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/system.cpp.o
 .PHONY : ArduSub/system.cpp.o
 
 ArduSub/system.i: ArduSub/system.cpp.i
@@ -6954,7 +6954,7 @@ ArduSub/system.i: ArduSub/system.cpp.i
 
 # target to preprocess a source file
 ArduSub/system.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/system.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/system.cpp.i
 .PHONY : ArduSub/system.cpp.i
 
 ArduSub/system.s: ArduSub/system.cpp.s
@@ -6962,7 +6962,7 @@ ArduSub/system.s: ArduSub/system.cpp.s
 
 # target to generate assembly for a file
 ArduSub/system.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/system.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/system.cpp.s
 .PHONY : ArduSub/system.cpp.s
 
 ArduSub/terrain.o: ArduSub/terrain.cpp.o
@@ -6970,7 +6970,7 @@ ArduSub/terrain.o: ArduSub/terrain.cpp.o
 
 # target to build an object file
 ArduSub/terrain.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/terrain.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/terrain.cpp.o
 .PHONY : ArduSub/terrain.cpp.o
 
 ArduSub/terrain.i: ArduSub/terrain.cpp.i
@@ -6978,7 +6978,7 @@ ArduSub/terrain.i: ArduSub/terrain.cpp.i
 
 # target to preprocess a source file
 ArduSub/terrain.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/terrain.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/terrain.cpp.i
 .PHONY : ArduSub/terrain.cpp.i
 
 ArduSub/terrain.s: ArduSub/terrain.cpp.s
@@ -6986,7 +6986,7 @@ ArduSub/terrain.s: ArduSub/terrain.cpp.s
 
 # target to generate assembly for a file
 ArduSub/terrain.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/terrain.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/terrain.cpp.s
 .PHONY : ArduSub/terrain.cpp.s
 
 ArduSub/turn_counter.o: ArduSub/turn_counter.cpp.o
@@ -6994,7 +6994,7 @@ ArduSub/turn_counter.o: ArduSub/turn_counter.cpp.o
 
 # target to build an object file
 ArduSub/turn_counter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/turn_counter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/turn_counter.cpp.o
 .PHONY : ArduSub/turn_counter.cpp.o
 
 ArduSub/turn_counter.i: ArduSub/turn_counter.cpp.i
@@ -7002,7 +7002,7 @@ ArduSub/turn_counter.i: ArduSub/turn_counter.cpp.i
 
 # target to preprocess a source file
 ArduSub/turn_counter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/turn_counter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/turn_counter.cpp.i
 .PHONY : ArduSub/turn_counter.cpp.i
 
 ArduSub/turn_counter.s: ArduSub/turn_counter.cpp.s
@@ -7010,7 +7010,7 @@ ArduSub/turn_counter.s: ArduSub/turn_counter.cpp.s
 
 # target to generate assembly for a file
 ArduSub/turn_counter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardusub.dir/build.make CMakeFiles/bin_ardusub.dir/ArduSub/turn_counter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/ArduSub/turn_counter.cpp.s
 .PHONY : ArduSub/turn_counter.cpp.s
 
 Blimp/AP_Arming_Blimp.o: Blimp/AP_Arming_Blimp.cpp.o
@@ -7018,7 +7018,7 @@ Blimp/AP_Arming_Blimp.o: Blimp/AP_Arming_Blimp.cpp.o
 
 # target to build an object file
 Blimp/AP_Arming_Blimp.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/AP_Arming_Blimp.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/AP_Arming_Blimp.cpp.o
 .PHONY : Blimp/AP_Arming_Blimp.cpp.o
 
 Blimp/AP_Arming_Blimp.i: Blimp/AP_Arming_Blimp.cpp.i
@@ -7026,7 +7026,7 @@ Blimp/AP_Arming_Blimp.i: Blimp/AP_Arming_Blimp.cpp.i
 
 # target to preprocess a source file
 Blimp/AP_Arming_Blimp.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/AP_Arming_Blimp.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/AP_Arming_Blimp.cpp.i
 .PHONY : Blimp/AP_Arming_Blimp.cpp.i
 
 Blimp/AP_Arming_Blimp.s: Blimp/AP_Arming_Blimp.cpp.s
@@ -7034,7 +7034,7 @@ Blimp/AP_Arming_Blimp.s: Blimp/AP_Arming_Blimp.cpp.s
 
 # target to generate assembly for a file
 Blimp/AP_Arming_Blimp.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/AP_Arming_Blimp.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/AP_Arming_Blimp.cpp.s
 .PHONY : Blimp/AP_Arming_Blimp.cpp.s
 
 Blimp/AP_State.o: Blimp/AP_State.cpp.o
@@ -7042,7 +7042,7 @@ Blimp/AP_State.o: Blimp/AP_State.cpp.o
 
 # target to build an object file
 Blimp/AP_State.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/AP_State.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/AP_State.cpp.o
 .PHONY : Blimp/AP_State.cpp.o
 
 Blimp/AP_State.i: Blimp/AP_State.cpp.i
@@ -7050,7 +7050,7 @@ Blimp/AP_State.i: Blimp/AP_State.cpp.i
 
 # target to preprocess a source file
 Blimp/AP_State.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/AP_State.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/AP_State.cpp.i
 .PHONY : Blimp/AP_State.cpp.i
 
 Blimp/AP_State.s: Blimp/AP_State.cpp.s
@@ -7058,7 +7058,7 @@ Blimp/AP_State.s: Blimp/AP_State.cpp.s
 
 # target to generate assembly for a file
 Blimp/AP_State.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/AP_State.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/AP_State.cpp.s
 .PHONY : Blimp/AP_State.cpp.s
 
 Blimp/Blimp.o: Blimp/Blimp.cpp.o
@@ -7066,7 +7066,7 @@ Blimp/Blimp.o: Blimp/Blimp.cpp.o
 
 # target to build an object file
 Blimp/Blimp.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Blimp.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Blimp.cpp.o
 .PHONY : Blimp/Blimp.cpp.o
 
 Blimp/Blimp.i: Blimp/Blimp.cpp.i
@@ -7074,7 +7074,7 @@ Blimp/Blimp.i: Blimp/Blimp.cpp.i
 
 # target to preprocess a source file
 Blimp/Blimp.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Blimp.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Blimp.cpp.i
 .PHONY : Blimp/Blimp.cpp.i
 
 Blimp/Blimp.s: Blimp/Blimp.cpp.s
@@ -7082,7 +7082,7 @@ Blimp/Blimp.s: Blimp/Blimp.cpp.s
 
 # target to generate assembly for a file
 Blimp/Blimp.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Blimp.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Blimp.cpp.s
 .PHONY : Blimp/Blimp.cpp.s
 
 Blimp/Fins.o: Blimp/Fins.cpp.o
@@ -7090,7 +7090,7 @@ Blimp/Fins.o: Blimp/Fins.cpp.o
 
 # target to build an object file
 Blimp/Fins.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Fins.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Fins.cpp.o
 .PHONY : Blimp/Fins.cpp.o
 
 Blimp/Fins.i: Blimp/Fins.cpp.i
@@ -7098,7 +7098,7 @@ Blimp/Fins.i: Blimp/Fins.cpp.i
 
 # target to preprocess a source file
 Blimp/Fins.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Fins.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Fins.cpp.i
 .PHONY : Blimp/Fins.cpp.i
 
 Blimp/Fins.s: Blimp/Fins.cpp.s
@@ -7106,7 +7106,7 @@ Blimp/Fins.s: Blimp/Fins.cpp.s
 
 # target to generate assembly for a file
 Blimp/Fins.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Fins.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Fins.cpp.s
 .PHONY : Blimp/Fins.cpp.s
 
 Blimp/GCS_Blimp.o: Blimp/GCS_Blimp.cpp.o
@@ -7114,7 +7114,7 @@ Blimp/GCS_Blimp.o: Blimp/GCS_Blimp.cpp.o
 
 # target to build an object file
 Blimp/GCS_Blimp.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/GCS_Blimp.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/GCS_Blimp.cpp.o
 .PHONY : Blimp/GCS_Blimp.cpp.o
 
 Blimp/GCS_Blimp.i: Blimp/GCS_Blimp.cpp.i
@@ -7122,7 +7122,7 @@ Blimp/GCS_Blimp.i: Blimp/GCS_Blimp.cpp.i
 
 # target to preprocess a source file
 Blimp/GCS_Blimp.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/GCS_Blimp.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/GCS_Blimp.cpp.i
 .PHONY : Blimp/GCS_Blimp.cpp.i
 
 Blimp/GCS_Blimp.s: Blimp/GCS_Blimp.cpp.s
@@ -7130,7 +7130,7 @@ Blimp/GCS_Blimp.s: Blimp/GCS_Blimp.cpp.s
 
 # target to generate assembly for a file
 Blimp/GCS_Blimp.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/GCS_Blimp.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/GCS_Blimp.cpp.s
 .PHONY : Blimp/GCS_Blimp.cpp.s
 
 Blimp/GCS_MAVLink_Blimp.o: Blimp/GCS_MAVLink_Blimp.cpp.o
@@ -7138,7 +7138,7 @@ Blimp/GCS_MAVLink_Blimp.o: Blimp/GCS_MAVLink_Blimp.cpp.o
 
 # target to build an object file
 Blimp/GCS_MAVLink_Blimp.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/GCS_MAVLink_Blimp.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/GCS_MAVLink_Blimp.cpp.o
 .PHONY : Blimp/GCS_MAVLink_Blimp.cpp.o
 
 Blimp/GCS_MAVLink_Blimp.i: Blimp/GCS_MAVLink_Blimp.cpp.i
@@ -7146,7 +7146,7 @@ Blimp/GCS_MAVLink_Blimp.i: Blimp/GCS_MAVLink_Blimp.cpp.i
 
 # target to preprocess a source file
 Blimp/GCS_MAVLink_Blimp.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/GCS_MAVLink_Blimp.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/GCS_MAVLink_Blimp.cpp.i
 .PHONY : Blimp/GCS_MAVLink_Blimp.cpp.i
 
 Blimp/GCS_MAVLink_Blimp.s: Blimp/GCS_MAVLink_Blimp.cpp.s
@@ -7154,7 +7154,7 @@ Blimp/GCS_MAVLink_Blimp.s: Blimp/GCS_MAVLink_Blimp.cpp.s
 
 # target to generate assembly for a file
 Blimp/GCS_MAVLink_Blimp.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/GCS_MAVLink_Blimp.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/GCS_MAVLink_Blimp.cpp.s
 .PHONY : Blimp/GCS_MAVLink_Blimp.cpp.s
 
 Blimp/Log.o: Blimp/Log.cpp.o
@@ -7162,7 +7162,7 @@ Blimp/Log.o: Blimp/Log.cpp.o
 
 # target to build an object file
 Blimp/Log.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Log.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Log.cpp.o
 .PHONY : Blimp/Log.cpp.o
 
 Blimp/Log.i: Blimp/Log.cpp.i
@@ -7170,7 +7170,7 @@ Blimp/Log.i: Blimp/Log.cpp.i
 
 # target to preprocess a source file
 Blimp/Log.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Log.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Log.cpp.i
 .PHONY : Blimp/Log.cpp.i
 
 Blimp/Log.s: Blimp/Log.cpp.s
@@ -7178,7 +7178,7 @@ Blimp/Log.s: Blimp/Log.cpp.s
 
 # target to generate assembly for a file
 Blimp/Log.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Log.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Log.cpp.s
 .PHONY : Blimp/Log.cpp.s
 
 Blimp/Loiter.o: Blimp/Loiter.cpp.o
@@ -7186,7 +7186,7 @@ Blimp/Loiter.o: Blimp/Loiter.cpp.o
 
 # target to build an object file
 Blimp/Loiter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Loiter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Loiter.cpp.o
 .PHONY : Blimp/Loiter.cpp.o
 
 Blimp/Loiter.i: Blimp/Loiter.cpp.i
@@ -7194,7 +7194,7 @@ Blimp/Loiter.i: Blimp/Loiter.cpp.i
 
 # target to preprocess a source file
 Blimp/Loiter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Loiter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Loiter.cpp.i
 .PHONY : Blimp/Loiter.cpp.i
 
 Blimp/Loiter.s: Blimp/Loiter.cpp.s
@@ -7202,7 +7202,7 @@ Blimp/Loiter.s: Blimp/Loiter.cpp.s
 
 # target to generate assembly for a file
 Blimp/Loiter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Loiter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Loiter.cpp.s
 .PHONY : Blimp/Loiter.cpp.s
 
 Blimp/Parameters.o: Blimp/Parameters.cpp.o
@@ -7210,7 +7210,7 @@ Blimp/Parameters.o: Blimp/Parameters.cpp.o
 
 # target to build an object file
 Blimp/Parameters.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Parameters.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Parameters.cpp.o
 .PHONY : Blimp/Parameters.cpp.o
 
 Blimp/Parameters.i: Blimp/Parameters.cpp.i
@@ -7218,7 +7218,7 @@ Blimp/Parameters.i: Blimp/Parameters.cpp.i
 
 # target to preprocess a source file
 Blimp/Parameters.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Parameters.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Parameters.cpp.i
 .PHONY : Blimp/Parameters.cpp.i
 
 Blimp/Parameters.s: Blimp/Parameters.cpp.s
@@ -7226,7 +7226,7 @@ Blimp/Parameters.s: Blimp/Parameters.cpp.s
 
 # target to generate assembly for a file
 Blimp/Parameters.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/Parameters.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/Parameters.cpp.s
 .PHONY : Blimp/Parameters.cpp.s
 
 Blimp/RC_Channel_Blimp.o: Blimp/RC_Channel_Blimp.cpp.o
@@ -7234,7 +7234,7 @@ Blimp/RC_Channel_Blimp.o: Blimp/RC_Channel_Blimp.cpp.o
 
 # target to build an object file
 Blimp/RC_Channel_Blimp.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/RC_Channel_Blimp.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/RC_Channel_Blimp.cpp.o
 .PHONY : Blimp/RC_Channel_Blimp.cpp.o
 
 Blimp/RC_Channel_Blimp.i: Blimp/RC_Channel_Blimp.cpp.i
@@ -7242,7 +7242,7 @@ Blimp/RC_Channel_Blimp.i: Blimp/RC_Channel_Blimp.cpp.i
 
 # target to preprocess a source file
 Blimp/RC_Channel_Blimp.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/RC_Channel_Blimp.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/RC_Channel_Blimp.cpp.i
 .PHONY : Blimp/RC_Channel_Blimp.cpp.i
 
 Blimp/RC_Channel_Blimp.s: Blimp/RC_Channel_Blimp.cpp.s
@@ -7250,7 +7250,7 @@ Blimp/RC_Channel_Blimp.s: Blimp/RC_Channel_Blimp.cpp.s
 
 # target to generate assembly for a file
 Blimp/RC_Channel_Blimp.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/RC_Channel_Blimp.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/RC_Channel_Blimp.cpp.s
 .PHONY : Blimp/RC_Channel_Blimp.cpp.s
 
 Blimp/commands.o: Blimp/commands.cpp.o
@@ -7258,7 +7258,7 @@ Blimp/commands.o: Blimp/commands.cpp.o
 
 # target to build an object file
 Blimp/commands.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/commands.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/commands.cpp.o
 .PHONY : Blimp/commands.cpp.o
 
 Blimp/commands.i: Blimp/commands.cpp.i
@@ -7266,7 +7266,7 @@ Blimp/commands.i: Blimp/commands.cpp.i
 
 # target to preprocess a source file
 Blimp/commands.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/commands.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/commands.cpp.i
 .PHONY : Blimp/commands.cpp.i
 
 Blimp/commands.s: Blimp/commands.cpp.s
@@ -7274,7 +7274,7 @@ Blimp/commands.s: Blimp/commands.cpp.s
 
 # target to generate assembly for a file
 Blimp/commands.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/commands.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/commands.cpp.s
 .PHONY : Blimp/commands.cpp.s
 
 Blimp/ekf_check.o: Blimp/ekf_check.cpp.o
@@ -7282,7 +7282,7 @@ Blimp/ekf_check.o: Blimp/ekf_check.cpp.o
 
 # target to build an object file
 Blimp/ekf_check.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/ekf_check.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/ekf_check.cpp.o
 .PHONY : Blimp/ekf_check.cpp.o
 
 Blimp/ekf_check.i: Blimp/ekf_check.cpp.i
@@ -7290,7 +7290,7 @@ Blimp/ekf_check.i: Blimp/ekf_check.cpp.i
 
 # target to preprocess a source file
 Blimp/ekf_check.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/ekf_check.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/ekf_check.cpp.i
 .PHONY : Blimp/ekf_check.cpp.i
 
 Blimp/ekf_check.s: Blimp/ekf_check.cpp.s
@@ -7298,7 +7298,7 @@ Blimp/ekf_check.s: Blimp/ekf_check.cpp.s
 
 # target to generate assembly for a file
 Blimp/ekf_check.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/ekf_check.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/ekf_check.cpp.s
 .PHONY : Blimp/ekf_check.cpp.s
 
 Blimp/events.o: Blimp/events.cpp.o
@@ -7306,7 +7306,7 @@ Blimp/events.o: Blimp/events.cpp.o
 
 # target to build an object file
 Blimp/events.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/events.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/events.cpp.o
 .PHONY : Blimp/events.cpp.o
 
 Blimp/events.i: Blimp/events.cpp.i
@@ -7314,7 +7314,7 @@ Blimp/events.i: Blimp/events.cpp.i
 
 # target to preprocess a source file
 Blimp/events.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/events.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/events.cpp.i
 .PHONY : Blimp/events.cpp.i
 
 Blimp/events.s: Blimp/events.cpp.s
@@ -7322,7 +7322,7 @@ Blimp/events.s: Blimp/events.cpp.s
 
 # target to generate assembly for a file
 Blimp/events.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/events.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/events.cpp.s
 .PHONY : Blimp/events.cpp.s
 
 Blimp/failsafe.o: Blimp/failsafe.cpp.o
@@ -7330,7 +7330,7 @@ Blimp/failsafe.o: Blimp/failsafe.cpp.o
 
 # target to build an object file
 Blimp/failsafe.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/failsafe.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/failsafe.cpp.o
 .PHONY : Blimp/failsafe.cpp.o
 
 Blimp/failsafe.i: Blimp/failsafe.cpp.i
@@ -7338,7 +7338,7 @@ Blimp/failsafe.i: Blimp/failsafe.cpp.i
 
 # target to preprocess a source file
 Blimp/failsafe.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/failsafe.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/failsafe.cpp.i
 .PHONY : Blimp/failsafe.cpp.i
 
 Blimp/failsafe.s: Blimp/failsafe.cpp.s
@@ -7346,7 +7346,7 @@ Blimp/failsafe.s: Blimp/failsafe.cpp.s
 
 # target to generate assembly for a file
 Blimp/failsafe.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/failsafe.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/failsafe.cpp.s
 .PHONY : Blimp/failsafe.cpp.s
 
 Blimp/inertia.o: Blimp/inertia.cpp.o
@@ -7354,7 +7354,7 @@ Blimp/inertia.o: Blimp/inertia.cpp.o
 
 # target to build an object file
 Blimp/inertia.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/inertia.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/inertia.cpp.o
 .PHONY : Blimp/inertia.cpp.o
 
 Blimp/inertia.i: Blimp/inertia.cpp.i
@@ -7362,7 +7362,7 @@ Blimp/inertia.i: Blimp/inertia.cpp.i
 
 # target to preprocess a source file
 Blimp/inertia.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/inertia.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/inertia.cpp.i
 .PHONY : Blimp/inertia.cpp.i
 
 Blimp/inertia.s: Blimp/inertia.cpp.s
@@ -7370,7 +7370,7 @@ Blimp/inertia.s: Blimp/inertia.cpp.s
 
 # target to generate assembly for a file
 Blimp/inertia.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/inertia.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/inertia.cpp.s
 .PHONY : Blimp/inertia.cpp.s
 
 Blimp/mode.o: Blimp/mode.cpp.o
@@ -7378,7 +7378,7 @@ Blimp/mode.o: Blimp/mode.cpp.o
 
 # target to build an object file
 Blimp/mode.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode.cpp.o
 .PHONY : Blimp/mode.cpp.o
 
 Blimp/mode.i: Blimp/mode.cpp.i
@@ -7386,7 +7386,7 @@ Blimp/mode.i: Blimp/mode.cpp.i
 
 # target to preprocess a source file
 Blimp/mode.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode.cpp.i
 .PHONY : Blimp/mode.cpp.i
 
 Blimp/mode.s: Blimp/mode.cpp.s
@@ -7394,7 +7394,7 @@ Blimp/mode.s: Blimp/mode.cpp.s
 
 # target to generate assembly for a file
 Blimp/mode.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode.cpp.s
 .PHONY : Blimp/mode.cpp.s
 
 Blimp/mode_land.o: Blimp/mode_land.cpp.o
@@ -7402,7 +7402,7 @@ Blimp/mode_land.o: Blimp/mode_land.cpp.o
 
 # target to build an object file
 Blimp/mode_land.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_land.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_land.cpp.o
 .PHONY : Blimp/mode_land.cpp.o
 
 Blimp/mode_land.i: Blimp/mode_land.cpp.i
@@ -7410,7 +7410,7 @@ Blimp/mode_land.i: Blimp/mode_land.cpp.i
 
 # target to preprocess a source file
 Blimp/mode_land.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_land.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_land.cpp.i
 .PHONY : Blimp/mode_land.cpp.i
 
 Blimp/mode_land.s: Blimp/mode_land.cpp.s
@@ -7418,7 +7418,7 @@ Blimp/mode_land.s: Blimp/mode_land.cpp.s
 
 # target to generate assembly for a file
 Blimp/mode_land.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_land.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_land.cpp.s
 .PHONY : Blimp/mode_land.cpp.s
 
 Blimp/mode_loiter.o: Blimp/mode_loiter.cpp.o
@@ -7426,7 +7426,7 @@ Blimp/mode_loiter.o: Blimp/mode_loiter.cpp.o
 
 # target to build an object file
 Blimp/mode_loiter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_loiter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_loiter.cpp.o
 .PHONY : Blimp/mode_loiter.cpp.o
 
 Blimp/mode_loiter.i: Blimp/mode_loiter.cpp.i
@@ -7434,7 +7434,7 @@ Blimp/mode_loiter.i: Blimp/mode_loiter.cpp.i
 
 # target to preprocess a source file
 Blimp/mode_loiter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_loiter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_loiter.cpp.i
 .PHONY : Blimp/mode_loiter.cpp.i
 
 Blimp/mode_loiter.s: Blimp/mode_loiter.cpp.s
@@ -7442,7 +7442,7 @@ Blimp/mode_loiter.s: Blimp/mode_loiter.cpp.s
 
 # target to generate assembly for a file
 Blimp/mode_loiter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_loiter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_loiter.cpp.s
 .PHONY : Blimp/mode_loiter.cpp.s
 
 Blimp/mode_manual.o: Blimp/mode_manual.cpp.o
@@ -7450,7 +7450,7 @@ Blimp/mode_manual.o: Blimp/mode_manual.cpp.o
 
 # target to build an object file
 Blimp/mode_manual.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_manual.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_manual.cpp.o
 .PHONY : Blimp/mode_manual.cpp.o
 
 Blimp/mode_manual.i: Blimp/mode_manual.cpp.i
@@ -7458,7 +7458,7 @@ Blimp/mode_manual.i: Blimp/mode_manual.cpp.i
 
 # target to preprocess a source file
 Blimp/mode_manual.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_manual.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_manual.cpp.i
 .PHONY : Blimp/mode_manual.cpp.i
 
 Blimp/mode_manual.s: Blimp/mode_manual.cpp.s
@@ -7466,7 +7466,7 @@ Blimp/mode_manual.s: Blimp/mode_manual.cpp.s
 
 # target to generate assembly for a file
 Blimp/mode_manual.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_manual.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_manual.cpp.s
 .PHONY : Blimp/mode_manual.cpp.s
 
 Blimp/mode_rtl.o: Blimp/mode_rtl.cpp.o
@@ -7474,7 +7474,7 @@ Blimp/mode_rtl.o: Blimp/mode_rtl.cpp.o
 
 # target to build an object file
 Blimp/mode_rtl.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_rtl.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_rtl.cpp.o
 .PHONY : Blimp/mode_rtl.cpp.o
 
 Blimp/mode_rtl.i: Blimp/mode_rtl.cpp.i
@@ -7482,7 +7482,7 @@ Blimp/mode_rtl.i: Blimp/mode_rtl.cpp.i
 
 # target to preprocess a source file
 Blimp/mode_rtl.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_rtl.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_rtl.cpp.i
 .PHONY : Blimp/mode_rtl.cpp.i
 
 Blimp/mode_rtl.s: Blimp/mode_rtl.cpp.s
@@ -7490,7 +7490,7 @@ Blimp/mode_rtl.s: Blimp/mode_rtl.cpp.s
 
 # target to generate assembly for a file
 Blimp/mode_rtl.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_rtl.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_rtl.cpp.s
 .PHONY : Blimp/mode_rtl.cpp.s
 
 Blimp/mode_velocity.o: Blimp/mode_velocity.cpp.o
@@ -7498,7 +7498,7 @@ Blimp/mode_velocity.o: Blimp/mode_velocity.cpp.o
 
 # target to build an object file
 Blimp/mode_velocity.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_velocity.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_velocity.cpp.o
 .PHONY : Blimp/mode_velocity.cpp.o
 
 Blimp/mode_velocity.i: Blimp/mode_velocity.cpp.i
@@ -7506,7 +7506,7 @@ Blimp/mode_velocity.i: Blimp/mode_velocity.cpp.i
 
 # target to preprocess a source file
 Blimp/mode_velocity.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_velocity.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_velocity.cpp.i
 .PHONY : Blimp/mode_velocity.cpp.i
 
 Blimp/mode_velocity.s: Blimp/mode_velocity.cpp.s
@@ -7514,7 +7514,7 @@ Blimp/mode_velocity.s: Blimp/mode_velocity.cpp.s
 
 # target to generate assembly for a file
 Blimp/mode_velocity.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/mode_velocity.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/mode_velocity.cpp.s
 .PHONY : Blimp/mode_velocity.cpp.s
 
 Blimp/motors.o: Blimp/motors.cpp.o
@@ -7522,7 +7522,7 @@ Blimp/motors.o: Blimp/motors.cpp.o
 
 # target to build an object file
 Blimp/motors.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/motors.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/motors.cpp.o
 .PHONY : Blimp/motors.cpp.o
 
 Blimp/motors.i: Blimp/motors.cpp.i
@@ -7530,7 +7530,7 @@ Blimp/motors.i: Blimp/motors.cpp.i
 
 # target to preprocess a source file
 Blimp/motors.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/motors.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/motors.cpp.i
 .PHONY : Blimp/motors.cpp.i
 
 Blimp/motors.s: Blimp/motors.cpp.s
@@ -7538,7 +7538,7 @@ Blimp/motors.s: Blimp/motors.cpp.s
 
 # target to generate assembly for a file
 Blimp/motors.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/motors.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/motors.cpp.s
 .PHONY : Blimp/motors.cpp.s
 
 Blimp/radio.o: Blimp/radio.cpp.o
@@ -7546,7 +7546,7 @@ Blimp/radio.o: Blimp/radio.cpp.o
 
 # target to build an object file
 Blimp/radio.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/radio.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/radio.cpp.o
 .PHONY : Blimp/radio.cpp.o
 
 Blimp/radio.i: Blimp/radio.cpp.i
@@ -7554,7 +7554,7 @@ Blimp/radio.i: Blimp/radio.cpp.i
 
 # target to preprocess a source file
 Blimp/radio.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/radio.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/radio.cpp.i
 .PHONY : Blimp/radio.cpp.i
 
 Blimp/radio.s: Blimp/radio.cpp.s
@@ -7562,7 +7562,7 @@ Blimp/radio.s: Blimp/radio.cpp.s
 
 # target to generate assembly for a file
 Blimp/radio.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/radio.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/radio.cpp.s
 .PHONY : Blimp/radio.cpp.s
 
 Blimp/sensors.o: Blimp/sensors.cpp.o
@@ -7570,7 +7570,7 @@ Blimp/sensors.o: Blimp/sensors.cpp.o
 
 # target to build an object file
 Blimp/sensors.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/sensors.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/sensors.cpp.o
 .PHONY : Blimp/sensors.cpp.o
 
 Blimp/sensors.i: Blimp/sensors.cpp.i
@@ -7578,7 +7578,7 @@ Blimp/sensors.i: Blimp/sensors.cpp.i
 
 # target to preprocess a source file
 Blimp/sensors.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/sensors.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/sensors.cpp.i
 .PHONY : Blimp/sensors.cpp.i
 
 Blimp/sensors.s: Blimp/sensors.cpp.s
@@ -7586,7 +7586,7 @@ Blimp/sensors.s: Blimp/sensors.cpp.s
 
 # target to generate assembly for a file
 Blimp/sensors.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/sensors.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/sensors.cpp.s
 .PHONY : Blimp/sensors.cpp.s
 
 Blimp/system.o: Blimp/system.cpp.o
@@ -7594,7 +7594,7 @@ Blimp/system.o: Blimp/system.cpp.o
 
 # target to build an object file
 Blimp/system.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/system.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/system.cpp.o
 .PHONY : Blimp/system.cpp.o
 
 Blimp/system.i: Blimp/system.cpp.i
@@ -7602,7 +7602,7 @@ Blimp/system.i: Blimp/system.cpp.i
 
 # target to preprocess a source file
 Blimp/system.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/system.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/system.cpp.i
 .PHONY : Blimp/system.cpp.i
 
 Blimp/system.s: Blimp/system.cpp.s
@@ -7610,7 +7610,7 @@ Blimp/system.s: Blimp/system.cpp.s
 
 # target to generate assembly for a file
 Blimp/system.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_blimp.dir/build.make CMakeFiles/bin_blimp.dir/Blimp/system.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/Blimp/system.cpp.s
 .PHONY : Blimp/system.cpp.s
 
 Rover/AP_Arming_Rover.o: Rover/AP_Arming_Rover.cpp.o
@@ -7618,7 +7618,7 @@ Rover/AP_Arming_Rover.o: Rover/AP_Arming_Rover.cpp.o
 
 # target to build an object file
 Rover/AP_Arming_Rover.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/AP_Arming_Rover.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/AP_Arming_Rover.cpp.o
 .PHONY : Rover/AP_Arming_Rover.cpp.o
 
 Rover/AP_Arming_Rover.i: Rover/AP_Arming_Rover.cpp.i
@@ -7626,7 +7626,7 @@ Rover/AP_Arming_Rover.i: Rover/AP_Arming_Rover.cpp.i
 
 # target to preprocess a source file
 Rover/AP_Arming_Rover.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/AP_Arming_Rover.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/AP_Arming_Rover.cpp.i
 .PHONY : Rover/AP_Arming_Rover.cpp.i
 
 Rover/AP_Arming_Rover.s: Rover/AP_Arming_Rover.cpp.s
@@ -7634,7 +7634,7 @@ Rover/AP_Arming_Rover.s: Rover/AP_Arming_Rover.cpp.s
 
 # target to generate assembly for a file
 Rover/AP_Arming_Rover.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/AP_Arming_Rover.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/AP_Arming_Rover.cpp.s
 .PHONY : Rover/AP_Arming_Rover.cpp.s
 
 Rover/AP_ExternalControl_Rover.o: Rover/AP_ExternalControl_Rover.cpp.o
@@ -7642,7 +7642,7 @@ Rover/AP_ExternalControl_Rover.o: Rover/AP_ExternalControl_Rover.cpp.o
 
 # target to build an object file
 Rover/AP_ExternalControl_Rover.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/AP_ExternalControl_Rover.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/AP_ExternalControl_Rover.cpp.o
 .PHONY : Rover/AP_ExternalControl_Rover.cpp.o
 
 Rover/AP_ExternalControl_Rover.i: Rover/AP_ExternalControl_Rover.cpp.i
@@ -7650,7 +7650,7 @@ Rover/AP_ExternalControl_Rover.i: Rover/AP_ExternalControl_Rover.cpp.i
 
 # target to preprocess a source file
 Rover/AP_ExternalControl_Rover.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/AP_ExternalControl_Rover.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/AP_ExternalControl_Rover.cpp.i
 .PHONY : Rover/AP_ExternalControl_Rover.cpp.i
 
 Rover/AP_ExternalControl_Rover.s: Rover/AP_ExternalControl_Rover.cpp.s
@@ -7658,7 +7658,7 @@ Rover/AP_ExternalControl_Rover.s: Rover/AP_ExternalControl_Rover.cpp.s
 
 # target to generate assembly for a file
 Rover/AP_ExternalControl_Rover.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/AP_ExternalControl_Rover.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/AP_ExternalControl_Rover.cpp.s
 .PHONY : Rover/AP_ExternalControl_Rover.cpp.s
 
 Rover/AP_Rally.o: Rover/AP_Rally.cpp.o
@@ -7666,7 +7666,7 @@ Rover/AP_Rally.o: Rover/AP_Rally.cpp.o
 
 # target to build an object file
 Rover/AP_Rally.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/AP_Rally.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/AP_Rally.cpp.o
 .PHONY : Rover/AP_Rally.cpp.o
 
 Rover/AP_Rally.i: Rover/AP_Rally.cpp.i
@@ -7674,7 +7674,7 @@ Rover/AP_Rally.i: Rover/AP_Rally.cpp.i
 
 # target to preprocess a source file
 Rover/AP_Rally.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/AP_Rally.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/AP_Rally.cpp.i
 .PHONY : Rover/AP_Rally.cpp.i
 
 Rover/AP_Rally.s: Rover/AP_Rally.cpp.s
@@ -7682,7 +7682,7 @@ Rover/AP_Rally.s: Rover/AP_Rally.cpp.s
 
 # target to generate assembly for a file
 Rover/AP_Rally.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/AP_Rally.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/AP_Rally.cpp.s
 .PHONY : Rover/AP_Rally.cpp.s
 
 Rover/GCS_MAVLink_Rover.o: Rover/GCS_MAVLink_Rover.cpp.o
@@ -7690,7 +7690,7 @@ Rover/GCS_MAVLink_Rover.o: Rover/GCS_MAVLink_Rover.cpp.o
 
 # target to build an object file
 Rover/GCS_MAVLink_Rover.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/GCS_MAVLink_Rover.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/GCS_MAVLink_Rover.cpp.o
 .PHONY : Rover/GCS_MAVLink_Rover.cpp.o
 
 Rover/GCS_MAVLink_Rover.i: Rover/GCS_MAVLink_Rover.cpp.i
@@ -7698,7 +7698,7 @@ Rover/GCS_MAVLink_Rover.i: Rover/GCS_MAVLink_Rover.cpp.i
 
 # target to preprocess a source file
 Rover/GCS_MAVLink_Rover.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/GCS_MAVLink_Rover.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/GCS_MAVLink_Rover.cpp.i
 .PHONY : Rover/GCS_MAVLink_Rover.cpp.i
 
 Rover/GCS_MAVLink_Rover.s: Rover/GCS_MAVLink_Rover.cpp.s
@@ -7706,7 +7706,7 @@ Rover/GCS_MAVLink_Rover.s: Rover/GCS_MAVLink_Rover.cpp.s
 
 # target to generate assembly for a file
 Rover/GCS_MAVLink_Rover.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/GCS_MAVLink_Rover.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/GCS_MAVLink_Rover.cpp.s
 .PHONY : Rover/GCS_MAVLink_Rover.cpp.s
 
 Rover/GCS_Rover.o: Rover/GCS_Rover.cpp.o
@@ -7714,7 +7714,7 @@ Rover/GCS_Rover.o: Rover/GCS_Rover.cpp.o
 
 # target to build an object file
 Rover/GCS_Rover.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/GCS_Rover.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/GCS_Rover.cpp.o
 .PHONY : Rover/GCS_Rover.cpp.o
 
 Rover/GCS_Rover.i: Rover/GCS_Rover.cpp.i
@@ -7722,7 +7722,7 @@ Rover/GCS_Rover.i: Rover/GCS_Rover.cpp.i
 
 # target to preprocess a source file
 Rover/GCS_Rover.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/GCS_Rover.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/GCS_Rover.cpp.i
 .PHONY : Rover/GCS_Rover.cpp.i
 
 Rover/GCS_Rover.s: Rover/GCS_Rover.cpp.s
@@ -7730,7 +7730,7 @@ Rover/GCS_Rover.s: Rover/GCS_Rover.cpp.s
 
 # target to generate assembly for a file
 Rover/GCS_Rover.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/GCS_Rover.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/GCS_Rover.cpp.s
 .PHONY : Rover/GCS_Rover.cpp.s
 
 Rover/Log.o: Rover/Log.cpp.o
@@ -7738,7 +7738,7 @@ Rover/Log.o: Rover/Log.cpp.o
 
 # target to build an object file
 Rover/Log.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/Log.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/Log.cpp.o
 .PHONY : Rover/Log.cpp.o
 
 Rover/Log.i: Rover/Log.cpp.i
@@ -7746,7 +7746,7 @@ Rover/Log.i: Rover/Log.cpp.i
 
 # target to preprocess a source file
 Rover/Log.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/Log.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/Log.cpp.i
 .PHONY : Rover/Log.cpp.i
 
 Rover/Log.s: Rover/Log.cpp.s
@@ -7754,7 +7754,7 @@ Rover/Log.s: Rover/Log.cpp.s
 
 # target to generate assembly for a file
 Rover/Log.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/Log.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/Log.cpp.s
 .PHONY : Rover/Log.cpp.s
 
 Rover/Parameters.o: Rover/Parameters.cpp.o
@@ -7762,7 +7762,7 @@ Rover/Parameters.o: Rover/Parameters.cpp.o
 
 # target to build an object file
 Rover/Parameters.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/Parameters.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/Parameters.cpp.o
 .PHONY : Rover/Parameters.cpp.o
 
 Rover/Parameters.i: Rover/Parameters.cpp.i
@@ -7770,7 +7770,7 @@ Rover/Parameters.i: Rover/Parameters.cpp.i
 
 # target to preprocess a source file
 Rover/Parameters.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/Parameters.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/Parameters.cpp.i
 .PHONY : Rover/Parameters.cpp.i
 
 Rover/Parameters.s: Rover/Parameters.cpp.s
@@ -7778,7 +7778,7 @@ Rover/Parameters.s: Rover/Parameters.cpp.s
 
 # target to generate assembly for a file
 Rover/Parameters.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/Parameters.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/Parameters.cpp.s
 .PHONY : Rover/Parameters.cpp.s
 
 Rover/RC_Channel_Rover.o: Rover/RC_Channel_Rover.cpp.o
@@ -7786,7 +7786,7 @@ Rover/RC_Channel_Rover.o: Rover/RC_Channel_Rover.cpp.o
 
 # target to build an object file
 Rover/RC_Channel_Rover.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/RC_Channel_Rover.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/RC_Channel_Rover.cpp.o
 .PHONY : Rover/RC_Channel_Rover.cpp.o
 
 Rover/RC_Channel_Rover.i: Rover/RC_Channel_Rover.cpp.i
@@ -7794,7 +7794,7 @@ Rover/RC_Channel_Rover.i: Rover/RC_Channel_Rover.cpp.i
 
 # target to preprocess a source file
 Rover/RC_Channel_Rover.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/RC_Channel_Rover.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/RC_Channel_Rover.cpp.i
 .PHONY : Rover/RC_Channel_Rover.cpp.i
 
 Rover/RC_Channel_Rover.s: Rover/RC_Channel_Rover.cpp.s
@@ -7802,7 +7802,7 @@ Rover/RC_Channel_Rover.s: Rover/RC_Channel_Rover.cpp.s
 
 # target to generate assembly for a file
 Rover/RC_Channel_Rover.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/RC_Channel_Rover.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/RC_Channel_Rover.cpp.s
 .PHONY : Rover/RC_Channel_Rover.cpp.s
 
 Rover/Rover.o: Rover/Rover.cpp.o
@@ -7810,7 +7810,7 @@ Rover/Rover.o: Rover/Rover.cpp.o
 
 # target to build an object file
 Rover/Rover.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/Rover.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/Rover.cpp.o
 .PHONY : Rover/Rover.cpp.o
 
 Rover/Rover.i: Rover/Rover.cpp.i
@@ -7818,7 +7818,7 @@ Rover/Rover.i: Rover/Rover.cpp.i
 
 # target to preprocess a source file
 Rover/Rover.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/Rover.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/Rover.cpp.i
 .PHONY : Rover/Rover.cpp.i
 
 Rover/Rover.s: Rover/Rover.cpp.s
@@ -7826,7 +7826,7 @@ Rover/Rover.s: Rover/Rover.cpp.s
 
 # target to generate assembly for a file
 Rover/Rover.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/Rover.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/Rover.cpp.s
 .PHONY : Rover/Rover.cpp.s
 
 Rover/Steering.o: Rover/Steering.cpp.o
@@ -7834,7 +7834,7 @@ Rover/Steering.o: Rover/Steering.cpp.o
 
 # target to build an object file
 Rover/Steering.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/Steering.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/Steering.cpp.o
 .PHONY : Rover/Steering.cpp.o
 
 Rover/Steering.i: Rover/Steering.cpp.i
@@ -7842,7 +7842,7 @@ Rover/Steering.i: Rover/Steering.cpp.i
 
 # target to preprocess a source file
 Rover/Steering.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/Steering.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/Steering.cpp.i
 .PHONY : Rover/Steering.cpp.i
 
 Rover/Steering.s: Rover/Steering.cpp.s
@@ -7850,7 +7850,7 @@ Rover/Steering.s: Rover/Steering.cpp.s
 
 # target to generate assembly for a file
 Rover/Steering.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/Steering.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/Steering.cpp.s
 .PHONY : Rover/Steering.cpp.s
 
 Rover/afs_rover.o: Rover/afs_rover.cpp.o
@@ -7858,7 +7858,7 @@ Rover/afs_rover.o: Rover/afs_rover.cpp.o
 
 # target to build an object file
 Rover/afs_rover.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/afs_rover.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/afs_rover.cpp.o
 .PHONY : Rover/afs_rover.cpp.o
 
 Rover/afs_rover.i: Rover/afs_rover.cpp.i
@@ -7866,7 +7866,7 @@ Rover/afs_rover.i: Rover/afs_rover.cpp.i
 
 # target to preprocess a source file
 Rover/afs_rover.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/afs_rover.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/afs_rover.cpp.i
 .PHONY : Rover/afs_rover.cpp.i
 
 Rover/afs_rover.s: Rover/afs_rover.cpp.s
@@ -7874,7 +7874,7 @@ Rover/afs_rover.s: Rover/afs_rover.cpp.s
 
 # target to generate assembly for a file
 Rover/afs_rover.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/afs_rover.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/afs_rover.cpp.s
 .PHONY : Rover/afs_rover.cpp.s
 
 Rover/balance_bot.o: Rover/balance_bot.cpp.o
@@ -7882,7 +7882,7 @@ Rover/balance_bot.o: Rover/balance_bot.cpp.o
 
 # target to build an object file
 Rover/balance_bot.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/balance_bot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/balance_bot.cpp.o
 .PHONY : Rover/balance_bot.cpp.o
 
 Rover/balance_bot.i: Rover/balance_bot.cpp.i
@@ -7890,7 +7890,7 @@ Rover/balance_bot.i: Rover/balance_bot.cpp.i
 
 # target to preprocess a source file
 Rover/balance_bot.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/balance_bot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/balance_bot.cpp.i
 .PHONY : Rover/balance_bot.cpp.i
 
 Rover/balance_bot.s: Rover/balance_bot.cpp.s
@@ -7898,7 +7898,7 @@ Rover/balance_bot.s: Rover/balance_bot.cpp.s
 
 # target to generate assembly for a file
 Rover/balance_bot.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/balance_bot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/balance_bot.cpp.s
 .PHONY : Rover/balance_bot.cpp.s
 
 Rover/commands.o: Rover/commands.cpp.o
@@ -7906,7 +7906,7 @@ Rover/commands.o: Rover/commands.cpp.o
 
 # target to build an object file
 Rover/commands.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/commands.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/commands.cpp.o
 .PHONY : Rover/commands.cpp.o
 
 Rover/commands.i: Rover/commands.cpp.i
@@ -7914,7 +7914,7 @@ Rover/commands.i: Rover/commands.cpp.i
 
 # target to preprocess a source file
 Rover/commands.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/commands.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/commands.cpp.i
 .PHONY : Rover/commands.cpp.i
 
 Rover/commands.s: Rover/commands.cpp.s
@@ -7922,7 +7922,7 @@ Rover/commands.s: Rover/commands.cpp.s
 
 # target to generate assembly for a file
 Rover/commands.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/commands.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/commands.cpp.s
 .PHONY : Rover/commands.cpp.s
 
 Rover/crash_check.o: Rover/crash_check.cpp.o
@@ -7930,7 +7930,7 @@ Rover/crash_check.o: Rover/crash_check.cpp.o
 
 # target to build an object file
 Rover/crash_check.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/crash_check.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/crash_check.cpp.o
 .PHONY : Rover/crash_check.cpp.o
 
 Rover/crash_check.i: Rover/crash_check.cpp.i
@@ -7938,7 +7938,7 @@ Rover/crash_check.i: Rover/crash_check.cpp.i
 
 # target to preprocess a source file
 Rover/crash_check.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/crash_check.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/crash_check.cpp.i
 .PHONY : Rover/crash_check.cpp.i
 
 Rover/crash_check.s: Rover/crash_check.cpp.s
@@ -7946,7 +7946,7 @@ Rover/crash_check.s: Rover/crash_check.cpp.s
 
 # target to generate assembly for a file
 Rover/crash_check.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/crash_check.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/crash_check.cpp.s
 .PHONY : Rover/crash_check.cpp.s
 
 Rover/cruise_learn.o: Rover/cruise_learn.cpp.o
@@ -7954,7 +7954,7 @@ Rover/cruise_learn.o: Rover/cruise_learn.cpp.o
 
 # target to build an object file
 Rover/cruise_learn.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/cruise_learn.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/cruise_learn.cpp.o
 .PHONY : Rover/cruise_learn.cpp.o
 
 Rover/cruise_learn.i: Rover/cruise_learn.cpp.i
@@ -7962,7 +7962,7 @@ Rover/cruise_learn.i: Rover/cruise_learn.cpp.i
 
 # target to preprocess a source file
 Rover/cruise_learn.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/cruise_learn.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/cruise_learn.cpp.i
 .PHONY : Rover/cruise_learn.cpp.i
 
 Rover/cruise_learn.s: Rover/cruise_learn.cpp.s
@@ -7970,7 +7970,7 @@ Rover/cruise_learn.s: Rover/cruise_learn.cpp.s
 
 # target to generate assembly for a file
 Rover/cruise_learn.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/cruise_learn.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/cruise_learn.cpp.s
 .PHONY : Rover/cruise_learn.cpp.s
 
 Rover/ekf_check.o: Rover/ekf_check.cpp.o
@@ -7978,7 +7978,7 @@ Rover/ekf_check.o: Rover/ekf_check.cpp.o
 
 # target to build an object file
 Rover/ekf_check.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/ekf_check.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/ekf_check.cpp.o
 .PHONY : Rover/ekf_check.cpp.o
 
 Rover/ekf_check.i: Rover/ekf_check.cpp.i
@@ -7986,7 +7986,7 @@ Rover/ekf_check.i: Rover/ekf_check.cpp.i
 
 # target to preprocess a source file
 Rover/ekf_check.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/ekf_check.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/ekf_check.cpp.i
 .PHONY : Rover/ekf_check.cpp.i
 
 Rover/ekf_check.s: Rover/ekf_check.cpp.s
@@ -7994,7 +7994,7 @@ Rover/ekf_check.s: Rover/ekf_check.cpp.s
 
 # target to generate assembly for a file
 Rover/ekf_check.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/ekf_check.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/ekf_check.cpp.s
 .PHONY : Rover/ekf_check.cpp.s
 
 Rover/failsafe.o: Rover/failsafe.cpp.o
@@ -8002,7 +8002,7 @@ Rover/failsafe.o: Rover/failsafe.cpp.o
 
 # target to build an object file
 Rover/failsafe.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/failsafe.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/failsafe.cpp.o
 .PHONY : Rover/failsafe.cpp.o
 
 Rover/failsafe.i: Rover/failsafe.cpp.i
@@ -8010,7 +8010,7 @@ Rover/failsafe.i: Rover/failsafe.cpp.i
 
 # target to preprocess a source file
 Rover/failsafe.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/failsafe.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/failsafe.cpp.i
 .PHONY : Rover/failsafe.cpp.i
 
 Rover/failsafe.s: Rover/failsafe.cpp.s
@@ -8018,7 +8018,7 @@ Rover/failsafe.s: Rover/failsafe.cpp.s
 
 # target to generate assembly for a file
 Rover/failsafe.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/failsafe.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/failsafe.cpp.s
 .PHONY : Rover/failsafe.cpp.s
 
 Rover/fence.o: Rover/fence.cpp.o
@@ -8026,7 +8026,7 @@ Rover/fence.o: Rover/fence.cpp.o
 
 # target to build an object file
 Rover/fence.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/fence.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/fence.cpp.o
 .PHONY : Rover/fence.cpp.o
 
 Rover/fence.i: Rover/fence.cpp.i
@@ -8034,7 +8034,7 @@ Rover/fence.i: Rover/fence.cpp.i
 
 # target to preprocess a source file
 Rover/fence.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/fence.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/fence.cpp.i
 .PHONY : Rover/fence.cpp.i
 
 Rover/fence.s: Rover/fence.cpp.s
@@ -8042,7 +8042,7 @@ Rover/fence.s: Rover/fence.cpp.s
 
 # target to generate assembly for a file
 Rover/fence.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/fence.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/fence.cpp.s
 .PHONY : Rover/fence.cpp.s
 
 Rover/mode.o: Rover/mode.cpp.o
@@ -8050,7 +8050,7 @@ Rover/mode.o: Rover/mode.cpp.o
 
 # target to build an object file
 Rover/mode.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode.cpp.o
 .PHONY : Rover/mode.cpp.o
 
 Rover/mode.i: Rover/mode.cpp.i
@@ -8058,7 +8058,7 @@ Rover/mode.i: Rover/mode.cpp.i
 
 # target to preprocess a source file
 Rover/mode.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode.cpp.i
 .PHONY : Rover/mode.cpp.i
 
 Rover/mode.s: Rover/mode.cpp.s
@@ -8066,7 +8066,7 @@ Rover/mode.s: Rover/mode.cpp.s
 
 # target to generate assembly for a file
 Rover/mode.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode.cpp.s
 .PHONY : Rover/mode.cpp.s
 
 Rover/mode_acro.o: Rover/mode_acro.cpp.o
@@ -8074,7 +8074,7 @@ Rover/mode_acro.o: Rover/mode_acro.cpp.o
 
 # target to build an object file
 Rover/mode_acro.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_acro.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_acro.cpp.o
 .PHONY : Rover/mode_acro.cpp.o
 
 Rover/mode_acro.i: Rover/mode_acro.cpp.i
@@ -8082,7 +8082,7 @@ Rover/mode_acro.i: Rover/mode_acro.cpp.i
 
 # target to preprocess a source file
 Rover/mode_acro.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_acro.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_acro.cpp.i
 .PHONY : Rover/mode_acro.cpp.i
 
 Rover/mode_acro.s: Rover/mode_acro.cpp.s
@@ -8090,7 +8090,7 @@ Rover/mode_acro.s: Rover/mode_acro.cpp.s
 
 # target to generate assembly for a file
 Rover/mode_acro.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_acro.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_acro.cpp.s
 .PHONY : Rover/mode_acro.cpp.s
 
 Rover/mode_auto.o: Rover/mode_auto.cpp.o
@@ -8098,7 +8098,7 @@ Rover/mode_auto.o: Rover/mode_auto.cpp.o
 
 # target to build an object file
 Rover/mode_auto.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_auto.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_auto.cpp.o
 .PHONY : Rover/mode_auto.cpp.o
 
 Rover/mode_auto.i: Rover/mode_auto.cpp.i
@@ -8106,7 +8106,7 @@ Rover/mode_auto.i: Rover/mode_auto.cpp.i
 
 # target to preprocess a source file
 Rover/mode_auto.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_auto.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_auto.cpp.i
 .PHONY : Rover/mode_auto.cpp.i
 
 Rover/mode_auto.s: Rover/mode_auto.cpp.s
@@ -8114,7 +8114,7 @@ Rover/mode_auto.s: Rover/mode_auto.cpp.s
 
 # target to generate assembly for a file
 Rover/mode_auto.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_auto.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_auto.cpp.s
 .PHONY : Rover/mode_auto.cpp.s
 
 Rover/mode_circle.o: Rover/mode_circle.cpp.o
@@ -8122,7 +8122,7 @@ Rover/mode_circle.o: Rover/mode_circle.cpp.o
 
 # target to build an object file
 Rover/mode_circle.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_circle.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_circle.cpp.o
 .PHONY : Rover/mode_circle.cpp.o
 
 Rover/mode_circle.i: Rover/mode_circle.cpp.i
@@ -8130,7 +8130,7 @@ Rover/mode_circle.i: Rover/mode_circle.cpp.i
 
 # target to preprocess a source file
 Rover/mode_circle.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_circle.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_circle.cpp.i
 .PHONY : Rover/mode_circle.cpp.i
 
 Rover/mode_circle.s: Rover/mode_circle.cpp.s
@@ -8138,7 +8138,7 @@ Rover/mode_circle.s: Rover/mode_circle.cpp.s
 
 # target to generate assembly for a file
 Rover/mode_circle.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_circle.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_circle.cpp.s
 .PHONY : Rover/mode_circle.cpp.s
 
 Rover/mode_dock.o: Rover/mode_dock.cpp.o
@@ -8146,7 +8146,7 @@ Rover/mode_dock.o: Rover/mode_dock.cpp.o
 
 # target to build an object file
 Rover/mode_dock.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_dock.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_dock.cpp.o
 .PHONY : Rover/mode_dock.cpp.o
 
 Rover/mode_dock.i: Rover/mode_dock.cpp.i
@@ -8154,7 +8154,7 @@ Rover/mode_dock.i: Rover/mode_dock.cpp.i
 
 # target to preprocess a source file
 Rover/mode_dock.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_dock.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_dock.cpp.i
 .PHONY : Rover/mode_dock.cpp.i
 
 Rover/mode_dock.s: Rover/mode_dock.cpp.s
@@ -8162,7 +8162,7 @@ Rover/mode_dock.s: Rover/mode_dock.cpp.s
 
 # target to generate assembly for a file
 Rover/mode_dock.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_dock.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_dock.cpp.s
 .PHONY : Rover/mode_dock.cpp.s
 
 Rover/mode_follow.o: Rover/mode_follow.cpp.o
@@ -8170,7 +8170,7 @@ Rover/mode_follow.o: Rover/mode_follow.cpp.o
 
 # target to build an object file
 Rover/mode_follow.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_follow.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_follow.cpp.o
 .PHONY : Rover/mode_follow.cpp.o
 
 Rover/mode_follow.i: Rover/mode_follow.cpp.i
@@ -8178,7 +8178,7 @@ Rover/mode_follow.i: Rover/mode_follow.cpp.i
 
 # target to preprocess a source file
 Rover/mode_follow.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_follow.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_follow.cpp.i
 .PHONY : Rover/mode_follow.cpp.i
 
 Rover/mode_follow.s: Rover/mode_follow.cpp.s
@@ -8186,7 +8186,7 @@ Rover/mode_follow.s: Rover/mode_follow.cpp.s
 
 # target to generate assembly for a file
 Rover/mode_follow.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_follow.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_follow.cpp.s
 .PHONY : Rover/mode_follow.cpp.s
 
 Rover/mode_guided.o: Rover/mode_guided.cpp.o
@@ -8194,7 +8194,7 @@ Rover/mode_guided.o: Rover/mode_guided.cpp.o
 
 # target to build an object file
 Rover/mode_guided.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_guided.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_guided.cpp.o
 .PHONY : Rover/mode_guided.cpp.o
 
 Rover/mode_guided.i: Rover/mode_guided.cpp.i
@@ -8202,7 +8202,7 @@ Rover/mode_guided.i: Rover/mode_guided.cpp.i
 
 # target to preprocess a source file
 Rover/mode_guided.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_guided.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_guided.cpp.i
 .PHONY : Rover/mode_guided.cpp.i
 
 Rover/mode_guided.s: Rover/mode_guided.cpp.s
@@ -8210,7 +8210,7 @@ Rover/mode_guided.s: Rover/mode_guided.cpp.s
 
 # target to generate assembly for a file
 Rover/mode_guided.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_guided.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_guided.cpp.s
 .PHONY : Rover/mode_guided.cpp.s
 
 Rover/mode_hold.o: Rover/mode_hold.cpp.o
@@ -8218,7 +8218,7 @@ Rover/mode_hold.o: Rover/mode_hold.cpp.o
 
 # target to build an object file
 Rover/mode_hold.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_hold.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_hold.cpp.o
 .PHONY : Rover/mode_hold.cpp.o
 
 Rover/mode_hold.i: Rover/mode_hold.cpp.i
@@ -8226,7 +8226,7 @@ Rover/mode_hold.i: Rover/mode_hold.cpp.i
 
 # target to preprocess a source file
 Rover/mode_hold.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_hold.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_hold.cpp.i
 .PHONY : Rover/mode_hold.cpp.i
 
 Rover/mode_hold.s: Rover/mode_hold.cpp.s
@@ -8234,7 +8234,7 @@ Rover/mode_hold.s: Rover/mode_hold.cpp.s
 
 # target to generate assembly for a file
 Rover/mode_hold.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_hold.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_hold.cpp.s
 .PHONY : Rover/mode_hold.cpp.s
 
 Rover/mode_loiter.o: Rover/mode_loiter.cpp.o
@@ -8242,7 +8242,7 @@ Rover/mode_loiter.o: Rover/mode_loiter.cpp.o
 
 # target to build an object file
 Rover/mode_loiter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_loiter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_loiter.cpp.o
 .PHONY : Rover/mode_loiter.cpp.o
 
 Rover/mode_loiter.i: Rover/mode_loiter.cpp.i
@@ -8250,7 +8250,7 @@ Rover/mode_loiter.i: Rover/mode_loiter.cpp.i
 
 # target to preprocess a source file
 Rover/mode_loiter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_loiter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_loiter.cpp.i
 .PHONY : Rover/mode_loiter.cpp.i
 
 Rover/mode_loiter.s: Rover/mode_loiter.cpp.s
@@ -8258,7 +8258,7 @@ Rover/mode_loiter.s: Rover/mode_loiter.cpp.s
 
 # target to generate assembly for a file
 Rover/mode_loiter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_loiter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_loiter.cpp.s
 .PHONY : Rover/mode_loiter.cpp.s
 
 Rover/mode_manual.o: Rover/mode_manual.cpp.o
@@ -8266,7 +8266,7 @@ Rover/mode_manual.o: Rover/mode_manual.cpp.o
 
 # target to build an object file
 Rover/mode_manual.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_manual.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_manual.cpp.o
 .PHONY : Rover/mode_manual.cpp.o
 
 Rover/mode_manual.i: Rover/mode_manual.cpp.i
@@ -8274,7 +8274,7 @@ Rover/mode_manual.i: Rover/mode_manual.cpp.i
 
 # target to preprocess a source file
 Rover/mode_manual.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_manual.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_manual.cpp.i
 .PHONY : Rover/mode_manual.cpp.i
 
 Rover/mode_manual.s: Rover/mode_manual.cpp.s
@@ -8282,7 +8282,7 @@ Rover/mode_manual.s: Rover/mode_manual.cpp.s
 
 # target to generate assembly for a file
 Rover/mode_manual.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_manual.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_manual.cpp.s
 .PHONY : Rover/mode_manual.cpp.s
 
 Rover/mode_rtl.o: Rover/mode_rtl.cpp.o
@@ -8290,7 +8290,7 @@ Rover/mode_rtl.o: Rover/mode_rtl.cpp.o
 
 # target to build an object file
 Rover/mode_rtl.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_rtl.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_rtl.cpp.o
 .PHONY : Rover/mode_rtl.cpp.o
 
 Rover/mode_rtl.i: Rover/mode_rtl.cpp.i
@@ -8298,7 +8298,7 @@ Rover/mode_rtl.i: Rover/mode_rtl.cpp.i
 
 # target to preprocess a source file
 Rover/mode_rtl.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_rtl.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_rtl.cpp.i
 .PHONY : Rover/mode_rtl.cpp.i
 
 Rover/mode_rtl.s: Rover/mode_rtl.cpp.s
@@ -8306,7 +8306,7 @@ Rover/mode_rtl.s: Rover/mode_rtl.cpp.s
 
 # target to generate assembly for a file
 Rover/mode_rtl.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_rtl.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_rtl.cpp.s
 .PHONY : Rover/mode_rtl.cpp.s
 
 Rover/mode_simple.o: Rover/mode_simple.cpp.o
@@ -8314,7 +8314,7 @@ Rover/mode_simple.o: Rover/mode_simple.cpp.o
 
 # target to build an object file
 Rover/mode_simple.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_simple.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_simple.cpp.o
 .PHONY : Rover/mode_simple.cpp.o
 
 Rover/mode_simple.i: Rover/mode_simple.cpp.i
@@ -8322,7 +8322,7 @@ Rover/mode_simple.i: Rover/mode_simple.cpp.i
 
 # target to preprocess a source file
 Rover/mode_simple.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_simple.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_simple.cpp.i
 .PHONY : Rover/mode_simple.cpp.i
 
 Rover/mode_simple.s: Rover/mode_simple.cpp.s
@@ -8330,7 +8330,7 @@ Rover/mode_simple.s: Rover/mode_simple.cpp.s
 
 # target to generate assembly for a file
 Rover/mode_simple.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_simple.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_simple.cpp.s
 .PHONY : Rover/mode_simple.cpp.s
 
 Rover/mode_smart_rtl.o: Rover/mode_smart_rtl.cpp.o
@@ -8338,7 +8338,7 @@ Rover/mode_smart_rtl.o: Rover/mode_smart_rtl.cpp.o
 
 # target to build an object file
 Rover/mode_smart_rtl.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_smart_rtl.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_smart_rtl.cpp.o
 .PHONY : Rover/mode_smart_rtl.cpp.o
 
 Rover/mode_smart_rtl.i: Rover/mode_smart_rtl.cpp.i
@@ -8346,7 +8346,7 @@ Rover/mode_smart_rtl.i: Rover/mode_smart_rtl.cpp.i
 
 # target to preprocess a source file
 Rover/mode_smart_rtl.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_smart_rtl.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_smart_rtl.cpp.i
 .PHONY : Rover/mode_smart_rtl.cpp.i
 
 Rover/mode_smart_rtl.s: Rover/mode_smart_rtl.cpp.s
@@ -8354,7 +8354,7 @@ Rover/mode_smart_rtl.s: Rover/mode_smart_rtl.cpp.s
 
 # target to generate assembly for a file
 Rover/mode_smart_rtl.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_smart_rtl.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_smart_rtl.cpp.s
 .PHONY : Rover/mode_smart_rtl.cpp.s
 
 Rover/mode_steering.o: Rover/mode_steering.cpp.o
@@ -8362,7 +8362,7 @@ Rover/mode_steering.o: Rover/mode_steering.cpp.o
 
 # target to build an object file
 Rover/mode_steering.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_steering.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_steering.cpp.o
 .PHONY : Rover/mode_steering.cpp.o
 
 Rover/mode_steering.i: Rover/mode_steering.cpp.i
@@ -8370,7 +8370,7 @@ Rover/mode_steering.i: Rover/mode_steering.cpp.i
 
 # target to preprocess a source file
 Rover/mode_steering.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_steering.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_steering.cpp.i
 .PHONY : Rover/mode_steering.cpp.i
 
 Rover/mode_steering.s: Rover/mode_steering.cpp.s
@@ -8378,7 +8378,7 @@ Rover/mode_steering.s: Rover/mode_steering.cpp.s
 
 # target to generate assembly for a file
 Rover/mode_steering.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/mode_steering.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/mode_steering.cpp.s
 .PHONY : Rover/mode_steering.cpp.s
 
 Rover/motor_test.o: Rover/motor_test.cpp.o
@@ -8386,7 +8386,7 @@ Rover/motor_test.o: Rover/motor_test.cpp.o
 
 # target to build an object file
 Rover/motor_test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/motor_test.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/motor_test.cpp.o
 .PHONY : Rover/motor_test.cpp.o
 
 Rover/motor_test.i: Rover/motor_test.cpp.i
@@ -8394,7 +8394,7 @@ Rover/motor_test.i: Rover/motor_test.cpp.i
 
 # target to preprocess a source file
 Rover/motor_test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/motor_test.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/motor_test.cpp.i
 .PHONY : Rover/motor_test.cpp.i
 
 Rover/motor_test.s: Rover/motor_test.cpp.s
@@ -8402,7 +8402,7 @@ Rover/motor_test.s: Rover/motor_test.cpp.s
 
 # target to generate assembly for a file
 Rover/motor_test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/motor_test.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/motor_test.cpp.s
 .PHONY : Rover/motor_test.cpp.s
 
 Rover/precision_landing.o: Rover/precision_landing.cpp.o
@@ -8410,7 +8410,7 @@ Rover/precision_landing.o: Rover/precision_landing.cpp.o
 
 # target to build an object file
 Rover/precision_landing.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/precision_landing.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/precision_landing.cpp.o
 .PHONY : Rover/precision_landing.cpp.o
 
 Rover/precision_landing.i: Rover/precision_landing.cpp.i
@@ -8418,7 +8418,7 @@ Rover/precision_landing.i: Rover/precision_landing.cpp.i
 
 # target to preprocess a source file
 Rover/precision_landing.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/precision_landing.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/precision_landing.cpp.i
 .PHONY : Rover/precision_landing.cpp.i
 
 Rover/precision_landing.s: Rover/precision_landing.cpp.s
@@ -8426,7 +8426,7 @@ Rover/precision_landing.s: Rover/precision_landing.cpp.s
 
 # target to generate assembly for a file
 Rover/precision_landing.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/precision_landing.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/precision_landing.cpp.s
 .PHONY : Rover/precision_landing.cpp.s
 
 Rover/radio.o: Rover/radio.cpp.o
@@ -8434,7 +8434,7 @@ Rover/radio.o: Rover/radio.cpp.o
 
 # target to build an object file
 Rover/radio.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/radio.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/radio.cpp.o
 .PHONY : Rover/radio.cpp.o
 
 Rover/radio.i: Rover/radio.cpp.i
@@ -8442,7 +8442,7 @@ Rover/radio.i: Rover/radio.cpp.i
 
 # target to preprocess a source file
 Rover/radio.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/radio.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/radio.cpp.i
 .PHONY : Rover/radio.cpp.i
 
 Rover/radio.s: Rover/radio.cpp.s
@@ -8450,7 +8450,7 @@ Rover/radio.s: Rover/radio.cpp.s
 
 # target to generate assembly for a file
 Rover/radio.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/radio.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/radio.cpp.s
 .PHONY : Rover/radio.cpp.s
 
 Rover/sailboat.o: Rover/sailboat.cpp.o
@@ -8458,7 +8458,7 @@ Rover/sailboat.o: Rover/sailboat.cpp.o
 
 # target to build an object file
 Rover/sailboat.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/sailboat.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/sailboat.cpp.o
 .PHONY : Rover/sailboat.cpp.o
 
 Rover/sailboat.i: Rover/sailboat.cpp.i
@@ -8466,7 +8466,7 @@ Rover/sailboat.i: Rover/sailboat.cpp.i
 
 # target to preprocess a source file
 Rover/sailboat.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/sailboat.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/sailboat.cpp.i
 .PHONY : Rover/sailboat.cpp.i
 
 Rover/sailboat.s: Rover/sailboat.cpp.s
@@ -8474,7 +8474,7 @@ Rover/sailboat.s: Rover/sailboat.cpp.s
 
 # target to generate assembly for a file
 Rover/sailboat.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/sailboat.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/sailboat.cpp.s
 .PHONY : Rover/sailboat.cpp.s
 
 Rover/sensors.o: Rover/sensors.cpp.o
@@ -8482,7 +8482,7 @@ Rover/sensors.o: Rover/sensors.cpp.o
 
 # target to build an object file
 Rover/sensors.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/sensors.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/sensors.cpp.o
 .PHONY : Rover/sensors.cpp.o
 
 Rover/sensors.i: Rover/sensors.cpp.i
@@ -8490,7 +8490,7 @@ Rover/sensors.i: Rover/sensors.cpp.i
 
 # target to preprocess a source file
 Rover/sensors.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/sensors.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/sensors.cpp.i
 .PHONY : Rover/sensors.cpp.i
 
 Rover/sensors.s: Rover/sensors.cpp.s
@@ -8498,7 +8498,7 @@ Rover/sensors.s: Rover/sensors.cpp.s
 
 # target to generate assembly for a file
 Rover/sensors.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/sensors.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/sensors.cpp.s
 .PHONY : Rover/sensors.cpp.s
 
 Rover/system.o: Rover/system.cpp.o
@@ -8506,7 +8506,7 @@ Rover/system.o: Rover/system.cpp.o
 
 # target to build an object file
 Rover/system.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/system.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/system.cpp.o
 .PHONY : Rover/system.cpp.o
 
 Rover/system.i: Rover/system.cpp.i
@@ -8514,7 +8514,7 @@ Rover/system.i: Rover/system.cpp.i
 
 # target to preprocess a source file
 Rover/system.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/system.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/system.cpp.i
 .PHONY : Rover/system.cpp.i
 
 Rover/system.s: Rover/system.cpp.s
@@ -8522,7 +8522,7 @@ Rover/system.s: Rover/system.cpp.s
 
 # target to generate assembly for a file
 Rover/system.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bin_ardurover.dir/build.make CMakeFiles/bin_ardurover.dir/Rover/system.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/Rover/system.cpp.s
 .PHONY : Rover/system.cpp.s
 
 build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.o: build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c.o
@@ -41516,14 +41516,14 @@ help:
 	@echo "... SITL"
 	@echo "... SRV_Channel"
 	@echo "... StorageManager"
-	@echo "... bin_antennatracker"
-	@echo "... bin_arducopter"
-	@echo "... bin_arducopter-heli"
-	@echo "... bin_arduplane"
-	@echo "... bin_ardurover"
-	@echo "... bin_ardusub"
-	@echo "... bin_blimp"
+	@echo "... blimp"
+	@echo "... copter"
+	@echo "... copter-heli"
 	@echo "... littlefs"
+	@echo "... plane"
+	@echo "... rover"
+	@echo "... sub"
+	@echo "... tracker"
 	@echo "... AntennaTracker/GCS_MAVLink_Tracker.o"
 	@echo "... AntennaTracker/GCS_MAVLink_Tracker.i"
 	@echo "... AntennaTracker/GCS_MAVLink_Tracker.s"
