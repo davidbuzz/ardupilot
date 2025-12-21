@@ -13,7 +13,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/AP_HAL/board
 ${CMAKE_CURRENT_SOURCE_DIR}/libraries
 "${CMAKE_BINARY_DIR}/sitl/libraries"
 "${CMAKE_BINARY_DIR}/sitl/libraries/GCS_MAVLink"
-"${CMAKE_BINARY_DIR}/sitl/libraries"
+"${CMAKE_BINARY_DIR}/sitl"
 ${CMAKE_CURRENT_SOURCE_DIR}/modules/DroneCAN/libcanard
 ${CMAKE_CURRENT_SOURCE_DIR}/libraries/AP_DroneCAN/canard 
 "${CMAKE_BINARY_DIR}/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include" 

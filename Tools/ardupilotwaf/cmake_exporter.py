@@ -466,7 +466,7 @@ class CMakeExporter(object):
 			content += '"${CMAKE_BINARY_DIR}/sitl/libraries"\n'
 			content += '"${CMAKE_BINARY_DIR}/sitl/libraries/GCS_MAVLink"\n'
 			# ap_version.h and ap_config.h
-			content += '"${CMAKE_BINARY_DIR}/sitl/libraries"\n'
+			content += '"${CMAKE_BINARY_DIR}/sitl"\n'
 
 			# dronecan needs canard/interface.h
 			content += '${CMAKE_CURRENT_SOURCE_DIR}/modules/DroneCAN/libcanard\n'
