@@ -27,6 +27,20 @@ set(CMAKE_CXX_FLAGS "-std=gnu++11 -fdata-sections -ffunction-sections -fno-excep
 
 #------------------------------------------------
 
+set(mavlink_INCLUDES
+    /home/buzz2/ardupilot/build2/sitl/libraries/GCS_MAVLink/include/mavlink/v2.0
+)
+
+add_library(mavlink INTERFACE ${mavlink_SOURCES}) #2
+target_compile_definitions(mavlink INTERFACE -DLFS_NO_DEBUG -DLFS_NO_WARN -DLFS_NO_ERROR -DLFS_NO_ASSERT) #2
+target_include_directories(mavlink INTERFACE ${mavlink_INCLUDES})
+set_target_properties(mavlink PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    LINKER_LANGUAGE CXX
+)
+
+#------------------------------------------------
+
 set(littlefs_SOURCES #3
     modules/littlefs/lfs.h
     modules/littlefs/lfs_util.h
