@@ -29,7 +29,7 @@ and use it for your particular Desktop environment.
 
 Description
 -----------
-When exporting *waf* project data, a single top level **CMakeLists.txt** file
+When exporting this *waf* project data, a single top level **CMakeLists.txt** file
 will be exported in the top level directory of your *waf* build environment. 
 This *cmake* build file will contain references to all exported *cmake*
 build files of each individual C/C++ build task. It will also contain generic 
@@ -43,13 +43,10 @@ build files already have been exported::
         ├── components
         │   └── clib
         │       ├── program
-        │       │   ├── CMakeLists.txt
         │       │   └── wscript
         │       ├── shared
-        │       │   ├── CMakeLists.txt
         │       │   └── wscript
         │       └── static
-        │           ├── CMakeLists.txt
         │           └── wscript
         │
         ├── CMakeLists.txt
@@ -181,7 +178,7 @@ class CMakeExporterContext(BuildContext):
 				shell_cmd = 'mkdir -p build2/sitl'
 				print('ap_version: Running shell command: %s ' % shell_cmd)
 				run_shell_cmd(shell_cmd)
-				# write ap_version.h
+				# write ap_config.h
 				tgt = 'build2/sitl/ap_config.h'
 				print('Debug: Writing ap_config.h to: %s ' % tgt)
 				with open(tgt, 'w') as f:
@@ -217,6 +214,22 @@ class CMakeExporterContext(BuildContext):
 #define _GNU_SOURCE 1
 
 #endif /* _AP_CONFIG_H_ */
+''', file=f)
+				# write ap_version.h
+				tgt = 'build2/sitl/ap_version.h'
+				print('Debug: Writing ap_version.h to: %s ' % tgt)
+				with open(tgt, 'w') as f:
+        				print(
+'''// auto-generated header, do not edit
+#pragma once
+#ifndef FORCE_VERSION_H_INCLUDE
+#error ap_version.h should never be included directly. You probably want to include AP_Common/AP_FWVersion.h
+#endif
+#define GIT_VERSION "eee60df5"
+#define GIT_VERSION_EXTENDED "eee60df50ccf28a7"
+#define GIT_VERSION_INT 4008054261
+#define AP_BUILD_ROOT "/home/buzz2/ardupilot"
+
 ''', file=f)
 
         # for k, v in ctx.env['AP_VERSION_ITEMS']:
@@ -376,6 +389,9 @@ class CMakeExporter(object):
 		return self.bld.srcnode.find_node(name)
 
 	def make_node(self):
+		# only make one at the top.
+		if self.location != ".":
+			return None
 		name = '%s/CMakeLists.txt' % (self.location)
 		if not name:
 			return None    
@@ -449,6 +465,9 @@ class CMakeExporter(object):
             #bld.bldnode.make_node('libraries/GCS_MAVLink').abspath(),
 			content += '"${CMAKE_BINARY_DIR}/sitl/libraries"\n'
 			content += '"${CMAKE_BINARY_DIR}/sitl/libraries/GCS_MAVLink"\n'
+			# ap_version.h and ap_config.h
+			content += '"${CMAKE_BINARY_DIR}/sitl/libraries"\n'
+
 			# dronecan needs canard/interface.h
 			content += '${CMAKE_CURRENT_SOURCE_DIR}/modules/DroneCAN/libcanard\n'
 			# droncan need canard_helpers_user.h
