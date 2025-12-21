@@ -74,6 +74,7 @@ as shown below::
 '''
 
 
+import os
 from modules.waf.waflib import TaskGen
 from waflib.Build import BuildContext
 from waflib import Utils, Logs, Context, Errors
@@ -614,12 +615,29 @@ class CMakeExporter(object):
 
 		#-------------------
 		content += '#------------------------------------------------\n\n'
-		content += 'set(%s_SOURCES' % (cleanedname)
+		uniq_src_list = []
+		content += 'set(%s_SOURCES #3' % (cleanedname)
 		for src in tgen.source:
-			x = src.path_from(tgen.path).replace('\\','/')
+			x = src.path_from(tgen.path).replace('\\','/') # a path to a source file
+			xdir = os.path.dirname(x) # get folder that this src file is in
+			# ls all the .h files in this dir and add them too, if not alreadty added.
+			src_folder_node = tgen.path.find_node(xdir)
+			if src_folder_node:
+				for f in src_folder_node.ant_glob('*.h'):
+					hfile = f.path_from(tgen.path).replace('\\','/')
+					if hfile not in tgen.source: # can cause dupes
+						if _dir != '':
+							hfile = _dir + '/' + hfile
+						#content += '\n    %s' % (hfile)
+						if hfile not in uniq_src_list:
+							uniq_src_list.append(hfile)
+			
 			if _dir != '':
 				x = _dir + '/' + x
-			content += '\n    %s' % (x)
+			if x not in uniq_src_list:
+				uniq_src_list.append(x)
+		for usrc in uniq_src_list: #dedupe
+			content += '\n    %s' % (usrc)
 		content += ')\n\n'
 
 		#break here 'ArduCopter_libs'
@@ -642,7 +660,7 @@ class CMakeExporter(object):
 		#	content += '\n'
 
 		if set(('cprogram', 'cxxprogram')) & set(tgen.features):
-			content += 'add_executable(%s ${%s_SOURCES})\n' % (cleanedname, cleanedname)
+			content += 'add_executable(%s ${%s_SOURCES}) #2\n' % (cleanedname, cleanedname)
 			if len(defines):
 				content += 'target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
 			if len(includes):

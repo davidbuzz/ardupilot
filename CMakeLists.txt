@@ -27,9 +27,14 @@ set(CMAKE_CXX_FLAGS "-std=gnu++11 -fdata-sections -ffunction-sections -fno-excep
 
 #------------------------------------------------
 
-set(littlefs_SOURCES
+set(littlefs_SOURCES #3
+    modules/littlefs/lfs.h
+    modules/littlefs/lfs_util.h
     modules/littlefs/lfs.c
     modules/littlefs/lfs_util.c
+    modules/littlefs/bd/lfs_emubd.h
+    modules/littlefs/bd/lfs_filebd.h
+    modules/littlefs/bd/lfs_rambd.h
     modules/littlefs/bd/lfs_filebd.c)
 
 set(littlefs_INCLUDES
@@ -51,7 +56,17 @@ set_target_properties(littlefs PROPERTIES
 
 #------------------------------------------------
 
-set(AC_AttitudeControl_SOURCES
+set(AC_AttitudeControl_SOURCES #3
+    libraries/AC_AttitudeControl/AC_AttitudeControl.h
+    libraries/AC_AttitudeControl/AC_AttitudeControl_Heli.h
+    libraries/AC_AttitudeControl/AC_AttitudeControl_Multi.h
+    libraries/AC_AttitudeControl/AC_AttitudeControl_Multi_6DoF.h
+    libraries/AC_AttitudeControl/AC_AttitudeControl_Sub.h
+    libraries/AC_AttitudeControl/AC_AttitudeControl_TS.h
+    libraries/AC_AttitudeControl/AC_CommandModel.h
+    libraries/AC_AttitudeControl/AC_PosControl.h
+    libraries/AC_AttitudeControl/AC_WeatherVane.h
+    libraries/AC_AttitudeControl/LogStructure.h
     libraries/AC_AttitudeControl/AC_AttitudeControl_Heli.cpp
     libraries/AC_AttitudeControl/AC_AttitudeControl_Logging.cpp
     libraries/AC_AttitudeControl/AC_AttitudeControl_Multi.cpp
@@ -94,7 +109,12 @@ target_link_libraries(AC_AttitudeControl littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_AutoTune_SOURCES
+set(AC_AutoTune_SOURCES #3
+    libraries/AC_AutoTune/AC_AutoTune.h
+    libraries/AC_AutoTune/AC_AutoTune_FreqResp.h
+    libraries/AC_AutoTune/AC_AutoTune_Heli.h
+    libraries/AC_AutoTune/AC_AutoTune_Multi.h
+    libraries/AC_AutoTune/AC_AutoTune_config.h
     libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp
     libraries/AC_AutoTune/AC_AutoTune_Heli.cpp)
 
@@ -131,7 +151,9 @@ target_link_libraries(AC_AutoTune littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_Autorotation_SOURCES
+set(AC_Autorotation_SOURCES #3
+    libraries/AC_Autorotation/AC_Autorotation.h
+    libraries/AC_Autorotation/RSC_Autorotation.h
     libraries/AC_Autorotation/AC_Autorotation.cpp
     libraries/AC_Autorotation/RSC_Autorotation.cpp)
 
@@ -168,7 +190,15 @@ target_link_libraries(AC_Autorotation littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_Avoidance_SOURCES
+set(AC_Avoidance_SOURCES #3
+    libraries/AC_Avoidance/AC_Avoid.h
+    libraries/AC_Avoidance/AC_Avoidance_config.h
+    libraries/AC_Avoidance/AP_OABendyRuler.h
+    libraries/AC_Avoidance/AP_OADatabase.h
+    libraries/AC_Avoidance/AP_OADijkstra.h
+    libraries/AC_Avoidance/AP_OAPathPlanner.h
+    libraries/AC_Avoidance/AP_OAVisGraph.h
+    libraries/AC_Avoidance/LogStructure.h
     libraries/AC_Avoidance/AC_Avoidance_Logging.cpp
     libraries/AC_Avoidance/AP_OADijkstra.cpp
     libraries/AC_Avoidance/AP_OAPathPlanner.cpp
@@ -207,7 +237,12 @@ target_link_libraries(AC_Avoidance littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_CustomControl_SOURCES
+set(AC_CustomControl_SOURCES #3
+    libraries/AC_CustomControl/AC_CustomControl.h
+    libraries/AC_CustomControl/AC_CustomControl_Backend.h
+    libraries/AC_CustomControl/AC_CustomControl_Empty.h
+    libraries/AC_CustomControl/AC_CustomControl_PID.h
+    libraries/AC_CustomControl/AC_CustomControl_config.h
     libraries/AC_CustomControl/AC_CustomControl.cpp
     libraries/AC_CustomControl/AC_CustomControl_Empty.cpp
     libraries/AC_CustomControl/AC_CustomControl_PID.cpp)
@@ -245,7 +280,9 @@ target_link_libraries(AC_CustomControl littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_InputManager_SOURCES
+set(AC_InputManager_SOURCES #3
+    libraries/AC_InputManager/AC_InputManager.h
+    libraries/AC_InputManager/AC_InputManager_Heli.h
     libraries/AC_InputManager/AC_InputManager.cpp
     libraries/AC_InputManager/AC_InputManager_Heli.cpp)
 
@@ -282,7 +319,17 @@ target_link_libraries(AC_InputManager littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_PID_SOURCES
+set(AC_PID_SOURCES #3
+    libraries/AC_PID/AC_HELI_PID.h
+    libraries/AC_PID/AC_P.h
+    libraries/AC_PID/AC_PI.h
+    libraries/AC_PID/AC_PID.h
+    libraries/AC_PID/AC_PID_2D.h
+    libraries/AC_PID/AC_PID_Basic.h
+    libraries/AC_PID/AC_PI_2D.h
+    libraries/AC_PID/AC_P_1D.h
+    libraries/AC_PID/AC_P_2D.h
+    libraries/AC_PID/AP_PIDInfo.h
     libraries/AC_PID/AC_HELI_PID.cpp
     libraries/AC_PID/AC_P.cpp
     libraries/AC_PID/AC_PI.cpp
@@ -326,7 +373,17 @@ target_link_libraries(AC_PID littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_PrecLand_SOURCES
+set(AC_PrecLand_SOURCES #3
+    libraries/AC_PrecLand/AC_PrecLand.h
+    libraries/AC_PrecLand/AC_PrecLand_Backend.h
+    libraries/AC_PrecLand/AC_PrecLand_IRLock.h
+    libraries/AC_PrecLand/AC_PrecLand_MAVLink.h
+    libraries/AC_PrecLand/AC_PrecLand_SITL.h
+    libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.h
+    libraries/AC_PrecLand/AC_PrecLand_StateMachine.h
+    libraries/AC_PrecLand/AC_PrecLand_config.h
+    libraries/AC_PrecLand/LogStructure.h
+    libraries/AC_PrecLand/PosVelEKF.h
     libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp
     libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp
     libraries/AC_PrecLand/AC_PrecLand_SITL.cpp
@@ -367,7 +424,9 @@ target_link_libraries(AC_PrecLand littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_Sprayer_SOURCES
+set(AC_Sprayer_SOURCES #3
+    libraries/AC_Sprayer/AC_Sprayer.h
+    libraries/AC_Sprayer/AC_Sprayer_config.h
     libraries/AC_Sprayer/AC_Sprayer.cpp)
 
 set(AC_Sprayer_INCLUDES
@@ -403,7 +462,12 @@ target_link_libraries(AC_Sprayer littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_WPNav_SOURCES
+set(AC_WPNav_SOURCES #3
+    libraries/AC_WPNav/AC_Circle.h
+    libraries/AC_WPNav/AC_Loiter.h
+    libraries/AC_WPNav/AC_WPNav.h
+    libraries/AC_WPNav/AC_WPNav_OA.h
+    libraries/AC_WPNav/AC_WPNav_config.h
     libraries/AC_WPNav/AC_Circle.cpp
     libraries/AC_WPNav/AC_WPNav.cpp
     libraries/AC_WPNav/AC_WPNav_OA.cpp)
@@ -441,7 +505,16 @@ target_link_libraries(AC_WPNav littlefs) #clean
 
 #------------------------------------------------
 
-set(APM_Control_SOURCES
+set(APM_Control_SOURCES #3
+    libraries/APM_Control/APM_Control.h
+    libraries/APM_Control/AP_AutoTune.h
+    libraries/APM_Control/AP_FW_Controller.h
+    libraries/APM_Control/AP_PitchController.h
+    libraries/APM_Control/AP_RollController.h
+    libraries/APM_Control/AP_SteerController.h
+    libraries/APM_Control/AP_YawController.h
+    libraries/APM_Control/AR_AttitudeControl.h
+    libraries/APM_Control/AR_PosControl.h
     libraries/APM_Control/AP_AutoTune.cpp
     libraries/APM_Control/AP_FW_Controller.cpp
     libraries/APM_Control/AP_PitchController.cpp
@@ -484,7 +557,8 @@ target_link_libraries(APM_Control littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ADC_SOURCES
+set(AP_ADC_SOURCES #3
+    libraries/AP_ADC/AP_ADC_ADS1115.h
     libraries/AP_ADC/AP_ADC_ADS1115.cpp)
 
 set(AP_ADC_INCLUDES
@@ -520,7 +594,14 @@ target_link_libraries(AP_ADC littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ADSB_SOURCES
+set(AP_ADSB_SOURCES #3
+    libraries/AP_ADSB/AP_ADSB.h
+    libraries/AP_ADSB/AP_ADSB_Backend.h
+    libraries/AP_ADSB/AP_ADSB_Sagetech.h
+    libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.h
+    libraries/AP_ADSB/AP_ADSB_config.h
+    libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.h
+    libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.h
     libraries/AP_ADSB/AP_ADSB_Backend.cpp
     libraries/AP_ADSB/AP_ADSB_Sagetech.cpp
     libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.cpp
@@ -559,7 +640,15 @@ target_link_libraries(AP_ADSB littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_AHRS_SOURCES
+set(AP_AHRS_SOURCES #3
+    libraries/AP_AHRS/AP_AHRS.h
+    libraries/AP_AHRS/AP_AHRS_Backend.h
+    libraries/AP_AHRS/AP_AHRS_DCM.h
+    libraries/AP_AHRS/AP_AHRS_External.h
+    libraries/AP_AHRS/AP_AHRS_SIM.h
+    libraries/AP_AHRS/AP_AHRS_View.h
+    libraries/AP_AHRS/AP_AHRS_config.h
+    libraries/AP_AHRS/LogStructure.h
     libraries/AP_AHRS/AP_AHRS_External.cpp
     libraries/AP_AHRS/AP_AHRS_Logging.cpp
     libraries/AP_AHRS/AP_AHRS_SIM.cpp
@@ -598,7 +687,9 @@ target_link_libraries(AP_AHRS littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_AccelCal_SOURCES
+set(AP_AccelCal_SOURCES #3
+    libraries/AP_AccelCal/AP_AccelCal.h
+    libraries/AP_AccelCal/AccelCalibrator.h
     libraries/AP_AccelCal/AP_AccelCal.cpp
     libraries/AP_AccelCal/AccelCalibrator.cpp)
 
@@ -635,7 +726,9 @@ target_link_libraries(AP_AccelCal littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_AdvancedFailsafe_SOURCES
+set(AP_AdvancedFailsafe_SOURCES #3
+    libraries/AP_AdvancedFailsafe/AP_AdvancedFailsafe.h
+    libraries/AP_AdvancedFailsafe/AP_AdvancedFailsafe_config.h
     libraries/AP_AdvancedFailsafe/AP_AdvancedFailsafe.cpp)
 
 set(AP_AdvancedFailsafe_INCLUDES
@@ -671,7 +764,22 @@ target_link_libraries(AP_AdvancedFailsafe littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Airspeed_SOURCES
+set(AP_Airspeed_SOURCES #3
+    libraries/AP_Airspeed/AP_Airspeed.h
+    libraries/AP_Airspeed/AP_Airspeed_ASP5033.h
+    libraries/AP_Airspeed/AP_Airspeed_AUAV.h
+    libraries/AP_Airspeed/AP_Airspeed_Backend.h
+    libraries/AP_Airspeed/AP_Airspeed_DLVR.h
+    libraries/AP_Airspeed/AP_Airspeed_DroneCAN.h
+    libraries/AP_Airspeed/AP_Airspeed_External.h
+    libraries/AP_Airspeed/AP_Airspeed_MS4525.h
+    libraries/AP_Airspeed/AP_Airspeed_MS5525.h
+    libraries/AP_Airspeed/AP_Airspeed_MSP.h
+    libraries/AP_Airspeed/AP_Airspeed_NMEA.h
+    libraries/AP_Airspeed/AP_Airspeed_SDP3X.h
+    libraries/AP_Airspeed/AP_Airspeed_SITL.h
+    libraries/AP_Airspeed/AP_Airspeed_analog.h
+    libraries/AP_Airspeed/AP_Airspeed_config.h
     libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp
     libraries/AP_Airspeed/AP_Airspeed_AUAV.cpp
     libraries/AP_Airspeed/AP_Airspeed_Backend.cpp
@@ -720,7 +828,30 @@ target_link_libraries(AP_Airspeed littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Baro_SOURCES
+set(AP_Baro_SOURCES #3
+    libraries/AP_Baro/AP_Baro.h
+    libraries/AP_Baro/AP_Baro_AUAV.h
+    libraries/AP_Baro/AP_Baro_BMP085.h
+    libraries/AP_Baro/AP_Baro_BMP280.h
+    libraries/AP_Baro/AP_Baro_BMP388.h
+    libraries/AP_Baro/AP_Baro_BMP581.h
+    libraries/AP_Baro/AP_Baro_Backend.h
+    libraries/AP_Baro/AP_Baro_DPS280.h
+    libraries/AP_Baro/AP_Baro_DroneCAN.h
+    libraries/AP_Baro/AP_Baro_Dummy.h
+    libraries/AP_Baro/AP_Baro_ExternalAHRS.h
+    libraries/AP_Baro/AP_Baro_FBM320.h
+    libraries/AP_Baro/AP_Baro_ICM20789.h
+    libraries/AP_Baro/AP_Baro_ICP101XX.h
+    libraries/AP_Baro/AP_Baro_ICP201XX.h
+    libraries/AP_Baro/AP_Baro_KellerLD.h
+    libraries/AP_Baro/AP_Baro_LPS2XH.h
+    libraries/AP_Baro/AP_Baro_MS5611.h
+    libraries/AP_Baro/AP_Baro_MSP.h
+    libraries/AP_Baro/AP_Baro_SITL.h
+    libraries/AP_Baro/AP_Baro_SPL06.h
+    libraries/AP_Baro/AP_Baro_config.h
+    libraries/AP_Baro/LogStructure.h
     libraries/AP_Baro/AP_Baro_AUAV.cpp
     libraries/AP_Baro/AP_Baro_BMP085.cpp
     libraries/AP_Baro/AP_Baro_BMP280.cpp
@@ -777,7 +908,37 @@ target_link_libraries(AP_Baro littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_BattMonitor_SOURCES
+set(AP_BattMonitor_SOURCES #3
+    libraries/AP_BattMonitor/AP_BattMonitor.h
+    libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.h
+    libraries/AP_BattMonitor/AP_BattMonitor_Analog.h
+    libraries/AP_BattMonitor/AP_BattMonitor_Backend.h
+    libraries/AP_BattMonitor/AP_BattMonitor_Bebop.h
+    libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.h
+    libraries/AP_BattMonitor/AP_BattMonitor_EFI.h
+    libraries/AP_BattMonitor/AP_BattMonitor_ESC.h
+    libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.h
+    libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.h
+    libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.h
+    libraries/AP_BattMonitor/AP_BattMonitor_Generator.h
+    libraries/AP_BattMonitor/AP_BattMonitor_INA239.h
+    libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.h
+    libraries/AP_BattMonitor/AP_BattMonitor_INA3221.h
+    libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.h
+    libraries/AP_BattMonitor/AP_BattMonitor_Params.h
+    libraries/AP_BattMonitor/AP_BattMonitor_SMBus.h
+    libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.h
+    libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Maxell.h
+    libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.h
+    libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.h
+    libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.h
+    libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.h
+    libraries/AP_BattMonitor/AP_BattMonitor_Scripting.h
+    libraries/AP_BattMonitor/AP_BattMonitor_Sum.h
+    libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.h
+    libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.h
+    libraries/AP_BattMonitor/AP_BattMonitor_config.h
+    libraries/AP_BattMonitor/LogStructure.h
     libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp
     libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp
     libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp
@@ -838,7 +999,15 @@ target_link_libraries(AP_BattMonitor littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Beacon_SOURCES
+set(AP_Beacon_SOURCES #3
+    libraries/AP_Beacon/AP_Beacon.h
+    libraries/AP_Beacon/AP_Beacon_Backend.h
+    libraries/AP_Beacon/AP_Beacon_Marvelmind.h
+    libraries/AP_Beacon/AP_Beacon_Nooploop.h
+    libraries/AP_Beacon/AP_Beacon_Pozyx.h
+    libraries/AP_Beacon/AP_Beacon_SITL.h
+    libraries/AP_Beacon/AP_Beacon_config.h
+    libraries/AP_Beacon/LogStructure.h
     libraries/AP_Beacon/AP_Beacon.cpp
     libraries/AP_Beacon/AP_Beacon_Backend.cpp
     libraries/AP_Beacon/AP_Beacon_Marvelmind.cpp
@@ -879,7 +1048,9 @@ target_link_libraries(AP_Beacon littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_BoardConfig_SOURCES
+set(AP_BoardConfig_SOURCES #3
+    libraries/AP_BoardConfig/AP_BoardConfig.h
+    libraries/AP_BoardConfig/AP_BoardConfig_config.h
     libraries/AP_BoardConfig/IMU_heater.cpp
     libraries/AP_BoardConfig/board_drivers.cpp)
 
@@ -916,7 +1087,8 @@ target_link_libraries(AP_BoardConfig littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Button_SOURCES
+set(AP_Button_SOURCES #3
+    libraries/AP_Button/AP_Button.h
     libraries/AP_Button/AP_Button.cpp)
 
 set(AP_Button_INCLUDES
@@ -952,7 +1124,15 @@ target_link_libraries(AP_Button littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_CANManager_SOURCES
+set(AP_CANManager_SOURCES #3
+    libraries/AP_CANManager/AP_CAN.h
+    libraries/AP_CANManager/AP_CANDriver.h
+    libraries/AP_CANManager/AP_CANManager.h
+    libraries/AP_CANManager/AP_CANManager_config.h
+    libraries/AP_CANManager/AP_CANSensor.h
+    libraries/AP_CANManager/AP_MAVLinkCAN.h
+    libraries/AP_CANManager/AP_SLCANIface.h
+    libraries/AP_CANManager/LogStructure.h
     libraries/AP_CANManager/AP_CANIfaceParams.cpp
     libraries/AP_CANManager/AP_CANManager.cpp
     libraries/AP_CANManager/AP_CANManager_CANDriver_Params.cpp
@@ -993,7 +1173,8 @@ target_link_libraries(AP_CANManager littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_CSVReader_SOURCES
+set(AP_CSVReader_SOURCES #3
+    libraries/AP_CSVReader/AP_CSVReader.h
     libraries/AP_CSVReader/AP_CSVReader.cpp)
 
 set(AP_CSVReader_INCLUDES
@@ -1029,7 +1210,21 @@ target_link_libraries(AP_CSVReader littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Camera_SOURCES
+set(AP_Camera_SOURCES #3
+    libraries/AP_Camera/AP_Camera.h
+    libraries/AP_Camera/AP_Camera_Backend.h
+    libraries/AP_Camera/AP_Camera_MAVLink.h
+    libraries/AP_Camera/AP_Camera_MAVLinkCamV2.h
+    libraries/AP_Camera/AP_Camera_Mount.h
+    libraries/AP_Camera/AP_Camera_Params.h
+    libraries/AP_Camera/AP_Camera_Relay.h
+    libraries/AP_Camera/AP_Camera_Scripting.h
+    libraries/AP_Camera/AP_Camera_Servo.h
+    libraries/AP_Camera/AP_Camera_SoloGimbal.h
+    libraries/AP_Camera/AP_Camera_config.h
+    libraries/AP_Camera/AP_Camera_shareddefs.h
+    libraries/AP_Camera/AP_RunCam.h
+    libraries/AP_Camera/LogStructure.h
     libraries/AP_Camera/AP_Camera.cpp
     libraries/AP_Camera/AP_Camera_Backend.cpp
     libraries/AP_Camera/AP_Camera_Logging.cpp
@@ -1076,7 +1271,10 @@ target_link_libraries(AP_Camera littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_CheckFirmware_SOURCES
+set(AP_CheckFirmware_SOURCES #3
+    libraries/AP_CheckFirmware/AP_CheckFirmware.h
+    libraries/AP_CheckFirmware/AP_CheckFirmwareDefine.h
+    libraries/AP_CheckFirmware/monocypher.h
     libraries/AP_CheckFirmware/AP_CheckFirmware.cpp
     libraries/AP_CheckFirmware/AP_CheckFirmware_secure_command.cpp
     libraries/AP_CheckFirmware/monocypher.cpp)
@@ -1114,7 +1312,20 @@ target_link_libraries(AP_CheckFirmware littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Common_SOURCES
+set(AP_Common_SOURCES #3
+    libraries/AP_Common/AP_Common.h
+    libraries/AP_Common/AP_ExpandingArray.h
+    libraries/AP_Common/AP_FWVersion.h
+    libraries/AP_Common/AP_FWVersionDefine.h
+    libraries/AP_Common/AP_Test.h
+    libraries/AP_Common/Bitmask.h
+    libraries/AP_Common/ExpandingString.h
+    libraries/AP_Common/Location.h
+    libraries/AP_Common/NMEA.h
+    libraries/AP_Common/TSIndex.h
+    libraries/AP_Common/float16.h
+    libraries/AP_Common/sorting.h
+    libraries/AP_Common/time.h
     libraries/AP_Common/AP_Common.cpp
     libraries/AP_Common/AP_ExpandingArray.cpp
     libraries/AP_Common/AP_FWVersion.cpp
@@ -1159,7 +1370,35 @@ target_link_libraries(AP_Common littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Compass_SOURCES
+set(AP_Compass_SOURCES #3
+    libraries/AP_Compass/AP_Compass.h
+    libraries/AP_Compass/AP_Compass_AK09916.h
+    libraries/AP_Compass/AP_Compass_AK8963.h
+    libraries/AP_Compass/AP_Compass_BMM150.h
+    libraries/AP_Compass/AP_Compass_BMM350.h
+    libraries/AP_Compass/AP_Compass_Backend.h
+    libraries/AP_Compass/AP_Compass_DroneCAN.h
+    libraries/AP_Compass/AP_Compass_ExternalAHRS.h
+    libraries/AP_Compass/AP_Compass_HMC5843.h
+    libraries/AP_Compass/AP_Compass_IIS2MDC.h
+    libraries/AP_Compass/AP_Compass_IST8308.h
+    libraries/AP_Compass/AP_Compass_IST8310.h
+    libraries/AP_Compass/AP_Compass_LIS2MDL.h
+    libraries/AP_Compass/AP_Compass_LIS3MDL.h
+    libraries/AP_Compass/AP_Compass_LSM303D.h
+    libraries/AP_Compass/AP_Compass_LSM9DS1.h
+    libraries/AP_Compass/AP_Compass_MAG3110.h
+    libraries/AP_Compass/AP_Compass_MMC3416.h
+    libraries/AP_Compass/AP_Compass_MMC5xx3.h
+    libraries/AP_Compass/AP_Compass_MSP.h
+    libraries/AP_Compass/AP_Compass_QMC5883L.h
+    libraries/AP_Compass/AP_Compass_QMC5883P.h
+    libraries/AP_Compass/AP_Compass_RM3100.h
+    libraries/AP_Compass/AP_Compass_SITL.h
+    libraries/AP_Compass/AP_Compass_config.h
+    libraries/AP_Compass/CompassCalibrator.h
+    libraries/AP_Compass/Compass_PerMotor.h
+    libraries/AP_Compass/Compass_learn.h
     libraries/AP_Compass/AP_Compass.cpp
     libraries/AP_Compass/AP_Compass_AK09916.cpp
     libraries/AP_Compass/AP_Compass_AK8963.cpp
@@ -1222,7 +1461,9 @@ target_link_libraries(AP_Compass littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_CustomRotations_SOURCES
+set(AP_CustomRotations_SOURCES #3
+    libraries/AP_CustomRotations/AP_CustomRotations.h
+    libraries/AP_CustomRotations/AP_CustomRotations_config.h
     libraries/AP_CustomRotations/AP_CustomRotations.cpp
     libraries/AP_CustomRotations/AP_CustomRotations_params.cpp)
 
@@ -1259,7 +1500,17 @@ target_link_libraries(AP_CustomRotations littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_DAL_SOURCES
+set(AP_DAL_SOURCES #3
+    libraries/AP_DAL/AP_DAL.h
+    libraries/AP_DAL/AP_DAL_Airspeed.h
+    libraries/AP_DAL/AP_DAL_Baro.h
+    libraries/AP_DAL/AP_DAL_Beacon.h
+    libraries/AP_DAL/AP_DAL_Compass.h
+    libraries/AP_DAL/AP_DAL_GPS.h
+    libraries/AP_DAL/AP_DAL_InertialSensor.h
+    libraries/AP_DAL/AP_DAL_RangeFinder.h
+    libraries/AP_DAL/AP_DAL_VisualOdom.h
+    libraries/AP_DAL/LogStructure.h
     libraries/AP_DAL/AP_DAL_Airspeed.cpp
     libraries/AP_DAL/AP_DAL_Baro.cpp
     libraries/AP_DAL/AP_DAL_Compass.cpp
@@ -1299,7 +1550,15 @@ target_link_libraries(AP_DAL littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_DDS_SOURCES
+set(AP_DDS_SOURCES #3
+    libraries/AP_DDS/AP_DDS_Client.h
+    libraries/AP_DDS/AP_DDS_ExternalControl.h
+    libraries/AP_DDS/AP_DDS_External_Odom.h
+    libraries/AP_DDS/AP_DDS_Frames.h
+    libraries/AP_DDS/AP_DDS_Service_Table.h
+    libraries/AP_DDS/AP_DDS_Topic_Table.h
+    libraries/AP_DDS/AP_DDS_Type_Conversions.h
+    libraries/AP_DDS/AP_DDS_config.h
     libraries/AP_DDS/AP_DDS_Client.cpp
     libraries/AP_DDS/AP_DDS_ExternalControl.cpp
     libraries/AP_DDS/AP_DDS_External_Odom.cpp
@@ -1340,7 +1599,8 @@ target_link_libraries(AP_DDS littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Declination_SOURCES
+set(AP_Declination_SOURCES #3
+    libraries/AP_Declination/AP_Declination.h
     libraries/AP_Declination/AP_Declination.cpp
     libraries/AP_Declination/tables.cpp)
 
@@ -1377,7 +1637,8 @@ target_link_libraries(AP_Declination littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Devo_Telem_SOURCES
+set(AP_Devo_Telem_SOURCES #3
+    libraries/AP_Devo_Telem/AP_Devo_Telem.h
     libraries/AP_Devo_Telem/AP_Devo_Telem.cpp)
 
 set(AP_Devo_Telem_INCLUDES
@@ -1413,7 +1674,11 @@ target_link_libraries(AP_Devo_Telem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_DroneCAN_SOURCES
+set(AP_DroneCAN_SOURCES #3
+    libraries/AP_DroneCAN/AP_Canard_iface.h
+    libraries/AP_DroneCAN/AP_DroneCAN.h
+    libraries/AP_DroneCAN/AP_DroneCAN_DNA_Server.h
+    libraries/AP_DroneCAN/AP_DroneCAN_serial.h
     libraries/AP_DroneCAN/AP_Canard_iface.cpp
     libraries/AP_DroneCAN/AP_DroneCAN.cpp
     libraries/AP_DroneCAN/AP_DroneCAN_DNA_Server.cpp
@@ -1452,7 +1717,21 @@ target_link_libraries(AP_DroneCAN littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_EFI_SOURCES
+set(AP_EFI_SOURCES #3
+    libraries/AP_EFI/AP_EFI.h
+    libraries/AP_EFI/AP_EFI_Backend.h
+    libraries/AP_EFI/AP_EFI_Currawong_ECU.h
+    libraries/AP_EFI/AP_EFI_DroneCAN.h
+    libraries/AP_EFI/AP_EFI_Loweheiser.h
+    libraries/AP_EFI/AP_EFI_MAV.h
+    libraries/AP_EFI/AP_EFI_NWPMU.h
+    libraries/AP_EFI/AP_EFI_Scripting.h
+    libraries/AP_EFI/AP_EFI_Serial_Hirth.h
+    libraries/AP_EFI/AP_EFI_Serial_Lutan.h
+    libraries/AP_EFI/AP_EFI_Serial_MS.h
+    libraries/AP_EFI/AP_EFI_State.h
+    libraries/AP_EFI/AP_EFI_ThrottleLinearisation.h
+    libraries/AP_EFI/AP_EFI_config.h
     libraries/AP_EFI/AP_EFI.cpp
     libraries/AP_EFI/AP_EFI_Backend.cpp
     libraries/AP_EFI/AP_EFI_Currawong_ECU.cpp
@@ -1499,7 +1778,12 @@ target_link_libraries(AP_EFI littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ESC_Telem_SOURCES
+set(AP_ESC_Telem_SOURCES #3
+    libraries/AP_ESC_Telem/AP_ESC_Telem.h
+    libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.h
+    libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.h
+    libraries/AP_ESC_Telem/AP_ESC_Telem_config.h
+    libraries/AP_ESC_Telem/LogStructure.h
     libraries/AP_ESC_Telem/AP_ESC_Telem.cpp
     libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp)
 
@@ -1536,7 +1820,17 @@ target_link_libraries(AP_ESC_Telem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ExternalAHRS_SOURCES
+set(AP_ExternalAHRS_SOURCES #3
+    libraries/AP_ExternalAHRS/AP_ExternalAHRS.h
+    libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.h
+    libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.h
+    libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.h
+    libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.h
+    libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG_structs.h
+    libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.h
+    libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.h
+    libraries/AP_ExternalAHRS/AP_ExternalAHRS_config.h
+    libraries/AP_ExternalAHRS/MicroStrain_common.h
     libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp
     libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.cpp
     libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.cpp
@@ -1577,7 +1871,9 @@ target_link_libraries(AP_ExternalAHRS littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ExternalControl_SOURCES
+set(AP_ExternalControl_SOURCES #3
+    libraries/AP_ExternalControl/AP_ExternalControl.h
+    libraries/AP_ExternalControl/AP_ExternalControl_config.h
     libraries/AP_ExternalControl/AP_ExternalControl.cpp)
 
 set(AP_ExternalControl_INCLUDES
@@ -1613,7 +1909,8 @@ target_link_libraries(AP_ExternalControl littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_FETtecOneWire_SOURCES
+set(AP_FETtecOneWire_SOURCES #3
+    libraries/AP_FETtecOneWire/AP_FETtecOneWire.h
     libraries/AP_FETtecOneWire/AP_FETtecOneWire.cpp)
 
 set(AP_FETtecOneWire_INCLUDES
@@ -1649,7 +1946,19 @@ target_link_libraries(AP_FETtecOneWire littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Filesystem_SOURCES
+set(AP_Filesystem_SOURCES #3
+    libraries/AP_Filesystem/AP_Filesystem.h
+    libraries/AP_Filesystem/AP_Filesystem_ESP32.h
+    libraries/AP_Filesystem/AP_Filesystem_FATFS.h
+    libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.h
+    libraries/AP_Filesystem/AP_Filesystem_Mission.h
+    libraries/AP_Filesystem/AP_Filesystem_Param.h
+    libraries/AP_Filesystem/AP_Filesystem_ROMFS.h
+    libraries/AP_Filesystem/AP_Filesystem_Sys.h
+    libraries/AP_Filesystem/AP_Filesystem_backend.h
+    libraries/AP_Filesystem/AP_Filesystem_config.h
+    libraries/AP_Filesystem/AP_Filesystem_posix.h
+    libraries/AP_Filesystem/posix_compat.h
     libraries/AP_Filesystem/AP_Filesystem.cpp
     libraries/AP_Filesystem/AP_Filesystem_ESP32.cpp
     libraries/AP_Filesystem/AP_Filesystem_FATFS.cpp
@@ -1694,7 +2003,8 @@ target_link_libraries(AP_Filesystem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_FlashStorage_SOURCES
+set(AP_FlashStorage_SOURCES #3
+    libraries/AP_FlashStorage/AP_FlashStorage.h
     libraries/AP_FlashStorage/AP_FlashStorage.cpp)
 
 set(AP_FlashStorage_INCLUDES
@@ -1730,7 +2040,20 @@ target_link_libraries(AP_FlashStorage littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Frsky_Telem_SOURCES
+set(AP_Frsky_Telem_SOURCES #3
+    libraries/AP_Frsky_Telem/AP_Frsky_Backend.h
+    libraries/AP_Frsky_Telem/AP_Frsky_D.h
+    libraries/AP_Frsky_Telem/AP_Frsky_MAVlite.h
+    libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.h
+    libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.h
+    libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.h
+    libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.h
+    libraries/AP_Frsky_Telem/AP_Frsky_Parameters.h
+    libraries/AP_Frsky_Telem/AP_Frsky_SPort.h
+    libraries/AP_Frsky_Telem/AP_Frsky_SPortParser.h
+    libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.h
+    libraries/AP_Frsky_Telem/AP_Frsky_Telem.h
+    libraries/AP_Frsky_Telem/AP_Frsky_config.h
     libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp
     libraries/AP_Frsky_Telem/AP_Frsky_D.cpp
     libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.cpp
@@ -1774,7 +2097,31 @@ target_link_libraries(AP_Frsky_Telem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_GPS_SOURCES
+set(AP_GPS_SOURCES #3
+    libraries/AP_GPS/AP_GPS.h
+    libraries/AP_GPS/AP_GPS_Blended.h
+    libraries/AP_GPS/AP_GPS_DroneCAN.h
+    libraries/AP_GPS/AP_GPS_ERB.h
+    libraries/AP_GPS/AP_GPS_ExternalAHRS.h
+    libraries/AP_GPS/AP_GPS_FixType.h
+    libraries/AP_GPS/AP_GPS_GSOF.h
+    libraries/AP_GPS/AP_GPS_MAV.h
+    libraries/AP_GPS/AP_GPS_MSP.h
+    libraries/AP_GPS/AP_GPS_NMEA.h
+    libraries/AP_GPS/AP_GPS_NOVA.h
+    libraries/AP_GPS/AP_GPS_SBF.h
+    libraries/AP_GPS/AP_GPS_SBP.h
+    libraries/AP_GPS/AP_GPS_SBP2.h
+    libraries/AP_GPS/AP_GPS_SIRF.h
+    libraries/AP_GPS/AP_GPS_SITL.h
+    libraries/AP_GPS/AP_GPS_UBLOX.h
+    libraries/AP_GPS/AP_GPS_config.h
+    libraries/AP_GPS/GPS_Backend.h
+    libraries/AP_GPS/GPS_detect_state.h
+    libraries/AP_GPS/LogStructure.h
+    libraries/AP_GPS/LogStructure_SBP.h
+    libraries/AP_GPS/MovingBase.h
+    libraries/AP_GPS/RTCM3_Parser.h
     libraries/AP_GPS/AP_GPS.cpp
     libraries/AP_GPS/AP_GPS_Blended.cpp
     libraries/AP_GPS/AP_GPS_DroneCAN.cpp
@@ -1829,7 +2176,9 @@ target_link_libraries(AP_GPS littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_GSOF_SOURCES
+set(AP_GSOF_SOURCES #3
+    libraries/AP_GSOF/AP_GSOF.h
+    libraries/AP_GSOF/AP_GSOF_config.h
     libraries/AP_GSOF/AP_GSOF.cpp)
 
 set(AP_GSOF_INCLUDES
@@ -1865,7 +2214,16 @@ target_link_libraries(AP_GSOF littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Generator_SOURCES
+set(AP_Generator_SOURCES #3
+    libraries/AP_Generator/AP_Generator.h
+    libraries/AP_Generator/AP_Generator_Backend.h
+    libraries/AP_Generator/AP_Generator_Cortex.h
+    libraries/AP_Generator/AP_Generator_IE_2400.h
+    libraries/AP_Generator/AP_Generator_IE_650_800.h
+    libraries/AP_Generator/AP_Generator_IE_FuelCell.h
+    libraries/AP_Generator/AP_Generator_Loweheiser.h
+    libraries/AP_Generator/AP_Generator_RichenPower.h
+    libraries/AP_Generator/AP_Generator_config.h
     libraries/AP_Generator/AP_Generator.cpp
     libraries/AP_Generator/AP_Generator_Backend.cpp
     libraries/AP_Generator/AP_Generator_Cortex.cpp
@@ -1908,7 +2266,12 @@ target_link_libraries(AP_Generator littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Gripper_SOURCES
+set(AP_Gripper_SOURCES #3
+    libraries/AP_Gripper/AP_Gripper.h
+    libraries/AP_Gripper/AP_Gripper_Backend.h
+    libraries/AP_Gripper/AP_Gripper_EPM.h
+    libraries/AP_Gripper/AP_Gripper_Servo.h
+    libraries/AP_Gripper/AP_Gripper_config.h
     libraries/AP_Gripper/AP_Gripper.cpp
     libraries/AP_Gripper/AP_Gripper_Backend.cpp
     libraries/AP_Gripper/AP_Gripper_EPM.cpp
@@ -1947,7 +2310,8 @@ target_link_libraries(AP_Gripper littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Hott_Telem_SOURCES
+set(AP_Hott_Telem_SOURCES #3
+    libraries/AP_Hott_Telem/AP_Hott_Telem.h
     libraries/AP_Hott_Telem/AP_Hott_Telem.cpp)
 
 set(AP_Hott_Telem_INCLUDES
@@ -1983,7 +2347,10 @@ target_link_libraries(AP_Hott_Telem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ICEngine_SOURCES
+set(AP_ICEngine_SOURCES #3
+    libraries/AP_ICEngine/AP_ICEngine.h
+    libraries/AP_ICEngine/AP_ICEngine_TCA9554.h
+    libraries/AP_ICEngine/AP_ICEngine_config.h
     libraries/AP_ICEngine/AP_ICEngine.cpp
     libraries/AP_ICEngine/AP_ICEngine_TCA9554.cpp)
 
@@ -2020,7 +2387,8 @@ target_link_libraries(AP_ICEngine littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_IOMCU_SOURCES
+set(AP_IOMCU_SOURCES #3
+    libraries/AP_IOMCU/AP_IOMCU.h
     libraries/AP_IOMCU/AP_IOMCU.cpp
     libraries/AP_IOMCU/fw_uploader.cpp)
 
@@ -2057,7 +2425,12 @@ target_link_libraries(AP_IOMCU littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_IRLock_SOURCES
+set(AP_IRLock_SOURCES #3
+    libraries/AP_IRLock/AP_IRLock.h
+    libraries/AP_IRLock/AP_IRLock_I2C.h
+    libraries/AP_IRLock/AP_IRLock_SITL.h
+    libraries/AP_IRLock/AP_IRLock_SITL_Gazebo.h
+    libraries/AP_IRLock/AP_IRLock_config.h
     libraries/AP_IRLock/AP_IRLock.cpp
     libraries/AP_IRLock/AP_IRLock_I2C.cpp
     libraries/AP_IRLock/AP_IRLock_SITL.cpp
@@ -2096,7 +2469,8 @@ target_link_libraries(AP_IRLock littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_InertialNav_SOURCES
+set(AP_InertialNav_SOURCES #3
+    libraries/AP_InertialNav/AP_InertialNav.h
     libraries/AP_InertialNav/AP_InertialNav.cpp)
 
 set(AP_InertialNav_INCLUDES
@@ -2132,7 +2506,33 @@ target_link_libraries(AP_InertialNav littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_InertialSensor_SOURCES
+set(AP_InertialSensor_SOURCES #3
+    libraries/AP_InertialSensor/AP_InertialSensor.h
+    libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.h
+    libraries/AP_InertialSensor/AP_InertialSensor_BMI055.h
+    libraries/AP_InertialSensor/AP_InertialSensor_BMI088.h
+    libraries/AP_InertialSensor/AP_InertialSensor_BMI160.h
+    libraries/AP_InertialSensor/AP_InertialSensor_BMI270.h
+    libraries/AP_InertialSensor/AP_InertialSensor_Backend.h
+    libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.h
+    libraries/AP_InertialSensor/AP_InertialSensor_Invensense.h
+    libraries/AP_InertialSensor/AP_InertialSensor_Invensense_registers.h
+    libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.h
+    libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2_registers.h
+    libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.h
+    libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.h
+    libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.h
+    libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.h
+    libraries/AP_InertialSensor/AP_InertialSensor_NONE.h
+    libraries/AP_InertialSensor/AP_InertialSensor_Params.h
+    libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.h
+    libraries/AP_InertialSensor/AP_InertialSensor_SITL.h
+    libraries/AP_InertialSensor/AP_InertialSensor_config.h
+    libraries/AP_InertialSensor/AP_InertialSensor_rate_config.h
+    libraries/AP_InertialSensor/AP_InertialSensor_tempcal.h
+    libraries/AP_InertialSensor/AuxiliaryBus.h
+    libraries/AP_InertialSensor/FastRateBuffer.h
+    libraries/AP_InertialSensor/LogStructure.h
     libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp
     libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp
     libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp
@@ -2186,7 +2586,9 @@ target_link_libraries(AP_InertialSensor littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_InternalError_SOURCES
+set(AP_InternalError_SOURCES #3
+    libraries/AP_InternalError/AP_InternalError.h
+    libraries/AP_InternalError/AP_InternalError_config.h
     libraries/AP_InternalError/AP_InternalError.cpp)
 
 set(AP_InternalError_INCLUDES
@@ -2222,7 +2624,8 @@ target_link_libraries(AP_InternalError littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_JSButton_SOURCES
+set(AP_JSButton_SOURCES #3
+    libraries/AP_JSButton/AP_JSButton.h
     libraries/AP_JSButton/AP_JSButton.cpp)
 
 set(AP_JSButton_INCLUDES
@@ -2258,7 +2661,8 @@ target_link_libraries(AP_JSButton littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_JSON_SOURCES
+set(AP_JSON_SOURCES #3
+    libraries/AP_JSON/AP_JSON.h
     libraries/AP_JSON/AP_JSON.cpp)
 
 set(AP_JSON_INCLUDES
@@ -2294,7 +2698,9 @@ target_link_libraries(AP_JSON littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_KDECAN_SOURCES
+set(AP_KDECAN_SOURCES #3
+    libraries/AP_KDECAN/AP_KDECAN.h
+    libraries/AP_KDECAN/AP_KDECAN_config.h
     libraries/AP_KDECAN/AP_KDECAN.cpp)
 
 set(AP_KDECAN_INCLUDES
@@ -2330,7 +2736,8 @@ target_link_libraries(AP_KDECAN littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_L1_Control_SOURCES
+set(AP_L1_Control_SOURCES #3
+    libraries/AP_L1_Control/AP_L1_Control.h
     libraries/AP_L1_Control/AP_L1_Control.cpp)
 
 set(AP_L1_Control_INCLUDES
@@ -2366,7 +2773,8 @@ target_link_libraries(AP_L1_Control littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_LTM_Telem_SOURCES
+set(AP_LTM_Telem_SOURCES #3
+    libraries/AP_LTM_Telem/AP_LTM_Telem.h
     libraries/AP_LTM_Telem/AP_LTM_Telem.cpp)
 
 set(AP_LTM_Telem_INCLUDES
@@ -2402,7 +2810,11 @@ target_link_libraries(AP_LTM_Telem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Landing_SOURCES
+set(AP_Landing_SOURCES #3
+    libraries/AP_Landing/AP_Landing.h
+    libraries/AP_Landing/AP_Landing_Deepstall.h
+    libraries/AP_Landing/AP_Landing_config.h
+    libraries/AP_Landing/LogStructure.h
     libraries/AP_Landing/AP_Landing.cpp
     libraries/AP_Landing/AP_Landing_Deepstall.cpp)
 
@@ -2439,7 +2851,11 @@ target_link_libraries(AP_Landing littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_LeakDetector_SOURCES
+set(AP_LeakDetector_SOURCES #3
+    libraries/AP_LeakDetector/AP_LeakDetector.h
+    libraries/AP_LeakDetector/AP_LeakDetector_Analog.h
+    libraries/AP_LeakDetector/AP_LeakDetector_Backend.h
+    libraries/AP_LeakDetector/AP_LeakDetector_Digital.h
     libraries/AP_LeakDetector/AP_LeakDetector.cpp
     libraries/AP_LeakDetector/AP_LeakDetector_Analog.cpp
     libraries/AP_LeakDetector/AP_LeakDetector_Backend.cpp
@@ -2478,7 +2894,9 @@ target_link_libraries(AP_LeakDetector littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_LightWareSerial_SOURCES
+set(AP_LightWareSerial_SOURCES #3
+    libraries/AP_LightWareSerial/AP_LightWareSerial.h
+    libraries/AP_LightWareSerial/AP_LightWareSerial_config.h
     libraries/AP_LightWareSerial/AP_LightWareSerial.cpp)
 
 set(AP_LightWareSerial_INCLUDES
@@ -2514,7 +2932,17 @@ target_link_libraries(AP_LightWareSerial littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Logger_SOURCES
+set(AP_Logger_SOURCES #3
+    libraries/AP_Logger/AP_Logger.h
+    libraries/AP_Logger/AP_Logger_Backend.h
+    libraries/AP_Logger/AP_Logger_Block.h
+    libraries/AP_Logger/AP_Logger_File.h
+    libraries/AP_Logger/AP_Logger_Flash_JEDEC.h
+    libraries/AP_Logger/AP_Logger_MAVLink.h
+    libraries/AP_Logger/AP_Logger_W25NXX.h
+    libraries/AP_Logger/AP_Logger_config.h
+    libraries/AP_Logger/LogStructure.h
+    libraries/AP_Logger/LoggerMessageWriter.h
     libraries/AP_Logger/AP_Logger_Block.cpp
     libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp
     libraries/AP_Logger/AP_Logger_MAVLink.cpp
@@ -2555,7 +2983,19 @@ target_link_libraries(AP_Logger littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_MSP_SOURCES
+set(AP_MSP_SOURCES #3
+    libraries/AP_MSP/AP_MSP.h
+    libraries/AP_MSP/AP_MSP_Telem_Backend.h
+    libraries/AP_MSP/AP_MSP_Telem_DJI.h
+    libraries/AP_MSP/AP_MSP_Telem_DisplayPort.h
+    libraries/AP_MSP/AP_MSP_Telem_Generic.h
+    libraries/AP_MSP/AP_MSP_config.h
+    libraries/AP_MSP/msp.h
+    libraries/AP_MSP/msp_osd.h
+    libraries/AP_MSP/msp_protocol.h
+    libraries/AP_MSP/msp_sbuf.h
+    libraries/AP_MSP/msp_sensors.h
+    libraries/AP_MSP/msp_version.h
     libraries/AP_MSP/AP_MSP.cpp
     libraries/AP_MSP/AP_MSP_Telem_Backend.cpp
     libraries/AP_MSP/AP_MSP_Telem_DJI.cpp
@@ -2597,7 +3037,28 @@ target_link_libraries(AP_MSP littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Math_SOURCES
+set(AP_Math_SOURCES #3
+    libraries/AP_Math/AP_GeodesicGrid.h
+    libraries/AP_Math/AP_Math.h
+    libraries/AP_Math/SCurve.h
+    libraries/AP_Math/SplineCurve.h
+    libraries/AP_Math/chirp.h
+    libraries/AP_Math/control.h
+    libraries/AP_Math/crc.h
+    libraries/AP_Math/definitions.h
+    libraries/AP_Math/div1000.h
+    libraries/AP_Math/ftype.h
+    libraries/AP_Math/location.h
+    libraries/AP_Math/matrix3.h
+    libraries/AP_Math/matrixN.h
+    libraries/AP_Math/polyfit.h
+    libraries/AP_Math/polygon.h
+    libraries/AP_Math/quaternion.h
+    libraries/AP_Math/rotations.h
+    libraries/AP_Math/spline5.h
+    libraries/AP_Math/vector2.h
+    libraries/AP_Math/vector3.h
+    libraries/AP_Math/vectorN.h
     libraries/AP_Math/AP_GeodesicGrid.cpp
     libraries/AP_Math/AP_Math.cpp
     libraries/AP_Math/SplineCurve.cpp
@@ -2649,7 +3110,11 @@ target_link_libraries(AP_Math littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Mission_SOURCES
+set(AP_Mission_SOURCES #3
+    libraries/AP_Mission/AP_Mission.h
+    libraries/AP_Mission/AP_Mission_ChangeDetector.h
+    libraries/AP_Mission/AP_Mission_config.h
+    libraries/AP_Mission/LogStructure.h
     libraries/AP_Mission/AP_Mission_ChangeDetector.cpp
     libraries/AP_Mission/AP_Mission_Commands.cpp)
 
@@ -2686,7 +3151,9 @@ target_link_libraries(AP_Mission littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Module_SOURCES
+set(AP_Module_SOURCES #3
+    libraries/AP_Module/AP_Module.h
+    libraries/AP_Module/AP_Module_Structures.h
     libraries/AP_Module/AP_Module.cpp)
 
 set(AP_Module_INCLUDES
@@ -2722,7 +3189,26 @@ target_link_libraries(AP_Module littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Motors_SOURCES
+set(AP_Motors_SOURCES #3
+    libraries/AP_Motors/AP_Motors.h
+    libraries/AP_Motors/AP_Motors6DOF.h
+    libraries/AP_Motors/AP_MotorsCoax.h
+    libraries/AP_Motors/AP_MotorsHeli.h
+    libraries/AP_Motors/AP_MotorsHeli_Dual.h
+    libraries/AP_Motors/AP_MotorsHeli_Quad.h
+    libraries/AP_Motors/AP_MotorsHeli_RSC.h
+    libraries/AP_Motors/AP_MotorsHeli_Single.h
+    libraries/AP_Motors/AP_MotorsHeli_Swash.h
+    libraries/AP_Motors/AP_MotorsMatrix.h
+    libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.h
+    libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.h
+    libraries/AP_Motors/AP_MotorsMulticopter.h
+    libraries/AP_Motors/AP_MotorsSingle.h
+    libraries/AP_Motors/AP_MotorsTailsitter.h
+    libraries/AP_Motors/AP_MotorsTri.h
+    libraries/AP_Motors/AP_Motors_Class.h
+    libraries/AP_Motors/AP_Motors_Thrust_Linearization.h
+    libraries/AP_Motors/AP_Motors_config.h
     libraries/AP_Motors/AP_Motors6DOF.cpp
     libraries/AP_Motors/AP_MotorsCoax.cpp
     libraries/AP_Motors/AP_MotorsHeli.cpp
@@ -2770,7 +3256,29 @@ target_link_libraries(AP_Motors littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Mount_SOURCES
+set(AP_Mount_SOURCES #3
+    libraries/AP_Mount/AP_Mount.h
+    libraries/AP_Mount/AP_Mount_Alexmos.h
+    libraries/AP_Mount/AP_Mount_Backend.h
+    libraries/AP_Mount/AP_Mount_Backend_Serial.h
+    libraries/AP_Mount/AP_Mount_CADDX.h
+    libraries/AP_Mount/AP_Mount_MAVLink.h
+    libraries/AP_Mount/AP_Mount_Params.h
+    libraries/AP_Mount/AP_Mount_SToRM32.h
+    libraries/AP_Mount/AP_Mount_SToRM32_serial.h
+    libraries/AP_Mount/AP_Mount_Scripting.h
+    libraries/AP_Mount/AP_Mount_Servo.h
+    libraries/AP_Mount/AP_Mount_Siyi.h
+    libraries/AP_Mount/AP_Mount_SoloGimbal.h
+    libraries/AP_Mount/AP_Mount_Topotek.h
+    libraries/AP_Mount/AP_Mount_Viewpro.h
+    libraries/AP_Mount/AP_Mount_XFRobot.h
+    libraries/AP_Mount/AP_Mount_Xacti.h
+    libraries/AP_Mount/AP_Mount_config.h
+    libraries/AP_Mount/LogStructure.h
+    libraries/AP_Mount/SoloGimbal.h
+    libraries/AP_Mount/SoloGimbalEKF.h
+    libraries/AP_Mount/SoloGimbal_Parameters.h
     libraries/AP_Mount/AP_Mount.cpp
     libraries/AP_Mount/AP_Mount_Alexmos.cpp
     libraries/AP_Mount/AP_Mount_Backend.cpp
@@ -2825,7 +3333,8 @@ target_link_libraries(AP_Mount littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_MultiHeap_SOURCES
+set(AP_MultiHeap_SOURCES #3
+    libraries/AP_MultiHeap/AP_MultiHeap.h
     libraries/AP_MultiHeap/AP_MultiHeap.cpp
     libraries/AP_MultiHeap/MultiHeap_chibios.cpp
     libraries/AP_MultiHeap/MultiHeap_malloc.cpp)
@@ -2863,7 +3372,9 @@ target_link_libraries(AP_MultiHeap littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_NMEA_Output_SOURCES
+set(AP_NMEA_Output_SOURCES #3
+    libraries/AP_NMEA_Output/AP_NMEA_Output.h
+    libraries/AP_NMEA_Output/AP_NMEA_Output_config.h
     libraries/AP_NMEA_Output/AP_NMEA_Output.cpp)
 
 set(AP_NMEA_Output_INCLUDES
@@ -2899,7 +3410,13 @@ target_link_libraries(AP_NMEA_Output littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_NavEKF_SOURCES
+set(AP_NavEKF_SOURCES #3
+    libraries/AP_NavEKF/AP_NavEKF_Source.h
+    libraries/AP_NavEKF/AP_NavEKF_core_common.h
+    libraries/AP_NavEKF/AP_Nav_Common.h
+    libraries/AP_NavEKF/EKFGSF_yaw.h
+    libraries/AP_NavEKF/EKF_Buffer.h
+    libraries/AP_NavEKF/LogStructure.h
     libraries/AP_NavEKF/AP_NavEKF_Source.cpp
     libraries/AP_NavEKF/AP_NavEKF_core_common.cpp
     libraries/AP_NavEKF/EKFGSF_Logging.cpp
@@ -2939,7 +3456,10 @@ target_link_libraries(AP_NavEKF littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_NavEKF2_SOURCES
+set(AP_NavEKF2_SOURCES #3
+    libraries/AP_NavEKF2/AP_NavEKF2.h
+    libraries/AP_NavEKF2/AP_NavEKF2_core.h
+    libraries/AP_NavEKF2/LogStructure.h
     libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp
     libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp
     libraries/AP_NavEKF2/AP_NavEKF2_Logging.cpp
@@ -2985,7 +3505,15 @@ target_link_libraries(AP_NavEKF2 littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Networking_SOURCES
+set(AP_Networking_SOURCES #3
+    libraries/AP_Networking/AP_Networking.h
+    libraries/AP_Networking/AP_Networking_Backend.h
+    libraries/AP_Networking/AP_Networking_CAN.h
+    libraries/AP_Networking/AP_Networking_ChibiOS.h
+    libraries/AP_Networking/AP_Networking_Config.h
+    libraries/AP_Networking/AP_Networking_PPP.h
+    libraries/AP_Networking/AP_Networking_SITL.h
+    libraries/AP_Networking/AP_Networking_address.h
     libraries/AP_Networking/AP_Networking.cpp
     libraries/AP_Networking/AP_Networking_Backend.cpp
     libraries/AP_Networking/AP_Networking_CAN.cpp
@@ -3101,7 +3629,44 @@ target_link_libraries(AP_Networking littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Notify_SOURCES
+set(AP_Notify_SOURCES #3
+    libraries/AP_Notify/AP_BoardLED.h
+    libraries/AP_Notify/AP_BoardLED2.h
+    libraries/AP_Notify/AP_Notify.h
+    libraries/AP_Notify/AP_Notify_config.h
+    libraries/AP_Notify/Buzzer.h
+    libraries/AP_Notify/DShotLED.h
+    libraries/AP_Notify/DiscoLED.h
+    libraries/AP_Notify/DiscreteRGBLed.h
+    libraries/AP_Notify/Display.h
+    libraries/AP_Notify/Display_Backend.h
+    libraries/AP_Notify/Display_SH1106_I2C.h
+    libraries/AP_Notify/Display_SITL.h
+    libraries/AP_Notify/Display_SSD1306_I2C.h
+    libraries/AP_Notify/DroneCAN_RGB_LED.h
+    libraries/AP_Notify/ExternalLED.h
+    libraries/AP_Notify/GPIO_LED_1.h
+    libraries/AP_Notify/IS31FL3195.h
+    libraries/AP_Notify/LP5562.h
+    libraries/AP_Notify/Led_Sysfs.h
+    libraries/AP_Notify/MMLPlayer.h
+    libraries/AP_Notify/NCP5623.h
+    libraries/AP_Notify/NavigatorLED.h
+    libraries/AP_Notify/NeoPixel.h
+    libraries/AP_Notify/NotifyDevice.h
+    libraries/AP_Notify/OreoLED_I2C.h
+    libraries/AP_Notify/PCA9685LED_I2C.h
+    libraries/AP_Notify/PixRacerLED.h
+    libraries/AP_Notify/ProfiLED.h
+    libraries/AP_Notify/ProfiLED_IOMCU.h
+    libraries/AP_Notify/RCOutputRGBLed.h
+    libraries/AP_Notify/RGBLed.h
+    libraries/AP_Notify/SITL_SFML_LED.h
+    libraries/AP_Notify/ScriptingLED.h
+    libraries/AP_Notify/SerialLED.h
+    libraries/AP_Notify/ToneAlarm.h
+    libraries/AP_Notify/ToshibaLED_I2C.h
+    libraries/AP_Notify/VRBoard_LED.h
     libraries/AP_Notify/AP_BoardLED.cpp
     libraries/AP_Notify/AP_BoardLED2.cpp
     libraries/AP_Notify/AP_Notify.cpp
@@ -3169,7 +3734,8 @@ target_link_libraries(AP_Notify littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_OLC_SOURCES
+set(AP_OLC_SOURCES #3
+    libraries/AP_OLC/AP_OLC.h
     libraries/AP_OLC/AP_OLC.cpp)
 
 set(AP_OLC_INCLUDES
@@ -3205,7 +3771,14 @@ target_link_libraries(AP_OLC littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_OSD_SOURCES
+set(AP_OSD_SOURCES #3
+    libraries/AP_OSD/AP_OSD.h
+    libraries/AP_OSD/AP_OSD_Backend.h
+    libraries/AP_OSD/AP_OSD_MAX7456.h
+    libraries/AP_OSD/AP_OSD_MSP.h
+    libraries/AP_OSD/AP_OSD_MSP_DisplayPort.h
+    libraries/AP_OSD/AP_OSD_SITL.h
+    libraries/AP_OSD/AP_OSD_config.h
     libraries/AP_OSD/AP_OSD.cpp
     libraries/AP_OSD/AP_OSD_Backend.cpp
     libraries/AP_OSD/AP_OSD_MAX7456.cpp
@@ -3247,7 +3820,9 @@ target_link_libraries(AP_OSD littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_OpenDroneID_SOURCES
+set(AP_OpenDroneID_SOURCES #3
+    libraries/AP_OpenDroneID/AP_OpenDroneID.h
+    libraries/AP_OpenDroneID/AP_OpenDroneID_config.h
     libraries/AP_OpenDroneID/AP_OpenDroneID.cpp
     libraries/AP_OpenDroneID/AP_OpenDroneID_DroneCAN.cpp)
 
@@ -3284,7 +3859,21 @@ target_link_libraries(AP_OpenDroneID littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_OpticalFlow_SOURCES
+set(AP_OpticalFlow_SOURCES #3
+    libraries/AP_OpticalFlow/AP_OpticalFlow.h
+    libraries/AP_OpticalFlow/AP_OpticalFlow_Backend.h
+    libraries/AP_OpticalFlow/AP_OpticalFlow_CXOF.h
+    libraries/AP_OpticalFlow/AP_OpticalFlow_Calibrator.h
+    libraries/AP_OpticalFlow/AP_OpticalFlow_HereFlow.h
+    libraries/AP_OpticalFlow/AP_OpticalFlow_MAV.h
+    libraries/AP_OpticalFlow/AP_OpticalFlow_MSP.h
+    libraries/AP_OpticalFlow/AP_OpticalFlow_Onboard.h
+    libraries/AP_OpticalFlow/AP_OpticalFlow_PX4Flow.h
+    libraries/AP_OpticalFlow/AP_OpticalFlow_Pixart.h
+    libraries/AP_OpticalFlow/AP_OpticalFlow_Pixart_SROM.h
+    libraries/AP_OpticalFlow/AP_OpticalFlow_SITL.h
+    libraries/AP_OpticalFlow/AP_OpticalFlow_UPFLOW.h
+    libraries/AP_OpticalFlow/AP_OpticalFlow_config.h
     libraries/AP_OpticalFlow/AP_OpticalFlow.cpp
     libraries/AP_OpticalFlow/AP_OpticalFlow_Backend.cpp
     libraries/AP_OpticalFlow/AP_OpticalFlow_CXOF.cpp
@@ -3331,7 +3920,9 @@ target_link_libraries(AP_OpticalFlow littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Parachute_SOURCES
+set(AP_Parachute_SOURCES #3
+    libraries/AP_Parachute/AP_Parachute.h
+    libraries/AP_Parachute/AP_Parachute_config.h
     libraries/AP_Parachute/AP_Parachute.cpp)
 
 set(AP_Parachute_INCLUDES
@@ -3367,7 +3958,9 @@ target_link_libraries(AP_Parachute littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Param_SOURCES
+set(AP_Param_SOURCES #3
+    libraries/AP_Param/AP_Param.h
+    libraries/AP_Param/AP_Param_config.h
     libraries/AP_Param/AP_Param.cpp
     libraries/AP_Param/AP_ParamT.cpp)
 
@@ -3404,7 +3997,14 @@ target_link_libraries(AP_Param littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_PiccoloCAN_SOURCES
+set(AP_PiccoloCAN_SOURCES #3
+    libraries/AP_PiccoloCAN/AP_PiccoloCAN.h
+    libraries/AP_PiccoloCAN/AP_PiccoloCAN_Cortex.h
+    libraries/AP_PiccoloCAN/AP_PiccoloCAN_Device.h
+    libraries/AP_PiccoloCAN/AP_PiccoloCAN_ECU.h
+    libraries/AP_PiccoloCAN/AP_PiccoloCAN_ESC.h
+    libraries/AP_PiccoloCAN/AP_PiccoloCAN_Servo.h
+    libraries/AP_PiccoloCAN/AP_PiccoloCAN_config.h
     libraries/AP_PiccoloCAN/AP_PiccoloCAN.cpp
     libraries/AP_PiccoloCAN/AP_PiccoloCAN_Cortex.cpp
     libraries/AP_PiccoloCAN/AP_PiccoloCAN_ECU.cpp
@@ -3444,7 +4044,28 @@ target_link_libraries(AP_PiccoloCAN littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Proximity_SOURCES
+set(AP_Proximity_SOURCES #3
+    libraries/AP_Proximity/AP_Proximity.h
+    libraries/AP_Proximity/AP_Proximity_AirSimSITL.h
+    libraries/AP_Proximity/AP_Proximity_Backend.h
+    libraries/AP_Proximity/AP_Proximity_Backend_Serial.h
+    libraries/AP_Proximity/AP_Proximity_Boundary_3D.h
+    libraries/AP_Proximity/AP_Proximity_Cygbot_D1.h
+    libraries/AP_Proximity/AP_Proximity_DroneCAN.h
+    libraries/AP_Proximity/AP_Proximity_LD06.h
+    libraries/AP_Proximity/AP_Proximity_LightWareSF40C.h
+    libraries/AP_Proximity/AP_Proximity_LightWareSF45B.h
+    libraries/AP_Proximity/AP_Proximity_MAV.h
+    libraries/AP_Proximity/AP_Proximity_MR72_CAN.h
+    libraries/AP_Proximity/AP_Proximity_Params.h
+    libraries/AP_Proximity/AP_Proximity_RPLidarA2.h
+    libraries/AP_Proximity/AP_Proximity_RangeFinder.h
+    libraries/AP_Proximity/AP_Proximity_SITL.h
+    libraries/AP_Proximity/AP_Proximity_Scripting.h
+    libraries/AP_Proximity/AP_Proximity_TeraRangerTower.h
+    libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.h
+    libraries/AP_Proximity/AP_Proximity_config.h
+    libraries/AP_Proximity/LogStructure.h
     libraries/AP_Proximity/AP_Proximity.cpp
     libraries/AP_Proximity/AP_Proximity_AirSimSITL.cpp
     libraries/AP_Proximity/AP_Proximity_Backend.cpp
@@ -3498,7 +4119,8 @@ target_link_libraries(AP_Proximity littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Quicktune_SOURCES
+set(AP_Quicktune_SOURCES #3
+    libraries/AP_Quicktune/AP_Quicktune.h
     libraries/AP_Quicktune/AP_Quicktune.cpp)
 
 set(AP_Quicktune_INCLUDES
@@ -3534,7 +4156,8 @@ target_link_libraries(AP_Quicktune littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RAMTRON_SOURCES
+set(AP_RAMTRON_SOURCES #3
+    libraries/AP_RAMTRON/AP_RAMTRON.h
     libraries/AP_RAMTRON/AP_RAMTRON.cpp)
 
 set(AP_RAMTRON_INCLUDES
@@ -3570,7 +4193,9 @@ target_link_libraries(AP_RAMTRON littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RCMapper_SOURCES
+set(AP_RCMapper_SOURCES #3
+    libraries/AP_RCMapper/AP_RCMapper.h
+    libraries/AP_RCMapper/AP_RCMapper_config.h
     libraries/AP_RCMapper/AP_RCMapper.cpp)
 
 set(AP_RCMapper_INCLUDES
@@ -3606,7 +4231,33 @@ target_link_libraries(AP_RCMapper littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RCProtocol_SOURCES
+set(AP_RCProtocol_SOURCES #3
+    libraries/AP_RCProtocol/AP_RCProtocol.h
+    libraries/AP_RCProtocol/AP_RCProtocol_Backend.h
+    libraries/AP_RCProtocol/AP_RCProtocol_CRSF.h
+    libraries/AP_RCProtocol/AP_RCProtocol_DSM.h
+    libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.h
+    libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.h
+    libraries/AP_RCProtocol/AP_RCProtocol_FDM.h
+    libraries/AP_RCProtocol/AP_RCProtocol_FPort.h
+    libraries/AP_RCProtocol/AP_RCProtocol_FPort2.h
+    libraries/AP_RCProtocol/AP_RCProtocol_GHST.h
+    libraries/AP_RCProtocol/AP_RCProtocol_IBUS.h
+    libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.h
+    libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.h
+    libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.h
+    libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.h
+    libraries/AP_RCProtocol/AP_RCProtocol_Radio.h
+    libraries/AP_RCProtocol/AP_RCProtocol_SBUS.h
+    libraries/AP_RCProtocol/AP_RCProtocol_SRXL.h
+    libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.h
+    libraries/AP_RCProtocol/AP_RCProtocol_ST24.h
+    libraries/AP_RCProtocol/AP_RCProtocol_SUMD.h
+    libraries/AP_RCProtocol/AP_RCProtocol_UDP.h
+    libraries/AP_RCProtocol/AP_RCProtocol_config.h
+    libraries/AP_RCProtocol/SoftSerial.h
+    libraries/AP_RCProtocol/spm_srxl.h
+    libraries/AP_RCProtocol/spm_srxl_config.h
     libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp
     libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp
     libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp
@@ -3658,7 +4309,13 @@ target_link_libraries(AP_RCProtocol littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RCTelemetry_SOURCES
+set(AP_RCTelemetry_SOURCES #3
+    libraries/AP_RCTelemetry/AP_CRSF_Telem.h
+    libraries/AP_RCTelemetry/AP_GHST_Telem.h
+    libraries/AP_RCTelemetry/AP_RCTelemetry.h
+    libraries/AP_RCTelemetry/AP_RCTelemetry_config.h
+    libraries/AP_RCTelemetry/AP_Spektrum_Telem.h
+    libraries/AP_RCTelemetry/spektrumTelemetrySensors.h
     libraries/AP_RCTelemetry/AP_GHST_Telem.cpp
     libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp)
 
@@ -3695,7 +4352,9 @@ target_link_libraries(AP_RCTelemetry littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ROMFS_SOURCES
+set(AP_ROMFS_SOURCES #3
+    libraries/AP_ROMFS/AP_ROMFS.h
+    libraries/AP_ROMFS/tinf.h
     libraries/AP_ROMFS/AP_ROMFS.cpp
     libraries/AP_ROMFS/tinflate.cpp)
 
@@ -3732,7 +4391,19 @@ target_link_libraries(AP_ROMFS littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RPM_SOURCES
+set(AP_RPM_SOURCES #3
+    libraries/AP_RPM/AP_RPM.h
+    libraries/AP_RPM/AP_RPM_Params.h
+    libraries/AP_RPM/AP_RPM_config.h
+    libraries/AP_RPM/LogStructure.h
+    libraries/AP_RPM/RPM_Backend.h
+    libraries/AP_RPM/RPM_DroneCAN.h
+    libraries/AP_RPM/RPM_EFI.h
+    libraries/AP_RPM/RPM_ESC_Telem.h
+    libraries/AP_RPM/RPM_Generator.h
+    libraries/AP_RPM/RPM_HarmonicNotch.h
+    libraries/AP_RPM/RPM_Pin.h
+    libraries/AP_RPM/RPM_SITL.h
     libraries/AP_RPM/AP_RPM.cpp
     libraries/AP_RPM/AP_RPM_Params.cpp
     libraries/AP_RPM/RPM_Backend.cpp
@@ -3777,7 +4448,9 @@ target_link_libraries(AP_RPM littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RSSI_SOURCES
+set(AP_RSSI_SOURCES #3
+    libraries/AP_RSSI/AP_RSSI.h
+    libraries/AP_RSSI/AP_RSSI_config.h
     libraries/AP_RSSI/AP_RSSI.cpp)
 
 set(AP_RSSI_INCLUDES
@@ -3813,7 +4486,10 @@ target_link_libraries(AP_RSSI littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RTC_SOURCES
+set(AP_RTC_SOURCES #3
+    libraries/AP_RTC/AP_RTC.h
+    libraries/AP_RTC/AP_RTC_config.h
+    libraries/AP_RTC/JitterCorrection.h
     libraries/AP_RTC/AP_RTC.cpp
     libraries/AP_RTC/JitterCorrection.cpp)
 
@@ -3850,7 +4526,16 @@ target_link_libraries(AP_RTC littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Radio_SOURCES
+set(AP_Radio_SOURCES #3
+    libraries/AP_Radio/AP_Radio.h
+    libraries/AP_Radio/AP_Radio_backend.h
+    libraries/AP_Radio/AP_Radio_bk2425.h
+    libraries/AP_Radio/AP_Radio_cc2500.h
+    libraries/AP_Radio/AP_Radio_config.h
+    libraries/AP_Radio/AP_Radio_cypress.h
+    libraries/AP_Radio/driver_bk2425.h
+    libraries/AP_Radio/driver_cc2500.h
+    libraries/AP_Radio/telem_structure.h
     libraries/AP_Radio/AP_Radio.cpp
     libraries/AP_Radio/AP_Radio_backend.cpp
     libraries/AP_Radio/AP_Radio_bk2425.cpp
@@ -3892,7 +4577,56 @@ target_link_libraries(AP_Radio littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RangeFinder_SOURCES
+set(AP_RangeFinder_SOURCES #3
+    libraries/AP_RangeFinder/AP_RangeFinder.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Ainstein_LR_D1.h
+    libraries/AP_RangeFinder/AP_RangeFinder_BBB_PRU.h
+    libraries/AP_RangeFinder/AP_RangeFinder_BLPing.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Backend.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Backend_CAN.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Backend_Serial.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Bebop.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Benewake.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Benewake_CAN.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Benewake_TF02.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Benewake_TF03.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Benewake_TFMini.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Benewake_TFMiniPlus.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Benewake_TFS20L.h
+    libraries/AP_RangeFinder/AP_RangeFinder_DroneCAN.h
+    libraries/AP_RangeFinder/AP_RangeFinder_GYUS42v2.h
+    libraries/AP_RangeFinder/AP_RangeFinder_HC_SR04.h
+    libraries/AP_RangeFinder/AP_RangeFinder_JRE_Serial.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Lanbao.h
+    libraries/AP_RangeFinder/AP_RangeFinder_LeddarOne.h
+    libraries/AP_RangeFinder/AP_RangeFinder_LeddarVu8.h
+    libraries/AP_RangeFinder/AP_RangeFinder_LightWareI2C.h
+    libraries/AP_RangeFinder/AP_RangeFinder_LightWareSerial.h
+    libraries/AP_RangeFinder/AP_RangeFinder_LightWare_GRF.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Lua.h
+    libraries/AP_RangeFinder/AP_RangeFinder_MAVLink.h
+    libraries/AP_RangeFinder/AP_RangeFinder_MSP.h
+    libraries/AP_RangeFinder/AP_RangeFinder_MaxsonarI2CXL.h
+    libraries/AP_RangeFinder/AP_RangeFinder_MaxsonarSerialLV.h
+    libraries/AP_RangeFinder/AP_RangeFinder_NMEA.h
+    libraries/AP_RangeFinder/AP_RangeFinder_NRA24_CAN.h
+    libraries/AP_RangeFinder/AP_RangeFinder_NoopLoop.h
+    libraries/AP_RangeFinder/AP_RangeFinder_PWM.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Params.h
+    libraries/AP_RangeFinder/AP_RangeFinder_PulsedLightLRF.h
+    libraries/AP_RangeFinder/AP_RangeFinder_RDS02UF.h
+    libraries/AP_RangeFinder/AP_RangeFinder_SITL.h
+    libraries/AP_RangeFinder/AP_RangeFinder_TOFSenseF_I2C.h
+    libraries/AP_RangeFinder/AP_RangeFinder_TOFSenseP_CAN.h
+    libraries/AP_RangeFinder/AP_RangeFinder_TeraRangerI2C.h
+    libraries/AP_RangeFinder/AP_RangeFinder_TeraRanger_Serial.h
+    libraries/AP_RangeFinder/AP_RangeFinder_USD1_CAN.h
+    libraries/AP_RangeFinder/AP_RangeFinder_USD1_Serial.h
+    libraries/AP_RangeFinder/AP_RangeFinder_VL53L0X.h
+    libraries/AP_RangeFinder/AP_RangeFinder_VL53L1X.h
+    libraries/AP_RangeFinder/AP_RangeFinder_Wasp.h
+    libraries/AP_RangeFinder/AP_RangeFinder_analog.h
+    libraries/AP_RangeFinder/AP_RangeFinder_config.h
     libraries/AP_RangeFinder/AP_RangeFinder.cpp
     libraries/AP_RangeFinder/AP_RangeFinder_Ainstein_LR_D1.cpp
     libraries/AP_RangeFinder/AP_RangeFinder_BBB_PRU.cpp
@@ -3972,7 +4706,10 @@ target_link_libraries(AP_RangeFinder littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Relay_SOURCES
+set(AP_Relay_SOURCES #3
+    libraries/AP_Relay/AP_Relay.h
+    libraries/AP_Relay/AP_Relay_Params.h
+    libraries/AP_Relay/AP_Relay_config.h
     libraries/AP_Relay/AP_Relay_Params.cpp)
 
 set(AP_Relay_INCLUDES
@@ -4008,7 +4745,8 @@ target_link_libraries(AP_Relay littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RobotisServo_SOURCES
+set(AP_RobotisServo_SOURCES #3
+    libraries/AP_RobotisServo/AP_RobotisServo.h
     libraries/AP_RobotisServo/AP_RobotisServo.cpp)
 
 set(AP_RobotisServo_INCLUDES
@@ -4044,7 +4782,9 @@ target_link_libraries(AP_RobotisServo littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_SBusOut_SOURCES
+set(AP_SBusOut_SOURCES #3
+    libraries/AP_SBusOut/AP_SBusOut.h
+    libraries/AP_SBusOut/AP_SBusOut_config.h
     libraries/AP_SBusOut/AP_SBusOut.cpp)
 
 set(AP_SBusOut_INCLUDES
@@ -4080,7 +4820,10 @@ target_link_libraries(AP_SBusOut littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Scheduler_SOURCES
+set(AP_Scheduler_SOURCES #3
+    libraries/AP_Scheduler/AP_Scheduler.h
+    libraries/AP_Scheduler/AP_Scheduler_config.h
+    libraries/AP_Scheduler/PerfInfo.h
     libraries/AP_Scheduler/PerfInfo.cpp)
 
 set(AP_Scheduler_INCLUDES
@@ -4116,7 +4859,9 @@ target_link_libraries(AP_Scheduler littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_SerialLED_SOURCES
+set(AP_SerialLED_SOURCES #3
+    libraries/AP_SerialLED/AP_SerialLED.h
+    libraries/AP_SerialLED/AP_SerialLED_config.h
     libraries/AP_SerialLED/AP_SerialLED.cpp)
 
 set(AP_SerialLED_INCLUDES
@@ -4152,7 +4897,9 @@ target_link_libraries(AP_SerialLED littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_SerialManager_SOURCES
+set(AP_SerialManager_SOURCES #3
+    libraries/AP_SerialManager/AP_SerialManager.h
+    libraries/AP_SerialManager/AP_SerialManager_config.h
     libraries/AP_SerialManager/AP_SerialManager.cpp)
 
 set(AP_SerialManager_INCLUDES
@@ -4188,7 +4935,9 @@ target_link_libraries(AP_SerialManager littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ServoRelayEvents_SOURCES
+set(AP_ServoRelayEvents_SOURCES #3
+    libraries/AP_ServoRelayEvents/AP_ServoRelayEvents.h
+    libraries/AP_ServoRelayEvents/AP_ServoRelayEvents_config.h
     libraries/AP_ServoRelayEvents/AP_ServoRelayEvents.cpp)
 
 set(AP_ServoRelayEvents_INCLUDES
@@ -4224,7 +4973,10 @@ target_link_libraries(AP_ServoRelayEvents littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Servo_Telem_SOURCES
+set(AP_Servo_Telem_SOURCES #3
+    libraries/AP_Servo_Telem/AP_Servo_Telem.h
+    libraries/AP_Servo_Telem/AP_Servo_Telem_config.h
+    libraries/AP_Servo_Telem/LogStructure.h
     libraries/AP_Servo_Telem/AP_Servo_Telem.cpp)
 
 set(AP_Servo_Telem_INCLUDES
@@ -4260,7 +5012,8 @@ target_link_libraries(AP_Servo_Telem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_SmartRTL_SOURCES
+set(AP_SmartRTL_SOURCES #3
+    libraries/AP_SmartRTL/AP_SmartRTL.h
     libraries/AP_SmartRTL/AP_SmartRTL.cpp)
 
 set(AP_SmartRTL_INCLUDES
@@ -4296,7 +5049,12 @@ target_link_libraries(AP_SmartRTL littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Soaring_SOURCES
+set(AP_Soaring_SOURCES #3
+    libraries/AP_Soaring/AP_Soaring.h
+    libraries/AP_Soaring/AP_Soaring_config.h
+    libraries/AP_Soaring/ExtendedKalmanFilter.h
+    libraries/AP_Soaring/SpeedToFly.h
+    libraries/AP_Soaring/Variometer.h
     libraries/AP_Soaring/AP_Soaring.cpp
     libraries/AP_Soaring/ExtendedKalmanFilter.cpp
     libraries/AP_Soaring/SpeedToFly.cpp
@@ -4335,7 +5093,8 @@ target_link_libraries(AP_Soaring littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Stats_SOURCES
+set(AP_Stats_SOURCES #3
+    libraries/AP_Stats/AP_Stats.h
     libraries/AP_Stats/AP_Stats.cpp)
 
 set(AP_Stats_INCLUDES
@@ -4371,7 +5130,8 @@ target_link_libraries(AP_Stats littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_SurfaceDistance_SOURCES
+set(AP_SurfaceDistance_SOURCES #3
+    libraries/AP_SurfaceDistance/AP_SurfaceDistance.h
     libraries/AP_SurfaceDistance/AP_SurfaceDistance.cpp)
 
 set(AP_SurfaceDistance_INCLUDES
@@ -4407,7 +5167,8 @@ target_link_libraries(AP_SurfaceDistance littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_TECS_SOURCES
+set(AP_TECS_SOURCES #3
+    libraries/AP_TECS/AP_TECS.h
     libraries/AP_TECS/AP_TECS.cpp)
 
 set(AP_TECS_INCLUDES
@@ -4443,7 +5204,9 @@ target_link_libraries(AP_TECS littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_TempCalibration_SOURCES
+set(AP_TempCalibration_SOURCES #3
+    libraries/AP_TempCalibration/AP_TempCalibration.h
+    libraries/AP_TempCalibration/AP_TempCalibration_config.h
     libraries/AP_TempCalibration/AP_TempCalibration.cpp)
 
 set(AP_TempCalibration_INCLUDES
@@ -4479,7 +5242,19 @@ target_link_libraries(AP_TempCalibration littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_TemperatureSensor_SOURCES
+set(AP_TemperatureSensor_SOURCES #3
+    libraries/AP_TemperatureSensor/AP_TemperatureSensor.h
+    libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.h
+    libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.h
+    libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.h
+    libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.h
+    libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.h
+    libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.h
+    libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.h
+    libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.h
+    libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.h
+    libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.h
+    libraries/AP_TemperatureSensor/AP_TemperatureSensor_config.h
     libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp
     libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.cpp
     libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.cpp
@@ -4524,7 +5299,9 @@ target_link_libraries(AP_TemperatureSensor littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Terrain_SOURCES
+set(AP_Terrain_SOURCES #3
+    libraries/AP_Terrain/AP_Terrain.h
+    libraries/AP_Terrain/AP_Terrain_config.h
     libraries/AP_Terrain/TerrainGCS.cpp
     libraries/AP_Terrain/TerrainIO.cpp
     libraries/AP_Terrain/TerrainMission.cpp
@@ -4563,7 +5340,12 @@ target_link_libraries(AP_Terrain littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Torqeedo_SOURCES
+set(AP_Torqeedo_SOURCES #3
+    libraries/AP_Torqeedo/AP_Torqeedo.h
+    libraries/AP_Torqeedo/AP_Torqeedo_Backend.h
+    libraries/AP_Torqeedo/AP_Torqeedo_Params.h
+    libraries/AP_Torqeedo/AP_Torqeedo_TQBus.h
+    libraries/AP_Torqeedo/AP_Torqeedo_config.h
     libraries/AP_Torqeedo/AP_Torqeedo.cpp
     libraries/AP_Torqeedo/AP_Torqeedo_Backend.cpp
     libraries/AP_Torqeedo/AP_Torqeedo_Params.cpp
@@ -4602,7 +5384,9 @@ target_link_libraries(AP_Torqeedo littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Tuning_SOURCES
+set(AP_Tuning_SOURCES #3
+    libraries/AP_Tuning/AP_Tuning.h
+    libraries/AP_Tuning/AP_Tuning_config.h
     libraries/AP_Tuning/AP_Tuning.cpp)
 
 set(AP_Tuning_INCLUDES
@@ -4638,7 +5422,13 @@ target_link_libraries(AP_Tuning littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Vehicle_SOURCES
+set(AP_Vehicle_SOURCES #3
+    libraries/AP_Vehicle/AP_FixedWing.h
+    libraries/AP_Vehicle/AP_MultiCopter.h
+    libraries/AP_Vehicle/AP_Vehicle.h
+    libraries/AP_Vehicle/AP_Vehicle_Type.h
+    libraries/AP_Vehicle/AP_Vehicle_config.h
+    libraries/AP_Vehicle/ModeReason.h
     libraries/AP_Vehicle/Parameters.cpp)
 
 set(AP_Vehicle_INCLUDES
@@ -4674,7 +5464,11 @@ target_link_libraries(AP_Vehicle littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_VideoTX_SOURCES
+set(AP_VideoTX_SOURCES #3
+    libraries/AP_VideoTX/AP_SmartAudio.h
+    libraries/AP_VideoTX/AP_Tramp.h
+    libraries/AP_VideoTX/AP_VideoTX.h
+    libraries/AP_VideoTX/AP_VideoTX_config.h
     libraries/AP_VideoTX/AP_SmartAudio.cpp
     libraries/AP_VideoTX/AP_Tramp.cpp
     libraries/AP_VideoTX/AP_VideoTX.cpp)
@@ -4712,7 +5506,13 @@ target_link_libraries(AP_VideoTX littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_VisualOdom_SOURCES
+set(AP_VisualOdom_SOURCES #3
+    libraries/AP_VisualOdom/AP_VisualOdom.h
+    libraries/AP_VisualOdom/AP_VisualOdom_Backend.h
+    libraries/AP_VisualOdom/AP_VisualOdom_IntelT265.h
+    libraries/AP_VisualOdom/AP_VisualOdom_MAV.h
+    libraries/AP_VisualOdom/AP_VisualOdom_config.h
+    libraries/AP_VisualOdom/LogStructure.h
     libraries/AP_VisualOdom/AP_VisualOdom.cpp
     libraries/AP_VisualOdom/AP_VisualOdom_Backend.cpp
     libraries/AP_VisualOdom/AP_VisualOdom_IntelT265.cpp
@@ -4752,7 +5552,8 @@ target_link_libraries(AP_VisualOdom littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Volz_Protocol_SOURCES
+set(AP_Volz_Protocol_SOURCES #3
+    libraries/AP_Volz_Protocol/AP_Volz_Protocol.h
     libraries/AP_Volz_Protocol/AP_Volz_Protocol.cpp)
 
 set(AP_Volz_Protocol_INCLUDES
@@ -4788,7 +5589,12 @@ target_link_libraries(AP_Volz_Protocol littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_WheelEncoder_SOURCES
+set(AP_WheelEncoder_SOURCES #3
+    libraries/AP_WheelEncoder/AP_WheelEncoder.h
+    libraries/AP_WheelEncoder/AP_WheelRateControl.h
+    libraries/AP_WheelEncoder/WheelEncoder_Backend.h
+    libraries/AP_WheelEncoder/WheelEncoder_Quadrature.h
+    libraries/AP_WheelEncoder/WheelEncoder_SITL_Quadrature.h
     libraries/AP_WheelEncoder/AP_WheelEncoder.cpp
     libraries/AP_WheelEncoder/AP_WheelRateControl.cpp
     libraries/AP_WheelEncoder/WheelEncoder_Backend.cpp
@@ -4828,7 +5634,12 @@ target_link_libraries(AP_WheelEncoder littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Winch_SOURCES
+set(AP_Winch_SOURCES #3
+    libraries/AP_Winch/AP_Winch.h
+    libraries/AP_Winch/AP_Winch_Backend.h
+    libraries/AP_Winch/AP_Winch_Daiwa.h
+    libraries/AP_Winch/AP_Winch_PWM.h
+    libraries/AP_Winch/AP_Winch_config.h
     libraries/AP_Winch/AP_Winch.cpp
     libraries/AP_Winch/AP_Winch_Backend.cpp
     libraries/AP_Winch/AP_Winch_Daiwa.cpp
@@ -4867,7 +5678,17 @@ target_link_libraries(AP_Winch littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_WindVane_SOURCES
+set(AP_WindVane_SOURCES #3
+    libraries/AP_WindVane/AP_WindVane.h
+    libraries/AP_WindVane/AP_WindVane_Airspeed.h
+    libraries/AP_WindVane/AP_WindVane_Analog.h
+    libraries/AP_WindVane/AP_WindVane_Backend.h
+    libraries/AP_WindVane/AP_WindVane_Home.h
+    libraries/AP_WindVane/AP_WindVane_ModernDevice.h
+    libraries/AP_WindVane/AP_WindVane_NMEA.h
+    libraries/AP_WindVane/AP_WindVane_RPM.h
+    libraries/AP_WindVane/AP_WindVane_SITL.h
+    libraries/AP_WindVane/AP_WindVane_config.h
     libraries/AP_WindVane/AP_WindVane.cpp
     libraries/AP_WindVane/AP_WindVane_Airspeed.cpp
     libraries/AP_WindVane/AP_WindVane_Analog.cpp
@@ -4911,7 +5732,8 @@ target_link_libraries(AP_WindVane littlefs) #clean
 
 #------------------------------------------------
 
-set(AR_Motors_SOURCES
+set(AR_Motors_SOURCES #3
+    libraries/AR_Motors/AP_MotorsUGV.h
     libraries/AR_Motors/AP_MotorsUGV.cpp)
 
 set(AR_Motors_INCLUDES
@@ -4947,7 +5769,10 @@ target_link_libraries(AR_Motors littlefs) #clean
 
 #------------------------------------------------
 
-set(AR_WPNav_SOURCES
+set(AR_WPNav_SOURCES #3
+    libraries/AR_WPNav/AR_PivotTurn.h
+    libraries/AR_WPNav/AR_WPNav.h
+    libraries/AR_WPNav/AR_WPNav_OA.h
     libraries/AR_WPNav/AR_PivotTurn.cpp
     libraries/AR_WPNav/AR_WPNav.cpp
     libraries/AR_WPNav/AR_WPNav_OA.cpp)
@@ -4985,7 +5810,21 @@ target_link_libraries(AR_WPNav littlefs) #clean
 
 #------------------------------------------------
 
-set(Filter_SOURCES
+set(Filter_SOURCES #3
+    libraries/Filter/AP_Filter.h
+    libraries/Filter/AP_Filter_config.h
+    libraries/Filter/AverageFilter.h
+    libraries/Filter/Butter.h
+    libraries/Filter/DerivativeFilter.h
+    libraries/Filter/Filter.h
+    libraries/Filter/FilterClass.h
+    libraries/Filter/FilterWithBuffer.h
+    libraries/Filter/HarmonicNotchFilter.h
+    libraries/Filter/LowPassFilter.h
+    libraries/Filter/LowPassFilter2p.h
+    libraries/Filter/ModeFilter.h
+    libraries/Filter/NotchFilter.h
+    libraries/Filter/SlewLimiter.h
     libraries/Filter/AP_Filter.cpp
     libraries/Filter/AP_Filter_params.cpp
     libraries/Filter/AP_NotchFilter_params.cpp
@@ -5029,7 +5868,18 @@ target_link_libraries(Filter littlefs) #clean
 
 #------------------------------------------------
 
-set(GCS_MAVLink_SOURCES
+set(GCS_MAVLink_SOURCES #3
+    libraries/GCS_MAVLink/GCS.h
+    libraries/GCS_MAVLink/GCS_Dummy.h
+    libraries/GCS_MAVLink/GCS_FTP.h
+    libraries/GCS_MAVLink/GCS_MAVLink.h
+    libraries/GCS_MAVLink/GCS_config.h
+    libraries/GCS_MAVLink/MAVLink_routing.h
+    libraries/GCS_MAVLink/MissionItemProtocol.h
+    libraries/GCS_MAVLink/MissionItemProtocol_Fence.h
+    libraries/GCS_MAVLink/MissionItemProtocol_Rally.h
+    libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.h
+    libraries/GCS_MAVLink/ap_message.h
     libraries/GCS_MAVLink/GCS_DeviceOp.cpp
     libraries/GCS_MAVLink/GCS_FTP.cpp
     libraries/GCS_MAVLink/GCS_MAVLink.cpp
@@ -5077,7 +5927,8 @@ target_link_libraries(GCS_MAVLink littlefs) #clean
 
 #------------------------------------------------
 
-set(PID_SOURCES
+set(PID_SOURCES #3
+    libraries/PID/PID.h
     libraries/PID/PID.cpp)
 
 set(PID_INCLUDES
@@ -5113,7 +5964,10 @@ target_link_libraries(PID littlefs) #clean
 
 #------------------------------------------------
 
-set(RC_Channel_SOURCES
+set(RC_Channel_SOURCES #3
+    libraries/RC_Channel/RC_Channel.h
+    libraries/RC_Channel/RC_Channel_config.h
+    libraries/RC_Channel/RC_Channels_VarInfo.h
     libraries/RC_Channel/RC_Channels.cpp)
 
 set(RC_Channel_INCLUDES
@@ -5149,7 +6003,9 @@ target_link_libraries(RC_Channel littlefs) #clean
 
 #------------------------------------------------
 
-set(SRV_Channel_SOURCES
+set(SRV_Channel_SOURCES #3
+    libraries/SRV_Channel/SRV_Channel.h
+    libraries/SRV_Channel/SRV_Channel_config.h
     libraries/SRV_Channel/SRV_Channel.cpp
     libraries/SRV_Channel/SRV_Channel_aux.cpp
     libraries/SRV_Channel/SRV_Channels.cpp)
@@ -5187,7 +6043,33 @@ target_link_libraries(SRV_Channel littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_HAL_SOURCES
+set(AP_HAL_SOURCES #3
+    libraries/AP_HAL/AP_HAL.h
+    libraries/AP_HAL/AP_HAL_Boards.h
+    libraries/AP_HAL/AP_HAL_Macros.h
+    libraries/AP_HAL/AP_HAL_Main.h
+    libraries/AP_HAL/AP_HAL_Namespace.h
+    libraries/AP_HAL/AnalogIn.h
+    libraries/AP_HAL/CANIface.h
+    libraries/AP_HAL/DSP.h
+    libraries/AP_HAL/Device.h
+    libraries/AP_HAL/Flash.h
+    libraries/AP_HAL/GPIO.h
+    libraries/AP_HAL/HAL.h
+    libraries/AP_HAL/I2CDevice.h
+    libraries/AP_HAL/LogStructure.h
+    libraries/AP_HAL/OpticalFlow.h
+    libraries/AP_HAL/RCInput.h
+    libraries/AP_HAL/RCOutput.h
+    libraries/AP_HAL/SIMState.h
+    libraries/AP_HAL/SPIDevice.h
+    libraries/AP_HAL/Scheduler.h
+    libraries/AP_HAL/Semaphores.h
+    libraries/AP_HAL/Storage.h
+    libraries/AP_HAL/UARTDriver.h
+    libraries/AP_HAL/Util.h
+    libraries/AP_HAL/WSPIDevice.h
+    libraries/AP_HAL/system.h
     libraries/AP_HAL/CANIface.cpp
     libraries/AP_HAL/DSP.cpp
     libraries/AP_HAL/Device.cpp
@@ -5200,6 +6082,25 @@ set(AP_HAL_SOURCES
     libraries/AP_HAL/UARTDriver.cpp
     libraries/AP_HAL/Util.cpp
     libraries/AP_HAL/system.cpp
+    libraries/AP_HAL/utility/BetterStream.h
+    libraries/AP_HAL/utility/DataRateLimit.h
+    libraries/AP_HAL/utility/OwnPtr.h
+    libraries/AP_HAL/utility/RCOutput_Tap.h
+    libraries/AP_HAL/utility/RingBuffer.h
+    libraries/AP_HAL/utility/Socket.h
+    libraries/AP_HAL/utility/Socket_native.h
+    libraries/AP_HAL/utility/dsm.h
+    libraries/AP_HAL/utility/ftoa_engine.h
+    libraries/AP_HAL/utility/functor.h
+    libraries/AP_HAL/utility/getopt_cpp.h
+    libraries/AP_HAL/utility/packetise.h
+    libraries/AP_HAL/utility/print_vprintf.h
+    libraries/AP_HAL/utility/replace.h
+    libraries/AP_HAL/utility/sparse-endian.h
+    libraries/AP_HAL/utility/srxl.h
+    libraries/AP_HAL/utility/st24.h
+    libraries/AP_HAL/utility/sumd.h
+    libraries/AP_HAL/utility/xtoa_fast.h
     libraries/AP_HAL/utility/BetterStream.cpp
     libraries/AP_HAL/utility/DataRateLimit.cpp
     libraries/AP_HAL/utility/RCOutput_Tap.cpp
@@ -5251,7 +6152,26 @@ target_link_libraries(AP_HAL littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_HAL_Empty_SOURCES
+set(AP_HAL_Empty_SOURCES #3
+    libraries/AP_HAL_Empty/AP_HAL_Empty.h
+    libraries/AP_HAL_Empty/AP_HAL_Empty_Namespace.h
+    libraries/AP_HAL_Empty/AP_HAL_Empty_Private.h
+    libraries/AP_HAL_Empty/AnalogIn.h
+    libraries/AP_HAL_Empty/DSP.h
+    libraries/AP_HAL_Empty/Flash.h
+    libraries/AP_HAL_Empty/GPIO.h
+    libraries/AP_HAL_Empty/HAL_Empty_Class.h
+    libraries/AP_HAL_Empty/I2CDevice.h
+    libraries/AP_HAL_Empty/OpticalFlow.h
+    libraries/AP_HAL_Empty/RCInput.h
+    libraries/AP_HAL_Empty/RCOutput.h
+    libraries/AP_HAL_Empty/SPIDevice.h
+    libraries/AP_HAL_Empty/Scheduler.h
+    libraries/AP_HAL_Empty/Semaphores.h
+    libraries/AP_HAL_Empty/Storage.h
+    libraries/AP_HAL_Empty/UARTDriver.h
+    libraries/AP_HAL_Empty/Util.h
+    libraries/AP_HAL_Empty/WSPIDevice.h
     libraries/AP_HAL_Empty/AnalogIn.cpp
     libraries/AP_HAL_Empty/GPIO.cpp
     libraries/AP_HAL_Empty/HAL_Empty_Class.cpp
@@ -5294,7 +6214,26 @@ target_link_libraries(AP_HAL_Empty littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_PiccoloCAN_piccolo_protocol_SOURCES
+set(AP_PiccoloCAN_piccolo_protocol_SOURCES #3
+    libraries/AP_PiccoloCAN/piccolo_protocol/CortexDefines.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/CortexPackets.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/CortexProtocol.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/ECUDefines.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/ECUPackets.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/ECUProtocol.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/ECUSettings.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/ESCCommands.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/ESCDefines.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/ESCPackets.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/ESCVelocityProtocol.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/ServoCommands.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/ServoDefines.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/ServoPackets.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/ServoProtocol.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/fielddecode.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/fieldencode.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/scaleddecode.h
+    libraries/AP_PiccoloCAN/piccolo_protocol/scaledencode.h
     libraries/AP_PiccoloCAN/piccolo_protocol/CortexDefines.c
     libraries/AP_PiccoloCAN/piccolo_protocol/CortexPackets.c
     libraries/AP_PiccoloCAN/piccolo_protocol/CortexProtocol.c
@@ -5348,7 +6287,31 @@ target_link_libraries(AP_PiccoloCAN_piccolo_protocol littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_HAL_SITL_SOURCES
+set(AP_HAL_SITL_SOURCES #3
+    libraries/AP_HAL_SITL/AP_HAL_SITL.h
+    libraries/AP_HAL_SITL/AP_HAL_SITL_Namespace.h
+    libraries/AP_HAL_SITL/AP_HAL_SITL_Private.h
+    libraries/AP_HAL_SITL/AnalogIn.h
+    libraries/AP_HAL_SITL/CANSocketIface.h
+    libraries/AP_HAL_SITL/CAN_Multicast.h
+    libraries/AP_HAL_SITL/CAN_SocketCAN.h
+    libraries/AP_HAL_SITL/CAN_Transport.h
+    libraries/AP_HAL_SITL/DSP.h
+    libraries/AP_HAL_SITL/GPIO.h
+    libraries/AP_HAL_SITL/HAL_SITL_Class.h
+    libraries/AP_HAL_SITL/I2CDevice.h
+    libraries/AP_HAL_SITL/RCInput.h
+    libraries/AP_HAL_SITL/RCOutput.h
+    libraries/AP_HAL_SITL/SITL_Periph_State.h
+    libraries/AP_HAL_SITL/SITL_State.h
+    libraries/AP_HAL_SITL/SITL_State_common.h
+    libraries/AP_HAL_SITL/SPIDevice.h
+    libraries/AP_HAL_SITL/Scheduler.h
+    libraries/AP_HAL_SITL/Semaphores.h
+    libraries/AP_HAL_SITL/Storage.h
+    libraries/AP_HAL_SITL/ToneAlarm_SF.h
+    libraries/AP_HAL_SITL/UARTDriver.h
+    libraries/AP_HAL_SITL/Util.h
     libraries/AP_HAL_SITL/AnalogIn.cpp
     libraries/AP_HAL_SITL/CANSocketIface.cpp
     libraries/AP_HAL_SITL/CAN_Multicast.cpp
@@ -5405,7 +6368,167 @@ target_link_libraries(AP_HAL_SITL littlefs) #clean
 
 #------------------------------------------------
 
-set(SITL_SOURCES
+set(SITL_SOURCES #3
+    libraries/SITL/SIM_ADSB.h
+    libraries/SITL/SIM_ADSB_Device.h
+    libraries/SITL/SIM_ADSB_Sagetech_MXS.h
+    libraries/SITL/SIM_AIS.h
+    libraries/SITL/SIM_AS5600.h
+    libraries/SITL/SIM_AirSim.h
+    libraries/SITL/SIM_Aircraft.h
+    libraries/SITL/SIM_Airspeed_DLVR.h
+    libraries/SITL/SIM_BalanceBot.h
+    libraries/SITL/SIM_Balloon.h
+    libraries/SITL/SIM_BattMonitor_SMBus.h
+    libraries/SITL/SIM_BattMonitor_SMBus_Generic.h
+    libraries/SITL/SIM_BattMonitor_SMBus_Maxell.h
+    libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.h
+    libraries/SITL/SIM_Battery.h
+    libraries/SITL/SIM_Blimp.h
+    libraries/SITL/SIM_Buzzer.h
+    libraries/SITL/SIM_CRRCSim.h
+    libraries/SITL/SIM_CRSF.h
+    libraries/SITL/SIM_Calibration.h
+    libraries/SITL/SIM_DroneCANDevice.h
+    libraries/SITL/SIM_EFI_Hirth.h
+    libraries/SITL/SIM_EFI_MegaSquirt.h
+    libraries/SITL/SIM_ELRS.h
+    libraries/SITL/SIM_FETtecOneWireESC.h
+    libraries/SITL/SIM_FlightAxis.h
+    libraries/SITL/SIM_Frame.h
+    libraries/SITL/SIM_Frsky.h
+    libraries/SITL/SIM_Frsky_D.h
+    libraries/SITL/SIM_GPIO_LED_1.h
+    libraries/SITL/SIM_GPIO_LED_2.h
+    libraries/SITL/SIM_GPIO_LED_3.h
+    libraries/SITL/SIM_GPIO_LED_RGB.h
+    libraries/SITL/SIM_GPS.h
+    libraries/SITL/SIM_GPS_FILE.h
+    libraries/SITL/SIM_GPS_MSP.h
+    libraries/SITL/SIM_GPS_NMEA.h
+    libraries/SITL/SIM_GPS_NOVA.h
+    libraries/SITL/SIM_GPS_SBF.h
+    libraries/SITL/SIM_GPS_SBP.h
+    libraries/SITL/SIM_GPS_SBP2.h
+    libraries/SITL/SIM_GPS_SBP_Common.h
+    libraries/SITL/SIM_GPS_Trimble.h
+    libraries/SITL/SIM_GPS_UBLOX.h
+    libraries/SITL/SIM_Gazebo.h
+    libraries/SITL/SIM_GeneratorEngine.h
+    libraries/SITL/SIM_Gimbal.h
+    libraries/SITL/SIM_Glider.h
+    libraries/SITL/SIM_Gripper_EPM.h
+    libraries/SITL/SIM_Gripper_Servo.h
+    libraries/SITL/SIM_Helicopter.h
+    libraries/SITL/SIM_I2C.h
+    libraries/SITL/SIM_I2CDevice.h
+    libraries/SITL/SIM_ICEngine.h
+    libraries/SITL/SIM_ICM40609.h
+    libraries/SITL/SIM_INA3221.h
+    libraries/SITL/SIM_IS31FL3195.h
+    libraries/SITL/SIM_InertialLabs.h
+    libraries/SITL/SIM_IntelligentEnergy.h
+    libraries/SITL/SIM_IntelligentEnergy24.h
+    libraries/SITL/SIM_Invensense_v3.h
+    libraries/SITL/SIM_JEDEC.h
+    libraries/SITL/SIM_JEDEC_MX25L3206E.h
+    libraries/SITL/SIM_JSBSim.h
+    libraries/SITL/SIM_JSON.h
+    libraries/SITL/SIM_JSON_Master.h
+    libraries/SITL/SIM_LED_n.h
+    libraries/SITL/SIM_LM2755.h
+    libraries/SITL/SIM_LP5562.h
+    libraries/SITL/SIM_Loweheiser.h
+    libraries/SITL/SIM_MS5525.h
+    libraries/SITL/SIM_MS5611.h
+    libraries/SITL/SIM_MS5XXX.h
+    libraries/SITL/SIM_MaxSonarI2CXL.h
+    libraries/SITL/SIM_MicroStrain.h
+    libraries/SITL/SIM_Morse.h
+    libraries/SITL/SIM_Motor.h
+    libraries/SITL/SIM_MotorBoat.h
+    libraries/SITL/SIM_Multicopter.h
+    libraries/SITL/SIM_NoVehicle.h
+    libraries/SITL/SIM_PS_LD06.h
+    libraries/SITL/SIM_PS_LightWare.h
+    libraries/SITL/SIM_PS_LightWare_SF45B.h
+    libraries/SITL/SIM_PS_RPLidar.h
+    libraries/SITL/SIM_PS_RPLidarA1.h
+    libraries/SITL/SIM_PS_RPLidarA2.h
+    libraries/SITL/SIM_PS_TeraRangerTower.h
+    libraries/SITL/SIM_Parachute.h
+    libraries/SITL/SIM_Plane.h
+    libraries/SITL/SIM_Precland.h
+    libraries/SITL/SIM_QMC5883L.h
+    libraries/SITL/SIM_QuadPlane.h
+    libraries/SITL/SIM_RAMTRON.h
+    libraries/SITL/SIM_RAMTRON_FM25V02.h
+    libraries/SITL/SIM_RF_Ainstein_LR_D1.h
+    libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.h
+    libraries/SITL/SIM_RF_BLping.h
+    libraries/SITL/SIM_RF_Benewake.h
+    libraries/SITL/SIM_RF_Benewake_TF02.h
+    libraries/SITL/SIM_RF_Benewake_TF03.h
+    libraries/SITL/SIM_RF_Benewake_TFMiniPlus.h
+    libraries/SITL/SIM_RF_Benewake_TFmini.h
+    libraries/SITL/SIM_RF_GYUS42v2.h
+    libraries/SITL/SIM_RF_JRE.h
+    libraries/SITL/SIM_RF_Lanbao.h
+    libraries/SITL/SIM_RF_LeddarOne.h
+    libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.h
+    libraries/SITL/SIM_RF_LightWareSerial.h
+    libraries/SITL/SIM_RF_LightWareSerialBinary.h
+    libraries/SITL/SIM_RF_LightWare_GRF.h
+    libraries/SITL/SIM_RF_MAVLink.h
+    libraries/SITL/SIM_RF_MaxsonarSerialLV.h
+    libraries/SITL/SIM_RF_NMEA.h
+    libraries/SITL/SIM_RF_NoopLoop.h
+    libraries/SITL/SIM_RF_RDS02UF.h
+    libraries/SITL/SIM_RF_TeraRanger_Serial.h
+    libraries/SITL/SIM_RF_USD1.h
+    libraries/SITL/SIM_RF_USD1_v0.h
+    libraries/SITL/SIM_RF_USD1_v1.h
+    libraries/SITL/SIM_RF_Wasp.h
+    libraries/SITL/SIM_RGBLED.h
+    libraries/SITL/SIM_RichenPower.h
+    libraries/SITL/SIM_Rover.h
+    libraries/SITL/SIM_SMBusDevice.h
+    libraries/SITL/SIM_SPI.h
+    libraries/SITL/SIM_SPIDevice.h
+    libraries/SITL/SIM_Sailboat.h
+    libraries/SITL/SIM_Scrimmage.h
+    libraries/SITL/SIM_SerialDevice.h
+    libraries/SITL/SIM_SerialProximitySensor.h
+    libraries/SITL/SIM_SerialRangeFinder.h
+    libraries/SITL/SIM_Ship.h
+    libraries/SITL/SIM_SilentWings.h
+    libraries/SITL/SIM_SingleCopter.h
+    libraries/SITL/SIM_SlungPayload.h
+    libraries/SITL/SIM_SoloGimbal.h
+    libraries/SITL/SIM_Sprayer.h
+    libraries/SITL/SIM_StratoBlimp.h
+    libraries/SITL/SIM_Submarine.h
+    libraries/SITL/SIM_TFS20L.h
+    libraries/SITL/SIM_Temperature_MCP9600.h
+    libraries/SITL/SIM_Temperature_SHT3x.h
+    libraries/SITL/SIM_Temperature_TSYS01.h
+    libraries/SITL/SIM_Temperature_TSYS03.h
+    libraries/SITL/SIM_TeraRangerI2C.h
+    libraries/SITL/SIM_Tether.h
+    libraries/SITL/SIM_ToneAlarm.h
+    libraries/SITL/SIM_ToshibaLED.h
+    libraries/SITL/SIM_Tracker.h
+    libraries/SITL/SIM_VectorNav.h
+    libraries/SITL/SIM_Vicon.h
+    libraries/SITL/SIM_Volz.h
+    libraries/SITL/SIM_Webots.h
+    libraries/SITL/SIM_Webots_Python.h
+    libraries/SITL/SIM_XPlane.h
+    libraries/SITL/SIM_config.h
+    libraries/SITL/SIM_last_letter.h
+    libraries/SITL/SITL.h
+    libraries/SITL/SITL_Input.h
+    libraries/SITL/ServoModel.h
     libraries/SITL/SIM_ADSB.cpp
     libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp
     libraries/SITL/SIM_AIS.cpp
@@ -5585,7 +6708,18 @@ target_link_libraries(SITL littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Scripting_SOURCES
+set(AP_Scripting_SOURCES #3
+    libraries/AP_Scripting/AP_Scripting.h
+    libraries/AP_Scripting/AP_Scripting_CANSensor.h
+    libraries/AP_Scripting/AP_Scripting_CRSFMenu.h
+    libraries/AP_Scripting/AP_Scripting_SerialAccess.h
+    libraries/AP_Scripting/AP_Scripting_SerialDevice.h
+    libraries/AP_Scripting/AP_Scripting_config.h
+    libraries/AP_Scripting/AP_Scripting_helpers.h
+    libraries/AP_Scripting/lua_bindings.h
+    libraries/AP_Scripting/lua_boxed_numerics.h
+    libraries/AP_Scripting/lua_common_defs.h
+    libraries/AP_Scripting/lua_scripts.h
     libraries/AP_Scripting/AP_Scripting.cpp
     libraries/AP_Scripting/AP_Scripting_CANSensor.cpp
     libraries/AP_Scripting/AP_Scripting_SerialAccess.cpp
@@ -5624,7 +6758,32 @@ target_link_libraries(AP_Scripting littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Scripting_lua_src_SOURCES
+set(AP_Scripting_lua_src_SOURCES #3
+    libraries/AP_Scripting/lua/src/lapi.h
+    libraries/AP_Scripting/lua/src/lauxlib.h
+    libraries/AP_Scripting/lua/src/lcode.h
+    libraries/AP_Scripting/lua/src/lctype.h
+    libraries/AP_Scripting/lua/src/ldebug.h
+    libraries/AP_Scripting/lua/src/ldo.h
+    libraries/AP_Scripting/lua/src/lfunc.h
+    libraries/AP_Scripting/lua/src/lgc.h
+    libraries/AP_Scripting/lua/src/llex.h
+    libraries/AP_Scripting/lua/src/llimits.h
+    libraries/AP_Scripting/lua/src/lmem.h
+    libraries/AP_Scripting/lua/src/lobject.h
+    libraries/AP_Scripting/lua/src/lopcodes.h
+    libraries/AP_Scripting/lua/src/lparser.h
+    libraries/AP_Scripting/lua/src/lprefix.h
+    libraries/AP_Scripting/lua/src/lstate.h
+    libraries/AP_Scripting/lua/src/lstring.h
+    libraries/AP_Scripting/lua/src/ltable.h
+    libraries/AP_Scripting/lua/src/ltm.h
+    libraries/AP_Scripting/lua/src/lua.h
+    libraries/AP_Scripting/lua/src/luaconf.h
+    libraries/AP_Scripting/lua/src/lualib.h
+    libraries/AP_Scripting/lua/src/lundump.h
+    libraries/AP_Scripting/lua/src/lvm.h
+    libraries/AP_Scripting/lua/src/lzio.h
     libraries/AP_Scripting/lua/src/lapi.c
     libraries/AP_Scripting/lua/src/lauxlib.c
     libraries/AP_Scripting/lua/src/lbaselib.c
@@ -5694,7 +6853,11 @@ target_link_libraries(AP_Scripting_lua_src littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_NavEKF3_SOURCES
+set(AP_NavEKF3_SOURCES #3
+    ../libraries/AP_NavEKF3/AP_NavEKF3.h
+    ../libraries/AP_NavEKF3/AP_NavEKF3_core.h
+    ../libraries/AP_NavEKF3/AP_NavEKF3_feature.h
+    ../libraries/AP_NavEKF3/LogStructure.h
     ../libraries/AP_NavEKF3/AP_NavEKF3.cpp
     ../libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp
     ../libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp
@@ -5743,7 +6906,9 @@ target_link_libraries(AP_NavEKF3 littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Rally_SOURCES
+set(AP_Rally_SOURCES #3
+    ../libraries/AP_Rally/AP_Rally.h
+    ../libraries/AP_Rally/AP_Rally_config.h
     ../libraries/AP_Rally/AP_Rally.cpp)
 
 set(AP_Rally_INCLUDES
@@ -5780,7 +6945,8 @@ target_link_libraries(AP_Rally littlefs) #clean
 
 #------------------------------------------------
 
-set(StorageManager_SOURCES
+set(StorageManager_SOURCES #3
+    ../libraries/StorageManager/StorageManager.h
     ../libraries/StorageManager/StorageManager.cpp)
 
 set(StorageManager_INCLUDES
@@ -5817,7 +6983,8 @@ target_link_libraries(StorageManager littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_IBus_Telem_SOURCES
+set(AP_IBus_Telem_SOURCES #3
+    ../libraries/AP_IBus_Telem/AP_IBus_Telem.h
     ../libraries/AP_IBus_Telem/AP_IBus_Telem.cpp)
 
 set(AP_IBus_Telem_INCLUDES
@@ -5854,7 +7021,9 @@ target_link_libraries(AP_IBus_Telem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_BLHeli_SOURCES
+set(AP_BLHeli_SOURCES #3
+    ../libraries/AP_BLHeli/AP_BLHeli.h
+    ../libraries/AP_BLHeli/blheli_4way_protocol.h
     ../libraries/AP_BLHeli/AP_BLHeli.cpp)
 
 set(AP_BLHeli_INCLUDES
@@ -5891,7 +7060,11 @@ target_link_libraries(AP_BLHeli littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_Fence_SOURCES
+set(AC_Fence_SOURCES #3
+    ../libraries/AC_Fence/AC_Fence.h
+    ../libraries/AC_Fence/AC_Fence_config.h
+    ../libraries/AC_Fence/AC_PolyFence_loader.h
+    ../libraries/AC_Fence/LogStructure.h
     ../libraries/AC_Fence/AC_Fence.cpp
     ../libraries/AC_Fence/AC_PolyFence_loader.cpp)
 
@@ -5929,7 +7102,9 @@ target_link_libraries(AC_Fence littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_LandingGear_SOURCES
+set(AP_LandingGear_SOURCES #3
+    ../libraries/AP_LandingGear/AP_LandingGear.h
+    ../libraries/AP_LandingGear/AP_LandingGear_config.h
     ../libraries/AP_LandingGear/AP_LandingGear.cpp)
 
 set(AP_LandingGear_INCLUDES
@@ -5966,7 +7141,11 @@ target_link_libraries(AP_LandingGear littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ADSB_sagetech-sdk_SOURCES
+set(AP_ADSB_sagetech-sdk_SOURCES #3
+    ../libraries/AP_ADSB/sagetech-sdk/sagetech_mxs.h
+    ../libraries/AP_ADSB/sagetech-sdk/sg.h
+    ../libraries/AP_ADSB/sagetech-sdk/sgUtil.h
+    ../libraries/AP_ADSB/sagetech-sdk/target.h
     ../libraries/AP_ADSB/sagetech-sdk/appendChecksum.c
     ../libraries/AP_ADSB/sagetech-sdk/calcChecksum.c
     ../libraries/AP_ADSB/sagetech-sdk/charArray2Buf.c
@@ -6032,7 +7211,8 @@ target_link_libraries(AP_ADSB_sagetech-sdk littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_GyroFFT_SOURCES
+set(AP_GyroFFT_SOURCES #3
+    ../libraries/AP_GyroFFT/AP_GyroFFT.h
     ../libraries/AP_GyroFFT/AP_GyroFFT.cpp)
 
 set(AP_GyroFFT_INCLUDES
@@ -6069,7 +7249,10 @@ target_link_libraries(AP_GyroFFT littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_AIS_SOURCES
+set(AP_AIS_SOURCES #3
+    ../libraries/AP_AIS/AP_AIS.h
+    ../libraries/AP_AIS/AP_AIS_config.h
+    ../libraries/AP_AIS/LogStructure.h
     ../libraries/AP_AIS/AP_AIS.cpp)
 
 set(AP_AIS_INCLUDES
@@ -6106,7 +7289,9 @@ target_link_libraries(AP_AIS littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Arming_SOURCES
+set(AP_Arming_SOURCES #3
+    ../libraries/AP_Arming/AP_Arming.h
+    ../libraries/AP_Arming/AP_Arming_config.h
     ../libraries/AP_Arming/AP_Arming.cpp)
 
 set(AP_Arming_INCLUDES
@@ -6143,7 +7328,9 @@ target_link_libraries(AP_Arming littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Follow_SOURCES
+set(AP_Follow_SOURCES #3
+    ../libraries/AP_Follow/AP_Follow.h
+    ../libraries/AP_Follow/AP_Follow_config.h
     ../libraries/AP_Follow/AP_Follow.cpp)
 
 set(AP_Follow_INCLUDES
@@ -6180,7 +7367,7 @@ target_link_libraries(AP_Follow littlefs) #clean
 
 #------------------------------------------------
 
-set(AntennaTracker_libs_SOURCES
+set(AntennaTracker_libs_SOURCES #3
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
@@ -6502,7 +7689,17 @@ target_link_libraries(AntennaTracker_libs AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(bin_antennatracker_SOURCES
+set(bin_antennatracker_SOURCES #3
+    AntennaTracker/AP_Arming_Tracker.h
+    AntennaTracker/GCS_MAVLink_Tracker.h
+    AntennaTracker/GCS_Tracker.h
+    AntennaTracker/Parameters.h
+    AntennaTracker/RC_Channel_Tracker.h
+    AntennaTracker/Tracker.h
+    AntennaTracker/config.h
+    AntennaTracker/defines.h
+    AntennaTracker/mode.h
+    AntennaTracker/version.h
     AntennaTracker/GCS_MAVLink_Tracker.cpp
     AntennaTracker/GCS_Tracker.cpp
     AntennaTracker/Log.cpp
@@ -6540,7 +7737,7 @@ set(bin_antennatracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(bin_antennatracker ${bin_antennatracker_SOURCES})
+add_executable(bin_antennatracker ${bin_antennatracker_SOURCES}) #2
 target_compile_definitions(bin_antennatracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
 #target_include_directories(bin_antennatracker PRIVATE ${bin_antennatracker_INCLUDES})
 
@@ -6549,7 +7746,9 @@ target_link_libraries(bin_antennatracker AntennaTracker_libs) #clean
 
 #------------------------------------------------
 
-set(AP_Avoidance_SOURCES
+set(AP_Avoidance_SOURCES #3
+    ../libraries/AP_Avoidance/AP_Avoidance.h
+    ../libraries/AP_Avoidance/AP_Avoidance_config.h
     ../libraries/AP_Avoidance/AP_Avoidance.cpp)
 
 set(AP_Avoidance_INCLUDES
@@ -6586,7 +7785,7 @@ target_link_libraries(AP_Avoidance littlefs) #clean
 
 #------------------------------------------------
 
-set(ArduCopter_libs_SOURCES
+set(ArduCopter_libs_SOURCES #3
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
@@ -6923,7 +8122,25 @@ target_link_libraries(ArduCopter_libs AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(bin_arducopter_SOURCES
+set(bin_arducopter_SOURCES #3
+    ArduCopter/APM_Config.h
+    ArduCopter/AP_Arming_Copter.h
+    ArduCopter/AP_ExternalControl_Copter.h
+    ArduCopter/AP_Rally.h
+    ArduCopter/Copter.h
+    ArduCopter/GCS_Copter.h
+    ArduCopter/GCS_MAVLink_Copter.h
+    ArduCopter/Parameters.h
+    ArduCopter/RC_Channel_Copter.h
+    ArduCopter/UserParameters.h
+    ArduCopter/UserVariables.h
+    ArduCopter/afs_copter.h
+    ArduCopter/avoidance_adsb.h
+    ArduCopter/config.h
+    ArduCopter/defines.h
+    ArduCopter/mode.h
+    ArduCopter/toy_mode.h
+    ArduCopter/version.h
     ArduCopter/AP_Arming_Copter.cpp
     ArduCopter/AP_ExternalControl_Copter.cpp
     ArduCopter/AP_Rally.cpp
@@ -7018,7 +8235,7 @@ set(bin_arducopter_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(bin_arducopter ${bin_arducopter_SOURCES})
+add_executable(bin_arducopter ${bin_arducopter_SOURCES}) #2
 target_compile_definitions(bin_arducopter PRIVATE -DFRAME_CONFIG=MULTICOPTER_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
 #target_include_directories(bin_arducopter PRIVATE ${bin_arducopter_INCLUDES})
 
@@ -7027,7 +8244,25 @@ target_link_libraries(bin_arducopter ArduCopter_libs) #clean
 
 #------------------------------------------------
 
-set(bin_arducopter-heli_SOURCES
+set(bin_arducopter-heli_SOURCES #3
+    ArduCopter/APM_Config.h
+    ArduCopter/AP_Arming_Copter.h
+    ArduCopter/AP_ExternalControl_Copter.h
+    ArduCopter/AP_Rally.h
+    ArduCopter/Copter.h
+    ArduCopter/GCS_Copter.h
+    ArduCopter/GCS_MAVLink_Copter.h
+    ArduCopter/Parameters.h
+    ArduCopter/RC_Channel_Copter.h
+    ArduCopter/UserParameters.h
+    ArduCopter/UserVariables.h
+    ArduCopter/afs_copter.h
+    ArduCopter/avoidance_adsb.h
+    ArduCopter/config.h
+    ArduCopter/defines.h
+    ArduCopter/mode.h
+    ArduCopter/toy_mode.h
+    ArduCopter/version.h
     ArduCopter/AP_Arming_Copter.cpp
     ArduCopter/AP_ExternalControl_Copter.cpp
     ArduCopter/AP_Rally.cpp
@@ -7122,7 +8357,7 @@ set(bin_arducopter-heli_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(bin_arducopter-heli ${bin_arducopter-heli_SOURCES})
+add_executable(bin_arducopter-heli ${bin_arducopter-heli_SOURCES}) #2
 target_compile_definitions(bin_arducopter-heli PRIVATE -DFRAME_CONFIG=HELI_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
 #target_include_directories(bin_arducopter-heli PRIVATE ${bin_arducopter-heli_INCLUDES})
 
@@ -7131,7 +8366,7 @@ target_link_libraries(bin_arducopter-heli ArduCopter_libs) #clean
 
 #------------------------------------------------
 
-set(ArduPlane_libs_SOURCES
+set(ArduPlane_libs_SOURCES #3
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
@@ -7472,7 +8707,29 @@ target_link_libraries(ArduPlane_libs AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(bin_arduplane_SOURCES
+set(bin_arduplane_SOURCES #3
+    ArduPlane/AP_Arming_Plane.h
+    ArduPlane/AP_ExternalControl_Plane.h
+    ArduPlane/GCS_MAVLink_Plane.h
+    ArduPlane/GCS_Plane.h
+    ArduPlane/Parameters.h
+    ArduPlane/Plane.h
+    ArduPlane/RC_Channel_Plane.h
+    ArduPlane/VTOL_Assist.h
+    ArduPlane/afs_plane.h
+    ArduPlane/avoidance_adsb.h
+    ArduPlane/config.h
+    ArduPlane/defines.h
+    ArduPlane/mode.h
+    ArduPlane/pullup.h
+    ArduPlane/qautotune.h
+    ArduPlane/quadplane.h
+    ArduPlane/systemid.h
+    ArduPlane/tailsitter.h
+    ArduPlane/tiltrotor.h
+    ArduPlane/transition.h
+    ArduPlane/tuning.h
+    ArduPlane/version.h
     ArduPlane/AP_Arming_Plane.cpp
     ArduPlane/AP_ExternalControl_Plane.cpp
     ArduPlane/Attitude.cpp
@@ -7557,7 +8814,7 @@ set(bin_arduplane_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(bin_arduplane ${bin_arduplane_SOURCES})
+add_executable(bin_arduplane ${bin_arduplane_SOURCES}) #2
 target_compile_definitions(bin_arduplane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
 #target_include_directories(bin_arduplane PRIVATE ${bin_arduplane_INCLUDES})
 
@@ -7566,7 +8823,7 @@ target_link_libraries(bin_arduplane ArduPlane_libs) #clean
 
 #------------------------------------------------
 
-set(ArduSub_libs_SOURCES
+set(ArduSub_libs_SOURCES #3
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
@@ -7894,7 +9151,20 @@ target_link_libraries(ArduSub_libs AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(bin_ardusub_SOURCES
+set(bin_ardusub_SOURCES #3
+    ArduSub/AP_Arming_Sub.h
+    ArduSub/GCS_MAVLink_Sub.h
+    ArduSub/GCS_Sub.h
+    ArduSub/Parameters.h
+    ArduSub/RC_Channel_Sub.h
+    ArduSub/Sub.h
+    ArduSub/UserVariables.h
+    ArduSub/actuators.h
+    ArduSub/config.h
+    ArduSub/defines.h
+    ArduSub/mode.h
+    ArduSub/script_button.h
+    ArduSub/version.h
     ArduSub/AP_Arming_Sub.cpp
     ArduSub/AP_State.cpp
     ArduSub/Attitude.cpp
@@ -7952,7 +9222,7 @@ set(bin_ardusub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(bin_ardusub ${bin_ardusub_SOURCES})
+add_executable(bin_ardusub ${bin_ardusub_SOURCES}) #2
 target_compile_definitions(bin_ardusub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
 #target_include_directories(bin_ardusub PRIVATE ${bin_ardusub_INCLUDES})
 
@@ -7961,7 +9231,7 @@ target_link_libraries(bin_ardusub ArduSub_libs) #clean
 
 #------------------------------------------------
 
-set(Blimp_libs_SOURCES
+set(Blimp_libs_SOURCES #3
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
@@ -8290,7 +9560,19 @@ target_link_libraries(Blimp_libs AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(bin_blimp_SOURCES
+set(bin_blimp_SOURCES #3
+    Blimp/AP_Arming_Blimp.h
+    Blimp/Blimp.h
+    Blimp/Fins.h
+    Blimp/GCS_Blimp.h
+    Blimp/GCS_MAVLink_Blimp.h
+    Blimp/Loiter.h
+    Blimp/Parameters.h
+    Blimp/RC_Channel_Blimp.h
+    Blimp/config.h
+    Blimp/defines.h
+    Blimp/mode.h
+    Blimp/version.h
     Blimp/AP_Arming_Blimp.cpp
     Blimp/AP_State.cpp
     Blimp/Blimp.cpp
@@ -8336,7 +9618,7 @@ set(bin_blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(bin_blimp ${bin_blimp_SOURCES})
+add_executable(bin_blimp ${bin_blimp_SOURCES}) #2
 target_compile_definitions(bin_blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
 #target_include_directories(bin_blimp PRIVATE ${bin_blimp_INCLUDES})
 
@@ -8345,7 +9627,7 @@ target_link_libraries(bin_blimp Blimp_libs) #clean
 
 #------------------------------------------------
 
-set(Rover_libs_SOURCES
+set(Rover_libs_SOURCES #3
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
     ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
@@ -8679,7 +9961,21 @@ target_link_libraries(Rover_libs AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(bin_ardurover_SOURCES
+set(bin_ardurover_SOURCES #3
+    Rover/AP_Arming_Rover.h
+    Rover/AP_ExternalControl_Rover.h
+    Rover/AP_Rally.h
+    Rover/GCS_MAVLink_Rover.h
+    Rover/GCS_Rover.h
+    Rover/Parameters.h
+    Rover/RC_Channel_Rover.h
+    Rover/Rover.h
+    Rover/afs_rover.h
+    Rover/config.h
+    Rover/defines.h
+    Rover/mode.h
+    Rover/sailboat.h
+    Rover/version.h
     Rover/AP_Arming_Rover.cpp
     Rover/AP_ExternalControl_Rover.cpp
     Rover/AP_Rally.cpp
@@ -8738,7 +10034,7 @@ set(bin_ardurover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(bin_ardurover ${bin_ardurover_SOURCES})
+add_executable(bin_ardurover ${bin_ardurover_SOURCES}) #2
 target_compile_definitions(bin_ardurover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
 #target_include_directories(bin_ardurover PRIVATE ${bin_ardurover_INCLUDES})
 
