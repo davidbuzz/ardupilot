@@ -609,6 +609,9 @@ class CMakeExporter(object):
 			content += '    LINKER_LANGUAGE CXX\n'
 			content += ')\n'
 
+			register_lib('mavlink') # make sure its registered for linking later.
+
+
 		#  dronecan libcanard.
 		# - `canard.c` - the only translation unit; add it to your build or compile it into a separate static library;
 		# - `canard.h` - the API header; include it in your application;
@@ -648,6 +651,68 @@ class CMakeExporter(object):
 			content += '    LINKER_LANGUAGE CXX\n'
 			content += ')\n'
 
+			register_lib('canard') # make sure its registered for linking later.
+
+		#
+
+# set(dronecan_dsdlc_generated_INCLUDES
+#     build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+#     modules/DroneCAN/libcanard
+# )
+
+# add_library(dronecan_dsdlc_generated STATIC ${dronecan_dsdlc_generated_SOURCES}) #2
+# target_include_directories(dronecan_dsdlc_generated PUBLIC ${dronecan_dsdlc_generated_INCLUDES})
+# set_target_properties(dronecan_dsdlc_generated PROPERTIES
+#     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+#     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+#     LINKER_LANGUAGE C
+#)
+
+		# emit dronecan_dsdlc_generated content here as per above comment, but generated like mavlink and canard.
+		dsdlc_generated_folder = self.bld.bldnode.make_node('../../build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src')
+		dsdlc_generated_include_folder = self.bld.bldnode.make_node('../../build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include')
+		dsdlc_generated_sources = []
+		for f in dsdlc_generated_folder.ant_glob('*.c'):
+			src_path = f.path_from(self.bld.bldnode).replace('\\','/')
+			dsdlc_generated_sources.append(src_path)
+		if len(dsdlc_generated_sources):
+			content += '\n#------------------------------------------------\n\n'
+			content += 'set(dronecan_dsdlc_generated_SOURCES #3\n'
+			# add generated sources
+			for src in dsdlc_generated_sources:
+				# strip ../../ at front, if present
+				if src.startswith('../../'):
+					src = src.replace('../../', '')
+				content += '    %s\n' % (src)
+			content += ')\n\n'
+			content += 'set(dronecan_dsdlc_generated_INCLUDES\n'
+			# add hardcoded includes first
+			inc1 = dsdlc_generated_include_folder.abspath()
+			inc2 = self.bld.srcnode.make_node('modules/DroneCAN/libcanard').abspath()
+			# strip /home/buzz2/ardupilot/ at front, if present
+			if inc1.startswith('/home/buzz2/ardupilot/'):
+				inc1 = inc1.replace('/home/buzz2/ardupilot/', '')
+			if inc2.startswith('/home/buzz2/ardupilot/'):
+				inc2 = inc2.replace('/home/buzz2/ardupilot/', '')
+			content += '    %s\n' % (inc1)
+			content += '    %s\n' % (inc2)
+			content += ')\n\n'
+			content += 'add_library(dronecan_dsdlc_generated STATIC ${dronecan_dsdlc_generated_SOURCES}) #2\n'
+			content += 'target_include_directories(dronecan_dsdlc_generated PUBLIC ${dronecan_dsdlc_generated_INCLUDES})\n'
+			content += 'set_target_properties(dronecan_dsdlc_generated PROPERTIES\n'
+			content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"\n'
+			content += '    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"\n'
+			# PROPERTIES LINKER_LANGUAGE CXX
+			content += '    LINKER_LANGUAGE C\n'
+			content += ')\n'
+
+			#register_lib(cleanedname)
+			register_lib('dronecan_dsdlc_generated') # make sure its registered for linking later.
+
+
+
+		#-------------------
+		# now process all task generators
 		if len(self.tgens):
 			content += '\n'
 			for tgen in self.tgens:
@@ -663,8 +728,30 @@ class CMakeExporter(object):
 				if ap_vehicle is not None:
 					print('AP Vehicle: %s %s' % (ap_vehicle, t))
 
+				# special case for AP_Scripting tgen, we want to *add* an extra src file to it..
+				if t == 'objs/AP_Stats':
+					# add build2/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp to the source list
+					lua_bindings_node = self.bld.bldnode.find_node('sitl/libraries/AP_Scripting/lua_generated_bindings.cpp')
+					if lua_bindings_node:
+						print('CLONE: Adding lua_generated_bindings.cpp to AP_Scripting target')
+						tgen.source.append(lua_bindings_node)
+					else:
+						print('Warning: Could not find lua_generated_bindings.cpp to add to AP_Scripting target')
+
+
 				#print('Debug: Generating cmake content for tgen: %s ' % t)
 				content += self.get_tgen_content(tgen)
+				
+				# we're gonna hack a fake 'dronecan_dsdlc_generated' lib into the link libs for any tgen that uses dronecan
+				# if t == 'objs/AP_DroneCAN':
+				# 	print("CLONE: Adding dronecan_dsdlc_generated to dronecan target")
+				# 	clone_tgen_obj = type('TGenClone', (), {'features':[]})()
+				# 	clone_tgen_obj.get_name = lambda: 'dronecan_dsdlc_generated'
+				# 	clone_tgen_obj.source = [ TODO here cpuld have worked but done better elsewhere]
+				# 	clone_tgen_obj.path = []
+				# 	clone_tgen_obj.env = type('EnvClone', (), {'INCLUDES':[],'features':[]})()
+				# 	content += self.get_tgen_content(clone_tgen_obj)
+					
 
 		if len(self.cmakes):
 			content += '\n'
@@ -769,8 +856,17 @@ class CMakeExporter(object):
 				x = _dir + '/' + x
 			if x not in uniq_src_list:
 				uniq_src_list.append(x)
+		exclude_these_files = [
+			'libraries/GCS_MAVLink/GCS_Dummy.cpp',
+			'libraries/AP_Scripting/lua/src/lua.c',
+			'libraries/AP_Scripting/lua/src/luac.c',
+		]
 		for usrc in uniq_src_list: #dedupe
+			if usrc in exclude_these_files:
+				print('Debug: Excluding source file from cmake target %s: %s' % (cleanedname, usrc))
+				continue
 			content += '	%s\n' % (usrc)
+
 		content += ')\n\n'
 
 		#break here 'ArduCopter_libs'

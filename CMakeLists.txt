@@ -62,37 +62,6 @@ set_target_properties(canard PROPERTIES
 
 #------------------------------------------------
 
-set(littlefs_SOURCES #3
-	modules/littlefs/lfs.h
-	modules/littlefs/lfs_util.h
-	modules/littlefs/lfs.c
-	modules/littlefs/lfs_util.c
-	modules/littlefs/bd/lfs_emubd.h
-	modules/littlefs/bd/lfs_filebd.h
-	modules/littlefs/bd/lfs_rambd.h
-	modules/littlefs/bd/lfs_filebd.c
-)
-
-set(littlefs_INCLUDES
-    /home/buzz2/ardupilot/build/sitl
-    /home/buzz2/ardupilot/libraries/
-    /home/buzz2/ardupilot/modules/littlefs/
-    /home/buzz2/ardupilot/libraries/AP_Common/missing
-    /home/buzz2/ardupilot/modules/lwip/src/include
-    /home/buzz2/ardupilot/libraries/AP_Networking/config
-    /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include)
-
-add_library(littlefs ${littlefs_SOURCES}) #2
-target_compile_definitions(littlefs PUBLIC -DLFS_NO_DEBUG -DLFS_NO_WARN -DLFS_NO_ERROR -DLFS_NO_ASSERT) #1
-target_include_directories(littlefs PUBLIC ${littlefs_INCLUDES})
-
-set_target_properties(littlefs PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
-    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
-)
-
-#------------------------------------------------
-
 set(dronecan_dsdlc_generated_SOURCES #3
     build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
     build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
@@ -287,6 +256,37 @@ set_target_properties(dronecan_dsdlc_generated PROPERTIES
 
 #------------------------------------------------
 
+set(littlefs_SOURCES #3
+	modules/littlefs/lfs.h
+	modules/littlefs/lfs_util.h
+	modules/littlefs/lfs.c
+	modules/littlefs/lfs_util.c
+	modules/littlefs/bd/lfs_emubd.h
+	modules/littlefs/bd/lfs_filebd.h
+	modules/littlefs/bd/lfs_rambd.h
+	modules/littlefs/bd/lfs_filebd.c
+)
+
+set(littlefs_INCLUDES
+    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/libraries/
+    /home/buzz2/ardupilot/modules/littlefs/
+    /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/modules/lwip/src/include
+    /home/buzz2/ardupilot/libraries/AP_Networking/config
+    /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include)
+
+add_library(littlefs ${littlefs_SOURCES}) #2
+target_compile_definitions(littlefs PUBLIC -DLFS_NO_DEBUG -DLFS_NO_WARN -DLFS_NO_ERROR -DLFS_NO_ASSERT) #1
+target_include_directories(littlefs PUBLIC ${littlefs_INCLUDES})
+
+set_target_properties(littlefs PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+#------------------------------------------------
+
 set(AC_AttitudeControl_SOURCES #3
 	libraries/AC_AttitudeControl/AC_AttitudeControl.h
 	libraries/AC_AttitudeControl/AC_AttitudeControl_Heli.h
@@ -341,7 +341,6 @@ set_target_properties(AC_AttitudeControl PROPERTIES
 
 target_link_libraries(AC_AttitudeControl mavlink) #clean
 target_link_libraries(AC_AttitudeControl canard) #clean
-target_link_libraries(AC_AttitudeControl dronecan_dsdlc_generated) #clean
 target_link_libraries(AC_AttitudeControl littlefs) #clean
 
 #------------------------------------------------
@@ -7305,7 +7304,6 @@ set(AP_Scripting_SOURCES #3
 	libraries/AP_Scripting/lua_bindings.cpp
 	libraries/AP_Scripting/lua_boxed_numerics.cpp
 	libraries/AP_Scripting/lua_scripts.cpp
-	build2/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp
 )
 
 set(AP_Scripting_INCLUDES
@@ -7683,7 +7681,7 @@ set(AC_Fence_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AC_Fence ${AC_Fence_SOURCES}) #2
-target_compile_definitions(AC_Fence PUBLIC -DAPM_BUILD_DIRECTORY=2 -DAP_BUILD_TARGET_NAME="ArduCopter") #1
+target_compile_definitions(AC_Fence PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AC_Fence PUBLIC ${AC_Fence_INCLUDES})
 
 set_target_properties(AC_Fence PROPERTIES
@@ -7724,7 +7722,7 @@ set(AP_LandingGear_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_LandingGear ${AP_LandingGear_SOURCES}) #2
-target_compile_definitions(AP_LandingGear PUBLIC -DAPM_BUILD_DIRECTORY=2 -DAP_BUILD_TARGET_NAME="ArduCopter") #1
+target_compile_definitions(AP_LandingGear PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_LandingGear PUBLIC ${AP_LandingGear_INCLUDES})
 
 set_target_properties(AP_LandingGear PROPERTIES
@@ -8853,15 +8851,16 @@ set(copter_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_executable(copter ${copter_SOURCES}) #2
-target_compile_definitions(copter PUBLIC -DFRAME_CONFIG=MULTICOPTER_FRAME -DAPM_BUILD_DIRECTORY=2 -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+target_compile_definitions(copter PUBLIC -DFRAME_CONFIG=MULTICOPTER_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
 target_link_directories(copter PUBLIC build2) #2
 #target_include_directories(copter PUBLIC ${copter_INCLUDES})
 
 
 target_link_libraries(copter ArduCopter_libs) #clean
-target_link_libraries(copter -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
