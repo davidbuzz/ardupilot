@@ -41,6 +41,25 @@ set_target_properties(mavlink PROPERTIES
 
 #------------------------------------------------
 
+set(canard_SOURCES #3
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard/canard.c
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard/canard.h
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard/canard_internals.h
+)
+
+set(canard_INCLUDES
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
+)
+
+add_library(canard STATIC ${canard_SOURCES}) #2
+target_include_directories(canard PUBLIC ${canard_INCLUDES})
+set_target_properties(canard PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    LINKER_LANGUAGE CXX
+)
+
+#------------------------------------------------
+
 set(littlefs_SOURCES #3
     modules/littlefs/lfs.h
     modules/littlefs/lfs_util.h
@@ -118,7 +137,7 @@ set_target_properties(AC_AttitudeControl PROPERTIES
 
 
 target_link_libraries(AC_AttitudeControl mavlink) #clean
-target_link_libraries(AC_AttitudeControl dronecan) #clean
+target_link_libraries(AC_AttitudeControl canard) #clean
 target_link_libraries(AC_AttitudeControl littlefs) #clean
 
 #------------------------------------------------
@@ -160,7 +179,7 @@ set_target_properties(AC_AutoTune PROPERTIES
 
 
 target_link_libraries(AC_AutoTune mavlink) #clean
-target_link_libraries(AC_AutoTune dronecan) #clean
+target_link_libraries(AC_AutoTune canard) #clean
 target_link_libraries(AC_AutoTune littlefs) #clean
 
 #------------------------------------------------
@@ -199,7 +218,7 @@ set_target_properties(AC_Autorotation PROPERTIES
 
 
 target_link_libraries(AC_Autorotation mavlink) #clean
-target_link_libraries(AC_Autorotation dronecan) #clean
+target_link_libraries(AC_Autorotation canard) #clean
 target_link_libraries(AC_Autorotation littlefs) #clean
 
 #------------------------------------------------
@@ -246,7 +265,7 @@ set_target_properties(AC_Avoidance PROPERTIES
 
 
 target_link_libraries(AC_Avoidance mavlink) #clean
-target_link_libraries(AC_Avoidance dronecan) #clean
+target_link_libraries(AC_Avoidance canard) #clean
 target_link_libraries(AC_Avoidance littlefs) #clean
 
 #------------------------------------------------
@@ -289,7 +308,7 @@ set_target_properties(AC_CustomControl PROPERTIES
 
 
 target_link_libraries(AC_CustomControl mavlink) #clean
-target_link_libraries(AC_CustomControl dronecan) #clean
+target_link_libraries(AC_CustomControl canard) #clean
 target_link_libraries(AC_CustomControl littlefs) #clean
 
 #------------------------------------------------
@@ -328,7 +347,7 @@ set_target_properties(AC_InputManager PROPERTIES
 
 
 target_link_libraries(AC_InputManager mavlink) #clean
-target_link_libraries(AC_InputManager dronecan) #clean
+target_link_libraries(AC_InputManager canard) #clean
 target_link_libraries(AC_InputManager littlefs) #clean
 
 #------------------------------------------------
@@ -382,7 +401,7 @@ set_target_properties(AC_PID PROPERTIES
 
 
 target_link_libraries(AC_PID mavlink) #clean
-target_link_libraries(AC_PID dronecan) #clean
+target_link_libraries(AC_PID canard) #clean
 target_link_libraries(AC_PID littlefs) #clean
 
 #------------------------------------------------
@@ -433,7 +452,7 @@ set_target_properties(AC_PrecLand PROPERTIES
 
 
 target_link_libraries(AC_PrecLand mavlink) #clean
-target_link_libraries(AC_PrecLand dronecan) #clean
+target_link_libraries(AC_PrecLand canard) #clean
 target_link_libraries(AC_PrecLand littlefs) #clean
 
 #------------------------------------------------
@@ -471,7 +490,7 @@ set_target_properties(AC_Sprayer PROPERTIES
 
 
 target_link_libraries(AC_Sprayer mavlink) #clean
-target_link_libraries(AC_Sprayer dronecan) #clean
+target_link_libraries(AC_Sprayer canard) #clean
 target_link_libraries(AC_Sprayer littlefs) #clean
 
 #------------------------------------------------
@@ -514,7 +533,7 @@ set_target_properties(AC_WPNav PROPERTIES
 
 
 target_link_libraries(AC_WPNav mavlink) #clean
-target_link_libraries(AC_WPNav dronecan) #clean
+target_link_libraries(AC_WPNav canard) #clean
 target_link_libraries(AC_WPNav littlefs) #clean
 
 #------------------------------------------------
@@ -566,7 +585,7 @@ set_target_properties(APM_Control PROPERTIES
 
 
 target_link_libraries(APM_Control mavlink) #clean
-target_link_libraries(APM_Control dronecan) #clean
+target_link_libraries(APM_Control canard) #clean
 target_link_libraries(APM_Control littlefs) #clean
 
 #------------------------------------------------
@@ -603,7 +622,7 @@ set_target_properties(AP_ADC PROPERTIES
 
 
 target_link_libraries(AP_ADC mavlink) #clean
-target_link_libraries(AP_ADC dronecan) #clean
+target_link_libraries(AP_ADC canard) #clean
 target_link_libraries(AP_ADC littlefs) #clean
 
 #------------------------------------------------
@@ -649,7 +668,7 @@ set_target_properties(AP_ADSB PROPERTIES
 
 
 target_link_libraries(AP_ADSB mavlink) #clean
-target_link_libraries(AP_ADSB dronecan) #clean
+target_link_libraries(AP_ADSB canard) #clean
 target_link_libraries(AP_ADSB littlefs) #clean
 
 #------------------------------------------------
@@ -696,7 +715,7 @@ set_target_properties(AP_AHRS PROPERTIES
 
 
 target_link_libraries(AP_AHRS mavlink) #clean
-target_link_libraries(AP_AHRS dronecan) #clean
+target_link_libraries(AP_AHRS canard) #clean
 target_link_libraries(AP_AHRS littlefs) #clean
 
 #------------------------------------------------
@@ -735,7 +754,7 @@ set_target_properties(AP_AccelCal PROPERTIES
 
 
 target_link_libraries(AP_AccelCal mavlink) #clean
-target_link_libraries(AP_AccelCal dronecan) #clean
+target_link_libraries(AP_AccelCal canard) #clean
 target_link_libraries(AP_AccelCal littlefs) #clean
 
 #------------------------------------------------
@@ -773,7 +792,7 @@ set_target_properties(AP_AdvancedFailsafe PROPERTIES
 
 
 target_link_libraries(AP_AdvancedFailsafe mavlink) #clean
-target_link_libraries(AP_AdvancedFailsafe dronecan) #clean
+target_link_libraries(AP_AdvancedFailsafe canard) #clean
 target_link_libraries(AP_AdvancedFailsafe littlefs) #clean
 
 #------------------------------------------------
@@ -837,7 +856,7 @@ set_target_properties(AP_Airspeed PROPERTIES
 
 
 target_link_libraries(AP_Airspeed mavlink) #clean
-target_link_libraries(AP_Airspeed dronecan) #clean
+target_link_libraries(AP_Airspeed canard) #clean
 target_link_libraries(AP_Airspeed littlefs) #clean
 
 #------------------------------------------------
@@ -917,7 +936,7 @@ set_target_properties(AP_Baro PROPERTIES
 
 
 target_link_libraries(AP_Baro mavlink) #clean
-target_link_libraries(AP_Baro dronecan) #clean
+target_link_libraries(AP_Baro canard) #clean
 target_link_libraries(AP_Baro littlefs) #clean
 
 #------------------------------------------------
@@ -1008,7 +1027,7 @@ set_target_properties(AP_BattMonitor PROPERTIES
 
 
 target_link_libraries(AP_BattMonitor mavlink) #clean
-target_link_libraries(AP_BattMonitor dronecan) #clean
+target_link_libraries(AP_BattMonitor canard) #clean
 target_link_libraries(AP_BattMonitor littlefs) #clean
 
 #------------------------------------------------
@@ -1057,7 +1076,7 @@ set_target_properties(AP_Beacon PROPERTIES
 
 
 target_link_libraries(AP_Beacon mavlink) #clean
-target_link_libraries(AP_Beacon dronecan) #clean
+target_link_libraries(AP_Beacon canard) #clean
 target_link_libraries(AP_Beacon littlefs) #clean
 
 #------------------------------------------------
@@ -1096,7 +1115,7 @@ set_target_properties(AP_BoardConfig PROPERTIES
 
 
 target_link_libraries(AP_BoardConfig mavlink) #clean
-target_link_libraries(AP_BoardConfig dronecan) #clean
+target_link_libraries(AP_BoardConfig canard) #clean
 target_link_libraries(AP_BoardConfig littlefs) #clean
 
 #------------------------------------------------
@@ -1133,7 +1152,7 @@ set_target_properties(AP_Button PROPERTIES
 
 
 target_link_libraries(AP_Button mavlink) #clean
-target_link_libraries(AP_Button dronecan) #clean
+target_link_libraries(AP_Button canard) #clean
 target_link_libraries(AP_Button littlefs) #clean
 
 #------------------------------------------------
@@ -1182,7 +1201,7 @@ set_target_properties(AP_CANManager PROPERTIES
 
 
 target_link_libraries(AP_CANManager mavlink) #clean
-target_link_libraries(AP_CANManager dronecan) #clean
+target_link_libraries(AP_CANManager canard) #clean
 target_link_libraries(AP_CANManager littlefs) #clean
 
 #------------------------------------------------
@@ -1219,7 +1238,7 @@ set_target_properties(AP_CSVReader PROPERTIES
 
 
 target_link_libraries(AP_CSVReader mavlink) #clean
-target_link_libraries(AP_CSVReader dronecan) #clean
+target_link_libraries(AP_CSVReader canard) #clean
 target_link_libraries(AP_CSVReader littlefs) #clean
 
 #------------------------------------------------
@@ -1280,7 +1299,7 @@ set_target_properties(AP_Camera PROPERTIES
 
 
 target_link_libraries(AP_Camera mavlink) #clean
-target_link_libraries(AP_Camera dronecan) #clean
+target_link_libraries(AP_Camera canard) #clean
 target_link_libraries(AP_Camera littlefs) #clean
 
 #------------------------------------------------
@@ -1321,7 +1340,7 @@ set_target_properties(AP_CheckFirmware PROPERTIES
 
 
 target_link_libraries(AP_CheckFirmware mavlink) #clean
-target_link_libraries(AP_CheckFirmware dronecan) #clean
+target_link_libraries(AP_CheckFirmware canard) #clean
 target_link_libraries(AP_CheckFirmware littlefs) #clean
 
 #------------------------------------------------
@@ -1379,7 +1398,7 @@ set_target_properties(AP_Common PROPERTIES
 
 
 target_link_libraries(AP_Common mavlink) #clean
-target_link_libraries(AP_Common dronecan) #clean
+target_link_libraries(AP_Common canard) #clean
 target_link_libraries(AP_Common littlefs) #clean
 
 #------------------------------------------------
@@ -1470,7 +1489,7 @@ set_target_properties(AP_Compass PROPERTIES
 
 
 target_link_libraries(AP_Compass mavlink) #clean
-target_link_libraries(AP_Compass dronecan) #clean
+target_link_libraries(AP_Compass canard) #clean
 target_link_libraries(AP_Compass littlefs) #clean
 
 #------------------------------------------------
@@ -1509,7 +1528,7 @@ set_target_properties(AP_CustomRotations PROPERTIES
 
 
 target_link_libraries(AP_CustomRotations mavlink) #clean
-target_link_libraries(AP_CustomRotations dronecan) #clean
+target_link_libraries(AP_CustomRotations canard) #clean
 target_link_libraries(AP_CustomRotations littlefs) #clean
 
 #------------------------------------------------
@@ -1559,7 +1578,7 @@ set_target_properties(AP_DAL PROPERTIES
 
 
 target_link_libraries(AP_DAL mavlink) #clean
-target_link_libraries(AP_DAL dronecan) #clean
+target_link_libraries(AP_DAL canard) #clean
 target_link_libraries(AP_DAL littlefs) #clean
 
 #------------------------------------------------
@@ -1608,7 +1627,7 @@ set_target_properties(AP_DDS PROPERTIES
 
 
 target_link_libraries(AP_DDS mavlink) #clean
-target_link_libraries(AP_DDS dronecan) #clean
+target_link_libraries(AP_DDS canard) #clean
 target_link_libraries(AP_DDS littlefs) #clean
 
 #------------------------------------------------
@@ -1646,7 +1665,7 @@ set_target_properties(AP_Declination PROPERTIES
 
 
 target_link_libraries(AP_Declination mavlink) #clean
-target_link_libraries(AP_Declination dronecan) #clean
+target_link_libraries(AP_Declination canard) #clean
 target_link_libraries(AP_Declination littlefs) #clean
 
 #------------------------------------------------
@@ -1683,7 +1702,7 @@ set_target_properties(AP_Devo_Telem PROPERTIES
 
 
 target_link_libraries(AP_Devo_Telem mavlink) #clean
-target_link_libraries(AP_Devo_Telem dronecan) #clean
+target_link_libraries(AP_Devo_Telem canard) #clean
 target_link_libraries(AP_Devo_Telem littlefs) #clean
 
 #------------------------------------------------
@@ -1726,7 +1745,7 @@ set_target_properties(AP_DroneCAN PROPERTIES
 
 
 target_link_libraries(AP_DroneCAN mavlink) #clean
-target_link_libraries(AP_DroneCAN dronecan) #clean
+target_link_libraries(AP_DroneCAN canard) #clean
 target_link_libraries(AP_DroneCAN littlefs) #clean
 
 #------------------------------------------------
@@ -1787,7 +1806,7 @@ set_target_properties(AP_EFI PROPERTIES
 
 
 target_link_libraries(AP_EFI mavlink) #clean
-target_link_libraries(AP_EFI dronecan) #clean
+target_link_libraries(AP_EFI canard) #clean
 target_link_libraries(AP_EFI littlefs) #clean
 
 #------------------------------------------------
@@ -1829,7 +1848,7 @@ set_target_properties(AP_ESC_Telem PROPERTIES
 
 
 target_link_libraries(AP_ESC_Telem mavlink) #clean
-target_link_libraries(AP_ESC_Telem dronecan) #clean
+target_link_libraries(AP_ESC_Telem canard) #clean
 target_link_libraries(AP_ESC_Telem littlefs) #clean
 
 #------------------------------------------------
@@ -1880,7 +1899,7 @@ set_target_properties(AP_ExternalAHRS PROPERTIES
 
 
 target_link_libraries(AP_ExternalAHRS mavlink) #clean
-target_link_libraries(AP_ExternalAHRS dronecan) #clean
+target_link_libraries(AP_ExternalAHRS canard) #clean
 target_link_libraries(AP_ExternalAHRS littlefs) #clean
 
 #------------------------------------------------
@@ -1918,7 +1937,7 @@ set_target_properties(AP_ExternalControl PROPERTIES
 
 
 target_link_libraries(AP_ExternalControl mavlink) #clean
-target_link_libraries(AP_ExternalControl dronecan) #clean
+target_link_libraries(AP_ExternalControl canard) #clean
 target_link_libraries(AP_ExternalControl littlefs) #clean
 
 #------------------------------------------------
@@ -1955,7 +1974,7 @@ set_target_properties(AP_FETtecOneWire PROPERTIES
 
 
 target_link_libraries(AP_FETtecOneWire mavlink) #clean
-target_link_libraries(AP_FETtecOneWire dronecan) #clean
+target_link_libraries(AP_FETtecOneWire canard) #clean
 target_link_libraries(AP_FETtecOneWire littlefs) #clean
 
 #------------------------------------------------
@@ -2012,7 +2031,7 @@ set_target_properties(AP_Filesystem PROPERTIES
 
 
 target_link_libraries(AP_Filesystem mavlink) #clean
-target_link_libraries(AP_Filesystem dronecan) #clean
+target_link_libraries(AP_Filesystem canard) #clean
 target_link_libraries(AP_Filesystem littlefs) #clean
 
 #------------------------------------------------
@@ -2049,7 +2068,7 @@ set_target_properties(AP_FlashStorage PROPERTIES
 
 
 target_link_libraries(AP_FlashStorage mavlink) #clean
-target_link_libraries(AP_FlashStorage dronecan) #clean
+target_link_libraries(AP_FlashStorage canard) #clean
 target_link_libraries(AP_FlashStorage littlefs) #clean
 
 #------------------------------------------------
@@ -2106,7 +2125,7 @@ set_target_properties(AP_Frsky_Telem PROPERTIES
 
 
 target_link_libraries(AP_Frsky_Telem mavlink) #clean
-target_link_libraries(AP_Frsky_Telem dronecan) #clean
+target_link_libraries(AP_Frsky_Telem canard) #clean
 target_link_libraries(AP_Frsky_Telem littlefs) #clean
 
 #------------------------------------------------
@@ -2185,7 +2204,7 @@ set_target_properties(AP_GPS PROPERTIES
 
 
 target_link_libraries(AP_GPS mavlink) #clean
-target_link_libraries(AP_GPS dronecan) #clean
+target_link_libraries(AP_GPS canard) #clean
 target_link_libraries(AP_GPS littlefs) #clean
 
 #------------------------------------------------
@@ -2223,7 +2242,7 @@ set_target_properties(AP_GSOF PROPERTIES
 
 
 target_link_libraries(AP_GSOF mavlink) #clean
-target_link_libraries(AP_GSOF dronecan) #clean
+target_link_libraries(AP_GSOF canard) #clean
 target_link_libraries(AP_GSOF littlefs) #clean
 
 #------------------------------------------------
@@ -2275,7 +2294,7 @@ set_target_properties(AP_Generator PROPERTIES
 
 
 target_link_libraries(AP_Generator mavlink) #clean
-target_link_libraries(AP_Generator dronecan) #clean
+target_link_libraries(AP_Generator canard) #clean
 target_link_libraries(AP_Generator littlefs) #clean
 
 #------------------------------------------------
@@ -2319,7 +2338,7 @@ set_target_properties(AP_Gripper PROPERTIES
 
 
 target_link_libraries(AP_Gripper mavlink) #clean
-target_link_libraries(AP_Gripper dronecan) #clean
+target_link_libraries(AP_Gripper canard) #clean
 target_link_libraries(AP_Gripper littlefs) #clean
 
 #------------------------------------------------
@@ -2356,7 +2375,7 @@ set_target_properties(AP_Hott_Telem PROPERTIES
 
 
 target_link_libraries(AP_Hott_Telem mavlink) #clean
-target_link_libraries(AP_Hott_Telem dronecan) #clean
+target_link_libraries(AP_Hott_Telem canard) #clean
 target_link_libraries(AP_Hott_Telem littlefs) #clean
 
 #------------------------------------------------
@@ -2396,7 +2415,7 @@ set_target_properties(AP_ICEngine PROPERTIES
 
 
 target_link_libraries(AP_ICEngine mavlink) #clean
-target_link_libraries(AP_ICEngine dronecan) #clean
+target_link_libraries(AP_ICEngine canard) #clean
 target_link_libraries(AP_ICEngine littlefs) #clean
 
 #------------------------------------------------
@@ -2434,7 +2453,7 @@ set_target_properties(AP_IOMCU PROPERTIES
 
 
 target_link_libraries(AP_IOMCU mavlink) #clean
-target_link_libraries(AP_IOMCU dronecan) #clean
+target_link_libraries(AP_IOMCU canard) #clean
 target_link_libraries(AP_IOMCU littlefs) #clean
 
 #------------------------------------------------
@@ -2478,7 +2497,7 @@ set_target_properties(AP_IRLock PROPERTIES
 
 
 target_link_libraries(AP_IRLock mavlink) #clean
-target_link_libraries(AP_IRLock dronecan) #clean
+target_link_libraries(AP_IRLock canard) #clean
 target_link_libraries(AP_IRLock littlefs) #clean
 
 #------------------------------------------------
@@ -2515,7 +2534,7 @@ set_target_properties(AP_InertialNav PROPERTIES
 
 
 target_link_libraries(AP_InertialNav mavlink) #clean
-target_link_libraries(AP_InertialNav dronecan) #clean
+target_link_libraries(AP_InertialNav canard) #clean
 target_link_libraries(AP_InertialNav littlefs) #clean
 
 #------------------------------------------------
@@ -2595,7 +2614,7 @@ set_target_properties(AP_InertialSensor PROPERTIES
 
 
 target_link_libraries(AP_InertialSensor mavlink) #clean
-target_link_libraries(AP_InertialSensor dronecan) #clean
+target_link_libraries(AP_InertialSensor canard) #clean
 target_link_libraries(AP_InertialSensor littlefs) #clean
 
 #------------------------------------------------
@@ -2633,7 +2652,7 @@ set_target_properties(AP_InternalError PROPERTIES
 
 
 target_link_libraries(AP_InternalError mavlink) #clean
-target_link_libraries(AP_InternalError dronecan) #clean
+target_link_libraries(AP_InternalError canard) #clean
 target_link_libraries(AP_InternalError littlefs) #clean
 
 #------------------------------------------------
@@ -2670,7 +2689,7 @@ set_target_properties(AP_JSButton PROPERTIES
 
 
 target_link_libraries(AP_JSButton mavlink) #clean
-target_link_libraries(AP_JSButton dronecan) #clean
+target_link_libraries(AP_JSButton canard) #clean
 target_link_libraries(AP_JSButton littlefs) #clean
 
 #------------------------------------------------
@@ -2707,7 +2726,7 @@ set_target_properties(AP_JSON PROPERTIES
 
 
 target_link_libraries(AP_JSON mavlink) #clean
-target_link_libraries(AP_JSON dronecan) #clean
+target_link_libraries(AP_JSON canard) #clean
 target_link_libraries(AP_JSON littlefs) #clean
 
 #------------------------------------------------
@@ -2745,7 +2764,7 @@ set_target_properties(AP_KDECAN PROPERTIES
 
 
 target_link_libraries(AP_KDECAN mavlink) #clean
-target_link_libraries(AP_KDECAN dronecan) #clean
+target_link_libraries(AP_KDECAN canard) #clean
 target_link_libraries(AP_KDECAN littlefs) #clean
 
 #------------------------------------------------
@@ -2782,7 +2801,7 @@ set_target_properties(AP_L1_Control PROPERTIES
 
 
 target_link_libraries(AP_L1_Control mavlink) #clean
-target_link_libraries(AP_L1_Control dronecan) #clean
+target_link_libraries(AP_L1_Control canard) #clean
 target_link_libraries(AP_L1_Control littlefs) #clean
 
 #------------------------------------------------
@@ -2819,7 +2838,7 @@ set_target_properties(AP_LTM_Telem PROPERTIES
 
 
 target_link_libraries(AP_LTM_Telem mavlink) #clean
-target_link_libraries(AP_LTM_Telem dronecan) #clean
+target_link_libraries(AP_LTM_Telem canard) #clean
 target_link_libraries(AP_LTM_Telem littlefs) #clean
 
 #------------------------------------------------
@@ -2860,7 +2879,7 @@ set_target_properties(AP_Landing PROPERTIES
 
 
 target_link_libraries(AP_Landing mavlink) #clean
-target_link_libraries(AP_Landing dronecan) #clean
+target_link_libraries(AP_Landing canard) #clean
 target_link_libraries(AP_Landing littlefs) #clean
 
 #------------------------------------------------
@@ -2903,7 +2922,7 @@ set_target_properties(AP_LeakDetector PROPERTIES
 
 
 target_link_libraries(AP_LeakDetector mavlink) #clean
-target_link_libraries(AP_LeakDetector dronecan) #clean
+target_link_libraries(AP_LeakDetector canard) #clean
 target_link_libraries(AP_LeakDetector littlefs) #clean
 
 #------------------------------------------------
@@ -2941,7 +2960,7 @@ set_target_properties(AP_LightWareSerial PROPERTIES
 
 
 target_link_libraries(AP_LightWareSerial mavlink) #clean
-target_link_libraries(AP_LightWareSerial dronecan) #clean
+target_link_libraries(AP_LightWareSerial canard) #clean
 target_link_libraries(AP_LightWareSerial littlefs) #clean
 
 #------------------------------------------------
@@ -2992,7 +3011,7 @@ set_target_properties(AP_Logger PROPERTIES
 
 
 target_link_libraries(AP_Logger mavlink) #clean
-target_link_libraries(AP_Logger dronecan) #clean
+target_link_libraries(AP_Logger canard) #clean
 target_link_libraries(AP_Logger littlefs) #clean
 
 #------------------------------------------------
@@ -3046,7 +3065,7 @@ set_target_properties(AP_MSP PROPERTIES
 
 
 target_link_libraries(AP_MSP mavlink) #clean
-target_link_libraries(AP_MSP dronecan) #clean
+target_link_libraries(AP_MSP canard) #clean
 target_link_libraries(AP_MSP littlefs) #clean
 
 #------------------------------------------------
@@ -3119,7 +3138,7 @@ set_target_properties(AP_Math PROPERTIES
 
 
 target_link_libraries(AP_Math mavlink) #clean
-target_link_libraries(AP_Math dronecan) #clean
+target_link_libraries(AP_Math canard) #clean
 target_link_libraries(AP_Math littlefs) #clean
 
 #------------------------------------------------
@@ -3160,7 +3179,7 @@ set_target_properties(AP_Mission PROPERTIES
 
 
 target_link_libraries(AP_Mission mavlink) #clean
-target_link_libraries(AP_Mission dronecan) #clean
+target_link_libraries(AP_Mission canard) #clean
 target_link_libraries(AP_Mission littlefs) #clean
 
 #------------------------------------------------
@@ -3198,7 +3217,7 @@ set_target_properties(AP_Module PROPERTIES
 
 
 target_link_libraries(AP_Module mavlink) #clean
-target_link_libraries(AP_Module dronecan) #clean
+target_link_libraries(AP_Module canard) #clean
 target_link_libraries(AP_Module littlefs) #clean
 
 #------------------------------------------------
@@ -3265,7 +3284,7 @@ set_target_properties(AP_Motors PROPERTIES
 
 
 target_link_libraries(AP_Motors mavlink) #clean
-target_link_libraries(AP_Motors dronecan) #clean
+target_link_libraries(AP_Motors canard) #clean
 target_link_libraries(AP_Motors littlefs) #clean
 
 #------------------------------------------------
@@ -3342,7 +3361,7 @@ set_target_properties(AP_Mount PROPERTIES
 
 
 target_link_libraries(AP_Mount mavlink) #clean
-target_link_libraries(AP_Mount dronecan) #clean
+target_link_libraries(AP_Mount canard) #clean
 target_link_libraries(AP_Mount littlefs) #clean
 
 #------------------------------------------------
@@ -3381,7 +3400,7 @@ set_target_properties(AP_MultiHeap PROPERTIES
 
 
 target_link_libraries(AP_MultiHeap mavlink) #clean
-target_link_libraries(AP_MultiHeap dronecan) #clean
+target_link_libraries(AP_MultiHeap canard) #clean
 target_link_libraries(AP_MultiHeap littlefs) #clean
 
 #------------------------------------------------
@@ -3419,7 +3438,7 @@ set_target_properties(AP_NMEA_Output PROPERTIES
 
 
 target_link_libraries(AP_NMEA_Output mavlink) #clean
-target_link_libraries(AP_NMEA_Output dronecan) #clean
+target_link_libraries(AP_NMEA_Output canard) #clean
 target_link_libraries(AP_NMEA_Output littlefs) #clean
 
 #------------------------------------------------
@@ -3465,7 +3484,7 @@ set_target_properties(AP_NavEKF PROPERTIES
 
 
 target_link_libraries(AP_NavEKF mavlink) #clean
-target_link_libraries(AP_NavEKF dronecan) #clean
+target_link_libraries(AP_NavEKF canard) #clean
 target_link_libraries(AP_NavEKF littlefs) #clean
 
 #------------------------------------------------
@@ -3514,7 +3533,7 @@ set_target_properties(AP_NavEKF2 PROPERTIES
 
 
 target_link_libraries(AP_NavEKF2 mavlink) #clean
-target_link_libraries(AP_NavEKF2 dronecan) #clean
+target_link_libraries(AP_NavEKF2 canard) #clean
 target_link_libraries(AP_NavEKF2 littlefs) #clean
 
 #------------------------------------------------
@@ -3638,7 +3657,7 @@ set_target_properties(AP_Networking PROPERTIES
 
 
 target_link_libraries(AP_Networking mavlink) #clean
-target_link_libraries(AP_Networking dronecan) #clean
+target_link_libraries(AP_Networking canard) #clean
 target_link_libraries(AP_Networking littlefs) #clean
 
 #------------------------------------------------
@@ -3743,7 +3762,7 @@ set_target_properties(AP_Notify PROPERTIES
 
 
 target_link_libraries(AP_Notify mavlink) #clean
-target_link_libraries(AP_Notify dronecan) #clean
+target_link_libraries(AP_Notify canard) #clean
 target_link_libraries(AP_Notify littlefs) #clean
 
 #------------------------------------------------
@@ -3780,7 +3799,7 @@ set_target_properties(AP_OLC PROPERTIES
 
 
 target_link_libraries(AP_OLC mavlink) #clean
-target_link_libraries(AP_OLC dronecan) #clean
+target_link_libraries(AP_OLC canard) #clean
 target_link_libraries(AP_OLC littlefs) #clean
 
 #------------------------------------------------
@@ -3829,7 +3848,7 @@ set_target_properties(AP_OSD PROPERTIES
 
 
 target_link_libraries(AP_OSD mavlink) #clean
-target_link_libraries(AP_OSD dronecan) #clean
+target_link_libraries(AP_OSD canard) #clean
 target_link_libraries(AP_OSD littlefs) #clean
 
 #------------------------------------------------
@@ -3868,7 +3887,7 @@ set_target_properties(AP_OpenDroneID PROPERTIES
 
 
 target_link_libraries(AP_OpenDroneID mavlink) #clean
-target_link_libraries(AP_OpenDroneID dronecan) #clean
+target_link_libraries(AP_OpenDroneID canard) #clean
 target_link_libraries(AP_OpenDroneID littlefs) #clean
 
 #------------------------------------------------
@@ -3929,7 +3948,7 @@ set_target_properties(AP_OpticalFlow PROPERTIES
 
 
 target_link_libraries(AP_OpticalFlow mavlink) #clean
-target_link_libraries(AP_OpticalFlow dronecan) #clean
+target_link_libraries(AP_OpticalFlow canard) #clean
 target_link_libraries(AP_OpticalFlow littlefs) #clean
 
 #------------------------------------------------
@@ -3967,7 +3986,7 @@ set_target_properties(AP_Parachute PROPERTIES
 
 
 target_link_libraries(AP_Parachute mavlink) #clean
-target_link_libraries(AP_Parachute dronecan) #clean
+target_link_libraries(AP_Parachute canard) #clean
 target_link_libraries(AP_Parachute littlefs) #clean
 
 #------------------------------------------------
@@ -4006,7 +4025,7 @@ set_target_properties(AP_Param PROPERTIES
 
 
 target_link_libraries(AP_Param mavlink) #clean
-target_link_libraries(AP_Param dronecan) #clean
+target_link_libraries(AP_Param canard) #clean
 target_link_libraries(AP_Param littlefs) #clean
 
 #------------------------------------------------
@@ -4053,7 +4072,7 @@ set_target_properties(AP_PiccoloCAN PROPERTIES
 
 
 target_link_libraries(AP_PiccoloCAN mavlink) #clean
-target_link_libraries(AP_PiccoloCAN dronecan) #clean
+target_link_libraries(AP_PiccoloCAN canard) #clean
 target_link_libraries(AP_PiccoloCAN littlefs) #clean
 
 #------------------------------------------------
@@ -4128,7 +4147,7 @@ set_target_properties(AP_Proximity PROPERTIES
 
 
 target_link_libraries(AP_Proximity mavlink) #clean
-target_link_libraries(AP_Proximity dronecan) #clean
+target_link_libraries(AP_Proximity canard) #clean
 target_link_libraries(AP_Proximity littlefs) #clean
 
 #------------------------------------------------
@@ -4165,7 +4184,7 @@ set_target_properties(AP_Quicktune PROPERTIES
 
 
 target_link_libraries(AP_Quicktune mavlink) #clean
-target_link_libraries(AP_Quicktune dronecan) #clean
+target_link_libraries(AP_Quicktune canard) #clean
 target_link_libraries(AP_Quicktune littlefs) #clean
 
 #------------------------------------------------
@@ -4202,7 +4221,7 @@ set_target_properties(AP_RAMTRON PROPERTIES
 
 
 target_link_libraries(AP_RAMTRON mavlink) #clean
-target_link_libraries(AP_RAMTRON dronecan) #clean
+target_link_libraries(AP_RAMTRON canard) #clean
 target_link_libraries(AP_RAMTRON littlefs) #clean
 
 #------------------------------------------------
@@ -4240,7 +4259,7 @@ set_target_properties(AP_RCMapper PROPERTIES
 
 
 target_link_libraries(AP_RCMapper mavlink) #clean
-target_link_libraries(AP_RCMapper dronecan) #clean
+target_link_libraries(AP_RCMapper canard) #clean
 target_link_libraries(AP_RCMapper littlefs) #clean
 
 #------------------------------------------------
@@ -4318,7 +4337,7 @@ set_target_properties(AP_RCProtocol PROPERTIES
 
 
 target_link_libraries(AP_RCProtocol mavlink) #clean
-target_link_libraries(AP_RCProtocol dronecan) #clean
+target_link_libraries(AP_RCProtocol canard) #clean
 target_link_libraries(AP_RCProtocol littlefs) #clean
 
 #------------------------------------------------
@@ -4361,7 +4380,7 @@ set_target_properties(AP_RCTelemetry PROPERTIES
 
 
 target_link_libraries(AP_RCTelemetry mavlink) #clean
-target_link_libraries(AP_RCTelemetry dronecan) #clean
+target_link_libraries(AP_RCTelemetry canard) #clean
 target_link_libraries(AP_RCTelemetry littlefs) #clean
 
 #------------------------------------------------
@@ -4400,7 +4419,7 @@ set_target_properties(AP_ROMFS PROPERTIES
 
 
 target_link_libraries(AP_ROMFS mavlink) #clean
-target_link_libraries(AP_ROMFS dronecan) #clean
+target_link_libraries(AP_ROMFS canard) #clean
 target_link_libraries(AP_ROMFS littlefs) #clean
 
 #------------------------------------------------
@@ -4457,7 +4476,7 @@ set_target_properties(AP_RPM PROPERTIES
 
 
 target_link_libraries(AP_RPM mavlink) #clean
-target_link_libraries(AP_RPM dronecan) #clean
+target_link_libraries(AP_RPM canard) #clean
 target_link_libraries(AP_RPM littlefs) #clean
 
 #------------------------------------------------
@@ -4495,7 +4514,7 @@ set_target_properties(AP_RSSI PROPERTIES
 
 
 target_link_libraries(AP_RSSI mavlink) #clean
-target_link_libraries(AP_RSSI dronecan) #clean
+target_link_libraries(AP_RSSI canard) #clean
 target_link_libraries(AP_RSSI littlefs) #clean
 
 #------------------------------------------------
@@ -4535,7 +4554,7 @@ set_target_properties(AP_RTC PROPERTIES
 
 
 target_link_libraries(AP_RTC mavlink) #clean
-target_link_libraries(AP_RTC dronecan) #clean
+target_link_libraries(AP_RTC canard) #clean
 target_link_libraries(AP_RTC littlefs) #clean
 
 #------------------------------------------------
@@ -4586,7 +4605,7 @@ set_target_properties(AP_Radio PROPERTIES
 
 
 target_link_libraries(AP_Radio mavlink) #clean
-target_link_libraries(AP_Radio dronecan) #clean
+target_link_libraries(AP_Radio canard) #clean
 target_link_libraries(AP_Radio littlefs) #clean
 
 #------------------------------------------------
@@ -4715,7 +4734,7 @@ set_target_properties(AP_RangeFinder PROPERTIES
 
 
 target_link_libraries(AP_RangeFinder mavlink) #clean
-target_link_libraries(AP_RangeFinder dronecan) #clean
+target_link_libraries(AP_RangeFinder canard) #clean
 target_link_libraries(AP_RangeFinder littlefs) #clean
 
 #------------------------------------------------
@@ -4754,7 +4773,7 @@ set_target_properties(AP_Relay PROPERTIES
 
 
 target_link_libraries(AP_Relay mavlink) #clean
-target_link_libraries(AP_Relay dronecan) #clean
+target_link_libraries(AP_Relay canard) #clean
 target_link_libraries(AP_Relay littlefs) #clean
 
 #------------------------------------------------
@@ -4791,7 +4810,7 @@ set_target_properties(AP_RobotisServo PROPERTIES
 
 
 target_link_libraries(AP_RobotisServo mavlink) #clean
-target_link_libraries(AP_RobotisServo dronecan) #clean
+target_link_libraries(AP_RobotisServo canard) #clean
 target_link_libraries(AP_RobotisServo littlefs) #clean
 
 #------------------------------------------------
@@ -4829,7 +4848,7 @@ set_target_properties(AP_SBusOut PROPERTIES
 
 
 target_link_libraries(AP_SBusOut mavlink) #clean
-target_link_libraries(AP_SBusOut dronecan) #clean
+target_link_libraries(AP_SBusOut canard) #clean
 target_link_libraries(AP_SBusOut littlefs) #clean
 
 #------------------------------------------------
@@ -4868,7 +4887,7 @@ set_target_properties(AP_Scheduler PROPERTIES
 
 
 target_link_libraries(AP_Scheduler mavlink) #clean
-target_link_libraries(AP_Scheduler dronecan) #clean
+target_link_libraries(AP_Scheduler canard) #clean
 target_link_libraries(AP_Scheduler littlefs) #clean
 
 #------------------------------------------------
@@ -4906,7 +4925,7 @@ set_target_properties(AP_SerialLED PROPERTIES
 
 
 target_link_libraries(AP_SerialLED mavlink) #clean
-target_link_libraries(AP_SerialLED dronecan) #clean
+target_link_libraries(AP_SerialLED canard) #clean
 target_link_libraries(AP_SerialLED littlefs) #clean
 
 #------------------------------------------------
@@ -4944,7 +4963,7 @@ set_target_properties(AP_SerialManager PROPERTIES
 
 
 target_link_libraries(AP_SerialManager mavlink) #clean
-target_link_libraries(AP_SerialManager dronecan) #clean
+target_link_libraries(AP_SerialManager canard) #clean
 target_link_libraries(AP_SerialManager littlefs) #clean
 
 #------------------------------------------------
@@ -4982,7 +5001,7 @@ set_target_properties(AP_ServoRelayEvents PROPERTIES
 
 
 target_link_libraries(AP_ServoRelayEvents mavlink) #clean
-target_link_libraries(AP_ServoRelayEvents dronecan) #clean
+target_link_libraries(AP_ServoRelayEvents canard) #clean
 target_link_libraries(AP_ServoRelayEvents littlefs) #clean
 
 #------------------------------------------------
@@ -5021,7 +5040,7 @@ set_target_properties(AP_Servo_Telem PROPERTIES
 
 
 target_link_libraries(AP_Servo_Telem mavlink) #clean
-target_link_libraries(AP_Servo_Telem dronecan) #clean
+target_link_libraries(AP_Servo_Telem canard) #clean
 target_link_libraries(AP_Servo_Telem littlefs) #clean
 
 #------------------------------------------------
@@ -5058,7 +5077,7 @@ set_target_properties(AP_SmartRTL PROPERTIES
 
 
 target_link_libraries(AP_SmartRTL mavlink) #clean
-target_link_libraries(AP_SmartRTL dronecan) #clean
+target_link_libraries(AP_SmartRTL canard) #clean
 target_link_libraries(AP_SmartRTL littlefs) #clean
 
 #------------------------------------------------
@@ -5102,7 +5121,7 @@ set_target_properties(AP_Soaring PROPERTIES
 
 
 target_link_libraries(AP_Soaring mavlink) #clean
-target_link_libraries(AP_Soaring dronecan) #clean
+target_link_libraries(AP_Soaring canard) #clean
 target_link_libraries(AP_Soaring littlefs) #clean
 
 #------------------------------------------------
@@ -5139,7 +5158,7 @@ set_target_properties(AP_Stats PROPERTIES
 
 
 target_link_libraries(AP_Stats mavlink) #clean
-target_link_libraries(AP_Stats dronecan) #clean
+target_link_libraries(AP_Stats canard) #clean
 target_link_libraries(AP_Stats littlefs) #clean
 
 #------------------------------------------------
@@ -5176,7 +5195,7 @@ set_target_properties(AP_SurfaceDistance PROPERTIES
 
 
 target_link_libraries(AP_SurfaceDistance mavlink) #clean
-target_link_libraries(AP_SurfaceDistance dronecan) #clean
+target_link_libraries(AP_SurfaceDistance canard) #clean
 target_link_libraries(AP_SurfaceDistance littlefs) #clean
 
 #------------------------------------------------
@@ -5213,7 +5232,7 @@ set_target_properties(AP_TECS PROPERTIES
 
 
 target_link_libraries(AP_TECS mavlink) #clean
-target_link_libraries(AP_TECS dronecan) #clean
+target_link_libraries(AP_TECS canard) #clean
 target_link_libraries(AP_TECS littlefs) #clean
 
 #------------------------------------------------
@@ -5251,7 +5270,7 @@ set_target_properties(AP_TempCalibration PROPERTIES
 
 
 target_link_libraries(AP_TempCalibration mavlink) #clean
-target_link_libraries(AP_TempCalibration dronecan) #clean
+target_link_libraries(AP_TempCalibration canard) #clean
 target_link_libraries(AP_TempCalibration littlefs) #clean
 
 #------------------------------------------------
@@ -5308,7 +5327,7 @@ set_target_properties(AP_TemperatureSensor PROPERTIES
 
 
 target_link_libraries(AP_TemperatureSensor mavlink) #clean
-target_link_libraries(AP_TemperatureSensor dronecan) #clean
+target_link_libraries(AP_TemperatureSensor canard) #clean
 target_link_libraries(AP_TemperatureSensor littlefs) #clean
 
 #------------------------------------------------
@@ -5349,7 +5368,7 @@ set_target_properties(AP_Terrain PROPERTIES
 
 
 target_link_libraries(AP_Terrain mavlink) #clean
-target_link_libraries(AP_Terrain dronecan) #clean
+target_link_libraries(AP_Terrain canard) #clean
 target_link_libraries(AP_Terrain littlefs) #clean
 
 #------------------------------------------------
@@ -5393,7 +5412,7 @@ set_target_properties(AP_Torqeedo PROPERTIES
 
 
 target_link_libraries(AP_Torqeedo mavlink) #clean
-target_link_libraries(AP_Torqeedo dronecan) #clean
+target_link_libraries(AP_Torqeedo canard) #clean
 target_link_libraries(AP_Torqeedo littlefs) #clean
 
 #------------------------------------------------
@@ -5431,7 +5450,7 @@ set_target_properties(AP_Tuning PROPERTIES
 
 
 target_link_libraries(AP_Tuning mavlink) #clean
-target_link_libraries(AP_Tuning dronecan) #clean
+target_link_libraries(AP_Tuning canard) #clean
 target_link_libraries(AP_Tuning littlefs) #clean
 
 #------------------------------------------------
@@ -5473,7 +5492,7 @@ set_target_properties(AP_Vehicle PROPERTIES
 
 
 target_link_libraries(AP_Vehicle mavlink) #clean
-target_link_libraries(AP_Vehicle dronecan) #clean
+target_link_libraries(AP_Vehicle canard) #clean
 target_link_libraries(AP_Vehicle littlefs) #clean
 
 #------------------------------------------------
@@ -5515,7 +5534,7 @@ set_target_properties(AP_VideoTX PROPERTIES
 
 
 target_link_libraries(AP_VideoTX mavlink) #clean
-target_link_libraries(AP_VideoTX dronecan) #clean
+target_link_libraries(AP_VideoTX canard) #clean
 target_link_libraries(AP_VideoTX littlefs) #clean
 
 #------------------------------------------------
@@ -5561,7 +5580,7 @@ set_target_properties(AP_VisualOdom PROPERTIES
 
 
 target_link_libraries(AP_VisualOdom mavlink) #clean
-target_link_libraries(AP_VisualOdom dronecan) #clean
+target_link_libraries(AP_VisualOdom canard) #clean
 target_link_libraries(AP_VisualOdom littlefs) #clean
 
 #------------------------------------------------
@@ -5598,7 +5617,7 @@ set_target_properties(AP_Volz_Protocol PROPERTIES
 
 
 target_link_libraries(AP_Volz_Protocol mavlink) #clean
-target_link_libraries(AP_Volz_Protocol dronecan) #clean
+target_link_libraries(AP_Volz_Protocol canard) #clean
 target_link_libraries(AP_Volz_Protocol littlefs) #clean
 
 #------------------------------------------------
@@ -5643,7 +5662,7 @@ set_target_properties(AP_WheelEncoder PROPERTIES
 
 
 target_link_libraries(AP_WheelEncoder mavlink) #clean
-target_link_libraries(AP_WheelEncoder dronecan) #clean
+target_link_libraries(AP_WheelEncoder canard) #clean
 target_link_libraries(AP_WheelEncoder littlefs) #clean
 
 #------------------------------------------------
@@ -5687,7 +5706,7 @@ set_target_properties(AP_Winch PROPERTIES
 
 
 target_link_libraries(AP_Winch mavlink) #clean
-target_link_libraries(AP_Winch dronecan) #clean
+target_link_libraries(AP_Winch canard) #clean
 target_link_libraries(AP_Winch littlefs) #clean
 
 #------------------------------------------------
@@ -5741,7 +5760,7 @@ set_target_properties(AP_WindVane PROPERTIES
 
 
 target_link_libraries(AP_WindVane mavlink) #clean
-target_link_libraries(AP_WindVane dronecan) #clean
+target_link_libraries(AP_WindVane canard) #clean
 target_link_libraries(AP_WindVane littlefs) #clean
 
 #------------------------------------------------
@@ -5778,7 +5797,7 @@ set_target_properties(AR_Motors PROPERTIES
 
 
 target_link_libraries(AR_Motors mavlink) #clean
-target_link_libraries(AR_Motors dronecan) #clean
+target_link_libraries(AR_Motors canard) #clean
 target_link_libraries(AR_Motors littlefs) #clean
 
 #------------------------------------------------
@@ -5819,7 +5838,7 @@ set_target_properties(AR_WPNav PROPERTIES
 
 
 target_link_libraries(AR_WPNav mavlink) #clean
-target_link_libraries(AR_WPNav dronecan) #clean
+target_link_libraries(AR_WPNav canard) #clean
 target_link_libraries(AR_WPNav littlefs) #clean
 
 #------------------------------------------------
@@ -5877,7 +5896,7 @@ set_target_properties(Filter PROPERTIES
 
 
 target_link_libraries(Filter mavlink) #clean
-target_link_libraries(Filter dronecan) #clean
+target_link_libraries(Filter canard) #clean
 target_link_libraries(Filter littlefs) #clean
 
 #------------------------------------------------
@@ -5936,7 +5955,7 @@ set_target_properties(GCS_MAVLink PROPERTIES
 
 
 target_link_libraries(GCS_MAVLink mavlink) #clean
-target_link_libraries(GCS_MAVLink dronecan) #clean
+target_link_libraries(GCS_MAVLink canard) #clean
 target_link_libraries(GCS_MAVLink littlefs) #clean
 
 #------------------------------------------------
@@ -5973,7 +5992,7 @@ set_target_properties(PID PROPERTIES
 
 
 target_link_libraries(PID mavlink) #clean
-target_link_libraries(PID dronecan) #clean
+target_link_libraries(PID canard) #clean
 target_link_libraries(PID littlefs) #clean
 
 #------------------------------------------------
@@ -6012,7 +6031,7 @@ set_target_properties(RC_Channel PROPERTIES
 
 
 target_link_libraries(RC_Channel mavlink) #clean
-target_link_libraries(RC_Channel dronecan) #clean
+target_link_libraries(RC_Channel canard) #clean
 target_link_libraries(RC_Channel littlefs) #clean
 
 #------------------------------------------------
@@ -6052,7 +6071,7 @@ set_target_properties(SRV_Channel PROPERTIES
 
 
 target_link_libraries(SRV_Channel mavlink) #clean
-target_link_libraries(SRV_Channel dronecan) #clean
+target_link_libraries(SRV_Channel canard) #clean
 target_link_libraries(SRV_Channel littlefs) #clean
 
 #------------------------------------------------
@@ -6161,7 +6180,7 @@ set_target_properties(AP_HAL PROPERTIES
 
 
 target_link_libraries(AP_HAL mavlink) #clean
-target_link_libraries(AP_HAL dronecan) #clean
+target_link_libraries(AP_HAL canard) #clean
 target_link_libraries(AP_HAL littlefs) #clean
 
 #------------------------------------------------
@@ -6223,7 +6242,7 @@ set_target_properties(AP_HAL_Empty PROPERTIES
 
 
 target_link_libraries(AP_HAL_Empty mavlink) #clean
-target_link_libraries(AP_HAL_Empty dronecan) #clean
+target_link_libraries(AP_HAL_Empty canard) #clean
 target_link_libraries(AP_HAL_Empty littlefs) #clean
 
 #------------------------------------------------
@@ -6296,7 +6315,7 @@ set_target_properties(AP_PiccoloCAN_piccolo_protocol PROPERTIES
 
 
 target_link_libraries(AP_PiccoloCAN_piccolo_protocol mavlink) #clean
-target_link_libraries(AP_PiccoloCAN_piccolo_protocol dronecan) #clean
+target_link_libraries(AP_PiccoloCAN_piccolo_protocol canard) #clean
 target_link_libraries(AP_PiccoloCAN_piccolo_protocol littlefs) #clean
 
 #------------------------------------------------
@@ -6377,7 +6396,7 @@ set_target_properties(AP_HAL_SITL PROPERTIES
 
 
 target_link_libraries(AP_HAL_SITL mavlink) #clean
-target_link_libraries(AP_HAL_SITL dronecan) #clean
+target_link_libraries(AP_HAL_SITL canard) #clean
 target_link_libraries(AP_HAL_SITL littlefs) #clean
 
 #------------------------------------------------
@@ -6717,7 +6736,7 @@ set_target_properties(SITL PROPERTIES
 
 
 target_link_libraries(SITL mavlink) #clean
-target_link_libraries(SITL dronecan) #clean
+target_link_libraries(SITL canard) #clean
 target_link_libraries(SITL littlefs) #clean
 
 #------------------------------------------------
@@ -6767,7 +6786,7 @@ set_target_properties(AP_Scripting PROPERTIES
 
 
 target_link_libraries(AP_Scripting mavlink) #clean
-target_link_libraries(AP_Scripting dronecan) #clean
+target_link_libraries(AP_Scripting canard) #clean
 target_link_libraries(AP_Scripting littlefs) #clean
 
 #------------------------------------------------
@@ -6862,7 +6881,7 @@ set_target_properties(AP_Scripting_lua_src PROPERTIES
 
 
 target_link_libraries(AP_Scripting_lua_src mavlink) #clean
-target_link_libraries(AP_Scripting_lua_src dronecan) #clean
+target_link_libraries(AP_Scripting_lua_src canard) #clean
 target_link_libraries(AP_Scripting_lua_src littlefs) #clean
 
 #------------------------------------------------
@@ -6915,7 +6934,7 @@ set_target_properties(AP_NavEKF3 PROPERTIES
 
 
 target_link_libraries(AP_NavEKF3 mavlink) #clean
-target_link_libraries(AP_NavEKF3 dronecan) #clean
+target_link_libraries(AP_NavEKF3 canard) #clean
 target_link_libraries(AP_NavEKF3 littlefs) #clean
 
 #------------------------------------------------
@@ -6954,7 +6973,7 @@ set_target_properties(AP_Rally PROPERTIES
 
 
 target_link_libraries(AP_Rally mavlink) #clean
-target_link_libraries(AP_Rally dronecan) #clean
+target_link_libraries(AP_Rally canard) #clean
 target_link_libraries(AP_Rally littlefs) #clean
 
 #------------------------------------------------
@@ -6992,7 +7011,7 @@ set_target_properties(StorageManager PROPERTIES
 
 
 target_link_libraries(StorageManager mavlink) #clean
-target_link_libraries(StorageManager dronecan) #clean
+target_link_libraries(StorageManager canard) #clean
 target_link_libraries(StorageManager littlefs) #clean
 
 #------------------------------------------------
@@ -7030,7 +7049,7 @@ set_target_properties(AP_IBus_Telem PROPERTIES
 
 
 target_link_libraries(AP_IBus_Telem mavlink) #clean
-target_link_libraries(AP_IBus_Telem dronecan) #clean
+target_link_libraries(AP_IBus_Telem canard) #clean
 target_link_libraries(AP_IBus_Telem littlefs) #clean
 
 #------------------------------------------------
@@ -7069,7 +7088,7 @@ set_target_properties(AP_BLHeli PROPERTIES
 
 
 target_link_libraries(AP_BLHeli mavlink) #clean
-target_link_libraries(AP_BLHeli dronecan) #clean
+target_link_libraries(AP_BLHeli canard) #clean
 target_link_libraries(AP_BLHeli littlefs) #clean
 
 #------------------------------------------------
@@ -7111,7 +7130,7 @@ set_target_properties(AC_Fence PROPERTIES
 
 
 target_link_libraries(AC_Fence mavlink) #clean
-target_link_libraries(AC_Fence dronecan) #clean
+target_link_libraries(AC_Fence canard) #clean
 target_link_libraries(AC_Fence littlefs) #clean
 
 #------------------------------------------------
@@ -7150,7 +7169,7 @@ set_target_properties(AP_LandingGear PROPERTIES
 
 
 target_link_libraries(AP_LandingGear mavlink) #clean
-target_link_libraries(AP_LandingGear dronecan) #clean
+target_link_libraries(AP_LandingGear canard) #clean
 target_link_libraries(AP_LandingGear littlefs) #clean
 
 #------------------------------------------------
@@ -7220,7 +7239,7 @@ set_target_properties(AP_ADSB_sagetech-sdk PROPERTIES
 
 
 target_link_libraries(AP_ADSB_sagetech-sdk mavlink) #clean
-target_link_libraries(AP_ADSB_sagetech-sdk dronecan) #clean
+target_link_libraries(AP_ADSB_sagetech-sdk canard) #clean
 target_link_libraries(AP_ADSB_sagetech-sdk littlefs) #clean
 
 #------------------------------------------------
@@ -7258,7 +7277,7 @@ set_target_properties(AP_GyroFFT PROPERTIES
 
 
 target_link_libraries(AP_GyroFFT mavlink) #clean
-target_link_libraries(AP_GyroFFT dronecan) #clean
+target_link_libraries(AP_GyroFFT canard) #clean
 target_link_libraries(AP_GyroFFT littlefs) #clean
 
 #------------------------------------------------
@@ -7298,7 +7317,7 @@ set_target_properties(AP_AIS PROPERTIES
 
 
 target_link_libraries(AP_AIS mavlink) #clean
-target_link_libraries(AP_AIS dronecan) #clean
+target_link_libraries(AP_AIS canard) #clean
 target_link_libraries(AP_AIS littlefs) #clean
 
 #------------------------------------------------
@@ -7337,7 +7356,7 @@ set_target_properties(AP_Arming PROPERTIES
 
 
 target_link_libraries(AP_Arming mavlink) #clean
-target_link_libraries(AP_Arming dronecan) #clean
+target_link_libraries(AP_Arming canard) #clean
 target_link_libraries(AP_Arming littlefs) #clean
 
 #------------------------------------------------
@@ -7376,7 +7395,7 @@ set_target_properties(AP_Follow PROPERTIES
 
 
 target_link_libraries(AP_Follow mavlink) #clean
-target_link_libraries(AP_Follow dronecan) #clean
+target_link_libraries(AP_Follow canard) #clean
 target_link_libraries(AP_Follow littlefs) #clean
 
 #------------------------------------------------
@@ -7753,6 +7772,7 @@ set(tracker_INCLUDES
 
 add_executable(tracker ${tracker_SOURCES}) #2
 target_compile_definitions(tracker PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
+target_link_directories(tracker PRIVATE build2) #2
 #target_include_directories(tracker PRIVATE ${tracker_INCLUDES})
 
 
@@ -7794,7 +7814,7 @@ set_target_properties(AP_Avoidance PROPERTIES
 
 
 target_link_libraries(AP_Avoidance mavlink) #clean
-target_link_libraries(AP_Avoidance dronecan) #clean
+target_link_libraries(AP_Avoidance canard) #clean
 target_link_libraries(AP_Avoidance littlefs) #clean
 
 #------------------------------------------------
@@ -8251,6 +8271,7 @@ set(copter_INCLUDES
 
 add_executable(copter ${copter_SOURCES}) #2
 target_compile_definitions(copter PRIVATE -DFRAME_CONFIG=MULTICOPTER_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+target_link_directories(copter PRIVATE build2) #2
 #target_include_directories(copter PRIVATE ${copter_INCLUDES})
 
 
@@ -8373,6 +8394,7 @@ set(copter-heli_INCLUDES
 
 add_executable(copter-heli ${copter-heli_SOURCES}) #2
 target_compile_definitions(copter-heli PRIVATE -DFRAME_CONFIG=HELI_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
+target_link_directories(copter-heli PRIVATE build2) #2
 #target_include_directories(copter-heli PRIVATE ${copter-heli_INCLUDES})
 
 
@@ -8830,6 +8852,7 @@ set(plane_INCLUDES
 
 add_executable(plane ${plane_SOURCES}) #2
 target_compile_definitions(plane PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
+target_link_directories(plane PRIVATE build2) #2
 #target_include_directories(plane PRIVATE ${plane_INCLUDES})
 
 
@@ -9238,6 +9261,7 @@ set(sub_INCLUDES
 
 add_executable(sub ${sub_SOURCES}) #2
 target_compile_definitions(sub PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
+target_link_directories(sub PRIVATE build2) #2
 #target_include_directories(sub PRIVATE ${sub_INCLUDES})
 
 
@@ -9634,6 +9658,7 @@ set(blimp_INCLUDES
 
 add_executable(blimp ${blimp_SOURCES}) #2
 target_compile_definitions(blimp PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
+target_link_directories(blimp PRIVATE build2) #2
 #target_include_directories(blimp PRIVATE ${blimp_INCLUDES})
 
 
@@ -10050,6 +10075,7 @@ set(rover_INCLUDES
 
 add_executable(rover ${rover_SOURCES}) #2
 target_compile_definitions(rover PRIVATE -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
+target_link_directories(rover PRIVATE build2) #2
 #target_include_directories(rover PRIVATE ${rover_INCLUDES})
 
 

@@ -750,6 +750,11 @@ class CMakeExporter(object):
 			content += 'add_executable(%s ${%s_SOURCES}) #2\n' % (cleanedname, cleanedname)
 			if len(defines):
 				content += 'target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
+			# link stuff
+			#these will get /home/buzz2/ardupilot/ prefixed on them by cmake and become -Lxxx
+			# because LIBRARY_OUTPUT_DIRECTORY=CMAKE_BINARY_DIR, ie build2, we need to add that to the link directories.
+			content += 'target_link_directories(%s PRIVATE build2) #2\n' % (cleanedname)
+
 			if len(includes):
 				content += '#target_include_directories(%s PRIVATE ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
 			content += '\n'

@@ -949,97 +949,6 @@ AC_WPNav/fast:
 .PHONY : AC_WPNav/fast
 
 #=============================================================================
-# Target rules for targets named AP_Volz_Protocol
-
-# Build rule for target.
-AP_Volz_Protocol: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Volz_Protocol
-.PHONY : AP_Volz_Protocol
-
-# fast build rule for target.
-AP_Volz_Protocol/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Volz_Protocol.dir/build.make CMakeFiles/AP_Volz_Protocol.dir/build
-.PHONY : AP_Volz_Protocol/fast
-
-#=============================================================================
-# Target rules for targets named AP_DAL
-
-# Build rule for target.
-AP_DAL: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_DAL
-.PHONY : AP_DAL
-
-# fast build rule for target.
-AP_DAL/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/build
-.PHONY : AP_DAL/fast
-
-#=============================================================================
-# Target rules for targets named AC_PrecLand
-
-# Build rule for target.
-AC_PrecLand: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_PrecLand
-.PHONY : AC_PrecLand
-
-# fast build rule for target.
-AC_PrecLand/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/build
-.PHONY : AC_PrecLand/fast
-
-#=============================================================================
-# Target rules for targets named blimp
-
-# Build rule for target.
-blimp: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 blimp
-.PHONY : blimp
-
-# fast build rule for target.
-blimp/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/build
-.PHONY : blimp/fast
-
-#=============================================================================
-# Target rules for targets named AP_AccelCal
-
-# Build rule for target.
-AP_AccelCal: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AccelCal
-.PHONY : AP_AccelCal
-
-# fast build rule for target.
-AP_AccelCal/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AccelCal.dir/build.make CMakeFiles/AP_AccelCal.dir/build
-.PHONY : AP_AccelCal/fast
-
-#=============================================================================
-# Target rules for targets named AP_Frsky_Telem
-
-# Build rule for target.
-AP_Frsky_Telem: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Frsky_Telem
-.PHONY : AP_Frsky_Telem
-
-# fast build rule for target.
-AP_Frsky_Telem/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/build
-.PHONY : AP_Frsky_Telem/fast
-
-#=============================================================================
-# Target rules for targets named AC_Autorotation
-
-# Build rule for target.
-AC_Autorotation: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Autorotation
-.PHONY : AC_Autorotation
-
-# fast build rule for target.
-AC_Autorotation/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Autorotation.dir/build.make CMakeFiles/AC_Autorotation.dir/build
-.PHONY : AC_Autorotation/fast
-
-#=============================================================================
 # Target rules for targets named AP_IBus_Telem
 
 # Build rule for target.
@@ -1129,6 +1038,84 @@ AP_BattMonitor: cmake_check_build_system
 AP_BattMonitor/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/build
 .PHONY : AP_BattMonitor/fast
+
+#=============================================================================
+# Target rules for targets named AP_Frsky_Telem
+
+# Build rule for target.
+AP_Frsky_Telem: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Frsky_Telem
+.PHONY : AP_Frsky_Telem
+
+# fast build rule for target.
+AP_Frsky_Telem/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/build
+.PHONY : AP_Frsky_Telem/fast
+
+#=============================================================================
+# Target rules for targets named AC_Autorotation
+
+# Build rule for target.
+AC_Autorotation: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Autorotation
+.PHONY : AC_Autorotation
+
+# fast build rule for target.
+AC_Autorotation/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Autorotation.dir/build.make CMakeFiles/AC_Autorotation.dir/build
+.PHONY : AC_Autorotation/fast
+
+#=============================================================================
+# Target rules for targets named canard
+
+# Build rule for target.
+canard: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 canard
+.PHONY : canard
+
+# fast build rule for target.
+canard/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/canard.dir/build.make CMakeFiles/canard.dir/build
+.PHONY : canard/fast
+
+#=============================================================================
+# Target rules for targets named AP_Baro
+
+# Build rule for target.
+AP_Baro: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Baro
+.PHONY : AP_Baro
+
+# fast build rule for target.
+AP_Baro/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/build
+.PHONY : AP_Baro/fast
+
+#=============================================================================
+# Target rules for targets named AP_Gripper
+
+# Build rule for target.
+AP_Gripper: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Gripper
+.PHONY : AP_Gripper
+
+# fast build rule for target.
+AP_Gripper/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Gripper.dir/build.make CMakeFiles/AP_Gripper.dir/build
+.PHONY : AP_Gripper/fast
+
+#=============================================================================
+# Target rules for targets named AP_Networking
+
+# Build rule for target.
+AP_Networking: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Networking
+.PHONY : AP_Networking
+
+# fast build rule for target.
+AP_Networking/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Networking.dir/build.make CMakeFiles/AP_Networking.dir/build
+.PHONY : AP_Networking/fast
 
 #=============================================================================
 # Target rules for targets named AP_CANManager
@@ -1274,6 +1261,32 @@ AP_Landing/fast:
 .PHONY : AP_Landing/fast
 
 #=============================================================================
+# Target rules for targets named AP_Relay
+
+# Build rule for target.
+AP_Relay: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Relay
+.PHONY : AP_Relay
+
+# fast build rule for target.
+AP_Relay/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay.dir/build.make CMakeFiles/AP_Relay.dir/build
+.PHONY : AP_Relay/fast
+
+#=============================================================================
+# Target rules for targets named AP_Camera
+
+# Build rule for target.
+AP_Camera: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Camera
+.PHONY : AP_Camera
+
+# fast build rule for target.
+AP_Camera/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Camera.dir/build.make CMakeFiles/AP_Camera.dir/build
+.PHONY : AP_Camera/fast
+
+#=============================================================================
 # Target rules for targets named rover
 
 # Build rule for target.
@@ -1298,6 +1311,71 @@ AP_Button: cmake_check_build_system
 AP_Button/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Button.dir/build.make CMakeFiles/AP_Button.dir/build
 .PHONY : AP_Button/fast
+
+#=============================================================================
+# Target rules for targets named AP_Volz_Protocol
+
+# Build rule for target.
+AP_Volz_Protocol: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Volz_Protocol
+.PHONY : AP_Volz_Protocol
+
+# fast build rule for target.
+AP_Volz_Protocol/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Volz_Protocol.dir/build.make CMakeFiles/AP_Volz_Protocol.dir/build
+.PHONY : AP_Volz_Protocol/fast
+
+#=============================================================================
+# Target rules for targets named AP_DAL
+
+# Build rule for target.
+AP_DAL: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_DAL
+.PHONY : AP_DAL
+
+# fast build rule for target.
+AP_DAL/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/build
+.PHONY : AP_DAL/fast
+
+#=============================================================================
+# Target rules for targets named AC_PrecLand
+
+# Build rule for target.
+AC_PrecLand: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_PrecLand
+.PHONY : AC_PrecLand
+
+# fast build rule for target.
+AC_PrecLand/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/build
+.PHONY : AC_PrecLand/fast
+
+#=============================================================================
+# Target rules for targets named blimp
+
+# Build rule for target.
+blimp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 blimp
+.PHONY : blimp
+
+# fast build rule for target.
+blimp/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/build
+.PHONY : blimp/fast
+
+#=============================================================================
+# Target rules for targets named AP_AccelCal
+
+# Build rule for target.
+AP_AccelCal: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AccelCal
+.PHONY : AP_AccelCal
+
+# fast build rule for target.
+AP_AccelCal/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AccelCal.dir/build.make CMakeFiles/AP_AccelCal.dir/build
+.PHONY : AP_AccelCal/fast
 
 #=============================================================================
 # Target rules for targets named AP_GyroFFT
@@ -1547,45 +1625,6 @@ AP_AdvancedFailsafe/fast:
 .PHONY : AP_AdvancedFailsafe/fast
 
 #=============================================================================
-# Target rules for targets named AP_Baro
-
-# Build rule for target.
-AP_Baro: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Baro
-.PHONY : AP_Baro
-
-# fast build rule for target.
-AP_Baro/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/build
-.PHONY : AP_Baro/fast
-
-#=============================================================================
-# Target rules for targets named AP_Gripper
-
-# Build rule for target.
-AP_Gripper: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Gripper
-.PHONY : AP_Gripper
-
-# fast build rule for target.
-AP_Gripper/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Gripper.dir/build.make CMakeFiles/AP_Gripper.dir/build
-.PHONY : AP_Gripper/fast
-
-#=============================================================================
-# Target rules for targets named AP_Networking
-
-# Build rule for target.
-AP_Networking: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Networking
-.PHONY : AP_Networking
-
-# fast build rule for target.
-AP_Networking/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Networking.dir/build.make CMakeFiles/AP_Networking.dir/build
-.PHONY : AP_Networking/fast
-
-#=============================================================================
 # Target rules for targets named AP_Generator
 
 # Build rule for target.
@@ -1805,32 +1844,6 @@ AP_LeakDetector: cmake_check_build_system
 AP_LeakDetector/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LeakDetector.dir/build.make CMakeFiles/AP_LeakDetector.dir/build
 .PHONY : AP_LeakDetector/fast
-
-#=============================================================================
-# Target rules for targets named AP_Camera
-
-# Build rule for target.
-AP_Camera: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Camera
-.PHONY : AP_Camera
-
-# fast build rule for target.
-AP_Camera/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Camera.dir/build.make CMakeFiles/AP_Camera.dir/build
-.PHONY : AP_Camera/fast
-
-#=============================================================================
-# Target rules for targets named AP_Relay
-
-# Build rule for target.
-AP_Relay: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Relay
-.PHONY : AP_Relay
-
-# fast build rule for target.
-AP_Relay/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay.dir/build.make CMakeFiles/AP_Relay.dir/build
-.PHONY : AP_Relay/fast
 
 #=============================================================================
 # Target rules for targets named AP_LightWareSerial
@@ -39581,6 +39594,30 @@ libraries/StorageManager/StorageManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager.dir/build.make CMakeFiles/StorageManager.dir/libraries/StorageManager/StorageManager.cpp.s
 .PHONY : libraries/StorageManager/StorageManager.cpp.s
 
+modules/DroneCAN/libcanard/canard.o: modules/DroneCAN/libcanard/canard.c.o
+.PHONY : modules/DroneCAN/libcanard/canard.o
+
+# target to build an object file
+modules/DroneCAN/libcanard/canard.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/canard.dir/build.make CMakeFiles/canard.dir/modules/DroneCAN/libcanard/canard.c.o
+.PHONY : modules/DroneCAN/libcanard/canard.c.o
+
+modules/DroneCAN/libcanard/canard.i: modules/DroneCAN/libcanard/canard.c.i
+.PHONY : modules/DroneCAN/libcanard/canard.i
+
+# target to preprocess a source file
+modules/DroneCAN/libcanard/canard.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/canard.dir/build.make CMakeFiles/canard.dir/modules/DroneCAN/libcanard/canard.c.i
+.PHONY : modules/DroneCAN/libcanard/canard.c.i
+
+modules/DroneCAN/libcanard/canard.s: modules/DroneCAN/libcanard/canard.c.s
+.PHONY : modules/DroneCAN/libcanard/canard.s
+
+# target to generate assembly for a file
+modules/DroneCAN/libcanard/canard.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/canard.dir/build.make CMakeFiles/canard.dir/modules/DroneCAN/libcanard/canard.c.s
+.PHONY : modules/DroneCAN/libcanard/canard.c.s
+
 modules/littlefs/bd/lfs_filebd.o: modules/littlefs/bd/lfs_filebd.c.o
 .PHONY : modules/littlefs/bd/lfs_filebd.o
 
@@ -41517,6 +41554,7 @@ help:
 	@echo "... SRV_Channel"
 	@echo "... StorageManager"
 	@echo "... blimp"
+	@echo "... canard"
 	@echo "... copter"
 	@echo "... copter-heli"
 	@echo "... littlefs"
@@ -45841,6 +45879,9 @@ help:
 	@echo "... libraries/StorageManager/StorageManager.o"
 	@echo "... libraries/StorageManager/StorageManager.i"
 	@echo "... libraries/StorageManager/StorageManager.s"
+	@echo "... modules/DroneCAN/libcanard/canard.o"
+	@echo "... modules/DroneCAN/libcanard/canard.i"
+	@echo "... modules/DroneCAN/libcanard/canard.s"
 	@echo "... modules/littlefs/bd/lfs_filebd.o"
 	@echo "... modules/littlefs/bd/lfs_filebd.i"
 	@echo "... modules/littlefs/bd/lfs_filebd.s"
