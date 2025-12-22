@@ -141,6 +141,40 @@ class CMakeExporterContext(BuildContext):
 		source = kw.get('source', [])
 		output_dir = kw.get('output_dir', None)
 		export_includes = kw.get('export_includes', True)
+		xgroup = kw.get('group', None) #rare, for dynamic_sources
+
+		# uncomment this block and run './waf make_exporter' to see the flow of all taskgens
+		# we hook into the relevant ones.
+		# known=False
+		# if 'ap_library_object' in features:
+		# 	print ('ap_library_object name: %s ' % name)
+		# 	known=True
+		# if 'cxx' in features:
+		# 	print ('cxx name: %s ' % name)
+		# 	known=True
+		# if 'c' in features:
+		# 	print ('c name: %s ' % name)
+		# 	known=True
+		# if 'cstdlib' in features:
+		# 	print ('cstdlib name: %s ' % name)
+		# 	known=True
+		# if 'droncangen' in features:
+		# 	print ('droncangen name: %s ' % name)
+		# 	known=True
+		# if 'git_submodule' in features:
+		# 	print ('git_submodule name: %s ' % name)
+		# 	known=True
+		# if 'mavgen' in features:
+		# 	print ('mavgen name: %s ' % name)
+		# 	known=True
+		# if 'ap_version' in features or name=='ap_version':
+		# 	print ('ap_version name: %s ' % name)
+		# 	known=True
+		# if xgroup == 'dynamic_sources':
+		# 	print ('dynamic_sources name: %s ' % name)
+		# 	known=True
+		# if known==False:
+		# 	print ('unknown: name: %s features: %s ' % (name, features))
 
 		import os
 		from pathlib import Path
@@ -569,6 +603,7 @@ class CMakeExporter(object):
 			content += 'target_include_directories(mavlink INTERFACE ${mavlink_INCLUDES})\n'
 			content += 'set_target_properties(mavlink PROPERTIES\n'
 			content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"\n'
+			content += '    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"\n'
 			# PROPERTIES LINKER_LANGUAGE CXX
 			content += '    LINKER_LANGUAGE CXX\n'
 			content += ')\n'
@@ -607,6 +642,7 @@ class CMakeExporter(object):
 			content += 'target_include_directories(canard PUBLIC ${canard_INCLUDES})\n'
 			content += 'set_target_properties(canard PROPERTIES\n'
 			content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"\n'
+			content += '    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"\n'
 			# PROPERTIES LINKER_LANGUAGE CXX
 			content += '    LINKER_LANGUAGE CXX\n'
 			content += ')\n'
@@ -749,40 +785,42 @@ class CMakeExporter(object):
 		if set(('cprogram', 'cxxprogram')) & set(tgen.features):
 			content += 'add_executable(%s ${%s_SOURCES}) #2\n' % (cleanedname, cleanedname)
 			if len(defines):
-				content += 'target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
+				content += 'target_compile_definitions(%s PUBLIC -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
 			# link stuff
 			#these will get /home/buzz2/ardupilot/ prefixed on them by cmake and become -Lxxx
 			# because LIBRARY_OUTPUT_DIRECTORY=CMAKE_BINARY_DIR, ie build2, we need to add that to the link directories.
-			content += 'target_link_directories(%s PRIVATE build2) #2\n' % (cleanedname)
+			content += 'target_link_directories(%s PUBLIC build2) #2\n' % (cleanedname)
 
 			if len(includes):
-				content += '#target_include_directories(%s PRIVATE ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
+				content += '#target_include_directories(%s PUBLIC ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
 			content += '\n'
 
 		elif set(('cshlib', 'cxxshlib')) & set(tgen.features):
 			content += 'add_library(%s SHARED ${%s_SOURCES}) #1\n' % (cleanedname, cleanedname)
 			if len(defines):
-				content += 'target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
+				content += 'target_compile_definitions(%s PUBLIC -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
 			if len(includes):
-				content += 'target_include_directories(%s PRIVATE ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
+				content += 'target_include_directories(%s PUBLIC ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
 			content += '\n'
 
 			#set_target_properties(JE3D PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/library)
 			content += 'set_target_properties(%s PROPERTIES\n' % (cleanedname)
 			content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/"\n'
+			content += '    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"\n'
 			content += ')\n\n'
 
 		else: # cstlib, cxxstlib or objects
 			content += 'add_library(%s ${%s_SOURCES}) #2\n' % (cleanedname, cleanedname)
 			if len(defines):
-				content += 'target_compile_definitions(%s PRIVATE -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
+				content += 'target_compile_definitions(%s PUBLIC -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
 			if len(includes):
-				content += 'target_include_directories(%s PRIVATE ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
+				content += 'target_include_directories(%s PUBLIC ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
 			content += '\n'
 
 			#set_target_properties(JE3D PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/library)
 			content += 'set_target_properties(%s PROPERTIES\n' % (cleanedname)
 			content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"\n'
+			content += '    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"\n'
 			content += ')\n\n'
 		#-------------------
 
@@ -829,6 +867,15 @@ class CMakeExporter(object):
 					if lib == 'dronecan':
 						lib = 'canard'
 					content += 'target_link_libraries(%s %s) #clean\n' % (cleanedname, lib)
+					if cleanedname == 'copter':
+						print('Debug: Reached ArduCopter_libs linking')
+						global lib_register
+						for r in lib_register:
+							skiplist = ['AntennaTracker_libs', 'Blimp_libs', 'Rover_libs', 'ArduPlane_libs','tracker','blimp','rover','plane','copter','ArduCopter_libs']
+							if r in skiplist:
+								continue
+
+							content += 'target_link_libraries(copter %s) #clean2\n' % (r)
 			content += '\n'
 
 		return content
