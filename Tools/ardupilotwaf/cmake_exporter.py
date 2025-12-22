@@ -573,7 +573,43 @@ class CMakeExporter(object):
 			content += '    LINKER_LANGUAGE CXX\n'
 			content += ')\n'
 
-		# todo dronecan, etc
+		#  dronecan libcanard.
+		# - `canard.c` - the only translation unit; add it to your build or compile it into a separate static library;
+		# - `canard.h` - the API header; include it in your application;
+		# - `canard_internals.h` - internal definitions of the library;
+		# keep this file in the same directory with `canard.c`.
+		# Add `canard.c` to your application build, add `libcanard` directory to the include paths,
+		# and you're ready to roll.
+		canard_sources = ['modules/DroneCAN/libcanard/canard.c',
+						  'modules/DroneCAN/libcanard/canard.h',
+						  'modules/DroneCAN/libcanard/canard_internals.h']
+		canard_includes = ['modules/DroneCAN/libcanard']
+		# we convert the above with self.bld.srcnode.make_node('xxx').abspath() below.
+		print ('Debug: DroneCAN canard includes:', canard_includes)
+		print ('Debug: DroneCAN canard sources:', canard_sources)
+		if len(canard_sources):
+			content += '\n#------------------------------------------------\n\n'
+			content += 'set(canard_SOURCES #3\n'
+			# add hardcoded sources first
+			for src in canard_sources:
+				# get full abspath
+				src_abspath = self.bld.srcnode.make_node(src).abspath()
+				content += '    %s\n' % (src_abspath)
+			content += ')\n\n'
+			content += 'set(canard_INCLUDES\n'
+			# add hardcoded includes first
+			for inc in canard_includes:
+				# get full abspath
+				inc_abspath = self.bld.srcnode.make_node(inc).abspath()
+				content += '    %s\n' % (inc_abspath)
+			content += ')\n\n'
+			content += 'add_library(canard STATIC ${canard_SOURCES}) #2\n'
+			content += 'target_include_directories(canard PUBLIC ${canard_INCLUDES})\n'
+			content += 'set_target_properties(canard PROPERTIES\n'
+			content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"\n'
+			# PROPERTIES LINKER_LANGUAGE CXX
+			content += '    LINKER_LANGUAGE CXX\n'
+			content += ')\n'
 
 		if len(self.tgens):
 			content += '\n'
@@ -784,7 +820,9 @@ class CMakeExporter(object):
 					else:
 						content += 'target_link_libraries(%s %s) #stripped\n' % (cleanedname, strip_lib)
 				else:
-					# binary linking:
+					# binary linking: for cmake, we're gonna rename 'dronecan' to 'canard' here , last minute.
+					if lib == 'dronecan':
+						lib = 'canard'
 					content += 'target_link_libraries(%s %s) #clean\n' % (cleanedname, lib)
 			content += '\n'
 
