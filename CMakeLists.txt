@@ -7318,6 +7318,7 @@ set(AP_Scripting_SOURCES #3
 	libraries/AP_Scripting/lua_bindings.cpp
 	libraries/AP_Scripting/lua_boxed_numerics.cpp
 	libraries/AP_Scripting/lua_scripts.cpp
+	build2/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp #extra
 )
 
 set(AP_Scripting_INCLUDES

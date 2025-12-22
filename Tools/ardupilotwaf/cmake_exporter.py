@@ -745,14 +745,15 @@ class CMakeExporter(object):
 					print('AP Vehicle: %s %s' % (ap_vehicle, t))
 
 				# special case for AP_Scripting tgen, we want to *add* an extra src file to it..
-				if t == 'objs/AP_Stats':
-					# add build2/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp to the source list
-					lua_bindings_node = self.bld.bldnode.find_node('sitl/libraries/AP_Scripting/lua_generated_bindings.cpp')
-					if lua_bindings_node:
-						print('CLONE: Adding lua_generated_bindings.cpp to AP_Scripting target')
-						tgen.source.append(lua_bindings_node)
-					else:
-						print('Warning: Could not find lua_generated_bindings.cpp to add to AP_Scripting target')
+				# this worked, but we do this better elsewhere.
+				# if t == 'objs/AP_Stats':
+				# 	# add build2/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp to the source list
+				# 	lua_bindings_node = self.bld.bldnode.find_node('../../build2/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp')
+				# 	if lua_bindings_node:
+				# 		print('CLONE: Adding lua_generated_bindings.cpp to AP_Scripting target')
+				# 		tgen.source.append(lua_bindings_node)
+				# 	else:
+				# 		print('Warning: Could not find lua_generated_bindings.cpp to add to AP_Scripting target')
 
 
 				#print('Debug: Generating cmake content for tgen: %s ' % t)
@@ -877,11 +878,20 @@ class CMakeExporter(object):
 			'libraries/AP_Scripting/lua/src/lua.c',
 			'libraries/AP_Scripting/lua/src/luac.c',
 		]
+		# key is a known file that exists, value is the file we include after it.
+		include_these_files_by_other = {
+			'libraries/AP_Scripting/lua_scripts.cpp': 'build2/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp',
+		}
 		for usrc in uniq_src_list: #dedupe
 			if usrc in exclude_these_files:
 				print('Debug: Excluding source file from cmake target %s: %s' % (cleanedname, usrc))
 				continue
 			content += '	%s\n' % (usrc)
+			# check if usrc is in include_these_files_by_other keys
+			for key, value in include_these_files_by_other.items():
+				if usrc == key:
+					print('Debug: Including extra source file for cmake target %s: %s' % (cleanedname, value))
+					content += '	%s #extra\n' % (value)
 
 		content += ')\n\n'
 
