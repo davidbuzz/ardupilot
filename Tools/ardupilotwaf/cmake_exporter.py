@@ -518,6 +518,7 @@ class CMakeExporter(object):
 
 			env = self.bld.env
 			defines = env.DEFINES
+			defines.append('APM_BUILD_DIRECTORY=2') # buzz hack to define it.
 			if len(defines):
 				content += 'add_definitions(-D%s) #1\n' % (' -D'.join(defines))
 				content += '\n'
@@ -599,7 +600,7 @@ class CMakeExporter(object):
 			content += ')\n\n'
 			# INTERFACE is for header-only libraries
 			content += 'add_library(mavlink INTERFACE ${mavlink_SOURCES}) #2\n'
-			content += 'target_compile_definitions(mavlink INTERFACE -DLFS_NO_DEBUG -DLFS_NO_WARN -DLFS_NO_ERROR -DLFS_NO_ASSERT) #2\n'
+			content += 'target_compile_definitions(mavlink INTERFACE -DLFS_NO_DEBUG -DLFS_NO_WARN -DLFS_NO_ERROR -DLFS_NO_ASSERT) #4\n'
 			content += 'target_include_directories(mavlink INTERFACE ${mavlink_INCLUDES})\n'
 			content += 'set_target_properties(mavlink PROPERTIES\n'
 			content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"\n'
@@ -739,7 +740,7 @@ class CMakeExporter(object):
 		#-------------------
 		content += '#------------------------------------------------\n\n'
 		uniq_src_list = []
-		content += 'set(%s_SOURCES #3' % (cleanedname)
+		content += 'set(%s_SOURCES #3\n' % (cleanedname)
 		for src in tgen.source:
 			x = src.path_from(tgen.path).replace('\\','/') # a path to a source file
 			xdir = os.path.dirname(x) # get folder that this src file is in
@@ -754,13 +755,22 @@ class CMakeExporter(object):
 						#content += '\n    %s' % (hfile)
 						if hfile not in uniq_src_list:
 							uniq_src_list.append(hfile)
+				# repeat for .cpp
+				for f in src_folder_node.ant_glob('*.cpp'):
+					cppfile = f.path_from(tgen.path).replace('\\','/')
+					if cppfile not in tgen.source: # can cause dupes
+						if _dir != '':
+							cppfile = _dir + '/' + cppfile
+						#content += '\n    %s' % (cppfile)
+						if cppfile not in uniq_src_list:
+							uniq_src_list.append(cppfile)
 			
 			if _dir != '':
 				x = _dir + '/' + x
 			if x not in uniq_src_list:
 				uniq_src_list.append(x)
 		for usrc in uniq_src_list: #dedupe
-			content += '\n    %s' % (usrc)
+			content += '	%s\n' % (usrc)
 		content += ')\n\n'
 
 		#break here 'ArduCopter_libs'
@@ -798,7 +808,7 @@ class CMakeExporter(object):
 		elif set(('cshlib', 'cxxshlib')) & set(tgen.features):
 			content += 'add_library(%s SHARED ${%s_SOURCES}) #1\n' % (cleanedname, cleanedname)
 			if len(defines):
-				content += 'target_compile_definitions(%s PUBLIC -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
+				content += 'target_compile_definitions(%s PUBLIC -D%s) #3\n' % (cleanedname, ' -D'.join(defines))
 			if len(includes):
 				content += 'target_include_directories(%s PUBLIC ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
 			content += '\n'
@@ -811,8 +821,11 @@ class CMakeExporter(object):
 
 		else: # cstlib, cxxstlib or objects
 			content += 'add_library(%s ${%s_SOURCES}) #2\n' % (cleanedname, cleanedname)
+			if cleanedname == 'SITL' or cleanedname == 'AP_HAL_SITL':
+				#-DAP_BUILD_TARGET_NAME="AntennaTracker"
+				defines.append('AP_BUILD_TARGET_NAME="ArduCopter"')
 			if len(defines):
-				content += 'target_compile_definitions(%s PUBLIC -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
+				content += 'target_compile_definitions(%s PUBLIC -D%s) #1\n' % (cleanedname, ' -D'.join(defines))
 			if len(includes):
 				content += 'target_include_directories(%s PUBLIC ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
 			content += '\n'
@@ -874,8 +887,19 @@ class CMakeExporter(object):
 							skiplist = ['AntennaTracker_libs', 'Blimp_libs', 'Rover_libs', 'ArduPlane_libs','tracker','blimp','rover','plane','copter','ArduCopter_libs']
 							if r in skiplist:
 								continue
+							#content += 'target_link_libraries(%s %s) #clean2\n' % (cleanedname, r)
+							content += 'target_link_libraries(%s -Wl,--whole-archive %s -Wl,--no-whole-archive) #clean2\n' % (cleanedname, r)
+						# Add system libraries and linker flags to match WAF build
+						content += 'target_link_libraries(%s m)  # Math library\n' % (cleanedname)
+						content += 'target_link_libraries(%s pthread)  # POSIX threads\n' % (cleanedname)
 
-							content += 'target_link_libraries(copter %s) #clean2\n' % (r)
+						# Add custom linker flags to match WAF build 
+						# set_target_properties(copter PROPERTIES 
+						#     LINK_FLAGS "-Wl,--gc-sections -Wl,--wrap,malloc" )
+						content += 'set_target_properties(%s PROPERTIES \n' % (cleanedname)
+						content += '    LINK_FLAGS "-Wl,--gc-sections -Wl,--wrap,malloc"\n'
+						content += ')\n'
+
 			content += '\n'
 
 		return content
