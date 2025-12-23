@@ -518,7 +518,7 @@ class CMakeExporter(object):
 
 			env = self.bld.env
 			defines = env.DEFINES 
-			defines.append('APM_BUILD_DIRECTORY=2' ) # 2 means copter. todo fix this
+			defines.append('APM_BUILD_DIRECTORY=2' ) # 2 means copter. todo fix this.
 
 			
 			if len(defines):
@@ -1013,6 +1013,9 @@ class CMakeExporter(object):
 					# does strip_lib end in /ArduCopter, ie has a / ?
 					if '/' in strip_lib:
 						continue
+					# exclude from this list:
+					if strip_lib in ['AP_Navigation', 'AP_Avoidance']:
+						continue
 					content += 'target_link_libraries(%s %s%s) #stripped\n' % (cleanedname, _interface, strip_lib)
 				else:
 					# binary linking: for cmake, we're gonna rename 'dronecan' to 'canard' here , last minute.
@@ -1030,8 +1033,16 @@ class CMakeExporter(object):
 						for r in lib_register:
 							skiplist = ['AntennaTracker_libs', 'Blimp_libs', 'Rover_libs', 'ArduPlane_libs','tracker','blimp','rover','plane','copter','ArduCopter_libs','copter-heli','sub']
 							if r in skiplist:
-								continue
-							#content += 'target_link_libraries(%s %s) #clean2\n' % (cleanedname, r)
+								continue # not-lib stuff.
+							per_target_skiplist = {
+								'copter': [],
+								'rover': ['AP_Avoidance'],
+								'plane': ['AP_Navigation'],
+								'tracker': ['AP_LTM_Telem','AP_AdvancedFailsafe'],
+							}
+							if cleanedname in per_target_skiplist:
+								if r in per_target_skiplist[cleanedname]:
+									continue
 							content += 'target_link_libraries(%s %s-Wl,--whole-archive %s -Wl,--no-whole-archive) #clean2\n' % (cleanedname, _interface, r)
 						# Add system libraries and linker flags to match WAF build
 						content += 'target_link_libraries(%s %sm)  # Math library\n' % (cleanedname, _interface)

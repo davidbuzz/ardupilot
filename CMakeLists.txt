@@ -8200,7 +8200,6 @@ target_link_libraries(tracker -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive)
 target_link_libraries(tracker -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
@@ -8242,7 +8241,6 @@ target_link_libraries(tracker -Wl,--whole-archive AP_JSButton -Wl,--no-whole-arc
 target_link_libraries(tracker -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
@@ -8523,7 +8521,6 @@ target_link_libraries(ArduCopter_libs INTERFACE AC_Autorotation) #stripped
 target_link_libraries(ArduCopter_libs INTERFACE AC_WPNav) #stripped
 target_link_libraries(ArduCopter_libs INTERFACE AP_IRLock) #stripped
 target_link_libraries(ArduCopter_libs INTERFACE AP_Motors) #stripped
-target_link_libraries(ArduCopter_libs INTERFACE AP_Avoidance) #stripped
 target_link_libraries(ArduCopter_libs INTERFACE AP_AdvancedFailsafe) #stripped
 target_link_libraries(ArduCopter_libs INTERFACE AP_SmartRTL) #stripped
 target_link_libraries(ArduCopter_libs INTERFACE AP_Winch) #stripped
@@ -9083,9 +9080,7 @@ target_link_libraries(ArduPlane_libs INTERFACE AP_KDECAN) #stripped
 target_link_libraries(ArduPlane_libs INTERFACE AP_PiccoloCAN) #stripped
 target_link_libraries(ArduPlane_libs INTERFACE APM_Control) #stripped
 target_link_libraries(ArduPlane_libs INTERFACE AP_AdvancedFailsafe) #stripped
-target_link_libraries(ArduPlane_libs INTERFACE AP_Avoidance) #stripped
 target_link_libraries(ArduPlane_libs INTERFACE AP_L1_Control) #stripped
-target_link_libraries(ArduPlane_libs INTERFACE AP_Navigation) #stripped
 target_link_libraries(ArduPlane_libs INTERFACE AP_TECS) #stripped
 target_link_libraries(ArduPlane_libs INTERFACE AP_InertialNav) #stripped
 target_link_libraries(ArduPlane_libs INTERFACE AC_WPNav) #stripped
@@ -9758,7 +9753,6 @@ target_link_libraries(Blimp_libs INTERFACE AP_KDECAN) #stripped
 target_link_libraries(Blimp_libs INTERFACE AP_PiccoloCAN) #stripped
 target_link_libraries(Blimp_libs INTERFACE AC_InputManager) #stripped
 target_link_libraries(Blimp_libs INTERFACE AP_InertialNav) #stripped
-target_link_libraries(Blimp_libs INTERFACE AP_Avoidance) #stripped
 target_link_libraries(Blimp_libs INTERFACE AP_LTM_Telem) #stripped
 target_link_libraries(Blimp_libs INTERFACE AP_Devo_Telem) #stripped
 target_link_libraries(Blimp_libs INTERFACE AP_AdvancedFailsafe) #stripped
@@ -10136,7 +10130,6 @@ target_link_libraries(Rover_libs INTERFACE AP_CANManager) #stripped
 target_link_libraries(Rover_libs INTERFACE AP_KDECAN) #stripped
 target_link_libraries(Rover_libs INTERFACE AP_PiccoloCAN) #stripped
 target_link_libraries(Rover_libs INTERFACE APM_Control) #stripped
-target_link_libraries(Rover_libs INTERFACE AP_Navigation) #stripped
 target_link_libraries(Rover_libs INTERFACE AR_WPNav) #stripped
 target_link_libraries(Rover_libs INTERFACE AP_AdvancedFailsafe) #stripped
 target_link_libraries(Rover_libs INTERFACE AP_SmartRTL) #stripped
@@ -10385,7 +10378,6 @@ target_link_libraries(rover -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archiv
 target_link_libraries(rover -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover -Wl,--whole-archive AP_Avoidance -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive ArduSub_libs -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover m)  # Math library
 target_link_libraries(rover pthread)  # POSIX threads
