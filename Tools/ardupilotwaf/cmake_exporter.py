@@ -728,7 +728,6 @@ class CMakeExporter(object):
 			register_lib('dronecan_dsdlc_generated') # make sure its registered for linking later.
 
 
-
 		#-------------------
 		# now process all task generators
 		if len(self.tgens):
@@ -958,31 +957,43 @@ class CMakeExporter(object):
 				_interface = 'INTERFACE '
 			else :
 				_interface = 'PUBLIC '
-			content += 'add_library(%s %s${%s_SOURCES}) #2\n' % (cleanedname, _interface, cleanedname)
-
-			#strip APM_BUILD_DIRECTORY and AP_BUILD_TARGET_NAME from defines, if present.
-			_defines = [d for d in defines if not d.startswith('APM_BUILD_DIRECTORY')]
-			_defines = [d for d in _defines if not d.startswith('AP_BUILD_TARGET_NAME')]
-			if len(defines) != len(_defines):
-				print(' APM_BUILD_DIRECTORY and/or AP_BUILD_TARGET_NAME ')
-				defines = _defines
-				if _dir != '':
-					defines.append('APM_BUILD_DIRECTORY=APM_BUILD_%s' % _dir) # buzz hack to define it.
-					#defines.append('AP_BUILD_TARGET_NAME=%s' % _dir)
-			if cleanedname == 'SITL' or cleanedname == 'AP_HAL_SITL':
-				defines.append('AP_BUILD_TARGET_NAME="%s"' % _dir)
-				pass
-			if len(defines):
-				content += 'target_compile_definitions(%s PUBLIC -D%s) #1\n' % (cleanedname, ' -D'.join(defines))
-			if len(includes):
-				content += 'target_include_directories(%s %s${%s_INCLUDES})\n' % (cleanedname, _interface, cleanedname)
-			content += '\n'
-
-			#set_target_properties(JE3D PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/library)
-			content += 'set_target_properties(%s PROPERTIES\n' % (cleanedname)
-			content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"\n'
-			content += '    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"\n'
-			content += ')\n\n'
+			prior_content = content #keep copy of content up to this point.
+			# libs needing multi-target: ( eg needing -DAPM_BUILD_DIRECTORY=xx )
+			needs_multi_target = [ 'SITL', 'AP_HAL_SITL', 'AC_AttitudeControl' ]
+			if True:
+				content = '' # reset content to just the library part.
+				content += 'add_library(%s %s${%s_SOURCES}) #2\n' % (cleanedname, _interface, cleanedname)
+				_defines = [d for d in defines if not d.startswith('APM_BUILD_DIRECTORY')]
+				_defines = [d for d in _defines if not d.startswith('AP_BUILD_TARGET_NAME')]
+				if len(defines) != len(_defines):
+					#print(' APM_BUILD_DIRECTORY and/or AP_BUILD_TARGET_NAME ')
+					defines = _defines
+					if _dir != '':
+						defines.append('APM_BUILD_DIRECTORY=APM_BUILD_%s' % _dir) # buzz hack to define it.
+						#defines.append('AP_BUILD_TARGET_NAME=%s' % _dir)
+				if cleanedname in needs_multi_target:
+					# assume copter and fix it later with regex
+					defines.append('AP_BUILD_TARGET_NAME="ArduCopter"') 
+					defines.append('APM_BUILD_DIRECTORY=APM_BUILD_ArduCopter')
+					pass
+				if len(defines):
+					content += 'target_compile_definitions(%s PUBLIC -D%s) #1\n' % (cleanedname, ' -D'.join(defines))
+				if len(includes):
+					content += 'target_include_directories(%s %s${%s_INCLUDES})\n' % (cleanedname, _interface, cleanedname)
+				content += '\n'
+				content += 'set_target_properties(%s PROPERTIES\n' % (cleanedname)
+				content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"\n'
+				content += '    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"\n'
+				content += ')\n\n'
+			# append the previous content
+			new_content = content
+			#if 'AC_AttitudeControl' in content:
+			if cleanedname in needs_multi_target:
+				#preg_replace from 'AC_AttitudeControl' to 'AC_AttitudeControl_Plane'
+				new_content = new_content.replace(cleanedname+' ', cleanedname+'_Plane ') #space important
+				new_content = new_content.replace('ArduCopter', 'ArduPlane')
+				new_content = content + new_content
+			content = prior_content + new_content
 		#-------------------
 
 		#libs = getattr(tgen, 'use', []) + getattr(tgen, 'lib', [])
@@ -1027,22 +1038,42 @@ class CMakeExporter(object):
 						_interface = ''
 
 					content += 'target_link_libraries(%s %s%s) #clean\n' % (cleanedname,  _interface, lib)
-					if cleanedname  in ['copter', 'plane', 'rover', 'tracker', 'blimp']:
-						print('Debug: Reached ArduCopter_libs linking')
+					if cleanedname  in ['copter','copter-heli', 'plane', 'rover', 'tracker', 'blimp', 'sub']:
 						global lib_register
 						for r in lib_register:
-							skiplist = ['AntennaTracker_libs', 'Blimp_libs', 'Rover_libs', 'ArduPlane_libs','tracker','blimp','rover','plane','copter','ArduCopter_libs','copter-heli','sub']
+							skiplist = [   'copter','copter-heli', 'plane', 'rover', 'tracker', 'blimp', 'sub', 
+											   'ArduCopter_libs',
+											   'ArduPlane_libs',
+											   'Rover_libs', 
+											   'AntennaTracker_libs', 
+											   'Blimp_libs', 
+											   'ArduSub_libs',
+											]
 							if r in skiplist:
 								continue # not-lib stuff.
 							per_target_skiplist = {
 								'copter': [],
 								'rover': ['AP_Avoidance'],
+								'sub': ['AP_AdvancedFailsafe','AP_LTM_Telem','AP_Avoidance'],
 								'plane': ['AP_Navigation'],
 								'tracker': ['AP_LTM_Telem','AP_AdvancedFailsafe'],
+							}
+							per_target_replace_list = { 
+								'copter': {
+								},
+								'plane': {
+									'AC_AttitudeControl': 'AC_AttitudeControl_Plane',
+									'SITL': 'SITL_Plane',
+									'AP_HAL_SITL': 'AP_HAL_SITL_Plane',
+								},
 							}
 							if cleanedname in per_target_skiplist:
 								if r in per_target_skiplist[cleanedname]:
 									continue
+							if cleanedname in per_target_replace_list:
+								if r in per_target_replace_list[cleanedname]:
+									r = per_target_replace_list[cleanedname][r]
+
 							content += 'target_link_libraries(%s %s-Wl,--whole-archive %s -Wl,--no-whole-archive) #clean2\n' % (cleanedname, _interface, r)
 						# Add system libraries and linker flags to match WAF build
 						content += 'target_link_libraries(%s %sm)  # Math library\n' % (cleanedname, _interface)
