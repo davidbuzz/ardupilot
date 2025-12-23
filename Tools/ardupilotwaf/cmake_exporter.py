@@ -517,8 +517,10 @@ class CMakeExporter(object):
 			content += '\n'
 
 			env = self.bld.env
-			defines = env.DEFINES
-			defines.append('APM_BUILD_DIRECTORY=2') # buzz hack to define it.
+			defines = env.DEFINES 
+			defines.append('APM_BUILD_DIRECTORY=2' ) # 2 means copter. todo fix this
+
+			
 			if len(defines):
 				content += 'add_definitions(-D%s) #1\n' % (' -D'.join(defines))
 				content += '\n'
@@ -825,6 +827,20 @@ class CMakeExporter(object):
 			_dir = 'Rover'
 			cleanedname='rover'
 
+		# libs also need to know the dir sometimes
+		if cleanedname == 'ArduPlane_libs':
+			_dir = 'ArduPlane'
+		if cleanedname == 'ArduCopter_libs':
+			_dir = 'ArduCopter'
+		if cleanedname == 'ArduSub_libs':
+			_dir = 'ArduSub'
+		if cleanedname == 'AntennaTracker_libs':
+			_dir = 'AntennaTracker'
+		if cleanedname == 'Blimp_libs':
+			_dir = 'Blimp'
+		if cleanedname == 'Rover_libs':
+			_dir = 'Rover'
+
 		# check if 'name' starts with an *, as in '*.c' or similar.
 		if '*' in name:
 			print('Warning: Skipping task generator with wildcard name: %s' % name)
@@ -896,8 +912,8 @@ class CMakeExporter(object):
 		content += ')\n\n'
 
 		#break here 'ArduCopter_libs'
-		if cleanedname == 'ArduCopter_libs':
-			print('Debug: reached ArduCopter_libs source listing')
+		#if cleanedname == 'ArduCopter_libs':
+		#	print('Debug: reached ArduCopter_libs source listing')
 
 		includes = self.get_includes(tgen)
 		includes.extend(tgen.env.INCLUDES)
@@ -943,8 +959,19 @@ class CMakeExporter(object):
 			else :
 				_interface = 'PUBLIC '
 			content += 'add_library(%s %s${%s_SOURCES}) #2\n' % (cleanedname, _interface, cleanedname)
+
+			#strip APM_BUILD_DIRECTORY and AP_BUILD_TARGET_NAME from defines, if present.
+			_defines = [d for d in defines if not d.startswith('APM_BUILD_DIRECTORY')]
+			_defines = [d for d in _defines if not d.startswith('AP_BUILD_TARGET_NAME')]
+			if len(defines) != len(_defines):
+				print(' APM_BUILD_DIRECTORY and/or AP_BUILD_TARGET_NAME ')
+				defines = _defines
+				if _dir != '':
+					defines.append('APM_BUILD_DIRECTORY=APM_BUILD_%s' % _dir) # buzz hack to define it.
+					#defines.append('AP_BUILD_TARGET_NAME=%s' % _dir)
 			if cleanedname == 'SITL' or cleanedname == 'AP_HAL_SITL':
 				defines.append('AP_BUILD_TARGET_NAME="%s"' % _dir)
+				pass
 			if len(defines):
 				content += 'target_compile_definitions(%s PUBLIC -D%s) #1\n' % (cleanedname, ' -D'.join(defines))
 			if len(includes):
@@ -994,7 +1021,7 @@ class CMakeExporter(object):
 						lib = 'canard'
 						_interface = ''
 					if lib.endswith('_libs'):
-						_interface = 'INTERFACE '
+						_interface = ''
 
 					content += 'target_link_libraries(%s %s%s) #clean\n' % (cleanedname,  _interface, lib)
 					if cleanedname  in ['copter', 'plane', 'rover', 'tracker', 'blimp']:

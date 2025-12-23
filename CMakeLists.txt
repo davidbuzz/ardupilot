@@ -7490,7 +7490,6 @@ set(AP_NavEKF3_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_NavEKF3 PUBLIC ${AP_NavEKF3_SOURCES}) #2
-target_compile_definitions(AP_NavEKF3 PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_NavEKF3 PUBLIC ${AP_NavEKF3_INCLUDES})
 
 set_target_properties(AP_NavEKF3 PROPERTIES
@@ -7531,7 +7530,6 @@ set(AP_Rally_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Rally PUBLIC ${AP_Rally_SOURCES}) #2
-target_compile_definitions(AP_Rally PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_Rally PUBLIC ${AP_Rally_INCLUDES})
 
 set_target_properties(AP_Rally PROPERTIES
@@ -7571,7 +7569,6 @@ set(StorageManager_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(StorageManager PUBLIC ${StorageManager_SOURCES}) #2
-target_compile_definitions(StorageManager PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(StorageManager PUBLIC ${StorageManager_INCLUDES})
 
 set_target_properties(StorageManager PROPERTIES
@@ -7611,7 +7608,6 @@ set(AP_IBus_Telem_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_IBus_Telem PUBLIC ${AP_IBus_Telem_SOURCES}) #2
-target_compile_definitions(AP_IBus_Telem PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_IBus_Telem PUBLIC ${AP_IBus_Telem_INCLUDES})
 
 set_target_properties(AP_IBus_Telem PROPERTIES
@@ -7652,7 +7648,6 @@ set(AP_BLHeli_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_BLHeli PUBLIC ${AP_BLHeli_SOURCES}) #2
-target_compile_definitions(AP_BLHeli PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_BLHeli PUBLIC ${AP_BLHeli_INCLUDES})
 
 set_target_properties(AP_BLHeli PROPERTIES
@@ -7696,7 +7691,6 @@ set(AC_Fence_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AC_Fence PUBLIC ${AC_Fence_SOURCES}) #2
-target_compile_definitions(AC_Fence PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AC_Fence PUBLIC ${AC_Fence_INCLUDES})
 
 set_target_properties(AC_Fence PROPERTIES
@@ -7737,7 +7731,6 @@ set(AP_LandingGear_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_LandingGear PUBLIC ${AP_LandingGear_SOURCES}) #2
-target_compile_definitions(AP_LandingGear PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_LandingGear PUBLIC ${AP_LandingGear_INCLUDES})
 
 set_target_properties(AP_LandingGear PROPERTIES
@@ -7849,7 +7842,6 @@ set(AP_GyroFFT_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_GyroFFT PUBLIC ${AP_GyroFFT_SOURCES}) #2
-target_compile_definitions(AP_GyroFFT PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_GyroFFT PUBLIC ${AP_GyroFFT_INCLUDES})
 
 set_target_properties(AP_GyroFFT PROPERTIES
@@ -7891,7 +7883,6 @@ set(AP_AIS_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_AIS PUBLIC ${AP_AIS_SOURCES}) #2
-target_compile_definitions(AP_AIS PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_AIS PUBLIC ${AP_AIS_INCLUDES})
 
 set_target_properties(AP_AIS PROPERTIES
@@ -7932,7 +7923,6 @@ set(AP_Arming_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Arming PUBLIC ${AP_Arming_SOURCES}) #2
-target_compile_definitions(AP_Arming PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_Arming PUBLIC ${AP_Arming_INCLUDES})
 
 set_target_properties(AP_Arming PROPERTIES
@@ -7973,7 +7963,6 @@ set(AP_Follow_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Follow PUBLIC ${AP_Follow_SOURCES}) #2
-target_compile_definitions(AP_Follow PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_Follow PUBLIC ${AP_Follow_INCLUDES})
 
 set_target_properties(AP_Follow PROPERTIES
@@ -8191,157 +8180,157 @@ target_link_directories(tracker PUBLIC build2) #11
 #target_include_directories(tracker PUBLIC ${tracker_INCLUDES})
 
 
-target_link_libraries(tracker INTERFACE AntennaTracker_libs) #clean
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker INTERFACE m)  # Math library
-target_link_libraries(tracker INTERFACE pthread)  # POSIX threads
+target_link_libraries(tracker AntennaTracker_libs) #clean
+target_link_libraries(tracker -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker m)  # Math library
+target_link_libraries(tracker pthread)  # POSIX threads
 set_target_properties(tracker PROPERTIES 
     LINK_FLAGS "-Wl,--gc-sections -Wl,--wrap,malloc"
 )
@@ -8374,7 +8363,6 @@ set(AP_Avoidance_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Avoidance PUBLIC ${AP_Avoidance_SOURCES}) #2
-target_compile_definitions(AP_Avoidance PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #1
 target_include_directories(AP_Avoidance PUBLIC ${AP_Avoidance_INCLUDES})
 
 set_target_properties(AP_Avoidance PROPERTIES
@@ -8672,158 +8660,158 @@ target_link_directories(copter PUBLIC build2) #11
 #target_include_directories(copter PUBLIC ${copter_INCLUDES})
 
 
-target_link_libraries(copter INTERFACE ArduCopter_libs) #clean
-target_link_libraries(copter INTERFACE -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter INTERFACE m)  # Math library
-target_link_libraries(copter INTERFACE pthread)  # POSIX threads
+target_link_libraries(copter ArduCopter_libs) #clean
+target_link_libraries(copter -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter m)  # Math library
+target_link_libraries(copter pthread)  # POSIX threads
 set_target_properties(copter PROPERTIES 
     LINK_FLAGS "-Wl,--gc-sections -Wl,--wrap,malloc"
 )
@@ -8950,7 +8938,7 @@ target_link_directories(copter-heli PUBLIC build2) #11
 #target_include_directories(copter-heli PUBLIC ${copter-heli_INCLUDES})
 
 
-target_link_libraries(copter-heli INTERFACE ArduCopter_libs) #clean
+target_link_libraries(copter-heli ArduCopter_libs) #clean
 
 #------------------------------------------------
 
@@ -9235,158 +9223,158 @@ target_link_directories(plane PUBLIC build2) #11
 #target_include_directories(plane PUBLIC ${plane_INCLUDES})
 
 
-target_link_libraries(plane INTERFACE ArduPlane_libs) #clean
-target_link_libraries(plane INTERFACE -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane INTERFACE m)  # Math library
-target_link_libraries(plane INTERFACE pthread)  # POSIX threads
+target_link_libraries(plane ArduPlane_libs) #clean
+target_link_libraries(plane -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane m)  # Math library
+target_link_libraries(plane pthread)  # POSIX threads
 set_target_properties(plane PROPERTIES 
     LINK_FLAGS "-Wl,--gc-sections -Wl,--wrap,malloc"
 )
@@ -9625,7 +9613,7 @@ target_link_directories(sub PUBLIC build2) #11
 #target_include_directories(sub PUBLIC ${sub_INCLUDES})
 
 
-target_link_libraries(sub INTERFACE ArduSub_libs) #clean
+target_link_libraries(sub ArduSub_libs) #clean
 
 #------------------------------------------------
 
@@ -9849,159 +9837,159 @@ target_link_directories(blimp PUBLIC build2) #11
 #target_include_directories(blimp PUBLIC ${blimp_INCLUDES})
 
 
-target_link_libraries(blimp INTERFACE Blimp_libs) #clean
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE -Wl,--whole-archive ArduSub_libs -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp INTERFACE m)  # Math library
-target_link_libraries(blimp INTERFACE pthread)  # POSIX threads
+target_link_libraries(blimp Blimp_libs) #clean
+target_link_libraries(blimp -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive ArduSub_libs -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp m)  # Math library
+target_link_libraries(blimp pthread)  # POSIX threads
 set_target_properties(blimp PROPERTIES 
     LINK_FLAGS "-Wl,--gc-sections -Wl,--wrap,malloc"
 )
@@ -10248,159 +10236,159 @@ target_link_directories(rover PUBLIC build2) #11
 #target_include_directories(rover PUBLIC ${rover_INCLUDES})
 
 
-target_link_libraries(rover INTERFACE Rover_libs) #clean
-target_link_libraries(rover INTERFACE -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE -Wl,--whole-archive ArduSub_libs -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover INTERFACE m)  # Math library
-target_link_libraries(rover INTERFACE pthread)  # POSIX threads
+target_link_libraries(rover Rover_libs) #clean
+target_link_libraries(rover -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive ArduSub_libs -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover m)  # Math library
+target_link_libraries(rover pthread)  # POSIX threads
 set_target_properties(rover PROPERTIES 
     LINK_FLAGS "-Wl,--gc-sections -Wl,--wrap,malloc"
 )
