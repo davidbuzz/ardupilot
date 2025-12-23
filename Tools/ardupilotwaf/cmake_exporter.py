@@ -596,7 +596,7 @@ class CMakeExporter(object):
 		# now build the mavlink library content
 		if len(mavlink_generated_sources):
 			content += '\n#------------------------------------------------\n\n'
-			#content += 'set(mavlink_SOURCES #3\n'
+			#content += 'set(mavlink_SOURCES #12\n'
 			# add hardcoded sources first
 			#content += '    modules/mavlink/bd/lfs_filebd.c\n'
 			# now add generated sources
@@ -615,8 +615,8 @@ class CMakeExporter(object):
 				content += '    %s\n' % (inc)
 			content += ')\n\n'
 			# INTERFACE is for header-only libraries
-			content += 'add_library(mavlink INTERFACE ${mavlink_SOURCES}) #2\n'
-			content += 'target_compile_definitions(mavlink INTERFACE -DLFS_NO_DEBUG -DLFS_NO_WARN -DLFS_NO_ERROR -DLFS_NO_ASSERT) #4\n'
+			content += 'add_library(mavlink INTERFACE ${mavlink_SOURCES}) #4\n'
+			content += 'target_compile_definitions(mavlink INTERFACE -DLFS_NO_DEBUG -DLFS_NO_WARN -DLFS_NO_ERROR -DLFS_NO_ASSERT) #14\n'
 			content += 'target_include_directories(mavlink INTERFACE ${mavlink_INCLUDES})\n'
 			content += 'set_target_properties(mavlink PROPERTIES\n'
 			content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"\n'
@@ -658,7 +658,7 @@ class CMakeExporter(object):
 				inc_abspath = self.bld.srcnode.make_node(inc).abspath()
 				content += '    %s\n' % (inc_abspath)
 			content += ')\n\n'
-			content += 'add_library(canard STATIC ${canard_SOURCES}) #2\n'
+			content += 'add_library(canard STATIC ${canard_SOURCES}) #5\n'
 			content += 'target_include_directories(canard PUBLIC ${canard_INCLUDES})\n'
 			content += 'set_target_properties(canard PROPERTIES\n'
 			content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"\n'
@@ -676,7 +676,7 @@ class CMakeExporter(object):
 #     modules/DroneCAN/libcanard
 # )
 
-# add_library(dronecan_dsdlc_generated STATIC ${dronecan_dsdlc_generated_SOURCES}) #2
+# add_library(dronecan_dsdlc_generated STATIC ${dronecan_dsdlc_generated_SOURCES}) #7
 # target_include_directories(dronecan_dsdlc_generated PUBLIC ${dronecan_dsdlc_generated_INCLUDES})
 # set_target_properties(dronecan_dsdlc_generated PROPERTIES
 #     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -693,7 +693,7 @@ class CMakeExporter(object):
 			dsdlc_generated_sources.append(src_path)
 		if len(dsdlc_generated_sources):
 			content += '\n#------------------------------------------------\n\n'
-			content += 'set(dronecan_dsdlc_generated_SOURCES #3\n'
+			content += 'set(dronecan_dsdlc_generated_SOURCES #12\n'
 			# add generated sources
 			for src in dsdlc_generated_sources:
 				# strip ../../ at front, if present
@@ -713,7 +713,7 @@ class CMakeExporter(object):
 			content += '    %s\n' % (inc1)
 			content += '    %s\n' % (inc2)
 			content += ')\n\n'
-			content += 'add_library(dronecan_dsdlc_generated STATIC ${dronecan_dsdlc_generated_SOURCES}) #2\n'
+			content += 'add_library(dronecan_dsdlc_generated STATIC ${dronecan_dsdlc_generated_SOURCES}) #6\n'
 			content += 'target_include_directories(dronecan_dsdlc_generated PUBLIC ${dronecan_dsdlc_generated_INCLUDES})\n'
 			content += 'set_target_properties(dronecan_dsdlc_generated PROPERTIES\n'
 			content += '    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"\n'
@@ -844,7 +844,7 @@ class CMakeExporter(object):
 		#-------------------
 		content += '#------------------------------------------------\n\n'
 		uniq_src_list = []
-		content += 'set(%s_SOURCES #3\n' % (cleanedname)
+		content += 'set(%s_SOURCES #13\n' % (cleanedname)
 		for src in tgen.source:
 			x = src.path_from(tgen.path).replace('\\','/') # a path to a source file
 			xdir = os.path.dirname(x) # get folder that this src file is in
@@ -906,22 +906,18 @@ class CMakeExporter(object):
 			for include in includes:
 				content += '\n    %s' % include
 			content += ')\n\n'
-			#content += 'include_directories(${%s_INCLUDES})\n' % (cleanedname)
-			#content += '\n'
 
 		defines = self.get_genlist(tgen, 'defines')
-		#if len(defines):
-		#	content += 'add_definitions(-D%s) #2\n' % (' -D'.join(defines))
-		#	content += '\n'
 
+		_interface = ''
 		if set(('cprogram', 'cxxprogram')) & set(tgen.features):
-			content += 'add_executable(%s ${%s_SOURCES}) #2\n' % (cleanedname, cleanedname)
+			content += 'add_executable(%s ${%s_SOURCES}) #9\n' % (cleanedname, cleanedname)
 			if len(defines):
-				content += 'target_compile_definitions(%s PUBLIC -D%s) #2\n' % (cleanedname, ' -D'.join(defines))
+				content += 'target_compile_definitions(%s PUBLIC -D%s) #10\n' % (cleanedname, ' -D'.join(defines))
 			# link stuff
 			#these will get /home/buzz2/ardupilot/ prefixed on them by cmake and become -Lxxx
 			# because LIBRARY_OUTPUT_DIRECTORY=CMAKE_BINARY_DIR, ie build2, we need to add that to the link directories.
-			content += 'target_link_directories(%s PUBLIC build2) #2\n' % (cleanedname)
+			content += 'target_link_directories(%s PUBLIC build2) #11\n' % (cleanedname)
 
 			if len(includes):
 				content += '#target_include_directories(%s PUBLIC ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
@@ -942,14 +938,17 @@ class CMakeExporter(object):
 			content += ')\n\n'
 
 		else: # cstlib, cxxstlib or objects
-			content += 'add_library(%s ${%s_SOURCES}) #2\n' % (cleanedname, cleanedname)
+			if cleanedname.endswith('_libs'):
+				_interface = 'INTERFACE '
+			else :
+				_interface = 'PUBLIC '
+			content += 'add_library(%s %s${%s_SOURCES}) #2\n' % (cleanedname, _interface, cleanedname)
 			if cleanedname == 'SITL' or cleanedname == 'AP_HAL_SITL':
-				#-DAP_BUILD_TARGET_NAME="AntennaTracker"
-				defines.append('AP_BUILD_TARGET_NAME="ArduCopter"')
+				defines.append('AP_BUILD_TARGET_NAME="%s"' % _dir)
 			if len(defines):
 				content += 'target_compile_definitions(%s PUBLIC -D%s) #1\n' % (cleanedname, ' -D'.join(defines))
 			if len(includes):
-				content += 'target_include_directories(%s PUBLIC ${%s_INCLUDES})\n' % (cleanedname, cleanedname)
+				content += 'target_include_directories(%s %s${%s_INCLUDES})\n' % (cleanedname, _interface, cleanedname)
 			content += '\n'
 
 			#set_target_properties(JE3D PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/out/library)
@@ -983,37 +982,33 @@ class CMakeExporter(object):
 					print('Warning: Skipping linking to library with too short name: "%s" in target: %s' % (lib, name))
 					continue
 				if lib.startswith('objs/'):
-					#print('Debug: Skipping linking to library for objs/ target: %s lib: %s' % (name, lib))
-					#continue
 					strip_lib = lib[5:] # remove 'objs/' prefix
 					# does strip_lib end in /ArduCopter, ie has a / ?
 					if '/' in strip_lib:
 						continue
-					cleaned_name_bits = cleanedname.split('_')
-					is_lib = cleaned_name_bits[1]
-					is_loc = cleaned_name_bits[0]
-					if is_lib == 'libs'  and self.location == is_loc:
-						#content += 'target_link_libraries(%s ../libobjs_%s_%s.a) #stripped2\n' % (cleanedname, strip_lib, is_loc)
-						content += 'target_link_libraries(%s ../lib%s.a) #stripped2\n' % (cleanedname, strip_lib)
-					else:
-						content += 'target_link_libraries(%s %s) #stripped\n' % (cleanedname, strip_lib)
+					content += 'target_link_libraries(%s %s%s) #stripped\n' % (cleanedname, _interface, strip_lib)
 				else:
 					# binary linking: for cmake, we're gonna rename 'dronecan' to 'canard' here , last minute.
+					_interface = ''
 					if lib == 'dronecan':
 						lib = 'canard'
-					content += 'target_link_libraries(%s %s) #clean\n' % (cleanedname, lib)
-					if cleanedname == 'copter':
+						_interface = ''
+					if lib.endswith('_libs'):
+						_interface = 'INTERFACE '
+
+					content += 'target_link_libraries(%s %s%s) #clean\n' % (cleanedname,  _interface, lib)
+					if cleanedname  in ['copter', 'plane', 'rover', 'tracker', 'blimp']:
 						print('Debug: Reached ArduCopter_libs linking')
 						global lib_register
 						for r in lib_register:
-							skiplist = ['AntennaTracker_libs', 'Blimp_libs', 'Rover_libs', 'ArduPlane_libs','tracker','blimp','rover','plane','copter','ArduCopter_libs']
+							skiplist = ['AntennaTracker_libs', 'Blimp_libs', 'Rover_libs', 'ArduPlane_libs','tracker','blimp','rover','plane','copter','ArduCopter_libs','copter-heli','sub']
 							if r in skiplist:
 								continue
 							#content += 'target_link_libraries(%s %s) #clean2\n' % (cleanedname, r)
-							content += 'target_link_libraries(%s -Wl,--whole-archive %s -Wl,--no-whole-archive) #clean2\n' % (cleanedname, r)
+							content += 'target_link_libraries(%s %s-Wl,--whole-archive %s -Wl,--no-whole-archive) #clean2\n' % (cleanedname, _interface, r)
 						# Add system libraries and linker flags to match WAF build
-						content += 'target_link_libraries(%s m)  # Math library\n' % (cleanedname)
-						content += 'target_link_libraries(%s pthread)  # POSIX threads\n' % (cleanedname)
+						content += 'target_link_libraries(%s %sm)  # Math library\n' % (cleanedname, _interface)
+						content += 'target_link_libraries(%s %spthread)  # POSIX threads\n' % (cleanedname, _interface)
 
 						# Add custom linker flags to match WAF build 
 						# set_target_properties(copter PROPERTIES 

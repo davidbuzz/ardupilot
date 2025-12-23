@@ -45,8 +45,8 @@ set(mavlink_INCLUDES
     /home/buzz2/ardupilot/build2/sitl/libraries/GCS_MAVLink/include/mavlink/v2.0
 )
 
-add_library(mavlink INTERFACE ${mavlink_SOURCES}) #2
-target_compile_definitions(mavlink INTERFACE -DLFS_NO_DEBUG -DLFS_NO_WARN -DLFS_NO_ERROR -DLFS_NO_ASSERT) #4
+add_library(mavlink INTERFACE ${mavlink_SOURCES}) #4
+target_compile_definitions(mavlink INTERFACE -DLFS_NO_DEBUG -DLFS_NO_WARN -DLFS_NO_ERROR -DLFS_NO_ASSERT) #14
 target_include_directories(mavlink INTERFACE ${mavlink_INCLUDES})
 set_target_properties(mavlink PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -66,7 +66,7 @@ set(canard_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
 )
 
-add_library(canard STATIC ${canard_SOURCES}) #2
+add_library(canard STATIC ${canard_SOURCES}) #5
 target_include_directories(canard PUBLIC ${canard_INCLUDES})
 set_target_properties(canard PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -76,7 +76,7 @@ set_target_properties(canard PROPERTIES
 
 #------------------------------------------------
 
-set(dronecan_dsdlc_generated_SOURCES #3
+set(dronecan_dsdlc_generated_SOURCES #12
     build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
     build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
     build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
@@ -260,7 +260,7 @@ set(dronecan_dsdlc_generated_INCLUDES
     modules/DroneCAN/libcanard
 )
 
-add_library(dronecan_dsdlc_generated STATIC ${dronecan_dsdlc_generated_SOURCES}) #2
+add_library(dronecan_dsdlc_generated STATIC ${dronecan_dsdlc_generated_SOURCES}) #6
 target_include_directories(dronecan_dsdlc_generated PUBLIC ${dronecan_dsdlc_generated_INCLUDES})
 set_target_properties(dronecan_dsdlc_generated PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -270,7 +270,7 @@ set_target_properties(dronecan_dsdlc_generated PROPERTIES
 
 #------------------------------------------------
 
-set(littlefs_SOURCES #3
+set(littlefs_SOURCES #13
 	modules/littlefs/lfs.h
 	modules/littlefs/lfs_util.h
 	modules/littlefs/lfs.c
@@ -290,7 +290,7 @@ set(littlefs_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include)
 
-add_library(littlefs ${littlefs_SOURCES}) #2
+add_library(littlefs PUBLIC ${littlefs_SOURCES}) #2
 target_compile_definitions(littlefs PUBLIC -DLFS_NO_DEBUG -DLFS_NO_WARN -DLFS_NO_ERROR -DLFS_NO_ASSERT) #1
 target_include_directories(littlefs PUBLIC ${littlefs_INCLUDES})
 
@@ -301,7 +301,7 @@ set_target_properties(littlefs PROPERTIES
 
 #------------------------------------------------
 
-set(AC_AttitudeControl_SOURCES #3
+set(AC_AttitudeControl_SOURCES #13
 	libraries/AC_AttitudeControl/AC_AttitudeControl.h
 	libraries/AC_AttitudeControl/AC_AttitudeControl_Heli.h
 	libraries/AC_AttitudeControl/AC_AttitudeControl_Multi.h
@@ -344,7 +344,7 @@ set(AC_AttitudeControl_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AC_AttitudeControl ${AC_AttitudeControl_SOURCES}) #2
+add_library(AC_AttitudeControl PUBLIC ${AC_AttitudeControl_SOURCES}) #2
 target_include_directories(AC_AttitudeControl PUBLIC ${AC_AttitudeControl_INCLUDES})
 
 set_target_properties(AC_AttitudeControl PROPERTIES
@@ -359,7 +359,7 @@ target_link_libraries(AC_AttitudeControl littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_AutoTune_SOURCES #3
+set(AC_AutoTune_SOURCES #13
 	libraries/AC_AutoTune/AC_AutoTune.h
 	libraries/AC_AutoTune/AC_AutoTune_FreqResp.h
 	libraries/AC_AutoTune/AC_AutoTune_Heli.h
@@ -390,7 +390,7 @@ set(AC_AutoTune_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AC_AutoTune ${AC_AutoTune_SOURCES}) #2
+add_library(AC_AutoTune PUBLIC ${AC_AutoTune_SOURCES}) #2
 target_include_directories(AC_AutoTune PUBLIC ${AC_AutoTune_INCLUDES})
 
 set_target_properties(AC_AutoTune PROPERTIES
@@ -405,7 +405,7 @@ target_link_libraries(AC_AutoTune littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_Autorotation_SOURCES #3
+set(AC_Autorotation_SOURCES #13
 	libraries/AC_Autorotation/AC_Autorotation.h
 	libraries/AC_Autorotation/RSC_Autorotation.h
 	libraries/AC_Autorotation/AC_Autorotation.cpp
@@ -431,7 +431,7 @@ set(AC_Autorotation_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AC_Autorotation ${AC_Autorotation_SOURCES}) #2
+add_library(AC_Autorotation PUBLIC ${AC_Autorotation_SOURCES}) #2
 target_include_directories(AC_Autorotation PUBLIC ${AC_Autorotation_INCLUDES})
 
 set_target_properties(AC_Autorotation PROPERTIES
@@ -446,7 +446,7 @@ target_link_libraries(AC_Autorotation littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_Avoidance_SOURCES #3
+set(AC_Avoidance_SOURCES #13
 	libraries/AC_Avoidance/AC_Avoid.h
 	libraries/AC_Avoidance/AC_Avoidance_config.h
 	libraries/AC_Avoidance/AP_OABendyRuler.h
@@ -483,7 +483,7 @@ set(AC_Avoidance_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AC_Avoidance ${AC_Avoidance_SOURCES}) #2
+add_library(AC_Avoidance PUBLIC ${AC_Avoidance_SOURCES}) #2
 target_include_directories(AC_Avoidance PUBLIC ${AC_Avoidance_INCLUDES})
 
 set_target_properties(AC_Avoidance PROPERTIES
@@ -498,7 +498,7 @@ target_link_libraries(AC_Avoidance littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_CustomControl_SOURCES #3
+set(AC_CustomControl_SOURCES #13
 	libraries/AC_CustomControl/AC_CustomControl.h
 	libraries/AC_CustomControl/AC_CustomControl_Backend.h
 	libraries/AC_CustomControl/AC_CustomControl_Empty.h
@@ -528,7 +528,7 @@ set(AC_CustomControl_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AC_CustomControl ${AC_CustomControl_SOURCES}) #2
+add_library(AC_CustomControl PUBLIC ${AC_CustomControl_SOURCES}) #2
 target_include_directories(AC_CustomControl PUBLIC ${AC_CustomControl_INCLUDES})
 
 set_target_properties(AC_CustomControl PROPERTIES
@@ -543,7 +543,7 @@ target_link_libraries(AC_CustomControl littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_InputManager_SOURCES #3
+set(AC_InputManager_SOURCES #13
 	libraries/AC_InputManager/AC_InputManager.h
 	libraries/AC_InputManager/AC_InputManager_Heli.h
 	libraries/AC_InputManager/AC_InputManager.cpp
@@ -569,7 +569,7 @@ set(AC_InputManager_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AC_InputManager ${AC_InputManager_SOURCES}) #2
+add_library(AC_InputManager PUBLIC ${AC_InputManager_SOURCES}) #2
 target_include_directories(AC_InputManager PUBLIC ${AC_InputManager_INCLUDES})
 
 set_target_properties(AC_InputManager PROPERTIES
@@ -584,7 +584,7 @@ target_link_libraries(AC_InputManager littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_PID_SOURCES #3
+set(AC_PID_SOURCES #13
 	libraries/AC_PID/AC_HELI_PID.h
 	libraries/AC_PID/AC_P.h
 	libraries/AC_PID/AC_PI.h
@@ -625,7 +625,7 @@ set(AC_PID_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AC_PID ${AC_PID_SOURCES}) #2
+add_library(AC_PID PUBLIC ${AC_PID_SOURCES}) #2
 target_include_directories(AC_PID PUBLIC ${AC_PID_INCLUDES})
 
 set_target_properties(AC_PID PROPERTIES
@@ -640,7 +640,7 @@ target_link_libraries(AC_PID littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_PrecLand_SOURCES #3
+set(AC_PrecLand_SOURCES #13
 	libraries/AC_PrecLand/AC_PrecLand.h
 	libraries/AC_PrecLand/AC_PrecLand_Backend.h
 	libraries/AC_PrecLand/AC_PrecLand_IRLock.h
@@ -679,7 +679,7 @@ set(AC_PrecLand_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AC_PrecLand ${AC_PrecLand_SOURCES}) #2
+add_library(AC_PrecLand PUBLIC ${AC_PrecLand_SOURCES}) #2
 target_include_directories(AC_PrecLand PUBLIC ${AC_PrecLand_INCLUDES})
 
 set_target_properties(AC_PrecLand PROPERTIES
@@ -694,7 +694,7 @@ target_link_libraries(AC_PrecLand littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_Sprayer_SOURCES #3
+set(AC_Sprayer_SOURCES #13
 	libraries/AC_Sprayer/AC_Sprayer.h
 	libraries/AC_Sprayer/AC_Sprayer_config.h
 	libraries/AC_Sprayer/AC_Sprayer.cpp
@@ -719,7 +719,7 @@ set(AC_Sprayer_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AC_Sprayer ${AC_Sprayer_SOURCES}) #2
+add_library(AC_Sprayer PUBLIC ${AC_Sprayer_SOURCES}) #2
 target_include_directories(AC_Sprayer PUBLIC ${AC_Sprayer_INCLUDES})
 
 set_target_properties(AC_Sprayer PROPERTIES
@@ -734,7 +734,7 @@ target_link_libraries(AC_Sprayer littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_WPNav_SOURCES #3
+set(AC_WPNav_SOURCES #13
 	libraries/AC_WPNav/AC_Circle.h
 	libraries/AC_WPNav/AC_Loiter.h
 	libraries/AC_WPNav/AC_WPNav.h
@@ -765,7 +765,7 @@ set(AC_WPNav_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AC_WPNav ${AC_WPNav_SOURCES}) #2
+add_library(AC_WPNav PUBLIC ${AC_WPNav_SOURCES}) #2
 target_include_directories(AC_WPNav PUBLIC ${AC_WPNav_INCLUDES})
 
 set_target_properties(AC_WPNav PROPERTIES
@@ -780,7 +780,7 @@ target_link_libraries(AC_WPNav littlefs) #clean
 
 #------------------------------------------------
 
-set(APM_Control_SOURCES #3
+set(APM_Control_SOURCES #13
 	libraries/APM_Control/APM_Control.h
 	libraries/APM_Control/AP_AutoTune.h
 	libraries/APM_Control/AP_FW_Controller.h
@@ -819,7 +819,7 @@ set(APM_Control_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(APM_Control ${APM_Control_SOURCES}) #2
+add_library(APM_Control PUBLIC ${APM_Control_SOURCES}) #2
 target_include_directories(APM_Control PUBLIC ${APM_Control_INCLUDES})
 
 set_target_properties(APM_Control PROPERTIES
@@ -834,7 +834,7 @@ target_link_libraries(APM_Control littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ADC_SOURCES #3
+set(AP_ADC_SOURCES #13
 	libraries/AP_ADC/AP_ADC_ADS1115.h
 	libraries/AP_ADC/AP_ADC_ADS1115.cpp
 )
@@ -858,7 +858,7 @@ set(AP_ADC_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_ADC ${AP_ADC_SOURCES}) #2
+add_library(AP_ADC PUBLIC ${AP_ADC_SOURCES}) #2
 target_include_directories(AP_ADC PUBLIC ${AP_ADC_INCLUDES})
 
 set_target_properties(AP_ADC PROPERTIES
@@ -873,7 +873,7 @@ target_link_libraries(AP_ADC littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ADSB_SOURCES #3
+set(AP_ADSB_SOURCES #13
 	libraries/AP_ADSB/AP_ADSB.h
 	libraries/AP_ADSB/AP_ADSB_Backend.h
 	libraries/AP_ADSB/AP_ADSB_Sagetech.h
@@ -908,7 +908,7 @@ set(AP_ADSB_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_ADSB ${AP_ADSB_SOURCES}) #2
+add_library(AP_ADSB PUBLIC ${AP_ADSB_SOURCES}) #2
 target_include_directories(AP_ADSB PUBLIC ${AP_ADSB_INCLUDES})
 
 set_target_properties(AP_ADSB PROPERTIES
@@ -923,7 +923,7 @@ target_link_libraries(AP_ADSB littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_AHRS_SOURCES #3
+set(AP_AHRS_SOURCES #13
 	libraries/AP_AHRS/AP_AHRS.h
 	libraries/AP_AHRS/AP_AHRS_Backend.h
 	libraries/AP_AHRS/AP_AHRS_DCM.h
@@ -960,7 +960,7 @@ set(AP_AHRS_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_AHRS ${AP_AHRS_SOURCES}) #2
+add_library(AP_AHRS PUBLIC ${AP_AHRS_SOURCES}) #2
 target_include_directories(AP_AHRS PUBLIC ${AP_AHRS_INCLUDES})
 
 set_target_properties(AP_AHRS PROPERTIES
@@ -975,7 +975,7 @@ target_link_libraries(AP_AHRS littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_AccelCal_SOURCES #3
+set(AP_AccelCal_SOURCES #13
 	libraries/AP_AccelCal/AP_AccelCal.h
 	libraries/AP_AccelCal/AccelCalibrator.h
 	libraries/AP_AccelCal/AP_AccelCal.cpp
@@ -1001,7 +1001,7 @@ set(AP_AccelCal_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_AccelCal ${AP_AccelCal_SOURCES}) #2
+add_library(AP_AccelCal PUBLIC ${AP_AccelCal_SOURCES}) #2
 target_include_directories(AP_AccelCal PUBLIC ${AP_AccelCal_INCLUDES})
 
 set_target_properties(AP_AccelCal PROPERTIES
@@ -1016,7 +1016,7 @@ target_link_libraries(AP_AccelCal littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_AdvancedFailsafe_SOURCES #3
+set(AP_AdvancedFailsafe_SOURCES #13
 	libraries/AP_AdvancedFailsafe/AP_AdvancedFailsafe.h
 	libraries/AP_AdvancedFailsafe/AP_AdvancedFailsafe_config.h
 	libraries/AP_AdvancedFailsafe/AP_AdvancedFailsafe.cpp
@@ -1041,7 +1041,7 @@ set(AP_AdvancedFailsafe_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_AdvancedFailsafe ${AP_AdvancedFailsafe_SOURCES}) #2
+add_library(AP_AdvancedFailsafe PUBLIC ${AP_AdvancedFailsafe_SOURCES}) #2
 target_include_directories(AP_AdvancedFailsafe PUBLIC ${AP_AdvancedFailsafe_INCLUDES})
 
 set_target_properties(AP_AdvancedFailsafe PROPERTIES
@@ -1056,7 +1056,7 @@ target_link_libraries(AP_AdvancedFailsafe littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Airspeed_SOURCES #3
+set(AP_Airspeed_SOURCES #13
 	libraries/AP_Airspeed/AP_Airspeed.h
 	libraries/AP_Airspeed/AP_Airspeed_ASP5033.h
 	libraries/AP_Airspeed/AP_Airspeed_AUAV.h
@@ -1110,7 +1110,7 @@ set(AP_Airspeed_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Airspeed ${AP_Airspeed_SOURCES}) #2
+add_library(AP_Airspeed PUBLIC ${AP_Airspeed_SOURCES}) #2
 target_include_directories(AP_Airspeed PUBLIC ${AP_Airspeed_INCLUDES})
 
 set_target_properties(AP_Airspeed PROPERTIES
@@ -1125,7 +1125,7 @@ target_link_libraries(AP_Airspeed littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Baro_SOURCES #3
+set(AP_Baro_SOURCES #13
 	libraries/AP_Baro/AP_Baro.h
 	libraries/AP_Baro/AP_Baro_AUAV.h
 	libraries/AP_Baro/AP_Baro_BMP085.h
@@ -1195,7 +1195,7 @@ set(AP_Baro_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Baro ${AP_Baro_SOURCES}) #2
+add_library(AP_Baro PUBLIC ${AP_Baro_SOURCES}) #2
 target_include_directories(AP_Baro PUBLIC ${AP_Baro_INCLUDES})
 
 set_target_properties(AP_Baro PROPERTIES
@@ -1210,7 +1210,7 @@ target_link_libraries(AP_Baro littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_BattMonitor_SOURCES #3
+set(AP_BattMonitor_SOURCES #13
 	libraries/AP_BattMonitor/AP_BattMonitor.h
 	libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.h
 	libraries/AP_BattMonitor/AP_BattMonitor_Analog.h
@@ -1290,7 +1290,7 @@ set(AP_BattMonitor_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_BattMonitor ${AP_BattMonitor_SOURCES}) #2
+add_library(AP_BattMonitor PUBLIC ${AP_BattMonitor_SOURCES}) #2
 target_include_directories(AP_BattMonitor PUBLIC ${AP_BattMonitor_INCLUDES})
 
 set_target_properties(AP_BattMonitor PROPERTIES
@@ -1305,7 +1305,7 @@ target_link_libraries(AP_BattMonitor littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Beacon_SOURCES #3
+set(AP_Beacon_SOURCES #13
 	libraries/AP_Beacon/AP_Beacon.h
 	libraries/AP_Beacon/AP_Beacon_Backend.h
 	libraries/AP_Beacon/AP_Beacon_Marvelmind.h
@@ -1341,7 +1341,7 @@ set(AP_Beacon_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Beacon ${AP_Beacon_SOURCES}) #2
+add_library(AP_Beacon PUBLIC ${AP_Beacon_SOURCES}) #2
 target_include_directories(AP_Beacon PUBLIC ${AP_Beacon_INCLUDES})
 
 set_target_properties(AP_Beacon PROPERTIES
@@ -1356,7 +1356,7 @@ target_link_libraries(AP_Beacon littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_BoardConfig_SOURCES #3
+set(AP_BoardConfig_SOURCES #13
 	libraries/AP_BoardConfig/AP_BoardConfig.h
 	libraries/AP_BoardConfig/AP_BoardConfig_config.h
 	libraries/AP_BoardConfig/AP_BoardConfig.cpp
@@ -1383,7 +1383,7 @@ set(AP_BoardConfig_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_BoardConfig ${AP_BoardConfig_SOURCES}) #2
+add_library(AP_BoardConfig PUBLIC ${AP_BoardConfig_SOURCES}) #2
 target_include_directories(AP_BoardConfig PUBLIC ${AP_BoardConfig_INCLUDES})
 
 set_target_properties(AP_BoardConfig PROPERTIES
@@ -1398,7 +1398,7 @@ target_link_libraries(AP_BoardConfig littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Button_SOURCES #3
+set(AP_Button_SOURCES #13
 	libraries/AP_Button/AP_Button.h
 	libraries/AP_Button/AP_Button.cpp
 )
@@ -1422,7 +1422,7 @@ set(AP_Button_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Button ${AP_Button_SOURCES}) #2
+add_library(AP_Button PUBLIC ${AP_Button_SOURCES}) #2
 target_include_directories(AP_Button PUBLIC ${AP_Button_INCLUDES})
 
 set_target_properties(AP_Button PROPERTIES
@@ -1437,7 +1437,7 @@ target_link_libraries(AP_Button littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_CANManager_SOURCES #3
+set(AP_CANManager_SOURCES #13
 	libraries/AP_CANManager/AP_CAN.h
 	libraries/AP_CANManager/AP_CANDriver.h
 	libraries/AP_CANManager/AP_CANManager.h
@@ -1473,7 +1473,7 @@ set(AP_CANManager_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_CANManager ${AP_CANManager_SOURCES}) #2
+add_library(AP_CANManager PUBLIC ${AP_CANManager_SOURCES}) #2
 target_include_directories(AP_CANManager PUBLIC ${AP_CANManager_INCLUDES})
 
 set_target_properties(AP_CANManager PROPERTIES
@@ -1488,7 +1488,7 @@ target_link_libraries(AP_CANManager littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_CSVReader_SOURCES #3
+set(AP_CSVReader_SOURCES #13
 	libraries/AP_CSVReader/AP_CSVReader.h
 	libraries/AP_CSVReader/AP_CSVReader.cpp
 )
@@ -1512,7 +1512,7 @@ set(AP_CSVReader_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_CSVReader ${AP_CSVReader_SOURCES}) #2
+add_library(AP_CSVReader PUBLIC ${AP_CSVReader_SOURCES}) #2
 target_include_directories(AP_CSVReader PUBLIC ${AP_CSVReader_INCLUDES})
 
 set_target_properties(AP_CSVReader PROPERTIES
@@ -1527,7 +1527,7 @@ target_link_libraries(AP_CSVReader littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Camera_SOURCES #3
+set(AP_Camera_SOURCES #13
 	libraries/AP_Camera/AP_Camera.h
 	libraries/AP_Camera/AP_Camera_Backend.h
 	libraries/AP_Camera/AP_Camera_MAVLink.h
@@ -1575,7 +1575,7 @@ set(AP_Camera_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Camera ${AP_Camera_SOURCES}) #2
+add_library(AP_Camera PUBLIC ${AP_Camera_SOURCES}) #2
 target_include_directories(AP_Camera PUBLIC ${AP_Camera_INCLUDES})
 
 set_target_properties(AP_Camera PROPERTIES
@@ -1590,7 +1590,7 @@ target_link_libraries(AP_Camera littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_CheckFirmware_SOURCES #3
+set(AP_CheckFirmware_SOURCES #13
 	libraries/AP_CheckFirmware/AP_CheckFirmware.h
 	libraries/AP_CheckFirmware/AP_CheckFirmwareDefine.h
 	libraries/AP_CheckFirmware/monocypher.h
@@ -1618,7 +1618,7 @@ set(AP_CheckFirmware_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_CheckFirmware ${AP_CheckFirmware_SOURCES}) #2
+add_library(AP_CheckFirmware PUBLIC ${AP_CheckFirmware_SOURCES}) #2
 target_include_directories(AP_CheckFirmware PUBLIC ${AP_CheckFirmware_INCLUDES})
 
 set_target_properties(AP_CheckFirmware PROPERTIES
@@ -1633,7 +1633,7 @@ target_link_libraries(AP_CheckFirmware littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Common_SOURCES #3
+set(AP_Common_SOURCES #13
 	libraries/AP_Common/AP_Common.h
 	libraries/AP_Common/AP_ExpandingArray.h
 	libraries/AP_Common/AP_FWVersion.h
@@ -1678,7 +1678,7 @@ set(AP_Common_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Common ${AP_Common_SOURCES}) #2
+add_library(AP_Common PUBLIC ${AP_Common_SOURCES}) #2
 target_include_directories(AP_Common PUBLIC ${AP_Common_INCLUDES})
 
 set_target_properties(AP_Common PROPERTIES
@@ -1693,7 +1693,7 @@ target_link_libraries(AP_Common littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Compass_SOURCES #3
+set(AP_Compass_SOURCES #13
 	libraries/AP_Compass/AP_Compass.h
 	libraries/AP_Compass/AP_Compass_AK09916.h
 	libraries/AP_Compass/AP_Compass_AK8963.h
@@ -1771,7 +1771,7 @@ set(AP_Compass_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Compass ${AP_Compass_SOURCES}) #2
+add_library(AP_Compass PUBLIC ${AP_Compass_SOURCES}) #2
 target_include_directories(AP_Compass PUBLIC ${AP_Compass_INCLUDES})
 
 set_target_properties(AP_Compass PROPERTIES
@@ -1786,7 +1786,7 @@ target_link_libraries(AP_Compass littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_CustomRotations_SOURCES #3
+set(AP_CustomRotations_SOURCES #13
 	libraries/AP_CustomRotations/AP_CustomRotations.h
 	libraries/AP_CustomRotations/AP_CustomRotations_config.h
 	libraries/AP_CustomRotations/AP_CustomRotations.cpp
@@ -1812,7 +1812,7 @@ set(AP_CustomRotations_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_CustomRotations ${AP_CustomRotations_SOURCES}) #2
+add_library(AP_CustomRotations PUBLIC ${AP_CustomRotations_SOURCES}) #2
 target_include_directories(AP_CustomRotations PUBLIC ${AP_CustomRotations_INCLUDES})
 
 set_target_properties(AP_CustomRotations PROPERTIES
@@ -1827,7 +1827,7 @@ target_link_libraries(AP_CustomRotations littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_DAL_SOURCES #3
+set(AP_DAL_SOURCES #13
 	libraries/AP_DAL/AP_DAL.h
 	libraries/AP_DAL/AP_DAL_Airspeed.h
 	libraries/AP_DAL/AP_DAL_Baro.h
@@ -1868,7 +1868,7 @@ set(AP_DAL_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_DAL ${AP_DAL_SOURCES}) #2
+add_library(AP_DAL PUBLIC ${AP_DAL_SOURCES}) #2
 target_include_directories(AP_DAL PUBLIC ${AP_DAL_INCLUDES})
 
 set_target_properties(AP_DAL PROPERTIES
@@ -1883,7 +1883,7 @@ target_link_libraries(AP_DAL littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_DDS_SOURCES #3
+set(AP_DDS_SOURCES #13
 	libraries/AP_DDS/AP_DDS_Client.h
 	libraries/AP_DDS/AP_DDS_ExternalControl.h
 	libraries/AP_DDS/AP_DDS_External_Odom.h
@@ -1919,7 +1919,7 @@ set(AP_DDS_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_DDS ${AP_DDS_SOURCES}) #2
+add_library(AP_DDS PUBLIC ${AP_DDS_SOURCES}) #2
 target_include_directories(AP_DDS PUBLIC ${AP_DDS_INCLUDES})
 
 set_target_properties(AP_DDS PROPERTIES
@@ -1934,7 +1934,7 @@ target_link_libraries(AP_DDS littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Declination_SOURCES #3
+set(AP_Declination_SOURCES #13
 	libraries/AP_Declination/AP_Declination.h
 	libraries/AP_Declination/AP_Declination.cpp
 	libraries/AP_Declination/tables.cpp
@@ -1959,7 +1959,7 @@ set(AP_Declination_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Declination ${AP_Declination_SOURCES}) #2
+add_library(AP_Declination PUBLIC ${AP_Declination_SOURCES}) #2
 target_include_directories(AP_Declination PUBLIC ${AP_Declination_INCLUDES})
 
 set_target_properties(AP_Declination PROPERTIES
@@ -1974,7 +1974,7 @@ target_link_libraries(AP_Declination littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Devo_Telem_SOURCES #3
+set(AP_Devo_Telem_SOURCES #13
 	libraries/AP_Devo_Telem/AP_Devo_Telem.h
 	libraries/AP_Devo_Telem/AP_Devo_Telem.cpp
 )
@@ -1998,7 +1998,7 @@ set(AP_Devo_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Devo_Telem ${AP_Devo_Telem_SOURCES}) #2
+add_library(AP_Devo_Telem PUBLIC ${AP_Devo_Telem_SOURCES}) #2
 target_include_directories(AP_Devo_Telem PUBLIC ${AP_Devo_Telem_INCLUDES})
 
 set_target_properties(AP_Devo_Telem PROPERTIES
@@ -2013,7 +2013,7 @@ target_link_libraries(AP_Devo_Telem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_DroneCAN_SOURCES #3
+set(AP_DroneCAN_SOURCES #13
 	libraries/AP_DroneCAN/AP_Canard_iface.h
 	libraries/AP_DroneCAN/AP_DroneCAN.h
 	libraries/AP_DroneCAN/AP_DroneCAN_DNA_Server.h
@@ -2043,7 +2043,7 @@ set(AP_DroneCAN_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_DroneCAN ${AP_DroneCAN_SOURCES}) #2
+add_library(AP_DroneCAN PUBLIC ${AP_DroneCAN_SOURCES}) #2
 target_include_directories(AP_DroneCAN PUBLIC ${AP_DroneCAN_INCLUDES})
 
 set_target_properties(AP_DroneCAN PROPERTIES
@@ -2058,7 +2058,7 @@ target_link_libraries(AP_DroneCAN littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_EFI_SOURCES #3
+set(AP_EFI_SOURCES #13
 	libraries/AP_EFI/AP_EFI.h
 	libraries/AP_EFI/AP_EFI_Backend.h
 	libraries/AP_EFI/AP_EFI_Currawong_ECU.h
@@ -2106,7 +2106,7 @@ set(AP_EFI_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_EFI ${AP_EFI_SOURCES}) #2
+add_library(AP_EFI PUBLIC ${AP_EFI_SOURCES}) #2
 target_include_directories(AP_EFI PUBLIC ${AP_EFI_INCLUDES})
 
 set_target_properties(AP_EFI PROPERTIES
@@ -2121,7 +2121,7 @@ target_link_libraries(AP_EFI littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ESC_Telem_SOURCES #3
+set(AP_ESC_Telem_SOURCES #13
 	libraries/AP_ESC_Telem/AP_ESC_Telem.h
 	libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.h
 	libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.h
@@ -2151,7 +2151,7 @@ set(AP_ESC_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_ESC_Telem ${AP_ESC_Telem_SOURCES}) #2
+add_library(AP_ESC_Telem PUBLIC ${AP_ESC_Telem_SOURCES}) #2
 target_include_directories(AP_ESC_Telem PUBLIC ${AP_ESC_Telem_INCLUDES})
 
 set_target_properties(AP_ESC_Telem PROPERTIES
@@ -2166,7 +2166,7 @@ target_link_libraries(AP_ESC_Telem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ExternalAHRS_SOURCES #3
+set(AP_ExternalAHRS_SOURCES #13
 	libraries/AP_ExternalAHRS/AP_ExternalAHRS.h
 	libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.h
 	libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.h
@@ -2206,7 +2206,7 @@ set(AP_ExternalAHRS_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_ExternalAHRS ${AP_ExternalAHRS_SOURCES}) #2
+add_library(AP_ExternalAHRS PUBLIC ${AP_ExternalAHRS_SOURCES}) #2
 target_include_directories(AP_ExternalAHRS PUBLIC ${AP_ExternalAHRS_INCLUDES})
 
 set_target_properties(AP_ExternalAHRS PROPERTIES
@@ -2221,7 +2221,7 @@ target_link_libraries(AP_ExternalAHRS littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ExternalControl_SOURCES #3
+set(AP_ExternalControl_SOURCES #13
 	libraries/AP_ExternalControl/AP_ExternalControl.h
 	libraries/AP_ExternalControl/AP_ExternalControl_config.h
 	libraries/AP_ExternalControl/AP_ExternalControl.cpp
@@ -2246,7 +2246,7 @@ set(AP_ExternalControl_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_ExternalControl ${AP_ExternalControl_SOURCES}) #2
+add_library(AP_ExternalControl PUBLIC ${AP_ExternalControl_SOURCES}) #2
 target_include_directories(AP_ExternalControl PUBLIC ${AP_ExternalControl_INCLUDES})
 
 set_target_properties(AP_ExternalControl PROPERTIES
@@ -2261,7 +2261,7 @@ target_link_libraries(AP_ExternalControl littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_FETtecOneWire_SOURCES #3
+set(AP_FETtecOneWire_SOURCES #13
 	libraries/AP_FETtecOneWire/AP_FETtecOneWire.h
 	libraries/AP_FETtecOneWire/AP_FETtecOneWire.cpp
 )
@@ -2285,7 +2285,7 @@ set(AP_FETtecOneWire_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_FETtecOneWire ${AP_FETtecOneWire_SOURCES}) #2
+add_library(AP_FETtecOneWire PUBLIC ${AP_FETtecOneWire_SOURCES}) #2
 target_include_directories(AP_FETtecOneWire PUBLIC ${AP_FETtecOneWire_INCLUDES})
 
 set_target_properties(AP_FETtecOneWire PROPERTIES
@@ -2300,7 +2300,7 @@ target_link_libraries(AP_FETtecOneWire littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Filesystem_SOURCES #3
+set(AP_Filesystem_SOURCES #13
 	libraries/AP_Filesystem/AP_Filesystem.h
 	libraries/AP_Filesystem/AP_Filesystem_ESP32.h
 	libraries/AP_Filesystem/AP_Filesystem_FATFS.h
@@ -2345,7 +2345,7 @@ set(AP_Filesystem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Filesystem ${AP_Filesystem_SOURCES}) #2
+add_library(AP_Filesystem PUBLIC ${AP_Filesystem_SOURCES}) #2
 target_include_directories(AP_Filesystem PUBLIC ${AP_Filesystem_INCLUDES})
 
 set_target_properties(AP_Filesystem PROPERTIES
@@ -2360,7 +2360,7 @@ target_link_libraries(AP_Filesystem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_FlashStorage_SOURCES #3
+set(AP_FlashStorage_SOURCES #13
 	libraries/AP_FlashStorage/AP_FlashStorage.h
 	libraries/AP_FlashStorage/AP_FlashStorage.cpp
 )
@@ -2384,7 +2384,7 @@ set(AP_FlashStorage_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_FlashStorage ${AP_FlashStorage_SOURCES}) #2
+add_library(AP_FlashStorage PUBLIC ${AP_FlashStorage_SOURCES}) #2
 target_include_directories(AP_FlashStorage PUBLIC ${AP_FlashStorage_INCLUDES})
 
 set_target_properties(AP_FlashStorage PROPERTIES
@@ -2399,7 +2399,7 @@ target_link_libraries(AP_FlashStorage littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Frsky_Telem_SOURCES #3
+set(AP_Frsky_Telem_SOURCES #13
 	libraries/AP_Frsky_Telem/AP_Frsky_Backend.h
 	libraries/AP_Frsky_Telem/AP_Frsky_D.h
 	libraries/AP_Frsky_Telem/AP_Frsky_MAVlite.h
@@ -2444,7 +2444,7 @@ set(AP_Frsky_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Frsky_Telem ${AP_Frsky_Telem_SOURCES}) #2
+add_library(AP_Frsky_Telem PUBLIC ${AP_Frsky_Telem_SOURCES}) #2
 target_include_directories(AP_Frsky_Telem PUBLIC ${AP_Frsky_Telem_INCLUDES})
 
 set_target_properties(AP_Frsky_Telem PROPERTIES
@@ -2459,7 +2459,7 @@ target_link_libraries(AP_Frsky_Telem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_GPS_SOURCES #3
+set(AP_GPS_SOURCES #13
 	libraries/AP_GPS/AP_GPS.h
 	libraries/AP_GPS/AP_GPS_Blended.h
 	libraries/AP_GPS/AP_GPS_DroneCAN.h
@@ -2525,7 +2525,7 @@ set(AP_GPS_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_GPS ${AP_GPS_SOURCES}) #2
+add_library(AP_GPS PUBLIC ${AP_GPS_SOURCES}) #2
 target_include_directories(AP_GPS PUBLIC ${AP_GPS_INCLUDES})
 
 set_target_properties(AP_GPS PROPERTIES
@@ -2540,7 +2540,7 @@ target_link_libraries(AP_GPS littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_GSOF_SOURCES #3
+set(AP_GSOF_SOURCES #13
 	libraries/AP_GSOF/AP_GSOF.h
 	libraries/AP_GSOF/AP_GSOF_config.h
 	libraries/AP_GSOF/AP_GSOF.cpp
@@ -2565,7 +2565,7 @@ set(AP_GSOF_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_GSOF ${AP_GSOF_SOURCES}) #2
+add_library(AP_GSOF PUBLIC ${AP_GSOF_SOURCES}) #2
 target_include_directories(AP_GSOF PUBLIC ${AP_GSOF_INCLUDES})
 
 set_target_properties(AP_GSOF PROPERTIES
@@ -2580,7 +2580,7 @@ target_link_libraries(AP_GSOF littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Generator_SOURCES #3
+set(AP_Generator_SOURCES #13
 	libraries/AP_Generator/AP_Generator.h
 	libraries/AP_Generator/AP_Generator_Backend.h
 	libraries/AP_Generator/AP_Generator_Cortex.h
@@ -2619,7 +2619,7 @@ set(AP_Generator_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Generator ${AP_Generator_SOURCES}) #2
+add_library(AP_Generator PUBLIC ${AP_Generator_SOURCES}) #2
 target_include_directories(AP_Generator PUBLIC ${AP_Generator_INCLUDES})
 
 set_target_properties(AP_Generator PROPERTIES
@@ -2634,7 +2634,7 @@ target_link_libraries(AP_Generator littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Gripper_SOURCES #3
+set(AP_Gripper_SOURCES #13
 	libraries/AP_Gripper/AP_Gripper.h
 	libraries/AP_Gripper/AP_Gripper_Backend.h
 	libraries/AP_Gripper/AP_Gripper_EPM.h
@@ -2665,7 +2665,7 @@ set(AP_Gripper_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Gripper ${AP_Gripper_SOURCES}) #2
+add_library(AP_Gripper PUBLIC ${AP_Gripper_SOURCES}) #2
 target_include_directories(AP_Gripper PUBLIC ${AP_Gripper_INCLUDES})
 
 set_target_properties(AP_Gripper PROPERTIES
@@ -2680,7 +2680,7 @@ target_link_libraries(AP_Gripper littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Hott_Telem_SOURCES #3
+set(AP_Hott_Telem_SOURCES #13
 	libraries/AP_Hott_Telem/AP_Hott_Telem.h
 	libraries/AP_Hott_Telem/AP_Hott_Telem.cpp
 )
@@ -2704,7 +2704,7 @@ set(AP_Hott_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Hott_Telem ${AP_Hott_Telem_SOURCES}) #2
+add_library(AP_Hott_Telem PUBLIC ${AP_Hott_Telem_SOURCES}) #2
 target_include_directories(AP_Hott_Telem PUBLIC ${AP_Hott_Telem_INCLUDES})
 
 set_target_properties(AP_Hott_Telem PROPERTIES
@@ -2719,7 +2719,7 @@ target_link_libraries(AP_Hott_Telem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ICEngine_SOURCES #3
+set(AP_ICEngine_SOURCES #13
 	libraries/AP_ICEngine/AP_ICEngine.h
 	libraries/AP_ICEngine/AP_ICEngine_TCA9554.h
 	libraries/AP_ICEngine/AP_ICEngine_config.h
@@ -2746,7 +2746,7 @@ set(AP_ICEngine_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_ICEngine ${AP_ICEngine_SOURCES}) #2
+add_library(AP_ICEngine PUBLIC ${AP_ICEngine_SOURCES}) #2
 target_include_directories(AP_ICEngine PUBLIC ${AP_ICEngine_INCLUDES})
 
 set_target_properties(AP_ICEngine PROPERTIES
@@ -2761,7 +2761,7 @@ target_link_libraries(AP_ICEngine littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_IOMCU_SOURCES #3
+set(AP_IOMCU_SOURCES #13
 	libraries/AP_IOMCU/AP_IOMCU.h
 	libraries/AP_IOMCU/AP_IOMCU.cpp
 	libraries/AP_IOMCU/fw_uploader.cpp
@@ -2786,7 +2786,7 @@ set(AP_IOMCU_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_IOMCU ${AP_IOMCU_SOURCES}) #2
+add_library(AP_IOMCU PUBLIC ${AP_IOMCU_SOURCES}) #2
 target_include_directories(AP_IOMCU PUBLIC ${AP_IOMCU_INCLUDES})
 
 set_target_properties(AP_IOMCU PROPERTIES
@@ -2801,7 +2801,7 @@ target_link_libraries(AP_IOMCU littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_IRLock_SOURCES #3
+set(AP_IRLock_SOURCES #13
 	libraries/AP_IRLock/AP_IRLock.h
 	libraries/AP_IRLock/AP_IRLock_I2C.h
 	libraries/AP_IRLock/AP_IRLock_SITL.h
@@ -2832,7 +2832,7 @@ set(AP_IRLock_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_IRLock ${AP_IRLock_SOURCES}) #2
+add_library(AP_IRLock PUBLIC ${AP_IRLock_SOURCES}) #2
 target_include_directories(AP_IRLock PUBLIC ${AP_IRLock_INCLUDES})
 
 set_target_properties(AP_IRLock PROPERTIES
@@ -2847,7 +2847,7 @@ target_link_libraries(AP_IRLock littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_InertialNav_SOURCES #3
+set(AP_InertialNav_SOURCES #13
 	libraries/AP_InertialNav/AP_InertialNav.h
 	libraries/AP_InertialNav/AP_InertialNav.cpp
 )
@@ -2871,7 +2871,7 @@ set(AP_InertialNav_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_InertialNav ${AP_InertialNav_SOURCES}) #2
+add_library(AP_InertialNav PUBLIC ${AP_InertialNav_SOURCES}) #2
 target_include_directories(AP_InertialNav PUBLIC ${AP_InertialNav_INCLUDES})
 
 set_target_properties(AP_InertialNav PROPERTIES
@@ -2886,7 +2886,7 @@ target_link_libraries(AP_InertialNav littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_InertialSensor_SOURCES #3
+set(AP_InertialSensor_SOURCES #13
 	libraries/AP_InertialSensor/AP_InertialSensor.h
 	libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.h
 	libraries/AP_InertialSensor/AP_InertialSensor_BMI055.h
@@ -2957,7 +2957,7 @@ set(AP_InertialSensor_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_InertialSensor ${AP_InertialSensor_SOURCES}) #2
+add_library(AP_InertialSensor PUBLIC ${AP_InertialSensor_SOURCES}) #2
 target_include_directories(AP_InertialSensor PUBLIC ${AP_InertialSensor_INCLUDES})
 
 set_target_properties(AP_InertialSensor PROPERTIES
@@ -2972,7 +2972,7 @@ target_link_libraries(AP_InertialSensor littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_InternalError_SOURCES #3
+set(AP_InternalError_SOURCES #13
 	libraries/AP_InternalError/AP_InternalError.h
 	libraries/AP_InternalError/AP_InternalError_config.h
 	libraries/AP_InternalError/AP_InternalError.cpp
@@ -2997,7 +2997,7 @@ set(AP_InternalError_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_InternalError ${AP_InternalError_SOURCES}) #2
+add_library(AP_InternalError PUBLIC ${AP_InternalError_SOURCES}) #2
 target_include_directories(AP_InternalError PUBLIC ${AP_InternalError_INCLUDES})
 
 set_target_properties(AP_InternalError PROPERTIES
@@ -3012,7 +3012,7 @@ target_link_libraries(AP_InternalError littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_JSButton_SOURCES #3
+set(AP_JSButton_SOURCES #13
 	libraries/AP_JSButton/AP_JSButton.h
 	libraries/AP_JSButton/AP_JSButton.cpp
 )
@@ -3036,7 +3036,7 @@ set(AP_JSButton_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_JSButton ${AP_JSButton_SOURCES}) #2
+add_library(AP_JSButton PUBLIC ${AP_JSButton_SOURCES}) #2
 target_include_directories(AP_JSButton PUBLIC ${AP_JSButton_INCLUDES})
 
 set_target_properties(AP_JSButton PROPERTIES
@@ -3051,7 +3051,7 @@ target_link_libraries(AP_JSButton littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_JSON_SOURCES #3
+set(AP_JSON_SOURCES #13
 	libraries/AP_JSON/AP_JSON.h
 	libraries/AP_JSON/AP_JSON.cpp
 )
@@ -3075,7 +3075,7 @@ set(AP_JSON_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_JSON ${AP_JSON_SOURCES}) #2
+add_library(AP_JSON PUBLIC ${AP_JSON_SOURCES}) #2
 target_include_directories(AP_JSON PUBLIC ${AP_JSON_INCLUDES})
 
 set_target_properties(AP_JSON PROPERTIES
@@ -3090,7 +3090,7 @@ target_link_libraries(AP_JSON littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_KDECAN_SOURCES #3
+set(AP_KDECAN_SOURCES #13
 	libraries/AP_KDECAN/AP_KDECAN.h
 	libraries/AP_KDECAN/AP_KDECAN_config.h
 	libraries/AP_KDECAN/AP_KDECAN.cpp
@@ -3115,7 +3115,7 @@ set(AP_KDECAN_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_KDECAN ${AP_KDECAN_SOURCES}) #2
+add_library(AP_KDECAN PUBLIC ${AP_KDECAN_SOURCES}) #2
 target_include_directories(AP_KDECAN PUBLIC ${AP_KDECAN_INCLUDES})
 
 set_target_properties(AP_KDECAN PROPERTIES
@@ -3130,7 +3130,7 @@ target_link_libraries(AP_KDECAN littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_L1_Control_SOURCES #3
+set(AP_L1_Control_SOURCES #13
 	libraries/AP_L1_Control/AP_L1_Control.h
 	libraries/AP_L1_Control/AP_L1_Control.cpp
 )
@@ -3154,7 +3154,7 @@ set(AP_L1_Control_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_L1_Control ${AP_L1_Control_SOURCES}) #2
+add_library(AP_L1_Control PUBLIC ${AP_L1_Control_SOURCES}) #2
 target_include_directories(AP_L1_Control PUBLIC ${AP_L1_Control_INCLUDES})
 
 set_target_properties(AP_L1_Control PROPERTIES
@@ -3169,7 +3169,7 @@ target_link_libraries(AP_L1_Control littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_LTM_Telem_SOURCES #3
+set(AP_LTM_Telem_SOURCES #13
 	libraries/AP_LTM_Telem/AP_LTM_Telem.h
 	libraries/AP_LTM_Telem/AP_LTM_Telem.cpp
 )
@@ -3193,7 +3193,7 @@ set(AP_LTM_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_LTM_Telem ${AP_LTM_Telem_SOURCES}) #2
+add_library(AP_LTM_Telem PUBLIC ${AP_LTM_Telem_SOURCES}) #2
 target_include_directories(AP_LTM_Telem PUBLIC ${AP_LTM_Telem_INCLUDES})
 
 set_target_properties(AP_LTM_Telem PROPERTIES
@@ -3208,7 +3208,7 @@ target_link_libraries(AP_LTM_Telem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Landing_SOURCES #3
+set(AP_Landing_SOURCES #13
 	libraries/AP_Landing/AP_Landing.h
 	libraries/AP_Landing/AP_Landing_Deepstall.h
 	libraries/AP_Landing/AP_Landing_config.h
@@ -3237,7 +3237,7 @@ set(AP_Landing_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Landing ${AP_Landing_SOURCES}) #2
+add_library(AP_Landing PUBLIC ${AP_Landing_SOURCES}) #2
 target_include_directories(AP_Landing PUBLIC ${AP_Landing_INCLUDES})
 
 set_target_properties(AP_Landing PROPERTIES
@@ -3252,7 +3252,7 @@ target_link_libraries(AP_Landing littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_LeakDetector_SOURCES #3
+set(AP_LeakDetector_SOURCES #13
 	libraries/AP_LeakDetector/AP_LeakDetector.h
 	libraries/AP_LeakDetector/AP_LeakDetector_Analog.h
 	libraries/AP_LeakDetector/AP_LeakDetector_Backend.h
@@ -3282,7 +3282,7 @@ set(AP_LeakDetector_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_LeakDetector ${AP_LeakDetector_SOURCES}) #2
+add_library(AP_LeakDetector PUBLIC ${AP_LeakDetector_SOURCES}) #2
 target_include_directories(AP_LeakDetector PUBLIC ${AP_LeakDetector_INCLUDES})
 
 set_target_properties(AP_LeakDetector PROPERTIES
@@ -3297,7 +3297,7 @@ target_link_libraries(AP_LeakDetector littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_LightWareSerial_SOURCES #3
+set(AP_LightWareSerial_SOURCES #13
 	libraries/AP_LightWareSerial/AP_LightWareSerial.h
 	libraries/AP_LightWareSerial/AP_LightWareSerial_config.h
 	libraries/AP_LightWareSerial/AP_LightWareSerial.cpp
@@ -3322,7 +3322,7 @@ set(AP_LightWareSerial_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_LightWareSerial ${AP_LightWareSerial_SOURCES}) #2
+add_library(AP_LightWareSerial PUBLIC ${AP_LightWareSerial_SOURCES}) #2
 target_include_directories(AP_LightWareSerial PUBLIC ${AP_LightWareSerial_INCLUDES})
 
 set_target_properties(AP_LightWareSerial PROPERTIES
@@ -3337,7 +3337,7 @@ target_link_libraries(AP_LightWareSerial littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Logger_SOURCES #3
+set(AP_Logger_SOURCES #13
 	libraries/AP_Logger/AP_Logger.h
 	libraries/AP_Logger/AP_Logger_Backend.h
 	libraries/AP_Logger/AP_Logger_Block.h
@@ -3379,7 +3379,7 @@ set(AP_Logger_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Logger ${AP_Logger_SOURCES}) #2
+add_library(AP_Logger PUBLIC ${AP_Logger_SOURCES}) #2
 target_include_directories(AP_Logger PUBLIC ${AP_Logger_INCLUDES})
 
 set_target_properties(AP_Logger PROPERTIES
@@ -3394,7 +3394,7 @@ target_link_libraries(AP_Logger littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_MSP_SOURCES #3
+set(AP_MSP_SOURCES #13
 	libraries/AP_MSP/AP_MSP.h
 	libraries/AP_MSP/AP_MSP_Telem_Backend.h
 	libraries/AP_MSP/AP_MSP_Telem_DJI.h
@@ -3435,7 +3435,7 @@ set(AP_MSP_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_MSP ${AP_MSP_SOURCES}) #2
+add_library(AP_MSP PUBLIC ${AP_MSP_SOURCES}) #2
 target_include_directories(AP_MSP PUBLIC ${AP_MSP_INCLUDES})
 
 set_target_properties(AP_MSP PROPERTIES
@@ -3450,7 +3450,7 @@ target_link_libraries(AP_MSP littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Math_SOURCES #3
+set(AP_Math_SOURCES #13
 	libraries/AP_Math/AP_GeodesicGrid.h
 	libraries/AP_Math/AP_Math.h
 	libraries/AP_Math/SCurve.h
@@ -3511,7 +3511,7 @@ set(AP_Math_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Math ${AP_Math_SOURCES}) #2
+add_library(AP_Math PUBLIC ${AP_Math_SOURCES}) #2
 target_include_directories(AP_Math PUBLIC ${AP_Math_INCLUDES})
 
 set_target_properties(AP_Math PROPERTIES
@@ -3526,7 +3526,7 @@ target_link_libraries(AP_Math littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Mission_SOURCES #3
+set(AP_Mission_SOURCES #13
 	libraries/AP_Mission/AP_Mission.h
 	libraries/AP_Mission/AP_Mission_ChangeDetector.h
 	libraries/AP_Mission/AP_Mission_config.h
@@ -3555,7 +3555,7 @@ set(AP_Mission_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Mission ${AP_Mission_SOURCES}) #2
+add_library(AP_Mission PUBLIC ${AP_Mission_SOURCES}) #2
 target_include_directories(AP_Mission PUBLIC ${AP_Mission_INCLUDES})
 
 set_target_properties(AP_Mission PROPERTIES
@@ -3570,7 +3570,7 @@ target_link_libraries(AP_Mission littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Module_SOURCES #3
+set(AP_Module_SOURCES #13
 	libraries/AP_Module/AP_Module.h
 	libraries/AP_Module/AP_Module_Structures.h
 	libraries/AP_Module/AP_Module.cpp
@@ -3595,7 +3595,7 @@ set(AP_Module_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Module ${AP_Module_SOURCES}) #2
+add_library(AP_Module PUBLIC ${AP_Module_SOURCES}) #2
 target_include_directories(AP_Module PUBLIC ${AP_Module_INCLUDES})
 
 set_target_properties(AP_Module PROPERTIES
@@ -3610,7 +3610,7 @@ target_link_libraries(AP_Module littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Motors_SOURCES #3
+set(AP_Motors_SOURCES #13
 	libraries/AP_Motors/AP_Motors.h
 	libraries/AP_Motors/AP_Motors6DOF.h
 	libraries/AP_Motors/AP_MotorsCoax.h
@@ -3668,7 +3668,7 @@ set(AP_Motors_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Motors ${AP_Motors_SOURCES}) #2
+add_library(AP_Motors PUBLIC ${AP_Motors_SOURCES}) #2
 target_include_directories(AP_Motors PUBLIC ${AP_Motors_INCLUDES})
 
 set_target_properties(AP_Motors PROPERTIES
@@ -3683,7 +3683,7 @@ target_link_libraries(AP_Motors littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Mount_SOURCES #3
+set(AP_Mount_SOURCES #13
 	libraries/AP_Mount/AP_Mount.h
 	libraries/AP_Mount/AP_Mount_Alexmos.h
 	libraries/AP_Mount/AP_Mount_Backend.h
@@ -3747,7 +3747,7 @@ set(AP_Mount_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Mount ${AP_Mount_SOURCES}) #2
+add_library(AP_Mount PUBLIC ${AP_Mount_SOURCES}) #2
 target_include_directories(AP_Mount PUBLIC ${AP_Mount_INCLUDES})
 
 set_target_properties(AP_Mount PROPERTIES
@@ -3762,7 +3762,7 @@ target_link_libraries(AP_Mount littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_MultiHeap_SOURCES #3
+set(AP_MultiHeap_SOURCES #13
 	libraries/AP_MultiHeap/AP_MultiHeap.h
 	libraries/AP_MultiHeap/AP_MultiHeap.cpp
 	libraries/AP_MultiHeap/MultiHeap_chibios.cpp
@@ -3788,7 +3788,7 @@ set(AP_MultiHeap_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_MultiHeap ${AP_MultiHeap_SOURCES}) #2
+add_library(AP_MultiHeap PUBLIC ${AP_MultiHeap_SOURCES}) #2
 target_include_directories(AP_MultiHeap PUBLIC ${AP_MultiHeap_INCLUDES})
 
 set_target_properties(AP_MultiHeap PROPERTIES
@@ -3803,7 +3803,7 @@ target_link_libraries(AP_MultiHeap littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_NMEA_Output_SOURCES #3
+set(AP_NMEA_Output_SOURCES #13
 	libraries/AP_NMEA_Output/AP_NMEA_Output.h
 	libraries/AP_NMEA_Output/AP_NMEA_Output_config.h
 	libraries/AP_NMEA_Output/AP_NMEA_Output.cpp
@@ -3828,7 +3828,7 @@ set(AP_NMEA_Output_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_NMEA_Output ${AP_NMEA_Output_SOURCES}) #2
+add_library(AP_NMEA_Output PUBLIC ${AP_NMEA_Output_SOURCES}) #2
 target_include_directories(AP_NMEA_Output PUBLIC ${AP_NMEA_Output_INCLUDES})
 
 set_target_properties(AP_NMEA_Output PROPERTIES
@@ -3843,7 +3843,7 @@ target_link_libraries(AP_NMEA_Output littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_NavEKF_SOURCES #3
+set(AP_NavEKF_SOURCES #13
 	libraries/AP_NavEKF/AP_NavEKF_Source.h
 	libraries/AP_NavEKF/AP_NavEKF_core_common.h
 	libraries/AP_NavEKF/AP_Nav_Common.h
@@ -3876,7 +3876,7 @@ set(AP_NavEKF_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_NavEKF ${AP_NavEKF_SOURCES}) #2
+add_library(AP_NavEKF PUBLIC ${AP_NavEKF_SOURCES}) #2
 target_include_directories(AP_NavEKF PUBLIC ${AP_NavEKF_INCLUDES})
 
 set_target_properties(AP_NavEKF PROPERTIES
@@ -3891,7 +3891,7 @@ target_link_libraries(AP_NavEKF littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_NavEKF2_SOURCES #3
+set(AP_NavEKF2_SOURCES #13
 	libraries/AP_NavEKF2/AP_NavEKF2.h
 	libraries/AP_NavEKF2/AP_NavEKF2_core.h
 	libraries/AP_NavEKF2/LogStructure.h
@@ -3929,7 +3929,7 @@ set(AP_NavEKF2_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_NavEKF2 ${AP_NavEKF2_SOURCES}) #2
+add_library(AP_NavEKF2 PUBLIC ${AP_NavEKF2_SOURCES}) #2
 target_include_directories(AP_NavEKF2 PUBLIC ${AP_NavEKF2_INCLUDES})
 
 set_target_properties(AP_NavEKF2 PROPERTIES
@@ -3944,7 +3944,7 @@ target_link_libraries(AP_NavEKF2 littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Networking_SOURCES #3
+set(AP_Networking_SOURCES #13
 	libraries/AP_Networking/AP_Networking.h
 	libraries/AP_Networking/AP_Networking_Backend.h
 	libraries/AP_Networking/AP_Networking_CAN.h
@@ -4055,7 +4055,7 @@ set(AP_Networking_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Networking ${AP_Networking_SOURCES}) #2
+add_library(AP_Networking PUBLIC ${AP_Networking_SOURCES}) #2
 target_include_directories(AP_Networking PUBLIC ${AP_Networking_INCLUDES})
 
 set_target_properties(AP_Networking PROPERTIES
@@ -4070,7 +4070,7 @@ target_link_libraries(AP_Networking littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Notify_SOURCES #3
+set(AP_Notify_SOURCES #13
 	libraries/AP_Notify/AP_BoardLED.h
 	libraries/AP_Notify/AP_BoardLED2.h
 	libraries/AP_Notify/AP_Notify.h
@@ -4162,7 +4162,7 @@ set(AP_Notify_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Notify ${AP_Notify_SOURCES}) #2
+add_library(AP_Notify PUBLIC ${AP_Notify_SOURCES}) #2
 target_include_directories(AP_Notify PUBLIC ${AP_Notify_INCLUDES})
 
 set_target_properties(AP_Notify PROPERTIES
@@ -4177,7 +4177,7 @@ target_link_libraries(AP_Notify littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_OLC_SOURCES #3
+set(AP_OLC_SOURCES #13
 	libraries/AP_OLC/AP_OLC.h
 	libraries/AP_OLC/AP_OLC.cpp
 )
@@ -4201,7 +4201,7 @@ set(AP_OLC_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_OLC ${AP_OLC_SOURCES}) #2
+add_library(AP_OLC PUBLIC ${AP_OLC_SOURCES}) #2
 target_include_directories(AP_OLC PUBLIC ${AP_OLC_INCLUDES})
 
 set_target_properties(AP_OLC PROPERTIES
@@ -4216,7 +4216,7 @@ target_link_libraries(AP_OLC littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_OSD_SOURCES #3
+set(AP_OSD_SOURCES #13
 	libraries/AP_OSD/AP_OSD.h
 	libraries/AP_OSD/AP_OSD_Backend.h
 	libraries/AP_OSD/AP_OSD_MAX7456.h
@@ -4255,7 +4255,7 @@ set(AP_OSD_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_OSD ${AP_OSD_SOURCES}) #2
+add_library(AP_OSD PUBLIC ${AP_OSD_SOURCES}) #2
 target_include_directories(AP_OSD PUBLIC ${AP_OSD_INCLUDES})
 
 set_target_properties(AP_OSD PROPERTIES
@@ -4270,7 +4270,7 @@ target_link_libraries(AP_OSD littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_OpenDroneID_SOURCES #3
+set(AP_OpenDroneID_SOURCES #13
 	libraries/AP_OpenDroneID/AP_OpenDroneID.h
 	libraries/AP_OpenDroneID/AP_OpenDroneID_config.h
 	libraries/AP_OpenDroneID/AP_OpenDroneID.cpp
@@ -4296,7 +4296,7 @@ set(AP_OpenDroneID_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_OpenDroneID ${AP_OpenDroneID_SOURCES}) #2
+add_library(AP_OpenDroneID PUBLIC ${AP_OpenDroneID_SOURCES}) #2
 target_include_directories(AP_OpenDroneID PUBLIC ${AP_OpenDroneID_INCLUDES})
 
 set_target_properties(AP_OpenDroneID PROPERTIES
@@ -4311,7 +4311,7 @@ target_link_libraries(AP_OpenDroneID littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_OpticalFlow_SOURCES #3
+set(AP_OpticalFlow_SOURCES #13
 	libraries/AP_OpticalFlow/AP_OpticalFlow.h
 	libraries/AP_OpticalFlow/AP_OpticalFlow_Backend.h
 	libraries/AP_OpticalFlow/AP_OpticalFlow_CXOF.h
@@ -4359,7 +4359,7 @@ set(AP_OpticalFlow_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_OpticalFlow ${AP_OpticalFlow_SOURCES}) #2
+add_library(AP_OpticalFlow PUBLIC ${AP_OpticalFlow_SOURCES}) #2
 target_include_directories(AP_OpticalFlow PUBLIC ${AP_OpticalFlow_INCLUDES})
 
 set_target_properties(AP_OpticalFlow PROPERTIES
@@ -4374,7 +4374,7 @@ target_link_libraries(AP_OpticalFlow littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Parachute_SOURCES #3
+set(AP_Parachute_SOURCES #13
 	libraries/AP_Parachute/AP_Parachute.h
 	libraries/AP_Parachute/AP_Parachute_config.h
 	libraries/AP_Parachute/AP_Parachute.cpp
@@ -4399,7 +4399,7 @@ set(AP_Parachute_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Parachute ${AP_Parachute_SOURCES}) #2
+add_library(AP_Parachute PUBLIC ${AP_Parachute_SOURCES}) #2
 target_include_directories(AP_Parachute PUBLIC ${AP_Parachute_INCLUDES})
 
 set_target_properties(AP_Parachute PROPERTIES
@@ -4414,7 +4414,7 @@ target_link_libraries(AP_Parachute littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Param_SOURCES #3
+set(AP_Param_SOURCES #13
 	libraries/AP_Param/AP_Param.h
 	libraries/AP_Param/AP_Param_config.h
 	libraries/AP_Param/AP_Param.cpp
@@ -4440,7 +4440,7 @@ set(AP_Param_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Param ${AP_Param_SOURCES}) #2
+add_library(AP_Param PUBLIC ${AP_Param_SOURCES}) #2
 target_include_directories(AP_Param PUBLIC ${AP_Param_INCLUDES})
 
 set_target_properties(AP_Param PROPERTIES
@@ -4455,7 +4455,7 @@ target_link_libraries(AP_Param littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_PiccoloCAN_SOURCES #3
+set(AP_PiccoloCAN_SOURCES #13
 	libraries/AP_PiccoloCAN/AP_PiccoloCAN.h
 	libraries/AP_PiccoloCAN/AP_PiccoloCAN_Cortex.h
 	libraries/AP_PiccoloCAN/AP_PiccoloCAN_Device.h
@@ -4489,7 +4489,7 @@ set(AP_PiccoloCAN_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_PiccoloCAN ${AP_PiccoloCAN_SOURCES}) #2
+add_library(AP_PiccoloCAN PUBLIC ${AP_PiccoloCAN_SOURCES}) #2
 target_include_directories(AP_PiccoloCAN PUBLIC ${AP_PiccoloCAN_INCLUDES})
 
 set_target_properties(AP_PiccoloCAN PROPERTIES
@@ -4504,7 +4504,7 @@ target_link_libraries(AP_PiccoloCAN littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Proximity_SOURCES #3
+set(AP_Proximity_SOURCES #13
 	libraries/AP_Proximity/AP_Proximity.h
 	libraries/AP_Proximity/AP_Proximity_AirSimSITL.h
 	libraries/AP_Proximity/AP_Proximity_Backend.h
@@ -4567,7 +4567,7 @@ set(AP_Proximity_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Proximity ${AP_Proximity_SOURCES}) #2
+add_library(AP_Proximity PUBLIC ${AP_Proximity_SOURCES}) #2
 target_include_directories(AP_Proximity PUBLIC ${AP_Proximity_INCLUDES})
 
 set_target_properties(AP_Proximity PROPERTIES
@@ -4582,7 +4582,7 @@ target_link_libraries(AP_Proximity littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Quicktune_SOURCES #3
+set(AP_Quicktune_SOURCES #13
 	libraries/AP_Quicktune/AP_Quicktune.h
 	libraries/AP_Quicktune/AP_Quicktune.cpp
 )
@@ -4606,7 +4606,7 @@ set(AP_Quicktune_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Quicktune ${AP_Quicktune_SOURCES}) #2
+add_library(AP_Quicktune PUBLIC ${AP_Quicktune_SOURCES}) #2
 target_include_directories(AP_Quicktune PUBLIC ${AP_Quicktune_INCLUDES})
 
 set_target_properties(AP_Quicktune PROPERTIES
@@ -4621,7 +4621,7 @@ target_link_libraries(AP_Quicktune littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RAMTRON_SOURCES #3
+set(AP_RAMTRON_SOURCES #13
 	libraries/AP_RAMTRON/AP_RAMTRON.h
 	libraries/AP_RAMTRON/AP_RAMTRON.cpp
 )
@@ -4645,7 +4645,7 @@ set(AP_RAMTRON_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_RAMTRON ${AP_RAMTRON_SOURCES}) #2
+add_library(AP_RAMTRON PUBLIC ${AP_RAMTRON_SOURCES}) #2
 target_include_directories(AP_RAMTRON PUBLIC ${AP_RAMTRON_INCLUDES})
 
 set_target_properties(AP_RAMTRON PROPERTIES
@@ -4660,7 +4660,7 @@ target_link_libraries(AP_RAMTRON littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RCMapper_SOURCES #3
+set(AP_RCMapper_SOURCES #13
 	libraries/AP_RCMapper/AP_RCMapper.h
 	libraries/AP_RCMapper/AP_RCMapper_config.h
 	libraries/AP_RCMapper/AP_RCMapper.cpp
@@ -4685,7 +4685,7 @@ set(AP_RCMapper_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_RCMapper ${AP_RCMapper_SOURCES}) #2
+add_library(AP_RCMapper PUBLIC ${AP_RCMapper_SOURCES}) #2
 target_include_directories(AP_RCMapper PUBLIC ${AP_RCMapper_INCLUDES})
 
 set_target_properties(AP_RCMapper PROPERTIES
@@ -4700,7 +4700,7 @@ target_link_libraries(AP_RCMapper littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RCProtocol_SOURCES #3
+set(AP_RCProtocol_SOURCES #13
 	libraries/AP_RCProtocol/AP_RCProtocol.h
 	libraries/AP_RCProtocol/AP_RCProtocol_Backend.h
 	libraries/AP_RCProtocol/AP_RCProtocol_CRSF.h
@@ -4772,7 +4772,7 @@ set(AP_RCProtocol_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_RCProtocol ${AP_RCProtocol_SOURCES}) #2
+add_library(AP_RCProtocol PUBLIC ${AP_RCProtocol_SOURCES}) #2
 target_include_directories(AP_RCProtocol PUBLIC ${AP_RCProtocol_INCLUDES})
 
 set_target_properties(AP_RCProtocol PROPERTIES
@@ -4787,7 +4787,7 @@ target_link_libraries(AP_RCProtocol littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RCTelemetry_SOURCES #3
+set(AP_RCTelemetry_SOURCES #13
 	libraries/AP_RCTelemetry/AP_CRSF_Telem.h
 	libraries/AP_RCTelemetry/AP_GHST_Telem.h
 	libraries/AP_RCTelemetry/AP_RCTelemetry.h
@@ -4819,7 +4819,7 @@ set(AP_RCTelemetry_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_RCTelemetry ${AP_RCTelemetry_SOURCES}) #2
+add_library(AP_RCTelemetry PUBLIC ${AP_RCTelemetry_SOURCES}) #2
 target_include_directories(AP_RCTelemetry PUBLIC ${AP_RCTelemetry_INCLUDES})
 
 set_target_properties(AP_RCTelemetry PROPERTIES
@@ -4834,7 +4834,7 @@ target_link_libraries(AP_RCTelemetry littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ROMFS_SOURCES #3
+set(AP_ROMFS_SOURCES #13
 	libraries/AP_ROMFS/AP_ROMFS.h
 	libraries/AP_ROMFS/tinf.h
 	libraries/AP_ROMFS/AP_ROMFS.cpp
@@ -4860,7 +4860,7 @@ set(AP_ROMFS_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_ROMFS ${AP_ROMFS_SOURCES}) #2
+add_library(AP_ROMFS PUBLIC ${AP_ROMFS_SOURCES}) #2
 target_include_directories(AP_ROMFS PUBLIC ${AP_ROMFS_INCLUDES})
 
 set_target_properties(AP_ROMFS PROPERTIES
@@ -4875,7 +4875,7 @@ target_link_libraries(AP_ROMFS littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RPM_SOURCES #3
+set(AP_RPM_SOURCES #13
 	libraries/AP_RPM/AP_RPM.h
 	libraries/AP_RPM/AP_RPM_Params.h
 	libraries/AP_RPM/AP_RPM_config.h
@@ -4919,7 +4919,7 @@ set(AP_RPM_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_RPM ${AP_RPM_SOURCES}) #2
+add_library(AP_RPM PUBLIC ${AP_RPM_SOURCES}) #2
 target_include_directories(AP_RPM PUBLIC ${AP_RPM_INCLUDES})
 
 set_target_properties(AP_RPM PROPERTIES
@@ -4934,7 +4934,7 @@ target_link_libraries(AP_RPM littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RSSI_SOURCES #3
+set(AP_RSSI_SOURCES #13
 	libraries/AP_RSSI/AP_RSSI.h
 	libraries/AP_RSSI/AP_RSSI_config.h
 	libraries/AP_RSSI/AP_RSSI.cpp
@@ -4959,7 +4959,7 @@ set(AP_RSSI_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_RSSI ${AP_RSSI_SOURCES}) #2
+add_library(AP_RSSI PUBLIC ${AP_RSSI_SOURCES}) #2
 target_include_directories(AP_RSSI PUBLIC ${AP_RSSI_INCLUDES})
 
 set_target_properties(AP_RSSI PROPERTIES
@@ -4974,7 +4974,7 @@ target_link_libraries(AP_RSSI littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RTC_SOURCES #3
+set(AP_RTC_SOURCES #13
 	libraries/AP_RTC/AP_RTC.h
 	libraries/AP_RTC/AP_RTC_config.h
 	libraries/AP_RTC/JitterCorrection.h
@@ -5001,7 +5001,7 @@ set(AP_RTC_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_RTC ${AP_RTC_SOURCES}) #2
+add_library(AP_RTC PUBLIC ${AP_RTC_SOURCES}) #2
 target_include_directories(AP_RTC PUBLIC ${AP_RTC_INCLUDES})
 
 set_target_properties(AP_RTC PROPERTIES
@@ -5016,7 +5016,7 @@ target_link_libraries(AP_RTC littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Radio_SOURCES #3
+set(AP_Radio_SOURCES #13
 	libraries/AP_Radio/AP_Radio.h
 	libraries/AP_Radio/AP_Radio_backend.h
 	libraries/AP_Radio/AP_Radio_bk2425.h
@@ -5054,7 +5054,7 @@ set(AP_Radio_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Radio ${AP_Radio_SOURCES}) #2
+add_library(AP_Radio PUBLIC ${AP_Radio_SOURCES}) #2
 target_include_directories(AP_Radio PUBLIC ${AP_Radio_INCLUDES})
 
 set_target_properties(AP_Radio PROPERTIES
@@ -5069,7 +5069,7 @@ target_link_libraries(AP_Radio littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RangeFinder_SOURCES #3
+set(AP_RangeFinder_SOURCES #13
 	libraries/AP_RangeFinder/AP_RangeFinder.h
 	libraries/AP_RangeFinder/AP_RangeFinder_Ainstein_LR_D1.h
 	libraries/AP_RangeFinder/AP_RangeFinder_BBB_PRU.h
@@ -5185,7 +5185,7 @@ set(AP_RangeFinder_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_RangeFinder ${AP_RangeFinder_SOURCES}) #2
+add_library(AP_RangeFinder PUBLIC ${AP_RangeFinder_SOURCES}) #2
 target_include_directories(AP_RangeFinder PUBLIC ${AP_RangeFinder_INCLUDES})
 
 set_target_properties(AP_RangeFinder PROPERTIES
@@ -5200,7 +5200,7 @@ target_link_libraries(AP_RangeFinder littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Relay_SOURCES #3
+set(AP_Relay_SOURCES #13
 	libraries/AP_Relay/AP_Relay.h
 	libraries/AP_Relay/AP_Relay_Params.h
 	libraries/AP_Relay/AP_Relay_config.h
@@ -5227,7 +5227,7 @@ set(AP_Relay_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Relay ${AP_Relay_SOURCES}) #2
+add_library(AP_Relay PUBLIC ${AP_Relay_SOURCES}) #2
 target_include_directories(AP_Relay PUBLIC ${AP_Relay_INCLUDES})
 
 set_target_properties(AP_Relay PROPERTIES
@@ -5242,7 +5242,7 @@ target_link_libraries(AP_Relay littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_RobotisServo_SOURCES #3
+set(AP_RobotisServo_SOURCES #13
 	libraries/AP_RobotisServo/AP_RobotisServo.h
 	libraries/AP_RobotisServo/AP_RobotisServo.cpp
 )
@@ -5266,7 +5266,7 @@ set(AP_RobotisServo_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_RobotisServo ${AP_RobotisServo_SOURCES}) #2
+add_library(AP_RobotisServo PUBLIC ${AP_RobotisServo_SOURCES}) #2
 target_include_directories(AP_RobotisServo PUBLIC ${AP_RobotisServo_INCLUDES})
 
 set_target_properties(AP_RobotisServo PROPERTIES
@@ -5281,7 +5281,7 @@ target_link_libraries(AP_RobotisServo littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_SBusOut_SOURCES #3
+set(AP_SBusOut_SOURCES #13
 	libraries/AP_SBusOut/AP_SBusOut.h
 	libraries/AP_SBusOut/AP_SBusOut_config.h
 	libraries/AP_SBusOut/AP_SBusOut.cpp
@@ -5306,7 +5306,7 @@ set(AP_SBusOut_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_SBusOut ${AP_SBusOut_SOURCES}) #2
+add_library(AP_SBusOut PUBLIC ${AP_SBusOut_SOURCES}) #2
 target_include_directories(AP_SBusOut PUBLIC ${AP_SBusOut_INCLUDES})
 
 set_target_properties(AP_SBusOut PROPERTIES
@@ -5321,7 +5321,7 @@ target_link_libraries(AP_SBusOut littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Scheduler_SOURCES #3
+set(AP_Scheduler_SOURCES #13
 	libraries/AP_Scheduler/AP_Scheduler.h
 	libraries/AP_Scheduler/AP_Scheduler_config.h
 	libraries/AP_Scheduler/PerfInfo.h
@@ -5348,7 +5348,7 @@ set(AP_Scheduler_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Scheduler ${AP_Scheduler_SOURCES}) #2
+add_library(AP_Scheduler PUBLIC ${AP_Scheduler_SOURCES}) #2
 target_include_directories(AP_Scheduler PUBLIC ${AP_Scheduler_INCLUDES})
 
 set_target_properties(AP_Scheduler PROPERTIES
@@ -5363,7 +5363,7 @@ target_link_libraries(AP_Scheduler littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_SerialLED_SOURCES #3
+set(AP_SerialLED_SOURCES #13
 	libraries/AP_SerialLED/AP_SerialLED.h
 	libraries/AP_SerialLED/AP_SerialLED_config.h
 	libraries/AP_SerialLED/AP_SerialLED.cpp
@@ -5388,7 +5388,7 @@ set(AP_SerialLED_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_SerialLED ${AP_SerialLED_SOURCES}) #2
+add_library(AP_SerialLED PUBLIC ${AP_SerialLED_SOURCES}) #2
 target_include_directories(AP_SerialLED PUBLIC ${AP_SerialLED_INCLUDES})
 
 set_target_properties(AP_SerialLED PROPERTIES
@@ -5403,7 +5403,7 @@ target_link_libraries(AP_SerialLED littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_SerialManager_SOURCES #3
+set(AP_SerialManager_SOURCES #13
 	libraries/AP_SerialManager/AP_SerialManager.h
 	libraries/AP_SerialManager/AP_SerialManager_config.h
 	libraries/AP_SerialManager/AP_SerialManager.cpp
@@ -5428,7 +5428,7 @@ set(AP_SerialManager_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_SerialManager ${AP_SerialManager_SOURCES}) #2
+add_library(AP_SerialManager PUBLIC ${AP_SerialManager_SOURCES}) #2
 target_include_directories(AP_SerialManager PUBLIC ${AP_SerialManager_INCLUDES})
 
 set_target_properties(AP_SerialManager PROPERTIES
@@ -5443,7 +5443,7 @@ target_link_libraries(AP_SerialManager littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ServoRelayEvents_SOURCES #3
+set(AP_ServoRelayEvents_SOURCES #13
 	libraries/AP_ServoRelayEvents/AP_ServoRelayEvents.h
 	libraries/AP_ServoRelayEvents/AP_ServoRelayEvents_config.h
 	libraries/AP_ServoRelayEvents/AP_ServoRelayEvents.cpp
@@ -5468,7 +5468,7 @@ set(AP_ServoRelayEvents_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_ServoRelayEvents ${AP_ServoRelayEvents_SOURCES}) #2
+add_library(AP_ServoRelayEvents PUBLIC ${AP_ServoRelayEvents_SOURCES}) #2
 target_include_directories(AP_ServoRelayEvents PUBLIC ${AP_ServoRelayEvents_INCLUDES})
 
 set_target_properties(AP_ServoRelayEvents PROPERTIES
@@ -5483,7 +5483,7 @@ target_link_libraries(AP_ServoRelayEvents littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Servo_Telem_SOURCES #3
+set(AP_Servo_Telem_SOURCES #13
 	libraries/AP_Servo_Telem/AP_Servo_Telem.h
 	libraries/AP_Servo_Telem/AP_Servo_Telem_config.h
 	libraries/AP_Servo_Telem/LogStructure.h
@@ -5509,7 +5509,7 @@ set(AP_Servo_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Servo_Telem ${AP_Servo_Telem_SOURCES}) #2
+add_library(AP_Servo_Telem PUBLIC ${AP_Servo_Telem_SOURCES}) #2
 target_include_directories(AP_Servo_Telem PUBLIC ${AP_Servo_Telem_INCLUDES})
 
 set_target_properties(AP_Servo_Telem PROPERTIES
@@ -5524,7 +5524,7 @@ target_link_libraries(AP_Servo_Telem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_SmartRTL_SOURCES #3
+set(AP_SmartRTL_SOURCES #13
 	libraries/AP_SmartRTL/AP_SmartRTL.h
 	libraries/AP_SmartRTL/AP_SmartRTL.cpp
 )
@@ -5548,7 +5548,7 @@ set(AP_SmartRTL_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_SmartRTL ${AP_SmartRTL_SOURCES}) #2
+add_library(AP_SmartRTL PUBLIC ${AP_SmartRTL_SOURCES}) #2
 target_include_directories(AP_SmartRTL PUBLIC ${AP_SmartRTL_INCLUDES})
 
 set_target_properties(AP_SmartRTL PROPERTIES
@@ -5563,7 +5563,7 @@ target_link_libraries(AP_SmartRTL littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Soaring_SOURCES #3
+set(AP_Soaring_SOURCES #13
 	libraries/AP_Soaring/AP_Soaring.h
 	libraries/AP_Soaring/AP_Soaring_config.h
 	libraries/AP_Soaring/ExtendedKalmanFilter.h
@@ -5594,7 +5594,7 @@ set(AP_Soaring_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Soaring ${AP_Soaring_SOURCES}) #2
+add_library(AP_Soaring PUBLIC ${AP_Soaring_SOURCES}) #2
 target_include_directories(AP_Soaring PUBLIC ${AP_Soaring_INCLUDES})
 
 set_target_properties(AP_Soaring PROPERTIES
@@ -5609,7 +5609,7 @@ target_link_libraries(AP_Soaring littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Stats_SOURCES #3
+set(AP_Stats_SOURCES #13
 	libraries/AP_Stats/AP_Stats.h
 	libraries/AP_Stats/AP_Stats.cpp
 )
@@ -5633,7 +5633,7 @@ set(AP_Stats_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Stats ${AP_Stats_SOURCES}) #2
+add_library(AP_Stats PUBLIC ${AP_Stats_SOURCES}) #2
 target_include_directories(AP_Stats PUBLIC ${AP_Stats_INCLUDES})
 
 set_target_properties(AP_Stats PROPERTIES
@@ -5648,7 +5648,7 @@ target_link_libraries(AP_Stats littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_SurfaceDistance_SOURCES #3
+set(AP_SurfaceDistance_SOURCES #13
 	libraries/AP_SurfaceDistance/AP_SurfaceDistance.h
 	libraries/AP_SurfaceDistance/AP_SurfaceDistance.cpp
 )
@@ -5672,7 +5672,7 @@ set(AP_SurfaceDistance_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_SurfaceDistance ${AP_SurfaceDistance_SOURCES}) #2
+add_library(AP_SurfaceDistance PUBLIC ${AP_SurfaceDistance_SOURCES}) #2
 target_include_directories(AP_SurfaceDistance PUBLIC ${AP_SurfaceDistance_INCLUDES})
 
 set_target_properties(AP_SurfaceDistance PROPERTIES
@@ -5687,7 +5687,7 @@ target_link_libraries(AP_SurfaceDistance littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_TECS_SOURCES #3
+set(AP_TECS_SOURCES #13
 	libraries/AP_TECS/AP_TECS.h
 	libraries/AP_TECS/AP_TECS.cpp
 )
@@ -5711,7 +5711,7 @@ set(AP_TECS_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_TECS ${AP_TECS_SOURCES}) #2
+add_library(AP_TECS PUBLIC ${AP_TECS_SOURCES}) #2
 target_include_directories(AP_TECS PUBLIC ${AP_TECS_INCLUDES})
 
 set_target_properties(AP_TECS PROPERTIES
@@ -5726,7 +5726,7 @@ target_link_libraries(AP_TECS littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_TempCalibration_SOURCES #3
+set(AP_TempCalibration_SOURCES #13
 	libraries/AP_TempCalibration/AP_TempCalibration.h
 	libraries/AP_TempCalibration/AP_TempCalibration_config.h
 	libraries/AP_TempCalibration/AP_TempCalibration.cpp
@@ -5751,7 +5751,7 @@ set(AP_TempCalibration_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_TempCalibration ${AP_TempCalibration_SOURCES}) #2
+add_library(AP_TempCalibration PUBLIC ${AP_TempCalibration_SOURCES}) #2
 target_include_directories(AP_TempCalibration PUBLIC ${AP_TempCalibration_INCLUDES})
 
 set_target_properties(AP_TempCalibration PROPERTIES
@@ -5766,7 +5766,7 @@ target_link_libraries(AP_TempCalibration littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_TemperatureSensor_SOURCES #3
+set(AP_TemperatureSensor_SOURCES #13
 	libraries/AP_TemperatureSensor/AP_TemperatureSensor.h
 	libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.h
 	libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.h
@@ -5811,7 +5811,7 @@ set(AP_TemperatureSensor_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_TemperatureSensor ${AP_TemperatureSensor_SOURCES}) #2
+add_library(AP_TemperatureSensor PUBLIC ${AP_TemperatureSensor_SOURCES}) #2
 target_include_directories(AP_TemperatureSensor PUBLIC ${AP_TemperatureSensor_INCLUDES})
 
 set_target_properties(AP_TemperatureSensor PROPERTIES
@@ -5826,7 +5826,7 @@ target_link_libraries(AP_TemperatureSensor littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Terrain_SOURCES #3
+set(AP_Terrain_SOURCES #13
 	libraries/AP_Terrain/AP_Terrain.h
 	libraries/AP_Terrain/AP_Terrain_config.h
 	libraries/AP_Terrain/AP_Terrain.cpp
@@ -5855,7 +5855,7 @@ set(AP_Terrain_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Terrain ${AP_Terrain_SOURCES}) #2
+add_library(AP_Terrain PUBLIC ${AP_Terrain_SOURCES}) #2
 target_include_directories(AP_Terrain PUBLIC ${AP_Terrain_INCLUDES})
 
 set_target_properties(AP_Terrain PROPERTIES
@@ -5870,7 +5870,7 @@ target_link_libraries(AP_Terrain littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Torqeedo_SOURCES #3
+set(AP_Torqeedo_SOURCES #13
 	libraries/AP_Torqeedo/AP_Torqeedo.h
 	libraries/AP_Torqeedo/AP_Torqeedo_Backend.h
 	libraries/AP_Torqeedo/AP_Torqeedo_Params.h
@@ -5901,7 +5901,7 @@ set(AP_Torqeedo_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Torqeedo ${AP_Torqeedo_SOURCES}) #2
+add_library(AP_Torqeedo PUBLIC ${AP_Torqeedo_SOURCES}) #2
 target_include_directories(AP_Torqeedo PUBLIC ${AP_Torqeedo_INCLUDES})
 
 set_target_properties(AP_Torqeedo PROPERTIES
@@ -5916,7 +5916,7 @@ target_link_libraries(AP_Torqeedo littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Tuning_SOURCES #3
+set(AP_Tuning_SOURCES #13
 	libraries/AP_Tuning/AP_Tuning.h
 	libraries/AP_Tuning/AP_Tuning_config.h
 	libraries/AP_Tuning/AP_Tuning.cpp
@@ -5941,7 +5941,7 @@ set(AP_Tuning_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Tuning ${AP_Tuning_SOURCES}) #2
+add_library(AP_Tuning PUBLIC ${AP_Tuning_SOURCES}) #2
 target_include_directories(AP_Tuning PUBLIC ${AP_Tuning_INCLUDES})
 
 set_target_properties(AP_Tuning PROPERTIES
@@ -5956,7 +5956,7 @@ target_link_libraries(AP_Tuning littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Vehicle_SOURCES #3
+set(AP_Vehicle_SOURCES #13
 	libraries/AP_Vehicle/AP_FixedWing.h
 	libraries/AP_Vehicle/AP_MultiCopter.h
 	libraries/AP_Vehicle/AP_Vehicle.h
@@ -5986,7 +5986,7 @@ set(AP_Vehicle_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Vehicle ${AP_Vehicle_SOURCES}) #2
+add_library(AP_Vehicle PUBLIC ${AP_Vehicle_SOURCES}) #2
 target_include_directories(AP_Vehicle PUBLIC ${AP_Vehicle_INCLUDES})
 
 set_target_properties(AP_Vehicle PROPERTIES
@@ -6001,7 +6001,7 @@ target_link_libraries(AP_Vehicle littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_VideoTX_SOURCES #3
+set(AP_VideoTX_SOURCES #13
 	libraries/AP_VideoTX/AP_SmartAudio.h
 	libraries/AP_VideoTX/AP_Tramp.h
 	libraries/AP_VideoTX/AP_VideoTX.h
@@ -6030,7 +6030,7 @@ set(AP_VideoTX_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_VideoTX ${AP_VideoTX_SOURCES}) #2
+add_library(AP_VideoTX PUBLIC ${AP_VideoTX_SOURCES}) #2
 target_include_directories(AP_VideoTX PUBLIC ${AP_VideoTX_INCLUDES})
 
 set_target_properties(AP_VideoTX PROPERTIES
@@ -6045,7 +6045,7 @@ target_link_libraries(AP_VideoTX littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_VisualOdom_SOURCES #3
+set(AP_VisualOdom_SOURCES #13
 	libraries/AP_VisualOdom/AP_VisualOdom.h
 	libraries/AP_VisualOdom/AP_VisualOdom_Backend.h
 	libraries/AP_VisualOdom/AP_VisualOdom_IntelT265.h
@@ -6078,7 +6078,7 @@ set(AP_VisualOdom_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_VisualOdom ${AP_VisualOdom_SOURCES}) #2
+add_library(AP_VisualOdom PUBLIC ${AP_VisualOdom_SOURCES}) #2
 target_include_directories(AP_VisualOdom PUBLIC ${AP_VisualOdom_INCLUDES})
 
 set_target_properties(AP_VisualOdom PROPERTIES
@@ -6093,7 +6093,7 @@ target_link_libraries(AP_VisualOdom littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Volz_Protocol_SOURCES #3
+set(AP_Volz_Protocol_SOURCES #13
 	libraries/AP_Volz_Protocol/AP_Volz_Protocol.h
 	libraries/AP_Volz_Protocol/AP_Volz_Protocol.cpp
 )
@@ -6117,7 +6117,7 @@ set(AP_Volz_Protocol_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Volz_Protocol ${AP_Volz_Protocol_SOURCES}) #2
+add_library(AP_Volz_Protocol PUBLIC ${AP_Volz_Protocol_SOURCES}) #2
 target_include_directories(AP_Volz_Protocol PUBLIC ${AP_Volz_Protocol_INCLUDES})
 
 set_target_properties(AP_Volz_Protocol PROPERTIES
@@ -6132,7 +6132,7 @@ target_link_libraries(AP_Volz_Protocol littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_WheelEncoder_SOURCES #3
+set(AP_WheelEncoder_SOURCES #13
 	libraries/AP_WheelEncoder/AP_WheelEncoder.h
 	libraries/AP_WheelEncoder/AP_WheelRateControl.h
 	libraries/AP_WheelEncoder/WheelEncoder_Backend.h
@@ -6164,7 +6164,7 @@ set(AP_WheelEncoder_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_WheelEncoder ${AP_WheelEncoder_SOURCES}) #2
+add_library(AP_WheelEncoder PUBLIC ${AP_WheelEncoder_SOURCES}) #2
 target_include_directories(AP_WheelEncoder PUBLIC ${AP_WheelEncoder_INCLUDES})
 
 set_target_properties(AP_WheelEncoder PROPERTIES
@@ -6179,7 +6179,7 @@ target_link_libraries(AP_WheelEncoder littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Winch_SOURCES #3
+set(AP_Winch_SOURCES #13
 	libraries/AP_Winch/AP_Winch.h
 	libraries/AP_Winch/AP_Winch_Backend.h
 	libraries/AP_Winch/AP_Winch_Daiwa.h
@@ -6210,7 +6210,7 @@ set(AP_Winch_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Winch ${AP_Winch_SOURCES}) #2
+add_library(AP_Winch PUBLIC ${AP_Winch_SOURCES}) #2
 target_include_directories(AP_Winch PUBLIC ${AP_Winch_INCLUDES})
 
 set_target_properties(AP_Winch PROPERTIES
@@ -6225,7 +6225,7 @@ target_link_libraries(AP_Winch littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_WindVane_SOURCES #3
+set(AP_WindVane_SOURCES #13
 	libraries/AP_WindVane/AP_WindVane.h
 	libraries/AP_WindVane/AP_WindVane_Airspeed.h
 	libraries/AP_WindVane/AP_WindVane_Analog.h
@@ -6266,7 +6266,7 @@ set(AP_WindVane_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_WindVane ${AP_WindVane_SOURCES}) #2
+add_library(AP_WindVane PUBLIC ${AP_WindVane_SOURCES}) #2
 target_include_directories(AP_WindVane PUBLIC ${AP_WindVane_INCLUDES})
 
 set_target_properties(AP_WindVane PROPERTIES
@@ -6281,7 +6281,7 @@ target_link_libraries(AP_WindVane littlefs) #clean
 
 #------------------------------------------------
 
-set(AR_Motors_SOURCES #3
+set(AR_Motors_SOURCES #13
 	libraries/AR_Motors/AP_MotorsUGV.h
 	libraries/AR_Motors/AP_MotorsUGV.cpp
 )
@@ -6305,7 +6305,7 @@ set(AR_Motors_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AR_Motors ${AR_Motors_SOURCES}) #2
+add_library(AR_Motors PUBLIC ${AR_Motors_SOURCES}) #2
 target_include_directories(AR_Motors PUBLIC ${AR_Motors_INCLUDES})
 
 set_target_properties(AR_Motors PROPERTIES
@@ -6320,7 +6320,7 @@ target_link_libraries(AR_Motors littlefs) #clean
 
 #------------------------------------------------
 
-set(AR_WPNav_SOURCES #3
+set(AR_WPNav_SOURCES #13
 	libraries/AR_WPNav/AR_PivotTurn.h
 	libraries/AR_WPNav/AR_WPNav.h
 	libraries/AR_WPNav/AR_WPNav_OA.h
@@ -6348,7 +6348,7 @@ set(AR_WPNav_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AR_WPNav ${AR_WPNav_SOURCES}) #2
+add_library(AR_WPNav PUBLIC ${AR_WPNav_SOURCES}) #2
 target_include_directories(AR_WPNav PUBLIC ${AR_WPNav_INCLUDES})
 
 set_target_properties(AR_WPNav PROPERTIES
@@ -6363,7 +6363,7 @@ target_link_libraries(AR_WPNav littlefs) #clean
 
 #------------------------------------------------
 
-set(Filter_SOURCES #3
+set(Filter_SOURCES #13
 	libraries/Filter/AP_Filter.h
 	libraries/Filter/AP_Filter_config.h
 	libraries/Filter/AverageFilter.h
@@ -6409,7 +6409,7 @@ set(Filter_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(Filter ${Filter_SOURCES}) #2
+add_library(Filter PUBLIC ${Filter_SOURCES}) #2
 target_include_directories(Filter PUBLIC ${Filter_INCLUDES})
 
 set_target_properties(Filter PROPERTIES
@@ -6424,7 +6424,7 @@ target_link_libraries(Filter littlefs) #clean
 
 #------------------------------------------------
 
-set(GCS_MAVLink_SOURCES #3
+set(GCS_MAVLink_SOURCES #13
 	libraries/GCS_MAVLink/GCS.h
 	libraries/GCS_MAVLink/GCS_Dummy.h
 	libraries/GCS_MAVLink/GCS_FTP.h
@@ -6474,7 +6474,7 @@ set(GCS_MAVLink_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(GCS_MAVLink ${GCS_MAVLink_SOURCES}) #2
+add_library(GCS_MAVLink PUBLIC ${GCS_MAVLink_SOURCES}) #2
 target_include_directories(GCS_MAVLink PUBLIC ${GCS_MAVLink_INCLUDES})
 
 set_target_properties(GCS_MAVLink PROPERTIES
@@ -6489,7 +6489,7 @@ target_link_libraries(GCS_MAVLink littlefs) #clean
 
 #------------------------------------------------
 
-set(PID_SOURCES #3
+set(PID_SOURCES #13
 	libraries/PID/PID.h
 	libraries/PID/PID.cpp
 )
@@ -6513,7 +6513,7 @@ set(PID_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(PID ${PID_SOURCES}) #2
+add_library(PID PUBLIC ${PID_SOURCES}) #2
 target_include_directories(PID PUBLIC ${PID_INCLUDES})
 
 set_target_properties(PID PROPERTIES
@@ -6528,7 +6528,7 @@ target_link_libraries(PID littlefs) #clean
 
 #------------------------------------------------
 
-set(RC_Channel_SOURCES #3
+set(RC_Channel_SOURCES #13
 	libraries/RC_Channel/RC_Channel.h
 	libraries/RC_Channel/RC_Channel_config.h
 	libraries/RC_Channel/RC_Channels_VarInfo.h
@@ -6555,7 +6555,7 @@ set(RC_Channel_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(RC_Channel ${RC_Channel_SOURCES}) #2
+add_library(RC_Channel PUBLIC ${RC_Channel_SOURCES}) #2
 target_include_directories(RC_Channel PUBLIC ${RC_Channel_INCLUDES})
 
 set_target_properties(RC_Channel PROPERTIES
@@ -6570,7 +6570,7 @@ target_link_libraries(RC_Channel littlefs) #clean
 
 #------------------------------------------------
 
-set(SRV_Channel_SOURCES #3
+set(SRV_Channel_SOURCES #13
 	libraries/SRV_Channel/SRV_Channel.h
 	libraries/SRV_Channel/SRV_Channel_config.h
 	libraries/SRV_Channel/SRV_Channel.cpp
@@ -6597,7 +6597,7 @@ set(SRV_Channel_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(SRV_Channel ${SRV_Channel_SOURCES}) #2
+add_library(SRV_Channel PUBLIC ${SRV_Channel_SOURCES}) #2
 target_include_directories(SRV_Channel PUBLIC ${SRV_Channel_INCLUDES})
 
 set_target_properties(SRV_Channel PROPERTIES
@@ -6612,7 +6612,7 @@ target_link_libraries(SRV_Channel littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_HAL_SOURCES #3
+set(AP_HAL_SOURCES #13
 	libraries/AP_HAL/AP_HAL.h
 	libraries/AP_HAL/AP_HAL_Boards.h
 	libraries/AP_HAL/AP_HAL_Macros.h
@@ -6709,7 +6709,7 @@ set(AP_HAL_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_HAL ${AP_HAL_SOURCES}) #2
+add_library(AP_HAL PUBLIC ${AP_HAL_SOURCES}) #2
 target_include_directories(AP_HAL PUBLIC ${AP_HAL_INCLUDES})
 
 set_target_properties(AP_HAL PROPERTIES
@@ -6724,7 +6724,7 @@ target_link_libraries(AP_HAL littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_HAL_Empty_SOURCES #3
+set(AP_HAL_Empty_SOURCES #13
 	libraries/AP_HAL_Empty/AP_HAL_Empty.h
 	libraries/AP_HAL_Empty/AP_HAL_Empty_Namespace.h
 	libraries/AP_HAL_Empty/AP_HAL_Empty_Private.h
@@ -6773,7 +6773,7 @@ set(AP_HAL_Empty_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_HAL_Empty ${AP_HAL_Empty_SOURCES}) #2
+add_library(AP_HAL_Empty PUBLIC ${AP_HAL_Empty_SOURCES}) #2
 target_include_directories(AP_HAL_Empty PUBLIC ${AP_HAL_Empty_INCLUDES})
 
 set_target_properties(AP_HAL_Empty PROPERTIES
@@ -6788,7 +6788,7 @@ target_link_libraries(AP_HAL_Empty littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_PiccoloCAN_piccolo_protocol_SOURCES #3
+set(AP_PiccoloCAN_piccolo_protocol_SOURCES #13
 	libraries/AP_PiccoloCAN/piccolo_protocol/CortexDefines.h
 	libraries/AP_PiccoloCAN/piccolo_protocol/CortexPackets.h
 	libraries/AP_PiccoloCAN/piccolo_protocol/CortexProtocol.h
@@ -6848,7 +6848,7 @@ set(AP_PiccoloCAN_piccolo_protocol_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_PiccoloCAN_piccolo_protocol ${AP_PiccoloCAN_piccolo_protocol_SOURCES}) #2
+add_library(AP_PiccoloCAN_piccolo_protocol PUBLIC ${AP_PiccoloCAN_piccolo_protocol_SOURCES}) #2
 target_include_directories(AP_PiccoloCAN_piccolo_protocol PUBLIC ${AP_PiccoloCAN_piccolo_protocol_INCLUDES})
 
 set_target_properties(AP_PiccoloCAN_piccolo_protocol PROPERTIES
@@ -6863,7 +6863,7 @@ target_link_libraries(AP_PiccoloCAN_piccolo_protocol littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_HAL_SITL_SOURCES #3
+set(AP_HAL_SITL_SOURCES #13
 	libraries/AP_HAL_SITL/AP_HAL_SITL.h
 	libraries/AP_HAL_SITL/AP_HAL_SITL_Namespace.h
 	libraries/AP_HAL_SITL/AP_HAL_SITL_Private.h
@@ -6934,8 +6934,8 @@ set(AP_HAL_SITL_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_HAL_SITL ${AP_HAL_SITL_SOURCES}) #2
-target_compile_definitions(AP_HAL_SITL PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter") #1
+add_library(AP_HAL_SITL PUBLIC ${AP_HAL_SITL_SOURCES}) #2
+target_compile_definitions(AP_HAL_SITL PUBLIC -DAP_BUILD_TARGET_NAME="") #1
 target_include_directories(AP_HAL_SITL PUBLIC ${AP_HAL_SITL_INCLUDES})
 
 set_target_properties(AP_HAL_SITL PROPERTIES
@@ -6950,7 +6950,7 @@ target_link_libraries(AP_HAL_SITL littlefs) #clean
 
 #------------------------------------------------
 
-set(SITL_SOURCES #3
+set(SITL_SOURCES #13
 	libraries/SITL/SIM_ADSB.h
 	libraries/SITL/SIM_ADSB_Device.h
 	libraries/SITL/SIM_ADSB_Sagetech_MXS.h
@@ -7281,8 +7281,8 @@ set(SITL_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(SITL ${SITL_SOURCES}) #2
-target_compile_definitions(SITL PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter") #1
+add_library(SITL PUBLIC ${SITL_SOURCES}) #2
+target_compile_definitions(SITL PUBLIC -DAP_BUILD_TARGET_NAME="") #1
 target_include_directories(SITL PUBLIC ${SITL_INCLUDES})
 
 set_target_properties(SITL PROPERTIES
@@ -7297,7 +7297,7 @@ target_link_libraries(SITL littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Scripting_SOURCES #3
+set(AP_Scripting_SOURCES #13
 	libraries/AP_Scripting/AP_Scripting.h
 	libraries/AP_Scripting/AP_Scripting_CANSensor.h
 	libraries/AP_Scripting/AP_Scripting_CRSFMenu.h
@@ -7340,7 +7340,7 @@ set(AP_Scripting_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Scripting ${AP_Scripting_SOURCES}) #2
+add_library(AP_Scripting PUBLIC ${AP_Scripting_SOURCES}) #2
 target_include_directories(AP_Scripting PUBLIC ${AP_Scripting_INCLUDES})
 
 set_target_properties(AP_Scripting PROPERTIES
@@ -7355,7 +7355,7 @@ target_link_libraries(AP_Scripting littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Scripting_lua_src_SOURCES #3
+set(AP_Scripting_lua_src_SOURCES #13
 	libraries/AP_Scripting/lua/src/lapi.h
 	libraries/AP_Scripting/lua/src/lauxlib.h
 	libraries/AP_Scripting/lua/src/lcode.h
@@ -7435,7 +7435,7 @@ set(AP_Scripting_lua_src_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Scripting_lua_src ${AP_Scripting_lua_src_SOURCES}) #2
+add_library(AP_Scripting_lua_src PUBLIC ${AP_Scripting_lua_src_SOURCES}) #2
 target_include_directories(AP_Scripting_lua_src PUBLIC ${AP_Scripting_lua_src_INCLUDES})
 
 set_target_properties(AP_Scripting_lua_src PROPERTIES
@@ -7450,7 +7450,7 @@ target_link_libraries(AP_Scripting_lua_src littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_NavEKF3_SOURCES #3
+set(AP_NavEKF3_SOURCES #13
 	../libraries/AP_NavEKF3/AP_NavEKF3.h
 	../libraries/AP_NavEKF3/AP_NavEKF3_core.h
 	../libraries/AP_NavEKF3/AP_NavEKF3_feature.h
@@ -7489,7 +7489,7 @@ set(AP_NavEKF3_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_NavEKF3 ${AP_NavEKF3_SOURCES}) #2
+add_library(AP_NavEKF3 PUBLIC ${AP_NavEKF3_SOURCES}) #2
 target_compile_definitions(AP_NavEKF3 PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_NavEKF3 PUBLIC ${AP_NavEKF3_INCLUDES})
 
@@ -7505,7 +7505,7 @@ target_link_libraries(AP_NavEKF3 littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Rally_SOURCES #3
+set(AP_Rally_SOURCES #13
 	../libraries/AP_Rally/AP_Rally.h
 	../libraries/AP_Rally/AP_Rally_config.h
 	../libraries/AP_Rally/AP_Rally.cpp
@@ -7530,7 +7530,7 @@ set(AP_Rally_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Rally ${AP_Rally_SOURCES}) #2
+add_library(AP_Rally PUBLIC ${AP_Rally_SOURCES}) #2
 target_compile_definitions(AP_Rally PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_Rally PUBLIC ${AP_Rally_INCLUDES})
 
@@ -7546,7 +7546,7 @@ target_link_libraries(AP_Rally littlefs) #clean
 
 #------------------------------------------------
 
-set(StorageManager_SOURCES #3
+set(StorageManager_SOURCES #13
 	../libraries/StorageManager/StorageManager.h
 	../libraries/StorageManager/StorageManager.cpp
 )
@@ -7570,7 +7570,7 @@ set(StorageManager_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(StorageManager ${StorageManager_SOURCES}) #2
+add_library(StorageManager PUBLIC ${StorageManager_SOURCES}) #2
 target_compile_definitions(StorageManager PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(StorageManager PUBLIC ${StorageManager_INCLUDES})
 
@@ -7586,7 +7586,7 @@ target_link_libraries(StorageManager littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_IBus_Telem_SOURCES #3
+set(AP_IBus_Telem_SOURCES #13
 	../libraries/AP_IBus_Telem/AP_IBus_Telem.h
 	../libraries/AP_IBus_Telem/AP_IBus_Telem.cpp
 )
@@ -7610,7 +7610,7 @@ set(AP_IBus_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_IBus_Telem ${AP_IBus_Telem_SOURCES}) #2
+add_library(AP_IBus_Telem PUBLIC ${AP_IBus_Telem_SOURCES}) #2
 target_compile_definitions(AP_IBus_Telem PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_IBus_Telem PUBLIC ${AP_IBus_Telem_INCLUDES})
 
@@ -7626,7 +7626,7 @@ target_link_libraries(AP_IBus_Telem littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_BLHeli_SOURCES #3
+set(AP_BLHeli_SOURCES #13
 	../libraries/AP_BLHeli/AP_BLHeli.h
 	../libraries/AP_BLHeli/blheli_4way_protocol.h
 	../libraries/AP_BLHeli/AP_BLHeli.cpp
@@ -7651,7 +7651,7 @@ set(AP_BLHeli_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_BLHeli ${AP_BLHeli_SOURCES}) #2
+add_library(AP_BLHeli PUBLIC ${AP_BLHeli_SOURCES}) #2
 target_compile_definitions(AP_BLHeli PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_BLHeli PUBLIC ${AP_BLHeli_INCLUDES})
 
@@ -7667,7 +7667,7 @@ target_link_libraries(AP_BLHeli littlefs) #clean
 
 #------------------------------------------------
 
-set(AC_Fence_SOURCES #3
+set(AC_Fence_SOURCES #13
 	../libraries/AC_Fence/AC_Fence.h
 	../libraries/AC_Fence/AC_Fence_config.h
 	../libraries/AC_Fence/AC_PolyFence_loader.h
@@ -7695,7 +7695,7 @@ set(AC_Fence_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AC_Fence ${AC_Fence_SOURCES}) #2
+add_library(AC_Fence PUBLIC ${AC_Fence_SOURCES}) #2
 target_compile_definitions(AC_Fence PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AC_Fence PUBLIC ${AC_Fence_INCLUDES})
 
@@ -7711,7 +7711,7 @@ target_link_libraries(AC_Fence littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_LandingGear_SOURCES #3
+set(AP_LandingGear_SOURCES #13
 	../libraries/AP_LandingGear/AP_LandingGear.h
 	../libraries/AP_LandingGear/AP_LandingGear_config.h
 	../libraries/AP_LandingGear/AP_LandingGear.cpp
@@ -7736,7 +7736,7 @@ set(AP_LandingGear_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_LandingGear ${AP_LandingGear_SOURCES}) #2
+add_library(AP_LandingGear PUBLIC ${AP_LandingGear_SOURCES}) #2
 target_compile_definitions(AP_LandingGear PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_LandingGear PUBLIC ${AP_LandingGear_INCLUDES})
 
@@ -7752,7 +7752,7 @@ target_link_libraries(AP_LandingGear littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_ADSB_sagetech-sdk_SOURCES #3
+set(AP_ADSB_sagetech-sdk_SOURCES #13
 	../libraries/AP_ADSB/sagetech-sdk/sagetech_mxs.h
 	../libraries/AP_ADSB/sagetech-sdk/sg.h
 	../libraries/AP_ADSB/sagetech-sdk/sgUtil.h
@@ -7809,7 +7809,7 @@ set(AP_ADSB_sagetech-sdk_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_ADSB_sagetech-sdk ${AP_ADSB_sagetech-sdk_SOURCES}) #2
+add_library(AP_ADSB_sagetech-sdk PUBLIC ${AP_ADSB_sagetech-sdk_SOURCES}) #2
 target_include_directories(AP_ADSB_sagetech-sdk PUBLIC ${AP_ADSB_sagetech-sdk_INCLUDES})
 
 set_target_properties(AP_ADSB_sagetech-sdk PROPERTIES
@@ -7824,7 +7824,7 @@ target_link_libraries(AP_ADSB_sagetech-sdk littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_GyroFFT_SOURCES #3
+set(AP_GyroFFT_SOURCES #13
 	../libraries/AP_GyroFFT/AP_GyroFFT.h
 	../libraries/AP_GyroFFT/AP_GyroFFT.cpp
 )
@@ -7848,7 +7848,7 @@ set(AP_GyroFFT_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_GyroFFT ${AP_GyroFFT_SOURCES}) #2
+add_library(AP_GyroFFT PUBLIC ${AP_GyroFFT_SOURCES}) #2
 target_compile_definitions(AP_GyroFFT PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_GyroFFT PUBLIC ${AP_GyroFFT_INCLUDES})
 
@@ -7864,7 +7864,7 @@ target_link_libraries(AP_GyroFFT littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_AIS_SOURCES #3
+set(AP_AIS_SOURCES #13
 	../libraries/AP_AIS/AP_AIS.h
 	../libraries/AP_AIS/AP_AIS_config.h
 	../libraries/AP_AIS/LogStructure.h
@@ -7890,7 +7890,7 @@ set(AP_AIS_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_AIS ${AP_AIS_SOURCES}) #2
+add_library(AP_AIS PUBLIC ${AP_AIS_SOURCES}) #2
 target_compile_definitions(AP_AIS PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_AIS PUBLIC ${AP_AIS_INCLUDES})
 
@@ -7906,7 +7906,7 @@ target_link_libraries(AP_AIS littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Arming_SOURCES #3
+set(AP_Arming_SOURCES #13
 	../libraries/AP_Arming/AP_Arming.h
 	../libraries/AP_Arming/AP_Arming_config.h
 	../libraries/AP_Arming/AP_Arming.cpp
@@ -7931,7 +7931,7 @@ set(AP_Arming_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Arming ${AP_Arming_SOURCES}) #2
+add_library(AP_Arming PUBLIC ${AP_Arming_SOURCES}) #2
 target_compile_definitions(AP_Arming PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_Arming PUBLIC ${AP_Arming_INCLUDES})
 
@@ -7947,7 +7947,7 @@ target_link_libraries(AP_Arming littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_Follow_SOURCES #3
+set(AP_Follow_SOURCES #13
 	../libraries/AP_Follow/AP_Follow.h
 	../libraries/AP_Follow/AP_Follow_config.h
 	../libraries/AP_Follow/AP_Follow.cpp
@@ -7972,7 +7972,7 @@ set(AP_Follow_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Follow ${AP_Follow_SOURCES}) #2
+add_library(AP_Follow PUBLIC ${AP_Follow_SOURCES}) #2
 target_compile_definitions(AP_Follow PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #1
 target_include_directories(AP_Follow PUBLIC ${AP_Follow_INCLUDES})
 
@@ -7988,7 +7988,7 @@ target_link_libraries(AP_Follow littlefs) #clean
 
 #------------------------------------------------
 
-set(AntennaTracker_libs_SOURCES #3
+set(AntennaTracker_libs_SOURCES #13
 )
 
 set(AntennaTracker_libs_INCLUDES
@@ -8010,8 +8010,8 @@ set(AntennaTracker_libs_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AntennaTracker_libs ${AntennaTracker_libs_SOURCES}) #2
-target_include_directories(AntennaTracker_libs PUBLIC ${AntennaTracker_libs_INCLUDES})
+add_library(AntennaTracker_libs INTERFACE ${AntennaTracker_libs_SOURCES}) #2
+target_include_directories(AntennaTracker_libs INTERFACE ${AntennaTracker_libs_INCLUDES})
 
 set_target_properties(AntennaTracker_libs PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -8019,124 +8019,124 @@ set_target_properties(AntennaTracker_libs PROPERTIES
 )
 
 
-target_link_libraries(AntennaTracker_libs AP_AccelCal) #stripped
-target_link_libraries(AntennaTracker_libs AP_ADC) #stripped
-target_link_libraries(AntennaTracker_libs AP_AHRS) #stripped
-target_link_libraries(AntennaTracker_libs AP_Airspeed) #stripped
-target_link_libraries(AntennaTracker_libs AP_Baro) #stripped
-target_link_libraries(AntennaTracker_libs AP_BattMonitor) #stripped
-target_link_libraries(AntennaTracker_libs AP_BoardConfig) #stripped
-target_link_libraries(AntennaTracker_libs AP_Camera) #stripped
-target_link_libraries(AntennaTracker_libs AP_Common) #stripped
-target_link_libraries(AntennaTracker_libs AP_Compass) #stripped
-target_link_libraries(AntennaTracker_libs AP_Declination) #stripped
-target_link_libraries(AntennaTracker_libs AP_GPS) #stripped
-target_link_libraries(AntennaTracker_libs AP_GSOF) #stripped
-target_link_libraries(AntennaTracker_libs AP_HAL) #stripped
-target_link_libraries(AntennaTracker_libs AP_HAL_Empty) #stripped
-target_link_libraries(AntennaTracker_libs AP_DDS) #stripped
-target_link_libraries(AntennaTracker_libs AP_InertialSensor) #stripped
-target_link_libraries(AntennaTracker_libs AP_Math) #stripped
-target_link_libraries(AntennaTracker_libs AP_Mission) #stripped
-target_link_libraries(AntennaTracker_libs AP_DAL) #stripped
-target_link_libraries(AntennaTracker_libs AP_NavEKF) #stripped
-target_link_libraries(AntennaTracker_libs AP_NavEKF2) #stripped
-target_link_libraries(AntennaTracker_libs AP_NavEKF3) #stripped
-target_link_libraries(AntennaTracker_libs AP_Notify) #stripped
-target_link_libraries(AntennaTracker_libs AP_OpticalFlow) #stripped
-target_link_libraries(AntennaTracker_libs AP_Param) #stripped
-target_link_libraries(AntennaTracker_libs AP_Rally) #stripped
-target_link_libraries(AntennaTracker_libs AP_LightWareSerial) #stripped
-target_link_libraries(AntennaTracker_libs AP_RangeFinder) #stripped
-target_link_libraries(AntennaTracker_libs AP_Scheduler) #stripped
-target_link_libraries(AntennaTracker_libs AP_SerialManager) #stripped
-target_link_libraries(AntennaTracker_libs AP_Terrain) #stripped
-target_link_libraries(AntennaTracker_libs AP_Vehicle) #stripped
-target_link_libraries(AntennaTracker_libs AP_InternalError) #stripped
-target_link_libraries(AntennaTracker_libs AP_Logger) #stripped
-target_link_libraries(AntennaTracker_libs Filter) #stripped
-target_link_libraries(AntennaTracker_libs GCS_MAVLink) #stripped
-target_link_libraries(AntennaTracker_libs RC_Channel) #stripped
-target_link_libraries(AntennaTracker_libs SRV_Channel) #stripped
-target_link_libraries(AntennaTracker_libs StorageManager) #stripped
-target_link_libraries(AntennaTracker_libs AP_Tuning) #stripped
-target_link_libraries(AntennaTracker_libs AP_RPM) #stripped
-target_link_libraries(AntennaTracker_libs AP_RSSI) #stripped
-target_link_libraries(AntennaTracker_libs AP_Mount) #stripped
-target_link_libraries(AntennaTracker_libs AP_Module) #stripped
-target_link_libraries(AntennaTracker_libs AP_Button) #stripped
-target_link_libraries(AntennaTracker_libs AP_ICEngine) #stripped
-target_link_libraries(AntennaTracker_libs AP_Networking) #stripped
-target_link_libraries(AntennaTracker_libs AP_Frsky_Telem) #stripped
-target_link_libraries(AntennaTracker_libs AP_IBus_Telem) #stripped
-target_link_libraries(AntennaTracker_libs AP_FlashStorage) #stripped
-target_link_libraries(AntennaTracker_libs AP_Relay) #stripped
-target_link_libraries(AntennaTracker_libs AP_ServoRelayEvents) #stripped
-target_link_libraries(AntennaTracker_libs AP_Volz_Protocol) #stripped
-target_link_libraries(AntennaTracker_libs AP_SBusOut) #stripped
-target_link_libraries(AntennaTracker_libs AP_IOMCU) #stripped
-target_link_libraries(AntennaTracker_libs AP_Parachute) #stripped
-target_link_libraries(AntennaTracker_libs AP_RAMTRON) #stripped
-target_link_libraries(AntennaTracker_libs AP_RCProtocol) #stripped
-target_link_libraries(AntennaTracker_libs AP_Radio) #stripped
-target_link_libraries(AntennaTracker_libs AP_TempCalibration) #stripped
-target_link_libraries(AntennaTracker_libs AP_VisualOdom) #stripped
-target_link_libraries(AntennaTracker_libs AP_BLHeli) #stripped
-target_link_libraries(AntennaTracker_libs AP_ROMFS) #stripped
-target_link_libraries(AntennaTracker_libs AP_Proximity) #stripped
-target_link_libraries(AntennaTracker_libs AP_Gripper) #stripped
-target_link_libraries(AntennaTracker_libs AP_RTC) #stripped
-target_link_libraries(AntennaTracker_libs AC_Sprayer) #stripped
-target_link_libraries(AntennaTracker_libs AC_Fence) #stripped
-target_link_libraries(AntennaTracker_libs AC_Avoidance) #stripped
-target_link_libraries(AntennaTracker_libs AP_LandingGear) #stripped
-target_link_libraries(AntennaTracker_libs AP_RobotisServo) #stripped
-target_link_libraries(AntennaTracker_libs AP_NMEA_Output) #stripped
-target_link_libraries(AntennaTracker_libs AP_OSD) #stripped
-target_link_libraries(AntennaTracker_libs AP_Filesystem) #stripped
-target_link_libraries(AntennaTracker_libs AP_ADSB) #stripped
-target_link_libraries(AntennaTracker_libs AC_PID) #stripped
-target_link_libraries(AntennaTracker_libs AP_SerialLED) #stripped
-target_link_libraries(AntennaTracker_libs AP_EFI) #stripped
-target_link_libraries(AntennaTracker_libs AP_Hott_Telem) #stripped
-target_link_libraries(AntennaTracker_libs AP_ESC_Telem) #stripped
-target_link_libraries(AntennaTracker_libs AP_Servo_Telem) #stripped
-target_link_libraries(AntennaTracker_libs AP_Stats) #stripped
-target_link_libraries(AntennaTracker_libs AP_GyroFFT) #stripped
-target_link_libraries(AntennaTracker_libs AP_RCTelemetry) #stripped
-target_link_libraries(AntennaTracker_libs AP_Generator) #stripped
-target_link_libraries(AntennaTracker_libs AP_MSP) #stripped
-target_link_libraries(AntennaTracker_libs AP_OLC) #stripped
-target_link_libraries(AntennaTracker_libs AP_WheelEncoder) #stripped
-target_link_libraries(AntennaTracker_libs AP_ExternalAHRS) #stripped
-target_link_libraries(AntennaTracker_libs AP_VideoTX) #stripped
-target_link_libraries(AntennaTracker_libs AP_FETtecOneWire) #stripped
-target_link_libraries(AntennaTracker_libs AP_TemperatureSensor) #stripped
-target_link_libraries(AntennaTracker_libs AP_Torqeedo) #stripped
-target_link_libraries(AntennaTracker_libs AP_CustomRotations) #stripped
-target_link_libraries(AntennaTracker_libs AP_AIS) #stripped
-target_link_libraries(AntennaTracker_libs AP_OpenDroneID) #stripped
-target_link_libraries(AntennaTracker_libs AP_CheckFirmware) #stripped
-target_link_libraries(AntennaTracker_libs AP_ExternalControl) #stripped
-target_link_libraries(AntennaTracker_libs AP_JSON) #stripped
-target_link_libraries(AntennaTracker_libs AP_Beacon) #stripped
-target_link_libraries(AntennaTracker_libs AP_Arming) #stripped
-target_link_libraries(AntennaTracker_libs AP_RCMapper) #stripped
-target_link_libraries(AntennaTracker_libs AP_MultiHeap) #stripped
-target_link_libraries(AntennaTracker_libs AP_Follow) #stripped
-target_link_libraries(AntennaTracker_libs AP_CANManager) #stripped
-target_link_libraries(AntennaTracker_libs AP_KDECAN) #stripped
-target_link_libraries(AntennaTracker_libs AP_PiccoloCAN) #stripped
-target_link_libraries(AntennaTracker_libs AP_DroneCAN) #stripped
-target_link_libraries(AntennaTracker_libs AP_HAL_SITL) #stripped
-target_link_libraries(AntennaTracker_libs AP_CSVReader) #stripped
-target_link_libraries(AntennaTracker_libs SITL) #stripped
-target_link_libraries(AntennaTracker_libs AP_Scripting) #stripped
-target_link_libraries(AntennaTracker_libs AC_CustomControl) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_AccelCal) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_ADC) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_AHRS) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Airspeed) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Baro) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_BattMonitor) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_BoardConfig) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Camera) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Common) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Compass) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Declination) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_GPS) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_GSOF) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_HAL) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_HAL_Empty) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_DDS) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_InertialSensor) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Math) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Mission) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_DAL) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_NavEKF) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_NavEKF2) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_NavEKF3) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Notify) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_OpticalFlow) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Param) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Rally) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_LightWareSerial) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_RangeFinder) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Scheduler) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_SerialManager) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Terrain) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Vehicle) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_InternalError) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Logger) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE Filter) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE GCS_MAVLink) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE RC_Channel) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE SRV_Channel) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE StorageManager) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Tuning) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_RPM) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_RSSI) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Mount) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Module) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Button) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_ICEngine) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Networking) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Frsky_Telem) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_IBus_Telem) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_FlashStorage) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Relay) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_ServoRelayEvents) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Volz_Protocol) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_SBusOut) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_IOMCU) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Parachute) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_RAMTRON) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_RCProtocol) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Radio) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_TempCalibration) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_VisualOdom) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_BLHeli) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_ROMFS) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Proximity) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Gripper) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_RTC) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AC_Sprayer) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AC_Fence) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AC_Avoidance) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_LandingGear) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_RobotisServo) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_NMEA_Output) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_OSD) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Filesystem) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_ADSB) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AC_PID) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_SerialLED) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_EFI) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Hott_Telem) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_ESC_Telem) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Servo_Telem) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Stats) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_GyroFFT) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_RCTelemetry) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Generator) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_MSP) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_OLC) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_WheelEncoder) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_ExternalAHRS) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_VideoTX) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_FETtecOneWire) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_TemperatureSensor) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Torqeedo) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_CustomRotations) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_AIS) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_OpenDroneID) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_CheckFirmware) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_ExternalControl) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_JSON) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Beacon) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Arming) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_RCMapper) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_MultiHeap) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Follow) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_CANManager) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_KDECAN) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_PiccoloCAN) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_DroneCAN) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_HAL_SITL) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_CSVReader) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE SITL) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_Scripting) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(tracker_SOURCES #3
+set(tracker_SOURCES #13
 	AntennaTracker/AP_Arming_Tracker.h
 	AntennaTracker/GCS_MAVLink_Tracker.h
 	AntennaTracker/GCS_Tracker.h
@@ -8185,17 +8185,170 @@ set(tracker_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(tracker ${tracker_SOURCES}) #2
-target_compile_definitions(tracker PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #2
-target_link_directories(tracker PUBLIC build2) #2
+add_executable(tracker ${tracker_SOURCES}) #9
+target_compile_definitions(tracker PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_AntennaTracker -DAP_BUILD_TARGET_NAME="AntennaTracker") #10
+target_link_directories(tracker PUBLIC build2) #11
 #target_include_directories(tracker PUBLIC ${tracker_INCLUDES})
 
 
-target_link_libraries(tracker AntennaTracker_libs) #clean
+target_link_libraries(tracker INTERFACE AntennaTracker_libs) #clean
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker INTERFACE m)  # Math library
+target_link_libraries(tracker INTERFACE pthread)  # POSIX threads
+set_target_properties(tracker PROPERTIES 
+    LINK_FLAGS "-Wl,--gc-sections -Wl,--wrap,malloc"
+)
 
 #------------------------------------------------
 
-set(AP_Avoidance_SOURCES #3
+set(AP_Avoidance_SOURCES #13
 	../libraries/AP_Avoidance/AP_Avoidance.h
 	../libraries/AP_Avoidance/AP_Avoidance_config.h
 	../libraries/AP_Avoidance/AP_Avoidance.cpp
@@ -8220,7 +8373,7 @@ set(AP_Avoidance_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_Avoidance ${AP_Avoidance_SOURCES}) #2
+add_library(AP_Avoidance PUBLIC ${AP_Avoidance_SOURCES}) #2
 target_compile_definitions(AP_Avoidance PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #1
 target_include_directories(AP_Avoidance PUBLIC ${AP_Avoidance_INCLUDES})
 
@@ -8236,7 +8389,7 @@ target_link_libraries(AP_Avoidance littlefs) #clean
 
 #------------------------------------------------
 
-set(ArduCopter_libs_SOURCES #3
+set(ArduCopter_libs_SOURCES #13
 )
 
 set(ArduCopter_libs_INCLUDES
@@ -8258,8 +8411,8 @@ set(ArduCopter_libs_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(ArduCopter_libs ${ArduCopter_libs_SOURCES}) #2
-target_include_directories(ArduCopter_libs PUBLIC ${ArduCopter_libs_INCLUDES})
+add_library(ArduCopter_libs INTERFACE ${ArduCopter_libs_SOURCES}) #2
+target_include_directories(ArduCopter_libs INTERFACE ${ArduCopter_libs_INCLUDES})
 
 set_target_properties(ArduCopter_libs PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -8267,139 +8420,139 @@ set_target_properties(ArduCopter_libs PROPERTIES
 )
 
 
-target_link_libraries(ArduCopter_libs AP_AccelCal) #stripped
-target_link_libraries(ArduCopter_libs AP_ADC) #stripped
-target_link_libraries(ArduCopter_libs AP_AHRS) #stripped
-target_link_libraries(ArduCopter_libs AP_Airspeed) #stripped
-target_link_libraries(ArduCopter_libs AP_Baro) #stripped
-target_link_libraries(ArduCopter_libs AP_BattMonitor) #stripped
-target_link_libraries(ArduCopter_libs AP_BoardConfig) #stripped
-target_link_libraries(ArduCopter_libs AP_Camera) #stripped
-target_link_libraries(ArduCopter_libs AP_Common) #stripped
-target_link_libraries(ArduCopter_libs AP_Compass) #stripped
-target_link_libraries(ArduCopter_libs AP_Declination) #stripped
-target_link_libraries(ArduCopter_libs AP_GPS) #stripped
-target_link_libraries(ArduCopter_libs AP_GSOF) #stripped
-target_link_libraries(ArduCopter_libs AP_HAL) #stripped
-target_link_libraries(ArduCopter_libs AP_HAL_Empty) #stripped
-target_link_libraries(ArduCopter_libs AP_DDS) #stripped
-target_link_libraries(ArduCopter_libs AP_InertialSensor) #stripped
-target_link_libraries(ArduCopter_libs AP_Math) #stripped
-target_link_libraries(ArduCopter_libs AP_Mission) #stripped
-target_link_libraries(ArduCopter_libs AP_DAL) #stripped
-target_link_libraries(ArduCopter_libs AP_NavEKF) #stripped
-target_link_libraries(ArduCopter_libs AP_NavEKF2) #stripped
-target_link_libraries(ArduCopter_libs AP_NavEKF3) #stripped
-target_link_libraries(ArduCopter_libs AP_Notify) #stripped
-target_link_libraries(ArduCopter_libs AP_OpticalFlow) #stripped
-target_link_libraries(ArduCopter_libs AP_Param) #stripped
-target_link_libraries(ArduCopter_libs AP_Rally) #stripped
-target_link_libraries(ArduCopter_libs AP_LightWareSerial) #stripped
-target_link_libraries(ArduCopter_libs AP_RangeFinder) #stripped
-target_link_libraries(ArduCopter_libs AP_Scheduler) #stripped
-target_link_libraries(ArduCopter_libs AP_SerialManager) #stripped
-target_link_libraries(ArduCopter_libs AP_Terrain) #stripped
-target_link_libraries(ArduCopter_libs AP_Vehicle) #stripped
-target_link_libraries(ArduCopter_libs AP_InternalError) #stripped
-target_link_libraries(ArduCopter_libs AP_Logger) #stripped
-target_link_libraries(ArduCopter_libs Filter) #stripped
-target_link_libraries(ArduCopter_libs GCS_MAVLink) #stripped
-target_link_libraries(ArduCopter_libs RC_Channel) #stripped
-target_link_libraries(ArduCopter_libs SRV_Channel) #stripped
-target_link_libraries(ArduCopter_libs StorageManager) #stripped
-target_link_libraries(ArduCopter_libs AP_Tuning) #stripped
-target_link_libraries(ArduCopter_libs AP_RPM) #stripped
-target_link_libraries(ArduCopter_libs AP_RSSI) #stripped
-target_link_libraries(ArduCopter_libs AP_Mount) #stripped
-target_link_libraries(ArduCopter_libs AP_Module) #stripped
-target_link_libraries(ArduCopter_libs AP_Button) #stripped
-target_link_libraries(ArduCopter_libs AP_ICEngine) #stripped
-target_link_libraries(ArduCopter_libs AP_Networking) #stripped
-target_link_libraries(ArduCopter_libs AP_Frsky_Telem) #stripped
-target_link_libraries(ArduCopter_libs AP_IBus_Telem) #stripped
-target_link_libraries(ArduCopter_libs AP_FlashStorage) #stripped
-target_link_libraries(ArduCopter_libs AP_Relay) #stripped
-target_link_libraries(ArduCopter_libs AP_ServoRelayEvents) #stripped
-target_link_libraries(ArduCopter_libs AP_Volz_Protocol) #stripped
-target_link_libraries(ArduCopter_libs AP_SBusOut) #stripped
-target_link_libraries(ArduCopter_libs AP_IOMCU) #stripped
-target_link_libraries(ArduCopter_libs AP_Parachute) #stripped
-target_link_libraries(ArduCopter_libs AP_RAMTRON) #stripped
-target_link_libraries(ArduCopter_libs AP_RCProtocol) #stripped
-target_link_libraries(ArduCopter_libs AP_Radio) #stripped
-target_link_libraries(ArduCopter_libs AP_TempCalibration) #stripped
-target_link_libraries(ArduCopter_libs AP_VisualOdom) #stripped
-target_link_libraries(ArduCopter_libs AP_BLHeli) #stripped
-target_link_libraries(ArduCopter_libs AP_ROMFS) #stripped
-target_link_libraries(ArduCopter_libs AP_Proximity) #stripped
-target_link_libraries(ArduCopter_libs AP_Gripper) #stripped
-target_link_libraries(ArduCopter_libs AP_RTC) #stripped
-target_link_libraries(ArduCopter_libs AC_Sprayer) #stripped
-target_link_libraries(ArduCopter_libs AC_Fence) #stripped
-target_link_libraries(ArduCopter_libs AC_Avoidance) #stripped
-target_link_libraries(ArduCopter_libs AP_LandingGear) #stripped
-target_link_libraries(ArduCopter_libs AP_RobotisServo) #stripped
-target_link_libraries(ArduCopter_libs AP_NMEA_Output) #stripped
-target_link_libraries(ArduCopter_libs AP_OSD) #stripped
-target_link_libraries(ArduCopter_libs AP_Filesystem) #stripped
-target_link_libraries(ArduCopter_libs AP_ADSB) #stripped
-target_link_libraries(ArduCopter_libs AC_PID) #stripped
-target_link_libraries(ArduCopter_libs AP_SerialLED) #stripped
-target_link_libraries(ArduCopter_libs AP_EFI) #stripped
-target_link_libraries(ArduCopter_libs AP_Hott_Telem) #stripped
-target_link_libraries(ArduCopter_libs AP_ESC_Telem) #stripped
-target_link_libraries(ArduCopter_libs AP_Servo_Telem) #stripped
-target_link_libraries(ArduCopter_libs AP_Stats) #stripped
-target_link_libraries(ArduCopter_libs AP_GyroFFT) #stripped
-target_link_libraries(ArduCopter_libs AP_RCTelemetry) #stripped
-target_link_libraries(ArduCopter_libs AP_Generator) #stripped
-target_link_libraries(ArduCopter_libs AP_MSP) #stripped
-target_link_libraries(ArduCopter_libs AP_OLC) #stripped
-target_link_libraries(ArduCopter_libs AP_WheelEncoder) #stripped
-target_link_libraries(ArduCopter_libs AP_ExternalAHRS) #stripped
-target_link_libraries(ArduCopter_libs AP_VideoTX) #stripped
-target_link_libraries(ArduCopter_libs AP_FETtecOneWire) #stripped
-target_link_libraries(ArduCopter_libs AP_TemperatureSensor) #stripped
-target_link_libraries(ArduCopter_libs AP_Torqeedo) #stripped
-target_link_libraries(ArduCopter_libs AP_CustomRotations) #stripped
-target_link_libraries(ArduCopter_libs AP_AIS) #stripped
-target_link_libraries(ArduCopter_libs AP_OpenDroneID) #stripped
-target_link_libraries(ArduCopter_libs AP_CheckFirmware) #stripped
-target_link_libraries(ArduCopter_libs AP_ExternalControl) #stripped
-target_link_libraries(ArduCopter_libs AP_JSON) #stripped
-target_link_libraries(ArduCopter_libs AP_Beacon) #stripped
-target_link_libraries(ArduCopter_libs AP_Arming) #stripped
-target_link_libraries(ArduCopter_libs AP_RCMapper) #stripped
-target_link_libraries(ArduCopter_libs AP_MultiHeap) #stripped
-target_link_libraries(ArduCopter_libs AP_Follow) #stripped
-target_link_libraries(ArduCopter_libs AP_CANManager) #stripped
-target_link_libraries(ArduCopter_libs AP_KDECAN) #stripped
-target_link_libraries(ArduCopter_libs AP_PiccoloCAN) #stripped
-target_link_libraries(ArduCopter_libs AC_AttitudeControl) #stripped
-target_link_libraries(ArduCopter_libs AC_InputManager) #stripped
-target_link_libraries(ArduCopter_libs AC_PrecLand) #stripped
-target_link_libraries(ArduCopter_libs AC_Autorotation) #stripped
-target_link_libraries(ArduCopter_libs AC_WPNav) #stripped
-target_link_libraries(ArduCopter_libs AP_IRLock) #stripped
-target_link_libraries(ArduCopter_libs AP_Motors) #stripped
-target_link_libraries(ArduCopter_libs AP_Avoidance) #stripped
-target_link_libraries(ArduCopter_libs AP_AdvancedFailsafe) #stripped
-target_link_libraries(ArduCopter_libs AP_SmartRTL) #stripped
-target_link_libraries(ArduCopter_libs AP_Winch) #stripped
-target_link_libraries(ArduCopter_libs AP_LTM_Telem) #stripped
-target_link_libraries(ArduCopter_libs AP_Devo_Telem) #stripped
-target_link_libraries(ArduCopter_libs AC_AutoTune) #stripped
-target_link_libraries(ArduCopter_libs AP_SurfaceDistance) #stripped
-target_link_libraries(ArduCopter_libs AP_DroneCAN) #stripped
-target_link_libraries(ArduCopter_libs AP_HAL_SITL) #stripped
-target_link_libraries(ArduCopter_libs AP_CSVReader) #stripped
-target_link_libraries(ArduCopter_libs SITL) #stripped
-target_link_libraries(ArduCopter_libs AP_Scripting) #stripped
-target_link_libraries(ArduCopter_libs AC_CustomControl) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_AccelCal) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_ADC) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_AHRS) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Airspeed) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Baro) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_BattMonitor) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_BoardConfig) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Camera) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Common) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Compass) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Declination) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_GPS) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_GSOF) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_HAL) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_HAL_Empty) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_DDS) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_InertialSensor) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Math) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Mission) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_DAL) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_NavEKF) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_NavEKF2) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_NavEKF3) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Notify) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_OpticalFlow) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Param) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Rally) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_LightWareSerial) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_RangeFinder) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Scheduler) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_SerialManager) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Terrain) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Vehicle) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_InternalError) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Logger) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE Filter) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE GCS_MAVLink) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE RC_Channel) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE SRV_Channel) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE StorageManager) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Tuning) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_RPM) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_RSSI) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Mount) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Module) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Button) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_ICEngine) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Networking) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Frsky_Telem) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_IBus_Telem) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_FlashStorage) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Relay) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_ServoRelayEvents) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Volz_Protocol) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_SBusOut) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_IOMCU) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Parachute) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_RAMTRON) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_RCProtocol) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Radio) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_TempCalibration) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_VisualOdom) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_BLHeli) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_ROMFS) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Proximity) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Gripper) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_RTC) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AC_Sprayer) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AC_Fence) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AC_Avoidance) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_LandingGear) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_RobotisServo) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_NMEA_Output) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_OSD) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Filesystem) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_ADSB) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AC_PID) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_SerialLED) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_EFI) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Hott_Telem) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_ESC_Telem) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Servo_Telem) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Stats) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_GyroFFT) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_RCTelemetry) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Generator) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_MSP) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_OLC) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_WheelEncoder) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_ExternalAHRS) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_VideoTX) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_FETtecOneWire) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_TemperatureSensor) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Torqeedo) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_CustomRotations) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_AIS) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_OpenDroneID) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_CheckFirmware) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_ExternalControl) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_JSON) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Beacon) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Arming) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_RCMapper) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_MultiHeap) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Follow) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_CANManager) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_KDECAN) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_PiccoloCAN) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AC_AttitudeControl) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AC_InputManager) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AC_PrecLand) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AC_Autorotation) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AC_WPNav) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_IRLock) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Motors) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Avoidance) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_AdvancedFailsafe) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_SmartRTL) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Winch) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_LTM_Telem) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Devo_Telem) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AC_AutoTune) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_SurfaceDistance) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_DroneCAN) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_HAL_SITL) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_CSVReader) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE SITL) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_Scripting) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(copter_SOURCES #3
+set(copter_SOURCES #13
 	ArduCopter/APM_Config.h
 	ArduCopter/AP_Arming_Copter.h
 	ArduCopter/AP_ExternalControl_Copter.h
@@ -8513,171 +8666,171 @@ set(copter_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(copter ${copter_SOURCES}) #2
-target_compile_definitions(copter PUBLIC -DFRAME_CONFIG=MULTICOPTER_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
-target_link_directories(copter PUBLIC build2) #2
+add_executable(copter ${copter_SOURCES}) #9
+target_compile_definitions(copter PUBLIC -DFRAME_CONFIG=MULTICOPTER_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #10
+target_link_directories(copter PUBLIC build2) #11
 #target_include_directories(copter PUBLIC ${copter_INCLUDES})
 
 
-target_link_libraries(copter ArduCopter_libs) #clean
-target_link_libraries(copter -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter m)  # Math library
-target_link_libraries(copter pthread)  # POSIX threads
+target_link_libraries(copter INTERFACE ArduCopter_libs) #clean
+target_link_libraries(copter INTERFACE -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE -Wl,--whole-archive AP_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter INTERFACE m)  # Math library
+target_link_libraries(copter INTERFACE pthread)  # POSIX threads
 set_target_properties(copter PROPERTIES 
     LINK_FLAGS "-Wl,--gc-sections -Wl,--wrap,malloc"
 )
 
 #------------------------------------------------
 
-set(copter-heli_SOURCES #3
+set(copter-heli_SOURCES #13
 	ArduCopter/APM_Config.h
 	ArduCopter/AP_Arming_Copter.h
 	ArduCopter/AP_ExternalControl_Copter.h
@@ -8791,17 +8944,17 @@ set(copter-heli_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(copter-heli ${copter-heli_SOURCES}) #2
-target_compile_definitions(copter-heli PUBLIC -DFRAME_CONFIG=HELI_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #2
-target_link_directories(copter-heli PUBLIC build2) #2
+add_executable(copter-heli ${copter-heli_SOURCES}) #9
+target_compile_definitions(copter-heli PUBLIC -DFRAME_CONFIG=HELI_FRAME -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DAP_BUILD_TARGET_NAME="ArduCopter") #10
+target_link_directories(copter-heli PUBLIC build2) #11
 #target_include_directories(copter-heli PUBLIC ${copter-heli_INCLUDES})
 
 
-target_link_libraries(copter-heli ArduCopter_libs) #clean
+target_link_libraries(copter-heli INTERFACE ArduCopter_libs) #clean
 
 #------------------------------------------------
 
-set(ArduPlane_libs_SOURCES #3
+set(ArduPlane_libs_SOURCES #13
 )
 
 set(ArduPlane_libs_INCLUDES
@@ -8823,8 +8976,8 @@ set(ArduPlane_libs_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(ArduPlane_libs ${ArduPlane_libs_SOURCES}) #2
-target_include_directories(ArduPlane_libs PUBLIC ${ArduPlane_libs_INCLUDES})
+add_library(ArduPlane_libs INTERFACE ${ArduPlane_libs_SOURCES}) #2
+target_include_directories(ArduPlane_libs INTERFACE ${ArduPlane_libs_INCLUDES})
 
 set_target_properties(ArduPlane_libs PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -8832,143 +8985,143 @@ set_target_properties(ArduPlane_libs PROPERTIES
 )
 
 
-target_link_libraries(ArduPlane_libs AP_AccelCal) #stripped
-target_link_libraries(ArduPlane_libs AP_ADC) #stripped
-target_link_libraries(ArduPlane_libs AP_AHRS) #stripped
-target_link_libraries(ArduPlane_libs AP_Airspeed) #stripped
-target_link_libraries(ArduPlane_libs AP_Baro) #stripped
-target_link_libraries(ArduPlane_libs AP_BattMonitor) #stripped
-target_link_libraries(ArduPlane_libs AP_BoardConfig) #stripped
-target_link_libraries(ArduPlane_libs AP_Camera) #stripped
-target_link_libraries(ArduPlane_libs AP_Common) #stripped
-target_link_libraries(ArduPlane_libs AP_Compass) #stripped
-target_link_libraries(ArduPlane_libs AP_Declination) #stripped
-target_link_libraries(ArduPlane_libs AP_GPS) #stripped
-target_link_libraries(ArduPlane_libs AP_GSOF) #stripped
-target_link_libraries(ArduPlane_libs AP_HAL) #stripped
-target_link_libraries(ArduPlane_libs AP_HAL_Empty) #stripped
-target_link_libraries(ArduPlane_libs AP_DDS) #stripped
-target_link_libraries(ArduPlane_libs AP_InertialSensor) #stripped
-target_link_libraries(ArduPlane_libs AP_Math) #stripped
-target_link_libraries(ArduPlane_libs AP_Mission) #stripped
-target_link_libraries(ArduPlane_libs AP_DAL) #stripped
-target_link_libraries(ArduPlane_libs AP_NavEKF) #stripped
-target_link_libraries(ArduPlane_libs AP_NavEKF2) #stripped
-target_link_libraries(ArduPlane_libs AP_NavEKF3) #stripped
-target_link_libraries(ArduPlane_libs AP_Notify) #stripped
-target_link_libraries(ArduPlane_libs AP_OpticalFlow) #stripped
-target_link_libraries(ArduPlane_libs AP_Param) #stripped
-target_link_libraries(ArduPlane_libs AP_Rally) #stripped
-target_link_libraries(ArduPlane_libs AP_LightWareSerial) #stripped
-target_link_libraries(ArduPlane_libs AP_RangeFinder) #stripped
-target_link_libraries(ArduPlane_libs AP_Scheduler) #stripped
-target_link_libraries(ArduPlane_libs AP_SerialManager) #stripped
-target_link_libraries(ArduPlane_libs AP_Terrain) #stripped
-target_link_libraries(ArduPlane_libs AP_Vehicle) #stripped
-target_link_libraries(ArduPlane_libs AP_InternalError) #stripped
-target_link_libraries(ArduPlane_libs AP_Logger) #stripped
-target_link_libraries(ArduPlane_libs Filter) #stripped
-target_link_libraries(ArduPlane_libs GCS_MAVLink) #stripped
-target_link_libraries(ArduPlane_libs RC_Channel) #stripped
-target_link_libraries(ArduPlane_libs SRV_Channel) #stripped
-target_link_libraries(ArduPlane_libs StorageManager) #stripped
-target_link_libraries(ArduPlane_libs AP_Tuning) #stripped
-target_link_libraries(ArduPlane_libs AP_RPM) #stripped
-target_link_libraries(ArduPlane_libs AP_RSSI) #stripped
-target_link_libraries(ArduPlane_libs AP_Mount) #stripped
-target_link_libraries(ArduPlane_libs AP_Module) #stripped
-target_link_libraries(ArduPlane_libs AP_Button) #stripped
-target_link_libraries(ArduPlane_libs AP_ICEngine) #stripped
-target_link_libraries(ArduPlane_libs AP_Networking) #stripped
-target_link_libraries(ArduPlane_libs AP_Frsky_Telem) #stripped
-target_link_libraries(ArduPlane_libs AP_IBus_Telem) #stripped
-target_link_libraries(ArduPlane_libs AP_FlashStorage) #stripped
-target_link_libraries(ArduPlane_libs AP_Relay) #stripped
-target_link_libraries(ArduPlane_libs AP_ServoRelayEvents) #stripped
-target_link_libraries(ArduPlane_libs AP_Volz_Protocol) #stripped
-target_link_libraries(ArduPlane_libs AP_SBusOut) #stripped
-target_link_libraries(ArduPlane_libs AP_IOMCU) #stripped
-target_link_libraries(ArduPlane_libs AP_Parachute) #stripped
-target_link_libraries(ArduPlane_libs AP_RAMTRON) #stripped
-target_link_libraries(ArduPlane_libs AP_RCProtocol) #stripped
-target_link_libraries(ArduPlane_libs AP_Radio) #stripped
-target_link_libraries(ArduPlane_libs AP_TempCalibration) #stripped
-target_link_libraries(ArduPlane_libs AP_VisualOdom) #stripped
-target_link_libraries(ArduPlane_libs AP_BLHeli) #stripped
-target_link_libraries(ArduPlane_libs AP_ROMFS) #stripped
-target_link_libraries(ArduPlane_libs AP_Proximity) #stripped
-target_link_libraries(ArduPlane_libs AP_Gripper) #stripped
-target_link_libraries(ArduPlane_libs AP_RTC) #stripped
-target_link_libraries(ArduPlane_libs AC_Sprayer) #stripped
-target_link_libraries(ArduPlane_libs AC_Fence) #stripped
-target_link_libraries(ArduPlane_libs AC_Avoidance) #stripped
-target_link_libraries(ArduPlane_libs AP_LandingGear) #stripped
-target_link_libraries(ArduPlane_libs AP_RobotisServo) #stripped
-target_link_libraries(ArduPlane_libs AP_NMEA_Output) #stripped
-target_link_libraries(ArduPlane_libs AP_OSD) #stripped
-target_link_libraries(ArduPlane_libs AP_Filesystem) #stripped
-target_link_libraries(ArduPlane_libs AP_ADSB) #stripped
-target_link_libraries(ArduPlane_libs AC_PID) #stripped
-target_link_libraries(ArduPlane_libs AP_SerialLED) #stripped
-target_link_libraries(ArduPlane_libs AP_EFI) #stripped
-target_link_libraries(ArduPlane_libs AP_Hott_Telem) #stripped
-target_link_libraries(ArduPlane_libs AP_ESC_Telem) #stripped
-target_link_libraries(ArduPlane_libs AP_Servo_Telem) #stripped
-target_link_libraries(ArduPlane_libs AP_Stats) #stripped
-target_link_libraries(ArduPlane_libs AP_GyroFFT) #stripped
-target_link_libraries(ArduPlane_libs AP_RCTelemetry) #stripped
-target_link_libraries(ArduPlane_libs AP_Generator) #stripped
-target_link_libraries(ArduPlane_libs AP_MSP) #stripped
-target_link_libraries(ArduPlane_libs AP_OLC) #stripped
-target_link_libraries(ArduPlane_libs AP_WheelEncoder) #stripped
-target_link_libraries(ArduPlane_libs AP_ExternalAHRS) #stripped
-target_link_libraries(ArduPlane_libs AP_VideoTX) #stripped
-target_link_libraries(ArduPlane_libs AP_FETtecOneWire) #stripped
-target_link_libraries(ArduPlane_libs AP_TemperatureSensor) #stripped
-target_link_libraries(ArduPlane_libs AP_Torqeedo) #stripped
-target_link_libraries(ArduPlane_libs AP_CustomRotations) #stripped
-target_link_libraries(ArduPlane_libs AP_AIS) #stripped
-target_link_libraries(ArduPlane_libs AP_OpenDroneID) #stripped
-target_link_libraries(ArduPlane_libs AP_CheckFirmware) #stripped
-target_link_libraries(ArduPlane_libs AP_ExternalControl) #stripped
-target_link_libraries(ArduPlane_libs AP_JSON) #stripped
-target_link_libraries(ArduPlane_libs AP_Beacon) #stripped
-target_link_libraries(ArduPlane_libs AP_Arming) #stripped
-target_link_libraries(ArduPlane_libs AP_RCMapper) #stripped
-target_link_libraries(ArduPlane_libs AP_MultiHeap) #stripped
-target_link_libraries(ArduPlane_libs AP_Follow) #stripped
-target_link_libraries(ArduPlane_libs AP_CANManager) #stripped
-target_link_libraries(ArduPlane_libs AP_KDECAN) #stripped
-target_link_libraries(ArduPlane_libs AP_PiccoloCAN) #stripped
-target_link_libraries(ArduPlane_libs APM_Control) #stripped
-target_link_libraries(ArduPlane_libs AP_AdvancedFailsafe) #stripped
-target_link_libraries(ArduPlane_libs AP_Avoidance) #stripped
-target_link_libraries(ArduPlane_libs AP_L1_Control) #stripped
-target_link_libraries(ArduPlane_libs AP_Navigation) #stripped
-target_link_libraries(ArduPlane_libs AP_TECS) #stripped
-target_link_libraries(ArduPlane_libs AP_InertialNav) #stripped
-target_link_libraries(ArduPlane_libs AC_WPNav) #stripped
-target_link_libraries(ArduPlane_libs AC_AttitudeControl) #stripped
-target_link_libraries(ArduPlane_libs AP_Motors) #stripped
-target_link_libraries(ArduPlane_libs AP_Landing) #stripped
-target_link_libraries(ArduPlane_libs PID) #stripped
-target_link_libraries(ArduPlane_libs AP_Soaring) #stripped
-target_link_libraries(ArduPlane_libs AP_LTM_Telem) #stripped
-target_link_libraries(ArduPlane_libs AP_Devo_Telem) #stripped
-target_link_libraries(ArduPlane_libs AC_AutoTune) #stripped
-target_link_libraries(ArduPlane_libs AC_PrecLand) #stripped
-target_link_libraries(ArduPlane_libs AP_IRLock) #stripped
-target_link_libraries(ArduPlane_libs AP_Quicktune) #stripped
-target_link_libraries(ArduPlane_libs AP_DroneCAN) #stripped
-target_link_libraries(ArduPlane_libs AP_HAL_SITL) #stripped
-target_link_libraries(ArduPlane_libs AP_CSVReader) #stripped
-target_link_libraries(ArduPlane_libs SITL) #stripped
-target_link_libraries(ArduPlane_libs AP_Scripting) #stripped
-target_link_libraries(ArduPlane_libs AC_CustomControl) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_AccelCal) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_ADC) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_AHRS) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Airspeed) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Baro) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_BattMonitor) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_BoardConfig) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Camera) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Common) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Compass) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Declination) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_GPS) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_GSOF) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_HAL) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_HAL_Empty) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_DDS) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_InertialSensor) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Math) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Mission) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_DAL) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_NavEKF) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_NavEKF2) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_NavEKF3) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Notify) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_OpticalFlow) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Param) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Rally) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_LightWareSerial) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_RangeFinder) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Scheduler) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_SerialManager) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Terrain) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Vehicle) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_InternalError) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Logger) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE Filter) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE GCS_MAVLink) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE RC_Channel) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE SRV_Channel) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE StorageManager) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Tuning) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_RPM) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_RSSI) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Mount) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Module) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Button) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_ICEngine) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Networking) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Frsky_Telem) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_IBus_Telem) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_FlashStorage) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Relay) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_ServoRelayEvents) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Volz_Protocol) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_SBusOut) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_IOMCU) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Parachute) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_RAMTRON) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_RCProtocol) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Radio) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_TempCalibration) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_VisualOdom) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_BLHeli) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_ROMFS) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Proximity) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Gripper) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_RTC) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AC_Sprayer) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AC_Fence) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AC_Avoidance) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_LandingGear) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_RobotisServo) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_NMEA_Output) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_OSD) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Filesystem) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_ADSB) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AC_PID) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_SerialLED) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_EFI) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Hott_Telem) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_ESC_Telem) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Servo_Telem) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Stats) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_GyroFFT) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_RCTelemetry) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Generator) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_MSP) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_OLC) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_WheelEncoder) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_ExternalAHRS) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_VideoTX) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_FETtecOneWire) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_TemperatureSensor) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Torqeedo) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_CustomRotations) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_AIS) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_OpenDroneID) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_CheckFirmware) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_ExternalControl) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_JSON) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Beacon) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Arming) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_RCMapper) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_MultiHeap) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Follow) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_CANManager) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_KDECAN) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_PiccoloCAN) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE APM_Control) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_AdvancedFailsafe) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Avoidance) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_L1_Control) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Navigation) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_TECS) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_InertialNav) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AC_WPNav) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AC_AttitudeControl) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Motors) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Landing) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE PID) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Soaring) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_LTM_Telem) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Devo_Telem) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AC_AutoTune) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AC_PrecLand) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_IRLock) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Quicktune) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_DroneCAN) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_HAL_SITL) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_CSVReader) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE SITL) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_Scripting) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(plane_SOURCES #3
+set(plane_SOURCES #13
 	ArduPlane/AP_Arming_Plane.h
 	ArduPlane/AP_ExternalControl_Plane.h
 	ArduPlane/GCS_MAVLink_Plane.h
@@ -9076,17 +9229,171 @@ set(plane_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(plane ${plane_SOURCES}) #2
-target_compile_definitions(plane PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #2
-target_link_directories(plane PUBLIC build2) #2
+add_executable(plane ${plane_SOURCES}) #9
+target_compile_definitions(plane PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DAP_BUILD_TARGET_NAME="ArduPlane") #10
+target_link_directories(plane PUBLIC build2) #11
 #target_include_directories(plane PUBLIC ${plane_INCLUDES})
 
 
-target_link_libraries(plane ArduPlane_libs) #clean
+target_link_libraries(plane INTERFACE ArduPlane_libs) #clean
+target_link_libraries(plane INTERFACE -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE -Wl,--whole-archive AP_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane INTERFACE m)  # Math library
+target_link_libraries(plane INTERFACE pthread)  # POSIX threads
+set_target_properties(plane PROPERTIES 
+    LINK_FLAGS "-Wl,--gc-sections -Wl,--wrap,malloc"
+)
 
 #------------------------------------------------
 
-set(ArduSub_libs_SOURCES #3
+set(ArduSub_libs_SOURCES #13
 )
 
 set(ArduSub_libs_INCLUDES
@@ -9108,8 +9415,8 @@ set(ArduSub_libs_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(ArduSub_libs ${ArduSub_libs_SOURCES}) #2
-target_include_directories(ArduSub_libs PUBLIC ${ArduSub_libs_INCLUDES})
+add_library(ArduSub_libs INTERFACE ${ArduSub_libs_SOURCES}) #2
+target_include_directories(ArduSub_libs INTERFACE ${ArduSub_libs_INCLUDES})
 
 set_target_properties(ArduSub_libs PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -9117,130 +9424,130 @@ set_target_properties(ArduSub_libs PROPERTIES
 )
 
 
-target_link_libraries(ArduSub_libs AP_AccelCal) #stripped
-target_link_libraries(ArduSub_libs AP_ADC) #stripped
-target_link_libraries(ArduSub_libs AP_AHRS) #stripped
-target_link_libraries(ArduSub_libs AP_Airspeed) #stripped
-target_link_libraries(ArduSub_libs AP_Baro) #stripped
-target_link_libraries(ArduSub_libs AP_BattMonitor) #stripped
-target_link_libraries(ArduSub_libs AP_BoardConfig) #stripped
-target_link_libraries(ArduSub_libs AP_Camera) #stripped
-target_link_libraries(ArduSub_libs AP_Common) #stripped
-target_link_libraries(ArduSub_libs AP_Compass) #stripped
-target_link_libraries(ArduSub_libs AP_Declination) #stripped
-target_link_libraries(ArduSub_libs AP_GPS) #stripped
-target_link_libraries(ArduSub_libs AP_GSOF) #stripped
-target_link_libraries(ArduSub_libs AP_HAL) #stripped
-target_link_libraries(ArduSub_libs AP_HAL_Empty) #stripped
-target_link_libraries(ArduSub_libs AP_DDS) #stripped
-target_link_libraries(ArduSub_libs AP_InertialSensor) #stripped
-target_link_libraries(ArduSub_libs AP_Math) #stripped
-target_link_libraries(ArduSub_libs AP_Mission) #stripped
-target_link_libraries(ArduSub_libs AP_DAL) #stripped
-target_link_libraries(ArduSub_libs AP_NavEKF) #stripped
-target_link_libraries(ArduSub_libs AP_NavEKF2) #stripped
-target_link_libraries(ArduSub_libs AP_NavEKF3) #stripped
-target_link_libraries(ArduSub_libs AP_Notify) #stripped
-target_link_libraries(ArduSub_libs AP_OpticalFlow) #stripped
-target_link_libraries(ArduSub_libs AP_Param) #stripped
-target_link_libraries(ArduSub_libs AP_Rally) #stripped
-target_link_libraries(ArduSub_libs AP_LightWareSerial) #stripped
-target_link_libraries(ArduSub_libs AP_RangeFinder) #stripped
-target_link_libraries(ArduSub_libs AP_Scheduler) #stripped
-target_link_libraries(ArduSub_libs AP_SerialManager) #stripped
-target_link_libraries(ArduSub_libs AP_Terrain) #stripped
-target_link_libraries(ArduSub_libs AP_Vehicle) #stripped
-target_link_libraries(ArduSub_libs AP_InternalError) #stripped
-target_link_libraries(ArduSub_libs AP_Logger) #stripped
-target_link_libraries(ArduSub_libs Filter) #stripped
-target_link_libraries(ArduSub_libs GCS_MAVLink) #stripped
-target_link_libraries(ArduSub_libs RC_Channel) #stripped
-target_link_libraries(ArduSub_libs SRV_Channel) #stripped
-target_link_libraries(ArduSub_libs StorageManager) #stripped
-target_link_libraries(ArduSub_libs AP_Tuning) #stripped
-target_link_libraries(ArduSub_libs AP_RPM) #stripped
-target_link_libraries(ArduSub_libs AP_RSSI) #stripped
-target_link_libraries(ArduSub_libs AP_Mount) #stripped
-target_link_libraries(ArduSub_libs AP_Module) #stripped
-target_link_libraries(ArduSub_libs AP_Button) #stripped
-target_link_libraries(ArduSub_libs AP_ICEngine) #stripped
-target_link_libraries(ArduSub_libs AP_Networking) #stripped
-target_link_libraries(ArduSub_libs AP_Frsky_Telem) #stripped
-target_link_libraries(ArduSub_libs AP_IBus_Telem) #stripped
-target_link_libraries(ArduSub_libs AP_FlashStorage) #stripped
-target_link_libraries(ArduSub_libs AP_Relay) #stripped
-target_link_libraries(ArduSub_libs AP_ServoRelayEvents) #stripped
-target_link_libraries(ArduSub_libs AP_Volz_Protocol) #stripped
-target_link_libraries(ArduSub_libs AP_SBusOut) #stripped
-target_link_libraries(ArduSub_libs AP_IOMCU) #stripped
-target_link_libraries(ArduSub_libs AP_Parachute) #stripped
-target_link_libraries(ArduSub_libs AP_RAMTRON) #stripped
-target_link_libraries(ArduSub_libs AP_RCProtocol) #stripped
-target_link_libraries(ArduSub_libs AP_Radio) #stripped
-target_link_libraries(ArduSub_libs AP_TempCalibration) #stripped
-target_link_libraries(ArduSub_libs AP_VisualOdom) #stripped
-target_link_libraries(ArduSub_libs AP_BLHeli) #stripped
-target_link_libraries(ArduSub_libs AP_ROMFS) #stripped
-target_link_libraries(ArduSub_libs AP_Proximity) #stripped
-target_link_libraries(ArduSub_libs AP_Gripper) #stripped
-target_link_libraries(ArduSub_libs AP_RTC) #stripped
-target_link_libraries(ArduSub_libs AC_Sprayer) #stripped
-target_link_libraries(ArduSub_libs AC_Fence) #stripped
-target_link_libraries(ArduSub_libs AC_Avoidance) #stripped
-target_link_libraries(ArduSub_libs AP_LandingGear) #stripped
-target_link_libraries(ArduSub_libs AP_RobotisServo) #stripped
-target_link_libraries(ArduSub_libs AP_NMEA_Output) #stripped
-target_link_libraries(ArduSub_libs AP_OSD) #stripped
-target_link_libraries(ArduSub_libs AP_Filesystem) #stripped
-target_link_libraries(ArduSub_libs AP_ADSB) #stripped
-target_link_libraries(ArduSub_libs AC_PID) #stripped
-target_link_libraries(ArduSub_libs AP_SerialLED) #stripped
-target_link_libraries(ArduSub_libs AP_EFI) #stripped
-target_link_libraries(ArduSub_libs AP_Hott_Telem) #stripped
-target_link_libraries(ArduSub_libs AP_ESC_Telem) #stripped
-target_link_libraries(ArduSub_libs AP_Servo_Telem) #stripped
-target_link_libraries(ArduSub_libs AP_Stats) #stripped
-target_link_libraries(ArduSub_libs AP_GyroFFT) #stripped
-target_link_libraries(ArduSub_libs AP_RCTelemetry) #stripped
-target_link_libraries(ArduSub_libs AP_Generator) #stripped
-target_link_libraries(ArduSub_libs AP_MSP) #stripped
-target_link_libraries(ArduSub_libs AP_OLC) #stripped
-target_link_libraries(ArduSub_libs AP_WheelEncoder) #stripped
-target_link_libraries(ArduSub_libs AP_ExternalAHRS) #stripped
-target_link_libraries(ArduSub_libs AP_VideoTX) #stripped
-target_link_libraries(ArduSub_libs AP_FETtecOneWire) #stripped
-target_link_libraries(ArduSub_libs AP_TemperatureSensor) #stripped
-target_link_libraries(ArduSub_libs AP_Torqeedo) #stripped
-target_link_libraries(ArduSub_libs AP_CustomRotations) #stripped
-target_link_libraries(ArduSub_libs AP_AIS) #stripped
-target_link_libraries(ArduSub_libs AP_OpenDroneID) #stripped
-target_link_libraries(ArduSub_libs AP_CheckFirmware) #stripped
-target_link_libraries(ArduSub_libs AP_ExternalControl) #stripped
-target_link_libraries(ArduSub_libs AP_JSON) #stripped
-target_link_libraries(ArduSub_libs AP_Beacon) #stripped
-target_link_libraries(ArduSub_libs AP_Arming) #stripped
-target_link_libraries(ArduSub_libs AP_RCMapper) #stripped
-target_link_libraries(ArduSub_libs AP_MultiHeap) #stripped
-target_link_libraries(ArduSub_libs AP_Follow) #stripped
-target_link_libraries(ArduSub_libs AP_CANManager) #stripped
-target_link_libraries(ArduSub_libs AP_KDECAN) #stripped
-target_link_libraries(ArduSub_libs AP_PiccoloCAN) #stripped
-target_link_libraries(ArduSub_libs AC_AttitudeControl) #stripped
-target_link_libraries(ArduSub_libs AC_WPNav) #stripped
-target_link_libraries(ArduSub_libs AP_InertialNav) #stripped
-target_link_libraries(ArduSub_libs AP_JSButton) #stripped
-target_link_libraries(ArduSub_libs AP_LeakDetector) #stripped
-target_link_libraries(ArduSub_libs AP_Motors) #stripped
-target_link_libraries(ArduSub_libs AP_DroneCAN) #stripped
-target_link_libraries(ArduSub_libs AP_HAL_SITL) #stripped
-target_link_libraries(ArduSub_libs AP_CSVReader) #stripped
-target_link_libraries(ArduSub_libs SITL) #stripped
-target_link_libraries(ArduSub_libs AP_Scripting) #stripped
-target_link_libraries(ArduSub_libs AC_CustomControl) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_AccelCal) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_ADC) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_AHRS) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Airspeed) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Baro) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_BattMonitor) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_BoardConfig) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Camera) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Common) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Compass) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Declination) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_GPS) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_GSOF) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_HAL) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_HAL_Empty) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_DDS) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_InertialSensor) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Math) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Mission) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_DAL) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_NavEKF) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_NavEKF2) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_NavEKF3) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Notify) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_OpticalFlow) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Param) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Rally) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_LightWareSerial) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_RangeFinder) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Scheduler) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_SerialManager) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Terrain) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Vehicle) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_InternalError) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Logger) #stripped
+target_link_libraries(ArduSub_libs INTERFACE Filter) #stripped
+target_link_libraries(ArduSub_libs INTERFACE GCS_MAVLink) #stripped
+target_link_libraries(ArduSub_libs INTERFACE RC_Channel) #stripped
+target_link_libraries(ArduSub_libs INTERFACE SRV_Channel) #stripped
+target_link_libraries(ArduSub_libs INTERFACE StorageManager) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Tuning) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_RPM) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_RSSI) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Mount) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Module) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Button) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_ICEngine) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Networking) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Frsky_Telem) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_IBus_Telem) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_FlashStorage) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Relay) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_ServoRelayEvents) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Volz_Protocol) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_SBusOut) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_IOMCU) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Parachute) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_RAMTRON) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_RCProtocol) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Radio) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_TempCalibration) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_VisualOdom) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_BLHeli) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_ROMFS) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Proximity) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Gripper) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_RTC) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AC_Sprayer) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AC_Fence) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AC_Avoidance) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_LandingGear) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_RobotisServo) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_NMEA_Output) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_OSD) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Filesystem) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_ADSB) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AC_PID) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_SerialLED) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_EFI) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Hott_Telem) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_ESC_Telem) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Servo_Telem) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Stats) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_GyroFFT) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_RCTelemetry) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Generator) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_MSP) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_OLC) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_WheelEncoder) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_ExternalAHRS) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_VideoTX) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_FETtecOneWire) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_TemperatureSensor) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Torqeedo) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_CustomRotations) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_AIS) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_OpenDroneID) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_CheckFirmware) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_ExternalControl) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_JSON) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Beacon) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Arming) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_RCMapper) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_MultiHeap) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Follow) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_CANManager) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_KDECAN) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_PiccoloCAN) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AC_AttitudeControl) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AC_WPNav) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_InertialNav) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_JSButton) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_LeakDetector) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Motors) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_DroneCAN) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_HAL_SITL) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_CSVReader) #stripped
+target_link_libraries(ArduSub_libs INTERFACE SITL) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_Scripting) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(sub_SOURCES #3
+set(sub_SOURCES #13
 	ArduSub/AP_Arming_Sub.h
 	ArduSub/GCS_MAVLink_Sub.h
 	ArduSub/GCS_Sub.h
@@ -9312,17 +9619,17 @@ set(sub_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(sub ${sub_SOURCES}) #2
-target_compile_definitions(sub PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #2
-target_link_directories(sub PUBLIC build2) #2
+add_executable(sub ${sub_SOURCES}) #9
+target_compile_definitions(sub PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduSub -DAP_BUILD_TARGET_NAME="ArduSub") #10
+target_link_directories(sub PUBLIC build2) #11
 #target_include_directories(sub PUBLIC ${sub_INCLUDES})
 
 
-target_link_libraries(sub ArduSub_libs) #clean
+target_link_libraries(sub INTERFACE ArduSub_libs) #clean
 
 #------------------------------------------------
 
-set(Blimp_libs_SOURCES #3
+set(Blimp_libs_SOURCES #13
 )
 
 set(Blimp_libs_INCLUDES
@@ -9344,8 +9651,8 @@ set(Blimp_libs_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(Blimp_libs ${Blimp_libs_SOURCES}) #2
-target_include_directories(Blimp_libs PUBLIC ${Blimp_libs_INCLUDES})
+add_library(Blimp_libs INTERFACE ${Blimp_libs_SOURCES}) #2
+target_include_directories(Blimp_libs INTERFACE ${Blimp_libs_INCLUDES})
 
 set_target_properties(Blimp_libs PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -9353,131 +9660,131 @@ set_target_properties(Blimp_libs PROPERTIES
 )
 
 
-target_link_libraries(Blimp_libs AP_AccelCal) #stripped
-target_link_libraries(Blimp_libs AP_ADC) #stripped
-target_link_libraries(Blimp_libs AP_AHRS) #stripped
-target_link_libraries(Blimp_libs AP_Airspeed) #stripped
-target_link_libraries(Blimp_libs AP_Baro) #stripped
-target_link_libraries(Blimp_libs AP_BattMonitor) #stripped
-target_link_libraries(Blimp_libs AP_BoardConfig) #stripped
-target_link_libraries(Blimp_libs AP_Camera) #stripped
-target_link_libraries(Blimp_libs AP_Common) #stripped
-target_link_libraries(Blimp_libs AP_Compass) #stripped
-target_link_libraries(Blimp_libs AP_Declination) #stripped
-target_link_libraries(Blimp_libs AP_GPS) #stripped
-target_link_libraries(Blimp_libs AP_GSOF) #stripped
-target_link_libraries(Blimp_libs AP_HAL) #stripped
-target_link_libraries(Blimp_libs AP_HAL_Empty) #stripped
-target_link_libraries(Blimp_libs AP_DDS) #stripped
-target_link_libraries(Blimp_libs AP_InertialSensor) #stripped
-target_link_libraries(Blimp_libs AP_Math) #stripped
-target_link_libraries(Blimp_libs AP_Mission) #stripped
-target_link_libraries(Blimp_libs AP_DAL) #stripped
-target_link_libraries(Blimp_libs AP_NavEKF) #stripped
-target_link_libraries(Blimp_libs AP_NavEKF2) #stripped
-target_link_libraries(Blimp_libs AP_NavEKF3) #stripped
-target_link_libraries(Blimp_libs AP_Notify) #stripped
-target_link_libraries(Blimp_libs AP_OpticalFlow) #stripped
-target_link_libraries(Blimp_libs AP_Param) #stripped
-target_link_libraries(Blimp_libs AP_Rally) #stripped
-target_link_libraries(Blimp_libs AP_LightWareSerial) #stripped
-target_link_libraries(Blimp_libs AP_RangeFinder) #stripped
-target_link_libraries(Blimp_libs AP_Scheduler) #stripped
-target_link_libraries(Blimp_libs AP_SerialManager) #stripped
-target_link_libraries(Blimp_libs AP_Terrain) #stripped
-target_link_libraries(Blimp_libs AP_Vehicle) #stripped
-target_link_libraries(Blimp_libs AP_InternalError) #stripped
-target_link_libraries(Blimp_libs AP_Logger) #stripped
-target_link_libraries(Blimp_libs Filter) #stripped
-target_link_libraries(Blimp_libs GCS_MAVLink) #stripped
-target_link_libraries(Blimp_libs RC_Channel) #stripped
-target_link_libraries(Blimp_libs SRV_Channel) #stripped
-target_link_libraries(Blimp_libs StorageManager) #stripped
-target_link_libraries(Blimp_libs AP_Tuning) #stripped
-target_link_libraries(Blimp_libs AP_RPM) #stripped
-target_link_libraries(Blimp_libs AP_RSSI) #stripped
-target_link_libraries(Blimp_libs AP_Mount) #stripped
-target_link_libraries(Blimp_libs AP_Module) #stripped
-target_link_libraries(Blimp_libs AP_Button) #stripped
-target_link_libraries(Blimp_libs AP_ICEngine) #stripped
-target_link_libraries(Blimp_libs AP_Networking) #stripped
-target_link_libraries(Blimp_libs AP_Frsky_Telem) #stripped
-target_link_libraries(Blimp_libs AP_IBus_Telem) #stripped
-target_link_libraries(Blimp_libs AP_FlashStorage) #stripped
-target_link_libraries(Blimp_libs AP_Relay) #stripped
-target_link_libraries(Blimp_libs AP_ServoRelayEvents) #stripped
-target_link_libraries(Blimp_libs AP_Volz_Protocol) #stripped
-target_link_libraries(Blimp_libs AP_SBusOut) #stripped
-target_link_libraries(Blimp_libs AP_IOMCU) #stripped
-target_link_libraries(Blimp_libs AP_Parachute) #stripped
-target_link_libraries(Blimp_libs AP_RAMTRON) #stripped
-target_link_libraries(Blimp_libs AP_RCProtocol) #stripped
-target_link_libraries(Blimp_libs AP_Radio) #stripped
-target_link_libraries(Blimp_libs AP_TempCalibration) #stripped
-target_link_libraries(Blimp_libs AP_VisualOdom) #stripped
-target_link_libraries(Blimp_libs AP_BLHeli) #stripped
-target_link_libraries(Blimp_libs AP_ROMFS) #stripped
-target_link_libraries(Blimp_libs AP_Proximity) #stripped
-target_link_libraries(Blimp_libs AP_Gripper) #stripped
-target_link_libraries(Blimp_libs AP_RTC) #stripped
-target_link_libraries(Blimp_libs AC_Sprayer) #stripped
-target_link_libraries(Blimp_libs AC_Fence) #stripped
-target_link_libraries(Blimp_libs AC_Avoidance) #stripped
-target_link_libraries(Blimp_libs AP_LandingGear) #stripped
-target_link_libraries(Blimp_libs AP_RobotisServo) #stripped
-target_link_libraries(Blimp_libs AP_NMEA_Output) #stripped
-target_link_libraries(Blimp_libs AP_OSD) #stripped
-target_link_libraries(Blimp_libs AP_Filesystem) #stripped
-target_link_libraries(Blimp_libs AP_ADSB) #stripped
-target_link_libraries(Blimp_libs AC_PID) #stripped
-target_link_libraries(Blimp_libs AP_SerialLED) #stripped
-target_link_libraries(Blimp_libs AP_EFI) #stripped
-target_link_libraries(Blimp_libs AP_Hott_Telem) #stripped
-target_link_libraries(Blimp_libs AP_ESC_Telem) #stripped
-target_link_libraries(Blimp_libs AP_Servo_Telem) #stripped
-target_link_libraries(Blimp_libs AP_Stats) #stripped
-target_link_libraries(Blimp_libs AP_GyroFFT) #stripped
-target_link_libraries(Blimp_libs AP_RCTelemetry) #stripped
-target_link_libraries(Blimp_libs AP_Generator) #stripped
-target_link_libraries(Blimp_libs AP_MSP) #stripped
-target_link_libraries(Blimp_libs AP_OLC) #stripped
-target_link_libraries(Blimp_libs AP_WheelEncoder) #stripped
-target_link_libraries(Blimp_libs AP_ExternalAHRS) #stripped
-target_link_libraries(Blimp_libs AP_VideoTX) #stripped
-target_link_libraries(Blimp_libs AP_FETtecOneWire) #stripped
-target_link_libraries(Blimp_libs AP_TemperatureSensor) #stripped
-target_link_libraries(Blimp_libs AP_Torqeedo) #stripped
-target_link_libraries(Blimp_libs AP_CustomRotations) #stripped
-target_link_libraries(Blimp_libs AP_AIS) #stripped
-target_link_libraries(Blimp_libs AP_OpenDroneID) #stripped
-target_link_libraries(Blimp_libs AP_CheckFirmware) #stripped
-target_link_libraries(Blimp_libs AP_ExternalControl) #stripped
-target_link_libraries(Blimp_libs AP_JSON) #stripped
-target_link_libraries(Blimp_libs AP_Beacon) #stripped
-target_link_libraries(Blimp_libs AP_Arming) #stripped
-target_link_libraries(Blimp_libs AP_RCMapper) #stripped
-target_link_libraries(Blimp_libs AP_MultiHeap) #stripped
-target_link_libraries(Blimp_libs AP_Follow) #stripped
-target_link_libraries(Blimp_libs AP_CANManager) #stripped
-target_link_libraries(Blimp_libs AP_KDECAN) #stripped
-target_link_libraries(Blimp_libs AP_PiccoloCAN) #stripped
-target_link_libraries(Blimp_libs AC_InputManager) #stripped
-target_link_libraries(Blimp_libs AP_InertialNav) #stripped
-target_link_libraries(Blimp_libs AP_Avoidance) #stripped
-target_link_libraries(Blimp_libs AP_LTM_Telem) #stripped
-target_link_libraries(Blimp_libs AP_Devo_Telem) #stripped
-target_link_libraries(Blimp_libs AP_AdvancedFailsafe) #stripped
-target_link_libraries(Blimp_libs AC_AttitudeControl) #stripped
-target_link_libraries(Blimp_libs AP_DroneCAN) #stripped
-target_link_libraries(Blimp_libs AP_HAL_SITL) #stripped
-target_link_libraries(Blimp_libs AP_CSVReader) #stripped
-target_link_libraries(Blimp_libs SITL) #stripped
-target_link_libraries(Blimp_libs AP_Scripting) #stripped
-target_link_libraries(Blimp_libs AC_CustomControl) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_AccelCal) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_ADC) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_AHRS) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Airspeed) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Baro) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_BattMonitor) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_BoardConfig) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Camera) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Common) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Compass) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Declination) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_GPS) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_GSOF) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_HAL) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_HAL_Empty) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_DDS) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_InertialSensor) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Math) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Mission) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_DAL) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_NavEKF) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_NavEKF2) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_NavEKF3) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Notify) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_OpticalFlow) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Param) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Rally) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_LightWareSerial) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_RangeFinder) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Scheduler) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_SerialManager) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Terrain) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Vehicle) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_InternalError) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Logger) #stripped
+target_link_libraries(Blimp_libs INTERFACE Filter) #stripped
+target_link_libraries(Blimp_libs INTERFACE GCS_MAVLink) #stripped
+target_link_libraries(Blimp_libs INTERFACE RC_Channel) #stripped
+target_link_libraries(Blimp_libs INTERFACE SRV_Channel) #stripped
+target_link_libraries(Blimp_libs INTERFACE StorageManager) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Tuning) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_RPM) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_RSSI) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Mount) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Module) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Button) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_ICEngine) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Networking) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Frsky_Telem) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_IBus_Telem) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_FlashStorage) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Relay) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_ServoRelayEvents) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Volz_Protocol) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_SBusOut) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_IOMCU) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Parachute) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_RAMTRON) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_RCProtocol) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Radio) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_TempCalibration) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_VisualOdom) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_BLHeli) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_ROMFS) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Proximity) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Gripper) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_RTC) #stripped
+target_link_libraries(Blimp_libs INTERFACE AC_Sprayer) #stripped
+target_link_libraries(Blimp_libs INTERFACE AC_Fence) #stripped
+target_link_libraries(Blimp_libs INTERFACE AC_Avoidance) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_LandingGear) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_RobotisServo) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_NMEA_Output) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_OSD) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Filesystem) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_ADSB) #stripped
+target_link_libraries(Blimp_libs INTERFACE AC_PID) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_SerialLED) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_EFI) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Hott_Telem) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_ESC_Telem) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Servo_Telem) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Stats) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_GyroFFT) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_RCTelemetry) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Generator) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_MSP) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_OLC) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_WheelEncoder) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_ExternalAHRS) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_VideoTX) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_FETtecOneWire) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_TemperatureSensor) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Torqeedo) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_CustomRotations) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_AIS) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_OpenDroneID) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_CheckFirmware) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_ExternalControl) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_JSON) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Beacon) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Arming) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_RCMapper) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_MultiHeap) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Follow) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_CANManager) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_KDECAN) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_PiccoloCAN) #stripped
+target_link_libraries(Blimp_libs INTERFACE AC_InputManager) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_InertialNav) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Avoidance) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_LTM_Telem) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Devo_Telem) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_AdvancedFailsafe) #stripped
+target_link_libraries(Blimp_libs INTERFACE AC_AttitudeControl) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_DroneCAN) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_HAL_SITL) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_CSVReader) #stripped
+target_link_libraries(Blimp_libs INTERFACE SITL) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_Scripting) #stripped
+target_link_libraries(Blimp_libs INTERFACE AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(blimp_SOURCES #3
+set(blimp_SOURCES #13
 	Blimp/AP_Arming_Blimp.h
 	Blimp/Blimp.h
 	Blimp/Fins.h
@@ -9536,17 +9843,172 @@ set(blimp_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(blimp ${blimp_SOURCES}) #2
-target_compile_definitions(blimp PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #2
-target_link_directories(blimp PUBLIC build2) #2
+add_executable(blimp ${blimp_SOURCES}) #9
+target_compile_definitions(blimp PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_Blimp -DAP_BUILD_TARGET_NAME="Blimp") #10
+target_link_directories(blimp PUBLIC build2) #11
 #target_include_directories(blimp PUBLIC ${blimp_INCLUDES})
 
 
-target_link_libraries(blimp Blimp_libs) #clean
+target_link_libraries(blimp INTERFACE Blimp_libs) #clean
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive AP_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE -Wl,--whole-archive ArduSub_libs -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp INTERFACE m)  # Math library
+target_link_libraries(blimp INTERFACE pthread)  # POSIX threads
+set_target_properties(blimp PROPERTIES 
+    LINK_FLAGS "-Wl,--gc-sections -Wl,--wrap,malloc"
+)
 
 #------------------------------------------------
 
-set(Rover_libs_SOURCES #3
+set(Rover_libs_SOURCES #13
 )
 
 set(Rover_libs_INCLUDES
@@ -9568,8 +10030,8 @@ set(Rover_libs_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(Rover_libs ${Rover_libs_SOURCES}) #2
-target_include_directories(Rover_libs PUBLIC ${Rover_libs_INCLUDES})
+add_library(Rover_libs INTERFACE ${Rover_libs_SOURCES}) #2
+target_include_directories(Rover_libs INTERFACE ${Rover_libs_INCLUDES})
 
 set_target_properties(Rover_libs PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
@@ -9577,136 +10039,136 @@ set_target_properties(Rover_libs PROPERTIES
 )
 
 
-target_link_libraries(Rover_libs AP_AccelCal) #stripped
-target_link_libraries(Rover_libs AP_ADC) #stripped
-target_link_libraries(Rover_libs AP_AHRS) #stripped
-target_link_libraries(Rover_libs AP_Airspeed) #stripped
-target_link_libraries(Rover_libs AP_Baro) #stripped
-target_link_libraries(Rover_libs AP_BattMonitor) #stripped
-target_link_libraries(Rover_libs AP_BoardConfig) #stripped
-target_link_libraries(Rover_libs AP_Camera) #stripped
-target_link_libraries(Rover_libs AP_Common) #stripped
-target_link_libraries(Rover_libs AP_Compass) #stripped
-target_link_libraries(Rover_libs AP_Declination) #stripped
-target_link_libraries(Rover_libs AP_GPS) #stripped
-target_link_libraries(Rover_libs AP_GSOF) #stripped
-target_link_libraries(Rover_libs AP_HAL) #stripped
-target_link_libraries(Rover_libs AP_HAL_Empty) #stripped
-target_link_libraries(Rover_libs AP_DDS) #stripped
-target_link_libraries(Rover_libs AP_InertialSensor) #stripped
-target_link_libraries(Rover_libs AP_Math) #stripped
-target_link_libraries(Rover_libs AP_Mission) #stripped
-target_link_libraries(Rover_libs AP_DAL) #stripped
-target_link_libraries(Rover_libs AP_NavEKF) #stripped
-target_link_libraries(Rover_libs AP_NavEKF2) #stripped
-target_link_libraries(Rover_libs AP_NavEKF3) #stripped
-target_link_libraries(Rover_libs AP_Notify) #stripped
-target_link_libraries(Rover_libs AP_OpticalFlow) #stripped
-target_link_libraries(Rover_libs AP_Param) #stripped
-target_link_libraries(Rover_libs AP_Rally) #stripped
-target_link_libraries(Rover_libs AP_LightWareSerial) #stripped
-target_link_libraries(Rover_libs AP_RangeFinder) #stripped
-target_link_libraries(Rover_libs AP_Scheduler) #stripped
-target_link_libraries(Rover_libs AP_SerialManager) #stripped
-target_link_libraries(Rover_libs AP_Terrain) #stripped
-target_link_libraries(Rover_libs AP_Vehicle) #stripped
-target_link_libraries(Rover_libs AP_InternalError) #stripped
-target_link_libraries(Rover_libs AP_Logger) #stripped
-target_link_libraries(Rover_libs Filter) #stripped
-target_link_libraries(Rover_libs GCS_MAVLink) #stripped
-target_link_libraries(Rover_libs RC_Channel) #stripped
-target_link_libraries(Rover_libs SRV_Channel) #stripped
-target_link_libraries(Rover_libs StorageManager) #stripped
-target_link_libraries(Rover_libs AP_Tuning) #stripped
-target_link_libraries(Rover_libs AP_RPM) #stripped
-target_link_libraries(Rover_libs AP_RSSI) #stripped
-target_link_libraries(Rover_libs AP_Mount) #stripped
-target_link_libraries(Rover_libs AP_Module) #stripped
-target_link_libraries(Rover_libs AP_Button) #stripped
-target_link_libraries(Rover_libs AP_ICEngine) #stripped
-target_link_libraries(Rover_libs AP_Networking) #stripped
-target_link_libraries(Rover_libs AP_Frsky_Telem) #stripped
-target_link_libraries(Rover_libs AP_IBus_Telem) #stripped
-target_link_libraries(Rover_libs AP_FlashStorage) #stripped
-target_link_libraries(Rover_libs AP_Relay) #stripped
-target_link_libraries(Rover_libs AP_ServoRelayEvents) #stripped
-target_link_libraries(Rover_libs AP_Volz_Protocol) #stripped
-target_link_libraries(Rover_libs AP_SBusOut) #stripped
-target_link_libraries(Rover_libs AP_IOMCU) #stripped
-target_link_libraries(Rover_libs AP_Parachute) #stripped
-target_link_libraries(Rover_libs AP_RAMTRON) #stripped
-target_link_libraries(Rover_libs AP_RCProtocol) #stripped
-target_link_libraries(Rover_libs AP_Radio) #stripped
-target_link_libraries(Rover_libs AP_TempCalibration) #stripped
-target_link_libraries(Rover_libs AP_VisualOdom) #stripped
-target_link_libraries(Rover_libs AP_BLHeli) #stripped
-target_link_libraries(Rover_libs AP_ROMFS) #stripped
-target_link_libraries(Rover_libs AP_Proximity) #stripped
-target_link_libraries(Rover_libs AP_Gripper) #stripped
-target_link_libraries(Rover_libs AP_RTC) #stripped
-target_link_libraries(Rover_libs AC_Sprayer) #stripped
-target_link_libraries(Rover_libs AC_Fence) #stripped
-target_link_libraries(Rover_libs AC_Avoidance) #stripped
-target_link_libraries(Rover_libs AP_LandingGear) #stripped
-target_link_libraries(Rover_libs AP_RobotisServo) #stripped
-target_link_libraries(Rover_libs AP_NMEA_Output) #stripped
-target_link_libraries(Rover_libs AP_OSD) #stripped
-target_link_libraries(Rover_libs AP_Filesystem) #stripped
-target_link_libraries(Rover_libs AP_ADSB) #stripped
-target_link_libraries(Rover_libs AC_PID) #stripped
-target_link_libraries(Rover_libs AP_SerialLED) #stripped
-target_link_libraries(Rover_libs AP_EFI) #stripped
-target_link_libraries(Rover_libs AP_Hott_Telem) #stripped
-target_link_libraries(Rover_libs AP_ESC_Telem) #stripped
-target_link_libraries(Rover_libs AP_Servo_Telem) #stripped
-target_link_libraries(Rover_libs AP_Stats) #stripped
-target_link_libraries(Rover_libs AP_GyroFFT) #stripped
-target_link_libraries(Rover_libs AP_RCTelemetry) #stripped
-target_link_libraries(Rover_libs AP_Generator) #stripped
-target_link_libraries(Rover_libs AP_MSP) #stripped
-target_link_libraries(Rover_libs AP_OLC) #stripped
-target_link_libraries(Rover_libs AP_WheelEncoder) #stripped
-target_link_libraries(Rover_libs AP_ExternalAHRS) #stripped
-target_link_libraries(Rover_libs AP_VideoTX) #stripped
-target_link_libraries(Rover_libs AP_FETtecOneWire) #stripped
-target_link_libraries(Rover_libs AP_TemperatureSensor) #stripped
-target_link_libraries(Rover_libs AP_Torqeedo) #stripped
-target_link_libraries(Rover_libs AP_CustomRotations) #stripped
-target_link_libraries(Rover_libs AP_AIS) #stripped
-target_link_libraries(Rover_libs AP_OpenDroneID) #stripped
-target_link_libraries(Rover_libs AP_CheckFirmware) #stripped
-target_link_libraries(Rover_libs AP_ExternalControl) #stripped
-target_link_libraries(Rover_libs AP_JSON) #stripped
-target_link_libraries(Rover_libs AP_Beacon) #stripped
-target_link_libraries(Rover_libs AP_Arming) #stripped
-target_link_libraries(Rover_libs AP_RCMapper) #stripped
-target_link_libraries(Rover_libs AP_MultiHeap) #stripped
-target_link_libraries(Rover_libs AP_Follow) #stripped
-target_link_libraries(Rover_libs AP_CANManager) #stripped
-target_link_libraries(Rover_libs AP_KDECAN) #stripped
-target_link_libraries(Rover_libs AP_PiccoloCAN) #stripped
-target_link_libraries(Rover_libs APM_Control) #stripped
-target_link_libraries(Rover_libs AP_Navigation) #stripped
-target_link_libraries(Rover_libs AR_WPNav) #stripped
-target_link_libraries(Rover_libs AP_AdvancedFailsafe) #stripped
-target_link_libraries(Rover_libs AP_SmartRTL) #stripped
-target_link_libraries(Rover_libs AC_AttitudeControl) #stripped
-target_link_libraries(Rover_libs AP_LTM_Telem) #stripped
-target_link_libraries(Rover_libs AP_Devo_Telem) #stripped
-target_link_libraries(Rover_libs AP_WindVane) #stripped
-target_link_libraries(Rover_libs AR_Motors) #stripped
-target_link_libraries(Rover_libs AC_PrecLand) #stripped
-target_link_libraries(Rover_libs AP_IRLock) #stripped
-target_link_libraries(Rover_libs AP_DroneCAN) #stripped
-target_link_libraries(Rover_libs AP_HAL_SITL) #stripped
-target_link_libraries(Rover_libs AP_CSVReader) #stripped
-target_link_libraries(Rover_libs SITL) #stripped
-target_link_libraries(Rover_libs AP_Scripting) #stripped
-target_link_libraries(Rover_libs AC_CustomControl) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_AccelCal) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_ADC) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_AHRS) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Airspeed) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Baro) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_BattMonitor) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_BoardConfig) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Camera) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Common) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Compass) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Declination) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_GPS) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_GSOF) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_HAL) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_HAL_Empty) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_DDS) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_InertialSensor) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Math) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Mission) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_DAL) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_NavEKF) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_NavEKF2) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_NavEKF3) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Notify) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_OpticalFlow) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Param) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Rally) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_LightWareSerial) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_RangeFinder) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Scheduler) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_SerialManager) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Terrain) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Vehicle) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_InternalError) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Logger) #stripped
+target_link_libraries(Rover_libs INTERFACE Filter) #stripped
+target_link_libraries(Rover_libs INTERFACE GCS_MAVLink) #stripped
+target_link_libraries(Rover_libs INTERFACE RC_Channel) #stripped
+target_link_libraries(Rover_libs INTERFACE SRV_Channel) #stripped
+target_link_libraries(Rover_libs INTERFACE StorageManager) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Tuning) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_RPM) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_RSSI) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Mount) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Module) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Button) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_ICEngine) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Networking) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Frsky_Telem) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_IBus_Telem) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_FlashStorage) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Relay) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_ServoRelayEvents) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Volz_Protocol) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_SBusOut) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_IOMCU) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Parachute) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_RAMTRON) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_RCProtocol) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Radio) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_TempCalibration) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_VisualOdom) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_BLHeli) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_ROMFS) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Proximity) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Gripper) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_RTC) #stripped
+target_link_libraries(Rover_libs INTERFACE AC_Sprayer) #stripped
+target_link_libraries(Rover_libs INTERFACE AC_Fence) #stripped
+target_link_libraries(Rover_libs INTERFACE AC_Avoidance) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_LandingGear) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_RobotisServo) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_NMEA_Output) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_OSD) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Filesystem) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_ADSB) #stripped
+target_link_libraries(Rover_libs INTERFACE AC_PID) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_SerialLED) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_EFI) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Hott_Telem) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_ESC_Telem) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Servo_Telem) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Stats) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_GyroFFT) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_RCTelemetry) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Generator) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_MSP) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_OLC) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_WheelEncoder) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_ExternalAHRS) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_VideoTX) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_FETtecOneWire) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_TemperatureSensor) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Torqeedo) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_CustomRotations) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_AIS) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_OpenDroneID) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_CheckFirmware) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_ExternalControl) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_JSON) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Beacon) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Arming) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_RCMapper) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_MultiHeap) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Follow) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_CANManager) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_KDECAN) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_PiccoloCAN) #stripped
+target_link_libraries(Rover_libs INTERFACE APM_Control) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Navigation) #stripped
+target_link_libraries(Rover_libs INTERFACE AR_WPNav) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_AdvancedFailsafe) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_SmartRTL) #stripped
+target_link_libraries(Rover_libs INTERFACE AC_AttitudeControl) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_LTM_Telem) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Devo_Telem) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_WindVane) #stripped
+target_link_libraries(Rover_libs INTERFACE AR_Motors) #stripped
+target_link_libraries(Rover_libs INTERFACE AC_PrecLand) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_IRLock) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_DroneCAN) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_HAL_SITL) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_CSVReader) #stripped
+target_link_libraries(Rover_libs INTERFACE SITL) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_Scripting) #stripped
+target_link_libraries(Rover_libs INTERFACE AC_CustomControl) #stripped
 
 #------------------------------------------------
 
-set(rover_SOURCES #3
+set(rover_SOURCES #13
 	Rover/AP_Arming_Rover.h
 	Rover/AP_ExternalControl_Rover.h
 	Rover/AP_Rally.h
@@ -9780,11 +10242,166 @@ set(rover_INCLUDES
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_executable(rover ${rover_SOURCES}) #2
-target_compile_definitions(rover PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #2
-target_link_directories(rover PUBLIC build2) #2
+add_executable(rover ${rover_SOURCES}) #9
+target_compile_definitions(rover PUBLIC -DAPM_BUILD_DIRECTORY=APM_BUILD_Rover -DAP_BUILD_TARGET_NAME="Rover") #10
+target_link_directories(rover PUBLIC build2) #11
 #target_include_directories(rover PUBLIC ${rover_INCLUDES})
 
 
-target_link_libraries(rover Rover_libs) #clean
+target_link_libraries(rover INTERFACE Rover_libs) #clean
+target_link_libraries(rover INTERFACE -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_Sprayer -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive APM_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ADC -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ADSB -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_AHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_AccelCal -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_AdvancedFailsafe -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Airspeed -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Baro -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_BattMonitor -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Compass -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_CustomRotations -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_DAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_DDS -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Declination -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Devo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_DroneCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_EFI -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ESC_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ExternalAHRS -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ExternalControl -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_FETtecOneWire -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Filesystem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_FlashStorage -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Frsky_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_GPS -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_GSOF -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Generator -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Gripper -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Hott_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ICEngine -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_IOMCU -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_IRLock -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_InertialNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_InertialSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_InternalError -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_JSButton -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_JSON -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_KDECAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_L1_Control -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_LTM_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Landing -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_LeakDetector -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_LightWareSerial -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Logger -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_MSP -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Math -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Mission -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Module -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Mount -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_MultiHeap -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_NMEA_Output -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_NavEKF -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_NavEKF2 -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Networking -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Notify -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_OLC -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_OSD -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_OpenDroneID -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_OpticalFlow -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Parachute -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Param -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_PiccoloCAN -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Proximity -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Quicktune -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RAMTRON -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RCMapper -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RCProtocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RCTelemetry -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ROMFS -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RPM -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RSSI -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RTC -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Radio -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RangeFinder -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Relay -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_RobotisServo -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_SBusOut -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Scheduler -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_SerialLED -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_SerialManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ServoRelayEvents -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Servo_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_SmartRTL -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Soaring -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Stats -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_SurfaceDistance -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_TECS -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_TempCalibration -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_WheelEncoder -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Winch -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_WindVane -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AR_Motors -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AR_WPNav -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive Filter -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive GCS_MAVLink -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive PID -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive RC_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Rally -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive StorageManager -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_IBus_Telem -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_BLHeli -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AC_Fence -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_LandingGear -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_ADSB_sagetech-sdk -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_GyroFFT -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_AIS -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Arming -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Follow -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive AP_Avoidance -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE -Wl,--whole-archive ArduSub_libs -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover INTERFACE m)  # Math library
+target_link_libraries(rover INTERFACE pthread)  # POSIX threads
+set_target_properties(rover PROPERTIES 
+    LINK_FLAGS "-Wl,--gc-sections -Wl,--wrap,malloc"
+)
 
