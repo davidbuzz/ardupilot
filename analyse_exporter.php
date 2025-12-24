@@ -7,7 +7,7 @@ $arg1 = isset($argv[1]) ? $argv[1] : '';
 if ($arg1 == 'clean' ) { 
     //clean up previous files
     @unlink('waf_build_debug.txt');
-    @unlink('c.make_build_debug.txt');
+    @unlink('cmake_build_debug.txt');
     print("Cleaned previous debug output files.\n");
     exit(0);
 }
@@ -52,12 +52,12 @@ if (!file_exists('waf_build_debug.txt')) {
     file_put_contents('waf_build_debug.txt', $bld_waf_debug);
     print("Waf build debug output captured to waf_build_debug.txt\n");
 }
-if (!file_exists('c.make_build_debug.txt')) {
+if (!file_exists('cmake_build_debug.txt')) {
     //$bld_cmake_debug = _shell_exec('rm -rf build2 ; ./waf cmake_exporter 2>/dev/null >/dev/null ; cd build2 ; cmake .. ; make VERBOSE=9 bin_arducopter 2>&1');
     $bld_cmake_debug = _shell_exec('rm -rf build2 ; ./waf cmake_exporter 2>/dev/null >/dev/null ; cd build2 ; cmake .. ; make VERBOSE=9 -i -j 16 2>&1');
     print("CMake build complete.\n");
-    file_put_contents('c.make_build_debug.txt', $bld_cmake_debug);
-    print("CMake build debug output captured to c.make_build_debug.txt\n");
+    file_put_contents('cmake_build_debug.txt', $bld_cmake_debug);
+    print("CMake build debug output captured to cmake_build_debug.txt\n");
 }
 
 function given_long_compile_command_work_out_source_file_name_and_path($cmd_line) {
@@ -221,7 +221,7 @@ function given_cmake_build__workout_current_dir($cmd_line) {
 
 
 $cmake_cmds = array();
-$bld_debug = file_get_contents('c.make_build_debug.txt');
+$bld_debug = file_get_contents('cmake_build_debug.txt');
 print "CMAKE linecount: " . strlen($bld_debug) . "\n";
 $lines = explode("\n", $bld_debug);
 print "CMAKE lines: " . count($lines) . "\n";
@@ -250,6 +250,7 @@ foreach ($lines as $line) {
         $is_compile = preg_replace('/bin[\w_]+.dir\//', '', $is_compile);
         $is_compile = preg_replace('/littlefs.dir\//', '', $is_compile);
         $is_compile = preg_replace('/objs[\w_]+.dir\//', '', $is_compile);
+        $is_compile = preg_replace('/[\w_]+.dir\//', '', $is_compile);
 
         // doesit start with libraries?
         $is_library = false;
@@ -332,12 +333,18 @@ foreach ($lines as $line) {
     } 
 }
 // count commands in each
-foreach ($cmake_cmds as $cmd) {
+foreach ($cmake_cmds as $idx =>$cmd) {
     // skip ones that start with build
     // if (preg_match('/^build/', $cmd[1])) {
     //     continue;
     // }
     if ($cmd[0] == 'COMPILE') {
+        //if $cmd[1] starts with copter.dir/ at the start, strip that off, as cmake uses that and waf doersnt.
+        if (preg_match('/^[\w\d_]+.dir\//i', $cmd[1])) {
+            $cmake_cmds[$idx][1] = preg_replace('/^[\w\d_]+.dir\//i', '', $cmd[1]);
+        }// makes them compatible with waf.
+       
+
         $src_file = given_long_compile_command_work_out_source_file_name_and_path($cmd[2]);
         $pwd = given_cmake_build__workout_current_dir($cmd[2]);
         //print "Debug: Compile source file: " . $src_file . " in dir: " . $pwd . "\n";
@@ -363,7 +370,7 @@ foreach ($cmake_cmds as $cmd) {
 print("CMAKE build commands captured: " . count($cmake_cmds) . "\n");
 print("... analysing done\n");
 
-// $find = 'ArduCopter/UserCode.cpp';
+// $find = 'ArduCopter/UserParameters.cpp';
 // print("\n-----------------------------------------------------------------------\nSearching for $find in both builds...\n");
 // // search in waf cmds
 // foreach ($waf_cmds as $cmd) {
@@ -378,11 +385,13 @@ print("... analysing done\n");
 //         break;
 //     }
 //     // regex find it in [0] or [1] or [2], then print it.
-//     if (preg_match('/UserCode/', $cmd[0]) || preg_match('/User/', $cmd[1])|| preg_match('/User/', $cmd[2])) {
+//     $find_regex = preg_quote($find, '/');
+//     if (preg_match('/'.$find_regex.'/', $cmd[0]) || preg_match('/'.$find_regex.'/', $cmd[1])|| preg_match('/'.$find_regex.'/', $cmd[2])) {
 //         print("Found in CMAKE build (regex): " . $cmd[0] ." ". $cmd[1] ." ". $cmd[2] ."\n");
 //         break;
 //     }
 // }
+// exit;
 
 //now do a simple compare , using waf list as the master list.
 print("Comparing WAF and CMAKE build commands...\n");
