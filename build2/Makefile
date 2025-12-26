@@ -117,6 +117,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named Rover_libs
+
+# Build rule for target.
+Rover_libs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Rover_libs
+.PHONY : Rover_libs
+
+# fast build rule for target.
+Rover_libs/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Rover_libs.dir/build.make CMakeFiles/Rover_libs.dir/build
+.PHONY : Rover_libs/fast
+
+#=============================================================================
 # Target rules for targets named blimp
 
 # Build rule for target.
@@ -128,6 +141,19 @@ blimp: cmake_check_build_system
 blimp/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/build
 .PHONY : blimp/fast
+
+#=============================================================================
+# Target rules for targets named Blimp_libs
+
+# Build rule for target.
+Blimp_libs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Blimp_libs
+.PHONY : Blimp_libs
+
+# fast build rule for target.
+Blimp_libs/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Blimp_libs.dir/build.make CMakeFiles/Blimp_libs.dir/build
+.PHONY : Blimp_libs/fast
 
 #=============================================================================
 # Target rules for targets named sub
@@ -143,6 +169,19 @@ sub/fast:
 .PHONY : sub/fast
 
 #=============================================================================
+# Target rules for targets named ArduSub_libs
+
+# Build rule for target.
+ArduSub_libs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduSub_libs
+.PHONY : ArduSub_libs
+
+# fast build rule for target.
+ArduSub_libs/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ArduSub_libs.dir/build.make CMakeFiles/ArduSub_libs.dir/build
+.PHONY : ArduSub_libs/fast
+
+#=============================================================================
 # Target rules for targets named plane
 
 # Build rule for target.
@@ -154,6 +193,19 @@ plane: cmake_check_build_system
 plane/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/build
 .PHONY : plane/fast
+
+#=============================================================================
+# Target rules for targets named ArduPlane_libs
+
+# Build rule for target.
+ArduPlane_libs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduPlane_libs
+.PHONY : ArduPlane_libs
+
+# fast build rule for target.
+ArduPlane_libs/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ArduPlane_libs.dir/build.make CMakeFiles/ArduPlane_libs.dir/build
+.PHONY : ArduPlane_libs/fast
 
 #=============================================================================
 # Target rules for targets named copter-heli
@@ -169,30 +221,56 @@ copter-heli/fast:
 .PHONY : copter-heli/fast
 
 #=============================================================================
-# Target rules for targets named AP_Avoidance_Plane
+# Target rules for targets named AP_NavEKF
 
 # Build rule for target.
-AP_Avoidance_Plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Avoidance_Plane
-.PHONY : AP_Avoidance_Plane
+AP_NavEKF: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NavEKF
+.PHONY : AP_NavEKF
 
 # fast build rule for target.
-AP_Avoidance_Plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Avoidance_Plane.dir/build.make CMakeFiles/AP_Avoidance_Plane.dir/build
-.PHONY : AP_Avoidance_Plane/fast
+AP_NavEKF/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF.dir/build.make CMakeFiles/AP_NavEKF.dir/build
+.PHONY : AP_NavEKF/fast
 
 #=============================================================================
-# Target rules for targets named AP_Avoidance
+# Target rules for targets named AP_DAL_Plane
 
 # Build rule for target.
-AP_Avoidance: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Avoidance
-.PHONY : AP_Avoidance
+AP_DAL_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_DAL_Plane
+.PHONY : AP_DAL_Plane
 
 # fast build rule for target.
-AP_Avoidance/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Avoidance.dir/build.make CMakeFiles/AP_Avoidance.dir/build
-.PHONY : AP_Avoidance/fast
+AP_DAL_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/build
+.PHONY : AP_DAL_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_NMEA_Output
+
+# Build rule for target.
+AP_NMEA_Output: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NMEA_Output
+.PHONY : AP_NMEA_Output
+
+# fast build rule for target.
+AP_NMEA_Output/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NMEA_Output.dir/build.make CMakeFiles/AP_NMEA_Output.dir/build
+.PHONY : AP_NMEA_Output/fast
+
+#=============================================================================
+# Target rules for targets named AP_LTM_Telem
+
+# Build rule for target.
+AP_LTM_Telem: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_LTM_Telem
+.PHONY : AP_LTM_Telem
+
+# fast build rule for target.
+AP_LTM_Telem/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LTM_Telem.dir/build.make CMakeFiles/AP_LTM_Telem.dir/build
+.PHONY : AP_LTM_Telem/fast
 
 #=============================================================================
 # Target rules for targets named AP_MultiHeap
@@ -416,6 +494,19 @@ AP_IOMCU/fast:
 .PHONY : AP_IOMCU/fast
 
 #=============================================================================
+# Target rules for targets named AP_ICEngine
+
+# Build rule for target.
+AP_ICEngine: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ICEngine
+.PHONY : AP_ICEngine
+
+# fast build rule for target.
+AP_ICEngine/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ICEngine.dir/build.make CMakeFiles/AP_ICEngine.dir/build
+.PHONY : AP_ICEngine/fast
+
+#=============================================================================
 # Target rules for targets named AP_Frsky_Telem_Plane
 
 # Build rule for target.
@@ -453,6 +544,19 @@ AP_PiccoloCAN: cmake_check_build_system
 AP_PiccoloCAN/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_PiccoloCAN.dir/build.make CMakeFiles/AP_PiccoloCAN.dir/build
 .PHONY : AP_PiccoloCAN/fast
+
+#=============================================================================
+# Target rules for targets named Filter
+
+# Build rule for target.
+Filter: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Filter
+.PHONY : Filter
+
+# fast build rule for target.
+Filter/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/build
+.PHONY : Filter/fast
 
 #=============================================================================
 # Target rules for targets named AP_FlashStorage
@@ -728,32 +832,6 @@ AP_ADSB_sagetech-sdk/fast:
 .PHONY : AP_ADSB_sagetech-sdk/fast
 
 #=============================================================================
-# Target rules for targets named tracker
-
-# Build rule for target.
-tracker: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tracker
-.PHONY : tracker
-
-# fast build rule for target.
-tracker/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/build
-.PHONY : tracker/fast
-
-#=============================================================================
-# Target rules for targets named AP_Logger
-
-# Build rule for target.
-AP_Logger: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Logger
-.PHONY : AP_Logger
-
-# fast build rule for target.
-AP_Logger/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/build
-.PHONY : AP_Logger/fast
-
-#=============================================================================
 # Target rules for targets named AP_GyroFFT
 
 # Build rule for target.
@@ -832,160 +910,82 @@ AP_Volz_Protocol/fast:
 .PHONY : AP_Volz_Protocol/fast
 
 #=============================================================================
-# Target rules for targets named AP_ICEngine
+# Target rules for targets named AP_ESC_Telem
 
 # Build rule for target.
-AP_ICEngine: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ICEngine
-.PHONY : AP_ICEngine
+AP_ESC_Telem: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ESC_Telem
+.PHONY : AP_ESC_Telem
 
 # fast build rule for target.
-AP_ICEngine/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ICEngine.dir/build.make CMakeFiles/AP_ICEngine.dir/build
-.PHONY : AP_ICEngine/fast
+AP_ESC_Telem/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem.dir/build.make CMakeFiles/AP_ESC_Telem.dir/build
+.PHONY : AP_ESC_Telem/fast
 
 #=============================================================================
-# Target rules for targets named littlefs
+# Target rules for targets named AC_AutoTune
 
 # Build rule for target.
-littlefs: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 littlefs
-.PHONY : littlefs
+AC_AutoTune: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_AutoTune
+.PHONY : AC_AutoTune
 
 # fast build rule for target.
-littlefs/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/littlefs.dir/build.make CMakeFiles/littlefs.dir/build
-.PHONY : littlefs/fast
+AC_AutoTune/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/build
+.PHONY : AC_AutoTune/fast
 
 #=============================================================================
-# Target rules for targets named AC_CustomControl
+# Target rules for targets named AP_Rally
 
 # Build rule for target.
-AC_CustomControl: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_CustomControl
-.PHONY : AC_CustomControl
+AP_Rally: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Rally
+.PHONY : AP_Rally
 
 # fast build rule for target.
-AC_CustomControl/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_CustomControl.dir/build.make CMakeFiles/AC_CustomControl.dir/build
-.PHONY : AC_CustomControl/fast
+AP_Rally/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Rally.dir/build.make CMakeFiles/AP_Rally.dir/build
+.PHONY : AP_Rally/fast
 
 #=============================================================================
-# Target rules for targets named AP_Winch
+# Target rules for targets named AP_Camera
 
 # Build rule for target.
-AP_Winch: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Winch
-.PHONY : AP_Winch
+AP_Camera: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Camera
+.PHONY : AP_Camera
 
 # fast build rule for target.
-AP_Winch/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Winch.dir/build.make CMakeFiles/AP_Winch.dir/build
-.PHONY : AP_Winch/fast
+AP_Camera/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Camera.dir/build.make CMakeFiles/AP_Camera.dir/build
+.PHONY : AP_Camera/fast
 
 #=============================================================================
-# Target rules for targets named StorageManager
+# Target rules for targets named AP_DAL
 
 # Build rule for target.
-StorageManager: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 StorageManager
-.PHONY : StorageManager
+AP_DAL: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_DAL
+.PHONY : AP_DAL
 
 # fast build rule for target.
-StorageManager/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager.dir/build.make CMakeFiles/StorageManager.dir/build
-.PHONY : StorageManager/fast
+AP_DAL/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/build
+.PHONY : AP_DAL/fast
 
 #=============================================================================
-# Target rules for targets named AP_Arming
+# Target rules for targets named AP_Relay
 
 # Build rule for target.
-AP_Arming: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Arming
-.PHONY : AP_Arming
+AP_Relay: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Relay
+.PHONY : AP_Relay
 
 # fast build rule for target.
-AP_Arming/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Arming.dir/build.make CMakeFiles/AP_Arming.dir/build
-.PHONY : AP_Arming/fast
-
-#=============================================================================
-# Target rules for targets named AP_NavEKF2_Plane
-
-# Build rule for target.
-AP_NavEKF2_Plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NavEKF2_Plane
-.PHONY : AP_NavEKF2_Plane
-
-# fast build rule for target.
-AP_NavEKF2_Plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/build
-.PHONY : AP_NavEKF2_Plane/fast
-
-#=============================================================================
-# Target rules for targets named AC_AutoTune_Plane
-
-# Build rule for target.
-AC_AutoTune_Plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_AutoTune_Plane
-.PHONY : AC_AutoTune_Plane
-
-# fast build rule for target.
-AC_AutoTune_Plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/build
-.PHONY : AC_AutoTune_Plane/fast
-
-#=============================================================================
-# Target rules for targets named AP_Airspeed
-
-# Build rule for target.
-AP_Airspeed: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Airspeed
-.PHONY : AP_Airspeed
-
-# fast build rule for target.
-AP_Airspeed/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/build
-.PHONY : AP_Airspeed/fast
-
-#=============================================================================
-# Target rules for targets named AP_VideoTX
-
-# Build rule for target.
-AP_VideoTX: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_VideoTX
-.PHONY : AP_VideoTX
-
-# fast build rule for target.
-AP_VideoTX/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_VideoTX.dir/build.make CMakeFiles/AP_VideoTX.dir/build
-.PHONY : AP_VideoTX/fast
-
-#=============================================================================
-# Target rules for targets named AP_CANManager
-
-# Build rule for target.
-AP_CANManager: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_CANManager
-.PHONY : AP_CANManager
-
-# fast build rule for target.
-AP_CANManager/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CANManager.dir/build.make CMakeFiles/AP_CANManager.dir/build
-.PHONY : AP_CANManager/fast
-
-#=============================================================================
-# Target rules for targets named AP_Follow_Plane
-
-# Build rule for target.
-AP_Follow_Plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Follow_Plane
-.PHONY : AP_Follow_Plane
-
-# fast build rule for target.
-AP_Follow_Plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow_Plane.dir/build.make CMakeFiles/AP_Follow_Plane.dir/build
-.PHONY : AP_Follow_Plane/fast
+AP_Relay/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay.dir/build.make CMakeFiles/AP_Relay.dir/build
+.PHONY : AP_Relay/fast
 
 #=============================================================================
 # Target rules for targets named AP_ADC
@@ -1170,6 +1170,84 @@ AP_Follow/fast:
 .PHONY : AP_Follow/fast
 
 #=============================================================================
+# Target rules for targets named AP_NavEKF2_Plane
+
+# Build rule for target.
+AP_NavEKF2_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NavEKF2_Plane
+.PHONY : AP_NavEKF2_Plane
+
+# fast build rule for target.
+AP_NavEKF2_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/build
+.PHONY : AP_NavEKF2_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AC_AutoTune_Plane
+
+# Build rule for target.
+AC_AutoTune_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_AutoTune_Plane
+.PHONY : AC_AutoTune_Plane
+
+# fast build rule for target.
+AC_AutoTune_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/build
+.PHONY : AC_AutoTune_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_Airspeed
+
+# Build rule for target.
+AP_Airspeed: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Airspeed
+.PHONY : AP_Airspeed
+
+# fast build rule for target.
+AP_Airspeed/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/build
+.PHONY : AP_Airspeed/fast
+
+#=============================================================================
+# Target rules for targets named AP_VideoTX
+
+# Build rule for target.
+AP_VideoTX: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_VideoTX
+.PHONY : AP_VideoTX
+
+# fast build rule for target.
+AP_VideoTX/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_VideoTX.dir/build.make CMakeFiles/AP_VideoTX.dir/build
+.PHONY : AP_VideoTX/fast
+
+#=============================================================================
+# Target rules for targets named AP_CANManager
+
+# Build rule for target.
+AP_CANManager: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_CANManager
+.PHONY : AP_CANManager
+
+# fast build rule for target.
+AP_CANManager/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CANManager.dir/build.make CMakeFiles/AP_CANManager.dir/build
+.PHONY : AP_CANManager/fast
+
+#=============================================================================
+# Target rules for targets named AP_Follow_Plane
+
+# Build rule for target.
+AP_Follow_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Follow_Plane
+.PHONY : AP_Follow_Plane
+
+# fast build rule for target.
+AP_Follow_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow_Plane.dir/build.make CMakeFiles/AP_Follow_Plane.dir/build
+.PHONY : AP_Follow_Plane/fast
+
+#=============================================================================
 # Target rules for targets named AP_InertialSensor_Plane
 
 # Build rule for target.
@@ -1196,290 +1274,17 @@ AC_Autorotation/fast:
 .PHONY : AC_Autorotation/fast
 
 #=============================================================================
-# Target rules for targets named AC_WPNav
+# Target rules for targets named AP_Generator
 
 # Build rule for target.
-AC_WPNav: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_WPNav
-.PHONY : AC_WPNav
+AP_Generator: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Generator
+.PHONY : AP_Generator
 
 # fast build rule for target.
-AC_WPNav/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/build
-.PHONY : AC_WPNav/fast
-
-#=============================================================================
-# Target rules for targets named AP_CheckFirmware
-
-# Build rule for target.
-AP_CheckFirmware: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_CheckFirmware
-.PHONY : AP_CheckFirmware
-
-# fast build rule for target.
-AP_CheckFirmware/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CheckFirmware.dir/build.make CMakeFiles/AP_CheckFirmware.dir/build
-.PHONY : AP_CheckFirmware/fast
-
-#=============================================================================
-# Target rules for targets named AP_TemperatureSensor_Plane
-
-# Build rule for target.
-AP_TemperatureSensor_Plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_TemperatureSensor_Plane
-.PHONY : AP_TemperatureSensor_Plane
-
-# fast build rule for target.
-AP_TemperatureSensor_Plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/build
-.PHONY : AP_TemperatureSensor_Plane/fast
-
-#=============================================================================
-# Target rules for targets named AP_Frsky_Telem
-
-# Build rule for target.
-AP_Frsky_Telem: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Frsky_Telem
-.PHONY : AP_Frsky_Telem
-
-# fast build rule for target.
-AP_Frsky_Telem/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/build
-.PHONY : AP_Frsky_Telem/fast
-
-#=============================================================================
-# Target rules for targets named gen-bindings
-
-# Build rule for target.
-gen-bindings: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gen-bindings
-.PHONY : gen-bindings
-
-# fast build rule for target.
-gen-bindings/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gen-bindings.dir/build.make CMakeFiles/gen-bindings.dir/build
-.PHONY : gen-bindings/fast
-
-#=============================================================================
-# Target rules for targets named AP_BattMonitor_Plane
-
-# Build rule for target.
-AP_BattMonitor_Plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_BattMonitor_Plane
-.PHONY : AP_BattMonitor_Plane
-
-# fast build rule for target.
-AP_BattMonitor_Plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/build
-.PHONY : AP_BattMonitor_Plane/fast
-
-#=============================================================================
-# Target rules for targets named RC_Channel
-
-# Build rule for target.
-RC_Channel: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 RC_Channel
-.PHONY : RC_Channel
-
-# fast build rule for target.
-RC_Channel/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel.dir/build.make CMakeFiles/RC_Channel.dir/build
-.PHONY : RC_Channel/fast
-
-#=============================================================================
-# Target rules for targets named AP_ESC_Telem
-
-# Build rule for target.
-AP_ESC_Telem: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ESC_Telem
-.PHONY : AP_ESC_Telem
-
-# fast build rule for target.
-AP_ESC_Telem/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem.dir/build.make CMakeFiles/AP_ESC_Telem.dir/build
-.PHONY : AP_ESC_Telem/fast
-
-#=============================================================================
-# Target rules for targets named AC_AutoTune
-
-# Build rule for target.
-AC_AutoTune: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_AutoTune
-.PHONY : AC_AutoTune
-
-# fast build rule for target.
-AC_AutoTune/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/build
-.PHONY : AC_AutoTune/fast
-
-#=============================================================================
-# Target rules for targets named AP_Rally
-
-# Build rule for target.
-AP_Rally: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Rally
-.PHONY : AP_Rally
-
-# fast build rule for target.
-AP_Rally/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Rally.dir/build.make CMakeFiles/AP_Rally.dir/build
-.PHONY : AP_Rally/fast
-
-#=============================================================================
-# Target rules for targets named AP_Camera
-
-# Build rule for target.
-AP_Camera: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Camera
-.PHONY : AP_Camera
-
-# fast build rule for target.
-AP_Camera/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Camera.dir/build.make CMakeFiles/AP_Camera.dir/build
-.PHONY : AP_Camera/fast
-
-#=============================================================================
-# Target rules for targets named AP_DAL
-
-# Build rule for target.
-AP_DAL: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_DAL
-.PHONY : AP_DAL
-
-# fast build rule for target.
-AP_DAL/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/build
-.PHONY : AP_DAL/fast
-
-#=============================================================================
-# Target rules for targets named AP_Relay
-
-# Build rule for target.
-AP_Relay: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Relay
-.PHONY : AP_Relay
-
-# fast build rule for target.
-AP_Relay/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay.dir/build.make CMakeFiles/AP_Relay.dir/build
-.PHONY : AP_Relay/fast
-
-#=============================================================================
-# Target rules for targets named AC_WPNav_Plane
-
-# Build rule for target.
-AC_WPNav_Plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_WPNav_Plane
-.PHONY : AC_WPNav_Plane
-
-# fast build rule for target.
-AC_WPNav_Plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/build
-.PHONY : AC_WPNav_Plane/fast
-
-#=============================================================================
-# Target rules for targets named AC_Sprayer
-
-# Build rule for target.
-AC_Sprayer: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Sprayer
-.PHONY : AC_Sprayer
-
-# fast build rule for target.
-AC_Sprayer/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Sprayer.dir/build.make CMakeFiles/AC_Sprayer.dir/build
-.PHONY : AC_Sprayer/fast
-
-#=============================================================================
-# Target rules for targets named copter
-
-# Build rule for target.
-copter: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 copter
-.PHONY : copter
-
-# fast build rule for target.
-copter/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/build
-.PHONY : copter/fast
-
-#=============================================================================
-# Target rules for targets named AP_Landing
-
-# Build rule for target.
-AP_Landing: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Landing
-.PHONY : AP_Landing
-
-# fast build rule for target.
-AP_Landing/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing.dir/build.make CMakeFiles/AP_Landing.dir/build
-.PHONY : AP_Landing/fast
-
-#=============================================================================
-# Target rules for targets named AP_Torqeedo
-
-# Build rule for target.
-AP_Torqeedo: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Torqeedo
-.PHONY : AP_Torqeedo
-
-# fast build rule for target.
-AP_Torqeedo/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Torqeedo.dir/build.make CMakeFiles/AP_Torqeedo.dir/build
-.PHONY : AP_Torqeedo/fast
-
-#=============================================================================
-# Target rules for targets named AP_LTM_Telem
-
-# Build rule for target.
-AP_LTM_Telem: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_LTM_Telem
-.PHONY : AP_LTM_Telem
-
-# fast build rule for target.
-AP_LTM_Telem/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LTM_Telem.dir/build.make CMakeFiles/AP_LTM_Telem.dir/build
-.PHONY : AP_LTM_Telem/fast
-
-#=============================================================================
-# Target rules for targets named AP_NMEA_Output
-
-# Build rule for target.
-AP_NMEA_Output: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NMEA_Output
-.PHONY : AP_NMEA_Output
-
-# fast build rule for target.
-AP_NMEA_Output/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NMEA_Output.dir/build.make CMakeFiles/AP_NMEA_Output.dir/build
-.PHONY : AP_NMEA_Output/fast
-
-#=============================================================================
-# Target rules for targets named AC_Avoidance_Plane
-
-# Build rule for target.
-AC_Avoidance_Plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Avoidance_Plane
-.PHONY : AC_Avoidance_Plane
-
-# fast build rule for target.
-AC_Avoidance_Plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/build
-.PHONY : AC_Avoidance_Plane/fast
-
-#=============================================================================
-# Target rules for targets named AP_AHRS
-
-# Build rule for target.
-AP_AHRS: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AHRS
-.PHONY : AP_AHRS
-
-# fast build rule for target.
-AP_AHRS/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/build
-.PHONY : AP_AHRS/fast
+AP_Generator/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Generator.dir/build.make CMakeFiles/AP_Generator.dir/build
+.PHONY : AP_Generator/fast
 
 #=============================================================================
 # Target rules for targets named AP_Hott_Telem
@@ -1534,17 +1339,160 @@ AP_AHRS_Plane/fast:
 .PHONY : AP_AHRS_Plane/fast
 
 #=============================================================================
-# Target rules for targets named AP_Generator
+# Target rules for targets named AC_Avoidance_Plane
 
 # Build rule for target.
-AP_Generator: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Generator
-.PHONY : AP_Generator
+AC_Avoidance_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Avoidance_Plane
+.PHONY : AC_Avoidance_Plane
 
 # fast build rule for target.
-AP_Generator/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Generator.dir/build.make CMakeFiles/AP_Generator.dir/build
-.PHONY : AP_Generator/fast
+AC_Avoidance_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/build
+.PHONY : AC_Avoidance_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_AHRS
+
+# Build rule for target.
+AP_AHRS: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AHRS
+.PHONY : AP_AHRS
+
+# fast build rule for target.
+AP_AHRS/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/build
+.PHONY : AP_AHRS/fast
+
+#=============================================================================
+# Target rules for targets named AP_TemperatureSensor_Plane
+
+# Build rule for target.
+AP_TemperatureSensor_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_TemperatureSensor_Plane
+.PHONY : AP_TemperatureSensor_Plane
+
+# fast build rule for target.
+AP_TemperatureSensor_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/build
+.PHONY : AP_TemperatureSensor_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AC_WPNav
+
+# Build rule for target.
+AC_WPNav: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_WPNav
+.PHONY : AC_WPNav
+
+# fast build rule for target.
+AC_WPNav/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/build
+.PHONY : AC_WPNav/fast
+
+#=============================================================================
+# Target rules for targets named AP_CheckFirmware
+
+# Build rule for target.
+AP_CheckFirmware: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_CheckFirmware
+.PHONY : AP_CheckFirmware
+
+# fast build rule for target.
+AP_CheckFirmware/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CheckFirmware.dir/build.make CMakeFiles/AP_CheckFirmware.dir/build
+.PHONY : AP_CheckFirmware/fast
+
+#=============================================================================
+# Target rules for targets named AP_Frsky_Telem
+
+# Build rule for target.
+AP_Frsky_Telem: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Frsky_Telem
+.PHONY : AP_Frsky_Telem
+
+# fast build rule for target.
+AP_Frsky_Telem/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/build
+.PHONY : AP_Frsky_Telem/fast
+
+#=============================================================================
+# Target rules for targets named AP_BattMonitor_Plane
+
+# Build rule for target.
+AP_BattMonitor_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_BattMonitor_Plane
+.PHONY : AP_BattMonitor_Plane
+
+# fast build rule for target.
+AP_BattMonitor_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/build
+.PHONY : AP_BattMonitor_Plane/fast
+
+#=============================================================================
+# Target rules for targets named RC_Channel
+
+# Build rule for target.
+RC_Channel: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 RC_Channel
+.PHONY : RC_Channel
+
+# fast build rule for target.
+RC_Channel/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel.dir/build.make CMakeFiles/RC_Channel.dir/build
+.PHONY : RC_Channel/fast
+
+#=============================================================================
+# Target rules for targets named gen-bindings
+
+# Build rule for target.
+gen-bindings: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gen-bindings
+.PHONY : gen-bindings
+
+# fast build rule for target.
+gen-bindings/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gen-bindings.dir/build.make CMakeFiles/gen-bindings.dir/build
+.PHONY : gen-bindings/fast
+
+#=============================================================================
+# Target rules for targets named AC_WPNav_Plane
+
+# Build rule for target.
+AC_WPNav_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_WPNav_Plane
+.PHONY : AC_WPNav_Plane
+
+# fast build rule for target.
+AC_WPNav_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/build
+.PHONY : AC_WPNav_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AC_Sprayer
+
+# Build rule for target.
+AC_Sprayer: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Sprayer
+.PHONY : AC_Sprayer
+
+# fast build rule for target.
+AC_Sprayer/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Sprayer.dir/build.make CMakeFiles/AC_Sprayer.dir/build
+.PHONY : AC_Sprayer/fast
+
+#=============================================================================
+# Target rules for targets named AC_Avoidance
+
+# Build rule for target.
+AC_Avoidance: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Avoidance
+.PHONY : AC_Avoidance
+
+# fast build rule for target.
+AC_Avoidance/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/build
+.PHONY : AC_Avoidance/fast
 
 #=============================================================================
 # Target rules for targets named AC_PrecLand
@@ -1664,32 +1612,6 @@ AP_Button/fast:
 .PHONY : AP_Button/fast
 
 #=============================================================================
-# Target rules for targets named Filter
-
-# Build rule for target.
-Filter: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Filter
-.PHONY : Filter
-
-# fast build rule for target.
-Filter/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/build
-.PHONY : Filter/fast
-
-#=============================================================================
-# Target rules for targets named AP_CSVReader
-
-# Build rule for target.
-AP_CSVReader: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_CSVReader
-.PHONY : AP_CSVReader
-
-# fast build rule for target.
-AP_CSVReader/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CSVReader.dir/build.make CMakeFiles/AP_CSVReader.dir/build
-.PHONY : AP_CSVReader/fast
-
-#=============================================================================
 # Target rules for targets named AP_HAL_Plane
 
 # Build rule for target.
@@ -1755,32 +1677,6 @@ AP_Baro/fast:
 .PHONY : AP_Baro/fast
 
 #=============================================================================
-# Target rules for targets named AP_DAL_Plane
-
-# Build rule for target.
-AP_DAL_Plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_DAL_Plane
-.PHONY : AP_DAL_Plane
-
-# fast build rule for target.
-AP_DAL_Plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/build
-.PHONY : AP_DAL_Plane/fast
-
-#=============================================================================
-# Target rules for targets named AP_NavEKF
-
-# Build rule for target.
-AP_NavEKF: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NavEKF
-.PHONY : AP_NavEKF
-
-# fast build rule for target.
-AP_NavEKF/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF.dir/build.make CMakeFiles/AP_NavEKF.dir/build
-.PHONY : AP_NavEKF/fast
-
-#=============================================================================
 # Target rules for targets named AP_BattMonitor
 
 # Build rule for target.
@@ -1794,19 +1690,6 @@ AP_BattMonitor/fast:
 .PHONY : AP_BattMonitor/fast
 
 #=============================================================================
-# Target rules for targets named AP_Mount
-
-# Build rule for target.
-AP_Mount: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Mount
-.PHONY : AP_Mount
-
-# fast build rule for target.
-AP_Mount/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mount.dir/build.make CMakeFiles/AP_Mount.dir/build
-.PHONY : AP_Mount/fast
-
-#=============================================================================
 # Target rules for targets named AP_ESC_Telem_Plane
 
 # Build rule for target.
@@ -1818,32 +1701,6 @@ AP_ESC_Telem_Plane: cmake_check_build_system
 AP_ESC_Telem_Plane/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem_Plane.dir/build.make CMakeFiles/AP_ESC_Telem_Plane.dir/build
 .PHONY : AP_ESC_Telem_Plane/fast
-
-#=============================================================================
-# Target rules for targets named AC_Avoidance
-
-# Build rule for target.
-AC_Avoidance: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Avoidance
-.PHONY : AC_Avoidance
-
-# fast build rule for target.
-AC_Avoidance/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/build
-.PHONY : AC_Avoidance/fast
-
-#=============================================================================
-# Target rules for targets named SITL_Plane
-
-# Build rule for target.
-SITL_Plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SITL_Plane
-.PHONY : SITL_Plane
-
-# fast build rule for target.
-SITL_Plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/build
-.PHONY : SITL_Plane/fast
 
 #=============================================================================
 # Target rules for targets named dronecan_dsdlc_generated
@@ -1872,6 +1729,19 @@ AP_BoardConfig/fast:
 .PHONY : AP_BoardConfig/fast
 
 #=============================================================================
+# Target rules for targets named AP_Mount
+
+# Build rule for target.
+AP_Mount: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Mount
+.PHONY : AP_Mount
+
+# fast build rule for target.
+AP_Mount/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mount.dir/build.make CMakeFiles/AP_Mount.dir/build
+.PHONY : AP_Mount/fast
+
+#=============================================================================
 # Target rules for targets named AP_CustomRotations
 
 # Build rule for target.
@@ -1896,19 +1766,6 @@ AP_Networking: cmake_check_build_system
 AP_Networking/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Networking.dir/build.make CMakeFiles/AP_Networking.dir/build
 .PHONY : AP_Networking/fast
-
-#=============================================================================
-# Target rules for targets named AP_OSD
-
-# Build rule for target.
-AP_OSD: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_OSD
-.PHONY : AP_OSD
-
-# fast build rule for target.
-AP_OSD/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/build
-.PHONY : AP_OSD/fast
 
 #=============================================================================
 # Target rules for targets named AP_OSD_Plane
@@ -2522,6 +2379,32 @@ AP_Vehicle/fast:
 .PHONY : AP_Vehicle/fast
 
 #=============================================================================
+# Target rules for targets named StorageManager
+
+# Build rule for target.
+StorageManager: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 StorageManager
+.PHONY : StorageManager
+
+# fast build rule for target.
+StorageManager/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager.dir/build.make CMakeFiles/StorageManager.dir/build
+.PHONY : StorageManager/fast
+
+#=============================================================================
+# Target rules for targets named AP_Arming
+
+# Build rule for target.
+AP_Arming: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Arming
+.PHONY : AP_Arming
+
+# fast build rule for target.
+AP_Arming/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Arming.dir/build.make CMakeFiles/AP_Arming.dir/build
+.PHONY : AP_Arming/fast
+
+#=============================================================================
 # Target rules for targets named AP_Mission
 
 # Build rule for target.
@@ -2587,19 +2470,6 @@ Filter_Plane/fast:
 .PHONY : Filter_Plane/fast
 
 #=============================================================================
-# Target rules for targets named SITL
-
-# Build rule for target.
-SITL: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SITL
-.PHONY : SITL
-
-# fast build rule for target.
-SITL/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/build
-.PHONY : SITL/fast
-
-#=============================================================================
 # Target rules for targets named AP_JSON
 
 # Build rule for target.
@@ -2624,6 +2494,32 @@ GCS_MAVLink: cmake_check_build_system
 GCS_MAVLink/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/build
 .PHONY : GCS_MAVLink/fast
+
+#=============================================================================
+# Target rules for targets named AP_Winch
+
+# Build rule for target.
+AP_Winch: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Winch
+.PHONY : AP_Winch
+
+# fast build rule for target.
+AP_Winch/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Winch.dir/build.make CMakeFiles/AP_Winch.dir/build
+.PHONY : AP_Winch/fast
+
+#=============================================================================
+# Target rules for targets named AntennaTracker_libs
+
+# Build rule for target.
+AntennaTracker_libs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AntennaTracker_libs
+.PHONY : AntennaTracker_libs
+
+# fast build rule for target.
+AntennaTracker_libs/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AntennaTracker_libs.dir/build.make CMakeFiles/AntennaTracker_libs.dir/build
+.PHONY : AntennaTracker_libs/fast
 
 #=============================================================================
 # Target rules for targets named PID
@@ -2665,30 +2561,30 @@ AP_PiccoloCAN_piccolo_protocol/fast:
 .PHONY : AP_PiccoloCAN_piccolo_protocol/fast
 
 #=============================================================================
-# Target rules for targets named AP_HAL_SITL
+# Target rules for targets named AP_OSD
 
 # Build rule for target.
-AP_HAL_SITL: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_HAL_SITL
-.PHONY : AP_HAL_SITL
+AP_OSD: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_OSD
+.PHONY : AP_OSD
 
 # fast build rule for target.
-AP_HAL_SITL/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/build
-.PHONY : AP_HAL_SITL/fast
+AP_OSD/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/build
+.PHONY : AP_OSD/fast
 
 #=============================================================================
-# Target rules for targets named AP_HAL_SITL_Plane
+# Target rules for targets named AP_HAL_ChibiOS
 
 # Build rule for target.
-AP_HAL_SITL_Plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_HAL_SITL_Plane
-.PHONY : AP_HAL_SITL_Plane
+AP_HAL_ChibiOS: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_HAL_ChibiOS
+.PHONY : AP_HAL_ChibiOS
 
 # fast build rule for target.
-AP_HAL_SITL_Plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/build
-.PHONY : AP_HAL_SITL_Plane/fast
+AP_HAL_ChibiOS/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/build
+.PHONY : AP_HAL_ChibiOS/fast
 
 #=============================================================================
 # Target rules for targets named AP_Scripting
@@ -2756,6 +2652,19 @@ AP_LandingGear_Plane/fast:
 .PHONY : AP_LandingGear_Plane/fast
 
 #=============================================================================
+# Target rules for targets named AP_Avoidance_Plane
+
+# Build rule for target.
+AP_Avoidance_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Avoidance_Plane
+.PHONY : AP_Avoidance_Plane
+
+# fast build rule for target.
+AP_Avoidance_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Avoidance_Plane.dir/build.make CMakeFiles/AP_Avoidance_Plane.dir/build
+.PHONY : AP_Avoidance_Plane/fast
+
+#=============================================================================
 # Target rules for targets named AP_GyroFFT_Plane
 
 # Build rule for target.
@@ -2793,6 +2702,97 @@ AP_Arming_Plane: cmake_check_build_system
 AP_Arming_Plane/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Arming_Plane.dir/build.make CMakeFiles/AP_Arming_Plane.dir/build
 .PHONY : AP_Arming_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_Logger
+
+# Build rule for target.
+AP_Logger: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Logger
+.PHONY : AP_Logger
+
+# fast build rule for target.
+AP_Logger/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/build
+.PHONY : AP_Logger/fast
+
+#=============================================================================
+# Target rules for targets named tracker
+
+# Build rule for target.
+tracker: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tracker
+.PHONY : tracker
+
+# fast build rule for target.
+tracker/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/build
+.PHONY : tracker/fast
+
+#=============================================================================
+# Target rules for targets named AP_Avoidance
+
+# Build rule for target.
+AP_Avoidance: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Avoidance
+.PHONY : AP_Avoidance
+
+# fast build rule for target.
+AP_Avoidance/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Avoidance.dir/build.make CMakeFiles/AP_Avoidance.dir/build
+.PHONY : AP_Avoidance/fast
+
+#=============================================================================
+# Target rules for targets named ArduCopter_libs
+
+# Build rule for target.
+ArduCopter_libs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ArduCopter_libs
+.PHONY : ArduCopter_libs
+
+# fast build rule for target.
+ArduCopter_libs/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ArduCopter_libs.dir/build.make CMakeFiles/ArduCopter_libs.dir/build
+.PHONY : ArduCopter_libs/fast
+
+#=============================================================================
+# Target rules for targets named AP_Landing
+
+# Build rule for target.
+AP_Landing: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Landing
+.PHONY : AP_Landing
+
+# fast build rule for target.
+AP_Landing/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing.dir/build.make CMakeFiles/AP_Landing.dir/build
+.PHONY : AP_Landing/fast
+
+#=============================================================================
+# Target rules for targets named AP_Torqeedo
+
+# Build rule for target.
+AP_Torqeedo: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Torqeedo
+.PHONY : AP_Torqeedo
+
+# fast build rule for target.
+AP_Torqeedo/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Torqeedo.dir/build.make CMakeFiles/AP_Torqeedo.dir/build
+.PHONY : AP_Torqeedo/fast
+
+#=============================================================================
+# Target rules for targets named copter
+
+# Build rule for target.
+copter: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 copter
+.PHONY : copter
+
+# fast build rule for target.
+copter/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/build
+.PHONY : copter/fast
 
 AntennaTracker/GCS_MAVLink_Tracker.o: AntennaTracker/GCS_MAVLink_Tracker.cpp.o
 .PHONY : AntennaTracker/GCS_MAVLink_Tracker.o
@@ -9438,8 +9438,8 @@ libraries/AC_AutoTune/AC_AutoTune.o: libraries/AC_AutoTune/AC_AutoTune.cpp.o
 
 # target to build an object file
 libraries/AC_AutoTune/AC_AutoTune.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.o
 .PHONY : libraries/AC_AutoTune/AC_AutoTune.cpp.o
 
 libraries/AC_AutoTune/AC_AutoTune.i: libraries/AC_AutoTune/AC_AutoTune.cpp.i
@@ -9447,8 +9447,8 @@ libraries/AC_AutoTune/AC_AutoTune.i: libraries/AC_AutoTune/AC_AutoTune.cpp.i
 
 # target to preprocess a source file
 libraries/AC_AutoTune/AC_AutoTune.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.i
 .PHONY : libraries/AC_AutoTune/AC_AutoTune.cpp.i
 
 libraries/AC_AutoTune/AC_AutoTune.s: libraries/AC_AutoTune/AC_AutoTune.cpp.s
@@ -9456,8 +9456,8 @@ libraries/AC_AutoTune/AC_AutoTune.s: libraries/AC_AutoTune/AC_AutoTune.cpp.s
 
 # target to generate assembly for a file
 libraries/AC_AutoTune/AC_AutoTune.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.s
 .PHONY : libraries/AC_AutoTune/AC_AutoTune.cpp.s
 
 libraries/AC_AutoTune/AC_AutoTune_FreqResp.o: libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.o
@@ -9465,8 +9465,8 @@ libraries/AC_AutoTune/AC_AutoTune_FreqResp.o: libraries/AC_AutoTune/AC_AutoTune_
 
 # target to build an object file
 libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.o
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.o
 
 libraries/AC_AutoTune/AC_AutoTune_FreqResp.i: libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.i
@@ -9474,8 +9474,8 @@ libraries/AC_AutoTune/AC_AutoTune_FreqResp.i: libraries/AC_AutoTune/AC_AutoTune_
 
 # target to preprocess a source file
 libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.i
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.i
 
 libraries/AC_AutoTune/AC_AutoTune_FreqResp.s: libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.s
@@ -9483,8 +9483,8 @@ libraries/AC_AutoTune/AC_AutoTune_FreqResp.s: libraries/AC_AutoTune/AC_AutoTune_
 
 # target to generate assembly for a file
 libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.s
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.s
 
 libraries/AC_AutoTune/AC_AutoTune_Heli.o: libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.o
@@ -9492,8 +9492,8 @@ libraries/AC_AutoTune/AC_AutoTune_Heli.o: libraries/AC_AutoTune/AC_AutoTune_Heli
 
 # target to build an object file
 libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.o
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.o
 
 libraries/AC_AutoTune/AC_AutoTune_Heli.i: libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.i
@@ -9501,8 +9501,8 @@ libraries/AC_AutoTune/AC_AutoTune_Heli.i: libraries/AC_AutoTune/AC_AutoTune_Heli
 
 # target to preprocess a source file
 libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.i
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.i
 
 libraries/AC_AutoTune/AC_AutoTune_Heli.s: libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.s
@@ -9510,8 +9510,8 @@ libraries/AC_AutoTune/AC_AutoTune_Heli.s: libraries/AC_AutoTune/AC_AutoTune_Heli
 
 # target to generate assembly for a file
 libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.s
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.s
 
 libraries/AC_AutoTune/AC_AutoTune_Multi.o: libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.o
@@ -9519,8 +9519,8 @@ libraries/AC_AutoTune/AC_AutoTune_Multi.o: libraries/AC_AutoTune/AC_AutoTune_Mul
 
 # target to build an object file
 libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.o
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.o
 
 libraries/AC_AutoTune/AC_AutoTune_Multi.i: libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.i
@@ -9528,8 +9528,8 @@ libraries/AC_AutoTune/AC_AutoTune_Multi.i: libraries/AC_AutoTune/AC_AutoTune_Mul
 
 # target to preprocess a source file
 libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.i
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.i
 
 libraries/AC_AutoTune/AC_AutoTune_Multi.s: libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.s
@@ -9537,8 +9537,8 @@ libraries/AC_AutoTune/AC_AutoTune_Multi.s: libraries/AC_AutoTune/AC_AutoTune_Mul
 
 # target to generate assembly for a file
 libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.s
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.s
 
 libraries/AC_Autorotation/AC_Autorotation.o: libraries/AC_Autorotation/AC_Autorotation.cpp.o
@@ -9777,78 +9777,6 @@ libraries/AC_Avoidance/AP_OAVisGraph.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OAVisGraph.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OAVisGraph.cpp.s
 .PHONY : libraries/AC_Avoidance/AP_OAVisGraph.cpp.s
-
-libraries/AC_CustomControl/AC_CustomControl.o: libraries/AC_CustomControl/AC_CustomControl.cpp.o
-.PHONY : libraries/AC_CustomControl/AC_CustomControl.o
-
-# target to build an object file
-libraries/AC_CustomControl/AC_CustomControl.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_CustomControl.dir/build.make CMakeFiles/AC_CustomControl.dir/libraries/AC_CustomControl/AC_CustomControl.cpp.o
-.PHONY : libraries/AC_CustomControl/AC_CustomControl.cpp.o
-
-libraries/AC_CustomControl/AC_CustomControl.i: libraries/AC_CustomControl/AC_CustomControl.cpp.i
-.PHONY : libraries/AC_CustomControl/AC_CustomControl.i
-
-# target to preprocess a source file
-libraries/AC_CustomControl/AC_CustomControl.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_CustomControl.dir/build.make CMakeFiles/AC_CustomControl.dir/libraries/AC_CustomControl/AC_CustomControl.cpp.i
-.PHONY : libraries/AC_CustomControl/AC_CustomControl.cpp.i
-
-libraries/AC_CustomControl/AC_CustomControl.s: libraries/AC_CustomControl/AC_CustomControl.cpp.s
-.PHONY : libraries/AC_CustomControl/AC_CustomControl.s
-
-# target to generate assembly for a file
-libraries/AC_CustomControl/AC_CustomControl.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_CustomControl.dir/build.make CMakeFiles/AC_CustomControl.dir/libraries/AC_CustomControl/AC_CustomControl.cpp.s
-.PHONY : libraries/AC_CustomControl/AC_CustomControl.cpp.s
-
-libraries/AC_CustomControl/AC_CustomControl_Empty.o: libraries/AC_CustomControl/AC_CustomControl_Empty.cpp.o
-.PHONY : libraries/AC_CustomControl/AC_CustomControl_Empty.o
-
-# target to build an object file
-libraries/AC_CustomControl/AC_CustomControl_Empty.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_CustomControl.dir/build.make CMakeFiles/AC_CustomControl.dir/libraries/AC_CustomControl/AC_CustomControl_Empty.cpp.o
-.PHONY : libraries/AC_CustomControl/AC_CustomControl_Empty.cpp.o
-
-libraries/AC_CustomControl/AC_CustomControl_Empty.i: libraries/AC_CustomControl/AC_CustomControl_Empty.cpp.i
-.PHONY : libraries/AC_CustomControl/AC_CustomControl_Empty.i
-
-# target to preprocess a source file
-libraries/AC_CustomControl/AC_CustomControl_Empty.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_CustomControl.dir/build.make CMakeFiles/AC_CustomControl.dir/libraries/AC_CustomControl/AC_CustomControl_Empty.cpp.i
-.PHONY : libraries/AC_CustomControl/AC_CustomControl_Empty.cpp.i
-
-libraries/AC_CustomControl/AC_CustomControl_Empty.s: libraries/AC_CustomControl/AC_CustomControl_Empty.cpp.s
-.PHONY : libraries/AC_CustomControl/AC_CustomControl_Empty.s
-
-# target to generate assembly for a file
-libraries/AC_CustomControl/AC_CustomControl_Empty.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_CustomControl.dir/build.make CMakeFiles/AC_CustomControl.dir/libraries/AC_CustomControl/AC_CustomControl_Empty.cpp.s
-.PHONY : libraries/AC_CustomControl/AC_CustomControl_Empty.cpp.s
-
-libraries/AC_CustomControl/AC_CustomControl_PID.o: libraries/AC_CustomControl/AC_CustomControl_PID.cpp.o
-.PHONY : libraries/AC_CustomControl/AC_CustomControl_PID.o
-
-# target to build an object file
-libraries/AC_CustomControl/AC_CustomControl_PID.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_CustomControl.dir/build.make CMakeFiles/AC_CustomControl.dir/libraries/AC_CustomControl/AC_CustomControl_PID.cpp.o
-.PHONY : libraries/AC_CustomControl/AC_CustomControl_PID.cpp.o
-
-libraries/AC_CustomControl/AC_CustomControl_PID.i: libraries/AC_CustomControl/AC_CustomControl_PID.cpp.i
-.PHONY : libraries/AC_CustomControl/AC_CustomControl_PID.i
-
-# target to preprocess a source file
-libraries/AC_CustomControl/AC_CustomControl_PID.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_CustomControl.dir/build.make CMakeFiles/AC_CustomControl.dir/libraries/AC_CustomControl/AC_CustomControl_PID.cpp.i
-.PHONY : libraries/AC_CustomControl/AC_CustomControl_PID.cpp.i
-
-libraries/AC_CustomControl/AC_CustomControl_PID.s: libraries/AC_CustomControl/AC_CustomControl_PID.cpp.s
-.PHONY : libraries/AC_CustomControl/AC_CustomControl_PID.s
-
-# target to generate assembly for a file
-libraries/AC_CustomControl/AC_CustomControl_PID.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_CustomControl.dir/build.make CMakeFiles/AC_CustomControl.dir/libraries/AC_CustomControl/AC_CustomControl_PID.cpp.s
-.PHONY : libraries/AC_CustomControl/AC_CustomControl_PID.cpp.s
 
 libraries/AC_Fence/AC_Fence.o: libraries/AC_Fence/AC_Fence.cpp.o
 .PHONY : libraries/AC_Fence/AC_Fence.o
@@ -11616,8 +11544,8 @@ libraries/AP_AHRS/AP_AHRS.o: libraries/AP_AHRS/AP_AHRS.cpp.o
 
 # target to build an object file
 libraries/AP_AHRS/AP_AHRS.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS.cpp.o
 .PHONY : libraries/AP_AHRS/AP_AHRS.cpp.o
 
 libraries/AP_AHRS/AP_AHRS.i: libraries/AP_AHRS/AP_AHRS.cpp.i
@@ -11625,8 +11553,8 @@ libraries/AP_AHRS/AP_AHRS.i: libraries/AP_AHRS/AP_AHRS.cpp.i
 
 # target to preprocess a source file
 libraries/AP_AHRS/AP_AHRS.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS.cpp.i
 .PHONY : libraries/AP_AHRS/AP_AHRS.cpp.i
 
 libraries/AP_AHRS/AP_AHRS.s: libraries/AP_AHRS/AP_AHRS.cpp.s
@@ -11634,8 +11562,8 @@ libraries/AP_AHRS/AP_AHRS.s: libraries/AP_AHRS/AP_AHRS.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_AHRS/AP_AHRS.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS.cpp.s
 .PHONY : libraries/AP_AHRS/AP_AHRS.cpp.s
 
 libraries/AP_AHRS/AP_AHRS_Backend.o: libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
@@ -11643,8 +11571,8 @@ libraries/AP_AHRS/AP_AHRS_Backend.o: libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
 
 # target to build an object file
 libraries/AP_AHRS/AP_AHRS_Backend.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
 .PHONY : libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
 
 libraries/AP_AHRS/AP_AHRS_Backend.i: libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
@@ -11652,8 +11580,8 @@ libraries/AP_AHRS/AP_AHRS_Backend.i: libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
 
 # target to preprocess a source file
 libraries/AP_AHRS/AP_AHRS_Backend.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
 .PHONY : libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
 
 libraries/AP_AHRS/AP_AHRS_Backend.s: libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
@@ -11661,8 +11589,8 @@ libraries/AP_AHRS/AP_AHRS_Backend.s: libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_AHRS/AP_AHRS_Backend.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
 .PHONY : libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
 
 libraries/AP_AHRS/AP_AHRS_DCM.o: libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
@@ -11670,8 +11598,8 @@ libraries/AP_AHRS/AP_AHRS_DCM.o: libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
 
 # target to build an object file
 libraries/AP_AHRS/AP_AHRS_DCM.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
 .PHONY : libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
 
 libraries/AP_AHRS/AP_AHRS_DCM.i: libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
@@ -11679,8 +11607,8 @@ libraries/AP_AHRS/AP_AHRS_DCM.i: libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
 
 # target to preprocess a source file
 libraries/AP_AHRS/AP_AHRS_DCM.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
 .PHONY : libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
 
 libraries/AP_AHRS/AP_AHRS_DCM.s: libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
@@ -11688,8 +11616,8 @@ libraries/AP_AHRS/AP_AHRS_DCM.s: libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_AHRS/AP_AHRS_DCM.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
 .PHONY : libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
 
 libraries/AP_AHRS/AP_AHRS_External.o: libraries/AP_AHRS/AP_AHRS_External.cpp.o
@@ -11697,8 +11625,8 @@ libraries/AP_AHRS/AP_AHRS_External.o: libraries/AP_AHRS/AP_AHRS_External.cpp.o
 
 # target to build an object file
 libraries/AP_AHRS/AP_AHRS_External.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.o
 .PHONY : libraries/AP_AHRS/AP_AHRS_External.cpp.o
 
 libraries/AP_AHRS/AP_AHRS_External.i: libraries/AP_AHRS/AP_AHRS_External.cpp.i
@@ -11706,8 +11634,8 @@ libraries/AP_AHRS/AP_AHRS_External.i: libraries/AP_AHRS/AP_AHRS_External.cpp.i
 
 # target to preprocess a source file
 libraries/AP_AHRS/AP_AHRS_External.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.i
 .PHONY : libraries/AP_AHRS/AP_AHRS_External.cpp.i
 
 libraries/AP_AHRS/AP_AHRS_External.s: libraries/AP_AHRS/AP_AHRS_External.cpp.s
@@ -11715,8 +11643,8 @@ libraries/AP_AHRS/AP_AHRS_External.s: libraries/AP_AHRS/AP_AHRS_External.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_AHRS/AP_AHRS_External.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.s
 .PHONY : libraries/AP_AHRS/AP_AHRS_External.cpp.s
 
 libraries/AP_AHRS/AP_AHRS_Logging.o: libraries/AP_AHRS/AP_AHRS_Logging.cpp.o
@@ -11724,8 +11652,8 @@ libraries/AP_AHRS/AP_AHRS_Logging.o: libraries/AP_AHRS/AP_AHRS_Logging.cpp.o
 
 # target to build an object file
 libraries/AP_AHRS/AP_AHRS_Logging.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.o
 .PHONY : libraries/AP_AHRS/AP_AHRS_Logging.cpp.o
 
 libraries/AP_AHRS/AP_AHRS_Logging.i: libraries/AP_AHRS/AP_AHRS_Logging.cpp.i
@@ -11733,8 +11661,8 @@ libraries/AP_AHRS/AP_AHRS_Logging.i: libraries/AP_AHRS/AP_AHRS_Logging.cpp.i
 
 # target to preprocess a source file
 libraries/AP_AHRS/AP_AHRS_Logging.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.i
 .PHONY : libraries/AP_AHRS/AP_AHRS_Logging.cpp.i
 
 libraries/AP_AHRS/AP_AHRS_Logging.s: libraries/AP_AHRS/AP_AHRS_Logging.cpp.s
@@ -11742,8 +11670,8 @@ libraries/AP_AHRS/AP_AHRS_Logging.s: libraries/AP_AHRS/AP_AHRS_Logging.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_AHRS/AP_AHRS_Logging.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.s
 .PHONY : libraries/AP_AHRS/AP_AHRS_Logging.cpp.s
 
 libraries/AP_AHRS/AP_AHRS_SIM.o: libraries/AP_AHRS/AP_AHRS_SIM.cpp.o
@@ -11751,8 +11679,8 @@ libraries/AP_AHRS/AP_AHRS_SIM.o: libraries/AP_AHRS/AP_AHRS_SIM.cpp.o
 
 # target to build an object file
 libraries/AP_AHRS/AP_AHRS_SIM.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.o
 .PHONY : libraries/AP_AHRS/AP_AHRS_SIM.cpp.o
 
 libraries/AP_AHRS/AP_AHRS_SIM.i: libraries/AP_AHRS/AP_AHRS_SIM.cpp.i
@@ -11760,8 +11688,8 @@ libraries/AP_AHRS/AP_AHRS_SIM.i: libraries/AP_AHRS/AP_AHRS_SIM.cpp.i
 
 # target to preprocess a source file
 libraries/AP_AHRS/AP_AHRS_SIM.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.i
 .PHONY : libraries/AP_AHRS/AP_AHRS_SIM.cpp.i
 
 libraries/AP_AHRS/AP_AHRS_SIM.s: libraries/AP_AHRS/AP_AHRS_SIM.cpp.s
@@ -11769,8 +11697,8 @@ libraries/AP_AHRS/AP_AHRS_SIM.s: libraries/AP_AHRS/AP_AHRS_SIM.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_AHRS/AP_AHRS_SIM.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.s
 .PHONY : libraries/AP_AHRS/AP_AHRS_SIM.cpp.s
 
 libraries/AP_AHRS/AP_AHRS_View.o: libraries/AP_AHRS/AP_AHRS_View.cpp.o
@@ -11778,8 +11706,8 @@ libraries/AP_AHRS/AP_AHRS_View.o: libraries/AP_AHRS/AP_AHRS_View.cpp.o
 
 # target to build an object file
 libraries/AP_AHRS/AP_AHRS_View.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.o
 .PHONY : libraries/AP_AHRS/AP_AHRS_View.cpp.o
 
 libraries/AP_AHRS/AP_AHRS_View.i: libraries/AP_AHRS/AP_AHRS_View.cpp.i
@@ -11787,8 +11715,8 @@ libraries/AP_AHRS/AP_AHRS_View.i: libraries/AP_AHRS/AP_AHRS_View.cpp.i
 
 # target to preprocess a source file
 libraries/AP_AHRS/AP_AHRS_View.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.i
 .PHONY : libraries/AP_AHRS/AP_AHRS_View.cpp.i
 
 libraries/AP_AHRS/AP_AHRS_View.s: libraries/AP_AHRS/AP_AHRS_View.cpp.s
@@ -11796,8 +11724,8 @@ libraries/AP_AHRS/AP_AHRS_View.s: libraries/AP_AHRS/AP_AHRS_View.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_AHRS/AP_AHRS_View.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.s
 .PHONY : libraries/AP_AHRS/AP_AHRS_View.cpp.s
 
 libraries/AP_AIS/AP_AIS.o: libraries/AP_AIS/AP_AIS.cpp.o
@@ -14260,30 +14188,6 @@ libraries/AP_CANManager/AP_SLCANIface.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CANManager.dir/build.make CMakeFiles/AP_CANManager.dir/libraries/AP_CANManager/AP_SLCANIface.cpp.s
 .PHONY : libraries/AP_CANManager/AP_SLCANIface.cpp.s
 
-libraries/AP_CSVReader/AP_CSVReader.o: libraries/AP_CSVReader/AP_CSVReader.cpp.o
-.PHONY : libraries/AP_CSVReader/AP_CSVReader.o
-
-# target to build an object file
-libraries/AP_CSVReader/AP_CSVReader.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CSVReader.dir/build.make CMakeFiles/AP_CSVReader.dir/libraries/AP_CSVReader/AP_CSVReader.cpp.o
-.PHONY : libraries/AP_CSVReader/AP_CSVReader.cpp.o
-
-libraries/AP_CSVReader/AP_CSVReader.i: libraries/AP_CSVReader/AP_CSVReader.cpp.i
-.PHONY : libraries/AP_CSVReader/AP_CSVReader.i
-
-# target to preprocess a source file
-libraries/AP_CSVReader/AP_CSVReader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CSVReader.dir/build.make CMakeFiles/AP_CSVReader.dir/libraries/AP_CSVReader/AP_CSVReader.cpp.i
-.PHONY : libraries/AP_CSVReader/AP_CSVReader.cpp.i
-
-libraries/AP_CSVReader/AP_CSVReader.s: libraries/AP_CSVReader/AP_CSVReader.cpp.s
-.PHONY : libraries/AP_CSVReader/AP_CSVReader.s
-
-# target to generate assembly for a file
-libraries/AP_CSVReader/AP_CSVReader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CSVReader.dir/build.make CMakeFiles/AP_CSVReader.dir/libraries/AP_CSVReader/AP_CSVReader.cpp.s
-.PHONY : libraries/AP_CSVReader/AP_CSVReader.cpp.s
-
 libraries/AP_Camera/AP_Camera.o: libraries/AP_Camera/AP_Camera.cpp.o
 .PHONY : libraries/AP_Camera/AP_Camera.o
 
@@ -15609,8 +15513,8 @@ libraries/AP_DAL/AP_DAL.o: libraries/AP_DAL/AP_DAL.cpp.o
 
 # target to build an object file
 libraries/AP_DAL/AP_DAL.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL.cpp.o
 
 libraries/AP_DAL/AP_DAL.i: libraries/AP_DAL/AP_DAL.cpp.i
@@ -15618,8 +15522,8 @@ libraries/AP_DAL/AP_DAL.i: libraries/AP_DAL/AP_DAL.cpp.i
 
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL.cpp.i
 
 libraries/AP_DAL/AP_DAL.s: libraries/AP_DAL/AP_DAL.cpp.s
@@ -15627,8 +15531,8 @@ libraries/AP_DAL/AP_DAL.s: libraries/AP_DAL/AP_DAL.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL.cpp.s
 
 libraries/AP_DAL/AP_DAL_Airspeed.o: libraries/AP_DAL/AP_DAL_Airspeed.cpp.o
@@ -15636,8 +15540,8 @@ libraries/AP_DAL/AP_DAL_Airspeed.o: libraries/AP_DAL/AP_DAL_Airspeed.cpp.o
 
 # target to build an object file
 libraries/AP_DAL/AP_DAL_Airspeed.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_Airspeed.cpp.o
 
 libraries/AP_DAL/AP_DAL_Airspeed.i: libraries/AP_DAL/AP_DAL_Airspeed.cpp.i
@@ -15645,8 +15549,8 @@ libraries/AP_DAL/AP_DAL_Airspeed.i: libraries/AP_DAL/AP_DAL_Airspeed.cpp.i
 
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_Airspeed.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_Airspeed.cpp.i
 
 libraries/AP_DAL/AP_DAL_Airspeed.s: libraries/AP_DAL/AP_DAL_Airspeed.cpp.s
@@ -15654,8 +15558,8 @@ libraries/AP_DAL/AP_DAL_Airspeed.s: libraries/AP_DAL/AP_DAL_Airspeed.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_Airspeed.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_Airspeed.cpp.s
 
 libraries/AP_DAL/AP_DAL_Baro.o: libraries/AP_DAL/AP_DAL_Baro.cpp.o
@@ -15663,8 +15567,8 @@ libraries/AP_DAL/AP_DAL_Baro.o: libraries/AP_DAL/AP_DAL_Baro.cpp.o
 
 # target to build an object file
 libraries/AP_DAL/AP_DAL_Baro.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_Baro.cpp.o
 
 libraries/AP_DAL/AP_DAL_Baro.i: libraries/AP_DAL/AP_DAL_Baro.cpp.i
@@ -15672,8 +15576,8 @@ libraries/AP_DAL/AP_DAL_Baro.i: libraries/AP_DAL/AP_DAL_Baro.cpp.i
 
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_Baro.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_Baro.cpp.i
 
 libraries/AP_DAL/AP_DAL_Baro.s: libraries/AP_DAL/AP_DAL_Baro.cpp.s
@@ -15681,8 +15585,8 @@ libraries/AP_DAL/AP_DAL_Baro.s: libraries/AP_DAL/AP_DAL_Baro.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_Baro.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_Baro.cpp.s
 
 libraries/AP_DAL/AP_DAL_Beacon.o: libraries/AP_DAL/AP_DAL_Beacon.cpp.o
@@ -15690,8 +15594,8 @@ libraries/AP_DAL/AP_DAL_Beacon.o: libraries/AP_DAL/AP_DAL_Beacon.cpp.o
 
 # target to build an object file
 libraries/AP_DAL/AP_DAL_Beacon.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_Beacon.cpp.o
 
 libraries/AP_DAL/AP_DAL_Beacon.i: libraries/AP_DAL/AP_DAL_Beacon.cpp.i
@@ -15699,8 +15603,8 @@ libraries/AP_DAL/AP_DAL_Beacon.i: libraries/AP_DAL/AP_DAL_Beacon.cpp.i
 
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_Beacon.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_Beacon.cpp.i
 
 libraries/AP_DAL/AP_DAL_Beacon.s: libraries/AP_DAL/AP_DAL_Beacon.cpp.s
@@ -15708,8 +15612,8 @@ libraries/AP_DAL/AP_DAL_Beacon.s: libraries/AP_DAL/AP_DAL_Beacon.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_Beacon.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_Beacon.cpp.s
 
 libraries/AP_DAL/AP_DAL_Compass.o: libraries/AP_DAL/AP_DAL_Compass.cpp.o
@@ -15717,8 +15621,8 @@ libraries/AP_DAL/AP_DAL_Compass.o: libraries/AP_DAL/AP_DAL_Compass.cpp.o
 
 # target to build an object file
 libraries/AP_DAL/AP_DAL_Compass.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_Compass.cpp.o
 
 libraries/AP_DAL/AP_DAL_Compass.i: libraries/AP_DAL/AP_DAL_Compass.cpp.i
@@ -15726,8 +15630,8 @@ libraries/AP_DAL/AP_DAL_Compass.i: libraries/AP_DAL/AP_DAL_Compass.cpp.i
 
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_Compass.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_Compass.cpp.i
 
 libraries/AP_DAL/AP_DAL_Compass.s: libraries/AP_DAL/AP_DAL_Compass.cpp.s
@@ -15735,8 +15639,8 @@ libraries/AP_DAL/AP_DAL_Compass.s: libraries/AP_DAL/AP_DAL_Compass.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_Compass.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_Compass.cpp.s
 
 libraries/AP_DAL/AP_DAL_GPS.o: libraries/AP_DAL/AP_DAL_GPS.cpp.o
@@ -15744,8 +15648,8 @@ libraries/AP_DAL/AP_DAL_GPS.o: libraries/AP_DAL/AP_DAL_GPS.cpp.o
 
 # target to build an object file
 libraries/AP_DAL/AP_DAL_GPS.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_GPS.cpp.o
 
 libraries/AP_DAL/AP_DAL_GPS.i: libraries/AP_DAL/AP_DAL_GPS.cpp.i
@@ -15753,8 +15657,8 @@ libraries/AP_DAL/AP_DAL_GPS.i: libraries/AP_DAL/AP_DAL_GPS.cpp.i
 
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_GPS.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_GPS.cpp.i
 
 libraries/AP_DAL/AP_DAL_GPS.s: libraries/AP_DAL/AP_DAL_GPS.cpp.s
@@ -15762,8 +15666,8 @@ libraries/AP_DAL/AP_DAL_GPS.s: libraries/AP_DAL/AP_DAL_GPS.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_GPS.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_GPS.cpp.s
 
 libraries/AP_DAL/AP_DAL_InertialSensor.o: libraries/AP_DAL/AP_DAL_InertialSensor.cpp.o
@@ -15771,8 +15675,8 @@ libraries/AP_DAL/AP_DAL_InertialSensor.o: libraries/AP_DAL/AP_DAL_InertialSensor
 
 # target to build an object file
 libraries/AP_DAL/AP_DAL_InertialSensor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_InertialSensor.cpp.o
 
 libraries/AP_DAL/AP_DAL_InertialSensor.i: libraries/AP_DAL/AP_DAL_InertialSensor.cpp.i
@@ -15780,8 +15684,8 @@ libraries/AP_DAL/AP_DAL_InertialSensor.i: libraries/AP_DAL/AP_DAL_InertialSensor
 
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_InertialSensor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_InertialSensor.cpp.i
 
 libraries/AP_DAL/AP_DAL_InertialSensor.s: libraries/AP_DAL/AP_DAL_InertialSensor.cpp.s
@@ -15789,8 +15693,8 @@ libraries/AP_DAL/AP_DAL_InertialSensor.s: libraries/AP_DAL/AP_DAL_InertialSensor
 
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_InertialSensor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_InertialSensor.cpp.s
 
 libraries/AP_DAL/AP_DAL_RangeFinder.o: libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
@@ -15798,8 +15702,8 @@ libraries/AP_DAL/AP_DAL_RangeFinder.o: libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
 
 # target to build an object file
 libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
 
 libraries/AP_DAL/AP_DAL_RangeFinder.i: libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
@@ -15807,8 +15711,8 @@ libraries/AP_DAL/AP_DAL_RangeFinder.i: libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
 
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
 
 libraries/AP_DAL/AP_DAL_RangeFinder.s: libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
@@ -15816,8 +15720,8 @@ libraries/AP_DAL/AP_DAL_RangeFinder.s: libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
 
 libraries/AP_DAL/AP_DAL_VisualOdom.o: libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
@@ -15825,8 +15729,8 @@ libraries/AP_DAL/AP_DAL_VisualOdom.o: libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
 
 # target to build an object file
 libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
 
 libraries/AP_DAL/AP_DAL_VisualOdom.i: libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
@@ -15834,8 +15738,8 @@ libraries/AP_DAL/AP_DAL_VisualOdom.i: libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
 
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
 
 libraries/AP_DAL/AP_DAL_VisualOdom.s: libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
@@ -15843,8 +15747,8 @@ libraries/AP_DAL/AP_DAL_VisualOdom.s: libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
 
 libraries/AP_DDS/AP_DDS_Client.o: libraries/AP_DDS/AP_DDS_Client.cpp.o
@@ -17118,8 +17022,8 @@ libraries/AP_Follow/AP_Follow.o: libraries/AP_Follow/AP_Follow.cpp.o
 
 # target to build an object file
 libraries/AP_Follow/AP_Follow.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow_Plane.dir/build.make CMakeFiles/AP_Follow_Plane.dir/libraries/AP_Follow/AP_Follow.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow.dir/build.make CMakeFiles/AP_Follow.dir/libraries/AP_Follow/AP_Follow.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow_Plane.dir/build.make CMakeFiles/AP_Follow_Plane.dir/libraries/AP_Follow/AP_Follow.cpp.o
 .PHONY : libraries/AP_Follow/AP_Follow.cpp.o
 
 libraries/AP_Follow/AP_Follow.i: libraries/AP_Follow/AP_Follow.cpp.i
@@ -17127,8 +17031,8 @@ libraries/AP_Follow/AP_Follow.i: libraries/AP_Follow/AP_Follow.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Follow/AP_Follow.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow_Plane.dir/build.make CMakeFiles/AP_Follow_Plane.dir/libraries/AP_Follow/AP_Follow.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow.dir/build.make CMakeFiles/AP_Follow.dir/libraries/AP_Follow/AP_Follow.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow_Plane.dir/build.make CMakeFiles/AP_Follow_Plane.dir/libraries/AP_Follow/AP_Follow.cpp.i
 .PHONY : libraries/AP_Follow/AP_Follow.cpp.i
 
 libraries/AP_Follow/AP_Follow.s: libraries/AP_Follow/AP_Follow.cpp.s
@@ -17136,8 +17040,8 @@ libraries/AP_Follow/AP_Follow.s: libraries/AP_Follow/AP_Follow.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Follow/AP_Follow.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow_Plane.dir/build.make CMakeFiles/AP_Follow_Plane.dir/libraries/AP_Follow/AP_Follow.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow.dir/build.make CMakeFiles/AP_Follow.dir/libraries/AP_Follow/AP_Follow.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow_Plane.dir/build.make CMakeFiles/AP_Follow_Plane.dir/libraries/AP_Follow/AP_Follow.cpp.s
 .PHONY : libraries/AP_Follow/AP_Follow.cpp.s
 
 libraries/AP_Frsky_Telem/AP_Frsky_Backend.o: libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp.o
@@ -19039,6 +18943,630 @@ libraries/AP_HAL/utility/utoa_invert.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/utoa_invert.cpp.s
 .PHONY : libraries/AP_HAL/utility/utoa_invert.cpp.s
 
+libraries/AP_HAL_ChibiOS/AnalogIn.o: libraries/AP_HAL_ChibiOS/AnalogIn.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/AnalogIn.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/AnalogIn.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/AnalogIn.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/AnalogIn.cpp.o
+
+libraries/AP_HAL_ChibiOS/AnalogIn.i: libraries/AP_HAL_ChibiOS/AnalogIn.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/AnalogIn.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/AnalogIn.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/AnalogIn.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/AnalogIn.cpp.i
+
+libraries/AP_HAL_ChibiOS/AnalogIn.s: libraries/AP_HAL_ChibiOS/AnalogIn.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/AnalogIn.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/AnalogIn.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/AnalogIn.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/AnalogIn.cpp.s
+
+libraries/AP_HAL_ChibiOS/CANFDIface.o: libraries/AP_HAL_ChibiOS/CANFDIface.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/CANFDIface.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/CANFDIface.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/CANFDIface.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/CANFDIface.cpp.o
+
+libraries/AP_HAL_ChibiOS/CANFDIface.i: libraries/AP_HAL_ChibiOS/CANFDIface.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/CANFDIface.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/CANFDIface.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/CANFDIface.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/CANFDIface.cpp.i
+
+libraries/AP_HAL_ChibiOS/CANFDIface.s: libraries/AP_HAL_ChibiOS/CANFDIface.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/CANFDIface.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/CANFDIface.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/CANFDIface.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/CANFDIface.cpp.s
+
+libraries/AP_HAL_ChibiOS/CanIface.o: libraries/AP_HAL_ChibiOS/CanIface.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/CanIface.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/CanIface.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/CanIface.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/CanIface.cpp.o
+
+libraries/AP_HAL_ChibiOS/CanIface.i: libraries/AP_HAL_ChibiOS/CanIface.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/CanIface.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/CanIface.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/CanIface.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/CanIface.cpp.i
+
+libraries/AP_HAL_ChibiOS/CanIface.s: libraries/AP_HAL_ChibiOS/CanIface.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/CanIface.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/CanIface.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/CanIface.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/CanIface.cpp.s
+
+libraries/AP_HAL_ChibiOS/DSP.o: libraries/AP_HAL_ChibiOS/DSP.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/DSP.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/DSP.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/DSP.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/DSP.cpp.o
+
+libraries/AP_HAL_ChibiOS/DSP.i: libraries/AP_HAL_ChibiOS/DSP.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/DSP.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/DSP.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/DSP.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/DSP.cpp.i
+
+libraries/AP_HAL_ChibiOS/DSP.s: libraries/AP_HAL_ChibiOS/DSP.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/DSP.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/DSP.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/DSP.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/DSP.cpp.s
+
+libraries/AP_HAL_ChibiOS/Device.o: libraries/AP_HAL_ChibiOS/Device.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/Device.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/Device.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Device.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/Device.cpp.o
+
+libraries/AP_HAL_ChibiOS/Device.i: libraries/AP_HAL_ChibiOS/Device.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/Device.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/Device.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Device.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/Device.cpp.i
+
+libraries/AP_HAL_ChibiOS/Device.s: libraries/AP_HAL_ChibiOS/Device.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/Device.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/Device.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Device.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/Device.cpp.s
+
+libraries/AP_HAL_ChibiOS/GPIO.o: libraries/AP_HAL_ChibiOS/GPIO.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/GPIO.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/GPIO.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/GPIO.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/GPIO.cpp.o
+
+libraries/AP_HAL_ChibiOS/GPIO.i: libraries/AP_HAL_ChibiOS/GPIO.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/GPIO.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/GPIO.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/GPIO.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/GPIO.cpp.i
+
+libraries/AP_HAL_ChibiOS/GPIO.s: libraries/AP_HAL_ChibiOS/GPIO.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/GPIO.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/GPIO.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/GPIO.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/GPIO.cpp.s
+
+libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.o: libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.cpp.o
+
+libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.i: libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.cpp.i
+
+libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.s: libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.cpp.s
+
+libraries/AP_HAL_ChibiOS/I2CDevice.o: libraries/AP_HAL_ChibiOS/I2CDevice.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/I2CDevice.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/I2CDevice.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/I2CDevice.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/I2CDevice.cpp.o
+
+libraries/AP_HAL_ChibiOS/I2CDevice.i: libraries/AP_HAL_ChibiOS/I2CDevice.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/I2CDevice.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/I2CDevice.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/I2CDevice.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/I2CDevice.cpp.i
+
+libraries/AP_HAL_ChibiOS/I2CDevice.s: libraries/AP_HAL_ChibiOS/I2CDevice.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/I2CDevice.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/I2CDevice.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/I2CDevice.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/I2CDevice.cpp.s
+
+libraries/AP_HAL_ChibiOS/RCInput.o: libraries/AP_HAL_ChibiOS/RCInput.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/RCInput.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/RCInput.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCInput.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/RCInput.cpp.o
+
+libraries/AP_HAL_ChibiOS/RCInput.i: libraries/AP_HAL_ChibiOS/RCInput.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/RCInput.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/RCInput.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCInput.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/RCInput.cpp.i
+
+libraries/AP_HAL_ChibiOS/RCInput.s: libraries/AP_HAL_ChibiOS/RCInput.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/RCInput.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/RCInput.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCInput.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/RCInput.cpp.s
+
+libraries/AP_HAL_ChibiOS/RCOutput.o: libraries/AP_HAL_ChibiOS/RCOutput.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/RCOutput.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCOutput.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput.cpp.o
+
+libraries/AP_HAL_ChibiOS/RCOutput.i: libraries/AP_HAL_ChibiOS/RCOutput.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/RCOutput.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCOutput.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput.cpp.i
+
+libraries/AP_HAL_ChibiOS/RCOutput.s: libraries/AP_HAL_ChibiOS/RCOutput.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/RCOutput.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCOutput.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput.cpp.s
+
+libraries/AP_HAL_ChibiOS/RCOutput_bdshot.o: libraries/AP_HAL_ChibiOS/RCOutput_bdshot.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_bdshot.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/RCOutput_bdshot.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCOutput_bdshot.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_bdshot.cpp.o
+
+libraries/AP_HAL_ChibiOS/RCOutput_bdshot.i: libraries/AP_HAL_ChibiOS/RCOutput_bdshot.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_bdshot.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/RCOutput_bdshot.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCOutput_bdshot.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_bdshot.cpp.i
+
+libraries/AP_HAL_ChibiOS/RCOutput_bdshot.s: libraries/AP_HAL_ChibiOS/RCOutput_bdshot.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_bdshot.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/RCOutput_bdshot.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCOutput_bdshot.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_bdshot.cpp.s
+
+libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.o: libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.cpp.o
+
+libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.i: libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.cpp.i
+
+libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.s: libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.cpp.s
+
+libraries/AP_HAL_ChibiOS/RCOutput_serial.o: libraries/AP_HAL_ChibiOS/RCOutput_serial.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_serial.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/RCOutput_serial.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCOutput_serial.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_serial.cpp.o
+
+libraries/AP_HAL_ChibiOS/RCOutput_serial.i: libraries/AP_HAL_ChibiOS/RCOutput_serial.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_serial.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/RCOutput_serial.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCOutput_serial.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_serial.cpp.i
+
+libraries/AP_HAL_ChibiOS/RCOutput_serial.s: libraries/AP_HAL_ChibiOS/RCOutput_serial.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_serial.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/RCOutput_serial.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/RCOutput_serial.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/RCOutput_serial.cpp.s
+
+libraries/AP_HAL_ChibiOS/SPIDevice.o: libraries/AP_HAL_ChibiOS/SPIDevice.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/SPIDevice.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/SPIDevice.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/SPIDevice.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/SPIDevice.cpp.o
+
+libraries/AP_HAL_ChibiOS/SPIDevice.i: libraries/AP_HAL_ChibiOS/SPIDevice.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/SPIDevice.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/SPIDevice.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/SPIDevice.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/SPIDevice.cpp.i
+
+libraries/AP_HAL_ChibiOS/SPIDevice.s: libraries/AP_HAL_ChibiOS/SPIDevice.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/SPIDevice.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/SPIDevice.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/SPIDevice.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/SPIDevice.cpp.s
+
+libraries/AP_HAL_ChibiOS/Scheduler.o: libraries/AP_HAL_ChibiOS/Scheduler.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/Scheduler.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/Scheduler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Scheduler.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/Scheduler.cpp.o
+
+libraries/AP_HAL_ChibiOS/Scheduler.i: libraries/AP_HAL_ChibiOS/Scheduler.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/Scheduler.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/Scheduler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Scheduler.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/Scheduler.cpp.i
+
+libraries/AP_HAL_ChibiOS/Scheduler.s: libraries/AP_HAL_ChibiOS/Scheduler.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/Scheduler.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/Scheduler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Scheduler.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/Scheduler.cpp.s
+
+libraries/AP_HAL_ChibiOS/Semaphores.o: libraries/AP_HAL_ChibiOS/Semaphores.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/Semaphores.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/Semaphores.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Semaphores.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/Semaphores.cpp.o
+
+libraries/AP_HAL_ChibiOS/Semaphores.i: libraries/AP_HAL_ChibiOS/Semaphores.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/Semaphores.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/Semaphores.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Semaphores.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/Semaphores.cpp.i
+
+libraries/AP_HAL_ChibiOS/Semaphores.s: libraries/AP_HAL_ChibiOS/Semaphores.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/Semaphores.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/Semaphores.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Semaphores.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/Semaphores.cpp.s
+
+libraries/AP_HAL_ChibiOS/SoftSigReader.o: libraries/AP_HAL_ChibiOS/SoftSigReader.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/SoftSigReader.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/SoftSigReader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/SoftSigReader.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/SoftSigReader.cpp.o
+
+libraries/AP_HAL_ChibiOS/SoftSigReader.i: libraries/AP_HAL_ChibiOS/SoftSigReader.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/SoftSigReader.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/SoftSigReader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/SoftSigReader.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/SoftSigReader.cpp.i
+
+libraries/AP_HAL_ChibiOS/SoftSigReader.s: libraries/AP_HAL_ChibiOS/SoftSigReader.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/SoftSigReader.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/SoftSigReader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/SoftSigReader.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/SoftSigReader.cpp.s
+
+libraries/AP_HAL_ChibiOS/SoftSigReaderInt.o: libraries/AP_HAL_ChibiOS/SoftSigReaderInt.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/SoftSigReaderInt.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/SoftSigReaderInt.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/SoftSigReaderInt.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/SoftSigReaderInt.cpp.o
+
+libraries/AP_HAL_ChibiOS/SoftSigReaderInt.i: libraries/AP_HAL_ChibiOS/SoftSigReaderInt.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/SoftSigReaderInt.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/SoftSigReaderInt.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/SoftSigReaderInt.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/SoftSigReaderInt.cpp.i
+
+libraries/AP_HAL_ChibiOS/SoftSigReaderInt.s: libraries/AP_HAL_ChibiOS/SoftSigReaderInt.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/SoftSigReaderInt.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/SoftSigReaderInt.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/SoftSigReaderInt.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/SoftSigReaderInt.cpp.s
+
+libraries/AP_HAL_ChibiOS/Storage.o: libraries/AP_HAL_ChibiOS/Storage.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/Storage.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/Storage.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Storage.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/Storage.cpp.o
+
+libraries/AP_HAL_ChibiOS/Storage.i: libraries/AP_HAL_ChibiOS/Storage.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/Storage.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/Storage.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Storage.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/Storage.cpp.i
+
+libraries/AP_HAL_ChibiOS/Storage.s: libraries/AP_HAL_ChibiOS/Storage.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/Storage.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/Storage.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Storage.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/Storage.cpp.s
+
+libraries/AP_HAL_ChibiOS/UARTDriver.o: libraries/AP_HAL_ChibiOS/UARTDriver.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/UARTDriver.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/UARTDriver.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/UARTDriver.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/UARTDriver.cpp.o
+
+libraries/AP_HAL_ChibiOS/UARTDriver.i: libraries/AP_HAL_ChibiOS/UARTDriver.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/UARTDriver.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/UARTDriver.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/UARTDriver.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/UARTDriver.cpp.i
+
+libraries/AP_HAL_ChibiOS/UARTDriver.s: libraries/AP_HAL_ChibiOS/UARTDriver.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/UARTDriver.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/UARTDriver.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/UARTDriver.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/UARTDriver.cpp.s
+
+libraries/AP_HAL_ChibiOS/Util.o: libraries/AP_HAL_ChibiOS/Util.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/Util.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/Util.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Util.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/Util.cpp.o
+
+libraries/AP_HAL_ChibiOS/Util.i: libraries/AP_HAL_ChibiOS/Util.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/Util.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/Util.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Util.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/Util.cpp.i
+
+libraries/AP_HAL_ChibiOS/Util.s: libraries/AP_HAL_ChibiOS/Util.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/Util.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/Util.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/Util.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/Util.cpp.s
+
+libraries/AP_HAL_ChibiOS/WSPIDevice.o: libraries/AP_HAL_ChibiOS/WSPIDevice.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/WSPIDevice.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/WSPIDevice.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/WSPIDevice.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/WSPIDevice.cpp.o
+
+libraries/AP_HAL_ChibiOS/WSPIDevice.i: libraries/AP_HAL_ChibiOS/WSPIDevice.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/WSPIDevice.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/WSPIDevice.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/WSPIDevice.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/WSPIDevice.cpp.i
+
+libraries/AP_HAL_ChibiOS/WSPIDevice.s: libraries/AP_HAL_ChibiOS/WSPIDevice.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/WSPIDevice.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/WSPIDevice.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/WSPIDevice.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/WSPIDevice.cpp.s
+
+libraries/AP_HAL_ChibiOS/sdcard.o: libraries/AP_HAL_ChibiOS/sdcard.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/sdcard.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/sdcard.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/sdcard.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/sdcard.cpp.o
+
+libraries/AP_HAL_ChibiOS/sdcard.i: libraries/AP_HAL_ChibiOS/sdcard.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/sdcard.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/sdcard.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/sdcard.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/sdcard.cpp.i
+
+libraries/AP_HAL_ChibiOS/sdcard.s: libraries/AP_HAL_ChibiOS/sdcard.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/sdcard.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/sdcard.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/sdcard.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/sdcard.cpp.s
+
+libraries/AP_HAL_ChibiOS/shared_dma.o: libraries/AP_HAL_ChibiOS/shared_dma.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/shared_dma.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/shared_dma.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/shared_dma.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/shared_dma.cpp.o
+
+libraries/AP_HAL_ChibiOS/shared_dma.i: libraries/AP_HAL_ChibiOS/shared_dma.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/shared_dma.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/shared_dma.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/shared_dma.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/shared_dma.cpp.i
+
+libraries/AP_HAL_ChibiOS/shared_dma.s: libraries/AP_HAL_ChibiOS/shared_dma.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/shared_dma.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/shared_dma.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/shared_dma.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/shared_dma.cpp.s
+
+libraries/AP_HAL_ChibiOS/stdio.o: libraries/AP_HAL_ChibiOS/stdio.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/stdio.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/stdio.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/stdio.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/stdio.cpp.o
+
+libraries/AP_HAL_ChibiOS/stdio.i: libraries/AP_HAL_ChibiOS/stdio.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/stdio.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/stdio.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/stdio.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/stdio.cpp.i
+
+libraries/AP_HAL_ChibiOS/stdio.s: libraries/AP_HAL_ChibiOS/stdio.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/stdio.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/stdio.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/stdio.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/stdio.cpp.s
+
+libraries/AP_HAL_ChibiOS/system.o: libraries/AP_HAL_ChibiOS/system.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/system.o
+
+# target to build an object file
+libraries/AP_HAL_ChibiOS/system.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/system.cpp.o
+.PHONY : libraries/AP_HAL_ChibiOS/system.cpp.o
+
+libraries/AP_HAL_ChibiOS/system.i: libraries/AP_HAL_ChibiOS/system.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/system.i
+
+# target to preprocess a source file
+libraries/AP_HAL_ChibiOS/system.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/system.cpp.i
+.PHONY : libraries/AP_HAL_ChibiOS/system.cpp.i
+
+libraries/AP_HAL_ChibiOS/system.s: libraries/AP_HAL_ChibiOS/system.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/system.s
+
+# target to generate assembly for a file
+libraries/AP_HAL_ChibiOS/system.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_ChibiOS.dir/build.make CMakeFiles/AP_HAL_ChibiOS.dir/libraries/AP_HAL_ChibiOS/system.cpp.s
+.PHONY : libraries/AP_HAL_ChibiOS/system.cpp.s
+
 libraries/AP_HAL_Empty/AnalogIn.o: libraries/AP_HAL_Empty/AnalogIn.cpp.o
 .PHONY : libraries/AP_HAL_Empty/AnalogIn.o
 
@@ -19230,681 +19758,6 @@ libraries/AP_HAL_Empty/UARTDriver.s: libraries/AP_HAL_Empty/UARTDriver.cpp.s
 libraries/AP_HAL_Empty/UARTDriver.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Empty.dir/build.make CMakeFiles/AP_HAL_Empty.dir/libraries/AP_HAL_Empty/UARTDriver.cpp.s
 .PHONY : libraries/AP_HAL_Empty/UARTDriver.cpp.s
-
-libraries/AP_HAL_SITL/AnalogIn.o: libraries/AP_HAL_SITL/AnalogIn.cpp.o
-.PHONY : libraries/AP_HAL_SITL/AnalogIn.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/AnalogIn.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.o
-.PHONY : libraries/AP_HAL_SITL/AnalogIn.cpp.o
-
-libraries/AP_HAL_SITL/AnalogIn.i: libraries/AP_HAL_SITL/AnalogIn.cpp.i
-.PHONY : libraries/AP_HAL_SITL/AnalogIn.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/AnalogIn.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.i
-.PHONY : libraries/AP_HAL_SITL/AnalogIn.cpp.i
-
-libraries/AP_HAL_SITL/AnalogIn.s: libraries/AP_HAL_SITL/AnalogIn.cpp.s
-.PHONY : libraries/AP_HAL_SITL/AnalogIn.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/AnalogIn.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.s
-.PHONY : libraries/AP_HAL_SITL/AnalogIn.cpp.s
-
-libraries/AP_HAL_SITL/CANSocketIface.o: libraries/AP_HAL_SITL/CANSocketIface.cpp.o
-.PHONY : libraries/AP_HAL_SITL/CANSocketIface.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/CANSocketIface.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.o
-.PHONY : libraries/AP_HAL_SITL/CANSocketIface.cpp.o
-
-libraries/AP_HAL_SITL/CANSocketIface.i: libraries/AP_HAL_SITL/CANSocketIface.cpp.i
-.PHONY : libraries/AP_HAL_SITL/CANSocketIface.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/CANSocketIface.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.i
-.PHONY : libraries/AP_HAL_SITL/CANSocketIface.cpp.i
-
-libraries/AP_HAL_SITL/CANSocketIface.s: libraries/AP_HAL_SITL/CANSocketIface.cpp.s
-.PHONY : libraries/AP_HAL_SITL/CANSocketIface.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/CANSocketIface.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.s
-.PHONY : libraries/AP_HAL_SITL/CANSocketIface.cpp.s
-
-libraries/AP_HAL_SITL/CAN_Multicast.o: libraries/AP_HAL_SITL/CAN_Multicast.cpp.o
-.PHONY : libraries/AP_HAL_SITL/CAN_Multicast.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/CAN_Multicast.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.o
-.PHONY : libraries/AP_HAL_SITL/CAN_Multicast.cpp.o
-
-libraries/AP_HAL_SITL/CAN_Multicast.i: libraries/AP_HAL_SITL/CAN_Multicast.cpp.i
-.PHONY : libraries/AP_HAL_SITL/CAN_Multicast.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/CAN_Multicast.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.i
-.PHONY : libraries/AP_HAL_SITL/CAN_Multicast.cpp.i
-
-libraries/AP_HAL_SITL/CAN_Multicast.s: libraries/AP_HAL_SITL/CAN_Multicast.cpp.s
-.PHONY : libraries/AP_HAL_SITL/CAN_Multicast.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/CAN_Multicast.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.s
-.PHONY : libraries/AP_HAL_SITL/CAN_Multicast.cpp.s
-
-libraries/AP_HAL_SITL/CAN_SocketCAN.o: libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.o
-.PHONY : libraries/AP_HAL_SITL/CAN_SocketCAN.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.o
-.PHONY : libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.o
-
-libraries/AP_HAL_SITL/CAN_SocketCAN.i: libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.i
-.PHONY : libraries/AP_HAL_SITL/CAN_SocketCAN.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.i
-.PHONY : libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.i
-
-libraries/AP_HAL_SITL/CAN_SocketCAN.s: libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.s
-.PHONY : libraries/AP_HAL_SITL/CAN_SocketCAN.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.s
-.PHONY : libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.s
-
-libraries/AP_HAL_SITL/DSP.o: libraries/AP_HAL_SITL/DSP.cpp.o
-.PHONY : libraries/AP_HAL_SITL/DSP.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/DSP.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/DSP.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/DSP.cpp.o
-.PHONY : libraries/AP_HAL_SITL/DSP.cpp.o
-
-libraries/AP_HAL_SITL/DSP.i: libraries/AP_HAL_SITL/DSP.cpp.i
-.PHONY : libraries/AP_HAL_SITL/DSP.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/DSP.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/DSP.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/DSP.cpp.i
-.PHONY : libraries/AP_HAL_SITL/DSP.cpp.i
-
-libraries/AP_HAL_SITL/DSP.s: libraries/AP_HAL_SITL/DSP.cpp.s
-.PHONY : libraries/AP_HAL_SITL/DSP.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/DSP.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/DSP.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/DSP.cpp.s
-.PHONY : libraries/AP_HAL_SITL/DSP.cpp.s
-
-libraries/AP_HAL_SITL/GPIO.o: libraries/AP_HAL_SITL/GPIO.cpp.o
-.PHONY : libraries/AP_HAL_SITL/GPIO.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/GPIO.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/GPIO.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/GPIO.cpp.o
-.PHONY : libraries/AP_HAL_SITL/GPIO.cpp.o
-
-libraries/AP_HAL_SITL/GPIO.i: libraries/AP_HAL_SITL/GPIO.cpp.i
-.PHONY : libraries/AP_HAL_SITL/GPIO.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/GPIO.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/GPIO.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/GPIO.cpp.i
-.PHONY : libraries/AP_HAL_SITL/GPIO.cpp.i
-
-libraries/AP_HAL_SITL/GPIO.s: libraries/AP_HAL_SITL/GPIO.cpp.s
-.PHONY : libraries/AP_HAL_SITL/GPIO.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/GPIO.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/GPIO.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/GPIO.cpp.s
-.PHONY : libraries/AP_HAL_SITL/GPIO.cpp.s
-
-libraries/AP_HAL_SITL/HAL_SITL_Class.o: libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.o
-.PHONY : libraries/AP_HAL_SITL/HAL_SITL_Class.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.o
-.PHONY : libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.o
-
-libraries/AP_HAL_SITL/HAL_SITL_Class.i: libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.i
-.PHONY : libraries/AP_HAL_SITL/HAL_SITL_Class.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.i
-.PHONY : libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.i
-
-libraries/AP_HAL_SITL/HAL_SITL_Class.s: libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.s
-.PHONY : libraries/AP_HAL_SITL/HAL_SITL_Class.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.s
-.PHONY : libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.s
-
-libraries/AP_HAL_SITL/I2CDevice.o: libraries/AP_HAL_SITL/I2CDevice.cpp.o
-.PHONY : libraries/AP_HAL_SITL/I2CDevice.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/I2CDevice.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.o
-.PHONY : libraries/AP_HAL_SITL/I2CDevice.cpp.o
-
-libraries/AP_HAL_SITL/I2CDevice.i: libraries/AP_HAL_SITL/I2CDevice.cpp.i
-.PHONY : libraries/AP_HAL_SITL/I2CDevice.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/I2CDevice.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.i
-.PHONY : libraries/AP_HAL_SITL/I2CDevice.cpp.i
-
-libraries/AP_HAL_SITL/I2CDevice.s: libraries/AP_HAL_SITL/I2CDevice.cpp.s
-.PHONY : libraries/AP_HAL_SITL/I2CDevice.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/I2CDevice.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.s
-.PHONY : libraries/AP_HAL_SITL/I2CDevice.cpp.s
-
-libraries/AP_HAL_SITL/RCInput.o: libraries/AP_HAL_SITL/RCInput.cpp.o
-.PHONY : libraries/AP_HAL_SITL/RCInput.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/RCInput.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/RCInput.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCInput.cpp.o
-.PHONY : libraries/AP_HAL_SITL/RCInput.cpp.o
-
-libraries/AP_HAL_SITL/RCInput.i: libraries/AP_HAL_SITL/RCInput.cpp.i
-.PHONY : libraries/AP_HAL_SITL/RCInput.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/RCInput.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/RCInput.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCInput.cpp.i
-.PHONY : libraries/AP_HAL_SITL/RCInput.cpp.i
-
-libraries/AP_HAL_SITL/RCInput.s: libraries/AP_HAL_SITL/RCInput.cpp.s
-.PHONY : libraries/AP_HAL_SITL/RCInput.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/RCInput.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/RCInput.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCInput.cpp.s
-.PHONY : libraries/AP_HAL_SITL/RCInput.cpp.s
-
-libraries/AP_HAL_SITL/RCOutput.o: libraries/AP_HAL_SITL/RCOutput.cpp.o
-.PHONY : libraries/AP_HAL_SITL/RCOutput.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/RCOutput.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/RCOutput.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCOutput.cpp.o
-.PHONY : libraries/AP_HAL_SITL/RCOutput.cpp.o
-
-libraries/AP_HAL_SITL/RCOutput.i: libraries/AP_HAL_SITL/RCOutput.cpp.i
-.PHONY : libraries/AP_HAL_SITL/RCOutput.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/RCOutput.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/RCOutput.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCOutput.cpp.i
-.PHONY : libraries/AP_HAL_SITL/RCOutput.cpp.i
-
-libraries/AP_HAL_SITL/RCOutput.s: libraries/AP_HAL_SITL/RCOutput.cpp.s
-.PHONY : libraries/AP_HAL_SITL/RCOutput.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/RCOutput.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/RCOutput.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCOutput.cpp.s
-.PHONY : libraries/AP_HAL_SITL/RCOutput.cpp.s
-
-libraries/AP_HAL_SITL/SITL_Periph_State.o: libraries/AP_HAL_SITL/SITL_Periph_State.cpp.o
-.PHONY : libraries/AP_HAL_SITL/SITL_Periph_State.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/SITL_Periph_State.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.o
-.PHONY : libraries/AP_HAL_SITL/SITL_Periph_State.cpp.o
-
-libraries/AP_HAL_SITL/SITL_Periph_State.i: libraries/AP_HAL_SITL/SITL_Periph_State.cpp.i
-.PHONY : libraries/AP_HAL_SITL/SITL_Periph_State.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/SITL_Periph_State.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.i
-.PHONY : libraries/AP_HAL_SITL/SITL_Periph_State.cpp.i
-
-libraries/AP_HAL_SITL/SITL_Periph_State.s: libraries/AP_HAL_SITL/SITL_Periph_State.cpp.s
-.PHONY : libraries/AP_HAL_SITL/SITL_Periph_State.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/SITL_Periph_State.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.s
-.PHONY : libraries/AP_HAL_SITL/SITL_Periph_State.cpp.s
-
-libraries/AP_HAL_SITL/SITL_State.o: libraries/AP_HAL_SITL/SITL_State.cpp.o
-.PHONY : libraries/AP_HAL_SITL/SITL_State.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/SITL_State.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_State.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State.cpp.o
-.PHONY : libraries/AP_HAL_SITL/SITL_State.cpp.o
-
-libraries/AP_HAL_SITL/SITL_State.i: libraries/AP_HAL_SITL/SITL_State.cpp.i
-.PHONY : libraries/AP_HAL_SITL/SITL_State.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/SITL_State.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_State.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State.cpp.i
-.PHONY : libraries/AP_HAL_SITL/SITL_State.cpp.i
-
-libraries/AP_HAL_SITL/SITL_State.s: libraries/AP_HAL_SITL/SITL_State.cpp.s
-.PHONY : libraries/AP_HAL_SITL/SITL_State.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/SITL_State.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_State.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State.cpp.s
-.PHONY : libraries/AP_HAL_SITL/SITL_State.cpp.s
-
-libraries/AP_HAL_SITL/SITL_State_common.o: libraries/AP_HAL_SITL/SITL_State_common.cpp.o
-.PHONY : libraries/AP_HAL_SITL/SITL_State_common.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/SITL_State_common.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.o
-.PHONY : libraries/AP_HAL_SITL/SITL_State_common.cpp.o
-
-libraries/AP_HAL_SITL/SITL_State_common.i: libraries/AP_HAL_SITL/SITL_State_common.cpp.i
-.PHONY : libraries/AP_HAL_SITL/SITL_State_common.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/SITL_State_common.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.i
-.PHONY : libraries/AP_HAL_SITL/SITL_State_common.cpp.i
-
-libraries/AP_HAL_SITL/SITL_State_common.s: libraries/AP_HAL_SITL/SITL_State_common.cpp.s
-.PHONY : libraries/AP_HAL_SITL/SITL_State_common.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/SITL_State_common.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.s
-.PHONY : libraries/AP_HAL_SITL/SITL_State_common.cpp.s
-
-libraries/AP_HAL_SITL/SITL_cmdline.o: libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
-.PHONY : libraries/AP_HAL_SITL/SITL_cmdline.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/SITL_cmdline.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
-.PHONY : libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
-
-libraries/AP_HAL_SITL/SITL_cmdline.i: libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
-.PHONY : libraries/AP_HAL_SITL/SITL_cmdline.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/SITL_cmdline.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
-.PHONY : libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
-
-libraries/AP_HAL_SITL/SITL_cmdline.s: libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
-.PHONY : libraries/AP_HAL_SITL/SITL_cmdline.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/SITL_cmdline.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
-.PHONY : libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
-
-libraries/AP_HAL_SITL/SPIDevice.o: libraries/AP_HAL_SITL/SPIDevice.cpp.o
-.PHONY : libraries/AP_HAL_SITL/SPIDevice.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/SPIDevice.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.o
-.PHONY : libraries/AP_HAL_SITL/SPIDevice.cpp.o
-
-libraries/AP_HAL_SITL/SPIDevice.i: libraries/AP_HAL_SITL/SPIDevice.cpp.i
-.PHONY : libraries/AP_HAL_SITL/SPIDevice.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/SPIDevice.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.i
-.PHONY : libraries/AP_HAL_SITL/SPIDevice.cpp.i
-
-libraries/AP_HAL_SITL/SPIDevice.s: libraries/AP_HAL_SITL/SPIDevice.cpp.s
-.PHONY : libraries/AP_HAL_SITL/SPIDevice.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/SPIDevice.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.s
-.PHONY : libraries/AP_HAL_SITL/SPIDevice.cpp.s
-
-libraries/AP_HAL_SITL/Scheduler.o: libraries/AP_HAL_SITL/Scheduler.cpp.o
-.PHONY : libraries/AP_HAL_SITL/Scheduler.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/Scheduler.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Scheduler.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Scheduler.cpp.o
-.PHONY : libraries/AP_HAL_SITL/Scheduler.cpp.o
-
-libraries/AP_HAL_SITL/Scheduler.i: libraries/AP_HAL_SITL/Scheduler.cpp.i
-.PHONY : libraries/AP_HAL_SITL/Scheduler.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/Scheduler.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Scheduler.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Scheduler.cpp.i
-.PHONY : libraries/AP_HAL_SITL/Scheduler.cpp.i
-
-libraries/AP_HAL_SITL/Scheduler.s: libraries/AP_HAL_SITL/Scheduler.cpp.s
-.PHONY : libraries/AP_HAL_SITL/Scheduler.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/Scheduler.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Scheduler.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Scheduler.cpp.s
-.PHONY : libraries/AP_HAL_SITL/Scheduler.cpp.s
-
-libraries/AP_HAL_SITL/Semaphores.o: libraries/AP_HAL_SITL/Semaphores.cpp.o
-.PHONY : libraries/AP_HAL_SITL/Semaphores.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/Semaphores.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Semaphores.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Semaphores.cpp.o
-.PHONY : libraries/AP_HAL_SITL/Semaphores.cpp.o
-
-libraries/AP_HAL_SITL/Semaphores.i: libraries/AP_HAL_SITL/Semaphores.cpp.i
-.PHONY : libraries/AP_HAL_SITL/Semaphores.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/Semaphores.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Semaphores.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Semaphores.cpp.i
-.PHONY : libraries/AP_HAL_SITL/Semaphores.cpp.i
-
-libraries/AP_HAL_SITL/Semaphores.s: libraries/AP_HAL_SITL/Semaphores.cpp.s
-.PHONY : libraries/AP_HAL_SITL/Semaphores.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/Semaphores.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Semaphores.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Semaphores.cpp.s
-.PHONY : libraries/AP_HAL_SITL/Semaphores.cpp.s
-
-libraries/AP_HAL_SITL/Storage.o: libraries/AP_HAL_SITL/Storage.cpp.o
-.PHONY : libraries/AP_HAL_SITL/Storage.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/Storage.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Storage.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Storage.cpp.o
-.PHONY : libraries/AP_HAL_SITL/Storage.cpp.o
-
-libraries/AP_HAL_SITL/Storage.i: libraries/AP_HAL_SITL/Storage.cpp.i
-.PHONY : libraries/AP_HAL_SITL/Storage.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/Storage.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Storage.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Storage.cpp.i
-.PHONY : libraries/AP_HAL_SITL/Storage.cpp.i
-
-libraries/AP_HAL_SITL/Storage.s: libraries/AP_HAL_SITL/Storage.cpp.s
-.PHONY : libraries/AP_HAL_SITL/Storage.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/Storage.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Storage.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Storage.cpp.s
-.PHONY : libraries/AP_HAL_SITL/Storage.cpp.s
-
-libraries/AP_HAL_SITL/ToneAlarm_SF.o: libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.o
-.PHONY : libraries/AP_HAL_SITL/ToneAlarm_SF.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.o
-.PHONY : libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.o
-
-libraries/AP_HAL_SITL/ToneAlarm_SF.i: libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.i
-.PHONY : libraries/AP_HAL_SITL/ToneAlarm_SF.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.i
-.PHONY : libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.i
-
-libraries/AP_HAL_SITL/ToneAlarm_SF.s: libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.s
-.PHONY : libraries/AP_HAL_SITL/ToneAlarm_SF.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.s
-.PHONY : libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.s
-
-libraries/AP_HAL_SITL/UARTDriver.o: libraries/AP_HAL_SITL/UARTDriver.cpp.o
-.PHONY : libraries/AP_HAL_SITL/UARTDriver.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/UARTDriver.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.o
-.PHONY : libraries/AP_HAL_SITL/UARTDriver.cpp.o
-
-libraries/AP_HAL_SITL/UARTDriver.i: libraries/AP_HAL_SITL/UARTDriver.cpp.i
-.PHONY : libraries/AP_HAL_SITL/UARTDriver.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/UARTDriver.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.i
-.PHONY : libraries/AP_HAL_SITL/UARTDriver.cpp.i
-
-libraries/AP_HAL_SITL/UARTDriver.s: libraries/AP_HAL_SITL/UARTDriver.cpp.s
-.PHONY : libraries/AP_HAL_SITL/UARTDriver.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/UARTDriver.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.s
-.PHONY : libraries/AP_HAL_SITL/UARTDriver.cpp.s
-
-libraries/AP_HAL_SITL/UART_utils.o: libraries/AP_HAL_SITL/UART_utils.cpp.o
-.PHONY : libraries/AP_HAL_SITL/UART_utils.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/UART_utils.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/UART_utils.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UART_utils.cpp.o
-.PHONY : libraries/AP_HAL_SITL/UART_utils.cpp.o
-
-libraries/AP_HAL_SITL/UART_utils.i: libraries/AP_HAL_SITL/UART_utils.cpp.i
-.PHONY : libraries/AP_HAL_SITL/UART_utils.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/UART_utils.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/UART_utils.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UART_utils.cpp.i
-.PHONY : libraries/AP_HAL_SITL/UART_utils.cpp.i
-
-libraries/AP_HAL_SITL/UART_utils.s: libraries/AP_HAL_SITL/UART_utils.cpp.s
-.PHONY : libraries/AP_HAL_SITL/UART_utils.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/UART_utils.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/UART_utils.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UART_utils.cpp.s
-.PHONY : libraries/AP_HAL_SITL/UART_utils.cpp.s
-
-libraries/AP_HAL_SITL/Util.o: libraries/AP_HAL_SITL/Util.cpp.o
-.PHONY : libraries/AP_HAL_SITL/Util.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/Util.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Util.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Util.cpp.o
-.PHONY : libraries/AP_HAL_SITL/Util.cpp.o
-
-libraries/AP_HAL_SITL/Util.i: libraries/AP_HAL_SITL/Util.cpp.i
-.PHONY : libraries/AP_HAL_SITL/Util.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/Util.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Util.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Util.cpp.i
-.PHONY : libraries/AP_HAL_SITL/Util.cpp.i
-
-libraries/AP_HAL_SITL/Util.s: libraries/AP_HAL_SITL/Util.cpp.s
-.PHONY : libraries/AP_HAL_SITL/Util.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/Util.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Util.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Util.cpp.s
-.PHONY : libraries/AP_HAL_SITL/Util.cpp.s
-
-libraries/AP_HAL_SITL/sitl_airspeed.o: libraries/AP_HAL_SITL/sitl_airspeed.cpp.o
-.PHONY : libraries/AP_HAL_SITL/sitl_airspeed.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/sitl_airspeed.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.o
-.PHONY : libraries/AP_HAL_SITL/sitl_airspeed.cpp.o
-
-libraries/AP_HAL_SITL/sitl_airspeed.i: libraries/AP_HAL_SITL/sitl_airspeed.cpp.i
-.PHONY : libraries/AP_HAL_SITL/sitl_airspeed.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/sitl_airspeed.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.i
-.PHONY : libraries/AP_HAL_SITL/sitl_airspeed.cpp.i
-
-libraries/AP_HAL_SITL/sitl_airspeed.s: libraries/AP_HAL_SITL/sitl_airspeed.cpp.s
-.PHONY : libraries/AP_HAL_SITL/sitl_airspeed.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/sitl_airspeed.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.s
-.PHONY : libraries/AP_HAL_SITL/sitl_airspeed.cpp.s
-
-libraries/AP_HAL_SITL/sitl_rangefinder.o: libraries/AP_HAL_SITL/sitl_rangefinder.cpp.o
-.PHONY : libraries/AP_HAL_SITL/sitl_rangefinder.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/sitl_rangefinder.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.o
-.PHONY : libraries/AP_HAL_SITL/sitl_rangefinder.cpp.o
-
-libraries/AP_HAL_SITL/sitl_rangefinder.i: libraries/AP_HAL_SITL/sitl_rangefinder.cpp.i
-.PHONY : libraries/AP_HAL_SITL/sitl_rangefinder.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/sitl_rangefinder.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.i
-.PHONY : libraries/AP_HAL_SITL/sitl_rangefinder.cpp.i
-
-libraries/AP_HAL_SITL/sitl_rangefinder.s: libraries/AP_HAL_SITL/sitl_rangefinder.cpp.s
-.PHONY : libraries/AP_HAL_SITL/sitl_rangefinder.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/sitl_rangefinder.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.s
-.PHONY : libraries/AP_HAL_SITL/sitl_rangefinder.cpp.s
-
-libraries/AP_HAL_SITL/system.o: libraries/AP_HAL_SITL/system.cpp.o
-.PHONY : libraries/AP_HAL_SITL/system.o
-
-# target to build an object file
-libraries/AP_HAL_SITL/system.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/system.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/system.cpp.o
-.PHONY : libraries/AP_HAL_SITL/system.cpp.o
-
-libraries/AP_HAL_SITL/system.i: libraries/AP_HAL_SITL/system.cpp.i
-.PHONY : libraries/AP_HAL_SITL/system.i
-
-# target to preprocess a source file
-libraries/AP_HAL_SITL/system.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/system.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/system.cpp.i
-.PHONY : libraries/AP_HAL_SITL/system.cpp.i
-
-libraries/AP_HAL_SITL/system.s: libraries/AP_HAL_SITL/system.cpp.s
-.PHONY : libraries/AP_HAL_SITL/system.s
-
-# target to generate assembly for a file
-libraries/AP_HAL_SITL/system.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/system.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/system.cpp.s
-.PHONY : libraries/AP_HAL_SITL/system.cpp.s
 
 libraries/AP_Hott_Telem/AP_Hott_Telem.o: libraries/AP_Hott_Telem/AP_Hott_Telem.cpp.o
 .PHONY : libraries/AP_Hott_Telem/AP_Hott_Telem.o
@@ -21171,8 +21024,8 @@ libraries/AP_Logger/AP_Logger.o: libraries/AP_Logger/AP_Logger.cpp.o
 
 # target to build an object file
 libraries/AP_Logger/AP_Logger.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger.cpp.o
 
 libraries/AP_Logger/AP_Logger.i: libraries/AP_Logger/AP_Logger.cpp.i
@@ -21180,8 +21033,8 @@ libraries/AP_Logger/AP_Logger.i: libraries/AP_Logger/AP_Logger.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger.cpp.i
 
 libraries/AP_Logger/AP_Logger.s: libraries/AP_Logger/AP_Logger.cpp.s
@@ -21189,8 +21042,8 @@ libraries/AP_Logger/AP_Logger.s: libraries/AP_Logger/AP_Logger.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger.cpp.s
 
 libraries/AP_Logger/AP_Logger_Backend.o: libraries/AP_Logger/AP_Logger_Backend.cpp.o
@@ -21198,8 +21051,8 @@ libraries/AP_Logger/AP_Logger_Backend.o: libraries/AP_Logger/AP_Logger_Backend.c
 
 # target to build an object file
 libraries/AP_Logger/AP_Logger_Backend.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger_Backend.cpp.o
 
 libraries/AP_Logger/AP_Logger_Backend.i: libraries/AP_Logger/AP_Logger_Backend.cpp.i
@@ -21207,8 +21060,8 @@ libraries/AP_Logger/AP_Logger_Backend.i: libraries/AP_Logger/AP_Logger_Backend.c
 
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger_Backend.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger_Backend.cpp.i
 
 libraries/AP_Logger/AP_Logger_Backend.s: libraries/AP_Logger/AP_Logger_Backend.cpp.s
@@ -21216,8 +21069,8 @@ libraries/AP_Logger/AP_Logger_Backend.s: libraries/AP_Logger/AP_Logger_Backend.c
 
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger_Backend.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger_Backend.cpp.s
 
 libraries/AP_Logger/AP_Logger_Block.o: libraries/AP_Logger/AP_Logger_Block.cpp.o
@@ -21225,8 +21078,8 @@ libraries/AP_Logger/AP_Logger_Block.o: libraries/AP_Logger/AP_Logger_Block.cpp.o
 
 # target to build an object file
 libraries/AP_Logger/AP_Logger_Block.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Block.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Block.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Block.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger_Block.cpp.o
 
 libraries/AP_Logger/AP_Logger_Block.i: libraries/AP_Logger/AP_Logger_Block.cpp.i
@@ -21234,8 +21087,8 @@ libraries/AP_Logger/AP_Logger_Block.i: libraries/AP_Logger/AP_Logger_Block.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger_Block.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Block.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Block.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Block.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger_Block.cpp.i
 
 libraries/AP_Logger/AP_Logger_Block.s: libraries/AP_Logger/AP_Logger_Block.cpp.s
@@ -21243,8 +21096,8 @@ libraries/AP_Logger/AP_Logger_Block.s: libraries/AP_Logger/AP_Logger_Block.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger_Block.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Block.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Block.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Block.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger_Block.cpp.s
 
 libraries/AP_Logger/AP_Logger_File.o: libraries/AP_Logger/AP_Logger_File.cpp.o
@@ -21252,8 +21105,8 @@ libraries/AP_Logger/AP_Logger_File.o: libraries/AP_Logger/AP_Logger_File.cpp.o
 
 # target to build an object file
 libraries/AP_Logger/AP_Logger_File.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_File.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_File.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_File.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger_File.cpp.o
 
 libraries/AP_Logger/AP_Logger_File.i: libraries/AP_Logger/AP_Logger_File.cpp.i
@@ -21261,8 +21114,8 @@ libraries/AP_Logger/AP_Logger_File.i: libraries/AP_Logger/AP_Logger_File.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger_File.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_File.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_File.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_File.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger_File.cpp.i
 
 libraries/AP_Logger/AP_Logger_File.s: libraries/AP_Logger/AP_Logger_File.cpp.s
@@ -21270,8 +21123,8 @@ libraries/AP_Logger/AP_Logger_File.s: libraries/AP_Logger/AP_Logger_File.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger_File.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_File.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_File.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_File.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger_File.cpp.s
 
 libraries/AP_Logger/AP_Logger_Flash_JEDEC.o: libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.o
@@ -21279,8 +21132,8 @@ libraries/AP_Logger/AP_Logger_Flash_JEDEC.o: libraries/AP_Logger/AP_Logger_Flash
 
 # target to build an object file
 libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.o
 
 libraries/AP_Logger/AP_Logger_Flash_JEDEC.i: libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.i
@@ -21288,8 +21141,8 @@ libraries/AP_Logger/AP_Logger_Flash_JEDEC.i: libraries/AP_Logger/AP_Logger_Flash
 
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.i
 
 libraries/AP_Logger/AP_Logger_Flash_JEDEC.s: libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.s
@@ -21297,8 +21150,8 @@ libraries/AP_Logger/AP_Logger_Flash_JEDEC.s: libraries/AP_Logger/AP_Logger_Flash
 
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.s
 
 libraries/AP_Logger/AP_Logger_MAVLink.o: libraries/AP_Logger/AP_Logger_MAVLink.cpp.o
@@ -21306,8 +21159,8 @@ libraries/AP_Logger/AP_Logger_MAVLink.o: libraries/AP_Logger/AP_Logger_MAVLink.c
 
 # target to build an object file
 libraries/AP_Logger/AP_Logger_MAVLink.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger_MAVLink.cpp.o
 
 libraries/AP_Logger/AP_Logger_MAVLink.i: libraries/AP_Logger/AP_Logger_MAVLink.cpp.i
@@ -21315,8 +21168,8 @@ libraries/AP_Logger/AP_Logger_MAVLink.i: libraries/AP_Logger/AP_Logger_MAVLink.c
 
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger_MAVLink.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger_MAVLink.cpp.i
 
 libraries/AP_Logger/AP_Logger_MAVLink.s: libraries/AP_Logger/AP_Logger_MAVLink.cpp.s
@@ -21324,8 +21177,8 @@ libraries/AP_Logger/AP_Logger_MAVLink.s: libraries/AP_Logger/AP_Logger_MAVLink.c
 
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger_MAVLink.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger_MAVLink.cpp.s
 
 libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.o: libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.o
@@ -21333,8 +21186,8 @@ libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.o: libraries/AP_Logger/AP_Logge
 
 # target to build an object file
 libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.o
 
 libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.i: libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.i
@@ -21342,8 +21195,8 @@ libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.i: libraries/AP_Logger/AP_Logge
 
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.i
 
 libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.s: libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.s
@@ -21351,8 +21204,8 @@ libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.s: libraries/AP_Logger/AP_Logge
 
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.s
 
 libraries/AP_Logger/AP_Logger_W25NXX.o: libraries/AP_Logger/AP_Logger_W25NXX.cpp.o
@@ -21360,8 +21213,8 @@ libraries/AP_Logger/AP_Logger_W25NXX.o: libraries/AP_Logger/AP_Logger_W25NXX.cpp
 
 # target to build an object file
 libraries/AP_Logger/AP_Logger_W25NXX.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger_W25NXX.cpp.o
 
 libraries/AP_Logger/AP_Logger_W25NXX.i: libraries/AP_Logger/AP_Logger_W25NXX.cpp.i
@@ -21369,8 +21222,8 @@ libraries/AP_Logger/AP_Logger_W25NXX.i: libraries/AP_Logger/AP_Logger_W25NXX.cpp
 
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger_W25NXX.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger_W25NXX.cpp.i
 
 libraries/AP_Logger/AP_Logger_W25NXX.s: libraries/AP_Logger/AP_Logger_W25NXX.cpp.s
@@ -21378,8 +21231,8 @@ libraries/AP_Logger/AP_Logger_W25NXX.s: libraries/AP_Logger/AP_Logger_W25NXX.cpp
 
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger_W25NXX.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger_W25NXX.cpp.s
 
 libraries/AP_Logger/LogFile.o: libraries/AP_Logger/LogFile.cpp.o
@@ -21387,8 +21240,8 @@ libraries/AP_Logger/LogFile.o: libraries/AP_Logger/LogFile.cpp.o
 
 # target to build an object file
 libraries/AP_Logger/LogFile.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LogFile.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/LogFile.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LogFile.cpp.o
 .PHONY : libraries/AP_Logger/LogFile.cpp.o
 
 libraries/AP_Logger/LogFile.i: libraries/AP_Logger/LogFile.cpp.i
@@ -21396,8 +21249,8 @@ libraries/AP_Logger/LogFile.i: libraries/AP_Logger/LogFile.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Logger/LogFile.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LogFile.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/LogFile.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LogFile.cpp.i
 .PHONY : libraries/AP_Logger/LogFile.cpp.i
 
 libraries/AP_Logger/LogFile.s: libraries/AP_Logger/LogFile.cpp.s
@@ -21405,8 +21258,8 @@ libraries/AP_Logger/LogFile.s: libraries/AP_Logger/LogFile.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Logger/LogFile.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LogFile.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/LogFile.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LogFile.cpp.s
 .PHONY : libraries/AP_Logger/LogFile.cpp.s
 
 libraries/AP_Logger/LoggerMessageWriter.o: libraries/AP_Logger/LoggerMessageWriter.cpp.o
@@ -21414,8 +21267,8 @@ libraries/AP_Logger/LoggerMessageWriter.o: libraries/AP_Logger/LoggerMessageWrit
 
 # target to build an object file
 libraries/AP_Logger/LoggerMessageWriter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.o
 .PHONY : libraries/AP_Logger/LoggerMessageWriter.cpp.o
 
 libraries/AP_Logger/LoggerMessageWriter.i: libraries/AP_Logger/LoggerMessageWriter.cpp.i
@@ -21423,8 +21276,8 @@ libraries/AP_Logger/LoggerMessageWriter.i: libraries/AP_Logger/LoggerMessageWrit
 
 # target to preprocess a source file
 libraries/AP_Logger/LoggerMessageWriter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.i
 .PHONY : libraries/AP_Logger/LoggerMessageWriter.cpp.i
 
 libraries/AP_Logger/LoggerMessageWriter.s: libraries/AP_Logger/LoggerMessageWriter.cpp.s
@@ -21432,8 +21285,8 @@ libraries/AP_Logger/LoggerMessageWriter.s: libraries/AP_Logger/LoggerMessageWrit
 
 # target to generate assembly for a file
 libraries/AP_Logger/LoggerMessageWriter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.s
 .PHONY : libraries/AP_Logger/LoggerMessageWriter.cpp.s
 
 libraries/AP_MSP/AP_MSP.o: libraries/AP_MSP/AP_MSP.cpp.o
@@ -24268,6 +24121,30 @@ libraries/AP_Networking/AP_Networking_tests.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Networking.dir/build.make CMakeFiles/AP_Networking.dir/libraries/AP_Networking/AP_Networking_tests.cpp.s
 .PHONY : libraries/AP_Networking/AP_Networking_tests.cpp.s
 
+libraries/AP_Networking/lwip_hal/arch/evtimer.o: libraries/AP_Networking/lwip_hal/arch/evtimer.c.o
+.PHONY : libraries/AP_Networking/lwip_hal/arch/evtimer.o
+
+# target to build an object file
+libraries/AP_Networking/lwip_hal/arch/evtimer.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Networking.dir/build.make CMakeFiles/AP_Networking.dir/libraries/AP_Networking/lwip_hal/arch/evtimer.c.o
+.PHONY : libraries/AP_Networking/lwip_hal/arch/evtimer.c.o
+
+libraries/AP_Networking/lwip_hal/arch/evtimer.i: libraries/AP_Networking/lwip_hal/arch/evtimer.c.i
+.PHONY : libraries/AP_Networking/lwip_hal/arch/evtimer.i
+
+# target to preprocess a source file
+libraries/AP_Networking/lwip_hal/arch/evtimer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Networking.dir/build.make CMakeFiles/AP_Networking.dir/libraries/AP_Networking/lwip_hal/arch/evtimer.c.i
+.PHONY : libraries/AP_Networking/lwip_hal/arch/evtimer.c.i
+
+libraries/AP_Networking/lwip_hal/arch/evtimer.s: libraries/AP_Networking/lwip_hal/arch/evtimer.c.s
+.PHONY : libraries/AP_Networking/lwip_hal/arch/evtimer.s
+
+# target to generate assembly for a file
+libraries/AP_Networking/lwip_hal/arch/evtimer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Networking.dir/build.make CMakeFiles/AP_Networking.dir/libraries/AP_Networking/lwip_hal/arch/evtimer.c.s
+.PHONY : libraries/AP_Networking/lwip_hal/arch/evtimer.c.s
+
 libraries/AP_Networking/lwip_hal/arch/sys_arch.o: libraries/AP_Networking/lwip_hal/arch/sys_arch.cpp.o
 .PHONY : libraries/AP_Networking/lwip_hal/arch/sys_arch.o
 
@@ -25113,8 +24990,8 @@ libraries/AP_OSD/AP_OSD.o: libraries/AP_OSD/AP_OSD.cpp.o
 
 # target to build an object file
 libraries/AP_OSD/AP_OSD.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD.cpp.o
 
 libraries/AP_OSD/AP_OSD.i: libraries/AP_OSD/AP_OSD.cpp.i
@@ -25122,8 +24999,8 @@ libraries/AP_OSD/AP_OSD.i: libraries/AP_OSD/AP_OSD.cpp.i
 
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD.cpp.i
 
 libraries/AP_OSD/AP_OSD.s: libraries/AP_OSD/AP_OSD.cpp.s
@@ -25131,8 +25008,8 @@ libraries/AP_OSD/AP_OSD.s: libraries/AP_OSD/AP_OSD.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD.cpp.s
 
 libraries/AP_OSD/AP_OSD_Backend.o: libraries/AP_OSD/AP_OSD_Backend.cpp.o
@@ -25140,8 +25017,8 @@ libraries/AP_OSD/AP_OSD_Backend.o: libraries/AP_OSD/AP_OSD_Backend.cpp.o
 
 # target to build an object file
 libraries/AP_OSD/AP_OSD_Backend.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_Backend.cpp.o
 
 libraries/AP_OSD/AP_OSD_Backend.i: libraries/AP_OSD/AP_OSD_Backend.cpp.i
@@ -25149,8 +25026,8 @@ libraries/AP_OSD/AP_OSD_Backend.i: libraries/AP_OSD/AP_OSD_Backend.cpp.i
 
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_Backend.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_Backend.cpp.i
 
 libraries/AP_OSD/AP_OSD_Backend.s: libraries/AP_OSD/AP_OSD_Backend.cpp.s
@@ -25158,8 +25035,8 @@ libraries/AP_OSD/AP_OSD_Backend.s: libraries/AP_OSD/AP_OSD_Backend.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_Backend.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_Backend.cpp.s
 
 libraries/AP_OSD/AP_OSD_MAX7456.o: libraries/AP_OSD/AP_OSD_MAX7456.cpp.o
@@ -25167,8 +25044,8 @@ libraries/AP_OSD/AP_OSD_MAX7456.o: libraries/AP_OSD/AP_OSD_MAX7456.cpp.o
 
 # target to build an object file
 libraries/AP_OSD/AP_OSD_MAX7456.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_MAX7456.cpp.o
 
 libraries/AP_OSD/AP_OSD_MAX7456.i: libraries/AP_OSD/AP_OSD_MAX7456.cpp.i
@@ -25176,8 +25053,8 @@ libraries/AP_OSD/AP_OSD_MAX7456.i: libraries/AP_OSD/AP_OSD_MAX7456.cpp.i
 
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_MAX7456.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_MAX7456.cpp.i
 
 libraries/AP_OSD/AP_OSD_MAX7456.s: libraries/AP_OSD/AP_OSD_MAX7456.cpp.s
@@ -25185,8 +25062,8 @@ libraries/AP_OSD/AP_OSD_MAX7456.s: libraries/AP_OSD/AP_OSD_MAX7456.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_MAX7456.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_MAX7456.cpp.s
 
 libraries/AP_OSD/AP_OSD_MSP.o: libraries/AP_OSD/AP_OSD_MSP.cpp.o
@@ -25194,8 +25071,8 @@ libraries/AP_OSD/AP_OSD_MSP.o: libraries/AP_OSD/AP_OSD_MSP.cpp.o
 
 # target to build an object file
 libraries/AP_OSD/AP_OSD_MSP.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_MSP.cpp.o
 
 libraries/AP_OSD/AP_OSD_MSP.i: libraries/AP_OSD/AP_OSD_MSP.cpp.i
@@ -25203,8 +25080,8 @@ libraries/AP_OSD/AP_OSD_MSP.i: libraries/AP_OSD/AP_OSD_MSP.cpp.i
 
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_MSP.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_MSP.cpp.i
 
 libraries/AP_OSD/AP_OSD_MSP.s: libraries/AP_OSD/AP_OSD_MSP.cpp.s
@@ -25212,8 +25089,8 @@ libraries/AP_OSD/AP_OSD_MSP.s: libraries/AP_OSD/AP_OSD_MSP.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_MSP.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_MSP.cpp.s
 
 libraries/AP_OSD/AP_OSD_MSP_DisplayPort.o: libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.o
@@ -25221,8 +25098,8 @@ libraries/AP_OSD/AP_OSD_MSP_DisplayPort.o: libraries/AP_OSD/AP_OSD_MSP_DisplayPo
 
 # target to build an object file
 libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.o
 
 libraries/AP_OSD/AP_OSD_MSP_DisplayPort.i: libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.i
@@ -25230,8 +25107,8 @@ libraries/AP_OSD/AP_OSD_MSP_DisplayPort.i: libraries/AP_OSD/AP_OSD_MSP_DisplayPo
 
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.i
 
 libraries/AP_OSD/AP_OSD_MSP_DisplayPort.s: libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.s
@@ -25239,8 +25116,8 @@ libraries/AP_OSD/AP_OSD_MSP_DisplayPort.s: libraries/AP_OSD/AP_OSD_MSP_DisplayPo
 
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.s
 
 libraries/AP_OSD/AP_OSD_ParamScreen.o: libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
@@ -25248,8 +25125,8 @@ libraries/AP_OSD/AP_OSD_ParamScreen.o: libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
 
 # target to build an object file
 libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
 
 libraries/AP_OSD/AP_OSD_ParamScreen.i: libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
@@ -25257,8 +25134,8 @@ libraries/AP_OSD/AP_OSD_ParamScreen.i: libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
 
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
 
 libraries/AP_OSD/AP_OSD_ParamScreen.s: libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
@@ -25266,8 +25143,8 @@ libraries/AP_OSD/AP_OSD_ParamScreen.s: libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
 
 libraries/AP_OSD/AP_OSD_ParamSetting.o: libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
@@ -25275,8 +25152,8 @@ libraries/AP_OSD/AP_OSD_ParamSetting.o: libraries/AP_OSD/AP_OSD_ParamSetting.cpp
 
 # target to build an object file
 libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
 
 libraries/AP_OSD/AP_OSD_ParamSetting.i: libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
@@ -25284,8 +25161,8 @@ libraries/AP_OSD/AP_OSD_ParamSetting.i: libraries/AP_OSD/AP_OSD_ParamSetting.cpp
 
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
 
 libraries/AP_OSD/AP_OSD_ParamSetting.s: libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
@@ -25293,8 +25170,8 @@ libraries/AP_OSD/AP_OSD_ParamSetting.s: libraries/AP_OSD/AP_OSD_ParamSetting.cpp
 
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
 
 libraries/AP_OSD/AP_OSD_SITL.o: libraries/AP_OSD/AP_OSD_SITL.cpp.o
@@ -25302,8 +25179,8 @@ libraries/AP_OSD/AP_OSD_SITL.o: libraries/AP_OSD/AP_OSD_SITL.cpp.o
 
 # target to build an object file
 libraries/AP_OSD/AP_OSD_SITL.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_SITL.cpp.o
 
 libraries/AP_OSD/AP_OSD_SITL.i: libraries/AP_OSD/AP_OSD_SITL.cpp.i
@@ -25311,8 +25188,8 @@ libraries/AP_OSD/AP_OSD_SITL.i: libraries/AP_OSD/AP_OSD_SITL.cpp.i
 
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_SITL.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_SITL.cpp.i
 
 libraries/AP_OSD/AP_OSD_SITL.s: libraries/AP_OSD/AP_OSD_SITL.cpp.s
@@ -25320,8 +25197,8 @@ libraries/AP_OSD/AP_OSD_SITL.s: libraries/AP_OSD/AP_OSD_SITL.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_SITL.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_SITL.cpp.s
 
 libraries/AP_OSD/AP_OSD_Screen.o: libraries/AP_OSD/AP_OSD_Screen.cpp.o
@@ -25329,8 +25206,8 @@ libraries/AP_OSD/AP_OSD_Screen.o: libraries/AP_OSD/AP_OSD_Screen.cpp.o
 
 # target to build an object file
 libraries/AP_OSD/AP_OSD_Screen.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_Screen.cpp.o
 
 libraries/AP_OSD/AP_OSD_Screen.i: libraries/AP_OSD/AP_OSD_Screen.cpp.i
@@ -25338,8 +25215,8 @@ libraries/AP_OSD/AP_OSD_Screen.i: libraries/AP_OSD/AP_OSD_Screen.cpp.i
 
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_Screen.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_Screen.cpp.i
 
 libraries/AP_OSD/AP_OSD_Screen.s: libraries/AP_OSD/AP_OSD_Screen.cpp.s
@@ -25347,8 +25224,8 @@ libraries/AP_OSD/AP_OSD_Screen.s: libraries/AP_OSD/AP_OSD_Screen.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_Screen.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_Screen.cpp.s
 
 libraries/AP_OSD/AP_OSD_Setting.o: libraries/AP_OSD/AP_OSD_Setting.cpp.o
@@ -25356,8 +25233,8 @@ libraries/AP_OSD/AP_OSD_Setting.o: libraries/AP_OSD/AP_OSD_Setting.cpp.o
 
 # target to build an object file
 libraries/AP_OSD/AP_OSD_Setting.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_Setting.cpp.o
 
 libraries/AP_OSD/AP_OSD_Setting.i: libraries/AP_OSD/AP_OSD_Setting.cpp.i
@@ -25365,8 +25242,8 @@ libraries/AP_OSD/AP_OSD_Setting.i: libraries/AP_OSD/AP_OSD_Setting.cpp.i
 
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_Setting.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_Setting.cpp.i
 
 libraries/AP_OSD/AP_OSD_Setting.s: libraries/AP_OSD/AP_OSD_Setting.cpp.s
@@ -25374,8 +25251,8 @@ libraries/AP_OSD/AP_OSD_Setting.s: libraries/AP_OSD/AP_OSD_Setting.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_Setting.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_Setting.cpp.s
 
 libraries/AP_OpenDroneID/AP_OpenDroneID.o: libraries/AP_OpenDroneID/AP_OpenDroneID.cpp.o
@@ -33049,4029 +32926,6 @@ libraries/RC_Channel/RC_Channels.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel_Plane.dir/build.make CMakeFiles/RC_Channel_Plane.dir/libraries/RC_Channel/RC_Channels.cpp.s
 .PHONY : libraries/RC_Channel/RC_Channels.cpp.s
 
-libraries/SITL/SIM_ADSB.o: libraries/SITL/SIM_ADSB.cpp.o
-.PHONY : libraries/SITL/SIM_ADSB.o
-
-# target to build an object file
-libraries/SITL/SIM_ADSB.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ADSB.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ADSB.cpp.o
-.PHONY : libraries/SITL/SIM_ADSB.cpp.o
-
-libraries/SITL/SIM_ADSB.i: libraries/SITL/SIM_ADSB.cpp.i
-.PHONY : libraries/SITL/SIM_ADSB.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_ADSB.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ADSB.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ADSB.cpp.i
-.PHONY : libraries/SITL/SIM_ADSB.cpp.i
-
-libraries/SITL/SIM_ADSB.s: libraries/SITL/SIM_ADSB.cpp.s
-.PHONY : libraries/SITL/SIM_ADSB.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_ADSB.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ADSB.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ADSB.cpp.s
-.PHONY : libraries/SITL/SIM_ADSB.cpp.s
-
-libraries/SITL/SIM_ADSB_Sagetech_MXS.o: libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.o
-.PHONY : libraries/SITL/SIM_ADSB_Sagetech_MXS.o
-
-# target to build an object file
-libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.o
-.PHONY : libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.o
-
-libraries/SITL/SIM_ADSB_Sagetech_MXS.i: libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.i
-.PHONY : libraries/SITL/SIM_ADSB_Sagetech_MXS.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.i
-.PHONY : libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.i
-
-libraries/SITL/SIM_ADSB_Sagetech_MXS.s: libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.s
-.PHONY : libraries/SITL/SIM_ADSB_Sagetech_MXS.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.s
-.PHONY : libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp.s
-
-libraries/SITL/SIM_AIS.o: libraries/SITL/SIM_AIS.cpp.o
-.PHONY : libraries/SITL/SIM_AIS.o
-
-# target to build an object file
-libraries/SITL/SIM_AIS.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_AIS.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_AIS.cpp.o
-.PHONY : libraries/SITL/SIM_AIS.cpp.o
-
-libraries/SITL/SIM_AIS.i: libraries/SITL/SIM_AIS.cpp.i
-.PHONY : libraries/SITL/SIM_AIS.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_AIS.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_AIS.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_AIS.cpp.i
-.PHONY : libraries/SITL/SIM_AIS.cpp.i
-
-libraries/SITL/SIM_AIS.s: libraries/SITL/SIM_AIS.cpp.s
-.PHONY : libraries/SITL/SIM_AIS.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_AIS.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_AIS.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_AIS.cpp.s
-.PHONY : libraries/SITL/SIM_AIS.cpp.s
-
-libraries/SITL/SIM_AS5600.o: libraries/SITL/SIM_AS5600.cpp.o
-.PHONY : libraries/SITL/SIM_AS5600.o
-
-# target to build an object file
-libraries/SITL/SIM_AS5600.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_AS5600.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_AS5600.cpp.o
-.PHONY : libraries/SITL/SIM_AS5600.cpp.o
-
-libraries/SITL/SIM_AS5600.i: libraries/SITL/SIM_AS5600.cpp.i
-.PHONY : libraries/SITL/SIM_AS5600.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_AS5600.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_AS5600.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_AS5600.cpp.i
-.PHONY : libraries/SITL/SIM_AS5600.cpp.i
-
-libraries/SITL/SIM_AS5600.s: libraries/SITL/SIM_AS5600.cpp.s
-.PHONY : libraries/SITL/SIM_AS5600.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_AS5600.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_AS5600.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_AS5600.cpp.s
-.PHONY : libraries/SITL/SIM_AS5600.cpp.s
-
-libraries/SITL/SIM_AirSim.o: libraries/SITL/SIM_AirSim.cpp.o
-.PHONY : libraries/SITL/SIM_AirSim.o
-
-# target to build an object file
-libraries/SITL/SIM_AirSim.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_AirSim.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_AirSim.cpp.o
-.PHONY : libraries/SITL/SIM_AirSim.cpp.o
-
-libraries/SITL/SIM_AirSim.i: libraries/SITL/SIM_AirSim.cpp.i
-.PHONY : libraries/SITL/SIM_AirSim.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_AirSim.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_AirSim.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_AirSim.cpp.i
-.PHONY : libraries/SITL/SIM_AirSim.cpp.i
-
-libraries/SITL/SIM_AirSim.s: libraries/SITL/SIM_AirSim.cpp.s
-.PHONY : libraries/SITL/SIM_AirSim.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_AirSim.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_AirSim.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_AirSim.cpp.s
-.PHONY : libraries/SITL/SIM_AirSim.cpp.s
-
-libraries/SITL/SIM_Aircraft.o: libraries/SITL/SIM_Aircraft.cpp.o
-.PHONY : libraries/SITL/SIM_Aircraft.o
-
-# target to build an object file
-libraries/SITL/SIM_Aircraft.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Aircraft.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Aircraft.cpp.o
-.PHONY : libraries/SITL/SIM_Aircraft.cpp.o
-
-libraries/SITL/SIM_Aircraft.i: libraries/SITL/SIM_Aircraft.cpp.i
-.PHONY : libraries/SITL/SIM_Aircraft.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Aircraft.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Aircraft.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Aircraft.cpp.i
-.PHONY : libraries/SITL/SIM_Aircraft.cpp.i
-
-libraries/SITL/SIM_Aircraft.s: libraries/SITL/SIM_Aircraft.cpp.s
-.PHONY : libraries/SITL/SIM_Aircraft.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Aircraft.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Aircraft.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Aircraft.cpp.s
-.PHONY : libraries/SITL/SIM_Aircraft.cpp.s
-
-libraries/SITL/SIM_Airspeed_DLVR.o: libraries/SITL/SIM_Airspeed_DLVR.cpp.o
-.PHONY : libraries/SITL/SIM_Airspeed_DLVR.o
-
-# target to build an object file
-libraries/SITL/SIM_Airspeed_DLVR.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Airspeed_DLVR.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Airspeed_DLVR.cpp.o
-.PHONY : libraries/SITL/SIM_Airspeed_DLVR.cpp.o
-
-libraries/SITL/SIM_Airspeed_DLVR.i: libraries/SITL/SIM_Airspeed_DLVR.cpp.i
-.PHONY : libraries/SITL/SIM_Airspeed_DLVR.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Airspeed_DLVR.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Airspeed_DLVR.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Airspeed_DLVR.cpp.i
-.PHONY : libraries/SITL/SIM_Airspeed_DLVR.cpp.i
-
-libraries/SITL/SIM_Airspeed_DLVR.s: libraries/SITL/SIM_Airspeed_DLVR.cpp.s
-.PHONY : libraries/SITL/SIM_Airspeed_DLVR.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Airspeed_DLVR.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Airspeed_DLVR.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Airspeed_DLVR.cpp.s
-.PHONY : libraries/SITL/SIM_Airspeed_DLVR.cpp.s
-
-libraries/SITL/SIM_BalanceBot.o: libraries/SITL/SIM_BalanceBot.cpp.o
-.PHONY : libraries/SITL/SIM_BalanceBot.o
-
-# target to build an object file
-libraries/SITL/SIM_BalanceBot.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BalanceBot.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BalanceBot.cpp.o
-.PHONY : libraries/SITL/SIM_BalanceBot.cpp.o
-
-libraries/SITL/SIM_BalanceBot.i: libraries/SITL/SIM_BalanceBot.cpp.i
-.PHONY : libraries/SITL/SIM_BalanceBot.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_BalanceBot.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BalanceBot.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BalanceBot.cpp.i
-.PHONY : libraries/SITL/SIM_BalanceBot.cpp.i
-
-libraries/SITL/SIM_BalanceBot.s: libraries/SITL/SIM_BalanceBot.cpp.s
-.PHONY : libraries/SITL/SIM_BalanceBot.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_BalanceBot.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BalanceBot.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BalanceBot.cpp.s
-.PHONY : libraries/SITL/SIM_BalanceBot.cpp.s
-
-libraries/SITL/SIM_Balloon.o: libraries/SITL/SIM_Balloon.cpp.o
-.PHONY : libraries/SITL/SIM_Balloon.o
-
-# target to build an object file
-libraries/SITL/SIM_Balloon.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Balloon.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Balloon.cpp.o
-.PHONY : libraries/SITL/SIM_Balloon.cpp.o
-
-libraries/SITL/SIM_Balloon.i: libraries/SITL/SIM_Balloon.cpp.i
-.PHONY : libraries/SITL/SIM_Balloon.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Balloon.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Balloon.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Balloon.cpp.i
-.PHONY : libraries/SITL/SIM_Balloon.cpp.i
-
-libraries/SITL/SIM_Balloon.s: libraries/SITL/SIM_Balloon.cpp.s
-.PHONY : libraries/SITL/SIM_Balloon.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Balloon.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Balloon.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Balloon.cpp.s
-.PHONY : libraries/SITL/SIM_Balloon.cpp.s
-
-libraries/SITL/SIM_BattMonitor_SMBus.o: libraries/SITL/SIM_BattMonitor_SMBus.cpp.o
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus.o
-
-# target to build an object file
-libraries/SITL/SIM_BattMonitor_SMBus.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BattMonitor_SMBus.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BattMonitor_SMBus.cpp.o
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus.cpp.o
-
-libraries/SITL/SIM_BattMonitor_SMBus.i: libraries/SITL/SIM_BattMonitor_SMBus.cpp.i
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_BattMonitor_SMBus.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BattMonitor_SMBus.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BattMonitor_SMBus.cpp.i
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus.cpp.i
-
-libraries/SITL/SIM_BattMonitor_SMBus.s: libraries/SITL/SIM_BattMonitor_SMBus.cpp.s
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_BattMonitor_SMBus.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BattMonitor_SMBus.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BattMonitor_SMBus.cpp.s
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus.cpp.s
-
-libraries/SITL/SIM_BattMonitor_SMBus_Generic.o: libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.o
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Generic.o
-
-# target to build an object file
-libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.o
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.o
-
-libraries/SITL/SIM_BattMonitor_SMBus_Generic.i: libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.i
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Generic.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.i
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.i
-
-libraries/SITL/SIM_BattMonitor_SMBus_Generic.s: libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.s
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Generic.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.s
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp.s
-
-libraries/SITL/SIM_BattMonitor_SMBus_Maxell.o: libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.o
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Maxell.o
-
-# target to build an object file
-libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.o
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.o
-
-libraries/SITL/SIM_BattMonitor_SMBus_Maxell.i: libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.i
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Maxell.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.i
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.i
-
-libraries/SITL/SIM_BattMonitor_SMBus_Maxell.s: libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.s
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Maxell.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.s
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp.s
-
-libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.o: libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.o
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.o
-
-# target to build an object file
-libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.o
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.o
-
-libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.i: libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.i
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.i
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.i
-
-libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.s: libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.s
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.s
-.PHONY : libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp.s
-
-libraries/SITL/SIM_Battery.o: libraries/SITL/SIM_Battery.cpp.o
-.PHONY : libraries/SITL/SIM_Battery.o
-
-# target to build an object file
-libraries/SITL/SIM_Battery.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Battery.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Battery.cpp.o
-.PHONY : libraries/SITL/SIM_Battery.cpp.o
-
-libraries/SITL/SIM_Battery.i: libraries/SITL/SIM_Battery.cpp.i
-.PHONY : libraries/SITL/SIM_Battery.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Battery.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Battery.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Battery.cpp.i
-.PHONY : libraries/SITL/SIM_Battery.cpp.i
-
-libraries/SITL/SIM_Battery.s: libraries/SITL/SIM_Battery.cpp.s
-.PHONY : libraries/SITL/SIM_Battery.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Battery.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Battery.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Battery.cpp.s
-.PHONY : libraries/SITL/SIM_Battery.cpp.s
-
-libraries/SITL/SIM_Blimp.o: libraries/SITL/SIM_Blimp.cpp.o
-.PHONY : libraries/SITL/SIM_Blimp.o
-
-# target to build an object file
-libraries/SITL/SIM_Blimp.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Blimp.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Blimp.cpp.o
-.PHONY : libraries/SITL/SIM_Blimp.cpp.o
-
-libraries/SITL/SIM_Blimp.i: libraries/SITL/SIM_Blimp.cpp.i
-.PHONY : libraries/SITL/SIM_Blimp.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Blimp.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Blimp.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Blimp.cpp.i
-.PHONY : libraries/SITL/SIM_Blimp.cpp.i
-
-libraries/SITL/SIM_Blimp.s: libraries/SITL/SIM_Blimp.cpp.s
-.PHONY : libraries/SITL/SIM_Blimp.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Blimp.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Blimp.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Blimp.cpp.s
-.PHONY : libraries/SITL/SIM_Blimp.cpp.s
-
-libraries/SITL/SIM_Buzzer.o: libraries/SITL/SIM_Buzzer.cpp.o
-.PHONY : libraries/SITL/SIM_Buzzer.o
-
-# target to build an object file
-libraries/SITL/SIM_Buzzer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Buzzer.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Buzzer.cpp.o
-.PHONY : libraries/SITL/SIM_Buzzer.cpp.o
-
-libraries/SITL/SIM_Buzzer.i: libraries/SITL/SIM_Buzzer.cpp.i
-.PHONY : libraries/SITL/SIM_Buzzer.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Buzzer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Buzzer.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Buzzer.cpp.i
-.PHONY : libraries/SITL/SIM_Buzzer.cpp.i
-
-libraries/SITL/SIM_Buzzer.s: libraries/SITL/SIM_Buzzer.cpp.s
-.PHONY : libraries/SITL/SIM_Buzzer.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Buzzer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Buzzer.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Buzzer.cpp.s
-.PHONY : libraries/SITL/SIM_Buzzer.cpp.s
-
-libraries/SITL/SIM_CRRCSim.o: libraries/SITL/SIM_CRRCSim.cpp.o
-.PHONY : libraries/SITL/SIM_CRRCSim.o
-
-# target to build an object file
-libraries/SITL/SIM_CRRCSim.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_CRRCSim.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_CRRCSim.cpp.o
-.PHONY : libraries/SITL/SIM_CRRCSim.cpp.o
-
-libraries/SITL/SIM_CRRCSim.i: libraries/SITL/SIM_CRRCSim.cpp.i
-.PHONY : libraries/SITL/SIM_CRRCSim.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_CRRCSim.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_CRRCSim.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_CRRCSim.cpp.i
-.PHONY : libraries/SITL/SIM_CRRCSim.cpp.i
-
-libraries/SITL/SIM_CRRCSim.s: libraries/SITL/SIM_CRRCSim.cpp.s
-.PHONY : libraries/SITL/SIM_CRRCSim.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_CRRCSim.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_CRRCSim.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_CRRCSim.cpp.s
-.PHONY : libraries/SITL/SIM_CRRCSim.cpp.s
-
-libraries/SITL/SIM_CRSF.o: libraries/SITL/SIM_CRSF.cpp.o
-.PHONY : libraries/SITL/SIM_CRSF.o
-
-# target to build an object file
-libraries/SITL/SIM_CRSF.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_CRSF.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_CRSF.cpp.o
-.PHONY : libraries/SITL/SIM_CRSF.cpp.o
-
-libraries/SITL/SIM_CRSF.i: libraries/SITL/SIM_CRSF.cpp.i
-.PHONY : libraries/SITL/SIM_CRSF.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_CRSF.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_CRSF.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_CRSF.cpp.i
-.PHONY : libraries/SITL/SIM_CRSF.cpp.i
-
-libraries/SITL/SIM_CRSF.s: libraries/SITL/SIM_CRSF.cpp.s
-.PHONY : libraries/SITL/SIM_CRSF.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_CRSF.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_CRSF.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_CRSF.cpp.s
-.PHONY : libraries/SITL/SIM_CRSF.cpp.s
-
-libraries/SITL/SIM_Calibration.o: libraries/SITL/SIM_Calibration.cpp.o
-.PHONY : libraries/SITL/SIM_Calibration.o
-
-# target to build an object file
-libraries/SITL/SIM_Calibration.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Calibration.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Calibration.cpp.o
-.PHONY : libraries/SITL/SIM_Calibration.cpp.o
-
-libraries/SITL/SIM_Calibration.i: libraries/SITL/SIM_Calibration.cpp.i
-.PHONY : libraries/SITL/SIM_Calibration.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Calibration.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Calibration.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Calibration.cpp.i
-.PHONY : libraries/SITL/SIM_Calibration.cpp.i
-
-libraries/SITL/SIM_Calibration.s: libraries/SITL/SIM_Calibration.cpp.s
-.PHONY : libraries/SITL/SIM_Calibration.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Calibration.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Calibration.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Calibration.cpp.s
-.PHONY : libraries/SITL/SIM_Calibration.cpp.s
-
-libraries/SITL/SIM_DroneCANDevice.o: libraries/SITL/SIM_DroneCANDevice.cpp.o
-.PHONY : libraries/SITL/SIM_DroneCANDevice.o
-
-# target to build an object file
-libraries/SITL/SIM_DroneCANDevice.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_DroneCANDevice.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_DroneCANDevice.cpp.o
-.PHONY : libraries/SITL/SIM_DroneCANDevice.cpp.o
-
-libraries/SITL/SIM_DroneCANDevice.i: libraries/SITL/SIM_DroneCANDevice.cpp.i
-.PHONY : libraries/SITL/SIM_DroneCANDevice.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_DroneCANDevice.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_DroneCANDevice.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_DroneCANDevice.cpp.i
-.PHONY : libraries/SITL/SIM_DroneCANDevice.cpp.i
-
-libraries/SITL/SIM_DroneCANDevice.s: libraries/SITL/SIM_DroneCANDevice.cpp.s
-.PHONY : libraries/SITL/SIM_DroneCANDevice.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_DroneCANDevice.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_DroneCANDevice.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_DroneCANDevice.cpp.s
-.PHONY : libraries/SITL/SIM_DroneCANDevice.cpp.s
-
-libraries/SITL/SIM_EFI_Hirth.o: libraries/SITL/SIM_EFI_Hirth.cpp.o
-.PHONY : libraries/SITL/SIM_EFI_Hirth.o
-
-# target to build an object file
-libraries/SITL/SIM_EFI_Hirth.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_EFI_Hirth.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_EFI_Hirth.cpp.o
-.PHONY : libraries/SITL/SIM_EFI_Hirth.cpp.o
-
-libraries/SITL/SIM_EFI_Hirth.i: libraries/SITL/SIM_EFI_Hirth.cpp.i
-.PHONY : libraries/SITL/SIM_EFI_Hirth.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_EFI_Hirth.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_EFI_Hirth.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_EFI_Hirth.cpp.i
-.PHONY : libraries/SITL/SIM_EFI_Hirth.cpp.i
-
-libraries/SITL/SIM_EFI_Hirth.s: libraries/SITL/SIM_EFI_Hirth.cpp.s
-.PHONY : libraries/SITL/SIM_EFI_Hirth.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_EFI_Hirth.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_EFI_Hirth.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_EFI_Hirth.cpp.s
-.PHONY : libraries/SITL/SIM_EFI_Hirth.cpp.s
-
-libraries/SITL/SIM_EFI_MegaSquirt.o: libraries/SITL/SIM_EFI_MegaSquirt.cpp.o
-.PHONY : libraries/SITL/SIM_EFI_MegaSquirt.o
-
-# target to build an object file
-libraries/SITL/SIM_EFI_MegaSquirt.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_EFI_MegaSquirt.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_EFI_MegaSquirt.cpp.o
-.PHONY : libraries/SITL/SIM_EFI_MegaSquirt.cpp.o
-
-libraries/SITL/SIM_EFI_MegaSquirt.i: libraries/SITL/SIM_EFI_MegaSquirt.cpp.i
-.PHONY : libraries/SITL/SIM_EFI_MegaSquirt.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_EFI_MegaSquirt.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_EFI_MegaSquirt.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_EFI_MegaSquirt.cpp.i
-.PHONY : libraries/SITL/SIM_EFI_MegaSquirt.cpp.i
-
-libraries/SITL/SIM_EFI_MegaSquirt.s: libraries/SITL/SIM_EFI_MegaSquirt.cpp.s
-.PHONY : libraries/SITL/SIM_EFI_MegaSquirt.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_EFI_MegaSquirt.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_EFI_MegaSquirt.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_EFI_MegaSquirt.cpp.s
-.PHONY : libraries/SITL/SIM_EFI_MegaSquirt.cpp.s
-
-libraries/SITL/SIM_ELRS.o: libraries/SITL/SIM_ELRS.cpp.o
-.PHONY : libraries/SITL/SIM_ELRS.o
-
-# target to build an object file
-libraries/SITL/SIM_ELRS.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ELRS.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ELRS.cpp.o
-.PHONY : libraries/SITL/SIM_ELRS.cpp.o
-
-libraries/SITL/SIM_ELRS.i: libraries/SITL/SIM_ELRS.cpp.i
-.PHONY : libraries/SITL/SIM_ELRS.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_ELRS.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ELRS.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ELRS.cpp.i
-.PHONY : libraries/SITL/SIM_ELRS.cpp.i
-
-libraries/SITL/SIM_ELRS.s: libraries/SITL/SIM_ELRS.cpp.s
-.PHONY : libraries/SITL/SIM_ELRS.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_ELRS.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ELRS.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ELRS.cpp.s
-.PHONY : libraries/SITL/SIM_ELRS.cpp.s
-
-libraries/SITL/SIM_FETtecOneWireESC.o: libraries/SITL/SIM_FETtecOneWireESC.cpp.o
-.PHONY : libraries/SITL/SIM_FETtecOneWireESC.o
-
-# target to build an object file
-libraries/SITL/SIM_FETtecOneWireESC.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_FETtecOneWireESC.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_FETtecOneWireESC.cpp.o
-.PHONY : libraries/SITL/SIM_FETtecOneWireESC.cpp.o
-
-libraries/SITL/SIM_FETtecOneWireESC.i: libraries/SITL/SIM_FETtecOneWireESC.cpp.i
-.PHONY : libraries/SITL/SIM_FETtecOneWireESC.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_FETtecOneWireESC.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_FETtecOneWireESC.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_FETtecOneWireESC.cpp.i
-.PHONY : libraries/SITL/SIM_FETtecOneWireESC.cpp.i
-
-libraries/SITL/SIM_FETtecOneWireESC.s: libraries/SITL/SIM_FETtecOneWireESC.cpp.s
-.PHONY : libraries/SITL/SIM_FETtecOneWireESC.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_FETtecOneWireESC.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_FETtecOneWireESC.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_FETtecOneWireESC.cpp.s
-.PHONY : libraries/SITL/SIM_FETtecOneWireESC.cpp.s
-
-libraries/SITL/SIM_FlightAxis.o: libraries/SITL/SIM_FlightAxis.cpp.o
-.PHONY : libraries/SITL/SIM_FlightAxis.o
-
-# target to build an object file
-libraries/SITL/SIM_FlightAxis.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_FlightAxis.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_FlightAxis.cpp.o
-.PHONY : libraries/SITL/SIM_FlightAxis.cpp.o
-
-libraries/SITL/SIM_FlightAxis.i: libraries/SITL/SIM_FlightAxis.cpp.i
-.PHONY : libraries/SITL/SIM_FlightAxis.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_FlightAxis.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_FlightAxis.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_FlightAxis.cpp.i
-.PHONY : libraries/SITL/SIM_FlightAxis.cpp.i
-
-libraries/SITL/SIM_FlightAxis.s: libraries/SITL/SIM_FlightAxis.cpp.s
-.PHONY : libraries/SITL/SIM_FlightAxis.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_FlightAxis.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_FlightAxis.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_FlightAxis.cpp.s
-.PHONY : libraries/SITL/SIM_FlightAxis.cpp.s
-
-libraries/SITL/SIM_Frame.o: libraries/SITL/SIM_Frame.cpp.o
-.PHONY : libraries/SITL/SIM_Frame.o
-
-# target to build an object file
-libraries/SITL/SIM_Frame.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Frame.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Frame.cpp.o
-.PHONY : libraries/SITL/SIM_Frame.cpp.o
-
-libraries/SITL/SIM_Frame.i: libraries/SITL/SIM_Frame.cpp.i
-.PHONY : libraries/SITL/SIM_Frame.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Frame.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Frame.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Frame.cpp.i
-.PHONY : libraries/SITL/SIM_Frame.cpp.i
-
-libraries/SITL/SIM_Frame.s: libraries/SITL/SIM_Frame.cpp.s
-.PHONY : libraries/SITL/SIM_Frame.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Frame.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Frame.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Frame.cpp.s
-.PHONY : libraries/SITL/SIM_Frame.cpp.s
-
-libraries/SITL/SIM_Frsky.o: libraries/SITL/SIM_Frsky.cpp.o
-.PHONY : libraries/SITL/SIM_Frsky.o
-
-# target to build an object file
-libraries/SITL/SIM_Frsky.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Frsky.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Frsky.cpp.o
-.PHONY : libraries/SITL/SIM_Frsky.cpp.o
-
-libraries/SITL/SIM_Frsky.i: libraries/SITL/SIM_Frsky.cpp.i
-.PHONY : libraries/SITL/SIM_Frsky.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Frsky.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Frsky.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Frsky.cpp.i
-.PHONY : libraries/SITL/SIM_Frsky.cpp.i
-
-libraries/SITL/SIM_Frsky.s: libraries/SITL/SIM_Frsky.cpp.s
-.PHONY : libraries/SITL/SIM_Frsky.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Frsky.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Frsky.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Frsky.cpp.s
-.PHONY : libraries/SITL/SIM_Frsky.cpp.s
-
-libraries/SITL/SIM_Frsky_D.o: libraries/SITL/SIM_Frsky_D.cpp.o
-.PHONY : libraries/SITL/SIM_Frsky_D.o
-
-# target to build an object file
-libraries/SITL/SIM_Frsky_D.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Frsky_D.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Frsky_D.cpp.o
-.PHONY : libraries/SITL/SIM_Frsky_D.cpp.o
-
-libraries/SITL/SIM_Frsky_D.i: libraries/SITL/SIM_Frsky_D.cpp.i
-.PHONY : libraries/SITL/SIM_Frsky_D.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Frsky_D.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Frsky_D.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Frsky_D.cpp.i
-.PHONY : libraries/SITL/SIM_Frsky_D.cpp.i
-
-libraries/SITL/SIM_Frsky_D.s: libraries/SITL/SIM_Frsky_D.cpp.s
-.PHONY : libraries/SITL/SIM_Frsky_D.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Frsky_D.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Frsky_D.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Frsky_D.cpp.s
-.PHONY : libraries/SITL/SIM_Frsky_D.cpp.s
-
-libraries/SITL/SIM_GPIO_LED_1.o: libraries/SITL/SIM_GPIO_LED_1.cpp.o
-.PHONY : libraries/SITL/SIM_GPIO_LED_1.o
-
-# target to build an object file
-libraries/SITL/SIM_GPIO_LED_1.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPIO_LED_1.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPIO_LED_1.cpp.o
-.PHONY : libraries/SITL/SIM_GPIO_LED_1.cpp.o
-
-libraries/SITL/SIM_GPIO_LED_1.i: libraries/SITL/SIM_GPIO_LED_1.cpp.i
-.PHONY : libraries/SITL/SIM_GPIO_LED_1.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPIO_LED_1.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPIO_LED_1.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPIO_LED_1.cpp.i
-.PHONY : libraries/SITL/SIM_GPIO_LED_1.cpp.i
-
-libraries/SITL/SIM_GPIO_LED_1.s: libraries/SITL/SIM_GPIO_LED_1.cpp.s
-.PHONY : libraries/SITL/SIM_GPIO_LED_1.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPIO_LED_1.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPIO_LED_1.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPIO_LED_1.cpp.s
-.PHONY : libraries/SITL/SIM_GPIO_LED_1.cpp.s
-
-libraries/SITL/SIM_GPIO_LED_2.o: libraries/SITL/SIM_GPIO_LED_2.cpp.o
-.PHONY : libraries/SITL/SIM_GPIO_LED_2.o
-
-# target to build an object file
-libraries/SITL/SIM_GPIO_LED_2.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPIO_LED_2.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPIO_LED_2.cpp.o
-.PHONY : libraries/SITL/SIM_GPIO_LED_2.cpp.o
-
-libraries/SITL/SIM_GPIO_LED_2.i: libraries/SITL/SIM_GPIO_LED_2.cpp.i
-.PHONY : libraries/SITL/SIM_GPIO_LED_2.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPIO_LED_2.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPIO_LED_2.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPIO_LED_2.cpp.i
-.PHONY : libraries/SITL/SIM_GPIO_LED_2.cpp.i
-
-libraries/SITL/SIM_GPIO_LED_2.s: libraries/SITL/SIM_GPIO_LED_2.cpp.s
-.PHONY : libraries/SITL/SIM_GPIO_LED_2.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPIO_LED_2.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPIO_LED_2.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPIO_LED_2.cpp.s
-.PHONY : libraries/SITL/SIM_GPIO_LED_2.cpp.s
-
-libraries/SITL/SIM_GPIO_LED_3.o: libraries/SITL/SIM_GPIO_LED_3.cpp.o
-.PHONY : libraries/SITL/SIM_GPIO_LED_3.o
-
-# target to build an object file
-libraries/SITL/SIM_GPIO_LED_3.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPIO_LED_3.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPIO_LED_3.cpp.o
-.PHONY : libraries/SITL/SIM_GPIO_LED_3.cpp.o
-
-libraries/SITL/SIM_GPIO_LED_3.i: libraries/SITL/SIM_GPIO_LED_3.cpp.i
-.PHONY : libraries/SITL/SIM_GPIO_LED_3.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPIO_LED_3.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPIO_LED_3.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPIO_LED_3.cpp.i
-.PHONY : libraries/SITL/SIM_GPIO_LED_3.cpp.i
-
-libraries/SITL/SIM_GPIO_LED_3.s: libraries/SITL/SIM_GPIO_LED_3.cpp.s
-.PHONY : libraries/SITL/SIM_GPIO_LED_3.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPIO_LED_3.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPIO_LED_3.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPIO_LED_3.cpp.s
-.PHONY : libraries/SITL/SIM_GPIO_LED_3.cpp.s
-
-libraries/SITL/SIM_GPIO_LED_RGB.o: libraries/SITL/SIM_GPIO_LED_RGB.cpp.o
-.PHONY : libraries/SITL/SIM_GPIO_LED_RGB.o
-
-# target to build an object file
-libraries/SITL/SIM_GPIO_LED_RGB.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPIO_LED_RGB.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPIO_LED_RGB.cpp.o
-.PHONY : libraries/SITL/SIM_GPIO_LED_RGB.cpp.o
-
-libraries/SITL/SIM_GPIO_LED_RGB.i: libraries/SITL/SIM_GPIO_LED_RGB.cpp.i
-.PHONY : libraries/SITL/SIM_GPIO_LED_RGB.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPIO_LED_RGB.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPIO_LED_RGB.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPIO_LED_RGB.cpp.i
-.PHONY : libraries/SITL/SIM_GPIO_LED_RGB.cpp.i
-
-libraries/SITL/SIM_GPIO_LED_RGB.s: libraries/SITL/SIM_GPIO_LED_RGB.cpp.s
-.PHONY : libraries/SITL/SIM_GPIO_LED_RGB.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPIO_LED_RGB.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPIO_LED_RGB.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPIO_LED_RGB.cpp.s
-.PHONY : libraries/SITL/SIM_GPIO_LED_RGB.cpp.s
-
-libraries/SITL/SIM_GPS.o: libraries/SITL/SIM_GPS.cpp.o
-.PHONY : libraries/SITL/SIM_GPS.o
-
-# target to build an object file
-libraries/SITL/SIM_GPS.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS.cpp.o
-.PHONY : libraries/SITL/SIM_GPS.cpp.o
-
-libraries/SITL/SIM_GPS.i: libraries/SITL/SIM_GPS.cpp.i
-.PHONY : libraries/SITL/SIM_GPS.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPS.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS.cpp.i
-.PHONY : libraries/SITL/SIM_GPS.cpp.i
-
-libraries/SITL/SIM_GPS.s: libraries/SITL/SIM_GPS.cpp.s
-.PHONY : libraries/SITL/SIM_GPS.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPS.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS.cpp.s
-.PHONY : libraries/SITL/SIM_GPS.cpp.s
-
-libraries/SITL/SIM_GPS_FILE.o: libraries/SITL/SIM_GPS_FILE.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_FILE.o
-
-# target to build an object file
-libraries/SITL/SIM_GPS_FILE.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_FILE.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_FILE.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_FILE.cpp.o
-
-libraries/SITL/SIM_GPS_FILE.i: libraries/SITL/SIM_GPS_FILE.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_FILE.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPS_FILE.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_FILE.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_FILE.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_FILE.cpp.i
-
-libraries/SITL/SIM_GPS_FILE.s: libraries/SITL/SIM_GPS_FILE.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_FILE.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPS_FILE.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_FILE.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_FILE.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_FILE.cpp.s
-
-libraries/SITL/SIM_GPS_MSP.o: libraries/SITL/SIM_GPS_MSP.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_MSP.o
-
-# target to build an object file
-libraries/SITL/SIM_GPS_MSP.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_MSP.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_MSP.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_MSP.cpp.o
-
-libraries/SITL/SIM_GPS_MSP.i: libraries/SITL/SIM_GPS_MSP.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_MSP.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPS_MSP.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_MSP.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_MSP.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_MSP.cpp.i
-
-libraries/SITL/SIM_GPS_MSP.s: libraries/SITL/SIM_GPS_MSP.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_MSP.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPS_MSP.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_MSP.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_MSP.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_MSP.cpp.s
-
-libraries/SITL/SIM_GPS_NMEA.o: libraries/SITL/SIM_GPS_NMEA.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_NMEA.o
-
-# target to build an object file
-libraries/SITL/SIM_GPS_NMEA.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_NMEA.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_NMEA.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_NMEA.cpp.o
-
-libraries/SITL/SIM_GPS_NMEA.i: libraries/SITL/SIM_GPS_NMEA.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_NMEA.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPS_NMEA.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_NMEA.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_NMEA.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_NMEA.cpp.i
-
-libraries/SITL/SIM_GPS_NMEA.s: libraries/SITL/SIM_GPS_NMEA.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_NMEA.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPS_NMEA.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_NMEA.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_NMEA.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_NMEA.cpp.s
-
-libraries/SITL/SIM_GPS_NOVA.o: libraries/SITL/SIM_GPS_NOVA.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_NOVA.o
-
-# target to build an object file
-libraries/SITL/SIM_GPS_NOVA.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_NOVA.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_NOVA.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_NOVA.cpp.o
-
-libraries/SITL/SIM_GPS_NOVA.i: libraries/SITL/SIM_GPS_NOVA.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_NOVA.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPS_NOVA.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_NOVA.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_NOVA.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_NOVA.cpp.i
-
-libraries/SITL/SIM_GPS_NOVA.s: libraries/SITL/SIM_GPS_NOVA.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_NOVA.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPS_NOVA.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_NOVA.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_NOVA.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_NOVA.cpp.s
-
-libraries/SITL/SIM_GPS_SBF.o: libraries/SITL/SIM_GPS_SBF.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_SBF.o
-
-# target to build an object file
-libraries/SITL/SIM_GPS_SBF.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_SBF.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_SBF.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_SBF.cpp.o
-
-libraries/SITL/SIM_GPS_SBF.i: libraries/SITL/SIM_GPS_SBF.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_SBF.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPS_SBF.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_SBF.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_SBF.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_SBF.cpp.i
-
-libraries/SITL/SIM_GPS_SBF.s: libraries/SITL/SIM_GPS_SBF.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_SBF.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPS_SBF.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_SBF.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_SBF.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_SBF.cpp.s
-
-libraries/SITL/SIM_GPS_SBP.o: libraries/SITL/SIM_GPS_SBP.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_SBP.o
-
-# target to build an object file
-libraries/SITL/SIM_GPS_SBP.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_SBP.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_SBP.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_SBP.cpp.o
-
-libraries/SITL/SIM_GPS_SBP.i: libraries/SITL/SIM_GPS_SBP.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_SBP.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPS_SBP.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_SBP.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_SBP.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_SBP.cpp.i
-
-libraries/SITL/SIM_GPS_SBP.s: libraries/SITL/SIM_GPS_SBP.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_SBP.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPS_SBP.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_SBP.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_SBP.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_SBP.cpp.s
-
-libraries/SITL/SIM_GPS_SBP2.o: libraries/SITL/SIM_GPS_SBP2.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_SBP2.o
-
-# target to build an object file
-libraries/SITL/SIM_GPS_SBP2.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_SBP2.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_SBP2.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_SBP2.cpp.o
-
-libraries/SITL/SIM_GPS_SBP2.i: libraries/SITL/SIM_GPS_SBP2.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_SBP2.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPS_SBP2.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_SBP2.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_SBP2.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_SBP2.cpp.i
-
-libraries/SITL/SIM_GPS_SBP2.s: libraries/SITL/SIM_GPS_SBP2.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_SBP2.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPS_SBP2.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_SBP2.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_SBP2.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_SBP2.cpp.s
-
-libraries/SITL/SIM_GPS_SBP_Common.o: libraries/SITL/SIM_GPS_SBP_Common.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_SBP_Common.o
-
-# target to build an object file
-libraries/SITL/SIM_GPS_SBP_Common.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_SBP_Common.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_SBP_Common.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_SBP_Common.cpp.o
-
-libraries/SITL/SIM_GPS_SBP_Common.i: libraries/SITL/SIM_GPS_SBP_Common.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_SBP_Common.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPS_SBP_Common.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_SBP_Common.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_SBP_Common.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_SBP_Common.cpp.i
-
-libraries/SITL/SIM_GPS_SBP_Common.s: libraries/SITL/SIM_GPS_SBP_Common.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_SBP_Common.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPS_SBP_Common.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_SBP_Common.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_SBP_Common.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_SBP_Common.cpp.s
-
-libraries/SITL/SIM_GPS_Trimble.o: libraries/SITL/SIM_GPS_Trimble.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_Trimble.o
-
-# target to build an object file
-libraries/SITL/SIM_GPS_Trimble.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_Trimble.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_Trimble.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_Trimble.cpp.o
-
-libraries/SITL/SIM_GPS_Trimble.i: libraries/SITL/SIM_GPS_Trimble.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_Trimble.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPS_Trimble.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_Trimble.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_Trimble.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_Trimble.cpp.i
-
-libraries/SITL/SIM_GPS_Trimble.s: libraries/SITL/SIM_GPS_Trimble.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_Trimble.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPS_Trimble.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_Trimble.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_Trimble.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_Trimble.cpp.s
-
-libraries/SITL/SIM_GPS_UBLOX.o: libraries/SITL/SIM_GPS_UBLOX.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_UBLOX.o
-
-# target to build an object file
-libraries/SITL/SIM_GPS_UBLOX.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_UBLOX.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_UBLOX.cpp.o
-.PHONY : libraries/SITL/SIM_GPS_UBLOX.cpp.o
-
-libraries/SITL/SIM_GPS_UBLOX.i: libraries/SITL/SIM_GPS_UBLOX.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_UBLOX.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GPS_UBLOX.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_UBLOX.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_UBLOX.cpp.i
-.PHONY : libraries/SITL/SIM_GPS_UBLOX.cpp.i
-
-libraries/SITL/SIM_GPS_UBLOX.s: libraries/SITL/SIM_GPS_UBLOX.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_UBLOX.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GPS_UBLOX.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GPS_UBLOX.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GPS_UBLOX.cpp.s
-.PHONY : libraries/SITL/SIM_GPS_UBLOX.cpp.s
-
-libraries/SITL/SIM_Gazebo.o: libraries/SITL/SIM_Gazebo.cpp.o
-.PHONY : libraries/SITL/SIM_Gazebo.o
-
-# target to build an object file
-libraries/SITL/SIM_Gazebo.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Gazebo.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Gazebo.cpp.o
-.PHONY : libraries/SITL/SIM_Gazebo.cpp.o
-
-libraries/SITL/SIM_Gazebo.i: libraries/SITL/SIM_Gazebo.cpp.i
-.PHONY : libraries/SITL/SIM_Gazebo.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Gazebo.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Gazebo.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Gazebo.cpp.i
-.PHONY : libraries/SITL/SIM_Gazebo.cpp.i
-
-libraries/SITL/SIM_Gazebo.s: libraries/SITL/SIM_Gazebo.cpp.s
-.PHONY : libraries/SITL/SIM_Gazebo.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Gazebo.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Gazebo.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Gazebo.cpp.s
-.PHONY : libraries/SITL/SIM_Gazebo.cpp.s
-
-libraries/SITL/SIM_GeneratorEngine.o: libraries/SITL/SIM_GeneratorEngine.cpp.o
-.PHONY : libraries/SITL/SIM_GeneratorEngine.o
-
-# target to build an object file
-libraries/SITL/SIM_GeneratorEngine.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GeneratorEngine.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GeneratorEngine.cpp.o
-.PHONY : libraries/SITL/SIM_GeneratorEngine.cpp.o
-
-libraries/SITL/SIM_GeneratorEngine.i: libraries/SITL/SIM_GeneratorEngine.cpp.i
-.PHONY : libraries/SITL/SIM_GeneratorEngine.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_GeneratorEngine.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GeneratorEngine.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GeneratorEngine.cpp.i
-.PHONY : libraries/SITL/SIM_GeneratorEngine.cpp.i
-
-libraries/SITL/SIM_GeneratorEngine.s: libraries/SITL/SIM_GeneratorEngine.cpp.s
-.PHONY : libraries/SITL/SIM_GeneratorEngine.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_GeneratorEngine.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_GeneratorEngine.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_GeneratorEngine.cpp.s
-.PHONY : libraries/SITL/SIM_GeneratorEngine.cpp.s
-
-libraries/SITL/SIM_Gimbal.o: libraries/SITL/SIM_Gimbal.cpp.o
-.PHONY : libraries/SITL/SIM_Gimbal.o
-
-# target to build an object file
-libraries/SITL/SIM_Gimbal.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Gimbal.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Gimbal.cpp.o
-.PHONY : libraries/SITL/SIM_Gimbal.cpp.o
-
-libraries/SITL/SIM_Gimbal.i: libraries/SITL/SIM_Gimbal.cpp.i
-.PHONY : libraries/SITL/SIM_Gimbal.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Gimbal.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Gimbal.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Gimbal.cpp.i
-.PHONY : libraries/SITL/SIM_Gimbal.cpp.i
-
-libraries/SITL/SIM_Gimbal.s: libraries/SITL/SIM_Gimbal.cpp.s
-.PHONY : libraries/SITL/SIM_Gimbal.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Gimbal.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Gimbal.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Gimbal.cpp.s
-.PHONY : libraries/SITL/SIM_Gimbal.cpp.s
-
-libraries/SITL/SIM_Glider.o: libraries/SITL/SIM_Glider.cpp.o
-.PHONY : libraries/SITL/SIM_Glider.o
-
-# target to build an object file
-libraries/SITL/SIM_Glider.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Glider.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Glider.cpp.o
-.PHONY : libraries/SITL/SIM_Glider.cpp.o
-
-libraries/SITL/SIM_Glider.i: libraries/SITL/SIM_Glider.cpp.i
-.PHONY : libraries/SITL/SIM_Glider.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Glider.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Glider.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Glider.cpp.i
-.PHONY : libraries/SITL/SIM_Glider.cpp.i
-
-libraries/SITL/SIM_Glider.s: libraries/SITL/SIM_Glider.cpp.s
-.PHONY : libraries/SITL/SIM_Glider.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Glider.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Glider.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Glider.cpp.s
-.PHONY : libraries/SITL/SIM_Glider.cpp.s
-
-libraries/SITL/SIM_Gripper_EPM.o: libraries/SITL/SIM_Gripper_EPM.cpp.o
-.PHONY : libraries/SITL/SIM_Gripper_EPM.o
-
-# target to build an object file
-libraries/SITL/SIM_Gripper_EPM.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Gripper_EPM.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Gripper_EPM.cpp.o
-.PHONY : libraries/SITL/SIM_Gripper_EPM.cpp.o
-
-libraries/SITL/SIM_Gripper_EPM.i: libraries/SITL/SIM_Gripper_EPM.cpp.i
-.PHONY : libraries/SITL/SIM_Gripper_EPM.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Gripper_EPM.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Gripper_EPM.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Gripper_EPM.cpp.i
-.PHONY : libraries/SITL/SIM_Gripper_EPM.cpp.i
-
-libraries/SITL/SIM_Gripper_EPM.s: libraries/SITL/SIM_Gripper_EPM.cpp.s
-.PHONY : libraries/SITL/SIM_Gripper_EPM.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Gripper_EPM.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Gripper_EPM.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Gripper_EPM.cpp.s
-.PHONY : libraries/SITL/SIM_Gripper_EPM.cpp.s
-
-libraries/SITL/SIM_Gripper_Servo.o: libraries/SITL/SIM_Gripper_Servo.cpp.o
-.PHONY : libraries/SITL/SIM_Gripper_Servo.o
-
-# target to build an object file
-libraries/SITL/SIM_Gripper_Servo.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Gripper_Servo.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Gripper_Servo.cpp.o
-.PHONY : libraries/SITL/SIM_Gripper_Servo.cpp.o
-
-libraries/SITL/SIM_Gripper_Servo.i: libraries/SITL/SIM_Gripper_Servo.cpp.i
-.PHONY : libraries/SITL/SIM_Gripper_Servo.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Gripper_Servo.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Gripper_Servo.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Gripper_Servo.cpp.i
-.PHONY : libraries/SITL/SIM_Gripper_Servo.cpp.i
-
-libraries/SITL/SIM_Gripper_Servo.s: libraries/SITL/SIM_Gripper_Servo.cpp.s
-.PHONY : libraries/SITL/SIM_Gripper_Servo.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Gripper_Servo.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Gripper_Servo.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Gripper_Servo.cpp.s
-.PHONY : libraries/SITL/SIM_Gripper_Servo.cpp.s
-
-libraries/SITL/SIM_Helicopter.o: libraries/SITL/SIM_Helicopter.cpp.o
-.PHONY : libraries/SITL/SIM_Helicopter.o
-
-# target to build an object file
-libraries/SITL/SIM_Helicopter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Helicopter.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Helicopter.cpp.o
-.PHONY : libraries/SITL/SIM_Helicopter.cpp.o
-
-libraries/SITL/SIM_Helicopter.i: libraries/SITL/SIM_Helicopter.cpp.i
-.PHONY : libraries/SITL/SIM_Helicopter.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Helicopter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Helicopter.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Helicopter.cpp.i
-.PHONY : libraries/SITL/SIM_Helicopter.cpp.i
-
-libraries/SITL/SIM_Helicopter.s: libraries/SITL/SIM_Helicopter.cpp.s
-.PHONY : libraries/SITL/SIM_Helicopter.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Helicopter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Helicopter.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Helicopter.cpp.s
-.PHONY : libraries/SITL/SIM_Helicopter.cpp.s
-
-libraries/SITL/SIM_I2C.o: libraries/SITL/SIM_I2C.cpp.o
-.PHONY : libraries/SITL/SIM_I2C.o
-
-# target to build an object file
-libraries/SITL/SIM_I2C.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_I2C.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_I2C.cpp.o
-.PHONY : libraries/SITL/SIM_I2C.cpp.o
-
-libraries/SITL/SIM_I2C.i: libraries/SITL/SIM_I2C.cpp.i
-.PHONY : libraries/SITL/SIM_I2C.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_I2C.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_I2C.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_I2C.cpp.i
-.PHONY : libraries/SITL/SIM_I2C.cpp.i
-
-libraries/SITL/SIM_I2C.s: libraries/SITL/SIM_I2C.cpp.s
-.PHONY : libraries/SITL/SIM_I2C.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_I2C.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_I2C.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_I2C.cpp.s
-.PHONY : libraries/SITL/SIM_I2C.cpp.s
-
-libraries/SITL/SIM_I2CDevice.o: libraries/SITL/SIM_I2CDevice.cpp.o
-.PHONY : libraries/SITL/SIM_I2CDevice.o
-
-# target to build an object file
-libraries/SITL/SIM_I2CDevice.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_I2CDevice.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_I2CDevice.cpp.o
-.PHONY : libraries/SITL/SIM_I2CDevice.cpp.o
-
-libraries/SITL/SIM_I2CDevice.i: libraries/SITL/SIM_I2CDevice.cpp.i
-.PHONY : libraries/SITL/SIM_I2CDevice.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_I2CDevice.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_I2CDevice.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_I2CDevice.cpp.i
-.PHONY : libraries/SITL/SIM_I2CDevice.cpp.i
-
-libraries/SITL/SIM_I2CDevice.s: libraries/SITL/SIM_I2CDevice.cpp.s
-.PHONY : libraries/SITL/SIM_I2CDevice.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_I2CDevice.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_I2CDevice.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_I2CDevice.cpp.s
-.PHONY : libraries/SITL/SIM_I2CDevice.cpp.s
-
-libraries/SITL/SIM_ICEngine.o: libraries/SITL/SIM_ICEngine.cpp.o
-.PHONY : libraries/SITL/SIM_ICEngine.o
-
-# target to build an object file
-libraries/SITL/SIM_ICEngine.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ICEngine.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ICEngine.cpp.o
-.PHONY : libraries/SITL/SIM_ICEngine.cpp.o
-
-libraries/SITL/SIM_ICEngine.i: libraries/SITL/SIM_ICEngine.cpp.i
-.PHONY : libraries/SITL/SIM_ICEngine.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_ICEngine.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ICEngine.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ICEngine.cpp.i
-.PHONY : libraries/SITL/SIM_ICEngine.cpp.i
-
-libraries/SITL/SIM_ICEngine.s: libraries/SITL/SIM_ICEngine.cpp.s
-.PHONY : libraries/SITL/SIM_ICEngine.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_ICEngine.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ICEngine.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ICEngine.cpp.s
-.PHONY : libraries/SITL/SIM_ICEngine.cpp.s
-
-libraries/SITL/SIM_INA3221.o: libraries/SITL/SIM_INA3221.cpp.o
-.PHONY : libraries/SITL/SIM_INA3221.o
-
-# target to build an object file
-libraries/SITL/SIM_INA3221.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_INA3221.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_INA3221.cpp.o
-.PHONY : libraries/SITL/SIM_INA3221.cpp.o
-
-libraries/SITL/SIM_INA3221.i: libraries/SITL/SIM_INA3221.cpp.i
-.PHONY : libraries/SITL/SIM_INA3221.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_INA3221.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_INA3221.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_INA3221.cpp.i
-.PHONY : libraries/SITL/SIM_INA3221.cpp.i
-
-libraries/SITL/SIM_INA3221.s: libraries/SITL/SIM_INA3221.cpp.s
-.PHONY : libraries/SITL/SIM_INA3221.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_INA3221.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_INA3221.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_INA3221.cpp.s
-.PHONY : libraries/SITL/SIM_INA3221.cpp.s
-
-libraries/SITL/SIM_IS31FL3195.o: libraries/SITL/SIM_IS31FL3195.cpp.o
-.PHONY : libraries/SITL/SIM_IS31FL3195.o
-
-# target to build an object file
-libraries/SITL/SIM_IS31FL3195.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_IS31FL3195.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_IS31FL3195.cpp.o
-.PHONY : libraries/SITL/SIM_IS31FL3195.cpp.o
-
-libraries/SITL/SIM_IS31FL3195.i: libraries/SITL/SIM_IS31FL3195.cpp.i
-.PHONY : libraries/SITL/SIM_IS31FL3195.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_IS31FL3195.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_IS31FL3195.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_IS31FL3195.cpp.i
-.PHONY : libraries/SITL/SIM_IS31FL3195.cpp.i
-
-libraries/SITL/SIM_IS31FL3195.s: libraries/SITL/SIM_IS31FL3195.cpp.s
-.PHONY : libraries/SITL/SIM_IS31FL3195.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_IS31FL3195.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_IS31FL3195.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_IS31FL3195.cpp.s
-.PHONY : libraries/SITL/SIM_IS31FL3195.cpp.s
-
-libraries/SITL/SIM_InertialLabs.o: libraries/SITL/SIM_InertialLabs.cpp.o
-.PHONY : libraries/SITL/SIM_InertialLabs.o
-
-# target to build an object file
-libraries/SITL/SIM_InertialLabs.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_InertialLabs.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_InertialLabs.cpp.o
-.PHONY : libraries/SITL/SIM_InertialLabs.cpp.o
-
-libraries/SITL/SIM_InertialLabs.i: libraries/SITL/SIM_InertialLabs.cpp.i
-.PHONY : libraries/SITL/SIM_InertialLabs.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_InertialLabs.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_InertialLabs.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_InertialLabs.cpp.i
-.PHONY : libraries/SITL/SIM_InertialLabs.cpp.i
-
-libraries/SITL/SIM_InertialLabs.s: libraries/SITL/SIM_InertialLabs.cpp.s
-.PHONY : libraries/SITL/SIM_InertialLabs.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_InertialLabs.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_InertialLabs.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_InertialLabs.cpp.s
-.PHONY : libraries/SITL/SIM_InertialLabs.cpp.s
-
-libraries/SITL/SIM_IntelligentEnergy.o: libraries/SITL/SIM_IntelligentEnergy.cpp.o
-.PHONY : libraries/SITL/SIM_IntelligentEnergy.o
-
-# target to build an object file
-libraries/SITL/SIM_IntelligentEnergy.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_IntelligentEnergy.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_IntelligentEnergy.cpp.o
-.PHONY : libraries/SITL/SIM_IntelligentEnergy.cpp.o
-
-libraries/SITL/SIM_IntelligentEnergy.i: libraries/SITL/SIM_IntelligentEnergy.cpp.i
-.PHONY : libraries/SITL/SIM_IntelligentEnergy.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_IntelligentEnergy.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_IntelligentEnergy.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_IntelligentEnergy.cpp.i
-.PHONY : libraries/SITL/SIM_IntelligentEnergy.cpp.i
-
-libraries/SITL/SIM_IntelligentEnergy.s: libraries/SITL/SIM_IntelligentEnergy.cpp.s
-.PHONY : libraries/SITL/SIM_IntelligentEnergy.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_IntelligentEnergy.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_IntelligentEnergy.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_IntelligentEnergy.cpp.s
-.PHONY : libraries/SITL/SIM_IntelligentEnergy.cpp.s
-
-libraries/SITL/SIM_IntelligentEnergy24.o: libraries/SITL/SIM_IntelligentEnergy24.cpp.o
-.PHONY : libraries/SITL/SIM_IntelligentEnergy24.o
-
-# target to build an object file
-libraries/SITL/SIM_IntelligentEnergy24.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_IntelligentEnergy24.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_IntelligentEnergy24.cpp.o
-.PHONY : libraries/SITL/SIM_IntelligentEnergy24.cpp.o
-
-libraries/SITL/SIM_IntelligentEnergy24.i: libraries/SITL/SIM_IntelligentEnergy24.cpp.i
-.PHONY : libraries/SITL/SIM_IntelligentEnergy24.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_IntelligentEnergy24.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_IntelligentEnergy24.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_IntelligentEnergy24.cpp.i
-.PHONY : libraries/SITL/SIM_IntelligentEnergy24.cpp.i
-
-libraries/SITL/SIM_IntelligentEnergy24.s: libraries/SITL/SIM_IntelligentEnergy24.cpp.s
-.PHONY : libraries/SITL/SIM_IntelligentEnergy24.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_IntelligentEnergy24.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_IntelligentEnergy24.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_IntelligentEnergy24.cpp.s
-.PHONY : libraries/SITL/SIM_IntelligentEnergy24.cpp.s
-
-libraries/SITL/SIM_Invensense_v3.o: libraries/SITL/SIM_Invensense_v3.cpp.o
-.PHONY : libraries/SITL/SIM_Invensense_v3.o
-
-# target to build an object file
-libraries/SITL/SIM_Invensense_v3.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Invensense_v3.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Invensense_v3.cpp.o
-.PHONY : libraries/SITL/SIM_Invensense_v3.cpp.o
-
-libraries/SITL/SIM_Invensense_v3.i: libraries/SITL/SIM_Invensense_v3.cpp.i
-.PHONY : libraries/SITL/SIM_Invensense_v3.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Invensense_v3.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Invensense_v3.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Invensense_v3.cpp.i
-.PHONY : libraries/SITL/SIM_Invensense_v3.cpp.i
-
-libraries/SITL/SIM_Invensense_v3.s: libraries/SITL/SIM_Invensense_v3.cpp.s
-.PHONY : libraries/SITL/SIM_Invensense_v3.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Invensense_v3.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Invensense_v3.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Invensense_v3.cpp.s
-.PHONY : libraries/SITL/SIM_Invensense_v3.cpp.s
-
-libraries/SITL/SIM_JEDEC.o: libraries/SITL/SIM_JEDEC.cpp.o
-.PHONY : libraries/SITL/SIM_JEDEC.o
-
-# target to build an object file
-libraries/SITL/SIM_JEDEC.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JEDEC.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JEDEC.cpp.o
-.PHONY : libraries/SITL/SIM_JEDEC.cpp.o
-
-libraries/SITL/SIM_JEDEC.i: libraries/SITL/SIM_JEDEC.cpp.i
-.PHONY : libraries/SITL/SIM_JEDEC.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_JEDEC.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JEDEC.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JEDEC.cpp.i
-.PHONY : libraries/SITL/SIM_JEDEC.cpp.i
-
-libraries/SITL/SIM_JEDEC.s: libraries/SITL/SIM_JEDEC.cpp.s
-.PHONY : libraries/SITL/SIM_JEDEC.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_JEDEC.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JEDEC.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JEDEC.cpp.s
-.PHONY : libraries/SITL/SIM_JEDEC.cpp.s
-
-libraries/SITL/SIM_JEDEC_MX25L3206E.o: libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.o
-.PHONY : libraries/SITL/SIM_JEDEC_MX25L3206E.o
-
-# target to build an object file
-libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.o
-.PHONY : libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.o
-
-libraries/SITL/SIM_JEDEC_MX25L3206E.i: libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.i
-.PHONY : libraries/SITL/SIM_JEDEC_MX25L3206E.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.i
-.PHONY : libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.i
-
-libraries/SITL/SIM_JEDEC_MX25L3206E.s: libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.s
-.PHONY : libraries/SITL/SIM_JEDEC_MX25L3206E.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.s
-.PHONY : libraries/SITL/SIM_JEDEC_MX25L3206E.cpp.s
-
-libraries/SITL/SIM_JSBSim.o: libraries/SITL/SIM_JSBSim.cpp.o
-.PHONY : libraries/SITL/SIM_JSBSim.o
-
-# target to build an object file
-libraries/SITL/SIM_JSBSim.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JSBSim.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JSBSim.cpp.o
-.PHONY : libraries/SITL/SIM_JSBSim.cpp.o
-
-libraries/SITL/SIM_JSBSim.i: libraries/SITL/SIM_JSBSim.cpp.i
-.PHONY : libraries/SITL/SIM_JSBSim.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_JSBSim.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JSBSim.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JSBSim.cpp.i
-.PHONY : libraries/SITL/SIM_JSBSim.cpp.i
-
-libraries/SITL/SIM_JSBSim.s: libraries/SITL/SIM_JSBSim.cpp.s
-.PHONY : libraries/SITL/SIM_JSBSim.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_JSBSim.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JSBSim.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JSBSim.cpp.s
-.PHONY : libraries/SITL/SIM_JSBSim.cpp.s
-
-libraries/SITL/SIM_JSON.o: libraries/SITL/SIM_JSON.cpp.o
-.PHONY : libraries/SITL/SIM_JSON.o
-
-# target to build an object file
-libraries/SITL/SIM_JSON.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JSON.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JSON.cpp.o
-.PHONY : libraries/SITL/SIM_JSON.cpp.o
-
-libraries/SITL/SIM_JSON.i: libraries/SITL/SIM_JSON.cpp.i
-.PHONY : libraries/SITL/SIM_JSON.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_JSON.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JSON.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JSON.cpp.i
-.PHONY : libraries/SITL/SIM_JSON.cpp.i
-
-libraries/SITL/SIM_JSON.s: libraries/SITL/SIM_JSON.cpp.s
-.PHONY : libraries/SITL/SIM_JSON.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_JSON.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JSON.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JSON.cpp.s
-.PHONY : libraries/SITL/SIM_JSON.cpp.s
-
-libraries/SITL/SIM_JSON_Master.o: libraries/SITL/SIM_JSON_Master.cpp.o
-.PHONY : libraries/SITL/SIM_JSON_Master.o
-
-# target to build an object file
-libraries/SITL/SIM_JSON_Master.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JSON_Master.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JSON_Master.cpp.o
-.PHONY : libraries/SITL/SIM_JSON_Master.cpp.o
-
-libraries/SITL/SIM_JSON_Master.i: libraries/SITL/SIM_JSON_Master.cpp.i
-.PHONY : libraries/SITL/SIM_JSON_Master.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_JSON_Master.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JSON_Master.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JSON_Master.cpp.i
-.PHONY : libraries/SITL/SIM_JSON_Master.cpp.i
-
-libraries/SITL/SIM_JSON_Master.s: libraries/SITL/SIM_JSON_Master.cpp.s
-.PHONY : libraries/SITL/SIM_JSON_Master.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_JSON_Master.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_JSON_Master.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_JSON_Master.cpp.s
-.PHONY : libraries/SITL/SIM_JSON_Master.cpp.s
-
-libraries/SITL/SIM_LED_n.o: libraries/SITL/SIM_LED_n.cpp.o
-.PHONY : libraries/SITL/SIM_LED_n.o
-
-# target to build an object file
-libraries/SITL/SIM_LED_n.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_LED_n.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_LED_n.cpp.o
-.PHONY : libraries/SITL/SIM_LED_n.cpp.o
-
-libraries/SITL/SIM_LED_n.i: libraries/SITL/SIM_LED_n.cpp.i
-.PHONY : libraries/SITL/SIM_LED_n.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_LED_n.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_LED_n.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_LED_n.cpp.i
-.PHONY : libraries/SITL/SIM_LED_n.cpp.i
-
-libraries/SITL/SIM_LED_n.s: libraries/SITL/SIM_LED_n.cpp.s
-.PHONY : libraries/SITL/SIM_LED_n.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_LED_n.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_LED_n.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_LED_n.cpp.s
-.PHONY : libraries/SITL/SIM_LED_n.cpp.s
-
-libraries/SITL/SIM_LM2755.o: libraries/SITL/SIM_LM2755.cpp.o
-.PHONY : libraries/SITL/SIM_LM2755.o
-
-# target to build an object file
-libraries/SITL/SIM_LM2755.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_LM2755.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_LM2755.cpp.o
-.PHONY : libraries/SITL/SIM_LM2755.cpp.o
-
-libraries/SITL/SIM_LM2755.i: libraries/SITL/SIM_LM2755.cpp.i
-.PHONY : libraries/SITL/SIM_LM2755.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_LM2755.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_LM2755.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_LM2755.cpp.i
-.PHONY : libraries/SITL/SIM_LM2755.cpp.i
-
-libraries/SITL/SIM_LM2755.s: libraries/SITL/SIM_LM2755.cpp.s
-.PHONY : libraries/SITL/SIM_LM2755.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_LM2755.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_LM2755.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_LM2755.cpp.s
-.PHONY : libraries/SITL/SIM_LM2755.cpp.s
-
-libraries/SITL/SIM_LP5562.o: libraries/SITL/SIM_LP5562.cpp.o
-.PHONY : libraries/SITL/SIM_LP5562.o
-
-# target to build an object file
-libraries/SITL/SIM_LP5562.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_LP5562.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_LP5562.cpp.o
-.PHONY : libraries/SITL/SIM_LP5562.cpp.o
-
-libraries/SITL/SIM_LP5562.i: libraries/SITL/SIM_LP5562.cpp.i
-.PHONY : libraries/SITL/SIM_LP5562.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_LP5562.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_LP5562.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_LP5562.cpp.i
-.PHONY : libraries/SITL/SIM_LP5562.cpp.i
-
-libraries/SITL/SIM_LP5562.s: libraries/SITL/SIM_LP5562.cpp.s
-.PHONY : libraries/SITL/SIM_LP5562.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_LP5562.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_LP5562.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_LP5562.cpp.s
-.PHONY : libraries/SITL/SIM_LP5562.cpp.s
-
-libraries/SITL/SIM_Loweheiser.o: libraries/SITL/SIM_Loweheiser.cpp.o
-.PHONY : libraries/SITL/SIM_Loweheiser.o
-
-# target to build an object file
-libraries/SITL/SIM_Loweheiser.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Loweheiser.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Loweheiser.cpp.o
-.PHONY : libraries/SITL/SIM_Loweheiser.cpp.o
-
-libraries/SITL/SIM_Loweheiser.i: libraries/SITL/SIM_Loweheiser.cpp.i
-.PHONY : libraries/SITL/SIM_Loweheiser.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Loweheiser.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Loweheiser.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Loweheiser.cpp.i
-.PHONY : libraries/SITL/SIM_Loweheiser.cpp.i
-
-libraries/SITL/SIM_Loweheiser.s: libraries/SITL/SIM_Loweheiser.cpp.s
-.PHONY : libraries/SITL/SIM_Loweheiser.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Loweheiser.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Loweheiser.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Loweheiser.cpp.s
-.PHONY : libraries/SITL/SIM_Loweheiser.cpp.s
-
-libraries/SITL/SIM_MS5525.o: libraries/SITL/SIM_MS5525.cpp.o
-.PHONY : libraries/SITL/SIM_MS5525.o
-
-# target to build an object file
-libraries/SITL/SIM_MS5525.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MS5525.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MS5525.cpp.o
-.PHONY : libraries/SITL/SIM_MS5525.cpp.o
-
-libraries/SITL/SIM_MS5525.i: libraries/SITL/SIM_MS5525.cpp.i
-.PHONY : libraries/SITL/SIM_MS5525.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_MS5525.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MS5525.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MS5525.cpp.i
-.PHONY : libraries/SITL/SIM_MS5525.cpp.i
-
-libraries/SITL/SIM_MS5525.s: libraries/SITL/SIM_MS5525.cpp.s
-.PHONY : libraries/SITL/SIM_MS5525.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_MS5525.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MS5525.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MS5525.cpp.s
-.PHONY : libraries/SITL/SIM_MS5525.cpp.s
-
-libraries/SITL/SIM_MS5611.o: libraries/SITL/SIM_MS5611.cpp.o
-.PHONY : libraries/SITL/SIM_MS5611.o
-
-# target to build an object file
-libraries/SITL/SIM_MS5611.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MS5611.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MS5611.cpp.o
-.PHONY : libraries/SITL/SIM_MS5611.cpp.o
-
-libraries/SITL/SIM_MS5611.i: libraries/SITL/SIM_MS5611.cpp.i
-.PHONY : libraries/SITL/SIM_MS5611.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_MS5611.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MS5611.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MS5611.cpp.i
-.PHONY : libraries/SITL/SIM_MS5611.cpp.i
-
-libraries/SITL/SIM_MS5611.s: libraries/SITL/SIM_MS5611.cpp.s
-.PHONY : libraries/SITL/SIM_MS5611.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_MS5611.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MS5611.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MS5611.cpp.s
-.PHONY : libraries/SITL/SIM_MS5611.cpp.s
-
-libraries/SITL/SIM_MS5XXX.o: libraries/SITL/SIM_MS5XXX.cpp.o
-.PHONY : libraries/SITL/SIM_MS5XXX.o
-
-# target to build an object file
-libraries/SITL/SIM_MS5XXX.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MS5XXX.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MS5XXX.cpp.o
-.PHONY : libraries/SITL/SIM_MS5XXX.cpp.o
-
-libraries/SITL/SIM_MS5XXX.i: libraries/SITL/SIM_MS5XXX.cpp.i
-.PHONY : libraries/SITL/SIM_MS5XXX.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_MS5XXX.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MS5XXX.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MS5XXX.cpp.i
-.PHONY : libraries/SITL/SIM_MS5XXX.cpp.i
-
-libraries/SITL/SIM_MS5XXX.s: libraries/SITL/SIM_MS5XXX.cpp.s
-.PHONY : libraries/SITL/SIM_MS5XXX.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_MS5XXX.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MS5XXX.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MS5XXX.cpp.s
-.PHONY : libraries/SITL/SIM_MS5XXX.cpp.s
-
-libraries/SITL/SIM_MicroStrain.o: libraries/SITL/SIM_MicroStrain.cpp.o
-.PHONY : libraries/SITL/SIM_MicroStrain.o
-
-# target to build an object file
-libraries/SITL/SIM_MicroStrain.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MicroStrain.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MicroStrain.cpp.o
-.PHONY : libraries/SITL/SIM_MicroStrain.cpp.o
-
-libraries/SITL/SIM_MicroStrain.i: libraries/SITL/SIM_MicroStrain.cpp.i
-.PHONY : libraries/SITL/SIM_MicroStrain.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_MicroStrain.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MicroStrain.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MicroStrain.cpp.i
-.PHONY : libraries/SITL/SIM_MicroStrain.cpp.i
-
-libraries/SITL/SIM_MicroStrain.s: libraries/SITL/SIM_MicroStrain.cpp.s
-.PHONY : libraries/SITL/SIM_MicroStrain.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_MicroStrain.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MicroStrain.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MicroStrain.cpp.s
-.PHONY : libraries/SITL/SIM_MicroStrain.cpp.s
-
-libraries/SITL/SIM_MicroStrain7.o: libraries/SITL/SIM_MicroStrain7.cpp.o
-.PHONY : libraries/SITL/SIM_MicroStrain7.o
-
-# target to build an object file
-libraries/SITL/SIM_MicroStrain7.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MicroStrain7.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MicroStrain7.cpp.o
-.PHONY : libraries/SITL/SIM_MicroStrain7.cpp.o
-
-libraries/SITL/SIM_MicroStrain7.i: libraries/SITL/SIM_MicroStrain7.cpp.i
-.PHONY : libraries/SITL/SIM_MicroStrain7.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_MicroStrain7.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MicroStrain7.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MicroStrain7.cpp.i
-.PHONY : libraries/SITL/SIM_MicroStrain7.cpp.i
-
-libraries/SITL/SIM_MicroStrain7.s: libraries/SITL/SIM_MicroStrain7.cpp.s
-.PHONY : libraries/SITL/SIM_MicroStrain7.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_MicroStrain7.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_MicroStrain7.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_MicroStrain7.cpp.s
-.PHONY : libraries/SITL/SIM_MicroStrain7.cpp.s
-
-libraries/SITL/SIM_Morse.o: libraries/SITL/SIM_Morse.cpp.o
-.PHONY : libraries/SITL/SIM_Morse.o
-
-# target to build an object file
-libraries/SITL/SIM_Morse.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Morse.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Morse.cpp.o
-.PHONY : libraries/SITL/SIM_Morse.cpp.o
-
-libraries/SITL/SIM_Morse.i: libraries/SITL/SIM_Morse.cpp.i
-.PHONY : libraries/SITL/SIM_Morse.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Morse.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Morse.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Morse.cpp.i
-.PHONY : libraries/SITL/SIM_Morse.cpp.i
-
-libraries/SITL/SIM_Morse.s: libraries/SITL/SIM_Morse.cpp.s
-.PHONY : libraries/SITL/SIM_Morse.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Morse.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Morse.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Morse.cpp.s
-.PHONY : libraries/SITL/SIM_Morse.cpp.s
-
-libraries/SITL/SIM_Motor.o: libraries/SITL/SIM_Motor.cpp.o
-.PHONY : libraries/SITL/SIM_Motor.o
-
-# target to build an object file
-libraries/SITL/SIM_Motor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Motor.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Motor.cpp.o
-.PHONY : libraries/SITL/SIM_Motor.cpp.o
-
-libraries/SITL/SIM_Motor.i: libraries/SITL/SIM_Motor.cpp.i
-.PHONY : libraries/SITL/SIM_Motor.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Motor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Motor.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Motor.cpp.i
-.PHONY : libraries/SITL/SIM_Motor.cpp.i
-
-libraries/SITL/SIM_Motor.s: libraries/SITL/SIM_Motor.cpp.s
-.PHONY : libraries/SITL/SIM_Motor.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Motor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Motor.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Motor.cpp.s
-.PHONY : libraries/SITL/SIM_Motor.cpp.s
-
-libraries/SITL/SIM_Multicopter.o: libraries/SITL/SIM_Multicopter.cpp.o
-.PHONY : libraries/SITL/SIM_Multicopter.o
-
-# target to build an object file
-libraries/SITL/SIM_Multicopter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Multicopter.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Multicopter.cpp.o
-.PHONY : libraries/SITL/SIM_Multicopter.cpp.o
-
-libraries/SITL/SIM_Multicopter.i: libraries/SITL/SIM_Multicopter.cpp.i
-.PHONY : libraries/SITL/SIM_Multicopter.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Multicopter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Multicopter.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Multicopter.cpp.i
-.PHONY : libraries/SITL/SIM_Multicopter.cpp.i
-
-libraries/SITL/SIM_Multicopter.s: libraries/SITL/SIM_Multicopter.cpp.s
-.PHONY : libraries/SITL/SIM_Multicopter.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Multicopter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Multicopter.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Multicopter.cpp.s
-.PHONY : libraries/SITL/SIM_Multicopter.cpp.s
-
-libraries/SITL/SIM_PS_LD06.o: libraries/SITL/SIM_PS_LD06.cpp.o
-.PHONY : libraries/SITL/SIM_PS_LD06.o
-
-# target to build an object file
-libraries/SITL/SIM_PS_LD06.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_PS_LD06.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_PS_LD06.cpp.o
-.PHONY : libraries/SITL/SIM_PS_LD06.cpp.o
-
-libraries/SITL/SIM_PS_LD06.i: libraries/SITL/SIM_PS_LD06.cpp.i
-.PHONY : libraries/SITL/SIM_PS_LD06.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_PS_LD06.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_PS_LD06.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_PS_LD06.cpp.i
-.PHONY : libraries/SITL/SIM_PS_LD06.cpp.i
-
-libraries/SITL/SIM_PS_LD06.s: libraries/SITL/SIM_PS_LD06.cpp.s
-.PHONY : libraries/SITL/SIM_PS_LD06.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_PS_LD06.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_PS_LD06.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_PS_LD06.cpp.s
-.PHONY : libraries/SITL/SIM_PS_LD06.cpp.s
-
-libraries/SITL/SIM_PS_LightWare_SF45B.o: libraries/SITL/SIM_PS_LightWare_SF45B.cpp.o
-.PHONY : libraries/SITL/SIM_PS_LightWare_SF45B.o
-
-# target to build an object file
-libraries/SITL/SIM_PS_LightWare_SF45B.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_PS_LightWare_SF45B.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_PS_LightWare_SF45B.cpp.o
-.PHONY : libraries/SITL/SIM_PS_LightWare_SF45B.cpp.o
-
-libraries/SITL/SIM_PS_LightWare_SF45B.i: libraries/SITL/SIM_PS_LightWare_SF45B.cpp.i
-.PHONY : libraries/SITL/SIM_PS_LightWare_SF45B.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_PS_LightWare_SF45B.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_PS_LightWare_SF45B.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_PS_LightWare_SF45B.cpp.i
-.PHONY : libraries/SITL/SIM_PS_LightWare_SF45B.cpp.i
-
-libraries/SITL/SIM_PS_LightWare_SF45B.s: libraries/SITL/SIM_PS_LightWare_SF45B.cpp.s
-.PHONY : libraries/SITL/SIM_PS_LightWare_SF45B.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_PS_LightWare_SF45B.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_PS_LightWare_SF45B.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_PS_LightWare_SF45B.cpp.s
-.PHONY : libraries/SITL/SIM_PS_LightWare_SF45B.cpp.s
-
-libraries/SITL/SIM_PS_RPLidar.o: libraries/SITL/SIM_PS_RPLidar.cpp.o
-.PHONY : libraries/SITL/SIM_PS_RPLidar.o
-
-# target to build an object file
-libraries/SITL/SIM_PS_RPLidar.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_PS_RPLidar.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_PS_RPLidar.cpp.o
-.PHONY : libraries/SITL/SIM_PS_RPLidar.cpp.o
-
-libraries/SITL/SIM_PS_RPLidar.i: libraries/SITL/SIM_PS_RPLidar.cpp.i
-.PHONY : libraries/SITL/SIM_PS_RPLidar.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_PS_RPLidar.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_PS_RPLidar.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_PS_RPLidar.cpp.i
-.PHONY : libraries/SITL/SIM_PS_RPLidar.cpp.i
-
-libraries/SITL/SIM_PS_RPLidar.s: libraries/SITL/SIM_PS_RPLidar.cpp.s
-.PHONY : libraries/SITL/SIM_PS_RPLidar.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_PS_RPLidar.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_PS_RPLidar.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_PS_RPLidar.cpp.s
-.PHONY : libraries/SITL/SIM_PS_RPLidar.cpp.s
-
-libraries/SITL/SIM_PS_TeraRangerTower.o: libraries/SITL/SIM_PS_TeraRangerTower.cpp.o
-.PHONY : libraries/SITL/SIM_PS_TeraRangerTower.o
-
-# target to build an object file
-libraries/SITL/SIM_PS_TeraRangerTower.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_PS_TeraRangerTower.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_PS_TeraRangerTower.cpp.o
-.PHONY : libraries/SITL/SIM_PS_TeraRangerTower.cpp.o
-
-libraries/SITL/SIM_PS_TeraRangerTower.i: libraries/SITL/SIM_PS_TeraRangerTower.cpp.i
-.PHONY : libraries/SITL/SIM_PS_TeraRangerTower.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_PS_TeraRangerTower.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_PS_TeraRangerTower.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_PS_TeraRangerTower.cpp.i
-.PHONY : libraries/SITL/SIM_PS_TeraRangerTower.cpp.i
-
-libraries/SITL/SIM_PS_TeraRangerTower.s: libraries/SITL/SIM_PS_TeraRangerTower.cpp.s
-.PHONY : libraries/SITL/SIM_PS_TeraRangerTower.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_PS_TeraRangerTower.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_PS_TeraRangerTower.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_PS_TeraRangerTower.cpp.s
-.PHONY : libraries/SITL/SIM_PS_TeraRangerTower.cpp.s
-
-libraries/SITL/SIM_Parachute.o: libraries/SITL/SIM_Parachute.cpp.o
-.PHONY : libraries/SITL/SIM_Parachute.o
-
-# target to build an object file
-libraries/SITL/SIM_Parachute.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Parachute.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Parachute.cpp.o
-.PHONY : libraries/SITL/SIM_Parachute.cpp.o
-
-libraries/SITL/SIM_Parachute.i: libraries/SITL/SIM_Parachute.cpp.i
-.PHONY : libraries/SITL/SIM_Parachute.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Parachute.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Parachute.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Parachute.cpp.i
-.PHONY : libraries/SITL/SIM_Parachute.cpp.i
-
-libraries/SITL/SIM_Parachute.s: libraries/SITL/SIM_Parachute.cpp.s
-.PHONY : libraries/SITL/SIM_Parachute.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Parachute.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Parachute.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Parachute.cpp.s
-.PHONY : libraries/SITL/SIM_Parachute.cpp.s
-
-libraries/SITL/SIM_Plane.o: libraries/SITL/SIM_Plane.cpp.o
-.PHONY : libraries/SITL/SIM_Plane.o
-
-# target to build an object file
-libraries/SITL/SIM_Plane.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Plane.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Plane.cpp.o
-.PHONY : libraries/SITL/SIM_Plane.cpp.o
-
-libraries/SITL/SIM_Plane.i: libraries/SITL/SIM_Plane.cpp.i
-.PHONY : libraries/SITL/SIM_Plane.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Plane.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Plane.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Plane.cpp.i
-.PHONY : libraries/SITL/SIM_Plane.cpp.i
-
-libraries/SITL/SIM_Plane.s: libraries/SITL/SIM_Plane.cpp.s
-.PHONY : libraries/SITL/SIM_Plane.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Plane.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Plane.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Plane.cpp.s
-.PHONY : libraries/SITL/SIM_Plane.cpp.s
-
-libraries/SITL/SIM_Precland.o: libraries/SITL/SIM_Precland.cpp.o
-.PHONY : libraries/SITL/SIM_Precland.o
-
-# target to build an object file
-libraries/SITL/SIM_Precland.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Precland.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Precland.cpp.o
-.PHONY : libraries/SITL/SIM_Precland.cpp.o
-
-libraries/SITL/SIM_Precland.i: libraries/SITL/SIM_Precland.cpp.i
-.PHONY : libraries/SITL/SIM_Precland.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Precland.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Precland.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Precland.cpp.i
-.PHONY : libraries/SITL/SIM_Precland.cpp.i
-
-libraries/SITL/SIM_Precland.s: libraries/SITL/SIM_Precland.cpp.s
-.PHONY : libraries/SITL/SIM_Precland.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Precland.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Precland.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Precland.cpp.s
-.PHONY : libraries/SITL/SIM_Precland.cpp.s
-
-libraries/SITL/SIM_QMC5883L.o: libraries/SITL/SIM_QMC5883L.cpp.o
-.PHONY : libraries/SITL/SIM_QMC5883L.o
-
-# target to build an object file
-libraries/SITL/SIM_QMC5883L.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_QMC5883L.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_QMC5883L.cpp.o
-.PHONY : libraries/SITL/SIM_QMC5883L.cpp.o
-
-libraries/SITL/SIM_QMC5883L.i: libraries/SITL/SIM_QMC5883L.cpp.i
-.PHONY : libraries/SITL/SIM_QMC5883L.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_QMC5883L.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_QMC5883L.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_QMC5883L.cpp.i
-.PHONY : libraries/SITL/SIM_QMC5883L.cpp.i
-
-libraries/SITL/SIM_QMC5883L.s: libraries/SITL/SIM_QMC5883L.cpp.s
-.PHONY : libraries/SITL/SIM_QMC5883L.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_QMC5883L.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_QMC5883L.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_QMC5883L.cpp.s
-.PHONY : libraries/SITL/SIM_QMC5883L.cpp.s
-
-libraries/SITL/SIM_QuadPlane.o: libraries/SITL/SIM_QuadPlane.cpp.o
-.PHONY : libraries/SITL/SIM_QuadPlane.o
-
-# target to build an object file
-libraries/SITL/SIM_QuadPlane.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_QuadPlane.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_QuadPlane.cpp.o
-.PHONY : libraries/SITL/SIM_QuadPlane.cpp.o
-
-libraries/SITL/SIM_QuadPlane.i: libraries/SITL/SIM_QuadPlane.cpp.i
-.PHONY : libraries/SITL/SIM_QuadPlane.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_QuadPlane.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_QuadPlane.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_QuadPlane.cpp.i
-.PHONY : libraries/SITL/SIM_QuadPlane.cpp.i
-
-libraries/SITL/SIM_QuadPlane.s: libraries/SITL/SIM_QuadPlane.cpp.s
-.PHONY : libraries/SITL/SIM_QuadPlane.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_QuadPlane.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_QuadPlane.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_QuadPlane.cpp.s
-.PHONY : libraries/SITL/SIM_QuadPlane.cpp.s
-
-libraries/SITL/SIM_RAMTRON.o: libraries/SITL/SIM_RAMTRON.cpp.o
-.PHONY : libraries/SITL/SIM_RAMTRON.o
-
-# target to build an object file
-libraries/SITL/SIM_RAMTRON.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RAMTRON.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RAMTRON.cpp.o
-.PHONY : libraries/SITL/SIM_RAMTRON.cpp.o
-
-libraries/SITL/SIM_RAMTRON.i: libraries/SITL/SIM_RAMTRON.cpp.i
-.PHONY : libraries/SITL/SIM_RAMTRON.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RAMTRON.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RAMTRON.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RAMTRON.cpp.i
-.PHONY : libraries/SITL/SIM_RAMTRON.cpp.i
-
-libraries/SITL/SIM_RAMTRON.s: libraries/SITL/SIM_RAMTRON.cpp.s
-.PHONY : libraries/SITL/SIM_RAMTRON.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RAMTRON.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RAMTRON.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RAMTRON.cpp.s
-.PHONY : libraries/SITL/SIM_RAMTRON.cpp.s
-
-libraries/SITL/SIM_RAMTRON_FM25V02.o: libraries/SITL/SIM_RAMTRON_FM25V02.cpp.o
-.PHONY : libraries/SITL/SIM_RAMTRON_FM25V02.o
-
-# target to build an object file
-libraries/SITL/SIM_RAMTRON_FM25V02.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RAMTRON_FM25V02.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RAMTRON_FM25V02.cpp.o
-.PHONY : libraries/SITL/SIM_RAMTRON_FM25V02.cpp.o
-
-libraries/SITL/SIM_RAMTRON_FM25V02.i: libraries/SITL/SIM_RAMTRON_FM25V02.cpp.i
-.PHONY : libraries/SITL/SIM_RAMTRON_FM25V02.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RAMTRON_FM25V02.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RAMTRON_FM25V02.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RAMTRON_FM25V02.cpp.i
-.PHONY : libraries/SITL/SIM_RAMTRON_FM25V02.cpp.i
-
-libraries/SITL/SIM_RAMTRON_FM25V02.s: libraries/SITL/SIM_RAMTRON_FM25V02.cpp.s
-.PHONY : libraries/SITL/SIM_RAMTRON_FM25V02.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RAMTRON_FM25V02.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RAMTRON_FM25V02.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RAMTRON_FM25V02.cpp.s
-.PHONY : libraries/SITL/SIM_RAMTRON_FM25V02.cpp.s
-
-libraries/SITL/SIM_RF_Ainstein_LR_D1.o: libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.o
-.PHONY : libraries/SITL/SIM_RF_Ainstein_LR_D1.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.o
-.PHONY : libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.o
-
-libraries/SITL/SIM_RF_Ainstein_LR_D1.i: libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.i
-.PHONY : libraries/SITL/SIM_RF_Ainstein_LR_D1.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.i
-.PHONY : libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.i
-
-libraries/SITL/SIM_RF_Ainstein_LR_D1.s: libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.s
-.PHONY : libraries/SITL/SIM_RF_Ainstein_LR_D1.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.s
-.PHONY : libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp.s
-
-libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.o: libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.o
-.PHONY : libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.o
-.PHONY : libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.o
-
-libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.i: libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.i
-.PHONY : libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.i
-.PHONY : libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.i
-
-libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.s: libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.s
-.PHONY : libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.s
-.PHONY : libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp.s
-
-libraries/SITL/SIM_RF_BLping.o: libraries/SITL/SIM_RF_BLping.cpp.o
-.PHONY : libraries/SITL/SIM_RF_BLping.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_BLping.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_BLping.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_BLping.cpp.o
-.PHONY : libraries/SITL/SIM_RF_BLping.cpp.o
-
-libraries/SITL/SIM_RF_BLping.i: libraries/SITL/SIM_RF_BLping.cpp.i
-.PHONY : libraries/SITL/SIM_RF_BLping.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_BLping.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_BLping.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_BLping.cpp.i
-.PHONY : libraries/SITL/SIM_RF_BLping.cpp.i
-
-libraries/SITL/SIM_RF_BLping.s: libraries/SITL/SIM_RF_BLping.cpp.s
-.PHONY : libraries/SITL/SIM_RF_BLping.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_BLping.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_BLping.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_BLping.cpp.s
-.PHONY : libraries/SITL/SIM_RF_BLping.cpp.s
-
-libraries/SITL/SIM_RF_Benewake.o: libraries/SITL/SIM_RF_Benewake.cpp.o
-.PHONY : libraries/SITL/SIM_RF_Benewake.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_Benewake.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Benewake.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Benewake.cpp.o
-.PHONY : libraries/SITL/SIM_RF_Benewake.cpp.o
-
-libraries/SITL/SIM_RF_Benewake.i: libraries/SITL/SIM_RF_Benewake.cpp.i
-.PHONY : libraries/SITL/SIM_RF_Benewake.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_Benewake.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Benewake.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Benewake.cpp.i
-.PHONY : libraries/SITL/SIM_RF_Benewake.cpp.i
-
-libraries/SITL/SIM_RF_Benewake.s: libraries/SITL/SIM_RF_Benewake.cpp.s
-.PHONY : libraries/SITL/SIM_RF_Benewake.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_Benewake.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Benewake.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Benewake.cpp.s
-.PHONY : libraries/SITL/SIM_RF_Benewake.cpp.s
-
-libraries/SITL/SIM_RF_Benewake_TFMiniPlus.o: libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.o
-.PHONY : libraries/SITL/SIM_RF_Benewake_TFMiniPlus.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.o
-.PHONY : libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.o
-
-libraries/SITL/SIM_RF_Benewake_TFMiniPlus.i: libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.i
-.PHONY : libraries/SITL/SIM_RF_Benewake_TFMiniPlus.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.i
-.PHONY : libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.i
-
-libraries/SITL/SIM_RF_Benewake_TFMiniPlus.s: libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.s
-.PHONY : libraries/SITL/SIM_RF_Benewake_TFMiniPlus.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.s
-.PHONY : libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp.s
-
-libraries/SITL/SIM_RF_GYUS42v2.o: libraries/SITL/SIM_RF_GYUS42v2.cpp.o
-.PHONY : libraries/SITL/SIM_RF_GYUS42v2.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_GYUS42v2.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_GYUS42v2.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_GYUS42v2.cpp.o
-.PHONY : libraries/SITL/SIM_RF_GYUS42v2.cpp.o
-
-libraries/SITL/SIM_RF_GYUS42v2.i: libraries/SITL/SIM_RF_GYUS42v2.cpp.i
-.PHONY : libraries/SITL/SIM_RF_GYUS42v2.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_GYUS42v2.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_GYUS42v2.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_GYUS42v2.cpp.i
-.PHONY : libraries/SITL/SIM_RF_GYUS42v2.cpp.i
-
-libraries/SITL/SIM_RF_GYUS42v2.s: libraries/SITL/SIM_RF_GYUS42v2.cpp.s
-.PHONY : libraries/SITL/SIM_RF_GYUS42v2.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_GYUS42v2.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_GYUS42v2.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_GYUS42v2.cpp.s
-.PHONY : libraries/SITL/SIM_RF_GYUS42v2.cpp.s
-
-libraries/SITL/SIM_RF_JRE.o: libraries/SITL/SIM_RF_JRE.cpp.o
-.PHONY : libraries/SITL/SIM_RF_JRE.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_JRE.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_JRE.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_JRE.cpp.o
-.PHONY : libraries/SITL/SIM_RF_JRE.cpp.o
-
-libraries/SITL/SIM_RF_JRE.i: libraries/SITL/SIM_RF_JRE.cpp.i
-.PHONY : libraries/SITL/SIM_RF_JRE.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_JRE.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_JRE.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_JRE.cpp.i
-.PHONY : libraries/SITL/SIM_RF_JRE.cpp.i
-
-libraries/SITL/SIM_RF_JRE.s: libraries/SITL/SIM_RF_JRE.cpp.s
-.PHONY : libraries/SITL/SIM_RF_JRE.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_JRE.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_JRE.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_JRE.cpp.s
-.PHONY : libraries/SITL/SIM_RF_JRE.cpp.s
-
-libraries/SITL/SIM_RF_Lanbao.o: libraries/SITL/SIM_RF_Lanbao.cpp.o
-.PHONY : libraries/SITL/SIM_RF_Lanbao.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_Lanbao.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Lanbao.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Lanbao.cpp.o
-.PHONY : libraries/SITL/SIM_RF_Lanbao.cpp.o
-
-libraries/SITL/SIM_RF_Lanbao.i: libraries/SITL/SIM_RF_Lanbao.cpp.i
-.PHONY : libraries/SITL/SIM_RF_Lanbao.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_Lanbao.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Lanbao.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Lanbao.cpp.i
-.PHONY : libraries/SITL/SIM_RF_Lanbao.cpp.i
-
-libraries/SITL/SIM_RF_Lanbao.s: libraries/SITL/SIM_RF_Lanbao.cpp.s
-.PHONY : libraries/SITL/SIM_RF_Lanbao.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_Lanbao.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Lanbao.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Lanbao.cpp.s
-.PHONY : libraries/SITL/SIM_RF_Lanbao.cpp.s
-
-libraries/SITL/SIM_RF_LeddarOne.o: libraries/SITL/SIM_RF_LeddarOne.cpp.o
-.PHONY : libraries/SITL/SIM_RF_LeddarOne.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_LeddarOne.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LeddarOne.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LeddarOne.cpp.o
-.PHONY : libraries/SITL/SIM_RF_LeddarOne.cpp.o
-
-libraries/SITL/SIM_RF_LeddarOne.i: libraries/SITL/SIM_RF_LeddarOne.cpp.i
-.PHONY : libraries/SITL/SIM_RF_LeddarOne.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_LeddarOne.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LeddarOne.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LeddarOne.cpp.i
-.PHONY : libraries/SITL/SIM_RF_LeddarOne.cpp.i
-
-libraries/SITL/SIM_RF_LeddarOne.s: libraries/SITL/SIM_RF_LeddarOne.cpp.s
-.PHONY : libraries/SITL/SIM_RF_LeddarOne.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_LeddarOne.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LeddarOne.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LeddarOne.cpp.s
-.PHONY : libraries/SITL/SIM_RF_LeddarOne.cpp.s
-
-libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.o: libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.o
-.PHONY : libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.o
-.PHONY : libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.o
-
-libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.i: libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.i
-.PHONY : libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.i
-.PHONY : libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.i
-
-libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.s: libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.s
-.PHONY : libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.s
-.PHONY : libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp.s
-
-libraries/SITL/SIM_RF_LightWareSerial.o: libraries/SITL/SIM_RF_LightWareSerial.cpp.o
-.PHONY : libraries/SITL/SIM_RF_LightWareSerial.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_LightWareSerial.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LightWareSerial.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LightWareSerial.cpp.o
-.PHONY : libraries/SITL/SIM_RF_LightWareSerial.cpp.o
-
-libraries/SITL/SIM_RF_LightWareSerial.i: libraries/SITL/SIM_RF_LightWareSerial.cpp.i
-.PHONY : libraries/SITL/SIM_RF_LightWareSerial.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_LightWareSerial.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LightWareSerial.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LightWareSerial.cpp.i
-.PHONY : libraries/SITL/SIM_RF_LightWareSerial.cpp.i
-
-libraries/SITL/SIM_RF_LightWareSerial.s: libraries/SITL/SIM_RF_LightWareSerial.cpp.s
-.PHONY : libraries/SITL/SIM_RF_LightWareSerial.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_LightWareSerial.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LightWareSerial.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LightWareSerial.cpp.s
-.PHONY : libraries/SITL/SIM_RF_LightWareSerial.cpp.s
-
-libraries/SITL/SIM_RF_LightWareSerialBinary.o: libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.o
-.PHONY : libraries/SITL/SIM_RF_LightWareSerialBinary.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.o
-.PHONY : libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.o
-
-libraries/SITL/SIM_RF_LightWareSerialBinary.i: libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.i
-.PHONY : libraries/SITL/SIM_RF_LightWareSerialBinary.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.i
-.PHONY : libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.i
-
-libraries/SITL/SIM_RF_LightWareSerialBinary.s: libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.s
-.PHONY : libraries/SITL/SIM_RF_LightWareSerialBinary.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.s
-.PHONY : libraries/SITL/SIM_RF_LightWareSerialBinary.cpp.s
-
-libraries/SITL/SIM_RF_LightWare_GRF.o: libraries/SITL/SIM_RF_LightWare_GRF.cpp.o
-.PHONY : libraries/SITL/SIM_RF_LightWare_GRF.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_LightWare_GRF.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LightWare_GRF.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LightWare_GRF.cpp.o
-.PHONY : libraries/SITL/SIM_RF_LightWare_GRF.cpp.o
-
-libraries/SITL/SIM_RF_LightWare_GRF.i: libraries/SITL/SIM_RF_LightWare_GRF.cpp.i
-.PHONY : libraries/SITL/SIM_RF_LightWare_GRF.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_LightWare_GRF.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LightWare_GRF.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LightWare_GRF.cpp.i
-.PHONY : libraries/SITL/SIM_RF_LightWare_GRF.cpp.i
-
-libraries/SITL/SIM_RF_LightWare_GRF.s: libraries/SITL/SIM_RF_LightWare_GRF.cpp.s
-.PHONY : libraries/SITL/SIM_RF_LightWare_GRF.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_LightWare_GRF.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_LightWare_GRF.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_LightWare_GRF.cpp.s
-.PHONY : libraries/SITL/SIM_RF_LightWare_GRF.cpp.s
-
-libraries/SITL/SIM_RF_MAVLink.o: libraries/SITL/SIM_RF_MAVLink.cpp.o
-.PHONY : libraries/SITL/SIM_RF_MAVLink.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_MAVLink.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_MAVLink.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_MAVLink.cpp.o
-.PHONY : libraries/SITL/SIM_RF_MAVLink.cpp.o
-
-libraries/SITL/SIM_RF_MAVLink.i: libraries/SITL/SIM_RF_MAVLink.cpp.i
-.PHONY : libraries/SITL/SIM_RF_MAVLink.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_MAVLink.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_MAVLink.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_MAVLink.cpp.i
-.PHONY : libraries/SITL/SIM_RF_MAVLink.cpp.i
-
-libraries/SITL/SIM_RF_MAVLink.s: libraries/SITL/SIM_RF_MAVLink.cpp.s
-.PHONY : libraries/SITL/SIM_RF_MAVLink.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_MAVLink.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_MAVLink.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_MAVLink.cpp.s
-.PHONY : libraries/SITL/SIM_RF_MAVLink.cpp.s
-
-libraries/SITL/SIM_RF_MaxsonarSerialLV.o: libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.o
-.PHONY : libraries/SITL/SIM_RF_MaxsonarSerialLV.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.o
-.PHONY : libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.o
-
-libraries/SITL/SIM_RF_MaxsonarSerialLV.i: libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.i
-.PHONY : libraries/SITL/SIM_RF_MaxsonarSerialLV.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.i
-.PHONY : libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.i
-
-libraries/SITL/SIM_RF_MaxsonarSerialLV.s: libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.s
-.PHONY : libraries/SITL/SIM_RF_MaxsonarSerialLV.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.s
-.PHONY : libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp.s
-
-libraries/SITL/SIM_RF_NMEA.o: libraries/SITL/SIM_RF_NMEA.cpp.o
-.PHONY : libraries/SITL/SIM_RF_NMEA.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_NMEA.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_NMEA.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_NMEA.cpp.o
-.PHONY : libraries/SITL/SIM_RF_NMEA.cpp.o
-
-libraries/SITL/SIM_RF_NMEA.i: libraries/SITL/SIM_RF_NMEA.cpp.i
-.PHONY : libraries/SITL/SIM_RF_NMEA.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_NMEA.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_NMEA.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_NMEA.cpp.i
-.PHONY : libraries/SITL/SIM_RF_NMEA.cpp.i
-
-libraries/SITL/SIM_RF_NMEA.s: libraries/SITL/SIM_RF_NMEA.cpp.s
-.PHONY : libraries/SITL/SIM_RF_NMEA.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_NMEA.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_NMEA.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_NMEA.cpp.s
-.PHONY : libraries/SITL/SIM_RF_NMEA.cpp.s
-
-libraries/SITL/SIM_RF_NoopLoop.o: libraries/SITL/SIM_RF_NoopLoop.cpp.o
-.PHONY : libraries/SITL/SIM_RF_NoopLoop.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_NoopLoop.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_NoopLoop.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_NoopLoop.cpp.o
-.PHONY : libraries/SITL/SIM_RF_NoopLoop.cpp.o
-
-libraries/SITL/SIM_RF_NoopLoop.i: libraries/SITL/SIM_RF_NoopLoop.cpp.i
-.PHONY : libraries/SITL/SIM_RF_NoopLoop.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_NoopLoop.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_NoopLoop.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_NoopLoop.cpp.i
-.PHONY : libraries/SITL/SIM_RF_NoopLoop.cpp.i
-
-libraries/SITL/SIM_RF_NoopLoop.s: libraries/SITL/SIM_RF_NoopLoop.cpp.s
-.PHONY : libraries/SITL/SIM_RF_NoopLoop.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_NoopLoop.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_NoopLoop.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_NoopLoop.cpp.s
-.PHONY : libraries/SITL/SIM_RF_NoopLoop.cpp.s
-
-libraries/SITL/SIM_RF_RDS02UF.o: libraries/SITL/SIM_RF_RDS02UF.cpp.o
-.PHONY : libraries/SITL/SIM_RF_RDS02UF.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_RDS02UF.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_RDS02UF.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_RDS02UF.cpp.o
-.PHONY : libraries/SITL/SIM_RF_RDS02UF.cpp.o
-
-libraries/SITL/SIM_RF_RDS02UF.i: libraries/SITL/SIM_RF_RDS02UF.cpp.i
-.PHONY : libraries/SITL/SIM_RF_RDS02UF.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_RDS02UF.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_RDS02UF.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_RDS02UF.cpp.i
-.PHONY : libraries/SITL/SIM_RF_RDS02UF.cpp.i
-
-libraries/SITL/SIM_RF_RDS02UF.s: libraries/SITL/SIM_RF_RDS02UF.cpp.s
-.PHONY : libraries/SITL/SIM_RF_RDS02UF.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_RDS02UF.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_RDS02UF.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_RDS02UF.cpp.s
-.PHONY : libraries/SITL/SIM_RF_RDS02UF.cpp.s
-
-libraries/SITL/SIM_RF_TeraRanger_Serial.o: libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.o
-.PHONY : libraries/SITL/SIM_RF_TeraRanger_Serial.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.o
-.PHONY : libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.o
-
-libraries/SITL/SIM_RF_TeraRanger_Serial.i: libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.i
-.PHONY : libraries/SITL/SIM_RF_TeraRanger_Serial.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.i
-.PHONY : libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.i
-
-libraries/SITL/SIM_RF_TeraRanger_Serial.s: libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.s
-.PHONY : libraries/SITL/SIM_RF_TeraRanger_Serial.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.s
-.PHONY : libraries/SITL/SIM_RF_TeraRanger_Serial.cpp.s
-
-libraries/SITL/SIM_RF_USD1.o: libraries/SITL/SIM_RF_USD1.cpp.o
-.PHONY : libraries/SITL/SIM_RF_USD1.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_USD1.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_USD1.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_USD1.cpp.o
-.PHONY : libraries/SITL/SIM_RF_USD1.cpp.o
-
-libraries/SITL/SIM_RF_USD1.i: libraries/SITL/SIM_RF_USD1.cpp.i
-.PHONY : libraries/SITL/SIM_RF_USD1.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_USD1.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_USD1.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_USD1.cpp.i
-.PHONY : libraries/SITL/SIM_RF_USD1.cpp.i
-
-libraries/SITL/SIM_RF_USD1.s: libraries/SITL/SIM_RF_USD1.cpp.s
-.PHONY : libraries/SITL/SIM_RF_USD1.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_USD1.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_USD1.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_USD1.cpp.s
-.PHONY : libraries/SITL/SIM_RF_USD1.cpp.s
-
-libraries/SITL/SIM_RF_USD1_v0.o: libraries/SITL/SIM_RF_USD1_v0.cpp.o
-.PHONY : libraries/SITL/SIM_RF_USD1_v0.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_USD1_v0.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_USD1_v0.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_USD1_v0.cpp.o
-.PHONY : libraries/SITL/SIM_RF_USD1_v0.cpp.o
-
-libraries/SITL/SIM_RF_USD1_v0.i: libraries/SITL/SIM_RF_USD1_v0.cpp.i
-.PHONY : libraries/SITL/SIM_RF_USD1_v0.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_USD1_v0.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_USD1_v0.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_USD1_v0.cpp.i
-.PHONY : libraries/SITL/SIM_RF_USD1_v0.cpp.i
-
-libraries/SITL/SIM_RF_USD1_v0.s: libraries/SITL/SIM_RF_USD1_v0.cpp.s
-.PHONY : libraries/SITL/SIM_RF_USD1_v0.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_USD1_v0.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_USD1_v0.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_USD1_v0.cpp.s
-.PHONY : libraries/SITL/SIM_RF_USD1_v0.cpp.s
-
-libraries/SITL/SIM_RF_USD1_v1.o: libraries/SITL/SIM_RF_USD1_v1.cpp.o
-.PHONY : libraries/SITL/SIM_RF_USD1_v1.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_USD1_v1.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_USD1_v1.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_USD1_v1.cpp.o
-.PHONY : libraries/SITL/SIM_RF_USD1_v1.cpp.o
-
-libraries/SITL/SIM_RF_USD1_v1.i: libraries/SITL/SIM_RF_USD1_v1.cpp.i
-.PHONY : libraries/SITL/SIM_RF_USD1_v1.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_USD1_v1.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_USD1_v1.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_USD1_v1.cpp.i
-.PHONY : libraries/SITL/SIM_RF_USD1_v1.cpp.i
-
-libraries/SITL/SIM_RF_USD1_v1.s: libraries/SITL/SIM_RF_USD1_v1.cpp.s
-.PHONY : libraries/SITL/SIM_RF_USD1_v1.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_USD1_v1.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_USD1_v1.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_USD1_v1.cpp.s
-.PHONY : libraries/SITL/SIM_RF_USD1_v1.cpp.s
-
-libraries/SITL/SIM_RF_Wasp.o: libraries/SITL/SIM_RF_Wasp.cpp.o
-.PHONY : libraries/SITL/SIM_RF_Wasp.o
-
-# target to build an object file
-libraries/SITL/SIM_RF_Wasp.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Wasp.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Wasp.cpp.o
-.PHONY : libraries/SITL/SIM_RF_Wasp.cpp.o
-
-libraries/SITL/SIM_RF_Wasp.i: libraries/SITL/SIM_RF_Wasp.cpp.i
-.PHONY : libraries/SITL/SIM_RF_Wasp.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RF_Wasp.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Wasp.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Wasp.cpp.i
-.PHONY : libraries/SITL/SIM_RF_Wasp.cpp.i
-
-libraries/SITL/SIM_RF_Wasp.s: libraries/SITL/SIM_RF_Wasp.cpp.s
-.PHONY : libraries/SITL/SIM_RF_Wasp.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RF_Wasp.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RF_Wasp.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RF_Wasp.cpp.s
-.PHONY : libraries/SITL/SIM_RF_Wasp.cpp.s
-
-libraries/SITL/SIM_RGBLED.o: libraries/SITL/SIM_RGBLED.cpp.o
-.PHONY : libraries/SITL/SIM_RGBLED.o
-
-# target to build an object file
-libraries/SITL/SIM_RGBLED.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RGBLED.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RGBLED.cpp.o
-.PHONY : libraries/SITL/SIM_RGBLED.cpp.o
-
-libraries/SITL/SIM_RGBLED.i: libraries/SITL/SIM_RGBLED.cpp.i
-.PHONY : libraries/SITL/SIM_RGBLED.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RGBLED.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RGBLED.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RGBLED.cpp.i
-.PHONY : libraries/SITL/SIM_RGBLED.cpp.i
-
-libraries/SITL/SIM_RGBLED.s: libraries/SITL/SIM_RGBLED.cpp.s
-.PHONY : libraries/SITL/SIM_RGBLED.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RGBLED.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RGBLED.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RGBLED.cpp.s
-.PHONY : libraries/SITL/SIM_RGBLED.cpp.s
-
-libraries/SITL/SIM_RichenPower.o: libraries/SITL/SIM_RichenPower.cpp.o
-.PHONY : libraries/SITL/SIM_RichenPower.o
-
-# target to build an object file
-libraries/SITL/SIM_RichenPower.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RichenPower.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RichenPower.cpp.o
-.PHONY : libraries/SITL/SIM_RichenPower.cpp.o
-
-libraries/SITL/SIM_RichenPower.i: libraries/SITL/SIM_RichenPower.cpp.i
-.PHONY : libraries/SITL/SIM_RichenPower.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_RichenPower.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RichenPower.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RichenPower.cpp.i
-.PHONY : libraries/SITL/SIM_RichenPower.cpp.i
-
-libraries/SITL/SIM_RichenPower.s: libraries/SITL/SIM_RichenPower.cpp.s
-.PHONY : libraries/SITL/SIM_RichenPower.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_RichenPower.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_RichenPower.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_RichenPower.cpp.s
-.PHONY : libraries/SITL/SIM_RichenPower.cpp.s
-
-libraries/SITL/SIM_Rover.o: libraries/SITL/SIM_Rover.cpp.o
-.PHONY : libraries/SITL/SIM_Rover.o
-
-# target to build an object file
-libraries/SITL/SIM_Rover.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Rover.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Rover.cpp.o
-.PHONY : libraries/SITL/SIM_Rover.cpp.o
-
-libraries/SITL/SIM_Rover.i: libraries/SITL/SIM_Rover.cpp.i
-.PHONY : libraries/SITL/SIM_Rover.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Rover.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Rover.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Rover.cpp.i
-.PHONY : libraries/SITL/SIM_Rover.cpp.i
-
-libraries/SITL/SIM_Rover.s: libraries/SITL/SIM_Rover.cpp.s
-.PHONY : libraries/SITL/SIM_Rover.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Rover.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Rover.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Rover.cpp.s
-.PHONY : libraries/SITL/SIM_Rover.cpp.s
-
-libraries/SITL/SIM_SMBusDevice.o: libraries/SITL/SIM_SMBusDevice.cpp.o
-.PHONY : libraries/SITL/SIM_SMBusDevice.o
-
-# target to build an object file
-libraries/SITL/SIM_SMBusDevice.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SMBusDevice.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SMBusDevice.cpp.o
-.PHONY : libraries/SITL/SIM_SMBusDevice.cpp.o
-
-libraries/SITL/SIM_SMBusDevice.i: libraries/SITL/SIM_SMBusDevice.cpp.i
-.PHONY : libraries/SITL/SIM_SMBusDevice.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_SMBusDevice.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SMBusDevice.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SMBusDevice.cpp.i
-.PHONY : libraries/SITL/SIM_SMBusDevice.cpp.i
-
-libraries/SITL/SIM_SMBusDevice.s: libraries/SITL/SIM_SMBusDevice.cpp.s
-.PHONY : libraries/SITL/SIM_SMBusDevice.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_SMBusDevice.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SMBusDevice.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SMBusDevice.cpp.s
-.PHONY : libraries/SITL/SIM_SMBusDevice.cpp.s
-
-libraries/SITL/SIM_SPI.o: libraries/SITL/SIM_SPI.cpp.o
-.PHONY : libraries/SITL/SIM_SPI.o
-
-# target to build an object file
-libraries/SITL/SIM_SPI.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SPI.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SPI.cpp.o
-.PHONY : libraries/SITL/SIM_SPI.cpp.o
-
-libraries/SITL/SIM_SPI.i: libraries/SITL/SIM_SPI.cpp.i
-.PHONY : libraries/SITL/SIM_SPI.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_SPI.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SPI.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SPI.cpp.i
-.PHONY : libraries/SITL/SIM_SPI.cpp.i
-
-libraries/SITL/SIM_SPI.s: libraries/SITL/SIM_SPI.cpp.s
-.PHONY : libraries/SITL/SIM_SPI.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_SPI.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SPI.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SPI.cpp.s
-.PHONY : libraries/SITL/SIM_SPI.cpp.s
-
-libraries/SITL/SIM_Sailboat.o: libraries/SITL/SIM_Sailboat.cpp.o
-.PHONY : libraries/SITL/SIM_Sailboat.o
-
-# target to build an object file
-libraries/SITL/SIM_Sailboat.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Sailboat.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Sailboat.cpp.o
-.PHONY : libraries/SITL/SIM_Sailboat.cpp.o
-
-libraries/SITL/SIM_Sailboat.i: libraries/SITL/SIM_Sailboat.cpp.i
-.PHONY : libraries/SITL/SIM_Sailboat.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Sailboat.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Sailboat.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Sailboat.cpp.i
-.PHONY : libraries/SITL/SIM_Sailboat.cpp.i
-
-libraries/SITL/SIM_Sailboat.s: libraries/SITL/SIM_Sailboat.cpp.s
-.PHONY : libraries/SITL/SIM_Sailboat.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Sailboat.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Sailboat.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Sailboat.cpp.s
-.PHONY : libraries/SITL/SIM_Sailboat.cpp.s
-
-libraries/SITL/SIM_Scrimmage.o: libraries/SITL/SIM_Scrimmage.cpp.o
-.PHONY : libraries/SITL/SIM_Scrimmage.o
-
-# target to build an object file
-libraries/SITL/SIM_Scrimmage.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Scrimmage.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Scrimmage.cpp.o
-.PHONY : libraries/SITL/SIM_Scrimmage.cpp.o
-
-libraries/SITL/SIM_Scrimmage.i: libraries/SITL/SIM_Scrimmage.cpp.i
-.PHONY : libraries/SITL/SIM_Scrimmage.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Scrimmage.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Scrimmage.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Scrimmage.cpp.i
-.PHONY : libraries/SITL/SIM_Scrimmage.cpp.i
-
-libraries/SITL/SIM_Scrimmage.s: libraries/SITL/SIM_Scrimmage.cpp.s
-.PHONY : libraries/SITL/SIM_Scrimmage.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Scrimmage.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Scrimmage.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Scrimmage.cpp.s
-.PHONY : libraries/SITL/SIM_Scrimmage.cpp.s
-
-libraries/SITL/SIM_SerialDevice.o: libraries/SITL/SIM_SerialDevice.cpp.o
-.PHONY : libraries/SITL/SIM_SerialDevice.o
-
-# target to build an object file
-libraries/SITL/SIM_SerialDevice.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SerialDevice.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SerialDevice.cpp.o
-.PHONY : libraries/SITL/SIM_SerialDevice.cpp.o
-
-libraries/SITL/SIM_SerialDevice.i: libraries/SITL/SIM_SerialDevice.cpp.i
-.PHONY : libraries/SITL/SIM_SerialDevice.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_SerialDevice.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SerialDevice.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SerialDevice.cpp.i
-.PHONY : libraries/SITL/SIM_SerialDevice.cpp.i
-
-libraries/SITL/SIM_SerialDevice.s: libraries/SITL/SIM_SerialDevice.cpp.s
-.PHONY : libraries/SITL/SIM_SerialDevice.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_SerialDevice.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SerialDevice.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SerialDevice.cpp.s
-.PHONY : libraries/SITL/SIM_SerialDevice.cpp.s
-
-libraries/SITL/SIM_SerialProximitySensor.o: libraries/SITL/SIM_SerialProximitySensor.cpp.o
-.PHONY : libraries/SITL/SIM_SerialProximitySensor.o
-
-# target to build an object file
-libraries/SITL/SIM_SerialProximitySensor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SerialProximitySensor.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SerialProximitySensor.cpp.o
-.PHONY : libraries/SITL/SIM_SerialProximitySensor.cpp.o
-
-libraries/SITL/SIM_SerialProximitySensor.i: libraries/SITL/SIM_SerialProximitySensor.cpp.i
-.PHONY : libraries/SITL/SIM_SerialProximitySensor.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_SerialProximitySensor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SerialProximitySensor.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SerialProximitySensor.cpp.i
-.PHONY : libraries/SITL/SIM_SerialProximitySensor.cpp.i
-
-libraries/SITL/SIM_SerialProximitySensor.s: libraries/SITL/SIM_SerialProximitySensor.cpp.s
-.PHONY : libraries/SITL/SIM_SerialProximitySensor.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_SerialProximitySensor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SerialProximitySensor.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SerialProximitySensor.cpp.s
-.PHONY : libraries/SITL/SIM_SerialProximitySensor.cpp.s
-
-libraries/SITL/SIM_SerialRangeFinder.o: libraries/SITL/SIM_SerialRangeFinder.cpp.o
-.PHONY : libraries/SITL/SIM_SerialRangeFinder.o
-
-# target to build an object file
-libraries/SITL/SIM_SerialRangeFinder.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SerialRangeFinder.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SerialRangeFinder.cpp.o
-.PHONY : libraries/SITL/SIM_SerialRangeFinder.cpp.o
-
-libraries/SITL/SIM_SerialRangeFinder.i: libraries/SITL/SIM_SerialRangeFinder.cpp.i
-.PHONY : libraries/SITL/SIM_SerialRangeFinder.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_SerialRangeFinder.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SerialRangeFinder.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SerialRangeFinder.cpp.i
-.PHONY : libraries/SITL/SIM_SerialRangeFinder.cpp.i
-
-libraries/SITL/SIM_SerialRangeFinder.s: libraries/SITL/SIM_SerialRangeFinder.cpp.s
-.PHONY : libraries/SITL/SIM_SerialRangeFinder.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_SerialRangeFinder.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SerialRangeFinder.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SerialRangeFinder.cpp.s
-.PHONY : libraries/SITL/SIM_SerialRangeFinder.cpp.s
-
-libraries/SITL/SIM_Ship.o: libraries/SITL/SIM_Ship.cpp.o
-.PHONY : libraries/SITL/SIM_Ship.o
-
-# target to build an object file
-libraries/SITL/SIM_Ship.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Ship.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Ship.cpp.o
-.PHONY : libraries/SITL/SIM_Ship.cpp.o
-
-libraries/SITL/SIM_Ship.i: libraries/SITL/SIM_Ship.cpp.i
-.PHONY : libraries/SITL/SIM_Ship.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Ship.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Ship.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Ship.cpp.i
-.PHONY : libraries/SITL/SIM_Ship.cpp.i
-
-libraries/SITL/SIM_Ship.s: libraries/SITL/SIM_Ship.cpp.s
-.PHONY : libraries/SITL/SIM_Ship.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Ship.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Ship.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Ship.cpp.s
-.PHONY : libraries/SITL/SIM_Ship.cpp.s
-
-libraries/SITL/SIM_SilentWings.o: libraries/SITL/SIM_SilentWings.cpp.o
-.PHONY : libraries/SITL/SIM_SilentWings.o
-
-# target to build an object file
-libraries/SITL/SIM_SilentWings.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SilentWings.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SilentWings.cpp.o
-.PHONY : libraries/SITL/SIM_SilentWings.cpp.o
-
-libraries/SITL/SIM_SilentWings.i: libraries/SITL/SIM_SilentWings.cpp.i
-.PHONY : libraries/SITL/SIM_SilentWings.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_SilentWings.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SilentWings.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SilentWings.cpp.i
-.PHONY : libraries/SITL/SIM_SilentWings.cpp.i
-
-libraries/SITL/SIM_SilentWings.s: libraries/SITL/SIM_SilentWings.cpp.s
-.PHONY : libraries/SITL/SIM_SilentWings.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_SilentWings.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SilentWings.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SilentWings.cpp.s
-.PHONY : libraries/SITL/SIM_SilentWings.cpp.s
-
-libraries/SITL/SIM_SingleCopter.o: libraries/SITL/SIM_SingleCopter.cpp.o
-.PHONY : libraries/SITL/SIM_SingleCopter.o
-
-# target to build an object file
-libraries/SITL/SIM_SingleCopter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SingleCopter.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SingleCopter.cpp.o
-.PHONY : libraries/SITL/SIM_SingleCopter.cpp.o
-
-libraries/SITL/SIM_SingleCopter.i: libraries/SITL/SIM_SingleCopter.cpp.i
-.PHONY : libraries/SITL/SIM_SingleCopter.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_SingleCopter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SingleCopter.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SingleCopter.cpp.i
-.PHONY : libraries/SITL/SIM_SingleCopter.cpp.i
-
-libraries/SITL/SIM_SingleCopter.s: libraries/SITL/SIM_SingleCopter.cpp.s
-.PHONY : libraries/SITL/SIM_SingleCopter.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_SingleCopter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SingleCopter.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SingleCopter.cpp.s
-.PHONY : libraries/SITL/SIM_SingleCopter.cpp.s
-
-libraries/SITL/SIM_SlungPayload.o: libraries/SITL/SIM_SlungPayload.cpp.o
-.PHONY : libraries/SITL/SIM_SlungPayload.o
-
-# target to build an object file
-libraries/SITL/SIM_SlungPayload.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SlungPayload.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SlungPayload.cpp.o
-.PHONY : libraries/SITL/SIM_SlungPayload.cpp.o
-
-libraries/SITL/SIM_SlungPayload.i: libraries/SITL/SIM_SlungPayload.cpp.i
-.PHONY : libraries/SITL/SIM_SlungPayload.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_SlungPayload.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SlungPayload.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SlungPayload.cpp.i
-.PHONY : libraries/SITL/SIM_SlungPayload.cpp.i
-
-libraries/SITL/SIM_SlungPayload.s: libraries/SITL/SIM_SlungPayload.cpp.s
-.PHONY : libraries/SITL/SIM_SlungPayload.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_SlungPayload.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SlungPayload.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SlungPayload.cpp.s
-.PHONY : libraries/SITL/SIM_SlungPayload.cpp.s
-
-libraries/SITL/SIM_SoloGimbal.o: libraries/SITL/SIM_SoloGimbal.cpp.o
-.PHONY : libraries/SITL/SIM_SoloGimbal.o
-
-# target to build an object file
-libraries/SITL/SIM_SoloGimbal.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SoloGimbal.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SoloGimbal.cpp.o
-.PHONY : libraries/SITL/SIM_SoloGimbal.cpp.o
-
-libraries/SITL/SIM_SoloGimbal.i: libraries/SITL/SIM_SoloGimbal.cpp.i
-.PHONY : libraries/SITL/SIM_SoloGimbal.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_SoloGimbal.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SoloGimbal.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SoloGimbal.cpp.i
-.PHONY : libraries/SITL/SIM_SoloGimbal.cpp.i
-
-libraries/SITL/SIM_SoloGimbal.s: libraries/SITL/SIM_SoloGimbal.cpp.s
-.PHONY : libraries/SITL/SIM_SoloGimbal.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_SoloGimbal.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_SoloGimbal.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_SoloGimbal.cpp.s
-.PHONY : libraries/SITL/SIM_SoloGimbal.cpp.s
-
-libraries/SITL/SIM_Sprayer.o: libraries/SITL/SIM_Sprayer.cpp.o
-.PHONY : libraries/SITL/SIM_Sprayer.o
-
-# target to build an object file
-libraries/SITL/SIM_Sprayer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Sprayer.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Sprayer.cpp.o
-.PHONY : libraries/SITL/SIM_Sprayer.cpp.o
-
-libraries/SITL/SIM_Sprayer.i: libraries/SITL/SIM_Sprayer.cpp.i
-.PHONY : libraries/SITL/SIM_Sprayer.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Sprayer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Sprayer.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Sprayer.cpp.i
-.PHONY : libraries/SITL/SIM_Sprayer.cpp.i
-
-libraries/SITL/SIM_Sprayer.s: libraries/SITL/SIM_Sprayer.cpp.s
-.PHONY : libraries/SITL/SIM_Sprayer.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Sprayer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Sprayer.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Sprayer.cpp.s
-.PHONY : libraries/SITL/SIM_Sprayer.cpp.s
-
-libraries/SITL/SIM_StratoBlimp.o: libraries/SITL/SIM_StratoBlimp.cpp.o
-.PHONY : libraries/SITL/SIM_StratoBlimp.o
-
-# target to build an object file
-libraries/SITL/SIM_StratoBlimp.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_StratoBlimp.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_StratoBlimp.cpp.o
-.PHONY : libraries/SITL/SIM_StratoBlimp.cpp.o
-
-libraries/SITL/SIM_StratoBlimp.i: libraries/SITL/SIM_StratoBlimp.cpp.i
-.PHONY : libraries/SITL/SIM_StratoBlimp.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_StratoBlimp.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_StratoBlimp.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_StratoBlimp.cpp.i
-.PHONY : libraries/SITL/SIM_StratoBlimp.cpp.i
-
-libraries/SITL/SIM_StratoBlimp.s: libraries/SITL/SIM_StratoBlimp.cpp.s
-.PHONY : libraries/SITL/SIM_StratoBlimp.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_StratoBlimp.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_StratoBlimp.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_StratoBlimp.cpp.s
-.PHONY : libraries/SITL/SIM_StratoBlimp.cpp.s
-
-libraries/SITL/SIM_Submarine.o: libraries/SITL/SIM_Submarine.cpp.o
-.PHONY : libraries/SITL/SIM_Submarine.o
-
-# target to build an object file
-libraries/SITL/SIM_Submarine.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Submarine.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Submarine.cpp.o
-.PHONY : libraries/SITL/SIM_Submarine.cpp.o
-
-libraries/SITL/SIM_Submarine.i: libraries/SITL/SIM_Submarine.cpp.i
-.PHONY : libraries/SITL/SIM_Submarine.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Submarine.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Submarine.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Submarine.cpp.i
-.PHONY : libraries/SITL/SIM_Submarine.cpp.i
-
-libraries/SITL/SIM_Submarine.s: libraries/SITL/SIM_Submarine.cpp.s
-.PHONY : libraries/SITL/SIM_Submarine.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Submarine.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Submarine.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Submarine.cpp.s
-.PHONY : libraries/SITL/SIM_Submarine.cpp.s
-
-libraries/SITL/SIM_TFS20L.o: libraries/SITL/SIM_TFS20L.cpp.o
-.PHONY : libraries/SITL/SIM_TFS20L.o
-
-# target to build an object file
-libraries/SITL/SIM_TFS20L.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_TFS20L.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_TFS20L.cpp.o
-.PHONY : libraries/SITL/SIM_TFS20L.cpp.o
-
-libraries/SITL/SIM_TFS20L.i: libraries/SITL/SIM_TFS20L.cpp.i
-.PHONY : libraries/SITL/SIM_TFS20L.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_TFS20L.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_TFS20L.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_TFS20L.cpp.i
-.PHONY : libraries/SITL/SIM_TFS20L.cpp.i
-
-libraries/SITL/SIM_TFS20L.s: libraries/SITL/SIM_TFS20L.cpp.s
-.PHONY : libraries/SITL/SIM_TFS20L.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_TFS20L.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_TFS20L.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_TFS20L.cpp.s
-.PHONY : libraries/SITL/SIM_TFS20L.cpp.s
-
-libraries/SITL/SIM_Temperature_MCP9600.o: libraries/SITL/SIM_Temperature_MCP9600.cpp.o
-.PHONY : libraries/SITL/SIM_Temperature_MCP9600.o
-
-# target to build an object file
-libraries/SITL/SIM_Temperature_MCP9600.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Temperature_MCP9600.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Temperature_MCP9600.cpp.o
-.PHONY : libraries/SITL/SIM_Temperature_MCP9600.cpp.o
-
-libraries/SITL/SIM_Temperature_MCP9600.i: libraries/SITL/SIM_Temperature_MCP9600.cpp.i
-.PHONY : libraries/SITL/SIM_Temperature_MCP9600.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Temperature_MCP9600.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Temperature_MCP9600.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Temperature_MCP9600.cpp.i
-.PHONY : libraries/SITL/SIM_Temperature_MCP9600.cpp.i
-
-libraries/SITL/SIM_Temperature_MCP9600.s: libraries/SITL/SIM_Temperature_MCP9600.cpp.s
-.PHONY : libraries/SITL/SIM_Temperature_MCP9600.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Temperature_MCP9600.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Temperature_MCP9600.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Temperature_MCP9600.cpp.s
-.PHONY : libraries/SITL/SIM_Temperature_MCP9600.cpp.s
-
-libraries/SITL/SIM_Temperature_SHT3x.o: libraries/SITL/SIM_Temperature_SHT3x.cpp.o
-.PHONY : libraries/SITL/SIM_Temperature_SHT3x.o
-
-# target to build an object file
-libraries/SITL/SIM_Temperature_SHT3x.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Temperature_SHT3x.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Temperature_SHT3x.cpp.o
-.PHONY : libraries/SITL/SIM_Temperature_SHT3x.cpp.o
-
-libraries/SITL/SIM_Temperature_SHT3x.i: libraries/SITL/SIM_Temperature_SHT3x.cpp.i
-.PHONY : libraries/SITL/SIM_Temperature_SHT3x.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Temperature_SHT3x.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Temperature_SHT3x.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Temperature_SHT3x.cpp.i
-.PHONY : libraries/SITL/SIM_Temperature_SHT3x.cpp.i
-
-libraries/SITL/SIM_Temperature_SHT3x.s: libraries/SITL/SIM_Temperature_SHT3x.cpp.s
-.PHONY : libraries/SITL/SIM_Temperature_SHT3x.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Temperature_SHT3x.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Temperature_SHT3x.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Temperature_SHT3x.cpp.s
-.PHONY : libraries/SITL/SIM_Temperature_SHT3x.cpp.s
-
-libraries/SITL/SIM_Temperature_TSYS01.o: libraries/SITL/SIM_Temperature_TSYS01.cpp.o
-.PHONY : libraries/SITL/SIM_Temperature_TSYS01.o
-
-# target to build an object file
-libraries/SITL/SIM_Temperature_TSYS01.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Temperature_TSYS01.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Temperature_TSYS01.cpp.o
-.PHONY : libraries/SITL/SIM_Temperature_TSYS01.cpp.o
-
-libraries/SITL/SIM_Temperature_TSYS01.i: libraries/SITL/SIM_Temperature_TSYS01.cpp.i
-.PHONY : libraries/SITL/SIM_Temperature_TSYS01.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Temperature_TSYS01.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Temperature_TSYS01.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Temperature_TSYS01.cpp.i
-.PHONY : libraries/SITL/SIM_Temperature_TSYS01.cpp.i
-
-libraries/SITL/SIM_Temperature_TSYS01.s: libraries/SITL/SIM_Temperature_TSYS01.cpp.s
-.PHONY : libraries/SITL/SIM_Temperature_TSYS01.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Temperature_TSYS01.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Temperature_TSYS01.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Temperature_TSYS01.cpp.s
-.PHONY : libraries/SITL/SIM_Temperature_TSYS01.cpp.s
-
-libraries/SITL/SIM_Temperature_TSYS03.o: libraries/SITL/SIM_Temperature_TSYS03.cpp.o
-.PHONY : libraries/SITL/SIM_Temperature_TSYS03.o
-
-# target to build an object file
-libraries/SITL/SIM_Temperature_TSYS03.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Temperature_TSYS03.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Temperature_TSYS03.cpp.o
-.PHONY : libraries/SITL/SIM_Temperature_TSYS03.cpp.o
-
-libraries/SITL/SIM_Temperature_TSYS03.i: libraries/SITL/SIM_Temperature_TSYS03.cpp.i
-.PHONY : libraries/SITL/SIM_Temperature_TSYS03.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Temperature_TSYS03.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Temperature_TSYS03.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Temperature_TSYS03.cpp.i
-.PHONY : libraries/SITL/SIM_Temperature_TSYS03.cpp.i
-
-libraries/SITL/SIM_Temperature_TSYS03.s: libraries/SITL/SIM_Temperature_TSYS03.cpp.s
-.PHONY : libraries/SITL/SIM_Temperature_TSYS03.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Temperature_TSYS03.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Temperature_TSYS03.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Temperature_TSYS03.cpp.s
-.PHONY : libraries/SITL/SIM_Temperature_TSYS03.cpp.s
-
-libraries/SITL/SIM_TeraRangerI2C.o: libraries/SITL/SIM_TeraRangerI2C.cpp.o
-.PHONY : libraries/SITL/SIM_TeraRangerI2C.o
-
-# target to build an object file
-libraries/SITL/SIM_TeraRangerI2C.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_TeraRangerI2C.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_TeraRangerI2C.cpp.o
-.PHONY : libraries/SITL/SIM_TeraRangerI2C.cpp.o
-
-libraries/SITL/SIM_TeraRangerI2C.i: libraries/SITL/SIM_TeraRangerI2C.cpp.i
-.PHONY : libraries/SITL/SIM_TeraRangerI2C.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_TeraRangerI2C.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_TeraRangerI2C.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_TeraRangerI2C.cpp.i
-.PHONY : libraries/SITL/SIM_TeraRangerI2C.cpp.i
-
-libraries/SITL/SIM_TeraRangerI2C.s: libraries/SITL/SIM_TeraRangerI2C.cpp.s
-.PHONY : libraries/SITL/SIM_TeraRangerI2C.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_TeraRangerI2C.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_TeraRangerI2C.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_TeraRangerI2C.cpp.s
-.PHONY : libraries/SITL/SIM_TeraRangerI2C.cpp.s
-
-libraries/SITL/SIM_Tether.o: libraries/SITL/SIM_Tether.cpp.o
-.PHONY : libraries/SITL/SIM_Tether.o
-
-# target to build an object file
-libraries/SITL/SIM_Tether.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Tether.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Tether.cpp.o
-.PHONY : libraries/SITL/SIM_Tether.cpp.o
-
-libraries/SITL/SIM_Tether.i: libraries/SITL/SIM_Tether.cpp.i
-.PHONY : libraries/SITL/SIM_Tether.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Tether.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Tether.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Tether.cpp.i
-.PHONY : libraries/SITL/SIM_Tether.cpp.i
-
-libraries/SITL/SIM_Tether.s: libraries/SITL/SIM_Tether.cpp.s
-.PHONY : libraries/SITL/SIM_Tether.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Tether.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Tether.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Tether.cpp.s
-.PHONY : libraries/SITL/SIM_Tether.cpp.s
-
-libraries/SITL/SIM_ToneAlarm.o: libraries/SITL/SIM_ToneAlarm.cpp.o
-.PHONY : libraries/SITL/SIM_ToneAlarm.o
-
-# target to build an object file
-libraries/SITL/SIM_ToneAlarm.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ToneAlarm.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ToneAlarm.cpp.o
-.PHONY : libraries/SITL/SIM_ToneAlarm.cpp.o
-
-libraries/SITL/SIM_ToneAlarm.i: libraries/SITL/SIM_ToneAlarm.cpp.i
-.PHONY : libraries/SITL/SIM_ToneAlarm.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_ToneAlarm.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ToneAlarm.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ToneAlarm.cpp.i
-.PHONY : libraries/SITL/SIM_ToneAlarm.cpp.i
-
-libraries/SITL/SIM_ToneAlarm.s: libraries/SITL/SIM_ToneAlarm.cpp.s
-.PHONY : libraries/SITL/SIM_ToneAlarm.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_ToneAlarm.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ToneAlarm.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ToneAlarm.cpp.s
-.PHONY : libraries/SITL/SIM_ToneAlarm.cpp.s
-
-libraries/SITL/SIM_ToshibaLED.o: libraries/SITL/SIM_ToshibaLED.cpp.o
-.PHONY : libraries/SITL/SIM_ToshibaLED.o
-
-# target to build an object file
-libraries/SITL/SIM_ToshibaLED.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ToshibaLED.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ToshibaLED.cpp.o
-.PHONY : libraries/SITL/SIM_ToshibaLED.cpp.o
-
-libraries/SITL/SIM_ToshibaLED.i: libraries/SITL/SIM_ToshibaLED.cpp.i
-.PHONY : libraries/SITL/SIM_ToshibaLED.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_ToshibaLED.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ToshibaLED.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ToshibaLED.cpp.i
-.PHONY : libraries/SITL/SIM_ToshibaLED.cpp.i
-
-libraries/SITL/SIM_ToshibaLED.s: libraries/SITL/SIM_ToshibaLED.cpp.s
-.PHONY : libraries/SITL/SIM_ToshibaLED.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_ToshibaLED.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_ToshibaLED.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_ToshibaLED.cpp.s
-.PHONY : libraries/SITL/SIM_ToshibaLED.cpp.s
-
-libraries/SITL/SIM_Tracker.o: libraries/SITL/SIM_Tracker.cpp.o
-.PHONY : libraries/SITL/SIM_Tracker.o
-
-# target to build an object file
-libraries/SITL/SIM_Tracker.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Tracker.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Tracker.cpp.o
-.PHONY : libraries/SITL/SIM_Tracker.cpp.o
-
-libraries/SITL/SIM_Tracker.i: libraries/SITL/SIM_Tracker.cpp.i
-.PHONY : libraries/SITL/SIM_Tracker.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Tracker.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Tracker.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Tracker.cpp.i
-.PHONY : libraries/SITL/SIM_Tracker.cpp.i
-
-libraries/SITL/SIM_Tracker.s: libraries/SITL/SIM_Tracker.cpp.s
-.PHONY : libraries/SITL/SIM_Tracker.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Tracker.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Tracker.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Tracker.cpp.s
-.PHONY : libraries/SITL/SIM_Tracker.cpp.s
-
-libraries/SITL/SIM_VectorNav.o: libraries/SITL/SIM_VectorNav.cpp.o
-.PHONY : libraries/SITL/SIM_VectorNav.o
-
-# target to build an object file
-libraries/SITL/SIM_VectorNav.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_VectorNav.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_VectorNav.cpp.o
-.PHONY : libraries/SITL/SIM_VectorNav.cpp.o
-
-libraries/SITL/SIM_VectorNav.i: libraries/SITL/SIM_VectorNav.cpp.i
-.PHONY : libraries/SITL/SIM_VectorNav.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_VectorNav.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_VectorNav.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_VectorNav.cpp.i
-.PHONY : libraries/SITL/SIM_VectorNav.cpp.i
-
-libraries/SITL/SIM_VectorNav.s: libraries/SITL/SIM_VectorNav.cpp.s
-.PHONY : libraries/SITL/SIM_VectorNav.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_VectorNav.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_VectorNav.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_VectorNav.cpp.s
-.PHONY : libraries/SITL/SIM_VectorNav.cpp.s
-
-libraries/SITL/SIM_Vicon.o: libraries/SITL/SIM_Vicon.cpp.o
-.PHONY : libraries/SITL/SIM_Vicon.o
-
-# target to build an object file
-libraries/SITL/SIM_Vicon.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Vicon.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Vicon.cpp.o
-.PHONY : libraries/SITL/SIM_Vicon.cpp.o
-
-libraries/SITL/SIM_Vicon.i: libraries/SITL/SIM_Vicon.cpp.i
-.PHONY : libraries/SITL/SIM_Vicon.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Vicon.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Vicon.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Vicon.cpp.i
-.PHONY : libraries/SITL/SIM_Vicon.cpp.i
-
-libraries/SITL/SIM_Vicon.s: libraries/SITL/SIM_Vicon.cpp.s
-.PHONY : libraries/SITL/SIM_Vicon.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Vicon.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Vicon.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Vicon.cpp.s
-.PHONY : libraries/SITL/SIM_Vicon.cpp.s
-
-libraries/SITL/SIM_Volz.o: libraries/SITL/SIM_Volz.cpp.o
-.PHONY : libraries/SITL/SIM_Volz.o
-
-# target to build an object file
-libraries/SITL/SIM_Volz.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Volz.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Volz.cpp.o
-.PHONY : libraries/SITL/SIM_Volz.cpp.o
-
-libraries/SITL/SIM_Volz.i: libraries/SITL/SIM_Volz.cpp.i
-.PHONY : libraries/SITL/SIM_Volz.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Volz.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Volz.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Volz.cpp.i
-.PHONY : libraries/SITL/SIM_Volz.cpp.i
-
-libraries/SITL/SIM_Volz.s: libraries/SITL/SIM_Volz.cpp.s
-.PHONY : libraries/SITL/SIM_Volz.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Volz.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Volz.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Volz.cpp.s
-.PHONY : libraries/SITL/SIM_Volz.cpp.s
-
-libraries/SITL/SIM_Webots.o: libraries/SITL/SIM_Webots.cpp.o
-.PHONY : libraries/SITL/SIM_Webots.o
-
-# target to build an object file
-libraries/SITL/SIM_Webots.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Webots.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Webots.cpp.o
-.PHONY : libraries/SITL/SIM_Webots.cpp.o
-
-libraries/SITL/SIM_Webots.i: libraries/SITL/SIM_Webots.cpp.i
-.PHONY : libraries/SITL/SIM_Webots.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Webots.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Webots.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Webots.cpp.i
-.PHONY : libraries/SITL/SIM_Webots.cpp.i
-
-libraries/SITL/SIM_Webots.s: libraries/SITL/SIM_Webots.cpp.s
-.PHONY : libraries/SITL/SIM_Webots.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Webots.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Webots.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Webots.cpp.s
-.PHONY : libraries/SITL/SIM_Webots.cpp.s
-
-libraries/SITL/SIM_Webots_Python.o: libraries/SITL/SIM_Webots_Python.cpp.o
-.PHONY : libraries/SITL/SIM_Webots_Python.o
-
-# target to build an object file
-libraries/SITL/SIM_Webots_Python.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Webots_Python.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Webots_Python.cpp.o
-.PHONY : libraries/SITL/SIM_Webots_Python.cpp.o
-
-libraries/SITL/SIM_Webots_Python.i: libraries/SITL/SIM_Webots_Python.cpp.i
-.PHONY : libraries/SITL/SIM_Webots_Python.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_Webots_Python.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Webots_Python.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Webots_Python.cpp.i
-.PHONY : libraries/SITL/SIM_Webots_Python.cpp.i
-
-libraries/SITL/SIM_Webots_Python.s: libraries/SITL/SIM_Webots_Python.cpp.s
-.PHONY : libraries/SITL/SIM_Webots_Python.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_Webots_Python.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_Webots_Python.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_Webots_Python.cpp.s
-.PHONY : libraries/SITL/SIM_Webots_Python.cpp.s
-
-libraries/SITL/SIM_XPlane.o: libraries/SITL/SIM_XPlane.cpp.o
-.PHONY : libraries/SITL/SIM_XPlane.o
-
-# target to build an object file
-libraries/SITL/SIM_XPlane.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_XPlane.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_XPlane.cpp.o
-.PHONY : libraries/SITL/SIM_XPlane.cpp.o
-
-libraries/SITL/SIM_XPlane.i: libraries/SITL/SIM_XPlane.cpp.i
-.PHONY : libraries/SITL/SIM_XPlane.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_XPlane.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_XPlane.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_XPlane.cpp.i
-.PHONY : libraries/SITL/SIM_XPlane.cpp.i
-
-libraries/SITL/SIM_XPlane.s: libraries/SITL/SIM_XPlane.cpp.s
-.PHONY : libraries/SITL/SIM_XPlane.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_XPlane.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_XPlane.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_XPlane.cpp.s
-.PHONY : libraries/SITL/SIM_XPlane.cpp.s
-
-libraries/SITL/SIM_last_letter.o: libraries/SITL/SIM_last_letter.cpp.o
-.PHONY : libraries/SITL/SIM_last_letter.o
-
-# target to build an object file
-libraries/SITL/SIM_last_letter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_last_letter.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_last_letter.cpp.o
-.PHONY : libraries/SITL/SIM_last_letter.cpp.o
-
-libraries/SITL/SIM_last_letter.i: libraries/SITL/SIM_last_letter.cpp.i
-.PHONY : libraries/SITL/SIM_last_letter.i
-
-# target to preprocess a source file
-libraries/SITL/SIM_last_letter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_last_letter.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_last_letter.cpp.i
-.PHONY : libraries/SITL/SIM_last_letter.cpp.i
-
-libraries/SITL/SIM_last_letter.s: libraries/SITL/SIM_last_letter.cpp.s
-.PHONY : libraries/SITL/SIM_last_letter.s
-
-# target to generate assembly for a file
-libraries/SITL/SIM_last_letter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SIM_last_letter.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SIM_last_letter.cpp.s
-.PHONY : libraries/SITL/SIM_last_letter.cpp.s
-
-libraries/SITL/SITL.o: libraries/SITL/SITL.cpp.o
-.PHONY : libraries/SITL/SITL.o
-
-# target to build an object file
-libraries/SITL/SITL.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SITL.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SITL.cpp.o
-.PHONY : libraries/SITL/SITL.cpp.o
-
-libraries/SITL/SITL.i: libraries/SITL/SITL.cpp.i
-.PHONY : libraries/SITL/SITL.i
-
-# target to preprocess a source file
-libraries/SITL/SITL.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SITL.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SITL.cpp.i
-.PHONY : libraries/SITL/SITL.cpp.i
-
-libraries/SITL/SITL.s: libraries/SITL/SITL.cpp.s
-.PHONY : libraries/SITL/SITL.s
-
-# target to generate assembly for a file
-libraries/SITL/SITL.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SITL.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SITL.cpp.s
-.PHONY : libraries/SITL/SITL.cpp.s
-
-libraries/SITL/SITL_Airspeed.o: libraries/SITL/SITL_Airspeed.cpp.o
-.PHONY : libraries/SITL/SITL_Airspeed.o
-
-# target to build an object file
-libraries/SITL/SITL_Airspeed.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SITL_Airspeed.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SITL_Airspeed.cpp.o
-.PHONY : libraries/SITL/SITL_Airspeed.cpp.o
-
-libraries/SITL/SITL_Airspeed.i: libraries/SITL/SITL_Airspeed.cpp.i
-.PHONY : libraries/SITL/SITL_Airspeed.i
-
-# target to preprocess a source file
-libraries/SITL/SITL_Airspeed.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SITL_Airspeed.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SITL_Airspeed.cpp.i
-.PHONY : libraries/SITL/SITL_Airspeed.cpp.i
-
-libraries/SITL/SITL_Airspeed.s: libraries/SITL/SITL_Airspeed.cpp.s
-.PHONY : libraries/SITL/SITL_Airspeed.s
-
-# target to generate assembly for a file
-libraries/SITL/SITL_Airspeed.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SITL_Airspeed.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SITL_Airspeed.cpp.s
-.PHONY : libraries/SITL/SITL_Airspeed.cpp.s
-
-libraries/SITL/SITL_Baro.o: libraries/SITL/SITL_Baro.cpp.o
-.PHONY : libraries/SITL/SITL_Baro.o
-
-# target to build an object file
-libraries/SITL/SITL_Baro.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SITL_Baro.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SITL_Baro.cpp.o
-.PHONY : libraries/SITL/SITL_Baro.cpp.o
-
-libraries/SITL/SITL_Baro.i: libraries/SITL/SITL_Baro.cpp.i
-.PHONY : libraries/SITL/SITL_Baro.i
-
-# target to preprocess a source file
-libraries/SITL/SITL_Baro.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SITL_Baro.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SITL_Baro.cpp.i
-.PHONY : libraries/SITL/SITL_Baro.cpp.i
-
-libraries/SITL/SITL_Baro.s: libraries/SITL/SITL_Baro.cpp.s
-.PHONY : libraries/SITL/SITL_Baro.s
-
-# target to generate assembly for a file
-libraries/SITL/SITL_Baro.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/SITL_Baro.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/SITL_Baro.cpp.s
-.PHONY : libraries/SITL/SITL_Baro.cpp.s
-
-libraries/SITL/ServoModel.o: libraries/SITL/ServoModel.cpp.o
-.PHONY : libraries/SITL/ServoModel.o
-
-# target to build an object file
-libraries/SITL/ServoModel.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/ServoModel.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/ServoModel.cpp.o
-.PHONY : libraries/SITL/ServoModel.cpp.o
-
-libraries/SITL/ServoModel.i: libraries/SITL/ServoModel.cpp.i
-.PHONY : libraries/SITL/ServoModel.i
-
-# target to preprocess a source file
-libraries/SITL/ServoModel.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/ServoModel.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/ServoModel.cpp.i
-.PHONY : libraries/SITL/ServoModel.cpp.i
-
-libraries/SITL/ServoModel.s: libraries/SITL/ServoModel.cpp.s
-.PHONY : libraries/SITL/ServoModel.s
-
-# target to generate assembly for a file
-libraries/SITL/ServoModel.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/libraries/SITL/ServoModel.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/libraries/SITL/ServoModel.cpp.s
-.PHONY : libraries/SITL/ServoModel.cpp.s
-
 libraries/SRV_Channel/SRV_Channel.o: libraries/SRV_Channel/SRV_Channel.cpp.o
 .PHONY : libraries/SRV_Channel/SRV_Channel.o
 
@@ -37149,8 +33003,8 @@ libraries/StorageManager/StorageManager.o: libraries/StorageManager/StorageManag
 
 # target to build an object file
 libraries/StorageManager/StorageManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager.dir/build.make CMakeFiles/StorageManager.dir/libraries/StorageManager/StorageManager.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager_Plane.dir/build.make CMakeFiles/StorageManager_Plane.dir/libraries/StorageManager/StorageManager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager.dir/build.make CMakeFiles/StorageManager.dir/libraries/StorageManager/StorageManager.cpp.o
 .PHONY : libraries/StorageManager/StorageManager.cpp.o
 
 libraries/StorageManager/StorageManager.i: libraries/StorageManager/StorageManager.cpp.i
@@ -37158,8 +33012,8 @@ libraries/StorageManager/StorageManager.i: libraries/StorageManager/StorageManag
 
 # target to preprocess a source file
 libraries/StorageManager/StorageManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager.dir/build.make CMakeFiles/StorageManager.dir/libraries/StorageManager/StorageManager.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager_Plane.dir/build.make CMakeFiles/StorageManager_Plane.dir/libraries/StorageManager/StorageManager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager.dir/build.make CMakeFiles/StorageManager.dir/libraries/StorageManager/StorageManager.cpp.i
 .PHONY : libraries/StorageManager/StorageManager.cpp.i
 
 libraries/StorageManager/StorageManager.s: libraries/StorageManager/StorageManager.cpp.s
@@ -37167,8 +33021,8 @@ libraries/StorageManager/StorageManager.s: libraries/StorageManager/StorageManag
 
 # target to generate assembly for a file
 libraries/StorageManager/StorageManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager.dir/build.make CMakeFiles/StorageManager.dir/libraries/StorageManager/StorageManager.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager_Plane.dir/build.make CMakeFiles/StorageManager_Plane.dir/libraries/StorageManager/StorageManager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager.dir/build.make CMakeFiles/StorageManager.dir/libraries/StorageManager/StorageManager.cpp.s
 .PHONY : libraries/StorageManager/StorageManager.cpp.s
 
 modules/DroneCAN/libcanard/canard.o: modules/DroneCAN/libcanard/canard.c.o
@@ -37194,78 +33048,6 @@ modules/DroneCAN/libcanard/canard.s: modules/DroneCAN/libcanard/canard.c.s
 modules/DroneCAN/libcanard/canard.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/canard.dir/build.make CMakeFiles/canard.dir/modules/DroneCAN/libcanard/canard.c.s
 .PHONY : modules/DroneCAN/libcanard/canard.c.s
-
-modules/littlefs/bd/lfs_filebd.o: modules/littlefs/bd/lfs_filebd.c.o
-.PHONY : modules/littlefs/bd/lfs_filebd.o
-
-# target to build an object file
-modules/littlefs/bd/lfs_filebd.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/littlefs.dir/build.make CMakeFiles/littlefs.dir/modules/littlefs/bd/lfs_filebd.c.o
-.PHONY : modules/littlefs/bd/lfs_filebd.c.o
-
-modules/littlefs/bd/lfs_filebd.i: modules/littlefs/bd/lfs_filebd.c.i
-.PHONY : modules/littlefs/bd/lfs_filebd.i
-
-# target to preprocess a source file
-modules/littlefs/bd/lfs_filebd.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/littlefs.dir/build.make CMakeFiles/littlefs.dir/modules/littlefs/bd/lfs_filebd.c.i
-.PHONY : modules/littlefs/bd/lfs_filebd.c.i
-
-modules/littlefs/bd/lfs_filebd.s: modules/littlefs/bd/lfs_filebd.c.s
-.PHONY : modules/littlefs/bd/lfs_filebd.s
-
-# target to generate assembly for a file
-modules/littlefs/bd/lfs_filebd.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/littlefs.dir/build.make CMakeFiles/littlefs.dir/modules/littlefs/bd/lfs_filebd.c.s
-.PHONY : modules/littlefs/bd/lfs_filebd.c.s
-
-modules/littlefs/lfs.o: modules/littlefs/lfs.c.o
-.PHONY : modules/littlefs/lfs.o
-
-# target to build an object file
-modules/littlefs/lfs.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/littlefs.dir/build.make CMakeFiles/littlefs.dir/modules/littlefs/lfs.c.o
-.PHONY : modules/littlefs/lfs.c.o
-
-modules/littlefs/lfs.i: modules/littlefs/lfs.c.i
-.PHONY : modules/littlefs/lfs.i
-
-# target to preprocess a source file
-modules/littlefs/lfs.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/littlefs.dir/build.make CMakeFiles/littlefs.dir/modules/littlefs/lfs.c.i
-.PHONY : modules/littlefs/lfs.c.i
-
-modules/littlefs/lfs.s: modules/littlefs/lfs.c.s
-.PHONY : modules/littlefs/lfs.s
-
-# target to generate assembly for a file
-modules/littlefs/lfs.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/littlefs.dir/build.make CMakeFiles/littlefs.dir/modules/littlefs/lfs.c.s
-.PHONY : modules/littlefs/lfs.c.s
-
-modules/littlefs/lfs_util.o: modules/littlefs/lfs_util.c.o
-.PHONY : modules/littlefs/lfs_util.o
-
-# target to build an object file
-modules/littlefs/lfs_util.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/littlefs.dir/build.make CMakeFiles/littlefs.dir/modules/littlefs/lfs_util.c.o
-.PHONY : modules/littlefs/lfs_util.c.o
-
-modules/littlefs/lfs_util.i: modules/littlefs/lfs_util.c.i
-.PHONY : modules/littlefs/lfs_util.i
-
-# target to preprocess a source file
-modules/littlefs/lfs_util.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/littlefs.dir/build.make CMakeFiles/littlefs.dir/modules/littlefs/lfs_util.c.i
-.PHONY : modules/littlefs/lfs_util.c.i
-
-modules/littlefs/lfs_util.s: modules/littlefs/lfs_util.c.s
-.PHONY : modules/littlefs/lfs_util.s
-
-# target to generate assembly for a file
-modules/littlefs/lfs_util.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/littlefs.dir/build.make CMakeFiles/littlefs.dir/modules/littlefs/lfs_util.c.s
-.PHONY : modules/littlefs/lfs_util.c.s
 
 modules/lwip/src/api/api_lib.o: modules/lwip/src/api/api_lib.c.o
 .PHONY : modules/lwip/src/api/api_lib.o
@@ -43237,7 +39019,6 @@ help:
 	@echo "... AC_Autorotation"
 	@echo "... AC_Avoidance"
 	@echo "... AC_Avoidance_Plane"
-	@echo "... AC_CustomControl"
 	@echo "... AC_Fence"
 	@echo "... AC_Fence_Plane"
 	@echo "... AC_InputManager"
@@ -43274,7 +39055,6 @@ help:
 	@echo "... AP_BoardConfig_Plane"
 	@echo "... AP_Button"
 	@echo "... AP_CANManager"
-	@echo "... AP_CSVReader"
 	@echo "... AP_Camera"
 	@echo "... AP_CheckFirmware"
 	@echo "... AP_Common"
@@ -43307,10 +39087,9 @@ help:
 	@echo "... AP_GyroFFT"
 	@echo "... AP_GyroFFT_Plane"
 	@echo "... AP_HAL"
+	@echo "... AP_HAL_ChibiOS"
 	@echo "... AP_HAL_Empty"
 	@echo "... AP_HAL_Plane"
-	@echo "... AP_HAL_SITL"
-	@echo "... AP_HAL_SITL_Plane"
 	@echo "... AP_Hott_Telem"
 	@echo "... AP_IBus_Telem"
 	@echo "... AP_IBus_Telem_Plane"
@@ -43413,6 +39192,11 @@ help:
 	@echo "... AP_WindVane"
 	@echo "... AR_Motors"
 	@echo "... AR_WPNav"
+	@echo "... AntennaTracker_libs"
+	@echo "... ArduCopter_libs"
+	@echo "... ArduPlane_libs"
+	@echo "... ArduSub_libs"
+	@echo "... Blimp_libs"
 	@echo "... Filter"
 	@echo "... Filter_Plane"
 	@echo "... GCS_MAVLink"
@@ -43420,8 +39204,7 @@ help:
 	@echo "... PID"
 	@echo "... RC_Channel"
 	@echo "... RC_Channel_Plane"
-	@echo "... SITL"
-	@echo "... SITL_Plane"
+	@echo "... Rover_libs"
 	@echo "... SRV_Channel"
 	@echo "... StorageManager"
 	@echo "... StorageManager_Plane"
@@ -43431,7 +39214,6 @@ help:
 	@echo "... copter-heli"
 	@echo "... dronecan_dsdlc_generated"
 	@echo "... gen-bindings"
-	@echo "... littlefs"
 	@echo "... plane"
 	@echo "... rover"
 	@echo "... sub"
@@ -44273,15 +40055,6 @@ help:
 	@echo "... libraries/AC_Avoidance/AP_OAVisGraph.o"
 	@echo "... libraries/AC_Avoidance/AP_OAVisGraph.i"
 	@echo "... libraries/AC_Avoidance/AP_OAVisGraph.s"
-	@echo "... libraries/AC_CustomControl/AC_CustomControl.o"
-	@echo "... libraries/AC_CustomControl/AC_CustomControl.i"
-	@echo "... libraries/AC_CustomControl/AC_CustomControl.s"
-	@echo "... libraries/AC_CustomControl/AC_CustomControl_Empty.o"
-	@echo "... libraries/AC_CustomControl/AC_CustomControl_Empty.i"
-	@echo "... libraries/AC_CustomControl/AC_CustomControl_Empty.s"
-	@echo "... libraries/AC_CustomControl/AC_CustomControl_PID.o"
-	@echo "... libraries/AC_CustomControl/AC_CustomControl_PID.i"
-	@echo "... libraries/AC_CustomControl/AC_CustomControl_PID.s"
 	@echo "... libraries/AC_Fence/AC_Fence.o"
 	@echo "... libraries/AC_Fence/AC_Fence.i"
 	@echo "... libraries/AC_Fence/AC_Fence.s"
@@ -44795,9 +40568,6 @@ help:
 	@echo "... libraries/AP_CANManager/AP_SLCANIface.o"
 	@echo "... libraries/AP_CANManager/AP_SLCANIface.i"
 	@echo "... libraries/AP_CANManager/AP_SLCANIface.s"
-	@echo "... libraries/AP_CSVReader/AP_CSVReader.o"
-	@echo "... libraries/AP_CSVReader/AP_CSVReader.i"
-	@echo "... libraries/AP_CSVReader/AP_CSVReader.s"
 	@echo "... libraries/AP_Camera/AP_Camera.o"
 	@echo "... libraries/AP_Camera/AP_Camera.i"
 	@echo "... libraries/AP_Camera/AP_Camera.s"
@@ -45365,6 +41135,84 @@ help:
 	@echo "... libraries/AP_HAL/utility/utoa_invert.o"
 	@echo "... libraries/AP_HAL/utility/utoa_invert.i"
 	@echo "... libraries/AP_HAL/utility/utoa_invert.s"
+	@echo "... libraries/AP_HAL_ChibiOS/AnalogIn.o"
+	@echo "... libraries/AP_HAL_ChibiOS/AnalogIn.i"
+	@echo "... libraries/AP_HAL_ChibiOS/AnalogIn.s"
+	@echo "... libraries/AP_HAL_ChibiOS/CANFDIface.o"
+	@echo "... libraries/AP_HAL_ChibiOS/CANFDIface.i"
+	@echo "... libraries/AP_HAL_ChibiOS/CANFDIface.s"
+	@echo "... libraries/AP_HAL_ChibiOS/CanIface.o"
+	@echo "... libraries/AP_HAL_ChibiOS/CanIface.i"
+	@echo "... libraries/AP_HAL_ChibiOS/CanIface.s"
+	@echo "... libraries/AP_HAL_ChibiOS/DSP.o"
+	@echo "... libraries/AP_HAL_ChibiOS/DSP.i"
+	@echo "... libraries/AP_HAL_ChibiOS/DSP.s"
+	@echo "... libraries/AP_HAL_ChibiOS/Device.o"
+	@echo "... libraries/AP_HAL_ChibiOS/Device.i"
+	@echo "... libraries/AP_HAL_ChibiOS/Device.s"
+	@echo "... libraries/AP_HAL_ChibiOS/GPIO.o"
+	@echo "... libraries/AP_HAL_ChibiOS/GPIO.i"
+	@echo "... libraries/AP_HAL_ChibiOS/GPIO.s"
+	@echo "... libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.o"
+	@echo "... libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.i"
+	@echo "... libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.s"
+	@echo "... libraries/AP_HAL_ChibiOS/I2CDevice.o"
+	@echo "... libraries/AP_HAL_ChibiOS/I2CDevice.i"
+	@echo "... libraries/AP_HAL_ChibiOS/I2CDevice.s"
+	@echo "... libraries/AP_HAL_ChibiOS/RCInput.o"
+	@echo "... libraries/AP_HAL_ChibiOS/RCInput.i"
+	@echo "... libraries/AP_HAL_ChibiOS/RCInput.s"
+	@echo "... libraries/AP_HAL_ChibiOS/RCOutput.o"
+	@echo "... libraries/AP_HAL_ChibiOS/RCOutput.i"
+	@echo "... libraries/AP_HAL_ChibiOS/RCOutput.s"
+	@echo "... libraries/AP_HAL_ChibiOS/RCOutput_bdshot.o"
+	@echo "... libraries/AP_HAL_ChibiOS/RCOutput_bdshot.i"
+	@echo "... libraries/AP_HAL_ChibiOS/RCOutput_bdshot.s"
+	@echo "... libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.o"
+	@echo "... libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.i"
+	@echo "... libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.s"
+	@echo "... libraries/AP_HAL_ChibiOS/RCOutput_serial.o"
+	@echo "... libraries/AP_HAL_ChibiOS/RCOutput_serial.i"
+	@echo "... libraries/AP_HAL_ChibiOS/RCOutput_serial.s"
+	@echo "... libraries/AP_HAL_ChibiOS/SPIDevice.o"
+	@echo "... libraries/AP_HAL_ChibiOS/SPIDevice.i"
+	@echo "... libraries/AP_HAL_ChibiOS/SPIDevice.s"
+	@echo "... libraries/AP_HAL_ChibiOS/Scheduler.o"
+	@echo "... libraries/AP_HAL_ChibiOS/Scheduler.i"
+	@echo "... libraries/AP_HAL_ChibiOS/Scheduler.s"
+	@echo "... libraries/AP_HAL_ChibiOS/Semaphores.o"
+	@echo "... libraries/AP_HAL_ChibiOS/Semaphores.i"
+	@echo "... libraries/AP_HAL_ChibiOS/Semaphores.s"
+	@echo "... libraries/AP_HAL_ChibiOS/SoftSigReader.o"
+	@echo "... libraries/AP_HAL_ChibiOS/SoftSigReader.i"
+	@echo "... libraries/AP_HAL_ChibiOS/SoftSigReader.s"
+	@echo "... libraries/AP_HAL_ChibiOS/SoftSigReaderInt.o"
+	@echo "... libraries/AP_HAL_ChibiOS/SoftSigReaderInt.i"
+	@echo "... libraries/AP_HAL_ChibiOS/SoftSigReaderInt.s"
+	@echo "... libraries/AP_HAL_ChibiOS/Storage.o"
+	@echo "... libraries/AP_HAL_ChibiOS/Storage.i"
+	@echo "... libraries/AP_HAL_ChibiOS/Storage.s"
+	@echo "... libraries/AP_HAL_ChibiOS/UARTDriver.o"
+	@echo "... libraries/AP_HAL_ChibiOS/UARTDriver.i"
+	@echo "... libraries/AP_HAL_ChibiOS/UARTDriver.s"
+	@echo "... libraries/AP_HAL_ChibiOS/Util.o"
+	@echo "... libraries/AP_HAL_ChibiOS/Util.i"
+	@echo "... libraries/AP_HAL_ChibiOS/Util.s"
+	@echo "... libraries/AP_HAL_ChibiOS/WSPIDevice.o"
+	@echo "... libraries/AP_HAL_ChibiOS/WSPIDevice.i"
+	@echo "... libraries/AP_HAL_ChibiOS/WSPIDevice.s"
+	@echo "... libraries/AP_HAL_ChibiOS/sdcard.o"
+	@echo "... libraries/AP_HAL_ChibiOS/sdcard.i"
+	@echo "... libraries/AP_HAL_ChibiOS/sdcard.s"
+	@echo "... libraries/AP_HAL_ChibiOS/shared_dma.o"
+	@echo "... libraries/AP_HAL_ChibiOS/shared_dma.i"
+	@echo "... libraries/AP_HAL_ChibiOS/shared_dma.s"
+	@echo "... libraries/AP_HAL_ChibiOS/stdio.o"
+	@echo "... libraries/AP_HAL_ChibiOS/stdio.i"
+	@echo "... libraries/AP_HAL_ChibiOS/stdio.s"
+	@echo "... libraries/AP_HAL_ChibiOS/system.o"
+	@echo "... libraries/AP_HAL_ChibiOS/system.i"
+	@echo "... libraries/AP_HAL_ChibiOS/system.s"
 	@echo "... libraries/AP_HAL_Empty/AnalogIn.o"
 	@echo "... libraries/AP_HAL_Empty/AnalogIn.i"
 	@echo "... libraries/AP_HAL_Empty/AnalogIn.s"
@@ -45389,81 +41237,6 @@ help:
 	@echo "... libraries/AP_HAL_Empty/UARTDriver.o"
 	@echo "... libraries/AP_HAL_Empty/UARTDriver.i"
 	@echo "... libraries/AP_HAL_Empty/UARTDriver.s"
-	@echo "... libraries/AP_HAL_SITL/AnalogIn.o"
-	@echo "... libraries/AP_HAL_SITL/AnalogIn.i"
-	@echo "... libraries/AP_HAL_SITL/AnalogIn.s"
-	@echo "... libraries/AP_HAL_SITL/CANSocketIface.o"
-	@echo "... libraries/AP_HAL_SITL/CANSocketIface.i"
-	@echo "... libraries/AP_HAL_SITL/CANSocketIface.s"
-	@echo "... libraries/AP_HAL_SITL/CAN_Multicast.o"
-	@echo "... libraries/AP_HAL_SITL/CAN_Multicast.i"
-	@echo "... libraries/AP_HAL_SITL/CAN_Multicast.s"
-	@echo "... libraries/AP_HAL_SITL/CAN_SocketCAN.o"
-	@echo "... libraries/AP_HAL_SITL/CAN_SocketCAN.i"
-	@echo "... libraries/AP_HAL_SITL/CAN_SocketCAN.s"
-	@echo "... libraries/AP_HAL_SITL/DSP.o"
-	@echo "... libraries/AP_HAL_SITL/DSP.i"
-	@echo "... libraries/AP_HAL_SITL/DSP.s"
-	@echo "... libraries/AP_HAL_SITL/GPIO.o"
-	@echo "... libraries/AP_HAL_SITL/GPIO.i"
-	@echo "... libraries/AP_HAL_SITL/GPIO.s"
-	@echo "... libraries/AP_HAL_SITL/HAL_SITL_Class.o"
-	@echo "... libraries/AP_HAL_SITL/HAL_SITL_Class.i"
-	@echo "... libraries/AP_HAL_SITL/HAL_SITL_Class.s"
-	@echo "... libraries/AP_HAL_SITL/I2CDevice.o"
-	@echo "... libraries/AP_HAL_SITL/I2CDevice.i"
-	@echo "... libraries/AP_HAL_SITL/I2CDevice.s"
-	@echo "... libraries/AP_HAL_SITL/RCInput.o"
-	@echo "... libraries/AP_HAL_SITL/RCInput.i"
-	@echo "... libraries/AP_HAL_SITL/RCInput.s"
-	@echo "... libraries/AP_HAL_SITL/RCOutput.o"
-	@echo "... libraries/AP_HAL_SITL/RCOutput.i"
-	@echo "... libraries/AP_HAL_SITL/RCOutput.s"
-	@echo "... libraries/AP_HAL_SITL/SITL_Periph_State.o"
-	@echo "... libraries/AP_HAL_SITL/SITL_Periph_State.i"
-	@echo "... libraries/AP_HAL_SITL/SITL_Periph_State.s"
-	@echo "... libraries/AP_HAL_SITL/SITL_State.o"
-	@echo "... libraries/AP_HAL_SITL/SITL_State.i"
-	@echo "... libraries/AP_HAL_SITL/SITL_State.s"
-	@echo "... libraries/AP_HAL_SITL/SITL_State_common.o"
-	@echo "... libraries/AP_HAL_SITL/SITL_State_common.i"
-	@echo "... libraries/AP_HAL_SITL/SITL_State_common.s"
-	@echo "... libraries/AP_HAL_SITL/SITL_cmdline.o"
-	@echo "... libraries/AP_HAL_SITL/SITL_cmdline.i"
-	@echo "... libraries/AP_HAL_SITL/SITL_cmdline.s"
-	@echo "... libraries/AP_HAL_SITL/SPIDevice.o"
-	@echo "... libraries/AP_HAL_SITL/SPIDevice.i"
-	@echo "... libraries/AP_HAL_SITL/SPIDevice.s"
-	@echo "... libraries/AP_HAL_SITL/Scheduler.o"
-	@echo "... libraries/AP_HAL_SITL/Scheduler.i"
-	@echo "... libraries/AP_HAL_SITL/Scheduler.s"
-	@echo "... libraries/AP_HAL_SITL/Semaphores.o"
-	@echo "... libraries/AP_HAL_SITL/Semaphores.i"
-	@echo "... libraries/AP_HAL_SITL/Semaphores.s"
-	@echo "... libraries/AP_HAL_SITL/Storage.o"
-	@echo "... libraries/AP_HAL_SITL/Storage.i"
-	@echo "... libraries/AP_HAL_SITL/Storage.s"
-	@echo "... libraries/AP_HAL_SITL/ToneAlarm_SF.o"
-	@echo "... libraries/AP_HAL_SITL/ToneAlarm_SF.i"
-	@echo "... libraries/AP_HAL_SITL/ToneAlarm_SF.s"
-	@echo "... libraries/AP_HAL_SITL/UARTDriver.o"
-	@echo "... libraries/AP_HAL_SITL/UARTDriver.i"
-	@echo "... libraries/AP_HAL_SITL/UARTDriver.s"
-	@echo "... libraries/AP_HAL_SITL/UART_utils.o"
-	@echo "... libraries/AP_HAL_SITL/UART_utils.i"
-	@echo "... libraries/AP_HAL_SITL/UART_utils.s"
-	@echo "... libraries/AP_HAL_SITL/Util.o"
-	@echo "... libraries/AP_HAL_SITL/Util.i"
-	@echo "... libraries/AP_HAL_SITL/Util.s"
-	@echo "... libraries/AP_HAL_SITL/sitl_airspeed.o"
-	@echo "... libraries/AP_HAL_SITL/sitl_airspeed.i"
-	@echo "... libraries/AP_HAL_SITL/sitl_airspeed.s"
-	@echo "... libraries/AP_HAL_SITL/sitl_rangefinder.o"
-	@echo "... libraries/AP_HAL_SITL/sitl_rangefinder.i"
-	@echo "... libraries/AP_HAL_SITL/sitl_rangefinder.s"
-	@echo "... libraries/AP_HAL_SITL/system.o"
-	@echo "... libraries/AP_HAL_SITL/system.i"
-	@echo "... libraries/AP_HAL_SITL/system.s"
 	@echo "... libraries/AP_Hott_Telem/AP_Hott_Telem.o"
 	@echo "... libraries/AP_Hott_Telem/AP_Hott_Telem.i"
 	@echo "... libraries/AP_Hott_Telem/AP_Hott_Telem.s"
@@ -45971,6 +41744,9 @@ help:
 	@echo "... libraries/AP_Networking/AP_Networking_tests.o"
 	@echo "... libraries/AP_Networking/AP_Networking_tests.i"
 	@echo "... libraries/AP_Networking/AP_Networking_tests.s"
+	@echo "... libraries/AP_Networking/lwip_hal/arch/evtimer.o"
+	@echo "... libraries/AP_Networking/lwip_hal/arch/evtimer.i"
+	@echo "... libraries/AP_Networking/lwip_hal/arch/evtimer.s"
 	@echo "... libraries/AP_Networking/lwip_hal/arch/sys_arch.o"
 	@echo "... libraries/AP_Networking/lwip_hal/arch/sys_arch.i"
 	@echo "... libraries/AP_Networking/lwip_hal/arch/sys_arch.s"
@@ -47024,453 +42800,6 @@ help:
 	@echo "... libraries/RC_Channel/RC_Channels.o"
 	@echo "... libraries/RC_Channel/RC_Channels.i"
 	@echo "... libraries/RC_Channel/RC_Channels.s"
-	@echo "... libraries/SITL/SIM_ADSB.o"
-	@echo "... libraries/SITL/SIM_ADSB.i"
-	@echo "... libraries/SITL/SIM_ADSB.s"
-	@echo "... libraries/SITL/SIM_ADSB_Sagetech_MXS.o"
-	@echo "... libraries/SITL/SIM_ADSB_Sagetech_MXS.i"
-	@echo "... libraries/SITL/SIM_ADSB_Sagetech_MXS.s"
-	@echo "... libraries/SITL/SIM_AIS.o"
-	@echo "... libraries/SITL/SIM_AIS.i"
-	@echo "... libraries/SITL/SIM_AIS.s"
-	@echo "... libraries/SITL/SIM_AS5600.o"
-	@echo "... libraries/SITL/SIM_AS5600.i"
-	@echo "... libraries/SITL/SIM_AS5600.s"
-	@echo "... libraries/SITL/SIM_AirSim.o"
-	@echo "... libraries/SITL/SIM_AirSim.i"
-	@echo "... libraries/SITL/SIM_AirSim.s"
-	@echo "... libraries/SITL/SIM_Aircraft.o"
-	@echo "... libraries/SITL/SIM_Aircraft.i"
-	@echo "... libraries/SITL/SIM_Aircraft.s"
-	@echo "... libraries/SITL/SIM_Airspeed_DLVR.o"
-	@echo "... libraries/SITL/SIM_Airspeed_DLVR.i"
-	@echo "... libraries/SITL/SIM_Airspeed_DLVR.s"
-	@echo "... libraries/SITL/SIM_BalanceBot.o"
-	@echo "... libraries/SITL/SIM_BalanceBot.i"
-	@echo "... libraries/SITL/SIM_BalanceBot.s"
-	@echo "... libraries/SITL/SIM_Balloon.o"
-	@echo "... libraries/SITL/SIM_Balloon.i"
-	@echo "... libraries/SITL/SIM_Balloon.s"
-	@echo "... libraries/SITL/SIM_BattMonitor_SMBus.o"
-	@echo "... libraries/SITL/SIM_BattMonitor_SMBus.i"
-	@echo "... libraries/SITL/SIM_BattMonitor_SMBus.s"
-	@echo "... libraries/SITL/SIM_BattMonitor_SMBus_Generic.o"
-	@echo "... libraries/SITL/SIM_BattMonitor_SMBus_Generic.i"
-	@echo "... libraries/SITL/SIM_BattMonitor_SMBus_Generic.s"
-	@echo "... libraries/SITL/SIM_BattMonitor_SMBus_Maxell.o"
-	@echo "... libraries/SITL/SIM_BattMonitor_SMBus_Maxell.i"
-	@echo "... libraries/SITL/SIM_BattMonitor_SMBus_Maxell.s"
-	@echo "... libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.o"
-	@echo "... libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.i"
-	@echo "... libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.s"
-	@echo "... libraries/SITL/SIM_Battery.o"
-	@echo "... libraries/SITL/SIM_Battery.i"
-	@echo "... libraries/SITL/SIM_Battery.s"
-	@echo "... libraries/SITL/SIM_Blimp.o"
-	@echo "... libraries/SITL/SIM_Blimp.i"
-	@echo "... libraries/SITL/SIM_Blimp.s"
-	@echo "... libraries/SITL/SIM_Buzzer.o"
-	@echo "... libraries/SITL/SIM_Buzzer.i"
-	@echo "... libraries/SITL/SIM_Buzzer.s"
-	@echo "... libraries/SITL/SIM_CRRCSim.o"
-	@echo "... libraries/SITL/SIM_CRRCSim.i"
-	@echo "... libraries/SITL/SIM_CRRCSim.s"
-	@echo "... libraries/SITL/SIM_CRSF.o"
-	@echo "... libraries/SITL/SIM_CRSF.i"
-	@echo "... libraries/SITL/SIM_CRSF.s"
-	@echo "... libraries/SITL/SIM_Calibration.o"
-	@echo "... libraries/SITL/SIM_Calibration.i"
-	@echo "... libraries/SITL/SIM_Calibration.s"
-	@echo "... libraries/SITL/SIM_DroneCANDevice.o"
-	@echo "... libraries/SITL/SIM_DroneCANDevice.i"
-	@echo "... libraries/SITL/SIM_DroneCANDevice.s"
-	@echo "... libraries/SITL/SIM_EFI_Hirth.o"
-	@echo "... libraries/SITL/SIM_EFI_Hirth.i"
-	@echo "... libraries/SITL/SIM_EFI_Hirth.s"
-	@echo "... libraries/SITL/SIM_EFI_MegaSquirt.o"
-	@echo "... libraries/SITL/SIM_EFI_MegaSquirt.i"
-	@echo "... libraries/SITL/SIM_EFI_MegaSquirt.s"
-	@echo "... libraries/SITL/SIM_ELRS.o"
-	@echo "... libraries/SITL/SIM_ELRS.i"
-	@echo "... libraries/SITL/SIM_ELRS.s"
-	@echo "... libraries/SITL/SIM_FETtecOneWireESC.o"
-	@echo "... libraries/SITL/SIM_FETtecOneWireESC.i"
-	@echo "... libraries/SITL/SIM_FETtecOneWireESC.s"
-	@echo "... libraries/SITL/SIM_FlightAxis.o"
-	@echo "... libraries/SITL/SIM_FlightAxis.i"
-	@echo "... libraries/SITL/SIM_FlightAxis.s"
-	@echo "... libraries/SITL/SIM_Frame.o"
-	@echo "... libraries/SITL/SIM_Frame.i"
-	@echo "... libraries/SITL/SIM_Frame.s"
-	@echo "... libraries/SITL/SIM_Frsky.o"
-	@echo "... libraries/SITL/SIM_Frsky.i"
-	@echo "... libraries/SITL/SIM_Frsky.s"
-	@echo "... libraries/SITL/SIM_Frsky_D.o"
-	@echo "... libraries/SITL/SIM_Frsky_D.i"
-	@echo "... libraries/SITL/SIM_Frsky_D.s"
-	@echo "... libraries/SITL/SIM_GPIO_LED_1.o"
-	@echo "... libraries/SITL/SIM_GPIO_LED_1.i"
-	@echo "... libraries/SITL/SIM_GPIO_LED_1.s"
-	@echo "... libraries/SITL/SIM_GPIO_LED_2.o"
-	@echo "... libraries/SITL/SIM_GPIO_LED_2.i"
-	@echo "... libraries/SITL/SIM_GPIO_LED_2.s"
-	@echo "... libraries/SITL/SIM_GPIO_LED_3.o"
-	@echo "... libraries/SITL/SIM_GPIO_LED_3.i"
-	@echo "... libraries/SITL/SIM_GPIO_LED_3.s"
-	@echo "... libraries/SITL/SIM_GPIO_LED_RGB.o"
-	@echo "... libraries/SITL/SIM_GPIO_LED_RGB.i"
-	@echo "... libraries/SITL/SIM_GPIO_LED_RGB.s"
-	@echo "... libraries/SITL/SIM_GPS.o"
-	@echo "... libraries/SITL/SIM_GPS.i"
-	@echo "... libraries/SITL/SIM_GPS.s"
-	@echo "... libraries/SITL/SIM_GPS_FILE.o"
-	@echo "... libraries/SITL/SIM_GPS_FILE.i"
-	@echo "... libraries/SITL/SIM_GPS_FILE.s"
-	@echo "... libraries/SITL/SIM_GPS_MSP.o"
-	@echo "... libraries/SITL/SIM_GPS_MSP.i"
-	@echo "... libraries/SITL/SIM_GPS_MSP.s"
-	@echo "... libraries/SITL/SIM_GPS_NMEA.o"
-	@echo "... libraries/SITL/SIM_GPS_NMEA.i"
-	@echo "... libraries/SITL/SIM_GPS_NMEA.s"
-	@echo "... libraries/SITL/SIM_GPS_NOVA.o"
-	@echo "... libraries/SITL/SIM_GPS_NOVA.i"
-	@echo "... libraries/SITL/SIM_GPS_NOVA.s"
-	@echo "... libraries/SITL/SIM_GPS_SBF.o"
-	@echo "... libraries/SITL/SIM_GPS_SBF.i"
-	@echo "... libraries/SITL/SIM_GPS_SBF.s"
-	@echo "... libraries/SITL/SIM_GPS_SBP.o"
-	@echo "... libraries/SITL/SIM_GPS_SBP.i"
-	@echo "... libraries/SITL/SIM_GPS_SBP.s"
-	@echo "... libraries/SITL/SIM_GPS_SBP2.o"
-	@echo "... libraries/SITL/SIM_GPS_SBP2.i"
-	@echo "... libraries/SITL/SIM_GPS_SBP2.s"
-	@echo "... libraries/SITL/SIM_GPS_SBP_Common.o"
-	@echo "... libraries/SITL/SIM_GPS_SBP_Common.i"
-	@echo "... libraries/SITL/SIM_GPS_SBP_Common.s"
-	@echo "... libraries/SITL/SIM_GPS_Trimble.o"
-	@echo "... libraries/SITL/SIM_GPS_Trimble.i"
-	@echo "... libraries/SITL/SIM_GPS_Trimble.s"
-	@echo "... libraries/SITL/SIM_GPS_UBLOX.o"
-	@echo "... libraries/SITL/SIM_GPS_UBLOX.i"
-	@echo "... libraries/SITL/SIM_GPS_UBLOX.s"
-	@echo "... libraries/SITL/SIM_Gazebo.o"
-	@echo "... libraries/SITL/SIM_Gazebo.i"
-	@echo "... libraries/SITL/SIM_Gazebo.s"
-	@echo "... libraries/SITL/SIM_GeneratorEngine.o"
-	@echo "... libraries/SITL/SIM_GeneratorEngine.i"
-	@echo "... libraries/SITL/SIM_GeneratorEngine.s"
-	@echo "... libraries/SITL/SIM_Gimbal.o"
-	@echo "... libraries/SITL/SIM_Gimbal.i"
-	@echo "... libraries/SITL/SIM_Gimbal.s"
-	@echo "... libraries/SITL/SIM_Glider.o"
-	@echo "... libraries/SITL/SIM_Glider.i"
-	@echo "... libraries/SITL/SIM_Glider.s"
-	@echo "... libraries/SITL/SIM_Gripper_EPM.o"
-	@echo "... libraries/SITL/SIM_Gripper_EPM.i"
-	@echo "... libraries/SITL/SIM_Gripper_EPM.s"
-	@echo "... libraries/SITL/SIM_Gripper_Servo.o"
-	@echo "... libraries/SITL/SIM_Gripper_Servo.i"
-	@echo "... libraries/SITL/SIM_Gripper_Servo.s"
-	@echo "... libraries/SITL/SIM_Helicopter.o"
-	@echo "... libraries/SITL/SIM_Helicopter.i"
-	@echo "... libraries/SITL/SIM_Helicopter.s"
-	@echo "... libraries/SITL/SIM_I2C.o"
-	@echo "... libraries/SITL/SIM_I2C.i"
-	@echo "... libraries/SITL/SIM_I2C.s"
-	@echo "... libraries/SITL/SIM_I2CDevice.o"
-	@echo "... libraries/SITL/SIM_I2CDevice.i"
-	@echo "... libraries/SITL/SIM_I2CDevice.s"
-	@echo "... libraries/SITL/SIM_ICEngine.o"
-	@echo "... libraries/SITL/SIM_ICEngine.i"
-	@echo "... libraries/SITL/SIM_ICEngine.s"
-	@echo "... libraries/SITL/SIM_INA3221.o"
-	@echo "... libraries/SITL/SIM_INA3221.i"
-	@echo "... libraries/SITL/SIM_INA3221.s"
-	@echo "... libraries/SITL/SIM_IS31FL3195.o"
-	@echo "... libraries/SITL/SIM_IS31FL3195.i"
-	@echo "... libraries/SITL/SIM_IS31FL3195.s"
-	@echo "... libraries/SITL/SIM_InertialLabs.o"
-	@echo "... libraries/SITL/SIM_InertialLabs.i"
-	@echo "... libraries/SITL/SIM_InertialLabs.s"
-	@echo "... libraries/SITL/SIM_IntelligentEnergy.o"
-	@echo "... libraries/SITL/SIM_IntelligentEnergy.i"
-	@echo "... libraries/SITL/SIM_IntelligentEnergy.s"
-	@echo "... libraries/SITL/SIM_IntelligentEnergy24.o"
-	@echo "... libraries/SITL/SIM_IntelligentEnergy24.i"
-	@echo "... libraries/SITL/SIM_IntelligentEnergy24.s"
-	@echo "... libraries/SITL/SIM_Invensense_v3.o"
-	@echo "... libraries/SITL/SIM_Invensense_v3.i"
-	@echo "... libraries/SITL/SIM_Invensense_v3.s"
-	@echo "... libraries/SITL/SIM_JEDEC.o"
-	@echo "... libraries/SITL/SIM_JEDEC.i"
-	@echo "... libraries/SITL/SIM_JEDEC.s"
-	@echo "... libraries/SITL/SIM_JEDEC_MX25L3206E.o"
-	@echo "... libraries/SITL/SIM_JEDEC_MX25L3206E.i"
-	@echo "... libraries/SITL/SIM_JEDEC_MX25L3206E.s"
-	@echo "... libraries/SITL/SIM_JSBSim.o"
-	@echo "... libraries/SITL/SIM_JSBSim.i"
-	@echo "... libraries/SITL/SIM_JSBSim.s"
-	@echo "... libraries/SITL/SIM_JSON.o"
-	@echo "... libraries/SITL/SIM_JSON.i"
-	@echo "... libraries/SITL/SIM_JSON.s"
-	@echo "... libraries/SITL/SIM_JSON_Master.o"
-	@echo "... libraries/SITL/SIM_JSON_Master.i"
-	@echo "... libraries/SITL/SIM_JSON_Master.s"
-	@echo "... libraries/SITL/SIM_LED_n.o"
-	@echo "... libraries/SITL/SIM_LED_n.i"
-	@echo "... libraries/SITL/SIM_LED_n.s"
-	@echo "... libraries/SITL/SIM_LM2755.o"
-	@echo "... libraries/SITL/SIM_LM2755.i"
-	@echo "... libraries/SITL/SIM_LM2755.s"
-	@echo "... libraries/SITL/SIM_LP5562.o"
-	@echo "... libraries/SITL/SIM_LP5562.i"
-	@echo "... libraries/SITL/SIM_LP5562.s"
-	@echo "... libraries/SITL/SIM_Loweheiser.o"
-	@echo "... libraries/SITL/SIM_Loweheiser.i"
-	@echo "... libraries/SITL/SIM_Loweheiser.s"
-	@echo "... libraries/SITL/SIM_MS5525.o"
-	@echo "... libraries/SITL/SIM_MS5525.i"
-	@echo "... libraries/SITL/SIM_MS5525.s"
-	@echo "... libraries/SITL/SIM_MS5611.o"
-	@echo "... libraries/SITL/SIM_MS5611.i"
-	@echo "... libraries/SITL/SIM_MS5611.s"
-	@echo "... libraries/SITL/SIM_MS5XXX.o"
-	@echo "... libraries/SITL/SIM_MS5XXX.i"
-	@echo "... libraries/SITL/SIM_MS5XXX.s"
-	@echo "... libraries/SITL/SIM_MicroStrain.o"
-	@echo "... libraries/SITL/SIM_MicroStrain.i"
-	@echo "... libraries/SITL/SIM_MicroStrain.s"
-	@echo "... libraries/SITL/SIM_MicroStrain7.o"
-	@echo "... libraries/SITL/SIM_MicroStrain7.i"
-	@echo "... libraries/SITL/SIM_MicroStrain7.s"
-	@echo "... libraries/SITL/SIM_Morse.o"
-	@echo "... libraries/SITL/SIM_Morse.i"
-	@echo "... libraries/SITL/SIM_Morse.s"
-	@echo "... libraries/SITL/SIM_Motor.o"
-	@echo "... libraries/SITL/SIM_Motor.i"
-	@echo "... libraries/SITL/SIM_Motor.s"
-	@echo "... libraries/SITL/SIM_Multicopter.o"
-	@echo "... libraries/SITL/SIM_Multicopter.i"
-	@echo "... libraries/SITL/SIM_Multicopter.s"
-	@echo "... libraries/SITL/SIM_PS_LD06.o"
-	@echo "... libraries/SITL/SIM_PS_LD06.i"
-	@echo "... libraries/SITL/SIM_PS_LD06.s"
-	@echo "... libraries/SITL/SIM_PS_LightWare_SF45B.o"
-	@echo "... libraries/SITL/SIM_PS_LightWare_SF45B.i"
-	@echo "... libraries/SITL/SIM_PS_LightWare_SF45B.s"
-	@echo "... libraries/SITL/SIM_PS_RPLidar.o"
-	@echo "... libraries/SITL/SIM_PS_RPLidar.i"
-	@echo "... libraries/SITL/SIM_PS_RPLidar.s"
-	@echo "... libraries/SITL/SIM_PS_TeraRangerTower.o"
-	@echo "... libraries/SITL/SIM_PS_TeraRangerTower.i"
-	@echo "... libraries/SITL/SIM_PS_TeraRangerTower.s"
-	@echo "... libraries/SITL/SIM_Parachute.o"
-	@echo "... libraries/SITL/SIM_Parachute.i"
-	@echo "... libraries/SITL/SIM_Parachute.s"
-	@echo "... libraries/SITL/SIM_Plane.o"
-	@echo "... libraries/SITL/SIM_Plane.i"
-	@echo "... libraries/SITL/SIM_Plane.s"
-	@echo "... libraries/SITL/SIM_Precland.o"
-	@echo "... libraries/SITL/SIM_Precland.i"
-	@echo "... libraries/SITL/SIM_Precland.s"
-	@echo "... libraries/SITL/SIM_QMC5883L.o"
-	@echo "... libraries/SITL/SIM_QMC5883L.i"
-	@echo "... libraries/SITL/SIM_QMC5883L.s"
-	@echo "... libraries/SITL/SIM_QuadPlane.o"
-	@echo "... libraries/SITL/SIM_QuadPlane.i"
-	@echo "... libraries/SITL/SIM_QuadPlane.s"
-	@echo "... libraries/SITL/SIM_RAMTRON.o"
-	@echo "... libraries/SITL/SIM_RAMTRON.i"
-	@echo "... libraries/SITL/SIM_RAMTRON.s"
-	@echo "... libraries/SITL/SIM_RAMTRON_FM25V02.o"
-	@echo "... libraries/SITL/SIM_RAMTRON_FM25V02.i"
-	@echo "... libraries/SITL/SIM_RAMTRON_FM25V02.s"
-	@echo "... libraries/SITL/SIM_RF_Ainstein_LR_D1.o"
-	@echo "... libraries/SITL/SIM_RF_Ainstein_LR_D1.i"
-	@echo "... libraries/SITL/SIM_RF_Ainstein_LR_D1.s"
-	@echo "... libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.o"
-	@echo "... libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.i"
-	@echo "... libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.s"
-	@echo "... libraries/SITL/SIM_RF_BLping.o"
-	@echo "... libraries/SITL/SIM_RF_BLping.i"
-	@echo "... libraries/SITL/SIM_RF_BLping.s"
-	@echo "... libraries/SITL/SIM_RF_Benewake.o"
-	@echo "... libraries/SITL/SIM_RF_Benewake.i"
-	@echo "... libraries/SITL/SIM_RF_Benewake.s"
-	@echo "... libraries/SITL/SIM_RF_Benewake_TFMiniPlus.o"
-	@echo "... libraries/SITL/SIM_RF_Benewake_TFMiniPlus.i"
-	@echo "... libraries/SITL/SIM_RF_Benewake_TFMiniPlus.s"
-	@echo "... libraries/SITL/SIM_RF_GYUS42v2.o"
-	@echo "... libraries/SITL/SIM_RF_GYUS42v2.i"
-	@echo "... libraries/SITL/SIM_RF_GYUS42v2.s"
-	@echo "... libraries/SITL/SIM_RF_JRE.o"
-	@echo "... libraries/SITL/SIM_RF_JRE.i"
-	@echo "... libraries/SITL/SIM_RF_JRE.s"
-	@echo "... libraries/SITL/SIM_RF_Lanbao.o"
-	@echo "... libraries/SITL/SIM_RF_Lanbao.i"
-	@echo "... libraries/SITL/SIM_RF_Lanbao.s"
-	@echo "... libraries/SITL/SIM_RF_LeddarOne.o"
-	@echo "... libraries/SITL/SIM_RF_LeddarOne.i"
-	@echo "... libraries/SITL/SIM_RF_LeddarOne.s"
-	@echo "... libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.o"
-	@echo "... libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.i"
-	@echo "... libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.s"
-	@echo "... libraries/SITL/SIM_RF_LightWareSerial.o"
-	@echo "... libraries/SITL/SIM_RF_LightWareSerial.i"
-	@echo "... libraries/SITL/SIM_RF_LightWareSerial.s"
-	@echo "... libraries/SITL/SIM_RF_LightWareSerialBinary.o"
-	@echo "... libraries/SITL/SIM_RF_LightWareSerialBinary.i"
-	@echo "... libraries/SITL/SIM_RF_LightWareSerialBinary.s"
-	@echo "... libraries/SITL/SIM_RF_LightWare_GRF.o"
-	@echo "... libraries/SITL/SIM_RF_LightWare_GRF.i"
-	@echo "... libraries/SITL/SIM_RF_LightWare_GRF.s"
-	@echo "... libraries/SITL/SIM_RF_MAVLink.o"
-	@echo "... libraries/SITL/SIM_RF_MAVLink.i"
-	@echo "... libraries/SITL/SIM_RF_MAVLink.s"
-	@echo "... libraries/SITL/SIM_RF_MaxsonarSerialLV.o"
-	@echo "... libraries/SITL/SIM_RF_MaxsonarSerialLV.i"
-	@echo "... libraries/SITL/SIM_RF_MaxsonarSerialLV.s"
-	@echo "... libraries/SITL/SIM_RF_NMEA.o"
-	@echo "... libraries/SITL/SIM_RF_NMEA.i"
-	@echo "... libraries/SITL/SIM_RF_NMEA.s"
-	@echo "... libraries/SITL/SIM_RF_NoopLoop.o"
-	@echo "... libraries/SITL/SIM_RF_NoopLoop.i"
-	@echo "... libraries/SITL/SIM_RF_NoopLoop.s"
-	@echo "... libraries/SITL/SIM_RF_RDS02UF.o"
-	@echo "... libraries/SITL/SIM_RF_RDS02UF.i"
-	@echo "... libraries/SITL/SIM_RF_RDS02UF.s"
-	@echo "... libraries/SITL/SIM_RF_TeraRanger_Serial.o"
-	@echo "... libraries/SITL/SIM_RF_TeraRanger_Serial.i"
-	@echo "... libraries/SITL/SIM_RF_TeraRanger_Serial.s"
-	@echo "... libraries/SITL/SIM_RF_USD1.o"
-	@echo "... libraries/SITL/SIM_RF_USD1.i"
-	@echo "... libraries/SITL/SIM_RF_USD1.s"
-	@echo "... libraries/SITL/SIM_RF_USD1_v0.o"
-	@echo "... libraries/SITL/SIM_RF_USD1_v0.i"
-	@echo "... libraries/SITL/SIM_RF_USD1_v0.s"
-	@echo "... libraries/SITL/SIM_RF_USD1_v1.o"
-	@echo "... libraries/SITL/SIM_RF_USD1_v1.i"
-	@echo "... libraries/SITL/SIM_RF_USD1_v1.s"
-	@echo "... libraries/SITL/SIM_RF_Wasp.o"
-	@echo "... libraries/SITL/SIM_RF_Wasp.i"
-	@echo "... libraries/SITL/SIM_RF_Wasp.s"
-	@echo "... libraries/SITL/SIM_RGBLED.o"
-	@echo "... libraries/SITL/SIM_RGBLED.i"
-	@echo "... libraries/SITL/SIM_RGBLED.s"
-	@echo "... libraries/SITL/SIM_RichenPower.o"
-	@echo "... libraries/SITL/SIM_RichenPower.i"
-	@echo "... libraries/SITL/SIM_RichenPower.s"
-	@echo "... libraries/SITL/SIM_Rover.o"
-	@echo "... libraries/SITL/SIM_Rover.i"
-	@echo "... libraries/SITL/SIM_Rover.s"
-	@echo "... libraries/SITL/SIM_SMBusDevice.o"
-	@echo "... libraries/SITL/SIM_SMBusDevice.i"
-	@echo "... libraries/SITL/SIM_SMBusDevice.s"
-	@echo "... libraries/SITL/SIM_SPI.o"
-	@echo "... libraries/SITL/SIM_SPI.i"
-	@echo "... libraries/SITL/SIM_SPI.s"
-	@echo "... libraries/SITL/SIM_Sailboat.o"
-	@echo "... libraries/SITL/SIM_Sailboat.i"
-	@echo "... libraries/SITL/SIM_Sailboat.s"
-	@echo "... libraries/SITL/SIM_Scrimmage.o"
-	@echo "... libraries/SITL/SIM_Scrimmage.i"
-	@echo "... libraries/SITL/SIM_Scrimmage.s"
-	@echo "... libraries/SITL/SIM_SerialDevice.o"
-	@echo "... libraries/SITL/SIM_SerialDevice.i"
-	@echo "... libraries/SITL/SIM_SerialDevice.s"
-	@echo "... libraries/SITL/SIM_SerialProximitySensor.o"
-	@echo "... libraries/SITL/SIM_SerialProximitySensor.i"
-	@echo "... libraries/SITL/SIM_SerialProximitySensor.s"
-	@echo "... libraries/SITL/SIM_SerialRangeFinder.o"
-	@echo "... libraries/SITL/SIM_SerialRangeFinder.i"
-	@echo "... libraries/SITL/SIM_SerialRangeFinder.s"
-	@echo "... libraries/SITL/SIM_Ship.o"
-	@echo "... libraries/SITL/SIM_Ship.i"
-	@echo "... libraries/SITL/SIM_Ship.s"
-	@echo "... libraries/SITL/SIM_SilentWings.o"
-	@echo "... libraries/SITL/SIM_SilentWings.i"
-	@echo "... libraries/SITL/SIM_SilentWings.s"
-	@echo "... libraries/SITL/SIM_SingleCopter.o"
-	@echo "... libraries/SITL/SIM_SingleCopter.i"
-	@echo "... libraries/SITL/SIM_SingleCopter.s"
-	@echo "... libraries/SITL/SIM_SlungPayload.o"
-	@echo "... libraries/SITL/SIM_SlungPayload.i"
-	@echo "... libraries/SITL/SIM_SlungPayload.s"
-	@echo "... libraries/SITL/SIM_SoloGimbal.o"
-	@echo "... libraries/SITL/SIM_SoloGimbal.i"
-	@echo "... libraries/SITL/SIM_SoloGimbal.s"
-	@echo "... libraries/SITL/SIM_Sprayer.o"
-	@echo "... libraries/SITL/SIM_Sprayer.i"
-	@echo "... libraries/SITL/SIM_Sprayer.s"
-	@echo "... libraries/SITL/SIM_StratoBlimp.o"
-	@echo "... libraries/SITL/SIM_StratoBlimp.i"
-	@echo "... libraries/SITL/SIM_StratoBlimp.s"
-	@echo "... libraries/SITL/SIM_Submarine.o"
-	@echo "... libraries/SITL/SIM_Submarine.i"
-	@echo "... libraries/SITL/SIM_Submarine.s"
-	@echo "... libraries/SITL/SIM_TFS20L.o"
-	@echo "... libraries/SITL/SIM_TFS20L.i"
-	@echo "... libraries/SITL/SIM_TFS20L.s"
-	@echo "... libraries/SITL/SIM_Temperature_MCP9600.o"
-	@echo "... libraries/SITL/SIM_Temperature_MCP9600.i"
-	@echo "... libraries/SITL/SIM_Temperature_MCP9600.s"
-	@echo "... libraries/SITL/SIM_Temperature_SHT3x.o"
-	@echo "... libraries/SITL/SIM_Temperature_SHT3x.i"
-	@echo "... libraries/SITL/SIM_Temperature_SHT3x.s"
-	@echo "... libraries/SITL/SIM_Temperature_TSYS01.o"
-	@echo "... libraries/SITL/SIM_Temperature_TSYS01.i"
-	@echo "... libraries/SITL/SIM_Temperature_TSYS01.s"
-	@echo "... libraries/SITL/SIM_Temperature_TSYS03.o"
-	@echo "... libraries/SITL/SIM_Temperature_TSYS03.i"
-	@echo "... libraries/SITL/SIM_Temperature_TSYS03.s"
-	@echo "... libraries/SITL/SIM_TeraRangerI2C.o"
-	@echo "... libraries/SITL/SIM_TeraRangerI2C.i"
-	@echo "... libraries/SITL/SIM_TeraRangerI2C.s"
-	@echo "... libraries/SITL/SIM_Tether.o"
-	@echo "... libraries/SITL/SIM_Tether.i"
-	@echo "... libraries/SITL/SIM_Tether.s"
-	@echo "... libraries/SITL/SIM_ToneAlarm.o"
-	@echo "... libraries/SITL/SIM_ToneAlarm.i"
-	@echo "... libraries/SITL/SIM_ToneAlarm.s"
-	@echo "... libraries/SITL/SIM_ToshibaLED.o"
-	@echo "... libraries/SITL/SIM_ToshibaLED.i"
-	@echo "... libraries/SITL/SIM_ToshibaLED.s"
-	@echo "... libraries/SITL/SIM_Tracker.o"
-	@echo "... libraries/SITL/SIM_Tracker.i"
-	@echo "... libraries/SITL/SIM_Tracker.s"
-	@echo "... libraries/SITL/SIM_VectorNav.o"
-	@echo "... libraries/SITL/SIM_VectorNav.i"
-	@echo "... libraries/SITL/SIM_VectorNav.s"
-	@echo "... libraries/SITL/SIM_Vicon.o"
-	@echo "... libraries/SITL/SIM_Vicon.i"
-	@echo "... libraries/SITL/SIM_Vicon.s"
-	@echo "... libraries/SITL/SIM_Volz.o"
-	@echo "... libraries/SITL/SIM_Volz.i"
-	@echo "... libraries/SITL/SIM_Volz.s"
-	@echo "... libraries/SITL/SIM_Webots.o"
-	@echo "... libraries/SITL/SIM_Webots.i"
-	@echo "... libraries/SITL/SIM_Webots.s"
-	@echo "... libraries/SITL/SIM_Webots_Python.o"
-	@echo "... libraries/SITL/SIM_Webots_Python.i"
-	@echo "... libraries/SITL/SIM_Webots_Python.s"
-	@echo "... libraries/SITL/SIM_XPlane.o"
-	@echo "... libraries/SITL/SIM_XPlane.i"
-	@echo "... libraries/SITL/SIM_XPlane.s"
-	@echo "... libraries/SITL/SIM_last_letter.o"
-	@echo "... libraries/SITL/SIM_last_letter.i"
-	@echo "... libraries/SITL/SIM_last_letter.s"
-	@echo "... libraries/SITL/SITL.o"
-	@echo "... libraries/SITL/SITL.i"
-	@echo "... libraries/SITL/SITL.s"
-	@echo "... libraries/SITL/SITL_Airspeed.o"
-	@echo "... libraries/SITL/SITL_Airspeed.i"
-	@echo "... libraries/SITL/SITL_Airspeed.s"
-	@echo "... libraries/SITL/SITL_Baro.o"
-	@echo "... libraries/SITL/SITL_Baro.i"
-	@echo "... libraries/SITL/SITL_Baro.s"
-	@echo "... libraries/SITL/ServoModel.o"
-	@echo "... libraries/SITL/ServoModel.i"
-	@echo "... libraries/SITL/ServoModel.s"
 	@echo "... libraries/SRV_Channel/SRV_Channel.o"
 	@echo "... libraries/SRV_Channel/SRV_Channel.i"
 	@echo "... libraries/SRV_Channel/SRV_Channel.s"
@@ -47486,15 +42815,6 @@ help:
 	@echo "... modules/DroneCAN/libcanard/canard.o"
 	@echo "... modules/DroneCAN/libcanard/canard.i"
 	@echo "... modules/DroneCAN/libcanard/canard.s"
-	@echo "... modules/littlefs/bd/lfs_filebd.o"
-	@echo "... modules/littlefs/bd/lfs_filebd.i"
-	@echo "... modules/littlefs/bd/lfs_filebd.s"
-	@echo "... modules/littlefs/lfs.o"
-	@echo "... modules/littlefs/lfs.i"
-	@echo "... modules/littlefs/lfs.s"
-	@echo "... modules/littlefs/lfs_util.o"
-	@echo "... modules/littlefs/lfs_util.i"
-	@echo "... modules/littlefs/lfs_util.s"
 	@echo "... modules/lwip/src/api/api_lib.o"
 	@echo "... modules/lwip/src/api/api_lib.i"
 	@echo "... modules/lwip/src/api/api_lib.s"

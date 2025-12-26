@@ -145,36 +145,36 @@ class CMakeExporterContext(BuildContext):
 
 		# uncomment this block and run './waf make_exporter' to see the flow of all taskgens
 		# we hook into the relevant ones.
-		# known=False
-		# if 'ap_library_object' in features:
-		# 	print ('ap_library_object name: %s ' % name)
-		# 	known=True
-		# if 'cxx' in features:
-		# 	print ('cxx name: %s ' % name)
-		# 	known=True
-		# if 'c' in features:
-		# 	print ('c name: %s ' % name)
-		# 	known=True
-		# if 'cstdlib' in features:
-		# 	print ('cstdlib name: %s ' % name)
-		# 	known=True
-		# if 'droncangen' in features:
-		# 	print ('droncangen name: %s ' % name)
-		# 	known=True
-		# if 'git_submodule' in features:
-		# 	print ('git_submodule name: %s ' % name)
-		# 	known=True
-		# if 'mavgen' in features:
-		# 	print ('mavgen name: %s ' % name)
-		# 	known=True
-		# if 'ap_version' in features or name=='ap_version':
-		# 	print ('ap_version name: %s ' % name)
-		# 	known=True
-		# if xgroup == 'dynamic_sources':
-		# 	print ('dynamic_sources name: %s ' % name)
-		# 	known=True
-		# if known==False:
-		# 	print ('unknown: name: %s features: %s ' % (name, features))
+		known=False
+		if 'ap_library_object' in features:
+			print ('ap_library_object name: %s ' % name)
+			known=True
+		if 'cxx' in features:
+			print ('cxx name: %s ' % name)
+			known=True
+		if 'c' in features:
+			print ('c name: %s ' % name)
+			known=True
+		if 'cstdlib' in features:
+			print ('cstdlib name: %s ' % name)
+			known=True
+		if 'droncangen' in features:
+			print ('droncangen name: %s ' % name)
+			known=True
+		if 'git_submodule' in features:
+			print ('git_submodule name: %s ' % name)
+			known=True
+		if 'mavgen' in features:
+			print ('mavgen name: %s ' % name)
+			known=True
+		if 'ap_version' in features or name=='ap_version':
+			print ('ap_version name: %s ' % name)
+			known=True
+		if xgroup == 'dynamic_sources':
+			print ('dynamic_sources name: %s ' % name)
+			known=True
+		if known==False:
+			print ('unknown: name: %s features: %s ' % (name, features))
 
 		import os
 		from pathlib import Path
@@ -517,13 +517,43 @@ class CMakeExporter(object):
 			content += '\n'
 
 			env = self.bld.env
+			env.DEFINES = [f for f in env.DEFINES if f != 'AP_SIM_ENABLED=0'] # remove this one, its set to 1 in ap_config.h
 			defines = env.DEFINES 
+
+			foo = [f for f in env.DEFINES if f.startswith('CONFIG_HAL_BOARD=')]
+			#trim = 'CONFIG_HAL_BOARD=' off the front of foo
+			if len(foo):
+				foo = foo[0].split('=')[1]
+				self.CONFIG_HAL_BOARD = foo # eg 'HAL_BOARD_SITL' or 'HAL_BOARD_CHIBIOS'
+
 			#defines.append('APM_BUILD_DIRECTORY=2' ) # 2 means copter. this should NOT be here, we use it on a few specific libraries and final binaries only.
 
 			
 			if len(defines):
 				content += 'add_definitions(-D%s) #1\n' % (' -D'.join(defines))
 				content += '\n'
+
+			#env has a lot of stuff in it.
+			tmpE = env.table.keys()
+			print('Debug: env keys: %s ' % (tmpE))
+			apj_board_id = env['APJ_BOARD_ID']
+			print('Debug: APJ_BOARD_ID: %s ' % (apj_board_id))
+			apj_board_type = env['APJ_BOARD_TYPE']
+			print('Debug: APJ_BOARD_TYPE: %s ' % (apj_board_type))
+			BOARD = env['BOARD']
+			print('Debug: BOARD: %s ' % (BOARD))
+			board_class = env['BOARD_CLASS']
+			print('Debug: BOARD_CLASS: %s ' % (board_class))
+			waf_build_root = env['BUILDROOT']
+			print('Debug: BUILDROOT: %s ' % (waf_build_root))
+			CC = env['CC'] # full path to something ending in gcc
+			print('Debug: CC: %s ' % (CC))
+			CXX = env['CXX'] # full path to something ending in g++
+			print('Debug: CXX: %s ' % (CXX))
+			HWDEF = env['HWDEF']
+			print('Debug: HWDEF: %s ' % (HWDEF)) # full path to a hwdef.dat file
+			TOOLLCHAIN = env['TOOLCHAIN']
+			print('Debug: TOOLCHAIN: %s ' % (TOOLLCHAIN)) # eg 'arm-none=eabi' prefix
 
 			# drop '-Werror=shadow' from CFLAGS and CXXFLAGS
 			env.CFLAGS = [f for f in env.CFLAGS if f != '-Werror=shadow']
@@ -553,12 +583,27 @@ class CMakeExporter(object):
 					if '-include' in f:
 						# skip this flag
 						continue
+					#if 'AP_SIM_ENABLED=0' in f:
+					#	# skip this flag
+					#	continue
 					new_flags.append(f)
 				return new_flags
+			
+			content += 'set(CMAKE_C_COMPILER "%s")\n\n' % (' '.join(CC))
+			content += 'set(CMAKE_CXX_COMPILER "%s")\n\n' % (' '.join(CXX))
+			content += 'set($ENV{CC} "%s")\n\n' % (' '.join(CC))
+			content += 'set($ENV{CXX} "%s")\n\n' % (' '.join(CXX))
+
+			content += 'message(STATUS "C Compiler: ${CMAKE_C_COMPILER}")\n'
+			content += 'message(STATUS "C Compiler Version: ${CMAKE_C_COMPILER_VERSION}")\n'
+			content += 'message(STATUS "CXX Compiler: ${CMAKE_CXX_COMPILER}")\n'
+			content += 'message(STATUS "CXX Compiler Version: ${CMAKE_CXX_COMPILER_VERSION}")\n'
+
+			content += 'message(STATUS "BOARD: %s")\n' % BOARD
 
 			flags1 = clean_flags(env.CFLAGS)
 			if len(flags1):
-				content += 'set(CMAKE_C_FLAGS "%s")\n' % (' '.join(flags1))
+				content += 'set(CMAKE_C_FLAGS "%s")\n\n' % (' '.join(flags1))
 
 			flags2 = clean_flags(env.CXXFLAGS)
 			flags2 += AP_CONFIG_FLAGS.split(' ')
@@ -986,7 +1031,7 @@ class CMakeExporter(object):
 					# assume copter and fix it later with regex
 					defines.append('AP_BUILD_TARGET_NAME="ArduCopter"') 
 					defines.append('APM_BUILD_DIRECTORY=APM_BUILD_ArduCopter')
-					defines.append('CONFIG_HAL_BOARD=HAL_BOARD_SITL') # todo dont hardcode sitl
+					defines.append('CONFIG_HAL_BOARD=%s' % str(self.CONFIG_HAL_BOARD)) # todo dont hardcode sitl
 					pass
 				if len(defines):
 					content += 'target_compile_definitions(%s PUBLIC -D%s) #1\n' % (cleanedname, ' -D'.join(defines))

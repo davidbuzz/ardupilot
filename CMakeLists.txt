@@ -20,10 +20,24 @@ ${CMAKE_CURRENT_SOURCE_DIR}/libraries/AP_DroneCAN/canard
 )
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 
-add_definitions(-DAP_BARO_PROBE_EXTERNAL_I2C_BUSES=1 -DAP_CUSTOMCONTROL_ENABLED=1 -DAP_DDS_ENABLED=0 -DAP_SCRIPTING_CHECKS=1 -DCANARD_ALLOCATE_SEM=1 -DCANARD_ENABLE_ASSERTS=1 -DCANARD_ENABLE_CANFD=1 -DCANARD_ENABLE_DEADLINE=1 -DCANARD_IFACE_ALL=3 -DCANARD_MULTI_IFACE=1 -DCONFIG_HAL_BOARD=HAL_BOARD_SITL -DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE -DDRONECAN_CXX_WRAPPERS=1 -DENABLE_ONVIF=0 -DLUA_32BITS=1 -DUSE_USER_HELPERS=1) #1
+add_definitions(-DAP_CUSTOMCONTROL_ENABLED=0 -DAP_DDS_ENABLED=0 -DAP_SCRIPTING_CHECKS=1 -DCANARD_ENABLE_CANFD=1 -DCANARD_IFACE_ALL=3 -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS -DENABLE_ONVIF=0 -DHAVE_STD_NULLPTR_T=0 -DLUA_32BITS=1 -DDRONECAN_CXX_WRAPPERS=1 -DUSE_USER_HELPERS=1 -DCANARD_ENABLE_DEADLINE=1 -DCANARD_MULTI_IFACE=1 -DCANARD_ALLOCATE_SEM=1) #1
 
-set(CMAKE_C_FLAGS "-ffunction-sections -fdata-sections -fsigned-char -Wall -Wextra -Werror=format -Wpointer-arith -Wcast-align -Wno-missing-field-initializers -Wno-unused-parameter -Wno-redundant-decls -Wno-unknown-pragmas -Wno-trigraphs -Werror=return-type -Werror=unused-result -Werror=unused-variable -Werror=narrowing -Werror=attributes -Werror=overflow -Werror=parentheses -Werror=format-extra-args -Werror=ignored-qualifiers -Werror=undef -DARDUPILOT_BUILD -Wno-format-contains-nul -fsingle-precision-constant -Werror=use-after-free -DCANARD_64_BIT=1 -MMD -ffile-prefix-map=../..=../..")
-set(CMAKE_CXX_FLAGS "-std=gnu++11 -fdata-sections -ffunction-sections -fno-exceptions -fsigned-char -Wall -Wextra -Wpointer-arith -Wno-unused-parameter -Wno-missing-field-initializers -Wno-redundant-decls -Wno-unknown-pragmas -Wno-expansion-to-defined -Werror=reorder -Werror=cast-align -Werror=attributes -Werror=format-security -Werror=format-extra-args -Werror=enum-compare -Werror=format -Werror=array-bounds -Werror=uninitialized -Werror=init-self -Werror=narrowing -Werror=return-type -Werror=switch -Werror=sign-compare -Werror=type-limits -Werror=undef -Werror=unused-result -Werror=unused-value -Werror=unused-variable -Werror=delete-non-virtual-dtor -Wfatal-errors -Wno-trigraphs -Werror=parentheses -DARDUPILOT_BUILD -Wuninitialized -Warray-bounds -Wno-format-contains-nul -Werror=unused-but-set-variable -fsingle-precision-constant -Wno-psabi -Werror=suggest-override -Werror=implicit-fallthrough -Werror=maybe-uninitialized -Werror=duplicated-cond -Werror=sizeof-pointer-div -Werror=use-after-free -D__AP_LINE__=__LINE__ -DAP_MAVLINK_RALLY_POINT_PROTOCOL_ENABLED=HAL_GCS_ENABLED -DAC_POLYFENCE_FENCE_POINT_PROTOCOL_SUPPORT=HAL_GCS_ENABLED -DHAL_NAVEKF2_AVAILABLE=1 -DCANARD_64_BIT=1 -Werror=float-equal -Werror=missing-declarations -DAP_NETWORKING_ENABLED=1 -O3 -MMD -ffile-prefix-map=../..=../.. -DHAL_HAVE_AP_ROMFS_EMBEDDED_H  -D_AP_CONFIG_H_=1 -DWAF_BUILD=1 -D__STDC_FORMAT_MACROS=1 -DAP_SIM_ENABLED=1 -DHAL_WITH_SPI=1 -DHAL_WITH_RAMTRON=1 -DAP_OPENDRONEID_ENABLED=1 -DAP_SIGNED_FIRMWARE=0 -DAP_NOTIFY_LP5562_BUS=2 -DAP_NOTIFY_LP5562_ADDR=48 -DHAL_NUM_CAN_IFACES=2 -DHAL_CAN_WITH_SOCKETCAN=1 -DHAVE_FEENABLEEXCEPT=1 -DHAVE_CMATH_ISFINITE=1 -DHAVE_CMATH_ISINF=1 -DHAVE_CMATH_ISNAN=1 -DNEED_CMATH_ISFINITE_STD_NAMESPACE=1 -DNEED_CMATH_ISINF_STD_NAMESPACE=1 -DNEED_CMATH_ISNAN_STD_NAMESPACE=1 -DHAVE_ENDIAN_H=1 -DHAVE_BYTESWAP_H=1 -DHAVE_MEMRCHR=1 -D_GNU_SOURCE=1 ")
+set(CMAKE_C_COMPILER "/opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc")
+
+set(CMAKE_CXX_COMPILER "/opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-g++")
+
+set($ENV{CC} "/opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc")
+
+set($ENV{CXX} "/opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-g++")
+
+message(STATUS "C Compiler: ${CMAKE_C_COMPILER}")
+message(STATUS "C Compiler Version: ${CMAKE_C_COMPILER_VERSION}")
+message(STATUS "CXX Compiler: ${CMAKE_CXX_COMPILER}")
+message(STATUS "CXX Compiler Version: ${CMAKE_CXX_COMPILER_VERSION}")
+message(STATUS "BOARD: CubeOrange")
+set(CMAKE_C_FLAGS "-ffunction-sections -fdata-sections -fsigned-char -Wall -Wextra -Werror=format -Wpointer-arith -Wcast-align -Wno-missing-field-initializers -Wno-unused-parameter -Wno-redundant-decls -Wno-unknown-pragmas -Wno-trigraphs -Werror=return-type -Werror=unused-result -Werror=unused-variable -Werror=narrowing -Werror=attributes -Werror=overflow -Werror=parentheses -Werror=format-extra-args -Werror=ignored-qualifiers -Werror=undef -DARDUPILOT_BUILD -Wno-format-contains-nul -fsingle-precision-constant -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard -DARM_MATH_CM7 -u_printf_float -Wlogical-op -Wframe-larger-than=1300 -Wno-attributes -fno-exceptions -Wall -Wextra -Wno-sign-compare -Wfloat-equal -Wpointer-arith -Wmissing-declarations -Wno-unused-parameter -Werror=array-bounds -Wfatal-errors -Werror=uninitialized -Werror=init-self -Werror=unused-but-set-variable -Wno-missing-field-initializers -Wno-trigraphs -fno-strict-aliasing -fomit-frame-pointer -falign-functions=16 -ffunction-sections -fdata-sections -fno-strength-reduce -fno-builtin-printf -fno-builtin-fprintf -fno-builtin-vprintf -fno-builtin-vfprintf -fno-builtin-puts -fno-math-errno -mno-thumb-interwork -mthumb --specs=nano.specs --specs=nosys.specs -D__USE_CMSIS -Werror=deprecated-declarations -DNDEBUG=1 -Wno-error=double-promotion -Wno-error=missing-declarations -Wno-error=float-equal -Wno-error=cpp -std=c11 -DAP_SIGNED_FIRMWARE=0 -MMD -ffile-prefix-map=../..=../.. -DHAL_CAN_IFACES=2 -Os -Os")
+
+set(CMAKE_CXX_FLAGS "-std=gnu++11 -fdata-sections -ffunction-sections -fno-exceptions -fsigned-char -Wall -Wextra -Wpointer-arith -Wno-unused-parameter -Wno-missing-field-initializers -Wno-redundant-decls -Wno-unknown-pragmas -Wno-expansion-to-defined -Werror=reorder -Werror=cast-align -Werror=attributes -Werror=format-security -Werror=format-extra-args -Werror=enum-compare -Werror=format -Werror=array-bounds -Werror=uninitialized -Werror=init-self -Werror=narrowing -Werror=return-type -Werror=switch -Werror=sign-compare -Werror=type-limits -Werror=undef -Werror=unused-result -Werror=unused-value -Werror=unused-variable -Werror=delete-non-virtual-dtor -Wfatal-errors -Wno-trigraphs -Werror=parentheses -DARDUPILOT_BUILD -Wuninitialized -Warray-bounds -Wno-format-contains-nul -Werror=unused-but-set-variable -fsingle-precision-constant -Wno-psabi -Werror=suggest-override -Werror=implicit-fallthrough -Werror=maybe-uninitialized -Werror=duplicated-cond -Werror=sizeof-pointer-div -D__AP_LINE__=__LINE__ -ffunction-sections -fdata-sections -fsigned-char -Wall -Wextra -Werror=format -Wpointer-arith -Wcast-align -Wno-missing-field-initializers -Wno-unused-parameter -Wno-redundant-decls -Wno-unknown-pragmas -Wno-trigraphs -Werror=return-type -Werror=unused-result -Werror=unused-variable -Werror=narrowing -Werror=attributes -Werror=overflow -Werror=parentheses -Werror=format-extra-args -Werror=ignored-qualifiers -Werror=undef -DARDUPILOT_BUILD -Wno-format-contains-nul -fsingle-precision-constant -mcpu=cortex-m7 -mfpu=fpv5-d16 -mfloat-abi=hard -DARM_MATH_CM7 -u_printf_float -Wlogical-op -Wframe-larger-than=1300 -Wno-attributes -fno-exceptions -Wall -Wextra -Wno-sign-compare -Wfloat-equal -Wpointer-arith -Wmissing-declarations -Wno-unused-parameter -Werror=array-bounds -Wfatal-errors -Werror=uninitialized -Werror=init-self -Werror=unused-but-set-variable -Wno-missing-field-initializers -Wno-trigraphs -fno-strict-aliasing -fomit-frame-pointer -falign-functions=16 -ffunction-sections -fdata-sections -fno-strength-reduce -fno-builtin-printf -fno-builtin-fprintf -fno-builtin-vprintf -fno-builtin-vfprintf -fno-builtin-puts -fno-math-errno -mno-thumb-interwork -mthumb --specs=nano.specs --specs=nosys.specs -D__USE_CMSIS -Werror=deprecated-declarations -DNDEBUG=1 -Wno-error=double-promotion -Wno-error=missing-declarations -Wno-error=float-equal -Wno-error=cpp -fno-rtti -fno-threadsafe-statics -Werror -DNEW_NOTHROW=new -fcheck-new -MMD -ffile-prefix-map=../..=../.. -Os -Os -DHAL_HAVE_AP_ROMFS_EMBEDDED_H  -D_AP_CONFIG_H_=1 -DWAF_BUILD=1 -D__STDC_FORMAT_MACROS=1 -DAP_SIM_ENABLED=1 -DHAL_WITH_SPI=1 -DHAL_WITH_RAMTRON=1 -DAP_OPENDRONEID_ENABLED=1 -DAP_SIGNED_FIRMWARE=0 -DAP_NOTIFY_LP5562_BUS=2 -DAP_NOTIFY_LP5562_ADDR=48 -DHAL_NUM_CAN_IFACES=2 -DHAL_CAN_WITH_SOCKETCAN=1 -DHAVE_FEENABLEEXCEPT=1 -DHAVE_CMATH_ISFINITE=1 -DHAVE_CMATH_ISINF=1 -DHAVE_CMATH_ISNAN=1 -DNEED_CMATH_ISFINITE_STD_NAMESPACE=1 -DNEED_CMATH_ISINF_STD_NAMESPACE=1 -DNEED_CMATH_ISNAN_STD_NAMESPACE=1 -DHAVE_ENDIAN_H=1 -DHAVE_BYTESWAP_H=1 -DHAVE_MEMRCHR=1 -D_GNU_SOURCE=1 ")
 
 # Build the gen-bindings tool
 add_executable(gen-bindings libraries/AP_Scripting/generator/src/main.c)
@@ -270,37 +284,6 @@ set_target_properties(dronecan_dsdlc_generated PROPERTIES
 
 #------------------------------------------------
 
-set(littlefs_SOURCES #13
-	modules/littlefs/lfs.h
-	modules/littlefs/lfs_util.h
-	modules/littlefs/lfs.c
-	modules/littlefs/lfs_util.c
-	modules/littlefs/bd/lfs_emubd.h
-	modules/littlefs/bd/lfs_filebd.h
-	modules/littlefs/bd/lfs_rambd.h
-	modules/littlefs/bd/lfs_filebd.c
-)
-
-set(littlefs_INCLUDES
-    /home/buzz2/ardupilot/build/sitl
-    /home/buzz2/ardupilot/libraries/
-    /home/buzz2/ardupilot/modules/littlefs/
-    /home/buzz2/ardupilot/libraries/AP_Common/missing
-    /home/buzz2/ardupilot/modules/lwip/src/include
-    /home/buzz2/ardupilot/libraries/AP_Networking/config
-    /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include)
-
-add_library(littlefs PUBLIC ${littlefs_SOURCES}) #2
-target_compile_definitions(littlefs PUBLIC -DLFS_NO_DEBUG -DLFS_NO_WARN -DLFS_NO_ERROR -DLFS_NO_ASSERT) #1
-target_include_directories(littlefs PUBLIC ${littlefs_INCLUDES})
-
-set_target_properties(littlefs PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
-    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
-)
-
-#------------------------------------------------
-
 set(AC_AttitudeControl_SOURCES #13
 	libraries/AC_AttitudeControl/AC_AttitudeControl.h
 	libraries/AC_AttitudeControl/AC_AttitudeControl_Heli.h
@@ -326,26 +309,70 @@ set(AC_AttitudeControl_SOURCES #13
 )
 
 set(AC_AttitudeControl_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AC_AttitudeControl PUBLIC ${AC_AttitudeControl_SOURCES}) #2
-target_compile_definitions(AC_AttitudeControl PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AC_AttitudeControl PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AC_AttitudeControl PUBLIC ${AC_AttitudeControl_INCLUDES})
 
 set_target_properties(AC_AttitudeControl PROPERTIES
@@ -354,7 +381,7 @@ set_target_properties(AC_AttitudeControl PROPERTIES
 )
 
 add_library(AC_AttitudeControl_Plane PUBLIC ${AC_AttitudeControl_SOURCES}) #2
-target_compile_definitions(AC_AttitudeControl_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AC_AttitudeControl_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AC_AttitudeControl_Plane PUBLIC ${AC_AttitudeControl_INCLUDES})
 
 set_target_properties(AC_AttitudeControl_Plane PROPERTIES
@@ -365,7 +392,6 @@ set_target_properties(AC_AttitudeControl_Plane PROPERTIES
 
 target_link_libraries(AC_AttitudeControl mavlink) #clean
 target_link_libraries(AC_AttitudeControl canard) #clean
-target_link_libraries(AC_AttitudeControl littlefs) #clean
 
 #------------------------------------------------
 
@@ -382,26 +408,70 @@ set(AC_AutoTune_SOURCES #13
 )
 
 set(AC_AutoTune_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AC_AutoTune PUBLIC ${AC_AutoTune_SOURCES}) #2
-target_compile_definitions(AC_AutoTune PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AC_AutoTune PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AC_AutoTune PUBLIC ${AC_AutoTune_INCLUDES})
 
 set_target_properties(AC_AutoTune PROPERTIES
@@ -410,7 +480,7 @@ set_target_properties(AC_AutoTune PROPERTIES
 )
 
 add_library(AC_AutoTune_Plane PUBLIC ${AC_AutoTune_SOURCES}) #2
-target_compile_definitions(AC_AutoTune_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AC_AutoTune_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AC_AutoTune_Plane PUBLIC ${AC_AutoTune_INCLUDES})
 
 set_target_properties(AC_AutoTune_Plane PROPERTIES
@@ -421,7 +491,6 @@ set_target_properties(AC_AutoTune_Plane PROPERTIES
 
 target_link_libraries(AC_AutoTune mavlink) #clean
 target_link_libraries(AC_AutoTune canard) #clean
-target_link_libraries(AC_AutoTune littlefs) #clean
 
 #------------------------------------------------
 
@@ -433,21 +502,65 @@ set(AC_Autorotation_SOURCES #13
 )
 
 set(AC_Autorotation_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -462,7 +575,6 @@ set_target_properties(AC_Autorotation PROPERTIES
 
 target_link_libraries(AC_Autorotation mavlink) #clean
 target_link_libraries(AC_Autorotation canard) #clean
-target_link_libraries(AC_Autorotation littlefs) #clean
 
 #------------------------------------------------
 
@@ -485,26 +597,70 @@ set(AC_Avoidance_SOURCES #13
 )
 
 set(AC_Avoidance_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AC_Avoidance PUBLIC ${AC_Avoidance_SOURCES}) #2
-target_compile_definitions(AC_Avoidance PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AC_Avoidance PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AC_Avoidance PUBLIC ${AC_Avoidance_INCLUDES})
 
 set_target_properties(AC_Avoidance PROPERTIES
@@ -513,7 +669,7 @@ set_target_properties(AC_Avoidance PROPERTIES
 )
 
 add_library(AC_Avoidance_Plane PUBLIC ${AC_Avoidance_SOURCES}) #2
-target_compile_definitions(AC_Avoidance_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AC_Avoidance_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AC_Avoidance_Plane PUBLIC ${AC_Avoidance_INCLUDES})
 
 set_target_properties(AC_Avoidance_Plane PROPERTIES
@@ -524,52 +680,6 @@ set_target_properties(AC_Avoidance_Plane PROPERTIES
 
 target_link_libraries(AC_Avoidance mavlink) #clean
 target_link_libraries(AC_Avoidance canard) #clean
-target_link_libraries(AC_Avoidance littlefs) #clean
-
-#------------------------------------------------
-
-set(AC_CustomControl_SOURCES #13
-	libraries/AC_CustomControl/AC_CustomControl.h
-	libraries/AC_CustomControl/AC_CustomControl_Backend.h
-	libraries/AC_CustomControl/AC_CustomControl_Empty.h
-	libraries/AC_CustomControl/AC_CustomControl_PID.h
-	libraries/AC_CustomControl/AC_CustomControl_config.h
-	libraries/AC_CustomControl/AC_CustomControl.cpp
-	libraries/AC_CustomControl/AC_CustomControl_Empty.cpp
-	libraries/AC_CustomControl/AC_CustomControl_PID.cpp
-)
-
-set(AC_CustomControl_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
-    modules/DroneCAN/libcanard
-    libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
-    /home/buzz2/ardupilot/libraries/
-    /home/buzz2/ardupilot/modules/littlefs/
-    /home/buzz2/ardupilot/libraries/AP_Common/missing
-    /home/buzz2/ardupilot/modules/lwip/src/include
-    /home/buzz2/ardupilot/libraries/AP_Networking/config
-    /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
-    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
-    /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
-
-add_library(AC_CustomControl PUBLIC ${AC_CustomControl_SOURCES}) #2
-target_include_directories(AC_CustomControl PUBLIC ${AC_CustomControl_INCLUDES})
-
-set_target_properties(AC_CustomControl PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
-    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
-)
-
-
-target_link_libraries(AC_CustomControl mavlink) #clean
-target_link_libraries(AC_CustomControl canard) #clean
-target_link_libraries(AC_CustomControl littlefs) #clean
 
 #------------------------------------------------
 
@@ -581,21 +691,65 @@ set(AC_InputManager_SOURCES #13
 )
 
 set(AC_InputManager_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -610,7 +764,6 @@ set_target_properties(AC_InputManager PROPERTIES
 
 target_link_libraries(AC_InputManager mavlink) #clean
 target_link_libraries(AC_InputManager canard) #clean
-target_link_libraries(AC_InputManager littlefs) #clean
 
 #------------------------------------------------
 
@@ -637,21 +790,65 @@ set(AC_PID_SOURCES #13
 )
 
 set(AC_PID_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -666,7 +863,6 @@ set_target_properties(AC_PID PROPERTIES
 
 target_link_libraries(AC_PID mavlink) #clean
 target_link_libraries(AC_PID canard) #clean
-target_link_libraries(AC_PID littlefs) #clean
 
 #------------------------------------------------
 
@@ -691,26 +887,70 @@ set(AC_PrecLand_SOURCES #13
 )
 
 set(AC_PrecLand_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AC_PrecLand PUBLIC ${AC_PrecLand_SOURCES}) #2
-target_compile_definitions(AC_PrecLand PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AC_PrecLand PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AC_PrecLand PUBLIC ${AC_PrecLand_INCLUDES})
 
 set_target_properties(AC_PrecLand PROPERTIES
@@ -719,7 +959,7 @@ set_target_properties(AC_PrecLand PROPERTIES
 )
 
 add_library(AC_PrecLand_Plane PUBLIC ${AC_PrecLand_SOURCES}) #2
-target_compile_definitions(AC_PrecLand_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AC_PrecLand_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AC_PrecLand_Plane PUBLIC ${AC_PrecLand_INCLUDES})
 
 set_target_properties(AC_PrecLand_Plane PROPERTIES
@@ -730,7 +970,6 @@ set_target_properties(AC_PrecLand_Plane PROPERTIES
 
 target_link_libraries(AC_PrecLand mavlink) #clean
 target_link_libraries(AC_PrecLand canard) #clean
-target_link_libraries(AC_PrecLand littlefs) #clean
 
 #------------------------------------------------
 
@@ -741,21 +980,65 @@ set(AC_Sprayer_SOURCES #13
 )
 
 set(AC_Sprayer_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -770,7 +1053,6 @@ set_target_properties(AC_Sprayer PROPERTIES
 
 target_link_libraries(AC_Sprayer mavlink) #clean
 target_link_libraries(AC_Sprayer canard) #clean
-target_link_libraries(AC_Sprayer littlefs) #clean
 
 #------------------------------------------------
 
@@ -787,26 +1069,70 @@ set(AC_WPNav_SOURCES #13
 )
 
 set(AC_WPNav_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AC_WPNav PUBLIC ${AC_WPNav_SOURCES}) #2
-target_compile_definitions(AC_WPNav PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AC_WPNav PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AC_WPNav PUBLIC ${AC_WPNav_INCLUDES})
 
 set_target_properties(AC_WPNav PROPERTIES
@@ -815,7 +1141,7 @@ set_target_properties(AC_WPNav PROPERTIES
 )
 
 add_library(AC_WPNav_Plane PUBLIC ${AC_WPNav_SOURCES}) #2
-target_compile_definitions(AC_WPNav_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AC_WPNav_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AC_WPNav_Plane PUBLIC ${AC_WPNav_INCLUDES})
 
 set_target_properties(AC_WPNav_Plane PROPERTIES
@@ -826,7 +1152,6 @@ set_target_properties(AC_WPNav_Plane PROPERTIES
 
 target_link_libraries(AC_WPNav mavlink) #clean
 target_link_libraries(AC_WPNav canard) #clean
-target_link_libraries(AC_WPNav littlefs) #clean
 
 #------------------------------------------------
 
@@ -851,21 +1176,65 @@ set(APM_Control_SOURCES #13
 )
 
 set(APM_Control_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -880,7 +1249,6 @@ set_target_properties(APM_Control PROPERTIES
 
 target_link_libraries(APM_Control mavlink) #clean
 target_link_libraries(APM_Control canard) #clean
-target_link_libraries(APM_Control littlefs) #clean
 
 #------------------------------------------------
 
@@ -890,21 +1258,65 @@ set(AP_ADC_SOURCES #13
 )
 
 set(AP_ADC_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -919,7 +1331,6 @@ set_target_properties(AP_ADC PROPERTIES
 
 target_link_libraries(AP_ADC mavlink) #clean
 target_link_libraries(AP_ADC canard) #clean
-target_link_libraries(AP_ADC littlefs) #clean
 
 #------------------------------------------------
 
@@ -940,26 +1351,70 @@ set(AP_ADSB_SOURCES #13
 )
 
 set(AP_ADSB_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_ADSB PUBLIC ${AP_ADSB_SOURCES}) #2
-target_compile_definitions(AP_ADSB PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_ADSB PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_ADSB PUBLIC ${AP_ADSB_INCLUDES})
 
 set_target_properties(AP_ADSB PROPERTIES
@@ -968,7 +1423,7 @@ set_target_properties(AP_ADSB PROPERTIES
 )
 
 add_library(AP_ADSB_Plane PUBLIC ${AP_ADSB_SOURCES}) #2
-target_compile_definitions(AP_ADSB_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_ADSB_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_ADSB_Plane PUBLIC ${AP_ADSB_INCLUDES})
 
 set_target_properties(AP_ADSB_Plane PROPERTIES
@@ -979,7 +1434,6 @@ set_target_properties(AP_ADSB_Plane PROPERTIES
 
 target_link_libraries(AP_ADSB mavlink) #clean
 target_link_libraries(AP_ADSB canard) #clean
-target_link_libraries(AP_ADSB littlefs) #clean
 
 #------------------------------------------------
 
@@ -1002,26 +1456,70 @@ set(AP_AHRS_SOURCES #13
 )
 
 set(AP_AHRS_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_AHRS PUBLIC ${AP_AHRS_SOURCES}) #2
-target_compile_definitions(AP_AHRS PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_AHRS PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_AHRS PUBLIC ${AP_AHRS_INCLUDES})
 
 set_target_properties(AP_AHRS PROPERTIES
@@ -1030,7 +1528,7 @@ set_target_properties(AP_AHRS PROPERTIES
 )
 
 add_library(AP_AHRS_Plane PUBLIC ${AP_AHRS_SOURCES}) #2
-target_compile_definitions(AP_AHRS_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_AHRS_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_AHRS_Plane PUBLIC ${AP_AHRS_INCLUDES})
 
 set_target_properties(AP_AHRS_Plane PROPERTIES
@@ -1041,7 +1539,6 @@ set_target_properties(AP_AHRS_Plane PROPERTIES
 
 target_link_libraries(AP_AHRS mavlink) #clean
 target_link_libraries(AP_AHRS canard) #clean
-target_link_libraries(AP_AHRS littlefs) #clean
 
 #------------------------------------------------
 
@@ -1053,21 +1550,65 @@ set(AP_AccelCal_SOURCES #13
 )
 
 set(AP_AccelCal_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1082,7 +1623,6 @@ set_target_properties(AP_AccelCal PROPERTIES
 
 target_link_libraries(AP_AccelCal mavlink) #clean
 target_link_libraries(AP_AccelCal canard) #clean
-target_link_libraries(AP_AccelCal littlefs) #clean
 
 #------------------------------------------------
 
@@ -1093,21 +1633,65 @@ set(AP_AdvancedFailsafe_SOURCES #13
 )
 
 set(AP_AdvancedFailsafe_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1122,7 +1706,6 @@ set_target_properties(AP_AdvancedFailsafe PROPERTIES
 
 target_link_libraries(AP_AdvancedFailsafe mavlink) #clean
 target_link_libraries(AP_AdvancedFailsafe canard) #clean
-target_link_libraries(AP_AdvancedFailsafe littlefs) #clean
 
 #------------------------------------------------
 
@@ -1162,26 +1745,70 @@ set(AP_Airspeed_SOURCES #13
 )
 
 set(AP_Airspeed_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Airspeed PUBLIC ${AP_Airspeed_SOURCES}) #2
-target_compile_definitions(AP_Airspeed PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Airspeed PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Airspeed PUBLIC ${AP_Airspeed_INCLUDES})
 
 set_target_properties(AP_Airspeed PROPERTIES
@@ -1190,7 +1817,7 @@ set_target_properties(AP_Airspeed PROPERTIES
 )
 
 add_library(AP_Airspeed_Plane PUBLIC ${AP_Airspeed_SOURCES}) #2
-target_compile_definitions(AP_Airspeed_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Airspeed_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Airspeed_Plane PUBLIC ${AP_Airspeed_INCLUDES})
 
 set_target_properties(AP_Airspeed_Plane PROPERTIES
@@ -1201,7 +1828,6 @@ set_target_properties(AP_Airspeed_Plane PROPERTIES
 
 target_link_libraries(AP_Airspeed mavlink) #clean
 target_link_libraries(AP_Airspeed canard) #clean
-target_link_libraries(AP_Airspeed littlefs) #clean
 
 #------------------------------------------------
 
@@ -1257,26 +1883,70 @@ set(AP_Baro_SOURCES #13
 )
 
 set(AP_Baro_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Baro PUBLIC ${AP_Baro_SOURCES}) #2
-target_compile_definitions(AP_Baro PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Baro PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Baro PUBLIC ${AP_Baro_INCLUDES})
 
 set_target_properties(AP_Baro PROPERTIES
@@ -1285,7 +1955,7 @@ set_target_properties(AP_Baro PROPERTIES
 )
 
 add_library(AP_Baro_Plane PUBLIC ${AP_Baro_SOURCES}) #2
-target_compile_definitions(AP_Baro_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Baro_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Baro_Plane PUBLIC ${AP_Baro_INCLUDES})
 
 set_target_properties(AP_Baro_Plane PROPERTIES
@@ -1296,7 +1966,6 @@ set_target_properties(AP_Baro_Plane PROPERTIES
 
 target_link_libraries(AP_Baro mavlink) #clean
 target_link_libraries(AP_Baro canard) #clean
-target_link_libraries(AP_Baro littlefs) #clean
 
 #------------------------------------------------
 
@@ -1362,26 +2031,70 @@ set(AP_BattMonitor_SOURCES #13
 )
 
 set(AP_BattMonitor_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_BattMonitor PUBLIC ${AP_BattMonitor_SOURCES}) #2
-target_compile_definitions(AP_BattMonitor PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_BattMonitor PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_BattMonitor PUBLIC ${AP_BattMonitor_INCLUDES})
 
 set_target_properties(AP_BattMonitor PROPERTIES
@@ -1390,7 +2103,7 @@ set_target_properties(AP_BattMonitor PROPERTIES
 )
 
 add_library(AP_BattMonitor_Plane PUBLIC ${AP_BattMonitor_SOURCES}) #2
-target_compile_definitions(AP_BattMonitor_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_BattMonitor_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_BattMonitor_Plane PUBLIC ${AP_BattMonitor_INCLUDES})
 
 set_target_properties(AP_BattMonitor_Plane PROPERTIES
@@ -1401,7 +2114,6 @@ set_target_properties(AP_BattMonitor_Plane PROPERTIES
 
 target_link_libraries(AP_BattMonitor mavlink) #clean
 target_link_libraries(AP_BattMonitor canard) #clean
-target_link_libraries(AP_BattMonitor littlefs) #clean
 
 #------------------------------------------------
 
@@ -1423,21 +2135,65 @@ set(AP_Beacon_SOURCES #13
 )
 
 set(AP_Beacon_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1452,7 +2208,6 @@ set_target_properties(AP_Beacon PROPERTIES
 
 target_link_libraries(AP_Beacon mavlink) #clean
 target_link_libraries(AP_Beacon canard) #clean
-target_link_libraries(AP_Beacon littlefs) #clean
 
 #------------------------------------------------
 
@@ -1465,26 +2220,70 @@ set(AP_BoardConfig_SOURCES #13
 )
 
 set(AP_BoardConfig_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_BoardConfig PUBLIC ${AP_BoardConfig_SOURCES}) #2
-target_compile_definitions(AP_BoardConfig PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_BoardConfig PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_BoardConfig PUBLIC ${AP_BoardConfig_INCLUDES})
 
 set_target_properties(AP_BoardConfig PROPERTIES
@@ -1493,7 +2292,7 @@ set_target_properties(AP_BoardConfig PROPERTIES
 )
 
 add_library(AP_BoardConfig_Plane PUBLIC ${AP_BoardConfig_SOURCES}) #2
-target_compile_definitions(AP_BoardConfig_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_BoardConfig_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_BoardConfig_Plane PUBLIC ${AP_BoardConfig_INCLUDES})
 
 set_target_properties(AP_BoardConfig_Plane PROPERTIES
@@ -1504,7 +2303,6 @@ set_target_properties(AP_BoardConfig_Plane PROPERTIES
 
 target_link_libraries(AP_BoardConfig mavlink) #clean
 target_link_libraries(AP_BoardConfig canard) #clean
-target_link_libraries(AP_BoardConfig littlefs) #clean
 
 #------------------------------------------------
 
@@ -1514,21 +2312,65 @@ set(AP_Button_SOURCES #13
 )
 
 set(AP_Button_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1543,7 +2385,6 @@ set_target_properties(AP_Button PROPERTIES
 
 target_link_libraries(AP_Button mavlink) #clean
 target_link_libraries(AP_Button canard) #clean
-target_link_libraries(AP_Button littlefs) #clean
 
 #------------------------------------------------
 
@@ -1565,21 +2406,65 @@ set(AP_CANManager_SOURCES #13
 )
 
 set(AP_CANManager_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1594,46 +2479,6 @@ set_target_properties(AP_CANManager PROPERTIES
 
 target_link_libraries(AP_CANManager mavlink) #clean
 target_link_libraries(AP_CANManager canard) #clean
-target_link_libraries(AP_CANManager littlefs) #clean
-
-#------------------------------------------------
-
-set(AP_CSVReader_SOURCES #13
-	libraries/AP_CSVReader/AP_CSVReader.h
-	libraries/AP_CSVReader/AP_CSVReader.cpp
-)
-
-set(AP_CSVReader_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
-    modules/DroneCAN/libcanard
-    libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
-    /home/buzz2/ardupilot/libraries/
-    /home/buzz2/ardupilot/modules/littlefs/
-    /home/buzz2/ardupilot/libraries/AP_Common/missing
-    /home/buzz2/ardupilot/modules/lwip/src/include
-    /home/buzz2/ardupilot/libraries/AP_Networking/config
-    /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
-    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
-    /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
-
-add_library(AP_CSVReader PUBLIC ${AP_CSVReader_SOURCES}) #2
-target_include_directories(AP_CSVReader PUBLIC ${AP_CSVReader_INCLUDES})
-
-set_target_properties(AP_CSVReader PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
-    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
-)
-
-
-target_link_libraries(AP_CSVReader mavlink) #clean
-target_link_libraries(AP_CSVReader canard) #clean
-target_link_libraries(AP_CSVReader littlefs) #clean
 
 #------------------------------------------------
 
@@ -1667,21 +2512,65 @@ set(AP_Camera_SOURCES #13
 )
 
 set(AP_Camera_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1696,7 +2585,6 @@ set_target_properties(AP_Camera PROPERTIES
 
 target_link_libraries(AP_Camera mavlink) #clean
 target_link_libraries(AP_Camera canard) #clean
-target_link_libraries(AP_Camera littlefs) #clean
 
 #------------------------------------------------
 
@@ -1710,21 +2598,65 @@ set(AP_CheckFirmware_SOURCES #13
 )
 
 set(AP_CheckFirmware_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1739,7 +2671,6 @@ set_target_properties(AP_CheckFirmware PROPERTIES
 
 target_link_libraries(AP_CheckFirmware mavlink) #clean
 target_link_libraries(AP_CheckFirmware canard) #clean
-target_link_libraries(AP_CheckFirmware littlefs) #clean
 
 #------------------------------------------------
 
@@ -1770,21 +2701,65 @@ set(AP_Common_SOURCES #13
 )
 
 set(AP_Common_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1799,7 +2774,6 @@ set_target_properties(AP_Common PROPERTIES
 
 target_link_libraries(AP_Common mavlink) #clean
 target_link_libraries(AP_Common canard) #clean
-target_link_libraries(AP_Common littlefs) #clean
 
 #------------------------------------------------
 
@@ -1863,21 +2837,65 @@ set(AP_Compass_SOURCES #13
 )
 
 set(AP_Compass_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1892,7 +2910,6 @@ set_target_properties(AP_Compass PROPERTIES
 
 target_link_libraries(AP_Compass mavlink) #clean
 target_link_libraries(AP_Compass canard) #clean
-target_link_libraries(AP_Compass littlefs) #clean
 
 #------------------------------------------------
 
@@ -1904,21 +2921,65 @@ set(AP_CustomRotations_SOURCES #13
 )
 
 set(AP_CustomRotations_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1933,7 +2994,6 @@ set_target_properties(AP_CustomRotations PROPERTIES
 
 target_link_libraries(AP_CustomRotations mavlink) #clean
 target_link_libraries(AP_CustomRotations canard) #clean
-target_link_libraries(AP_CustomRotations littlefs) #clean
 
 #------------------------------------------------
 
@@ -1960,26 +3020,70 @@ set(AP_DAL_SOURCES #13
 )
 
 set(AP_DAL_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_DAL PUBLIC ${AP_DAL_SOURCES}) #2
-target_compile_definitions(AP_DAL PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_DAL PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_DAL PUBLIC ${AP_DAL_INCLUDES})
 
 set_target_properties(AP_DAL PROPERTIES
@@ -1988,7 +3092,7 @@ set_target_properties(AP_DAL PROPERTIES
 )
 
 add_library(AP_DAL_Plane PUBLIC ${AP_DAL_SOURCES}) #2
-target_compile_definitions(AP_DAL_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_DAL_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_DAL_Plane PUBLIC ${AP_DAL_INCLUDES})
 
 set_target_properties(AP_DAL_Plane PROPERTIES
@@ -1999,7 +3103,6 @@ set_target_properties(AP_DAL_Plane PROPERTIES
 
 target_link_libraries(AP_DAL mavlink) #clean
 target_link_libraries(AP_DAL canard) #clean
-target_link_libraries(AP_DAL littlefs) #clean
 
 #------------------------------------------------
 
@@ -2021,21 +3124,65 @@ set(AP_DDS_SOURCES #13
 )
 
 set(AP_DDS_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2050,7 +3197,6 @@ set_target_properties(AP_DDS PROPERTIES
 
 target_link_libraries(AP_DDS mavlink) #clean
 target_link_libraries(AP_DDS canard) #clean
-target_link_libraries(AP_DDS littlefs) #clean
 
 #------------------------------------------------
 
@@ -2061,21 +3207,65 @@ set(AP_Declination_SOURCES #13
 )
 
 set(AP_Declination_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2090,7 +3280,6 @@ set_target_properties(AP_Declination PROPERTIES
 
 target_link_libraries(AP_Declination mavlink) #clean
 target_link_libraries(AP_Declination canard) #clean
-target_link_libraries(AP_Declination littlefs) #clean
 
 #------------------------------------------------
 
@@ -2100,21 +3289,65 @@ set(AP_Devo_Telem_SOURCES #13
 )
 
 set(AP_Devo_Telem_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2129,7 +3362,6 @@ set_target_properties(AP_Devo_Telem PROPERTIES
 
 target_link_libraries(AP_Devo_Telem mavlink) #clean
 target_link_libraries(AP_Devo_Telem canard) #clean
-target_link_libraries(AP_Devo_Telem littlefs) #clean
 
 #------------------------------------------------
 
@@ -2145,21 +3377,65 @@ set(AP_DroneCAN_SOURCES #13
 )
 
 set(AP_DroneCAN_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2174,7 +3450,6 @@ set_target_properties(AP_DroneCAN PROPERTIES
 
 target_link_libraries(AP_DroneCAN mavlink) #clean
 target_link_libraries(AP_DroneCAN canard) #clean
-target_link_libraries(AP_DroneCAN littlefs) #clean
 
 #------------------------------------------------
 
@@ -2208,21 +3483,65 @@ set(AP_EFI_SOURCES #13
 )
 
 set(AP_EFI_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2237,7 +3556,6 @@ set_target_properties(AP_EFI PROPERTIES
 
 target_link_libraries(AP_EFI mavlink) #clean
 target_link_libraries(AP_EFI canard) #clean
-target_link_libraries(AP_EFI littlefs) #clean
 
 #------------------------------------------------
 
@@ -2253,26 +3571,70 @@ set(AP_ESC_Telem_SOURCES #13
 )
 
 set(AP_ESC_Telem_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_ESC_Telem PUBLIC ${AP_ESC_Telem_SOURCES}) #2
-target_compile_definitions(AP_ESC_Telem PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_ESC_Telem PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_ESC_Telem PUBLIC ${AP_ESC_Telem_INCLUDES})
 
 set_target_properties(AP_ESC_Telem PROPERTIES
@@ -2281,7 +3643,7 @@ set_target_properties(AP_ESC_Telem PROPERTIES
 )
 
 add_library(AP_ESC_Telem_Plane PUBLIC ${AP_ESC_Telem_SOURCES}) #2
-target_compile_definitions(AP_ESC_Telem_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_ESC_Telem_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_ESC_Telem_Plane PUBLIC ${AP_ESC_Telem_INCLUDES})
 
 set_target_properties(AP_ESC_Telem_Plane PROPERTIES
@@ -2292,7 +3654,6 @@ set_target_properties(AP_ESC_Telem_Plane PROPERTIES
 
 target_link_libraries(AP_ESC_Telem mavlink) #clean
 target_link_libraries(AP_ESC_Telem canard) #clean
-target_link_libraries(AP_ESC_Telem littlefs) #clean
 
 #------------------------------------------------
 
@@ -2318,26 +3679,70 @@ set(AP_ExternalAHRS_SOURCES #13
 )
 
 set(AP_ExternalAHRS_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_ExternalAHRS PUBLIC ${AP_ExternalAHRS_SOURCES}) #2
-target_compile_definitions(AP_ExternalAHRS PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_ExternalAHRS PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_ExternalAHRS PUBLIC ${AP_ExternalAHRS_INCLUDES})
 
 set_target_properties(AP_ExternalAHRS PROPERTIES
@@ -2346,7 +3751,7 @@ set_target_properties(AP_ExternalAHRS PROPERTIES
 )
 
 add_library(AP_ExternalAHRS_Plane PUBLIC ${AP_ExternalAHRS_SOURCES}) #2
-target_compile_definitions(AP_ExternalAHRS_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_ExternalAHRS_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_ExternalAHRS_Plane PUBLIC ${AP_ExternalAHRS_INCLUDES})
 
 set_target_properties(AP_ExternalAHRS_Plane PROPERTIES
@@ -2357,7 +3762,6 @@ set_target_properties(AP_ExternalAHRS_Plane PROPERTIES
 
 target_link_libraries(AP_ExternalAHRS mavlink) #clean
 target_link_libraries(AP_ExternalAHRS canard) #clean
-target_link_libraries(AP_ExternalAHRS littlefs) #clean
 
 #------------------------------------------------
 
@@ -2368,21 +3772,65 @@ set(AP_ExternalControl_SOURCES #13
 )
 
 set(AP_ExternalControl_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2397,7 +3845,6 @@ set_target_properties(AP_ExternalControl PROPERTIES
 
 target_link_libraries(AP_ExternalControl mavlink) #clean
 target_link_libraries(AP_ExternalControl canard) #clean
-target_link_libraries(AP_ExternalControl littlefs) #clean
 
 #------------------------------------------------
 
@@ -2407,21 +3854,65 @@ set(AP_FETtecOneWire_SOURCES #13
 )
 
 set(AP_FETtecOneWire_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2436,7 +3927,6 @@ set_target_properties(AP_FETtecOneWire PROPERTIES
 
 target_link_libraries(AP_FETtecOneWire mavlink) #clean
 target_link_libraries(AP_FETtecOneWire canard) #clean
-target_link_libraries(AP_FETtecOneWire littlefs) #clean
 
 #------------------------------------------------
 
@@ -2467,26 +3957,70 @@ set(AP_Filesystem_SOURCES #13
 )
 
 set(AP_Filesystem_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Filesystem PUBLIC ${AP_Filesystem_SOURCES}) #2
-target_compile_definitions(AP_Filesystem PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Filesystem PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Filesystem PUBLIC ${AP_Filesystem_INCLUDES})
 
 set_target_properties(AP_Filesystem PROPERTIES
@@ -2495,7 +4029,7 @@ set_target_properties(AP_Filesystem PROPERTIES
 )
 
 add_library(AP_Filesystem_Plane PUBLIC ${AP_Filesystem_SOURCES}) #2
-target_compile_definitions(AP_Filesystem_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Filesystem_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Filesystem_Plane PUBLIC ${AP_Filesystem_INCLUDES})
 
 set_target_properties(AP_Filesystem_Plane PROPERTIES
@@ -2506,7 +4040,6 @@ set_target_properties(AP_Filesystem_Plane PROPERTIES
 
 target_link_libraries(AP_Filesystem mavlink) #clean
 target_link_libraries(AP_Filesystem canard) #clean
-target_link_libraries(AP_Filesystem littlefs) #clean
 
 #------------------------------------------------
 
@@ -2516,21 +4049,65 @@ set(AP_FlashStorage_SOURCES #13
 )
 
 set(AP_FlashStorage_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2545,7 +4122,6 @@ set_target_properties(AP_FlashStorage PROPERTIES
 
 target_link_libraries(AP_FlashStorage mavlink) #clean
 target_link_libraries(AP_FlashStorage canard) #clean
-target_link_libraries(AP_FlashStorage littlefs) #clean
 
 #------------------------------------------------
 
@@ -2576,26 +4152,70 @@ set(AP_Frsky_Telem_SOURCES #13
 )
 
 set(AP_Frsky_Telem_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Frsky_Telem PUBLIC ${AP_Frsky_Telem_SOURCES}) #2
-target_compile_definitions(AP_Frsky_Telem PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Frsky_Telem PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Frsky_Telem PUBLIC ${AP_Frsky_Telem_INCLUDES})
 
 set_target_properties(AP_Frsky_Telem PROPERTIES
@@ -2604,7 +4224,7 @@ set_target_properties(AP_Frsky_Telem PROPERTIES
 )
 
 add_library(AP_Frsky_Telem_Plane PUBLIC ${AP_Frsky_Telem_SOURCES}) #2
-target_compile_definitions(AP_Frsky_Telem_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Frsky_Telem_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Frsky_Telem_Plane PUBLIC ${AP_Frsky_Telem_INCLUDES})
 
 set_target_properties(AP_Frsky_Telem_Plane PROPERTIES
@@ -2615,7 +4235,6 @@ set_target_properties(AP_Frsky_Telem_Plane PROPERTIES
 
 target_link_libraries(AP_Frsky_Telem mavlink) #clean
 target_link_libraries(AP_Frsky_Telem canard) #clean
-target_link_libraries(AP_Frsky_Telem littlefs) #clean
 
 #------------------------------------------------
 
@@ -2667,21 +4286,65 @@ set(AP_GPS_SOURCES #13
 )
 
 set(AP_GPS_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2696,7 +4359,6 @@ set_target_properties(AP_GPS PROPERTIES
 
 target_link_libraries(AP_GPS mavlink) #clean
 target_link_libraries(AP_GPS canard) #clean
-target_link_libraries(AP_GPS littlefs) #clean
 
 #------------------------------------------------
 
@@ -2707,21 +4369,65 @@ set(AP_GSOF_SOURCES #13
 )
 
 set(AP_GSOF_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2736,7 +4442,6 @@ set_target_properties(AP_GSOF PROPERTIES
 
 target_link_libraries(AP_GSOF mavlink) #clean
 target_link_libraries(AP_GSOF canard) #clean
-target_link_libraries(AP_GSOF littlefs) #clean
 
 #------------------------------------------------
 
@@ -2761,21 +4466,65 @@ set(AP_Generator_SOURCES #13
 )
 
 set(AP_Generator_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2790,7 +4539,6 @@ set_target_properties(AP_Generator PROPERTIES
 
 target_link_libraries(AP_Generator mavlink) #clean
 target_link_libraries(AP_Generator canard) #clean
-target_link_libraries(AP_Generator littlefs) #clean
 
 #------------------------------------------------
 
@@ -2807,21 +4555,65 @@ set(AP_Gripper_SOURCES #13
 )
 
 set(AP_Gripper_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2836,7 +4628,6 @@ set_target_properties(AP_Gripper PROPERTIES
 
 target_link_libraries(AP_Gripper mavlink) #clean
 target_link_libraries(AP_Gripper canard) #clean
-target_link_libraries(AP_Gripper littlefs) #clean
 
 #------------------------------------------------
 
@@ -2846,21 +4637,65 @@ set(AP_Hott_Telem_SOURCES #13
 )
 
 set(AP_Hott_Telem_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2875,7 +4710,6 @@ set_target_properties(AP_Hott_Telem PROPERTIES
 
 target_link_libraries(AP_Hott_Telem mavlink) #clean
 target_link_libraries(AP_Hott_Telem canard) #clean
-target_link_libraries(AP_Hott_Telem littlefs) #clean
 
 #------------------------------------------------
 
@@ -2888,21 +4722,65 @@ set(AP_ICEngine_SOURCES #13
 )
 
 set(AP_ICEngine_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2917,7 +4795,6 @@ set_target_properties(AP_ICEngine PROPERTIES
 
 target_link_libraries(AP_ICEngine mavlink) #clean
 target_link_libraries(AP_ICEngine canard) #clean
-target_link_libraries(AP_ICEngine littlefs) #clean
 
 #------------------------------------------------
 
@@ -2928,21 +4805,65 @@ set(AP_IOMCU_SOURCES #13
 )
 
 set(AP_IOMCU_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2957,7 +4878,6 @@ set_target_properties(AP_IOMCU PROPERTIES
 
 target_link_libraries(AP_IOMCU mavlink) #clean
 target_link_libraries(AP_IOMCU canard) #clean
-target_link_libraries(AP_IOMCU littlefs) #clean
 
 #------------------------------------------------
 
@@ -2974,21 +4894,65 @@ set(AP_IRLock_SOURCES #13
 )
 
 set(AP_IRLock_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3003,7 +4967,6 @@ set_target_properties(AP_IRLock PROPERTIES
 
 target_link_libraries(AP_IRLock mavlink) #clean
 target_link_libraries(AP_IRLock canard) #clean
-target_link_libraries(AP_IRLock littlefs) #clean
 
 #------------------------------------------------
 
@@ -3013,21 +4976,65 @@ set(AP_InertialNav_SOURCES #13
 )
 
 set(AP_InertialNav_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3042,7 +5049,6 @@ set_target_properties(AP_InertialNav PROPERTIES
 
 target_link_libraries(AP_InertialNav mavlink) #clean
 target_link_libraries(AP_InertialNav canard) #clean
-target_link_libraries(AP_InertialNav littlefs) #clean
 
 #------------------------------------------------
 
@@ -3099,26 +5105,70 @@ set(AP_InertialSensor_SOURCES #13
 )
 
 set(AP_InertialSensor_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_InertialSensor PUBLIC ${AP_InertialSensor_SOURCES}) #2
-target_compile_definitions(AP_InertialSensor PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_InertialSensor PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_InertialSensor PUBLIC ${AP_InertialSensor_INCLUDES})
 
 set_target_properties(AP_InertialSensor PROPERTIES
@@ -3127,7 +5177,7 @@ set_target_properties(AP_InertialSensor PROPERTIES
 )
 
 add_library(AP_InertialSensor_Plane PUBLIC ${AP_InertialSensor_SOURCES}) #2
-target_compile_definitions(AP_InertialSensor_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_InertialSensor_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_InertialSensor_Plane PUBLIC ${AP_InertialSensor_INCLUDES})
 
 set_target_properties(AP_InertialSensor_Plane PROPERTIES
@@ -3138,7 +5188,6 @@ set_target_properties(AP_InertialSensor_Plane PROPERTIES
 
 target_link_libraries(AP_InertialSensor mavlink) #clean
 target_link_libraries(AP_InertialSensor canard) #clean
-target_link_libraries(AP_InertialSensor littlefs) #clean
 
 #------------------------------------------------
 
@@ -3149,21 +5198,65 @@ set(AP_InternalError_SOURCES #13
 )
 
 set(AP_InternalError_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3178,7 +5271,6 @@ set_target_properties(AP_InternalError PROPERTIES
 
 target_link_libraries(AP_InternalError mavlink) #clean
 target_link_libraries(AP_InternalError canard) #clean
-target_link_libraries(AP_InternalError littlefs) #clean
 
 #------------------------------------------------
 
@@ -3188,21 +5280,65 @@ set(AP_JSButton_SOURCES #13
 )
 
 set(AP_JSButton_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3217,7 +5353,6 @@ set_target_properties(AP_JSButton PROPERTIES
 
 target_link_libraries(AP_JSButton mavlink) #clean
 target_link_libraries(AP_JSButton canard) #clean
-target_link_libraries(AP_JSButton littlefs) #clean
 
 #------------------------------------------------
 
@@ -3227,21 +5362,65 @@ set(AP_JSON_SOURCES #13
 )
 
 set(AP_JSON_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3256,7 +5435,6 @@ set_target_properties(AP_JSON PROPERTIES
 
 target_link_libraries(AP_JSON mavlink) #clean
 target_link_libraries(AP_JSON canard) #clean
-target_link_libraries(AP_JSON littlefs) #clean
 
 #------------------------------------------------
 
@@ -3267,21 +5445,65 @@ set(AP_KDECAN_SOURCES #13
 )
 
 set(AP_KDECAN_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3296,7 +5518,6 @@ set_target_properties(AP_KDECAN PROPERTIES
 
 target_link_libraries(AP_KDECAN mavlink) #clean
 target_link_libraries(AP_KDECAN canard) #clean
-target_link_libraries(AP_KDECAN littlefs) #clean
 
 #------------------------------------------------
 
@@ -3306,21 +5527,65 @@ set(AP_L1_Control_SOURCES #13
 )
 
 set(AP_L1_Control_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3335,7 +5600,6 @@ set_target_properties(AP_L1_Control PROPERTIES
 
 target_link_libraries(AP_L1_Control mavlink) #clean
 target_link_libraries(AP_L1_Control canard) #clean
-target_link_libraries(AP_L1_Control littlefs) #clean
 
 #------------------------------------------------
 
@@ -3345,21 +5609,65 @@ set(AP_LTM_Telem_SOURCES #13
 )
 
 set(AP_LTM_Telem_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3374,7 +5682,6 @@ set_target_properties(AP_LTM_Telem PROPERTIES
 
 target_link_libraries(AP_LTM_Telem mavlink) #clean
 target_link_libraries(AP_LTM_Telem canard) #clean
-target_link_libraries(AP_LTM_Telem littlefs) #clean
 
 #------------------------------------------------
 
@@ -3389,26 +5696,70 @@ set(AP_Landing_SOURCES #13
 )
 
 set(AP_Landing_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Landing PUBLIC ${AP_Landing_SOURCES}) #2
-target_compile_definitions(AP_Landing PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Landing PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Landing PUBLIC ${AP_Landing_INCLUDES})
 
 set_target_properties(AP_Landing PROPERTIES
@@ -3417,7 +5768,7 @@ set_target_properties(AP_Landing PROPERTIES
 )
 
 add_library(AP_Landing_Plane PUBLIC ${AP_Landing_SOURCES}) #2
-target_compile_definitions(AP_Landing_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Landing_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Landing_Plane PUBLIC ${AP_Landing_INCLUDES})
 
 set_target_properties(AP_Landing_Plane PROPERTIES
@@ -3428,7 +5779,6 @@ set_target_properties(AP_Landing_Plane PROPERTIES
 
 target_link_libraries(AP_Landing mavlink) #clean
 target_link_libraries(AP_Landing canard) #clean
-target_link_libraries(AP_Landing littlefs) #clean
 
 #------------------------------------------------
 
@@ -3444,21 +5794,65 @@ set(AP_LeakDetector_SOURCES #13
 )
 
 set(AP_LeakDetector_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3473,7 +5867,6 @@ set_target_properties(AP_LeakDetector PROPERTIES
 
 target_link_libraries(AP_LeakDetector mavlink) #clean
 target_link_libraries(AP_LeakDetector canard) #clean
-target_link_libraries(AP_LeakDetector littlefs) #clean
 
 #------------------------------------------------
 
@@ -3484,21 +5877,65 @@ set(AP_LightWareSerial_SOURCES #13
 )
 
 set(AP_LightWareSerial_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3513,7 +5950,6 @@ set_target_properties(AP_LightWareSerial PROPERTIES
 
 target_link_libraries(AP_LightWareSerial mavlink) #clean
 target_link_libraries(AP_LightWareSerial canard) #clean
-target_link_libraries(AP_LightWareSerial littlefs) #clean
 
 #------------------------------------------------
 
@@ -3541,26 +5977,70 @@ set(AP_Logger_SOURCES #13
 )
 
 set(AP_Logger_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Logger PUBLIC ${AP_Logger_SOURCES}) #2
-target_compile_definitions(AP_Logger PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Logger PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Logger PUBLIC ${AP_Logger_INCLUDES})
 
 set_target_properties(AP_Logger PROPERTIES
@@ -3569,7 +6049,7 @@ set_target_properties(AP_Logger PROPERTIES
 )
 
 add_library(AP_Logger_Plane PUBLIC ${AP_Logger_SOURCES}) #2
-target_compile_definitions(AP_Logger_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Logger_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Logger_Plane PUBLIC ${AP_Logger_INCLUDES})
 
 set_target_properties(AP_Logger_Plane PROPERTIES
@@ -3580,7 +6060,6 @@ set_target_properties(AP_Logger_Plane PROPERTIES
 
 target_link_libraries(AP_Logger mavlink) #clean
 target_link_libraries(AP_Logger canard) #clean
-target_link_libraries(AP_Logger littlefs) #clean
 
 #------------------------------------------------
 
@@ -3607,21 +6086,65 @@ set(AP_MSP_SOURCES #13
 )
 
 set(AP_MSP_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3636,7 +6159,6 @@ set_target_properties(AP_MSP PROPERTIES
 
 target_link_libraries(AP_MSP mavlink) #clean
 target_link_libraries(AP_MSP canard) #clean
-target_link_libraries(AP_MSP littlefs) #clean
 
 #------------------------------------------------
 
@@ -3683,26 +6205,70 @@ set(AP_Math_SOURCES #13
 )
 
 set(AP_Math_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Math PUBLIC ${AP_Math_SOURCES}) #2
-target_compile_definitions(AP_Math PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Math PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Math PUBLIC ${AP_Math_INCLUDES})
 
 set_target_properties(AP_Math PROPERTIES
@@ -3711,7 +6277,7 @@ set_target_properties(AP_Math PROPERTIES
 )
 
 add_library(AP_Math_Plane PUBLIC ${AP_Math_SOURCES}) #2
-target_compile_definitions(AP_Math_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Math_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Math_Plane PUBLIC ${AP_Math_INCLUDES})
 
 set_target_properties(AP_Math_Plane PROPERTIES
@@ -3722,7 +6288,6 @@ set_target_properties(AP_Math_Plane PROPERTIES
 
 target_link_libraries(AP_Math mavlink) #clean
 target_link_libraries(AP_Math canard) #clean
-target_link_libraries(AP_Math littlefs) #clean
 
 #------------------------------------------------
 
@@ -3737,26 +6302,70 @@ set(AP_Mission_SOURCES #13
 )
 
 set(AP_Mission_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Mission PUBLIC ${AP_Mission_SOURCES}) #2
-target_compile_definitions(AP_Mission PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Mission PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Mission PUBLIC ${AP_Mission_INCLUDES})
 
 set_target_properties(AP_Mission PROPERTIES
@@ -3765,7 +6374,7 @@ set_target_properties(AP_Mission PROPERTIES
 )
 
 add_library(AP_Mission_Plane PUBLIC ${AP_Mission_SOURCES}) #2
-target_compile_definitions(AP_Mission_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Mission_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Mission_Plane PUBLIC ${AP_Mission_INCLUDES})
 
 set_target_properties(AP_Mission_Plane PROPERTIES
@@ -3776,7 +6385,6 @@ set_target_properties(AP_Mission_Plane PROPERTIES
 
 target_link_libraries(AP_Mission mavlink) #clean
 target_link_libraries(AP_Mission canard) #clean
-target_link_libraries(AP_Mission littlefs) #clean
 
 #------------------------------------------------
 
@@ -3787,21 +6395,65 @@ set(AP_Module_SOURCES #13
 )
 
 set(AP_Module_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3816,7 +6468,6 @@ set_target_properties(AP_Module PROPERTIES
 
 target_link_libraries(AP_Module mavlink) #clean
 target_link_libraries(AP_Module canard) #clean
-target_link_libraries(AP_Module littlefs) #clean
 
 #------------------------------------------------
 
@@ -3860,26 +6511,70 @@ set(AP_Motors_SOURCES #13
 )
 
 set(AP_Motors_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Motors PUBLIC ${AP_Motors_SOURCES}) #2
-target_compile_definitions(AP_Motors PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Motors PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Motors PUBLIC ${AP_Motors_INCLUDES})
 
 set_target_properties(AP_Motors PROPERTIES
@@ -3888,7 +6583,7 @@ set_target_properties(AP_Motors PROPERTIES
 )
 
 add_library(AP_Motors_Plane PUBLIC ${AP_Motors_SOURCES}) #2
-target_compile_definitions(AP_Motors_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Motors_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Motors_Plane PUBLIC ${AP_Motors_INCLUDES})
 
 set_target_properties(AP_Motors_Plane PROPERTIES
@@ -3899,7 +6594,6 @@ set_target_properties(AP_Motors_Plane PROPERTIES
 
 target_link_libraries(AP_Motors mavlink) #clean
 target_link_libraries(AP_Motors canard) #clean
-target_link_libraries(AP_Motors littlefs) #clean
 
 #------------------------------------------------
 
@@ -3949,21 +6643,65 @@ set(AP_Mount_SOURCES #13
 )
 
 set(AP_Mount_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3978,7 +6716,6 @@ set_target_properties(AP_Mount PROPERTIES
 
 target_link_libraries(AP_Mount mavlink) #clean
 target_link_libraries(AP_Mount canard) #clean
-target_link_libraries(AP_Mount littlefs) #clean
 
 #------------------------------------------------
 
@@ -3990,21 +6727,65 @@ set(AP_MultiHeap_SOURCES #13
 )
 
 set(AP_MultiHeap_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4019,7 +6800,6 @@ set_target_properties(AP_MultiHeap PROPERTIES
 
 target_link_libraries(AP_MultiHeap mavlink) #clean
 target_link_libraries(AP_MultiHeap canard) #clean
-target_link_libraries(AP_MultiHeap littlefs) #clean
 
 #------------------------------------------------
 
@@ -4030,21 +6810,65 @@ set(AP_NMEA_Output_SOURCES #13
 )
 
 set(AP_NMEA_Output_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4059,7 +6883,6 @@ set_target_properties(AP_NMEA_Output PROPERTIES
 
 target_link_libraries(AP_NMEA_Output mavlink) #clean
 target_link_libraries(AP_NMEA_Output canard) #clean
-target_link_libraries(AP_NMEA_Output littlefs) #clean
 
 #------------------------------------------------
 
@@ -4078,21 +6901,65 @@ set(AP_NavEKF_SOURCES #13
 )
 
 set(AP_NavEKF_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4107,7 +6974,6 @@ set_target_properties(AP_NavEKF PROPERTIES
 
 target_link_libraries(AP_NavEKF mavlink) #clean
 target_link_libraries(AP_NavEKF canard) #clean
-target_link_libraries(AP_NavEKF littlefs) #clean
 
 #------------------------------------------------
 
@@ -4131,26 +6997,70 @@ set(AP_NavEKF2_SOURCES #13
 )
 
 set(AP_NavEKF2_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_NavEKF2 PUBLIC ${AP_NavEKF2_SOURCES}) #2
-target_compile_definitions(AP_NavEKF2 PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_NavEKF2 PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_NavEKF2 PUBLIC ${AP_NavEKF2_INCLUDES})
 
 set_target_properties(AP_NavEKF2 PROPERTIES
@@ -4159,7 +7069,7 @@ set_target_properties(AP_NavEKF2 PROPERTIES
 )
 
 add_library(AP_NavEKF2_Plane PUBLIC ${AP_NavEKF2_SOURCES}) #2
-target_compile_definitions(AP_NavEKF2_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_NavEKF2_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_NavEKF2_Plane PUBLIC ${AP_NavEKF2_INCLUDES})
 
 set_target_properties(AP_NavEKF2_Plane PROPERTIES
@@ -4170,7 +7080,6 @@ set_target_properties(AP_NavEKF2_Plane PROPERTIES
 
 target_link_libraries(AP_NavEKF2 mavlink) #clean
 target_link_libraries(AP_NavEKF2 canard) #clean
-target_link_libraries(AP_NavEKF2 littlefs) #clean
 
 #------------------------------------------------
 
@@ -4264,24 +7173,69 @@ set(AP_Networking_SOURCES #13
 	modules/lwip/src/netif/ppp/utils.c
 	modules/lwip/src/netif/ppp/vj.c
 	libraries/AP_Networking/lwip_hal/arch/sys_arch.cpp
+	libraries/AP_Networking/lwip_hal/arch/evtimer.c
 )
 
 set(AP_Networking_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4296,7 +7250,6 @@ set_target_properties(AP_Networking PROPERTIES
 
 target_link_libraries(AP_Networking mavlink) #clean
 target_link_libraries(AP_Networking canard) #clean
-target_link_libraries(AP_Networking littlefs) #clean
 
 #------------------------------------------------
 
@@ -4374,21 +7327,65 @@ set(AP_Notify_SOURCES #13
 )
 
 set(AP_Notify_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4403,7 +7400,6 @@ set_target_properties(AP_Notify PROPERTIES
 
 target_link_libraries(AP_Notify mavlink) #clean
 target_link_libraries(AP_Notify canard) #clean
-target_link_libraries(AP_Notify littlefs) #clean
 
 #------------------------------------------------
 
@@ -4413,21 +7409,65 @@ set(AP_OLC_SOURCES #13
 )
 
 set(AP_OLC_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4442,7 +7482,6 @@ set_target_properties(AP_OLC PROPERTIES
 
 target_link_libraries(AP_OLC mavlink) #clean
 target_link_libraries(AP_OLC canard) #clean
-target_link_libraries(AP_OLC littlefs) #clean
 
 #------------------------------------------------
 
@@ -4467,26 +7506,70 @@ set(AP_OSD_SOURCES #13
 )
 
 set(AP_OSD_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_OSD PUBLIC ${AP_OSD_SOURCES}) #2
-target_compile_definitions(AP_OSD PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_OSD PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_OSD PUBLIC ${AP_OSD_INCLUDES})
 
 set_target_properties(AP_OSD PROPERTIES
@@ -4495,7 +7578,7 @@ set_target_properties(AP_OSD PROPERTIES
 )
 
 add_library(AP_OSD_Plane PUBLIC ${AP_OSD_SOURCES}) #2
-target_compile_definitions(AP_OSD_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_OSD_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_OSD_Plane PUBLIC ${AP_OSD_INCLUDES})
 
 set_target_properties(AP_OSD_Plane PROPERTIES
@@ -4506,7 +7589,6 @@ set_target_properties(AP_OSD_Plane PROPERTIES
 
 target_link_libraries(AP_OSD mavlink) #clean
 target_link_libraries(AP_OSD canard) #clean
-target_link_libraries(AP_OSD littlefs) #clean
 
 #------------------------------------------------
 
@@ -4518,21 +7600,65 @@ set(AP_OpenDroneID_SOURCES #13
 )
 
 set(AP_OpenDroneID_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4547,7 +7673,6 @@ set_target_properties(AP_OpenDroneID PROPERTIES
 
 target_link_libraries(AP_OpenDroneID mavlink) #clean
 target_link_libraries(AP_OpenDroneID canard) #clean
-target_link_libraries(AP_OpenDroneID littlefs) #clean
 
 #------------------------------------------------
 
@@ -4581,21 +7706,65 @@ set(AP_OpticalFlow_SOURCES #13
 )
 
 set(AP_OpticalFlow_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4610,7 +7779,6 @@ set_target_properties(AP_OpticalFlow PROPERTIES
 
 target_link_libraries(AP_OpticalFlow mavlink) #clean
 target_link_libraries(AP_OpticalFlow canard) #clean
-target_link_libraries(AP_OpticalFlow littlefs) #clean
 
 #------------------------------------------------
 
@@ -4621,21 +7789,65 @@ set(AP_Parachute_SOURCES #13
 )
 
 set(AP_Parachute_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4650,7 +7862,6 @@ set_target_properties(AP_Parachute PROPERTIES
 
 target_link_libraries(AP_Parachute mavlink) #clean
 target_link_libraries(AP_Parachute canard) #clean
-target_link_libraries(AP_Parachute littlefs) #clean
 
 #------------------------------------------------
 
@@ -4662,21 +7873,65 @@ set(AP_Param_SOURCES #13
 )
 
 set(AP_Param_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4691,7 +7946,6 @@ set_target_properties(AP_Param PROPERTIES
 
 target_link_libraries(AP_Param mavlink) #clean
 target_link_libraries(AP_Param canard) #clean
-target_link_libraries(AP_Param littlefs) #clean
 
 #------------------------------------------------
 
@@ -4711,21 +7965,65 @@ set(AP_PiccoloCAN_SOURCES #13
 )
 
 set(AP_PiccoloCAN_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4740,7 +8038,6 @@ set_target_properties(AP_PiccoloCAN PROPERTIES
 
 target_link_libraries(AP_PiccoloCAN mavlink) #clean
 target_link_libraries(AP_PiccoloCAN canard) #clean
-target_link_libraries(AP_PiccoloCAN littlefs) #clean
 
 #------------------------------------------------
 
@@ -4789,26 +8086,70 @@ set(AP_Proximity_SOURCES #13
 )
 
 set(AP_Proximity_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Proximity PUBLIC ${AP_Proximity_SOURCES}) #2
-target_compile_definitions(AP_Proximity PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Proximity PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Proximity PUBLIC ${AP_Proximity_INCLUDES})
 
 set_target_properties(AP_Proximity PROPERTIES
@@ -4817,7 +8158,7 @@ set_target_properties(AP_Proximity PROPERTIES
 )
 
 add_library(AP_Proximity_Plane PUBLIC ${AP_Proximity_SOURCES}) #2
-target_compile_definitions(AP_Proximity_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Proximity_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Proximity_Plane PUBLIC ${AP_Proximity_INCLUDES})
 
 set_target_properties(AP_Proximity_Plane PROPERTIES
@@ -4828,7 +8169,6 @@ set_target_properties(AP_Proximity_Plane PROPERTIES
 
 target_link_libraries(AP_Proximity mavlink) #clean
 target_link_libraries(AP_Proximity canard) #clean
-target_link_libraries(AP_Proximity littlefs) #clean
 
 #------------------------------------------------
 
@@ -4838,21 +8178,65 @@ set(AP_Quicktune_SOURCES #13
 )
 
 set(AP_Quicktune_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4867,7 +8251,6 @@ set_target_properties(AP_Quicktune PROPERTIES
 
 target_link_libraries(AP_Quicktune mavlink) #clean
 target_link_libraries(AP_Quicktune canard) #clean
-target_link_libraries(AP_Quicktune littlefs) #clean
 
 #------------------------------------------------
 
@@ -4877,21 +8260,65 @@ set(AP_RAMTRON_SOURCES #13
 )
 
 set(AP_RAMTRON_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4906,7 +8333,6 @@ set_target_properties(AP_RAMTRON PROPERTIES
 
 target_link_libraries(AP_RAMTRON mavlink) #clean
 target_link_libraries(AP_RAMTRON canard) #clean
-target_link_libraries(AP_RAMTRON littlefs) #clean
 
 #------------------------------------------------
 
@@ -4917,21 +8343,65 @@ set(AP_RCMapper_SOURCES #13
 )
 
 set(AP_RCMapper_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4946,7 +8416,6 @@ set_target_properties(AP_RCMapper PROPERTIES
 
 target_link_libraries(AP_RCMapper mavlink) #clean
 target_link_libraries(AP_RCMapper canard) #clean
-target_link_libraries(AP_RCMapper littlefs) #clean
 
 #------------------------------------------------
 
@@ -5004,26 +8473,70 @@ set(AP_RCProtocol_SOURCES #13
 )
 
 set(AP_RCProtocol_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_RCProtocol PUBLIC ${AP_RCProtocol_SOURCES}) #2
-target_compile_definitions(AP_RCProtocol PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_RCProtocol PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_RCProtocol PUBLIC ${AP_RCProtocol_INCLUDES})
 
 set_target_properties(AP_RCProtocol PROPERTIES
@@ -5032,7 +8545,7 @@ set_target_properties(AP_RCProtocol PROPERTIES
 )
 
 add_library(AP_RCProtocol_Plane PUBLIC ${AP_RCProtocol_SOURCES}) #2
-target_compile_definitions(AP_RCProtocol_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_RCProtocol_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_RCProtocol_Plane PUBLIC ${AP_RCProtocol_INCLUDES})
 
 set_target_properties(AP_RCProtocol_Plane PROPERTIES
@@ -5043,7 +8556,6 @@ set_target_properties(AP_RCProtocol_Plane PROPERTIES
 
 target_link_libraries(AP_RCProtocol mavlink) #clean
 target_link_libraries(AP_RCProtocol canard) #clean
-target_link_libraries(AP_RCProtocol littlefs) #clean
 
 #------------------------------------------------
 
@@ -5061,26 +8573,70 @@ set(AP_RCTelemetry_SOURCES #13
 )
 
 set(AP_RCTelemetry_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_RCTelemetry PUBLIC ${AP_RCTelemetry_SOURCES}) #2
-target_compile_definitions(AP_RCTelemetry PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_RCTelemetry PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_RCTelemetry PUBLIC ${AP_RCTelemetry_INCLUDES})
 
 set_target_properties(AP_RCTelemetry PROPERTIES
@@ -5089,7 +8645,7 @@ set_target_properties(AP_RCTelemetry PROPERTIES
 )
 
 add_library(AP_RCTelemetry_Plane PUBLIC ${AP_RCTelemetry_SOURCES}) #2
-target_compile_definitions(AP_RCTelemetry_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_RCTelemetry_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_RCTelemetry_Plane PUBLIC ${AP_RCTelemetry_INCLUDES})
 
 set_target_properties(AP_RCTelemetry_Plane PROPERTIES
@@ -5100,7 +8656,6 @@ set_target_properties(AP_RCTelemetry_Plane PROPERTIES
 
 target_link_libraries(AP_RCTelemetry mavlink) #clean
 target_link_libraries(AP_RCTelemetry canard) #clean
-target_link_libraries(AP_RCTelemetry littlefs) #clean
 
 #------------------------------------------------
 
@@ -5112,21 +8667,65 @@ set(AP_ROMFS_SOURCES #13
 )
 
 set(AP_ROMFS_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5141,7 +8740,6 @@ set_target_properties(AP_ROMFS PROPERTIES
 
 target_link_libraries(AP_ROMFS mavlink) #clean
 target_link_libraries(AP_ROMFS canard) #clean
-target_link_libraries(AP_ROMFS littlefs) #clean
 
 #------------------------------------------------
 
@@ -5171,21 +8769,65 @@ set(AP_RPM_SOURCES #13
 )
 
 set(AP_RPM_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5200,7 +8842,6 @@ set_target_properties(AP_RPM PROPERTIES
 
 target_link_libraries(AP_RPM mavlink) #clean
 target_link_libraries(AP_RPM canard) #clean
-target_link_libraries(AP_RPM littlefs) #clean
 
 #------------------------------------------------
 
@@ -5211,21 +8852,65 @@ set(AP_RSSI_SOURCES #13
 )
 
 set(AP_RSSI_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5240,7 +8925,6 @@ set_target_properties(AP_RSSI PROPERTIES
 
 target_link_libraries(AP_RSSI mavlink) #clean
 target_link_libraries(AP_RSSI canard) #clean
-target_link_libraries(AP_RSSI littlefs) #clean
 
 #------------------------------------------------
 
@@ -5253,21 +8937,65 @@ set(AP_RTC_SOURCES #13
 )
 
 set(AP_RTC_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5282,7 +9010,6 @@ set_target_properties(AP_RTC PROPERTIES
 
 target_link_libraries(AP_RTC mavlink) #clean
 target_link_libraries(AP_RTC canard) #clean
-target_link_libraries(AP_RTC littlefs) #clean
 
 #------------------------------------------------
 
@@ -5306,21 +9033,65 @@ set(AP_Radio_SOURCES #13
 )
 
 set(AP_Radio_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5335,7 +9106,6 @@ set_target_properties(AP_Radio PROPERTIES
 
 target_link_libraries(AP_Radio mavlink) #clean
 target_link_libraries(AP_Radio canard) #clean
-target_link_libraries(AP_Radio littlefs) #clean
 
 #------------------------------------------------
 
@@ -5437,21 +9207,65 @@ set(AP_RangeFinder_SOURCES #13
 )
 
 set(AP_RangeFinder_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5466,7 +9280,6 @@ set_target_properties(AP_RangeFinder PROPERTIES
 
 target_link_libraries(AP_RangeFinder mavlink) #clean
 target_link_libraries(AP_RangeFinder canard) #clean
-target_link_libraries(AP_RangeFinder littlefs) #clean
 
 #------------------------------------------------
 
@@ -5479,26 +9292,70 @@ set(AP_Relay_SOURCES #13
 )
 
 set(AP_Relay_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Relay PUBLIC ${AP_Relay_SOURCES}) #2
-target_compile_definitions(AP_Relay PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Relay PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Relay PUBLIC ${AP_Relay_INCLUDES})
 
 set_target_properties(AP_Relay PROPERTIES
@@ -5507,7 +9364,7 @@ set_target_properties(AP_Relay PROPERTIES
 )
 
 add_library(AP_Relay_Plane PUBLIC ${AP_Relay_SOURCES}) #2
-target_compile_definitions(AP_Relay_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Relay_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Relay_Plane PUBLIC ${AP_Relay_INCLUDES})
 
 set_target_properties(AP_Relay_Plane PROPERTIES
@@ -5518,7 +9375,6 @@ set_target_properties(AP_Relay_Plane PROPERTIES
 
 target_link_libraries(AP_Relay mavlink) #clean
 target_link_libraries(AP_Relay canard) #clean
-target_link_libraries(AP_Relay littlefs) #clean
 
 #------------------------------------------------
 
@@ -5528,21 +9384,65 @@ set(AP_RobotisServo_SOURCES #13
 )
 
 set(AP_RobotisServo_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5557,7 +9457,6 @@ set_target_properties(AP_RobotisServo PROPERTIES
 
 target_link_libraries(AP_RobotisServo mavlink) #clean
 target_link_libraries(AP_RobotisServo canard) #clean
-target_link_libraries(AP_RobotisServo littlefs) #clean
 
 #------------------------------------------------
 
@@ -5568,21 +9467,65 @@ set(AP_SBusOut_SOURCES #13
 )
 
 set(AP_SBusOut_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5597,7 +9540,6 @@ set_target_properties(AP_SBusOut PROPERTIES
 
 target_link_libraries(AP_SBusOut mavlink) #clean
 target_link_libraries(AP_SBusOut canard) #clean
-target_link_libraries(AP_SBusOut littlefs) #clean
 
 #------------------------------------------------
 
@@ -5610,26 +9552,70 @@ set(AP_Scheduler_SOURCES #13
 )
 
 set(AP_Scheduler_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Scheduler PUBLIC ${AP_Scheduler_SOURCES}) #2
-target_compile_definitions(AP_Scheduler PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Scheduler PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Scheduler PUBLIC ${AP_Scheduler_INCLUDES})
 
 set_target_properties(AP_Scheduler PROPERTIES
@@ -5638,7 +9624,7 @@ set_target_properties(AP_Scheduler PROPERTIES
 )
 
 add_library(AP_Scheduler_Plane PUBLIC ${AP_Scheduler_SOURCES}) #2
-target_compile_definitions(AP_Scheduler_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Scheduler_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Scheduler_Plane PUBLIC ${AP_Scheduler_INCLUDES})
 
 set_target_properties(AP_Scheduler_Plane PROPERTIES
@@ -5649,7 +9635,6 @@ set_target_properties(AP_Scheduler_Plane PROPERTIES
 
 target_link_libraries(AP_Scheduler mavlink) #clean
 target_link_libraries(AP_Scheduler canard) #clean
-target_link_libraries(AP_Scheduler littlefs) #clean
 
 #------------------------------------------------
 
@@ -5660,21 +9645,65 @@ set(AP_SerialLED_SOURCES #13
 )
 
 set(AP_SerialLED_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5689,7 +9718,6 @@ set_target_properties(AP_SerialLED PROPERTIES
 
 target_link_libraries(AP_SerialLED mavlink) #clean
 target_link_libraries(AP_SerialLED canard) #clean
-target_link_libraries(AP_SerialLED littlefs) #clean
 
 #------------------------------------------------
 
@@ -5700,21 +9728,65 @@ set(AP_SerialManager_SOURCES #13
 )
 
 set(AP_SerialManager_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5729,7 +9801,6 @@ set_target_properties(AP_SerialManager PROPERTIES
 
 target_link_libraries(AP_SerialManager mavlink) #clean
 target_link_libraries(AP_SerialManager canard) #clean
-target_link_libraries(AP_SerialManager littlefs) #clean
 
 #------------------------------------------------
 
@@ -5740,21 +9811,65 @@ set(AP_ServoRelayEvents_SOURCES #13
 )
 
 set(AP_ServoRelayEvents_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5769,7 +9884,6 @@ set_target_properties(AP_ServoRelayEvents PROPERTIES
 
 target_link_libraries(AP_ServoRelayEvents mavlink) #clean
 target_link_libraries(AP_ServoRelayEvents canard) #clean
-target_link_libraries(AP_ServoRelayEvents littlefs) #clean
 
 #------------------------------------------------
 
@@ -5781,21 +9895,65 @@ set(AP_Servo_Telem_SOURCES #13
 )
 
 set(AP_Servo_Telem_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5810,7 +9968,6 @@ set_target_properties(AP_Servo_Telem PROPERTIES
 
 target_link_libraries(AP_Servo_Telem mavlink) #clean
 target_link_libraries(AP_Servo_Telem canard) #clean
-target_link_libraries(AP_Servo_Telem littlefs) #clean
 
 #------------------------------------------------
 
@@ -5820,21 +9977,65 @@ set(AP_SmartRTL_SOURCES #13
 )
 
 set(AP_SmartRTL_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5849,7 +10050,6 @@ set_target_properties(AP_SmartRTL PROPERTIES
 
 target_link_libraries(AP_SmartRTL mavlink) #clean
 target_link_libraries(AP_SmartRTL canard) #clean
-target_link_libraries(AP_SmartRTL littlefs) #clean
 
 #------------------------------------------------
 
@@ -5866,21 +10066,65 @@ set(AP_Soaring_SOURCES #13
 )
 
 set(AP_Soaring_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5895,7 +10139,6 @@ set_target_properties(AP_Soaring PROPERTIES
 
 target_link_libraries(AP_Soaring mavlink) #clean
 target_link_libraries(AP_Soaring canard) #clean
-target_link_libraries(AP_Soaring littlefs) #clean
 
 #------------------------------------------------
 
@@ -5905,21 +10148,65 @@ set(AP_Stats_SOURCES #13
 )
 
 set(AP_Stats_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5934,7 +10221,6 @@ set_target_properties(AP_Stats PROPERTIES
 
 target_link_libraries(AP_Stats mavlink) #clean
 target_link_libraries(AP_Stats canard) #clean
-target_link_libraries(AP_Stats littlefs) #clean
 
 #------------------------------------------------
 
@@ -5944,21 +10230,65 @@ set(AP_SurfaceDistance_SOURCES #13
 )
 
 set(AP_SurfaceDistance_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5973,7 +10303,6 @@ set_target_properties(AP_SurfaceDistance PROPERTIES
 
 target_link_libraries(AP_SurfaceDistance mavlink) #clean
 target_link_libraries(AP_SurfaceDistance canard) #clean
-target_link_libraries(AP_SurfaceDistance littlefs) #clean
 
 #------------------------------------------------
 
@@ -5983,21 +10312,65 @@ set(AP_TECS_SOURCES #13
 )
 
 set(AP_TECS_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6012,7 +10385,6 @@ set_target_properties(AP_TECS PROPERTIES
 
 target_link_libraries(AP_TECS mavlink) #clean
 target_link_libraries(AP_TECS canard) #clean
-target_link_libraries(AP_TECS littlefs) #clean
 
 #------------------------------------------------
 
@@ -6023,21 +10395,65 @@ set(AP_TempCalibration_SOURCES #13
 )
 
 set(AP_TempCalibration_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6052,7 +10468,6 @@ set_target_properties(AP_TempCalibration PROPERTIES
 
 target_link_libraries(AP_TempCalibration mavlink) #clean
 target_link_libraries(AP_TempCalibration canard) #clean
-target_link_libraries(AP_TempCalibration littlefs) #clean
 
 #------------------------------------------------
 
@@ -6083,26 +10498,70 @@ set(AP_TemperatureSensor_SOURCES #13
 )
 
 set(AP_TemperatureSensor_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_TemperatureSensor PUBLIC ${AP_TemperatureSensor_SOURCES}) #2
-target_compile_definitions(AP_TemperatureSensor PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_TemperatureSensor PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_TemperatureSensor PUBLIC ${AP_TemperatureSensor_INCLUDES})
 
 set_target_properties(AP_TemperatureSensor PROPERTIES
@@ -6111,7 +10570,7 @@ set_target_properties(AP_TemperatureSensor PROPERTIES
 )
 
 add_library(AP_TemperatureSensor_Plane PUBLIC ${AP_TemperatureSensor_SOURCES}) #2
-target_compile_definitions(AP_TemperatureSensor_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_TemperatureSensor_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_TemperatureSensor_Plane PUBLIC ${AP_TemperatureSensor_INCLUDES})
 
 set_target_properties(AP_TemperatureSensor_Plane PROPERTIES
@@ -6122,7 +10581,6 @@ set_target_properties(AP_TemperatureSensor_Plane PROPERTIES
 
 target_link_libraries(AP_TemperatureSensor mavlink) #clean
 target_link_libraries(AP_TemperatureSensor canard) #clean
-target_link_libraries(AP_TemperatureSensor littlefs) #clean
 
 #------------------------------------------------
 
@@ -6137,26 +10595,70 @@ set(AP_Terrain_SOURCES #13
 )
 
 set(AP_Terrain_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Terrain PUBLIC ${AP_Terrain_SOURCES}) #2
-target_compile_definitions(AP_Terrain PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Terrain PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Terrain PUBLIC ${AP_Terrain_INCLUDES})
 
 set_target_properties(AP_Terrain PROPERTIES
@@ -6165,7 +10667,7 @@ set_target_properties(AP_Terrain PROPERTIES
 )
 
 add_library(AP_Terrain_Plane PUBLIC ${AP_Terrain_SOURCES}) #2
-target_compile_definitions(AP_Terrain_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Terrain_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Terrain_Plane PUBLIC ${AP_Terrain_INCLUDES})
 
 set_target_properties(AP_Terrain_Plane PROPERTIES
@@ -6176,7 +10678,6 @@ set_target_properties(AP_Terrain_Plane PROPERTIES
 
 target_link_libraries(AP_Terrain mavlink) #clean
 target_link_libraries(AP_Terrain canard) #clean
-target_link_libraries(AP_Terrain littlefs) #clean
 
 #------------------------------------------------
 
@@ -6193,21 +10694,65 @@ set(AP_Torqeedo_SOURCES #13
 )
 
 set(AP_Torqeedo_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6222,7 +10767,6 @@ set_target_properties(AP_Torqeedo PROPERTIES
 
 target_link_libraries(AP_Torqeedo mavlink) #clean
 target_link_libraries(AP_Torqeedo canard) #clean
-target_link_libraries(AP_Torqeedo littlefs) #clean
 
 #------------------------------------------------
 
@@ -6233,21 +10777,65 @@ set(AP_Tuning_SOURCES #13
 )
 
 set(AP_Tuning_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6262,7 +10850,6 @@ set_target_properties(AP_Tuning PROPERTIES
 
 target_link_libraries(AP_Tuning mavlink) #clean
 target_link_libraries(AP_Tuning canard) #clean
-target_link_libraries(AP_Tuning littlefs) #clean
 
 #------------------------------------------------
 
@@ -6278,26 +10865,70 @@ set(AP_Vehicle_SOURCES #13
 )
 
 set(AP_Vehicle_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Vehicle PUBLIC ${AP_Vehicle_SOURCES}) #2
-target_compile_definitions(AP_Vehicle PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Vehicle PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Vehicle PUBLIC ${AP_Vehicle_INCLUDES})
 
 set_target_properties(AP_Vehicle PROPERTIES
@@ -6306,7 +10937,7 @@ set_target_properties(AP_Vehicle PROPERTIES
 )
 
 add_library(AP_Vehicle_Plane PUBLIC ${AP_Vehicle_SOURCES}) #2
-target_compile_definitions(AP_Vehicle_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Vehicle_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Vehicle_Plane PUBLIC ${AP_Vehicle_INCLUDES})
 
 set_target_properties(AP_Vehicle_Plane PROPERTIES
@@ -6317,7 +10948,6 @@ set_target_properties(AP_Vehicle_Plane PROPERTIES
 
 target_link_libraries(AP_Vehicle mavlink) #clean
 target_link_libraries(AP_Vehicle canard) #clean
-target_link_libraries(AP_Vehicle littlefs) #clean
 
 #------------------------------------------------
 
@@ -6332,21 +10962,65 @@ set(AP_VideoTX_SOURCES #13
 )
 
 set(AP_VideoTX_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6361,7 +11035,6 @@ set_target_properties(AP_VideoTX PROPERTIES
 
 target_link_libraries(AP_VideoTX mavlink) #clean
 target_link_libraries(AP_VideoTX canard) #clean
-target_link_libraries(AP_VideoTX littlefs) #clean
 
 #------------------------------------------------
 
@@ -6380,21 +11053,65 @@ set(AP_VisualOdom_SOURCES #13
 )
 
 set(AP_VisualOdom_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6409,7 +11126,6 @@ set_target_properties(AP_VisualOdom PROPERTIES
 
 target_link_libraries(AP_VisualOdom mavlink) #clean
 target_link_libraries(AP_VisualOdom canard) #clean
-target_link_libraries(AP_VisualOdom littlefs) #clean
 
 #------------------------------------------------
 
@@ -6419,21 +11135,65 @@ set(AP_Volz_Protocol_SOURCES #13
 )
 
 set(AP_Volz_Protocol_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6448,7 +11208,6 @@ set_target_properties(AP_Volz_Protocol PROPERTIES
 
 target_link_libraries(AP_Volz_Protocol mavlink) #clean
 target_link_libraries(AP_Volz_Protocol canard) #clean
-target_link_libraries(AP_Volz_Protocol littlefs) #clean
 
 #------------------------------------------------
 
@@ -6466,21 +11225,65 @@ set(AP_WheelEncoder_SOURCES #13
 )
 
 set(AP_WheelEncoder_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6495,7 +11298,6 @@ set_target_properties(AP_WheelEncoder PROPERTIES
 
 target_link_libraries(AP_WheelEncoder mavlink) #clean
 target_link_libraries(AP_WheelEncoder canard) #clean
-target_link_libraries(AP_WheelEncoder littlefs) #clean
 
 #------------------------------------------------
 
@@ -6512,21 +11314,65 @@ set(AP_Winch_SOURCES #13
 )
 
 set(AP_Winch_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6541,7 +11387,6 @@ set_target_properties(AP_Winch PROPERTIES
 
 target_link_libraries(AP_Winch mavlink) #clean
 target_link_libraries(AP_Winch canard) #clean
-target_link_libraries(AP_Winch littlefs) #clean
 
 #------------------------------------------------
 
@@ -6568,21 +11413,65 @@ set(AP_WindVane_SOURCES #13
 )
 
 set(AP_WindVane_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6597,7 +11486,6 @@ set_target_properties(AP_WindVane PROPERTIES
 
 target_link_libraries(AP_WindVane mavlink) #clean
 target_link_libraries(AP_WindVane canard) #clean
-target_link_libraries(AP_WindVane littlefs) #clean
 
 #------------------------------------------------
 
@@ -6607,21 +11495,65 @@ set(AR_Motors_SOURCES #13
 )
 
 set(AR_Motors_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6636,7 +11568,6 @@ set_target_properties(AR_Motors PROPERTIES
 
 target_link_libraries(AR_Motors mavlink) #clean
 target_link_libraries(AR_Motors canard) #clean
-target_link_libraries(AR_Motors littlefs) #clean
 
 #------------------------------------------------
 
@@ -6650,21 +11581,65 @@ set(AR_WPNav_SOURCES #13
 )
 
 set(AR_WPNav_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6679,7 +11654,6 @@ set_target_properties(AR_WPNav PROPERTIES
 
 target_link_libraries(AR_WPNav mavlink) #clean
 target_link_libraries(AR_WPNav canard) #clean
-target_link_libraries(AR_WPNav littlefs) #clean
 
 #------------------------------------------------
 
@@ -6711,26 +11685,70 @@ set(Filter_SOURCES #13
 )
 
 set(Filter_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(Filter PUBLIC ${Filter_SOURCES}) #2
-target_compile_definitions(Filter PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(Filter PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(Filter PUBLIC ${Filter_INCLUDES})
 
 set_target_properties(Filter PROPERTIES
@@ -6739,7 +11757,7 @@ set_target_properties(Filter PROPERTIES
 )
 
 add_library(Filter_Plane PUBLIC ${Filter_SOURCES}) #2
-target_compile_definitions(Filter_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(Filter_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(Filter_Plane PUBLIC ${Filter_INCLUDES})
 
 set_target_properties(Filter_Plane PROPERTIES
@@ -6750,7 +11768,6 @@ set_target_properties(Filter_Plane PROPERTIES
 
 target_link_libraries(Filter mavlink) #clean
 target_link_libraries(Filter canard) #clean
-target_link_libraries(Filter littlefs) #clean
 
 #------------------------------------------------
 
@@ -6786,26 +11803,70 @@ set(GCS_MAVLink_SOURCES #13
 )
 
 set(GCS_MAVLink_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(GCS_MAVLink PUBLIC ${GCS_MAVLink_SOURCES}) #2
-target_compile_definitions(GCS_MAVLink PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(GCS_MAVLink PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(GCS_MAVLink PUBLIC ${GCS_MAVLink_INCLUDES})
 
 set_target_properties(GCS_MAVLink PROPERTIES
@@ -6814,7 +11875,7 @@ set_target_properties(GCS_MAVLink PROPERTIES
 )
 
 add_library(GCS_MAVLink_Plane PUBLIC ${GCS_MAVLink_SOURCES}) #2
-target_compile_definitions(GCS_MAVLink_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(GCS_MAVLink_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(GCS_MAVLink_Plane PUBLIC ${GCS_MAVLink_INCLUDES})
 
 set_target_properties(GCS_MAVLink_Plane PROPERTIES
@@ -6825,7 +11886,6 @@ set_target_properties(GCS_MAVLink_Plane PROPERTIES
 
 target_link_libraries(GCS_MAVLink mavlink) #clean
 target_link_libraries(GCS_MAVLink canard) #clean
-target_link_libraries(GCS_MAVLink littlefs) #clean
 
 #------------------------------------------------
 
@@ -6835,21 +11895,65 @@ set(PID_SOURCES #13
 )
 
 set(PID_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6864,7 +11968,6 @@ set_target_properties(PID PROPERTIES
 
 target_link_libraries(PID mavlink) #clean
 target_link_libraries(PID canard) #clean
-target_link_libraries(PID littlefs) #clean
 
 #------------------------------------------------
 
@@ -6877,26 +11980,70 @@ set(RC_Channel_SOURCES #13
 )
 
 set(RC_Channel_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(RC_Channel PUBLIC ${RC_Channel_SOURCES}) #2
-target_compile_definitions(RC_Channel PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(RC_Channel PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(RC_Channel PUBLIC ${RC_Channel_INCLUDES})
 
 set_target_properties(RC_Channel PROPERTIES
@@ -6905,7 +12052,7 @@ set_target_properties(RC_Channel PROPERTIES
 )
 
 add_library(RC_Channel_Plane PUBLIC ${RC_Channel_SOURCES}) #2
-target_compile_definitions(RC_Channel_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(RC_Channel_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(RC_Channel_Plane PUBLIC ${RC_Channel_INCLUDES})
 
 set_target_properties(RC_Channel_Plane PROPERTIES
@@ -6916,7 +12063,6 @@ set_target_properties(RC_Channel_Plane PROPERTIES
 
 target_link_libraries(RC_Channel mavlink) #clean
 target_link_libraries(RC_Channel canard) #clean
-target_link_libraries(RC_Channel littlefs) #clean
 
 #------------------------------------------------
 
@@ -6929,21 +12075,65 @@ set(SRV_Channel_SOURCES #13
 )
 
 set(SRV_Channel_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6958,7 +12148,6 @@ set_target_properties(SRV_Channel PROPERTIES
 
 target_link_libraries(SRV_Channel mavlink) #clean
 target_link_libraries(SRV_Channel canard) #clean
-target_link_libraries(SRV_Channel littlefs) #clean
 
 #------------------------------------------------
 
@@ -7041,26 +12230,70 @@ set(AP_HAL_SOURCES #13
 )
 
 set(AP_HAL_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_HAL PUBLIC ${AP_HAL_SOURCES}) #2
-target_compile_definitions(AP_HAL PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_HAL PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_HAL PUBLIC ${AP_HAL_INCLUDES})
 
 set_target_properties(AP_HAL PROPERTIES
@@ -7069,7 +12302,7 @@ set_target_properties(AP_HAL PROPERTIES
 )
 
 add_library(AP_HAL_Plane PUBLIC ${AP_HAL_SOURCES}) #2
-target_compile_definitions(AP_HAL_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_HAL_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_HAL_Plane PUBLIC ${AP_HAL_INCLUDES})
 
 set_target_properties(AP_HAL_Plane PROPERTIES
@@ -7080,7 +12313,6 @@ set_target_properties(AP_HAL_Plane PROPERTIES
 
 target_link_libraries(AP_HAL mavlink) #clean
 target_link_libraries(AP_HAL canard) #clean
-target_link_libraries(AP_HAL littlefs) #clean
 
 #------------------------------------------------
 
@@ -7115,21 +12347,65 @@ set(AP_HAL_Empty_SOURCES #13
 )
 
 set(AP_HAL_Empty_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -7144,7 +12420,6 @@ set_target_properties(AP_HAL_Empty PROPERTIES
 
 target_link_libraries(AP_HAL_Empty mavlink) #clean
 target_link_libraries(AP_HAL_Empty canard) #clean
-target_link_libraries(AP_HAL_Empty littlefs) #clean
 
 #------------------------------------------------
 
@@ -7190,21 +12465,65 @@ set(AP_PiccoloCAN_piccolo_protocol_SOURCES #13
 )
 
 set(AP_PiccoloCAN_piccolo_protocol_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -7219,459 +12538,138 @@ set_target_properties(AP_PiccoloCAN_piccolo_protocol PROPERTIES
 
 target_link_libraries(AP_PiccoloCAN_piccolo_protocol mavlink) #clean
 target_link_libraries(AP_PiccoloCAN_piccolo_protocol canard) #clean
-target_link_libraries(AP_PiccoloCAN_piccolo_protocol littlefs) #clean
 
 #------------------------------------------------
 
-set(AP_HAL_SITL_SOURCES #13
-	libraries/AP_HAL_SITL/AP_HAL_SITL.h
-	libraries/AP_HAL_SITL/AP_HAL_SITL_Namespace.h
-	libraries/AP_HAL_SITL/AP_HAL_SITL_Private.h
-	libraries/AP_HAL_SITL/AnalogIn.h
-	libraries/AP_HAL_SITL/CANSocketIface.h
-	libraries/AP_HAL_SITL/CAN_Multicast.h
-	libraries/AP_HAL_SITL/CAN_SocketCAN.h
-	libraries/AP_HAL_SITL/CAN_Transport.h
-	libraries/AP_HAL_SITL/DSP.h
-	libraries/AP_HAL_SITL/GPIO.h
-	libraries/AP_HAL_SITL/HAL_SITL_Class.h
-	libraries/AP_HAL_SITL/I2CDevice.h
-	libraries/AP_HAL_SITL/RCInput.h
-	libraries/AP_HAL_SITL/RCOutput.h
-	libraries/AP_HAL_SITL/SITL_Periph_State.h
-	libraries/AP_HAL_SITL/SITL_State.h
-	libraries/AP_HAL_SITL/SITL_State_common.h
-	libraries/AP_HAL_SITL/SPIDevice.h
-	libraries/AP_HAL_SITL/Scheduler.h
-	libraries/AP_HAL_SITL/Semaphores.h
-	libraries/AP_HAL_SITL/Storage.h
-	libraries/AP_HAL_SITL/ToneAlarm_SF.h
-	libraries/AP_HAL_SITL/UARTDriver.h
-	libraries/AP_HAL_SITL/Util.h
-	libraries/AP_HAL_SITL/AnalogIn.cpp
-	libraries/AP_HAL_SITL/CANSocketIface.cpp
-	libraries/AP_HAL_SITL/CAN_Multicast.cpp
-	libraries/AP_HAL_SITL/CAN_SocketCAN.cpp
-	libraries/AP_HAL_SITL/DSP.cpp
-	libraries/AP_HAL_SITL/GPIO.cpp
-	libraries/AP_HAL_SITL/HAL_SITL_Class.cpp
-	libraries/AP_HAL_SITL/I2CDevice.cpp
-	libraries/AP_HAL_SITL/RCInput.cpp
-	libraries/AP_HAL_SITL/RCOutput.cpp
-	libraries/AP_HAL_SITL/SITL_Periph_State.cpp
-	libraries/AP_HAL_SITL/SITL_State.cpp
-	libraries/AP_HAL_SITL/SITL_State_common.cpp
-	libraries/AP_HAL_SITL/SITL_cmdline.cpp
-	libraries/AP_HAL_SITL/SPIDevice.cpp
-	libraries/AP_HAL_SITL/Scheduler.cpp
-	libraries/AP_HAL_SITL/Semaphores.cpp
-	libraries/AP_HAL_SITL/Storage.cpp
-	libraries/AP_HAL_SITL/ToneAlarm_SF.cpp
-	libraries/AP_HAL_SITL/UARTDriver.cpp
-	libraries/AP_HAL_SITL/UART_utils.cpp
-	libraries/AP_HAL_SITL/Util.cpp
-	libraries/AP_HAL_SITL/sitl_airspeed.cpp
-	libraries/AP_HAL_SITL/sitl_rangefinder.cpp
-	libraries/AP_HAL_SITL/system.cpp
+set(AP_HAL_ChibiOS_SOURCES #13
+	libraries/AP_HAL_ChibiOS/AP_HAL_ChibiOS.h
+	libraries/AP_HAL_ChibiOS/AP_HAL_ChibiOS_Namespace.h
+	libraries/AP_HAL_ChibiOS/AP_HAL_ChibiOS_Private.h
+	libraries/AP_HAL_ChibiOS/AnalogIn.h
+	libraries/AP_HAL_ChibiOS/CANFDIface.h
+	libraries/AP_HAL_ChibiOS/CANIface.h
+	libraries/AP_HAL_ChibiOS/DSP.h
+	libraries/AP_HAL_ChibiOS/Device.h
+	libraries/AP_HAL_ChibiOS/Flash.h
+	libraries/AP_HAL_ChibiOS/GPIO.h
+	libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.h
+	libraries/AP_HAL_ChibiOS/I2CDevice.h
+	libraries/AP_HAL_ChibiOS/LogStructure.h
+	libraries/AP_HAL_ChibiOS/RCInput.h
+	libraries/AP_HAL_ChibiOS/RCOutput.h
+	libraries/AP_HAL_ChibiOS/SPIDevice.h
+	libraries/AP_HAL_ChibiOS/Scheduler.h
+	libraries/AP_HAL_ChibiOS/Semaphores.h
+	libraries/AP_HAL_ChibiOS/SoftSigReader.h
+	libraries/AP_HAL_ChibiOS/SoftSigReaderInt.h
+	libraries/AP_HAL_ChibiOS/Storage.h
+	libraries/AP_HAL_ChibiOS/UARTDriver.h
+	libraries/AP_HAL_ChibiOS/Util.h
+	libraries/AP_HAL_ChibiOS/WSPIDevice.h
+	libraries/AP_HAL_ChibiOS/sdcard.h
+	libraries/AP_HAL_ChibiOS/shared_dma.h
+	libraries/AP_HAL_ChibiOS/AnalogIn.cpp
+	libraries/AP_HAL_ChibiOS/CANFDIface.cpp
+	libraries/AP_HAL_ChibiOS/CanIface.cpp
+	libraries/AP_HAL_ChibiOS/DSP.cpp
+	libraries/AP_HAL_ChibiOS/Device.cpp
+	libraries/AP_HAL_ChibiOS/GPIO.cpp
+	libraries/AP_HAL_ChibiOS/HAL_ChibiOS_Class.cpp
+	libraries/AP_HAL_ChibiOS/I2CDevice.cpp
+	libraries/AP_HAL_ChibiOS/RCInput.cpp
+	libraries/AP_HAL_ChibiOS/RCOutput.cpp
+	libraries/AP_HAL_ChibiOS/RCOutput_bdshot.cpp
+	libraries/AP_HAL_ChibiOS/RCOutput_iofirmware.cpp
+	libraries/AP_HAL_ChibiOS/RCOutput_serial.cpp
+	libraries/AP_HAL_ChibiOS/SPIDevice.cpp
+	libraries/AP_HAL_ChibiOS/Scheduler.cpp
+	libraries/AP_HAL_ChibiOS/Semaphores.cpp
+	libraries/AP_HAL_ChibiOS/SoftSigReader.cpp
+	libraries/AP_HAL_ChibiOS/SoftSigReaderInt.cpp
+	libraries/AP_HAL_ChibiOS/Storage.cpp
+	libraries/AP_HAL_ChibiOS/UARTDriver.cpp
+	libraries/AP_HAL_ChibiOS/Util.cpp
+	libraries/AP_HAL_ChibiOS/WSPIDevice.cpp
+	libraries/AP_HAL_ChibiOS/sdcard.cpp
+	libraries/AP_HAL_ChibiOS/shared_dma.cpp
+	libraries/AP_HAL_ChibiOS/stdio.cpp
+	libraries/AP_HAL_ChibiOS/system.cpp
 )
 
-set(AP_HAL_SITL_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+set(AP_HAL_ChibiOS_INCLUDES
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
-add_library(AP_HAL_SITL PUBLIC ${AP_HAL_SITL_SOURCES}) #2
-target_compile_definitions(AP_HAL_SITL PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
-target_include_directories(AP_HAL_SITL PUBLIC ${AP_HAL_SITL_INCLUDES})
+add_library(AP_HAL_ChibiOS PUBLIC ${AP_HAL_ChibiOS_SOURCES}) #2
+target_include_directories(AP_HAL_ChibiOS PUBLIC ${AP_HAL_ChibiOS_INCLUDES})
 
-set_target_properties(AP_HAL_SITL PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
-    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
-)
-
-add_library(AP_HAL_SITL_Plane PUBLIC ${AP_HAL_SITL_SOURCES}) #2
-target_compile_definitions(AP_HAL_SITL_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
-target_include_directories(AP_HAL_SITL_Plane PUBLIC ${AP_HAL_SITL_INCLUDES})
-
-set_target_properties(AP_HAL_SITL_Plane PROPERTIES
+set_target_properties(AP_HAL_ChibiOS PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
 
 
-target_link_libraries(AP_HAL_SITL mavlink) #clean
-target_link_libraries(AP_HAL_SITL canard) #clean
-target_link_libraries(AP_HAL_SITL littlefs) #clean
-
-#------------------------------------------------
-
-set(SITL_SOURCES #13
-	libraries/SITL/SIM_ADSB.h
-	libraries/SITL/SIM_ADSB_Device.h
-	libraries/SITL/SIM_ADSB_Sagetech_MXS.h
-	libraries/SITL/SIM_AIS.h
-	libraries/SITL/SIM_AS5600.h
-	libraries/SITL/SIM_AirSim.h
-	libraries/SITL/SIM_Aircraft.h
-	libraries/SITL/SIM_Airspeed_DLVR.h
-	libraries/SITL/SIM_BalanceBot.h
-	libraries/SITL/SIM_Balloon.h
-	libraries/SITL/SIM_BattMonitor_SMBus.h
-	libraries/SITL/SIM_BattMonitor_SMBus_Generic.h
-	libraries/SITL/SIM_BattMonitor_SMBus_Maxell.h
-	libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.h
-	libraries/SITL/SIM_Battery.h
-	libraries/SITL/SIM_Blimp.h
-	libraries/SITL/SIM_Buzzer.h
-	libraries/SITL/SIM_CRRCSim.h
-	libraries/SITL/SIM_CRSF.h
-	libraries/SITL/SIM_Calibration.h
-	libraries/SITL/SIM_DroneCANDevice.h
-	libraries/SITL/SIM_EFI_Hirth.h
-	libraries/SITL/SIM_EFI_MegaSquirt.h
-	libraries/SITL/SIM_ELRS.h
-	libraries/SITL/SIM_FETtecOneWireESC.h
-	libraries/SITL/SIM_FlightAxis.h
-	libraries/SITL/SIM_Frame.h
-	libraries/SITL/SIM_Frsky.h
-	libraries/SITL/SIM_Frsky_D.h
-	libraries/SITL/SIM_GPIO_LED_1.h
-	libraries/SITL/SIM_GPIO_LED_2.h
-	libraries/SITL/SIM_GPIO_LED_3.h
-	libraries/SITL/SIM_GPIO_LED_RGB.h
-	libraries/SITL/SIM_GPS.h
-	libraries/SITL/SIM_GPS_FILE.h
-	libraries/SITL/SIM_GPS_MSP.h
-	libraries/SITL/SIM_GPS_NMEA.h
-	libraries/SITL/SIM_GPS_NOVA.h
-	libraries/SITL/SIM_GPS_SBF.h
-	libraries/SITL/SIM_GPS_SBP.h
-	libraries/SITL/SIM_GPS_SBP2.h
-	libraries/SITL/SIM_GPS_SBP_Common.h
-	libraries/SITL/SIM_GPS_Trimble.h
-	libraries/SITL/SIM_GPS_UBLOX.h
-	libraries/SITL/SIM_Gazebo.h
-	libraries/SITL/SIM_GeneratorEngine.h
-	libraries/SITL/SIM_Gimbal.h
-	libraries/SITL/SIM_Glider.h
-	libraries/SITL/SIM_Gripper_EPM.h
-	libraries/SITL/SIM_Gripper_Servo.h
-	libraries/SITL/SIM_Helicopter.h
-	libraries/SITL/SIM_I2C.h
-	libraries/SITL/SIM_I2CDevice.h
-	libraries/SITL/SIM_ICEngine.h
-	libraries/SITL/SIM_ICM40609.h
-	libraries/SITL/SIM_INA3221.h
-	libraries/SITL/SIM_IS31FL3195.h
-	libraries/SITL/SIM_InertialLabs.h
-	libraries/SITL/SIM_IntelligentEnergy.h
-	libraries/SITL/SIM_IntelligentEnergy24.h
-	libraries/SITL/SIM_Invensense_v3.h
-	libraries/SITL/SIM_JEDEC.h
-	libraries/SITL/SIM_JEDEC_MX25L3206E.h
-	libraries/SITL/SIM_JSBSim.h
-	libraries/SITL/SIM_JSON.h
-	libraries/SITL/SIM_JSON_Master.h
-	libraries/SITL/SIM_LED_n.h
-	libraries/SITL/SIM_LM2755.h
-	libraries/SITL/SIM_LP5562.h
-	libraries/SITL/SIM_Loweheiser.h
-	libraries/SITL/SIM_MS5525.h
-	libraries/SITL/SIM_MS5611.h
-	libraries/SITL/SIM_MS5XXX.h
-	libraries/SITL/SIM_MaxSonarI2CXL.h
-	libraries/SITL/SIM_MicroStrain.h
-	libraries/SITL/SIM_Morse.h
-	libraries/SITL/SIM_Motor.h
-	libraries/SITL/SIM_MotorBoat.h
-	libraries/SITL/SIM_Multicopter.h
-	libraries/SITL/SIM_NoVehicle.h
-	libraries/SITL/SIM_PS_LD06.h
-	libraries/SITL/SIM_PS_LightWare.h
-	libraries/SITL/SIM_PS_LightWare_SF45B.h
-	libraries/SITL/SIM_PS_RPLidar.h
-	libraries/SITL/SIM_PS_RPLidarA1.h
-	libraries/SITL/SIM_PS_RPLidarA2.h
-	libraries/SITL/SIM_PS_TeraRangerTower.h
-	libraries/SITL/SIM_Parachute.h
-	libraries/SITL/SIM_Plane.h
-	libraries/SITL/SIM_Precland.h
-	libraries/SITL/SIM_QMC5883L.h
-	libraries/SITL/SIM_QuadPlane.h
-	libraries/SITL/SIM_RAMTRON.h
-	libraries/SITL/SIM_RAMTRON_FM25V02.h
-	libraries/SITL/SIM_RF_Ainstein_LR_D1.h
-	libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.h
-	libraries/SITL/SIM_RF_BLping.h
-	libraries/SITL/SIM_RF_Benewake.h
-	libraries/SITL/SIM_RF_Benewake_TF02.h
-	libraries/SITL/SIM_RF_Benewake_TF03.h
-	libraries/SITL/SIM_RF_Benewake_TFMiniPlus.h
-	libraries/SITL/SIM_RF_Benewake_TFmini.h
-	libraries/SITL/SIM_RF_GYUS42v2.h
-	libraries/SITL/SIM_RF_JRE.h
-	libraries/SITL/SIM_RF_Lanbao.h
-	libraries/SITL/SIM_RF_LeddarOne.h
-	libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.h
-	libraries/SITL/SIM_RF_LightWareSerial.h
-	libraries/SITL/SIM_RF_LightWareSerialBinary.h
-	libraries/SITL/SIM_RF_LightWare_GRF.h
-	libraries/SITL/SIM_RF_MAVLink.h
-	libraries/SITL/SIM_RF_MaxsonarSerialLV.h
-	libraries/SITL/SIM_RF_NMEA.h
-	libraries/SITL/SIM_RF_NoopLoop.h
-	libraries/SITL/SIM_RF_RDS02UF.h
-	libraries/SITL/SIM_RF_TeraRanger_Serial.h
-	libraries/SITL/SIM_RF_USD1.h
-	libraries/SITL/SIM_RF_USD1_v0.h
-	libraries/SITL/SIM_RF_USD1_v1.h
-	libraries/SITL/SIM_RF_Wasp.h
-	libraries/SITL/SIM_RGBLED.h
-	libraries/SITL/SIM_RichenPower.h
-	libraries/SITL/SIM_Rover.h
-	libraries/SITL/SIM_SMBusDevice.h
-	libraries/SITL/SIM_SPI.h
-	libraries/SITL/SIM_SPIDevice.h
-	libraries/SITL/SIM_Sailboat.h
-	libraries/SITL/SIM_Scrimmage.h
-	libraries/SITL/SIM_SerialDevice.h
-	libraries/SITL/SIM_SerialProximitySensor.h
-	libraries/SITL/SIM_SerialRangeFinder.h
-	libraries/SITL/SIM_Ship.h
-	libraries/SITL/SIM_SilentWings.h
-	libraries/SITL/SIM_SingleCopter.h
-	libraries/SITL/SIM_SlungPayload.h
-	libraries/SITL/SIM_SoloGimbal.h
-	libraries/SITL/SIM_Sprayer.h
-	libraries/SITL/SIM_StratoBlimp.h
-	libraries/SITL/SIM_Submarine.h
-	libraries/SITL/SIM_TFS20L.h
-	libraries/SITL/SIM_Temperature_MCP9600.h
-	libraries/SITL/SIM_Temperature_SHT3x.h
-	libraries/SITL/SIM_Temperature_TSYS01.h
-	libraries/SITL/SIM_Temperature_TSYS03.h
-	libraries/SITL/SIM_TeraRangerI2C.h
-	libraries/SITL/SIM_Tether.h
-	libraries/SITL/SIM_ToneAlarm.h
-	libraries/SITL/SIM_ToshibaLED.h
-	libraries/SITL/SIM_Tracker.h
-	libraries/SITL/SIM_VectorNav.h
-	libraries/SITL/SIM_Vicon.h
-	libraries/SITL/SIM_Volz.h
-	libraries/SITL/SIM_Webots.h
-	libraries/SITL/SIM_Webots_Python.h
-	libraries/SITL/SIM_XPlane.h
-	libraries/SITL/SIM_config.h
-	libraries/SITL/SIM_last_letter.h
-	libraries/SITL/SITL.h
-	libraries/SITL/SITL_Input.h
-	libraries/SITL/ServoModel.h
-	libraries/SITL/SIM_ADSB.cpp
-	libraries/SITL/SIM_ADSB_Sagetech_MXS.cpp
-	libraries/SITL/SIM_AIS.cpp
-	libraries/SITL/SIM_AS5600.cpp
-	libraries/SITL/SIM_AirSim.cpp
-	libraries/SITL/SIM_Aircraft.cpp
-	libraries/SITL/SIM_Airspeed_DLVR.cpp
-	libraries/SITL/SIM_BalanceBot.cpp
-	libraries/SITL/SIM_Balloon.cpp
-	libraries/SITL/SIM_BattMonitor_SMBus.cpp
-	libraries/SITL/SIM_BattMonitor_SMBus_Generic.cpp
-	libraries/SITL/SIM_BattMonitor_SMBus_Maxell.cpp
-	libraries/SITL/SIM_BattMonitor_SMBus_Rotoye.cpp
-	libraries/SITL/SIM_Battery.cpp
-	libraries/SITL/SIM_Blimp.cpp
-	libraries/SITL/SIM_Buzzer.cpp
-	libraries/SITL/SIM_CRRCSim.cpp
-	libraries/SITL/SIM_CRSF.cpp
-	libraries/SITL/SIM_Calibration.cpp
-	libraries/SITL/SIM_DroneCANDevice.cpp
-	libraries/SITL/SIM_EFI_Hirth.cpp
-	libraries/SITL/SIM_EFI_MegaSquirt.cpp
-	libraries/SITL/SIM_ELRS.cpp
-	libraries/SITL/SIM_FETtecOneWireESC.cpp
-	libraries/SITL/SIM_FlightAxis.cpp
-	libraries/SITL/SIM_Frame.cpp
-	libraries/SITL/SIM_Frsky.cpp
-	libraries/SITL/SIM_Frsky_D.cpp
-	libraries/SITL/SIM_GPIO_LED_1.cpp
-	libraries/SITL/SIM_GPIO_LED_2.cpp
-	libraries/SITL/SIM_GPIO_LED_3.cpp
-	libraries/SITL/SIM_GPIO_LED_RGB.cpp
-	libraries/SITL/SIM_GPS.cpp
-	libraries/SITL/SIM_GPS_FILE.cpp
-	libraries/SITL/SIM_GPS_MSP.cpp
-	libraries/SITL/SIM_GPS_NMEA.cpp
-	libraries/SITL/SIM_GPS_NOVA.cpp
-	libraries/SITL/SIM_GPS_SBF.cpp
-	libraries/SITL/SIM_GPS_SBP.cpp
-	libraries/SITL/SIM_GPS_SBP2.cpp
-	libraries/SITL/SIM_GPS_SBP_Common.cpp
-	libraries/SITL/SIM_GPS_Trimble.cpp
-	libraries/SITL/SIM_GPS_UBLOX.cpp
-	libraries/SITL/SIM_Gazebo.cpp
-	libraries/SITL/SIM_GeneratorEngine.cpp
-	libraries/SITL/SIM_Gimbal.cpp
-	libraries/SITL/SIM_Glider.cpp
-	libraries/SITL/SIM_Gripper_EPM.cpp
-	libraries/SITL/SIM_Gripper_Servo.cpp
-	libraries/SITL/SIM_Helicopter.cpp
-	libraries/SITL/SIM_I2C.cpp
-	libraries/SITL/SIM_I2CDevice.cpp
-	libraries/SITL/SIM_ICEngine.cpp
-	libraries/SITL/SIM_INA3221.cpp
-	libraries/SITL/SIM_IS31FL3195.cpp
-	libraries/SITL/SIM_InertialLabs.cpp
-	libraries/SITL/SIM_IntelligentEnergy.cpp
-	libraries/SITL/SIM_IntelligentEnergy24.cpp
-	libraries/SITL/SIM_Invensense_v3.cpp
-	libraries/SITL/SIM_JEDEC.cpp
-	libraries/SITL/SIM_JEDEC_MX25L3206E.cpp
-	libraries/SITL/SIM_JSBSim.cpp
-	libraries/SITL/SIM_JSON.cpp
-	libraries/SITL/SIM_JSON_Master.cpp
-	libraries/SITL/SIM_LED_n.cpp
-	libraries/SITL/SIM_LM2755.cpp
-	libraries/SITL/SIM_LP5562.cpp
-	libraries/SITL/SIM_Loweheiser.cpp
-	libraries/SITL/SIM_MS5525.cpp
-	libraries/SITL/SIM_MS5611.cpp
-	libraries/SITL/SIM_MS5XXX.cpp
-	libraries/SITL/SIM_MicroStrain.cpp
-	libraries/SITL/SIM_MicroStrain7.cpp
-	libraries/SITL/SIM_Morse.cpp
-	libraries/SITL/SIM_Motor.cpp
-	libraries/SITL/SIM_Multicopter.cpp
-	libraries/SITL/SIM_PS_LD06.cpp
-	libraries/SITL/SIM_PS_LightWare_SF45B.cpp
-	libraries/SITL/SIM_PS_RPLidar.cpp
-	libraries/SITL/SIM_PS_TeraRangerTower.cpp
-	libraries/SITL/SIM_Parachute.cpp
-	libraries/SITL/SIM_Plane.cpp
-	libraries/SITL/SIM_Precland.cpp
-	libraries/SITL/SIM_QMC5883L.cpp
-	libraries/SITL/SIM_QuadPlane.cpp
-	libraries/SITL/SIM_RAMTRON.cpp
-	libraries/SITL/SIM_RAMTRON_FM25V02.cpp
-	libraries/SITL/SIM_RF_Ainstein_LR_D1.cpp
-	libraries/SITL/SIM_RF_Ainstein_LR_D1_v19.cpp
-	libraries/SITL/SIM_RF_BLping.cpp
-	libraries/SITL/SIM_RF_Benewake.cpp
-	libraries/SITL/SIM_RF_Benewake_TFMiniPlus.cpp
-	libraries/SITL/SIM_RF_GYUS42v2.cpp
-	libraries/SITL/SIM_RF_JRE.cpp
-	libraries/SITL/SIM_RF_Lanbao.cpp
-	libraries/SITL/SIM_RF_LeddarOne.cpp
-	libraries/SITL/SIM_RF_LightWareI2C_Legacy16Bit.cpp
-	libraries/SITL/SIM_RF_LightWareSerial.cpp
-	libraries/SITL/SIM_RF_LightWareSerialBinary.cpp
-	libraries/SITL/SIM_RF_LightWare_GRF.cpp
-	libraries/SITL/SIM_RF_MAVLink.cpp
-	libraries/SITL/SIM_RF_MaxsonarSerialLV.cpp
-	libraries/SITL/SIM_RF_NMEA.cpp
-	libraries/SITL/SIM_RF_NoopLoop.cpp
-	libraries/SITL/SIM_RF_RDS02UF.cpp
-	libraries/SITL/SIM_RF_TeraRanger_Serial.cpp
-	libraries/SITL/SIM_RF_USD1.cpp
-	libraries/SITL/SIM_RF_USD1_v0.cpp
-	libraries/SITL/SIM_RF_USD1_v1.cpp
-	libraries/SITL/SIM_RF_Wasp.cpp
-	libraries/SITL/SIM_RGBLED.cpp
-	libraries/SITL/SIM_RichenPower.cpp
-	libraries/SITL/SIM_Rover.cpp
-	libraries/SITL/SIM_SMBusDevice.cpp
-	libraries/SITL/SIM_SPI.cpp
-	libraries/SITL/SIM_Sailboat.cpp
-	libraries/SITL/SIM_Scrimmage.cpp
-	libraries/SITL/SIM_SerialDevice.cpp
-	libraries/SITL/SIM_SerialProximitySensor.cpp
-	libraries/SITL/SIM_SerialRangeFinder.cpp
-	libraries/SITL/SIM_Ship.cpp
-	libraries/SITL/SIM_SilentWings.cpp
-	libraries/SITL/SIM_SingleCopter.cpp
-	libraries/SITL/SIM_SlungPayload.cpp
-	libraries/SITL/SIM_SoloGimbal.cpp
-	libraries/SITL/SIM_Sprayer.cpp
-	libraries/SITL/SIM_StratoBlimp.cpp
-	libraries/SITL/SIM_Submarine.cpp
-	libraries/SITL/SIM_TFS20L.cpp
-	libraries/SITL/SIM_Temperature_MCP9600.cpp
-	libraries/SITL/SIM_Temperature_SHT3x.cpp
-	libraries/SITL/SIM_Temperature_TSYS01.cpp
-	libraries/SITL/SIM_Temperature_TSYS03.cpp
-	libraries/SITL/SIM_TeraRangerI2C.cpp
-	libraries/SITL/SIM_Tether.cpp
-	libraries/SITL/SIM_ToneAlarm.cpp
-	libraries/SITL/SIM_ToshibaLED.cpp
-	libraries/SITL/SIM_Tracker.cpp
-	libraries/SITL/SIM_VectorNav.cpp
-	libraries/SITL/SIM_Vicon.cpp
-	libraries/SITL/SIM_Volz.cpp
-	libraries/SITL/SIM_Webots.cpp
-	libraries/SITL/SIM_Webots_Python.cpp
-	libraries/SITL/SIM_XPlane.cpp
-	libraries/SITL/SIM_last_letter.cpp
-	libraries/SITL/SITL.cpp
-	libraries/SITL/SITL_Airspeed.cpp
-	libraries/SITL/SITL_Baro.cpp
-	libraries/SITL/ServoModel.cpp
-)
-
-set(SITL_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
-    modules/DroneCAN/libcanard
-    libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
-    /home/buzz2/ardupilot/libraries/
-    /home/buzz2/ardupilot/modules/littlefs/
-    /home/buzz2/ardupilot/libraries/AP_Common/missing
-    /home/buzz2/ardupilot/modules/lwip/src/include
-    /home/buzz2/ardupilot/libraries/AP_Networking/config
-    /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
-    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
-    /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
-
-add_library(SITL PUBLIC ${SITL_SOURCES}) #2
-target_compile_definitions(SITL PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
-target_include_directories(SITL PUBLIC ${SITL_INCLUDES})
-
-set_target_properties(SITL PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
-    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
-)
-
-add_library(SITL_Plane PUBLIC ${SITL_SOURCES}) #2
-target_compile_definitions(SITL_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
-target_include_directories(SITL_Plane PUBLIC ${SITL_INCLUDES})
-
-set_target_properties(SITL_Plane PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
-    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
-)
-
-
-target_link_libraries(SITL mavlink) #clean
-target_link_libraries(SITL canard) #clean
-target_link_libraries(SITL littlefs) #clean
+target_link_libraries(AP_HAL_ChibiOS mavlink) #clean
+target_link_libraries(AP_HAL_ChibiOS canard) #clean
 
 #------------------------------------------------
 
@@ -7700,26 +12698,70 @@ set(AP_Scripting_SOURCES #13
 )
 
 set(AP_Scripting_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Scripting PUBLIC ${AP_Scripting_SOURCES}) #2
-target_compile_definitions(AP_Scripting PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Scripting PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Scripting PUBLIC ${AP_Scripting_INCLUDES})
 
 set_target_properties(AP_Scripting PROPERTIES
@@ -7728,7 +12770,7 @@ set_target_properties(AP_Scripting PROPERTIES
 )
 
 add_library(AP_Scripting_Plane PUBLIC ${AP_Scripting_SOURCES}) #2
-target_compile_definitions(AP_Scripting_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Scripting_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Scripting_Plane PUBLIC ${AP_Scripting_INCLUDES})
 
 set_target_properties(AP_Scripting_Plane PROPERTIES
@@ -7739,7 +12781,6 @@ set_target_properties(AP_Scripting_Plane PROPERTIES
 
 target_link_libraries(AP_Scripting mavlink) #clean
 target_link_libraries(AP_Scripting canard) #clean
-target_link_libraries(AP_Scripting littlefs) #clean
 
 #------------------------------------------------
 
@@ -7805,21 +12846,65 @@ set(AP_Scripting_lua_src_SOURCES #13
 )
 
 set(AP_Scripting_lua_src_INCLUDES
-    build/sitl/libraries
-    build/sitl/libraries/GCS_MAVLink
-    build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build/CubeOrange/libraries
+    build/CubeOrange/libraries/GCS_MAVLink
+    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -7834,7 +12919,6 @@ set_target_properties(AP_Scripting_lua_src PROPERTIES
 
 target_link_libraries(AP_Scripting_lua_src mavlink) #clean
 target_link_libraries(AP_Scripting_lua_src canard) #clean
-target_link_libraries(AP_Scripting_lua_src littlefs) #clean
 
 #------------------------------------------------
 
@@ -7859,26 +12943,70 @@ set(AP_NavEKF3_SOURCES #13
 )
 
 set(AP_NavEKF3_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_NavEKF3 PUBLIC ${AP_NavEKF3_SOURCES}) #2
-target_compile_definitions(AP_NavEKF3 PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_NavEKF3 PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_NavEKF3 PUBLIC ${AP_NavEKF3_INCLUDES})
 
 set_target_properties(AP_NavEKF3 PROPERTIES
@@ -7887,7 +13015,7 @@ set_target_properties(AP_NavEKF3 PROPERTIES
 )
 
 add_library(AP_NavEKF3_Plane PUBLIC ${AP_NavEKF3_SOURCES}) #2
-target_compile_definitions(AP_NavEKF3_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_NavEKF3_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_NavEKF3_Plane PUBLIC ${AP_NavEKF3_INCLUDES})
 
 set_target_properties(AP_NavEKF3_Plane PROPERTIES
@@ -7898,7 +13026,6 @@ set_target_properties(AP_NavEKF3_Plane PROPERTIES
 
 target_link_libraries(AP_NavEKF3 mavlink) #clean
 target_link_libraries(AP_NavEKF3 canard) #clean
-target_link_libraries(AP_NavEKF3 littlefs) #clean
 
 #------------------------------------------------
 
@@ -7909,26 +13036,70 @@ set(AP_Rally_SOURCES #13
 )
 
 set(AP_Rally_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Rally PUBLIC ${AP_Rally_SOURCES}) #2
-target_compile_definitions(AP_Rally PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Rally PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Rally PUBLIC ${AP_Rally_INCLUDES})
 
 set_target_properties(AP_Rally PROPERTIES
@@ -7937,7 +13108,7 @@ set_target_properties(AP_Rally PROPERTIES
 )
 
 add_library(AP_Rally_Plane PUBLIC ${AP_Rally_SOURCES}) #2
-target_compile_definitions(AP_Rally_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Rally_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Rally_Plane PUBLIC ${AP_Rally_INCLUDES})
 
 set_target_properties(AP_Rally_Plane PROPERTIES
@@ -7948,7 +13119,6 @@ set_target_properties(AP_Rally_Plane PROPERTIES
 
 target_link_libraries(AP_Rally mavlink) #clean
 target_link_libraries(AP_Rally canard) #clean
-target_link_libraries(AP_Rally littlefs) #clean
 
 #------------------------------------------------
 
@@ -7958,26 +13128,70 @@ set(StorageManager_SOURCES #13
 )
 
 set(StorageManager_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(StorageManager PUBLIC ${StorageManager_SOURCES}) #2
-target_compile_definitions(StorageManager PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(StorageManager PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(StorageManager PUBLIC ${StorageManager_INCLUDES})
 
 set_target_properties(StorageManager PROPERTIES
@@ -7986,7 +13200,7 @@ set_target_properties(StorageManager PROPERTIES
 )
 
 add_library(StorageManager_Plane PUBLIC ${StorageManager_SOURCES}) #2
-target_compile_definitions(StorageManager_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(StorageManager_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(StorageManager_Plane PUBLIC ${StorageManager_INCLUDES})
 
 set_target_properties(StorageManager_Plane PROPERTIES
@@ -7997,7 +13211,6 @@ set_target_properties(StorageManager_Plane PROPERTIES
 
 target_link_libraries(StorageManager mavlink) #clean
 target_link_libraries(StorageManager canard) #clean
-target_link_libraries(StorageManager littlefs) #clean
 
 #------------------------------------------------
 
@@ -8007,26 +13220,70 @@ set(AP_IBus_Telem_SOURCES #13
 )
 
 set(AP_IBus_Telem_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_IBus_Telem PUBLIC ${AP_IBus_Telem_SOURCES}) #2
-target_compile_definitions(AP_IBus_Telem PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_IBus_Telem PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_IBus_Telem PUBLIC ${AP_IBus_Telem_INCLUDES})
 
 set_target_properties(AP_IBus_Telem PROPERTIES
@@ -8035,7 +13292,7 @@ set_target_properties(AP_IBus_Telem PROPERTIES
 )
 
 add_library(AP_IBus_Telem_Plane PUBLIC ${AP_IBus_Telem_SOURCES}) #2
-target_compile_definitions(AP_IBus_Telem_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_IBus_Telem_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_IBus_Telem_Plane PUBLIC ${AP_IBus_Telem_INCLUDES})
 
 set_target_properties(AP_IBus_Telem_Plane PROPERTIES
@@ -8046,7 +13303,6 @@ set_target_properties(AP_IBus_Telem_Plane PROPERTIES
 
 target_link_libraries(AP_IBus_Telem mavlink) #clean
 target_link_libraries(AP_IBus_Telem canard) #clean
-target_link_libraries(AP_IBus_Telem littlefs) #clean
 
 #------------------------------------------------
 
@@ -8057,21 +13313,65 @@ set(AP_BLHeli_SOURCES #13
 )
 
 set(AP_BLHeli_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -8086,7 +13386,6 @@ set_target_properties(AP_BLHeli PROPERTIES
 
 target_link_libraries(AP_BLHeli mavlink) #clean
 target_link_libraries(AP_BLHeli canard) #clean
-target_link_libraries(AP_BLHeli littlefs) #clean
 
 #------------------------------------------------
 
@@ -8100,26 +13399,70 @@ set(AC_Fence_SOURCES #13
 )
 
 set(AC_Fence_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AC_Fence PUBLIC ${AC_Fence_SOURCES}) #2
-target_compile_definitions(AC_Fence PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AC_Fence PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AC_Fence PUBLIC ${AC_Fence_INCLUDES})
 
 set_target_properties(AC_Fence PROPERTIES
@@ -8128,7 +13471,7 @@ set_target_properties(AC_Fence PROPERTIES
 )
 
 add_library(AC_Fence_Plane PUBLIC ${AC_Fence_SOURCES}) #2
-target_compile_definitions(AC_Fence_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AC_Fence_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AC_Fence_Plane PUBLIC ${AC_Fence_INCLUDES})
 
 set_target_properties(AC_Fence_Plane PROPERTIES
@@ -8139,7 +13482,6 @@ set_target_properties(AC_Fence_Plane PROPERTIES
 
 target_link_libraries(AC_Fence mavlink) #clean
 target_link_libraries(AC_Fence canard) #clean
-target_link_libraries(AC_Fence littlefs) #clean
 
 #------------------------------------------------
 
@@ -8150,26 +13492,70 @@ set(AP_LandingGear_SOURCES #13
 )
 
 set(AP_LandingGear_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_LandingGear PUBLIC ${AP_LandingGear_SOURCES}) #2
-target_compile_definitions(AP_LandingGear PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_LandingGear PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_LandingGear PUBLIC ${AP_LandingGear_INCLUDES})
 
 set_target_properties(AP_LandingGear PROPERTIES
@@ -8178,7 +13564,7 @@ set_target_properties(AP_LandingGear PROPERTIES
 )
 
 add_library(AP_LandingGear_Plane PUBLIC ${AP_LandingGear_SOURCES}) #2
-target_compile_definitions(AP_LandingGear_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_LandingGear_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_LandingGear_Plane PUBLIC ${AP_LandingGear_INCLUDES})
 
 set_target_properties(AP_LandingGear_Plane PROPERTIES
@@ -8189,7 +13575,6 @@ set_target_properties(AP_LandingGear_Plane PROPERTIES
 
 target_link_libraries(AP_LandingGear mavlink) #clean
 target_link_libraries(AP_LandingGear canard) #clean
-target_link_libraries(AP_LandingGear littlefs) #clean
 
 #------------------------------------------------
 
@@ -8232,21 +13617,65 @@ set(AP_ADSB_sagetech-sdk_SOURCES #13
 )
 
 set(AP_ADSB_sagetech-sdk_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -8261,7 +13690,6 @@ set_target_properties(AP_ADSB_sagetech-sdk PROPERTIES
 
 target_link_libraries(AP_ADSB_sagetech-sdk mavlink) #clean
 target_link_libraries(AP_ADSB_sagetech-sdk canard) #clean
-target_link_libraries(AP_ADSB_sagetech-sdk littlefs) #clean
 
 #------------------------------------------------
 
@@ -8271,26 +13699,70 @@ set(AP_GyroFFT_SOURCES #13
 )
 
 set(AP_GyroFFT_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_GyroFFT PUBLIC ${AP_GyroFFT_SOURCES}) #2
-target_compile_definitions(AP_GyroFFT PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_GyroFFT PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_GyroFFT PUBLIC ${AP_GyroFFT_INCLUDES})
 
 set_target_properties(AP_GyroFFT PROPERTIES
@@ -8299,7 +13771,7 @@ set_target_properties(AP_GyroFFT PROPERTIES
 )
 
 add_library(AP_GyroFFT_Plane PUBLIC ${AP_GyroFFT_SOURCES}) #2
-target_compile_definitions(AP_GyroFFT_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_GyroFFT_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_GyroFFT_Plane PUBLIC ${AP_GyroFFT_INCLUDES})
 
 set_target_properties(AP_GyroFFT_Plane PROPERTIES
@@ -8310,7 +13782,6 @@ set_target_properties(AP_GyroFFT_Plane PROPERTIES
 
 target_link_libraries(AP_GyroFFT mavlink) #clean
 target_link_libraries(AP_GyroFFT canard) #clean
-target_link_libraries(AP_GyroFFT littlefs) #clean
 
 #------------------------------------------------
 
@@ -8322,26 +13793,70 @@ set(AP_AIS_SOURCES #13
 )
 
 set(AP_AIS_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_AIS PUBLIC ${AP_AIS_SOURCES}) #2
-target_compile_definitions(AP_AIS PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_AIS PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_AIS PUBLIC ${AP_AIS_INCLUDES})
 
 set_target_properties(AP_AIS PROPERTIES
@@ -8350,7 +13865,7 @@ set_target_properties(AP_AIS PROPERTIES
 )
 
 add_library(AP_AIS_Plane PUBLIC ${AP_AIS_SOURCES}) #2
-target_compile_definitions(AP_AIS_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_AIS_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_AIS_Plane PUBLIC ${AP_AIS_INCLUDES})
 
 set_target_properties(AP_AIS_Plane PROPERTIES
@@ -8361,7 +13876,6 @@ set_target_properties(AP_AIS_Plane PROPERTIES
 
 target_link_libraries(AP_AIS mavlink) #clean
 target_link_libraries(AP_AIS canard) #clean
-target_link_libraries(AP_AIS littlefs) #clean
 
 #------------------------------------------------
 
@@ -8372,26 +13886,70 @@ set(AP_Arming_SOURCES #13
 )
 
 set(AP_Arming_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Arming PUBLIC ${AP_Arming_SOURCES}) #2
-target_compile_definitions(AP_Arming PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Arming PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Arming PUBLIC ${AP_Arming_INCLUDES})
 
 set_target_properties(AP_Arming PROPERTIES
@@ -8400,7 +13958,7 @@ set_target_properties(AP_Arming PROPERTIES
 )
 
 add_library(AP_Arming_Plane PUBLIC ${AP_Arming_SOURCES}) #2
-target_compile_definitions(AP_Arming_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Arming_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Arming_Plane PUBLIC ${AP_Arming_INCLUDES})
 
 set_target_properties(AP_Arming_Plane PROPERTIES
@@ -8411,7 +13969,6 @@ set_target_properties(AP_Arming_Plane PROPERTIES
 
 target_link_libraries(AP_Arming mavlink) #clean
 target_link_libraries(AP_Arming canard) #clean
-target_link_libraries(AP_Arming littlefs) #clean
 
 #------------------------------------------------
 
@@ -8422,26 +13979,70 @@ set(AP_Follow_SOURCES #13
 )
 
 set(AP_Follow_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Follow PUBLIC ${AP_Follow_SOURCES}) #2
-target_compile_definitions(AP_Follow PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Follow PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Follow PUBLIC ${AP_Follow_INCLUDES})
 
 set_target_properties(AP_Follow PROPERTIES
@@ -8450,7 +14051,7 @@ set_target_properties(AP_Follow PROPERTIES
 )
 
 add_library(AP_Follow_Plane PUBLIC ${AP_Follow_SOURCES}) #2
-target_compile_definitions(AP_Follow_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Follow_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Follow_Plane PUBLIC ${AP_Follow_INCLUDES})
 
 set_target_properties(AP_Follow_Plane PROPERTIES
@@ -8461,29 +14062,188 @@ set_target_properties(AP_Follow_Plane PROPERTIES
 
 target_link_libraries(AP_Follow mavlink) #clean
 target_link_libraries(AP_Follow canard) #clean
-target_link_libraries(AP_Follow littlefs) #clean
 
 #------------------------------------------------
 
 set(AntennaTracker_libs_SOURCES #13
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
+	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
 )
 
 set(AntennaTracker_libs_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -8604,12 +14364,9 @@ target_link_libraries(AntennaTracker_libs INTERFACE AP_Follow) #stripped
 target_link_libraries(AntennaTracker_libs INTERFACE AP_CANManager) #stripped
 target_link_libraries(AntennaTracker_libs INTERFACE AP_KDECAN) #stripped
 target_link_libraries(AntennaTracker_libs INTERFACE AP_PiccoloCAN) #stripped
-target_link_libraries(AntennaTracker_libs INTERFACE AP_DroneCAN) #stripped
-target_link_libraries(AntennaTracker_libs INTERFACE AP_HAL_SITL) #stripped
-target_link_libraries(AntennaTracker_libs INTERFACE AP_CSVReader) #stripped
-target_link_libraries(AntennaTracker_libs INTERFACE SITL) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_HAL_ChibiOS) #stripped
 target_link_libraries(AntennaTracker_libs INTERFACE AP_Scripting) #stripped
-target_link_libraries(AntennaTracker_libs INTERFACE AC_CustomControl) #stripped
+target_link_libraries(AntennaTracker_libs INTERFACE AP_DroneCAN) #stripped
 
 #------------------------------------------------
 
@@ -8644,21 +14401,65 @@ set(tracker_SOURCES #13
 )
 
 set(tracker_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -8672,12 +14473,10 @@ target_link_libraries(tracker AntennaTracker_libs) #clean
 target_link_libraries(tracker -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
@@ -8695,7 +14494,6 @@ target_link_libraries(tracker -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archi
 target_link_libraries(tracker -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
@@ -8799,8 +14597,7 @@ target_link_libraries(tracker -Wl,--whole-archive SRV_Channel -Wl,--no-whole-arc
 target_link_libraries(tracker -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(tracker -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(tracker -Wl,--whole-archive AP_HAL_ChibiOS -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
 target_link_libraries(tracker -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
@@ -8830,26 +14627,70 @@ set(AP_Avoidance_SOURCES #13
 )
 
 set(AP_Avoidance_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Avoidance PUBLIC ${AP_Avoidance_SOURCES}) #2
-target_compile_definitions(AP_Avoidance PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Avoidance PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Avoidance PUBLIC ${AP_Avoidance_INCLUDES})
 
 set_target_properties(AP_Avoidance PROPERTIES
@@ -8858,7 +14699,7 @@ set_target_properties(AP_Avoidance PROPERTIES
 )
 
 add_library(AP_Avoidance_Plane PUBLIC ${AP_Avoidance_SOURCES}) #2
-target_compile_definitions(AP_Avoidance_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_compile_definitions(AP_Avoidance_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS) #1
 target_include_directories(AP_Avoidance_Plane PUBLIC ${AP_Avoidance_INCLUDES})
 
 set_target_properties(AP_Avoidance_Plane PROPERTIES
@@ -8869,29 +14710,188 @@ set_target_properties(AP_Avoidance_Plane PROPERTIES
 
 target_link_libraries(AP_Avoidance mavlink) #clean
 target_link_libraries(AP_Avoidance canard) #clean
-target_link_libraries(AP_Avoidance littlefs) #clean
 
 #------------------------------------------------
 
 set(ArduCopter_libs_SOURCES #13
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
+	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
 )
 
 set(ArduCopter_libs_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9026,12 +15026,9 @@ target_link_libraries(ArduCopter_libs INTERFACE AP_LTM_Telem) #stripped
 target_link_libraries(ArduCopter_libs INTERFACE AP_Devo_Telem) #stripped
 target_link_libraries(ArduCopter_libs INTERFACE AC_AutoTune) #stripped
 target_link_libraries(ArduCopter_libs INTERFACE AP_SurfaceDistance) #stripped
-target_link_libraries(ArduCopter_libs INTERFACE AP_DroneCAN) #stripped
-target_link_libraries(ArduCopter_libs INTERFACE AP_HAL_SITL) #stripped
-target_link_libraries(ArduCopter_libs INTERFACE AP_CSVReader) #stripped
-target_link_libraries(ArduCopter_libs INTERFACE SITL) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_HAL_ChibiOS) #stripped
 target_link_libraries(ArduCopter_libs INTERFACE AP_Scripting) #stripped
-target_link_libraries(ArduCopter_libs INTERFACE AC_CustomControl) #stripped
+target_link_libraries(ArduCopter_libs INTERFACE AP_DroneCAN) #stripped
 
 #------------------------------------------------
 
@@ -9131,21 +15128,65 @@ set(copter_SOURCES #13
 )
 
 set(copter_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9159,12 +15200,10 @@ target_link_libraries(copter ArduCopter_libs) #clean
 target_link_libraries(copter -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
@@ -9183,7 +15222,6 @@ target_link_libraries(copter -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archiv
 target_link_libraries(copter -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
@@ -9288,8 +15326,7 @@ target_link_libraries(copter -Wl,--whole-archive SRV_Channel -Wl,--no-whole-arch
 target_link_libraries(copter -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter -Wl,--whole-archive AP_HAL_ChibiOS -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
@@ -9409,21 +15446,65 @@ set(copter-heli_SOURCES #13
 )
 
 set(copter-heli_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9437,12 +15518,10 @@ target_link_libraries(copter-heli ArduCopter_libs) #clean
 target_link_libraries(copter-heli -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter-heli -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter-heli -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
@@ -9461,7 +15540,6 @@ target_link_libraries(copter-heli -Wl,--whole-archive AP_Beacon -Wl,--no-whole-a
 target_link_libraries(copter-heli -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter-heli -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
@@ -9566,8 +15644,7 @@ target_link_libraries(copter-heli -Wl,--whole-archive SRV_Channel -Wl,--no-whole
 target_link_libraries(copter-heli -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter-heli -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(copter-heli -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(copter-heli -Wl,--whole-archive AP_HAL_ChibiOS -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
 target_link_libraries(copter-heli -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
@@ -9592,24 +15669,184 @@ set_target_properties(copter-heli PROPERTIES
 #------------------------------------------------
 
 set(ArduPlane_libs_SOURCES #13
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
+	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
 )
 
 set(ArduPlane_libs_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9747,12 +15984,9 @@ target_link_libraries(ArduPlane_libs INTERFACE AC_AutoTune) #stripped
 target_link_libraries(ArduPlane_libs INTERFACE AC_PrecLand) #stripped
 target_link_libraries(ArduPlane_libs INTERFACE AP_IRLock) #stripped
 target_link_libraries(ArduPlane_libs INTERFACE AP_Quicktune) #stripped
-target_link_libraries(ArduPlane_libs INTERFACE AP_DroneCAN) #stripped
-target_link_libraries(ArduPlane_libs INTERFACE AP_HAL_SITL) #stripped
-target_link_libraries(ArduPlane_libs INTERFACE AP_CSVReader) #stripped
-target_link_libraries(ArduPlane_libs INTERFACE SITL) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_HAL_ChibiOS) #stripped
 target_link_libraries(ArduPlane_libs INTERFACE AP_Scripting) #stripped
-target_link_libraries(ArduPlane_libs INTERFACE AC_CustomControl) #stripped
+target_link_libraries(ArduPlane_libs INTERFACE AP_DroneCAN) #stripped
 
 #------------------------------------------------
 
@@ -9846,21 +16080,65 @@ set(plane_SOURCES #13
 )
 
 set(plane_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9874,12 +16152,10 @@ target_link_libraries(plane ArduPlane_libs) #clean
 target_link_libraries(plane -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AC_AttitudeControl_Plane -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
@@ -9898,7 +16174,6 @@ target_link_libraries(plane -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive
 target_link_libraries(plane -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
@@ -10003,8 +16278,7 @@ target_link_libraries(plane -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archi
 target_link_libraries(plane -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane -Wl,--whole-archive AP_HAL_SITL_Plane -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane -Wl,--whole-archive SITL_Plane -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_HAL_ChibiOS -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
@@ -10029,24 +16303,184 @@ set_target_properties(plane PROPERTIES
 #------------------------------------------------
 
 set(ArduSub_libs_SOURCES #13
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
+	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
 )
 
 set(ArduSub_libs_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10173,12 +16607,9 @@ target_link_libraries(ArduSub_libs INTERFACE AP_InertialNav) #stripped
 target_link_libraries(ArduSub_libs INTERFACE AP_JSButton) #stripped
 target_link_libraries(ArduSub_libs INTERFACE AP_LeakDetector) #stripped
 target_link_libraries(ArduSub_libs INTERFACE AP_Motors) #stripped
-target_link_libraries(ArduSub_libs INTERFACE AP_DroneCAN) #stripped
-target_link_libraries(ArduSub_libs INTERFACE AP_HAL_SITL) #stripped
-target_link_libraries(ArduSub_libs INTERFACE AP_CSVReader) #stripped
-target_link_libraries(ArduSub_libs INTERFACE SITL) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_HAL_ChibiOS) #stripped
 target_link_libraries(ArduSub_libs INTERFACE AP_Scripting) #stripped
-target_link_libraries(ArduSub_libs INTERFACE AC_CustomControl) #stripped
+target_link_libraries(ArduSub_libs INTERFACE AP_DroneCAN) #stripped
 
 #------------------------------------------------
 
@@ -10236,21 +16667,65 @@ set(sub_SOURCES #13
 )
 
 set(sub_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10264,12 +16739,10 @@ target_link_libraries(sub ArduSub_libs) #clean
 target_link_libraries(sub -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
-target_link_libraries(sub -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(sub -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
@@ -10287,7 +16760,6 @@ target_link_libraries(sub -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive) 
 target_link_libraries(sub -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(sub -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
@@ -10391,8 +16863,7 @@ target_link_libraries(sub -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archive
 target_link_libraries(sub -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(sub -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(sub -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(sub -Wl,--whole-archive AP_HAL_ChibiOS -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
 target_link_libraries(sub -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
@@ -10416,24 +16887,184 @@ set_target_properties(sub PROPERTIES
 #------------------------------------------------
 
 set(Blimp_libs_SOURCES #13
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
+	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
 )
 
 set(Blimp_libs_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10560,12 +17191,9 @@ target_link_libraries(Blimp_libs INTERFACE AP_LTM_Telem) #stripped
 target_link_libraries(Blimp_libs INTERFACE AP_Devo_Telem) #stripped
 target_link_libraries(Blimp_libs INTERFACE AP_AdvancedFailsafe) #stripped
 target_link_libraries(Blimp_libs INTERFACE AC_AttitudeControl) #stripped
-target_link_libraries(Blimp_libs INTERFACE AP_DroneCAN) #stripped
-target_link_libraries(Blimp_libs INTERFACE AP_HAL_SITL) #stripped
-target_link_libraries(Blimp_libs INTERFACE AP_CSVReader) #stripped
-target_link_libraries(Blimp_libs INTERFACE SITL) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_HAL_ChibiOS) #stripped
 target_link_libraries(Blimp_libs INTERFACE AP_Scripting) #stripped
-target_link_libraries(Blimp_libs INTERFACE AC_CustomControl) #stripped
+target_link_libraries(Blimp_libs INTERFACE AP_DroneCAN) #stripped
 
 #------------------------------------------------
 
@@ -10610,21 +17238,65 @@ set(blimp_SOURCES #13
 )
 
 set(blimp_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10638,12 +17310,10 @@ target_link_libraries(blimp Blimp_libs) #clean
 target_link_libraries(blimp -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
@@ -10662,7 +17332,6 @@ target_link_libraries(blimp -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive
 target_link_libraries(blimp -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
@@ -10767,8 +17436,7 @@ target_link_libraries(blimp -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archi
 target_link_libraries(blimp -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(blimp -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(blimp -Wl,--whole-archive AP_HAL_ChibiOS -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
 target_link_libraries(blimp -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
@@ -10793,24 +17461,184 @@ set_target_properties(blimp PROPERTIES
 #------------------------------------------------
 
 set(Rover_libs_SOURCES #13
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
+	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
 )
 
 set(Rover_libs_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10942,12 +17770,9 @@ target_link_libraries(Rover_libs INTERFACE AP_WindVane) #stripped
 target_link_libraries(Rover_libs INTERFACE AR_Motors) #stripped
 target_link_libraries(Rover_libs INTERFACE AC_PrecLand) #stripped
 target_link_libraries(Rover_libs INTERFACE AP_IRLock) #stripped
-target_link_libraries(Rover_libs INTERFACE AP_DroneCAN) #stripped
-target_link_libraries(Rover_libs INTERFACE AP_HAL_SITL) #stripped
-target_link_libraries(Rover_libs INTERFACE AP_CSVReader) #stripped
-target_link_libraries(Rover_libs INTERFACE SITL) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_HAL_ChibiOS) #stripped
 target_link_libraries(Rover_libs INTERFACE AP_Scripting) #stripped
-target_link_libraries(Rover_libs INTERFACE AC_CustomControl) #stripped
+target_link_libraries(Rover_libs INTERFACE AP_DroneCAN) #stripped
 
 #------------------------------------------------
 
@@ -11007,21 +17832,65 @@ set(rover_SOURCES #13
 )
 
 set(rover_INCLUDES
-    ../build/sitl/libraries
-    ../build/sitl/libraries/GCS_MAVLink
-    ../build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build/CubeOrange/libraries
+    ../build/CubeOrange/libraries/GCS_MAVLink
+    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/sitl
+    /home/buzz2/ardupilot/build/CubeOrange
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
+    /home/buzz2/ardupilot/libraries/AP_GyroFFT/CMSIS_5/include
+    /home/buzz2/ardupilot/modules/lwip/src/include/compat/posix
+    /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/sitl/libraries
-    /home/buzz2/ardupilot/build/sitl/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/license
+    /home/buzz2/ardupilot/modules/ChibiOS/os/various/cpp_wrappers
+    /home/buzz2/ardupilot/modules/ChibiOS/ext/fatfs/source
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/portability/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/compilers/GCC
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/startup/ARMCMx/devices/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ARM/CMSIS/Core/Include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ext/ST/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/common/ARMCMx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/STM32H7xx
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/ADCv4
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/BDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/CRYPv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DACv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/DMAv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/EXTIv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/FDCANv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/GPIOv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/I2Cv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MACv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/MDMAv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/OTGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/QUADSPIv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SDMMCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SPIv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RNGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/RTCv2
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/SYSTICKv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/TIMv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USART
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/USARTv3
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/ports/STM32/LLD/xWDGv1
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/osal/rt-nil
+    /home/buzz2/ardupilot/modules/ChibiOS/os/rt/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/oslib/include
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARM-common
+    /home/buzz2/ardupilot/modules/ChibiOS/os/common/ports/ARMv7-M
+    /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
+    /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
+    /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
+    /home/buzz2/ardupilot/build/CubeOrange/libraries
+    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -11035,12 +17904,10 @@ target_link_libraries(rover Rover_libs) #clean
 target_link_libraries(rover -Wl,--whole-archive mavlink -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive canard -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive dronecan_dsdlc_generated -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover -Wl,--whole-archive littlefs -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AC_AttitudeControl -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AC_AutoTune -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AC_Autorotation -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AC_Avoidance -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover -Wl,--whole-archive AC_CustomControl -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AC_InputManager -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AC_PID -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AC_PrecLand -Wl,--no-whole-archive) #clean2
@@ -11059,7 +17926,6 @@ target_link_libraries(rover -Wl,--whole-archive AP_Beacon -Wl,--no-whole-archive
 target_link_libraries(rover -Wl,--whole-archive AP_BoardConfig -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AP_Button -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AP_CANManager -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover -Wl,--whole-archive AP_CSVReader -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AP_Camera -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AP_CheckFirmware -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AP_Common -Wl,--no-whole-archive) #clean2
@@ -11164,8 +18030,7 @@ target_link_libraries(rover -Wl,--whole-archive SRV_Channel -Wl,--no-whole-archi
 target_link_libraries(rover -Wl,--whole-archive AP_HAL -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AP_HAL_Empty -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AP_PiccoloCAN_piccolo_protocol -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover -Wl,--whole-archive AP_HAL_SITL -Wl,--no-whole-archive) #clean2
-target_link_libraries(rover -Wl,--whole-archive SITL -Wl,--no-whole-archive) #clean2
+target_link_libraries(rover -Wl,--whole-archive AP_HAL_ChibiOS -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AP_Scripting -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AP_Scripting_lua_src -Wl,--no-whole-archive) #clean2
 target_link_libraries(rover -Wl,--whole-archive AP_NavEKF3 -Wl,--no-whole-archive) #clean2
