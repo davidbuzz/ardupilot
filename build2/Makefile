@@ -65,16 +65,6 @@ CMAKE_BINARY_DIR = /home/buzz2/ardupilot/build2
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/local/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -84,6 +74,16 @@ rebuild_cache:
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/local/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -117,6 +117,45 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named blimp
+
+# Build rule for target.
+blimp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 blimp
+.PHONY : blimp
+
+# fast build rule for target.
+blimp/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/build
+.PHONY : blimp/fast
+
+#=============================================================================
+# Target rules for targets named sub
+
+# Build rule for target.
+sub: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sub
+.PHONY : sub
+
+# fast build rule for target.
+sub/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/build
+.PHONY : sub/fast
+
+#=============================================================================
+# Target rules for targets named plane
+
+# Build rule for target.
+plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 plane
+.PHONY : plane
+
+# fast build rule for target.
+plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/build
+.PHONY : plane/fast
+
+#=============================================================================
 # Target rules for targets named copter-heli
 
 # Build rule for target.
@@ -130,17 +169,17 @@ copter-heli/fast:
 .PHONY : copter-heli/fast
 
 #=============================================================================
-# Target rules for targets named copter
+# Target rules for targets named AP_Avoidance_Plane
 
 # Build rule for target.
-copter: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 copter
-.PHONY : copter
+AP_Avoidance_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Avoidance_Plane
+.PHONY : AP_Avoidance_Plane
 
 # fast build rule for target.
-copter/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/build
-.PHONY : copter/fast
+AP_Avoidance_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Avoidance_Plane.dir/build.make CMakeFiles/AP_Avoidance_Plane.dir/build
+.PHONY : AP_Avoidance_Plane/fast
 
 #=============================================================================
 # Target rules for targets named AP_Avoidance
@@ -156,186 +195,82 @@ AP_Avoidance/fast:
 .PHONY : AP_Avoidance/fast
 
 #=============================================================================
-# Target rules for targets named tracker
+# Target rules for targets named AP_MultiHeap
 
 # Build rule for target.
-tracker: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tracker
-.PHONY : tracker
+AP_MultiHeap: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_MultiHeap
+.PHONY : AP_MultiHeap
 
 # fast build rule for target.
-tracker/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/build
-.PHONY : tracker/fast
+AP_MultiHeap/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_MultiHeap.dir/build.make CMakeFiles/AP_MultiHeap.dir/build
+.PHONY : AP_MultiHeap/fast
 
 #=============================================================================
-# Target rules for targets named AC_Fence
+# Target rules for targets named AP_Motors
 
 # Build rule for target.
-AC_Fence: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Fence
-.PHONY : AC_Fence
+AP_Motors: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Motors
+.PHONY : AP_Motors
 
 # fast build rule for target.
-AC_Fence/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence.dir/build.make CMakeFiles/AC_Fence.dir/build
-.PHONY : AC_Fence/fast
+AP_Motors/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/build
+.PHONY : AP_Motors/fast
 
 #=============================================================================
-# Target rules for targets named AP_Scripting_lua_src
+# Target rules for targets named AP_RCProtocol
 
 # Build rule for target.
-AP_Scripting_lua_src: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Scripting_lua_src
-.PHONY : AP_Scripting_lua_src
+AP_RCProtocol: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RCProtocol
+.PHONY : AP_RCProtocol
 
 # fast build rule for target.
-AP_Scripting_lua_src/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_lua_src.dir/build.make CMakeFiles/AP_Scripting_lua_src.dir/build
-.PHONY : AP_Scripting_lua_src/fast
+AP_RCProtocol/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/build
+.PHONY : AP_RCProtocol/fast
 
 #=============================================================================
-# Target rules for targets named AP_Scripting
+# Target rules for targets named AP_Airspeed_Plane
 
 # Build rule for target.
-AP_Scripting: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Scripting
-.PHONY : AP_Scripting
+AP_Airspeed_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Airspeed_Plane
+.PHONY : AP_Airspeed_Plane
 
 # fast build rule for target.
-AP_Scripting/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/build
-.PHONY : AP_Scripting/fast
+AP_Airspeed_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/build
+.PHONY : AP_Airspeed_Plane/fast
 
 #=============================================================================
-# Target rules for targets named SITL_Plane
+# Target rules for targets named AP_SerialLED
 
 # Build rule for target.
-SITL_Plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SITL_Plane
-.PHONY : SITL_Plane
+AP_SerialLED: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_SerialLED
+.PHONY : AP_SerialLED
 
 # fast build rule for target.
-SITL_Plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/build
-.PHONY : SITL_Plane/fast
+AP_SerialLED/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_SerialLED.dir/build.make CMakeFiles/AP_SerialLED.dir/build
+.PHONY : AP_SerialLED/fast
 
 #=============================================================================
-# Target rules for targets named SITL
+# Target rules for targets named AP_Vehicle_Plane
 
 # Build rule for target.
-SITL: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SITL
-.PHONY : SITL
+AP_Vehicle_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Vehicle_Plane
+.PHONY : AP_Vehicle_Plane
 
 # fast build rule for target.
-SITL/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/build
-.PHONY : SITL/fast
-
-#=============================================================================
-# Target rules for targets named AP_HAL_SITL_Plane
-
-# Build rule for target.
-AP_HAL_SITL_Plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_HAL_SITL_Plane
-.PHONY : AP_HAL_SITL_Plane
-
-# fast build rule for target.
-AP_HAL_SITL_Plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/build
-.PHONY : AP_HAL_SITL_Plane/fast
-
-#=============================================================================
-# Target rules for targets named AP_HAL_SITL
-
-# Build rule for target.
-AP_HAL_SITL: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_HAL_SITL
-.PHONY : AP_HAL_SITL
-
-# fast build rule for target.
-AP_HAL_SITL/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/build
-.PHONY : AP_HAL_SITL/fast
-
-#=============================================================================
-# Target rules for targets named AP_PiccoloCAN_piccolo_protocol
-
-# Build rule for target.
-AP_PiccoloCAN_piccolo_protocol: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_PiccoloCAN_piccolo_protocol
-.PHONY : AP_PiccoloCAN_piccolo_protocol
-
-# fast build rule for target.
-AP_PiccoloCAN_piccolo_protocol/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_PiccoloCAN_piccolo_protocol.dir/build.make CMakeFiles/AP_PiccoloCAN_piccolo_protocol.dir/build
-.PHONY : AP_PiccoloCAN_piccolo_protocol/fast
-
-#=============================================================================
-# Target rules for targets named AP_HAL
-
-# Build rule for target.
-AP_HAL: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_HAL
-.PHONY : AP_HAL
-
-# fast build rule for target.
-AP_HAL/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/build
-.PHONY : AP_HAL/fast
-
-#=============================================================================
-# Target rules for targets named RC_Channel
-
-# Build rule for target.
-RC_Channel: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 RC_Channel
-.PHONY : RC_Channel
-
-# fast build rule for target.
-RC_Channel/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel.dir/build.make CMakeFiles/RC_Channel.dir/build
-.PHONY : RC_Channel/fast
-
-#=============================================================================
-# Target rules for targets named PID
-
-# Build rule for target.
-PID: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PID
-.PHONY : PID
-
-# fast build rule for target.
-PID/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PID.dir/build.make CMakeFiles/PID.dir/build
-.PHONY : PID/fast
-
-#=============================================================================
-# Target rules for targets named GCS_MAVLink
-
-# Build rule for target.
-GCS_MAVLink: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 GCS_MAVLink
-.PHONY : GCS_MAVLink
-
-# fast build rule for target.
-GCS_MAVLink/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/build
-.PHONY : GCS_MAVLink/fast
-
-#=============================================================================
-# Target rules for targets named AP_WindVane
-
-# Build rule for target.
-AP_WindVane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_WindVane
-.PHONY : AP_WindVane
-
-# fast build rule for target.
-AP_WindVane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_WindVane.dir/build.make CMakeFiles/AP_WindVane.dir/build
-.PHONY : AP_WindVane/fast
+AP_Vehicle_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle_Plane.dir/build.make CMakeFiles/AP_Vehicle_Plane.dir/build
+.PHONY : AP_Vehicle_Plane/fast
 
 #=============================================================================
 # Target rules for targets named AP_VisualOdom
@@ -351,641 +286,199 @@ AP_VisualOdom/fast:
 .PHONY : AP_VisualOdom/fast
 
 #=============================================================================
-# Target rules for targets named AP_Vehicle
+# Target rules for targets named AP_LeakDetector
 
 # Build rule for target.
-AP_Vehicle: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Vehicle
-.PHONY : AP_Vehicle
+AP_LeakDetector: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_LeakDetector
+.PHONY : AP_LeakDetector
 
 # fast build rule for target.
-AP_Vehicle/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle.dir/build.make CMakeFiles/AP_Vehicle.dir/build
-.PHONY : AP_Vehicle/fast
+AP_LeakDetector/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LeakDetector.dir/build.make CMakeFiles/AP_LeakDetector.dir/build
+.PHONY : AP_LeakDetector/fast
 
 #=============================================================================
-# Target rules for targets named AP_Tuning
+# Target rules for targets named AP_L1_Control
 
 # Build rule for target.
-AP_Tuning: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Tuning
-.PHONY : AP_Tuning
+AP_L1_Control: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_L1_Control
+.PHONY : AP_L1_Control
 
 # fast build rule for target.
-AP_Tuning/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Tuning.dir/build.make CMakeFiles/AP_Tuning.dir/build
-.PHONY : AP_Tuning/fast
+AP_L1_Control/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_L1_Control.dir/build.make CMakeFiles/AP_L1_Control.dir/build
+.PHONY : AP_L1_Control/fast
 
 #=============================================================================
-# Target rules for targets named AP_Terrain
+# Target rules for targets named AP_Filesystem_Plane
 
 # Build rule for target.
-AP_Terrain: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Terrain
-.PHONY : AP_Terrain
+AP_Filesystem_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Filesystem_Plane
+.PHONY : AP_Filesystem_Plane
 
 # fast build rule for target.
-AP_Terrain/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/build
-.PHONY : AP_Terrain/fast
+AP_Filesystem_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/build
+.PHONY : AP_Filesystem_Plane/fast
 
 #=============================================================================
-# Target rules for targets named AP_TemperatureSensor
+# Target rules for targets named AP_TempCalibration
 
 # Build rule for target.
-AP_TemperatureSensor: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_TemperatureSensor
-.PHONY : AP_TemperatureSensor
+AP_TempCalibration: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_TempCalibration
+.PHONY : AP_TempCalibration
 
 # fast build rule for target.
-AP_TemperatureSensor/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/build
-.PHONY : AP_TemperatureSensor/fast
+AP_TempCalibration/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TempCalibration.dir/build.make CMakeFiles/AP_TempCalibration.dir/build
+.PHONY : AP_TempCalibration/fast
 
 #=============================================================================
-# Target rules for targets named AP_TECS
+# Target rules for targets named AP_Math_Plane
 
 # Build rule for target.
-AP_TECS: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_TECS
-.PHONY : AP_TECS
+AP_Math_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Math_Plane
+.PHONY : AP_Math_Plane
 
 # fast build rule for target.
-AP_TECS/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TECS.dir/build.make CMakeFiles/AP_TECS.dir/build
-.PHONY : AP_TECS/fast
+AP_Math_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/build
+.PHONY : AP_Math_Plane/fast
 
 #=============================================================================
-# Target rules for targets named AP_SurfaceDistance
+# Target rules for targets named AP_InertialSensor
 
 # Build rule for target.
-AP_SurfaceDistance: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_SurfaceDistance
-.PHONY : AP_SurfaceDistance
+AP_InertialSensor: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_InertialSensor
+.PHONY : AP_InertialSensor
 
 # fast build rule for target.
-AP_SurfaceDistance/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_SurfaceDistance.dir/build.make CMakeFiles/AP_SurfaceDistance.dir/build
-.PHONY : AP_SurfaceDistance/fast
+AP_InertialSensor/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/build
+.PHONY : AP_InertialSensor/fast
 
 #=============================================================================
-# Target rules for targets named AP_Soaring
+# Target rules for targets named AP_InertialNav
 
 # Build rule for target.
-AP_Soaring: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Soaring
-.PHONY : AP_Soaring
+AP_InertialNav: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_InertialNav
+.PHONY : AP_InertialNav
 
 # fast build rule for target.
-AP_Soaring/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Soaring.dir/build.make CMakeFiles/AP_Soaring.dir/build
-.PHONY : AP_Soaring/fast
+AP_InertialNav/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialNav.dir/build.make CMakeFiles/AP_InertialNav.dir/build
+.PHONY : AP_InertialNav/fast
 
 #=============================================================================
-# Target rules for targets named SRV_Channel
+# Target rules for targets named AP_HAL_Empty
 
 # Build rule for target.
-SRV_Channel: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SRV_Channel
-.PHONY : SRV_Channel
+AP_HAL_Empty: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_HAL_Empty
+.PHONY : AP_HAL_Empty
 
 # fast build rule for target.
-SRV_Channel/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SRV_Channel.dir/build.make CMakeFiles/SRV_Channel.dir/build
-.PHONY : SRV_Channel/fast
+AP_HAL_Empty/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Empty.dir/build.make CMakeFiles/AP_HAL_Empty.dir/build
+.PHONY : AP_HAL_Empty/fast
 
 #=============================================================================
-# Target rules for targets named AP_SmartRTL
+# Target rules for targets named AP_Scripting_Plane
 
 # Build rule for target.
-AP_SmartRTL: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_SmartRTL
-.PHONY : AP_SmartRTL
+AP_Scripting_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Scripting_Plane
+.PHONY : AP_Scripting_Plane
 
 # fast build rule for target.
-AP_SmartRTL/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_SmartRTL.dir/build.make CMakeFiles/AP_SmartRTL.dir/build
-.PHONY : AP_SmartRTL/fast
+AP_Scripting_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/build
+.PHONY : AP_Scripting_Plane/fast
 
 #=============================================================================
-# Target rules for targets named AP_ServoRelayEvents
+# Target rules for targets named AP_IOMCU
 
 # Build rule for target.
-AP_ServoRelayEvents: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ServoRelayEvents
-.PHONY : AP_ServoRelayEvents
+AP_IOMCU: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_IOMCU
+.PHONY : AP_IOMCU
 
 # fast build rule for target.
-AP_ServoRelayEvents/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ServoRelayEvents.dir/build.make CMakeFiles/AP_ServoRelayEvents.dir/build
-.PHONY : AP_ServoRelayEvents/fast
+AP_IOMCU/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_IOMCU.dir/build.make CMakeFiles/AP_IOMCU.dir/build
+.PHONY : AP_IOMCU/fast
 
 #=============================================================================
-# Target rules for targets named AP_Scheduler
+# Target rules for targets named AP_Frsky_Telem_Plane
 
 # Build rule for target.
-AP_Scheduler: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Scheduler
-.PHONY : AP_Scheduler
+AP_Frsky_Telem_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Frsky_Telem_Plane
+.PHONY : AP_Frsky_Telem_Plane
 
 # fast build rule for target.
-AP_Scheduler/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler.dir/build.make CMakeFiles/AP_Scheduler.dir/build
-.PHONY : AP_Scheduler/fast
+AP_Frsky_Telem_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/build
+.PHONY : AP_Frsky_Telem_Plane/fast
 
 #=============================================================================
-# Target rules for targets named AP_SBusOut
+# Target rules for targets named AP_Baro_Plane
 
 # Build rule for target.
-AP_SBusOut: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_SBusOut
-.PHONY : AP_SBusOut
+AP_Baro_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Baro_Plane
+.PHONY : AP_Baro_Plane
 
 # fast build rule for target.
-AP_SBusOut/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_SBusOut.dir/build.make CMakeFiles/AP_SBusOut.dir/build
-.PHONY : AP_SBusOut/fast
+AP_Baro_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/build
+.PHONY : AP_Baro_Plane/fast
 
 #=============================================================================
-# Target rules for targets named AP_RangeFinder
+# Target rules for targets named AP_PiccoloCAN
 
 # Build rule for target.
-AP_RangeFinder: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RangeFinder
-.PHONY : AP_RangeFinder
+AP_PiccoloCAN: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_PiccoloCAN
+.PHONY : AP_PiccoloCAN
 
 # fast build rule for target.
-AP_RangeFinder/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RangeFinder.dir/build.make CMakeFiles/AP_RangeFinder.dir/build
-.PHONY : AP_RangeFinder/fast
+AP_PiccoloCAN/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_PiccoloCAN.dir/build.make CMakeFiles/AP_PiccoloCAN.dir/build
+.PHONY : AP_PiccoloCAN/fast
 
 #=============================================================================
-# Target rules for targets named AP_RTC
+# Target rules for targets named AP_FlashStorage
 
 # Build rule for target.
-AP_RTC: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RTC
-.PHONY : AP_RTC
+AP_FlashStorage: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_FlashStorage
+.PHONY : AP_FlashStorage
 
 # fast build rule for target.
-AP_RTC/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RTC.dir/build.make CMakeFiles/AP_RTC.dir/build
-.PHONY : AP_RTC/fast
+AP_FlashStorage/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_FlashStorage.dir/build.make CMakeFiles/AP_FlashStorage.dir/build
+.PHONY : AP_FlashStorage/fast
 
 #=============================================================================
-# Target rules for targets named AP_ExternalAHRS
+# Target rules for targets named AP_Motors_Plane
 
 # Build rule for target.
-AP_ExternalAHRS: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ExternalAHRS
-.PHONY : AP_ExternalAHRS
+AP_Motors_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Motors_Plane
+.PHONY : AP_Motors_Plane
 
 # fast build rule for target.
-AP_ExternalAHRS/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/build
-.PHONY : AP_ExternalAHRS/fast
-
-#=============================================================================
-# Target rules for targets named AP_BLHeli
-
-# Build rule for target.
-AP_BLHeli: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_BLHeli
-.PHONY : AP_BLHeli
-
-# fast build rule for target.
-AP_BLHeli/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BLHeli.dir/build.make CMakeFiles/AP_BLHeli.dir/build
-.PHONY : AP_BLHeli/fast
-
-#=============================================================================
-# Target rules for targets named AP_RSSI
-
-# Build rule for target.
-AP_RSSI: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RSSI
-.PHONY : AP_RSSI
-
-# fast build rule for target.
-AP_RSSI/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RSSI.dir/build.make CMakeFiles/AP_RSSI.dir/build
-.PHONY : AP_RSSI/fast
-
-#=============================================================================
-# Target rules for targets named AP_Devo_Telem
-
-# Build rule for target.
-AP_Devo_Telem: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Devo_Telem
-.PHONY : AP_Devo_Telem
-
-# fast build rule for target.
-AP_Devo_Telem/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Devo_Telem.dir/build.make CMakeFiles/AP_Devo_Telem.dir/build
-.PHONY : AP_Devo_Telem/fast
-
-#=============================================================================
-# Target rules for targets named AP_LandingGear
-
-# Build rule for target.
-AP_LandingGear: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_LandingGear
-.PHONY : AP_LandingGear
-
-# fast build rule for target.
-AP_LandingGear/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LandingGear.dir/build.make CMakeFiles/AP_LandingGear.dir/build
-.PHONY : AP_LandingGear/fast
-
-#=============================================================================
-# Target rules for targets named AP_IRLock
-
-# Build rule for target.
-AP_IRLock: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_IRLock
-.PHONY : AP_IRLock
-
-# fast build rule for target.
-AP_IRLock/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_IRLock.dir/build.make CMakeFiles/AP_IRLock.dir/build
-.PHONY : AP_IRLock/fast
-
-#=============================================================================
-# Target rules for targets named AP_Module
-
-# Build rule for target.
-AP_Module: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Module
-.PHONY : AP_Module
-
-# fast build rule for target.
-AP_Module/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Module.dir/build.make CMakeFiles/AP_Module.dir/build
-.PHONY : AP_Module/fast
-
-#=============================================================================
-# Target rules for targets named AP_Declination
-
-# Build rule for target.
-AP_Declination: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Declination
-.PHONY : AP_Declination
-
-# fast build rule for target.
-AP_Declination/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Declination.dir/build.make CMakeFiles/AP_Declination.dir/build
-.PHONY : AP_Declination/fast
-
-#=============================================================================
-# Target rules for targets named AP_Servo_Telem
-
-# Build rule for target.
-AP_Servo_Telem: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Servo_Telem
-.PHONY : AP_Servo_Telem
-
-# fast build rule for target.
-AP_Servo_Telem/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Servo_Telem.dir/build.make CMakeFiles/AP_Servo_Telem.dir/build
-.PHONY : AP_Servo_Telem/fast
-
-#=============================================================================
-# Target rules for targets named AP_ADSB
-
-# Build rule for target.
-AP_ADSB: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ADSB
-.PHONY : AP_ADSB
-
-# fast build rule for target.
-AP_ADSB/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/build
-.PHONY : AP_ADSB/fast
-
-#=============================================================================
-# Target rules for targets named AP_Hott_Telem
-
-# Build rule for target.
-AP_Hott_Telem: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Hott_Telem
-.PHONY : AP_Hott_Telem
-
-# fast build rule for target.
-AP_Hott_Telem/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Hott_Telem.dir/build.make CMakeFiles/AP_Hott_Telem.dir/build
-.PHONY : AP_Hott_Telem/fast
-
-#=============================================================================
-# Target rules for targets named AP_WheelEncoder
-
-# Build rule for target.
-AP_WheelEncoder: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_WheelEncoder
-.PHONY : AP_WheelEncoder
-
-# fast build rule for target.
-AP_WheelEncoder/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_WheelEncoder.dir/build.make CMakeFiles/AP_WheelEncoder.dir/build
-.PHONY : AP_WheelEncoder/fast
-
-#=============================================================================
-# Target rules for targets named AP_CustomRotations
-
-# Build rule for target.
-AP_CustomRotations: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_CustomRotations
-.PHONY : AP_CustomRotations
-
-# fast build rule for target.
-AP_CustomRotations/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CustomRotations.dir/build.make CMakeFiles/AP_CustomRotations.dir/build
-.PHONY : AP_CustomRotations/fast
-
-#=============================================================================
-# Target rules for targets named AP_Common
-
-# Build rule for target.
-AP_Common: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Common
-.PHONY : AP_Common
-
-# fast build rule for target.
-AP_Common/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Common.dir/build.make CMakeFiles/AP_Common.dir/build
-.PHONY : AP_Common/fast
-
-#=============================================================================
-# Target rules for targets named AP_InternalError
-
-# Build rule for target.
-AP_InternalError: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_InternalError
-.PHONY : AP_InternalError
-
-# fast build rule for target.
-AP_InternalError/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InternalError.dir/build.make CMakeFiles/AP_InternalError.dir/build
-.PHONY : AP_InternalError/fast
-
-#=============================================================================
-# Target rules for targets named AP_JSButton
-
-# Build rule for target.
-AP_JSButton: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_JSButton
-.PHONY : AP_JSButton
-
-# fast build rule for target.
-AP_JSButton/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_JSButton.dir/build.make CMakeFiles/AP_JSButton.dir/build
-.PHONY : AP_JSButton/fast
-
-#=============================================================================
-# Target rules for targets named AP_RCMapper
-
-# Build rule for target.
-AP_RCMapper: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RCMapper
-.PHONY : AP_RCMapper
-
-# fast build rule for target.
-AP_RCMapper/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCMapper.dir/build.make CMakeFiles/AP_RCMapper.dir/build
-.PHONY : AP_RCMapper/fast
-
-#=============================================================================
-# Target rules for targets named AP_BoardConfig
-
-# Build rule for target.
-AP_BoardConfig: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_BoardConfig
-.PHONY : AP_BoardConfig
-
-# fast build rule for target.
-AP_BoardConfig/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig.dir/build.make CMakeFiles/AP_BoardConfig.dir/build
-.PHONY : AP_BoardConfig/fast
-
-#=============================================================================
-# Target rules for targets named AP_BattMonitor
-
-# Build rule for target.
-AP_BattMonitor: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_BattMonitor
-.PHONY : AP_BattMonitor
-
-# fast build rule for target.
-AP_BattMonitor/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/build
-.PHONY : AP_BattMonitor/fast
-
-#=============================================================================
-# Target rules for targets named AP_Baro
-
-# Build rule for target.
-AP_Baro: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Baro
-.PHONY : AP_Baro
-
-# fast build rule for target.
-AP_Baro/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/build
-.PHONY : AP_Baro/fast
-
-#=============================================================================
-# Target rules for targets named canard
-
-# Build rule for target.
-canard: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 canard
-.PHONY : canard
-
-# fast build rule for target.
-canard/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/canard.dir/build.make CMakeFiles/canard.dir/build
-.PHONY : canard/fast
-
-#=============================================================================
-# Target rules for targets named AP_Gripper
-
-# Build rule for target.
-AP_Gripper: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Gripper
-.PHONY : AP_Gripper
-
-# fast build rule for target.
-AP_Gripper/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Gripper.dir/build.make CMakeFiles/AP_Gripper.dir/build
-.PHONY : AP_Gripper/fast
-
-#=============================================================================
-# Target rules for targets named AP_Networking
-
-# Build rule for target.
-AP_Networking: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Networking
-.PHONY : AP_Networking
-
-# fast build rule for target.
-AP_Networking/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Networking.dir/build.make CMakeFiles/AP_Networking.dir/build
-.PHONY : AP_Networking/fast
-
-#=============================================================================
-# Target rules for targets named AP_Stats
-
-# Build rule for target.
-AP_Stats: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Stats
-.PHONY : AP_Stats
-
-# fast build rule for target.
-AP_Stats/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Stats.dir/build.make CMakeFiles/AP_Stats.dir/build
-.PHONY : AP_Stats/fast
-
-#=============================================================================
-# Target rules for targets named AC_Avoidance
-
-# Build rule for target.
-AC_Avoidance: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Avoidance
-.PHONY : AC_Avoidance
-
-# fast build rule for target.
-AC_Avoidance/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/build
-.PHONY : AC_Avoidance/fast
-
-#=============================================================================
-# Target rules for targets named AP_Torqeedo
-
-# Build rule for target.
-AP_Torqeedo: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Torqeedo
-.PHONY : AP_Torqeedo
-
-# fast build rule for target.
-AP_Torqeedo/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Torqeedo.dir/build.make CMakeFiles/AP_Torqeedo.dir/build
-.PHONY : AP_Torqeedo/fast
-
-#=============================================================================
-# Target rules for targets named AC_Sprayer
-
-# Build rule for target.
-AC_Sprayer: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Sprayer
-.PHONY : AC_Sprayer
-
-# fast build rule for target.
-AC_Sprayer/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Sprayer.dir/build.make CMakeFiles/AC_Sprayer.dir/build
-.PHONY : AC_Sprayer/fast
-
-#=============================================================================
-# Target rules for targets named gen-bindings
-
-# Build rule for target.
-gen-bindings: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gen-bindings
-.PHONY : gen-bindings
-
-# fast build rule for target.
-gen-bindings/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gen-bindings.dir/build.make CMakeFiles/gen-bindings.dir/build
-.PHONY : gen-bindings/fast
-
-#=============================================================================
-# Target rules for targets named AP_Frsky_Telem
-
-# Build rule for target.
-AP_Frsky_Telem: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Frsky_Telem
-.PHONY : AP_Frsky_Telem
-
-# fast build rule for target.
-AP_Frsky_Telem/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/build
-.PHONY : AP_Frsky_Telem/fast
-
-#=============================================================================
-# Target rules for targets named AP_FETtecOneWire
-
-# Build rule for target.
-AP_FETtecOneWire: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_FETtecOneWire
-.PHONY : AP_FETtecOneWire
-
-# fast build rule for target.
-AP_FETtecOneWire/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_FETtecOneWire.dir/build.make CMakeFiles/AP_FETtecOneWire.dir/build
-.PHONY : AP_FETtecOneWire/fast
-
-#=============================================================================
-# Target rules for targets named AP_Follow
-
-# Build rule for target.
-AP_Follow: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Follow
-.PHONY : AP_Follow
-
-# fast build rule for target.
-AP_Follow/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow.dir/build.make CMakeFiles/AP_Follow.dir/build
-.PHONY : AP_Follow/fast
-
-#=============================================================================
-# Target rules for targets named AP_Beacon
-
-# Build rule for target.
-AP_Beacon: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Beacon
-.PHONY : AP_Beacon
-
-# fast build rule for target.
-AP_Beacon/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Beacon.dir/build.make CMakeFiles/AP_Beacon.dir/build
-.PHONY : AP_Beacon/fast
-
-#=============================================================================
-# Target rules for targets named AP_CheckFirmware
-
-# Build rule for target.
-AP_CheckFirmware: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_CheckFirmware
-.PHONY : AP_CheckFirmware
-
-# fast build rule for target.
-AP_CheckFirmware/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CheckFirmware.dir/build.make CMakeFiles/AP_CheckFirmware.dir/build
-.PHONY : AP_CheckFirmware/fast
-
-#=============================================================================
-# Target rules for targets named AC_WPNav
-
-# Build rule for target.
-AC_WPNav: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_WPNav
-.PHONY : AC_WPNav
-
-# fast build rule for target.
-AC_WPNav/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/build
-.PHONY : AC_WPNav/fast
-
-#=============================================================================
-# Target rules for targets named AP_IBus_Telem
-
-# Build rule for target.
-AP_IBus_Telem: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_IBus_Telem
-.PHONY : AP_IBus_Telem
-
-# fast build rule for target.
-AP_IBus_Telem/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_IBus_Telem.dir/build.make CMakeFiles/AP_IBus_Telem.dir/build
-.PHONY : AP_IBus_Telem/fast
+AP_Motors_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/build
+.PHONY : AP_Motors_Plane/fast
 
 #=============================================================================
 # Target rules for targets named AP_Filesystem
@@ -1014,17 +507,784 @@ AP_DDS/fast:
 .PHONY : AP_DDS/fast
 
 #=============================================================================
-# Target rules for targets named AP_Rally
+# Target rules for targets named AP_IBus_Telem
 
 # Build rule for target.
-AP_Rally: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Rally
-.PHONY : AP_Rally
+AP_IBus_Telem: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_IBus_Telem
+.PHONY : AP_IBus_Telem
 
 # fast build rule for target.
-AP_Rally/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Rally.dir/build.make CMakeFiles/AP_Rally.dir/build
-.PHONY : AP_Rally/fast
+AP_IBus_Telem/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_IBus_Telem.dir/build.make CMakeFiles/AP_IBus_Telem.dir/build
+.PHONY : AP_IBus_Telem/fast
+
+#=============================================================================
+# Target rules for targets named AP_NavEKF3
+
+# Build rule for target.
+AP_NavEKF3: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NavEKF3
+.PHONY : AP_NavEKF3
+
+# fast build rule for target.
+AP_NavEKF3/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/build
+.PHONY : AP_NavEKF3/fast
+
+#=============================================================================
+# Target rules for targets named AP_AIS
+
+# Build rule for target.
+AP_AIS: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AIS
+.PHONY : AP_AIS
+
+# fast build rule for target.
+AP_AIS/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AIS.dir/build.make CMakeFiles/AP_AIS.dir/build
+.PHONY : AP_AIS/fast
+
+#=============================================================================
+# Target rules for targets named AP_ExternalAHRS_Plane
+
+# Build rule for target.
+AP_ExternalAHRS_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ExternalAHRS_Plane
+.PHONY : AP_ExternalAHRS_Plane
+
+# fast build rule for target.
+AP_ExternalAHRS_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/build
+.PHONY : AP_ExternalAHRS_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_ExternalAHRS
+
+# Build rule for target.
+AP_ExternalAHRS: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ExternalAHRS
+.PHONY : AP_ExternalAHRS
+
+# fast build rule for target.
+AP_ExternalAHRS/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/build
+.PHONY : AP_ExternalAHRS/fast
+
+#=============================================================================
+# Target rules for targets named AP_DroneCAN
+
+# Build rule for target.
+AP_DroneCAN: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_DroneCAN
+.PHONY : AP_DroneCAN
+
+# fast build rule for target.
+AP_DroneCAN/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DroneCAN.dir/build.make CMakeFiles/AP_DroneCAN.dir/build
+.PHONY : AP_DroneCAN/fast
+
+#=============================================================================
+# Target rules for targets named AP_RPM
+
+# Build rule for target.
+AP_RPM: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RPM
+.PHONY : AP_RPM
+
+# fast build rule for target.
+AP_RPM/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RPM.dir/build.make CMakeFiles/AP_RPM.dir/build
+.PHONY : AP_RPM/fast
+
+#=============================================================================
+# Target rules for targets named AP_GPS
+
+# Build rule for target.
+AP_GPS: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_GPS
+.PHONY : AP_GPS
+
+# fast build rule for target.
+AP_GPS/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_GPS.dir/build.make CMakeFiles/AP_GPS.dir/build
+.PHONY : AP_GPS/fast
+
+#=============================================================================
+# Target rules for targets named AP_Radio
+
+# Build rule for target.
+AP_Radio: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Radio
+.PHONY : AP_Radio
+
+# fast build rule for target.
+AP_Radio/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Radio.dir/build.make CMakeFiles/AP_Radio.dir/build
+.PHONY : AP_Radio/fast
+
+#=============================================================================
+# Target rules for targets named GCS_MAVLink_Plane
+
+# Build rule for target.
+GCS_MAVLink_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 GCS_MAVLink_Plane
+.PHONY : GCS_MAVLink_Plane
+
+# fast build rule for target.
+GCS_MAVLink_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/build
+.PHONY : GCS_MAVLink_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_Module
+
+# Build rule for target.
+AP_Module: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Module
+.PHONY : AP_Module
+
+# fast build rule for target.
+AP_Module/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Module.dir/build.make CMakeFiles/AP_Module.dir/build
+.PHONY : AP_Module/fast
+
+#=============================================================================
+# Target rules for targets named AP_IRLock
+
+# Build rule for target.
+AP_IRLock: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_IRLock
+.PHONY : AP_IRLock
+
+# fast build rule for target.
+AP_IRLock/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_IRLock.dir/build.make CMakeFiles/AP_IRLock.dir/build
+.PHONY : AP_IRLock/fast
+
+#=============================================================================
+# Target rules for targets named AP_BoardConfig_Plane
+
+# Build rule for target.
+AP_BoardConfig_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_BoardConfig_Plane
+.PHONY : AP_BoardConfig_Plane
+
+# fast build rule for target.
+AP_BoardConfig_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig_Plane.dir/build.make CMakeFiles/AP_BoardConfig_Plane.dir/build
+.PHONY : AP_BoardConfig_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_MSP
+
+# Build rule for target.
+AP_MSP: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_MSP
+.PHONY : AP_MSP
+
+# fast build rule for target.
+AP_MSP/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_MSP.dir/build.make CMakeFiles/AP_MSP.dir/build
+.PHONY : AP_MSP/fast
+
+#=============================================================================
+# Target rules for targets named AP_LandingGear
+
+# Build rule for target.
+AP_LandingGear: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_LandingGear
+.PHONY : AP_LandingGear
+
+# fast build rule for target.
+AP_LandingGear/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LandingGear.dir/build.make CMakeFiles/AP_LandingGear.dir/build
+.PHONY : AP_LandingGear/fast
+
+#=============================================================================
+# Target rules for targets named AP_Devo_Telem
+
+# Build rule for target.
+AP_Devo_Telem: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Devo_Telem
+.PHONY : AP_Devo_Telem
+
+# fast build rule for target.
+AP_Devo_Telem/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Devo_Telem.dir/build.make CMakeFiles/AP_Devo_Telem.dir/build
+.PHONY : AP_Devo_Telem/fast
+
+#=============================================================================
+# Target rules for targets named AP_ADSB_sagetech-sdk
+
+# Build rule for target.
+AP_ADSB_sagetech-sdk: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ADSB_sagetech-sdk
+.PHONY : AP_ADSB_sagetech-sdk
+
+# fast build rule for target.
+AP_ADSB_sagetech-sdk/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_sagetech-sdk.dir/build.make CMakeFiles/AP_ADSB_sagetech-sdk.dir/build
+.PHONY : AP_ADSB_sagetech-sdk/fast
+
+#=============================================================================
+# Target rules for targets named tracker
+
+# Build rule for target.
+tracker: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tracker
+.PHONY : tracker
+
+# fast build rule for target.
+tracker/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tracker.dir/build.make CMakeFiles/tracker.dir/build
+.PHONY : tracker/fast
+
+#=============================================================================
+# Target rules for targets named AP_Logger
+
+# Build rule for target.
+AP_Logger: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Logger
+.PHONY : AP_Logger
+
+# fast build rule for target.
+AP_Logger/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/build
+.PHONY : AP_Logger/fast
+
+#=============================================================================
+# Target rules for targets named AP_GyroFFT
+
+# Build rule for target.
+AP_GyroFFT: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_GyroFFT
+.PHONY : AP_GyroFFT
+
+# fast build rule for target.
+AP_GyroFFT/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_GyroFFT.dir/build.make CMakeFiles/AP_GyroFFT.dir/build
+.PHONY : AP_GyroFFT/fast
+
+#=============================================================================
+# Target rules for targets named APM_Control
+
+# Build rule for target.
+APM_Control: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 APM_Control
+.PHONY : APM_Control
+
+# fast build rule for target.
+APM_Control/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/APM_Control.dir/build.make CMakeFiles/APM_Control.dir/build
+.PHONY : APM_Control/fast
+
+#=============================================================================
+# Target rules for targets named AP_Notify
+
+# Build rule for target.
+AP_Notify: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Notify
+.PHONY : AP_Notify
+
+# fast build rule for target.
+AP_Notify/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Notify.dir/build.make CMakeFiles/AP_Notify.dir/build
+.PHONY : AP_Notify/fast
+
+#=============================================================================
+# Target rules for targets named AP_AIS_Plane
+
+# Build rule for target.
+AP_AIS_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AIS_Plane
+.PHONY : AP_AIS_Plane
+
+# fast build rule for target.
+AP_AIS_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AIS_Plane.dir/build.make CMakeFiles/AP_AIS_Plane.dir/build
+.PHONY : AP_AIS_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_ADSB_Plane
+
+# Build rule for target.
+AP_ADSB_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ADSB_Plane
+.PHONY : AP_ADSB_Plane
+
+# fast build rule for target.
+AP_ADSB_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/build
+.PHONY : AP_ADSB_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_Volz_Protocol
+
+# Build rule for target.
+AP_Volz_Protocol: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Volz_Protocol
+.PHONY : AP_Volz_Protocol
+
+# fast build rule for target.
+AP_Volz_Protocol/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Volz_Protocol.dir/build.make CMakeFiles/AP_Volz_Protocol.dir/build
+.PHONY : AP_Volz_Protocol/fast
+
+#=============================================================================
+# Target rules for targets named AP_ICEngine
+
+# Build rule for target.
+AP_ICEngine: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ICEngine
+.PHONY : AP_ICEngine
+
+# fast build rule for target.
+AP_ICEngine/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ICEngine.dir/build.make CMakeFiles/AP_ICEngine.dir/build
+.PHONY : AP_ICEngine/fast
+
+#=============================================================================
+# Target rules for targets named littlefs
+
+# Build rule for target.
+littlefs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 littlefs
+.PHONY : littlefs
+
+# fast build rule for target.
+littlefs/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/littlefs.dir/build.make CMakeFiles/littlefs.dir/build
+.PHONY : littlefs/fast
+
+#=============================================================================
+# Target rules for targets named AC_CustomControl
+
+# Build rule for target.
+AC_CustomControl: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_CustomControl
+.PHONY : AC_CustomControl
+
+# fast build rule for target.
+AC_CustomControl/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_CustomControl.dir/build.make CMakeFiles/AC_CustomControl.dir/build
+.PHONY : AC_CustomControl/fast
+
+#=============================================================================
+# Target rules for targets named AP_Winch
+
+# Build rule for target.
+AP_Winch: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Winch
+.PHONY : AP_Winch
+
+# fast build rule for target.
+AP_Winch/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Winch.dir/build.make CMakeFiles/AP_Winch.dir/build
+.PHONY : AP_Winch/fast
+
+#=============================================================================
+# Target rules for targets named StorageManager
+
+# Build rule for target.
+StorageManager: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 StorageManager
+.PHONY : StorageManager
+
+# fast build rule for target.
+StorageManager/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager.dir/build.make CMakeFiles/StorageManager.dir/build
+.PHONY : StorageManager/fast
+
+#=============================================================================
+# Target rules for targets named AP_Arming
+
+# Build rule for target.
+AP_Arming: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Arming
+.PHONY : AP_Arming
+
+# fast build rule for target.
+AP_Arming/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Arming.dir/build.make CMakeFiles/AP_Arming.dir/build
+.PHONY : AP_Arming/fast
+
+#=============================================================================
+# Target rules for targets named AP_NavEKF2_Plane
+
+# Build rule for target.
+AP_NavEKF2_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NavEKF2_Plane
+.PHONY : AP_NavEKF2_Plane
+
+# fast build rule for target.
+AP_NavEKF2_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/build
+.PHONY : AP_NavEKF2_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AC_AutoTune_Plane
+
+# Build rule for target.
+AC_AutoTune_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_AutoTune_Plane
+.PHONY : AC_AutoTune_Plane
+
+# fast build rule for target.
+AC_AutoTune_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/build
+.PHONY : AC_AutoTune_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_Airspeed
+
+# Build rule for target.
+AP_Airspeed: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Airspeed
+.PHONY : AP_Airspeed
+
+# fast build rule for target.
+AP_Airspeed/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/build
+.PHONY : AP_Airspeed/fast
+
+#=============================================================================
+# Target rules for targets named AP_VideoTX
+
+# Build rule for target.
+AP_VideoTX: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_VideoTX
+.PHONY : AP_VideoTX
+
+# fast build rule for target.
+AP_VideoTX/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_VideoTX.dir/build.make CMakeFiles/AP_VideoTX.dir/build
+.PHONY : AP_VideoTX/fast
+
+#=============================================================================
+# Target rules for targets named AP_CANManager
+
+# Build rule for target.
+AP_CANManager: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_CANManager
+.PHONY : AP_CANManager
+
+# fast build rule for target.
+AP_CANManager/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CANManager.dir/build.make CMakeFiles/AP_CANManager.dir/build
+.PHONY : AP_CANManager/fast
+
+#=============================================================================
+# Target rules for targets named AP_Follow_Plane
+
+# Build rule for target.
+AP_Follow_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Follow_Plane
+.PHONY : AP_Follow_Plane
+
+# fast build rule for target.
+AP_Follow_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow_Plane.dir/build.make CMakeFiles/AP_Follow_Plane.dir/build
+.PHONY : AP_Follow_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_ADC
+
+# Build rule for target.
+AP_ADC: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ADC
+.PHONY : AP_ADC
+
+# fast build rule for target.
+AP_ADC/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADC.dir/build.make CMakeFiles/AP_ADC.dir/build
+.PHONY : AP_ADC/fast
+
+#=============================================================================
+# Target rules for targets named AP_JSButton
+
+# Build rule for target.
+AP_JSButton: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_JSButton
+.PHONY : AP_JSButton
+
+# fast build rule for target.
+AP_JSButton/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_JSButton.dir/build.make CMakeFiles/AP_JSButton.dir/build
+.PHONY : AP_JSButton/fast
+
+#=============================================================================
+# Target rules for targets named AP_InternalError
+
+# Build rule for target.
+AP_InternalError: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_InternalError
+.PHONY : AP_InternalError
+
+# fast build rule for target.
+AP_InternalError/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InternalError.dir/build.make CMakeFiles/AP_InternalError.dir/build
+.PHONY : AP_InternalError/fast
+
+#=============================================================================
+# Target rules for targets named AP_Common
+
+# Build rule for target.
+AP_Common: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Common
+.PHONY : AP_Common
+
+# fast build rule for target.
+AP_Common/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Common.dir/build.make CMakeFiles/AP_Common.dir/build
+.PHONY : AP_Common/fast
+
+#=============================================================================
+# Target rules for targets named AP_Landing_Plane
+
+# Build rule for target.
+AP_Landing_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Landing_Plane
+.PHONY : AP_Landing_Plane
+
+# fast build rule for target.
+AP_Landing_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing_Plane.dir/build.make CMakeFiles/AP_Landing_Plane.dir/build
+.PHONY : AP_Landing_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AC_AttitudeControl_Plane
+
+# Build rule for target.
+AC_AttitudeControl_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_AttitudeControl_Plane
+.PHONY : AC_AttitudeControl_Plane
+
+# fast build rule for target.
+AC_AttitudeControl_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AttitudeControl_Plane.dir/build.make CMakeFiles/AC_AttitudeControl_Plane.dir/build
+.PHONY : AC_AttitudeControl_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_ADSB
+
+# Build rule for target.
+AP_ADSB: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ADSB
+.PHONY : AP_ADSB
+
+# fast build rule for target.
+AP_ADSB/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/build
+.PHONY : AP_ADSB/fast
+
+#=============================================================================
+# Target rules for targets named AP_Servo_Telem
+
+# Build rule for target.
+AP_Servo_Telem: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Servo_Telem
+.PHONY : AP_Servo_Telem
+
+# fast build rule for target.
+AP_Servo_Telem/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Servo_Telem.dir/build.make CMakeFiles/AP_Servo_Telem.dir/build
+.PHONY : AP_Servo_Telem/fast
+
+#=============================================================================
+# Target rules for targets named AP_Math
+
+# Build rule for target.
+AP_Math: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Math
+.PHONY : AP_Math
+
+# fast build rule for target.
+AP_Math/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/build
+.PHONY : AP_Math/fast
+
+#=============================================================================
+# Target rules for targets named AP_FETtecOneWire
+
+# Build rule for target.
+AP_FETtecOneWire: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_FETtecOneWire
+.PHONY : AP_FETtecOneWire
+
+# fast build rule for target.
+AP_FETtecOneWire/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_FETtecOneWire.dir/build.make CMakeFiles/AP_FETtecOneWire.dir/build
+.PHONY : AP_FETtecOneWire/fast
+
+#=============================================================================
+# Target rules for targets named AP_Beacon
+
+# Build rule for target.
+AP_Beacon: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Beacon
+.PHONY : AP_Beacon
+
+# fast build rule for target.
+AP_Beacon/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Beacon.dir/build.make CMakeFiles/AP_Beacon.dir/build
+.PHONY : AP_Beacon/fast
+
+#=============================================================================
+# Target rules for targets named AP_Logger_Plane
+
+# Build rule for target.
+AP_Logger_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Logger_Plane
+.PHONY : AP_Logger_Plane
+
+# fast build rule for target.
+AP_Logger_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/build
+.PHONY : AP_Logger_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AC_InputManager
+
+# Build rule for target.
+AC_InputManager: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_InputManager
+.PHONY : AC_InputManager
+
+# fast build rule for target.
+AC_InputManager/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_InputManager.dir/build.make CMakeFiles/AC_InputManager.dir/build
+.PHONY : AC_InputManager/fast
+
+#=============================================================================
+# Target rules for targets named AP_Follow
+
+# Build rule for target.
+AP_Follow: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Follow
+.PHONY : AP_Follow
+
+# fast build rule for target.
+AP_Follow/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow.dir/build.make CMakeFiles/AP_Follow.dir/build
+.PHONY : AP_Follow/fast
+
+#=============================================================================
+# Target rules for targets named AP_InertialSensor_Plane
+
+# Build rule for target.
+AP_InertialSensor_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_InertialSensor_Plane
+.PHONY : AP_InertialSensor_Plane
+
+# fast build rule for target.
+AP_InertialSensor_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/build
+.PHONY : AP_InertialSensor_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AC_Autorotation
+
+# Build rule for target.
+AC_Autorotation: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Autorotation
+.PHONY : AC_Autorotation
+
+# fast build rule for target.
+AC_Autorotation/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Autorotation.dir/build.make CMakeFiles/AC_Autorotation.dir/build
+.PHONY : AC_Autorotation/fast
+
+#=============================================================================
+# Target rules for targets named AC_WPNav
+
+# Build rule for target.
+AC_WPNav: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_WPNav
+.PHONY : AC_WPNav
+
+# fast build rule for target.
+AC_WPNav/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/build
+.PHONY : AC_WPNav/fast
+
+#=============================================================================
+# Target rules for targets named AP_CheckFirmware
+
+# Build rule for target.
+AP_CheckFirmware: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_CheckFirmware
+.PHONY : AP_CheckFirmware
+
+# fast build rule for target.
+AP_CheckFirmware/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CheckFirmware.dir/build.make CMakeFiles/AP_CheckFirmware.dir/build
+.PHONY : AP_CheckFirmware/fast
+
+#=============================================================================
+# Target rules for targets named AP_TemperatureSensor_Plane
+
+# Build rule for target.
+AP_TemperatureSensor_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_TemperatureSensor_Plane
+.PHONY : AP_TemperatureSensor_Plane
+
+# fast build rule for target.
+AP_TemperatureSensor_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/build
+.PHONY : AP_TemperatureSensor_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_Frsky_Telem
+
+# Build rule for target.
+AP_Frsky_Telem: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Frsky_Telem
+.PHONY : AP_Frsky_Telem
+
+# fast build rule for target.
+AP_Frsky_Telem/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/build
+.PHONY : AP_Frsky_Telem/fast
+
+#=============================================================================
+# Target rules for targets named gen-bindings
+
+# Build rule for target.
+gen-bindings: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gen-bindings
+.PHONY : gen-bindings
+
+# fast build rule for target.
+gen-bindings/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gen-bindings.dir/build.make CMakeFiles/gen-bindings.dir/build
+.PHONY : gen-bindings/fast
+
+#=============================================================================
+# Target rules for targets named AP_BattMonitor_Plane
+
+# Build rule for target.
+AP_BattMonitor_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_BattMonitor_Plane
+.PHONY : AP_BattMonitor_Plane
+
+# fast build rule for target.
+AP_BattMonitor_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/build
+.PHONY : AP_BattMonitor_Plane/fast
+
+#=============================================================================
+# Target rules for targets named RC_Channel
+
+# Build rule for target.
+RC_Channel: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 RC_Channel
+.PHONY : RC_Channel
+
+# fast build rule for target.
+RC_Channel/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel.dir/build.make CMakeFiles/RC_Channel.dir/build
+.PHONY : RC_Channel/fast
 
 #=============================================================================
 # Target rules for targets named AP_ESC_Telem
@@ -1053,69 +1313,17 @@ AC_AutoTune/fast:
 .PHONY : AC_AutoTune/fast
 
 #=============================================================================
-# Target rules for targets named AP_Radio
+# Target rules for targets named AP_Rally
 
 # Build rule for target.
-AP_Radio: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Radio
-.PHONY : AP_Radio
+AP_Rally: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Rally
+.PHONY : AP_Rally
 
 # fast build rule for target.
-AP_Radio/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Radio.dir/build.make CMakeFiles/AP_Radio.dir/build
-.PHONY : AP_Radio/fast
-
-#=============================================================================
-# Target rules for targets named AP_RPM
-
-# Build rule for target.
-AP_RPM: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RPM
-.PHONY : AP_RPM
-
-# fast build rule for target.
-AP_RPM/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RPM.dir/build.make CMakeFiles/AP_RPM.dir/build
-.PHONY : AP_RPM/fast
-
-#=============================================================================
-# Target rules for targets named AP_DroneCAN
-
-# Build rule for target.
-AP_DroneCAN: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_DroneCAN
-.PHONY : AP_DroneCAN
-
-# fast build rule for target.
-AP_DroneCAN/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DroneCAN.dir/build.make CMakeFiles/AP_DroneCAN.dir/build
-.PHONY : AP_DroneCAN/fast
-
-#=============================================================================
-# Target rules for targets named AC_AttitudeControl_Plane
-
-# Build rule for target.
-AC_AttitudeControl_Plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_AttitudeControl_Plane
-.PHONY : AC_AttitudeControl_Plane
-
-# fast build rule for target.
-AC_AttitudeControl_Plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AttitudeControl_Plane.dir/build.make CMakeFiles/AC_AttitudeControl_Plane.dir/build
-.PHONY : AC_AttitudeControl_Plane/fast
-
-#=============================================================================
-# Target rules for targets named AP_Relay
-
-# Build rule for target.
-AP_Relay: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Relay
-.PHONY : AP_Relay
-
-# fast build rule for target.
-AP_Relay/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay.dir/build.make CMakeFiles/AP_Relay.dir/build
-.PHONY : AP_Relay/fast
+AP_Rally/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Rally.dir/build.make CMakeFiles/AP_Rally.dir/build
+.PHONY : AP_Rally/fast
 
 #=============================================================================
 # Target rules for targets named AP_Camera
@@ -1131,199 +1339,69 @@ AP_Camera/fast:
 .PHONY : AP_Camera/fast
 
 #=============================================================================
-# Target rules for targets named rover
+# Target rules for targets named AP_DAL
 
 # Build rule for target.
-rover: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rover
-.PHONY : rover
+AP_DAL: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_DAL
+.PHONY : AP_DAL
 
 # fast build rule for target.
-rover/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/build
-.PHONY : rover/fast
+AP_DAL/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/build
+.PHONY : AP_DAL/fast
 
 #=============================================================================
-# Target rules for targets named AP_Button
+# Target rules for targets named AP_Relay
 
 # Build rule for target.
-AP_Button: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Button
-.PHONY : AP_Button
+AP_Relay: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Relay
+.PHONY : AP_Relay
 
 # fast build rule for target.
-AP_Button/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Button.dir/build.make CMakeFiles/AP_Button.dir/build
-.PHONY : AP_Button/fast
+AP_Relay/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay.dir/build.make CMakeFiles/AP_Relay.dir/build
+.PHONY : AP_Relay/fast
 
 #=============================================================================
-# Target rules for targets named AP_Airspeed
+# Target rules for targets named AC_WPNav_Plane
 
 # Build rule for target.
-AP_Airspeed: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Airspeed
-.PHONY : AP_Airspeed
+AC_WPNav_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_WPNav_Plane
+.PHONY : AC_WPNav_Plane
 
 # fast build rule for target.
-AP_Airspeed/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/build
-.PHONY : AP_Airspeed/fast
+AC_WPNav_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/build
+.PHONY : AC_WPNav_Plane/fast
 
 #=============================================================================
-# Target rules for targets named AP_RAMTRON
+# Target rules for targets named AC_Sprayer
 
 # Build rule for target.
-AP_RAMTRON: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RAMTRON
-.PHONY : AP_RAMTRON
+AC_Sprayer: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Sprayer
+.PHONY : AC_Sprayer
 
 # fast build rule for target.
-AP_RAMTRON/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RAMTRON.dir/build.make CMakeFiles/AP_RAMTRON.dir/build
-.PHONY : AP_RAMTRON/fast
+AC_Sprayer/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Sprayer.dir/build.make CMakeFiles/AC_Sprayer.dir/build
+.PHONY : AC_Sprayer/fast
 
 #=============================================================================
-# Target rules for targets named AC_Autorotation
+# Target rules for targets named copter
 
 # Build rule for target.
-AC_Autorotation: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Autorotation
-.PHONY : AC_Autorotation
+copter: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 copter
+.PHONY : copter
 
 # fast build rule for target.
-AC_Autorotation/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Autorotation.dir/build.make CMakeFiles/AC_Autorotation.dir/build
-.PHONY : AC_Autorotation/fast
-
-#=============================================================================
-# Target rules for targets named AP_CANManager
-
-# Build rule for target.
-AP_CANManager: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_CANManager
-.PHONY : AP_CANManager
-
-# fast build rule for target.
-AP_CANManager/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CANManager.dir/build.make CMakeFiles/AP_CANManager.dir/build
-.PHONY : AP_CANManager/fast
-
-#=============================================================================
-# Target rules for targets named AP_VideoTX
-
-# Build rule for target.
-AP_VideoTX: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_VideoTX
-.PHONY : AP_VideoTX
-
-# fast build rule for target.
-AP_VideoTX/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_VideoTX.dir/build.make CMakeFiles/AP_VideoTX.dir/build
-.PHONY : AP_VideoTX/fast
-
-#=============================================================================
-# Target rules for targets named AP_GSOF
-
-# Build rule for target.
-AP_GSOF: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_GSOF
-.PHONY : AP_GSOF
-
-# fast build rule for target.
-AP_GSOF/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_GSOF.dir/build.make CMakeFiles/AP_GSOF.dir/build
-.PHONY : AP_GSOF/fast
-
-#=============================================================================
-# Target rules for targets named AP_SerialManager
-
-# Build rule for target.
-AP_SerialManager: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_SerialManager
-.PHONY : AP_SerialManager
-
-# fast build rule for target.
-AP_SerialManager/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_SerialManager.dir/build.make CMakeFiles/AP_SerialManager.dir/build
-.PHONY : AP_SerialManager/fast
-
-#=============================================================================
-# Target rules for targets named AP_OpenDroneID
-
-# Build rule for target.
-AP_OpenDroneID: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_OpenDroneID
-.PHONY : AP_OpenDroneID
-
-# fast build rule for target.
-AP_OpenDroneID/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OpenDroneID.dir/build.make CMakeFiles/AP_OpenDroneID.dir/build
-.PHONY : AP_OpenDroneID/fast
-
-#=============================================================================
-# Target rules for targets named AP_Arming
-
-# Build rule for target.
-AP_Arming: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Arming
-.PHONY : AP_Arming
-
-# fast build rule for target.
-AP_Arming/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Arming.dir/build.make CMakeFiles/AP_Arming.dir/build
-.PHONY : AP_Arming/fast
-
-#=============================================================================
-# Target rules for targets named StorageManager
-
-# Build rule for target.
-StorageManager: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 StorageManager
-.PHONY : StorageManager
-
-# fast build rule for target.
-StorageManager/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager.dir/build.make CMakeFiles/StorageManager.dir/build
-.PHONY : StorageManager/fast
-
-#=============================================================================
-# Target rules for targets named AP_Winch
-
-# Build rule for target.
-AP_Winch: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Winch
-.PHONY : AP_Winch
-
-# fast build rule for target.
-AP_Winch/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Winch.dir/build.make CMakeFiles/AP_Winch.dir/build
-.PHONY : AP_Winch/fast
-
-#=============================================================================
-# Target rules for targets named AC_CustomControl
-
-# Build rule for target.
-AC_CustomControl: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_CustomControl
-.PHONY : AC_CustomControl
-
-# fast build rule for target.
-AC_CustomControl/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_CustomControl.dir/build.make CMakeFiles/AC_CustomControl.dir/build
-.PHONY : AC_CustomControl/fast
-
-#=============================================================================
-# Target rules for targets named AP_ICEngine
-
-# Build rule for target.
-AP_ICEngine: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ICEngine
-.PHONY : AP_ICEngine
-
-# fast build rule for target.
-AP_ICEngine/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ICEngine.dir/build.make CMakeFiles/AP_ICEngine.dir/build
-.PHONY : AP_ICEngine/fast
+copter/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/copter.dir/build.make CMakeFiles/copter.dir/build
+.PHONY : copter/fast
 
 #=============================================================================
 # Target rules for targets named AP_Landing
@@ -1339,667 +1417,17 @@ AP_Landing/fast:
 .PHONY : AP_Landing/fast
 
 #=============================================================================
-# Target rules for targets named AP_Volz_Protocol
+# Target rules for targets named AP_Torqeedo
 
 # Build rule for target.
-AP_Volz_Protocol: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Volz_Protocol
-.PHONY : AP_Volz_Protocol
+AP_Torqeedo: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Torqeedo
+.PHONY : AP_Torqeedo
 
 # fast build rule for target.
-AP_Volz_Protocol/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Volz_Protocol.dir/build.make CMakeFiles/AP_Volz_Protocol.dir/build
-.PHONY : AP_Volz_Protocol/fast
-
-#=============================================================================
-# Target rules for targets named AP_DAL
-
-# Build rule for target.
-AP_DAL: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_DAL
-.PHONY : AP_DAL
-
-# fast build rule for target.
-AP_DAL/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/build
-.PHONY : AP_DAL/fast
-
-#=============================================================================
-# Target rules for targets named AC_PrecLand
-
-# Build rule for target.
-AC_PrecLand: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_PrecLand
-.PHONY : AC_PrecLand
-
-# fast build rule for target.
-AC_PrecLand/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/build
-.PHONY : AC_PrecLand/fast
-
-#=============================================================================
-# Target rules for targets named blimp
-
-# Build rule for target.
-blimp: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 blimp
-.PHONY : blimp
-
-# fast build rule for target.
-blimp/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/blimp.dir/build.make CMakeFiles/blimp.dir/build
-.PHONY : blimp/fast
-
-#=============================================================================
-# Target rules for targets named AP_AccelCal
-
-# Build rule for target.
-AP_AccelCal: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AccelCal
-.PHONY : AP_AccelCal
-
-# fast build rule for target.
-AP_AccelCal/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AccelCal.dir/build.make CMakeFiles/AP_AccelCal.dir/build
-.PHONY : AP_AccelCal/fast
-
-#=============================================================================
-# Target rules for targets named AC_AttitudeControl
-
-# Build rule for target.
-AC_AttitudeControl: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_AttitudeControl
-.PHONY : AC_AttitudeControl
-
-# fast build rule for target.
-AC_AttitudeControl/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AttitudeControl.dir/build.make CMakeFiles/AC_AttitudeControl.dir/build
-.PHONY : AC_AttitudeControl/fast
-
-#=============================================================================
-# Target rules for targets named APM_Control
-
-# Build rule for target.
-APM_Control: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 APM_Control
-.PHONY : APM_Control
-
-# fast build rule for target.
-APM_Control/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/APM_Control.dir/build.make CMakeFiles/APM_Control.dir/build
-.PHONY : APM_Control/fast
-
-#=============================================================================
-# Target rules for targets named AP_GyroFFT
-
-# Build rule for target.
-AP_GyroFFT: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_GyroFFT
-.PHONY : AP_GyroFFT
-
-# fast build rule for target.
-AP_GyroFFT/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_GyroFFT.dir/build.make CMakeFiles/AP_GyroFFT.dir/build
-.PHONY : AP_GyroFFT/fast
-
-#=============================================================================
-# Target rules for targets named AC_InputManager
-
-# Build rule for target.
-AC_InputManager: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_InputManager
-.PHONY : AC_InputManager
-
-# fast build rule for target.
-AC_InputManager/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_InputManager.dir/build.make CMakeFiles/AC_InputManager.dir/build
-.PHONY : AC_InputManager/fast
-
-#=============================================================================
-# Target rules for targets named AP_Logger
-
-# Build rule for target.
-AP_Logger: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Logger
-.PHONY : AP_Logger
-
-# fast build rule for target.
-AP_Logger/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/build
-.PHONY : AP_Logger/fast
-
-#=============================================================================
-# Target rules for targets named AP_ADSB_sagetech-sdk
-
-# Build rule for target.
-AP_ADSB_sagetech-sdk: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ADSB_sagetech-sdk
-.PHONY : AP_ADSB_sagetech-sdk
-
-# fast build rule for target.
-AP_ADSB_sagetech-sdk/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_sagetech-sdk.dir/build.make CMakeFiles/AP_ADSB_sagetech-sdk.dir/build
-.PHONY : AP_ADSB_sagetech-sdk/fast
-
-#=============================================================================
-# Target rules for targets named AP_ADC
-
-# Build rule for target.
-AP_ADC: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ADC
-.PHONY : AP_ADC
-
-# fast build rule for target.
-AP_ADC/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADC.dir/build.make CMakeFiles/AP_ADC.dir/build
-.PHONY : AP_ADC/fast
-
-#=============================================================================
-# Target rules for targets named AP_AHRS
-
-# Build rule for target.
-AP_AHRS: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AHRS
-.PHONY : AP_AHRS
-
-# fast build rule for target.
-AP_AHRS/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/build
-.PHONY : AP_AHRS/fast
-
-#=============================================================================
-# Target rules for targets named AP_OpticalFlow
-
-# Build rule for target.
-AP_OpticalFlow: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_OpticalFlow
-.PHONY : AP_OpticalFlow
-
-# fast build rule for target.
-AP_OpticalFlow/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OpticalFlow.dir/build.make CMakeFiles/AP_OpticalFlow.dir/build
-.PHONY : AP_OpticalFlow/fast
-
-#=============================================================================
-# Target rules for targets named plane
-
-# Build rule for target.
-plane: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 plane
-.PHONY : plane
-
-# fast build rule for target.
-plane/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/plane.dir/build.make CMakeFiles/plane.dir/build
-.PHONY : plane/fast
-
-#=============================================================================
-# Target rules for targets named AP_AIS
-
-# Build rule for target.
-AP_AIS: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AIS
-.PHONY : AP_AIS
-
-# fast build rule for target.
-AP_AIS/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AIS.dir/build.make CMakeFiles/AP_AIS.dir/build
-.PHONY : AP_AIS/fast
-
-#=============================================================================
-# Target rules for targets named AP_NavEKF3
-
-# Build rule for target.
-AP_NavEKF3: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NavEKF3
-.PHONY : AP_NavEKF3
-
-# fast build rule for target.
-AP_NavEKF3/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/build
-.PHONY : AP_NavEKF3/fast
-
-#=============================================================================
-# Target rules for targets named AP_ExternalControl
-
-# Build rule for target.
-AP_ExternalControl: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ExternalControl
-.PHONY : AP_ExternalControl
-
-# fast build rule for target.
-AP_ExternalControl/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalControl.dir/build.make CMakeFiles/AP_ExternalControl.dir/build
-.PHONY : AP_ExternalControl/fast
-
-#=============================================================================
-# Target rules for targets named AP_CSVReader
-
-# Build rule for target.
-AP_CSVReader: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_CSVReader
-.PHONY : AP_CSVReader
-
-# fast build rule for target.
-AP_CSVReader/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CSVReader.dir/build.make CMakeFiles/AP_CSVReader.dir/build
-.PHONY : AP_CSVReader/fast
-
-#=============================================================================
-# Target rules for targets named AP_Compass
-
-# Build rule for target.
-AP_Compass: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Compass
-.PHONY : AP_Compass
-
-# fast build rule for target.
-AP_Compass/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Compass.dir/build.make CMakeFiles/AP_Compass.dir/build
-.PHONY : AP_Compass/fast
-
-#=============================================================================
-# Target rules for targets named AP_RobotisServo
-
-# Build rule for target.
-AP_RobotisServo: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RobotisServo
-.PHONY : AP_RobotisServo
-
-# fast build rule for target.
-AP_RobotisServo/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RobotisServo.dir/build.make CMakeFiles/AP_RobotisServo.dir/build
-.PHONY : AP_RobotisServo/fast
-
-#=============================================================================
-# Target rules for targets named AP_AdvancedFailsafe
-
-# Build rule for target.
-AP_AdvancedFailsafe: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AdvancedFailsafe
-.PHONY : AP_AdvancedFailsafe
-
-# fast build rule for target.
-AP_AdvancedFailsafe/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AdvancedFailsafe.dir/build.make CMakeFiles/AP_AdvancedFailsafe.dir/build
-.PHONY : AP_AdvancedFailsafe/fast
-
-#=============================================================================
-# Target rules for targets named AP_FlashStorage
-
-# Build rule for target.
-AP_FlashStorage: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_FlashStorage
-.PHONY : AP_FlashStorage
-
-# fast build rule for target.
-AP_FlashStorage/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_FlashStorage.dir/build.make CMakeFiles/AP_FlashStorage.dir/build
-.PHONY : AP_FlashStorage/fast
-
-#=============================================================================
-# Target rules for targets named AP_GPS
-
-# Build rule for target.
-AP_GPS: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_GPS
-.PHONY : AP_GPS
-
-# fast build rule for target.
-AP_GPS/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_GPS.dir/build.make CMakeFiles/AP_GPS.dir/build
-.PHONY : AP_GPS/fast
-
-#=============================================================================
-# Target rules for targets named AP_Generator
-
-# Build rule for target.
-AP_Generator: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Generator
-.PHONY : AP_Generator
-
-# fast build rule for target.
-AP_Generator/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Generator.dir/build.make CMakeFiles/AP_Generator.dir/build
-.PHONY : AP_Generator/fast
-
-#=============================================================================
-# Target rules for targets named AP_NavEKF2
-
-# Build rule for target.
-AP_NavEKF2: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NavEKF2
-.PHONY : AP_NavEKF2
-
-# fast build rule for target.
-AP_NavEKF2/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/build
-.PHONY : AP_NavEKF2/fast
-
-#=============================================================================
-# Target rules for targets named sub
-
-# Build rule for target.
-sub: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sub
-.PHONY : sub
-
-# fast build rule for target.
-sub/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/sub.dir/build.make CMakeFiles/sub.dir/build
-.PHONY : sub/fast
-
-#=============================================================================
-# Target rules for targets named AC_PID
-
-# Build rule for target.
-AC_PID: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_PID
-.PHONY : AC_PID
-
-# fast build rule for target.
-AC_PID/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PID.dir/build.make CMakeFiles/AC_PID.dir/build
-.PHONY : AC_PID/fast
-
-#=============================================================================
-# Target rules for targets named AP_Quicktune
-
-# Build rule for target.
-AP_Quicktune: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Quicktune
-.PHONY : AP_Quicktune
-
-# fast build rule for target.
-AP_Quicktune/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Quicktune.dir/build.make CMakeFiles/AP_Quicktune.dir/build
-.PHONY : AP_Quicktune/fast
-
-#=============================================================================
-# Target rules for targets named AP_IOMCU
-
-# Build rule for target.
-AP_IOMCU: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_IOMCU
-.PHONY : AP_IOMCU
-
-# fast build rule for target.
-AP_IOMCU/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_IOMCU.dir/build.make CMakeFiles/AP_IOMCU.dir/build
-.PHONY : AP_IOMCU/fast
-
-#=============================================================================
-# Target rules for targets named AP_HAL_Empty
-
-# Build rule for target.
-AP_HAL_Empty: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_HAL_Empty
-.PHONY : AP_HAL_Empty
-
-# fast build rule for target.
-AP_HAL_Empty/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Empty.dir/build.make CMakeFiles/AP_HAL_Empty.dir/build
-.PHONY : AP_HAL_Empty/fast
-
-#=============================================================================
-# Target rules for targets named AP_MSP
-
-# Build rule for target.
-AP_MSP: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_MSP
-.PHONY : AP_MSP
-
-# fast build rule for target.
-AP_MSP/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_MSP.dir/build.make CMakeFiles/AP_MSP.dir/build
-.PHONY : AP_MSP/fast
-
-#=============================================================================
-# Target rules for targets named AP_InertialNav
-
-# Build rule for target.
-AP_InertialNav: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_InertialNav
-.PHONY : AP_InertialNav
-
-# fast build rule for target.
-AP_InertialNav/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialNav.dir/build.make CMakeFiles/AP_InertialNav.dir/build
-.PHONY : AP_InertialNav/fast
-
-#=============================================================================
-# Target rules for targets named littlefs
-
-# Build rule for target.
-littlefs: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 littlefs
-.PHONY : littlefs
-
-# fast build rule for target.
-littlefs/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/littlefs.dir/build.make CMakeFiles/littlefs.dir/build
-.PHONY : littlefs/fast
-
-#=============================================================================
-# Target rules for targets named AP_InertialSensor
-
-# Build rule for target.
-AP_InertialSensor: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_InertialSensor
-.PHONY : AP_InertialSensor
-
-# fast build rule for target.
-AP_InertialSensor/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/build
-.PHONY : AP_InertialSensor/fast
-
-#=============================================================================
-# Target rules for targets named AP_JSON
-
-# Build rule for target.
-AP_JSON: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_JSON
-.PHONY : AP_JSON
-
-# fast build rule for target.
-AP_JSON/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_JSON.dir/build.make CMakeFiles/AP_JSON.dir/build
-.PHONY : AP_JSON/fast
-
-#=============================================================================
-# Target rules for targets named AR_Motors
-
-# Build rule for target.
-AR_Motors: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AR_Motors
-.PHONY : AR_Motors
-
-# fast build rule for target.
-AR_Motors/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AR_Motors.dir/build.make CMakeFiles/AR_Motors.dir/build
-.PHONY : AR_Motors/fast
-
-#=============================================================================
-# Target rules for targets named AP_Param
-
-# Build rule for target.
-AP_Param: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Param
-.PHONY : AP_Param
-
-# fast build rule for target.
-AP_Param/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Param.dir/build.make CMakeFiles/AP_Param.dir/build
-.PHONY : AP_Param/fast
-
-#=============================================================================
-# Target rules for targets named AP_TempCalibration
-
-# Build rule for target.
-AP_TempCalibration: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_TempCalibration
-.PHONY : AP_TempCalibration
-
-# fast build rule for target.
-AP_TempCalibration/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TempCalibration.dir/build.make CMakeFiles/AP_TempCalibration.dir/build
-.PHONY : AP_TempCalibration/fast
-
-#=============================================================================
-# Target rules for targets named AP_KDECAN
-
-# Build rule for target.
-AP_KDECAN: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_KDECAN
-.PHONY : AP_KDECAN
-
-# fast build rule for target.
-AP_KDECAN/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_KDECAN.dir/build.make CMakeFiles/AP_KDECAN.dir/build
-.PHONY : AP_KDECAN/fast
-
-#=============================================================================
-# Target rules for targets named AP_LeakDetector
-
-# Build rule for target.
-AP_LeakDetector: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_LeakDetector
-.PHONY : AP_LeakDetector
-
-# fast build rule for target.
-AP_LeakDetector/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LeakDetector.dir/build.make CMakeFiles/AP_LeakDetector.dir/build
-.PHONY : AP_LeakDetector/fast
-
-#=============================================================================
-# Target rules for targets named AP_LightWareSerial
-
-# Build rule for target.
-AP_LightWareSerial: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_LightWareSerial
-.PHONY : AP_LightWareSerial
-
-# fast build rule for target.
-AP_LightWareSerial/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LightWareSerial.dir/build.make CMakeFiles/AP_LightWareSerial.dir/build
-.PHONY : AP_LightWareSerial/fast
-
-#=============================================================================
-# Target rules for targets named AP_Math
-
-# Build rule for target.
-AP_Math: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Math
-.PHONY : AP_Math
-
-# fast build rule for target.
-AP_Math/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/build
-.PHONY : AP_Math/fast
-
-#=============================================================================
-# Target rules for targets named AP_SerialLED
-
-# Build rule for target.
-AP_SerialLED: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_SerialLED
-.PHONY : AP_SerialLED
-
-# fast build rule for target.
-AP_SerialLED/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_SerialLED.dir/build.make CMakeFiles/AP_SerialLED.dir/build
-.PHONY : AP_SerialLED/fast
-
-#=============================================================================
-# Target rules for targets named AP_Mission
-
-# Build rule for target.
-AP_Mission: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Mission
-.PHONY : AP_Mission
-
-# fast build rule for target.
-AP_Mission/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission.dir/build.make CMakeFiles/AP_Mission.dir/build
-.PHONY : AP_Mission/fast
-
-#=============================================================================
-# Target rules for targets named AP_RCProtocol
-
-# Build rule for target.
-AP_RCProtocol: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RCProtocol
-.PHONY : AP_RCProtocol
-
-# fast build rule for target.
-AP_RCProtocol/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/build
-.PHONY : AP_RCProtocol/fast
-
-#=============================================================================
-# Target rules for targets named AP_Motors
-
-# Build rule for target.
-AP_Motors: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Motors
-.PHONY : AP_Motors
-
-# fast build rule for target.
-AP_Motors/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/build
-.PHONY : AP_Motors/fast
-
-#=============================================================================
-# Target rules for targets named AP_EFI
-
-# Build rule for target.
-AP_EFI: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_EFI
-.PHONY : AP_EFI
-
-# fast build rule for target.
-AP_EFI/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_EFI.dir/build.make CMakeFiles/AP_EFI.dir/build
-.PHONY : AP_EFI/fast
-
-#=============================================================================
-# Target rules for targets named AP_Proximity
-
-# Build rule for target.
-AP_Proximity: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Proximity
-.PHONY : AP_Proximity
-
-# fast build rule for target.
-AP_Proximity/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/build
-.PHONY : AP_Proximity/fast
-
-#=============================================================================
-# Target rules for targets named AP_Mount
-
-# Build rule for target.
-AP_Mount: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Mount
-.PHONY : AP_Mount
-
-# fast build rule for target.
-AP_Mount/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mount.dir/build.make CMakeFiles/AP_Mount.dir/build
-.PHONY : AP_Mount/fast
-
-#=============================================================================
-# Target rules for targets named AP_MultiHeap
-
-# Build rule for target.
-AP_MultiHeap: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_MultiHeap
-.PHONY : AP_MultiHeap
-
-# fast build rule for target.
-AP_MultiHeap/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_MultiHeap.dir/build.make CMakeFiles/AP_MultiHeap.dir/build
-.PHONY : AP_MultiHeap/fast
+AP_Torqeedo/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Torqeedo.dir/build.make CMakeFiles/AP_Torqeedo.dir/build
+.PHONY : AP_Torqeedo/fast
 
 #=============================================================================
 # Target rules for targets named AP_LTM_Telem
@@ -2028,95 +1456,212 @@ AP_NMEA_Output/fast:
 .PHONY : AP_NMEA_Output/fast
 
 #=============================================================================
-# Target rules for targets named AP_NavEKF
+# Target rules for targets named AC_Avoidance_Plane
 
 # Build rule for target.
-AP_NavEKF: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NavEKF
-.PHONY : AP_NavEKF
+AC_Avoidance_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Avoidance_Plane
+.PHONY : AC_Avoidance_Plane
 
 # fast build rule for target.
-AP_NavEKF/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF.dir/build.make CMakeFiles/AP_NavEKF.dir/build
-.PHONY : AP_NavEKF/fast
+AC_Avoidance_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/build
+.PHONY : AC_Avoidance_Plane/fast
 
 #=============================================================================
-# Target rules for targets named dronecan_dsdlc_generated
+# Target rules for targets named AP_AHRS
 
 # Build rule for target.
-dronecan_dsdlc_generated: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 dronecan_dsdlc_generated
-.PHONY : dronecan_dsdlc_generated
+AP_AHRS: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AHRS
+.PHONY : AP_AHRS
 
 # fast build rule for target.
-dronecan_dsdlc_generated/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dronecan_dsdlc_generated.dir/build.make CMakeFiles/dronecan_dsdlc_generated.dir/build
-.PHONY : dronecan_dsdlc_generated/fast
+AP_AHRS/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/build
+.PHONY : AP_AHRS/fast
 
 #=============================================================================
-# Target rules for targets named AP_L1_Control
+# Target rules for targets named AP_Hott_Telem
 
 # Build rule for target.
-AP_L1_Control: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_L1_Control
-.PHONY : AP_L1_Control
+AP_Hott_Telem: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Hott_Telem
+.PHONY : AP_Hott_Telem
 
 # fast build rule for target.
-AP_L1_Control/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_L1_Control.dir/build.make CMakeFiles/AP_L1_Control.dir/build
-.PHONY : AP_L1_Control/fast
+AP_Hott_Telem/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Hott_Telem.dir/build.make CMakeFiles/AP_Hott_Telem.dir/build
+.PHONY : AP_Hott_Telem/fast
 
 #=============================================================================
-# Target rules for targets named AP_Notify
+# Target rules for targets named AC_Fence_Plane
 
 # Build rule for target.
-AP_Notify: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Notify
-.PHONY : AP_Notify
+AC_Fence_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Fence_Plane
+.PHONY : AC_Fence_Plane
 
 # fast build rule for target.
-AP_Notify/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Notify.dir/build.make CMakeFiles/AP_Notify.dir/build
-.PHONY : AP_Notify/fast
+AC_Fence_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence_Plane.dir/build.make CMakeFiles/AC_Fence_Plane.dir/build
+.PHONY : AC_Fence_Plane/fast
 
 #=============================================================================
-# Target rules for targets named AP_OLC
+# Target rules for targets named AP_Declination
 
 # Build rule for target.
-AP_OLC: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_OLC
-.PHONY : AP_OLC
+AP_Declination: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Declination
+.PHONY : AP_Declination
 
 # fast build rule for target.
-AP_OLC/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OLC.dir/build.make CMakeFiles/AP_OLC.dir/build
-.PHONY : AP_OLC/fast
+AP_Declination/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Declination.dir/build.make CMakeFiles/AP_Declination.dir/build
+.PHONY : AP_Declination/fast
 
 #=============================================================================
-# Target rules for targets named AP_OSD
+# Target rules for targets named AP_AHRS_Plane
 
 # Build rule for target.
-AP_OSD: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_OSD
-.PHONY : AP_OSD
+AP_AHRS_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AHRS_Plane
+.PHONY : AP_AHRS_Plane
 
 # fast build rule for target.
-AP_OSD/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/build
-.PHONY : AP_OSD/fast
+AP_AHRS_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/build
+.PHONY : AP_AHRS_Plane/fast
 
 #=============================================================================
-# Target rules for targets named AP_Parachute
+# Target rules for targets named AP_Generator
 
 # Build rule for target.
-AP_Parachute: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Parachute
-.PHONY : AP_Parachute
+AP_Generator: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Generator
+.PHONY : AP_Generator
 
 # fast build rule for target.
-AP_Parachute/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Parachute.dir/build.make CMakeFiles/AP_Parachute.dir/build
-.PHONY : AP_Parachute/fast
+AP_Generator/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Generator.dir/build.make CMakeFiles/AP_Generator.dir/build
+.PHONY : AP_Generator/fast
+
+#=============================================================================
+# Target rules for targets named AC_PrecLand
+
+# Build rule for target.
+AC_PrecLand: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_PrecLand
+.PHONY : AC_PrecLand
+
+# fast build rule for target.
+AC_PrecLand/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/build
+.PHONY : AC_PrecLand/fast
+
+#=============================================================================
+# Target rules for targets named AP_AccelCal
+
+# Build rule for target.
+AP_AccelCal: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AccelCal
+.PHONY : AP_AccelCal
+
+# fast build rule for target.
+AP_AccelCal/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AccelCal.dir/build.make CMakeFiles/AP_AccelCal.dir/build
+.PHONY : AP_AccelCal/fast
+
+#=============================================================================
+# Target rules for targets named AP_AdvancedFailsafe
+
+# Build rule for target.
+AP_AdvancedFailsafe: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_AdvancedFailsafe
+.PHONY : AP_AdvancedFailsafe
+
+# fast build rule for target.
+AP_AdvancedFailsafe/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AdvancedFailsafe.dir/build.make CMakeFiles/AP_AdvancedFailsafe.dir/build
+.PHONY : AP_AdvancedFailsafe/fast
+
+#=============================================================================
+# Target rules for targets named AP_RobotisServo
+
+# Build rule for target.
+AP_RobotisServo: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RobotisServo
+.PHONY : AP_RobotisServo
+
+# fast build rule for target.
+AP_RobotisServo/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RobotisServo.dir/build.make CMakeFiles/AP_RobotisServo.dir/build
+.PHONY : AP_RobotisServo/fast
+
+#=============================================================================
+# Target rules for targets named AP_Mission_Plane
+
+# Build rule for target.
+AP_Mission_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Mission_Plane
+.PHONY : AP_Mission_Plane
+
+# fast build rule for target.
+AP_Mission_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission_Plane.dir/build.make CMakeFiles/AP_Mission_Plane.dir/build
+.PHONY : AP_Mission_Plane/fast
+
+#=============================================================================
+# Target rules for targets named rover
+
+# Build rule for target.
+rover: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rover
+.PHONY : rover
+
+# fast build rule for target.
+rover/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rover.dir/build.make CMakeFiles/rover.dir/build
+.PHONY : rover/fast
+
+#=============================================================================
+# Target rules for targets named AC_PID
+
+# Build rule for target.
+AC_PID: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_PID
+.PHONY : AC_PID
+
+# fast build rule for target.
+AC_PID/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PID.dir/build.make CMakeFiles/AC_PID.dir/build
+.PHONY : AC_PID/fast
+
+#=============================================================================
+# Target rules for targets named AP_Quicktune
+
+# Build rule for target.
+AP_Quicktune: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Quicktune
+.PHONY : AP_Quicktune
+
+# fast build rule for target.
+AP_Quicktune/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Quicktune.dir/build.make CMakeFiles/AP_Quicktune.dir/build
+.PHONY : AP_Quicktune/fast
+
+#=============================================================================
+# Target rules for targets named AP_Button
+
+# Build rule for target.
+AP_Button: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Button
+.PHONY : AP_Button
+
+# fast build rule for target.
+AP_Button/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Button.dir/build.make CMakeFiles/AP_Button.dir/build
+.PHONY : AP_Button/fast
 
 #=============================================================================
 # Target rules for targets named Filter
@@ -2132,30 +1677,407 @@ Filter/fast:
 .PHONY : Filter/fast
 
 #=============================================================================
-# Target rules for targets named AR_WPNav
+# Target rules for targets named AP_CSVReader
 
 # Build rule for target.
-AR_WPNav: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AR_WPNav
-.PHONY : AR_WPNav
+AP_CSVReader: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_CSVReader
+.PHONY : AP_CSVReader
 
 # fast build rule for target.
-AR_WPNav/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AR_WPNav.dir/build.make CMakeFiles/AR_WPNav.dir/build
-.PHONY : AR_WPNav/fast
+AP_CSVReader/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CSVReader.dir/build.make CMakeFiles/AP_CSVReader.dir/build
+.PHONY : AP_CSVReader/fast
 
 #=============================================================================
-# Target rules for targets named AP_PiccoloCAN
+# Target rules for targets named AP_HAL_Plane
 
 # Build rule for target.
-AP_PiccoloCAN: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_PiccoloCAN
-.PHONY : AP_PiccoloCAN
+AP_HAL_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_HAL_Plane
+.PHONY : AP_HAL_Plane
 
 # fast build rule for target.
-AP_PiccoloCAN/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_PiccoloCAN.dir/build.make CMakeFiles/AP_PiccoloCAN.dir/build
-.PHONY : AP_PiccoloCAN/fast
+AP_HAL_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/build
+.PHONY : AP_HAL_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_Gripper
+
+# Build rule for target.
+AP_Gripper: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Gripper
+.PHONY : AP_Gripper
+
+# fast build rule for target.
+AP_Gripper/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Gripper.dir/build.make CMakeFiles/AP_Gripper.dir/build
+.PHONY : AP_Gripper/fast
+
+#=============================================================================
+# Target rules for targets named StorageManager_Plane
+
+# Build rule for target.
+StorageManager_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 StorageManager_Plane
+.PHONY : StorageManager_Plane
+
+# fast build rule for target.
+StorageManager_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager_Plane.dir/build.make CMakeFiles/StorageManager_Plane.dir/build
+.PHONY : StorageManager_Plane/fast
+
+#=============================================================================
+# Target rules for targets named canard
+
+# Build rule for target.
+canard: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 canard
+.PHONY : canard
+
+# fast build rule for target.
+canard/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/canard.dir/build.make CMakeFiles/canard.dir/build
+.PHONY : canard/fast
+
+#=============================================================================
+# Target rules for targets named AP_Baro
+
+# Build rule for target.
+AP_Baro: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Baro
+.PHONY : AP_Baro
+
+# fast build rule for target.
+AP_Baro/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/build
+.PHONY : AP_Baro/fast
+
+#=============================================================================
+# Target rules for targets named AP_DAL_Plane
+
+# Build rule for target.
+AP_DAL_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_DAL_Plane
+.PHONY : AP_DAL_Plane
+
+# fast build rule for target.
+AP_DAL_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/build
+.PHONY : AP_DAL_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_NavEKF
+
+# Build rule for target.
+AP_NavEKF: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NavEKF
+.PHONY : AP_NavEKF
+
+# fast build rule for target.
+AP_NavEKF/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF.dir/build.make CMakeFiles/AP_NavEKF.dir/build
+.PHONY : AP_NavEKF/fast
+
+#=============================================================================
+# Target rules for targets named AP_BattMonitor
+
+# Build rule for target.
+AP_BattMonitor: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_BattMonitor
+.PHONY : AP_BattMonitor
+
+# fast build rule for target.
+AP_BattMonitor/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/build
+.PHONY : AP_BattMonitor/fast
+
+#=============================================================================
+# Target rules for targets named AP_Mount
+
+# Build rule for target.
+AP_Mount: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Mount
+.PHONY : AP_Mount
+
+# fast build rule for target.
+AP_Mount/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mount.dir/build.make CMakeFiles/AP_Mount.dir/build
+.PHONY : AP_Mount/fast
+
+#=============================================================================
+# Target rules for targets named AP_ESC_Telem_Plane
+
+# Build rule for target.
+AP_ESC_Telem_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ESC_Telem_Plane
+.PHONY : AP_ESC_Telem_Plane
+
+# fast build rule for target.
+AP_ESC_Telem_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem_Plane.dir/build.make CMakeFiles/AP_ESC_Telem_Plane.dir/build
+.PHONY : AP_ESC_Telem_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AC_Avoidance
+
+# Build rule for target.
+AC_Avoidance: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Avoidance
+.PHONY : AC_Avoidance
+
+# fast build rule for target.
+AC_Avoidance/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/build
+.PHONY : AC_Avoidance/fast
+
+#=============================================================================
+# Target rules for targets named SITL_Plane
+
+# Build rule for target.
+SITL_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SITL_Plane
+.PHONY : SITL_Plane
+
+# fast build rule for target.
+SITL_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL_Plane.dir/build.make CMakeFiles/SITL_Plane.dir/build
+.PHONY : SITL_Plane/fast
+
+#=============================================================================
+# Target rules for targets named dronecan_dsdlc_generated
+
+# Build rule for target.
+dronecan_dsdlc_generated: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 dronecan_dsdlc_generated
+.PHONY : dronecan_dsdlc_generated
+
+# fast build rule for target.
+dronecan_dsdlc_generated/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dronecan_dsdlc_generated.dir/build.make CMakeFiles/dronecan_dsdlc_generated.dir/build
+.PHONY : dronecan_dsdlc_generated/fast
+
+#=============================================================================
+# Target rules for targets named AP_BoardConfig
+
+# Build rule for target.
+AP_BoardConfig: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_BoardConfig
+.PHONY : AP_BoardConfig
+
+# fast build rule for target.
+AP_BoardConfig/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig.dir/build.make CMakeFiles/AP_BoardConfig.dir/build
+.PHONY : AP_BoardConfig/fast
+
+#=============================================================================
+# Target rules for targets named AP_CustomRotations
+
+# Build rule for target.
+AP_CustomRotations: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_CustomRotations
+.PHONY : AP_CustomRotations
+
+# fast build rule for target.
+AP_CustomRotations/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_CustomRotations.dir/build.make CMakeFiles/AP_CustomRotations.dir/build
+.PHONY : AP_CustomRotations/fast
+
+#=============================================================================
+# Target rules for targets named AP_Networking
+
+# Build rule for target.
+AP_Networking: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Networking
+.PHONY : AP_Networking
+
+# fast build rule for target.
+AP_Networking/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Networking.dir/build.make CMakeFiles/AP_Networking.dir/build
+.PHONY : AP_Networking/fast
+
+#=============================================================================
+# Target rules for targets named AP_OSD
+
+# Build rule for target.
+AP_OSD: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_OSD
+.PHONY : AP_OSD
+
+# fast build rule for target.
+AP_OSD/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/build
+.PHONY : AP_OSD/fast
+
+#=============================================================================
+# Target rules for targets named AP_OSD_Plane
+
+# Build rule for target.
+AP_OSD_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_OSD_Plane
+.PHONY : AP_OSD_Plane
+
+# fast build rule for target.
+AP_OSD_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/build
+.PHONY : AP_OSD_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_OpenDroneID
+
+# Build rule for target.
+AP_OpenDroneID: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_OpenDroneID
+.PHONY : AP_OpenDroneID
+
+# fast build rule for target.
+AP_OpenDroneID/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OpenDroneID.dir/build.make CMakeFiles/AP_OpenDroneID.dir/build
+.PHONY : AP_OpenDroneID/fast
+
+#=============================================================================
+# Target rules for targets named AP_SerialManager
+
+# Build rule for target.
+AP_SerialManager: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_SerialManager
+.PHONY : AP_SerialManager
+
+# fast build rule for target.
+AP_SerialManager/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_SerialManager.dir/build.make CMakeFiles/AP_SerialManager.dir/build
+.PHONY : AP_SerialManager/fast
+
+#=============================================================================
+# Target rules for targets named AP_OpticalFlow
+
+# Build rule for target.
+AP_OpticalFlow: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_OpticalFlow
+.PHONY : AP_OpticalFlow
+
+# fast build rule for target.
+AP_OpticalFlow/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OpticalFlow.dir/build.make CMakeFiles/AP_OpticalFlow.dir/build
+.PHONY : AP_OpticalFlow/fast
+
+#=============================================================================
+# Target rules for targets named AP_Compass
+
+# Build rule for target.
+AP_Compass: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Compass
+.PHONY : AP_Compass
+
+# fast build rule for target.
+AP_Compass/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Compass.dir/build.make CMakeFiles/AP_Compass.dir/build
+.PHONY : AP_Compass/fast
+
+#=============================================================================
+# Target rules for targets named AP_Rally_Plane
+
+# Build rule for target.
+AP_Rally_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Rally_Plane
+.PHONY : AP_Rally_Plane
+
+# fast build rule for target.
+AP_Rally_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Rally_Plane.dir/build.make CMakeFiles/AP_Rally_Plane.dir/build
+.PHONY : AP_Rally_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_Parachute
+
+# Build rule for target.
+AP_Parachute: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Parachute
+.PHONY : AP_Parachute
+
+# fast build rule for target.
+AP_Parachute/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Parachute.dir/build.make CMakeFiles/AP_Parachute.dir/build
+.PHONY : AP_Parachute/fast
+
+#=============================================================================
+# Target rules for targets named AP_Param
+
+# Build rule for target.
+AP_Param: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Param
+.PHONY : AP_Param
+
+# fast build rule for target.
+AP_Param/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Param.dir/build.make CMakeFiles/AP_Param.dir/build
+.PHONY : AP_Param/fast
+
+#=============================================================================
+# Target rules for targets named AR_Motors
+
+# Build rule for target.
+AR_Motors: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AR_Motors
+.PHONY : AR_Motors
+
+# fast build rule for target.
+AR_Motors/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AR_Motors.dir/build.make CMakeFiles/AR_Motors.dir/build
+.PHONY : AR_Motors/fast
+
+#=============================================================================
+# Target rules for targets named AP_Proximity_Plane
+
+# Build rule for target.
+AP_Proximity_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Proximity_Plane
+.PHONY : AP_Proximity_Plane
+
+# fast build rule for target.
+AP_Proximity_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/build
+.PHONY : AP_Proximity_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_RAMTRON
+
+# Build rule for target.
+AP_RAMTRON: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RAMTRON
+.PHONY : AP_RAMTRON
+
+# fast build rule for target.
+AP_RAMTRON/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RAMTRON.dir/build.make CMakeFiles/AP_RAMTRON.dir/build
+.PHONY : AP_RAMTRON/fast
+
+#=============================================================================
+# Target rules for targets named AP_RCMapper
+
+# Build rule for target.
+AP_RCMapper: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RCMapper
+.PHONY : AP_RCMapper
+
+# fast build rule for target.
+AP_RCMapper/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCMapper.dir/build.make CMakeFiles/AP_RCMapper.dir/build
+.PHONY : AP_RCMapper/fast
+
+#=============================================================================
+# Target rules for targets named AP_RCProtocol_Plane
+
+# Build rule for target.
+AP_RCProtocol_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RCProtocol_Plane
+.PHONY : AP_RCProtocol_Plane
+
+# fast build rule for target.
+AP_RCProtocol_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/build
+.PHONY : AP_RCProtocol_Plane/fast
 
 #=============================================================================
 # Target rules for targets named AP_RCTelemetry
@@ -2171,6 +2093,19 @@ AP_RCTelemetry/fast:
 .PHONY : AP_RCTelemetry/fast
 
 #=============================================================================
+# Target rules for targets named AP_ExternalControl
+
+# Build rule for target.
+AP_ExternalControl: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ExternalControl
+.PHONY : AP_ExternalControl
+
+# fast build rule for target.
+AP_ExternalControl/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalControl.dir/build.make CMakeFiles/AP_ExternalControl.dir/build
+.PHONY : AP_ExternalControl/fast
+
+#=============================================================================
 # Target rules for targets named AP_ROMFS
 
 # Build rule for target.
@@ -2182,6 +2117,682 @@ AP_ROMFS: cmake_check_build_system
 AP_ROMFS/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ROMFS.dir/build.make CMakeFiles/AP_ROMFS.dir/build
 .PHONY : AP_ROMFS/fast
+
+#=============================================================================
+# Target rules for targets named AP_RSSI
+
+# Build rule for target.
+AP_RSSI: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RSSI
+.PHONY : AP_RSSI
+
+# fast build rule for target.
+AP_RSSI/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RSSI.dir/build.make CMakeFiles/AP_RSSI.dir/build
+.PHONY : AP_RSSI/fast
+
+#=============================================================================
+# Target rules for targets named AP_BLHeli
+
+# Build rule for target.
+AP_BLHeli: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_BLHeli
+.PHONY : AP_BLHeli
+
+# fast build rule for target.
+AP_BLHeli/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BLHeli.dir/build.make CMakeFiles/AP_BLHeli.dir/build
+.PHONY : AP_BLHeli/fast
+
+#=============================================================================
+# Target rules for targets named AP_RTC
+
+# Build rule for target.
+AP_RTC: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RTC
+.PHONY : AP_RTC
+
+# fast build rule for target.
+AP_RTC/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RTC.dir/build.make CMakeFiles/AP_RTC.dir/build
+.PHONY : AP_RTC/fast
+
+#=============================================================================
+# Target rules for targets named AP_KDECAN
+
+# Build rule for target.
+AP_KDECAN: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_KDECAN
+.PHONY : AP_KDECAN
+
+# fast build rule for target.
+AP_KDECAN/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_KDECAN.dir/build.make CMakeFiles/AP_KDECAN.dir/build
+.PHONY : AP_KDECAN/fast
+
+#=============================================================================
+# Target rules for targets named AP_Stats
+
+# Build rule for target.
+AP_Stats: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Stats
+.PHONY : AP_Stats
+
+# fast build rule for target.
+AP_Stats/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Stats.dir/build.make CMakeFiles/AP_Stats.dir/build
+.PHONY : AP_Stats/fast
+
+#=============================================================================
+# Target rules for targets named AP_Relay_Plane
+
+# Build rule for target.
+AP_Relay_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Relay_Plane
+.PHONY : AP_Relay_Plane
+
+# fast build rule for target.
+AP_Relay_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay_Plane.dir/build.make CMakeFiles/AP_Relay_Plane.dir/build
+.PHONY : AP_Relay_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_SBusOut
+
+# Build rule for target.
+AP_SBusOut: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_SBusOut
+.PHONY : AP_SBusOut
+
+# fast build rule for target.
+AP_SBusOut/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_SBusOut.dir/build.make CMakeFiles/AP_SBusOut.dir/build
+.PHONY : AP_SBusOut/fast
+
+#=============================================================================
+# Target rules for targets named AP_Scheduler
+
+# Build rule for target.
+AP_Scheduler: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Scheduler
+.PHONY : AP_Scheduler
+
+# fast build rule for target.
+AP_Scheduler/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler.dir/build.make CMakeFiles/AP_Scheduler.dir/build
+.PHONY : AP_Scheduler/fast
+
+#=============================================================================
+# Target rules for targets named AP_WheelEncoder
+
+# Build rule for target.
+AP_WheelEncoder: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_WheelEncoder
+.PHONY : AP_WheelEncoder
+
+# fast build rule for target.
+AP_WheelEncoder/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_WheelEncoder.dir/build.make CMakeFiles/AP_WheelEncoder.dir/build
+.PHONY : AP_WheelEncoder/fast
+
+#=============================================================================
+# Target rules for targets named AP_Scheduler_Plane
+
+# Build rule for target.
+AP_Scheduler_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Scheduler_Plane
+.PHONY : AP_Scheduler_Plane
+
+# fast build rule for target.
+AP_Scheduler_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler_Plane.dir/build.make CMakeFiles/AP_Scheduler_Plane.dir/build
+.PHONY : AP_Scheduler_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_ServoRelayEvents
+
+# Build rule for target.
+AP_ServoRelayEvents: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_ServoRelayEvents
+.PHONY : AP_ServoRelayEvents
+
+# fast build rule for target.
+AP_ServoRelayEvents/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ServoRelayEvents.dir/build.make CMakeFiles/AP_ServoRelayEvents.dir/build
+.PHONY : AP_ServoRelayEvents/fast
+
+#=============================================================================
+# Target rules for targets named AC_AttitudeControl
+
+# Build rule for target.
+AC_AttitudeControl: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_AttitudeControl
+.PHONY : AC_AttitudeControl
+
+# fast build rule for target.
+AC_AttitudeControl/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AttitudeControl.dir/build.make CMakeFiles/AC_AttitudeControl.dir/build
+.PHONY : AC_AttitudeControl/fast
+
+#=============================================================================
+# Target rules for targets named AP_SmartRTL
+
+# Build rule for target.
+AP_SmartRTL: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_SmartRTL
+.PHONY : AP_SmartRTL
+
+# fast build rule for target.
+AP_SmartRTL/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_SmartRTL.dir/build.make CMakeFiles/AP_SmartRTL.dir/build
+.PHONY : AP_SmartRTL/fast
+
+#=============================================================================
+# Target rules for targets named AP_Proximity
+
+# Build rule for target.
+AP_Proximity: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Proximity
+.PHONY : AP_Proximity
+
+# fast build rule for target.
+AP_Proximity/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/build
+.PHONY : AP_Proximity/fast
+
+#=============================================================================
+# Target rules for targets named SRV_Channel
+
+# Build rule for target.
+SRV_Channel: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SRV_Channel
+.PHONY : SRV_Channel
+
+# fast build rule for target.
+SRV_Channel/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SRV_Channel.dir/build.make CMakeFiles/SRV_Channel.dir/build
+.PHONY : SRV_Channel/fast
+
+#=============================================================================
+# Target rules for targets named AP_LightWareSerial
+
+# Build rule for target.
+AP_LightWareSerial: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_LightWareSerial
+.PHONY : AP_LightWareSerial
+
+# fast build rule for target.
+AP_LightWareSerial/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LightWareSerial.dir/build.make CMakeFiles/AP_LightWareSerial.dir/build
+.PHONY : AP_LightWareSerial/fast
+
+#=============================================================================
+# Target rules for targets named AP_EFI
+
+# Build rule for target.
+AP_EFI: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_EFI
+.PHONY : AP_EFI
+
+# fast build rule for target.
+AP_EFI/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_EFI.dir/build.make CMakeFiles/AP_EFI.dir/build
+.PHONY : AP_EFI/fast
+
+#=============================================================================
+# Target rules for targets named AP_Soaring
+
+# Build rule for target.
+AP_Soaring: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Soaring
+.PHONY : AP_Soaring
+
+# fast build rule for target.
+AP_Soaring/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Soaring.dir/build.make CMakeFiles/AP_Soaring.dir/build
+.PHONY : AP_Soaring/fast
+
+#=============================================================================
+# Target rules for targets named AR_WPNav
+
+# Build rule for target.
+AR_WPNav: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AR_WPNav
+.PHONY : AR_WPNav
+
+# fast build rule for target.
+AR_WPNav/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AR_WPNav.dir/build.make CMakeFiles/AR_WPNav.dir/build
+.PHONY : AR_WPNav/fast
+
+#=============================================================================
+# Target rules for targets named AP_SurfaceDistance
+
+# Build rule for target.
+AP_SurfaceDistance: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_SurfaceDistance
+.PHONY : AP_SurfaceDistance
+
+# fast build rule for target.
+AP_SurfaceDistance/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_SurfaceDistance.dir/build.make CMakeFiles/AP_SurfaceDistance.dir/build
+.PHONY : AP_SurfaceDistance/fast
+
+#=============================================================================
+# Target rules for targets named AP_TECS
+
+# Build rule for target.
+AP_TECS: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_TECS
+.PHONY : AP_TECS
+
+# fast build rule for target.
+AP_TECS/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TECS.dir/build.make CMakeFiles/AP_TECS.dir/build
+.PHONY : AP_TECS/fast
+
+#=============================================================================
+# Target rules for targets named AP_TemperatureSensor
+
+# Build rule for target.
+AP_TemperatureSensor: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_TemperatureSensor
+.PHONY : AP_TemperatureSensor
+
+# fast build rule for target.
+AP_TemperatureSensor/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/build
+.PHONY : AP_TemperatureSensor/fast
+
+#=============================================================================
+# Target rules for targets named AP_NavEKF2
+
+# Build rule for target.
+AP_NavEKF2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NavEKF2
+.PHONY : AP_NavEKF2
+
+# fast build rule for target.
+AP_NavEKF2/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/build
+.PHONY : AP_NavEKF2/fast
+
+#=============================================================================
+# Target rules for targets named AP_Terrain
+
+# Build rule for target.
+AP_Terrain: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Terrain
+.PHONY : AP_Terrain
+
+# fast build rule for target.
+AP_Terrain/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/build
+.PHONY : AP_Terrain/fast
+
+#=============================================================================
+# Target rules for targets named AP_IBus_Telem_Plane
+
+# Build rule for target.
+AP_IBus_Telem_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_IBus_Telem_Plane
+.PHONY : AP_IBus_Telem_Plane
+
+# fast build rule for target.
+AP_IBus_Telem_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_IBus_Telem_Plane.dir/build.make CMakeFiles/AP_IBus_Telem_Plane.dir/build
+.PHONY : AP_IBus_Telem_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_Terrain_Plane
+
+# Build rule for target.
+AP_Terrain_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Terrain_Plane
+.PHONY : AP_Terrain_Plane
+
+# fast build rule for target.
+AP_Terrain_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/build
+.PHONY : AP_Terrain_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AC_PrecLand_Plane
+
+# Build rule for target.
+AC_PrecLand_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_PrecLand_Plane
+.PHONY : AC_PrecLand_Plane
+
+# fast build rule for target.
+AC_PrecLand_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/build
+.PHONY : AC_PrecLand_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_HAL
+
+# Build rule for target.
+AP_HAL: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_HAL
+.PHONY : AP_HAL
+
+# fast build rule for target.
+AP_HAL/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/build
+.PHONY : AP_HAL/fast
+
+#=============================================================================
+# Target rules for targets named AP_Tuning
+
+# Build rule for target.
+AP_Tuning: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Tuning
+.PHONY : AP_Tuning
+
+# fast build rule for target.
+AP_Tuning/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Tuning.dir/build.make CMakeFiles/AP_Tuning.dir/build
+.PHONY : AP_Tuning/fast
+
+#=============================================================================
+# Target rules for targets named AP_GSOF
+
+# Build rule for target.
+AP_GSOF: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_GSOF
+.PHONY : AP_GSOF
+
+# fast build rule for target.
+AP_GSOF/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_GSOF.dir/build.make CMakeFiles/AP_GSOF.dir/build
+.PHONY : AP_GSOF/fast
+
+#=============================================================================
+# Target rules for targets named AP_Vehicle
+
+# Build rule for target.
+AP_Vehicle: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Vehicle
+.PHONY : AP_Vehicle
+
+# fast build rule for target.
+AP_Vehicle/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle.dir/build.make CMakeFiles/AP_Vehicle.dir/build
+.PHONY : AP_Vehicle/fast
+
+#=============================================================================
+# Target rules for targets named AP_Mission
+
+# Build rule for target.
+AP_Mission: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Mission
+.PHONY : AP_Mission
+
+# fast build rule for target.
+AP_Mission/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission.dir/build.make CMakeFiles/AP_Mission.dir/build
+.PHONY : AP_Mission/fast
+
+#=============================================================================
+# Target rules for targets named AP_RangeFinder
+
+# Build rule for target.
+AP_RangeFinder: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RangeFinder
+.PHONY : AP_RangeFinder
+
+# fast build rule for target.
+AP_RangeFinder/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RangeFinder.dir/build.make CMakeFiles/AP_RangeFinder.dir/build
+.PHONY : AP_RangeFinder/fast
+
+#=============================================================================
+# Target rules for targets named AP_OLC
+
+# Build rule for target.
+AP_OLC: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_OLC
+.PHONY : AP_OLC
+
+# fast build rule for target.
+AP_OLC/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OLC.dir/build.make CMakeFiles/AP_OLC.dir/build
+.PHONY : AP_OLC/fast
+
+#=============================================================================
+# Target rules for targets named AP_WindVane
+
+# Build rule for target.
+AP_WindVane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_WindVane
+.PHONY : AP_WindVane
+
+# fast build rule for target.
+AP_WindVane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_WindVane.dir/build.make CMakeFiles/AP_WindVane.dir/build
+.PHONY : AP_WindVane/fast
+
+#=============================================================================
+# Target rules for targets named Filter_Plane
+
+# Build rule for target.
+Filter_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Filter_Plane
+.PHONY : Filter_Plane
+
+# fast build rule for target.
+Filter_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/build
+.PHONY : Filter_Plane/fast
+
+#=============================================================================
+# Target rules for targets named SITL
+
+# Build rule for target.
+SITL: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SITL
+.PHONY : SITL
+
+# fast build rule for target.
+SITL/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SITL.dir/build.make CMakeFiles/SITL.dir/build
+.PHONY : SITL/fast
+
+#=============================================================================
+# Target rules for targets named AP_JSON
+
+# Build rule for target.
+AP_JSON: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_JSON
+.PHONY : AP_JSON
+
+# fast build rule for target.
+AP_JSON/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_JSON.dir/build.make CMakeFiles/AP_JSON.dir/build
+.PHONY : AP_JSON/fast
+
+#=============================================================================
+# Target rules for targets named GCS_MAVLink
+
+# Build rule for target.
+GCS_MAVLink: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 GCS_MAVLink
+.PHONY : GCS_MAVLink
+
+# fast build rule for target.
+GCS_MAVLink/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/build
+.PHONY : GCS_MAVLink/fast
+
+#=============================================================================
+# Target rules for targets named PID
+
+# Build rule for target.
+PID: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PID
+.PHONY : PID
+
+# fast build rule for target.
+PID/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PID.dir/build.make CMakeFiles/PID.dir/build
+.PHONY : PID/fast
+
+#=============================================================================
+# Target rules for targets named AP_RCTelemetry_Plane
+
+# Build rule for target.
+AP_RCTelemetry_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_RCTelemetry_Plane
+.PHONY : AP_RCTelemetry_Plane
+
+# fast build rule for target.
+AP_RCTelemetry_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry_Plane.dir/build.make CMakeFiles/AP_RCTelemetry_Plane.dir/build
+.PHONY : AP_RCTelemetry_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_PiccoloCAN_piccolo_protocol
+
+# Build rule for target.
+AP_PiccoloCAN_piccolo_protocol: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_PiccoloCAN_piccolo_protocol
+.PHONY : AP_PiccoloCAN_piccolo_protocol
+
+# fast build rule for target.
+AP_PiccoloCAN_piccolo_protocol/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_PiccoloCAN_piccolo_protocol.dir/build.make CMakeFiles/AP_PiccoloCAN_piccolo_protocol.dir/build
+.PHONY : AP_PiccoloCAN_piccolo_protocol/fast
+
+#=============================================================================
+# Target rules for targets named AP_HAL_SITL
+
+# Build rule for target.
+AP_HAL_SITL: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_HAL_SITL
+.PHONY : AP_HAL_SITL
+
+# fast build rule for target.
+AP_HAL_SITL/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/build
+.PHONY : AP_HAL_SITL/fast
+
+#=============================================================================
+# Target rules for targets named AP_HAL_SITL_Plane
+
+# Build rule for target.
+AP_HAL_SITL_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_HAL_SITL_Plane
+.PHONY : AP_HAL_SITL_Plane
+
+# fast build rule for target.
+AP_HAL_SITL_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/build
+.PHONY : AP_HAL_SITL_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_Scripting
+
+# Build rule for target.
+AP_Scripting: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Scripting
+.PHONY : AP_Scripting
+
+# fast build rule for target.
+AP_Scripting/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/build
+.PHONY : AP_Scripting/fast
+
+#=============================================================================
+# Target rules for targets named AP_Scripting_lua_src
+
+# Build rule for target.
+AP_Scripting_lua_src: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Scripting_lua_src
+.PHONY : AP_Scripting_lua_src
+
+# fast build rule for target.
+AP_Scripting_lua_src/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_lua_src.dir/build.make CMakeFiles/AP_Scripting_lua_src.dir/build
+.PHONY : AP_Scripting_lua_src/fast
+
+#=============================================================================
+# Target rules for targets named AP_NavEKF3_Plane
+
+# Build rule for target.
+AP_NavEKF3_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_NavEKF3_Plane
+.PHONY : AP_NavEKF3_Plane
+
+# fast build rule for target.
+AP_NavEKF3_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/build
+.PHONY : AP_NavEKF3_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AC_Fence
+
+# Build rule for target.
+AC_Fence: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AC_Fence
+.PHONY : AC_Fence
+
+# fast build rule for target.
+AC_Fence/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence.dir/build.make CMakeFiles/AC_Fence.dir/build
+.PHONY : AC_Fence/fast
+
+#=============================================================================
+# Target rules for targets named AP_LandingGear_Plane
+
+# Build rule for target.
+AP_LandingGear_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_LandingGear_Plane
+.PHONY : AP_LandingGear_Plane
+
+# fast build rule for target.
+AP_LandingGear_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LandingGear_Plane.dir/build.make CMakeFiles/AP_LandingGear_Plane.dir/build
+.PHONY : AP_LandingGear_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_GyroFFT_Plane
+
+# Build rule for target.
+AP_GyroFFT_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_GyroFFT_Plane
+.PHONY : AP_GyroFFT_Plane
+
+# fast build rule for target.
+AP_GyroFFT_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_GyroFFT_Plane.dir/build.make CMakeFiles/AP_GyroFFT_Plane.dir/build
+.PHONY : AP_GyroFFT_Plane/fast
+
+#=============================================================================
+# Target rules for targets named RC_Channel_Plane
+
+# Build rule for target.
+RC_Channel_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 RC_Channel_Plane
+.PHONY : RC_Channel_Plane
+
+# fast build rule for target.
+RC_Channel_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel_Plane.dir/build.make CMakeFiles/RC_Channel_Plane.dir/build
+.PHONY : RC_Channel_Plane/fast
+
+#=============================================================================
+# Target rules for targets named AP_Arming_Plane
+
+# Build rule for target.
+AP_Arming_Plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 AP_Arming_Plane
+.PHONY : AP_Arming_Plane
+
+# fast build rule for target.
+AP_Arming_Plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Arming_Plane.dir/build.make CMakeFiles/AP_Arming_Plane.dir/build
+.PHONY : AP_Arming_Plane/fast
 
 AntennaTracker/GCS_MAVLink_Tracker.o: AntennaTracker/GCS_MAVLink_Tracker.cpp.o
 .PHONY : AntennaTracker/GCS_MAVLink_Tracker.o
@@ -8827,6 +9438,7 @@ libraries/AC_AutoTune/AC_AutoTune.o: libraries/AC_AutoTune/AC_AutoTune.cpp.o
 
 # target to build an object file
 libraries/AC_AutoTune/AC_AutoTune.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.o
 .PHONY : libraries/AC_AutoTune/AC_AutoTune.cpp.o
 
@@ -8835,6 +9447,7 @@ libraries/AC_AutoTune/AC_AutoTune.i: libraries/AC_AutoTune/AC_AutoTune.cpp.i
 
 # target to preprocess a source file
 libraries/AC_AutoTune/AC_AutoTune.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.i
 .PHONY : libraries/AC_AutoTune/AC_AutoTune.cpp.i
 
@@ -8843,6 +9456,7 @@ libraries/AC_AutoTune/AC_AutoTune.s: libraries/AC_AutoTune/AC_AutoTune.cpp.s
 
 # target to generate assembly for a file
 libraries/AC_AutoTune/AC_AutoTune.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune.cpp.s
 .PHONY : libraries/AC_AutoTune/AC_AutoTune.cpp.s
 
@@ -8851,6 +9465,7 @@ libraries/AC_AutoTune/AC_AutoTune_FreqResp.o: libraries/AC_AutoTune/AC_AutoTune_
 
 # target to build an object file
 libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.o
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.o
 
@@ -8859,6 +9474,7 @@ libraries/AC_AutoTune/AC_AutoTune_FreqResp.i: libraries/AC_AutoTune/AC_AutoTune_
 
 # target to preprocess a source file
 libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.i
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.i
 
@@ -8867,6 +9483,7 @@ libraries/AC_AutoTune/AC_AutoTune_FreqResp.s: libraries/AC_AutoTune/AC_AutoTune_
 
 # target to generate assembly for a file
 libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.s
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_FreqResp.cpp.s
 
@@ -8875,6 +9492,7 @@ libraries/AC_AutoTune/AC_AutoTune_Heli.o: libraries/AC_AutoTune/AC_AutoTune_Heli
 
 # target to build an object file
 libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.o
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.o
 
@@ -8883,6 +9501,7 @@ libraries/AC_AutoTune/AC_AutoTune_Heli.i: libraries/AC_AutoTune/AC_AutoTune_Heli
 
 # target to preprocess a source file
 libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.i
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.i
 
@@ -8891,6 +9510,7 @@ libraries/AC_AutoTune/AC_AutoTune_Heli.s: libraries/AC_AutoTune/AC_AutoTune_Heli
 
 # target to generate assembly for a file
 libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.s
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_Heli.cpp.s
 
@@ -8899,6 +9519,7 @@ libraries/AC_AutoTune/AC_AutoTune_Multi.o: libraries/AC_AutoTune/AC_AutoTune_Mul
 
 # target to build an object file
 libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.o
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.o
 
@@ -8907,6 +9528,7 @@ libraries/AC_AutoTune/AC_AutoTune_Multi.i: libraries/AC_AutoTune/AC_AutoTune_Mul
 
 # target to preprocess a source file
 libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.i
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.i
 
@@ -8915,6 +9537,7 @@ libraries/AC_AutoTune/AC_AutoTune_Multi.s: libraries/AC_AutoTune/AC_AutoTune_Mul
 
 # target to generate assembly for a file
 libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune_Plane.dir/build.make CMakeFiles/AC_AutoTune_Plane.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_AutoTune.dir/build.make CMakeFiles/AC_AutoTune.dir/libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.s
 .PHONY : libraries/AC_AutoTune/AC_AutoTune_Multi.cpp.s
 
@@ -8971,6 +9594,7 @@ libraries/AC_Avoidance/AC_Avoid.o: libraries/AC_Avoidance/AC_Avoid.cpp.o
 
 # target to build an object file
 libraries/AC_Avoidance/AC_Avoid.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AC_Avoid.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AC_Avoid.cpp.o
 .PHONY : libraries/AC_Avoidance/AC_Avoid.cpp.o
 
@@ -8979,6 +9603,7 @@ libraries/AC_Avoidance/AC_Avoid.i: libraries/AC_Avoidance/AC_Avoid.cpp.i
 
 # target to preprocess a source file
 libraries/AC_Avoidance/AC_Avoid.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AC_Avoid.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AC_Avoid.cpp.i
 .PHONY : libraries/AC_Avoidance/AC_Avoid.cpp.i
 
@@ -8987,6 +9612,7 @@ libraries/AC_Avoidance/AC_Avoid.s: libraries/AC_Avoidance/AC_Avoid.cpp.s
 
 # target to generate assembly for a file
 libraries/AC_Avoidance/AC_Avoid.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AC_Avoid.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AC_Avoid.cpp.s
 .PHONY : libraries/AC_Avoidance/AC_Avoid.cpp.s
 
@@ -8995,6 +9621,7 @@ libraries/AC_Avoidance/AC_Avoidance_Logging.o: libraries/AC_Avoidance/AC_Avoidan
 
 # target to build an object file
 libraries/AC_Avoidance/AC_Avoidance_Logging.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AC_Avoidance_Logging.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AC_Avoidance_Logging.cpp.o
 .PHONY : libraries/AC_Avoidance/AC_Avoidance_Logging.cpp.o
 
@@ -9003,6 +9630,7 @@ libraries/AC_Avoidance/AC_Avoidance_Logging.i: libraries/AC_Avoidance/AC_Avoidan
 
 # target to preprocess a source file
 libraries/AC_Avoidance/AC_Avoidance_Logging.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AC_Avoidance_Logging.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AC_Avoidance_Logging.cpp.i
 .PHONY : libraries/AC_Avoidance/AC_Avoidance_Logging.cpp.i
 
@@ -9011,6 +9639,7 @@ libraries/AC_Avoidance/AC_Avoidance_Logging.s: libraries/AC_Avoidance/AC_Avoidan
 
 # target to generate assembly for a file
 libraries/AC_Avoidance/AC_Avoidance_Logging.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AC_Avoidance_Logging.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AC_Avoidance_Logging.cpp.s
 .PHONY : libraries/AC_Avoidance/AC_Avoidance_Logging.cpp.s
 
@@ -9019,6 +9648,7 @@ libraries/AC_Avoidance/AP_OABendyRuler.o: libraries/AC_Avoidance/AP_OABendyRuler
 
 # target to build an object file
 libraries/AC_Avoidance/AP_OABendyRuler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OABendyRuler.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OABendyRuler.cpp.o
 .PHONY : libraries/AC_Avoidance/AP_OABendyRuler.cpp.o
 
@@ -9027,6 +9657,7 @@ libraries/AC_Avoidance/AP_OABendyRuler.i: libraries/AC_Avoidance/AP_OABendyRuler
 
 # target to preprocess a source file
 libraries/AC_Avoidance/AP_OABendyRuler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OABendyRuler.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OABendyRuler.cpp.i
 .PHONY : libraries/AC_Avoidance/AP_OABendyRuler.cpp.i
 
@@ -9035,6 +9666,7 @@ libraries/AC_Avoidance/AP_OABendyRuler.s: libraries/AC_Avoidance/AP_OABendyRuler
 
 # target to generate assembly for a file
 libraries/AC_Avoidance/AP_OABendyRuler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OABendyRuler.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OABendyRuler.cpp.s
 .PHONY : libraries/AC_Avoidance/AP_OABendyRuler.cpp.s
 
@@ -9043,6 +9675,7 @@ libraries/AC_Avoidance/AP_OADatabase.o: libraries/AC_Avoidance/AP_OADatabase.cpp
 
 # target to build an object file
 libraries/AC_Avoidance/AP_OADatabase.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OADatabase.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OADatabase.cpp.o
 .PHONY : libraries/AC_Avoidance/AP_OADatabase.cpp.o
 
@@ -9051,6 +9684,7 @@ libraries/AC_Avoidance/AP_OADatabase.i: libraries/AC_Avoidance/AP_OADatabase.cpp
 
 # target to preprocess a source file
 libraries/AC_Avoidance/AP_OADatabase.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OADatabase.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OADatabase.cpp.i
 .PHONY : libraries/AC_Avoidance/AP_OADatabase.cpp.i
 
@@ -9059,6 +9693,7 @@ libraries/AC_Avoidance/AP_OADatabase.s: libraries/AC_Avoidance/AP_OADatabase.cpp
 
 # target to generate assembly for a file
 libraries/AC_Avoidance/AP_OADatabase.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OADatabase.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OADatabase.cpp.s
 .PHONY : libraries/AC_Avoidance/AP_OADatabase.cpp.s
 
@@ -9067,6 +9702,7 @@ libraries/AC_Avoidance/AP_OADijkstra.o: libraries/AC_Avoidance/AP_OADijkstra.cpp
 
 # target to build an object file
 libraries/AC_Avoidance/AP_OADijkstra.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OADijkstra.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OADijkstra.cpp.o
 .PHONY : libraries/AC_Avoidance/AP_OADijkstra.cpp.o
 
@@ -9075,6 +9711,7 @@ libraries/AC_Avoidance/AP_OADijkstra.i: libraries/AC_Avoidance/AP_OADijkstra.cpp
 
 # target to preprocess a source file
 libraries/AC_Avoidance/AP_OADijkstra.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OADijkstra.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OADijkstra.cpp.i
 .PHONY : libraries/AC_Avoidance/AP_OADijkstra.cpp.i
 
@@ -9083,6 +9720,7 @@ libraries/AC_Avoidance/AP_OADijkstra.s: libraries/AC_Avoidance/AP_OADijkstra.cpp
 
 # target to generate assembly for a file
 libraries/AC_Avoidance/AP_OADijkstra.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OADijkstra.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OADijkstra.cpp.s
 .PHONY : libraries/AC_Avoidance/AP_OADijkstra.cpp.s
 
@@ -9091,6 +9729,7 @@ libraries/AC_Avoidance/AP_OAPathPlanner.o: libraries/AC_Avoidance/AP_OAPathPlann
 
 # target to build an object file
 libraries/AC_Avoidance/AP_OAPathPlanner.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OAPathPlanner.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OAPathPlanner.cpp.o
 .PHONY : libraries/AC_Avoidance/AP_OAPathPlanner.cpp.o
 
@@ -9099,6 +9738,7 @@ libraries/AC_Avoidance/AP_OAPathPlanner.i: libraries/AC_Avoidance/AP_OAPathPlann
 
 # target to preprocess a source file
 libraries/AC_Avoidance/AP_OAPathPlanner.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OAPathPlanner.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OAPathPlanner.cpp.i
 .PHONY : libraries/AC_Avoidance/AP_OAPathPlanner.cpp.i
 
@@ -9107,6 +9747,7 @@ libraries/AC_Avoidance/AP_OAPathPlanner.s: libraries/AC_Avoidance/AP_OAPathPlann
 
 # target to generate assembly for a file
 libraries/AC_Avoidance/AP_OAPathPlanner.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OAPathPlanner.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OAPathPlanner.cpp.s
 .PHONY : libraries/AC_Avoidance/AP_OAPathPlanner.cpp.s
 
@@ -9115,6 +9756,7 @@ libraries/AC_Avoidance/AP_OAVisGraph.o: libraries/AC_Avoidance/AP_OAVisGraph.cpp
 
 # target to build an object file
 libraries/AC_Avoidance/AP_OAVisGraph.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OAVisGraph.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OAVisGraph.cpp.o
 .PHONY : libraries/AC_Avoidance/AP_OAVisGraph.cpp.o
 
@@ -9123,6 +9765,7 @@ libraries/AC_Avoidance/AP_OAVisGraph.i: libraries/AC_Avoidance/AP_OAVisGraph.cpp
 
 # target to preprocess a source file
 libraries/AC_Avoidance/AP_OAVisGraph.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OAVisGraph.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OAVisGraph.cpp.i
 .PHONY : libraries/AC_Avoidance/AP_OAVisGraph.cpp.i
 
@@ -9131,6 +9774,7 @@ libraries/AC_Avoidance/AP_OAVisGraph.s: libraries/AC_Avoidance/AP_OAVisGraph.cpp
 
 # target to generate assembly for a file
 libraries/AC_Avoidance/AP_OAVisGraph.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance_Plane.dir/build.make CMakeFiles/AC_Avoidance_Plane.dir/libraries/AC_Avoidance/AP_OAVisGraph.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Avoidance.dir/build.make CMakeFiles/AC_Avoidance.dir/libraries/AC_Avoidance/AP_OAVisGraph.cpp.s
 .PHONY : libraries/AC_Avoidance/AP_OAVisGraph.cpp.s
 
@@ -9211,6 +9855,7 @@ libraries/AC_Fence/AC_Fence.o: libraries/AC_Fence/AC_Fence.cpp.o
 
 # target to build an object file
 libraries/AC_Fence/AC_Fence.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence_Plane.dir/build.make CMakeFiles/AC_Fence_Plane.dir/libraries/AC_Fence/AC_Fence.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence.dir/build.make CMakeFiles/AC_Fence.dir/libraries/AC_Fence/AC_Fence.cpp.o
 .PHONY : libraries/AC_Fence/AC_Fence.cpp.o
 
@@ -9219,6 +9864,7 @@ libraries/AC_Fence/AC_Fence.i: libraries/AC_Fence/AC_Fence.cpp.i
 
 # target to preprocess a source file
 libraries/AC_Fence/AC_Fence.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence_Plane.dir/build.make CMakeFiles/AC_Fence_Plane.dir/libraries/AC_Fence/AC_Fence.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence.dir/build.make CMakeFiles/AC_Fence.dir/libraries/AC_Fence/AC_Fence.cpp.i
 .PHONY : libraries/AC_Fence/AC_Fence.cpp.i
 
@@ -9227,6 +9873,7 @@ libraries/AC_Fence/AC_Fence.s: libraries/AC_Fence/AC_Fence.cpp.s
 
 # target to generate assembly for a file
 libraries/AC_Fence/AC_Fence.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence_Plane.dir/build.make CMakeFiles/AC_Fence_Plane.dir/libraries/AC_Fence/AC_Fence.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence.dir/build.make CMakeFiles/AC_Fence.dir/libraries/AC_Fence/AC_Fence.cpp.s
 .PHONY : libraries/AC_Fence/AC_Fence.cpp.s
 
@@ -9235,6 +9882,7 @@ libraries/AC_Fence/AC_PolyFence_loader.o: libraries/AC_Fence/AC_PolyFence_loader
 
 # target to build an object file
 libraries/AC_Fence/AC_PolyFence_loader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence_Plane.dir/build.make CMakeFiles/AC_Fence_Plane.dir/libraries/AC_Fence/AC_PolyFence_loader.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence.dir/build.make CMakeFiles/AC_Fence.dir/libraries/AC_Fence/AC_PolyFence_loader.cpp.o
 .PHONY : libraries/AC_Fence/AC_PolyFence_loader.cpp.o
 
@@ -9243,6 +9891,7 @@ libraries/AC_Fence/AC_PolyFence_loader.i: libraries/AC_Fence/AC_PolyFence_loader
 
 # target to preprocess a source file
 libraries/AC_Fence/AC_PolyFence_loader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence_Plane.dir/build.make CMakeFiles/AC_Fence_Plane.dir/libraries/AC_Fence/AC_PolyFence_loader.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence.dir/build.make CMakeFiles/AC_Fence.dir/libraries/AC_Fence/AC_PolyFence_loader.cpp.i
 .PHONY : libraries/AC_Fence/AC_PolyFence_loader.cpp.i
 
@@ -9251,6 +9900,7 @@ libraries/AC_Fence/AC_PolyFence_loader.s: libraries/AC_Fence/AC_PolyFence_loader
 
 # target to generate assembly for a file
 libraries/AC_Fence/AC_PolyFence_loader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence_Plane.dir/build.make CMakeFiles/AC_Fence_Plane.dir/libraries/AC_Fence/AC_PolyFence_loader.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_Fence.dir/build.make CMakeFiles/AC_Fence.dir/libraries/AC_Fence/AC_PolyFence_loader.cpp.s
 .PHONY : libraries/AC_Fence/AC_PolyFence_loader.cpp.s
 
@@ -9524,6 +10174,7 @@ libraries/AC_PrecLand/AC_PrecLand.o: libraries/AC_PrecLand/AC_PrecLand.cpp.o
 # target to build an object file
 libraries/AC_PrecLand/AC_PrecLand.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand.cpp.o
 .PHONY : libraries/AC_PrecLand/AC_PrecLand.cpp.o
 
 libraries/AC_PrecLand/AC_PrecLand.i: libraries/AC_PrecLand/AC_PrecLand.cpp.i
@@ -9532,6 +10183,7 @@ libraries/AC_PrecLand/AC_PrecLand.i: libraries/AC_PrecLand/AC_PrecLand.cpp.i
 # target to preprocess a source file
 libraries/AC_PrecLand/AC_PrecLand.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand.cpp.i
 .PHONY : libraries/AC_PrecLand/AC_PrecLand.cpp.i
 
 libraries/AC_PrecLand/AC_PrecLand.s: libraries/AC_PrecLand/AC_PrecLand.cpp.s
@@ -9540,6 +10192,7 @@ libraries/AC_PrecLand/AC_PrecLand.s: libraries/AC_PrecLand/AC_PrecLand.cpp.s
 # target to generate assembly for a file
 libraries/AC_PrecLand/AC_PrecLand.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand.cpp.s
 .PHONY : libraries/AC_PrecLand/AC_PrecLand.cpp.s
 
 libraries/AC_PrecLand/AC_PrecLand_IRLock.o: libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.o
@@ -9548,6 +10201,7 @@ libraries/AC_PrecLand/AC_PrecLand_IRLock.o: libraries/AC_PrecLand/AC_PrecLand_IR
 # target to build an object file
 libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.o
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.o
 
 libraries/AC_PrecLand/AC_PrecLand_IRLock.i: libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.i
@@ -9556,6 +10210,7 @@ libraries/AC_PrecLand/AC_PrecLand_IRLock.i: libraries/AC_PrecLand/AC_PrecLand_IR
 # target to preprocess a source file
 libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.i
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.i
 
 libraries/AC_PrecLand/AC_PrecLand_IRLock.s: libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.s
@@ -9564,6 +10219,7 @@ libraries/AC_PrecLand/AC_PrecLand_IRLock.s: libraries/AC_PrecLand/AC_PrecLand_IR
 # target to generate assembly for a file
 libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.s
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_IRLock.cpp.s
 
 libraries/AC_PrecLand/AC_PrecLand_MAVLink.o: libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.o
@@ -9572,6 +10228,7 @@ libraries/AC_PrecLand/AC_PrecLand_MAVLink.o: libraries/AC_PrecLand/AC_PrecLand_M
 # target to build an object file
 libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.o
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.o
 
 libraries/AC_PrecLand/AC_PrecLand_MAVLink.i: libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.i
@@ -9580,6 +10237,7 @@ libraries/AC_PrecLand/AC_PrecLand_MAVLink.i: libraries/AC_PrecLand/AC_PrecLand_M
 # target to preprocess a source file
 libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.i
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.i
 
 libraries/AC_PrecLand/AC_PrecLand_MAVLink.s: libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.s
@@ -9588,6 +10246,7 @@ libraries/AC_PrecLand/AC_PrecLand_MAVLink.s: libraries/AC_PrecLand/AC_PrecLand_M
 # target to generate assembly for a file
 libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.s
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_MAVLink.cpp.s
 
 libraries/AC_PrecLand/AC_PrecLand_SITL.o: libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.o
@@ -9596,6 +10255,7 @@ libraries/AC_PrecLand/AC_PrecLand_SITL.o: libraries/AC_PrecLand/AC_PrecLand_SITL
 # target to build an object file
 libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.o
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.o
 
 libraries/AC_PrecLand/AC_PrecLand_SITL.i: libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.i
@@ -9604,6 +10264,7 @@ libraries/AC_PrecLand/AC_PrecLand_SITL.i: libraries/AC_PrecLand/AC_PrecLand_SITL
 # target to preprocess a source file
 libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.i
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.i
 
 libraries/AC_PrecLand/AC_PrecLand_SITL.s: libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.s
@@ -9612,6 +10273,7 @@ libraries/AC_PrecLand/AC_PrecLand_SITL.s: libraries/AC_PrecLand/AC_PrecLand_SITL
 # target to generate assembly for a file
 libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.s
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_SITL.cpp.s
 
 libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.o: libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.o
@@ -9620,6 +10282,7 @@ libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.o: libraries/AC_PrecLand/AC_PrecLa
 # target to build an object file
 libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.o
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.o
 
 libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.i: libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.i
@@ -9628,6 +10291,7 @@ libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.i: libraries/AC_PrecLand/AC_PrecLa
 # target to preprocess a source file
 libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.i
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.i
 
 libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.s: libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.s
@@ -9636,6 +10300,7 @@ libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.s: libraries/AC_PrecLand/AC_PrecLa
 # target to generate assembly for a file
 libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.s
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_SITL_Gazebo.cpp.s
 
 libraries/AC_PrecLand/AC_PrecLand_StateMachine.o: libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.o
@@ -9644,6 +10309,7 @@ libraries/AC_PrecLand/AC_PrecLand_StateMachine.o: libraries/AC_PrecLand/AC_PrecL
 # target to build an object file
 libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.o
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.o
 
 libraries/AC_PrecLand/AC_PrecLand_StateMachine.i: libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.i
@@ -9652,6 +10318,7 @@ libraries/AC_PrecLand/AC_PrecLand_StateMachine.i: libraries/AC_PrecLand/AC_PrecL
 # target to preprocess a source file
 libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.i
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.i
 
 libraries/AC_PrecLand/AC_PrecLand_StateMachine.s: libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.s
@@ -9660,6 +10327,7 @@ libraries/AC_PrecLand/AC_PrecLand_StateMachine.s: libraries/AC_PrecLand/AC_PrecL
 # target to generate assembly for a file
 libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.s
 .PHONY : libraries/AC_PrecLand/AC_PrecLand_StateMachine.cpp.s
 
 libraries/AC_PrecLand/PosVelEKF.o: libraries/AC_PrecLand/PosVelEKF.cpp.o
@@ -9668,6 +10336,7 @@ libraries/AC_PrecLand/PosVelEKF.o: libraries/AC_PrecLand/PosVelEKF.cpp.o
 # target to build an object file
 libraries/AC_PrecLand/PosVelEKF.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/PosVelEKF.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/PosVelEKF.cpp.o
 .PHONY : libraries/AC_PrecLand/PosVelEKF.cpp.o
 
 libraries/AC_PrecLand/PosVelEKF.i: libraries/AC_PrecLand/PosVelEKF.cpp.i
@@ -9676,6 +10345,7 @@ libraries/AC_PrecLand/PosVelEKF.i: libraries/AC_PrecLand/PosVelEKF.cpp.i
 # target to preprocess a source file
 libraries/AC_PrecLand/PosVelEKF.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/PosVelEKF.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/PosVelEKF.cpp.i
 .PHONY : libraries/AC_PrecLand/PosVelEKF.cpp.i
 
 libraries/AC_PrecLand/PosVelEKF.s: libraries/AC_PrecLand/PosVelEKF.cpp.s
@@ -9684,6 +10354,7 @@ libraries/AC_PrecLand/PosVelEKF.s: libraries/AC_PrecLand/PosVelEKF.cpp.s
 # target to generate assembly for a file
 libraries/AC_PrecLand/PosVelEKF.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand.dir/build.make CMakeFiles/AC_PrecLand.dir/libraries/AC_PrecLand/PosVelEKF.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_PrecLand_Plane.dir/build.make CMakeFiles/AC_PrecLand_Plane.dir/libraries/AC_PrecLand/PosVelEKF.cpp.s
 .PHONY : libraries/AC_PrecLand/PosVelEKF.cpp.s
 
 libraries/AC_Sprayer/AC_Sprayer.o: libraries/AC_Sprayer/AC_Sprayer.cpp.o
@@ -9716,6 +10387,7 @@ libraries/AC_WPNav/AC_Circle.o: libraries/AC_WPNav/AC_Circle.cpp.o
 # target to build an object file
 libraries/AC_WPNav/AC_Circle.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/libraries/AC_WPNav/AC_Circle.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/libraries/AC_WPNav/AC_Circle.cpp.o
 .PHONY : libraries/AC_WPNav/AC_Circle.cpp.o
 
 libraries/AC_WPNav/AC_Circle.i: libraries/AC_WPNav/AC_Circle.cpp.i
@@ -9724,6 +10396,7 @@ libraries/AC_WPNav/AC_Circle.i: libraries/AC_WPNav/AC_Circle.cpp.i
 # target to preprocess a source file
 libraries/AC_WPNav/AC_Circle.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/libraries/AC_WPNav/AC_Circle.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/libraries/AC_WPNav/AC_Circle.cpp.i
 .PHONY : libraries/AC_WPNav/AC_Circle.cpp.i
 
 libraries/AC_WPNav/AC_Circle.s: libraries/AC_WPNav/AC_Circle.cpp.s
@@ -9732,6 +10405,7 @@ libraries/AC_WPNav/AC_Circle.s: libraries/AC_WPNav/AC_Circle.cpp.s
 # target to generate assembly for a file
 libraries/AC_WPNav/AC_Circle.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/libraries/AC_WPNav/AC_Circle.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/libraries/AC_WPNav/AC_Circle.cpp.s
 .PHONY : libraries/AC_WPNav/AC_Circle.cpp.s
 
 libraries/AC_WPNav/AC_Loiter.o: libraries/AC_WPNav/AC_Loiter.cpp.o
@@ -9740,6 +10414,7 @@ libraries/AC_WPNav/AC_Loiter.o: libraries/AC_WPNav/AC_Loiter.cpp.o
 # target to build an object file
 libraries/AC_WPNav/AC_Loiter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/libraries/AC_WPNav/AC_Loiter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/libraries/AC_WPNav/AC_Loiter.cpp.o
 .PHONY : libraries/AC_WPNav/AC_Loiter.cpp.o
 
 libraries/AC_WPNav/AC_Loiter.i: libraries/AC_WPNav/AC_Loiter.cpp.i
@@ -9748,6 +10423,7 @@ libraries/AC_WPNav/AC_Loiter.i: libraries/AC_WPNav/AC_Loiter.cpp.i
 # target to preprocess a source file
 libraries/AC_WPNav/AC_Loiter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/libraries/AC_WPNav/AC_Loiter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/libraries/AC_WPNav/AC_Loiter.cpp.i
 .PHONY : libraries/AC_WPNav/AC_Loiter.cpp.i
 
 libraries/AC_WPNav/AC_Loiter.s: libraries/AC_WPNav/AC_Loiter.cpp.s
@@ -9756,6 +10432,7 @@ libraries/AC_WPNav/AC_Loiter.s: libraries/AC_WPNav/AC_Loiter.cpp.s
 # target to generate assembly for a file
 libraries/AC_WPNav/AC_Loiter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/libraries/AC_WPNav/AC_Loiter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/libraries/AC_WPNav/AC_Loiter.cpp.s
 .PHONY : libraries/AC_WPNav/AC_Loiter.cpp.s
 
 libraries/AC_WPNav/AC_WPNav.o: libraries/AC_WPNav/AC_WPNav.cpp.o
@@ -9764,6 +10441,7 @@ libraries/AC_WPNav/AC_WPNav.o: libraries/AC_WPNav/AC_WPNav.cpp.o
 # target to build an object file
 libraries/AC_WPNav/AC_WPNav.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/libraries/AC_WPNav/AC_WPNav.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/libraries/AC_WPNav/AC_WPNav.cpp.o
 .PHONY : libraries/AC_WPNav/AC_WPNav.cpp.o
 
 libraries/AC_WPNav/AC_WPNav.i: libraries/AC_WPNav/AC_WPNav.cpp.i
@@ -9772,6 +10450,7 @@ libraries/AC_WPNav/AC_WPNav.i: libraries/AC_WPNav/AC_WPNav.cpp.i
 # target to preprocess a source file
 libraries/AC_WPNav/AC_WPNav.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/libraries/AC_WPNav/AC_WPNav.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/libraries/AC_WPNav/AC_WPNav.cpp.i
 .PHONY : libraries/AC_WPNav/AC_WPNav.cpp.i
 
 libraries/AC_WPNav/AC_WPNav.s: libraries/AC_WPNav/AC_WPNav.cpp.s
@@ -9780,6 +10459,7 @@ libraries/AC_WPNav/AC_WPNav.s: libraries/AC_WPNav/AC_WPNav.cpp.s
 # target to generate assembly for a file
 libraries/AC_WPNav/AC_WPNav.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/libraries/AC_WPNav/AC_WPNav.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/libraries/AC_WPNav/AC_WPNav.cpp.s
 .PHONY : libraries/AC_WPNav/AC_WPNav.cpp.s
 
 libraries/AC_WPNav/AC_WPNav_OA.o: libraries/AC_WPNav/AC_WPNav_OA.cpp.o
@@ -9788,6 +10468,7 @@ libraries/AC_WPNav/AC_WPNav_OA.o: libraries/AC_WPNav/AC_WPNav_OA.cpp.o
 # target to build an object file
 libraries/AC_WPNav/AC_WPNav_OA.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/libraries/AC_WPNav/AC_WPNav_OA.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/libraries/AC_WPNav/AC_WPNav_OA.cpp.o
 .PHONY : libraries/AC_WPNav/AC_WPNav_OA.cpp.o
 
 libraries/AC_WPNav/AC_WPNav_OA.i: libraries/AC_WPNav/AC_WPNav_OA.cpp.i
@@ -9796,6 +10477,7 @@ libraries/AC_WPNav/AC_WPNav_OA.i: libraries/AC_WPNav/AC_WPNav_OA.cpp.i
 # target to preprocess a source file
 libraries/AC_WPNav/AC_WPNav_OA.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/libraries/AC_WPNav/AC_WPNav_OA.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/libraries/AC_WPNav/AC_WPNav_OA.cpp.i
 .PHONY : libraries/AC_WPNav/AC_WPNav_OA.cpp.i
 
 libraries/AC_WPNav/AC_WPNav_OA.s: libraries/AC_WPNav/AC_WPNav_OA.cpp.s
@@ -9804,6 +10486,7 @@ libraries/AC_WPNav/AC_WPNav_OA.s: libraries/AC_WPNav/AC_WPNav_OA.cpp.s
 # target to generate assembly for a file
 libraries/AC_WPNav/AC_WPNav_OA.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav.dir/build.make CMakeFiles/AC_WPNav.dir/libraries/AC_WPNav/AC_WPNav_OA.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AC_WPNav_Plane.dir/build.make CMakeFiles/AC_WPNav_Plane.dir/libraries/AC_WPNav/AC_WPNav_OA.cpp.s
 .PHONY : libraries/AC_WPNav/AC_WPNav_OA.cpp.s
 
 libraries/APM_Control/AP_AutoTune.o: libraries/APM_Control/AP_AutoTune.cpp.o
@@ -10027,6 +10710,7 @@ libraries/AP_ADSB/AP_ADSB.o: libraries/AP_ADSB/AP_ADSB.cpp.o
 
 # target to build an object file
 libraries/AP_ADSB/AP_ADSB.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB.cpp.o
 .PHONY : libraries/AP_ADSB/AP_ADSB.cpp.o
 
@@ -10035,6 +10719,7 @@ libraries/AP_ADSB/AP_ADSB.i: libraries/AP_ADSB/AP_ADSB.cpp.i
 
 # target to preprocess a source file
 libraries/AP_ADSB/AP_ADSB.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB.cpp.i
 .PHONY : libraries/AP_ADSB/AP_ADSB.cpp.i
 
@@ -10043,6 +10728,7 @@ libraries/AP_ADSB/AP_ADSB.s: libraries/AP_ADSB/AP_ADSB.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_ADSB/AP_ADSB.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB.cpp.s
 .PHONY : libraries/AP_ADSB/AP_ADSB.cpp.s
 
@@ -10051,6 +10737,7 @@ libraries/AP_ADSB/AP_ADSB_Backend.o: libraries/AP_ADSB/AP_ADSB_Backend.cpp.o
 
 # target to build an object file
 libraries/AP_ADSB/AP_ADSB_Backend.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_Backend.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_Backend.cpp.o
 .PHONY : libraries/AP_ADSB/AP_ADSB_Backend.cpp.o
 
@@ -10059,6 +10746,7 @@ libraries/AP_ADSB/AP_ADSB_Backend.i: libraries/AP_ADSB/AP_ADSB_Backend.cpp.i
 
 # target to preprocess a source file
 libraries/AP_ADSB/AP_ADSB_Backend.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_Backend.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_Backend.cpp.i
 .PHONY : libraries/AP_ADSB/AP_ADSB_Backend.cpp.i
 
@@ -10067,6 +10755,7 @@ libraries/AP_ADSB/AP_ADSB_Backend.s: libraries/AP_ADSB/AP_ADSB_Backend.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_ADSB/AP_ADSB_Backend.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_Backend.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_Backend.cpp.s
 .PHONY : libraries/AP_ADSB/AP_ADSB_Backend.cpp.s
 
@@ -10075,6 +10764,7 @@ libraries/AP_ADSB/AP_ADSB_Sagetech.o: libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.o
 
 # target to build an object file
 libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.o
 .PHONY : libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.o
 
@@ -10083,6 +10773,7 @@ libraries/AP_ADSB/AP_ADSB_Sagetech.i: libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.i
 
 # target to preprocess a source file
 libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.i
 .PHONY : libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.i
 
@@ -10091,6 +10782,7 @@ libraries/AP_ADSB/AP_ADSB_Sagetech.s: libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.s
 .PHONY : libraries/AP_ADSB/AP_ADSB_Sagetech.cpp.s
 
@@ -10099,6 +10791,7 @@ libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.o: libraries/AP_ADSB/AP_ADSB_Sagetech_MXS
 
 # target to build an object file
 libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.o
 .PHONY : libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.o
 
@@ -10107,6 +10800,7 @@ libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.i: libraries/AP_ADSB/AP_ADSB_Sagetech_MXS
 
 # target to preprocess a source file
 libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.i
 .PHONY : libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.i
 
@@ -10115,6 +10809,7 @@ libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.s: libraries/AP_ADSB/AP_ADSB_Sagetech_MXS
 
 # target to generate assembly for a file
 libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.s
 .PHONY : libraries/AP_ADSB/AP_ADSB_Sagetech_MXS.cpp.s
 
@@ -10123,6 +10818,7 @@ libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.o: libraries/AP_ADSB/AP_ADSB_uAvionix
 
 # target to build an object file
 libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.cpp.o
 .PHONY : libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.cpp.o
 
@@ -10131,6 +10827,7 @@ libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.i: libraries/AP_ADSB/AP_ADSB_uAvionix
 
 # target to preprocess a source file
 libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.cpp.i
 .PHONY : libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.cpp.i
 
@@ -10139,6 +10836,7 @@ libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.s: libraries/AP_ADSB/AP_ADSB_uAvionix
 
 # target to generate assembly for a file
 libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.cpp.s
 .PHONY : libraries/AP_ADSB/AP_ADSB_uAvionix_MAVLink.cpp.s
 
@@ -10147,6 +10845,7 @@ libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.o: libraries/AP_ADSB/AP_ADSB_uAvionix_UCP
 
 # target to build an object file
 libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.cpp.o
 .PHONY : libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.cpp.o
 
@@ -10155,6 +10854,7 @@ libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.i: libraries/AP_ADSB/AP_ADSB_uAvionix_UCP
 
 # target to preprocess a source file
 libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.cpp.i
 .PHONY : libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.cpp.i
 
@@ -10163,6 +10863,7 @@ libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.s: libraries/AP_ADSB/AP_ADSB_uAvionix_UCP
 
 # target to generate assembly for a file
 libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB_Plane.dir/build.make CMakeFiles/AP_ADSB_Plane.dir/libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ADSB.dir/build.make CMakeFiles/AP_ADSB.dir/libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.cpp.s
 .PHONY : libraries/AP_ADSB/AP_ADSB_uAvionix_UCP.cpp.s
 
@@ -10916,6 +11617,7 @@ libraries/AP_AHRS/AP_AHRS.o: libraries/AP_AHRS/AP_AHRS.cpp.o
 # target to build an object file
 libraries/AP_AHRS/AP_AHRS.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS.cpp.o
 .PHONY : libraries/AP_AHRS/AP_AHRS.cpp.o
 
 libraries/AP_AHRS/AP_AHRS.i: libraries/AP_AHRS/AP_AHRS.cpp.i
@@ -10924,6 +11626,7 @@ libraries/AP_AHRS/AP_AHRS.i: libraries/AP_AHRS/AP_AHRS.cpp.i
 # target to preprocess a source file
 libraries/AP_AHRS/AP_AHRS.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS.cpp.i
 .PHONY : libraries/AP_AHRS/AP_AHRS.cpp.i
 
 libraries/AP_AHRS/AP_AHRS.s: libraries/AP_AHRS/AP_AHRS.cpp.s
@@ -10932,6 +11635,7 @@ libraries/AP_AHRS/AP_AHRS.s: libraries/AP_AHRS/AP_AHRS.cpp.s
 # target to generate assembly for a file
 libraries/AP_AHRS/AP_AHRS.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS.cpp.s
 .PHONY : libraries/AP_AHRS/AP_AHRS.cpp.s
 
 libraries/AP_AHRS/AP_AHRS_Backend.o: libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
@@ -10940,6 +11644,7 @@ libraries/AP_AHRS/AP_AHRS_Backend.o: libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
 # target to build an object file
 libraries/AP_AHRS/AP_AHRS_Backend.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
 .PHONY : libraries/AP_AHRS/AP_AHRS_Backend.cpp.o
 
 libraries/AP_AHRS/AP_AHRS_Backend.i: libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
@@ -10948,6 +11653,7 @@ libraries/AP_AHRS/AP_AHRS_Backend.i: libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
 # target to preprocess a source file
 libraries/AP_AHRS/AP_AHRS_Backend.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
 .PHONY : libraries/AP_AHRS/AP_AHRS_Backend.cpp.i
 
 libraries/AP_AHRS/AP_AHRS_Backend.s: libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
@@ -10956,6 +11662,7 @@ libraries/AP_AHRS/AP_AHRS_Backend.s: libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
 # target to generate assembly for a file
 libraries/AP_AHRS/AP_AHRS_Backend.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
 .PHONY : libraries/AP_AHRS/AP_AHRS_Backend.cpp.s
 
 libraries/AP_AHRS/AP_AHRS_DCM.o: libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
@@ -10964,6 +11671,7 @@ libraries/AP_AHRS/AP_AHRS_DCM.o: libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
 # target to build an object file
 libraries/AP_AHRS/AP_AHRS_DCM.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
 .PHONY : libraries/AP_AHRS/AP_AHRS_DCM.cpp.o
 
 libraries/AP_AHRS/AP_AHRS_DCM.i: libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
@@ -10972,6 +11680,7 @@ libraries/AP_AHRS/AP_AHRS_DCM.i: libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
 # target to preprocess a source file
 libraries/AP_AHRS/AP_AHRS_DCM.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
 .PHONY : libraries/AP_AHRS/AP_AHRS_DCM.cpp.i
 
 libraries/AP_AHRS/AP_AHRS_DCM.s: libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
@@ -10980,6 +11689,7 @@ libraries/AP_AHRS/AP_AHRS_DCM.s: libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
 # target to generate assembly for a file
 libraries/AP_AHRS/AP_AHRS_DCM.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
 .PHONY : libraries/AP_AHRS/AP_AHRS_DCM.cpp.s
 
 libraries/AP_AHRS/AP_AHRS_External.o: libraries/AP_AHRS/AP_AHRS_External.cpp.o
@@ -10988,6 +11698,7 @@ libraries/AP_AHRS/AP_AHRS_External.o: libraries/AP_AHRS/AP_AHRS_External.cpp.o
 # target to build an object file
 libraries/AP_AHRS/AP_AHRS_External.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.o
 .PHONY : libraries/AP_AHRS/AP_AHRS_External.cpp.o
 
 libraries/AP_AHRS/AP_AHRS_External.i: libraries/AP_AHRS/AP_AHRS_External.cpp.i
@@ -10996,6 +11707,7 @@ libraries/AP_AHRS/AP_AHRS_External.i: libraries/AP_AHRS/AP_AHRS_External.cpp.i
 # target to preprocess a source file
 libraries/AP_AHRS/AP_AHRS_External.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.i
 .PHONY : libraries/AP_AHRS/AP_AHRS_External.cpp.i
 
 libraries/AP_AHRS/AP_AHRS_External.s: libraries/AP_AHRS/AP_AHRS_External.cpp.s
@@ -11004,6 +11716,7 @@ libraries/AP_AHRS/AP_AHRS_External.s: libraries/AP_AHRS/AP_AHRS_External.cpp.s
 # target to generate assembly for a file
 libraries/AP_AHRS/AP_AHRS_External.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_External.cpp.s
 .PHONY : libraries/AP_AHRS/AP_AHRS_External.cpp.s
 
 libraries/AP_AHRS/AP_AHRS_Logging.o: libraries/AP_AHRS/AP_AHRS_Logging.cpp.o
@@ -11012,6 +11725,7 @@ libraries/AP_AHRS/AP_AHRS_Logging.o: libraries/AP_AHRS/AP_AHRS_Logging.cpp.o
 # target to build an object file
 libraries/AP_AHRS/AP_AHRS_Logging.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.o
 .PHONY : libraries/AP_AHRS/AP_AHRS_Logging.cpp.o
 
 libraries/AP_AHRS/AP_AHRS_Logging.i: libraries/AP_AHRS/AP_AHRS_Logging.cpp.i
@@ -11020,6 +11734,7 @@ libraries/AP_AHRS/AP_AHRS_Logging.i: libraries/AP_AHRS/AP_AHRS_Logging.cpp.i
 # target to preprocess a source file
 libraries/AP_AHRS/AP_AHRS_Logging.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.i
 .PHONY : libraries/AP_AHRS/AP_AHRS_Logging.cpp.i
 
 libraries/AP_AHRS/AP_AHRS_Logging.s: libraries/AP_AHRS/AP_AHRS_Logging.cpp.s
@@ -11028,6 +11743,7 @@ libraries/AP_AHRS/AP_AHRS_Logging.s: libraries/AP_AHRS/AP_AHRS_Logging.cpp.s
 # target to generate assembly for a file
 libraries/AP_AHRS/AP_AHRS_Logging.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_Logging.cpp.s
 .PHONY : libraries/AP_AHRS/AP_AHRS_Logging.cpp.s
 
 libraries/AP_AHRS/AP_AHRS_SIM.o: libraries/AP_AHRS/AP_AHRS_SIM.cpp.o
@@ -11036,6 +11752,7 @@ libraries/AP_AHRS/AP_AHRS_SIM.o: libraries/AP_AHRS/AP_AHRS_SIM.cpp.o
 # target to build an object file
 libraries/AP_AHRS/AP_AHRS_SIM.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.o
 .PHONY : libraries/AP_AHRS/AP_AHRS_SIM.cpp.o
 
 libraries/AP_AHRS/AP_AHRS_SIM.i: libraries/AP_AHRS/AP_AHRS_SIM.cpp.i
@@ -11044,6 +11761,7 @@ libraries/AP_AHRS/AP_AHRS_SIM.i: libraries/AP_AHRS/AP_AHRS_SIM.cpp.i
 # target to preprocess a source file
 libraries/AP_AHRS/AP_AHRS_SIM.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.i
 .PHONY : libraries/AP_AHRS/AP_AHRS_SIM.cpp.i
 
 libraries/AP_AHRS/AP_AHRS_SIM.s: libraries/AP_AHRS/AP_AHRS_SIM.cpp.s
@@ -11052,6 +11770,7 @@ libraries/AP_AHRS/AP_AHRS_SIM.s: libraries/AP_AHRS/AP_AHRS_SIM.cpp.s
 # target to generate assembly for a file
 libraries/AP_AHRS/AP_AHRS_SIM.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_SIM.cpp.s
 .PHONY : libraries/AP_AHRS/AP_AHRS_SIM.cpp.s
 
 libraries/AP_AHRS/AP_AHRS_View.o: libraries/AP_AHRS/AP_AHRS_View.cpp.o
@@ -11060,6 +11779,7 @@ libraries/AP_AHRS/AP_AHRS_View.o: libraries/AP_AHRS/AP_AHRS_View.cpp.o
 # target to build an object file
 libraries/AP_AHRS/AP_AHRS_View.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.o
 .PHONY : libraries/AP_AHRS/AP_AHRS_View.cpp.o
 
 libraries/AP_AHRS/AP_AHRS_View.i: libraries/AP_AHRS/AP_AHRS_View.cpp.i
@@ -11068,6 +11788,7 @@ libraries/AP_AHRS/AP_AHRS_View.i: libraries/AP_AHRS/AP_AHRS_View.cpp.i
 # target to preprocess a source file
 libraries/AP_AHRS/AP_AHRS_View.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.i
 .PHONY : libraries/AP_AHRS/AP_AHRS_View.cpp.i
 
 libraries/AP_AHRS/AP_AHRS_View.s: libraries/AP_AHRS/AP_AHRS_View.cpp.s
@@ -11076,6 +11797,7 @@ libraries/AP_AHRS/AP_AHRS_View.s: libraries/AP_AHRS/AP_AHRS_View.cpp.s
 # target to generate assembly for a file
 libraries/AP_AHRS/AP_AHRS_View.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS.dir/build.make CMakeFiles/AP_AHRS.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AHRS_Plane.dir/build.make CMakeFiles/AP_AHRS_Plane.dir/libraries/AP_AHRS/AP_AHRS_View.cpp.s
 .PHONY : libraries/AP_AHRS/AP_AHRS_View.cpp.s
 
 libraries/AP_AIS/AP_AIS.o: libraries/AP_AIS/AP_AIS.cpp.o
@@ -11084,6 +11806,7 @@ libraries/AP_AIS/AP_AIS.o: libraries/AP_AIS/AP_AIS.cpp.o
 # target to build an object file
 libraries/AP_AIS/AP_AIS.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AIS.dir/build.make CMakeFiles/AP_AIS.dir/libraries/AP_AIS/AP_AIS.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AIS_Plane.dir/build.make CMakeFiles/AP_AIS_Plane.dir/libraries/AP_AIS/AP_AIS.cpp.o
 .PHONY : libraries/AP_AIS/AP_AIS.cpp.o
 
 libraries/AP_AIS/AP_AIS.i: libraries/AP_AIS/AP_AIS.cpp.i
@@ -11092,6 +11815,7 @@ libraries/AP_AIS/AP_AIS.i: libraries/AP_AIS/AP_AIS.cpp.i
 # target to preprocess a source file
 libraries/AP_AIS/AP_AIS.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AIS.dir/build.make CMakeFiles/AP_AIS.dir/libraries/AP_AIS/AP_AIS.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AIS_Plane.dir/build.make CMakeFiles/AP_AIS_Plane.dir/libraries/AP_AIS/AP_AIS.cpp.i
 .PHONY : libraries/AP_AIS/AP_AIS.cpp.i
 
 libraries/AP_AIS/AP_AIS.s: libraries/AP_AIS/AP_AIS.cpp.s
@@ -11100,6 +11824,7 @@ libraries/AP_AIS/AP_AIS.s: libraries/AP_AIS/AP_AIS.cpp.s
 # target to generate assembly for a file
 libraries/AP_AIS/AP_AIS.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AIS.dir/build.make CMakeFiles/AP_AIS.dir/libraries/AP_AIS/AP_AIS.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_AIS_Plane.dir/build.make CMakeFiles/AP_AIS_Plane.dir/libraries/AP_AIS/AP_AIS.cpp.s
 .PHONY : libraries/AP_AIS/AP_AIS.cpp.s
 
 libraries/AP_AccelCal/AP_AccelCal.o: libraries/AP_AccelCal/AP_AccelCal.cpp.o
@@ -11179,6 +11904,7 @@ libraries/AP_Airspeed/AP_Airspeed.o: libraries/AP_Airspeed/AP_Airspeed.cpp.o
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed.cpp.o
 
@@ -11187,6 +11913,7 @@ libraries/AP_Airspeed/AP_Airspeed.i: libraries/AP_Airspeed/AP_Airspeed.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed.cpp.i
 
@@ -11195,6 +11922,7 @@ libraries/AP_Airspeed/AP_Airspeed.s: libraries/AP_Airspeed/AP_Airspeed.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed.cpp.s
 
@@ -11203,6 +11931,7 @@ libraries/AP_Airspeed/AP_Airspeed_ASP5033.o: libraries/AP_Airspeed/AP_Airspeed_A
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp.o
 
@@ -11211,6 +11940,7 @@ libraries/AP_Airspeed/AP_Airspeed_ASP5033.i: libraries/AP_Airspeed/AP_Airspeed_A
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp.i
 
@@ -11219,6 +11949,7 @@ libraries/AP_Airspeed/AP_Airspeed_ASP5033.s: libraries/AP_Airspeed/AP_Airspeed_A
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_ASP5033.cpp.s
 
@@ -11227,6 +11958,7 @@ libraries/AP_Airspeed/AP_Airspeed_AUAV.o: libraries/AP_Airspeed/AP_Airspeed_AUAV
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_AUAV.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_AUAV.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_AUAV.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_AUAV.cpp.o
 
@@ -11235,6 +11967,7 @@ libraries/AP_Airspeed/AP_Airspeed_AUAV.i: libraries/AP_Airspeed/AP_Airspeed_AUAV
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_AUAV.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_AUAV.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_AUAV.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_AUAV.cpp.i
 
@@ -11243,6 +11976,7 @@ libraries/AP_Airspeed/AP_Airspeed_AUAV.s: libraries/AP_Airspeed/AP_Airspeed_AUAV
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_AUAV.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_AUAV.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_AUAV.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_AUAV.cpp.s
 
@@ -11251,6 +11985,7 @@ libraries/AP_Airspeed/AP_Airspeed_Backend.o: libraries/AP_Airspeed/AP_Airspeed_B
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_Backend.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_Backend.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_Backend.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_Backend.cpp.o
 
@@ -11259,6 +11994,7 @@ libraries/AP_Airspeed/AP_Airspeed_Backend.i: libraries/AP_Airspeed/AP_Airspeed_B
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_Backend.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_Backend.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_Backend.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_Backend.cpp.i
 
@@ -11267,6 +12003,7 @@ libraries/AP_Airspeed/AP_Airspeed_Backend.s: libraries/AP_Airspeed/AP_Airspeed_B
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_Backend.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_Backend.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_Backend.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_Backend.cpp.s
 
@@ -11275,6 +12012,7 @@ libraries/AP_Airspeed/AP_Airspeed_DLVR.o: libraries/AP_Airspeed/AP_Airspeed_DLVR
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_DLVR.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_DLVR.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_DLVR.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_DLVR.cpp.o
 
@@ -11283,6 +12021,7 @@ libraries/AP_Airspeed/AP_Airspeed_DLVR.i: libraries/AP_Airspeed/AP_Airspeed_DLVR
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_DLVR.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_DLVR.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_DLVR.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_DLVR.cpp.i
 
@@ -11291,6 +12030,7 @@ libraries/AP_Airspeed/AP_Airspeed_DLVR.s: libraries/AP_Airspeed/AP_Airspeed_DLVR
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_DLVR.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_DLVR.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_DLVR.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_DLVR.cpp.s
 
@@ -11299,6 +12039,7 @@ libraries/AP_Airspeed/AP_Airspeed_DroneCAN.o: libraries/AP_Airspeed/AP_Airspeed_
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_DroneCAN.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_DroneCAN.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_DroneCAN.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_DroneCAN.cpp.o
 
@@ -11307,6 +12048,7 @@ libraries/AP_Airspeed/AP_Airspeed_DroneCAN.i: libraries/AP_Airspeed/AP_Airspeed_
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_DroneCAN.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_DroneCAN.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_DroneCAN.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_DroneCAN.cpp.i
 
@@ -11315,6 +12057,7 @@ libraries/AP_Airspeed/AP_Airspeed_DroneCAN.s: libraries/AP_Airspeed/AP_Airspeed_
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_DroneCAN.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_DroneCAN.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_DroneCAN.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_DroneCAN.cpp.s
 
@@ -11323,6 +12066,7 @@ libraries/AP_Airspeed/AP_Airspeed_External.o: libraries/AP_Airspeed/AP_Airspeed_
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_External.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_External.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_External.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_External.cpp.o
 
@@ -11331,6 +12075,7 @@ libraries/AP_Airspeed/AP_Airspeed_External.i: libraries/AP_Airspeed/AP_Airspeed_
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_External.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_External.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_External.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_External.cpp.i
 
@@ -11339,6 +12084,7 @@ libraries/AP_Airspeed/AP_Airspeed_External.s: libraries/AP_Airspeed/AP_Airspeed_
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_External.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_External.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_External.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_External.cpp.s
 
@@ -11347,6 +12093,7 @@ libraries/AP_Airspeed/AP_Airspeed_Health.o: libraries/AP_Airspeed/AP_Airspeed_He
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_Health.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_Health.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_Health.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_Health.cpp.o
 
@@ -11355,6 +12102,7 @@ libraries/AP_Airspeed/AP_Airspeed_Health.i: libraries/AP_Airspeed/AP_Airspeed_He
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_Health.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_Health.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_Health.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_Health.cpp.i
 
@@ -11363,6 +12111,7 @@ libraries/AP_Airspeed/AP_Airspeed_Health.s: libraries/AP_Airspeed/AP_Airspeed_He
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_Health.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_Health.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_Health.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_Health.cpp.s
 
@@ -11371,6 +12120,7 @@ libraries/AP_Airspeed/AP_Airspeed_MS4525.o: libraries/AP_Airspeed/AP_Airspeed_MS
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_MS4525.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_MS4525.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_MS4525.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_MS4525.cpp.o
 
@@ -11379,6 +12129,7 @@ libraries/AP_Airspeed/AP_Airspeed_MS4525.i: libraries/AP_Airspeed/AP_Airspeed_MS
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_MS4525.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_MS4525.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_MS4525.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_MS4525.cpp.i
 
@@ -11387,6 +12138,7 @@ libraries/AP_Airspeed/AP_Airspeed_MS4525.s: libraries/AP_Airspeed/AP_Airspeed_MS
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_MS4525.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_MS4525.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_MS4525.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_MS4525.cpp.s
 
@@ -11395,6 +12147,7 @@ libraries/AP_Airspeed/AP_Airspeed_MS5525.o: libraries/AP_Airspeed/AP_Airspeed_MS
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_MS5525.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_MS5525.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_MS5525.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_MS5525.cpp.o
 
@@ -11403,6 +12156,7 @@ libraries/AP_Airspeed/AP_Airspeed_MS5525.i: libraries/AP_Airspeed/AP_Airspeed_MS
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_MS5525.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_MS5525.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_MS5525.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_MS5525.cpp.i
 
@@ -11411,6 +12165,7 @@ libraries/AP_Airspeed/AP_Airspeed_MS5525.s: libraries/AP_Airspeed/AP_Airspeed_MS
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_MS5525.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_MS5525.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_MS5525.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_MS5525.cpp.s
 
@@ -11419,6 +12174,7 @@ libraries/AP_Airspeed/AP_Airspeed_MSP.o: libraries/AP_Airspeed/AP_Airspeed_MSP.c
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_MSP.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_MSP.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_MSP.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_MSP.cpp.o
 
@@ -11427,6 +12183,7 @@ libraries/AP_Airspeed/AP_Airspeed_MSP.i: libraries/AP_Airspeed/AP_Airspeed_MSP.c
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_MSP.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_MSP.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_MSP.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_MSP.cpp.i
 
@@ -11435,6 +12192,7 @@ libraries/AP_Airspeed/AP_Airspeed_MSP.s: libraries/AP_Airspeed/AP_Airspeed_MSP.c
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_MSP.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_MSP.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_MSP.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_MSP.cpp.s
 
@@ -11443,6 +12201,7 @@ libraries/AP_Airspeed/AP_Airspeed_NMEA.o: libraries/AP_Airspeed/AP_Airspeed_NMEA
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.o
 
@@ -11451,6 +12210,7 @@ libraries/AP_Airspeed/AP_Airspeed_NMEA.i: libraries/AP_Airspeed/AP_Airspeed_NMEA
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.i
 
@@ -11459,6 +12219,7 @@ libraries/AP_Airspeed/AP_Airspeed_NMEA.s: libraries/AP_Airspeed/AP_Airspeed_NMEA
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_NMEA.cpp.s
 
@@ -11467,6 +12228,7 @@ libraries/AP_Airspeed/AP_Airspeed_Params.o: libraries/AP_Airspeed/AP_Airspeed_Pa
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_Params.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_Params.cpp.o
 
@@ -11475,6 +12237,7 @@ libraries/AP_Airspeed/AP_Airspeed_Params.i: libraries/AP_Airspeed/AP_Airspeed_Pa
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_Params.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_Params.cpp.i
 
@@ -11483,6 +12246,7 @@ libraries/AP_Airspeed/AP_Airspeed_Params.s: libraries/AP_Airspeed/AP_Airspeed_Pa
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_Params.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_Params.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_Params.cpp.s
 
@@ -11491,6 +12255,7 @@ libraries/AP_Airspeed/AP_Airspeed_SDP3X.o: libraries/AP_Airspeed/AP_Airspeed_SDP
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_SDP3X.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_SDP3X.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_SDP3X.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_SDP3X.cpp.o
 
@@ -11499,6 +12264,7 @@ libraries/AP_Airspeed/AP_Airspeed_SDP3X.i: libraries/AP_Airspeed/AP_Airspeed_SDP
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_SDP3X.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_SDP3X.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_SDP3X.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_SDP3X.cpp.i
 
@@ -11507,6 +12273,7 @@ libraries/AP_Airspeed/AP_Airspeed_SDP3X.s: libraries/AP_Airspeed/AP_Airspeed_SDP
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_SDP3X.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_SDP3X.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_SDP3X.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_SDP3X.cpp.s
 
@@ -11515,6 +12282,7 @@ libraries/AP_Airspeed/AP_Airspeed_SITL.o: libraries/AP_Airspeed/AP_Airspeed_SITL
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_SITL.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_SITL.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_SITL.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_SITL.cpp.o
 
@@ -11523,6 +12291,7 @@ libraries/AP_Airspeed/AP_Airspeed_SITL.i: libraries/AP_Airspeed/AP_Airspeed_SITL
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_SITL.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_SITL.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_SITL.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_SITL.cpp.i
 
@@ -11531,6 +12300,7 @@ libraries/AP_Airspeed/AP_Airspeed_SITL.s: libraries/AP_Airspeed/AP_Airspeed_SITL
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_SITL.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_SITL.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_SITL.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_SITL.cpp.s
 
@@ -11539,6 +12309,7 @@ libraries/AP_Airspeed/AP_Airspeed_analog.o: libraries/AP_Airspeed/AP_Airspeed_an
 
 # target to build an object file
 libraries/AP_Airspeed/AP_Airspeed_analog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_analog.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_analog.cpp.o
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_analog.cpp.o
 
@@ -11547,6 +12318,7 @@ libraries/AP_Airspeed/AP_Airspeed_analog.i: libraries/AP_Airspeed/AP_Airspeed_an
 
 # target to preprocess a source file
 libraries/AP_Airspeed/AP_Airspeed_analog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_analog.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_analog.cpp.i
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_analog.cpp.i
 
@@ -11555,6 +12327,7 @@ libraries/AP_Airspeed/AP_Airspeed_analog.s: libraries/AP_Airspeed/AP_Airspeed_an
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/AP_Airspeed_analog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/AP_Airspeed_analog.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/AP_Airspeed_analog.cpp.s
 .PHONY : libraries/AP_Airspeed/AP_Airspeed_analog.cpp.s
 
@@ -11563,6 +12336,7 @@ libraries/AP_Airspeed/Airspeed_Calibration.o: libraries/AP_Airspeed/Airspeed_Cal
 
 # target to build an object file
 libraries/AP_Airspeed/Airspeed_Calibration.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/Airspeed_Calibration.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/Airspeed_Calibration.cpp.o
 .PHONY : libraries/AP_Airspeed/Airspeed_Calibration.cpp.o
 
@@ -11571,6 +12345,7 @@ libraries/AP_Airspeed/Airspeed_Calibration.i: libraries/AP_Airspeed/Airspeed_Cal
 
 # target to preprocess a source file
 libraries/AP_Airspeed/Airspeed_Calibration.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/Airspeed_Calibration.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/Airspeed_Calibration.cpp.i
 .PHONY : libraries/AP_Airspeed/Airspeed_Calibration.cpp.i
 
@@ -11579,6 +12354,7 @@ libraries/AP_Airspeed/Airspeed_Calibration.s: libraries/AP_Airspeed/Airspeed_Cal
 
 # target to generate assembly for a file
 libraries/AP_Airspeed/Airspeed_Calibration.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed_Plane.dir/build.make CMakeFiles/AP_Airspeed_Plane.dir/libraries/AP_Airspeed/Airspeed_Calibration.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Airspeed.dir/build.make CMakeFiles/AP_Airspeed.dir/libraries/AP_Airspeed/Airspeed_Calibration.cpp.s
 .PHONY : libraries/AP_Airspeed/Airspeed_Calibration.cpp.s
 
@@ -11588,6 +12364,7 @@ libraries/AP_Arming/AP_Arming.o: libraries/AP_Arming/AP_Arming.cpp.o
 # target to build an object file
 libraries/AP_Arming/AP_Arming.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Arming.dir/build.make CMakeFiles/AP_Arming.dir/libraries/AP_Arming/AP_Arming.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Arming_Plane.dir/build.make CMakeFiles/AP_Arming_Plane.dir/libraries/AP_Arming/AP_Arming.cpp.o
 .PHONY : libraries/AP_Arming/AP_Arming.cpp.o
 
 libraries/AP_Arming/AP_Arming.i: libraries/AP_Arming/AP_Arming.cpp.i
@@ -11596,6 +12373,7 @@ libraries/AP_Arming/AP_Arming.i: libraries/AP_Arming/AP_Arming.cpp.i
 # target to preprocess a source file
 libraries/AP_Arming/AP_Arming.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Arming.dir/build.make CMakeFiles/AP_Arming.dir/libraries/AP_Arming/AP_Arming.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Arming_Plane.dir/build.make CMakeFiles/AP_Arming_Plane.dir/libraries/AP_Arming/AP_Arming.cpp.i
 .PHONY : libraries/AP_Arming/AP_Arming.cpp.i
 
 libraries/AP_Arming/AP_Arming.s: libraries/AP_Arming/AP_Arming.cpp.s
@@ -11604,6 +12382,7 @@ libraries/AP_Arming/AP_Arming.s: libraries/AP_Arming/AP_Arming.cpp.s
 # target to generate assembly for a file
 libraries/AP_Arming/AP_Arming.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Arming.dir/build.make CMakeFiles/AP_Arming.dir/libraries/AP_Arming/AP_Arming.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Arming_Plane.dir/build.make CMakeFiles/AP_Arming_Plane.dir/libraries/AP_Arming/AP_Arming.cpp.s
 .PHONY : libraries/AP_Arming/AP_Arming.cpp.s
 
 libraries/AP_Avoidance/AP_Avoidance.o: libraries/AP_Avoidance/AP_Avoidance.cpp.o
@@ -11611,6 +12390,7 @@ libraries/AP_Avoidance/AP_Avoidance.o: libraries/AP_Avoidance/AP_Avoidance.cpp.o
 
 # target to build an object file
 libraries/AP_Avoidance/AP_Avoidance.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Avoidance_Plane.dir/build.make CMakeFiles/AP_Avoidance_Plane.dir/libraries/AP_Avoidance/AP_Avoidance.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Avoidance.dir/build.make CMakeFiles/AP_Avoidance.dir/libraries/AP_Avoidance/AP_Avoidance.cpp.o
 .PHONY : libraries/AP_Avoidance/AP_Avoidance.cpp.o
 
@@ -11619,6 +12399,7 @@ libraries/AP_Avoidance/AP_Avoidance.i: libraries/AP_Avoidance/AP_Avoidance.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Avoidance/AP_Avoidance.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Avoidance_Plane.dir/build.make CMakeFiles/AP_Avoidance_Plane.dir/libraries/AP_Avoidance/AP_Avoidance.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Avoidance.dir/build.make CMakeFiles/AP_Avoidance.dir/libraries/AP_Avoidance/AP_Avoidance.cpp.i
 .PHONY : libraries/AP_Avoidance/AP_Avoidance.cpp.i
 
@@ -11627,6 +12408,7 @@ libraries/AP_Avoidance/AP_Avoidance.s: libraries/AP_Avoidance/AP_Avoidance.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Avoidance/AP_Avoidance.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Avoidance_Plane.dir/build.make CMakeFiles/AP_Avoidance_Plane.dir/libraries/AP_Avoidance/AP_Avoidance.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Avoidance.dir/build.make CMakeFiles/AP_Avoidance.dir/libraries/AP_Avoidance/AP_Avoidance.cpp.s
 .PHONY : libraries/AP_Avoidance/AP_Avoidance.cpp.s
 
@@ -11659,6 +12441,7 @@ libraries/AP_Baro/AP_Baro.o: libraries/AP_Baro/AP_Baro.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro.cpp.o
 
@@ -11667,6 +12450,7 @@ libraries/AP_Baro/AP_Baro.i: libraries/AP_Baro/AP_Baro.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro.cpp.i
 
@@ -11675,6 +12459,7 @@ libraries/AP_Baro/AP_Baro.s: libraries/AP_Baro/AP_Baro.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro.cpp.s
 
@@ -11683,6 +12468,7 @@ libraries/AP_Baro/AP_Baro_AUAV.o: libraries/AP_Baro/AP_Baro_AUAV.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_AUAV.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_AUAV.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_AUAV.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_AUAV.cpp.o
 
@@ -11691,6 +12477,7 @@ libraries/AP_Baro/AP_Baro_AUAV.i: libraries/AP_Baro/AP_Baro_AUAV.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_AUAV.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_AUAV.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_AUAV.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_AUAV.cpp.i
 
@@ -11699,6 +12486,7 @@ libraries/AP_Baro/AP_Baro_AUAV.s: libraries/AP_Baro/AP_Baro_AUAV.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_AUAV.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_AUAV.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_AUAV.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_AUAV.cpp.s
 
@@ -11707,6 +12495,7 @@ libraries/AP_Baro/AP_Baro_BMP085.o: libraries/AP_Baro/AP_Baro_BMP085.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_BMP085.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_BMP085.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_BMP085.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_BMP085.cpp.o
 
@@ -11715,6 +12504,7 @@ libraries/AP_Baro/AP_Baro_BMP085.i: libraries/AP_Baro/AP_Baro_BMP085.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_BMP085.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_BMP085.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_BMP085.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_BMP085.cpp.i
 
@@ -11723,6 +12513,7 @@ libraries/AP_Baro/AP_Baro_BMP085.s: libraries/AP_Baro/AP_Baro_BMP085.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_BMP085.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_BMP085.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_BMP085.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_BMP085.cpp.s
 
@@ -11731,6 +12522,7 @@ libraries/AP_Baro/AP_Baro_BMP280.o: libraries/AP_Baro/AP_Baro_BMP280.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_BMP280.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_BMP280.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_BMP280.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_BMP280.cpp.o
 
@@ -11739,6 +12531,7 @@ libraries/AP_Baro/AP_Baro_BMP280.i: libraries/AP_Baro/AP_Baro_BMP280.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_BMP280.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_BMP280.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_BMP280.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_BMP280.cpp.i
 
@@ -11747,6 +12540,7 @@ libraries/AP_Baro/AP_Baro_BMP280.s: libraries/AP_Baro/AP_Baro_BMP280.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_BMP280.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_BMP280.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_BMP280.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_BMP280.cpp.s
 
@@ -11755,6 +12549,7 @@ libraries/AP_Baro/AP_Baro_BMP388.o: libraries/AP_Baro/AP_Baro_BMP388.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_BMP388.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_BMP388.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_BMP388.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_BMP388.cpp.o
 
@@ -11763,6 +12558,7 @@ libraries/AP_Baro/AP_Baro_BMP388.i: libraries/AP_Baro/AP_Baro_BMP388.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_BMP388.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_BMP388.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_BMP388.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_BMP388.cpp.i
 
@@ -11771,6 +12567,7 @@ libraries/AP_Baro/AP_Baro_BMP388.s: libraries/AP_Baro/AP_Baro_BMP388.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_BMP388.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_BMP388.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_BMP388.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_BMP388.cpp.s
 
@@ -11779,6 +12576,7 @@ libraries/AP_Baro/AP_Baro_BMP581.o: libraries/AP_Baro/AP_Baro_BMP581.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_BMP581.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_BMP581.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_BMP581.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_BMP581.cpp.o
 
@@ -11787,6 +12585,7 @@ libraries/AP_Baro/AP_Baro_BMP581.i: libraries/AP_Baro/AP_Baro_BMP581.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_BMP581.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_BMP581.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_BMP581.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_BMP581.cpp.i
 
@@ -11795,6 +12594,7 @@ libraries/AP_Baro/AP_Baro_BMP581.s: libraries/AP_Baro/AP_Baro_BMP581.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_BMP581.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_BMP581.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_BMP581.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_BMP581.cpp.s
 
@@ -11803,6 +12603,7 @@ libraries/AP_Baro/AP_Baro_Backend.o: libraries/AP_Baro/AP_Baro_Backend.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_Backend.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_Backend.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_Backend.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_Backend.cpp.o
 
@@ -11811,6 +12612,7 @@ libraries/AP_Baro/AP_Baro_Backend.i: libraries/AP_Baro/AP_Baro_Backend.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_Backend.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_Backend.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_Backend.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_Backend.cpp.i
 
@@ -11819,6 +12621,7 @@ libraries/AP_Baro/AP_Baro_Backend.s: libraries/AP_Baro/AP_Baro_Backend.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_Backend.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_Backend.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_Backend.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_Backend.cpp.s
 
@@ -11827,6 +12630,7 @@ libraries/AP_Baro/AP_Baro_DPS280.o: libraries/AP_Baro/AP_Baro_DPS280.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_DPS280.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_DPS280.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_DPS280.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_DPS280.cpp.o
 
@@ -11835,6 +12639,7 @@ libraries/AP_Baro/AP_Baro_DPS280.i: libraries/AP_Baro/AP_Baro_DPS280.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_DPS280.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_DPS280.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_DPS280.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_DPS280.cpp.i
 
@@ -11843,6 +12648,7 @@ libraries/AP_Baro/AP_Baro_DPS280.s: libraries/AP_Baro/AP_Baro_DPS280.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_DPS280.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_DPS280.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_DPS280.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_DPS280.cpp.s
 
@@ -11851,6 +12657,7 @@ libraries/AP_Baro/AP_Baro_DroneCAN.o: libraries/AP_Baro/AP_Baro_DroneCAN.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_DroneCAN.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_DroneCAN.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_DroneCAN.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_DroneCAN.cpp.o
 
@@ -11859,6 +12666,7 @@ libraries/AP_Baro/AP_Baro_DroneCAN.i: libraries/AP_Baro/AP_Baro_DroneCAN.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_DroneCAN.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_DroneCAN.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_DroneCAN.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_DroneCAN.cpp.i
 
@@ -11867,6 +12675,7 @@ libraries/AP_Baro/AP_Baro_DroneCAN.s: libraries/AP_Baro/AP_Baro_DroneCAN.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_DroneCAN.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_DroneCAN.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_DroneCAN.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_DroneCAN.cpp.s
 
@@ -11875,6 +12684,7 @@ libraries/AP_Baro/AP_Baro_Dummy.o: libraries/AP_Baro/AP_Baro_Dummy.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_Dummy.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_Dummy.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_Dummy.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_Dummy.cpp.o
 
@@ -11883,6 +12693,7 @@ libraries/AP_Baro/AP_Baro_Dummy.i: libraries/AP_Baro/AP_Baro_Dummy.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_Dummy.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_Dummy.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_Dummy.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_Dummy.cpp.i
 
@@ -11891,6 +12702,7 @@ libraries/AP_Baro/AP_Baro_Dummy.s: libraries/AP_Baro/AP_Baro_Dummy.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_Dummy.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_Dummy.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_Dummy.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_Dummy.cpp.s
 
@@ -11899,6 +12711,7 @@ libraries/AP_Baro/AP_Baro_ExternalAHRS.o: libraries/AP_Baro/AP_Baro_ExternalAHRS
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_ExternalAHRS.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_ExternalAHRS.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_ExternalAHRS.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_ExternalAHRS.cpp.o
 
@@ -11907,6 +12720,7 @@ libraries/AP_Baro/AP_Baro_ExternalAHRS.i: libraries/AP_Baro/AP_Baro_ExternalAHRS
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_ExternalAHRS.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_ExternalAHRS.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_ExternalAHRS.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_ExternalAHRS.cpp.i
 
@@ -11915,6 +12729,7 @@ libraries/AP_Baro/AP_Baro_ExternalAHRS.s: libraries/AP_Baro/AP_Baro_ExternalAHRS
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_ExternalAHRS.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_ExternalAHRS.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_ExternalAHRS.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_ExternalAHRS.cpp.s
 
@@ -11923,6 +12738,7 @@ libraries/AP_Baro/AP_Baro_FBM320.o: libraries/AP_Baro/AP_Baro_FBM320.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_FBM320.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_FBM320.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_FBM320.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_FBM320.cpp.o
 
@@ -11931,6 +12747,7 @@ libraries/AP_Baro/AP_Baro_FBM320.i: libraries/AP_Baro/AP_Baro_FBM320.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_FBM320.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_FBM320.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_FBM320.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_FBM320.cpp.i
 
@@ -11939,6 +12756,7 @@ libraries/AP_Baro/AP_Baro_FBM320.s: libraries/AP_Baro/AP_Baro_FBM320.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_FBM320.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_FBM320.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_FBM320.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_FBM320.cpp.s
 
@@ -11947,6 +12765,7 @@ libraries/AP_Baro/AP_Baro_HIL.o: libraries/AP_Baro/AP_Baro_HIL.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_HIL.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_HIL.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_HIL.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_HIL.cpp.o
 
@@ -11955,6 +12774,7 @@ libraries/AP_Baro/AP_Baro_HIL.i: libraries/AP_Baro/AP_Baro_HIL.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_HIL.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_HIL.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_HIL.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_HIL.cpp.i
 
@@ -11963,6 +12783,7 @@ libraries/AP_Baro/AP_Baro_HIL.s: libraries/AP_Baro/AP_Baro_HIL.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_HIL.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_HIL.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_HIL.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_HIL.cpp.s
 
@@ -11971,6 +12792,7 @@ libraries/AP_Baro/AP_Baro_ICM20789.o: libraries/AP_Baro/AP_Baro_ICM20789.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_ICM20789.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_ICM20789.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_ICM20789.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_ICM20789.cpp.o
 
@@ -11979,6 +12801,7 @@ libraries/AP_Baro/AP_Baro_ICM20789.i: libraries/AP_Baro/AP_Baro_ICM20789.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_ICM20789.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_ICM20789.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_ICM20789.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_ICM20789.cpp.i
 
@@ -11987,6 +12810,7 @@ libraries/AP_Baro/AP_Baro_ICM20789.s: libraries/AP_Baro/AP_Baro_ICM20789.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_ICM20789.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_ICM20789.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_ICM20789.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_ICM20789.cpp.s
 
@@ -11995,6 +12819,7 @@ libraries/AP_Baro/AP_Baro_ICP101XX.o: libraries/AP_Baro/AP_Baro_ICP101XX.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_ICP101XX.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_ICP101XX.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_ICP101XX.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_ICP101XX.cpp.o
 
@@ -12003,6 +12828,7 @@ libraries/AP_Baro/AP_Baro_ICP101XX.i: libraries/AP_Baro/AP_Baro_ICP101XX.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_ICP101XX.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_ICP101XX.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_ICP101XX.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_ICP101XX.cpp.i
 
@@ -12011,6 +12837,7 @@ libraries/AP_Baro/AP_Baro_ICP101XX.s: libraries/AP_Baro/AP_Baro_ICP101XX.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_ICP101XX.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_ICP101XX.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_ICP101XX.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_ICP101XX.cpp.s
 
@@ -12019,6 +12846,7 @@ libraries/AP_Baro/AP_Baro_ICP201XX.o: libraries/AP_Baro/AP_Baro_ICP201XX.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_ICP201XX.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_ICP201XX.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_ICP201XX.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_ICP201XX.cpp.o
 
@@ -12027,6 +12855,7 @@ libraries/AP_Baro/AP_Baro_ICP201XX.i: libraries/AP_Baro/AP_Baro_ICP201XX.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_ICP201XX.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_ICP201XX.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_ICP201XX.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_ICP201XX.cpp.i
 
@@ -12035,6 +12864,7 @@ libraries/AP_Baro/AP_Baro_ICP201XX.s: libraries/AP_Baro/AP_Baro_ICP201XX.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_ICP201XX.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_ICP201XX.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_ICP201XX.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_ICP201XX.cpp.s
 
@@ -12043,6 +12873,7 @@ libraries/AP_Baro/AP_Baro_KellerLD.o: libraries/AP_Baro/AP_Baro_KellerLD.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_KellerLD.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_KellerLD.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_KellerLD.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_KellerLD.cpp.o
 
@@ -12051,6 +12882,7 @@ libraries/AP_Baro/AP_Baro_KellerLD.i: libraries/AP_Baro/AP_Baro_KellerLD.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_KellerLD.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_KellerLD.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_KellerLD.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_KellerLD.cpp.i
 
@@ -12059,6 +12891,7 @@ libraries/AP_Baro/AP_Baro_KellerLD.s: libraries/AP_Baro/AP_Baro_KellerLD.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_KellerLD.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_KellerLD.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_KellerLD.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_KellerLD.cpp.s
 
@@ -12067,6 +12900,7 @@ libraries/AP_Baro/AP_Baro_LPS2XH.o: libraries/AP_Baro/AP_Baro_LPS2XH.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_LPS2XH.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_LPS2XH.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_LPS2XH.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_LPS2XH.cpp.o
 
@@ -12075,6 +12909,7 @@ libraries/AP_Baro/AP_Baro_LPS2XH.i: libraries/AP_Baro/AP_Baro_LPS2XH.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_LPS2XH.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_LPS2XH.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_LPS2XH.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_LPS2XH.cpp.i
 
@@ -12083,6 +12918,7 @@ libraries/AP_Baro/AP_Baro_LPS2XH.s: libraries/AP_Baro/AP_Baro_LPS2XH.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_LPS2XH.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_LPS2XH.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_LPS2XH.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_LPS2XH.cpp.s
 
@@ -12091,6 +12927,7 @@ libraries/AP_Baro/AP_Baro_Logging.o: libraries/AP_Baro/AP_Baro_Logging.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_Logging.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_Logging.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_Logging.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_Logging.cpp.o
 
@@ -12099,6 +12936,7 @@ libraries/AP_Baro/AP_Baro_Logging.i: libraries/AP_Baro/AP_Baro_Logging.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_Logging.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_Logging.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_Logging.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_Logging.cpp.i
 
@@ -12107,6 +12945,7 @@ libraries/AP_Baro/AP_Baro_Logging.s: libraries/AP_Baro/AP_Baro_Logging.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_Logging.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_Logging.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_Logging.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_Logging.cpp.s
 
@@ -12115,6 +12954,7 @@ libraries/AP_Baro/AP_Baro_MS5611.o: libraries/AP_Baro/AP_Baro_MS5611.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_MS5611.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_MS5611.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_MS5611.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_MS5611.cpp.o
 
@@ -12123,6 +12963,7 @@ libraries/AP_Baro/AP_Baro_MS5611.i: libraries/AP_Baro/AP_Baro_MS5611.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_MS5611.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_MS5611.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_MS5611.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_MS5611.cpp.i
 
@@ -12131,6 +12972,7 @@ libraries/AP_Baro/AP_Baro_MS5611.s: libraries/AP_Baro/AP_Baro_MS5611.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_MS5611.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_MS5611.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_MS5611.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_MS5611.cpp.s
 
@@ -12139,6 +12981,7 @@ libraries/AP_Baro/AP_Baro_MSP.o: libraries/AP_Baro/AP_Baro_MSP.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_MSP.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_MSP.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_MSP.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_MSP.cpp.o
 
@@ -12147,6 +12990,7 @@ libraries/AP_Baro/AP_Baro_MSP.i: libraries/AP_Baro/AP_Baro_MSP.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_MSP.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_MSP.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_MSP.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_MSP.cpp.i
 
@@ -12155,6 +12999,7 @@ libraries/AP_Baro/AP_Baro_MSP.s: libraries/AP_Baro/AP_Baro_MSP.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_MSP.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_MSP.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_MSP.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_MSP.cpp.s
 
@@ -12163,6 +13008,7 @@ libraries/AP_Baro/AP_Baro_SITL.o: libraries/AP_Baro/AP_Baro_SITL.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_SITL.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_SITL.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_SITL.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_SITL.cpp.o
 
@@ -12171,6 +13017,7 @@ libraries/AP_Baro/AP_Baro_SITL.i: libraries/AP_Baro/AP_Baro_SITL.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_SITL.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_SITL.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_SITL.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_SITL.cpp.i
 
@@ -12179,6 +13026,7 @@ libraries/AP_Baro/AP_Baro_SITL.s: libraries/AP_Baro/AP_Baro_SITL.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_SITL.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_SITL.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_SITL.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_SITL.cpp.s
 
@@ -12187,6 +13035,7 @@ libraries/AP_Baro/AP_Baro_SPL06.o: libraries/AP_Baro/AP_Baro_SPL06.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_SPL06.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_SPL06.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_SPL06.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_SPL06.cpp.o
 
@@ -12195,6 +13044,7 @@ libraries/AP_Baro/AP_Baro_SPL06.i: libraries/AP_Baro/AP_Baro_SPL06.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_SPL06.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_SPL06.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_SPL06.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_SPL06.cpp.i
 
@@ -12203,6 +13053,7 @@ libraries/AP_Baro/AP_Baro_SPL06.s: libraries/AP_Baro/AP_Baro_SPL06.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_SPL06.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_SPL06.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_SPL06.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_SPL06.cpp.s
 
@@ -12211,6 +13062,7 @@ libraries/AP_Baro/AP_Baro_Wind.o: libraries/AP_Baro/AP_Baro_Wind.cpp.o
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_Wind.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_Wind.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_Wind.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_Wind.cpp.o
 
@@ -12219,6 +13071,7 @@ libraries/AP_Baro/AP_Baro_Wind.i: libraries/AP_Baro/AP_Baro_Wind.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_Wind.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_Wind.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_Wind.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_Wind.cpp.i
 
@@ -12227,6 +13080,7 @@ libraries/AP_Baro/AP_Baro_Wind.s: libraries/AP_Baro/AP_Baro_Wind.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_Wind.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_Wind.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_Wind.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_Wind.cpp.s
 
@@ -12235,6 +13089,7 @@ libraries/AP_Baro/AP_Baro_atmosphere.o: libraries/AP_Baro/AP_Baro_atmosphere.cpp
 
 # target to build an object file
 libraries/AP_Baro/AP_Baro_atmosphere.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_atmosphere.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_atmosphere.cpp.o
 .PHONY : libraries/AP_Baro/AP_Baro_atmosphere.cpp.o
 
@@ -12243,6 +13098,7 @@ libraries/AP_Baro/AP_Baro_atmosphere.i: libraries/AP_Baro/AP_Baro_atmosphere.cpp
 
 # target to preprocess a source file
 libraries/AP_Baro/AP_Baro_atmosphere.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_atmosphere.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_atmosphere.cpp.i
 .PHONY : libraries/AP_Baro/AP_Baro_atmosphere.cpp.i
 
@@ -12251,6 +13107,7 @@ libraries/AP_Baro/AP_Baro_atmosphere.s: libraries/AP_Baro/AP_Baro_atmosphere.cpp
 
 # target to generate assembly for a file
 libraries/AP_Baro/AP_Baro_atmosphere.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro_Plane.dir/build.make CMakeFiles/AP_Baro_Plane.dir/libraries/AP_Baro/AP_Baro_atmosphere.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Baro.dir/build.make CMakeFiles/AP_Baro.dir/libraries/AP_Baro/AP_Baro_atmosphere.cpp.s
 .PHONY : libraries/AP_Baro/AP_Baro_atmosphere.cpp.s
 
@@ -12259,6 +13116,7 @@ libraries/AP_BattMonitor/AP_BattMonitor.o: libraries/AP_BattMonitor/AP_BattMonit
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor.cpp.o
 
@@ -12267,6 +13125,7 @@ libraries/AP_BattMonitor/AP_BattMonitor.i: libraries/AP_BattMonitor/AP_BattMonit
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor.cpp.i
 
@@ -12275,6 +13134,7 @@ libraries/AP_BattMonitor/AP_BattMonitor.s: libraries/AP_BattMonitor/AP_BattMonit
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor.cpp.s
 
@@ -12283,6 +13143,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.o: libraries/AP_BattMonitor/AP_
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp.o
 
@@ -12291,6 +13152,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.i: libraries/AP_BattMonitor/AP_
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp.i
 
@@ -12299,6 +13161,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.s: libraries/AP_BattMonitor/AP_
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_AD7091R5.cpp.s
 
@@ -12307,6 +13170,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Analog.o: libraries/AP_BattMonitor/AP_Ba
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp.o
 
@@ -12315,6 +13179,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Analog.i: libraries/AP_BattMonitor/AP_Ba
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp.i
 
@@ -12323,6 +13188,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Analog.s: libraries/AP_BattMonitor/AP_Ba
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Analog.cpp.s
 
@@ -12331,6 +13197,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Backend.o: libraries/AP_BattMonitor/AP_B
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp.o
 
@@ -12339,6 +13206,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Backend.i: libraries/AP_BattMonitor/AP_B
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp.i
 
@@ -12347,6 +13215,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Backend.s: libraries/AP_BattMonitor/AP_B
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Backend.cpp.s
 
@@ -12355,6 +13224,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Bebop.o: libraries/AP_BattMonitor/AP_Bat
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_Bebop.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Bebop.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Bebop.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Bebop.cpp.o
 
@@ -12363,6 +13233,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Bebop.i: libraries/AP_BattMonitor/AP_Bat
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_Bebop.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Bebop.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Bebop.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Bebop.cpp.i
 
@@ -12371,6 +13242,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Bebop.s: libraries/AP_BattMonitor/AP_Bat
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_Bebop.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Bebop.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Bebop.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Bebop.cpp.s
 
@@ -12379,6 +13251,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.o: libraries/AP_BattMonitor/AP_
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.cpp.o
 
@@ -12387,6 +13260,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.i: libraries/AP_BattMonitor/AP_
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.cpp.i
 
@@ -12395,6 +13269,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.s: libraries/AP_BattMonitor/AP_
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_DroneCAN.cpp.s
 
@@ -12403,6 +13278,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_EFI.o: libraries/AP_BattMonitor/AP_BattM
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_EFI.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_EFI.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_EFI.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_EFI.cpp.o
 
@@ -12411,6 +13287,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_EFI.i: libraries/AP_BattMonitor/AP_BattM
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_EFI.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_EFI.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_EFI.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_EFI.cpp.i
 
@@ -12419,6 +13296,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_EFI.s: libraries/AP_BattMonitor/AP_BattM
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_EFI.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_EFI.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_EFI.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_EFI.cpp.s
 
@@ -12427,6 +13305,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_ESC.o: libraries/AP_BattMonitor/AP_BattM
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_ESC.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_ESC.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_ESC.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_ESC.cpp.o
 
@@ -12435,6 +13314,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_ESC.i: libraries/AP_BattMonitor/AP_BattM
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_ESC.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_ESC.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_ESC.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_ESC.cpp.i
 
@@ -12443,6 +13323,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_ESC.s: libraries/AP_BattMonitor/AP_BattM
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_ESC.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_ESC.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_ESC.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_ESC.cpp.s
 
@@ -12451,6 +13332,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.o: libraries/AP_BattMonitor/AP_
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.cpp.o
 
@@ -12459,6 +13341,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.i: libraries/AP_BattMonitor/AP_
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.cpp.i
 
@@ -12467,6 +13350,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.s: libraries/AP_BattMonitor/AP_
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_FuelFlow.cpp.s
 
@@ -12475,6 +13359,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.o: libraries/AP_BattMon
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.cpp.o
 
@@ -12483,6 +13368,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.i: libraries/AP_BattMon
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.cpp.i
 
@@ -12491,6 +13377,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.s: libraries/AP_BattMon
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_Analog.cpp.s
 
@@ -12499,6 +13386,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.o: libraries/AP_BattMonito
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.cpp.o
 
@@ -12507,6 +13395,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.i: libraries/AP_BattMonito
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.cpp.i
 
@@ -12515,6 +13404,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.s: libraries/AP_BattMonito
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_FuelLevel_PWM.cpp.s
 
@@ -12523,6 +13413,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Generator.o: libraries/AP_BattMonitor/AP
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_Generator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Generator.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Generator.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Generator.cpp.o
 
@@ -12531,6 +13422,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Generator.i: libraries/AP_BattMonitor/AP
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_Generator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Generator.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Generator.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Generator.cpp.i
 
@@ -12539,6 +13431,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Generator.s: libraries/AP_BattMonitor/AP
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_Generator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Generator.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Generator.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Generator.cpp.s
 
@@ -12547,6 +13440,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_INA239.o: libraries/AP_BattMonitor/AP_Ba
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_INA239.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA239.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA239.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_INA239.cpp.o
 
@@ -12555,6 +13449,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_INA239.i: libraries/AP_BattMonitor/AP_Ba
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_INA239.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA239.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA239.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_INA239.cpp.i
 
@@ -12563,6 +13458,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_INA239.s: libraries/AP_BattMonitor/AP_Ba
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_INA239.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA239.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA239.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_INA239.cpp.s
 
@@ -12571,6 +13467,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.o: libraries/AP_BattMonitor/AP_Ba
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.cpp.o
 
@@ -12579,6 +13476,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.i: libraries/AP_BattMonitor/AP_Ba
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.cpp.i
 
@@ -12587,6 +13485,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.s: libraries/AP_BattMonitor/AP_Ba
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_INA2xx.cpp.s
 
@@ -12595,6 +13494,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_INA3221.o: libraries/AP_BattMonitor/AP_B
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_INA3221.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA3221.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA3221.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_INA3221.cpp.o
 
@@ -12603,6 +13503,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_INA3221.i: libraries/AP_BattMonitor/AP_B
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_INA3221.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA3221.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA3221.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_INA3221.cpp.i
 
@@ -12611,6 +13512,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_INA3221.s: libraries/AP_BattMonitor/AP_B
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_INA3221.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA3221.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_INA3221.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_INA3221.cpp.s
 
@@ -12619,6 +13521,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.o: libraries/AP_BattMonitor/AP_B
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.cpp.o
 
@@ -12627,6 +13530,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.i: libraries/AP_BattMonitor/AP_B
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.cpp.i
 
@@ -12635,6 +13539,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.s: libraries/AP_BattMonitor/AP_B
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_LTC2946.cpp.s
 
@@ -12643,6 +13548,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Logging.o: libraries/AP_BattMonitor/AP_B
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_Logging.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Logging.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Logging.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Logging.cpp.o
 
@@ -12651,6 +13557,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Logging.i: libraries/AP_BattMonitor/AP_B
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_Logging.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Logging.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Logging.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Logging.cpp.i
 
@@ -12659,6 +13566,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Logging.s: libraries/AP_BattMonitor/AP_B
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_Logging.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Logging.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Logging.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Logging.cpp.s
 
@@ -12667,6 +13575,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Params.o: libraries/AP_BattMonitor/AP_Ba
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.o
 
@@ -12675,6 +13584,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Params.i: libraries/AP_BattMonitor/AP_Ba
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.i
 
@@ -12683,6 +13593,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Params.s: libraries/AP_BattMonitor/AP_Ba
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Params.cpp.s
 
@@ -12691,6 +13602,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus.o: libraries/AP_BattMonitor/AP_Bat
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus.cpp.o
 
@@ -12699,6 +13611,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus.i: libraries/AP_BattMonitor/AP_Bat
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus.cpp.i
 
@@ -12707,6 +13620,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus.s: libraries/AP_BattMonitor/AP_Bat
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus.cpp.s
 
@@ -12715,6 +13629,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.o: libraries/AP_BattMonito
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.cpp.o
 
@@ -12723,6 +13638,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.i: libraries/AP_BattMonito
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.cpp.i
 
@@ -12731,6 +13647,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.s: libraries/AP_BattMonito
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Generic.cpp.s
 
@@ -12739,6 +13656,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.o: libraries/AP_BattMoni
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.cpp.o
 
@@ -12747,6 +13665,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.i: libraries/AP_BattMoni
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.cpp.i
 
@@ -12755,6 +13674,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.s: libraries/AP_BattMoni
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_NeoDesign.cpp.s
 
@@ -12763,6 +13683,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.o: libraries/AP_BattMonitor
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.cpp.o
 
@@ -12771,6 +13692,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.i: libraries/AP_BattMonitor
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.cpp.i
 
@@ -12779,6 +13701,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.s: libraries/AP_BattMonitor
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Rotoye.cpp.s
 
@@ -12787,6 +13710,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.o: libraries/AP_BattMonitor/AP
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.cpp.o
 
@@ -12795,6 +13719,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.i: libraries/AP_BattMonitor/AP
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.cpp.i
 
@@ -12803,6 +13728,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.s: libraries/AP_BattMonitor/AP
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_SUI.cpp.s
 
@@ -12811,6 +13737,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.o: libraries/AP_BattMonitor/A
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.cpp.o
 
@@ -12819,6 +13746,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.i: libraries/AP_BattMonitor/A
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.cpp.i
 
@@ -12827,6 +13755,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.s: libraries/AP_BattMonitor/A
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_SMBus_Solo.cpp.s
 
@@ -12835,6 +13764,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Scripting.o: libraries/AP_BattMonitor/AP
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_Scripting.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Scripting.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Scripting.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Scripting.cpp.o
 
@@ -12843,6 +13773,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Scripting.i: libraries/AP_BattMonitor/AP
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_Scripting.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Scripting.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Scripting.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Scripting.cpp.i
 
@@ -12851,6 +13782,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Scripting.s: libraries/AP_BattMonitor/AP
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_Scripting.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Scripting.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Scripting.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Scripting.cpp.s
 
@@ -12859,6 +13791,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Sum.o: libraries/AP_BattMonitor/AP_BattM
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_Sum.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Sum.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Sum.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Sum.cpp.o
 
@@ -12867,6 +13800,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Sum.i: libraries/AP_BattMonitor/AP_BattM
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_Sum.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Sum.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Sum.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Sum.cpp.i
 
@@ -12875,6 +13809,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Sum.s: libraries/AP_BattMonitor/AP_BattM
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_Sum.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Sum.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Sum.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Sum.cpp.s
 
@@ -12883,6 +13818,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.o: libraries/AP_BattMo
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.cpp.o
 
@@ -12891,6 +13827,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.i: libraries/AP_BattMo
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.cpp.i
 
@@ -12899,6 +13836,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.s: libraries/AP_BattMo
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Synthetic_Current.cpp.s
 
@@ -12907,6 +13845,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.o: libraries/AP_BattMonitor/AP_
 
 # target to build an object file
 libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.cpp.o
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.cpp.o
 
@@ -12915,6 +13854,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.i: libraries/AP_BattMonitor/AP_
 
 # target to preprocess a source file
 libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.cpp.i
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.cpp.i
 
@@ -12923,6 +13863,7 @@ libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.s: libraries/AP_BattMonitor/AP_
 
 # target to generate assembly for a file
 libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor_Plane.dir/build.make CMakeFiles/AP_BattMonitor_Plane.dir/libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BattMonitor.dir/build.make CMakeFiles/AP_BattMonitor.dir/libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.cpp.s
 .PHONY : libraries/AP_BattMonitor/AP_BattMonitor_Torqeedo.cpp.s
 
@@ -13075,6 +14016,7 @@ libraries/AP_BoardConfig/AP_BoardConfig.o: libraries/AP_BoardConfig/AP_BoardConf
 
 # target to build an object file
 libraries/AP_BoardConfig/AP_BoardConfig.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig_Plane.dir/build.make CMakeFiles/AP_BoardConfig_Plane.dir/libraries/AP_BoardConfig/AP_BoardConfig.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig.dir/build.make CMakeFiles/AP_BoardConfig.dir/libraries/AP_BoardConfig/AP_BoardConfig.cpp.o
 .PHONY : libraries/AP_BoardConfig/AP_BoardConfig.cpp.o
 
@@ -13083,6 +14025,7 @@ libraries/AP_BoardConfig/AP_BoardConfig.i: libraries/AP_BoardConfig/AP_BoardConf
 
 # target to preprocess a source file
 libraries/AP_BoardConfig/AP_BoardConfig.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig_Plane.dir/build.make CMakeFiles/AP_BoardConfig_Plane.dir/libraries/AP_BoardConfig/AP_BoardConfig.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig.dir/build.make CMakeFiles/AP_BoardConfig.dir/libraries/AP_BoardConfig/AP_BoardConfig.cpp.i
 .PHONY : libraries/AP_BoardConfig/AP_BoardConfig.cpp.i
 
@@ -13091,6 +14034,7 @@ libraries/AP_BoardConfig/AP_BoardConfig.s: libraries/AP_BoardConfig/AP_BoardConf
 
 # target to generate assembly for a file
 libraries/AP_BoardConfig/AP_BoardConfig.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig_Plane.dir/build.make CMakeFiles/AP_BoardConfig_Plane.dir/libraries/AP_BoardConfig/AP_BoardConfig.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig.dir/build.make CMakeFiles/AP_BoardConfig.dir/libraries/AP_BoardConfig/AP_BoardConfig.cpp.s
 .PHONY : libraries/AP_BoardConfig/AP_BoardConfig.cpp.s
 
@@ -13099,6 +14043,7 @@ libraries/AP_BoardConfig/IMU_heater.o: libraries/AP_BoardConfig/IMU_heater.cpp.o
 
 # target to build an object file
 libraries/AP_BoardConfig/IMU_heater.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig_Plane.dir/build.make CMakeFiles/AP_BoardConfig_Plane.dir/libraries/AP_BoardConfig/IMU_heater.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig.dir/build.make CMakeFiles/AP_BoardConfig.dir/libraries/AP_BoardConfig/IMU_heater.cpp.o
 .PHONY : libraries/AP_BoardConfig/IMU_heater.cpp.o
 
@@ -13107,6 +14052,7 @@ libraries/AP_BoardConfig/IMU_heater.i: libraries/AP_BoardConfig/IMU_heater.cpp.i
 
 # target to preprocess a source file
 libraries/AP_BoardConfig/IMU_heater.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig_Plane.dir/build.make CMakeFiles/AP_BoardConfig_Plane.dir/libraries/AP_BoardConfig/IMU_heater.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig.dir/build.make CMakeFiles/AP_BoardConfig.dir/libraries/AP_BoardConfig/IMU_heater.cpp.i
 .PHONY : libraries/AP_BoardConfig/IMU_heater.cpp.i
 
@@ -13115,6 +14061,7 @@ libraries/AP_BoardConfig/IMU_heater.s: libraries/AP_BoardConfig/IMU_heater.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_BoardConfig/IMU_heater.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig_Plane.dir/build.make CMakeFiles/AP_BoardConfig_Plane.dir/libraries/AP_BoardConfig/IMU_heater.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig.dir/build.make CMakeFiles/AP_BoardConfig.dir/libraries/AP_BoardConfig/IMU_heater.cpp.s
 .PHONY : libraries/AP_BoardConfig/IMU_heater.cpp.s
 
@@ -13123,6 +14070,7 @@ libraries/AP_BoardConfig/board_drivers.o: libraries/AP_BoardConfig/board_drivers
 
 # target to build an object file
 libraries/AP_BoardConfig/board_drivers.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig_Plane.dir/build.make CMakeFiles/AP_BoardConfig_Plane.dir/libraries/AP_BoardConfig/board_drivers.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig.dir/build.make CMakeFiles/AP_BoardConfig.dir/libraries/AP_BoardConfig/board_drivers.cpp.o
 .PHONY : libraries/AP_BoardConfig/board_drivers.cpp.o
 
@@ -13131,6 +14079,7 @@ libraries/AP_BoardConfig/board_drivers.i: libraries/AP_BoardConfig/board_drivers
 
 # target to preprocess a source file
 libraries/AP_BoardConfig/board_drivers.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig_Plane.dir/build.make CMakeFiles/AP_BoardConfig_Plane.dir/libraries/AP_BoardConfig/board_drivers.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig.dir/build.make CMakeFiles/AP_BoardConfig.dir/libraries/AP_BoardConfig/board_drivers.cpp.i
 .PHONY : libraries/AP_BoardConfig/board_drivers.cpp.i
 
@@ -13139,6 +14088,7 @@ libraries/AP_BoardConfig/board_drivers.s: libraries/AP_BoardConfig/board_drivers
 
 # target to generate assembly for a file
 libraries/AP_BoardConfig/board_drivers.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig_Plane.dir/build.make CMakeFiles/AP_BoardConfig_Plane.dir/libraries/AP_BoardConfig/board_drivers.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_BoardConfig.dir/build.make CMakeFiles/AP_BoardConfig.dir/libraries/AP_BoardConfig/board_drivers.cpp.s
 .PHONY : libraries/AP_BoardConfig/board_drivers.cpp.s
 
@@ -14660,6 +15610,7 @@ libraries/AP_DAL/AP_DAL.o: libraries/AP_DAL/AP_DAL.cpp.o
 # target to build an object file
 libraries/AP_DAL/AP_DAL.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL.cpp.o
 
 libraries/AP_DAL/AP_DAL.i: libraries/AP_DAL/AP_DAL.cpp.i
@@ -14668,6 +15619,7 @@ libraries/AP_DAL/AP_DAL.i: libraries/AP_DAL/AP_DAL.cpp.i
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL.cpp.i
 
 libraries/AP_DAL/AP_DAL.s: libraries/AP_DAL/AP_DAL.cpp.s
@@ -14676,6 +15628,7 @@ libraries/AP_DAL/AP_DAL.s: libraries/AP_DAL/AP_DAL.cpp.s
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL.cpp.s
 
 libraries/AP_DAL/AP_DAL_Airspeed.o: libraries/AP_DAL/AP_DAL_Airspeed.cpp.o
@@ -14684,6 +15637,7 @@ libraries/AP_DAL/AP_DAL_Airspeed.o: libraries/AP_DAL/AP_DAL_Airspeed.cpp.o
 # target to build an object file
 libraries/AP_DAL/AP_DAL_Airspeed.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_Airspeed.cpp.o
 
 libraries/AP_DAL/AP_DAL_Airspeed.i: libraries/AP_DAL/AP_DAL_Airspeed.cpp.i
@@ -14692,6 +15646,7 @@ libraries/AP_DAL/AP_DAL_Airspeed.i: libraries/AP_DAL/AP_DAL_Airspeed.cpp.i
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_Airspeed.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_Airspeed.cpp.i
 
 libraries/AP_DAL/AP_DAL_Airspeed.s: libraries/AP_DAL/AP_DAL_Airspeed.cpp.s
@@ -14700,6 +15655,7 @@ libraries/AP_DAL/AP_DAL_Airspeed.s: libraries/AP_DAL/AP_DAL_Airspeed.cpp.s
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_Airspeed.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Airspeed.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_Airspeed.cpp.s
 
 libraries/AP_DAL/AP_DAL_Baro.o: libraries/AP_DAL/AP_DAL_Baro.cpp.o
@@ -14708,6 +15664,7 @@ libraries/AP_DAL/AP_DAL_Baro.o: libraries/AP_DAL/AP_DAL_Baro.cpp.o
 # target to build an object file
 libraries/AP_DAL/AP_DAL_Baro.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_Baro.cpp.o
 
 libraries/AP_DAL/AP_DAL_Baro.i: libraries/AP_DAL/AP_DAL_Baro.cpp.i
@@ -14716,6 +15673,7 @@ libraries/AP_DAL/AP_DAL_Baro.i: libraries/AP_DAL/AP_DAL_Baro.cpp.i
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_Baro.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_Baro.cpp.i
 
 libraries/AP_DAL/AP_DAL_Baro.s: libraries/AP_DAL/AP_DAL_Baro.cpp.s
@@ -14724,6 +15682,7 @@ libraries/AP_DAL/AP_DAL_Baro.s: libraries/AP_DAL/AP_DAL_Baro.cpp.s
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_Baro.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Baro.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_Baro.cpp.s
 
 libraries/AP_DAL/AP_DAL_Beacon.o: libraries/AP_DAL/AP_DAL_Beacon.cpp.o
@@ -14732,6 +15691,7 @@ libraries/AP_DAL/AP_DAL_Beacon.o: libraries/AP_DAL/AP_DAL_Beacon.cpp.o
 # target to build an object file
 libraries/AP_DAL/AP_DAL_Beacon.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_Beacon.cpp.o
 
 libraries/AP_DAL/AP_DAL_Beacon.i: libraries/AP_DAL/AP_DAL_Beacon.cpp.i
@@ -14740,6 +15700,7 @@ libraries/AP_DAL/AP_DAL_Beacon.i: libraries/AP_DAL/AP_DAL_Beacon.cpp.i
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_Beacon.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_Beacon.cpp.i
 
 libraries/AP_DAL/AP_DAL_Beacon.s: libraries/AP_DAL/AP_DAL_Beacon.cpp.s
@@ -14748,6 +15709,7 @@ libraries/AP_DAL/AP_DAL_Beacon.s: libraries/AP_DAL/AP_DAL_Beacon.cpp.s
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_Beacon.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Beacon.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_Beacon.cpp.s
 
 libraries/AP_DAL/AP_DAL_Compass.o: libraries/AP_DAL/AP_DAL_Compass.cpp.o
@@ -14756,6 +15718,7 @@ libraries/AP_DAL/AP_DAL_Compass.o: libraries/AP_DAL/AP_DAL_Compass.cpp.o
 # target to build an object file
 libraries/AP_DAL/AP_DAL_Compass.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_Compass.cpp.o
 
 libraries/AP_DAL/AP_DAL_Compass.i: libraries/AP_DAL/AP_DAL_Compass.cpp.i
@@ -14764,6 +15727,7 @@ libraries/AP_DAL/AP_DAL_Compass.i: libraries/AP_DAL/AP_DAL_Compass.cpp.i
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_Compass.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_Compass.cpp.i
 
 libraries/AP_DAL/AP_DAL_Compass.s: libraries/AP_DAL/AP_DAL_Compass.cpp.s
@@ -14772,6 +15736,7 @@ libraries/AP_DAL/AP_DAL_Compass.s: libraries/AP_DAL/AP_DAL_Compass.cpp.s
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_Compass.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_Compass.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_Compass.cpp.s
 
 libraries/AP_DAL/AP_DAL_GPS.o: libraries/AP_DAL/AP_DAL_GPS.cpp.o
@@ -14780,6 +15745,7 @@ libraries/AP_DAL/AP_DAL_GPS.o: libraries/AP_DAL/AP_DAL_GPS.cpp.o
 # target to build an object file
 libraries/AP_DAL/AP_DAL_GPS.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_GPS.cpp.o
 
 libraries/AP_DAL/AP_DAL_GPS.i: libraries/AP_DAL/AP_DAL_GPS.cpp.i
@@ -14788,6 +15754,7 @@ libraries/AP_DAL/AP_DAL_GPS.i: libraries/AP_DAL/AP_DAL_GPS.cpp.i
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_GPS.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_GPS.cpp.i
 
 libraries/AP_DAL/AP_DAL_GPS.s: libraries/AP_DAL/AP_DAL_GPS.cpp.s
@@ -14796,6 +15763,7 @@ libraries/AP_DAL/AP_DAL_GPS.s: libraries/AP_DAL/AP_DAL_GPS.cpp.s
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_GPS.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_GPS.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_GPS.cpp.s
 
 libraries/AP_DAL/AP_DAL_InertialSensor.o: libraries/AP_DAL/AP_DAL_InertialSensor.cpp.o
@@ -14804,6 +15772,7 @@ libraries/AP_DAL/AP_DAL_InertialSensor.o: libraries/AP_DAL/AP_DAL_InertialSensor
 # target to build an object file
 libraries/AP_DAL/AP_DAL_InertialSensor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_InertialSensor.cpp.o
 
 libraries/AP_DAL/AP_DAL_InertialSensor.i: libraries/AP_DAL/AP_DAL_InertialSensor.cpp.i
@@ -14812,6 +15781,7 @@ libraries/AP_DAL/AP_DAL_InertialSensor.i: libraries/AP_DAL/AP_DAL_InertialSensor
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_InertialSensor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_InertialSensor.cpp.i
 
 libraries/AP_DAL/AP_DAL_InertialSensor.s: libraries/AP_DAL/AP_DAL_InertialSensor.cpp.s
@@ -14820,6 +15790,7 @@ libraries/AP_DAL/AP_DAL_InertialSensor.s: libraries/AP_DAL/AP_DAL_InertialSensor
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_InertialSensor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_InertialSensor.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_InertialSensor.cpp.s
 
 libraries/AP_DAL/AP_DAL_RangeFinder.o: libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
@@ -14828,6 +15799,7 @@ libraries/AP_DAL/AP_DAL_RangeFinder.o: libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
 # target to build an object file
 libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_RangeFinder.cpp.o
 
 libraries/AP_DAL/AP_DAL_RangeFinder.i: libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
@@ -14836,6 +15808,7 @@ libraries/AP_DAL/AP_DAL_RangeFinder.i: libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_RangeFinder.cpp.i
 
 libraries/AP_DAL/AP_DAL_RangeFinder.s: libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
@@ -14844,6 +15817,7 @@ libraries/AP_DAL/AP_DAL_RangeFinder.s: libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_RangeFinder.cpp.s
 
 libraries/AP_DAL/AP_DAL_VisualOdom.o: libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
@@ -14852,6 +15826,7 @@ libraries/AP_DAL/AP_DAL_VisualOdom.o: libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
 # target to build an object file
 libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
 .PHONY : libraries/AP_DAL/AP_DAL_VisualOdom.cpp.o
 
 libraries/AP_DAL/AP_DAL_VisualOdom.i: libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
@@ -14860,6 +15835,7 @@ libraries/AP_DAL/AP_DAL_VisualOdom.i: libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
 # target to preprocess a source file
 libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
 .PHONY : libraries/AP_DAL/AP_DAL_VisualOdom.cpp.i
 
 libraries/AP_DAL/AP_DAL_VisualOdom.s: libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
@@ -14868,6 +15844,7 @@ libraries/AP_DAL/AP_DAL_VisualOdom.s: libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
 # target to generate assembly for a file
 libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL.dir/build.make CMakeFiles/AP_DAL.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_DAL_Plane.dir/build.make CMakeFiles/AP_DAL_Plane.dir/libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
 .PHONY : libraries/AP_DAL/AP_DAL_VisualOdom.cpp.s
 
 libraries/AP_DDS/AP_DDS_Client.o: libraries/AP_DDS/AP_DDS_Client.cpp.o
@@ -15476,6 +16453,7 @@ libraries/AP_ESC_Telem/AP_ESC_Telem.o: libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.o
 # target to build an object file
 libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem.dir/build.make CMakeFiles/AP_ESC_Telem.dir/libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem_Plane.dir/build.make CMakeFiles/AP_ESC_Telem_Plane.dir/libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.o
 .PHONY : libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.o
 
 libraries/AP_ESC_Telem/AP_ESC_Telem.i: libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.i
@@ -15484,6 +16462,7 @@ libraries/AP_ESC_Telem/AP_ESC_Telem.i: libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.i
 # target to preprocess a source file
 libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem.dir/build.make CMakeFiles/AP_ESC_Telem.dir/libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem_Plane.dir/build.make CMakeFiles/AP_ESC_Telem_Plane.dir/libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.i
 .PHONY : libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.i
 
 libraries/AP_ESC_Telem/AP_ESC_Telem.s: libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.s
@@ -15492,6 +16471,7 @@ libraries/AP_ESC_Telem/AP_ESC_Telem.s: libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.s
 # target to generate assembly for a file
 libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem.dir/build.make CMakeFiles/AP_ESC_Telem.dir/libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem_Plane.dir/build.make CMakeFiles/AP_ESC_Telem_Plane.dir/libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.s
 .PHONY : libraries/AP_ESC_Telem/AP_ESC_Telem.cpp.s
 
 libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.o: libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.o
@@ -15500,6 +16480,7 @@ libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.o: libraries/AP_ESC_Telem/AP_ESC_Tel
 # target to build an object file
 libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem.dir/build.make CMakeFiles/AP_ESC_Telem.dir/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem_Plane.dir/build.make CMakeFiles/AP_ESC_Telem_Plane.dir/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.o
 .PHONY : libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.o
 
 libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.i: libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.i
@@ -15508,6 +16489,7 @@ libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.i: libraries/AP_ESC_Telem/AP_ESC_Tel
 # target to preprocess a source file
 libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem.dir/build.make CMakeFiles/AP_ESC_Telem.dir/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem_Plane.dir/build.make CMakeFiles/AP_ESC_Telem_Plane.dir/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.i
 .PHONY : libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.i
 
 libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.s: libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.s
@@ -15516,6 +16498,7 @@ libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.s: libraries/AP_ESC_Telem/AP_ESC_Tel
 # target to generate assembly for a file
 libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem.dir/build.make CMakeFiles/AP_ESC_Telem.dir/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem_Plane.dir/build.make CMakeFiles/AP_ESC_Telem_Plane.dir/libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.s
 .PHONY : libraries/AP_ESC_Telem/AP_ESC_Telem_Backend.cpp.s
 
 libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.o: libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.o
@@ -15524,6 +16507,7 @@ libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.o: libraries/AP_ESC_Telem/AP_ESC_Telem_
 # target to build an object file
 libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem.dir/build.make CMakeFiles/AP_ESC_Telem.dir/libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem_Plane.dir/build.make CMakeFiles/AP_ESC_Telem_Plane.dir/libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.o
 .PHONY : libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.o
 
 libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.i: libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.i
@@ -15532,6 +16516,7 @@ libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.i: libraries/AP_ESC_Telem/AP_ESC_Telem_
 # target to preprocess a source file
 libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem.dir/build.make CMakeFiles/AP_ESC_Telem.dir/libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem_Plane.dir/build.make CMakeFiles/AP_ESC_Telem_Plane.dir/libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.i
 .PHONY : libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.i
 
 libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.s: libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.s
@@ -15540,6 +16525,7 @@ libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.s: libraries/AP_ESC_Telem/AP_ESC_Telem_
 # target to generate assembly for a file
 libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem.dir/build.make CMakeFiles/AP_ESC_Telem.dir/libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ESC_Telem_Plane.dir/build.make CMakeFiles/AP_ESC_Telem_Plane.dir/libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.s
 .PHONY : libraries/AP_ESC_Telem/AP_ESC_Telem_SITL.cpp.s
 
 libraries/AP_ExternalAHRS/AP_ExternalAHRS.o: libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp.o
@@ -15547,6 +16533,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS.o: libraries/AP_ExternalAHRS/AP_Extern
 
 # target to build an object file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp.o
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp.o
 
@@ -15555,6 +16542,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS.i: libraries/AP_ExternalAHRS/AP_Extern
 
 # target to preprocess a source file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp.i
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp.i
 
@@ -15563,6 +16551,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS.s: libraries/AP_ExternalAHRS/AP_Extern
 
 # target to generate assembly for a file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp.s
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS.cpp.s
 
@@ -15571,6 +16560,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.o: libraries/AP_ExternalA
 
 # target to build an object file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.o
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.o
 
@@ -15579,6 +16569,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.i: libraries/AP_ExternalA
 
 # target to preprocess a source file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.i
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.i
 
@@ -15587,6 +16578,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.s: libraries/AP_ExternalA
 
 # target to generate assembly for a file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.s
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_InertialLabs.cpp.s
 
@@ -15595,6 +16587,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.o: libraries/AP_ExternalA
 
 # target to build an object file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.cpp.o
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.cpp.o
 
@@ -15603,6 +16596,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.i: libraries/AP_ExternalA
 
 # target to preprocess a source file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.cpp.i
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.cpp.i
 
@@ -15611,6 +16605,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.s: libraries/AP_ExternalA
 
 # target to generate assembly for a file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.cpp.s
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain5.cpp.s
 
@@ -15619,6 +16614,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.o: libraries/AP_ExternalA
 
 # target to build an object file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.cpp.o
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.cpp.o
 
@@ -15627,6 +16623,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.i: libraries/AP_ExternalA
 
 # target to preprocess a source file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.cpp.i
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.cpp.i
 
@@ -15635,6 +16632,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.s: libraries/AP_ExternalA
 
 # target to generate assembly for a file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.cpp.s
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_MicroStrain7.cpp.s
 
@@ -15643,6 +16641,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.o: libraries/AP_ExternalAHRS/AP_Ex
 
 # target to build an object file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.o
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.o
 
@@ -15651,6 +16650,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.i: libraries/AP_ExternalAHRS/AP_Ex
 
 # target to preprocess a source file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.i
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.i
 
@@ -15659,6 +16659,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.s: libraries/AP_ExternalAHRS/AP_Ex
 
 # target to generate assembly for a file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.s
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_SBG.cpp.s
 
@@ -15667,6 +16668,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.o: libraries/AP_ExternalAHRS
 
 # target to build an object file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.cpp.o
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.cpp.o
 
@@ -15675,6 +16677,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.i: libraries/AP_ExternalAHRS
 
 # target to preprocess a source file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.cpp.i
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.cpp.i
 
@@ -15683,6 +16686,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.s: libraries/AP_ExternalAHRS
 
 # target to generate assembly for a file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.cpp.s
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_VectorNav.cpp.s
 
@@ -15691,6 +16695,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.o: libraries/AP_ExternalAHRS/A
 
 # target to build an object file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.cpp.o
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.cpp.o
 
@@ -15699,6 +16704,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.i: libraries/AP_ExternalAHRS/A
 
 # target to preprocess a source file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.cpp.i
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.cpp.i
 
@@ -15707,6 +16713,7 @@ libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.s: libraries/AP_ExternalAHRS/A
 
 # target to generate assembly for a file
 libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.cpp.s
 .PHONY : libraries/AP_ExternalAHRS/AP_ExternalAHRS_backend.cpp.s
 
@@ -15715,6 +16722,7 @@ libraries/AP_ExternalAHRS/MicroStrain_common.o: libraries/AP_ExternalAHRS/MicroS
 
 # target to build an object file
 libraries/AP_ExternalAHRS/MicroStrain_common.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/MicroStrain_common.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/MicroStrain_common.cpp.o
 .PHONY : libraries/AP_ExternalAHRS/MicroStrain_common.cpp.o
 
@@ -15723,6 +16731,7 @@ libraries/AP_ExternalAHRS/MicroStrain_common.i: libraries/AP_ExternalAHRS/MicroS
 
 # target to preprocess a source file
 libraries/AP_ExternalAHRS/MicroStrain_common.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/MicroStrain_common.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/MicroStrain_common.cpp.i
 .PHONY : libraries/AP_ExternalAHRS/MicroStrain_common.cpp.i
 
@@ -15731,6 +16740,7 @@ libraries/AP_ExternalAHRS/MicroStrain_common.s: libraries/AP_ExternalAHRS/MicroS
 
 # target to generate assembly for a file
 libraries/AP_ExternalAHRS/MicroStrain_common.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS_Plane.dir/build.make CMakeFiles/AP_ExternalAHRS_Plane.dir/libraries/AP_ExternalAHRS/MicroStrain_common.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_ExternalAHRS.dir/build.make CMakeFiles/AP_ExternalAHRS.dir/libraries/AP_ExternalAHRS/MicroStrain_common.cpp.s
 .PHONY : libraries/AP_ExternalAHRS/MicroStrain_common.cpp.s
 
@@ -15787,6 +16797,7 @@ libraries/AP_Filesystem/AP_Filesystem.o: libraries/AP_Filesystem/AP_Filesystem.c
 
 # target to build an object file
 libraries/AP_Filesystem/AP_Filesystem.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem.cpp.o
 .PHONY : libraries/AP_Filesystem/AP_Filesystem.cpp.o
 
@@ -15795,6 +16806,7 @@ libraries/AP_Filesystem/AP_Filesystem.i: libraries/AP_Filesystem/AP_Filesystem.c
 
 # target to preprocess a source file
 libraries/AP_Filesystem/AP_Filesystem.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem.cpp.i
 .PHONY : libraries/AP_Filesystem/AP_Filesystem.cpp.i
 
@@ -15803,6 +16815,7 @@ libraries/AP_Filesystem/AP_Filesystem.s: libraries/AP_Filesystem/AP_Filesystem.c
 
 # target to generate assembly for a file
 libraries/AP_Filesystem/AP_Filesystem.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem.cpp.s
 .PHONY : libraries/AP_Filesystem/AP_Filesystem.cpp.s
 
@@ -15811,6 +16824,7 @@ libraries/AP_Filesystem/AP_Filesystem_ESP32.o: libraries/AP_Filesystem/AP_Filesy
 
 # target to build an object file
 libraries/AP_Filesystem/AP_Filesystem_ESP32.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_ESP32.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_ESP32.cpp.o
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_ESP32.cpp.o
 
@@ -15819,6 +16833,7 @@ libraries/AP_Filesystem/AP_Filesystem_ESP32.i: libraries/AP_Filesystem/AP_Filesy
 
 # target to preprocess a source file
 libraries/AP_Filesystem/AP_Filesystem_ESP32.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_ESP32.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_ESP32.cpp.i
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_ESP32.cpp.i
 
@@ -15827,6 +16842,7 @@ libraries/AP_Filesystem/AP_Filesystem_ESP32.s: libraries/AP_Filesystem/AP_Filesy
 
 # target to generate assembly for a file
 libraries/AP_Filesystem/AP_Filesystem_ESP32.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_ESP32.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_ESP32.cpp.s
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_ESP32.cpp.s
 
@@ -15835,6 +16851,7 @@ libraries/AP_Filesystem/AP_Filesystem_FATFS.o: libraries/AP_Filesystem/AP_Filesy
 
 # target to build an object file
 libraries/AP_Filesystem/AP_Filesystem_FATFS.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_FATFS.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_FATFS.cpp.o
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_FATFS.cpp.o
 
@@ -15843,6 +16860,7 @@ libraries/AP_Filesystem/AP_Filesystem_FATFS.i: libraries/AP_Filesystem/AP_Filesy
 
 # target to preprocess a source file
 libraries/AP_Filesystem/AP_Filesystem_FATFS.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_FATFS.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_FATFS.cpp.i
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_FATFS.cpp.i
 
@@ -15851,6 +16869,7 @@ libraries/AP_Filesystem/AP_Filesystem_FATFS.s: libraries/AP_Filesystem/AP_Filesy
 
 # target to generate assembly for a file
 libraries/AP_Filesystem/AP_Filesystem_FATFS.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_FATFS.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_FATFS.cpp.s
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_FATFS.cpp.s
 
@@ -15859,6 +16878,7 @@ libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.o: libraries/AP_Files
 
 # target to build an object file
 libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.cpp.o
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.cpp.o
 
@@ -15867,6 +16887,7 @@ libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.i: libraries/AP_Files
 
 # target to preprocess a source file
 libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.cpp.i
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.cpp.i
 
@@ -15875,6 +16896,7 @@ libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.s: libraries/AP_Files
 
 # target to generate assembly for a file
 libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.cpp.s
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_FlashMemory_LittleFS.cpp.s
 
@@ -15883,6 +16905,7 @@ libraries/AP_Filesystem/AP_Filesystem_Mission.o: libraries/AP_Filesystem/AP_File
 
 # target to build an object file
 libraries/AP_Filesystem/AP_Filesystem_Mission.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_Mission.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_Mission.cpp.o
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_Mission.cpp.o
 
@@ -15891,6 +16914,7 @@ libraries/AP_Filesystem/AP_Filesystem_Mission.i: libraries/AP_Filesystem/AP_File
 
 # target to preprocess a source file
 libraries/AP_Filesystem/AP_Filesystem_Mission.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_Mission.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_Mission.cpp.i
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_Mission.cpp.i
 
@@ -15899,6 +16923,7 @@ libraries/AP_Filesystem/AP_Filesystem_Mission.s: libraries/AP_Filesystem/AP_File
 
 # target to generate assembly for a file
 libraries/AP_Filesystem/AP_Filesystem_Mission.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_Mission.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_Mission.cpp.s
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_Mission.cpp.s
 
@@ -15907,6 +16932,7 @@ libraries/AP_Filesystem/AP_Filesystem_Param.o: libraries/AP_Filesystem/AP_Filesy
 
 # target to build an object file
 libraries/AP_Filesystem/AP_Filesystem_Param.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_Param.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_Param.cpp.o
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_Param.cpp.o
 
@@ -15915,6 +16941,7 @@ libraries/AP_Filesystem/AP_Filesystem_Param.i: libraries/AP_Filesystem/AP_Filesy
 
 # target to preprocess a source file
 libraries/AP_Filesystem/AP_Filesystem_Param.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_Param.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_Param.cpp.i
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_Param.cpp.i
 
@@ -15923,6 +16950,7 @@ libraries/AP_Filesystem/AP_Filesystem_Param.s: libraries/AP_Filesystem/AP_Filesy
 
 # target to generate assembly for a file
 libraries/AP_Filesystem/AP_Filesystem_Param.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_Param.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_Param.cpp.s
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_Param.cpp.s
 
@@ -15931,6 +16959,7 @@ libraries/AP_Filesystem/AP_Filesystem_ROMFS.o: libraries/AP_Filesystem/AP_Filesy
 
 # target to build an object file
 libraries/AP_Filesystem/AP_Filesystem_ROMFS.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_ROMFS.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_ROMFS.cpp.o
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_ROMFS.cpp.o
 
@@ -15939,6 +16968,7 @@ libraries/AP_Filesystem/AP_Filesystem_ROMFS.i: libraries/AP_Filesystem/AP_Filesy
 
 # target to preprocess a source file
 libraries/AP_Filesystem/AP_Filesystem_ROMFS.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_ROMFS.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_ROMFS.cpp.i
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_ROMFS.cpp.i
 
@@ -15947,6 +16977,7 @@ libraries/AP_Filesystem/AP_Filesystem_ROMFS.s: libraries/AP_Filesystem/AP_Filesy
 
 # target to generate assembly for a file
 libraries/AP_Filesystem/AP_Filesystem_ROMFS.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_ROMFS.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_ROMFS.cpp.s
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_ROMFS.cpp.s
 
@@ -15955,6 +16986,7 @@ libraries/AP_Filesystem/AP_Filesystem_Sys.o: libraries/AP_Filesystem/AP_Filesyst
 
 # target to build an object file
 libraries/AP_Filesystem/AP_Filesystem_Sys.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_Sys.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_Sys.cpp.o
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_Sys.cpp.o
 
@@ -15963,6 +16995,7 @@ libraries/AP_Filesystem/AP_Filesystem_Sys.i: libraries/AP_Filesystem/AP_Filesyst
 
 # target to preprocess a source file
 libraries/AP_Filesystem/AP_Filesystem_Sys.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_Sys.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_Sys.cpp.i
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_Sys.cpp.i
 
@@ -15971,6 +17004,7 @@ libraries/AP_Filesystem/AP_Filesystem_Sys.s: libraries/AP_Filesystem/AP_Filesyst
 
 # target to generate assembly for a file
 libraries/AP_Filesystem/AP_Filesystem_Sys.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_Sys.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_Sys.cpp.s
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_Sys.cpp.s
 
@@ -15979,6 +17013,7 @@ libraries/AP_Filesystem/AP_Filesystem_backend.o: libraries/AP_Filesystem/AP_File
 
 # target to build an object file
 libraries/AP_Filesystem/AP_Filesystem_backend.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_backend.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_backend.cpp.o
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_backend.cpp.o
 
@@ -15987,6 +17022,7 @@ libraries/AP_Filesystem/AP_Filesystem_backend.i: libraries/AP_Filesystem/AP_File
 
 # target to preprocess a source file
 libraries/AP_Filesystem/AP_Filesystem_backend.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_backend.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_backend.cpp.i
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_backend.cpp.i
 
@@ -15995,6 +17031,7 @@ libraries/AP_Filesystem/AP_Filesystem_backend.s: libraries/AP_Filesystem/AP_File
 
 # target to generate assembly for a file
 libraries/AP_Filesystem/AP_Filesystem_backend.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_backend.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_backend.cpp.s
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_backend.cpp.s
 
@@ -16003,6 +17040,7 @@ libraries/AP_Filesystem/AP_Filesystem_posix.o: libraries/AP_Filesystem/AP_Filesy
 
 # target to build an object file
 libraries/AP_Filesystem/AP_Filesystem_posix.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.o
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_posix.cpp.o
 
@@ -16011,6 +17049,7 @@ libraries/AP_Filesystem/AP_Filesystem_posix.i: libraries/AP_Filesystem/AP_Filesy
 
 # target to preprocess a source file
 libraries/AP_Filesystem/AP_Filesystem_posix.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.i
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_posix.cpp.i
 
@@ -16019,6 +17058,7 @@ libraries/AP_Filesystem/AP_Filesystem_posix.s: libraries/AP_Filesystem/AP_Filesy
 
 # target to generate assembly for a file
 libraries/AP_Filesystem/AP_Filesystem_posix.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/AP_Filesystem_posix.cpp.s
 .PHONY : libraries/AP_Filesystem/AP_Filesystem_posix.cpp.s
 
@@ -16027,6 +17067,7 @@ libraries/AP_Filesystem/posix_compat.o: libraries/AP_Filesystem/posix_compat.cpp
 
 # target to build an object file
 libraries/AP_Filesystem/posix_compat.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/posix_compat.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/posix_compat.cpp.o
 .PHONY : libraries/AP_Filesystem/posix_compat.cpp.o
 
@@ -16035,6 +17076,7 @@ libraries/AP_Filesystem/posix_compat.i: libraries/AP_Filesystem/posix_compat.cpp
 
 # target to preprocess a source file
 libraries/AP_Filesystem/posix_compat.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/posix_compat.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/posix_compat.cpp.i
 .PHONY : libraries/AP_Filesystem/posix_compat.cpp.i
 
@@ -16043,6 +17085,7 @@ libraries/AP_Filesystem/posix_compat.s: libraries/AP_Filesystem/posix_compat.cpp
 
 # target to generate assembly for a file
 libraries/AP_Filesystem/posix_compat.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem_Plane.dir/build.make CMakeFiles/AP_Filesystem_Plane.dir/libraries/AP_Filesystem/posix_compat.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Filesystem.dir/build.make CMakeFiles/AP_Filesystem.dir/libraries/AP_Filesystem/posix_compat.cpp.s
 .PHONY : libraries/AP_Filesystem/posix_compat.cpp.s
 
@@ -16075,6 +17118,7 @@ libraries/AP_Follow/AP_Follow.o: libraries/AP_Follow/AP_Follow.cpp.o
 
 # target to build an object file
 libraries/AP_Follow/AP_Follow.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow_Plane.dir/build.make CMakeFiles/AP_Follow_Plane.dir/libraries/AP_Follow/AP_Follow.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow.dir/build.make CMakeFiles/AP_Follow.dir/libraries/AP_Follow/AP_Follow.cpp.o
 .PHONY : libraries/AP_Follow/AP_Follow.cpp.o
 
@@ -16083,6 +17127,7 @@ libraries/AP_Follow/AP_Follow.i: libraries/AP_Follow/AP_Follow.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Follow/AP_Follow.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow_Plane.dir/build.make CMakeFiles/AP_Follow_Plane.dir/libraries/AP_Follow/AP_Follow.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow.dir/build.make CMakeFiles/AP_Follow.dir/libraries/AP_Follow/AP_Follow.cpp.i
 .PHONY : libraries/AP_Follow/AP_Follow.cpp.i
 
@@ -16091,6 +17136,7 @@ libraries/AP_Follow/AP_Follow.s: libraries/AP_Follow/AP_Follow.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Follow/AP_Follow.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow_Plane.dir/build.make CMakeFiles/AP_Follow_Plane.dir/libraries/AP_Follow/AP_Follow.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Follow.dir/build.make CMakeFiles/AP_Follow.dir/libraries/AP_Follow/AP_Follow.cpp.s
 .PHONY : libraries/AP_Follow/AP_Follow.cpp.s
 
@@ -16099,6 +17145,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_Backend.o: libraries/AP_Frsky_Telem/AP_Frsky_B
 
 # target to build an object file
 libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp.o
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp.o
 
@@ -16107,6 +17154,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_Backend.i: libraries/AP_Frsky_Telem/AP_Frsky_B
 
 # target to preprocess a source file
 libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp.i
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp.i
 
@@ -16115,6 +17163,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_Backend.s: libraries/AP_Frsky_Telem/AP_Frsky_B
 
 # target to generate assembly for a file
 libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp.s
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_Backend.cpp.s
 
@@ -16123,6 +17172,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_D.o: libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.o
 
 # target to build an object file
 libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.o
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.o
 
@@ -16131,6 +17181,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_D.i: libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.i
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.i
 
@@ -16139,6 +17190,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_D.s: libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.s
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_D.cpp.s
 
@@ -16147,6 +17199,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.o: libraries/AP_Frsky_Telem/
 
 # target to build an object file
 libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.cpp.o
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.cpp.o
 
@@ -16155,6 +17208,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.i: libraries/AP_Frsky_Telem/
 
 # target to preprocess a source file
 libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.cpp.i
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.cpp.i
 
@@ -16163,6 +17217,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.s: libraries/AP_Frsky_Telem/
 
 # target to generate assembly for a file
 libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.cpp.s
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_MAVliteMsgHandler.cpp.s
 
@@ -16171,6 +17226,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.o: libraries/AP_Frsky_T
 
 # target to build an object file
 libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.cpp.o
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.cpp.o
 
@@ -16179,6 +17235,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.i: libraries/AP_Frsky_T
 
 # target to preprocess a source file
 libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.cpp.i
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.cpp.i
 
@@ -16187,6 +17244,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.s: libraries/AP_Frsky_T
 
 # target to generate assembly for a file
 libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.cpp.s
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_MAVliteToSPort.cpp.s
 
@@ -16195,6 +17253,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.o: libraries/AP_Frsky_Telem/AP
 
 # target to build an object file
 libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.cpp.o
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.cpp.o
 
@@ -16203,6 +17262,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.i: libraries/AP_Frsky_Telem/AP
 
 # target to preprocess a source file
 libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.cpp.i
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.cpp.i
 
@@ -16211,6 +17271,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.s: libraries/AP_Frsky_Telem/AP
 
 # target to generate assembly for a file
 libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.cpp.s
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_Message.cpp.s
 
@@ -16219,6 +17280,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.o: libraries/AP_Frsky_T
 
 # target to build an object file
 libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.cpp.o
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.cpp.o
 
@@ -16227,6 +17289,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.i: libraries/AP_Frsky_T
 
 # target to preprocess a source file
 libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.cpp.i
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.cpp.i
 
@@ -16235,6 +17298,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.s: libraries/AP_Frsky_T
 
 # target to generate assembly for a file
 libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.cpp.s
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_MAVlite_SPortToMAVlite.cpp.s
 
@@ -16243,6 +17307,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_Parameters.o: libraries/AP_Frsky_Telem/AP_Frsk
 
 # target to build an object file
 libraries/AP_Frsky_Telem/AP_Frsky_Parameters.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_Parameters.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_Parameters.cpp.o
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_Parameters.cpp.o
 
@@ -16251,6 +17316,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_Parameters.i: libraries/AP_Frsky_Telem/AP_Frsk
 
 # target to preprocess a source file
 libraries/AP_Frsky_Telem/AP_Frsky_Parameters.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_Parameters.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_Parameters.cpp.i
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_Parameters.cpp.i
 
@@ -16259,6 +17325,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_Parameters.s: libraries/AP_Frsky_Telem/AP_Frsk
 
 # target to generate assembly for a file
 libraries/AP_Frsky_Telem/AP_Frsky_Parameters.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_Parameters.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_Parameters.cpp.s
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_Parameters.cpp.s
 
@@ -16267,6 +17334,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_SPort.o: libraries/AP_Frsky_Telem/AP_Frsky_SPo
 
 # target to build an object file
 libraries/AP_Frsky_Telem/AP_Frsky_SPort.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_SPort.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_SPort.cpp.o
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_SPort.cpp.o
 
@@ -16275,6 +17343,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_SPort.i: libraries/AP_Frsky_Telem/AP_Frsky_SPo
 
 # target to preprocess a source file
 libraries/AP_Frsky_Telem/AP_Frsky_SPort.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_SPort.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_SPort.cpp.i
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_SPort.cpp.i
 
@@ -16283,6 +17352,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_SPort.s: libraries/AP_Frsky_Telem/AP_Frsky_SPo
 
 # target to generate assembly for a file
 libraries/AP_Frsky_Telem/AP_Frsky_SPort.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_SPort.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_SPort.cpp.s
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_SPort.cpp.s
 
@@ -16291,6 +17361,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.o: libraries/AP_Frsky_Telem/
 
 # target to build an object file
 libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.o
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.o
 
@@ -16299,6 +17370,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.i: libraries/AP_Frsky_Telem/
 
 # target to preprocess a source file
 libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.i
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.i
 
@@ -16307,6 +17379,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.s: libraries/AP_Frsky_Telem/
 
 # target to generate assembly for a file
 libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.s
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_SPort_Passthrough.cpp.s
 
@@ -16315,6 +17388,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_Telem.o: libraries/AP_Frsky_Telem/AP_Frsky_Tel
 
 # target to build an object file
 libraries/AP_Frsky_Telem/AP_Frsky_Telem.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_Telem.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_Telem.cpp.o
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_Telem.cpp.o
 
@@ -16323,6 +17397,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_Telem.i: libraries/AP_Frsky_Telem/AP_Frsky_Tel
 
 # target to preprocess a source file
 libraries/AP_Frsky_Telem/AP_Frsky_Telem.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_Telem.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_Telem.cpp.i
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_Telem.cpp.i
 
@@ -16331,6 +17406,7 @@ libraries/AP_Frsky_Telem/AP_Frsky_Telem.s: libraries/AP_Frsky_Telem/AP_Frsky_Tel
 
 # target to generate assembly for a file
 libraries/AP_Frsky_Telem/AP_Frsky_Telem.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem_Plane.dir/build.make CMakeFiles/AP_Frsky_Telem_Plane.dir/libraries/AP_Frsky_Telem/AP_Frsky_Telem.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Frsky_Telem.dir/build.make CMakeFiles/AP_Frsky_Telem.dir/libraries/AP_Frsky_Telem/AP_Frsky_Telem.cpp.s
 .PHONY : libraries/AP_Frsky_Telem/AP_Frsky_Telem.cpp.s
 
@@ -17132,6 +18208,7 @@ libraries/AP_GyroFFT/AP_GyroFFT.o: libraries/AP_GyroFFT/AP_GyroFFT.cpp.o
 # target to build an object file
 libraries/AP_GyroFFT/AP_GyroFFT.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_GyroFFT.dir/build.make CMakeFiles/AP_GyroFFT.dir/libraries/AP_GyroFFT/AP_GyroFFT.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_GyroFFT_Plane.dir/build.make CMakeFiles/AP_GyroFFT_Plane.dir/libraries/AP_GyroFFT/AP_GyroFFT.cpp.o
 .PHONY : libraries/AP_GyroFFT/AP_GyroFFT.cpp.o
 
 libraries/AP_GyroFFT/AP_GyroFFT.i: libraries/AP_GyroFFT/AP_GyroFFT.cpp.i
@@ -17140,6 +18217,7 @@ libraries/AP_GyroFFT/AP_GyroFFT.i: libraries/AP_GyroFFT/AP_GyroFFT.cpp.i
 # target to preprocess a source file
 libraries/AP_GyroFFT/AP_GyroFFT.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_GyroFFT.dir/build.make CMakeFiles/AP_GyroFFT.dir/libraries/AP_GyroFFT/AP_GyroFFT.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_GyroFFT_Plane.dir/build.make CMakeFiles/AP_GyroFFT_Plane.dir/libraries/AP_GyroFFT/AP_GyroFFT.cpp.i
 .PHONY : libraries/AP_GyroFFT/AP_GyroFFT.cpp.i
 
 libraries/AP_GyroFFT/AP_GyroFFT.s: libraries/AP_GyroFFT/AP_GyroFFT.cpp.s
@@ -17148,6 +18226,7 @@ libraries/AP_GyroFFT/AP_GyroFFT.s: libraries/AP_GyroFFT/AP_GyroFFT.cpp.s
 # target to generate assembly for a file
 libraries/AP_GyroFFT/AP_GyroFFT.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_GyroFFT.dir/build.make CMakeFiles/AP_GyroFFT.dir/libraries/AP_GyroFFT/AP_GyroFFT.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_GyroFFT_Plane.dir/build.make CMakeFiles/AP_GyroFFT_Plane.dir/libraries/AP_GyroFFT/AP_GyroFFT.cpp.s
 .PHONY : libraries/AP_GyroFFT/AP_GyroFFT.cpp.s
 
 libraries/AP_HAL/CANIface.o: libraries/AP_HAL/CANIface.cpp.o
@@ -17155,6 +18234,7 @@ libraries/AP_HAL/CANIface.o: libraries/AP_HAL/CANIface.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/CANIface.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/CANIface.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/CANIface.cpp.o
 .PHONY : libraries/AP_HAL/CANIface.cpp.o
 
@@ -17163,6 +18243,7 @@ libraries/AP_HAL/CANIface.i: libraries/AP_HAL/CANIface.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/CANIface.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/CANIface.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/CANIface.cpp.i
 .PHONY : libraries/AP_HAL/CANIface.cpp.i
 
@@ -17171,6 +18252,7 @@ libraries/AP_HAL/CANIface.s: libraries/AP_HAL/CANIface.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/CANIface.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/CANIface.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/CANIface.cpp.s
 .PHONY : libraries/AP_HAL/CANIface.cpp.s
 
@@ -17179,6 +18261,7 @@ libraries/AP_HAL/DSP.o: libraries/AP_HAL/DSP.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/DSP.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/DSP.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/DSP.cpp.o
 .PHONY : libraries/AP_HAL/DSP.cpp.o
 
@@ -17187,6 +18270,7 @@ libraries/AP_HAL/DSP.i: libraries/AP_HAL/DSP.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/DSP.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/DSP.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/DSP.cpp.i
 .PHONY : libraries/AP_HAL/DSP.cpp.i
 
@@ -17195,6 +18279,7 @@ libraries/AP_HAL/DSP.s: libraries/AP_HAL/DSP.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/DSP.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/DSP.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/DSP.cpp.s
 .PHONY : libraries/AP_HAL/DSP.cpp.s
 
@@ -17203,6 +18288,7 @@ libraries/AP_HAL/Device.o: libraries/AP_HAL/Device.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/Device.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Device.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Device.cpp.o
 .PHONY : libraries/AP_HAL/Device.cpp.o
 
@@ -17211,6 +18297,7 @@ libraries/AP_HAL/Device.i: libraries/AP_HAL/Device.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/Device.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Device.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Device.cpp.i
 .PHONY : libraries/AP_HAL/Device.cpp.i
 
@@ -17219,6 +18306,7 @@ libraries/AP_HAL/Device.s: libraries/AP_HAL/Device.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/Device.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Device.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Device.cpp.s
 .PHONY : libraries/AP_HAL/Device.cpp.s
 
@@ -17227,6 +18315,7 @@ libraries/AP_HAL/GPIO.o: libraries/AP_HAL/GPIO.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/GPIO.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/GPIO.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/GPIO.cpp.o
 .PHONY : libraries/AP_HAL/GPIO.cpp.o
 
@@ -17235,6 +18324,7 @@ libraries/AP_HAL/GPIO.i: libraries/AP_HAL/GPIO.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/GPIO.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/GPIO.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/GPIO.cpp.i
 .PHONY : libraries/AP_HAL/GPIO.cpp.i
 
@@ -17243,6 +18333,7 @@ libraries/AP_HAL/GPIO.s: libraries/AP_HAL/GPIO.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/GPIO.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/GPIO.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/GPIO.cpp.s
 .PHONY : libraries/AP_HAL/GPIO.cpp.s
 
@@ -17251,6 +18342,7 @@ libraries/AP_HAL/HAL.o: libraries/AP_HAL/HAL.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/HAL.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/HAL.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/HAL.cpp.o
 .PHONY : libraries/AP_HAL/HAL.cpp.o
 
@@ -17259,6 +18351,7 @@ libraries/AP_HAL/HAL.i: libraries/AP_HAL/HAL.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/HAL.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/HAL.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/HAL.cpp.i
 .PHONY : libraries/AP_HAL/HAL.cpp.i
 
@@ -17267,6 +18360,7 @@ libraries/AP_HAL/HAL.s: libraries/AP_HAL/HAL.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/HAL.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/HAL.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/HAL.cpp.s
 .PHONY : libraries/AP_HAL/HAL.cpp.s
 
@@ -17275,6 +18369,7 @@ libraries/AP_HAL/RCOutput.o: libraries/AP_HAL/RCOutput.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/RCOutput.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/RCOutput.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/RCOutput.cpp.o
 .PHONY : libraries/AP_HAL/RCOutput.cpp.o
 
@@ -17283,6 +18378,7 @@ libraries/AP_HAL/RCOutput.i: libraries/AP_HAL/RCOutput.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/RCOutput.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/RCOutput.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/RCOutput.cpp.i
 .PHONY : libraries/AP_HAL/RCOutput.cpp.i
 
@@ -17291,6 +18387,7 @@ libraries/AP_HAL/RCOutput.s: libraries/AP_HAL/RCOutput.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/RCOutput.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/RCOutput.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/RCOutput.cpp.s
 .PHONY : libraries/AP_HAL/RCOutput.cpp.s
 
@@ -17299,6 +18396,7 @@ libraries/AP_HAL/SIMState.o: libraries/AP_HAL/SIMState.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/SIMState.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/SIMState.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/SIMState.cpp.o
 .PHONY : libraries/AP_HAL/SIMState.cpp.o
 
@@ -17307,6 +18405,7 @@ libraries/AP_HAL/SIMState.i: libraries/AP_HAL/SIMState.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/SIMState.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/SIMState.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/SIMState.cpp.i
 .PHONY : libraries/AP_HAL/SIMState.cpp.i
 
@@ -17315,6 +18414,7 @@ libraries/AP_HAL/SIMState.s: libraries/AP_HAL/SIMState.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/SIMState.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/SIMState.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/SIMState.cpp.s
 .PHONY : libraries/AP_HAL/SIMState.cpp.s
 
@@ -17323,6 +18423,7 @@ libraries/AP_HAL/Scheduler.o: libraries/AP_HAL/Scheduler.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/Scheduler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Scheduler.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Scheduler.cpp.o
 .PHONY : libraries/AP_HAL/Scheduler.cpp.o
 
@@ -17331,6 +18432,7 @@ libraries/AP_HAL/Scheduler.i: libraries/AP_HAL/Scheduler.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/Scheduler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Scheduler.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Scheduler.cpp.i
 .PHONY : libraries/AP_HAL/Scheduler.cpp.i
 
@@ -17339,6 +18441,7 @@ libraries/AP_HAL/Scheduler.s: libraries/AP_HAL/Scheduler.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/Scheduler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Scheduler.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Scheduler.cpp.s
 .PHONY : libraries/AP_HAL/Scheduler.cpp.s
 
@@ -17347,6 +18450,7 @@ libraries/AP_HAL/Semaphores.o: libraries/AP_HAL/Semaphores.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/Semaphores.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Semaphores.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Semaphores.cpp.o
 .PHONY : libraries/AP_HAL/Semaphores.cpp.o
 
@@ -17355,6 +18459,7 @@ libraries/AP_HAL/Semaphores.i: libraries/AP_HAL/Semaphores.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/Semaphores.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Semaphores.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Semaphores.cpp.i
 .PHONY : libraries/AP_HAL/Semaphores.cpp.i
 
@@ -17363,6 +18468,7 @@ libraries/AP_HAL/Semaphores.s: libraries/AP_HAL/Semaphores.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/Semaphores.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Semaphores.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Semaphores.cpp.s
 .PHONY : libraries/AP_HAL/Semaphores.cpp.s
 
@@ -17371,6 +18477,7 @@ libraries/AP_HAL/Storage.o: libraries/AP_HAL/Storage.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/Storage.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Storage.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Storage.cpp.o
 .PHONY : libraries/AP_HAL/Storage.cpp.o
 
@@ -17379,6 +18486,7 @@ libraries/AP_HAL/Storage.i: libraries/AP_HAL/Storage.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/Storage.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Storage.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Storage.cpp.i
 .PHONY : libraries/AP_HAL/Storage.cpp.i
 
@@ -17387,6 +18495,7 @@ libraries/AP_HAL/Storage.s: libraries/AP_HAL/Storage.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/Storage.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Storage.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Storage.cpp.s
 .PHONY : libraries/AP_HAL/Storage.cpp.s
 
@@ -17395,6 +18504,7 @@ libraries/AP_HAL/UARTDriver.o: libraries/AP_HAL/UARTDriver.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/UARTDriver.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/UARTDriver.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/UARTDriver.cpp.o
 .PHONY : libraries/AP_HAL/UARTDriver.cpp.o
 
@@ -17403,6 +18513,7 @@ libraries/AP_HAL/UARTDriver.i: libraries/AP_HAL/UARTDriver.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/UARTDriver.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/UARTDriver.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/UARTDriver.cpp.i
 .PHONY : libraries/AP_HAL/UARTDriver.cpp.i
 
@@ -17411,6 +18522,7 @@ libraries/AP_HAL/UARTDriver.s: libraries/AP_HAL/UARTDriver.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/UARTDriver.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/UARTDriver.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/UARTDriver.cpp.s
 .PHONY : libraries/AP_HAL/UARTDriver.cpp.s
 
@@ -17419,6 +18531,7 @@ libraries/AP_HAL/Util.o: libraries/AP_HAL/Util.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/Util.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Util.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Util.cpp.o
 .PHONY : libraries/AP_HAL/Util.cpp.o
 
@@ -17427,6 +18540,7 @@ libraries/AP_HAL/Util.i: libraries/AP_HAL/Util.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/Util.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Util.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Util.cpp.i
 .PHONY : libraries/AP_HAL/Util.cpp.i
 
@@ -17435,6 +18549,7 @@ libraries/AP_HAL/Util.s: libraries/AP_HAL/Util.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/Util.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/Util.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/Util.cpp.s
 .PHONY : libraries/AP_HAL/Util.cpp.s
 
@@ -17443,6 +18558,7 @@ libraries/AP_HAL/system.o: libraries/AP_HAL/system.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/system.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/system.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/system.cpp.o
 .PHONY : libraries/AP_HAL/system.cpp.o
 
@@ -17451,6 +18567,7 @@ libraries/AP_HAL/system.i: libraries/AP_HAL/system.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/system.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/system.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/system.cpp.i
 .PHONY : libraries/AP_HAL/system.cpp.i
 
@@ -17459,6 +18576,7 @@ libraries/AP_HAL/system.s: libraries/AP_HAL/system.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/system.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/system.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/system.cpp.s
 .PHONY : libraries/AP_HAL/system.cpp.s
 
@@ -17467,6 +18585,7 @@ libraries/AP_HAL/utility/BetterStream.o: libraries/AP_HAL/utility/BetterStream.c
 
 # target to build an object file
 libraries/AP_HAL/utility/BetterStream.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/BetterStream.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/BetterStream.cpp.o
 .PHONY : libraries/AP_HAL/utility/BetterStream.cpp.o
 
@@ -17475,6 +18594,7 @@ libraries/AP_HAL/utility/BetterStream.i: libraries/AP_HAL/utility/BetterStream.c
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/BetterStream.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/BetterStream.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/BetterStream.cpp.i
 .PHONY : libraries/AP_HAL/utility/BetterStream.cpp.i
 
@@ -17483,6 +18603,7 @@ libraries/AP_HAL/utility/BetterStream.s: libraries/AP_HAL/utility/BetterStream.c
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/BetterStream.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/BetterStream.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/BetterStream.cpp.s
 .PHONY : libraries/AP_HAL/utility/BetterStream.cpp.s
 
@@ -17491,6 +18612,7 @@ libraries/AP_HAL/utility/DataRateLimit.o: libraries/AP_HAL/utility/DataRateLimit
 
 # target to build an object file
 libraries/AP_HAL/utility/DataRateLimit.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/DataRateLimit.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/DataRateLimit.cpp.o
 .PHONY : libraries/AP_HAL/utility/DataRateLimit.cpp.o
 
@@ -17499,6 +18621,7 @@ libraries/AP_HAL/utility/DataRateLimit.i: libraries/AP_HAL/utility/DataRateLimit
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/DataRateLimit.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/DataRateLimit.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/DataRateLimit.cpp.i
 .PHONY : libraries/AP_HAL/utility/DataRateLimit.cpp.i
 
@@ -17507,6 +18630,7 @@ libraries/AP_HAL/utility/DataRateLimit.s: libraries/AP_HAL/utility/DataRateLimit
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/DataRateLimit.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/DataRateLimit.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/DataRateLimit.cpp.s
 .PHONY : libraries/AP_HAL/utility/DataRateLimit.cpp.s
 
@@ -17515,6 +18639,7 @@ libraries/AP_HAL/utility/RCOutput_Tap.o: libraries/AP_HAL/utility/RCOutput_Tap.c
 
 # target to build an object file
 libraries/AP_HAL/utility/RCOutput_Tap.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/RCOutput_Tap.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/RCOutput_Tap.cpp.o
 .PHONY : libraries/AP_HAL/utility/RCOutput_Tap.cpp.o
 
@@ -17523,6 +18648,7 @@ libraries/AP_HAL/utility/RCOutput_Tap.i: libraries/AP_HAL/utility/RCOutput_Tap.c
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/RCOutput_Tap.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/RCOutput_Tap.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/RCOutput_Tap.cpp.i
 .PHONY : libraries/AP_HAL/utility/RCOutput_Tap.cpp.i
 
@@ -17531,6 +18657,7 @@ libraries/AP_HAL/utility/RCOutput_Tap.s: libraries/AP_HAL/utility/RCOutput_Tap.c
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/RCOutput_Tap.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/RCOutput_Tap.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/RCOutput_Tap.cpp.s
 .PHONY : libraries/AP_HAL/utility/RCOutput_Tap.cpp.s
 
@@ -17539,6 +18666,7 @@ libraries/AP_HAL/utility/RCOutput_Tap_Linux.o: libraries/AP_HAL/utility/RCOutput
 
 # target to build an object file
 libraries/AP_HAL/utility/RCOutput_Tap_Linux.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/RCOutput_Tap_Linux.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/RCOutput_Tap_Linux.cpp.o
 .PHONY : libraries/AP_HAL/utility/RCOutput_Tap_Linux.cpp.o
 
@@ -17547,6 +18675,7 @@ libraries/AP_HAL/utility/RCOutput_Tap_Linux.i: libraries/AP_HAL/utility/RCOutput
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/RCOutput_Tap_Linux.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/RCOutput_Tap_Linux.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/RCOutput_Tap_Linux.cpp.i
 .PHONY : libraries/AP_HAL/utility/RCOutput_Tap_Linux.cpp.i
 
@@ -17555,6 +18684,7 @@ libraries/AP_HAL/utility/RCOutput_Tap_Linux.s: libraries/AP_HAL/utility/RCOutput
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/RCOutput_Tap_Linux.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/RCOutput_Tap_Linux.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/RCOutput_Tap_Linux.cpp.s
 .PHONY : libraries/AP_HAL/utility/RCOutput_Tap_Linux.cpp.s
 
@@ -17563,6 +18693,7 @@ libraries/AP_HAL/utility/RingBuffer.o: libraries/AP_HAL/utility/RingBuffer.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/utility/RingBuffer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/RingBuffer.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/RingBuffer.cpp.o
 .PHONY : libraries/AP_HAL/utility/RingBuffer.cpp.o
 
@@ -17571,6 +18702,7 @@ libraries/AP_HAL/utility/RingBuffer.i: libraries/AP_HAL/utility/RingBuffer.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/RingBuffer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/RingBuffer.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/RingBuffer.cpp.i
 .PHONY : libraries/AP_HAL/utility/RingBuffer.cpp.i
 
@@ -17579,6 +18711,7 @@ libraries/AP_HAL/utility/RingBuffer.s: libraries/AP_HAL/utility/RingBuffer.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/RingBuffer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/RingBuffer.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/RingBuffer.cpp.s
 .PHONY : libraries/AP_HAL/utility/RingBuffer.cpp.s
 
@@ -17587,6 +18720,7 @@ libraries/AP_HAL/utility/Socket.o: libraries/AP_HAL/utility/Socket.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/utility/Socket.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/Socket.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/Socket.cpp.o
 .PHONY : libraries/AP_HAL/utility/Socket.cpp.o
 
@@ -17595,6 +18729,7 @@ libraries/AP_HAL/utility/Socket.i: libraries/AP_HAL/utility/Socket.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/Socket.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/Socket.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/Socket.cpp.i
 .PHONY : libraries/AP_HAL/utility/Socket.cpp.i
 
@@ -17603,6 +18738,7 @@ libraries/AP_HAL/utility/Socket.s: libraries/AP_HAL/utility/Socket.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/Socket.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/Socket.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/Socket.cpp.s
 .PHONY : libraries/AP_HAL/utility/Socket.cpp.s
 
@@ -17611,6 +18747,7 @@ libraries/AP_HAL/utility/Socket_native.o: libraries/AP_HAL/utility/Socket_native
 
 # target to build an object file
 libraries/AP_HAL/utility/Socket_native.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/Socket_native.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/Socket_native.cpp.o
 .PHONY : libraries/AP_HAL/utility/Socket_native.cpp.o
 
@@ -17619,6 +18756,7 @@ libraries/AP_HAL/utility/Socket_native.i: libraries/AP_HAL/utility/Socket_native
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/Socket_native.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/Socket_native.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/Socket_native.cpp.i
 .PHONY : libraries/AP_HAL/utility/Socket_native.cpp.i
 
@@ -17627,6 +18765,7 @@ libraries/AP_HAL/utility/Socket_native.s: libraries/AP_HAL/utility/Socket_native
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/Socket_native.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/Socket_native.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/Socket_native.cpp.s
 .PHONY : libraries/AP_HAL/utility/Socket_native.cpp.s
 
@@ -17635,6 +18774,7 @@ libraries/AP_HAL/utility/dsm.o: libraries/AP_HAL/utility/dsm.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/utility/dsm.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/dsm.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/dsm.cpp.o
 .PHONY : libraries/AP_HAL/utility/dsm.cpp.o
 
@@ -17643,6 +18783,7 @@ libraries/AP_HAL/utility/dsm.i: libraries/AP_HAL/utility/dsm.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/dsm.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/dsm.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/dsm.cpp.i
 .PHONY : libraries/AP_HAL/utility/dsm.cpp.i
 
@@ -17651,6 +18792,7 @@ libraries/AP_HAL/utility/dsm.s: libraries/AP_HAL/utility/dsm.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/dsm.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/dsm.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/dsm.cpp.s
 .PHONY : libraries/AP_HAL/utility/dsm.cpp.s
 
@@ -17659,6 +18801,7 @@ libraries/AP_HAL/utility/ftoa_engine.o: libraries/AP_HAL/utility/ftoa_engine.cpp
 
 # target to build an object file
 libraries/AP_HAL/utility/ftoa_engine.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/ftoa_engine.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/ftoa_engine.cpp.o
 .PHONY : libraries/AP_HAL/utility/ftoa_engine.cpp.o
 
@@ -17667,6 +18810,7 @@ libraries/AP_HAL/utility/ftoa_engine.i: libraries/AP_HAL/utility/ftoa_engine.cpp
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/ftoa_engine.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/ftoa_engine.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/ftoa_engine.cpp.i
 .PHONY : libraries/AP_HAL/utility/ftoa_engine.cpp.i
 
@@ -17675,6 +18819,7 @@ libraries/AP_HAL/utility/ftoa_engine.s: libraries/AP_HAL/utility/ftoa_engine.cpp
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/ftoa_engine.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/ftoa_engine.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/ftoa_engine.cpp.s
 .PHONY : libraries/AP_HAL/utility/ftoa_engine.cpp.s
 
@@ -17683,6 +18828,7 @@ libraries/AP_HAL/utility/getopt_cpp.o: libraries/AP_HAL/utility/getopt_cpp.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/utility/getopt_cpp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/getopt_cpp.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/getopt_cpp.cpp.o
 .PHONY : libraries/AP_HAL/utility/getopt_cpp.cpp.o
 
@@ -17691,6 +18837,7 @@ libraries/AP_HAL/utility/getopt_cpp.i: libraries/AP_HAL/utility/getopt_cpp.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/getopt_cpp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/getopt_cpp.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/getopt_cpp.cpp.i
 .PHONY : libraries/AP_HAL/utility/getopt_cpp.cpp.i
 
@@ -17699,6 +18846,7 @@ libraries/AP_HAL/utility/getopt_cpp.s: libraries/AP_HAL/utility/getopt_cpp.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/getopt_cpp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/getopt_cpp.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/getopt_cpp.cpp.s
 .PHONY : libraries/AP_HAL/utility/getopt_cpp.cpp.s
 
@@ -17707,6 +18855,7 @@ libraries/AP_HAL/utility/packetise.o: libraries/AP_HAL/utility/packetise.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/utility/packetise.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/packetise.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/packetise.cpp.o
 .PHONY : libraries/AP_HAL/utility/packetise.cpp.o
 
@@ -17715,6 +18864,7 @@ libraries/AP_HAL/utility/packetise.i: libraries/AP_HAL/utility/packetise.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/packetise.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/packetise.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/packetise.cpp.i
 .PHONY : libraries/AP_HAL/utility/packetise.cpp.i
 
@@ -17723,6 +18873,7 @@ libraries/AP_HAL/utility/packetise.s: libraries/AP_HAL/utility/packetise.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/packetise.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/packetise.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/packetise.cpp.s
 .PHONY : libraries/AP_HAL/utility/packetise.cpp.s
 
@@ -17731,6 +18882,7 @@ libraries/AP_HAL/utility/print_vprintf.o: libraries/AP_HAL/utility/print_vprintf
 
 # target to build an object file
 libraries/AP_HAL/utility/print_vprintf.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/print_vprintf.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/print_vprintf.cpp.o
 .PHONY : libraries/AP_HAL/utility/print_vprintf.cpp.o
 
@@ -17739,6 +18891,7 @@ libraries/AP_HAL/utility/print_vprintf.i: libraries/AP_HAL/utility/print_vprintf
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/print_vprintf.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/print_vprintf.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/print_vprintf.cpp.i
 .PHONY : libraries/AP_HAL/utility/print_vprintf.cpp.i
 
@@ -17747,6 +18900,7 @@ libraries/AP_HAL/utility/print_vprintf.s: libraries/AP_HAL/utility/print_vprintf
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/print_vprintf.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/print_vprintf.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/print_vprintf.cpp.s
 .PHONY : libraries/AP_HAL/utility/print_vprintf.cpp.s
 
@@ -17755,6 +18909,7 @@ libraries/AP_HAL/utility/replace.o: libraries/AP_HAL/utility/replace.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/utility/replace.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/replace.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/replace.cpp.o
 .PHONY : libraries/AP_HAL/utility/replace.cpp.o
 
@@ -17763,6 +18918,7 @@ libraries/AP_HAL/utility/replace.i: libraries/AP_HAL/utility/replace.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/replace.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/replace.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/replace.cpp.i
 .PHONY : libraries/AP_HAL/utility/replace.cpp.i
 
@@ -17771,6 +18927,7 @@ libraries/AP_HAL/utility/replace.s: libraries/AP_HAL/utility/replace.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/replace.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/replace.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/replace.cpp.s
 .PHONY : libraries/AP_HAL/utility/replace.cpp.s
 
@@ -17779,6 +18936,7 @@ libraries/AP_HAL/utility/srxl.o: libraries/AP_HAL/utility/srxl.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/utility/srxl.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/srxl.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/srxl.cpp.o
 .PHONY : libraries/AP_HAL/utility/srxl.cpp.o
 
@@ -17787,6 +18945,7 @@ libraries/AP_HAL/utility/srxl.i: libraries/AP_HAL/utility/srxl.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/srxl.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/srxl.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/srxl.cpp.i
 .PHONY : libraries/AP_HAL/utility/srxl.cpp.i
 
@@ -17795,6 +18954,7 @@ libraries/AP_HAL/utility/srxl.s: libraries/AP_HAL/utility/srxl.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/srxl.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/srxl.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/srxl.cpp.s
 .PHONY : libraries/AP_HAL/utility/srxl.cpp.s
 
@@ -17803,6 +18963,7 @@ libraries/AP_HAL/utility/st24.o: libraries/AP_HAL/utility/st24.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/utility/st24.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/st24.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/st24.cpp.o
 .PHONY : libraries/AP_HAL/utility/st24.cpp.o
 
@@ -17811,6 +18972,7 @@ libraries/AP_HAL/utility/st24.i: libraries/AP_HAL/utility/st24.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/st24.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/st24.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/st24.cpp.i
 .PHONY : libraries/AP_HAL/utility/st24.cpp.i
 
@@ -17819,6 +18981,7 @@ libraries/AP_HAL/utility/st24.s: libraries/AP_HAL/utility/st24.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/st24.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/st24.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/st24.cpp.s
 .PHONY : libraries/AP_HAL/utility/st24.cpp.s
 
@@ -17827,6 +18990,7 @@ libraries/AP_HAL/utility/sumd.o: libraries/AP_HAL/utility/sumd.cpp.o
 
 # target to build an object file
 libraries/AP_HAL/utility/sumd.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/sumd.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/sumd.cpp.o
 .PHONY : libraries/AP_HAL/utility/sumd.cpp.o
 
@@ -17835,6 +18999,7 @@ libraries/AP_HAL/utility/sumd.i: libraries/AP_HAL/utility/sumd.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/sumd.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/sumd.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/sumd.cpp.i
 .PHONY : libraries/AP_HAL/utility/sumd.cpp.i
 
@@ -17843,6 +19008,7 @@ libraries/AP_HAL/utility/sumd.s: libraries/AP_HAL/utility/sumd.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/sumd.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/sumd.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/sumd.cpp.s
 .PHONY : libraries/AP_HAL/utility/sumd.cpp.s
 
@@ -17851,6 +19017,7 @@ libraries/AP_HAL/utility/utoa_invert.o: libraries/AP_HAL/utility/utoa_invert.cpp
 
 # target to build an object file
 libraries/AP_HAL/utility/utoa_invert.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/utoa_invert.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/utoa_invert.cpp.o
 .PHONY : libraries/AP_HAL/utility/utoa_invert.cpp.o
 
@@ -17859,6 +19026,7 @@ libraries/AP_HAL/utility/utoa_invert.i: libraries/AP_HAL/utility/utoa_invert.cpp
 
 # target to preprocess a source file
 libraries/AP_HAL/utility/utoa_invert.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/utoa_invert.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/utoa_invert.cpp.i
 .PHONY : libraries/AP_HAL/utility/utoa_invert.cpp.i
 
@@ -17867,6 +19035,7 @@ libraries/AP_HAL/utility/utoa_invert.s: libraries/AP_HAL/utility/utoa_invert.cpp
 
 # target to generate assembly for a file
 libraries/AP_HAL/utility/utoa_invert.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_Plane.dir/build.make CMakeFiles/AP_HAL_Plane.dir/libraries/AP_HAL/utility/utoa_invert.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL.dir/build.make CMakeFiles/AP_HAL.dir/libraries/AP_HAL/utility/utoa_invert.cpp.s
 .PHONY : libraries/AP_HAL/utility/utoa_invert.cpp.s
 
@@ -18067,8 +19236,8 @@ libraries/AP_HAL_SITL/AnalogIn.o: libraries/AP_HAL_SITL/AnalogIn.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/AnalogIn.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.o
 .PHONY : libraries/AP_HAL_SITL/AnalogIn.cpp.o
 
 libraries/AP_HAL_SITL/AnalogIn.i: libraries/AP_HAL_SITL/AnalogIn.cpp.i
@@ -18076,8 +19245,8 @@ libraries/AP_HAL_SITL/AnalogIn.i: libraries/AP_HAL_SITL/AnalogIn.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/AnalogIn.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.i
 .PHONY : libraries/AP_HAL_SITL/AnalogIn.cpp.i
 
 libraries/AP_HAL_SITL/AnalogIn.s: libraries/AP_HAL_SITL/AnalogIn.cpp.s
@@ -18085,8 +19254,8 @@ libraries/AP_HAL_SITL/AnalogIn.s: libraries/AP_HAL_SITL/AnalogIn.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/AnalogIn.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/AnalogIn.cpp.s
 .PHONY : libraries/AP_HAL_SITL/AnalogIn.cpp.s
 
 libraries/AP_HAL_SITL/CANSocketIface.o: libraries/AP_HAL_SITL/CANSocketIface.cpp.o
@@ -18094,8 +19263,8 @@ libraries/AP_HAL_SITL/CANSocketIface.o: libraries/AP_HAL_SITL/CANSocketIface.cpp
 
 # target to build an object file
 libraries/AP_HAL_SITL/CANSocketIface.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.o
 .PHONY : libraries/AP_HAL_SITL/CANSocketIface.cpp.o
 
 libraries/AP_HAL_SITL/CANSocketIface.i: libraries/AP_HAL_SITL/CANSocketIface.cpp.i
@@ -18103,8 +19272,8 @@ libraries/AP_HAL_SITL/CANSocketIface.i: libraries/AP_HAL_SITL/CANSocketIface.cpp
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/CANSocketIface.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.i
 .PHONY : libraries/AP_HAL_SITL/CANSocketIface.cpp.i
 
 libraries/AP_HAL_SITL/CANSocketIface.s: libraries/AP_HAL_SITL/CANSocketIface.cpp.s
@@ -18112,8 +19281,8 @@ libraries/AP_HAL_SITL/CANSocketIface.s: libraries/AP_HAL_SITL/CANSocketIface.cpp
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/CANSocketIface.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CANSocketIface.cpp.s
 .PHONY : libraries/AP_HAL_SITL/CANSocketIface.cpp.s
 
 libraries/AP_HAL_SITL/CAN_Multicast.o: libraries/AP_HAL_SITL/CAN_Multicast.cpp.o
@@ -18121,8 +19290,8 @@ libraries/AP_HAL_SITL/CAN_Multicast.o: libraries/AP_HAL_SITL/CAN_Multicast.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/CAN_Multicast.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.o
 .PHONY : libraries/AP_HAL_SITL/CAN_Multicast.cpp.o
 
 libraries/AP_HAL_SITL/CAN_Multicast.i: libraries/AP_HAL_SITL/CAN_Multicast.cpp.i
@@ -18130,8 +19299,8 @@ libraries/AP_HAL_SITL/CAN_Multicast.i: libraries/AP_HAL_SITL/CAN_Multicast.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/CAN_Multicast.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.i
 .PHONY : libraries/AP_HAL_SITL/CAN_Multicast.cpp.i
 
 libraries/AP_HAL_SITL/CAN_Multicast.s: libraries/AP_HAL_SITL/CAN_Multicast.cpp.s
@@ -18139,8 +19308,8 @@ libraries/AP_HAL_SITL/CAN_Multicast.s: libraries/AP_HAL_SITL/CAN_Multicast.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/CAN_Multicast.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_Multicast.cpp.s
 .PHONY : libraries/AP_HAL_SITL/CAN_Multicast.cpp.s
 
 libraries/AP_HAL_SITL/CAN_SocketCAN.o: libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.o
@@ -18148,8 +19317,8 @@ libraries/AP_HAL_SITL/CAN_SocketCAN.o: libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.o
 .PHONY : libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.o
 
 libraries/AP_HAL_SITL/CAN_SocketCAN.i: libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.i
@@ -18157,8 +19326,8 @@ libraries/AP_HAL_SITL/CAN_SocketCAN.i: libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.i
 .PHONY : libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.i
 
 libraries/AP_HAL_SITL/CAN_SocketCAN.s: libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.s
@@ -18166,8 +19335,8 @@ libraries/AP_HAL_SITL/CAN_SocketCAN.s: libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.s
 .PHONY : libraries/AP_HAL_SITL/CAN_SocketCAN.cpp.s
 
 libraries/AP_HAL_SITL/DSP.o: libraries/AP_HAL_SITL/DSP.cpp.o
@@ -18175,8 +19344,8 @@ libraries/AP_HAL_SITL/DSP.o: libraries/AP_HAL_SITL/DSP.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/DSP.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/DSP.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/DSP.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/DSP.cpp.o
 .PHONY : libraries/AP_HAL_SITL/DSP.cpp.o
 
 libraries/AP_HAL_SITL/DSP.i: libraries/AP_HAL_SITL/DSP.cpp.i
@@ -18184,8 +19353,8 @@ libraries/AP_HAL_SITL/DSP.i: libraries/AP_HAL_SITL/DSP.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/DSP.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/DSP.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/DSP.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/DSP.cpp.i
 .PHONY : libraries/AP_HAL_SITL/DSP.cpp.i
 
 libraries/AP_HAL_SITL/DSP.s: libraries/AP_HAL_SITL/DSP.cpp.s
@@ -18193,8 +19362,8 @@ libraries/AP_HAL_SITL/DSP.s: libraries/AP_HAL_SITL/DSP.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/DSP.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/DSP.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/DSP.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/DSP.cpp.s
 .PHONY : libraries/AP_HAL_SITL/DSP.cpp.s
 
 libraries/AP_HAL_SITL/GPIO.o: libraries/AP_HAL_SITL/GPIO.cpp.o
@@ -18202,8 +19371,8 @@ libraries/AP_HAL_SITL/GPIO.o: libraries/AP_HAL_SITL/GPIO.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/GPIO.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/GPIO.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/GPIO.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/GPIO.cpp.o
 .PHONY : libraries/AP_HAL_SITL/GPIO.cpp.o
 
 libraries/AP_HAL_SITL/GPIO.i: libraries/AP_HAL_SITL/GPIO.cpp.i
@@ -18211,8 +19380,8 @@ libraries/AP_HAL_SITL/GPIO.i: libraries/AP_HAL_SITL/GPIO.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/GPIO.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/GPIO.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/GPIO.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/GPIO.cpp.i
 .PHONY : libraries/AP_HAL_SITL/GPIO.cpp.i
 
 libraries/AP_HAL_SITL/GPIO.s: libraries/AP_HAL_SITL/GPIO.cpp.s
@@ -18220,8 +19389,8 @@ libraries/AP_HAL_SITL/GPIO.s: libraries/AP_HAL_SITL/GPIO.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/GPIO.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/GPIO.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/GPIO.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/GPIO.cpp.s
 .PHONY : libraries/AP_HAL_SITL/GPIO.cpp.s
 
 libraries/AP_HAL_SITL/HAL_SITL_Class.o: libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.o
@@ -18229,8 +19398,8 @@ libraries/AP_HAL_SITL/HAL_SITL_Class.o: libraries/AP_HAL_SITL/HAL_SITL_Class.cpp
 
 # target to build an object file
 libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.o
 .PHONY : libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.o
 
 libraries/AP_HAL_SITL/HAL_SITL_Class.i: libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.i
@@ -18238,8 +19407,8 @@ libraries/AP_HAL_SITL/HAL_SITL_Class.i: libraries/AP_HAL_SITL/HAL_SITL_Class.cpp
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.i
 .PHONY : libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.i
 
 libraries/AP_HAL_SITL/HAL_SITL_Class.s: libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.s
@@ -18247,8 +19416,8 @@ libraries/AP_HAL_SITL/HAL_SITL_Class.s: libraries/AP_HAL_SITL/HAL_SITL_Class.cpp
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.s
 .PHONY : libraries/AP_HAL_SITL/HAL_SITL_Class.cpp.s
 
 libraries/AP_HAL_SITL/I2CDevice.o: libraries/AP_HAL_SITL/I2CDevice.cpp.o
@@ -18256,8 +19425,8 @@ libraries/AP_HAL_SITL/I2CDevice.o: libraries/AP_HAL_SITL/I2CDevice.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/I2CDevice.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.o
 .PHONY : libraries/AP_HAL_SITL/I2CDevice.cpp.o
 
 libraries/AP_HAL_SITL/I2CDevice.i: libraries/AP_HAL_SITL/I2CDevice.cpp.i
@@ -18265,8 +19434,8 @@ libraries/AP_HAL_SITL/I2CDevice.i: libraries/AP_HAL_SITL/I2CDevice.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/I2CDevice.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.i
 .PHONY : libraries/AP_HAL_SITL/I2CDevice.cpp.i
 
 libraries/AP_HAL_SITL/I2CDevice.s: libraries/AP_HAL_SITL/I2CDevice.cpp.s
@@ -18274,8 +19443,8 @@ libraries/AP_HAL_SITL/I2CDevice.s: libraries/AP_HAL_SITL/I2CDevice.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/I2CDevice.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/I2CDevice.cpp.s
 .PHONY : libraries/AP_HAL_SITL/I2CDevice.cpp.s
 
 libraries/AP_HAL_SITL/RCInput.o: libraries/AP_HAL_SITL/RCInput.cpp.o
@@ -18283,8 +19452,8 @@ libraries/AP_HAL_SITL/RCInput.o: libraries/AP_HAL_SITL/RCInput.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/RCInput.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCInput.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/RCInput.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCInput.cpp.o
 .PHONY : libraries/AP_HAL_SITL/RCInput.cpp.o
 
 libraries/AP_HAL_SITL/RCInput.i: libraries/AP_HAL_SITL/RCInput.cpp.i
@@ -18292,8 +19461,8 @@ libraries/AP_HAL_SITL/RCInput.i: libraries/AP_HAL_SITL/RCInput.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/RCInput.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCInput.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/RCInput.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCInput.cpp.i
 .PHONY : libraries/AP_HAL_SITL/RCInput.cpp.i
 
 libraries/AP_HAL_SITL/RCInput.s: libraries/AP_HAL_SITL/RCInput.cpp.s
@@ -18301,8 +19470,8 @@ libraries/AP_HAL_SITL/RCInput.s: libraries/AP_HAL_SITL/RCInput.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/RCInput.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCInput.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/RCInput.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCInput.cpp.s
 .PHONY : libraries/AP_HAL_SITL/RCInput.cpp.s
 
 libraries/AP_HAL_SITL/RCOutput.o: libraries/AP_HAL_SITL/RCOutput.cpp.o
@@ -18310,8 +19479,8 @@ libraries/AP_HAL_SITL/RCOutput.o: libraries/AP_HAL_SITL/RCOutput.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/RCOutput.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCOutput.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/RCOutput.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCOutput.cpp.o
 .PHONY : libraries/AP_HAL_SITL/RCOutput.cpp.o
 
 libraries/AP_HAL_SITL/RCOutput.i: libraries/AP_HAL_SITL/RCOutput.cpp.i
@@ -18319,8 +19488,8 @@ libraries/AP_HAL_SITL/RCOutput.i: libraries/AP_HAL_SITL/RCOutput.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/RCOutput.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCOutput.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/RCOutput.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCOutput.cpp.i
 .PHONY : libraries/AP_HAL_SITL/RCOutput.cpp.i
 
 libraries/AP_HAL_SITL/RCOutput.s: libraries/AP_HAL_SITL/RCOutput.cpp.s
@@ -18328,8 +19497,8 @@ libraries/AP_HAL_SITL/RCOutput.s: libraries/AP_HAL_SITL/RCOutput.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/RCOutput.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCOutput.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/RCOutput.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/RCOutput.cpp.s
 .PHONY : libraries/AP_HAL_SITL/RCOutput.cpp.s
 
 libraries/AP_HAL_SITL/SITL_Periph_State.o: libraries/AP_HAL_SITL/SITL_Periph_State.cpp.o
@@ -18337,8 +19506,8 @@ libraries/AP_HAL_SITL/SITL_Periph_State.o: libraries/AP_HAL_SITL/SITL_Periph_Sta
 
 # target to build an object file
 libraries/AP_HAL_SITL/SITL_Periph_State.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.o
 .PHONY : libraries/AP_HAL_SITL/SITL_Periph_State.cpp.o
 
 libraries/AP_HAL_SITL/SITL_Periph_State.i: libraries/AP_HAL_SITL/SITL_Periph_State.cpp.i
@@ -18346,8 +19515,8 @@ libraries/AP_HAL_SITL/SITL_Periph_State.i: libraries/AP_HAL_SITL/SITL_Periph_Sta
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/SITL_Periph_State.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.i
 .PHONY : libraries/AP_HAL_SITL/SITL_Periph_State.cpp.i
 
 libraries/AP_HAL_SITL/SITL_Periph_State.s: libraries/AP_HAL_SITL/SITL_Periph_State.cpp.s
@@ -18355,8 +19524,8 @@ libraries/AP_HAL_SITL/SITL_Periph_State.s: libraries/AP_HAL_SITL/SITL_Periph_Sta
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/SITL_Periph_State.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_Periph_State.cpp.s
 .PHONY : libraries/AP_HAL_SITL/SITL_Periph_State.cpp.s
 
 libraries/AP_HAL_SITL/SITL_State.o: libraries/AP_HAL_SITL/SITL_State.cpp.o
@@ -18364,8 +19533,8 @@ libraries/AP_HAL_SITL/SITL_State.o: libraries/AP_HAL_SITL/SITL_State.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/SITL_State.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_State.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State.cpp.o
 .PHONY : libraries/AP_HAL_SITL/SITL_State.cpp.o
 
 libraries/AP_HAL_SITL/SITL_State.i: libraries/AP_HAL_SITL/SITL_State.cpp.i
@@ -18373,8 +19542,8 @@ libraries/AP_HAL_SITL/SITL_State.i: libraries/AP_HAL_SITL/SITL_State.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/SITL_State.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_State.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State.cpp.i
 .PHONY : libraries/AP_HAL_SITL/SITL_State.cpp.i
 
 libraries/AP_HAL_SITL/SITL_State.s: libraries/AP_HAL_SITL/SITL_State.cpp.s
@@ -18382,8 +19551,8 @@ libraries/AP_HAL_SITL/SITL_State.s: libraries/AP_HAL_SITL/SITL_State.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/SITL_State.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_State.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State.cpp.s
 .PHONY : libraries/AP_HAL_SITL/SITL_State.cpp.s
 
 libraries/AP_HAL_SITL/SITL_State_common.o: libraries/AP_HAL_SITL/SITL_State_common.cpp.o
@@ -18391,8 +19560,8 @@ libraries/AP_HAL_SITL/SITL_State_common.o: libraries/AP_HAL_SITL/SITL_State_comm
 
 # target to build an object file
 libraries/AP_HAL_SITL/SITL_State_common.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.o
 .PHONY : libraries/AP_HAL_SITL/SITL_State_common.cpp.o
 
 libraries/AP_HAL_SITL/SITL_State_common.i: libraries/AP_HAL_SITL/SITL_State_common.cpp.i
@@ -18400,8 +19569,8 @@ libraries/AP_HAL_SITL/SITL_State_common.i: libraries/AP_HAL_SITL/SITL_State_comm
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/SITL_State_common.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.i
 .PHONY : libraries/AP_HAL_SITL/SITL_State_common.cpp.i
 
 libraries/AP_HAL_SITL/SITL_State_common.s: libraries/AP_HAL_SITL/SITL_State_common.cpp.s
@@ -18409,8 +19578,8 @@ libraries/AP_HAL_SITL/SITL_State_common.s: libraries/AP_HAL_SITL/SITL_State_comm
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/SITL_State_common.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_State_common.cpp.s
 .PHONY : libraries/AP_HAL_SITL/SITL_State_common.cpp.s
 
 libraries/AP_HAL_SITL/SITL_cmdline.o: libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
@@ -18418,8 +19587,8 @@ libraries/AP_HAL_SITL/SITL_cmdline.o: libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/SITL_cmdline.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
 .PHONY : libraries/AP_HAL_SITL/SITL_cmdline.cpp.o
 
 libraries/AP_HAL_SITL/SITL_cmdline.i: libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
@@ -18427,8 +19596,8 @@ libraries/AP_HAL_SITL/SITL_cmdline.i: libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/SITL_cmdline.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
 .PHONY : libraries/AP_HAL_SITL/SITL_cmdline.cpp.i
 
 libraries/AP_HAL_SITL/SITL_cmdline.s: libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
@@ -18436,8 +19605,8 @@ libraries/AP_HAL_SITL/SITL_cmdline.s: libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/SITL_cmdline.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
 .PHONY : libraries/AP_HAL_SITL/SITL_cmdline.cpp.s
 
 libraries/AP_HAL_SITL/SPIDevice.o: libraries/AP_HAL_SITL/SPIDevice.cpp.o
@@ -18445,8 +19614,8 @@ libraries/AP_HAL_SITL/SPIDevice.o: libraries/AP_HAL_SITL/SPIDevice.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/SPIDevice.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.o
 .PHONY : libraries/AP_HAL_SITL/SPIDevice.cpp.o
 
 libraries/AP_HAL_SITL/SPIDevice.i: libraries/AP_HAL_SITL/SPIDevice.cpp.i
@@ -18454,8 +19623,8 @@ libraries/AP_HAL_SITL/SPIDevice.i: libraries/AP_HAL_SITL/SPIDevice.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/SPIDevice.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.i
 .PHONY : libraries/AP_HAL_SITL/SPIDevice.cpp.i
 
 libraries/AP_HAL_SITL/SPIDevice.s: libraries/AP_HAL_SITL/SPIDevice.cpp.s
@@ -18463,8 +19632,8 @@ libraries/AP_HAL_SITL/SPIDevice.s: libraries/AP_HAL_SITL/SPIDevice.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/SPIDevice.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/SPIDevice.cpp.s
 .PHONY : libraries/AP_HAL_SITL/SPIDevice.cpp.s
 
 libraries/AP_HAL_SITL/Scheduler.o: libraries/AP_HAL_SITL/Scheduler.cpp.o
@@ -18472,8 +19641,8 @@ libraries/AP_HAL_SITL/Scheduler.o: libraries/AP_HAL_SITL/Scheduler.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/Scheduler.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Scheduler.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Scheduler.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Scheduler.cpp.o
 .PHONY : libraries/AP_HAL_SITL/Scheduler.cpp.o
 
 libraries/AP_HAL_SITL/Scheduler.i: libraries/AP_HAL_SITL/Scheduler.cpp.i
@@ -18481,8 +19650,8 @@ libraries/AP_HAL_SITL/Scheduler.i: libraries/AP_HAL_SITL/Scheduler.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/Scheduler.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Scheduler.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Scheduler.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Scheduler.cpp.i
 .PHONY : libraries/AP_HAL_SITL/Scheduler.cpp.i
 
 libraries/AP_HAL_SITL/Scheduler.s: libraries/AP_HAL_SITL/Scheduler.cpp.s
@@ -18490,8 +19659,8 @@ libraries/AP_HAL_SITL/Scheduler.s: libraries/AP_HAL_SITL/Scheduler.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/Scheduler.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Scheduler.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Scheduler.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Scheduler.cpp.s
 .PHONY : libraries/AP_HAL_SITL/Scheduler.cpp.s
 
 libraries/AP_HAL_SITL/Semaphores.o: libraries/AP_HAL_SITL/Semaphores.cpp.o
@@ -18499,8 +19668,8 @@ libraries/AP_HAL_SITL/Semaphores.o: libraries/AP_HAL_SITL/Semaphores.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/Semaphores.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Semaphores.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Semaphores.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Semaphores.cpp.o
 .PHONY : libraries/AP_HAL_SITL/Semaphores.cpp.o
 
 libraries/AP_HAL_SITL/Semaphores.i: libraries/AP_HAL_SITL/Semaphores.cpp.i
@@ -18508,8 +19677,8 @@ libraries/AP_HAL_SITL/Semaphores.i: libraries/AP_HAL_SITL/Semaphores.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/Semaphores.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Semaphores.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Semaphores.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Semaphores.cpp.i
 .PHONY : libraries/AP_HAL_SITL/Semaphores.cpp.i
 
 libraries/AP_HAL_SITL/Semaphores.s: libraries/AP_HAL_SITL/Semaphores.cpp.s
@@ -18517,8 +19686,8 @@ libraries/AP_HAL_SITL/Semaphores.s: libraries/AP_HAL_SITL/Semaphores.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/Semaphores.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Semaphores.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Semaphores.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Semaphores.cpp.s
 .PHONY : libraries/AP_HAL_SITL/Semaphores.cpp.s
 
 libraries/AP_HAL_SITL/Storage.o: libraries/AP_HAL_SITL/Storage.cpp.o
@@ -18526,8 +19695,8 @@ libraries/AP_HAL_SITL/Storage.o: libraries/AP_HAL_SITL/Storage.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/Storage.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Storage.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Storage.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Storage.cpp.o
 .PHONY : libraries/AP_HAL_SITL/Storage.cpp.o
 
 libraries/AP_HAL_SITL/Storage.i: libraries/AP_HAL_SITL/Storage.cpp.i
@@ -18535,8 +19704,8 @@ libraries/AP_HAL_SITL/Storage.i: libraries/AP_HAL_SITL/Storage.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/Storage.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Storage.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Storage.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Storage.cpp.i
 .PHONY : libraries/AP_HAL_SITL/Storage.cpp.i
 
 libraries/AP_HAL_SITL/Storage.s: libraries/AP_HAL_SITL/Storage.cpp.s
@@ -18544,8 +19713,8 @@ libraries/AP_HAL_SITL/Storage.s: libraries/AP_HAL_SITL/Storage.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/Storage.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Storage.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Storage.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Storage.cpp.s
 .PHONY : libraries/AP_HAL_SITL/Storage.cpp.s
 
 libraries/AP_HAL_SITL/ToneAlarm_SF.o: libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.o
@@ -18553,8 +19722,8 @@ libraries/AP_HAL_SITL/ToneAlarm_SF.o: libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.o
 .PHONY : libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.o
 
 libraries/AP_HAL_SITL/ToneAlarm_SF.i: libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.i
@@ -18562,8 +19731,8 @@ libraries/AP_HAL_SITL/ToneAlarm_SF.i: libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.i
 .PHONY : libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.i
 
 libraries/AP_HAL_SITL/ToneAlarm_SF.s: libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.s
@@ -18571,8 +19740,8 @@ libraries/AP_HAL_SITL/ToneAlarm_SF.s: libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.s
 .PHONY : libraries/AP_HAL_SITL/ToneAlarm_SF.cpp.s
 
 libraries/AP_HAL_SITL/UARTDriver.o: libraries/AP_HAL_SITL/UARTDriver.cpp.o
@@ -18580,8 +19749,8 @@ libraries/AP_HAL_SITL/UARTDriver.o: libraries/AP_HAL_SITL/UARTDriver.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/UARTDriver.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.o
 .PHONY : libraries/AP_HAL_SITL/UARTDriver.cpp.o
 
 libraries/AP_HAL_SITL/UARTDriver.i: libraries/AP_HAL_SITL/UARTDriver.cpp.i
@@ -18589,8 +19758,8 @@ libraries/AP_HAL_SITL/UARTDriver.i: libraries/AP_HAL_SITL/UARTDriver.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/UARTDriver.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.i
 .PHONY : libraries/AP_HAL_SITL/UARTDriver.cpp.i
 
 libraries/AP_HAL_SITL/UARTDriver.s: libraries/AP_HAL_SITL/UARTDriver.cpp.s
@@ -18598,8 +19767,8 @@ libraries/AP_HAL_SITL/UARTDriver.s: libraries/AP_HAL_SITL/UARTDriver.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/UARTDriver.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UARTDriver.cpp.s
 .PHONY : libraries/AP_HAL_SITL/UARTDriver.cpp.s
 
 libraries/AP_HAL_SITL/UART_utils.o: libraries/AP_HAL_SITL/UART_utils.cpp.o
@@ -18607,8 +19776,8 @@ libraries/AP_HAL_SITL/UART_utils.o: libraries/AP_HAL_SITL/UART_utils.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/UART_utils.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UART_utils.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/UART_utils.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UART_utils.cpp.o
 .PHONY : libraries/AP_HAL_SITL/UART_utils.cpp.o
 
 libraries/AP_HAL_SITL/UART_utils.i: libraries/AP_HAL_SITL/UART_utils.cpp.i
@@ -18616,8 +19785,8 @@ libraries/AP_HAL_SITL/UART_utils.i: libraries/AP_HAL_SITL/UART_utils.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/UART_utils.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UART_utils.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/UART_utils.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UART_utils.cpp.i
 .PHONY : libraries/AP_HAL_SITL/UART_utils.cpp.i
 
 libraries/AP_HAL_SITL/UART_utils.s: libraries/AP_HAL_SITL/UART_utils.cpp.s
@@ -18625,8 +19794,8 @@ libraries/AP_HAL_SITL/UART_utils.s: libraries/AP_HAL_SITL/UART_utils.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/UART_utils.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UART_utils.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/UART_utils.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/UART_utils.cpp.s
 .PHONY : libraries/AP_HAL_SITL/UART_utils.cpp.s
 
 libraries/AP_HAL_SITL/Util.o: libraries/AP_HAL_SITL/Util.cpp.o
@@ -18634,8 +19803,8 @@ libraries/AP_HAL_SITL/Util.o: libraries/AP_HAL_SITL/Util.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/Util.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Util.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Util.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Util.cpp.o
 .PHONY : libraries/AP_HAL_SITL/Util.cpp.o
 
 libraries/AP_HAL_SITL/Util.i: libraries/AP_HAL_SITL/Util.cpp.i
@@ -18643,8 +19812,8 @@ libraries/AP_HAL_SITL/Util.i: libraries/AP_HAL_SITL/Util.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/Util.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Util.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Util.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Util.cpp.i
 .PHONY : libraries/AP_HAL_SITL/Util.cpp.i
 
 libraries/AP_HAL_SITL/Util.s: libraries/AP_HAL_SITL/Util.cpp.s
@@ -18652,8 +19821,8 @@ libraries/AP_HAL_SITL/Util.s: libraries/AP_HAL_SITL/Util.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/Util.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Util.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/Util.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/Util.cpp.s
 .PHONY : libraries/AP_HAL_SITL/Util.cpp.s
 
 libraries/AP_HAL_SITL/sitl_airspeed.o: libraries/AP_HAL_SITL/sitl_airspeed.cpp.o
@@ -18661,8 +19830,8 @@ libraries/AP_HAL_SITL/sitl_airspeed.o: libraries/AP_HAL_SITL/sitl_airspeed.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/sitl_airspeed.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.o
 .PHONY : libraries/AP_HAL_SITL/sitl_airspeed.cpp.o
 
 libraries/AP_HAL_SITL/sitl_airspeed.i: libraries/AP_HAL_SITL/sitl_airspeed.cpp.i
@@ -18670,8 +19839,8 @@ libraries/AP_HAL_SITL/sitl_airspeed.i: libraries/AP_HAL_SITL/sitl_airspeed.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/sitl_airspeed.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.i
 .PHONY : libraries/AP_HAL_SITL/sitl_airspeed.cpp.i
 
 libraries/AP_HAL_SITL/sitl_airspeed.s: libraries/AP_HAL_SITL/sitl_airspeed.cpp.s
@@ -18679,8 +19848,8 @@ libraries/AP_HAL_SITL/sitl_airspeed.s: libraries/AP_HAL_SITL/sitl_airspeed.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/sitl_airspeed.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_airspeed.cpp.s
 .PHONY : libraries/AP_HAL_SITL/sitl_airspeed.cpp.s
 
 libraries/AP_HAL_SITL/sitl_rangefinder.o: libraries/AP_HAL_SITL/sitl_rangefinder.cpp.o
@@ -18688,8 +19857,8 @@ libraries/AP_HAL_SITL/sitl_rangefinder.o: libraries/AP_HAL_SITL/sitl_rangefinder
 
 # target to build an object file
 libraries/AP_HAL_SITL/sitl_rangefinder.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.o
 .PHONY : libraries/AP_HAL_SITL/sitl_rangefinder.cpp.o
 
 libraries/AP_HAL_SITL/sitl_rangefinder.i: libraries/AP_HAL_SITL/sitl_rangefinder.cpp.i
@@ -18697,8 +19866,8 @@ libraries/AP_HAL_SITL/sitl_rangefinder.i: libraries/AP_HAL_SITL/sitl_rangefinder
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/sitl_rangefinder.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.i
 .PHONY : libraries/AP_HAL_SITL/sitl_rangefinder.cpp.i
 
 libraries/AP_HAL_SITL/sitl_rangefinder.s: libraries/AP_HAL_SITL/sitl_rangefinder.cpp.s
@@ -18706,8 +19875,8 @@ libraries/AP_HAL_SITL/sitl_rangefinder.s: libraries/AP_HAL_SITL/sitl_rangefinder
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/sitl_rangefinder.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/sitl_rangefinder.cpp.s
 .PHONY : libraries/AP_HAL_SITL/sitl_rangefinder.cpp.s
 
 libraries/AP_HAL_SITL/system.o: libraries/AP_HAL_SITL/system.cpp.o
@@ -18715,8 +19884,8 @@ libraries/AP_HAL_SITL/system.o: libraries/AP_HAL_SITL/system.cpp.o
 
 # target to build an object file
 libraries/AP_HAL_SITL/system.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/system.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/system.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/system.cpp.o
 .PHONY : libraries/AP_HAL_SITL/system.cpp.o
 
 libraries/AP_HAL_SITL/system.i: libraries/AP_HAL_SITL/system.cpp.i
@@ -18724,8 +19893,8 @@ libraries/AP_HAL_SITL/system.i: libraries/AP_HAL_SITL/system.cpp.i
 
 # target to preprocess a source file
 libraries/AP_HAL_SITL/system.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/system.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/system.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/system.cpp.i
 .PHONY : libraries/AP_HAL_SITL/system.cpp.i
 
 libraries/AP_HAL_SITL/system.s: libraries/AP_HAL_SITL/system.cpp.s
@@ -18733,8 +19902,8 @@ libraries/AP_HAL_SITL/system.s: libraries/AP_HAL_SITL/system.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_HAL_SITL/system.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/system.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL.dir/build.make CMakeFiles/AP_HAL_SITL.dir/libraries/AP_HAL_SITL/system.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_HAL_SITL_Plane.dir/build.make CMakeFiles/AP_HAL_SITL_Plane.dir/libraries/AP_HAL_SITL/system.cpp.s
 .PHONY : libraries/AP_HAL_SITL/system.cpp.s
 
 libraries/AP_Hott_Telem/AP_Hott_Telem.o: libraries/AP_Hott_Telem/AP_Hott_Telem.cpp.o
@@ -18767,6 +19936,7 @@ libraries/AP_IBus_Telem/AP_IBus_Telem.o: libraries/AP_IBus_Telem/AP_IBus_Telem.c
 # target to build an object file
 libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_IBus_Telem.dir/build.make CMakeFiles/AP_IBus_Telem.dir/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_IBus_Telem_Plane.dir/build.make CMakeFiles/AP_IBus_Telem_Plane.dir/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.o
 .PHONY : libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.o
 
 libraries/AP_IBus_Telem/AP_IBus_Telem.i: libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.i
@@ -18775,6 +19945,7 @@ libraries/AP_IBus_Telem/AP_IBus_Telem.i: libraries/AP_IBus_Telem/AP_IBus_Telem.c
 # target to preprocess a source file
 libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_IBus_Telem.dir/build.make CMakeFiles/AP_IBus_Telem.dir/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_IBus_Telem_Plane.dir/build.make CMakeFiles/AP_IBus_Telem_Plane.dir/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.i
 .PHONY : libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.i
 
 libraries/AP_IBus_Telem/AP_IBus_Telem.s: libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.s
@@ -18783,6 +19954,7 @@ libraries/AP_IBus_Telem/AP_IBus_Telem.s: libraries/AP_IBus_Telem/AP_IBus_Telem.c
 # target to generate assembly for a file
 libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_IBus_Telem.dir/build.make CMakeFiles/AP_IBus_Telem.dir/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_IBus_Telem_Plane.dir/build.make CMakeFiles/AP_IBus_Telem_Plane.dir/libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.s
 .PHONY : libraries/AP_IBus_Telem/AP_IBus_Telem.cpp.s
 
 libraries/AP_ICEngine/AP_ICEngine.o: libraries/AP_ICEngine/AP_ICEngine.cpp.o
@@ -19007,6 +20179,7 @@ libraries/AP_InertialSensor/AP_InertialSensor.o: libraries/AP_InertialSensor/AP_
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor.i: libraries/AP_InertialSensor/AP_InertialSensor.cpp.i
@@ -19015,6 +20188,7 @@ libraries/AP_InertialSensor/AP_InertialSensor.i: libraries/AP_InertialSensor/AP_
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor.s: libraries/AP_InertialSensor/AP_InertialSensor.cpp.s
@@ -19023,6 +20197,7 @@ libraries/AP_InertialSensor/AP_InertialSensor.s: libraries/AP_InertialSensor/AP_
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.o: libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.o
@@ -19031,6 +20206,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.o: libraries/AP_Inertial
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.i: libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.i
@@ -19039,6 +20215,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.i: libraries/AP_Inertial
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.s: libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.s
@@ -19047,6 +20224,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.s: libraries/AP_Inertial
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_ADIS1647x.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_BMI055.o: libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.o
@@ -19055,6 +20233,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_BMI055.o: libraries/AP_InertialSen
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_BMI055.i: libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.i
@@ -19063,6 +20242,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_BMI055.i: libraries/AP_InertialSen
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_BMI055.s: libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.s
@@ -19071,6 +20251,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_BMI055.s: libraries/AP_InertialSen
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_BMI055.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_BMI088.o: libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.o
@@ -19079,6 +20260,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_BMI088.o: libraries/AP_InertialSen
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_BMI088.i: libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.i
@@ -19087,6 +20269,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_BMI088.i: libraries/AP_InertialSen
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_BMI088.s: libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.s
@@ -19095,6 +20278,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_BMI088.s: libraries/AP_InertialSen
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_BMI088.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_BMI160.o: libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.o
@@ -19103,6 +20287,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_BMI160.o: libraries/AP_InertialSen
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_BMI160.i: libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.i
@@ -19111,6 +20296,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_BMI160.i: libraries/AP_InertialSen
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_BMI160.s: libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.s
@@ -19119,6 +20305,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_BMI160.s: libraries/AP_InertialSen
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_BMI160.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_BMI270.o: libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.o
@@ -19127,6 +20314,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_BMI270.o: libraries/AP_InertialSen
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_BMI270.i: libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.i
@@ -19135,6 +20323,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_BMI270.i: libraries/AP_InertialSen
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_BMI270.s: libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.s
@@ -19143,6 +20332,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_BMI270.s: libraries/AP_InertialSen
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_BMI270.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_Backend.o: libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.o
@@ -19151,6 +20341,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Backend.o: libraries/AP_InertialSe
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_Backend.i: libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.i
@@ -19159,6 +20350,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Backend.i: libraries/AP_InertialSe
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_Backend.s: libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.s
@@ -19167,6 +20359,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Backend.s: libraries/AP_InertialSe
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.o: libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.o
@@ -19175,6 +20368,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.o: libraries/AP_Inert
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.i: libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.i
@@ -19183,6 +20377,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.i: libraries/AP_Inert
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.s: libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.s
@@ -19191,6 +20386,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.s: libraries/AP_Inert
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_ExternalAHRS.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_Invensense.o: libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.o
@@ -19199,6 +20395,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Invensense.o: libraries/AP_Inertia
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_Invensense.i: libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.i
@@ -19207,6 +20404,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Invensense.i: libraries/AP_Inertia
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_Invensense.s: libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.s
@@ -19215,6 +20413,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Invensense.s: libraries/AP_Inertia
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Invensense.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.o: libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.o
@@ -19223,6 +20422,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.o: libraries/AP_Inert
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.i: libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.i
@@ -19231,6 +20431,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.i: libraries/AP_Inert
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.s: libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.s
@@ -19239,6 +20440,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.s: libraries/AP_Inert
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Invensensev2.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.o: libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.o
@@ -19247,6 +20449,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.o: libraries/AP_Inert
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.i: libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.i
@@ -19255,6 +20458,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.i: libraries/AP_Inert
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.s: libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.s
@@ -19263,6 +20467,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.s: libraries/AP_Inert
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.o: libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.o
@@ -19271,6 +20476,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.o: libraries/AP_InertialS
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.i: libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.i
@@ -19279,6 +20485,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.i: libraries/AP_InertialS
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.s: libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.s
@@ -19287,6 +20494,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.s: libraries/AP_InertialS
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_L3G4200D.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.o: libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.o
@@ -19295,6 +20503,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.o: libraries/AP_InertialSe
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.i: libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.i
@@ -19303,6 +20512,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.i: libraries/AP_InertialSe
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.s: libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.s
@@ -19311,6 +20521,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.s: libraries/AP_InertialSe
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS0.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.o: libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.o
@@ -19319,6 +20530,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.o: libraries/AP_InertialSe
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.i: libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.i
@@ -19327,6 +20539,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.i: libraries/AP_InertialSe
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.s: libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.s
@@ -19335,6 +20548,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.s: libraries/AP_InertialSe
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_LSM9DS1.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_Logging.o: libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.o
@@ -19343,6 +20557,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Logging.o: libraries/AP_InertialSe
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_Logging.i: libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.i
@@ -19351,6 +20566,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Logging.i: libraries/AP_InertialSe
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_Logging.s: libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.s
@@ -19359,6 +20575,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Logging.s: libraries/AP_InertialSe
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Logging.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_NONE.o: libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.o
@@ -19367,6 +20584,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_NONE.o: libraries/AP_InertialSenso
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_NONE.i: libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.i
@@ -19375,6 +20593,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_NONE.i: libraries/AP_InertialSenso
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_NONE.s: libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.s
@@ -19383,6 +20602,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_NONE.s: libraries/AP_InertialSenso
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_NONE.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_Params.o: libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.o
@@ -19391,6 +20611,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Params.o: libraries/AP_InertialSen
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_Params.i: libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.i
@@ -19399,6 +20620,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Params.i: libraries/AP_InertialSen
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_Params.s: libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.s
@@ -19407,6 +20629,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_Params.s: libraries/AP_InertialSen
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_Params.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.o: libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.o
@@ -19415,6 +20638,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.o: libraries/AP_InertialSe
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.i: libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.i
@@ -19423,6 +20647,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.i: libraries/AP_InertialSe
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.s: libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.s
@@ -19431,6 +20656,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.s: libraries/AP_InertialSe
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_SCHA63T.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_SITL.o: libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.o
@@ -19439,6 +20665,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_SITL.o: libraries/AP_InertialSenso
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_SITL.i: libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.i
@@ -19447,6 +20674,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_SITL.i: libraries/AP_InertialSenso
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_SITL.s: libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.s
@@ -19455,6 +20683,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_SITL.s: libraries/AP_InertialSenso
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_SITL.cpp.s
 
 libraries/AP_InertialSensor/AP_InertialSensor_tempcal.o: libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.o
@@ -19463,6 +20692,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_tempcal.o: libraries/AP_InertialSe
 # target to build an object file
 libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.o
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.o
 
 libraries/AP_InertialSensor/AP_InertialSensor_tempcal.i: libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.i
@@ -19471,6 +20701,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_tempcal.i: libraries/AP_InertialSe
 # target to preprocess a source file
 libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.i
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.i
 
 libraries/AP_InertialSensor/AP_InertialSensor_tempcal.s: libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.s
@@ -19479,6 +20710,7 @@ libraries/AP_InertialSensor/AP_InertialSensor_tempcal.s: libraries/AP_InertialSe
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.s
 .PHONY : libraries/AP_InertialSensor/AP_InertialSensor_tempcal.cpp.s
 
 libraries/AP_InertialSensor/AuxiliaryBus.o: libraries/AP_InertialSensor/AuxiliaryBus.cpp.o
@@ -19487,6 +20719,7 @@ libraries/AP_InertialSensor/AuxiliaryBus.o: libraries/AP_InertialSensor/Auxiliar
 # target to build an object file
 libraries/AP_InertialSensor/AuxiliaryBus.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AuxiliaryBus.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AuxiliaryBus.cpp.o
 .PHONY : libraries/AP_InertialSensor/AuxiliaryBus.cpp.o
 
 libraries/AP_InertialSensor/AuxiliaryBus.i: libraries/AP_InertialSensor/AuxiliaryBus.cpp.i
@@ -19495,6 +20728,7 @@ libraries/AP_InertialSensor/AuxiliaryBus.i: libraries/AP_InertialSensor/Auxiliar
 # target to preprocess a source file
 libraries/AP_InertialSensor/AuxiliaryBus.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AuxiliaryBus.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AuxiliaryBus.cpp.i
 .PHONY : libraries/AP_InertialSensor/AuxiliaryBus.cpp.i
 
 libraries/AP_InertialSensor/AuxiliaryBus.s: libraries/AP_InertialSensor/AuxiliaryBus.cpp.s
@@ -19503,6 +20737,7 @@ libraries/AP_InertialSensor/AuxiliaryBus.s: libraries/AP_InertialSensor/Auxiliar
 # target to generate assembly for a file
 libraries/AP_InertialSensor/AuxiliaryBus.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/AuxiliaryBus.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/AuxiliaryBus.cpp.s
 .PHONY : libraries/AP_InertialSensor/AuxiliaryBus.cpp.s
 
 libraries/AP_InertialSensor/BatchSampler.o: libraries/AP_InertialSensor/BatchSampler.cpp.o
@@ -19511,6 +20746,7 @@ libraries/AP_InertialSensor/BatchSampler.o: libraries/AP_InertialSensor/BatchSam
 # target to build an object file
 libraries/AP_InertialSensor/BatchSampler.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/BatchSampler.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/BatchSampler.cpp.o
 .PHONY : libraries/AP_InertialSensor/BatchSampler.cpp.o
 
 libraries/AP_InertialSensor/BatchSampler.i: libraries/AP_InertialSensor/BatchSampler.cpp.i
@@ -19519,6 +20755,7 @@ libraries/AP_InertialSensor/BatchSampler.i: libraries/AP_InertialSensor/BatchSam
 # target to preprocess a source file
 libraries/AP_InertialSensor/BatchSampler.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/BatchSampler.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/BatchSampler.cpp.i
 .PHONY : libraries/AP_InertialSensor/BatchSampler.cpp.i
 
 libraries/AP_InertialSensor/BatchSampler.s: libraries/AP_InertialSensor/BatchSampler.cpp.s
@@ -19527,6 +20764,7 @@ libraries/AP_InertialSensor/BatchSampler.s: libraries/AP_InertialSensor/BatchSam
 # target to generate assembly for a file
 libraries/AP_InertialSensor/BatchSampler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/BatchSampler.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/BatchSampler.cpp.s
 .PHONY : libraries/AP_InertialSensor/BatchSampler.cpp.s
 
 libraries/AP_InertialSensor/FastRateBuffer.o: libraries/AP_InertialSensor/FastRateBuffer.cpp.o
@@ -19535,6 +20773,7 @@ libraries/AP_InertialSensor/FastRateBuffer.o: libraries/AP_InertialSensor/FastRa
 # target to build an object file
 libraries/AP_InertialSensor/FastRateBuffer.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/FastRateBuffer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/FastRateBuffer.cpp.o
 .PHONY : libraries/AP_InertialSensor/FastRateBuffer.cpp.o
 
 libraries/AP_InertialSensor/FastRateBuffer.i: libraries/AP_InertialSensor/FastRateBuffer.cpp.i
@@ -19543,6 +20782,7 @@ libraries/AP_InertialSensor/FastRateBuffer.i: libraries/AP_InertialSensor/FastRa
 # target to preprocess a source file
 libraries/AP_InertialSensor/FastRateBuffer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/FastRateBuffer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/FastRateBuffer.cpp.i
 .PHONY : libraries/AP_InertialSensor/FastRateBuffer.cpp.i
 
 libraries/AP_InertialSensor/FastRateBuffer.s: libraries/AP_InertialSensor/FastRateBuffer.cpp.s
@@ -19551,6 +20791,7 @@ libraries/AP_InertialSensor/FastRateBuffer.s: libraries/AP_InertialSensor/FastRa
 # target to generate assembly for a file
 libraries/AP_InertialSensor/FastRateBuffer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor.dir/build.make CMakeFiles/AP_InertialSensor.dir/libraries/AP_InertialSensor/FastRateBuffer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_InertialSensor_Plane.dir/build.make CMakeFiles/AP_InertialSensor_Plane.dir/libraries/AP_InertialSensor/FastRateBuffer.cpp.s
 .PHONY : libraries/AP_InertialSensor/FastRateBuffer.cpp.s
 
 libraries/AP_InternalError/AP_InternalError.o: libraries/AP_InternalError/AP_InternalError.cpp.o
@@ -19702,6 +20943,7 @@ libraries/AP_Landing/AP_Landing.o: libraries/AP_Landing/AP_Landing.cpp.o
 
 # target to build an object file
 libraries/AP_Landing/AP_Landing.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing_Plane.dir/build.make CMakeFiles/AP_Landing_Plane.dir/libraries/AP_Landing/AP_Landing.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing.dir/build.make CMakeFiles/AP_Landing.dir/libraries/AP_Landing/AP_Landing.cpp.o
 .PHONY : libraries/AP_Landing/AP_Landing.cpp.o
 
@@ -19710,6 +20952,7 @@ libraries/AP_Landing/AP_Landing.i: libraries/AP_Landing/AP_Landing.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Landing/AP_Landing.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing_Plane.dir/build.make CMakeFiles/AP_Landing_Plane.dir/libraries/AP_Landing/AP_Landing.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing.dir/build.make CMakeFiles/AP_Landing.dir/libraries/AP_Landing/AP_Landing.cpp.i
 .PHONY : libraries/AP_Landing/AP_Landing.cpp.i
 
@@ -19718,6 +20961,7 @@ libraries/AP_Landing/AP_Landing.s: libraries/AP_Landing/AP_Landing.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Landing/AP_Landing.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing_Plane.dir/build.make CMakeFiles/AP_Landing_Plane.dir/libraries/AP_Landing/AP_Landing.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing.dir/build.make CMakeFiles/AP_Landing.dir/libraries/AP_Landing/AP_Landing.cpp.s
 .PHONY : libraries/AP_Landing/AP_Landing.cpp.s
 
@@ -19726,6 +20970,7 @@ libraries/AP_Landing/AP_Landing_Deepstall.o: libraries/AP_Landing/AP_Landing_Dee
 
 # target to build an object file
 libraries/AP_Landing/AP_Landing_Deepstall.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing_Plane.dir/build.make CMakeFiles/AP_Landing_Plane.dir/libraries/AP_Landing/AP_Landing_Deepstall.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing.dir/build.make CMakeFiles/AP_Landing.dir/libraries/AP_Landing/AP_Landing_Deepstall.cpp.o
 .PHONY : libraries/AP_Landing/AP_Landing_Deepstall.cpp.o
 
@@ -19734,6 +20979,7 @@ libraries/AP_Landing/AP_Landing_Deepstall.i: libraries/AP_Landing/AP_Landing_Dee
 
 # target to preprocess a source file
 libraries/AP_Landing/AP_Landing_Deepstall.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing_Plane.dir/build.make CMakeFiles/AP_Landing_Plane.dir/libraries/AP_Landing/AP_Landing_Deepstall.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing.dir/build.make CMakeFiles/AP_Landing.dir/libraries/AP_Landing/AP_Landing_Deepstall.cpp.i
 .PHONY : libraries/AP_Landing/AP_Landing_Deepstall.cpp.i
 
@@ -19742,6 +20988,7 @@ libraries/AP_Landing/AP_Landing_Deepstall.s: libraries/AP_Landing/AP_Landing_Dee
 
 # target to generate assembly for a file
 libraries/AP_Landing/AP_Landing_Deepstall.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing_Plane.dir/build.make CMakeFiles/AP_Landing_Plane.dir/libraries/AP_Landing/AP_Landing_Deepstall.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing.dir/build.make CMakeFiles/AP_Landing.dir/libraries/AP_Landing/AP_Landing_Deepstall.cpp.s
 .PHONY : libraries/AP_Landing/AP_Landing_Deepstall.cpp.s
 
@@ -19750,6 +20997,7 @@ libraries/AP_Landing/AP_Landing_Slope.o: libraries/AP_Landing/AP_Landing_Slope.c
 
 # target to build an object file
 libraries/AP_Landing/AP_Landing_Slope.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing_Plane.dir/build.make CMakeFiles/AP_Landing_Plane.dir/libraries/AP_Landing/AP_Landing_Slope.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing.dir/build.make CMakeFiles/AP_Landing.dir/libraries/AP_Landing/AP_Landing_Slope.cpp.o
 .PHONY : libraries/AP_Landing/AP_Landing_Slope.cpp.o
 
@@ -19758,6 +21006,7 @@ libraries/AP_Landing/AP_Landing_Slope.i: libraries/AP_Landing/AP_Landing_Slope.c
 
 # target to preprocess a source file
 libraries/AP_Landing/AP_Landing_Slope.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing_Plane.dir/build.make CMakeFiles/AP_Landing_Plane.dir/libraries/AP_Landing/AP_Landing_Slope.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing.dir/build.make CMakeFiles/AP_Landing.dir/libraries/AP_Landing/AP_Landing_Slope.cpp.i
 .PHONY : libraries/AP_Landing/AP_Landing_Slope.cpp.i
 
@@ -19766,6 +21015,7 @@ libraries/AP_Landing/AP_Landing_Slope.s: libraries/AP_Landing/AP_Landing_Slope.c
 
 # target to generate assembly for a file
 libraries/AP_Landing/AP_Landing_Slope.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing_Plane.dir/build.make CMakeFiles/AP_Landing_Plane.dir/libraries/AP_Landing/AP_Landing_Slope.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Landing.dir/build.make CMakeFiles/AP_Landing.dir/libraries/AP_Landing/AP_Landing_Slope.cpp.s
 .PHONY : libraries/AP_Landing/AP_Landing_Slope.cpp.s
 
@@ -19775,6 +21025,7 @@ libraries/AP_LandingGear/AP_LandingGear.o: libraries/AP_LandingGear/AP_LandingGe
 # target to build an object file
 libraries/AP_LandingGear/AP_LandingGear.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LandingGear.dir/build.make CMakeFiles/AP_LandingGear.dir/libraries/AP_LandingGear/AP_LandingGear.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LandingGear_Plane.dir/build.make CMakeFiles/AP_LandingGear_Plane.dir/libraries/AP_LandingGear/AP_LandingGear.cpp.o
 .PHONY : libraries/AP_LandingGear/AP_LandingGear.cpp.o
 
 libraries/AP_LandingGear/AP_LandingGear.i: libraries/AP_LandingGear/AP_LandingGear.cpp.i
@@ -19783,6 +21034,7 @@ libraries/AP_LandingGear/AP_LandingGear.i: libraries/AP_LandingGear/AP_LandingGe
 # target to preprocess a source file
 libraries/AP_LandingGear/AP_LandingGear.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LandingGear.dir/build.make CMakeFiles/AP_LandingGear.dir/libraries/AP_LandingGear/AP_LandingGear.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LandingGear_Plane.dir/build.make CMakeFiles/AP_LandingGear_Plane.dir/libraries/AP_LandingGear/AP_LandingGear.cpp.i
 .PHONY : libraries/AP_LandingGear/AP_LandingGear.cpp.i
 
 libraries/AP_LandingGear/AP_LandingGear.s: libraries/AP_LandingGear/AP_LandingGear.cpp.s
@@ -19791,6 +21043,7 @@ libraries/AP_LandingGear/AP_LandingGear.s: libraries/AP_LandingGear/AP_LandingGe
 # target to generate assembly for a file
 libraries/AP_LandingGear/AP_LandingGear.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LandingGear.dir/build.make CMakeFiles/AP_LandingGear.dir/libraries/AP_LandingGear/AP_LandingGear.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_LandingGear_Plane.dir/build.make CMakeFiles/AP_LandingGear_Plane.dir/libraries/AP_LandingGear/AP_LandingGear.cpp.s
 .PHONY : libraries/AP_LandingGear/AP_LandingGear.cpp.s
 
 libraries/AP_LeakDetector/AP_LeakDetector.o: libraries/AP_LeakDetector/AP_LeakDetector.cpp.o
@@ -19919,6 +21172,7 @@ libraries/AP_Logger/AP_Logger.o: libraries/AP_Logger/AP_Logger.cpp.o
 # target to build an object file
 libraries/AP_Logger/AP_Logger.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger.cpp.o
 
 libraries/AP_Logger/AP_Logger.i: libraries/AP_Logger/AP_Logger.cpp.i
@@ -19927,6 +21181,7 @@ libraries/AP_Logger/AP_Logger.i: libraries/AP_Logger/AP_Logger.cpp.i
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger.cpp.i
 
 libraries/AP_Logger/AP_Logger.s: libraries/AP_Logger/AP_Logger.cpp.s
@@ -19935,6 +21190,7 @@ libraries/AP_Logger/AP_Logger.s: libraries/AP_Logger/AP_Logger.cpp.s
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger.cpp.s
 
 libraries/AP_Logger/AP_Logger_Backend.o: libraries/AP_Logger/AP_Logger_Backend.cpp.o
@@ -19943,6 +21199,7 @@ libraries/AP_Logger/AP_Logger_Backend.o: libraries/AP_Logger/AP_Logger_Backend.c
 # target to build an object file
 libraries/AP_Logger/AP_Logger_Backend.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger_Backend.cpp.o
 
 libraries/AP_Logger/AP_Logger_Backend.i: libraries/AP_Logger/AP_Logger_Backend.cpp.i
@@ -19951,6 +21208,7 @@ libraries/AP_Logger/AP_Logger_Backend.i: libraries/AP_Logger/AP_Logger_Backend.c
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger_Backend.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger_Backend.cpp.i
 
 libraries/AP_Logger/AP_Logger_Backend.s: libraries/AP_Logger/AP_Logger_Backend.cpp.s
@@ -19959,6 +21217,7 @@ libraries/AP_Logger/AP_Logger_Backend.s: libraries/AP_Logger/AP_Logger_Backend.c
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger_Backend.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Backend.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger_Backend.cpp.s
 
 libraries/AP_Logger/AP_Logger_Block.o: libraries/AP_Logger/AP_Logger_Block.cpp.o
@@ -19967,6 +21226,7 @@ libraries/AP_Logger/AP_Logger_Block.o: libraries/AP_Logger/AP_Logger_Block.cpp.o
 # target to build an object file
 libraries/AP_Logger/AP_Logger_Block.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Block.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Block.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger_Block.cpp.o
 
 libraries/AP_Logger/AP_Logger_Block.i: libraries/AP_Logger/AP_Logger_Block.cpp.i
@@ -19975,6 +21235,7 @@ libraries/AP_Logger/AP_Logger_Block.i: libraries/AP_Logger/AP_Logger_Block.cpp.i
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger_Block.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Block.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Block.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger_Block.cpp.i
 
 libraries/AP_Logger/AP_Logger_Block.s: libraries/AP_Logger/AP_Logger_Block.cpp.s
@@ -19983,6 +21244,7 @@ libraries/AP_Logger/AP_Logger_Block.s: libraries/AP_Logger/AP_Logger_Block.cpp.s
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger_Block.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Block.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Block.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger_Block.cpp.s
 
 libraries/AP_Logger/AP_Logger_File.o: libraries/AP_Logger/AP_Logger_File.cpp.o
@@ -19991,6 +21253,7 @@ libraries/AP_Logger/AP_Logger_File.o: libraries/AP_Logger/AP_Logger_File.cpp.o
 # target to build an object file
 libraries/AP_Logger/AP_Logger_File.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_File.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_File.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger_File.cpp.o
 
 libraries/AP_Logger/AP_Logger_File.i: libraries/AP_Logger/AP_Logger_File.cpp.i
@@ -19999,6 +21262,7 @@ libraries/AP_Logger/AP_Logger_File.i: libraries/AP_Logger/AP_Logger_File.cpp.i
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger_File.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_File.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_File.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger_File.cpp.i
 
 libraries/AP_Logger/AP_Logger_File.s: libraries/AP_Logger/AP_Logger_File.cpp.s
@@ -20007,6 +21271,7 @@ libraries/AP_Logger/AP_Logger_File.s: libraries/AP_Logger/AP_Logger_File.cpp.s
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger_File.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_File.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_File.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger_File.cpp.s
 
 libraries/AP_Logger/AP_Logger_Flash_JEDEC.o: libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.o
@@ -20015,6 +21280,7 @@ libraries/AP_Logger/AP_Logger_Flash_JEDEC.o: libraries/AP_Logger/AP_Logger_Flash
 # target to build an object file
 libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.o
 
 libraries/AP_Logger/AP_Logger_Flash_JEDEC.i: libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.i
@@ -20023,6 +21289,7 @@ libraries/AP_Logger/AP_Logger_Flash_JEDEC.i: libraries/AP_Logger/AP_Logger_Flash
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.i
 
 libraries/AP_Logger/AP_Logger_Flash_JEDEC.s: libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.s
@@ -20031,6 +21298,7 @@ libraries/AP_Logger/AP_Logger_Flash_JEDEC.s: libraries/AP_Logger/AP_Logger_Flash
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger_Flash_JEDEC.cpp.s
 
 libraries/AP_Logger/AP_Logger_MAVLink.o: libraries/AP_Logger/AP_Logger_MAVLink.cpp.o
@@ -20039,6 +21307,7 @@ libraries/AP_Logger/AP_Logger_MAVLink.o: libraries/AP_Logger/AP_Logger_MAVLink.c
 # target to build an object file
 libraries/AP_Logger/AP_Logger_MAVLink.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger_MAVLink.cpp.o
 
 libraries/AP_Logger/AP_Logger_MAVLink.i: libraries/AP_Logger/AP_Logger_MAVLink.cpp.i
@@ -20047,6 +21316,7 @@ libraries/AP_Logger/AP_Logger_MAVLink.i: libraries/AP_Logger/AP_Logger_MAVLink.c
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger_MAVLink.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger_MAVLink.cpp.i
 
 libraries/AP_Logger/AP_Logger_MAVLink.s: libraries/AP_Logger/AP_Logger_MAVLink.cpp.s
@@ -20055,6 +21325,7 @@ libraries/AP_Logger/AP_Logger_MAVLink.s: libraries/AP_Logger/AP_Logger_MAVLink.c
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger_MAVLink.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_MAVLink.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger_MAVLink.cpp.s
 
 libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.o: libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.o
@@ -20063,6 +21334,7 @@ libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.o: libraries/AP_Logger/AP_Logge
 # target to build an object file
 libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.o
 
 libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.i: libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.i
@@ -20071,6 +21343,7 @@ libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.i: libraries/AP_Logger/AP_Logge
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.i
 
 libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.s: libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.s
@@ -20079,6 +21352,7 @@ libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.s: libraries/AP_Logger/AP_Logge
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger_MAVLinkLogTransfer.cpp.s
 
 libraries/AP_Logger/AP_Logger_W25NXX.o: libraries/AP_Logger/AP_Logger_W25NXX.cpp.o
@@ -20087,6 +21361,7 @@ libraries/AP_Logger/AP_Logger_W25NXX.o: libraries/AP_Logger/AP_Logger_W25NXX.cpp
 # target to build an object file
 libraries/AP_Logger/AP_Logger_W25NXX.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.o
 .PHONY : libraries/AP_Logger/AP_Logger_W25NXX.cpp.o
 
 libraries/AP_Logger/AP_Logger_W25NXX.i: libraries/AP_Logger/AP_Logger_W25NXX.cpp.i
@@ -20095,6 +21370,7 @@ libraries/AP_Logger/AP_Logger_W25NXX.i: libraries/AP_Logger/AP_Logger_W25NXX.cpp
 # target to preprocess a source file
 libraries/AP_Logger/AP_Logger_W25NXX.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.i
 .PHONY : libraries/AP_Logger/AP_Logger_W25NXX.cpp.i
 
 libraries/AP_Logger/AP_Logger_W25NXX.s: libraries/AP_Logger/AP_Logger_W25NXX.cpp.s
@@ -20103,6 +21379,7 @@ libraries/AP_Logger/AP_Logger_W25NXX.s: libraries/AP_Logger/AP_Logger_W25NXX.cpp
 # target to generate assembly for a file
 libraries/AP_Logger/AP_Logger_W25NXX.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/AP_Logger_W25NXX.cpp.s
 .PHONY : libraries/AP_Logger/AP_Logger_W25NXX.cpp.s
 
 libraries/AP_Logger/LogFile.o: libraries/AP_Logger/LogFile.cpp.o
@@ -20111,6 +21388,7 @@ libraries/AP_Logger/LogFile.o: libraries/AP_Logger/LogFile.cpp.o
 # target to build an object file
 libraries/AP_Logger/LogFile.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LogFile.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/LogFile.cpp.o
 .PHONY : libraries/AP_Logger/LogFile.cpp.o
 
 libraries/AP_Logger/LogFile.i: libraries/AP_Logger/LogFile.cpp.i
@@ -20119,6 +21397,7 @@ libraries/AP_Logger/LogFile.i: libraries/AP_Logger/LogFile.cpp.i
 # target to preprocess a source file
 libraries/AP_Logger/LogFile.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LogFile.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/LogFile.cpp.i
 .PHONY : libraries/AP_Logger/LogFile.cpp.i
 
 libraries/AP_Logger/LogFile.s: libraries/AP_Logger/LogFile.cpp.s
@@ -20127,6 +21406,7 @@ libraries/AP_Logger/LogFile.s: libraries/AP_Logger/LogFile.cpp.s
 # target to generate assembly for a file
 libraries/AP_Logger/LogFile.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LogFile.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/LogFile.cpp.s
 .PHONY : libraries/AP_Logger/LogFile.cpp.s
 
 libraries/AP_Logger/LoggerMessageWriter.o: libraries/AP_Logger/LoggerMessageWriter.cpp.o
@@ -20135,6 +21415,7 @@ libraries/AP_Logger/LoggerMessageWriter.o: libraries/AP_Logger/LoggerMessageWrit
 # target to build an object file
 libraries/AP_Logger/LoggerMessageWriter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.o
 .PHONY : libraries/AP_Logger/LoggerMessageWriter.cpp.o
 
 libraries/AP_Logger/LoggerMessageWriter.i: libraries/AP_Logger/LoggerMessageWriter.cpp.i
@@ -20143,6 +21424,7 @@ libraries/AP_Logger/LoggerMessageWriter.i: libraries/AP_Logger/LoggerMessageWrit
 # target to preprocess a source file
 libraries/AP_Logger/LoggerMessageWriter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.i
 .PHONY : libraries/AP_Logger/LoggerMessageWriter.cpp.i
 
 libraries/AP_Logger/LoggerMessageWriter.s: libraries/AP_Logger/LoggerMessageWriter.cpp.s
@@ -20151,6 +21433,7 @@ libraries/AP_Logger/LoggerMessageWriter.s: libraries/AP_Logger/LoggerMessageWrit
 # target to generate assembly for a file
 libraries/AP_Logger/LoggerMessageWriter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger.dir/build.make CMakeFiles/AP_Logger.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Logger_Plane.dir/build.make CMakeFiles/AP_Logger_Plane.dir/libraries/AP_Logger/LoggerMessageWriter.cpp.s
 .PHONY : libraries/AP_Logger/LoggerMessageWriter.cpp.s
 
 libraries/AP_MSP/AP_MSP.o: libraries/AP_MSP/AP_MSP.cpp.o
@@ -20326,6 +21609,7 @@ libraries/AP_Math/AP_GeodesicGrid.o: libraries/AP_Math/AP_GeodesicGrid.cpp.o
 
 # target to build an object file
 libraries/AP_Math/AP_GeodesicGrid.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/AP_GeodesicGrid.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/AP_GeodesicGrid.cpp.o
 .PHONY : libraries/AP_Math/AP_GeodesicGrid.cpp.o
 
@@ -20334,6 +21618,7 @@ libraries/AP_Math/AP_GeodesicGrid.i: libraries/AP_Math/AP_GeodesicGrid.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/AP_GeodesicGrid.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/AP_GeodesicGrid.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/AP_GeodesicGrid.cpp.i
 .PHONY : libraries/AP_Math/AP_GeodesicGrid.cpp.i
 
@@ -20342,6 +21627,7 @@ libraries/AP_Math/AP_GeodesicGrid.s: libraries/AP_Math/AP_GeodesicGrid.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/AP_GeodesicGrid.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/AP_GeodesicGrid.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/AP_GeodesicGrid.cpp.s
 .PHONY : libraries/AP_Math/AP_GeodesicGrid.cpp.s
 
@@ -20350,6 +21636,7 @@ libraries/AP_Math/AP_Math.o: libraries/AP_Math/AP_Math.cpp.o
 
 # target to build an object file
 libraries/AP_Math/AP_Math.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/AP_Math.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/AP_Math.cpp.o
 .PHONY : libraries/AP_Math/AP_Math.cpp.o
 
@@ -20358,6 +21645,7 @@ libraries/AP_Math/AP_Math.i: libraries/AP_Math/AP_Math.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/AP_Math.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/AP_Math.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/AP_Math.cpp.i
 .PHONY : libraries/AP_Math/AP_Math.cpp.i
 
@@ -20366,6 +21654,7 @@ libraries/AP_Math/AP_Math.s: libraries/AP_Math/AP_Math.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/AP_Math.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/AP_Math.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/AP_Math.cpp.s
 .PHONY : libraries/AP_Math/AP_Math.cpp.s
 
@@ -20374,6 +21663,7 @@ libraries/AP_Math/SCurve.o: libraries/AP_Math/SCurve.cpp.o
 
 # target to build an object file
 libraries/AP_Math/SCurve.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/SCurve.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/SCurve.cpp.o
 .PHONY : libraries/AP_Math/SCurve.cpp.o
 
@@ -20382,6 +21672,7 @@ libraries/AP_Math/SCurve.i: libraries/AP_Math/SCurve.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/SCurve.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/SCurve.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/SCurve.cpp.i
 .PHONY : libraries/AP_Math/SCurve.cpp.i
 
@@ -20390,6 +21681,7 @@ libraries/AP_Math/SCurve.s: libraries/AP_Math/SCurve.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/SCurve.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/SCurve.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/SCurve.cpp.s
 .PHONY : libraries/AP_Math/SCurve.cpp.s
 
@@ -20398,6 +21690,7 @@ libraries/AP_Math/SplineCurve.o: libraries/AP_Math/SplineCurve.cpp.o
 
 # target to build an object file
 libraries/AP_Math/SplineCurve.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/SplineCurve.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/SplineCurve.cpp.o
 .PHONY : libraries/AP_Math/SplineCurve.cpp.o
 
@@ -20406,6 +21699,7 @@ libraries/AP_Math/SplineCurve.i: libraries/AP_Math/SplineCurve.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/SplineCurve.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/SplineCurve.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/SplineCurve.cpp.i
 .PHONY : libraries/AP_Math/SplineCurve.cpp.i
 
@@ -20414,6 +21708,7 @@ libraries/AP_Math/SplineCurve.s: libraries/AP_Math/SplineCurve.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/SplineCurve.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/SplineCurve.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/SplineCurve.cpp.s
 .PHONY : libraries/AP_Math/SplineCurve.cpp.s
 
@@ -20422,6 +21717,7 @@ libraries/AP_Math/chirp.o: libraries/AP_Math/chirp.cpp.o
 
 # target to build an object file
 libraries/AP_Math/chirp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/chirp.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/chirp.cpp.o
 .PHONY : libraries/AP_Math/chirp.cpp.o
 
@@ -20430,6 +21726,7 @@ libraries/AP_Math/chirp.i: libraries/AP_Math/chirp.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/chirp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/chirp.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/chirp.cpp.i
 .PHONY : libraries/AP_Math/chirp.cpp.i
 
@@ -20438,6 +21735,7 @@ libraries/AP_Math/chirp.s: libraries/AP_Math/chirp.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/chirp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/chirp.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/chirp.cpp.s
 .PHONY : libraries/AP_Math/chirp.cpp.s
 
@@ -20446,6 +21744,7 @@ libraries/AP_Math/control.o: libraries/AP_Math/control.cpp.o
 
 # target to build an object file
 libraries/AP_Math/control.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/control.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/control.cpp.o
 .PHONY : libraries/AP_Math/control.cpp.o
 
@@ -20454,6 +21753,7 @@ libraries/AP_Math/control.i: libraries/AP_Math/control.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/control.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/control.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/control.cpp.i
 .PHONY : libraries/AP_Math/control.cpp.i
 
@@ -20462,6 +21762,7 @@ libraries/AP_Math/control.s: libraries/AP_Math/control.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/control.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/control.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/control.cpp.s
 .PHONY : libraries/AP_Math/control.cpp.s
 
@@ -20470,6 +21771,7 @@ libraries/AP_Math/crc.o: libraries/AP_Math/crc.cpp.o
 
 # target to build an object file
 libraries/AP_Math/crc.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/crc.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/crc.cpp.o
 .PHONY : libraries/AP_Math/crc.cpp.o
 
@@ -20478,6 +21780,7 @@ libraries/AP_Math/crc.i: libraries/AP_Math/crc.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/crc.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/crc.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/crc.cpp.i
 .PHONY : libraries/AP_Math/crc.cpp.i
 
@@ -20486,6 +21789,7 @@ libraries/AP_Math/crc.s: libraries/AP_Math/crc.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/crc.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/crc.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/crc.cpp.s
 .PHONY : libraries/AP_Math/crc.cpp.s
 
@@ -20494,6 +21798,7 @@ libraries/AP_Math/location.o: libraries/AP_Math/location.cpp.o
 
 # target to build an object file
 libraries/AP_Math/location.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/location.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/location.cpp.o
 .PHONY : libraries/AP_Math/location.cpp.o
 
@@ -20502,6 +21807,7 @@ libraries/AP_Math/location.i: libraries/AP_Math/location.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/location.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/location.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/location.cpp.i
 .PHONY : libraries/AP_Math/location.cpp.i
 
@@ -20510,6 +21816,7 @@ libraries/AP_Math/location.s: libraries/AP_Math/location.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/location.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/location.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/location.cpp.s
 .PHONY : libraries/AP_Math/location.cpp.s
 
@@ -20518,6 +21825,7 @@ libraries/AP_Math/location_double.o: libraries/AP_Math/location_double.cpp.o
 
 # target to build an object file
 libraries/AP_Math/location_double.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/location_double.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/location_double.cpp.o
 .PHONY : libraries/AP_Math/location_double.cpp.o
 
@@ -20526,6 +21834,7 @@ libraries/AP_Math/location_double.i: libraries/AP_Math/location_double.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/location_double.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/location_double.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/location_double.cpp.i
 .PHONY : libraries/AP_Math/location_double.cpp.i
 
@@ -20534,6 +21843,7 @@ libraries/AP_Math/location_double.s: libraries/AP_Math/location_double.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/location_double.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/location_double.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/location_double.cpp.s
 .PHONY : libraries/AP_Math/location_double.cpp.s
 
@@ -20542,6 +21852,7 @@ libraries/AP_Math/matrix3.o: libraries/AP_Math/matrix3.cpp.o
 
 # target to build an object file
 libraries/AP_Math/matrix3.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/matrix3.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/matrix3.cpp.o
 .PHONY : libraries/AP_Math/matrix3.cpp.o
 
@@ -20550,6 +21861,7 @@ libraries/AP_Math/matrix3.i: libraries/AP_Math/matrix3.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/matrix3.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/matrix3.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/matrix3.cpp.i
 .PHONY : libraries/AP_Math/matrix3.cpp.i
 
@@ -20558,6 +21870,7 @@ libraries/AP_Math/matrix3.s: libraries/AP_Math/matrix3.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/matrix3.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/matrix3.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/matrix3.cpp.s
 .PHONY : libraries/AP_Math/matrix3.cpp.s
 
@@ -20566,6 +21879,7 @@ libraries/AP_Math/matrixN.o: libraries/AP_Math/matrixN.cpp.o
 
 # target to build an object file
 libraries/AP_Math/matrixN.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/matrixN.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/matrixN.cpp.o
 .PHONY : libraries/AP_Math/matrixN.cpp.o
 
@@ -20574,6 +21888,7 @@ libraries/AP_Math/matrixN.i: libraries/AP_Math/matrixN.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/matrixN.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/matrixN.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/matrixN.cpp.i
 .PHONY : libraries/AP_Math/matrixN.cpp.i
 
@@ -20582,6 +21897,7 @@ libraries/AP_Math/matrixN.s: libraries/AP_Math/matrixN.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/matrixN.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/matrixN.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/matrixN.cpp.s
 .PHONY : libraries/AP_Math/matrixN.cpp.s
 
@@ -20590,6 +21906,7 @@ libraries/AP_Math/matrix_alg.o: libraries/AP_Math/matrix_alg.cpp.o
 
 # target to build an object file
 libraries/AP_Math/matrix_alg.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/matrix_alg.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/matrix_alg.cpp.o
 .PHONY : libraries/AP_Math/matrix_alg.cpp.o
 
@@ -20598,6 +21915,7 @@ libraries/AP_Math/matrix_alg.i: libraries/AP_Math/matrix_alg.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/matrix_alg.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/matrix_alg.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/matrix_alg.cpp.i
 .PHONY : libraries/AP_Math/matrix_alg.cpp.i
 
@@ -20606,6 +21924,7 @@ libraries/AP_Math/matrix_alg.s: libraries/AP_Math/matrix_alg.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/matrix_alg.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/matrix_alg.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/matrix_alg.cpp.s
 .PHONY : libraries/AP_Math/matrix_alg.cpp.s
 
@@ -20614,6 +21933,7 @@ libraries/AP_Math/polyfit.o: libraries/AP_Math/polyfit.cpp.o
 
 # target to build an object file
 libraries/AP_Math/polyfit.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/polyfit.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/polyfit.cpp.o
 .PHONY : libraries/AP_Math/polyfit.cpp.o
 
@@ -20622,6 +21942,7 @@ libraries/AP_Math/polyfit.i: libraries/AP_Math/polyfit.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/polyfit.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/polyfit.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/polyfit.cpp.i
 .PHONY : libraries/AP_Math/polyfit.cpp.i
 
@@ -20630,6 +21951,7 @@ libraries/AP_Math/polyfit.s: libraries/AP_Math/polyfit.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/polyfit.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/polyfit.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/polyfit.cpp.s
 .PHONY : libraries/AP_Math/polyfit.cpp.s
 
@@ -20638,6 +21960,7 @@ libraries/AP_Math/polygon.o: libraries/AP_Math/polygon.cpp.o
 
 # target to build an object file
 libraries/AP_Math/polygon.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/polygon.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/polygon.cpp.o
 .PHONY : libraries/AP_Math/polygon.cpp.o
 
@@ -20646,6 +21969,7 @@ libraries/AP_Math/polygon.i: libraries/AP_Math/polygon.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/polygon.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/polygon.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/polygon.cpp.i
 .PHONY : libraries/AP_Math/polygon.cpp.i
 
@@ -20654,6 +21978,7 @@ libraries/AP_Math/polygon.s: libraries/AP_Math/polygon.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/polygon.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/polygon.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/polygon.cpp.s
 .PHONY : libraries/AP_Math/polygon.cpp.s
 
@@ -20662,6 +21987,7 @@ libraries/AP_Math/quaternion.o: libraries/AP_Math/quaternion.cpp.o
 
 # target to build an object file
 libraries/AP_Math/quaternion.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/quaternion.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/quaternion.cpp.o
 .PHONY : libraries/AP_Math/quaternion.cpp.o
 
@@ -20670,6 +21996,7 @@ libraries/AP_Math/quaternion.i: libraries/AP_Math/quaternion.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/quaternion.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/quaternion.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/quaternion.cpp.i
 .PHONY : libraries/AP_Math/quaternion.cpp.i
 
@@ -20678,6 +22005,7 @@ libraries/AP_Math/quaternion.s: libraries/AP_Math/quaternion.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/quaternion.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/quaternion.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/quaternion.cpp.s
 .PHONY : libraries/AP_Math/quaternion.cpp.s
 
@@ -20686,6 +22014,7 @@ libraries/AP_Math/spline5.o: libraries/AP_Math/spline5.cpp.o
 
 # target to build an object file
 libraries/AP_Math/spline5.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/spline5.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/spline5.cpp.o
 .PHONY : libraries/AP_Math/spline5.cpp.o
 
@@ -20694,6 +22023,7 @@ libraries/AP_Math/spline5.i: libraries/AP_Math/spline5.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/spline5.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/spline5.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/spline5.cpp.i
 .PHONY : libraries/AP_Math/spline5.cpp.i
 
@@ -20702,6 +22032,7 @@ libraries/AP_Math/spline5.s: libraries/AP_Math/spline5.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/spline5.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/spline5.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/spline5.cpp.s
 .PHONY : libraries/AP_Math/spline5.cpp.s
 
@@ -20710,6 +22041,7 @@ libraries/AP_Math/vector2.o: libraries/AP_Math/vector2.cpp.o
 
 # target to build an object file
 libraries/AP_Math/vector2.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/vector2.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/vector2.cpp.o
 .PHONY : libraries/AP_Math/vector2.cpp.o
 
@@ -20718,6 +22050,7 @@ libraries/AP_Math/vector2.i: libraries/AP_Math/vector2.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/vector2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/vector2.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/vector2.cpp.i
 .PHONY : libraries/AP_Math/vector2.cpp.i
 
@@ -20726,6 +22059,7 @@ libraries/AP_Math/vector2.s: libraries/AP_Math/vector2.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/vector2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/vector2.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/vector2.cpp.s
 .PHONY : libraries/AP_Math/vector2.cpp.s
 
@@ -20734,6 +22068,7 @@ libraries/AP_Math/vector3.o: libraries/AP_Math/vector3.cpp.o
 
 # target to build an object file
 libraries/AP_Math/vector3.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/vector3.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/vector3.cpp.o
 .PHONY : libraries/AP_Math/vector3.cpp.o
 
@@ -20742,6 +22077,7 @@ libraries/AP_Math/vector3.i: libraries/AP_Math/vector3.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Math/vector3.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/vector3.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/vector3.cpp.i
 .PHONY : libraries/AP_Math/vector3.cpp.i
 
@@ -20750,6 +22086,7 @@ libraries/AP_Math/vector3.s: libraries/AP_Math/vector3.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Math/vector3.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math_Plane.dir/build.make CMakeFiles/AP_Math_Plane.dir/libraries/AP_Math/vector3.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Math.dir/build.make CMakeFiles/AP_Math.dir/libraries/AP_Math/vector3.cpp.s
 .PHONY : libraries/AP_Math/vector3.cpp.s
 
@@ -20758,6 +22095,7 @@ libraries/AP_Mission/AP_Mission.o: libraries/AP_Mission/AP_Mission.cpp.o
 
 # target to build an object file
 libraries/AP_Mission/AP_Mission.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission_Plane.dir/build.make CMakeFiles/AP_Mission_Plane.dir/libraries/AP_Mission/AP_Mission.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission.dir/build.make CMakeFiles/AP_Mission.dir/libraries/AP_Mission/AP_Mission.cpp.o
 .PHONY : libraries/AP_Mission/AP_Mission.cpp.o
 
@@ -20766,6 +22104,7 @@ libraries/AP_Mission/AP_Mission.i: libraries/AP_Mission/AP_Mission.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Mission/AP_Mission.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission_Plane.dir/build.make CMakeFiles/AP_Mission_Plane.dir/libraries/AP_Mission/AP_Mission.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission.dir/build.make CMakeFiles/AP_Mission.dir/libraries/AP_Mission/AP_Mission.cpp.i
 .PHONY : libraries/AP_Mission/AP_Mission.cpp.i
 
@@ -20774,6 +22113,7 @@ libraries/AP_Mission/AP_Mission.s: libraries/AP_Mission/AP_Mission.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Mission/AP_Mission.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission_Plane.dir/build.make CMakeFiles/AP_Mission_Plane.dir/libraries/AP_Mission/AP_Mission.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission.dir/build.make CMakeFiles/AP_Mission.dir/libraries/AP_Mission/AP_Mission.cpp.s
 .PHONY : libraries/AP_Mission/AP_Mission.cpp.s
 
@@ -20782,6 +22122,7 @@ libraries/AP_Mission/AP_Mission_ChangeDetector.o: libraries/AP_Mission/AP_Missio
 
 # target to build an object file
 libraries/AP_Mission/AP_Mission_ChangeDetector.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission_Plane.dir/build.make CMakeFiles/AP_Mission_Plane.dir/libraries/AP_Mission/AP_Mission_ChangeDetector.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission.dir/build.make CMakeFiles/AP_Mission.dir/libraries/AP_Mission/AP_Mission_ChangeDetector.cpp.o
 .PHONY : libraries/AP_Mission/AP_Mission_ChangeDetector.cpp.o
 
@@ -20790,6 +22131,7 @@ libraries/AP_Mission/AP_Mission_ChangeDetector.i: libraries/AP_Mission/AP_Missio
 
 # target to preprocess a source file
 libraries/AP_Mission/AP_Mission_ChangeDetector.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission_Plane.dir/build.make CMakeFiles/AP_Mission_Plane.dir/libraries/AP_Mission/AP_Mission_ChangeDetector.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission.dir/build.make CMakeFiles/AP_Mission.dir/libraries/AP_Mission/AP_Mission_ChangeDetector.cpp.i
 .PHONY : libraries/AP_Mission/AP_Mission_ChangeDetector.cpp.i
 
@@ -20798,6 +22140,7 @@ libraries/AP_Mission/AP_Mission_ChangeDetector.s: libraries/AP_Mission/AP_Missio
 
 # target to generate assembly for a file
 libraries/AP_Mission/AP_Mission_ChangeDetector.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission_Plane.dir/build.make CMakeFiles/AP_Mission_Plane.dir/libraries/AP_Mission/AP_Mission_ChangeDetector.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission.dir/build.make CMakeFiles/AP_Mission.dir/libraries/AP_Mission/AP_Mission_ChangeDetector.cpp.s
 .PHONY : libraries/AP_Mission/AP_Mission_ChangeDetector.cpp.s
 
@@ -20806,6 +22149,7 @@ libraries/AP_Mission/AP_Mission_Commands.o: libraries/AP_Mission/AP_Mission_Comm
 
 # target to build an object file
 libraries/AP_Mission/AP_Mission_Commands.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission_Plane.dir/build.make CMakeFiles/AP_Mission_Plane.dir/libraries/AP_Mission/AP_Mission_Commands.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission.dir/build.make CMakeFiles/AP_Mission.dir/libraries/AP_Mission/AP_Mission_Commands.cpp.o
 .PHONY : libraries/AP_Mission/AP_Mission_Commands.cpp.o
 
@@ -20814,6 +22158,7 @@ libraries/AP_Mission/AP_Mission_Commands.i: libraries/AP_Mission/AP_Mission_Comm
 
 # target to preprocess a source file
 libraries/AP_Mission/AP_Mission_Commands.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission_Plane.dir/build.make CMakeFiles/AP_Mission_Plane.dir/libraries/AP_Mission/AP_Mission_Commands.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission.dir/build.make CMakeFiles/AP_Mission.dir/libraries/AP_Mission/AP_Mission_Commands.cpp.i
 .PHONY : libraries/AP_Mission/AP_Mission_Commands.cpp.i
 
@@ -20822,6 +22167,7 @@ libraries/AP_Mission/AP_Mission_Commands.s: libraries/AP_Mission/AP_Mission_Comm
 
 # target to generate assembly for a file
 libraries/AP_Mission/AP_Mission_Commands.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission_Plane.dir/build.make CMakeFiles/AP_Mission_Plane.dir/libraries/AP_Mission/AP_Mission_Commands.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Mission.dir/build.make CMakeFiles/AP_Mission.dir/libraries/AP_Mission/AP_Mission_Commands.cpp.s
 .PHONY : libraries/AP_Mission/AP_Mission_Commands.cpp.s
 
@@ -20855,6 +22201,7 @@ libraries/AP_Motors/AP_Motors6DOF.o: libraries/AP_Motors/AP_Motors6DOF.cpp.o
 # target to build an object file
 libraries/AP_Motors/AP_Motors6DOF.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_Motors6DOF.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_Motors6DOF.cpp.o
 .PHONY : libraries/AP_Motors/AP_Motors6DOF.cpp.o
 
 libraries/AP_Motors/AP_Motors6DOF.i: libraries/AP_Motors/AP_Motors6DOF.cpp.i
@@ -20863,6 +22210,7 @@ libraries/AP_Motors/AP_Motors6DOF.i: libraries/AP_Motors/AP_Motors6DOF.cpp.i
 # target to preprocess a source file
 libraries/AP_Motors/AP_Motors6DOF.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_Motors6DOF.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_Motors6DOF.cpp.i
 .PHONY : libraries/AP_Motors/AP_Motors6DOF.cpp.i
 
 libraries/AP_Motors/AP_Motors6DOF.s: libraries/AP_Motors/AP_Motors6DOF.cpp.s
@@ -20871,6 +22219,7 @@ libraries/AP_Motors/AP_Motors6DOF.s: libraries/AP_Motors/AP_Motors6DOF.cpp.s
 # target to generate assembly for a file
 libraries/AP_Motors/AP_Motors6DOF.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_Motors6DOF.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_Motors6DOF.cpp.s
 .PHONY : libraries/AP_Motors/AP_Motors6DOF.cpp.s
 
 libraries/AP_Motors/AP_MotorsCoax.o: libraries/AP_Motors/AP_MotorsCoax.cpp.o
@@ -20879,6 +22228,7 @@ libraries/AP_Motors/AP_MotorsCoax.o: libraries/AP_Motors/AP_MotorsCoax.cpp.o
 # target to build an object file
 libraries/AP_Motors/AP_MotorsCoax.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsCoax.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsCoax.cpp.o
 .PHONY : libraries/AP_Motors/AP_MotorsCoax.cpp.o
 
 libraries/AP_Motors/AP_MotorsCoax.i: libraries/AP_Motors/AP_MotorsCoax.cpp.i
@@ -20887,6 +22237,7 @@ libraries/AP_Motors/AP_MotorsCoax.i: libraries/AP_Motors/AP_MotorsCoax.cpp.i
 # target to preprocess a source file
 libraries/AP_Motors/AP_MotorsCoax.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsCoax.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsCoax.cpp.i
 .PHONY : libraries/AP_Motors/AP_MotorsCoax.cpp.i
 
 libraries/AP_Motors/AP_MotorsCoax.s: libraries/AP_Motors/AP_MotorsCoax.cpp.s
@@ -20895,6 +22246,7 @@ libraries/AP_Motors/AP_MotorsCoax.s: libraries/AP_Motors/AP_MotorsCoax.cpp.s
 # target to generate assembly for a file
 libraries/AP_Motors/AP_MotorsCoax.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsCoax.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsCoax.cpp.s
 .PHONY : libraries/AP_Motors/AP_MotorsCoax.cpp.s
 
 libraries/AP_Motors/AP_MotorsHeli.o: libraries/AP_Motors/AP_MotorsHeli.cpp.o
@@ -20903,6 +22255,7 @@ libraries/AP_Motors/AP_MotorsHeli.o: libraries/AP_Motors/AP_MotorsHeli.cpp.o
 # target to build an object file
 libraries/AP_Motors/AP_MotorsHeli.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli.cpp.o
 .PHONY : libraries/AP_Motors/AP_MotorsHeli.cpp.o
 
 libraries/AP_Motors/AP_MotorsHeli.i: libraries/AP_Motors/AP_MotorsHeli.cpp.i
@@ -20911,6 +22264,7 @@ libraries/AP_Motors/AP_MotorsHeli.i: libraries/AP_Motors/AP_MotorsHeli.cpp.i
 # target to preprocess a source file
 libraries/AP_Motors/AP_MotorsHeli.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli.cpp.i
 .PHONY : libraries/AP_Motors/AP_MotorsHeli.cpp.i
 
 libraries/AP_Motors/AP_MotorsHeli.s: libraries/AP_Motors/AP_MotorsHeli.cpp.s
@@ -20919,6 +22273,7 @@ libraries/AP_Motors/AP_MotorsHeli.s: libraries/AP_Motors/AP_MotorsHeli.cpp.s
 # target to generate assembly for a file
 libraries/AP_Motors/AP_MotorsHeli.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli.cpp.s
 .PHONY : libraries/AP_Motors/AP_MotorsHeli.cpp.s
 
 libraries/AP_Motors/AP_MotorsHeli_Dual.o: libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.o
@@ -20927,6 +22282,7 @@ libraries/AP_Motors/AP_MotorsHeli_Dual.o: libraries/AP_Motors/AP_MotorsHeli_Dual
 # target to build an object file
 libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.o
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.o
 
 libraries/AP_Motors/AP_MotorsHeli_Dual.i: libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.i
@@ -20935,6 +22291,7 @@ libraries/AP_Motors/AP_MotorsHeli_Dual.i: libraries/AP_Motors/AP_MotorsHeli_Dual
 # target to preprocess a source file
 libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.i
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.i
 
 libraries/AP_Motors/AP_MotorsHeli_Dual.s: libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.s
@@ -20943,6 +22300,7 @@ libraries/AP_Motors/AP_MotorsHeli_Dual.s: libraries/AP_Motors/AP_MotorsHeli_Dual
 # target to generate assembly for a file
 libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.s
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_Dual.cpp.s
 
 libraries/AP_Motors/AP_MotorsHeli_Quad.o: libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.o
@@ -20951,6 +22309,7 @@ libraries/AP_Motors/AP_MotorsHeli_Quad.o: libraries/AP_Motors/AP_MotorsHeli_Quad
 # target to build an object file
 libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.o
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.o
 
 libraries/AP_Motors/AP_MotorsHeli_Quad.i: libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.i
@@ -20959,6 +22318,7 @@ libraries/AP_Motors/AP_MotorsHeli_Quad.i: libraries/AP_Motors/AP_MotorsHeli_Quad
 # target to preprocess a source file
 libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.i
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.i
 
 libraries/AP_Motors/AP_MotorsHeli_Quad.s: libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.s
@@ -20967,6 +22327,7 @@ libraries/AP_Motors/AP_MotorsHeli_Quad.s: libraries/AP_Motors/AP_MotorsHeli_Quad
 # target to generate assembly for a file
 libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.s
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_Quad.cpp.s
 
 libraries/AP_Motors/AP_MotorsHeli_RSC.o: libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.o
@@ -20975,6 +22336,7 @@ libraries/AP_Motors/AP_MotorsHeli_RSC.o: libraries/AP_Motors/AP_MotorsHeli_RSC.c
 # target to build an object file
 libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.o
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.o
 
 libraries/AP_Motors/AP_MotorsHeli_RSC.i: libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.i
@@ -20983,6 +22345,7 @@ libraries/AP_Motors/AP_MotorsHeli_RSC.i: libraries/AP_Motors/AP_MotorsHeli_RSC.c
 # target to preprocess a source file
 libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.i
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.i
 
 libraries/AP_Motors/AP_MotorsHeli_RSC.s: libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.s
@@ -20991,6 +22354,7 @@ libraries/AP_Motors/AP_MotorsHeli_RSC.s: libraries/AP_Motors/AP_MotorsHeli_RSC.c
 # target to generate assembly for a file
 libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.s
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_RSC.cpp.s
 
 libraries/AP_Motors/AP_MotorsHeli_Single.o: libraries/AP_Motors/AP_MotorsHeli_Single.cpp.o
@@ -20999,6 +22363,7 @@ libraries/AP_Motors/AP_MotorsHeli_Single.o: libraries/AP_Motors/AP_MotorsHeli_Si
 # target to build an object file
 libraries/AP_Motors/AP_MotorsHeli_Single.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_Single.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_Single.cpp.o
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_Single.cpp.o
 
 libraries/AP_Motors/AP_MotorsHeli_Single.i: libraries/AP_Motors/AP_MotorsHeli_Single.cpp.i
@@ -21007,6 +22372,7 @@ libraries/AP_Motors/AP_MotorsHeli_Single.i: libraries/AP_Motors/AP_MotorsHeli_Si
 # target to preprocess a source file
 libraries/AP_Motors/AP_MotorsHeli_Single.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_Single.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_Single.cpp.i
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_Single.cpp.i
 
 libraries/AP_Motors/AP_MotorsHeli_Single.s: libraries/AP_Motors/AP_MotorsHeli_Single.cpp.s
@@ -21015,6 +22381,7 @@ libraries/AP_Motors/AP_MotorsHeli_Single.s: libraries/AP_Motors/AP_MotorsHeli_Si
 # target to generate assembly for a file
 libraries/AP_Motors/AP_MotorsHeli_Single.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_Single.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_Single.cpp.s
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_Single.cpp.s
 
 libraries/AP_Motors/AP_MotorsHeli_Swash.o: libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.o
@@ -21023,6 +22390,7 @@ libraries/AP_Motors/AP_MotorsHeli_Swash.o: libraries/AP_Motors/AP_MotorsHeli_Swa
 # target to build an object file
 libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.o
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.o
 
 libraries/AP_Motors/AP_MotorsHeli_Swash.i: libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.i
@@ -21031,6 +22399,7 @@ libraries/AP_Motors/AP_MotorsHeli_Swash.i: libraries/AP_Motors/AP_MotorsHeli_Swa
 # target to preprocess a source file
 libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.i
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.i
 
 libraries/AP_Motors/AP_MotorsHeli_Swash.s: libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.s
@@ -21039,6 +22408,7 @@ libraries/AP_Motors/AP_MotorsHeli_Swash.s: libraries/AP_Motors/AP_MotorsHeli_Swa
 # target to generate assembly for a file
 libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.s
 .PHONY : libraries/AP_Motors/AP_MotorsHeli_Swash.cpp.s
 
 libraries/AP_Motors/AP_MotorsMatrix.o: libraries/AP_Motors/AP_MotorsMatrix.cpp.o
@@ -21047,6 +22417,7 @@ libraries/AP_Motors/AP_MotorsMatrix.o: libraries/AP_Motors/AP_MotorsMatrix.cpp.o
 # target to build an object file
 libraries/AP_Motors/AP_MotorsMatrix.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsMatrix.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsMatrix.cpp.o
 .PHONY : libraries/AP_Motors/AP_MotorsMatrix.cpp.o
 
 libraries/AP_Motors/AP_MotorsMatrix.i: libraries/AP_Motors/AP_MotorsMatrix.cpp.i
@@ -21055,6 +22426,7 @@ libraries/AP_Motors/AP_MotorsMatrix.i: libraries/AP_Motors/AP_MotorsMatrix.cpp.i
 # target to preprocess a source file
 libraries/AP_Motors/AP_MotorsMatrix.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsMatrix.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsMatrix.cpp.i
 .PHONY : libraries/AP_Motors/AP_MotorsMatrix.cpp.i
 
 libraries/AP_Motors/AP_MotorsMatrix.s: libraries/AP_Motors/AP_MotorsMatrix.cpp.s
@@ -21063,6 +22435,7 @@ libraries/AP_Motors/AP_MotorsMatrix.s: libraries/AP_Motors/AP_MotorsMatrix.cpp.s
 # target to generate assembly for a file
 libraries/AP_Motors/AP_MotorsMatrix.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsMatrix.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsMatrix.cpp.s
 .PHONY : libraries/AP_Motors/AP_MotorsMatrix.cpp.s
 
 libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.o: libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.o
@@ -21071,6 +22444,7 @@ libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.o: libraries/AP_Motors/AP_Mot
 # target to build an object file
 libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.o
 .PHONY : libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.o
 
 libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.i: libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.i
@@ -21079,6 +22453,7 @@ libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.i: libraries/AP_Motors/AP_Mot
 # target to preprocess a source file
 libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.i
 .PHONY : libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.i
 
 libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.s: libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.s
@@ -21087,6 +22462,7 @@ libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.s: libraries/AP_Motors/AP_Mot
 # target to generate assembly for a file
 libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.s
 .PHONY : libraries/AP_Motors/AP_MotorsMatrix_6DoF_Scripting.cpp.s
 
 libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.o: libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.o
@@ -21095,6 +22471,7 @@ libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.o: libraries/AP_Motors/AP_
 # target to build an object file
 libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.o
 .PHONY : libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.o
 
 libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.i: libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.i
@@ -21103,6 +22480,7 @@ libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.i: libraries/AP_Motors/AP_
 # target to preprocess a source file
 libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.i
 .PHONY : libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.i
 
 libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.s: libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.s
@@ -21111,6 +22489,7 @@ libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.s: libraries/AP_Motors/AP_
 # target to generate assembly for a file
 libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.s
 .PHONY : libraries/AP_Motors/AP_MotorsMatrix_Scripting_Dynamic.cpp.s
 
 libraries/AP_Motors/AP_MotorsMulticopter.o: libraries/AP_Motors/AP_MotorsMulticopter.cpp.o
@@ -21119,6 +22498,7 @@ libraries/AP_Motors/AP_MotorsMulticopter.o: libraries/AP_Motors/AP_MotorsMultico
 # target to build an object file
 libraries/AP_Motors/AP_MotorsMulticopter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsMulticopter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsMulticopter.cpp.o
 .PHONY : libraries/AP_Motors/AP_MotorsMulticopter.cpp.o
 
 libraries/AP_Motors/AP_MotorsMulticopter.i: libraries/AP_Motors/AP_MotorsMulticopter.cpp.i
@@ -21127,6 +22507,7 @@ libraries/AP_Motors/AP_MotorsMulticopter.i: libraries/AP_Motors/AP_MotorsMultico
 # target to preprocess a source file
 libraries/AP_Motors/AP_MotorsMulticopter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsMulticopter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsMulticopter.cpp.i
 .PHONY : libraries/AP_Motors/AP_MotorsMulticopter.cpp.i
 
 libraries/AP_Motors/AP_MotorsMulticopter.s: libraries/AP_Motors/AP_MotorsMulticopter.cpp.s
@@ -21135,6 +22516,7 @@ libraries/AP_Motors/AP_MotorsMulticopter.s: libraries/AP_Motors/AP_MotorsMultico
 # target to generate assembly for a file
 libraries/AP_Motors/AP_MotorsMulticopter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsMulticopter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsMulticopter.cpp.s
 .PHONY : libraries/AP_Motors/AP_MotorsMulticopter.cpp.s
 
 libraries/AP_Motors/AP_MotorsSingle.o: libraries/AP_Motors/AP_MotorsSingle.cpp.o
@@ -21143,6 +22525,7 @@ libraries/AP_Motors/AP_MotorsSingle.o: libraries/AP_Motors/AP_MotorsSingle.cpp.o
 # target to build an object file
 libraries/AP_Motors/AP_MotorsSingle.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsSingle.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsSingle.cpp.o
 .PHONY : libraries/AP_Motors/AP_MotorsSingle.cpp.o
 
 libraries/AP_Motors/AP_MotorsSingle.i: libraries/AP_Motors/AP_MotorsSingle.cpp.i
@@ -21151,6 +22534,7 @@ libraries/AP_Motors/AP_MotorsSingle.i: libraries/AP_Motors/AP_MotorsSingle.cpp.i
 # target to preprocess a source file
 libraries/AP_Motors/AP_MotorsSingle.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsSingle.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsSingle.cpp.i
 .PHONY : libraries/AP_Motors/AP_MotorsSingle.cpp.i
 
 libraries/AP_Motors/AP_MotorsSingle.s: libraries/AP_Motors/AP_MotorsSingle.cpp.s
@@ -21159,6 +22543,7 @@ libraries/AP_Motors/AP_MotorsSingle.s: libraries/AP_Motors/AP_MotorsSingle.cpp.s
 # target to generate assembly for a file
 libraries/AP_Motors/AP_MotorsSingle.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsSingle.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsSingle.cpp.s
 .PHONY : libraries/AP_Motors/AP_MotorsSingle.cpp.s
 
 libraries/AP_Motors/AP_MotorsTailsitter.o: libraries/AP_Motors/AP_MotorsTailsitter.cpp.o
@@ -21167,6 +22552,7 @@ libraries/AP_Motors/AP_MotorsTailsitter.o: libraries/AP_Motors/AP_MotorsTailsitt
 # target to build an object file
 libraries/AP_Motors/AP_MotorsTailsitter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsTailsitter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsTailsitter.cpp.o
 .PHONY : libraries/AP_Motors/AP_MotorsTailsitter.cpp.o
 
 libraries/AP_Motors/AP_MotorsTailsitter.i: libraries/AP_Motors/AP_MotorsTailsitter.cpp.i
@@ -21175,6 +22561,7 @@ libraries/AP_Motors/AP_MotorsTailsitter.i: libraries/AP_Motors/AP_MotorsTailsitt
 # target to preprocess a source file
 libraries/AP_Motors/AP_MotorsTailsitter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsTailsitter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsTailsitter.cpp.i
 .PHONY : libraries/AP_Motors/AP_MotorsTailsitter.cpp.i
 
 libraries/AP_Motors/AP_MotorsTailsitter.s: libraries/AP_Motors/AP_MotorsTailsitter.cpp.s
@@ -21183,6 +22570,7 @@ libraries/AP_Motors/AP_MotorsTailsitter.s: libraries/AP_Motors/AP_MotorsTailsitt
 # target to generate assembly for a file
 libraries/AP_Motors/AP_MotorsTailsitter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsTailsitter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsTailsitter.cpp.s
 .PHONY : libraries/AP_Motors/AP_MotorsTailsitter.cpp.s
 
 libraries/AP_Motors/AP_MotorsTri.o: libraries/AP_Motors/AP_MotorsTri.cpp.o
@@ -21191,6 +22579,7 @@ libraries/AP_Motors/AP_MotorsTri.o: libraries/AP_Motors/AP_MotorsTri.cpp.o
 # target to build an object file
 libraries/AP_Motors/AP_MotorsTri.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsTri.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsTri.cpp.o
 .PHONY : libraries/AP_Motors/AP_MotorsTri.cpp.o
 
 libraries/AP_Motors/AP_MotorsTri.i: libraries/AP_Motors/AP_MotorsTri.cpp.i
@@ -21199,6 +22588,7 @@ libraries/AP_Motors/AP_MotorsTri.i: libraries/AP_Motors/AP_MotorsTri.cpp.i
 # target to preprocess a source file
 libraries/AP_Motors/AP_MotorsTri.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsTri.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsTri.cpp.i
 .PHONY : libraries/AP_Motors/AP_MotorsTri.cpp.i
 
 libraries/AP_Motors/AP_MotorsTri.s: libraries/AP_Motors/AP_MotorsTri.cpp.s
@@ -21207,6 +22597,7 @@ libraries/AP_Motors/AP_MotorsTri.s: libraries/AP_Motors/AP_MotorsTri.cpp.s
 # target to generate assembly for a file
 libraries/AP_Motors/AP_MotorsTri.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_MotorsTri.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_MotorsTri.cpp.s
 .PHONY : libraries/AP_Motors/AP_MotorsTri.cpp.s
 
 libraries/AP_Motors/AP_Motors_Class.o: libraries/AP_Motors/AP_Motors_Class.cpp.o
@@ -21215,6 +22606,7 @@ libraries/AP_Motors/AP_Motors_Class.o: libraries/AP_Motors/AP_Motors_Class.cpp.o
 # target to build an object file
 libraries/AP_Motors/AP_Motors_Class.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_Motors_Class.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_Motors_Class.cpp.o
 .PHONY : libraries/AP_Motors/AP_Motors_Class.cpp.o
 
 libraries/AP_Motors/AP_Motors_Class.i: libraries/AP_Motors/AP_Motors_Class.cpp.i
@@ -21223,6 +22615,7 @@ libraries/AP_Motors/AP_Motors_Class.i: libraries/AP_Motors/AP_Motors_Class.cpp.i
 # target to preprocess a source file
 libraries/AP_Motors/AP_Motors_Class.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_Motors_Class.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_Motors_Class.cpp.i
 .PHONY : libraries/AP_Motors/AP_Motors_Class.cpp.i
 
 libraries/AP_Motors/AP_Motors_Class.s: libraries/AP_Motors/AP_Motors_Class.cpp.s
@@ -21231,6 +22624,7 @@ libraries/AP_Motors/AP_Motors_Class.s: libraries/AP_Motors/AP_Motors_Class.cpp.s
 # target to generate assembly for a file
 libraries/AP_Motors/AP_Motors_Class.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_Motors_Class.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_Motors_Class.cpp.s
 .PHONY : libraries/AP_Motors/AP_Motors_Class.cpp.s
 
 libraries/AP_Motors/AP_Motors_Thrust_Linearization.o: libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.o
@@ -21239,6 +22633,7 @@ libraries/AP_Motors/AP_Motors_Thrust_Linearization.o: libraries/AP_Motors/AP_Mot
 # target to build an object file
 libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.o
 .PHONY : libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.o
 
 libraries/AP_Motors/AP_Motors_Thrust_Linearization.i: libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.i
@@ -21247,6 +22642,7 @@ libraries/AP_Motors/AP_Motors_Thrust_Linearization.i: libraries/AP_Motors/AP_Mot
 # target to preprocess a source file
 libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.i
 .PHONY : libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.i
 
 libraries/AP_Motors/AP_Motors_Thrust_Linearization.s: libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.s
@@ -21255,6 +22651,7 @@ libraries/AP_Motors/AP_Motors_Thrust_Linearization.s: libraries/AP_Motors/AP_Mot
 # target to generate assembly for a file
 libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors.dir/build.make CMakeFiles/AP_Motors.dir/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Motors_Plane.dir/build.make CMakeFiles/AP_Motors_Plane.dir/libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.s
 .PHONY : libraries/AP_Motors/AP_Motors_Thrust_Linearization.cpp.s
 
 libraries/AP_Mount/AP_Mount.o: libraries/AP_Mount/AP_Mount.cpp.o
@@ -21958,6 +23355,7 @@ libraries/AP_NavEKF2/AP_NavEKF2.o: libraries/AP_NavEKF2/AP_NavEKF2.cpp.o
 
 # target to build an object file
 libraries/AP_NavEKF2/AP_NavEKF2.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2.cpp.o
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2.cpp.o
 
@@ -21966,6 +23364,7 @@ libraries/AP_NavEKF2/AP_NavEKF2.i: libraries/AP_NavEKF2/AP_NavEKF2.cpp.i
 
 # target to preprocess a source file
 libraries/AP_NavEKF2/AP_NavEKF2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2.cpp.i
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2.cpp.i
 
@@ -21974,6 +23373,7 @@ libraries/AP_NavEKF2/AP_NavEKF2.s: libraries/AP_NavEKF2/AP_NavEKF2.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_NavEKF2/AP_NavEKF2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2.cpp.s
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2.cpp.s
 
@@ -21982,6 +23382,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.o: libraries/AP_NavEKF2/AP_NavEKF2
 
 # target to build an object file
 libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp.o
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp.o
 
@@ -21990,6 +23391,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.i: libraries/AP_NavEKF2/AP_NavEKF2
 
 # target to preprocess a source file
 libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp.i
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp.i
 
@@ -21998,6 +23400,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.s: libraries/AP_NavEKF2/AP_NavEKF2
 
 # target to generate assembly for a file
 libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp.s
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_AirDataFusion.cpp.s
 
@@ -22006,6 +23409,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_Control.o: libraries/AP_NavEKF2/AP_NavEKF2_Contr
 
 # target to build an object file
 libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp.o
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp.o
 
@@ -22014,6 +23418,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_Control.i: libraries/AP_NavEKF2/AP_NavEKF2_Contr
 
 # target to preprocess a source file
 libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp.i
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp.i
 
@@ -22022,6 +23427,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_Control.s: libraries/AP_NavEKF2/AP_NavEKF2_Contr
 
 # target to generate assembly for a file
 libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp.s
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp.s
 
@@ -22030,6 +23436,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_Logging.o: libraries/AP_NavEKF2/AP_NavEKF2_Loggi
 
 # target to build an object file
 libraries/AP_NavEKF2/AP_NavEKF2_Logging.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_Logging.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_Logging.cpp.o
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_Logging.cpp.o
 
@@ -22038,6 +23445,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_Logging.i: libraries/AP_NavEKF2/AP_NavEKF2_Loggi
 
 # target to preprocess a source file
 libraries/AP_NavEKF2/AP_NavEKF2_Logging.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_Logging.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_Logging.cpp.i
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_Logging.cpp.i
 
@@ -22046,6 +23454,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_Logging.s: libraries/AP_NavEKF2/AP_NavEKF2_Loggi
 
 # target to generate assembly for a file
 libraries/AP_NavEKF2/AP_NavEKF2_Logging.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_Logging.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_Logging.cpp.s
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_Logging.cpp.s
 
@@ -22054,6 +23463,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.o: libraries/AP_NavEKF2/AP_NavEKF2_Mag
 
 # target to build an object file
 libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.cpp.o
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.cpp.o
 
@@ -22062,6 +23472,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.i: libraries/AP_NavEKF2/AP_NavEKF2_Mag
 
 # target to preprocess a source file
 libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.cpp.i
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.cpp.i
 
@@ -22070,6 +23481,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.s: libraries/AP_NavEKF2/AP_NavEKF2_Mag
 
 # target to generate assembly for a file
 libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.cpp.s
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_MagFusion.cpp.s
 
@@ -22078,6 +23490,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_Measurements.o: libraries/AP_NavEKF2/AP_NavEKF2_
 
 # target to build an object file
 libraries/AP_NavEKF2/AP_NavEKF2_Measurements.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_Measurements.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_Measurements.cpp.o
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_Measurements.cpp.o
 
@@ -22086,6 +23499,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_Measurements.i: libraries/AP_NavEKF2/AP_NavEKF2_
 
 # target to preprocess a source file
 libraries/AP_NavEKF2/AP_NavEKF2_Measurements.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_Measurements.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_Measurements.cpp.i
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_Measurements.cpp.i
 
@@ -22094,6 +23508,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_Measurements.s: libraries/AP_NavEKF2/AP_NavEKF2_
 
 # target to generate assembly for a file
 libraries/AP_NavEKF2/AP_NavEKF2_Measurements.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_Measurements.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_Measurements.cpp.s
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_Measurements.cpp.s
 
@@ -22102,6 +23517,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.o: libraries/AP_NavEKF2/AP_NavEKF2
 
 # target to build an object file
 libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.o
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.o
 
@@ -22110,6 +23526,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.i: libraries/AP_NavEKF2/AP_NavEKF2
 
 # target to preprocess a source file
 libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.i
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.i
 
@@ -22118,6 +23535,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.s: libraries/AP_NavEKF2/AP_NavEKF2
 
 # target to generate assembly for a file
 libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.s
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_OptFlowFusion.cpp.s
 
@@ -22126,6 +23544,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_Outputs.o: libraries/AP_NavEKF2/AP_NavEKF2_Outpu
 
 # target to build an object file
 libraries/AP_NavEKF2/AP_NavEKF2_Outputs.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_Outputs.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_Outputs.cpp.o
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_Outputs.cpp.o
 
@@ -22134,6 +23553,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_Outputs.i: libraries/AP_NavEKF2/AP_NavEKF2_Outpu
 
 # target to preprocess a source file
 libraries/AP_NavEKF2/AP_NavEKF2_Outputs.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_Outputs.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_Outputs.cpp.i
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_Outputs.cpp.i
 
@@ -22142,6 +23562,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_Outputs.s: libraries/AP_NavEKF2/AP_NavEKF2_Outpu
 
 # target to generate assembly for a file
 libraries/AP_NavEKF2/AP_NavEKF2_Outputs.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_Outputs.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_Outputs.cpp.s
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_Outputs.cpp.s
 
@@ -22150,6 +23571,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.o: libraries/AP_NavEKF2/AP_NavEKF2_
 
 # target to build an object file
 libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.cpp.o
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.cpp.o
 
@@ -22158,6 +23580,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.i: libraries/AP_NavEKF2/AP_NavEKF2_
 
 # target to preprocess a source file
 libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.cpp.i
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.cpp.i
 
@@ -22166,6 +23589,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.s: libraries/AP_NavEKF2/AP_NavEKF2_
 
 # target to generate assembly for a file
 libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.cpp.s
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_PosVelFusion.cpp.s
 
@@ -22174,6 +23598,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.o: libraries/AP_NavEKF2/AP_NavEKF2_
 
 # target to build an object file
 libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.cpp.o
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.cpp.o
 
@@ -22182,6 +23607,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.i: libraries/AP_NavEKF2/AP_NavEKF2_
 
 # target to preprocess a source file
 libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.cpp.i
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.cpp.i
 
@@ -22190,6 +23616,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.s: libraries/AP_NavEKF2/AP_NavEKF2_
 
 # target to generate assembly for a file
 libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.cpp.s
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_RngBcnFusion.cpp.s
 
@@ -22198,6 +23625,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.o: libraries/AP_NavEKF2/AP_NavEKF2
 
 # target to build an object file
 libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.cpp.o
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.cpp.o
 
@@ -22206,6 +23634,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.i: libraries/AP_NavEKF2/AP_NavEKF2
 
 # target to preprocess a source file
 libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.cpp.i
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.cpp.i
 
@@ -22214,6 +23643,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.s: libraries/AP_NavEKF2/AP_NavEKF2
 
 # target to generate assembly for a file
 libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.cpp.s
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_VehicleStatus.cpp.s
 
@@ -22222,6 +23652,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_core.o: libraries/AP_NavEKF2/AP_NavEKF2_core.cpp
 
 # target to build an object file
 libraries/AP_NavEKF2/AP_NavEKF2_core.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_core.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_core.cpp.o
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_core.cpp.o
 
@@ -22230,6 +23661,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_core.i: libraries/AP_NavEKF2/AP_NavEKF2_core.cpp
 
 # target to preprocess a source file
 libraries/AP_NavEKF2/AP_NavEKF2_core.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_core.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_core.cpp.i
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_core.cpp.i
 
@@ -22238,6 +23670,7 @@ libraries/AP_NavEKF2/AP_NavEKF2_core.s: libraries/AP_NavEKF2/AP_NavEKF2_core.cpp
 
 # target to generate assembly for a file
 libraries/AP_NavEKF2/AP_NavEKF2_core.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF2_core.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF2_core.cpp.s
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF2_core.cpp.s
 
@@ -22246,6 +23679,7 @@ libraries/AP_NavEKF2/AP_NavEKF_GyroBias.o: libraries/AP_NavEKF2/AP_NavEKF_GyroBi
 
 # target to build an object file
 libraries/AP_NavEKF2/AP_NavEKF_GyroBias.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF_GyroBias.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF_GyroBias.cpp.o
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF_GyroBias.cpp.o
 
@@ -22254,6 +23688,7 @@ libraries/AP_NavEKF2/AP_NavEKF_GyroBias.i: libraries/AP_NavEKF2/AP_NavEKF_GyroBi
 
 # target to preprocess a source file
 libraries/AP_NavEKF2/AP_NavEKF_GyroBias.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF_GyroBias.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF_GyroBias.cpp.i
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF_GyroBias.cpp.i
 
@@ -22262,6 +23697,7 @@ libraries/AP_NavEKF2/AP_NavEKF_GyroBias.s: libraries/AP_NavEKF2/AP_NavEKF_GyroBi
 
 # target to generate assembly for a file
 libraries/AP_NavEKF2/AP_NavEKF_GyroBias.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2_Plane.dir/build.make CMakeFiles/AP_NavEKF2_Plane.dir/libraries/AP_NavEKF2/AP_NavEKF_GyroBias.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF2.dir/build.make CMakeFiles/AP_NavEKF2.dir/libraries/AP_NavEKF2/AP_NavEKF_GyroBias.cpp.s
 .PHONY : libraries/AP_NavEKF2/AP_NavEKF_GyroBias.cpp.s
 
@@ -22271,6 +23707,7 @@ libraries/AP_NavEKF3/AP_NavEKF3.o: libraries/AP_NavEKF3/AP_NavEKF3.cpp.o
 # target to build an object file
 libraries/AP_NavEKF3/AP_NavEKF3.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3.cpp.o
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3.cpp.o
 
 libraries/AP_NavEKF3/AP_NavEKF3.i: libraries/AP_NavEKF3/AP_NavEKF3.cpp.i
@@ -22279,6 +23716,7 @@ libraries/AP_NavEKF3/AP_NavEKF3.i: libraries/AP_NavEKF3/AP_NavEKF3.cpp.i
 # target to preprocess a source file
 libraries/AP_NavEKF3/AP_NavEKF3.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3.cpp.i
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3.cpp.i
 
 libraries/AP_NavEKF3/AP_NavEKF3.s: libraries/AP_NavEKF3/AP_NavEKF3.cpp.s
@@ -22287,6 +23725,7 @@ libraries/AP_NavEKF3/AP_NavEKF3.s: libraries/AP_NavEKF3/AP_NavEKF3.cpp.s
 # target to generate assembly for a file
 libraries/AP_NavEKF3/AP_NavEKF3.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3.cpp.s
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3.cpp.s
 
 libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.o: libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.o
@@ -22295,6 +23734,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.o: libraries/AP_NavEKF3/AP_NavEKF3
 # target to build an object file
 libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.o
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.o
 
 libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.i: libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.i
@@ -22303,6 +23743,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.i: libraries/AP_NavEKF3/AP_NavEKF3
 # target to preprocess a source file
 libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.i
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.i
 
 libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.s: libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.s
@@ -22311,6 +23752,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.s: libraries/AP_NavEKF3/AP_NavEKF3
 # target to generate assembly for a file
 libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.s
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_AirDataFusion.cpp.s
 
 libraries/AP_NavEKF3/AP_NavEKF3_Control.o: libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.o
@@ -22319,6 +23761,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_Control.o: libraries/AP_NavEKF3/AP_NavEKF3_Contr
 # target to build an object file
 libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.o
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.o
 
 libraries/AP_NavEKF3/AP_NavEKF3_Control.i: libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.i
@@ -22327,6 +23770,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_Control.i: libraries/AP_NavEKF3/AP_NavEKF3_Contr
 # target to preprocess a source file
 libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.i
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.i
 
 libraries/AP_NavEKF3/AP_NavEKF3_Control.s: libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.s
@@ -22335,6 +23779,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_Control.s: libraries/AP_NavEKF3/AP_NavEKF3_Contr
 # target to generate assembly for a file
 libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.s
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp.s
 
 libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.o: libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.o
@@ -22343,6 +23788,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.o: libraries/AP_NavEKF3/AP_NavEKF3_Gyro
 # target to build an object file
 libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.o
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.o
 
 libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.i: libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.i
@@ -22351,6 +23797,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.i: libraries/AP_NavEKF3/AP_NavEKF3_Gyro
 # target to preprocess a source file
 libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.i
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.i
 
 libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.s: libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.s
@@ -22359,6 +23806,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.s: libraries/AP_NavEKF3/AP_NavEKF3_Gyro
 # target to generate assembly for a file
 libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.s
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_GyroBias.cpp.s
 
 libraries/AP_NavEKF3/AP_NavEKF3_Logging.o: libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.o
@@ -22367,6 +23815,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_Logging.o: libraries/AP_NavEKF3/AP_NavEKF3_Loggi
 # target to build an object file
 libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.o
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.o
 
 libraries/AP_NavEKF3/AP_NavEKF3_Logging.i: libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.i
@@ -22375,6 +23824,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_Logging.i: libraries/AP_NavEKF3/AP_NavEKF3_Loggi
 # target to preprocess a source file
 libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.i
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.i
 
 libraries/AP_NavEKF3/AP_NavEKF3_Logging.s: libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.s
@@ -22383,6 +23833,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_Logging.s: libraries/AP_NavEKF3/AP_NavEKF3_Loggi
 # target to generate assembly for a file
 libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.s
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_Logging.cpp.s
 
 libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.o: libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.o
@@ -22391,6 +23842,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.o: libraries/AP_NavEKF3/AP_NavEKF3_Mag
 # target to build an object file
 libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.o
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.o
 
 libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.i: libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.i
@@ -22399,6 +23851,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.i: libraries/AP_NavEKF3/AP_NavEKF3_Mag
 # target to preprocess a source file
 libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.i
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.i
 
 libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.s: libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.s
@@ -22407,6 +23860,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.s: libraries/AP_NavEKF3/AP_NavEKF3_Mag
 # target to generate assembly for a file
 libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.s
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_MagFusion.cpp.s
 
 libraries/AP_NavEKF3/AP_NavEKF3_Measurements.o: libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.o
@@ -22415,6 +23869,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_Measurements.o: libraries/AP_NavEKF3/AP_NavEKF3_
 # target to build an object file
 libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.o
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.o
 
 libraries/AP_NavEKF3/AP_NavEKF3_Measurements.i: libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.i
@@ -22423,6 +23878,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_Measurements.i: libraries/AP_NavEKF3/AP_NavEKF3_
 # target to preprocess a source file
 libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.i
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.i
 
 libraries/AP_NavEKF3/AP_NavEKF3_Measurements.s: libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.s
@@ -22431,6 +23887,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_Measurements.s: libraries/AP_NavEKF3/AP_NavEKF3_
 # target to generate assembly for a file
 libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.s
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_Measurements.cpp.s
 
 libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.o: libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.o
@@ -22439,6 +23896,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.o: libraries/AP_NavEKF3/AP_NavEKF3
 # target to build an object file
 libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.o
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.o
 
 libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.i: libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.i
@@ -22447,6 +23905,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.i: libraries/AP_NavEKF3/AP_NavEKF3
 # target to preprocess a source file
 libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.i
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.i
 
 libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.s: libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.s
@@ -22455,6 +23914,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.s: libraries/AP_NavEKF3/AP_NavEKF3
 # target to generate assembly for a file
 libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.s
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_OptFlowFusion.cpp.s
 
 libraries/AP_NavEKF3/AP_NavEKF3_Outputs.o: libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.o
@@ -22463,6 +23923,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_Outputs.o: libraries/AP_NavEKF3/AP_NavEKF3_Outpu
 # target to build an object file
 libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.o
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.o
 
 libraries/AP_NavEKF3/AP_NavEKF3_Outputs.i: libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.i
@@ -22471,6 +23932,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_Outputs.i: libraries/AP_NavEKF3/AP_NavEKF3_Outpu
 # target to preprocess a source file
 libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.i
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.i
 
 libraries/AP_NavEKF3/AP_NavEKF3_Outputs.s: libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.s
@@ -22479,6 +23941,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_Outputs.s: libraries/AP_NavEKF3/AP_NavEKF3_Outpu
 # target to generate assembly for a file
 libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.s
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_Outputs.cpp.s
 
 libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.o: libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.o
@@ -22487,6 +23950,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.o: libraries/AP_NavEKF3/AP_NavEKF3_
 # target to build an object file
 libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.o
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.o
 
 libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.i: libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.i
@@ -22495,6 +23959,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.i: libraries/AP_NavEKF3/AP_NavEKF3_
 # target to preprocess a source file
 libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.i
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.i
 
 libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.s: libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.s
@@ -22503,6 +23968,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.s: libraries/AP_NavEKF3/AP_NavEKF3_
 # target to generate assembly for a file
 libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.s
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_PosVelFusion.cpp.s
 
 libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.o: libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.o
@@ -22511,6 +23977,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.o: libraries/AP_NavEKF3/AP_NavEKF3_
 # target to build an object file
 libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.o
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.o
 
 libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.i: libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.i
@@ -22519,6 +23986,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.i: libraries/AP_NavEKF3/AP_NavEKF3_
 # target to preprocess a source file
 libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.i
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.i
 
 libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.s: libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.s
@@ -22527,6 +23995,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.s: libraries/AP_NavEKF3/AP_NavEKF3_
 # target to generate assembly for a file
 libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.s
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_RngBcnFusion.cpp.s
 
 libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.o: libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.o
@@ -22535,6 +24004,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.o: libraries/AP_NavEKF3/AP_NavEKF3
 # target to build an object file
 libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.o
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.o
 
 libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.i: libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.i
@@ -22543,6 +24013,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.i: libraries/AP_NavEKF3/AP_NavEKF3
 # target to preprocess a source file
 libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.i
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.i
 
 libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.s: libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.s
@@ -22551,6 +24022,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.s: libraries/AP_NavEKF3/AP_NavEKF3
 # target to generate assembly for a file
 libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.s
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_VehicleStatus.cpp.s
 
 libraries/AP_NavEKF3/AP_NavEKF3_core.o: libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.o
@@ -22559,6 +24031,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_core.o: libraries/AP_NavEKF3/AP_NavEKF3_core.cpp
 # target to build an object file
 libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.o
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.o
 
 libraries/AP_NavEKF3/AP_NavEKF3_core.i: libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.i
@@ -22567,6 +24040,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_core.i: libraries/AP_NavEKF3/AP_NavEKF3_core.cpp
 # target to preprocess a source file
 libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.i
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.i
 
 libraries/AP_NavEKF3/AP_NavEKF3_core.s: libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.s
@@ -22575,6 +24049,7 @@ libraries/AP_NavEKF3/AP_NavEKF3_core.s: libraries/AP_NavEKF3/AP_NavEKF3_core.cpp
 # target to generate assembly for a file
 libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3.dir/build.make CMakeFiles/AP_NavEKF3.dir/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_NavEKF3_Plane.dir/build.make CMakeFiles/AP_NavEKF3_Plane.dir/libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.s
 .PHONY : libraries/AP_NavEKF3/AP_NavEKF3_core.cpp.s
 
 libraries/AP_Networking/AP_Networking.o: libraries/AP_Networking/AP_Networking.cpp.o
@@ -23639,6 +25114,7 @@ libraries/AP_OSD/AP_OSD.o: libraries/AP_OSD/AP_OSD.cpp.o
 # target to build an object file
 libraries/AP_OSD/AP_OSD.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD.cpp.o
 
 libraries/AP_OSD/AP_OSD.i: libraries/AP_OSD/AP_OSD.cpp.i
@@ -23647,6 +25123,7 @@ libraries/AP_OSD/AP_OSD.i: libraries/AP_OSD/AP_OSD.cpp.i
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD.cpp.i
 
 libraries/AP_OSD/AP_OSD.s: libraries/AP_OSD/AP_OSD.cpp.s
@@ -23655,6 +25132,7 @@ libraries/AP_OSD/AP_OSD.s: libraries/AP_OSD/AP_OSD.cpp.s
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD.cpp.s
 
 libraries/AP_OSD/AP_OSD_Backend.o: libraries/AP_OSD/AP_OSD_Backend.cpp.o
@@ -23663,6 +25141,7 @@ libraries/AP_OSD/AP_OSD_Backend.o: libraries/AP_OSD/AP_OSD_Backend.cpp.o
 # target to build an object file
 libraries/AP_OSD/AP_OSD_Backend.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_Backend.cpp.o
 
 libraries/AP_OSD/AP_OSD_Backend.i: libraries/AP_OSD/AP_OSD_Backend.cpp.i
@@ -23671,6 +25150,7 @@ libraries/AP_OSD/AP_OSD_Backend.i: libraries/AP_OSD/AP_OSD_Backend.cpp.i
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_Backend.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_Backend.cpp.i
 
 libraries/AP_OSD/AP_OSD_Backend.s: libraries/AP_OSD/AP_OSD_Backend.cpp.s
@@ -23679,6 +25159,7 @@ libraries/AP_OSD/AP_OSD_Backend.s: libraries/AP_OSD/AP_OSD_Backend.cpp.s
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_Backend.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Backend.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_Backend.cpp.s
 
 libraries/AP_OSD/AP_OSD_MAX7456.o: libraries/AP_OSD/AP_OSD_MAX7456.cpp.o
@@ -23687,6 +25168,7 @@ libraries/AP_OSD/AP_OSD_MAX7456.o: libraries/AP_OSD/AP_OSD_MAX7456.cpp.o
 # target to build an object file
 libraries/AP_OSD/AP_OSD_MAX7456.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_MAX7456.cpp.o
 
 libraries/AP_OSD/AP_OSD_MAX7456.i: libraries/AP_OSD/AP_OSD_MAX7456.cpp.i
@@ -23695,6 +25177,7 @@ libraries/AP_OSD/AP_OSD_MAX7456.i: libraries/AP_OSD/AP_OSD_MAX7456.cpp.i
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_MAX7456.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_MAX7456.cpp.i
 
 libraries/AP_OSD/AP_OSD_MAX7456.s: libraries/AP_OSD/AP_OSD_MAX7456.cpp.s
@@ -23703,6 +25186,7 @@ libraries/AP_OSD/AP_OSD_MAX7456.s: libraries/AP_OSD/AP_OSD_MAX7456.cpp.s
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_MAX7456.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MAX7456.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_MAX7456.cpp.s
 
 libraries/AP_OSD/AP_OSD_MSP.o: libraries/AP_OSD/AP_OSD_MSP.cpp.o
@@ -23711,6 +25195,7 @@ libraries/AP_OSD/AP_OSD_MSP.o: libraries/AP_OSD/AP_OSD_MSP.cpp.o
 # target to build an object file
 libraries/AP_OSD/AP_OSD_MSP.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_MSP.cpp.o
 
 libraries/AP_OSD/AP_OSD_MSP.i: libraries/AP_OSD/AP_OSD_MSP.cpp.i
@@ -23719,6 +25204,7 @@ libraries/AP_OSD/AP_OSD_MSP.i: libraries/AP_OSD/AP_OSD_MSP.cpp.i
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_MSP.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_MSP.cpp.i
 
 libraries/AP_OSD/AP_OSD_MSP.s: libraries/AP_OSD/AP_OSD_MSP.cpp.s
@@ -23727,6 +25213,7 @@ libraries/AP_OSD/AP_OSD_MSP.s: libraries/AP_OSD/AP_OSD_MSP.cpp.s
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_MSP.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MSP.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_MSP.cpp.s
 
 libraries/AP_OSD/AP_OSD_MSP_DisplayPort.o: libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.o
@@ -23735,6 +25222,7 @@ libraries/AP_OSD/AP_OSD_MSP_DisplayPort.o: libraries/AP_OSD/AP_OSD_MSP_DisplayPo
 # target to build an object file
 libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.o
 
 libraries/AP_OSD/AP_OSD_MSP_DisplayPort.i: libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.i
@@ -23743,6 +25231,7 @@ libraries/AP_OSD/AP_OSD_MSP_DisplayPort.i: libraries/AP_OSD/AP_OSD_MSP_DisplayPo
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.i
 
 libraries/AP_OSD/AP_OSD_MSP_DisplayPort.s: libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.s
@@ -23751,6 +25240,7 @@ libraries/AP_OSD/AP_OSD_MSP_DisplayPort.s: libraries/AP_OSD/AP_OSD_MSP_DisplayPo
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_MSP_DisplayPort.cpp.s
 
 libraries/AP_OSD/AP_OSD_ParamScreen.o: libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
@@ -23759,6 +25249,7 @@ libraries/AP_OSD/AP_OSD_ParamScreen.o: libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
 # target to build an object file
 libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_ParamScreen.cpp.o
 
 libraries/AP_OSD/AP_OSD_ParamScreen.i: libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
@@ -23767,6 +25258,7 @@ libraries/AP_OSD/AP_OSD_ParamScreen.i: libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_ParamScreen.cpp.i
 
 libraries/AP_OSD/AP_OSD_ParamScreen.s: libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
@@ -23775,6 +25267,7 @@ libraries/AP_OSD/AP_OSD_ParamScreen.s: libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_ParamScreen.cpp.s
 
 libraries/AP_OSD/AP_OSD_ParamSetting.o: libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
@@ -23783,6 +25276,7 @@ libraries/AP_OSD/AP_OSD_ParamSetting.o: libraries/AP_OSD/AP_OSD_ParamSetting.cpp
 # target to build an object file
 libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_ParamSetting.cpp.o
 
 libraries/AP_OSD/AP_OSD_ParamSetting.i: libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
@@ -23791,6 +25285,7 @@ libraries/AP_OSD/AP_OSD_ParamSetting.i: libraries/AP_OSD/AP_OSD_ParamSetting.cpp
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_ParamSetting.cpp.i
 
 libraries/AP_OSD/AP_OSD_ParamSetting.s: libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
@@ -23799,6 +25294,7 @@ libraries/AP_OSD/AP_OSD_ParamSetting.s: libraries/AP_OSD/AP_OSD_ParamSetting.cpp
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_ParamSetting.cpp.s
 
 libraries/AP_OSD/AP_OSD_SITL.o: libraries/AP_OSD/AP_OSD_SITL.cpp.o
@@ -23807,6 +25303,7 @@ libraries/AP_OSD/AP_OSD_SITL.o: libraries/AP_OSD/AP_OSD_SITL.cpp.o
 # target to build an object file
 libraries/AP_OSD/AP_OSD_SITL.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_SITL.cpp.o
 
 libraries/AP_OSD/AP_OSD_SITL.i: libraries/AP_OSD/AP_OSD_SITL.cpp.i
@@ -23815,6 +25312,7 @@ libraries/AP_OSD/AP_OSD_SITL.i: libraries/AP_OSD/AP_OSD_SITL.cpp.i
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_SITL.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_SITL.cpp.i
 
 libraries/AP_OSD/AP_OSD_SITL.s: libraries/AP_OSD/AP_OSD_SITL.cpp.s
@@ -23823,6 +25321,7 @@ libraries/AP_OSD/AP_OSD_SITL.s: libraries/AP_OSD/AP_OSD_SITL.cpp.s
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_SITL.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_SITL.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_SITL.cpp.s
 
 libraries/AP_OSD/AP_OSD_Screen.o: libraries/AP_OSD/AP_OSD_Screen.cpp.o
@@ -23831,6 +25330,7 @@ libraries/AP_OSD/AP_OSD_Screen.o: libraries/AP_OSD/AP_OSD_Screen.cpp.o
 # target to build an object file
 libraries/AP_OSD/AP_OSD_Screen.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_Screen.cpp.o
 
 libraries/AP_OSD/AP_OSD_Screen.i: libraries/AP_OSD/AP_OSD_Screen.cpp.i
@@ -23839,6 +25339,7 @@ libraries/AP_OSD/AP_OSD_Screen.i: libraries/AP_OSD/AP_OSD_Screen.cpp.i
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_Screen.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_Screen.cpp.i
 
 libraries/AP_OSD/AP_OSD_Screen.s: libraries/AP_OSD/AP_OSD_Screen.cpp.s
@@ -23847,6 +25348,7 @@ libraries/AP_OSD/AP_OSD_Screen.s: libraries/AP_OSD/AP_OSD_Screen.cpp.s
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_Screen.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Screen.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_Screen.cpp.s
 
 libraries/AP_OSD/AP_OSD_Setting.o: libraries/AP_OSD/AP_OSD_Setting.cpp.o
@@ -23855,6 +25357,7 @@ libraries/AP_OSD/AP_OSD_Setting.o: libraries/AP_OSD/AP_OSD_Setting.cpp.o
 # target to build an object file
 libraries/AP_OSD/AP_OSD_Setting.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.o
 .PHONY : libraries/AP_OSD/AP_OSD_Setting.cpp.o
 
 libraries/AP_OSD/AP_OSD_Setting.i: libraries/AP_OSD/AP_OSD_Setting.cpp.i
@@ -23863,6 +25366,7 @@ libraries/AP_OSD/AP_OSD_Setting.i: libraries/AP_OSD/AP_OSD_Setting.cpp.i
 # target to preprocess a source file
 libraries/AP_OSD/AP_OSD_Setting.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.i
 .PHONY : libraries/AP_OSD/AP_OSD_Setting.cpp.i
 
 libraries/AP_OSD/AP_OSD_Setting.s: libraries/AP_OSD/AP_OSD_Setting.cpp.s
@@ -23871,6 +25375,7 @@ libraries/AP_OSD/AP_OSD_Setting.s: libraries/AP_OSD/AP_OSD_Setting.cpp.s
 # target to generate assembly for a file
 libraries/AP_OSD/AP_OSD_Setting.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD.dir/build.make CMakeFiles/AP_OSD.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_OSD_Plane.dir/build.make CMakeFiles/AP_OSD_Plane.dir/libraries/AP_OSD/AP_OSD_Setting.cpp.s
 .PHONY : libraries/AP_OSD/AP_OSD_Setting.cpp.s
 
 libraries/AP_OpenDroneID/AP_OpenDroneID.o: libraries/AP_OpenDroneID/AP_OpenDroneID.cpp.o
@@ -24862,6 +26367,7 @@ libraries/AP_Proximity/AP_Proximity.o: libraries/AP_Proximity/AP_Proximity.cpp.o
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity.cpp.o
 
@@ -24870,6 +26376,7 @@ libraries/AP_Proximity/AP_Proximity.i: libraries/AP_Proximity/AP_Proximity.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity.cpp.i
 
@@ -24878,6 +26385,7 @@ libraries/AP_Proximity/AP_Proximity.s: libraries/AP_Proximity/AP_Proximity.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity.cpp.s
 
@@ -24886,6 +26394,7 @@ libraries/AP_Proximity/AP_Proximity_AirSimSITL.o: libraries/AP_Proximity/AP_Prox
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_AirSimSITL.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_AirSimSITL.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_AirSimSITL.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_AirSimSITL.cpp.o
 
@@ -24894,6 +26403,7 @@ libraries/AP_Proximity/AP_Proximity_AirSimSITL.i: libraries/AP_Proximity/AP_Prox
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_AirSimSITL.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_AirSimSITL.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_AirSimSITL.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_AirSimSITL.cpp.i
 
@@ -24902,6 +26412,7 @@ libraries/AP_Proximity/AP_Proximity_AirSimSITL.s: libraries/AP_Proximity/AP_Prox
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_AirSimSITL.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_AirSimSITL.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_AirSimSITL.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_AirSimSITL.cpp.s
 
@@ -24910,6 +26421,7 @@ libraries/AP_Proximity/AP_Proximity_Backend.o: libraries/AP_Proximity/AP_Proximi
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_Backend.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Backend.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Backend.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_Backend.cpp.o
 
@@ -24918,6 +26430,7 @@ libraries/AP_Proximity/AP_Proximity_Backend.i: libraries/AP_Proximity/AP_Proximi
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_Backend.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Backend.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Backend.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_Backend.cpp.i
 
@@ -24926,6 +26439,7 @@ libraries/AP_Proximity/AP_Proximity_Backend.s: libraries/AP_Proximity/AP_Proximi
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_Backend.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Backend.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Backend.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_Backend.cpp.s
 
@@ -24934,6 +26448,7 @@ libraries/AP_Proximity/AP_Proximity_Backend_Serial.o: libraries/AP_Proximity/AP_
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_Backend_Serial.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Backend_Serial.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Backend_Serial.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_Backend_Serial.cpp.o
 
@@ -24942,6 +26457,7 @@ libraries/AP_Proximity/AP_Proximity_Backend_Serial.i: libraries/AP_Proximity/AP_
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_Backend_Serial.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Backend_Serial.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Backend_Serial.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_Backend_Serial.cpp.i
 
@@ -24950,6 +26466,7 @@ libraries/AP_Proximity/AP_Proximity_Backend_Serial.s: libraries/AP_Proximity/AP_
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_Backend_Serial.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Backend_Serial.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Backend_Serial.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_Backend_Serial.cpp.s
 
@@ -24958,6 +26475,7 @@ libraries/AP_Proximity/AP_Proximity_Boundary_3D.o: libraries/AP_Proximity/AP_Pro
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_Boundary_3D.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Boundary_3D.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Boundary_3D.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_Boundary_3D.cpp.o
 
@@ -24966,6 +26484,7 @@ libraries/AP_Proximity/AP_Proximity_Boundary_3D.i: libraries/AP_Proximity/AP_Pro
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_Boundary_3D.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Boundary_3D.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Boundary_3D.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_Boundary_3D.cpp.i
 
@@ -24974,6 +26493,7 @@ libraries/AP_Proximity/AP_Proximity_Boundary_3D.s: libraries/AP_Proximity/AP_Pro
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_Boundary_3D.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Boundary_3D.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Boundary_3D.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_Boundary_3D.cpp.s
 
@@ -24982,6 +26502,7 @@ libraries/AP_Proximity/AP_Proximity_Cygbot_D1.o: libraries/AP_Proximity/AP_Proxi
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_Cygbot_D1.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Cygbot_D1.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Cygbot_D1.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_Cygbot_D1.cpp.o
 
@@ -24990,6 +26511,7 @@ libraries/AP_Proximity/AP_Proximity_Cygbot_D1.i: libraries/AP_Proximity/AP_Proxi
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_Cygbot_D1.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Cygbot_D1.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Cygbot_D1.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_Cygbot_D1.cpp.i
 
@@ -24998,6 +26520,7 @@ libraries/AP_Proximity/AP_Proximity_Cygbot_D1.s: libraries/AP_Proximity/AP_Proxi
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_Cygbot_D1.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Cygbot_D1.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Cygbot_D1.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_Cygbot_D1.cpp.s
 
@@ -25006,6 +26529,7 @@ libraries/AP_Proximity/AP_Proximity_DroneCAN.o: libraries/AP_Proximity/AP_Proxim
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_DroneCAN.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_DroneCAN.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_DroneCAN.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_DroneCAN.cpp.o
 
@@ -25014,6 +26538,7 @@ libraries/AP_Proximity/AP_Proximity_DroneCAN.i: libraries/AP_Proximity/AP_Proxim
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_DroneCAN.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_DroneCAN.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_DroneCAN.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_DroneCAN.cpp.i
 
@@ -25022,6 +26547,7 @@ libraries/AP_Proximity/AP_Proximity_DroneCAN.s: libraries/AP_Proximity/AP_Proxim
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_DroneCAN.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_DroneCAN.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_DroneCAN.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_DroneCAN.cpp.s
 
@@ -25030,6 +26556,7 @@ libraries/AP_Proximity/AP_Proximity_LD06.o: libraries/AP_Proximity/AP_Proximity_
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_LD06.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_LD06.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_LD06.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_LD06.cpp.o
 
@@ -25038,6 +26565,7 @@ libraries/AP_Proximity/AP_Proximity_LD06.i: libraries/AP_Proximity/AP_Proximity_
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_LD06.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_LD06.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_LD06.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_LD06.cpp.i
 
@@ -25046,6 +26574,7 @@ libraries/AP_Proximity/AP_Proximity_LD06.s: libraries/AP_Proximity/AP_Proximity_
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_LD06.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_LD06.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_LD06.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_LD06.cpp.s
 
@@ -25054,6 +26583,7 @@ libraries/AP_Proximity/AP_Proximity_LightWareSF40C.o: libraries/AP_Proximity/AP_
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_LightWareSF40C.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_LightWareSF40C.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_LightWareSF40C.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_LightWareSF40C.cpp.o
 
@@ -25062,6 +26592,7 @@ libraries/AP_Proximity/AP_Proximity_LightWareSF40C.i: libraries/AP_Proximity/AP_
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_LightWareSF40C.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_LightWareSF40C.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_LightWareSF40C.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_LightWareSF40C.cpp.i
 
@@ -25070,6 +26601,7 @@ libraries/AP_Proximity/AP_Proximity_LightWareSF40C.s: libraries/AP_Proximity/AP_
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_LightWareSF40C.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_LightWareSF40C.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_LightWareSF40C.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_LightWareSF40C.cpp.s
 
@@ -25078,6 +26610,7 @@ libraries/AP_Proximity/AP_Proximity_LightWareSF45B.o: libraries/AP_Proximity/AP_
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_LightWareSF45B.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_LightWareSF45B.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_LightWareSF45B.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_LightWareSF45B.cpp.o
 
@@ -25086,6 +26619,7 @@ libraries/AP_Proximity/AP_Proximity_LightWareSF45B.i: libraries/AP_Proximity/AP_
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_LightWareSF45B.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_LightWareSF45B.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_LightWareSF45B.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_LightWareSF45B.cpp.i
 
@@ -25094,6 +26628,7 @@ libraries/AP_Proximity/AP_Proximity_LightWareSF45B.s: libraries/AP_Proximity/AP_
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_LightWareSF45B.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_LightWareSF45B.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_LightWareSF45B.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_LightWareSF45B.cpp.s
 
@@ -25102,6 +26637,7 @@ libraries/AP_Proximity/AP_Proximity_MAV.o: libraries/AP_Proximity/AP_Proximity_M
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_MAV.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_MAV.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_MAV.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_MAV.cpp.o
 
@@ -25110,6 +26646,7 @@ libraries/AP_Proximity/AP_Proximity_MAV.i: libraries/AP_Proximity/AP_Proximity_M
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_MAV.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_MAV.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_MAV.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_MAV.cpp.i
 
@@ -25118,6 +26655,7 @@ libraries/AP_Proximity/AP_Proximity_MAV.s: libraries/AP_Proximity/AP_Proximity_M
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_MAV.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_MAV.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_MAV.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_MAV.cpp.s
 
@@ -25126,6 +26664,7 @@ libraries/AP_Proximity/AP_Proximity_MR72_CAN.o: libraries/AP_Proximity/AP_Proxim
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_MR72_CAN.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_MR72_CAN.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_MR72_CAN.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_MR72_CAN.cpp.o
 
@@ -25134,6 +26673,7 @@ libraries/AP_Proximity/AP_Proximity_MR72_CAN.i: libraries/AP_Proximity/AP_Proxim
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_MR72_CAN.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_MR72_CAN.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_MR72_CAN.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_MR72_CAN.cpp.i
 
@@ -25142,6 +26682,7 @@ libraries/AP_Proximity/AP_Proximity_MR72_CAN.s: libraries/AP_Proximity/AP_Proxim
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_MR72_CAN.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_MR72_CAN.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_MR72_CAN.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_MR72_CAN.cpp.s
 
@@ -25150,6 +26691,7 @@ libraries/AP_Proximity/AP_Proximity_Params.o: libraries/AP_Proximity/AP_Proximit
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_Params.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Params.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Params.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_Params.cpp.o
 
@@ -25158,6 +26700,7 @@ libraries/AP_Proximity/AP_Proximity_Params.i: libraries/AP_Proximity/AP_Proximit
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_Params.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Params.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Params.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_Params.cpp.i
 
@@ -25166,6 +26709,7 @@ libraries/AP_Proximity/AP_Proximity_Params.s: libraries/AP_Proximity/AP_Proximit
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_Params.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Params.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Params.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_Params.cpp.s
 
@@ -25174,6 +26718,7 @@ libraries/AP_Proximity/AP_Proximity_RPLidarA2.o: libraries/AP_Proximity/AP_Proxi
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp.o
 
@@ -25182,6 +26727,7 @@ libraries/AP_Proximity/AP_Proximity_RPLidarA2.i: libraries/AP_Proximity/AP_Proxi
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp.i
 
@@ -25190,6 +26736,7 @@ libraries/AP_Proximity/AP_Proximity_RPLidarA2.s: libraries/AP_Proximity/AP_Proxi
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp.s
 
@@ -25198,6 +26745,7 @@ libraries/AP_Proximity/AP_Proximity_RangeFinder.o: libraries/AP_Proximity/AP_Pro
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_RangeFinder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_RangeFinder.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_RangeFinder.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_RangeFinder.cpp.o
 
@@ -25206,6 +26754,7 @@ libraries/AP_Proximity/AP_Proximity_RangeFinder.i: libraries/AP_Proximity/AP_Pro
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_RangeFinder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_RangeFinder.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_RangeFinder.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_RangeFinder.cpp.i
 
@@ -25214,6 +26763,7 @@ libraries/AP_Proximity/AP_Proximity_RangeFinder.s: libraries/AP_Proximity/AP_Pro
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_RangeFinder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_RangeFinder.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_RangeFinder.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_RangeFinder.cpp.s
 
@@ -25222,6 +26772,7 @@ libraries/AP_Proximity/AP_Proximity_SITL.o: libraries/AP_Proximity/AP_Proximity_
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_SITL.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_SITL.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_SITL.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_SITL.cpp.o
 
@@ -25230,6 +26781,7 @@ libraries/AP_Proximity/AP_Proximity_SITL.i: libraries/AP_Proximity/AP_Proximity_
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_SITL.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_SITL.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_SITL.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_SITL.cpp.i
 
@@ -25238,6 +26790,7 @@ libraries/AP_Proximity/AP_Proximity_SITL.s: libraries/AP_Proximity/AP_Proximity_
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_SITL.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_SITL.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_SITL.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_SITL.cpp.s
 
@@ -25246,6 +26799,7 @@ libraries/AP_Proximity/AP_Proximity_Scripting.o: libraries/AP_Proximity/AP_Proxi
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_Scripting.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Scripting.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Scripting.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_Scripting.cpp.o
 
@@ -25254,6 +26808,7 @@ libraries/AP_Proximity/AP_Proximity_Scripting.i: libraries/AP_Proximity/AP_Proxi
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_Scripting.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Scripting.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Scripting.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_Scripting.cpp.i
 
@@ -25262,6 +26817,7 @@ libraries/AP_Proximity/AP_Proximity_Scripting.s: libraries/AP_Proximity/AP_Proxi
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_Scripting.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Scripting.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Scripting.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_Scripting.cpp.s
 
@@ -25270,6 +26826,7 @@ libraries/AP_Proximity/AP_Proximity_TeraRangerTower.o: libraries/AP_Proximity/AP
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_TeraRangerTower.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_TeraRangerTower.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_TeraRangerTower.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_TeraRangerTower.cpp.o
 
@@ -25278,6 +26835,7 @@ libraries/AP_Proximity/AP_Proximity_TeraRangerTower.i: libraries/AP_Proximity/AP
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_TeraRangerTower.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_TeraRangerTower.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_TeraRangerTower.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_TeraRangerTower.cpp.i
 
@@ -25286,6 +26844,7 @@ libraries/AP_Proximity/AP_Proximity_TeraRangerTower.s: libraries/AP_Proximity/AP
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_TeraRangerTower.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_TeraRangerTower.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_TeraRangerTower.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_TeraRangerTower.cpp.s
 
@@ -25294,6 +26853,7 @@ libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.o: libraries/AP_Proximity
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.cpp.o
 
@@ -25302,6 +26862,7 @@ libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.i: libraries/AP_Proximity
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.cpp.i
 
@@ -25310,6 +26871,7 @@ libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.s: libraries/AP_Proximity
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_TeraRangerTowerEvo.cpp.s
 
@@ -25318,6 +26880,7 @@ libraries/AP_Proximity/AP_Proximity_Utils.o: libraries/AP_Proximity/AP_Proximity
 
 # target to build an object file
 libraries/AP_Proximity/AP_Proximity_Utils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Utils.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Utils.cpp.o
 .PHONY : libraries/AP_Proximity/AP_Proximity_Utils.cpp.o
 
@@ -25326,6 +26889,7 @@ libraries/AP_Proximity/AP_Proximity_Utils.i: libraries/AP_Proximity/AP_Proximity
 
 # target to preprocess a source file
 libraries/AP_Proximity/AP_Proximity_Utils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Utils.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Utils.cpp.i
 .PHONY : libraries/AP_Proximity/AP_Proximity_Utils.cpp.i
 
@@ -25334,6 +26898,7 @@ libraries/AP_Proximity/AP_Proximity_Utils.s: libraries/AP_Proximity/AP_Proximity
 
 # target to generate assembly for a file
 libraries/AP_Proximity/AP_Proximity_Utils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity_Plane.dir/build.make CMakeFiles/AP_Proximity_Plane.dir/libraries/AP_Proximity/AP_Proximity_Utils.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Proximity.dir/build.make CMakeFiles/AP_Proximity.dir/libraries/AP_Proximity/AP_Proximity_Utils.cpp.s
 .PHONY : libraries/AP_Proximity/AP_Proximity_Utils.cpp.s
 
@@ -25415,6 +26980,7 @@ libraries/AP_RCProtocol/AP_RCProtocol.o: libraries/AP_RCProtocol/AP_RCProtocol.c
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol.i: libraries/AP_RCProtocol/AP_RCProtocol.cpp.i
@@ -25423,6 +26989,7 @@ libraries/AP_RCProtocol/AP_RCProtocol.i: libraries/AP_RCProtocol/AP_RCProtocol.c
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol.s: libraries/AP_RCProtocol/AP_RCProtocol.cpp.s
@@ -25431,6 +26998,7 @@ libraries/AP_RCProtocol/AP_RCProtocol.s: libraries/AP_RCProtocol/AP_RCProtocol.c
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_Backend.o: libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.o
@@ -25439,6 +27007,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_Backend.o: libraries/AP_RCProtocol/AP_RCPr
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_Backend.i: libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.i
@@ -25447,6 +27016,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_Backend.i: libraries/AP_RCProtocol/AP_RCPr
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_Backend.s: libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.s
@@ -25455,6 +27025,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_Backend.s: libraries/AP_RCProtocol/AP_RCPr
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_Backend.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_CRSF.o: libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.o
@@ -25463,6 +27034,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_CRSF.o: libraries/AP_RCProtocol/AP_RCProto
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_CRSF.i: libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.i
@@ -25471,6 +27043,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_CRSF.i: libraries/AP_RCProtocol/AP_RCProto
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_CRSF.s: libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.s
@@ -25479,6 +27052,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_CRSF.s: libraries/AP_RCProtocol/AP_RCProto
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_CRSF.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_DSM.o: libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.o
@@ -25487,6 +27061,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_DSM.o: libraries/AP_RCProtocol/AP_RCProtoc
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_DSM.i: libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.i
@@ -25495,6 +27070,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_DSM.i: libraries/AP_RCProtocol/AP_RCProtoc
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_DSM.s: libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.s
@@ -25503,6 +27079,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_DSM.s: libraries/AP_RCProtocol/AP_RCProtoc
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_DSM.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.o: libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.o
@@ -25511,6 +27088,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.o: libraries/AP_RCProtocol/AP_RCP
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.i: libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.i
@@ -25519,6 +27097,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.i: libraries/AP_RCProtocol/AP_RCP
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.s: libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.s
@@ -25527,6 +27106,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.s: libraries/AP_RCProtocol/AP_RCP
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_DroneCAN.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.o: libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.o
@@ -25535,6 +27115,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.o: libraries/AP_RCProtocol/AP_R
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.i: libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.i
@@ -25543,6 +27124,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.i: libraries/AP_RCProtocol/AP_R
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.s: libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.s
@@ -25551,6 +27133,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.s: libraries/AP_RCProtocol/AP_R
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_Emlid_RCIO.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_FDM.o: libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.o
@@ -25559,6 +27142,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_FDM.o: libraries/AP_RCProtocol/AP_RCProtoc
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_FDM.i: libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.i
@@ -25567,6 +27151,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_FDM.i: libraries/AP_RCProtocol/AP_RCProtoc
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_FDM.s: libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.s
@@ -25575,6 +27160,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_FDM.s: libraries/AP_RCProtocol/AP_RCProtoc
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_FDM.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_FPort.o: libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.o
@@ -25583,6 +27169,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_FPort.o: libraries/AP_RCProtocol/AP_RCProt
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_FPort.i: libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.i
@@ -25591,6 +27178,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_FPort.i: libraries/AP_RCProtocol/AP_RCProt
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_FPort.s: libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.s
@@ -25599,6 +27187,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_FPort.s: libraries/AP_RCProtocol/AP_RCProt
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_FPort.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_FPort2.o: libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.o
@@ -25607,6 +27196,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_FPort2.o: libraries/AP_RCProtocol/AP_RCPro
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_FPort2.i: libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.i
@@ -25615,6 +27205,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_FPort2.i: libraries/AP_RCProtocol/AP_RCPro
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_FPort2.s: libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.s
@@ -25623,6 +27214,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_FPort2.s: libraries/AP_RCProtocol/AP_RCPro
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_FPort2.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_GHST.o: libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.o
@@ -25631,6 +27223,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_GHST.o: libraries/AP_RCProtocol/AP_RCProto
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_GHST.i: libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.i
@@ -25639,6 +27232,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_GHST.i: libraries/AP_RCProtocol/AP_RCProto
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_GHST.s: libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.s
@@ -25647,6 +27241,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_GHST.s: libraries/AP_RCProtocol/AP_RCProto
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_GHST.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_IBUS.o: libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.o
@@ -25655,6 +27250,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_IBUS.o: libraries/AP_RCProtocol/AP_RCProto
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_IBUS.i: libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.i
@@ -25663,6 +27259,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_IBUS.i: libraries/AP_RCProtocol/AP_RCProto
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_IBUS.s: libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.s
@@ -25671,6 +27268,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_IBUS.s: libraries/AP_RCProtocol/AP_RCProto
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_IBUS.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.o: libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.o
@@ -25679,6 +27277,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.o: libraries/AP_RCProtocol/AP_RCProt
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.i: libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.i
@@ -25687,6 +27286,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.i: libraries/AP_RCProtocol/AP_RCProt
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.s: libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.s
@@ -25695,6 +27295,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.s: libraries/AP_RCProtocol/AP_RCProt
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_IOMCU.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.o: libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.o
@@ -25703,6 +27304,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.o: libraries/AP_RCProtocol/A
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.i: libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.i
@@ -25711,6 +27313,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.i: libraries/AP_RCProtocol/A
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.s: libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.s
@@ -25719,6 +27322,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.s: libraries/AP_RCProtocol/A
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_Joystick_SFML.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.o: libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.o
@@ -25727,6 +27331,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.o: libraries/AP_RCProtocol/AP
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.i: libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.i
@@ -25735,6 +27340,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.i: libraries/AP_RCProtocol/AP
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.s: libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.s
@@ -25743,6 +27349,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.s: libraries/AP_RCProtocol/AP
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_MAVLinkRadio.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.o: libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.o
@@ -25751,6 +27358,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.o: libraries/AP_RCProtocol/AP_RCPro
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.i: libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.i
@@ -25759,6 +27367,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.i: libraries/AP_RCProtocol/AP_RCPro
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.s: libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.s
@@ -25767,6 +27376,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.s: libraries/AP_RCProtocol/AP_RCPro
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_PPMSum.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_Radio.o: libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.o
@@ -25775,6 +27385,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_Radio.o: libraries/AP_RCProtocol/AP_RCProt
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_Radio.i: libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.i
@@ -25783,6 +27394,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_Radio.i: libraries/AP_RCProtocol/AP_RCProt
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_Radio.s: libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.s
@@ -25791,6 +27403,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_Radio.s: libraries/AP_RCProtocol/AP_RCProt
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_Radio.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_SBUS.o: libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.o
@@ -25799,6 +27412,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_SBUS.o: libraries/AP_RCProtocol/AP_RCProto
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_SBUS.i: libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.i
@@ -25807,6 +27421,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_SBUS.i: libraries/AP_RCProtocol/AP_RCProto
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_SBUS.s: libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.s
@@ -25815,6 +27430,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_SBUS.s: libraries/AP_RCProtocol/AP_RCProto
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_SBUS.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_SRXL.o: libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.o
@@ -25823,6 +27439,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_SRXL.o: libraries/AP_RCProtocol/AP_RCProto
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_SRXL.i: libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.i
@@ -25831,6 +27448,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_SRXL.i: libraries/AP_RCProtocol/AP_RCProto
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_SRXL.s: libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.s
@@ -25839,6 +27457,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_SRXL.s: libraries/AP_RCProtocol/AP_RCProto
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_SRXL.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.o: libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.o
@@ -25847,6 +27466,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.o: libraries/AP_RCProtocol/AP_RCProt
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.i: libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.i
@@ -25855,6 +27475,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.i: libraries/AP_RCProtocol/AP_RCProt
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.s: libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.s
@@ -25863,6 +27484,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.s: libraries/AP_RCProtocol/AP_RCProt
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_SRXL2.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_ST24.o: libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.o
@@ -25871,6 +27493,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_ST24.o: libraries/AP_RCProtocol/AP_RCProto
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_ST24.i: libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.i
@@ -25879,6 +27502,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_ST24.i: libraries/AP_RCProtocol/AP_RCProto
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_ST24.s: libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.s
@@ -25887,6 +27511,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_ST24.s: libraries/AP_RCProtocol/AP_RCProto
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_ST24.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_SUMD.o: libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.o
@@ -25895,6 +27520,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_SUMD.o: libraries/AP_RCProtocol/AP_RCProto
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_SUMD.i: libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.i
@@ -25903,6 +27529,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_SUMD.i: libraries/AP_RCProtocol/AP_RCProto
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_SUMD.s: libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.s
@@ -25911,6 +27538,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_SUMD.s: libraries/AP_RCProtocol/AP_RCProto
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_SUMD.cpp.s
 
 libraries/AP_RCProtocol/AP_RCProtocol_UDP.o: libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.o
@@ -25919,6 +27547,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_UDP.o: libraries/AP_RCProtocol/AP_RCProtoc
 # target to build an object file
 libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.o
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.o
 
 libraries/AP_RCProtocol/AP_RCProtocol_UDP.i: libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.i
@@ -25927,6 +27556,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_UDP.i: libraries/AP_RCProtocol/AP_RCProtoc
 # target to preprocess a source file
 libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.i
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.i
 
 libraries/AP_RCProtocol/AP_RCProtocol_UDP.s: libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.s
@@ -25935,6 +27565,7 @@ libraries/AP_RCProtocol/AP_RCProtocol_UDP.s: libraries/AP_RCProtocol/AP_RCProtoc
 # target to generate assembly for a file
 libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.s
 .PHONY : libraries/AP_RCProtocol/AP_RCProtocol_UDP.cpp.s
 
 libraries/AP_RCProtocol/SoftSerial.o: libraries/AP_RCProtocol/SoftSerial.cpp.o
@@ -25943,6 +27574,7 @@ libraries/AP_RCProtocol/SoftSerial.o: libraries/AP_RCProtocol/SoftSerial.cpp.o
 # target to build an object file
 libraries/AP_RCProtocol/SoftSerial.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/SoftSerial.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/SoftSerial.cpp.o
 .PHONY : libraries/AP_RCProtocol/SoftSerial.cpp.o
 
 libraries/AP_RCProtocol/SoftSerial.i: libraries/AP_RCProtocol/SoftSerial.cpp.i
@@ -25951,6 +27583,7 @@ libraries/AP_RCProtocol/SoftSerial.i: libraries/AP_RCProtocol/SoftSerial.cpp.i
 # target to preprocess a source file
 libraries/AP_RCProtocol/SoftSerial.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/SoftSerial.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/SoftSerial.cpp.i
 .PHONY : libraries/AP_RCProtocol/SoftSerial.cpp.i
 
 libraries/AP_RCProtocol/SoftSerial.s: libraries/AP_RCProtocol/SoftSerial.cpp.s
@@ -25959,6 +27592,7 @@ libraries/AP_RCProtocol/SoftSerial.s: libraries/AP_RCProtocol/SoftSerial.cpp.s
 # target to generate assembly for a file
 libraries/AP_RCProtocol/SoftSerial.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/SoftSerial.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/SoftSerial.cpp.s
 .PHONY : libraries/AP_RCProtocol/SoftSerial.cpp.s
 
 libraries/AP_RCProtocol/spm_srxl.o: libraries/AP_RCProtocol/spm_srxl.cpp.o
@@ -25967,6 +27601,7 @@ libraries/AP_RCProtocol/spm_srxl.o: libraries/AP_RCProtocol/spm_srxl.cpp.o
 # target to build an object file
 libraries/AP_RCProtocol/spm_srxl.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/spm_srxl.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/spm_srxl.cpp.o
 .PHONY : libraries/AP_RCProtocol/spm_srxl.cpp.o
 
 libraries/AP_RCProtocol/spm_srxl.i: libraries/AP_RCProtocol/spm_srxl.cpp.i
@@ -25975,6 +27610,7 @@ libraries/AP_RCProtocol/spm_srxl.i: libraries/AP_RCProtocol/spm_srxl.cpp.i
 # target to preprocess a source file
 libraries/AP_RCProtocol/spm_srxl.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/spm_srxl.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/spm_srxl.cpp.i
 .PHONY : libraries/AP_RCProtocol/spm_srxl.cpp.i
 
 libraries/AP_RCProtocol/spm_srxl.s: libraries/AP_RCProtocol/spm_srxl.cpp.s
@@ -25983,6 +27619,7 @@ libraries/AP_RCProtocol/spm_srxl.s: libraries/AP_RCProtocol/spm_srxl.cpp.s
 # target to generate assembly for a file
 libraries/AP_RCProtocol/spm_srxl.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol.dir/build.make CMakeFiles/AP_RCProtocol.dir/libraries/AP_RCProtocol/spm_srxl.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCProtocol_Plane.dir/build.make CMakeFiles/AP_RCProtocol_Plane.dir/libraries/AP_RCProtocol/spm_srxl.cpp.s
 .PHONY : libraries/AP_RCProtocol/spm_srxl.cpp.s
 
 libraries/AP_RCTelemetry/AP_CRSF_Telem.o: libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.o
@@ -25991,6 +27628,7 @@ libraries/AP_RCTelemetry/AP_CRSF_Telem.o: libraries/AP_RCTelemetry/AP_CRSF_Telem
 # target to build an object file
 libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry.dir/build.make CMakeFiles/AP_RCTelemetry.dir/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry_Plane.dir/build.make CMakeFiles/AP_RCTelemetry_Plane.dir/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.o
 .PHONY : libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.o
 
 libraries/AP_RCTelemetry/AP_CRSF_Telem.i: libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.i
@@ -25999,6 +27637,7 @@ libraries/AP_RCTelemetry/AP_CRSF_Telem.i: libraries/AP_RCTelemetry/AP_CRSF_Telem
 # target to preprocess a source file
 libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry.dir/build.make CMakeFiles/AP_RCTelemetry.dir/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry_Plane.dir/build.make CMakeFiles/AP_RCTelemetry_Plane.dir/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.i
 .PHONY : libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.i
 
 libraries/AP_RCTelemetry/AP_CRSF_Telem.s: libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.s
@@ -26007,6 +27646,7 @@ libraries/AP_RCTelemetry/AP_CRSF_Telem.s: libraries/AP_RCTelemetry/AP_CRSF_Telem
 # target to generate assembly for a file
 libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry.dir/build.make CMakeFiles/AP_RCTelemetry.dir/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry_Plane.dir/build.make CMakeFiles/AP_RCTelemetry_Plane.dir/libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.s
 .PHONY : libraries/AP_RCTelemetry/AP_CRSF_Telem.cpp.s
 
 libraries/AP_RCTelemetry/AP_GHST_Telem.o: libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.o
@@ -26015,6 +27655,7 @@ libraries/AP_RCTelemetry/AP_GHST_Telem.o: libraries/AP_RCTelemetry/AP_GHST_Telem
 # target to build an object file
 libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry.dir/build.make CMakeFiles/AP_RCTelemetry.dir/libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry_Plane.dir/build.make CMakeFiles/AP_RCTelemetry_Plane.dir/libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.o
 .PHONY : libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.o
 
 libraries/AP_RCTelemetry/AP_GHST_Telem.i: libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.i
@@ -26023,6 +27664,7 @@ libraries/AP_RCTelemetry/AP_GHST_Telem.i: libraries/AP_RCTelemetry/AP_GHST_Telem
 # target to preprocess a source file
 libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry.dir/build.make CMakeFiles/AP_RCTelemetry.dir/libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry_Plane.dir/build.make CMakeFiles/AP_RCTelemetry_Plane.dir/libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.i
 .PHONY : libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.i
 
 libraries/AP_RCTelemetry/AP_GHST_Telem.s: libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.s
@@ -26031,6 +27673,7 @@ libraries/AP_RCTelemetry/AP_GHST_Telem.s: libraries/AP_RCTelemetry/AP_GHST_Telem
 # target to generate assembly for a file
 libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry.dir/build.make CMakeFiles/AP_RCTelemetry.dir/libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry_Plane.dir/build.make CMakeFiles/AP_RCTelemetry_Plane.dir/libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.s
 .PHONY : libraries/AP_RCTelemetry/AP_GHST_Telem.cpp.s
 
 libraries/AP_RCTelemetry/AP_RCTelemetry.o: libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.o
@@ -26039,6 +27682,7 @@ libraries/AP_RCTelemetry/AP_RCTelemetry.o: libraries/AP_RCTelemetry/AP_RCTelemet
 # target to build an object file
 libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry.dir/build.make CMakeFiles/AP_RCTelemetry.dir/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry_Plane.dir/build.make CMakeFiles/AP_RCTelemetry_Plane.dir/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.o
 .PHONY : libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.o
 
 libraries/AP_RCTelemetry/AP_RCTelemetry.i: libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.i
@@ -26047,6 +27691,7 @@ libraries/AP_RCTelemetry/AP_RCTelemetry.i: libraries/AP_RCTelemetry/AP_RCTelemet
 # target to preprocess a source file
 libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry.dir/build.make CMakeFiles/AP_RCTelemetry.dir/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry_Plane.dir/build.make CMakeFiles/AP_RCTelemetry_Plane.dir/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.i
 .PHONY : libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.i
 
 libraries/AP_RCTelemetry/AP_RCTelemetry.s: libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.s
@@ -26055,6 +27700,7 @@ libraries/AP_RCTelemetry/AP_RCTelemetry.s: libraries/AP_RCTelemetry/AP_RCTelemet
 # target to generate assembly for a file
 libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry.dir/build.make CMakeFiles/AP_RCTelemetry.dir/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry_Plane.dir/build.make CMakeFiles/AP_RCTelemetry_Plane.dir/libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.s
 .PHONY : libraries/AP_RCTelemetry/AP_RCTelemetry.cpp.s
 
 libraries/AP_RCTelemetry/AP_Spektrum_Telem.o: libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.o
@@ -26063,6 +27709,7 @@ libraries/AP_RCTelemetry/AP_Spektrum_Telem.o: libraries/AP_RCTelemetry/AP_Spektr
 # target to build an object file
 libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry.dir/build.make CMakeFiles/AP_RCTelemetry.dir/libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry_Plane.dir/build.make CMakeFiles/AP_RCTelemetry_Plane.dir/libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.o
 .PHONY : libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.o
 
 libraries/AP_RCTelemetry/AP_Spektrum_Telem.i: libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.i
@@ -26071,6 +27718,7 @@ libraries/AP_RCTelemetry/AP_Spektrum_Telem.i: libraries/AP_RCTelemetry/AP_Spektr
 # target to preprocess a source file
 libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry.dir/build.make CMakeFiles/AP_RCTelemetry.dir/libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry_Plane.dir/build.make CMakeFiles/AP_RCTelemetry_Plane.dir/libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.i
 .PHONY : libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.i
 
 libraries/AP_RCTelemetry/AP_Spektrum_Telem.s: libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.s
@@ -26079,6 +27727,7 @@ libraries/AP_RCTelemetry/AP_Spektrum_Telem.s: libraries/AP_RCTelemetry/AP_Spektr
 # target to generate assembly for a file
 libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry.dir/build.make CMakeFiles/AP_RCTelemetry.dir/libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_RCTelemetry_Plane.dir/build.make CMakeFiles/AP_RCTelemetry_Plane.dir/libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.s
 .PHONY : libraries/AP_RCTelemetry/AP_Spektrum_Telem.cpp.s
 
 libraries/AP_ROMFS/AP_ROMFS.o: libraries/AP_ROMFS/AP_ROMFS.cpp.o
@@ -26615,6 +28264,7 @@ libraries/AP_Rally/AP_Rally.o: libraries/AP_Rally/AP_Rally.cpp.o
 # target to build an object file
 libraries/AP_Rally/AP_Rally.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Rally.dir/build.make CMakeFiles/AP_Rally.dir/libraries/AP_Rally/AP_Rally.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Rally_Plane.dir/build.make CMakeFiles/AP_Rally_Plane.dir/libraries/AP_Rally/AP_Rally.cpp.o
 .PHONY : libraries/AP_Rally/AP_Rally.cpp.o
 
 libraries/AP_Rally/AP_Rally.i: libraries/AP_Rally/AP_Rally.cpp.i
@@ -26623,6 +28273,7 @@ libraries/AP_Rally/AP_Rally.i: libraries/AP_Rally/AP_Rally.cpp.i
 # target to preprocess a source file
 libraries/AP_Rally/AP_Rally.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Rally.dir/build.make CMakeFiles/AP_Rally.dir/libraries/AP_Rally/AP_Rally.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Rally_Plane.dir/build.make CMakeFiles/AP_Rally_Plane.dir/libraries/AP_Rally/AP_Rally.cpp.i
 .PHONY : libraries/AP_Rally/AP_Rally.cpp.i
 
 libraries/AP_Rally/AP_Rally.s: libraries/AP_Rally/AP_Rally.cpp.s
@@ -26631,6 +28282,7 @@ libraries/AP_Rally/AP_Rally.s: libraries/AP_Rally/AP_Rally.cpp.s
 # target to generate assembly for a file
 libraries/AP_Rally/AP_Rally.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Rally.dir/build.make CMakeFiles/AP_Rally.dir/libraries/AP_Rally/AP_Rally.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Rally_Plane.dir/build.make CMakeFiles/AP_Rally_Plane.dir/libraries/AP_Rally/AP_Rally.cpp.s
 .PHONY : libraries/AP_Rally/AP_Rally.cpp.s
 
 libraries/AP_RangeFinder/AP_RangeFinder.o: libraries/AP_RangeFinder/AP_RangeFinder.cpp.o
@@ -27719,6 +29371,7 @@ libraries/AP_Relay/AP_Relay.o: libraries/AP_Relay/AP_Relay.cpp.o
 # target to build an object file
 libraries/AP_Relay/AP_Relay.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay.dir/build.make CMakeFiles/AP_Relay.dir/libraries/AP_Relay/AP_Relay.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay_Plane.dir/build.make CMakeFiles/AP_Relay_Plane.dir/libraries/AP_Relay/AP_Relay.cpp.o
 .PHONY : libraries/AP_Relay/AP_Relay.cpp.o
 
 libraries/AP_Relay/AP_Relay.i: libraries/AP_Relay/AP_Relay.cpp.i
@@ -27727,6 +29380,7 @@ libraries/AP_Relay/AP_Relay.i: libraries/AP_Relay/AP_Relay.cpp.i
 # target to preprocess a source file
 libraries/AP_Relay/AP_Relay.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay.dir/build.make CMakeFiles/AP_Relay.dir/libraries/AP_Relay/AP_Relay.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay_Plane.dir/build.make CMakeFiles/AP_Relay_Plane.dir/libraries/AP_Relay/AP_Relay.cpp.i
 .PHONY : libraries/AP_Relay/AP_Relay.cpp.i
 
 libraries/AP_Relay/AP_Relay.s: libraries/AP_Relay/AP_Relay.cpp.s
@@ -27735,6 +29389,7 @@ libraries/AP_Relay/AP_Relay.s: libraries/AP_Relay/AP_Relay.cpp.s
 # target to generate assembly for a file
 libraries/AP_Relay/AP_Relay.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay.dir/build.make CMakeFiles/AP_Relay.dir/libraries/AP_Relay/AP_Relay.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay_Plane.dir/build.make CMakeFiles/AP_Relay_Plane.dir/libraries/AP_Relay/AP_Relay.cpp.s
 .PHONY : libraries/AP_Relay/AP_Relay.cpp.s
 
 libraries/AP_Relay/AP_Relay_Params.o: libraries/AP_Relay/AP_Relay_Params.cpp.o
@@ -27743,6 +29398,7 @@ libraries/AP_Relay/AP_Relay_Params.o: libraries/AP_Relay/AP_Relay_Params.cpp.o
 # target to build an object file
 libraries/AP_Relay/AP_Relay_Params.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay.dir/build.make CMakeFiles/AP_Relay.dir/libraries/AP_Relay/AP_Relay_Params.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay_Plane.dir/build.make CMakeFiles/AP_Relay_Plane.dir/libraries/AP_Relay/AP_Relay_Params.cpp.o
 .PHONY : libraries/AP_Relay/AP_Relay_Params.cpp.o
 
 libraries/AP_Relay/AP_Relay_Params.i: libraries/AP_Relay/AP_Relay_Params.cpp.i
@@ -27751,6 +29407,7 @@ libraries/AP_Relay/AP_Relay_Params.i: libraries/AP_Relay/AP_Relay_Params.cpp.i
 # target to preprocess a source file
 libraries/AP_Relay/AP_Relay_Params.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay.dir/build.make CMakeFiles/AP_Relay.dir/libraries/AP_Relay/AP_Relay_Params.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay_Plane.dir/build.make CMakeFiles/AP_Relay_Plane.dir/libraries/AP_Relay/AP_Relay_Params.cpp.i
 .PHONY : libraries/AP_Relay/AP_Relay_Params.cpp.i
 
 libraries/AP_Relay/AP_Relay_Params.s: libraries/AP_Relay/AP_Relay_Params.cpp.s
@@ -27759,6 +29416,7 @@ libraries/AP_Relay/AP_Relay_Params.s: libraries/AP_Relay/AP_Relay_Params.cpp.s
 # target to generate assembly for a file
 libraries/AP_Relay/AP_Relay_Params.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay.dir/build.make CMakeFiles/AP_Relay.dir/libraries/AP_Relay/AP_Relay_Params.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Relay_Plane.dir/build.make CMakeFiles/AP_Relay_Plane.dir/libraries/AP_Relay/AP_Relay_Params.cpp.s
 .PHONY : libraries/AP_Relay/AP_Relay_Params.cpp.s
 
 libraries/AP_RobotisServo/AP_RobotisServo.o: libraries/AP_RobotisServo/AP_RobotisServo.cpp.o
@@ -27815,6 +29473,7 @@ libraries/AP_Scheduler/AP_Scheduler.o: libraries/AP_Scheduler/AP_Scheduler.cpp.o
 # target to build an object file
 libraries/AP_Scheduler/AP_Scheduler.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler.dir/build.make CMakeFiles/AP_Scheduler.dir/libraries/AP_Scheduler/AP_Scheduler.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler_Plane.dir/build.make CMakeFiles/AP_Scheduler_Plane.dir/libraries/AP_Scheduler/AP_Scheduler.cpp.o
 .PHONY : libraries/AP_Scheduler/AP_Scheduler.cpp.o
 
 libraries/AP_Scheduler/AP_Scheduler.i: libraries/AP_Scheduler/AP_Scheduler.cpp.i
@@ -27823,6 +29482,7 @@ libraries/AP_Scheduler/AP_Scheduler.i: libraries/AP_Scheduler/AP_Scheduler.cpp.i
 # target to preprocess a source file
 libraries/AP_Scheduler/AP_Scheduler.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler.dir/build.make CMakeFiles/AP_Scheduler.dir/libraries/AP_Scheduler/AP_Scheduler.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler_Plane.dir/build.make CMakeFiles/AP_Scheduler_Plane.dir/libraries/AP_Scheduler/AP_Scheduler.cpp.i
 .PHONY : libraries/AP_Scheduler/AP_Scheduler.cpp.i
 
 libraries/AP_Scheduler/AP_Scheduler.s: libraries/AP_Scheduler/AP_Scheduler.cpp.s
@@ -27831,6 +29491,7 @@ libraries/AP_Scheduler/AP_Scheduler.s: libraries/AP_Scheduler/AP_Scheduler.cpp.s
 # target to generate assembly for a file
 libraries/AP_Scheduler/AP_Scheduler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler.dir/build.make CMakeFiles/AP_Scheduler.dir/libraries/AP_Scheduler/AP_Scheduler.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler_Plane.dir/build.make CMakeFiles/AP_Scheduler_Plane.dir/libraries/AP_Scheduler/AP_Scheduler.cpp.s
 .PHONY : libraries/AP_Scheduler/AP_Scheduler.cpp.s
 
 libraries/AP_Scheduler/PerfInfo.o: libraries/AP_Scheduler/PerfInfo.cpp.o
@@ -27839,6 +29500,7 @@ libraries/AP_Scheduler/PerfInfo.o: libraries/AP_Scheduler/PerfInfo.cpp.o
 # target to build an object file
 libraries/AP_Scheduler/PerfInfo.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler.dir/build.make CMakeFiles/AP_Scheduler.dir/libraries/AP_Scheduler/PerfInfo.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler_Plane.dir/build.make CMakeFiles/AP_Scheduler_Plane.dir/libraries/AP_Scheduler/PerfInfo.cpp.o
 .PHONY : libraries/AP_Scheduler/PerfInfo.cpp.o
 
 libraries/AP_Scheduler/PerfInfo.i: libraries/AP_Scheduler/PerfInfo.cpp.i
@@ -27847,6 +29509,7 @@ libraries/AP_Scheduler/PerfInfo.i: libraries/AP_Scheduler/PerfInfo.cpp.i
 # target to preprocess a source file
 libraries/AP_Scheduler/PerfInfo.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler.dir/build.make CMakeFiles/AP_Scheduler.dir/libraries/AP_Scheduler/PerfInfo.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler_Plane.dir/build.make CMakeFiles/AP_Scheduler_Plane.dir/libraries/AP_Scheduler/PerfInfo.cpp.i
 .PHONY : libraries/AP_Scheduler/PerfInfo.cpp.i
 
 libraries/AP_Scheduler/PerfInfo.s: libraries/AP_Scheduler/PerfInfo.cpp.s
@@ -27855,6 +29518,7 @@ libraries/AP_Scheduler/PerfInfo.s: libraries/AP_Scheduler/PerfInfo.cpp.s
 # target to generate assembly for a file
 libraries/AP_Scheduler/PerfInfo.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler.dir/build.make CMakeFiles/AP_Scheduler.dir/libraries/AP_Scheduler/PerfInfo.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scheduler_Plane.dir/build.make CMakeFiles/AP_Scheduler_Plane.dir/libraries/AP_Scheduler/PerfInfo.cpp.s
 .PHONY : libraries/AP_Scheduler/PerfInfo.cpp.s
 
 libraries/AP_Scripting/AP_Scripting.o: libraries/AP_Scripting/AP_Scripting.cpp.o
@@ -27862,6 +29526,7 @@ libraries/AP_Scripting/AP_Scripting.o: libraries/AP_Scripting/AP_Scripting.cpp.o
 
 # target to build an object file
 libraries/AP_Scripting/AP_Scripting.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting.cpp.o
 .PHONY : libraries/AP_Scripting/AP_Scripting.cpp.o
 
@@ -27870,6 +29535,7 @@ libraries/AP_Scripting/AP_Scripting.i: libraries/AP_Scripting/AP_Scripting.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Scripting/AP_Scripting.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting.cpp.i
 .PHONY : libraries/AP_Scripting/AP_Scripting.cpp.i
 
@@ -27878,6 +29544,7 @@ libraries/AP_Scripting/AP_Scripting.s: libraries/AP_Scripting/AP_Scripting.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Scripting/AP_Scripting.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting.cpp.s
 .PHONY : libraries/AP_Scripting/AP_Scripting.cpp.s
 
@@ -27886,6 +29553,7 @@ libraries/AP_Scripting/AP_Scripting_CANSensor.o: libraries/AP_Scripting/AP_Scrip
 
 # target to build an object file
 libraries/AP_Scripting/AP_Scripting_CANSensor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_CANSensor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_CANSensor.cpp.o
 .PHONY : libraries/AP_Scripting/AP_Scripting_CANSensor.cpp.o
 
@@ -27894,6 +29562,7 @@ libraries/AP_Scripting/AP_Scripting_CANSensor.i: libraries/AP_Scripting/AP_Scrip
 
 # target to preprocess a source file
 libraries/AP_Scripting/AP_Scripting_CANSensor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_CANSensor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_CANSensor.cpp.i
 .PHONY : libraries/AP_Scripting/AP_Scripting_CANSensor.cpp.i
 
@@ -27902,6 +29571,7 @@ libraries/AP_Scripting/AP_Scripting_CANSensor.s: libraries/AP_Scripting/AP_Scrip
 
 # target to generate assembly for a file
 libraries/AP_Scripting/AP_Scripting_CANSensor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_CANSensor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_CANSensor.cpp.s
 .PHONY : libraries/AP_Scripting/AP_Scripting_CANSensor.cpp.s
 
@@ -27910,6 +29580,7 @@ libraries/AP_Scripting/AP_Scripting_CRSFMenu.o: libraries/AP_Scripting/AP_Script
 
 # target to build an object file
 libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.o
 .PHONY : libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.o
 
@@ -27918,6 +29589,7 @@ libraries/AP_Scripting/AP_Scripting_CRSFMenu.i: libraries/AP_Scripting/AP_Script
 
 # target to preprocess a source file
 libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.i
 .PHONY : libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.i
 
@@ -27926,6 +29598,7 @@ libraries/AP_Scripting/AP_Scripting_CRSFMenu.s: libraries/AP_Scripting/AP_Script
 
 # target to generate assembly for a file
 libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.s
 .PHONY : libraries/AP_Scripting/AP_Scripting_CRSFMenu.cpp.s
 
@@ -27934,6 +29607,7 @@ libraries/AP_Scripting/AP_Scripting_SerialAccess.o: libraries/AP_Scripting/AP_Sc
 
 # target to build an object file
 libraries/AP_Scripting/AP_Scripting_SerialAccess.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_SerialAccess.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_SerialAccess.cpp.o
 .PHONY : libraries/AP_Scripting/AP_Scripting_SerialAccess.cpp.o
 
@@ -27942,6 +29616,7 @@ libraries/AP_Scripting/AP_Scripting_SerialAccess.i: libraries/AP_Scripting/AP_Sc
 
 # target to preprocess a source file
 libraries/AP_Scripting/AP_Scripting_SerialAccess.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_SerialAccess.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_SerialAccess.cpp.i
 .PHONY : libraries/AP_Scripting/AP_Scripting_SerialAccess.cpp.i
 
@@ -27950,6 +29625,7 @@ libraries/AP_Scripting/AP_Scripting_SerialAccess.s: libraries/AP_Scripting/AP_Sc
 
 # target to generate assembly for a file
 libraries/AP_Scripting/AP_Scripting_SerialAccess.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_SerialAccess.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_SerialAccess.cpp.s
 .PHONY : libraries/AP_Scripting/AP_Scripting_SerialAccess.cpp.s
 
@@ -27958,6 +29634,7 @@ libraries/AP_Scripting/AP_Scripting_SerialDevice.o: libraries/AP_Scripting/AP_Sc
 
 # target to build an object file
 libraries/AP_Scripting/AP_Scripting_SerialDevice.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_SerialDevice.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_SerialDevice.cpp.o
 .PHONY : libraries/AP_Scripting/AP_Scripting_SerialDevice.cpp.o
 
@@ -27966,6 +29643,7 @@ libraries/AP_Scripting/AP_Scripting_SerialDevice.i: libraries/AP_Scripting/AP_Sc
 
 # target to preprocess a source file
 libraries/AP_Scripting/AP_Scripting_SerialDevice.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_SerialDevice.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_SerialDevice.cpp.i
 .PHONY : libraries/AP_Scripting/AP_Scripting_SerialDevice.cpp.i
 
@@ -27974,6 +29652,7 @@ libraries/AP_Scripting/AP_Scripting_SerialDevice.s: libraries/AP_Scripting/AP_Sc
 
 # target to generate assembly for a file
 libraries/AP_Scripting/AP_Scripting_SerialDevice.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_SerialDevice.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_SerialDevice.cpp.s
 .PHONY : libraries/AP_Scripting/AP_Scripting_SerialDevice.cpp.s
 
@@ -27982,6 +29661,7 @@ libraries/AP_Scripting/AP_Scripting_helpers.o: libraries/AP_Scripting/AP_Scripti
 
 # target to build an object file
 libraries/AP_Scripting/AP_Scripting_helpers.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_helpers.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_helpers.cpp.o
 .PHONY : libraries/AP_Scripting/AP_Scripting_helpers.cpp.o
 
@@ -27990,6 +29670,7 @@ libraries/AP_Scripting/AP_Scripting_helpers.i: libraries/AP_Scripting/AP_Scripti
 
 # target to preprocess a source file
 libraries/AP_Scripting/AP_Scripting_helpers.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_helpers.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_helpers.cpp.i
 .PHONY : libraries/AP_Scripting/AP_Scripting_helpers.cpp.i
 
@@ -27998,6 +29679,7 @@ libraries/AP_Scripting/AP_Scripting_helpers.s: libraries/AP_Scripting/AP_Scripti
 
 # target to generate assembly for a file
 libraries/AP_Scripting/AP_Scripting_helpers.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/AP_Scripting_helpers.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/AP_Scripting_helpers.cpp.s
 .PHONY : libraries/AP_Scripting/AP_Scripting_helpers.cpp.s
 
@@ -28822,6 +30504,7 @@ libraries/AP_Scripting/lua_bindings.o: libraries/AP_Scripting/lua_bindings.cpp.o
 
 # target to build an object file
 libraries/AP_Scripting/lua_bindings.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/lua_bindings.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/lua_bindings.cpp.o
 .PHONY : libraries/AP_Scripting/lua_bindings.cpp.o
 
@@ -28830,6 +30513,7 @@ libraries/AP_Scripting/lua_bindings.i: libraries/AP_Scripting/lua_bindings.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Scripting/lua_bindings.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/lua_bindings.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/lua_bindings.cpp.i
 .PHONY : libraries/AP_Scripting/lua_bindings.cpp.i
 
@@ -28838,6 +30522,7 @@ libraries/AP_Scripting/lua_bindings.s: libraries/AP_Scripting/lua_bindings.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Scripting/lua_bindings.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/lua_bindings.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/lua_bindings.cpp.s
 .PHONY : libraries/AP_Scripting/lua_bindings.cpp.s
 
@@ -28846,6 +30531,7 @@ libraries/AP_Scripting/lua_boxed_numerics.o: libraries/AP_Scripting/lua_boxed_nu
 
 # target to build an object file
 libraries/AP_Scripting/lua_boxed_numerics.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/lua_boxed_numerics.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/lua_boxed_numerics.cpp.o
 .PHONY : libraries/AP_Scripting/lua_boxed_numerics.cpp.o
 
@@ -28854,6 +30540,7 @@ libraries/AP_Scripting/lua_boxed_numerics.i: libraries/AP_Scripting/lua_boxed_nu
 
 # target to preprocess a source file
 libraries/AP_Scripting/lua_boxed_numerics.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/lua_boxed_numerics.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/lua_boxed_numerics.cpp.i
 .PHONY : libraries/AP_Scripting/lua_boxed_numerics.cpp.i
 
@@ -28862,6 +30549,7 @@ libraries/AP_Scripting/lua_boxed_numerics.s: libraries/AP_Scripting/lua_boxed_nu
 
 # target to generate assembly for a file
 libraries/AP_Scripting/lua_boxed_numerics.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/lua_boxed_numerics.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/lua_boxed_numerics.cpp.s
 .PHONY : libraries/AP_Scripting/lua_boxed_numerics.cpp.s
 
@@ -28870,6 +30558,7 @@ libraries/AP_Scripting/lua_scripts.o: libraries/AP_Scripting/lua_scripts.cpp.o
 
 # target to build an object file
 libraries/AP_Scripting/lua_scripts.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/lua_scripts.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/lua_scripts.cpp.o
 .PHONY : libraries/AP_Scripting/lua_scripts.cpp.o
 
@@ -28878,6 +30567,7 @@ libraries/AP_Scripting/lua_scripts.i: libraries/AP_Scripting/lua_scripts.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Scripting/lua_scripts.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/lua_scripts.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/lua_scripts.cpp.i
 .PHONY : libraries/AP_Scripting/lua_scripts.cpp.i
 
@@ -28886,6 +30576,7 @@ libraries/AP_Scripting/lua_scripts.s: libraries/AP_Scripting/lua_scripts.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Scripting/lua_scripts.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/libraries/AP_Scripting/lua_scripts.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/libraries/AP_Scripting/lua_scripts.cpp.s
 .PHONY : libraries/AP_Scripting/lua_scripts.cpp.s
 
@@ -29206,6 +30897,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor.o: libraries/AP_TemperatureS
 
 # target to build an object file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.o
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.o
 
@@ -29214,6 +30906,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor.i: libraries/AP_TemperatureS
 
 # target to preprocess a source file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.i
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.i
 
@@ -29222,6 +30915,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor.s: libraries/AP_TemperatureS
 
 # target to generate assembly for a file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.s
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor.cpp.s
 
@@ -29230,6 +30924,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.o: libraries/AP_Tempe
 
 # target to build an object file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp.o
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp.o
 
@@ -29238,6 +30933,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.i: libraries/AP_Tempe
 
 # target to preprocess a source file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp.i
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp.i
 
@@ -29246,6 +30942,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.s: libraries/AP_Tempe
 
 # target to generate assembly for a file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp.s
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_Analog.cpp.s
 
@@ -29254,6 +30951,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.o: libraries/AP_Temp
 
 # target to build an object file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.cpp.o
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.cpp.o
 
@@ -29262,6 +30960,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.i: libraries/AP_Temp
 
 # target to preprocess a source file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.cpp.i
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.cpp.i
 
@@ -29270,6 +30969,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.s: libraries/AP_Temp
 
 # target to generate assembly for a file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.cpp.s
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_Backend.cpp.s
 
@@ -29278,6 +30978,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.o: libraries/AP_Tem
 
 # target to build an object file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.cpp.o
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.cpp.o
 
@@ -29286,6 +30987,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.i: libraries/AP_Tem
 
 # target to preprocess a source file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.cpp.i
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.cpp.i
 
@@ -29294,6 +30996,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.s: libraries/AP_Tem
 
 # target to generate assembly for a file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.cpp.s
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_DroneCAN.cpp.s
 
@@ -29302,6 +31005,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.o: libraries/AP_Tem
 
 # target to build an object file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.cpp.o
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.cpp.o
 
@@ -29310,6 +31014,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.i: libraries/AP_Tem
 
 # target to preprocess a source file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.cpp.i
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.cpp.i
 
@@ -29318,6 +31023,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.s: libraries/AP_Tem
 
 # target to generate assembly for a file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.cpp.s
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_MAX31865.cpp.s
 
@@ -29326,6 +31032,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.o: libraries/AP_Temp
 
 # target to build an object file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.cpp.o
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.cpp.o
 
@@ -29334,6 +31041,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.i: libraries/AP_Temp
 
 # target to preprocess a source file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.cpp.i
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.cpp.i
 
@@ -29342,6 +31050,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.s: libraries/AP_Temp
 
 # target to generate assembly for a file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.cpp.s
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_MCP9600.cpp.s
 
@@ -29350,6 +31059,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.o: libraries/AP_Tem
 
 # target to build an object file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.cpp.o
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.cpp.o
 
@@ -29358,6 +31068,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.i: libraries/AP_Tem
 
 # target to preprocess a source file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.cpp.i
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.cpp.i
 
@@ -29366,6 +31077,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.s: libraries/AP_Tem
 
 # target to generate assembly for a file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.cpp.s
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_MLX90614.cpp.s
 
@@ -29374,6 +31086,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.o: libraries/AP_Tempe
 
 # target to build an object file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.cpp.o
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.cpp.o
 
@@ -29382,6 +31095,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.i: libraries/AP_Tempe
 
 # target to preprocess a source file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.cpp.i
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.cpp.i
 
@@ -29390,6 +31104,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.s: libraries/AP_Tempe
 
 # target to generate assembly for a file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.cpp.s
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_Params.cpp.s
 
@@ -29398,6 +31113,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.o: libraries/AP_Temper
 
 # target to build an object file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.cpp.o
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.cpp.o
 
@@ -29406,6 +31122,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.i: libraries/AP_Temper
 
 # target to preprocess a source file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.cpp.i
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.cpp.i
 
@@ -29414,6 +31131,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.s: libraries/AP_Temper
 
 # target to generate assembly for a file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.cpp.s
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_SHT3x.cpp.s
 
@@ -29422,6 +31140,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.o: libraries/AP_Tempe
 
 # target to build an object file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.cpp.o
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.cpp.o
 
@@ -29430,6 +31149,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.i: libraries/AP_Tempe
 
 # target to preprocess a source file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.cpp.i
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.cpp.i
 
@@ -29438,6 +31158,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.s: libraries/AP_Tempe
 
 # target to generate assembly for a file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.cpp.s
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS01.cpp.s
 
@@ -29446,6 +31167,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.o: libraries/AP_Tempe
 
 # target to build an object file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.cpp.o
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.cpp.o
 
@@ -29454,6 +31176,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.i: libraries/AP_Tempe
 
 # target to preprocess a source file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.cpp.i
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.cpp.i
 
@@ -29462,6 +31185,7 @@ libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.s: libraries/AP_Tempe
 
 # target to generate assembly for a file
 libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor_Plane.dir/build.make CMakeFiles/AP_TemperatureSensor_Plane.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_TemperatureSensor.dir/build.make CMakeFiles/AP_TemperatureSensor.dir/libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.cpp.s
 .PHONY : libraries/AP_TemperatureSensor/AP_TemperatureSensor_TSYS03.cpp.s
 
@@ -29471,6 +31195,7 @@ libraries/AP_Terrain/AP_Terrain.o: libraries/AP_Terrain/AP_Terrain.cpp.o
 # target to build an object file
 libraries/AP_Terrain/AP_Terrain.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/AP_Terrain.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/AP_Terrain.cpp.o
 .PHONY : libraries/AP_Terrain/AP_Terrain.cpp.o
 
 libraries/AP_Terrain/AP_Terrain.i: libraries/AP_Terrain/AP_Terrain.cpp.i
@@ -29479,6 +31204,7 @@ libraries/AP_Terrain/AP_Terrain.i: libraries/AP_Terrain/AP_Terrain.cpp.i
 # target to preprocess a source file
 libraries/AP_Terrain/AP_Terrain.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/AP_Terrain.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/AP_Terrain.cpp.i
 .PHONY : libraries/AP_Terrain/AP_Terrain.cpp.i
 
 libraries/AP_Terrain/AP_Terrain.s: libraries/AP_Terrain/AP_Terrain.cpp.s
@@ -29487,6 +31213,7 @@ libraries/AP_Terrain/AP_Terrain.s: libraries/AP_Terrain/AP_Terrain.cpp.s
 # target to generate assembly for a file
 libraries/AP_Terrain/AP_Terrain.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/AP_Terrain.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/AP_Terrain.cpp.s
 .PHONY : libraries/AP_Terrain/AP_Terrain.cpp.s
 
 libraries/AP_Terrain/TerrainGCS.o: libraries/AP_Terrain/TerrainGCS.cpp.o
@@ -29495,6 +31222,7 @@ libraries/AP_Terrain/TerrainGCS.o: libraries/AP_Terrain/TerrainGCS.cpp.o
 # target to build an object file
 libraries/AP_Terrain/TerrainGCS.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/TerrainGCS.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/TerrainGCS.cpp.o
 .PHONY : libraries/AP_Terrain/TerrainGCS.cpp.o
 
 libraries/AP_Terrain/TerrainGCS.i: libraries/AP_Terrain/TerrainGCS.cpp.i
@@ -29503,6 +31231,7 @@ libraries/AP_Terrain/TerrainGCS.i: libraries/AP_Terrain/TerrainGCS.cpp.i
 # target to preprocess a source file
 libraries/AP_Terrain/TerrainGCS.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/TerrainGCS.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/TerrainGCS.cpp.i
 .PHONY : libraries/AP_Terrain/TerrainGCS.cpp.i
 
 libraries/AP_Terrain/TerrainGCS.s: libraries/AP_Terrain/TerrainGCS.cpp.s
@@ -29511,6 +31240,7 @@ libraries/AP_Terrain/TerrainGCS.s: libraries/AP_Terrain/TerrainGCS.cpp.s
 # target to generate assembly for a file
 libraries/AP_Terrain/TerrainGCS.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/TerrainGCS.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/TerrainGCS.cpp.s
 .PHONY : libraries/AP_Terrain/TerrainGCS.cpp.s
 
 libraries/AP_Terrain/TerrainIO.o: libraries/AP_Terrain/TerrainIO.cpp.o
@@ -29519,6 +31249,7 @@ libraries/AP_Terrain/TerrainIO.o: libraries/AP_Terrain/TerrainIO.cpp.o
 # target to build an object file
 libraries/AP_Terrain/TerrainIO.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/TerrainIO.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/TerrainIO.cpp.o
 .PHONY : libraries/AP_Terrain/TerrainIO.cpp.o
 
 libraries/AP_Terrain/TerrainIO.i: libraries/AP_Terrain/TerrainIO.cpp.i
@@ -29527,6 +31258,7 @@ libraries/AP_Terrain/TerrainIO.i: libraries/AP_Terrain/TerrainIO.cpp.i
 # target to preprocess a source file
 libraries/AP_Terrain/TerrainIO.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/TerrainIO.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/TerrainIO.cpp.i
 .PHONY : libraries/AP_Terrain/TerrainIO.cpp.i
 
 libraries/AP_Terrain/TerrainIO.s: libraries/AP_Terrain/TerrainIO.cpp.s
@@ -29535,6 +31267,7 @@ libraries/AP_Terrain/TerrainIO.s: libraries/AP_Terrain/TerrainIO.cpp.s
 # target to generate assembly for a file
 libraries/AP_Terrain/TerrainIO.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/TerrainIO.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/TerrainIO.cpp.s
 .PHONY : libraries/AP_Terrain/TerrainIO.cpp.s
 
 libraries/AP_Terrain/TerrainMission.o: libraries/AP_Terrain/TerrainMission.cpp.o
@@ -29543,6 +31276,7 @@ libraries/AP_Terrain/TerrainMission.o: libraries/AP_Terrain/TerrainMission.cpp.o
 # target to build an object file
 libraries/AP_Terrain/TerrainMission.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/TerrainMission.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/TerrainMission.cpp.o
 .PHONY : libraries/AP_Terrain/TerrainMission.cpp.o
 
 libraries/AP_Terrain/TerrainMission.i: libraries/AP_Terrain/TerrainMission.cpp.i
@@ -29551,6 +31285,7 @@ libraries/AP_Terrain/TerrainMission.i: libraries/AP_Terrain/TerrainMission.cpp.i
 # target to preprocess a source file
 libraries/AP_Terrain/TerrainMission.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/TerrainMission.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/TerrainMission.cpp.i
 .PHONY : libraries/AP_Terrain/TerrainMission.cpp.i
 
 libraries/AP_Terrain/TerrainMission.s: libraries/AP_Terrain/TerrainMission.cpp.s
@@ -29559,6 +31294,7 @@ libraries/AP_Terrain/TerrainMission.s: libraries/AP_Terrain/TerrainMission.cpp.s
 # target to generate assembly for a file
 libraries/AP_Terrain/TerrainMission.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/TerrainMission.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/TerrainMission.cpp.s
 .PHONY : libraries/AP_Terrain/TerrainMission.cpp.s
 
 libraries/AP_Terrain/TerrainUtil.o: libraries/AP_Terrain/TerrainUtil.cpp.o
@@ -29567,6 +31303,7 @@ libraries/AP_Terrain/TerrainUtil.o: libraries/AP_Terrain/TerrainUtil.cpp.o
 # target to build an object file
 libraries/AP_Terrain/TerrainUtil.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/TerrainUtil.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/TerrainUtil.cpp.o
 .PHONY : libraries/AP_Terrain/TerrainUtil.cpp.o
 
 libraries/AP_Terrain/TerrainUtil.i: libraries/AP_Terrain/TerrainUtil.cpp.i
@@ -29575,6 +31312,7 @@ libraries/AP_Terrain/TerrainUtil.i: libraries/AP_Terrain/TerrainUtil.cpp.i
 # target to preprocess a source file
 libraries/AP_Terrain/TerrainUtil.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/TerrainUtil.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/TerrainUtil.cpp.i
 .PHONY : libraries/AP_Terrain/TerrainUtil.cpp.i
 
 libraries/AP_Terrain/TerrainUtil.s: libraries/AP_Terrain/TerrainUtil.cpp.s
@@ -29583,6 +31321,7 @@ libraries/AP_Terrain/TerrainUtil.s: libraries/AP_Terrain/TerrainUtil.cpp.s
 # target to generate assembly for a file
 libraries/AP_Terrain/TerrainUtil.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain.dir/build.make CMakeFiles/AP_Terrain.dir/libraries/AP_Terrain/TerrainUtil.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Terrain_Plane.dir/build.make CMakeFiles/AP_Terrain_Plane.dir/libraries/AP_Terrain/TerrainUtil.cpp.s
 .PHONY : libraries/AP_Terrain/TerrainUtil.cpp.s
 
 libraries/AP_Torqeedo/AP_Torqeedo.o: libraries/AP_Torqeedo/AP_Torqeedo.cpp.o
@@ -29710,6 +31449,7 @@ libraries/AP_Vehicle/AP_Vehicle.o: libraries/AP_Vehicle/AP_Vehicle.cpp.o
 
 # target to build an object file
 libraries/AP_Vehicle/AP_Vehicle.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle_Plane.dir/build.make CMakeFiles/AP_Vehicle_Plane.dir/libraries/AP_Vehicle/AP_Vehicle.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle.dir/build.make CMakeFiles/AP_Vehicle.dir/libraries/AP_Vehicle/AP_Vehicle.cpp.o
 .PHONY : libraries/AP_Vehicle/AP_Vehicle.cpp.o
 
@@ -29718,6 +31458,7 @@ libraries/AP_Vehicle/AP_Vehicle.i: libraries/AP_Vehicle/AP_Vehicle.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Vehicle/AP_Vehicle.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle_Plane.dir/build.make CMakeFiles/AP_Vehicle_Plane.dir/libraries/AP_Vehicle/AP_Vehicle.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle.dir/build.make CMakeFiles/AP_Vehicle.dir/libraries/AP_Vehicle/AP_Vehicle.cpp.i
 .PHONY : libraries/AP_Vehicle/AP_Vehicle.cpp.i
 
@@ -29726,6 +31467,7 @@ libraries/AP_Vehicle/AP_Vehicle.s: libraries/AP_Vehicle/AP_Vehicle.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Vehicle/AP_Vehicle.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle_Plane.dir/build.make CMakeFiles/AP_Vehicle_Plane.dir/libraries/AP_Vehicle/AP_Vehicle.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle.dir/build.make CMakeFiles/AP_Vehicle.dir/libraries/AP_Vehicle/AP_Vehicle.cpp.s
 .PHONY : libraries/AP_Vehicle/AP_Vehicle.cpp.s
 
@@ -29734,6 +31476,7 @@ libraries/AP_Vehicle/Parameters.o: libraries/AP_Vehicle/Parameters.cpp.o
 
 # target to build an object file
 libraries/AP_Vehicle/Parameters.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle_Plane.dir/build.make CMakeFiles/AP_Vehicle_Plane.dir/libraries/AP_Vehicle/Parameters.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle.dir/build.make CMakeFiles/AP_Vehicle.dir/libraries/AP_Vehicle/Parameters.cpp.o
 .PHONY : libraries/AP_Vehicle/Parameters.cpp.o
 
@@ -29742,6 +31485,7 @@ libraries/AP_Vehicle/Parameters.i: libraries/AP_Vehicle/Parameters.cpp.i
 
 # target to preprocess a source file
 libraries/AP_Vehicle/Parameters.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle_Plane.dir/build.make CMakeFiles/AP_Vehicle_Plane.dir/libraries/AP_Vehicle/Parameters.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle.dir/build.make CMakeFiles/AP_Vehicle.dir/libraries/AP_Vehicle/Parameters.cpp.i
 .PHONY : libraries/AP_Vehicle/Parameters.cpp.i
 
@@ -29750,6 +31494,7 @@ libraries/AP_Vehicle/Parameters.s: libraries/AP_Vehicle/Parameters.cpp.s
 
 # target to generate assembly for a file
 libraries/AP_Vehicle/Parameters.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle_Plane.dir/build.make CMakeFiles/AP_Vehicle_Plane.dir/libraries/AP_Vehicle/Parameters.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Vehicle.dir/build.make CMakeFiles/AP_Vehicle.dir/libraries/AP_Vehicle/Parameters.cpp.s
 .PHONY : libraries/AP_Vehicle/Parameters.cpp.s
 
@@ -30503,6 +32248,7 @@ libraries/Filter/AP_Filter.o: libraries/Filter/AP_Filter.cpp.o
 # target to build an object file
 libraries/Filter/AP_Filter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/AP_Filter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/AP_Filter.cpp.o
 .PHONY : libraries/Filter/AP_Filter.cpp.o
 
 libraries/Filter/AP_Filter.i: libraries/Filter/AP_Filter.cpp.i
@@ -30511,6 +32257,7 @@ libraries/Filter/AP_Filter.i: libraries/Filter/AP_Filter.cpp.i
 # target to preprocess a source file
 libraries/Filter/AP_Filter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/AP_Filter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/AP_Filter.cpp.i
 .PHONY : libraries/Filter/AP_Filter.cpp.i
 
 libraries/Filter/AP_Filter.s: libraries/Filter/AP_Filter.cpp.s
@@ -30519,6 +32266,7 @@ libraries/Filter/AP_Filter.s: libraries/Filter/AP_Filter.cpp.s
 # target to generate assembly for a file
 libraries/Filter/AP_Filter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/AP_Filter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/AP_Filter.cpp.s
 .PHONY : libraries/Filter/AP_Filter.cpp.s
 
 libraries/Filter/AP_Filter_params.o: libraries/Filter/AP_Filter_params.cpp.o
@@ -30527,6 +32275,7 @@ libraries/Filter/AP_Filter_params.o: libraries/Filter/AP_Filter_params.cpp.o
 # target to build an object file
 libraries/Filter/AP_Filter_params.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/AP_Filter_params.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/AP_Filter_params.cpp.o
 .PHONY : libraries/Filter/AP_Filter_params.cpp.o
 
 libraries/Filter/AP_Filter_params.i: libraries/Filter/AP_Filter_params.cpp.i
@@ -30535,6 +32284,7 @@ libraries/Filter/AP_Filter_params.i: libraries/Filter/AP_Filter_params.cpp.i
 # target to preprocess a source file
 libraries/Filter/AP_Filter_params.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/AP_Filter_params.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/AP_Filter_params.cpp.i
 .PHONY : libraries/Filter/AP_Filter_params.cpp.i
 
 libraries/Filter/AP_Filter_params.s: libraries/Filter/AP_Filter_params.cpp.s
@@ -30543,6 +32293,7 @@ libraries/Filter/AP_Filter_params.s: libraries/Filter/AP_Filter_params.cpp.s
 # target to generate assembly for a file
 libraries/Filter/AP_Filter_params.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/AP_Filter_params.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/AP_Filter_params.cpp.s
 .PHONY : libraries/Filter/AP_Filter_params.cpp.s
 
 libraries/Filter/AP_NotchFilter_params.o: libraries/Filter/AP_NotchFilter_params.cpp.o
@@ -30551,6 +32302,7 @@ libraries/Filter/AP_NotchFilter_params.o: libraries/Filter/AP_NotchFilter_params
 # target to build an object file
 libraries/Filter/AP_NotchFilter_params.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/AP_NotchFilter_params.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/AP_NotchFilter_params.cpp.o
 .PHONY : libraries/Filter/AP_NotchFilter_params.cpp.o
 
 libraries/Filter/AP_NotchFilter_params.i: libraries/Filter/AP_NotchFilter_params.cpp.i
@@ -30559,6 +32311,7 @@ libraries/Filter/AP_NotchFilter_params.i: libraries/Filter/AP_NotchFilter_params
 # target to preprocess a source file
 libraries/Filter/AP_NotchFilter_params.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/AP_NotchFilter_params.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/AP_NotchFilter_params.cpp.i
 .PHONY : libraries/Filter/AP_NotchFilter_params.cpp.i
 
 libraries/Filter/AP_NotchFilter_params.s: libraries/Filter/AP_NotchFilter_params.cpp.s
@@ -30567,6 +32320,7 @@ libraries/Filter/AP_NotchFilter_params.s: libraries/Filter/AP_NotchFilter_params
 # target to generate assembly for a file
 libraries/Filter/AP_NotchFilter_params.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/AP_NotchFilter_params.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/AP_NotchFilter_params.cpp.s
 .PHONY : libraries/Filter/AP_NotchFilter_params.cpp.s
 
 libraries/Filter/DerivativeFilter.o: libraries/Filter/DerivativeFilter.cpp.o
@@ -30575,6 +32329,7 @@ libraries/Filter/DerivativeFilter.o: libraries/Filter/DerivativeFilter.cpp.o
 # target to build an object file
 libraries/Filter/DerivativeFilter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/DerivativeFilter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/DerivativeFilter.cpp.o
 .PHONY : libraries/Filter/DerivativeFilter.cpp.o
 
 libraries/Filter/DerivativeFilter.i: libraries/Filter/DerivativeFilter.cpp.i
@@ -30583,6 +32338,7 @@ libraries/Filter/DerivativeFilter.i: libraries/Filter/DerivativeFilter.cpp.i
 # target to preprocess a source file
 libraries/Filter/DerivativeFilter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/DerivativeFilter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/DerivativeFilter.cpp.i
 .PHONY : libraries/Filter/DerivativeFilter.cpp.i
 
 libraries/Filter/DerivativeFilter.s: libraries/Filter/DerivativeFilter.cpp.s
@@ -30591,6 +32347,7 @@ libraries/Filter/DerivativeFilter.s: libraries/Filter/DerivativeFilter.cpp.s
 # target to generate assembly for a file
 libraries/Filter/DerivativeFilter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/DerivativeFilter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/DerivativeFilter.cpp.s
 .PHONY : libraries/Filter/DerivativeFilter.cpp.s
 
 libraries/Filter/HarmonicNotchFilter.o: libraries/Filter/HarmonicNotchFilter.cpp.o
@@ -30599,6 +32356,7 @@ libraries/Filter/HarmonicNotchFilter.o: libraries/Filter/HarmonicNotchFilter.cpp
 # target to build an object file
 libraries/Filter/HarmonicNotchFilter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/HarmonicNotchFilter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/HarmonicNotchFilter.cpp.o
 .PHONY : libraries/Filter/HarmonicNotchFilter.cpp.o
 
 libraries/Filter/HarmonicNotchFilter.i: libraries/Filter/HarmonicNotchFilter.cpp.i
@@ -30607,6 +32365,7 @@ libraries/Filter/HarmonicNotchFilter.i: libraries/Filter/HarmonicNotchFilter.cpp
 # target to preprocess a source file
 libraries/Filter/HarmonicNotchFilter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/HarmonicNotchFilter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/HarmonicNotchFilter.cpp.i
 .PHONY : libraries/Filter/HarmonicNotchFilter.cpp.i
 
 libraries/Filter/HarmonicNotchFilter.s: libraries/Filter/HarmonicNotchFilter.cpp.s
@@ -30615,6 +32374,7 @@ libraries/Filter/HarmonicNotchFilter.s: libraries/Filter/HarmonicNotchFilter.cpp
 # target to generate assembly for a file
 libraries/Filter/HarmonicNotchFilter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/HarmonicNotchFilter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/HarmonicNotchFilter.cpp.s
 .PHONY : libraries/Filter/HarmonicNotchFilter.cpp.s
 
 libraries/Filter/LowPassFilter.o: libraries/Filter/LowPassFilter.cpp.o
@@ -30623,6 +32383,7 @@ libraries/Filter/LowPassFilter.o: libraries/Filter/LowPassFilter.cpp.o
 # target to build an object file
 libraries/Filter/LowPassFilter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/LowPassFilter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/LowPassFilter.cpp.o
 .PHONY : libraries/Filter/LowPassFilter.cpp.o
 
 libraries/Filter/LowPassFilter.i: libraries/Filter/LowPassFilter.cpp.i
@@ -30631,6 +32392,7 @@ libraries/Filter/LowPassFilter.i: libraries/Filter/LowPassFilter.cpp.i
 # target to preprocess a source file
 libraries/Filter/LowPassFilter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/LowPassFilter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/LowPassFilter.cpp.i
 .PHONY : libraries/Filter/LowPassFilter.cpp.i
 
 libraries/Filter/LowPassFilter.s: libraries/Filter/LowPassFilter.cpp.s
@@ -30639,6 +32401,7 @@ libraries/Filter/LowPassFilter.s: libraries/Filter/LowPassFilter.cpp.s
 # target to generate assembly for a file
 libraries/Filter/LowPassFilter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/LowPassFilter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/LowPassFilter.cpp.s
 .PHONY : libraries/Filter/LowPassFilter.cpp.s
 
 libraries/Filter/LowPassFilter2p.o: libraries/Filter/LowPassFilter2p.cpp.o
@@ -30647,6 +32410,7 @@ libraries/Filter/LowPassFilter2p.o: libraries/Filter/LowPassFilter2p.cpp.o
 # target to build an object file
 libraries/Filter/LowPassFilter2p.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/LowPassFilter2p.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/LowPassFilter2p.cpp.o
 .PHONY : libraries/Filter/LowPassFilter2p.cpp.o
 
 libraries/Filter/LowPassFilter2p.i: libraries/Filter/LowPassFilter2p.cpp.i
@@ -30655,6 +32419,7 @@ libraries/Filter/LowPassFilter2p.i: libraries/Filter/LowPassFilter2p.cpp.i
 # target to preprocess a source file
 libraries/Filter/LowPassFilter2p.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/LowPassFilter2p.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/LowPassFilter2p.cpp.i
 .PHONY : libraries/Filter/LowPassFilter2p.cpp.i
 
 libraries/Filter/LowPassFilter2p.s: libraries/Filter/LowPassFilter2p.cpp.s
@@ -30663,6 +32428,7 @@ libraries/Filter/LowPassFilter2p.s: libraries/Filter/LowPassFilter2p.cpp.s
 # target to generate assembly for a file
 libraries/Filter/LowPassFilter2p.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/LowPassFilter2p.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/LowPassFilter2p.cpp.s
 .PHONY : libraries/Filter/LowPassFilter2p.cpp.s
 
 libraries/Filter/ModeFilter.o: libraries/Filter/ModeFilter.cpp.o
@@ -30671,6 +32437,7 @@ libraries/Filter/ModeFilter.o: libraries/Filter/ModeFilter.cpp.o
 # target to build an object file
 libraries/Filter/ModeFilter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/ModeFilter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/ModeFilter.cpp.o
 .PHONY : libraries/Filter/ModeFilter.cpp.o
 
 libraries/Filter/ModeFilter.i: libraries/Filter/ModeFilter.cpp.i
@@ -30679,6 +32446,7 @@ libraries/Filter/ModeFilter.i: libraries/Filter/ModeFilter.cpp.i
 # target to preprocess a source file
 libraries/Filter/ModeFilter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/ModeFilter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/ModeFilter.cpp.i
 .PHONY : libraries/Filter/ModeFilter.cpp.i
 
 libraries/Filter/ModeFilter.s: libraries/Filter/ModeFilter.cpp.s
@@ -30687,6 +32455,7 @@ libraries/Filter/ModeFilter.s: libraries/Filter/ModeFilter.cpp.s
 # target to generate assembly for a file
 libraries/Filter/ModeFilter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/ModeFilter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/ModeFilter.cpp.s
 .PHONY : libraries/Filter/ModeFilter.cpp.s
 
 libraries/Filter/NotchFilter.o: libraries/Filter/NotchFilter.cpp.o
@@ -30695,6 +32464,7 @@ libraries/Filter/NotchFilter.o: libraries/Filter/NotchFilter.cpp.o
 # target to build an object file
 libraries/Filter/NotchFilter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/NotchFilter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/NotchFilter.cpp.o
 .PHONY : libraries/Filter/NotchFilter.cpp.o
 
 libraries/Filter/NotchFilter.i: libraries/Filter/NotchFilter.cpp.i
@@ -30703,6 +32473,7 @@ libraries/Filter/NotchFilter.i: libraries/Filter/NotchFilter.cpp.i
 # target to preprocess a source file
 libraries/Filter/NotchFilter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/NotchFilter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/NotchFilter.cpp.i
 .PHONY : libraries/Filter/NotchFilter.cpp.i
 
 libraries/Filter/NotchFilter.s: libraries/Filter/NotchFilter.cpp.s
@@ -30711,6 +32482,7 @@ libraries/Filter/NotchFilter.s: libraries/Filter/NotchFilter.cpp.s
 # target to generate assembly for a file
 libraries/Filter/NotchFilter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/NotchFilter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/NotchFilter.cpp.s
 .PHONY : libraries/Filter/NotchFilter.cpp.s
 
 libraries/Filter/SlewLimiter.o: libraries/Filter/SlewLimiter.cpp.o
@@ -30719,6 +32491,7 @@ libraries/Filter/SlewLimiter.o: libraries/Filter/SlewLimiter.cpp.o
 # target to build an object file
 libraries/Filter/SlewLimiter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/SlewLimiter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/SlewLimiter.cpp.o
 .PHONY : libraries/Filter/SlewLimiter.cpp.o
 
 libraries/Filter/SlewLimiter.i: libraries/Filter/SlewLimiter.cpp.i
@@ -30727,6 +32500,7 @@ libraries/Filter/SlewLimiter.i: libraries/Filter/SlewLimiter.cpp.i
 # target to preprocess a source file
 libraries/Filter/SlewLimiter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/SlewLimiter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/SlewLimiter.cpp.i
 .PHONY : libraries/Filter/SlewLimiter.cpp.i
 
 libraries/Filter/SlewLimiter.s: libraries/Filter/SlewLimiter.cpp.s
@@ -30735,6 +32509,7 @@ libraries/Filter/SlewLimiter.s: libraries/Filter/SlewLimiter.cpp.s
 # target to generate assembly for a file
 libraries/Filter/SlewLimiter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter.dir/build.make CMakeFiles/Filter.dir/libraries/Filter/SlewLimiter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Filter_Plane.dir/build.make CMakeFiles/Filter_Plane.dir/libraries/Filter/SlewLimiter.cpp.s
 .PHONY : libraries/Filter/SlewLimiter.cpp.s
 
 libraries/GCS_MAVLink/GCS.o: libraries/GCS_MAVLink/GCS.cpp.o
@@ -30742,6 +32517,7 @@ libraries/GCS_MAVLink/GCS.o: libraries/GCS_MAVLink/GCS.cpp.o
 
 # target to build an object file
 libraries/GCS_MAVLink/GCS.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS.cpp.o
 .PHONY : libraries/GCS_MAVLink/GCS.cpp.o
 
@@ -30750,6 +32526,7 @@ libraries/GCS_MAVLink/GCS.i: libraries/GCS_MAVLink/GCS.cpp.i
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/GCS.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS.cpp.i
 .PHONY : libraries/GCS_MAVLink/GCS.cpp.i
 
@@ -30758,6 +32535,7 @@ libraries/GCS_MAVLink/GCS.s: libraries/GCS_MAVLink/GCS.cpp.s
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/GCS.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS.cpp.s
 .PHONY : libraries/GCS_MAVLink/GCS.cpp.s
 
@@ -30766,6 +32544,7 @@ libraries/GCS_MAVLink/GCS_Common.o: libraries/GCS_MAVLink/GCS_Common.cpp.o
 
 # target to build an object file
 libraries/GCS_MAVLink/GCS_Common.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Common.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Common.cpp.o
 .PHONY : libraries/GCS_MAVLink/GCS_Common.cpp.o
 
@@ -30774,6 +32553,7 @@ libraries/GCS_MAVLink/GCS_Common.i: libraries/GCS_MAVLink/GCS_Common.cpp.i
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/GCS_Common.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Common.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Common.cpp.i
 .PHONY : libraries/GCS_MAVLink/GCS_Common.cpp.i
 
@@ -30782,6 +32562,7 @@ libraries/GCS_MAVLink/GCS_Common.s: libraries/GCS_MAVLink/GCS_Common.cpp.s
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/GCS_Common.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Common.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Common.cpp.s
 .PHONY : libraries/GCS_MAVLink/GCS_Common.cpp.s
 
@@ -30790,6 +32571,7 @@ libraries/GCS_MAVLink/GCS_DeviceOp.o: libraries/GCS_MAVLink/GCS_DeviceOp.cpp.o
 
 # target to build an object file
 libraries/GCS_MAVLink/GCS_DeviceOp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_DeviceOp.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_DeviceOp.cpp.o
 .PHONY : libraries/GCS_MAVLink/GCS_DeviceOp.cpp.o
 
@@ -30798,6 +32580,7 @@ libraries/GCS_MAVLink/GCS_DeviceOp.i: libraries/GCS_MAVLink/GCS_DeviceOp.cpp.i
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/GCS_DeviceOp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_DeviceOp.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_DeviceOp.cpp.i
 .PHONY : libraries/GCS_MAVLink/GCS_DeviceOp.cpp.i
 
@@ -30806,6 +32589,7 @@ libraries/GCS_MAVLink/GCS_DeviceOp.s: libraries/GCS_MAVLink/GCS_DeviceOp.cpp.s
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/GCS_DeviceOp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_DeviceOp.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_DeviceOp.cpp.s
 .PHONY : libraries/GCS_MAVLink/GCS_DeviceOp.cpp.s
 
@@ -30814,6 +32598,7 @@ libraries/GCS_MAVLink/GCS_FTP.o: libraries/GCS_MAVLink/GCS_FTP.cpp.o
 
 # target to build an object file
 libraries/GCS_MAVLink/GCS_FTP.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_FTP.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_FTP.cpp.o
 .PHONY : libraries/GCS_MAVLink/GCS_FTP.cpp.o
 
@@ -30822,6 +32607,7 @@ libraries/GCS_MAVLink/GCS_FTP.i: libraries/GCS_MAVLink/GCS_FTP.cpp.i
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/GCS_FTP.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_FTP.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_FTP.cpp.i
 .PHONY : libraries/GCS_MAVLink/GCS_FTP.cpp.i
 
@@ -30830,6 +32616,7 @@ libraries/GCS_MAVLink/GCS_FTP.s: libraries/GCS_MAVLink/GCS_FTP.cpp.s
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/GCS_FTP.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_FTP.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_FTP.cpp.s
 .PHONY : libraries/GCS_MAVLink/GCS_FTP.cpp.s
 
@@ -30838,6 +32625,7 @@ libraries/GCS_MAVLink/GCS_Fence.o: libraries/GCS_MAVLink/GCS_Fence.cpp.o
 
 # target to build an object file
 libraries/GCS_MAVLink/GCS_Fence.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Fence.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Fence.cpp.o
 .PHONY : libraries/GCS_MAVLink/GCS_Fence.cpp.o
 
@@ -30846,6 +32634,7 @@ libraries/GCS_MAVLink/GCS_Fence.i: libraries/GCS_MAVLink/GCS_Fence.cpp.i
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/GCS_Fence.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Fence.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Fence.cpp.i
 .PHONY : libraries/GCS_MAVLink/GCS_Fence.cpp.i
 
@@ -30854,6 +32643,7 @@ libraries/GCS_MAVLink/GCS_Fence.s: libraries/GCS_MAVLink/GCS_Fence.cpp.s
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/GCS_Fence.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Fence.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Fence.cpp.s
 .PHONY : libraries/GCS_MAVLink/GCS_Fence.cpp.s
 
@@ -30862,6 +32652,7 @@ libraries/GCS_MAVLink/GCS_MAVLink.o: libraries/GCS_MAVLink/GCS_MAVLink.cpp.o
 
 # target to build an object file
 libraries/GCS_MAVLink/GCS_MAVLink.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_MAVLink.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_MAVLink.cpp.o
 .PHONY : libraries/GCS_MAVLink/GCS_MAVLink.cpp.o
 
@@ -30870,6 +32661,7 @@ libraries/GCS_MAVLink/GCS_MAVLink.i: libraries/GCS_MAVLink/GCS_MAVLink.cpp.i
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/GCS_MAVLink.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_MAVLink.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_MAVLink.cpp.i
 .PHONY : libraries/GCS_MAVLink/GCS_MAVLink.cpp.i
 
@@ -30878,6 +32670,7 @@ libraries/GCS_MAVLink/GCS_MAVLink.s: libraries/GCS_MAVLink/GCS_MAVLink.cpp.s
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/GCS_MAVLink.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_MAVLink.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_MAVLink.cpp.s
 .PHONY : libraries/GCS_MAVLink/GCS_MAVLink.cpp.s
 
@@ -30886,6 +32679,7 @@ libraries/GCS_MAVLink/GCS_MAVLink_Parameters.o: libraries/GCS_MAVLink/GCS_MAVLin
 
 # target to build an object file
 libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.o
 .PHONY : libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.o
 
@@ -30894,6 +32688,7 @@ libraries/GCS_MAVLink/GCS_MAVLink_Parameters.i: libraries/GCS_MAVLink/GCS_MAVLin
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.i
 .PHONY : libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.i
 
@@ -30902,6 +32697,7 @@ libraries/GCS_MAVLink/GCS_MAVLink_Parameters.s: libraries/GCS_MAVLink/GCS_MAVLin
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.s
 .PHONY : libraries/GCS_MAVLink/GCS_MAVLink_Parameters.cpp.s
 
@@ -30910,6 +32706,7 @@ libraries/GCS_MAVLink/GCS_Param.o: libraries/GCS_MAVLink/GCS_Param.cpp.o
 
 # target to build an object file
 libraries/GCS_MAVLink/GCS_Param.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Param.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Param.cpp.o
 .PHONY : libraries/GCS_MAVLink/GCS_Param.cpp.o
 
@@ -30918,6 +32715,7 @@ libraries/GCS_MAVLink/GCS_Param.i: libraries/GCS_MAVLink/GCS_Param.cpp.i
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/GCS_Param.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Param.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Param.cpp.i
 .PHONY : libraries/GCS_MAVLink/GCS_Param.cpp.i
 
@@ -30926,6 +32724,7 @@ libraries/GCS_MAVLink/GCS_Param.s: libraries/GCS_MAVLink/GCS_Param.cpp.s
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/GCS_Param.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Param.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Param.cpp.s
 .PHONY : libraries/GCS_MAVLink/GCS_Param.cpp.s
 
@@ -30934,6 +32733,7 @@ libraries/GCS_MAVLink/GCS_Rally.o: libraries/GCS_MAVLink/GCS_Rally.cpp.o
 
 # target to build an object file
 libraries/GCS_MAVLink/GCS_Rally.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Rally.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Rally.cpp.o
 .PHONY : libraries/GCS_MAVLink/GCS_Rally.cpp.o
 
@@ -30942,6 +32742,7 @@ libraries/GCS_MAVLink/GCS_Rally.i: libraries/GCS_MAVLink/GCS_Rally.cpp.i
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/GCS_Rally.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Rally.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Rally.cpp.i
 .PHONY : libraries/GCS_MAVLink/GCS_Rally.cpp.i
 
@@ -30950,6 +32751,7 @@ libraries/GCS_MAVLink/GCS_Rally.s: libraries/GCS_MAVLink/GCS_Rally.cpp.s
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/GCS_Rally.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Rally.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Rally.cpp.s
 .PHONY : libraries/GCS_MAVLink/GCS_Rally.cpp.s
 
@@ -30958,6 +32760,7 @@ libraries/GCS_MAVLink/GCS_ServoRelay.o: libraries/GCS_MAVLink/GCS_ServoRelay.cpp
 
 # target to build an object file
 libraries/GCS_MAVLink/GCS_ServoRelay.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_ServoRelay.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_ServoRelay.cpp.o
 .PHONY : libraries/GCS_MAVLink/GCS_ServoRelay.cpp.o
 
@@ -30966,6 +32769,7 @@ libraries/GCS_MAVLink/GCS_ServoRelay.i: libraries/GCS_MAVLink/GCS_ServoRelay.cpp
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/GCS_ServoRelay.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_ServoRelay.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_ServoRelay.cpp.i
 .PHONY : libraries/GCS_MAVLink/GCS_ServoRelay.cpp.i
 
@@ -30974,6 +32778,7 @@ libraries/GCS_MAVLink/GCS_ServoRelay.s: libraries/GCS_MAVLink/GCS_ServoRelay.cpp
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/GCS_ServoRelay.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_ServoRelay.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_ServoRelay.cpp.s
 .PHONY : libraries/GCS_MAVLink/GCS_ServoRelay.cpp.s
 
@@ -30982,6 +32787,7 @@ libraries/GCS_MAVLink/GCS_Signing.o: libraries/GCS_MAVLink/GCS_Signing.cpp.o
 
 # target to build an object file
 libraries/GCS_MAVLink/GCS_Signing.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Signing.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Signing.cpp.o
 .PHONY : libraries/GCS_MAVLink/GCS_Signing.cpp.o
 
@@ -30990,6 +32796,7 @@ libraries/GCS_MAVLink/GCS_Signing.i: libraries/GCS_MAVLink/GCS_Signing.cpp.i
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/GCS_Signing.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Signing.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Signing.cpp.i
 .PHONY : libraries/GCS_MAVLink/GCS_Signing.cpp.i
 
@@ -30998,6 +32805,7 @@ libraries/GCS_MAVLink/GCS_Signing.s: libraries/GCS_MAVLink/GCS_Signing.cpp.s
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/GCS_Signing.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_Signing.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_Signing.cpp.s
 .PHONY : libraries/GCS_MAVLink/GCS_Signing.cpp.s
 
@@ -31006,6 +32814,7 @@ libraries/GCS_MAVLink/GCS_serial_control.o: libraries/GCS_MAVLink/GCS_serial_con
 
 # target to build an object file
 libraries/GCS_MAVLink/GCS_serial_control.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_serial_control.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_serial_control.cpp.o
 .PHONY : libraries/GCS_MAVLink/GCS_serial_control.cpp.o
 
@@ -31014,6 +32823,7 @@ libraries/GCS_MAVLink/GCS_serial_control.i: libraries/GCS_MAVLink/GCS_serial_con
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/GCS_serial_control.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_serial_control.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_serial_control.cpp.i
 .PHONY : libraries/GCS_MAVLink/GCS_serial_control.cpp.i
 
@@ -31022,6 +32832,7 @@ libraries/GCS_MAVLink/GCS_serial_control.s: libraries/GCS_MAVLink/GCS_serial_con
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/GCS_serial_control.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/GCS_serial_control.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/GCS_serial_control.cpp.s
 .PHONY : libraries/GCS_MAVLink/GCS_serial_control.cpp.s
 
@@ -31030,6 +32841,7 @@ libraries/GCS_MAVLink/MAVLink_routing.o: libraries/GCS_MAVLink/MAVLink_routing.c
 
 # target to build an object file
 libraries/GCS_MAVLink/MAVLink_routing.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MAVLink_routing.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MAVLink_routing.cpp.o
 .PHONY : libraries/GCS_MAVLink/MAVLink_routing.cpp.o
 
@@ -31038,6 +32850,7 @@ libraries/GCS_MAVLink/MAVLink_routing.i: libraries/GCS_MAVLink/MAVLink_routing.c
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/MAVLink_routing.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MAVLink_routing.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MAVLink_routing.cpp.i
 .PHONY : libraries/GCS_MAVLink/MAVLink_routing.cpp.i
 
@@ -31046,6 +32859,7 @@ libraries/GCS_MAVLink/MAVLink_routing.s: libraries/GCS_MAVLink/MAVLink_routing.c
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/MAVLink_routing.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MAVLink_routing.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MAVLink_routing.cpp.s
 .PHONY : libraries/GCS_MAVLink/MAVLink_routing.cpp.s
 
@@ -31054,6 +32868,7 @@ libraries/GCS_MAVLink/MissionItemProtocol.o: libraries/GCS_MAVLink/MissionItemPr
 
 # target to build an object file
 libraries/GCS_MAVLink/MissionItemProtocol.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MissionItemProtocol.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MissionItemProtocol.cpp.o
 .PHONY : libraries/GCS_MAVLink/MissionItemProtocol.cpp.o
 
@@ -31062,6 +32877,7 @@ libraries/GCS_MAVLink/MissionItemProtocol.i: libraries/GCS_MAVLink/MissionItemPr
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/MissionItemProtocol.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MissionItemProtocol.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MissionItemProtocol.cpp.i
 .PHONY : libraries/GCS_MAVLink/MissionItemProtocol.cpp.i
 
@@ -31070,6 +32886,7 @@ libraries/GCS_MAVLink/MissionItemProtocol.s: libraries/GCS_MAVLink/MissionItemPr
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/MissionItemProtocol.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MissionItemProtocol.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MissionItemProtocol.cpp.s
 .PHONY : libraries/GCS_MAVLink/MissionItemProtocol.cpp.s
 
@@ -31078,6 +32895,7 @@ libraries/GCS_MAVLink/MissionItemProtocol_Fence.o: libraries/GCS_MAVLink/Mission
 
 # target to build an object file
 libraries/GCS_MAVLink/MissionItemProtocol_Fence.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MissionItemProtocol_Fence.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MissionItemProtocol_Fence.cpp.o
 .PHONY : libraries/GCS_MAVLink/MissionItemProtocol_Fence.cpp.o
 
@@ -31086,6 +32904,7 @@ libraries/GCS_MAVLink/MissionItemProtocol_Fence.i: libraries/GCS_MAVLink/Mission
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/MissionItemProtocol_Fence.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MissionItemProtocol_Fence.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MissionItemProtocol_Fence.cpp.i
 .PHONY : libraries/GCS_MAVLink/MissionItemProtocol_Fence.cpp.i
 
@@ -31094,6 +32913,7 @@ libraries/GCS_MAVLink/MissionItemProtocol_Fence.s: libraries/GCS_MAVLink/Mission
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/MissionItemProtocol_Fence.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MissionItemProtocol_Fence.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MissionItemProtocol_Fence.cpp.s
 .PHONY : libraries/GCS_MAVLink/MissionItemProtocol_Fence.cpp.s
 
@@ -31102,6 +32922,7 @@ libraries/GCS_MAVLink/MissionItemProtocol_Rally.o: libraries/GCS_MAVLink/Mission
 
 # target to build an object file
 libraries/GCS_MAVLink/MissionItemProtocol_Rally.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MissionItemProtocol_Rally.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MissionItemProtocol_Rally.cpp.o
 .PHONY : libraries/GCS_MAVLink/MissionItemProtocol_Rally.cpp.o
 
@@ -31110,6 +32931,7 @@ libraries/GCS_MAVLink/MissionItemProtocol_Rally.i: libraries/GCS_MAVLink/Mission
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/MissionItemProtocol_Rally.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MissionItemProtocol_Rally.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MissionItemProtocol_Rally.cpp.i
 .PHONY : libraries/GCS_MAVLink/MissionItemProtocol_Rally.cpp.i
 
@@ -31118,6 +32940,7 @@ libraries/GCS_MAVLink/MissionItemProtocol_Rally.s: libraries/GCS_MAVLink/Mission
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/MissionItemProtocol_Rally.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MissionItemProtocol_Rally.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MissionItemProtocol_Rally.cpp.s
 .PHONY : libraries/GCS_MAVLink/MissionItemProtocol_Rally.cpp.s
 
@@ -31126,6 +32949,7 @@ libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.o: libraries/GCS_MAVLink/Mis
 
 # target to build an object file
 libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.cpp.o
 .PHONY : libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.cpp.o
 
@@ -31134,6 +32958,7 @@ libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.i: libraries/GCS_MAVLink/Mis
 
 # target to preprocess a source file
 libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.cpp.i
 .PHONY : libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.cpp.i
 
@@ -31142,6 +32967,7 @@ libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.s: libraries/GCS_MAVLink/Mis
 
 # target to generate assembly for a file
 libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink_Plane.dir/build.make CMakeFiles/GCS_MAVLink_Plane.dir/libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GCS_MAVLink.dir/build.make CMakeFiles/GCS_MAVLink.dir/libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.cpp.s
 .PHONY : libraries/GCS_MAVLink/MissionItemProtocol_Waypoints.cpp.s
 
@@ -31175,6 +33001,7 @@ libraries/RC_Channel/RC_Channel.o: libraries/RC_Channel/RC_Channel.cpp.o
 # target to build an object file
 libraries/RC_Channel/RC_Channel.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel.dir/build.make CMakeFiles/RC_Channel.dir/libraries/RC_Channel/RC_Channel.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel_Plane.dir/build.make CMakeFiles/RC_Channel_Plane.dir/libraries/RC_Channel/RC_Channel.cpp.o
 .PHONY : libraries/RC_Channel/RC_Channel.cpp.o
 
 libraries/RC_Channel/RC_Channel.i: libraries/RC_Channel/RC_Channel.cpp.i
@@ -31183,6 +33010,7 @@ libraries/RC_Channel/RC_Channel.i: libraries/RC_Channel/RC_Channel.cpp.i
 # target to preprocess a source file
 libraries/RC_Channel/RC_Channel.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel.dir/build.make CMakeFiles/RC_Channel.dir/libraries/RC_Channel/RC_Channel.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel_Plane.dir/build.make CMakeFiles/RC_Channel_Plane.dir/libraries/RC_Channel/RC_Channel.cpp.i
 .PHONY : libraries/RC_Channel/RC_Channel.cpp.i
 
 libraries/RC_Channel/RC_Channel.s: libraries/RC_Channel/RC_Channel.cpp.s
@@ -31191,6 +33019,7 @@ libraries/RC_Channel/RC_Channel.s: libraries/RC_Channel/RC_Channel.cpp.s
 # target to generate assembly for a file
 libraries/RC_Channel/RC_Channel.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel.dir/build.make CMakeFiles/RC_Channel.dir/libraries/RC_Channel/RC_Channel.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel_Plane.dir/build.make CMakeFiles/RC_Channel_Plane.dir/libraries/RC_Channel/RC_Channel.cpp.s
 .PHONY : libraries/RC_Channel/RC_Channel.cpp.s
 
 libraries/RC_Channel/RC_Channels.o: libraries/RC_Channel/RC_Channels.cpp.o
@@ -31199,6 +33028,7 @@ libraries/RC_Channel/RC_Channels.o: libraries/RC_Channel/RC_Channels.cpp.o
 # target to build an object file
 libraries/RC_Channel/RC_Channels.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel.dir/build.make CMakeFiles/RC_Channel.dir/libraries/RC_Channel/RC_Channels.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel_Plane.dir/build.make CMakeFiles/RC_Channel_Plane.dir/libraries/RC_Channel/RC_Channels.cpp.o
 .PHONY : libraries/RC_Channel/RC_Channels.cpp.o
 
 libraries/RC_Channel/RC_Channels.i: libraries/RC_Channel/RC_Channels.cpp.i
@@ -31207,6 +33037,7 @@ libraries/RC_Channel/RC_Channels.i: libraries/RC_Channel/RC_Channels.cpp.i
 # target to preprocess a source file
 libraries/RC_Channel/RC_Channels.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel.dir/build.make CMakeFiles/RC_Channel.dir/libraries/RC_Channel/RC_Channels.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel_Plane.dir/build.make CMakeFiles/RC_Channel_Plane.dir/libraries/RC_Channel/RC_Channels.cpp.i
 .PHONY : libraries/RC_Channel/RC_Channels.cpp.i
 
 libraries/RC_Channel/RC_Channels.s: libraries/RC_Channel/RC_Channels.cpp.s
@@ -31215,6 +33046,7 @@ libraries/RC_Channel/RC_Channels.s: libraries/RC_Channel/RC_Channels.cpp.s
 # target to generate assembly for a file
 libraries/RC_Channel/RC_Channels.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel.dir/build.make CMakeFiles/RC_Channel.dir/libraries/RC_Channel/RC_Channels.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RC_Channel_Plane.dir/build.make CMakeFiles/RC_Channel_Plane.dir/libraries/RC_Channel/RC_Channels.cpp.s
 .PHONY : libraries/RC_Channel/RC_Channels.cpp.s
 
 libraries/SITL/SIM_ADSB.o: libraries/SITL/SIM_ADSB.cpp.o
@@ -35318,6 +37150,7 @@ libraries/StorageManager/StorageManager.o: libraries/StorageManager/StorageManag
 # target to build an object file
 libraries/StorageManager/StorageManager.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager.dir/build.make CMakeFiles/StorageManager.dir/libraries/StorageManager/StorageManager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager_Plane.dir/build.make CMakeFiles/StorageManager_Plane.dir/libraries/StorageManager/StorageManager.cpp.o
 .PHONY : libraries/StorageManager/StorageManager.cpp.o
 
 libraries/StorageManager/StorageManager.i: libraries/StorageManager/StorageManager.cpp.i
@@ -35326,6 +37159,7 @@ libraries/StorageManager/StorageManager.i: libraries/StorageManager/StorageManag
 # target to preprocess a source file
 libraries/StorageManager/StorageManager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager.dir/build.make CMakeFiles/StorageManager.dir/libraries/StorageManager/StorageManager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager_Plane.dir/build.make CMakeFiles/StorageManager_Plane.dir/libraries/StorageManager/StorageManager.cpp.i
 .PHONY : libraries/StorageManager/StorageManager.cpp.i
 
 libraries/StorageManager/StorageManager.s: libraries/StorageManager/StorageManager.cpp.s
@@ -35334,6 +37168,7 @@ libraries/StorageManager/StorageManager.s: libraries/StorageManager/StorageManag
 # target to generate assembly for a file
 libraries/StorageManager/StorageManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager.dir/build.make CMakeFiles/StorageManager.dir/libraries/StorageManager/StorageManager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/StorageManager_Plane.dir/build.make CMakeFiles/StorageManager_Plane.dir/libraries/StorageManager/StorageManager.cpp.s
 .PHONY : libraries/StorageManager/StorageManager.cpp.s
 
 modules/DroneCAN/libcanard/canard.o: modules/DroneCAN/libcanard/canard.c.o
@@ -37141,6 +38976,7 @@ sitl/libraries/AP_Scripting/lua_generated_bindings.o: sitl/libraries/AP_Scriptin
 
 # target to build an object file
 sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.o
 .PHONY : sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.o
 
@@ -37149,6 +38985,7 @@ sitl/libraries/AP_Scripting/lua_generated_bindings.i: sitl/libraries/AP_Scriptin
 
 # target to preprocess a source file
 sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.i
 .PHONY : sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.i
 
@@ -37157,6 +38994,7 @@ sitl/libraries/AP_Scripting/lua_generated_bindings.s: sitl/libraries/AP_Scriptin
 
 # target to generate assembly for a file
 sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting_Plane.dir/build.make CMakeFiles/AP_Scripting_Plane.dir/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AP_Scripting.dir/build.make CMakeFiles/AP_Scripting.dir/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.s
 .PHONY : sitl/libraries/AP_Scripting/lua_generated_bindings.cpp.s
 
@@ -41395,31 +43233,45 @@ help:
 	@echo "... AC_AttitudeControl"
 	@echo "... AC_AttitudeControl_Plane"
 	@echo "... AC_AutoTune"
+	@echo "... AC_AutoTune_Plane"
 	@echo "... AC_Autorotation"
 	@echo "... AC_Avoidance"
+	@echo "... AC_Avoidance_Plane"
 	@echo "... AC_CustomControl"
 	@echo "... AC_Fence"
+	@echo "... AC_Fence_Plane"
 	@echo "... AC_InputManager"
 	@echo "... AC_PID"
 	@echo "... AC_PrecLand"
+	@echo "... AC_PrecLand_Plane"
 	@echo "... AC_Sprayer"
 	@echo "... AC_WPNav"
+	@echo "... AC_WPNav_Plane"
 	@echo "... APM_Control"
 	@echo "... AP_ADC"
 	@echo "... AP_ADSB"
+	@echo "... AP_ADSB_Plane"
 	@echo "... AP_ADSB_sagetech-sdk"
 	@echo "... AP_AHRS"
+	@echo "... AP_AHRS_Plane"
 	@echo "... AP_AIS"
+	@echo "... AP_AIS_Plane"
 	@echo "... AP_AccelCal"
 	@echo "... AP_AdvancedFailsafe"
 	@echo "... AP_Airspeed"
+	@echo "... AP_Airspeed_Plane"
 	@echo "... AP_Arming"
+	@echo "... AP_Arming_Plane"
 	@echo "... AP_Avoidance"
+	@echo "... AP_Avoidance_Plane"
 	@echo "... AP_BLHeli"
 	@echo "... AP_Baro"
+	@echo "... AP_Baro_Plane"
 	@echo "... AP_BattMonitor"
+	@echo "... AP_BattMonitor_Plane"
 	@echo "... AP_Beacon"
 	@echo "... AP_BoardConfig"
+	@echo "... AP_BoardConfig_Plane"
 	@echo "... AP_Button"
 	@echo "... AP_CANManager"
 	@echo "... AP_CSVReader"
@@ -41429,35 +43281,45 @@ help:
 	@echo "... AP_Compass"
 	@echo "... AP_CustomRotations"
 	@echo "... AP_DAL"
+	@echo "... AP_DAL_Plane"
 	@echo "... AP_DDS"
 	@echo "... AP_Declination"
 	@echo "... AP_Devo_Telem"
 	@echo "... AP_DroneCAN"
 	@echo "... AP_EFI"
 	@echo "... AP_ESC_Telem"
+	@echo "... AP_ESC_Telem_Plane"
 	@echo "... AP_ExternalAHRS"
+	@echo "... AP_ExternalAHRS_Plane"
 	@echo "... AP_ExternalControl"
 	@echo "... AP_FETtecOneWire"
 	@echo "... AP_Filesystem"
+	@echo "... AP_Filesystem_Plane"
 	@echo "... AP_FlashStorage"
 	@echo "... AP_Follow"
+	@echo "... AP_Follow_Plane"
 	@echo "... AP_Frsky_Telem"
+	@echo "... AP_Frsky_Telem_Plane"
 	@echo "... AP_GPS"
 	@echo "... AP_GSOF"
 	@echo "... AP_Generator"
 	@echo "... AP_Gripper"
 	@echo "... AP_GyroFFT"
+	@echo "... AP_GyroFFT_Plane"
 	@echo "... AP_HAL"
 	@echo "... AP_HAL_Empty"
+	@echo "... AP_HAL_Plane"
 	@echo "... AP_HAL_SITL"
 	@echo "... AP_HAL_SITL_Plane"
 	@echo "... AP_Hott_Telem"
 	@echo "... AP_IBus_Telem"
+	@echo "... AP_IBus_Telem_Plane"
 	@echo "... AP_ICEngine"
 	@echo "... AP_IOMCU"
 	@echo "... AP_IRLock"
 	@echo "... AP_InertialNav"
 	@echo "... AP_InertialSensor"
+	@echo "... AP_InertialSensor_Plane"
 	@echo "... AP_InternalError"
 	@echo "... AP_JSButton"
 	@echo "... AP_JSON"
@@ -41466,24 +43328,33 @@ help:
 	@echo "... AP_LTM_Telem"
 	@echo "... AP_Landing"
 	@echo "... AP_LandingGear"
+	@echo "... AP_LandingGear_Plane"
+	@echo "... AP_Landing_Plane"
 	@echo "... AP_LeakDetector"
 	@echo "... AP_LightWareSerial"
 	@echo "... AP_Logger"
+	@echo "... AP_Logger_Plane"
 	@echo "... AP_MSP"
 	@echo "... AP_Math"
+	@echo "... AP_Math_Plane"
 	@echo "... AP_Mission"
+	@echo "... AP_Mission_Plane"
 	@echo "... AP_Module"
 	@echo "... AP_Motors"
+	@echo "... AP_Motors_Plane"
 	@echo "... AP_Mount"
 	@echo "... AP_MultiHeap"
 	@echo "... AP_NMEA_Output"
 	@echo "... AP_NavEKF"
 	@echo "... AP_NavEKF2"
+	@echo "... AP_NavEKF2_Plane"
 	@echo "... AP_NavEKF3"
+	@echo "... AP_NavEKF3_Plane"
 	@echo "... AP_Networking"
 	@echo "... AP_Notify"
 	@echo "... AP_OLC"
 	@echo "... AP_OSD"
+	@echo "... AP_OSD_Plane"
 	@echo "... AP_OpenDroneID"
 	@echo "... AP_OpticalFlow"
 	@echo "... AP_Parachute"
@@ -41491,23 +43362,30 @@ help:
 	@echo "... AP_PiccoloCAN"
 	@echo "... AP_PiccoloCAN_piccolo_protocol"
 	@echo "... AP_Proximity"
+	@echo "... AP_Proximity_Plane"
 	@echo "... AP_Quicktune"
 	@echo "... AP_RAMTRON"
 	@echo "... AP_RCMapper"
 	@echo "... AP_RCProtocol"
+	@echo "... AP_RCProtocol_Plane"
 	@echo "... AP_RCTelemetry"
+	@echo "... AP_RCTelemetry_Plane"
 	@echo "... AP_ROMFS"
 	@echo "... AP_RPM"
 	@echo "... AP_RSSI"
 	@echo "... AP_RTC"
 	@echo "... AP_Radio"
 	@echo "... AP_Rally"
+	@echo "... AP_Rally_Plane"
 	@echo "... AP_RangeFinder"
 	@echo "... AP_Relay"
+	@echo "... AP_Relay_Plane"
 	@echo "... AP_RobotisServo"
 	@echo "... AP_SBusOut"
 	@echo "... AP_Scheduler"
+	@echo "... AP_Scheduler_Plane"
 	@echo "... AP_Scripting"
+	@echo "... AP_Scripting_Plane"
 	@echo "... AP_Scripting_lua_src"
 	@echo "... AP_SerialLED"
 	@echo "... AP_SerialManager"
@@ -41520,10 +43398,13 @@ help:
 	@echo "... AP_TECS"
 	@echo "... AP_TempCalibration"
 	@echo "... AP_TemperatureSensor"
+	@echo "... AP_TemperatureSensor_Plane"
 	@echo "... AP_Terrain"
+	@echo "... AP_Terrain_Plane"
 	@echo "... AP_Torqeedo"
 	@echo "... AP_Tuning"
 	@echo "... AP_Vehicle"
+	@echo "... AP_Vehicle_Plane"
 	@echo "... AP_VideoTX"
 	@echo "... AP_VisualOdom"
 	@echo "... AP_Volz_Protocol"
@@ -41533,13 +43414,17 @@ help:
 	@echo "... AR_Motors"
 	@echo "... AR_WPNav"
 	@echo "... Filter"
+	@echo "... Filter_Plane"
 	@echo "... GCS_MAVLink"
+	@echo "... GCS_MAVLink_Plane"
 	@echo "... PID"
 	@echo "... RC_Channel"
+	@echo "... RC_Channel_Plane"
 	@echo "... SITL"
 	@echo "... SITL_Plane"
 	@echo "... SRV_Channel"
 	@echo "... StorageManager"
+	@echo "... StorageManager_Plane"
 	@echo "... blimp"
 	@echo "... canard"
 	@echo "... copter"

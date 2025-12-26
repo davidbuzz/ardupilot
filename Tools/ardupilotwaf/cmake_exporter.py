@@ -518,7 +518,7 @@ class CMakeExporter(object):
 
 			env = self.bld.env
 			defines = env.DEFINES 
-			defines.append('APM_BUILD_DIRECTORY=2' ) # 2 means copter. todo fix this.
+			#defines.append('APM_BUILD_DIRECTORY=2' ) # 2 means copter. this should NOT be here, we use it on a few specific libraries and final binaries only.
 
 			
 			if len(defines):
@@ -959,12 +959,23 @@ class CMakeExporter(object):
 				_interface = 'PUBLIC '
 			prior_content = content #keep copy of content up to this point.
 			# libs needing multi-target: ( eg needing -DAPM_BUILD_DIRECTORY=xx )
-			needs_multi_target = [ 'SITL', 'AP_HAL_SITL', 'AC_AttitudeControl' ]
+			# error: token "@" is not valid in preprocessor expressions | #define APM_BUILD_TYPE(type) @Invalid_use_of_APM_BUILD_TYPE
+			needs_multi_target = [ 'SITL', 'AP_HAL_SITL', 'AC_AttitudeControl', 'AP_Vehicle', 'AP_Scripting', 
+						 'AP_Avoidance','GCS_MAVLink','AP_InertialSensor','AP_NavEKF3','AC_Avoidance',
+						 'AP_Filesystem' ,'AC_Fence','AC_WPNav','AP_IBus_Telem','AP_Logger','AP_AHRS','AP_Relay',
+						 'AP_Frsky_Telem','AC_PrecLand','AP_ESC_Telem','AP_AIS','AP_TemperatureSensor','AP_BoardConfig',
+						 'RC_Channel','AP_LandingGear','AP_DAL','AP_Baro','AP_Airspeed','AP_ExternalAHRS','AP_Math',
+						 'AP_GyroFFT','AP_ADSB','AP_Follow','AP_Rally','AP_RCProtocol','AP_Landing','AP_LandingGear',
+						 'AP_Motors','AP_OSD','AP_RCTelemetry','AP_Mission','AC_AutoTune','Filter','AC_AutoTune',
+						 'AP_BattMonitor','AP_Terrain','AP_Proximity','AP_NavEKF2','AP_Scheduler','AP_HAL','AP_Arming',
+						 'AP_Proximity','StorageManager',
+						 ]
 			if True:
 				content = '' # reset content to just the library part.
 				content += 'add_library(%s %s${%s_SOURCES}) #2\n' % (cleanedname, _interface, cleanedname)
 				_defines = [d for d in defines if not d.startswith('APM_BUILD_DIRECTORY')]
 				_defines = [d for d in _defines if not d.startswith('AP_BUILD_TARGET_NAME')]
+				_defines = [d for d in _defines if not d.startswith('CONFIG_HAL_BOARD')]
 				if len(defines) != len(_defines):
 					#print(' APM_BUILD_DIRECTORY and/or AP_BUILD_TARGET_NAME ')
 					defines = _defines
@@ -975,6 +986,7 @@ class CMakeExporter(object):
 					# assume copter and fix it later with regex
 					defines.append('AP_BUILD_TARGET_NAME="ArduCopter"') 
 					defines.append('APM_BUILD_DIRECTORY=APM_BUILD_ArduCopter')
+					defines.append('CONFIG_HAL_BOARD=HAL_BOARD_SITL') # todo dont hardcode sitl
 					pass
 				if len(defines):
 					content += 'target_compile_definitions(%s PUBLIC -D%s) #1\n' % (cleanedname, ' -D'.join(defines))
@@ -1065,7 +1077,8 @@ class CMakeExporter(object):
 									'AC_AttitudeControl': 'AC_AttitudeControl_Plane',
 									'SITL': 'SITL_Plane',
 									'AP_HAL_SITL': 'AP_HAL_SITL_Plane',
-								},
+									'AP_Vehicle': 'AP_Vehicle_Plane',
+								}
 							}
 							if cleanedname in per_target_skiplist:
 								if r in per_target_skiplist[cleanedname]:

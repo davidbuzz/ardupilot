@@ -20,7 +20,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/libraries/AP_DroneCAN/canard
 )
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 
-add_definitions(-DAP_BARO_PROBE_EXTERNAL_I2C_BUSES=1 -DAP_CUSTOMCONTROL_ENABLED=1 -DAP_DDS_ENABLED=0 -DAP_SCRIPTING_CHECKS=1 -DCANARD_ALLOCATE_SEM=1 -DCANARD_ENABLE_ASSERTS=1 -DCANARD_ENABLE_CANFD=1 -DCANARD_ENABLE_DEADLINE=1 -DCANARD_IFACE_ALL=3 -DCANARD_MULTI_IFACE=1 -DCONFIG_HAL_BOARD=HAL_BOARD_SITL -DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE -DDRONECAN_CXX_WRAPPERS=1 -DENABLE_ONVIF=0 -DLUA_32BITS=1 -DUSE_USER_HELPERS=1 -DAPM_BUILD_DIRECTORY=2) #1
+add_definitions(-DAP_BARO_PROBE_EXTERNAL_I2C_BUSES=1 -DAP_CUSTOMCONTROL_ENABLED=1 -DAP_DDS_ENABLED=0 -DAP_SCRIPTING_CHECKS=1 -DCANARD_ALLOCATE_SEM=1 -DCANARD_ENABLE_ASSERTS=1 -DCANARD_ENABLE_CANFD=1 -DCANARD_ENABLE_DEADLINE=1 -DCANARD_IFACE_ALL=3 -DCANARD_MULTI_IFACE=1 -DCONFIG_HAL_BOARD=HAL_BOARD_SITL -DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE -DDRONECAN_CXX_WRAPPERS=1 -DENABLE_ONVIF=0 -DLUA_32BITS=1 -DUSE_USER_HELPERS=1) #1
 
 set(CMAKE_C_FLAGS "-ffunction-sections -fdata-sections -fsigned-char -Wall -Wextra -Werror=format -Wpointer-arith -Wcast-align -Wno-missing-field-initializers -Wno-unused-parameter -Wno-redundant-decls -Wno-unknown-pragmas -Wno-trigraphs -Werror=return-type -Werror=unused-result -Werror=unused-variable -Werror=narrowing -Werror=attributes -Werror=overflow -Werror=parentheses -Werror=format-extra-args -Werror=ignored-qualifiers -Werror=undef -DARDUPILOT_BUILD -Wno-format-contains-nul -fsingle-precision-constant -Werror=use-after-free -DCANARD_64_BIT=1 -MMD -ffile-prefix-map=../..=../..")
 set(CMAKE_CXX_FLAGS "-std=gnu++11 -fdata-sections -ffunction-sections -fno-exceptions -fsigned-char -Wall -Wextra -Wpointer-arith -Wno-unused-parameter -Wno-missing-field-initializers -Wno-redundant-decls -Wno-unknown-pragmas -Wno-expansion-to-defined -Werror=reorder -Werror=cast-align -Werror=attributes -Werror=format-security -Werror=format-extra-args -Werror=enum-compare -Werror=format -Werror=array-bounds -Werror=uninitialized -Werror=init-self -Werror=narrowing -Werror=return-type -Werror=switch -Werror=sign-compare -Werror=type-limits -Werror=undef -Werror=unused-result -Werror=unused-value -Werror=unused-variable -Werror=delete-non-virtual-dtor -Wfatal-errors -Wno-trigraphs -Werror=parentheses -DARDUPILOT_BUILD -Wuninitialized -Warray-bounds -Wno-format-contains-nul -Werror=unused-but-set-variable -fsingle-precision-constant -Wno-psabi -Werror=suggest-override -Werror=implicit-fallthrough -Werror=maybe-uninitialized -Werror=duplicated-cond -Werror=sizeof-pointer-div -Werror=use-after-free -D__AP_LINE__=__LINE__ -DAP_MAVLINK_RALLY_POINT_PROTOCOL_ENABLED=HAL_GCS_ENABLED -DAC_POLYFENCE_FENCE_POINT_PROTOCOL_SUPPORT=HAL_GCS_ENABLED -DHAL_NAVEKF2_AVAILABLE=1 -DCANARD_64_BIT=1 -Werror=float-equal -Werror=missing-declarations -DAP_NETWORKING_ENABLED=1 -O3 -MMD -ffile-prefix-map=../..=../.. -DHAL_HAVE_AP_ROMFS_EMBEDDED_H  -D_AP_CONFIG_H_=1 -DWAF_BUILD=1 -D__STDC_FORMAT_MACROS=1 -DAP_SIM_ENABLED=1 -DHAL_WITH_SPI=1 -DHAL_WITH_RAMTRON=1 -DAP_OPENDRONEID_ENABLED=1 -DAP_SIGNED_FIRMWARE=0 -DAP_NOTIFY_LP5562_BUS=2 -DAP_NOTIFY_LP5562_ADDR=48 -DHAL_NUM_CAN_IFACES=2 -DHAL_CAN_WITH_SOCKETCAN=1 -DHAVE_FEENABLEEXCEPT=1 -DHAVE_CMATH_ISFINITE=1 -DHAVE_CMATH_ISINF=1 -DHAVE_CMATH_ISNAN=1 -DNEED_CMATH_ISFINITE_STD_NAMESPACE=1 -DNEED_CMATH_ISINF_STD_NAMESPACE=1 -DNEED_CMATH_ISNAN_STD_NAMESPACE=1 -DHAVE_ENDIAN_H=1 -DHAVE_BYTESWAP_H=1 -DHAVE_MEMRCHR=1 -D_GNU_SOURCE=1 ")
@@ -345,7 +345,7 @@ set(AC_AttitudeControl_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AC_AttitudeControl PUBLIC ${AC_AttitudeControl_SOURCES}) #2
-target_compile_definitions(AC_AttitudeControl PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter) #1
+target_compile_definitions(AC_AttitudeControl PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AC_AttitudeControl PUBLIC ${AC_AttitudeControl_INCLUDES})
 
 set_target_properties(AC_AttitudeControl PROPERTIES
@@ -354,7 +354,7 @@ set_target_properties(AC_AttitudeControl PROPERTIES
 )
 
 add_library(AC_AttitudeControl_Plane PUBLIC ${AC_AttitudeControl_SOURCES}) #2
-target_compile_definitions(AC_AttitudeControl_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane) #1
+target_compile_definitions(AC_AttitudeControl_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AC_AttitudeControl_Plane PUBLIC ${AC_AttitudeControl_INCLUDES})
 
 set_target_properties(AC_AttitudeControl_Plane PROPERTIES
@@ -401,9 +401,19 @@ set(AC_AutoTune_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AC_AutoTune PUBLIC ${AC_AutoTune_SOURCES}) #2
+target_compile_definitions(AC_AutoTune PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AC_AutoTune PUBLIC ${AC_AutoTune_INCLUDES})
 
 set_target_properties(AC_AutoTune PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AC_AutoTune_Plane PUBLIC ${AC_AutoTune_SOURCES}) #2
+target_compile_definitions(AC_AutoTune_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AC_AutoTune_Plane PUBLIC ${AC_AutoTune_INCLUDES})
+
+set_target_properties(AC_AutoTune_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -494,9 +504,19 @@ set(AC_Avoidance_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AC_Avoidance PUBLIC ${AC_Avoidance_SOURCES}) #2
+target_compile_definitions(AC_Avoidance PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AC_Avoidance PUBLIC ${AC_Avoidance_INCLUDES})
 
 set_target_properties(AC_Avoidance PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AC_Avoidance_Plane PUBLIC ${AC_Avoidance_SOURCES}) #2
+target_compile_definitions(AC_Avoidance_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AC_Avoidance_Plane PUBLIC ${AC_Avoidance_INCLUDES})
+
+set_target_properties(AC_Avoidance_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -690,9 +710,19 @@ set(AC_PrecLand_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AC_PrecLand PUBLIC ${AC_PrecLand_SOURCES}) #2
+target_compile_definitions(AC_PrecLand PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AC_PrecLand PUBLIC ${AC_PrecLand_INCLUDES})
 
 set_target_properties(AC_PrecLand PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AC_PrecLand_Plane PUBLIC ${AC_PrecLand_SOURCES}) #2
+target_compile_definitions(AC_PrecLand_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AC_PrecLand_Plane PUBLIC ${AC_PrecLand_INCLUDES})
+
+set_target_properties(AC_PrecLand_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -776,9 +806,19 @@ set(AC_WPNav_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AC_WPNav PUBLIC ${AC_WPNav_SOURCES}) #2
+target_compile_definitions(AC_WPNav PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AC_WPNav PUBLIC ${AC_WPNav_INCLUDES})
 
 set_target_properties(AC_WPNav PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AC_WPNav_Plane PUBLIC ${AC_WPNav_SOURCES}) #2
+target_compile_definitions(AC_WPNav_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AC_WPNav_Plane PUBLIC ${AC_WPNav_INCLUDES})
+
+set_target_properties(AC_WPNav_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -919,9 +959,19 @@ set(AP_ADSB_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_ADSB PUBLIC ${AP_ADSB_SOURCES}) #2
+target_compile_definitions(AP_ADSB PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_ADSB PUBLIC ${AP_ADSB_INCLUDES})
 
 set_target_properties(AP_ADSB PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_ADSB_Plane PUBLIC ${AP_ADSB_SOURCES}) #2
+target_compile_definitions(AP_ADSB_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_ADSB_Plane PUBLIC ${AP_ADSB_INCLUDES})
+
+set_target_properties(AP_ADSB_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -971,9 +1021,19 @@ set(AP_AHRS_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_AHRS PUBLIC ${AP_AHRS_SOURCES}) #2
+target_compile_definitions(AP_AHRS PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_AHRS PUBLIC ${AP_AHRS_INCLUDES})
 
 set_target_properties(AP_AHRS PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_AHRS_Plane PUBLIC ${AP_AHRS_SOURCES}) #2
+target_compile_definitions(AP_AHRS_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_AHRS_Plane PUBLIC ${AP_AHRS_INCLUDES})
+
+set_target_properties(AP_AHRS_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -1121,9 +1181,19 @@ set(AP_Airspeed_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Airspeed PUBLIC ${AP_Airspeed_SOURCES}) #2
+target_compile_definitions(AP_Airspeed PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Airspeed PUBLIC ${AP_Airspeed_INCLUDES})
 
 set_target_properties(AP_Airspeed PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Airspeed_Plane PUBLIC ${AP_Airspeed_SOURCES}) #2
+target_compile_definitions(AP_Airspeed_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Airspeed_Plane PUBLIC ${AP_Airspeed_INCLUDES})
+
+set_target_properties(AP_Airspeed_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -1206,9 +1276,19 @@ set(AP_Baro_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Baro PUBLIC ${AP_Baro_SOURCES}) #2
+target_compile_definitions(AP_Baro PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Baro PUBLIC ${AP_Baro_INCLUDES})
 
 set_target_properties(AP_Baro PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Baro_Plane PUBLIC ${AP_Baro_SOURCES}) #2
+target_compile_definitions(AP_Baro_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Baro_Plane PUBLIC ${AP_Baro_INCLUDES})
+
+set_target_properties(AP_Baro_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -1301,9 +1381,19 @@ set(AP_BattMonitor_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_BattMonitor PUBLIC ${AP_BattMonitor_SOURCES}) #2
+target_compile_definitions(AP_BattMonitor PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_BattMonitor PUBLIC ${AP_BattMonitor_INCLUDES})
 
 set_target_properties(AP_BattMonitor PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_BattMonitor_Plane PUBLIC ${AP_BattMonitor_SOURCES}) #2
+target_compile_definitions(AP_BattMonitor_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_BattMonitor_Plane PUBLIC ${AP_BattMonitor_INCLUDES})
+
+set_target_properties(AP_BattMonitor_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -1394,9 +1484,19 @@ set(AP_BoardConfig_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_BoardConfig PUBLIC ${AP_BoardConfig_SOURCES}) #2
+target_compile_definitions(AP_BoardConfig PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_BoardConfig PUBLIC ${AP_BoardConfig_INCLUDES})
 
 set_target_properties(AP_BoardConfig PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_BoardConfig_Plane PUBLIC ${AP_BoardConfig_SOURCES}) #2
+target_compile_definitions(AP_BoardConfig_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_BoardConfig_Plane PUBLIC ${AP_BoardConfig_INCLUDES})
+
+set_target_properties(AP_BoardConfig_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -1879,9 +1979,19 @@ set(AP_DAL_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_DAL PUBLIC ${AP_DAL_SOURCES}) #2
+target_compile_definitions(AP_DAL PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_DAL PUBLIC ${AP_DAL_INCLUDES})
 
 set_target_properties(AP_DAL PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_DAL_Plane PUBLIC ${AP_DAL_SOURCES}) #2
+target_compile_definitions(AP_DAL_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_DAL_Plane PUBLIC ${AP_DAL_INCLUDES})
+
+set_target_properties(AP_DAL_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -2162,9 +2272,19 @@ set(AP_ESC_Telem_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_ESC_Telem PUBLIC ${AP_ESC_Telem_SOURCES}) #2
+target_compile_definitions(AP_ESC_Telem PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_ESC_Telem PUBLIC ${AP_ESC_Telem_INCLUDES})
 
 set_target_properties(AP_ESC_Telem PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_ESC_Telem_Plane PUBLIC ${AP_ESC_Telem_SOURCES}) #2
+target_compile_definitions(AP_ESC_Telem_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_ESC_Telem_Plane PUBLIC ${AP_ESC_Telem_INCLUDES})
+
+set_target_properties(AP_ESC_Telem_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -2217,9 +2337,19 @@ set(AP_ExternalAHRS_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_ExternalAHRS PUBLIC ${AP_ExternalAHRS_SOURCES}) #2
+target_compile_definitions(AP_ExternalAHRS PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_ExternalAHRS PUBLIC ${AP_ExternalAHRS_INCLUDES})
 
 set_target_properties(AP_ExternalAHRS PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_ExternalAHRS_Plane PUBLIC ${AP_ExternalAHRS_SOURCES}) #2
+target_compile_definitions(AP_ExternalAHRS_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_ExternalAHRS_Plane PUBLIC ${AP_ExternalAHRS_INCLUDES})
+
+set_target_properties(AP_ExternalAHRS_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -2356,9 +2486,19 @@ set(AP_Filesystem_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Filesystem PUBLIC ${AP_Filesystem_SOURCES}) #2
+target_compile_definitions(AP_Filesystem PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Filesystem PUBLIC ${AP_Filesystem_INCLUDES})
 
 set_target_properties(AP_Filesystem PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Filesystem_Plane PUBLIC ${AP_Filesystem_SOURCES}) #2
+target_compile_definitions(AP_Filesystem_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Filesystem_Plane PUBLIC ${AP_Filesystem_INCLUDES})
+
+set_target_properties(AP_Filesystem_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -2455,9 +2595,19 @@ set(AP_Frsky_Telem_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Frsky_Telem PUBLIC ${AP_Frsky_Telem_SOURCES}) #2
+target_compile_definitions(AP_Frsky_Telem PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Frsky_Telem PUBLIC ${AP_Frsky_Telem_INCLUDES})
 
 set_target_properties(AP_Frsky_Telem PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Frsky_Telem_Plane PUBLIC ${AP_Frsky_Telem_SOURCES}) #2
+target_compile_definitions(AP_Frsky_Telem_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Frsky_Telem_Plane PUBLIC ${AP_Frsky_Telem_INCLUDES})
+
+set_target_properties(AP_Frsky_Telem_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -2968,9 +3118,19 @@ set(AP_InertialSensor_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_InertialSensor PUBLIC ${AP_InertialSensor_SOURCES}) #2
+target_compile_definitions(AP_InertialSensor PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_InertialSensor PUBLIC ${AP_InertialSensor_INCLUDES})
 
 set_target_properties(AP_InertialSensor PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_InertialSensor_Plane PUBLIC ${AP_InertialSensor_SOURCES}) #2
+target_compile_definitions(AP_InertialSensor_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_InertialSensor_Plane PUBLIC ${AP_InertialSensor_INCLUDES})
+
+set_target_properties(AP_InertialSensor_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -3248,9 +3408,19 @@ set(AP_Landing_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Landing PUBLIC ${AP_Landing_SOURCES}) #2
+target_compile_definitions(AP_Landing PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Landing PUBLIC ${AP_Landing_INCLUDES})
 
 set_target_properties(AP_Landing PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Landing_Plane PUBLIC ${AP_Landing_SOURCES}) #2
+target_compile_definitions(AP_Landing_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Landing_Plane PUBLIC ${AP_Landing_INCLUDES})
+
+set_target_properties(AP_Landing_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -3390,9 +3560,19 @@ set(AP_Logger_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Logger PUBLIC ${AP_Logger_SOURCES}) #2
+target_compile_definitions(AP_Logger PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Logger PUBLIC ${AP_Logger_INCLUDES})
 
 set_target_properties(AP_Logger PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Logger_Plane PUBLIC ${AP_Logger_SOURCES}) #2
+target_compile_definitions(AP_Logger_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Logger_Plane PUBLIC ${AP_Logger_INCLUDES})
+
+set_target_properties(AP_Logger_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -3522,9 +3702,19 @@ set(AP_Math_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Math PUBLIC ${AP_Math_SOURCES}) #2
+target_compile_definitions(AP_Math PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Math PUBLIC ${AP_Math_INCLUDES})
 
 set_target_properties(AP_Math PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Math_Plane PUBLIC ${AP_Math_SOURCES}) #2
+target_compile_definitions(AP_Math_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Math_Plane PUBLIC ${AP_Math_INCLUDES})
+
+set_target_properties(AP_Math_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -3566,9 +3756,19 @@ set(AP_Mission_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Mission PUBLIC ${AP_Mission_SOURCES}) #2
+target_compile_definitions(AP_Mission PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Mission PUBLIC ${AP_Mission_INCLUDES})
 
 set_target_properties(AP_Mission PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Mission_Plane PUBLIC ${AP_Mission_SOURCES}) #2
+target_compile_definitions(AP_Mission_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Mission_Plane PUBLIC ${AP_Mission_INCLUDES})
+
+set_target_properties(AP_Mission_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -3679,9 +3879,19 @@ set(AP_Motors_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Motors PUBLIC ${AP_Motors_SOURCES}) #2
+target_compile_definitions(AP_Motors PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Motors PUBLIC ${AP_Motors_INCLUDES})
 
 set_target_properties(AP_Motors PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Motors_Plane PUBLIC ${AP_Motors_SOURCES}) #2
+target_compile_definitions(AP_Motors_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Motors_Plane PUBLIC ${AP_Motors_INCLUDES})
+
+set_target_properties(AP_Motors_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -3940,9 +4150,19 @@ set(AP_NavEKF2_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_NavEKF2 PUBLIC ${AP_NavEKF2_SOURCES}) #2
+target_compile_definitions(AP_NavEKF2 PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_NavEKF2 PUBLIC ${AP_NavEKF2_INCLUDES})
 
 set_target_properties(AP_NavEKF2 PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_NavEKF2_Plane PUBLIC ${AP_NavEKF2_SOURCES}) #2
+target_compile_definitions(AP_NavEKF2_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_NavEKF2_Plane PUBLIC ${AP_NavEKF2_INCLUDES})
+
+set_target_properties(AP_NavEKF2_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -4266,9 +4486,19 @@ set(AP_OSD_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_OSD PUBLIC ${AP_OSD_SOURCES}) #2
+target_compile_definitions(AP_OSD PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_OSD PUBLIC ${AP_OSD_INCLUDES})
 
 set_target_properties(AP_OSD PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_OSD_Plane PUBLIC ${AP_OSD_SOURCES}) #2
+target_compile_definitions(AP_OSD_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_OSD_Plane PUBLIC ${AP_OSD_INCLUDES})
+
+set_target_properties(AP_OSD_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -4578,9 +4808,19 @@ set(AP_Proximity_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Proximity PUBLIC ${AP_Proximity_SOURCES}) #2
+target_compile_definitions(AP_Proximity PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Proximity PUBLIC ${AP_Proximity_INCLUDES})
 
 set_target_properties(AP_Proximity PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Proximity_Plane PUBLIC ${AP_Proximity_SOURCES}) #2
+target_compile_definitions(AP_Proximity_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Proximity_Plane PUBLIC ${AP_Proximity_INCLUDES})
+
+set_target_properties(AP_Proximity_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -4783,9 +5023,19 @@ set(AP_RCProtocol_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_RCProtocol PUBLIC ${AP_RCProtocol_SOURCES}) #2
+target_compile_definitions(AP_RCProtocol PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_RCProtocol PUBLIC ${AP_RCProtocol_INCLUDES})
 
 set_target_properties(AP_RCProtocol PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_RCProtocol_Plane PUBLIC ${AP_RCProtocol_SOURCES}) #2
+target_compile_definitions(AP_RCProtocol_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_RCProtocol_Plane PUBLIC ${AP_RCProtocol_INCLUDES})
+
+set_target_properties(AP_RCProtocol_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -4830,9 +5080,19 @@ set(AP_RCTelemetry_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_RCTelemetry PUBLIC ${AP_RCTelemetry_SOURCES}) #2
+target_compile_definitions(AP_RCTelemetry PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_RCTelemetry PUBLIC ${AP_RCTelemetry_INCLUDES})
 
 set_target_properties(AP_RCTelemetry PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_RCTelemetry_Plane PUBLIC ${AP_RCTelemetry_SOURCES}) #2
+target_compile_definitions(AP_RCTelemetry_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_RCTelemetry_Plane PUBLIC ${AP_RCTelemetry_INCLUDES})
+
+set_target_properties(AP_RCTelemetry_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -5238,9 +5498,19 @@ set(AP_Relay_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Relay PUBLIC ${AP_Relay_SOURCES}) #2
+target_compile_definitions(AP_Relay PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Relay PUBLIC ${AP_Relay_INCLUDES})
 
 set_target_properties(AP_Relay PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Relay_Plane PUBLIC ${AP_Relay_SOURCES}) #2
+target_compile_definitions(AP_Relay_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Relay_Plane PUBLIC ${AP_Relay_INCLUDES})
+
+set_target_properties(AP_Relay_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -5359,9 +5629,19 @@ set(AP_Scheduler_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Scheduler PUBLIC ${AP_Scheduler_SOURCES}) #2
+target_compile_definitions(AP_Scheduler PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Scheduler PUBLIC ${AP_Scheduler_INCLUDES})
 
 set_target_properties(AP_Scheduler PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Scheduler_Plane PUBLIC ${AP_Scheduler_SOURCES}) #2
+target_compile_definitions(AP_Scheduler_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Scheduler_Plane PUBLIC ${AP_Scheduler_INCLUDES})
+
+set_target_properties(AP_Scheduler_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -5822,9 +6102,19 @@ set(AP_TemperatureSensor_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_TemperatureSensor PUBLIC ${AP_TemperatureSensor_SOURCES}) #2
+target_compile_definitions(AP_TemperatureSensor PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_TemperatureSensor PUBLIC ${AP_TemperatureSensor_INCLUDES})
 
 set_target_properties(AP_TemperatureSensor PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_TemperatureSensor_Plane PUBLIC ${AP_TemperatureSensor_SOURCES}) #2
+target_compile_definitions(AP_TemperatureSensor_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_TemperatureSensor_Plane PUBLIC ${AP_TemperatureSensor_INCLUDES})
+
+set_target_properties(AP_TemperatureSensor_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -5866,9 +6156,19 @@ set(AP_Terrain_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Terrain PUBLIC ${AP_Terrain_SOURCES}) #2
+target_compile_definitions(AP_Terrain PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Terrain PUBLIC ${AP_Terrain_INCLUDES})
 
 set_target_properties(AP_Terrain PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Terrain_Plane PUBLIC ${AP_Terrain_SOURCES}) #2
+target_compile_definitions(AP_Terrain_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Terrain_Plane PUBLIC ${AP_Terrain_INCLUDES})
+
+set_target_properties(AP_Terrain_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -5997,9 +6297,19 @@ set(AP_Vehicle_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Vehicle PUBLIC ${AP_Vehicle_SOURCES}) #2
+target_compile_definitions(AP_Vehicle PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Vehicle PUBLIC ${AP_Vehicle_INCLUDES})
 
 set_target_properties(AP_Vehicle PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Vehicle_Plane PUBLIC ${AP_Vehicle_SOURCES}) #2
+target_compile_definitions(AP_Vehicle_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Vehicle_Plane PUBLIC ${AP_Vehicle_INCLUDES})
+
+set_target_properties(AP_Vehicle_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -6420,9 +6730,19 @@ set(Filter_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(Filter PUBLIC ${Filter_SOURCES}) #2
+target_compile_definitions(Filter PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(Filter PUBLIC ${Filter_INCLUDES})
 
 set_target_properties(Filter PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(Filter_Plane PUBLIC ${Filter_SOURCES}) #2
+target_compile_definitions(Filter_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(Filter_Plane PUBLIC ${Filter_INCLUDES})
+
+set_target_properties(Filter_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -6485,9 +6805,19 @@ set(GCS_MAVLink_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(GCS_MAVLink PUBLIC ${GCS_MAVLink_SOURCES}) #2
+target_compile_definitions(GCS_MAVLink PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(GCS_MAVLink PUBLIC ${GCS_MAVLink_INCLUDES})
 
 set_target_properties(GCS_MAVLink PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(GCS_MAVLink_Plane PUBLIC ${GCS_MAVLink_SOURCES}) #2
+target_compile_definitions(GCS_MAVLink_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(GCS_MAVLink_Plane PUBLIC ${GCS_MAVLink_INCLUDES})
+
+set_target_properties(GCS_MAVLink_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -6566,9 +6896,19 @@ set(RC_Channel_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(RC_Channel PUBLIC ${RC_Channel_SOURCES}) #2
+target_compile_definitions(RC_Channel PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(RC_Channel PUBLIC ${RC_Channel_INCLUDES})
 
 set_target_properties(RC_Channel PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(RC_Channel_Plane PUBLIC ${RC_Channel_SOURCES}) #2
+target_compile_definitions(RC_Channel_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(RC_Channel_Plane PUBLIC ${RC_Channel_INCLUDES})
+
+set_target_properties(RC_Channel_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -6720,9 +7060,19 @@ set(AP_HAL_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_HAL PUBLIC ${AP_HAL_SOURCES}) #2
+target_compile_definitions(AP_HAL PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_HAL PUBLIC ${AP_HAL_INCLUDES})
 
 set_target_properties(AP_HAL PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_HAL_Plane PUBLIC ${AP_HAL_SOURCES}) #2
+target_compile_definitions(AP_HAL_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_HAL_Plane PUBLIC ${AP_HAL_INCLUDES})
+
+set_target_properties(AP_HAL_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -6945,7 +7295,7 @@ set(AP_HAL_SITL_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_HAL_SITL PUBLIC ${AP_HAL_SITL_SOURCES}) #2
-target_compile_definitions(AP_HAL_SITL PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter) #1
+target_compile_definitions(AP_HAL_SITL PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_HAL_SITL PUBLIC ${AP_HAL_SITL_INCLUDES})
 
 set_target_properties(AP_HAL_SITL PROPERTIES
@@ -6954,7 +7304,7 @@ set_target_properties(AP_HAL_SITL PROPERTIES
 )
 
 add_library(AP_HAL_SITL_Plane PUBLIC ${AP_HAL_SITL_SOURCES}) #2
-target_compile_definitions(AP_HAL_SITL_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane) #1
+target_compile_definitions(AP_HAL_SITL_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_HAL_SITL_Plane PUBLIC ${AP_HAL_SITL_INCLUDES})
 
 set_target_properties(AP_HAL_SITL_Plane PROPERTIES
@@ -7301,7 +7651,7 @@ set(SITL_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(SITL PUBLIC ${SITL_SOURCES}) #2
-target_compile_definitions(SITL PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter) #1
+target_compile_definitions(SITL PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(SITL PUBLIC ${SITL_INCLUDES})
 
 set_target_properties(SITL PROPERTIES
@@ -7310,7 +7660,7 @@ set_target_properties(SITL PROPERTIES
 )
 
 add_library(SITL_Plane PUBLIC ${SITL_SOURCES}) #2
-target_compile_definitions(SITL_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane) #1
+target_compile_definitions(SITL_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(SITL_Plane PUBLIC ${SITL_INCLUDES})
 
 set_target_properties(SITL_Plane PROPERTIES
@@ -7369,9 +7719,19 @@ set(AP_Scripting_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Scripting PUBLIC ${AP_Scripting_SOURCES}) #2
+target_compile_definitions(AP_Scripting PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Scripting PUBLIC ${AP_Scripting_INCLUDES})
 
 set_target_properties(AP_Scripting PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Scripting_Plane PUBLIC ${AP_Scripting_SOURCES}) #2
+target_compile_definitions(AP_Scripting_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Scripting_Plane PUBLIC ${AP_Scripting_INCLUDES})
+
+set_target_properties(AP_Scripting_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -7518,9 +7878,19 @@ set(AP_NavEKF3_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_NavEKF3 PUBLIC ${AP_NavEKF3_SOURCES}) #2
+target_compile_definitions(AP_NavEKF3 PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_NavEKF3 PUBLIC ${AP_NavEKF3_INCLUDES})
 
 set_target_properties(AP_NavEKF3 PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_NavEKF3_Plane PUBLIC ${AP_NavEKF3_SOURCES}) #2
+target_compile_definitions(AP_NavEKF3_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_NavEKF3_Plane PUBLIC ${AP_NavEKF3_INCLUDES})
+
+set_target_properties(AP_NavEKF3_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -7558,9 +7928,19 @@ set(AP_Rally_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Rally PUBLIC ${AP_Rally_SOURCES}) #2
+target_compile_definitions(AP_Rally PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Rally PUBLIC ${AP_Rally_INCLUDES})
 
 set_target_properties(AP_Rally PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Rally_Plane PUBLIC ${AP_Rally_SOURCES}) #2
+target_compile_definitions(AP_Rally_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Rally_Plane PUBLIC ${AP_Rally_INCLUDES})
+
+set_target_properties(AP_Rally_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -7597,9 +7977,19 @@ set(StorageManager_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(StorageManager PUBLIC ${StorageManager_SOURCES}) #2
+target_compile_definitions(StorageManager PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(StorageManager PUBLIC ${StorageManager_INCLUDES})
 
 set_target_properties(StorageManager PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(StorageManager_Plane PUBLIC ${StorageManager_SOURCES}) #2
+target_compile_definitions(StorageManager_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(StorageManager_Plane PUBLIC ${StorageManager_INCLUDES})
+
+set_target_properties(StorageManager_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -7636,9 +8026,19 @@ set(AP_IBus_Telem_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_IBus_Telem PUBLIC ${AP_IBus_Telem_SOURCES}) #2
+target_compile_definitions(AP_IBus_Telem PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_IBus_Telem PUBLIC ${AP_IBus_Telem_INCLUDES})
 
 set_target_properties(AP_IBus_Telem PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_IBus_Telem_Plane PUBLIC ${AP_IBus_Telem_SOURCES}) #2
+target_compile_definitions(AP_IBus_Telem_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_IBus_Telem_Plane PUBLIC ${AP_IBus_Telem_INCLUDES})
+
+set_target_properties(AP_IBus_Telem_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -7719,9 +8119,19 @@ set(AC_Fence_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AC_Fence PUBLIC ${AC_Fence_SOURCES}) #2
+target_compile_definitions(AC_Fence PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AC_Fence PUBLIC ${AC_Fence_INCLUDES})
 
 set_target_properties(AC_Fence PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AC_Fence_Plane PUBLIC ${AC_Fence_SOURCES}) #2
+target_compile_definitions(AC_Fence_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AC_Fence_Plane PUBLIC ${AC_Fence_INCLUDES})
+
+set_target_properties(AC_Fence_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -7759,9 +8169,19 @@ set(AP_LandingGear_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_LandingGear PUBLIC ${AP_LandingGear_SOURCES}) #2
+target_compile_definitions(AP_LandingGear PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_LandingGear PUBLIC ${AP_LandingGear_INCLUDES})
 
 set_target_properties(AP_LandingGear PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_LandingGear_Plane PUBLIC ${AP_LandingGear_SOURCES}) #2
+target_compile_definitions(AP_LandingGear_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_LandingGear_Plane PUBLIC ${AP_LandingGear_INCLUDES})
+
+set_target_properties(AP_LandingGear_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -7870,9 +8290,19 @@ set(AP_GyroFFT_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_GyroFFT PUBLIC ${AP_GyroFFT_SOURCES}) #2
+target_compile_definitions(AP_GyroFFT PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_GyroFFT PUBLIC ${AP_GyroFFT_INCLUDES})
 
 set_target_properties(AP_GyroFFT PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_GyroFFT_Plane PUBLIC ${AP_GyroFFT_SOURCES}) #2
+target_compile_definitions(AP_GyroFFT_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_GyroFFT_Plane PUBLIC ${AP_GyroFFT_INCLUDES})
+
+set_target_properties(AP_GyroFFT_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -7911,9 +8341,19 @@ set(AP_AIS_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_AIS PUBLIC ${AP_AIS_SOURCES}) #2
+target_compile_definitions(AP_AIS PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_AIS PUBLIC ${AP_AIS_INCLUDES})
 
 set_target_properties(AP_AIS PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_AIS_Plane PUBLIC ${AP_AIS_SOURCES}) #2
+target_compile_definitions(AP_AIS_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_AIS_Plane PUBLIC ${AP_AIS_INCLUDES})
+
+set_target_properties(AP_AIS_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -7951,9 +8391,19 @@ set(AP_Arming_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Arming PUBLIC ${AP_Arming_SOURCES}) #2
+target_compile_definitions(AP_Arming PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Arming PUBLIC ${AP_Arming_INCLUDES})
 
 set_target_properties(AP_Arming PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Arming_Plane PUBLIC ${AP_Arming_SOURCES}) #2
+target_compile_definitions(AP_Arming_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Arming_Plane PUBLIC ${AP_Arming_INCLUDES})
+
+set_target_properties(AP_Arming_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -7991,9 +8441,19 @@ set(AP_Follow_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Follow PUBLIC ${AP_Follow_SOURCES}) #2
+target_compile_definitions(AP_Follow PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Follow PUBLIC ${AP_Follow_INCLUDES})
 
 set_target_properties(AP_Follow PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Follow_Plane PUBLIC ${AP_Follow_SOURCES}) #2
+target_compile_definitions(AP_Follow_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Follow_Plane PUBLIC ${AP_Follow_INCLUDES})
+
+set_target_properties(AP_Follow_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -8389,9 +8849,19 @@ set(AP_Avoidance_INCLUDES
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
 add_library(AP_Avoidance PUBLIC ${AP_Avoidance_SOURCES}) #2
+target_compile_definitions(AP_Avoidance PUBLIC -DAP_BUILD_TARGET_NAME="ArduCopter" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduCopter -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
 target_include_directories(AP_Avoidance PUBLIC ${AP_Avoidance_INCLUDES})
 
 set_target_properties(AP_Avoidance PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
+)
+
+add_library(AP_Avoidance_Plane PUBLIC ${AP_Avoidance_SOURCES}) #2
+target_compile_definitions(AP_Avoidance_Plane PUBLIC -DAP_BUILD_TARGET_NAME="ArduPlane" -DAPM_BUILD_DIRECTORY=APM_BUILD_ArduPlane -DCONFIG_HAL_BOARD=HAL_BOARD_SITL) #1
+target_include_directories(AP_Avoidance_Plane PUBLIC ${AP_Avoidance_INCLUDES})
+
+set_target_properties(AP_Avoidance_Plane PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
 )
@@ -9516,7 +9986,7 @@ target_link_libraries(plane -Wl,--whole-archive AP_TemperatureSensor -Wl,--no-wh
 target_link_libraries(plane -Wl,--whole-archive AP_Terrain -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_Torqeedo -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_Tuning -Wl,--no-whole-archive) #clean2
-target_link_libraries(plane -Wl,--whole-archive AP_Vehicle -Wl,--no-whole-archive) #clean2
+target_link_libraries(plane -Wl,--whole-archive AP_Vehicle_Plane -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_VideoTX -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_VisualOdom -Wl,--no-whole-archive) #clean2
 target_link_libraries(plane -Wl,--whole-archive AP_Volz_Protocol -Wl,--no-whole-archive) #clean2
