@@ -9,6 +9,7 @@
 # turned a few 'cmake' references into 'cmake_exporter' to be more specific.
 # use: 
 # ./waf configure --board=sitl
+# ./waf configure --board=CubeOrange
 # ./waf cmake_exporter
 # ./waf build plane
 
@@ -127,6 +128,7 @@ def register_lib(libname):
 class CMakeExporterContext(BuildContext):
 	'''export C/C++ tasks to CMakeExporter.'''
 	cmd = 'cmake_exporter'
+	BOARDNAME = '' #sitl, CubeOrange, etc
 
 	# rip off of BuildContext.__call__ in waflib/Build.py
 	def __call__(self, *k, **kw):
@@ -147,10 +149,10 @@ class CMakeExporterContext(BuildContext):
 		# we hook into the relevant ones.
 		known=False
 		if 'ap_library_object' in features:
-			print ('ap_library_object name: %s ' % name)
+			#print ('ap_library_object name: %s ' % name)
 			known=True
 		if 'cxx' in features:
-			print ('cxx name: %s ' % name)
+			#print ('cxx name: %s ' % name)
 			known=True
 		if 'c' in features:
 			print ('c name: %s ' % name)
@@ -171,7 +173,7 @@ class CMakeExporterContext(BuildContext):
 			print ('ap_version name: %s ' % name)
 			known=True
 		if xgroup == 'dynamic_sources':
-			print ('dynamic_sources name: %s ' % name)
+			#print ('dynamic_sources name: %s ' % name)
 			known=True
 		if known==False:
 			print ('unknown: name: %s features: %s ' % (name, features))
@@ -179,42 +181,53 @@ class CMakeExporterContext(BuildContext):
 		import os
 		from pathlib import Path
 
-		bld_root_dir = self.bldnode.abspath() + '/../..'
-		actual_root_path = Path(bld_root_dir).resolve()
-
-		pwd = os.getcwd()
+		waf_bld_dir = self.bldnode.abspath() # eg /home/buzz2/ardupilot/build/sitl/ from waf
+		# btreakup waf path into 3 rihgt-most parts and discard hte rest.
+		self.bld_root_dir,part2,BOARDNAME = waf_bld_dir.rsplit('/',2)
+		# bld_root_dir = '/home/buzz2/ardupilot',
+		# part2 = 'build',
+		# BOARDNAME = 'CubeOrange'  or 'sitl' etc
+		self.BOARDNAME = BOARDNAME # not sure its needed.
+		self.cmake_build_dir = 'build2/' + BOARDNAME # rel to bld_root_dir, eg build2/CubeOrange or build2/sitl
+		self.cmake_full_build_dir = self.bld_root_dir + '/build2/' + BOARDNAME # eg /home/buzz2/ardupilot/build2/CubeOrange
+		#pwd = os.getcwd()
 		#print("pwd: %s " % pwd_output)
+		#actual_root_path = Path(bld_root_dir).resolve()
 		#print("root: %s " % actual_root_path)
-		
+		pwd = os.getcwd()
+		if pwd != self.bld_root_dir:
+			os.chdir(self.bld_root_dir)
+			pwd = os.getcwd()
+			print('Changed working dir to: %s ' % (pwd))
 
 		namelist = ['mavlink','dronecan','ap_version','ap_config','mavgen']
 		if name in namelist:
 			print('Debug: CMakeExporterContext __call__ for name: %s ' % name)
 			if name == 'mavlink':
-				shell_cmd1 = 'mkdir -p build2/sitl ; cd build2/sitl ; gcc -std=c99 -Wno-error=missing-field-initializers -Wall -Werror -Wextra -o gen-bindings ../../libraries/AP_Scripting/generator/src/main.c; file gen-bindings ; cd '+pwd
+				shell_cmd1 = 'mkdir -p '+self.cmake_build_dir+' ; cd '+self.cmake_build_dir+' ; gcc -std=c99 -Wno-error=missing-field-initializers -Wall -Werror -Wextra -o gen-bindings ../../libraries/AP_Scripting/generator/src/main.c; file gen-bindings ; cd '+pwd
 				run_shell_cmd(shell_cmd1)
 				# needs to be run from build2/sitl/ folder as thats where gen-bindings wants to run from.
-				shell_cmd2 = 'cd build2/sitl ; mkdir -p libraries/AP_Scripting/lua_generated_bindings ;./gen-bindings -o libraries/AP_Scripting/lua_generated_bindings -i ../../libraries/AP_Scripting/generator/description/bindings.desc; ls -l libraries/AP_Scripting/lua_generated_bindings/* ; cd '+pwd
+				shell_cmd2 = 'cd '+self.cmake_build_dir+' ; mkdir -p libraries/AP_Scripting/lua_generated_bindings ;./gen-bindings -o libraries/AP_Scripting/lua_generated_bindings -i ../../libraries/AP_Scripting/generator/description/bindings.desc; ls -l libraries/AP_Scripting/lua_generated_bindings/* ; cd '+pwd
 				run_shell_cmd(shell_cmd2)
 				#source='modules/mavlink/message_definitions/v1.0/all.xml',
             	#output_dir='libraries/GCS_MAVLink/include/mavlink/v2.0/',
-				shell_cmd3 = 'mkdir -p build2/sitl/libraries/GCS_MAVLink/include/mavlink/v2.0/ ; /usr/bin/python3 ./modules/mavlink/pymavlink/tools/mavgen.py --lang C ./modules/mavlink/message_definitions/v1.0/all.xml -o build2/sitl/libraries/GCS_MAVLink/include/mavlink/v2.0/ --wire-protocol=2.0; cd '+pwd
+				shell_cmd3 = 'mkdir -p '+self.cmake_build_dir+'/libraries/GCS_MAVLink/include/mavlink/v2.0/ ; /usr/bin/python3 ./modules/mavlink/pymavlink/tools/mavgen.py --lang C ./modules/mavlink/message_definitions/v1.0/all.xml -o '+self.cmake_build_dir+'/libraries/GCS_MAVLink/include/mavlink/v2.0/ --wire-protocol=2.0; cd '+pwd
 				run_shell_cmd(shell_cmd3)
 
 			if name == 'dronecan':
 				#blddir = self.bldnode.abspath() #eg build/sitl from waf, its wrong for cmake, thats build2/sitl	
 				#blddir = self.bldnode.abspath() + '/../../build2/sitl' # build2/sitl for cmake
-				shell_cmd = '/usr/bin/python3 /home/buzz2/ardupilot/modules/DroneCAN/dronecan_dsdlc/dronecan_dsdlc.py -O/home/buzz2/ardupilot/build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated /home/buzz2/ardupilot/modules/DroneCAN/DSDL/ardupilot /home/buzz2/ardupilot/modules/DroneCAN/DSDL/com /home/buzz2/ardupilot/modules/DroneCAN/DSDL/cuav /home/buzz2/ardupilot/modules/DroneCAN/DSDL/dronecan /home/buzz2/ardupilot/modules/DroneCAN/DSDL/mppt /home/buzz2/ardupilot/modules/DroneCAN/DSDL/tests /home/buzz2/ardupilot/modules/DroneCAN/DSDL/uavcan >/dev/null 2>&1'
+				shell_cmd = '/usr/bin/python3 '+self.bld_root_dir+'/modules/DroneCAN/dronecan_dsdlc/dronecan_dsdlc.py -O'+self.cmake_full_build_dir+'/modules/DroneCAN/libcanard/dsdlc_generated '+self.bld_root_dir+'/modules/DroneCAN/DSDL/ardupilot '+self.bld_root_dir+'/modules/DroneCAN/DSDL/com '+self.bld_root_dir+'/modules/DroneCAN/DSDL/cuav '+self.bld_root_dir+'/modules/DroneCAN/DSDL/dronecan '+self.bld_root_dir+'/modules/DroneCAN/DSDL/mppt '+self.bld_root_dir+'/modules/DroneCAN/DSDL/tests '+self.bld_root_dir+'/modules/DroneCAN/DSDL/uavcan >/dev/null 2>&1'
 				run_shell_cmd(shell_cmd)
 
 			if name == 'ap_version':
-				builddir = self.bldnode.abspath() #waf build dir, not cmake . build/sitl
+				#builddir = self.bldnode.abspath() #waf build dir, not cmake . build/sitl
 				# shell. `mkdir -p build2/sitl`
-				shell_cmd = 'mkdir -p build2/sitl'
+				shell_cmd = 'mkdir -p '+self.cmake_build_dir
 				print('ap_version: Running shell command: %s ' % shell_cmd)
 				run_shell_cmd(shell_cmd)
 				# write ap_config.h
-				tgt = 'build2/sitl/ap_config.h'
+				tgt = self.cmake_build_dir+'/ap_config.h'  # eg build2/sitl/ap_config.h
 				print('Debug: Writing ap_config.h to: %s ' % tgt)
 				with open(tgt, 'w') as f:
         				print(
@@ -251,7 +264,7 @@ class CMakeExporterContext(BuildContext):
 #endif /* _AP_CONFIG_H_ */
 ''', file=f)
 				# write ap_version.h
-				tgt = 'build2/sitl/ap_version.h'
+				tgt = self.cmake_build_dir+'/ap_version.h' # eg build2/sitl/ap_version.h
 				print('Debug: Writing ap_version.h to: %s ' % tgt)
 				with open(tgt, 'w') as f:
         				print(
@@ -313,6 +326,8 @@ def export(bld):
 	#if bld.options and not hasattr(bld.options, 'cmake_exporter'):
 	#	print('cmake_exporter option not selected, skipping cmake export')
 	#	return
+
+	boardname = bld.BOARDNAME # aka self.BOARDNAME #sitl, CubeOrange, etc
 
 	cmakes = {}
 	loc = bld.path.relpath().replace('\\', '/')  # eg loc = '.'
@@ -383,8 +398,27 @@ class CMakeExporter(object):
 		self.cmakes = []
 		self.tgens = []
 		#print('CMakeExporter initialized for location: %s' % (self.location))
-		self.app_root_path = bld.srcnode.abspath() # resolves to top level dir of ardupilot, ie below 'build' or 'build2' dir.
-		self.app_cmake_build_path = bld.bldnode.abspath() # resolves to cmake build dir, ie 'build2' dir.
+		#self.app_root_path = bld.srcnode.abspath() # resolves to top level dir of ardupilot, ie below 'build' or 'build2' dir.
+		#self.app_cmake_build_path = bld.bldxxnode.abspath() # resolves to cmake build dir, ie 'build2' dir.
+
+		waf_bld_dir = bld.bldnode.abspath() # eg /home/buzz2/ardupilot/build/sitl/ from waf
+		# breakup waf path into 3 rihgt-most parts and discard hte rest.
+		self.bld_root_dir,part2,BOARDNAME = waf_bld_dir.rsplit('/',2)
+		# bld_root_dir = '/home/buzz2/ardupilot',
+		# part2 = 'build',
+		# BOARDNAME = 'CubeOrange'  or 'sitl' etc
+		self.BOARDNAME = BOARDNAME # not sure its needed.
+		self.cmake_build_dir = 'build2/' + BOARDNAME # rel to bld_root_dir, eg build2/CubeOrange or build2/sitl
+		self.cmake_full_build_dir = self.bld_root_dir + '/build2/' + BOARDNAME # eg /home/buzz2/ardupilot/build2/CubeOrange
+		#pwd = os.getcwd()
+		#print("pwd: %s " % pwd_output)
+		#actual_root_path = Path(bld_root_dir).resolve()
+		#print("root: %s " % actual_root_path)
+		pwd = os.getcwd()
+		if pwd != self.bld_root_dir:
+			os.chdir(self.bld_root_dir)
+			pwd = os.getcwd()
+			print('Changed working dir to: %s ' % (pwd))
 
 	def export(self):
 		content = self.get_content()
@@ -478,6 +512,11 @@ class CMakeExporter(object):
 
 			#-include ap_config.h 
 			AP_CONFIG_FLAGS = ' -D_AP_CONFIG_H_=1 -DWAF_BUILD=1 -D__STDC_FORMAT_MACROS=1 -DAP_SIM_ENABLED=1 -DHAL_WITH_SPI=1 -DHAL_WITH_RAMTRON=1 -DAP_OPENDRONEID_ENABLED=1 -DAP_SIGNED_FIRMWARE=0 -DAP_NOTIFY_LP5562_BUS=2 -DAP_NOTIFY_LP5562_ADDR=48 -DHAL_NUM_CAN_IFACES=2 -DHAL_CAN_WITH_SOCKETCAN=1 -DHAVE_FEENABLEEXCEPT=1 -DHAVE_CMATH_ISFINITE=1 -DHAVE_CMATH_ISINF=1 -DHAVE_CMATH_ISNAN=1 -DNEED_CMATH_ISFINITE_STD_NAMESPACE=1 -DNEED_CMATH_ISINF_STD_NAMESPACE=1 -DNEED_CMATH_ISNAN_STD_NAMESPACE=1 -DHAVE_ENDIAN_H=1 -DHAVE_BYTESWAP_H=1 -DHAVE_MEMRCHR=1 -D_GNU_SOURCE=1 '
+			SITL_ONLY_FLAGS = ' -DHAVE_ENDIAN_H=1 -DHAVE_BYTESWAP_H=1 -DHAVE_MEMRCHR=1 '
+
+			# by doing this early, we can use BOARD variable in generated output later.
+			BOARD = self.bld.env.BOARD
+			content += 'set(BOARD %s)\n' % self.bld.env.BOARD
 
 			# add_definitions(-I.)
 			# add_definitions(-I..)
@@ -498,19 +537,21 @@ class CMakeExporter(object):
 			# generated mavlink needs these:
 			#bld.bldnode.make_node('libraries').abspath(),
             #bld.bldnode.make_node('libraries/GCS_MAVLink').abspath(),
-			content += '"${CMAKE_BINARY_DIR}/sitl/libraries"\n'
-			content += '"${CMAKE_BINARY_DIR}/sitl/libraries/GCS_MAVLink"\n'
+			content += '"${CMAKE_BINARY_DIR}/${BOARD}/libraries"\n'
+			content += '"${CMAKE_BINARY_DIR}/${BOARD}/libraries/GCS_MAVLink"\n'
 			# ap_version.h and ap_config.h
-			content += '"${CMAKE_BINARY_DIR}/sitl"\n'
+			content += '"${CMAKE_BINARY_DIR}/${BOARD}"\n'
 
 			# dronecan needs canard/interface.h
 			content += '${CMAKE_CURRENT_SOURCE_DIR}/modules/DroneCAN/libcanard\n'
 			# droncan need canard_helpers_user.h
 			content += '${CMAKE_CURRENT_SOURCE_DIR}/libraries/AP_DroneCAN/canard \n'
 			# dronecan needs dronecan_msgs.h
-			content += '"${CMAKE_BINARY_DIR}/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include" \n'
-			content += ')\n'
+			content += '"${CMAKE_BINARY_DIR}/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include" \n'
 
+			# byteswap.h etc on non-sitl/chibios builds
+			content += '"${CMAKE_CURRENT_SOURCE_DIR}/libraries/AP_Common/missing/"\n'
+			content += ')\n\n'
 
 			#set(ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 			content += 'set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")\n'
@@ -552,8 +593,8 @@ class CMakeExporter(object):
 			print('Debug: CXX: %s ' % (CXX))
 			HWDEF = env['HWDEF']
 			print('Debug: HWDEF: %s ' % (HWDEF)) # full path to a hwdef.dat file
-			TOOLLCHAIN = env['TOOLCHAIN']
-			print('Debug: TOOLCHAIN: %s ' % (TOOLLCHAIN)) # eg 'arm-none=eabi' prefix
+			TOOLCHAIN = env['TOOLCHAIN']
+			print('Debug: TOOLCHAIN: %s ' % (TOOLCHAIN)) # eg 'arm-none=eabi' prefix
 
 			# drop '-Werror=shadow' from CFLAGS and CXXFLAGS
 			env.CFLAGS = [f for f in env.CFLAGS if f != '-Werror=shadow']
@@ -583,9 +624,15 @@ class CMakeExporter(object):
 					if '-include' in f:
 						# skip this flag
 						continue
-					#if 'AP_SIM_ENABLED=0' in f:
-					#	# skip this flag
-					#	continue
+					#-DHAVE_ENDIAN_H=1 -DHAVE_BYTESWAP_H=1 -DHAVE_MEMRCHR=1
+					if f == '-DHAVE_ENDIAN_H=1':
+						continue
+					# or f.startswith('-DHAVE_BYTESWAP_H')
+					if f == '-DHAVE_BYTESWAP_H=1':
+						continue
+					# or f.startswith('-DHAVE_MEMRCHR'):
+					if f == '-DHAVE_MEMRCHR=1':
+						continue
 					new_flags.append(f)
 				return new_flags
 			
@@ -633,13 +680,16 @@ class CMakeExporter(object):
 		mavlink_generated_sources = []
 		mavlink_generated_includes = []
 		# read all files in build2/sitl/libraries/GCS_MAVLink/include/mavlink/v2.0/
-		mavlink_gen_folder = self.bld.bldnode.make_node('../../build2/sitl/libraries/GCS_MAVLink/include/mavlink/v2.0/')
-		if mavlink_gen_folder:
-			for f in mavlink_gen_folder.ant_glob('*.h'):
+		#mavlink_gen_folder = self.bld.bldnode.make_node('../../build2/sitl/libraries/GCS_MAVLink/include/mavlink/v2.0/')
+		mavlink_gen_folder = self.cmake_build_dir+'/libraries/GCS_MAVLink/include/mavlink/v2.0/'
+		_mavlink_gen_folder = self.bld.bldnode.make_node('../../'+mavlink_gen_folder) # convert from waf to cmake
+		print ('Debug: mavlink_gen_folder:', _mavlink_gen_folder)
+		if _mavlink_gen_folder:
+			for f in _mavlink_gen_folder.ant_glob('*.h'):
 				relpath = f.path_from(self.bld.bldnode).replace('\\','/')
 				mavlink_generated_sources.append(relpath)
 			# also add the include folder itself
-			mavlink_generated_includes.append(mavlink_gen_folder.abspath())
+			mavlink_generated_includes.append(_mavlink_gen_folder.abspath())
 		# now build the mavlink library content
 		if len(mavlink_generated_sources):
 			content += '\n#------------------------------------------------\n\n'
@@ -659,6 +709,10 @@ class CMakeExporter(object):
 				# remove ../../ at front, if present
 				if inc.startswith('../../'):
 					inc = inc.replace('../../', '')
+				# dont harcode as build2/sitl or build2/CubeOrange, we use ${BOARD} instead.
+				inc = inc.replace('build2/sitl', 'build2/${BOARD}')
+				inc = inc.replace('build2/CubeOrange', 'build2/${BOARD}') 
+				# to do more board types lke above. 
 				content += '    %s\n' % (inc)
 			content += ')\n\n'
 			# INTERFACE is for header-only libraries
@@ -703,6 +757,9 @@ class CMakeExporter(object):
 			for inc in canard_includes:
 				# get full abspath
 				inc_abspath = self.bld.srcnode.make_node(inc).abspath()
+				# dont harcode as build2/sitl or build2/CubeOrange, we use ${BOARD} instead.
+				inc = inc.replace('build2/sitl', 'build2/${BOARD}')
+				inc = inc.replace('build2/CubeOrange', 'build2/${BOARD}') 
 				content += '    %s\n' % (inc_abspath)
 			content += ')\n\n'
 			content += 'add_library(canard STATIC ${canard_SOURCES}) #5\n'
@@ -732,10 +789,16 @@ class CMakeExporter(object):
 #)
 
 		# emit dronecan_dsdlc_generated content here as per above comment, but generated like mavlink and canard.
-		dsdlc_generated_folder = self.bld.bldnode.make_node('../../build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src')
-		dsdlc_generated_include_folder = self.bld.bldnode.make_node('../../build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include')
+		#dsdlc_generated_folder = self.bld.bldnode.make_node('../../build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src')
+		#dsdlc_generated_include_folder = self.bld.bldnode.make_node('../../build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include')
+		dsdlc_generated_folder = self.cmake_build_dir+'/modules/DroneCAN/libcanard/dsdlc_generated/src'
+		dsdlc_generated_include_folder = self.cmake_build_dir+'/modules/DroneCAN/libcanard/dsdlc_generated/include'
+		_dsdlc_generated_folder = self.bld.bldnode.make_node('../../'+dsdlc_generated_folder)
+		_dsdlc_generated_include_folder = self.bld.bldnode.make_node('../../'+dsdlc_generated_include_folder)
+		print ('Debug: dsdlc_generated_folder:', _dsdlc_generated_folder)
+		print ('Debug: dsdlc_generated_include_folder:', _dsdlc_generated_include_folder)
 		dsdlc_generated_sources = []
-		for f in dsdlc_generated_folder.ant_glob('*.c'):
+		for f in _dsdlc_generated_folder.ant_glob('*.c'):
 			src_path = f.path_from(self.bld.bldnode).replace('\\','/')
 			dsdlc_generated_sources.append(src_path)
 		if len(dsdlc_generated_sources):
@@ -746,17 +809,27 @@ class CMakeExporter(object):
 				# strip ../../ at front, if present
 				if src.startswith('../../'):
 					src = src.replace('../../', '')
+				# dont harcode as build2/sitl or build2/CubeOrange, we use ${BOARD} instead.
+				src = src.replace('build2/sitl', 'build2/${BOARD}')
+				src = src.replace('build2/CubeOrange', 'build2/${BOARD}') 
 				content += '    %s\n' % (src)
 			content += ')\n\n'
 			content += 'set(dronecan_dsdlc_generated_INCLUDES\n'
 			# add hardcoded includes first
-			inc1 = dsdlc_generated_include_folder.abspath()
+			inc1 = _dsdlc_generated_include_folder.abspath()
 			inc2 = self.bld.srcnode.make_node('modules/DroneCAN/libcanard').abspath()
 			# strip /home/buzz2/ardupilot/ at front, if present
-			if inc1.startswith('/home/buzz2/ardupilot/'):
-				inc1 = inc1.replace('/home/buzz2/ardupilot/', '')
-			if inc2.startswith('/home/buzz2/ardupilot/'):
-				inc2 = inc2.replace('/home/buzz2/ardupilot/', '')
+			if inc1.startswith(self.bld_root_dir+'/'):
+				inc1 = inc1.replace(self.bld_root_dir+'/', '')
+				# dont harcode as build2/sitl or build2/CubeOrange, we use ${BOARD} instead.
+				inc1 = inc1.replace('build2/sitl', 'build2/${BOARD}')
+				inc1 = inc1.replace('build2/CubeOrange', 'build2/${BOARD}') 
+			if inc2.startswith(self.bld_root_dir+'/'):
+				inc2 = inc2.replace(self.bld_root_dir+'/', '')
+				# dont harcode as build2/sitl or build2/CubeOrange, we use ${BOARD} instead.
+				inc2 = inc2.replace('build2/sitl', 'build2/${BOARD}')
+				inc2 = inc2.replace('build2/CubeOrange', 'build2/${BOARD}') 
+			
 			content += '    %s\n' % (inc1)
 			content += '    %s\n' % (inc2)
 			content += ')\n\n'
@@ -940,13 +1013,19 @@ class CMakeExporter(object):
 		]
 		# key is a known file that exists, value is the file we include after it.
 		include_these_files_by_other = {
-			'libraries/AP_Scripting/lua_scripts.cpp': 'build2/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp',
+			'libraries/AP_Scripting/lua_scripts.cpp': 'build2/${BOARD}/libraries/AP_Scripting/lua_generated_bindings.cpp',
 		}
 		for usrc in uniq_src_list: #dedupe
 			if usrc in exclude_these_files:
 				print('Debug: Excluding source file from cmake target %s: %s' % (cleanedname, usrc))
 				continue
-			content += '	%s\n' % (usrc)
+			usrc_str =str(usrc)
+			# convert build/x waf paths to cmake style paths under build2/x
+			usrc_str = usrc_str.replace('build/', 'build2/')
+			# dont harcode as build2/sitl or build2/CubeOrange, we use ${BOARD} instead.
+			usrc_str = usrc_str.replace('build2/sitl', 'build2/${BOARD}')
+			usrc_str = usrc_str.replace('build2/CubeOrange', 'build2/${BOARD}') 
+			content += '	%s\n' % (usrc_str)
 			# check if usrc is in include_these_files_by_other keys
 			for key, value in include_these_files_by_other.items():
 				if usrc == key:
@@ -964,7 +1043,13 @@ class CMakeExporter(object):
 		if len(includes):
 			content += 'set(%s_INCLUDES' % (cleanedname)
 			for include in includes:
-				content += '\n    %s' % include
+				inc_as_str = str(include)
+				# convert build/x waf paths to cmake style paths under build2/x
+				inc_as_str = inc_as_str.replace('build/', 'build2/')
+				# dont harcode as build2/sitl or build2/CubeOrange, we use ${BOARD} instead.
+				inc_as_str = inc_as_str.replace('build2/sitl', 'build2/${BOARD}')
+				inc_as_str = inc_as_str.replace('build2/CubeOrange', 'build2/${BOARD}') 
+				content += '\n    %s' % inc_as_str
 			content += ')\n\n'
 
 		defines = self.get_genlist(tgen, 'defines')

@@ -1,6 +1,7 @@
 cmake_minimum_required (VERSION 3.13.0)
 project (ArduPilot)
 
+set(BOARD CubeOrange)
 include_directories(.)
 include_directories(..)
 include_directories(../..)
@@ -11,13 +12,15 @@ ${CMAKE_CURRENT_SOURCE_DIR}/AP_Common
 ${CMAKE_CURRENT_SOURCE_DIR}/AP_HAL
 ${CMAKE_CURRENT_SOURCE_DIR}/AP_HAL/board
 ${CMAKE_CURRENT_SOURCE_DIR}/libraries
-"${CMAKE_BINARY_DIR}/sitl/libraries"
-"${CMAKE_BINARY_DIR}/sitl/libraries/GCS_MAVLink"
-"${CMAKE_BINARY_DIR}/sitl"
+"${CMAKE_BINARY_DIR}/${BOARD}/libraries"
+"${CMAKE_BINARY_DIR}/${BOARD}/libraries/GCS_MAVLink"
+"${CMAKE_BINARY_DIR}/${BOARD}"
 ${CMAKE_CURRENT_SOURCE_DIR}/modules/DroneCAN/libcanard
 ${CMAKE_CURRENT_SOURCE_DIR}/libraries/AP_DroneCAN/canard 
-"${CMAKE_BINARY_DIR}/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include" 
+"${CMAKE_BINARY_DIR}/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include" 
+"${CMAKE_CURRENT_SOURCE_DIR}/libraries/AP_Common/missing/"
 )
+
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 
 add_definitions(-DAP_CUSTOMCONTROL_ENABLED=0 -DAP_DDS_ENABLED=0 -DAP_SCRIPTING_CHECKS=1 -DCANARD_ENABLE_CANFD=1 -DCANARD_IFACE_ALL=3 -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS -DENABLE_ONVIF=0 -DHAVE_STD_NULLPTR_T=0 -DLUA_32BITS=1 -DDRONECAN_CXX_WRAPPERS=1 -DUSE_USER_HELPERS=1 -DCANARD_ENABLE_DEADLINE=1 -DCANARD_MULTI_IFACE=1 -DCANARD_ALLOCATE_SEM=1) #1
@@ -56,7 +59,7 @@ add_custom_command(
 #------------------------------------------------
 
 set(mavlink_INCLUDES
-    /home/buzz2/ardupilot/build2/sitl/libraries/GCS_MAVLink/include/mavlink/v2.0
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink/include/mavlink/v2.0
 )
 
 add_library(mavlink INTERFACE ${mavlink_SOURCES}) #4
@@ -91,186 +94,186 @@ set_target_properties(canard PROPERTIES
 #------------------------------------------------
 
 set(dronecan_dsdlc_generated_SOURCES #12
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.actuator.ArrayCommand.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.actuator.Command.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.actuator.Status.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength2.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.device.Temperature.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.esc.RPMCommand.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.esc.RawCommand.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.esc.Status.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.esc.StatusExtended.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.Auxiliary.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.ECEFPositionVelocity.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.Fix.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.Fix2.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.BeepCommand.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.LightsCommand.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.RGB565.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.SingleLightCommand.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.range_sensor.Measurement.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.safety.ArmingStatus.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.actuator.ArrayCommand.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.actuator.Command.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.actuator.Status.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength2.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.device.Temperature.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.esc.RPMCommand.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.esc.RawCommand.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.esc.Status.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.esc.StatusExtended.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.Auxiliary.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.ECEFPositionVelocity.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.Fix.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.Fix2.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.BeepCommand.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.LightsCommand.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.RGB565.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.indication.SingleLightCommand.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.range_sensor.Measurement.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.safety.ArmingStatus.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
 )
 
 set(dronecan_dsdlc_generated_INCLUDES
-    build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
 )
 
@@ -309,12 +312,12 @@ set(AC_AttitudeControl_SOURCES #13
 )
 
 set(AC_AttitudeControl_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -365,9 +368,9 @@ set(AC_AttitudeControl_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -408,12 +411,12 @@ set(AC_AutoTune_SOURCES #13
 )
 
 set(AC_AutoTune_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -464,9 +467,9 @@ set(AC_AutoTune_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -502,12 +505,12 @@ set(AC_Autorotation_SOURCES #13
 )
 
 set(AC_Autorotation_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -558,9 +561,9 @@ set(AC_Autorotation_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -597,12 +600,12 @@ set(AC_Avoidance_SOURCES #13
 )
 
 set(AC_Avoidance_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -653,9 +656,9 @@ set(AC_Avoidance_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -691,12 +694,12 @@ set(AC_InputManager_SOURCES #13
 )
 
 set(AC_InputManager_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -747,9 +750,9 @@ set(AC_InputManager_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -790,12 +793,12 @@ set(AC_PID_SOURCES #13
 )
 
 set(AC_PID_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -846,9 +849,9 @@ set(AC_PID_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -887,12 +890,12 @@ set(AC_PrecLand_SOURCES #13
 )
 
 set(AC_PrecLand_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -943,9 +946,9 @@ set(AC_PrecLand_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -980,12 +983,12 @@ set(AC_Sprayer_SOURCES #13
 )
 
 set(AC_Sprayer_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -1036,9 +1039,9 @@ set(AC_Sprayer_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1069,12 +1072,12 @@ set(AC_WPNav_SOURCES #13
 )
 
 set(AC_WPNav_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -1125,9 +1128,9 @@ set(AC_WPNav_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1176,12 +1179,12 @@ set(APM_Control_SOURCES #13
 )
 
 set(APM_Control_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -1232,9 +1235,9 @@ set(APM_Control_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1258,12 +1261,12 @@ set(AP_ADC_SOURCES #13
 )
 
 set(AP_ADC_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -1314,9 +1317,9 @@ set(AP_ADC_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1351,12 +1354,12 @@ set(AP_ADSB_SOURCES #13
 )
 
 set(AP_ADSB_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -1407,9 +1410,9 @@ set(AP_ADSB_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1456,12 +1459,12 @@ set(AP_AHRS_SOURCES #13
 )
 
 set(AP_AHRS_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -1512,9 +1515,9 @@ set(AP_AHRS_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1550,12 +1553,12 @@ set(AP_AccelCal_SOURCES #13
 )
 
 set(AP_AccelCal_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -1606,9 +1609,9 @@ set(AP_AccelCal_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1633,12 +1636,12 @@ set(AP_AdvancedFailsafe_SOURCES #13
 )
 
 set(AP_AdvancedFailsafe_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -1689,9 +1692,9 @@ set(AP_AdvancedFailsafe_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1745,12 +1748,12 @@ set(AP_Airspeed_SOURCES #13
 )
 
 set(AP_Airspeed_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -1801,9 +1804,9 @@ set(AP_Airspeed_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -1883,12 +1886,12 @@ set(AP_Baro_SOURCES #13
 )
 
 set(AP_Baro_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -1939,9 +1942,9 @@ set(AP_Baro_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2031,12 +2034,12 @@ set(AP_BattMonitor_SOURCES #13
 )
 
 set(AP_BattMonitor_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -2087,9 +2090,9 @@ set(AP_BattMonitor_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2135,12 +2138,12 @@ set(AP_Beacon_SOURCES #13
 )
 
 set(AP_Beacon_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -2191,9 +2194,9 @@ set(AP_Beacon_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2220,12 +2223,12 @@ set(AP_BoardConfig_SOURCES #13
 )
 
 set(AP_BoardConfig_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -2276,9 +2279,9 @@ set(AP_BoardConfig_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2312,12 +2315,12 @@ set(AP_Button_SOURCES #13
 )
 
 set(AP_Button_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -2368,9 +2371,9 @@ set(AP_Button_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2406,12 +2409,12 @@ set(AP_CANManager_SOURCES #13
 )
 
 set(AP_CANManager_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -2462,9 +2465,9 @@ set(AP_CANManager_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2512,12 +2515,12 @@ set(AP_Camera_SOURCES #13
 )
 
 set(AP_Camera_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -2568,9 +2571,9 @@ set(AP_Camera_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2598,12 +2601,12 @@ set(AP_CheckFirmware_SOURCES #13
 )
 
 set(AP_CheckFirmware_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -2654,9 +2657,9 @@ set(AP_CheckFirmware_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2701,12 +2704,12 @@ set(AP_Common_SOURCES #13
 )
 
 set(AP_Common_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -2757,9 +2760,9 @@ set(AP_Common_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2837,12 +2840,12 @@ set(AP_Compass_SOURCES #13
 )
 
 set(AP_Compass_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -2893,9 +2896,9 @@ set(AP_Compass_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -2921,12 +2924,12 @@ set(AP_CustomRotations_SOURCES #13
 )
 
 set(AP_CustomRotations_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -2977,9 +2980,9 @@ set(AP_CustomRotations_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3020,12 +3023,12 @@ set(AP_DAL_SOURCES #13
 )
 
 set(AP_DAL_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -3076,9 +3079,9 @@ set(AP_DAL_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3124,12 +3127,12 @@ set(AP_DDS_SOURCES #13
 )
 
 set(AP_DDS_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -3180,9 +3183,9 @@ set(AP_DDS_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3207,12 +3210,12 @@ set(AP_Declination_SOURCES #13
 )
 
 set(AP_Declination_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -3263,9 +3266,9 @@ set(AP_Declination_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3289,12 +3292,12 @@ set(AP_Devo_Telem_SOURCES #13
 )
 
 set(AP_Devo_Telem_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -3345,9 +3348,9 @@ set(AP_Devo_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3377,12 +3380,12 @@ set(AP_DroneCAN_SOURCES #13
 )
 
 set(AP_DroneCAN_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -3433,9 +3436,9 @@ set(AP_DroneCAN_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3483,12 +3486,12 @@ set(AP_EFI_SOURCES #13
 )
 
 set(AP_EFI_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -3539,9 +3542,9 @@ set(AP_EFI_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3571,12 +3574,12 @@ set(AP_ESC_Telem_SOURCES #13
 )
 
 set(AP_ESC_Telem_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -3627,9 +3630,9 @@ set(AP_ESC_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3679,12 +3682,12 @@ set(AP_ExternalAHRS_SOURCES #13
 )
 
 set(AP_ExternalAHRS_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -3735,9 +3738,9 @@ set(AP_ExternalAHRS_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3772,12 +3775,12 @@ set(AP_ExternalControl_SOURCES #13
 )
 
 set(AP_ExternalControl_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -3828,9 +3831,9 @@ set(AP_ExternalControl_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3854,12 +3857,12 @@ set(AP_FETtecOneWire_SOURCES #13
 )
 
 set(AP_FETtecOneWire_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -3910,9 +3913,9 @@ set(AP_FETtecOneWire_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -3957,12 +3960,12 @@ set(AP_Filesystem_SOURCES #13
 )
 
 set(AP_Filesystem_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -4013,9 +4016,9 @@ set(AP_Filesystem_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4049,12 +4052,12 @@ set(AP_FlashStorage_SOURCES #13
 )
 
 set(AP_FlashStorage_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -4105,9 +4108,9 @@ set(AP_FlashStorage_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4152,12 +4155,12 @@ set(AP_Frsky_Telem_SOURCES #13
 )
 
 set(AP_Frsky_Telem_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -4208,9 +4211,9 @@ set(AP_Frsky_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4286,12 +4289,12 @@ set(AP_GPS_SOURCES #13
 )
 
 set(AP_GPS_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -4342,9 +4345,9 @@ set(AP_GPS_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4369,12 +4372,12 @@ set(AP_GSOF_SOURCES #13
 )
 
 set(AP_GSOF_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -4425,9 +4428,9 @@ set(AP_GSOF_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4466,12 +4469,12 @@ set(AP_Generator_SOURCES #13
 )
 
 set(AP_Generator_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -4522,9 +4525,9 @@ set(AP_Generator_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4555,12 +4558,12 @@ set(AP_Gripper_SOURCES #13
 )
 
 set(AP_Gripper_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -4611,9 +4614,9 @@ set(AP_Gripper_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4637,12 +4640,12 @@ set(AP_Hott_Telem_SOURCES #13
 )
 
 set(AP_Hott_Telem_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -4693,9 +4696,9 @@ set(AP_Hott_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4722,12 +4725,12 @@ set(AP_ICEngine_SOURCES #13
 )
 
 set(AP_ICEngine_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -4778,9 +4781,9 @@ set(AP_ICEngine_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4805,12 +4808,12 @@ set(AP_IOMCU_SOURCES #13
 )
 
 set(AP_IOMCU_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -4861,9 +4864,9 @@ set(AP_IOMCU_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4894,12 +4897,12 @@ set(AP_IRLock_SOURCES #13
 )
 
 set(AP_IRLock_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -4950,9 +4953,9 @@ set(AP_IRLock_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -4976,12 +4979,12 @@ set(AP_InertialNav_SOURCES #13
 )
 
 set(AP_InertialNav_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -5032,9 +5035,9 @@ set(AP_InertialNav_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5105,12 +5108,12 @@ set(AP_InertialSensor_SOURCES #13
 )
 
 set(AP_InertialSensor_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -5161,9 +5164,9 @@ set(AP_InertialSensor_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5198,12 +5201,12 @@ set(AP_InternalError_SOURCES #13
 )
 
 set(AP_InternalError_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -5254,9 +5257,9 @@ set(AP_InternalError_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5280,12 +5283,12 @@ set(AP_JSButton_SOURCES #13
 )
 
 set(AP_JSButton_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -5336,9 +5339,9 @@ set(AP_JSButton_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5362,12 +5365,12 @@ set(AP_JSON_SOURCES #13
 )
 
 set(AP_JSON_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -5418,9 +5421,9 @@ set(AP_JSON_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5445,12 +5448,12 @@ set(AP_KDECAN_SOURCES #13
 )
 
 set(AP_KDECAN_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -5501,9 +5504,9 @@ set(AP_KDECAN_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5527,12 +5530,12 @@ set(AP_L1_Control_SOURCES #13
 )
 
 set(AP_L1_Control_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -5583,9 +5586,9 @@ set(AP_L1_Control_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5609,12 +5612,12 @@ set(AP_LTM_Telem_SOURCES #13
 )
 
 set(AP_LTM_Telem_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -5665,9 +5668,9 @@ set(AP_LTM_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5696,12 +5699,12 @@ set(AP_Landing_SOURCES #13
 )
 
 set(AP_Landing_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -5752,9 +5755,9 @@ set(AP_Landing_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5794,12 +5797,12 @@ set(AP_LeakDetector_SOURCES #13
 )
 
 set(AP_LeakDetector_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -5850,9 +5853,9 @@ set(AP_LeakDetector_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5877,12 +5880,12 @@ set(AP_LightWareSerial_SOURCES #13
 )
 
 set(AP_LightWareSerial_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -5933,9 +5936,9 @@ set(AP_LightWareSerial_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -5977,12 +5980,12 @@ set(AP_Logger_SOURCES #13
 )
 
 set(AP_Logger_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -6033,9 +6036,9 @@ set(AP_Logger_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6086,12 +6089,12 @@ set(AP_MSP_SOURCES #13
 )
 
 set(AP_MSP_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -6142,9 +6145,9 @@ set(AP_MSP_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6205,12 +6208,12 @@ set(AP_Math_SOURCES #13
 )
 
 set(AP_Math_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -6261,9 +6264,9 @@ set(AP_Math_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6302,12 +6305,12 @@ set(AP_Mission_SOURCES #13
 )
 
 set(AP_Mission_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -6358,9 +6361,9 @@ set(AP_Mission_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6395,12 +6398,12 @@ set(AP_Module_SOURCES #13
 )
 
 set(AP_Module_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -6451,9 +6454,9 @@ set(AP_Module_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6511,12 +6514,12 @@ set(AP_Motors_SOURCES #13
 )
 
 set(AP_Motors_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -6567,9 +6570,9 @@ set(AP_Motors_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6643,12 +6646,12 @@ set(AP_Mount_SOURCES #13
 )
 
 set(AP_Mount_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -6699,9 +6702,9 @@ set(AP_Mount_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6727,12 +6730,12 @@ set(AP_MultiHeap_SOURCES #13
 )
 
 set(AP_MultiHeap_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -6783,9 +6786,9 @@ set(AP_MultiHeap_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6810,12 +6813,12 @@ set(AP_NMEA_Output_SOURCES #13
 )
 
 set(AP_NMEA_Output_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -6866,9 +6869,9 @@ set(AP_NMEA_Output_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6901,12 +6904,12 @@ set(AP_NavEKF_SOURCES #13
 )
 
 set(AP_NavEKF_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -6957,9 +6960,9 @@ set(AP_NavEKF_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -6997,12 +7000,12 @@ set(AP_NavEKF2_SOURCES #13
 )
 
 set(AP_NavEKF2_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -7053,9 +7056,9 @@ set(AP_NavEKF2_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -7177,12 +7180,12 @@ set(AP_Networking_SOURCES #13
 )
 
 set(AP_Networking_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -7233,9 +7236,9 @@ set(AP_Networking_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -7327,12 +7330,12 @@ set(AP_Notify_SOURCES #13
 )
 
 set(AP_Notify_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -7383,9 +7386,9 @@ set(AP_Notify_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -7409,12 +7412,12 @@ set(AP_OLC_SOURCES #13
 )
 
 set(AP_OLC_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -7465,9 +7468,9 @@ set(AP_OLC_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -7506,12 +7509,12 @@ set(AP_OSD_SOURCES #13
 )
 
 set(AP_OSD_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -7562,9 +7565,9 @@ set(AP_OSD_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -7600,12 +7603,12 @@ set(AP_OpenDroneID_SOURCES #13
 )
 
 set(AP_OpenDroneID_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -7656,9 +7659,9 @@ set(AP_OpenDroneID_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -7706,12 +7709,12 @@ set(AP_OpticalFlow_SOURCES #13
 )
 
 set(AP_OpticalFlow_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -7762,9 +7765,9 @@ set(AP_OpticalFlow_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -7789,12 +7792,12 @@ set(AP_Parachute_SOURCES #13
 )
 
 set(AP_Parachute_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -7845,9 +7848,9 @@ set(AP_Parachute_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -7873,12 +7876,12 @@ set(AP_Param_SOURCES #13
 )
 
 set(AP_Param_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -7929,9 +7932,9 @@ set(AP_Param_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -7965,12 +7968,12 @@ set(AP_PiccoloCAN_SOURCES #13
 )
 
 set(AP_PiccoloCAN_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -8021,9 +8024,9 @@ set(AP_PiccoloCAN_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -8086,12 +8089,12 @@ set(AP_Proximity_SOURCES #13
 )
 
 set(AP_Proximity_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -8142,9 +8145,9 @@ set(AP_Proximity_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -8178,12 +8181,12 @@ set(AP_Quicktune_SOURCES #13
 )
 
 set(AP_Quicktune_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -8234,9 +8237,9 @@ set(AP_Quicktune_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -8260,12 +8263,12 @@ set(AP_RAMTRON_SOURCES #13
 )
 
 set(AP_RAMTRON_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -8316,9 +8319,9 @@ set(AP_RAMTRON_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -8343,12 +8346,12 @@ set(AP_RCMapper_SOURCES #13
 )
 
 set(AP_RCMapper_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -8399,9 +8402,9 @@ set(AP_RCMapper_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -8473,12 +8476,12 @@ set(AP_RCProtocol_SOURCES #13
 )
 
 set(AP_RCProtocol_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -8529,9 +8532,9 @@ set(AP_RCProtocol_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -8573,12 +8576,12 @@ set(AP_RCTelemetry_SOURCES #13
 )
 
 set(AP_RCTelemetry_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -8629,9 +8632,9 @@ set(AP_RCTelemetry_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -8667,12 +8670,12 @@ set(AP_ROMFS_SOURCES #13
 )
 
 set(AP_ROMFS_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -8723,9 +8726,9 @@ set(AP_ROMFS_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -8769,12 +8772,12 @@ set(AP_RPM_SOURCES #13
 )
 
 set(AP_RPM_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -8825,9 +8828,9 @@ set(AP_RPM_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -8852,12 +8855,12 @@ set(AP_RSSI_SOURCES #13
 )
 
 set(AP_RSSI_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -8908,9 +8911,9 @@ set(AP_RSSI_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -8937,12 +8940,12 @@ set(AP_RTC_SOURCES #13
 )
 
 set(AP_RTC_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -8993,9 +8996,9 @@ set(AP_RTC_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9033,12 +9036,12 @@ set(AP_Radio_SOURCES #13
 )
 
 set(AP_Radio_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -9089,9 +9092,9 @@ set(AP_Radio_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9207,12 +9210,12 @@ set(AP_RangeFinder_SOURCES #13
 )
 
 set(AP_RangeFinder_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -9263,9 +9266,9 @@ set(AP_RangeFinder_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9292,12 +9295,12 @@ set(AP_Relay_SOURCES #13
 )
 
 set(AP_Relay_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -9348,9 +9351,9 @@ set(AP_Relay_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9384,12 +9387,12 @@ set(AP_RobotisServo_SOURCES #13
 )
 
 set(AP_RobotisServo_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -9440,9 +9443,9 @@ set(AP_RobotisServo_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9467,12 +9470,12 @@ set(AP_SBusOut_SOURCES #13
 )
 
 set(AP_SBusOut_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -9523,9 +9526,9 @@ set(AP_SBusOut_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9552,12 +9555,12 @@ set(AP_Scheduler_SOURCES #13
 )
 
 set(AP_Scheduler_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -9608,9 +9611,9 @@ set(AP_Scheduler_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9645,12 +9648,12 @@ set(AP_SerialLED_SOURCES #13
 )
 
 set(AP_SerialLED_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -9701,9 +9704,9 @@ set(AP_SerialLED_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9728,12 +9731,12 @@ set(AP_SerialManager_SOURCES #13
 )
 
 set(AP_SerialManager_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -9784,9 +9787,9 @@ set(AP_SerialManager_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9811,12 +9814,12 @@ set(AP_ServoRelayEvents_SOURCES #13
 )
 
 set(AP_ServoRelayEvents_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -9867,9 +9870,9 @@ set(AP_ServoRelayEvents_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9895,12 +9898,12 @@ set(AP_Servo_Telem_SOURCES #13
 )
 
 set(AP_Servo_Telem_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -9951,9 +9954,9 @@ set(AP_Servo_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -9977,12 +9980,12 @@ set(AP_SmartRTL_SOURCES #13
 )
 
 set(AP_SmartRTL_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -10033,9 +10036,9 @@ set(AP_SmartRTL_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10066,12 +10069,12 @@ set(AP_Soaring_SOURCES #13
 )
 
 set(AP_Soaring_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -10122,9 +10125,9 @@ set(AP_Soaring_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10148,12 +10151,12 @@ set(AP_Stats_SOURCES #13
 )
 
 set(AP_Stats_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -10204,9 +10207,9 @@ set(AP_Stats_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10230,12 +10233,12 @@ set(AP_SurfaceDistance_SOURCES #13
 )
 
 set(AP_SurfaceDistance_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -10286,9 +10289,9 @@ set(AP_SurfaceDistance_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10312,12 +10315,12 @@ set(AP_TECS_SOURCES #13
 )
 
 set(AP_TECS_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -10368,9 +10371,9 @@ set(AP_TECS_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10395,12 +10398,12 @@ set(AP_TempCalibration_SOURCES #13
 )
 
 set(AP_TempCalibration_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -10451,9 +10454,9 @@ set(AP_TempCalibration_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10498,12 +10501,12 @@ set(AP_TemperatureSensor_SOURCES #13
 )
 
 set(AP_TemperatureSensor_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -10554,9 +10557,9 @@ set(AP_TemperatureSensor_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10595,12 +10598,12 @@ set(AP_Terrain_SOURCES #13
 )
 
 set(AP_Terrain_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -10651,9 +10654,9 @@ set(AP_Terrain_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10694,12 +10697,12 @@ set(AP_Torqeedo_SOURCES #13
 )
 
 set(AP_Torqeedo_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -10750,9 +10753,9 @@ set(AP_Torqeedo_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10777,12 +10780,12 @@ set(AP_Tuning_SOURCES #13
 )
 
 set(AP_Tuning_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -10833,9 +10836,9 @@ set(AP_Tuning_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10865,12 +10868,12 @@ set(AP_Vehicle_SOURCES #13
 )
 
 set(AP_Vehicle_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -10921,9 +10924,9 @@ set(AP_Vehicle_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -10962,12 +10965,12 @@ set(AP_VideoTX_SOURCES #13
 )
 
 set(AP_VideoTX_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -11018,9 +11021,9 @@ set(AP_VideoTX_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -11053,12 +11056,12 @@ set(AP_VisualOdom_SOURCES #13
 )
 
 set(AP_VisualOdom_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -11109,9 +11112,9 @@ set(AP_VisualOdom_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -11135,12 +11138,12 @@ set(AP_Volz_Protocol_SOURCES #13
 )
 
 set(AP_Volz_Protocol_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -11191,9 +11194,9 @@ set(AP_Volz_Protocol_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -11225,12 +11228,12 @@ set(AP_WheelEncoder_SOURCES #13
 )
 
 set(AP_WheelEncoder_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -11281,9 +11284,9 @@ set(AP_WheelEncoder_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -11314,12 +11317,12 @@ set(AP_Winch_SOURCES #13
 )
 
 set(AP_Winch_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -11370,9 +11373,9 @@ set(AP_Winch_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -11413,12 +11416,12 @@ set(AP_WindVane_SOURCES #13
 )
 
 set(AP_WindVane_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -11469,9 +11472,9 @@ set(AP_WindVane_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -11495,12 +11498,12 @@ set(AR_Motors_SOURCES #13
 )
 
 set(AR_Motors_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -11551,9 +11554,9 @@ set(AR_Motors_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -11581,12 +11584,12 @@ set(AR_WPNav_SOURCES #13
 )
 
 set(AR_WPNav_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -11637,9 +11640,9 @@ set(AR_WPNav_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -11685,12 +11688,12 @@ set(Filter_SOURCES #13
 )
 
 set(Filter_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -11741,9 +11744,9 @@ set(Filter_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -11803,12 +11806,12 @@ set(GCS_MAVLink_SOURCES #13
 )
 
 set(GCS_MAVLink_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -11859,9 +11862,9 @@ set(GCS_MAVLink_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -11895,12 +11898,12 @@ set(PID_SOURCES #13
 )
 
 set(PID_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -11951,9 +11954,9 @@ set(PID_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -11980,12 +11983,12 @@ set(RC_Channel_SOURCES #13
 )
 
 set(RC_Channel_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -12036,9 +12039,9 @@ set(RC_Channel_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -12075,12 +12078,12 @@ set(SRV_Channel_SOURCES #13
 )
 
 set(SRV_Channel_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -12131,9 +12134,9 @@ set(SRV_Channel_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -12230,12 +12233,12 @@ set(AP_HAL_SOURCES #13
 )
 
 set(AP_HAL_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -12286,9 +12289,9 @@ set(AP_HAL_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -12347,12 +12350,12 @@ set(AP_HAL_Empty_SOURCES #13
 )
 
 set(AP_HAL_Empty_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -12403,9 +12406,9 @@ set(AP_HAL_Empty_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -12465,12 +12468,12 @@ set(AP_PiccoloCAN_piccolo_protocol_SOURCES #13
 )
 
 set(AP_PiccoloCAN_piccolo_protocol_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -12521,9 +12524,9 @@ set(AP_PiccoloCAN_piccolo_protocol_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -12597,12 +12600,12 @@ set(AP_HAL_ChibiOS_SOURCES #13
 )
 
 set(AP_HAL_ChibiOS_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -12653,9 +12656,9 @@ set(AP_HAL_ChibiOS_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -12694,16 +12697,16 @@ set(AP_Scripting_SOURCES #13
 	libraries/AP_Scripting/lua_bindings.cpp
 	libraries/AP_Scripting/lua_boxed_numerics.cpp
 	libraries/AP_Scripting/lua_scripts.cpp
-	build2/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp #extra
+	build2/${BOARD}/libraries/AP_Scripting/lua_generated_bindings.cpp #extra
 )
 
 set(AP_Scripting_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -12754,9 +12757,9 @@ set(AP_Scripting_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -12846,12 +12849,12 @@ set(AP_Scripting_lua_src_SOURCES #13
 )
 
 set(AP_Scripting_lua_src_INCLUDES
-    build/CubeOrange/libraries
-    build/CubeOrange/libraries/GCS_MAVLink
-    build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    build2/${BOARD}/libraries
+    build2/${BOARD}/libraries/GCS_MAVLink
+    build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     modules/DroneCAN/libcanard
     libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -12902,9 +12905,9 @@ set(AP_Scripting_lua_src_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -12943,12 +12946,12 @@ set(AP_NavEKF3_SOURCES #13
 )
 
 set(AP_NavEKF3_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -12999,9 +13002,9 @@ set(AP_NavEKF3_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -13036,12 +13039,12 @@ set(AP_Rally_SOURCES #13
 )
 
 set(AP_Rally_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -13092,9 +13095,9 @@ set(AP_Rally_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -13128,12 +13131,12 @@ set(StorageManager_SOURCES #13
 )
 
 set(StorageManager_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -13184,9 +13187,9 @@ set(StorageManager_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -13220,12 +13223,12 @@ set(AP_IBus_Telem_SOURCES #13
 )
 
 set(AP_IBus_Telem_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -13276,9 +13279,9 @@ set(AP_IBus_Telem_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -13313,12 +13316,12 @@ set(AP_BLHeli_SOURCES #13
 )
 
 set(AP_BLHeli_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -13369,9 +13372,9 @@ set(AP_BLHeli_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -13399,12 +13402,12 @@ set(AC_Fence_SOURCES #13
 )
 
 set(AC_Fence_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -13455,9 +13458,9 @@ set(AC_Fence_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -13492,12 +13495,12 @@ set(AP_LandingGear_SOURCES #13
 )
 
 set(AP_LandingGear_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -13548,9 +13551,9 @@ set(AP_LandingGear_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -13617,12 +13620,12 @@ set(AP_ADSB_sagetech-sdk_SOURCES #13
 )
 
 set(AP_ADSB_sagetech-sdk_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -13673,9 +13676,9 @@ set(AP_ADSB_sagetech-sdk_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -13699,12 +13702,12 @@ set(AP_GyroFFT_SOURCES #13
 )
 
 set(AP_GyroFFT_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -13755,9 +13758,9 @@ set(AP_GyroFFT_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -13793,12 +13796,12 @@ set(AP_AIS_SOURCES #13
 )
 
 set(AP_AIS_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -13849,9 +13852,9 @@ set(AP_AIS_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -13886,12 +13889,12 @@ set(AP_Arming_SOURCES #13
 )
 
 set(AP_Arming_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -13942,9 +13945,9 @@ set(AP_Arming_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -13979,12 +13982,12 @@ set(AP_Follow_SOURCES #13
 )
 
 set(AP_Follow_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -14035,9 +14038,9 @@ set(AP_Follow_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -14066,172 +14069,172 @@ target_link_libraries(AP_Follow canard) #clean
 #------------------------------------------------
 
 set(AntennaTracker_libs_SOURCES #13
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
-	AntennaTracker/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
+	AntennaTracker/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
 )
 
 set(AntennaTracker_libs_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -14241,9 +14244,9 @@ set(AntennaTracker_libs_INCLUDES
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -14401,12 +14404,12 @@ set(tracker_SOURCES #13
 )
 
 set(tracker_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -14457,9 +14460,9 @@ set(tracker_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -14627,12 +14630,12 @@ set(AP_Avoidance_SOURCES #13
 )
 
 set(AP_Avoidance_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -14683,9 +14686,9 @@ set(AP_Avoidance_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -14714,172 +14717,172 @@ target_link_libraries(AP_Avoidance canard) #clean
 #------------------------------------------------
 
 set(ArduCopter_libs_SOURCES #13
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
-	ArduCopter/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
+	ArduCopter/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
 )
 
 set(ArduCopter_libs_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -14889,9 +14892,9 @@ set(ArduCopter_libs_INCLUDES
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -15128,12 +15131,12 @@ set(copter_SOURCES #13
 )
 
 set(copter_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -15184,9 +15187,9 @@ set(copter_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -15446,12 +15449,12 @@ set(copter-heli_SOURCES #13
 )
 
 set(copter-heli_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -15502,9 +15505,9 @@ set(copter-heli_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -15669,172 +15672,172 @@ set_target_properties(copter-heli PROPERTIES
 #------------------------------------------------
 
 set(ArduPlane_libs_SOURCES #13
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
-	ArduPlane/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
+	ArduPlane/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
 )
 
 set(ArduPlane_libs_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -15844,9 +15847,9 @@ set(ArduPlane_libs_INCLUDES
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -16080,12 +16083,12 @@ set(plane_SOURCES #13
 )
 
 set(plane_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -16136,9 +16139,9 @@ set(plane_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -16303,172 +16306,172 @@ set_target_properties(plane PROPERTIES
 #------------------------------------------------
 
 set(ArduSub_libs_SOURCES #13
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
-	ArduSub/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
+	ArduSub/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
 )
 
 set(ArduSub_libs_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -16478,9 +16481,9 @@ set(ArduSub_libs_INCLUDES
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -16667,12 +16670,12 @@ set(sub_SOURCES #13
 )
 
 set(sub_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -16723,9 +16726,9 @@ set(sub_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -16887,172 +16890,172 @@ set_target_properties(sub PROPERTIES
 #------------------------------------------------
 
 set(Blimp_libs_SOURCES #13
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
-	Blimp/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
+	Blimp/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
 )
 
 set(Blimp_libs_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -17062,9 +17065,9 @@ set(Blimp_libs_INCLUDES
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -17238,12 +17241,12 @@ set(blimp_SOURCES #13
 )
 
 set(blimp_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -17294,9 +17297,9 @@ set(blimp_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -17461,172 +17464,172 @@ set_target_properties(blimp PROPERTIES
 #------------------------------------------------
 
 set(Rover_libs_SOURCES #13
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
-	Rover/../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryCells.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryContinuous.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryInfoAux.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryPeriodic.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.power.BatteryTag.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.proximity_sensor.Proximity.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.equipment.trafficmonitor.TrafficReport.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Heading.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.MovingBaselineData.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.RelPosHeading.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.gnss.Status.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.Button.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.NotifyState.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/ardupilot.indication.SafetyState.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hex.equipment.flow.Measurement.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoCmd.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.himark.servo.ServoInfo.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetEscID.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMaintenanceInformation_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.GetMajorConfig_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.RawCommand.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SelfTest_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetAngle_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetBaud_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetDirection_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetID_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetLED_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetReportingFrequency_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.SetThrottleSource_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg1.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg2.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.hobbywing.esc.StatusMsg3.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.FocCtrl.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHCAN.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.PUSHSCI.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamCfg.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.tmotor.esc.ParamGet.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.volz.servo.ActuatorStatus.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.CopterAttStatus.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalAttitudeStatus.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GimbalControlData.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatus.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/com.xacti.GnssStatusReq.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/cuav.equipment.power.CBAT.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.CanStats.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.FlexDebug.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.GlobalTime.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.protocol.Stats.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.ArmStatus.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.BasicID.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.Location.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.OperatorID.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SecureCommand_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.SelfID.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.remoteid.System.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.hygrometer.Hygrometer.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.magnetometer.MagneticFieldStrengthHiRes.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rc.RCInput.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/dronecan.sensors.rpm.RPM.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.OutputEnable_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/mppt.Stream.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.CoarseOrientation.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.Timestamp.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.MagneticFieldStrength.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.RawIMU.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ahrs.Solution.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.AngleOfAttack.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.IndicatedAirspeed.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.RawAirData.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.Sideslip.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticPressure.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.StaticTemperature.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.air_data.TrueAirspeed.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.AngularCommand.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.GEOPOICommand.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Mode.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.camera_gimbal.Status.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.gnss.RTCMStream.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Command.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.hardpoint.Status.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.FuelTankStatus.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.CylinderStatus.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.ice.reciprocating.Status.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.BatteryInfo.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.CircuitStatus.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.equipment.power.PrimaryPowerSupplyStatus.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.navigation.GlobalNavigationSolution.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.AccessCommandShell_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.CANIfaceStats.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.DataTypeKind.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetDataTypeInfo_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetNodeInfo_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GetTransportStats_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.GlobalTimeSync.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.HardwareVersion.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.NodeStatus.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.Panic.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.RestartNode_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.SoftwareVersion.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.KeyValue.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogLevel.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.debug.LogMessage.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.Allocation.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.AppendEntries_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Discovery.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.Entry.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.dynamic_node_id.server.RequestVote_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Begin_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.enumeration.Indication.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.BeginFirmwareUpdate_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Delete_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.EntryType.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Error.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetDirectoryEntryInfo_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.GetInfo_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Path.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Read_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.file.Write_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Empty.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.ExecuteOpcode_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.GetSet_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.NumericValue.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.protocol.param.Value.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Broadcast.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_req.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Call_res.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Protocol.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.SerialConfig.c
+	Rover/../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/src/uavcan.tunnel.Targetted.c
 )
 
 set(Rover_libs_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -17636,9 +17639,9 @@ set(Rover_libs_INCLUDES
     /home/buzz2/ardupilot/modules/lwip/src/include
     /home/buzz2/ardupilot/libraries/AP_Networking/config
     /home/buzz2/ardupilot/libraries/AP_Networking/lwip_hal/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
@@ -17832,12 +17835,12 @@ set(rover_SOURCES #13
 )
 
 set(rover_INCLUDES
-    ../build/CubeOrange/libraries
-    ../build/CubeOrange/libraries/GCS_MAVLink
-    ../build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    ../build2/${BOARD}/libraries
+    ../build2/${BOARD}/libraries/GCS_MAVLink
+    ../build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     ../modules/DroneCAN/libcanard
     ../libraries/AP_DroneCAN/canard
-    /home/buzz2/ardupilot/build/CubeOrange
+    /home/buzz2/ardupilot/build2/${BOARD}
     /home/buzz2/ardupilot/libraries/
     /home/buzz2/ardupilot/modules/littlefs/
     /home/buzz2/ardupilot/libraries/AP_Common/missing
@@ -17888,9 +17891,9 @@ set(rover_INCLUDES
     /home/buzz2/ardupilot/modules/ChibiOS/os/hal/lib/streams
     /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/common
     /home/buzz2/ardupilot/modules/CrashDebug/CrashCatcher/include
-    /home/buzz2/ardupilot/build/CubeOrange/libraries
-    /home/buzz2/ardupilot/build/CubeOrange/libraries/GCS_MAVLink
-    /home/buzz2/ardupilot/build/CubeOrange/modules/DroneCAN/libcanard/dsdlc_generated/include
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries
+    /home/buzz2/ardupilot/build2/${BOARD}/libraries/GCS_MAVLink
+    /home/buzz2/ardupilot/build2/${BOARD}/modules/DroneCAN/libcanard/dsdlc_generated/include
     /home/buzz2/ardupilot/modules/DroneCAN/libcanard
     /home/buzz2/ardupilot/libraries/AP_DroneCAN/canard)
 
