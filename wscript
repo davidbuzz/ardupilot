@@ -687,6 +687,31 @@ def configure(cfg):
         vscode_helper.init_launch_json_if_not_exist(cfg)
         vscode_helper.update_openocd_cfg(cfg)
 
+    #now the waf 'configure' step is dont we're gonna write the entire 'cfg' and its 'env' to a json file for later consumption,  here, inline with no other libs or tools.
+    # the .. puts it outside the waf build folder.
+    def serialize_obj(obj):
+        if isinstance(obj, (list, tuple)):
+            return [serialize_obj(i) for i in obj]
+        elif isinstance(obj, dict):
+            return {k: serialize_obj(v) for k, v in obj.items()}
+        elif isinstance(obj, ConfigSet.ConfigSet):
+            # Use dict() conversion instead of as_dict() method
+            return serialize_obj(dict(obj))
+        elif isinstance(obj, bytes):
+            return obj.decode('utf-8', errors='ignore')
+        else:
+            return obj
+    # Safe conversion of cfg.env and cfg.options
+    env_data = dict(cfg.env) if hasattr(cfg.env, '__iter__') else cfg.env.__dict__
+    options_data = env_data.get('OPTIONS', {})
+    env_data['OPTIONS'] = None
+    # Write the serialized data to JSON files
+    with open(os.path.join(Context.out_dir, '../configure_env.json'), 'w') as f:
+        json.dump({'env': serialize_obj(env_data)}, f, indent=4)
+    # env.OPTIONS is huge, so we serialize it to its own file.
+    with open(os.path.join(Context.out_dir, '../configure_options.json'), 'w') as f:
+        json.dump({'options': serialize_obj(options_data)}, f, indent=4)
+
 def collect_dirs_to_recurse(bld, globs, **kw):
     dirs = []
     globs = Utils.to_list(globs)
