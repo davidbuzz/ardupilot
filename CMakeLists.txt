@@ -1,7 +1,39 @@
 cmake_minimum_required (VERSION 3.13.0)
 project (ArduPilot)
 
-set(BOARD CubeOrange)
+
+# Read the entire JSON file into a string variable
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/configure_env.json" CONFIG_JSON_STRING)
+# Extract values using the GET subcommand and a path
+string(JSON APJ_BOARD_ID GET "${CONFIG_JSON_STRING}" env APJ_BOARD_ID)
+string(JSON AR GET "${CONFIG_JSON_STRING}" env AR)
+string(JSON ARFLAGS GET "${CONFIG_JSON_STRING}" env ARFLAGS)
+# things that end in '0' are a list that is just choosing the first element from, as there's only one.
+string(JSON CMAKE_C_COMPILER GET "${CONFIG_JSON_STRING}" env CC 0)
+string(JSON CFLAGS GET "${CONFIG_JSON_STRING}" env CFLAGS)
+string(JSON CMAKE_CXX_COMPILER GET "${CONFIG_JSON_STRING}" env CXX 0)
+string(JSON CXXFLAGS GET "${CONFIG_JSON_STRING}" env CXXFLAGS)
+string(JSON CPU_FLAGS GET "${CONFIG_JSON_STRING}" env CPU_FLAGS)
+string(JSON DEBUG GET "${CONFIG_JSON_STRING}" env DEBUG)
+string(JSON DEFINES GET "${CONFIG_JSON_STRING}" env DEFINES)
+string(JSON DOUBLE_PRECISION_LIBRARIES GET "${CONFIG_JSON_STRING}" env DOUBLE_PRECISION_LIBRARIES)
+string(JSON DOUBLE_PRECISION_SOURCES GET "${CONFIG_JSON_STRING}" env DOUBLE_PRECISION_SOURCES)
+string(JSON BOARD GET "${CONFIG_JSON_STRING}" env BOARD)
+string(JSON BOARD_CLASS GET "${CONFIG_JSON_STRING}" env BOARD_CLASS)
+string(JSON BUILDROOT GET "${CONFIG_JSON_STRING}" env BUILDROOT)
+string(JSON HWDEF GET "${CONFIG_JSON_STRING}" env HWDEF)
+string(JSON HWDEF_EXTRA GET "${CONFIG_JSON_STRING}" env HWDEF_EXTRA)
+string(JSON INCLUDES GET "${CONFIG_JSON_STRING}" env INCLUDES)
+string(JSON LINKFLAGS GET "${CONFIG_JSON_STRING}" env LINKFLAGS)
+string(JSON LINK_CC GET "${CONFIG_JSON_STRING}" env LINK_CC)
+string(JSON LINK_CXX GET "${CONFIG_JSON_STRING}" env LINK_CXX)
+string(JSON NM GET "${CONFIG_JSON_STRING}" env NM)
+string(JSON OBJCOPY GET "${CONFIG_JSON_STRING}" env OBJCOPY)
+string(JSON TOOLCHAIN GET "${CONFIG_JSON_STRING}" env TOOLCHAIN)
+string(JSON ENV_cfg_files GET "${CONFIG_JSON_STRING}" env cfg_files)
+string(JSON ROMFS_FILES GET "${CONFIG_JSON_STRING}" env ROMFS_FILES)
+			
+#set(BOARD CubeOrange)
 include_directories(.)
 include_directories(..)
 include_directories(../..)
@@ -25,14 +57,10 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 
 add_definitions(-DAP_CUSTOMCONTROL_ENABLED=0 -DAP_DDS_ENABLED=0 -DAP_SCRIPTING_CHECKS=1 -DCANARD_ENABLE_CANFD=1 -DCANARD_IFACE_ALL=3 -DCONFIG_HAL_BOARD=HAL_BOARD_CHIBIOS -DENABLE_ONVIF=0 -DHAVE_STD_NULLPTR_T=0 -DLUA_32BITS=1 -DDRONECAN_CXX_WRAPPERS=1 -DUSE_USER_HELPERS=1 -DCANARD_ENABLE_DEADLINE=1 -DCANARD_MULTI_IFACE=1 -DCANARD_ALLOCATE_SEM=1) #1
 
-set(CMAKE_C_COMPILER "/opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc")
-
-set(CMAKE_CXX_COMPILER "/opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-g++")
-
-set($ENV{CC} "/opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc")
-
-set($ENV{CXX} "/opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-g++")
-
+#set(CMAKE_C_COMPILER "/opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc")
+#set(CMAKE_CXX_COMPILER "/opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-g++")
+#set($ENV{CC} "/opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc")
+#set($ENV{CXX} "/opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-g++")
 message(STATUS "C Compiler: ${CMAKE_C_COMPILER}")
 message(STATUS "C Compiler Version: ${CMAKE_C_COMPILER_VERSION}")
 message(STATUS "CXX Compiler: ${CMAKE_CXX_COMPILER}")

@@ -491,24 +491,42 @@ class CMakeExporter(object):
 			content += 'project (ArduPilot)\n'
 			content += '\n'
 
-			#content += '#function(combine_archives output_archive list_of_input_archives)\n\
-    #set(mri_file ${TEMP_DIR}/${output_archive}.mri)\n\
-    #set(FULL_OUTPUT_PATH ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/lib${output_archive}.a)\n\
-    #file(WRITE ${mri_file} "create ${FULL_OUTPUT_PATH}\n")\n\
-    #FOREACH(in_archive ${list_of_input_archives})\n\
-    #    file(APPEND ${mri_file} "addlib ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/lib${in_archive}.a\n")\n\
-    #ENDFOREACH()\n\
-    #file(APPEND ${mri_file} "save\n")\n\
-    #file(APPEND ${mri_file} "end\n")\n\
-    #set(output_archive_dummy_file ${TEMP_DIR}/${output_archive}.dummy.cpp)\n\
-    #add_custom_command(OUTPUT ${output_archive_dummy_file}\n\
-    #                   COMMAND touch ${output_archive_dummy_file}\n\
-    #                   DEPENDS ${list_of_input_archives})\n\
-    #add_library(${output_archive} STATIC ${output_archive_dummy_file})\n\
-    #add_custom_command(TARGET ${output_archive}\n\
-    #                   POST_BUILD\n\
-    #                   COMMAND ar -M < ${mri_file})\n\
-#endfunction(combine_archives)\n'
+
+			tmpblob='''
+# Read the entire JSON file into a string variable
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/configure_env.json" CONFIG_JSON_STRING)
+# Extract values using the GET subcommand and a path
+string(JSON APJ_BOARD_ID GET "${CONFIG_JSON_STRING}" env APJ_BOARD_ID)
+string(JSON AR GET "${CONFIG_JSON_STRING}" env AR)
+string(JSON ARFLAGS GET "${CONFIG_JSON_STRING}" env ARFLAGS)
+# things that end in '0' are a list that is just choosing the first element from, as there's only one.
+string(JSON CMAKE_C_COMPILER GET "${CONFIG_JSON_STRING}" env CC 0)
+string(JSON CFLAGS GET "${CONFIG_JSON_STRING}" env CFLAGS)
+string(JSON CMAKE_CXX_COMPILER GET "${CONFIG_JSON_STRING}" env CXX 0)
+string(JSON CXXFLAGS GET "${CONFIG_JSON_STRING}" env CXXFLAGS)
+string(JSON CPU_FLAGS GET "${CONFIG_JSON_STRING}" env CPU_FLAGS)
+string(JSON DEBUG GET "${CONFIG_JSON_STRING}" env DEBUG)
+string(JSON DEFINES GET "${CONFIG_JSON_STRING}" env DEFINES)
+string(JSON DOUBLE_PRECISION_LIBRARIES GET "${CONFIG_JSON_STRING}" env DOUBLE_PRECISION_LIBRARIES)
+string(JSON DOUBLE_PRECISION_SOURCES GET "${CONFIG_JSON_STRING}" env DOUBLE_PRECISION_SOURCES)
+string(JSON BOARD GET "${CONFIG_JSON_STRING}" env BOARD)
+string(JSON BOARD_CLASS GET "${CONFIG_JSON_STRING}" env BOARD_CLASS)
+string(JSON BUILDROOT GET "${CONFIG_JSON_STRING}" env BUILDROOT)
+string(JSON HWDEF GET "${CONFIG_JSON_STRING}" env HWDEF)
+string(JSON HWDEF_EXTRA GET "${CONFIG_JSON_STRING}" env HWDEF_EXTRA)
+string(JSON INCLUDES GET "${CONFIG_JSON_STRING}" env INCLUDES)
+string(JSON LINKFLAGS GET "${CONFIG_JSON_STRING}" env LINKFLAGS)
+string(JSON LINK_CC GET "${CONFIG_JSON_STRING}" env LINK_CC)
+string(JSON LINK_CXX GET "${CONFIG_JSON_STRING}" env LINK_CXX)
+string(JSON NM GET "${CONFIG_JSON_STRING}" env NM)
+string(JSON OBJCOPY GET "${CONFIG_JSON_STRING}" env OBJCOPY)
+string(JSON TOOLCHAIN GET "${CONFIG_JSON_STRING}" env TOOLCHAIN)
+string(JSON ENV_cfg_files GET "${CONFIG_JSON_STRING}" env cfg_files)
+string(JSON ROMFS_FILES GET "${CONFIG_JSON_STRING}" env ROMFS_FILES)
+			'''
+			content += tmpblob
+			content += '\n'
+
 
 			#-include ap_config.h 
 			AP_CONFIG_FLAGS = ' -D_AP_CONFIG_H_=1 -DWAF_BUILD=1 -D__STDC_FORMAT_MACROS=1 -DAP_SIM_ENABLED=1 -DHAL_WITH_SPI=1 -DHAL_WITH_RAMTRON=1 -DAP_OPENDRONEID_ENABLED=1 -DAP_SIGNED_FIRMWARE=0 -DAP_NOTIFY_LP5562_BUS=2 -DAP_NOTIFY_LP5562_ADDR=48 -DHAL_NUM_CAN_IFACES=2 -DHAL_CAN_WITH_SOCKETCAN=1 -DHAVE_FEENABLEEXCEPT=1 -DHAVE_CMATH_ISFINITE=1 -DHAVE_CMATH_ISINF=1 -DHAVE_CMATH_ISNAN=1 -DNEED_CMATH_ISFINITE_STD_NAMESPACE=1 -DNEED_CMATH_ISINF_STD_NAMESPACE=1 -DNEED_CMATH_ISNAN_STD_NAMESPACE=1 -DHAVE_ENDIAN_H=1 -DHAVE_BYTESWAP_H=1 -DHAVE_MEMRCHR=1 -D_GNU_SOURCE=1 '
@@ -516,7 +534,7 @@ class CMakeExporter(object):
 
 			# by doing this early, we can use BOARD variable in generated output later.
 			BOARD = self.bld.env.BOARD
-			content += 'set(BOARD %s)\n' % self.bld.env.BOARD
+			content += '#set(BOARD %s)\n' % self.bld.env.BOARD
 
 			# add_definitions(-I.)
 			# add_definitions(-I..)
@@ -636,10 +654,10 @@ class CMakeExporter(object):
 					new_flags.append(f)
 				return new_flags
 			
-			content += 'set(CMAKE_C_COMPILER "%s")\n\n' % (' '.join(CC))
-			content += 'set(CMAKE_CXX_COMPILER "%s")\n\n' % (' '.join(CXX))
-			content += 'set($ENV{CC} "%s")\n\n' % (' '.join(CC))
-			content += 'set($ENV{CXX} "%s")\n\n' % (' '.join(CXX))
+			content += '#set(CMAKE_C_COMPILER "%s")\n' % (' '.join(CC))
+			content += '#set(CMAKE_CXX_COMPILER "%s")\n' % (' '.join(CXX))
+			content += '#set($ENV{CC} "%s")\n' % (' '.join(CC))
+			content += '#set($ENV{CXX} "%s")\n' % (' '.join(CXX))
 
 			content += 'message(STATUS "C Compiler: ${CMAKE_C_COMPILER}")\n'
 			content += 'message(STATUS "C Compiler Version: ${CMAKE_C_COMPILER_VERSION}")\n'
