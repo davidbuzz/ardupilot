@@ -281,11 +281,11 @@ f'''// auto-generated
 
     def execute(self):
         '''Will be invoked when issuing the *cmake_exporter* command.'''
-		self.restore()
-		if not self.all_envs:
-			self.load_envs()
-		self.recurse([self.run_dir])
-		self.pre_build()
+        self.restore()
+        if not self.all_envs:
+            self.load_envs()
+        self.recurse([self.run_dir])
+        self.pre_build()
 
         for group in self.groups:
             for tgen in group:
@@ -314,33 +314,20 @@ def export(bld):
     '''Exports all C and C++ task generators to cmake.
 
     :param bld: a *waf* build instance from the top level *wscript*.
-	:type bld: waflib.Build.BuildContext
-	'''
-	#if bld.options and not hasattr(bld.options, 'cmake_exporter'):
-	#	print('cmake_exporter option not selected, skipping cmake export')
-	#	return
-
-	boardname = bld.BOARDNAME # aka self.BOARDNAME #sitl, CubeOrange, etc
+    :type bld: waflib.Build.BuildContext
+    '''
+    boardname = bld.BOARDNAME # aka self.BOARDNAME #sitl, CubeOrange, etc
 
     cmakes = {}
     loc = bld.path.relpath().replace('\\', '/')  # eg loc = '.'
     #print('ZZCreating new CMakeExporter for location: %s ' % (loc))
     top = CMakeExporter(bld, loc)
     #cmakes[loc] = top
-	targets = waftools.deps.get_targets(bld)
-	unique_targets = set()
-	# for t in targets:
-	# 	unique_targets.add(t)
-	# print('unique_targets:', unique_targets)
-
-	#print bld
-    #print( "loc:",loc)
+    targets = waftools.deps.get_targets(bld)
     _cmakes = [] # tmp storage to avoid dupes, not  same as self.cmakes
-
     for tgen in bld.task_gen_cache_names.values():
         if targets and tgen.get_name() not in targets:
-            #print('skipping tgen:', tgen.get_name())
-            # examples, tests, replay, etcetc
+            #print('skipping tgen:', tgen.get_name()) # examples, tests, replay, etcetc
             continue
         if getattr(tgen, 'cmake_skipme', False):
             continue
@@ -349,16 +336,9 @@ def export(bld):
             top.add_tgen(tgen)
             if loc not in _cmakes:
                 print('Exporting location: %s ' % (loc))
-                #cmake = CMakeExporter(bld, loc)
-                #cmake = CMakeExporter(bld, ".")
-                #cmakes[loc] = cmake # we dont add child cmkes to 'cmakes' list, only top level, result, we only export top level.
-                #top.add_child(cmake) # but the top knows about its children this way.
                 _cmakes.append(loc) # to avoid dupes
-			#_cmakes[loc].add_tgen(tgen)
 
-	#for cmake in cmakes.values():
-	#	cmake.export() # just exports the top one.
-	top.export() # just export the top one.
+    top.export() # just export the top one.
 
 
 def cleanup(bld):
@@ -390,9 +370,6 @@ class CMakeExporter(object):
         self.location = location # relative path from top level dir and 'ArduPlane' or 'Rover' etc
         self.cmakes = []
         self.tgens = []
-        #print('CMakeExporter initialized for location: %s' % (self.location))
-        #self.app_root_path = bld.srcnode.abspath() # resolves to top level dir of ardupilot, ie below 'build' or 'build2' dir.
-        #self.app_cmake_build_path = bld.bldxxnode.abspath() # resolves to cmake build dir, ie 'build2' dir.
 
         waf_bld_dir = bld.bldnode.abspath() # eg /home/buzz2/ardupilot/build/sitl/ from waf
         # breakup waf path into 3 rihgt-most parts and discard hte rest.
@@ -403,10 +380,7 @@ class CMakeExporter(object):
         self.BOARDNAME = BOARDNAME # not sure its needed.
         self.cmake_build_dir = 'build2/' + BOARDNAME # rel to bld_root_dir, eg build2/CubeOrange or build2/sitl
         self.cmake_full_build_dir = self.bld_root_dir + '/build2/' + BOARDNAME # eg /home/buzz2/ardupilot/build2/CubeOrange
-        #pwd = os.getcwd()
-        #print("pwd: %s " % pwd_output)
-        #actual_root_path = Path(bld_root_dir).resolve()
-        #print("root: %s " % actual_root_path)
+
         pwd = os.getcwd()
         if pwd != self.bld_root_dir:
             os.chdir(self.bld_root_dir)
@@ -423,8 +397,6 @@ class CMakeExporter(object):
             return ''
         node.write(content)
         loc = self.location
-        # too many dupes as its  done a few hundred times
-        #Logs.pprint('YELLOW', 'exported: %s for loc: %s' % (node.abspath(), loc))
         return content
 
     def cleanup(self):
@@ -434,18 +406,13 @@ class CMakeExporter(object):
             Logs.pprint('YELLOW', 'removed: %s' % node.abspath())
 
     def add_child(self, cmake):
-        #print("len:", len(self.cmakes)) # obj targets and bin targets etc ~430
         self.cmakes.append(cmake)
 
     def add_tgen(self, tgen):
-        #print('CMakeExporter adding tgen: %s for location: %s' % (tgen.get_name(), self.location))
-		self.tgens.append(tgen)
+        self.tgens.append(tgen)
 
-	#def get_location(self):
-	#	return self.location
-	#
-	def find_node(self):
-		name = '%s/CMakeLists.txt' % (self.location)
+    def find_node(self):
+        name = '%s/CMakeLists.txt' % (self.location)
         if not name:
             return None    
         return self.bld.srcnode.find_node(name)
@@ -522,8 +489,6 @@ string(JSON ROMFS_FILES GET "${CONFIG_JSON_STRING}" env ROMFS_FILES)
             content += tmpblob
             content += '\n'
 
-
-            #-include ap_config.h 
             AP_CONFIG_FLAGS = ' -D_AP_CONFIG_H_=1 -DWAF_BUILD=1 -D__STDC_FORMAT_MACROS=1 -DAP_SIM_ENABLED=1 -DHAL_WITH_SPI=1 -DHAL_WITH_RAMTRON=1 -DAP_OPENDRONEID_ENABLED=1 -DAP_SIGNED_FIRMWARE=0 -DAP_NOTIFY_LP5562_BUS=2 -DAP_NOTIFY_LP5562_ADDR=48 -DHAL_NUM_CAN_IFACES=2 -DHAL_CAN_WITH_SOCKETCAN=1 -DHAVE_FEENABLEEXCEPT=1 -DHAVE_CMATH_ISFINITE=1 -DHAVE_CMATH_ISINF=1 -DHAVE_CMATH_ISNAN=1 -DNEED_CMATH_ISFINITE_STD_NAMESPACE=1 -DNEED_CMATH_ISINF_STD_NAMESPACE=1 -DNEED_CMATH_ISNAN_STD_NAMESPACE=1 -D_GNU_SOURCE=1 '
             # we're fully excluding these three from chibios builds.
             SITL_ONLY_FLAGS = ' -DHAVE_ENDIAN_H=1 -DHAVE_BYTESWAP_H=1 -DHAVE_MEMRCHR=1 '
@@ -535,10 +500,6 @@ string(JSON ROMFS_FILES GET "${CONFIG_JSON_STRING}" env ROMFS_FILES)
             if 'sitl' in BOARD.lower():
                 AP_CONFIG_FLAGS += SITL_ONLY_FLAGS
 
-            # add_definitions(-I.)
-            # add_definitions(-I..)
-            # add_definitions(-I../..)
-            # add_definitions(-I../../..)
             content += 'include_directories(.)\n'
             content += 'include_directories(..)\n'
             content += 'include_directories(../..)\n'
@@ -583,9 +544,6 @@ string(JSON ROMFS_FILES GET "${CONFIG_JSON_STRING}" env ROMFS_FILES)
             if len(foo):
                 foo = foo[0].split('=')[1]
                 self.CONFIG_HAL_BOARD = foo # eg 'HAL_BOARD_SITL' or 'HAL_BOARD_CHIBIOS'
-
-            #defines.append('APM_BUILD_DIRECTORY=2' ) # 2 means copter. this should NOT be here, we use it on a few specific libraries and final binaries only.
-
             
             if len(defines):
                 content += 'add_definitions(-D%s) #1\n' % (' -D'.join(defines))
@@ -657,27 +615,22 @@ string(JSON ROMFS_FILES GET "${CONFIG_JSON_STRING}" env ROMFS_FILES)
             content += '#set(CMAKE_CXX_COMPILER "%s")\n' % (' '.join(CXX))
             content += '#set($ENV{CC} "%s")\n' % (' '.join(CC))
             content += '#set($ENV{CXX} "%s")\n' % (' '.join(CXX))
-
             content += 'message(STATUS "C Compiler: ${CMAKE_C_COMPILER}")\n'
             content += 'message(STATUS "C Compiler Version: ${CMAKE_C_COMPILER_VERSION}")\n'
             content += 'message(STATUS "CXX Compiler: ${CMAKE_CXX_COMPILER}")\n'
             content += 'message(STATUS "CXX Compiler Version: ${CMAKE_CXX_COMPILER_VERSION}")\n'
-
             content += 'message(STATUS "BOARD: %s")\n' % BOARD
 
             flags1 = clean_flags(env.CFLAGS)
             if len(flags1):
                 content += 'set(CMAKE_C_FLAGS "%s")\n\n' % (' '.join(flags1))
-
             flags2 = clean_flags(env.CXXFLAGS)
             flags2 += AP_CONFIG_FLAGS.split(' ')
             if len(flags2):
                 content += 'set(CMAKE_CXX_FLAGS "%s")\n' % (' '.join(flags2))
-            
                 content += '\n# Build the gen-bindings tool\n'
                 content += 'add_executable(gen-bindings libraries/AP_Scripting/generator/src/main.c)\n'
                 content += 'target_compile_options(gen-bindings PRIVATE -std=c99 -Wno-error=missing-field-initializers -Wall -Wextra -Wno-error=maybe-uninitialized)\n'
-
                 content += '# Generate lua_generated_bindings files\n'
                 content += 'add_custom_command(\n'
                 content += '    OUTPUT ${CMAKE_BINARY_DIR}/libraries/AP_Scripting/lua_generated_bindings.cpp ${CMAKE_BINARY_DIR}/libraries/AP_Scripting/lua_generated_bindings.h\n'
@@ -687,7 +640,6 @@ string(JSON ROMFS_FILES GET "${CONFIG_JSON_STRING}" env ROMFS_FILES)
                 content += '    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}\n'
                 content += '    COMMENT "Generating Lua bindings"\n'
                 content += ')\n\n'
-
         else:
             pass # not top level
 
@@ -710,17 +662,7 @@ string(JSON ROMFS_FILES GET "${CONFIG_JSON_STRING}" env ROMFS_FILES)
         # now build the mavlink library content
         if len(mavlink_generated_sources):
             content += '\n#------------------------------------------------\n\n'
-            #content += 'set(mavlink_SOURCES #12\n'
-            # add hardcoded sources first
-			#content += '    modules/mavlink/bd/lfs_filebd.c\n'
-			# now add generated sources
-			# for src in mavlink_generated_sources: - SOURCES not needed for INTERFACE library
-			# 	content += '    %s\n' % (src)
-			# content += ')\n\n'
-			content += 'set(mavlink_INCLUDES\n'
-			# add hardcoded includes first
-            #content += '    %s\n' % (self.bld.bldnode.make_node('../../build2/sitl').abspath())
-            #content += '    %s\n' % (self.bld.srcnode.make_node('libraries/AP_Networking/lwip_hal/include').abspath())
+            content += 'set(mavlink_INCLUDES\n'
             # now add generated includes
             for inc in mavlink_generated_includes:
                 # remove ../../ at front, if present
@@ -750,9 +692,6 @@ string(JSON ROMFS_FILES GET "${CONFIG_JSON_STRING}" env ROMFS_FILES)
         # - `canard.c` - the only translation unit; add it to your build or compile it into a separate static library;
         # - `canard.h` - the API header; include it in your application;
         # - `canard_internals.h` - internal definitions of the library;
-        # keep this file in the same directory with `canard.c`.
-        # Add `canard.c` to your application build, add `libcanard` directory to the include paths,
-        # and you're ready to roll.
         canard_sources = ['modules/DroneCAN/libcanard/canard.c',
                           'modules/DroneCAN/libcanard/canard.h',
                           'modules/DroneCAN/libcanard/canard_internals.h']
@@ -790,24 +729,8 @@ string(JSON ROMFS_FILES GET "${CONFIG_JSON_STRING}" env ROMFS_FILES)
 
             register_lib('canard') # make sure its registered for linking later.
 
-        #
-
-# set(dronecan_dsdlc_generated_INCLUDES
-#     build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include
-#     modules/DroneCAN/libcanard
-# )
-
-# add_library(dronecan_dsdlc_generated STATIC ${dronecan_dsdlc_generated_SOURCES}) #7
-# target_include_directories(dronecan_dsdlc_generated PUBLIC ${dronecan_dsdlc_generated_INCLUDES})
-# set_target_properties(dronecan_dsdlc_generated PROPERTIES
-#     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
-#     CMAKE_LINK_LIBRARY_WHOLE_ARCHIVE_ATTRIBUTES "TRUE"
-#     LINKER_LANGUAGE C
-#)
 
         # emit dronecan_dsdlc_generated content here as per above comment, but generated like mavlink and canard.
-        #dsdlc_generated_folder = self.bld.bldnode.make_node('../../build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/src')
-        #dsdlc_generated_include_folder = self.bld.bldnode.make_node('../../build2/sitl/modules/DroneCAN/libcanard/dsdlc_generated/include')
         dsdlc_generated_folder = self.cmake_build_dir+'/modules/DroneCAN/libcanard/dsdlc_generated/src'
         dsdlc_generated_include_folder = self.cmake_build_dir+'/modules/DroneCAN/libcanard/dsdlc_generated/include'
         _dsdlc_generated_folder = self.bld.bldnode.make_node('../../'+dsdlc_generated_folder)
@@ -862,7 +785,6 @@ string(JSON ROMFS_FILES GET "${CONFIG_JSON_STRING}" env ROMFS_FILES)
             #register_lib(cleanedname)
             register_lib('dronecan_dsdlc_generated') # make sure its registered for linking later.
 
-
         #-------------------
         # now process all task generators
         if len(self.tgens):
@@ -880,36 +802,13 @@ string(JSON ROMFS_FILES GET "${CONFIG_JSON_STRING}" env ROMFS_FILES)
                 if ap_vehicle is not None:
                     print('AP Vehicle: %s %s' % (ap_vehicle, t))
 
-				# special case for AP_Scripting tgen, we want to *add* an extra src file to it..
-				# this worked, but we do this better elsewhere.
-				# if t == 'objs/AP_Stats':
-				# 	# add build2/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp to the source list
-				# 	lua_bindings_node = self.bld.bldnode.find_node('../../build2/sitl/libraries/AP_Scripting/lua_generated_bindings.cpp')
-				# 	if lua_bindings_node:
-				# 		print('CLONE: Adding lua_generated_bindings.cpp to AP_Scripting target')
-				# 		tgen.source.append(lua_bindings_node)
-				# 	else:
-				# 		print('Warning: Could not find lua_generated_bindings.cpp to add to AP_Scripting target')
-
-
-				#print('Debug: Generating cmake content for tgen: %s ' % t)
+                #print('Debug: Generating cmake content for tgen: %s ' % t)
                 content += self.get_tgen_content(tgen)
-				
-				# we're gonna hack a fake 'dronecan_dsdlc_generated' lib into the link libs for any tgen that uses dronecan
-				# if t == 'objs/AP_DroneCAN':
-				# 	print("CLONE: Adding dronecan_dsdlc_generated to dronecan target")
-				# 	clone_tgen_obj = type('TGenClone', (), {'features':[]})()
-				# 	clone_tgen_obj.get_name = lambda: 'dronecan_dsdlc_generated'
-				# 	clone_tgen_obj.source = [ TODO here cpuld have worked but done better elsewhere]
-				# 	clone_tgen_obj.path = []
-				# 	clone_tgen_obj.env = type('EnvClone', (), {'INCLUDES':[],'features':[]})()
-				# 	content += self.get_tgen_content(clone_tgen_obj)
-					
+                
 
-		if len(self.cmakes):
+        if len(self.cmakes):
             content += '\n'
             for cmake in self.cmakes:
-                #content += 'add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/%s)\n' % (cmake.get_location())
                 t = cmake.export()
                 content += t
 
@@ -927,9 +826,7 @@ string(JSON ROMFS_FILES GET "${CONFIG_JSON_STRING}" env ROMFS_FILES)
             parts = parts[:-1] # remove last part
             name = '/'.join(parts)
 
-        #CMP0037_name = name.replace('-', '_')
         cleanedname = name.replace('/', '_')
-
         # top level:
         # eg objs/AP_Scripting
         # next level:
