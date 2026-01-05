@@ -11,6 +11,7 @@ import argparse
 # author: buzz. davidbuzz@gmail.com
 # this is designed to be used without waf and perhaps useful for the ardupilot cmake build.
 
+#----------------------------------------------------------------
 board_list = [
     'sitl' 
 ]
@@ -78,7 +79,7 @@ get_all_board_names = get_boards_names()
     #   _board_hwdef_all[b] tells us the path to its hwdef.dat file
 # exit(0)
 
-
+#----------------------------------------------------------------
 # modify our search path:
 sys.path.append(
     os.path.join(os.path.dirname(os.path.realpath(__file__)),
@@ -135,6 +136,45 @@ def write_config_header(configfile='', guard='', env={}, top=False, defines=True
     with open(configfile, 'w') as f:
         f.writelines('\n'.join(lst))
     return True
+
+#----------------------------------------------------------------
+# modify our search path:
+sys.path.append(
+    os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                 '../../Tools/ardupilotwaf'),
+    )
+# uses:'Tools/ardupilotwaf/embed.py'
+embed = __import__('embed')
+
+# kinda like the waf variant in embed.py , but standalone for cmake use
+def embed_ROMFS_files(env):
+    '''embed some files using AP_ROMFS'''
+    #import embed
+    BUILDROOT = env.BUILDROOT
+    header=BUILDROOT+'/ap_romfs_embedded.h'
+    # if key 'ROMFS_UNCOMPRESSED' is missing, assume false
+    if not hasattr(env, 'ROMFS_UNCOMPRESSED'):
+        env.ROMFS_UNCOMPRESSED = False
+    #TypeError: unhashable type: 'list' files = sorted(list(set(files)))
+    files = env.ROMFS_FILES
+    # make hashable:
+    files = sorted(list(set([tuple(f) for f in files])))
+
+    if not embed.create_embedded_h(header, files, env.ROMFS_UNCOMPRESSED):
+        print("Failed to created ap_romfs_embedded.h")
+        exit(1)
+
+    env.CXXFLAGS += ['-DHAL_HAVE_AP_ROMFS_EMBEDDED_H']
+
+    # Allow lua to load from ROMFS if any lua files are added
+    for file in env.ROMFS_FILES:
+        if file[0].startswith("scripts") and file[0].endswith(".lua"):
+            env.CXXFLAGS += ['-DHAL_HAVE_AP_ROMFS_EMBEDDED_LUA']
+            break
+
+    print("Info: created %s with %d embedded files" % (header, len(files)))
+
+#----------------------------------------------------------------
 
 if __name__ == '__main__':
 
@@ -233,8 +273,27 @@ if __name__ == '__main__':
         exit(1)
 
 
-    # now ewe do ap_config.h generation too, since its related to hwdef.h
-
+# now ewe do ap_config.h generation too, since its related to hwdef.h
 # not done here any more, see cmake_exporter.py
 #write_dir = os.path.join(env.BUILDROOT)
 #write_config_header(os.path.join(write_dir, 'ap_config.h'), guard='_AP_CONFIG_H_', env=env)
+
+# read the env from the json.configure_env.json file created by cmake/waf
+with open(os.path.join(hwdef_out, '../../configure_env.json'), 'r') as f:
+    import json
+    obj = json.load(f)
+    env_data = obj['env']
+    interesting_attrs = [
+        'ROMFS_FILES',
+        'ROMFS_UNCOMPRESSED',
+        'CXXFLAGS',
+    ]
+    for k in interesting_attrs:
+        if k in env_data:
+            setattr(env, k, env_data[k])
+            print("Info: env.%s = %s" % (k, str(env_data[k])))
+    # by limiting the attr we get from jsionm we avoid overwriting CMAKE with WAF values.
+
+
+# this write a ap_romfs_embedded.h file for cmake use to the build2 dir
+embed_ROMFS_files(env)

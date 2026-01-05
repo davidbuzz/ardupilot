@@ -1012,7 +1012,7 @@ string(JSON ROMFS_FILES GET "${CONFIG_JSON_STRING}" env ROMFS_FILES)
                          'AP_GyroFFT','AP_ADSB','AP_Follow','AP_Rally','AP_RCProtocol','AP_Landing','AP_LandingGear',
                          'AP_Motors','AP_OSD','AP_RCTelemetry','AP_Mission','AC_AutoTune','Filter','AC_AutoTune',
                          'AP_BattMonitor','AP_Terrain','AP_Proximity','AP_NavEKF2','AP_Scheduler','AP_HAL','AP_Arming',
-                         'AP_Proximity','StorageManager',
+                         'AP_Proximity','StorageManager','AP_HAL_ChibiOS', 'AP_BLHeli',
                          ]
             if True:
                 content = '' # reset content to just the library part.
