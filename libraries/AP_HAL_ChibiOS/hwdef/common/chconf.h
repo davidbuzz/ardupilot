@@ -54,6 +54,13 @@
 #undef CH_DBG_ENABLE_STACK_CHECK
 #define CH_DBG_ENABLE_STACK_CHECK TRUE
 
+#define CH_CFG_USE_MEMCHECKS TRUE
+#define CH_CFG_HARDENING_LEVEL 0
+#define CH_CFG_SAFETY_CHECK_HOOK false
+#define _CHIBIOS_RT_CONF_VER_8_0_
+
+
+
 // Generate assertions on a GPIO pin
 #ifdef HAL_GPIO_PIN_FAULT
 #ifndef _FROM_ASM_
