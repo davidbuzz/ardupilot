@@ -1,0 +1,136 @@
+Setting top to                           : /home/buzz2/ardupilot 
+Setting out to                           : /home/buzz2/ardupilot/build 
+Autoconfiguration                        : enabled 
+Checking for program 'python'            : /usr/bin/python3 
+Checking for python version >= 3.8.0     : 3.12.3 
+Setting board to                         : Pico2 
+Using toolchain                          : arm-none-eabi 
+Checking for 'g++' (C++ compiler)        : /opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-g++ 
+Checking for 'gcc' (C compiler)          : /opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc 
+Checking for c flags '-MMD'              : yes 
+Checking for cxx flags '-MMD'            : yes 
+Checking for program 'arm-none-eabi-nm'  : /opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-nm 
+CXX Compiler                             : g++ 10.2.1 
+Checking for program 'make'              : /usr/bin/make 
+Checking for program 'arm-none-eabi-objcopy' : /opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-objcopy 
+Processing /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/Pico2/hwdef.dat
+Not a pin line: MCU
+Not a pin line: APJ_BOARD_ID
+Not a pin line: OSCILLATOR_HZ
+Not a pin line: STM32_ST_USE_TIMER
+Not a pin line: FLASH_SIZE_KB
+Not a pin line: USB_STRING_MANUFACTURER
+Not a pin line: I2C_ORDER
+Not a pin line: SERIAL_ORDER
+Not a pin line: definitions.
+Not a pin line: the
+pin: 42 ; port A ; p PA42 SPI1_SCK SPI1 AF1
+pin: 40 ; port A ; p PA40 SPI1_MISO SPI1 AF1
+pin: 43 ; port A ; p PA43 SPI1_MOSI SPI1 AF1
+pin: 8 ; port A ; p PA8 nVDD_5V_PERIPH_EN OUTPUT
+pin: 9 ; port A ; p PA9 VBUS INPUT
+pin: 0 ; port B ; p PB0 OTG_FS_DM OTG1 AF1
+pin: 1 ; port B ; p PB1 OTG_FS_DP OTG1 AF2
+pin: 0 ; port C ; p PC0 SWCLK SWD
+pin: 1 ; port C ; p PC1 SWDIO SWD
+pin: 15 ; port A ; p PA15 I2C1_SCL I2C1 AF3
+pin: 18 ; port A ; p PA18 I2C1_SDA I2C1 AF3
+pin: 22 ; port A ; p PA22 SPI0_SCK SPI0 AF1
+pin: 32 ; port A ; p PA32 SPI0_RX SPI0 AF1
+pin: 35 ; port A ; p PA35 SPI0_TX SPI0 AF1
+pin: 23 ; port A ; p PA23 MAG_CS CS
+pin: 24 ; port A ; p PA24 MPU_CS CS
+pin: 26 ; port A ; p PA26 GYRO_EXT_CS CS
+pin: 25 ; port A ; p PA25 BARO_EXT_CS CS
+pin: 11 ; port A ; p PA11 UART1_RX UART1 AF11
+pin: 10 ; port A ; p PA10 UART1_TX UART1 AF11
+Not a pin line: SPIDEV
+Not a pin line: SPIDEV
+Not a pin line: SPIDEV
+Not a pin line: SPIDEV
+Not a pin line: SPIDEV
+Not a pin line: SPIDEV
+Not a pin line: SPIDEV
+Not a pin line: SPIDEV
+Not a pin line: define
+Not a pin line: define
+Not a pin line: define
+Not a pin line: define
+Not a pin line: define
+Not a pin line: define
+Not a pin line: define
+Not a pin line: define
+Not a pin line: define
+Not a pin line: define
+Not a pin line: define
+Not a pin line: define
+Not a pin line: undef
+Removing AP_BATTERY_SMBUS_SOLO_ENABLED
+Removing AP_BATTERY_SMBUS_SOLO_ENABLED
+Not a pin line: define
+Not a pin line: define
+Setup for MCU PICO2
+Default parameters path from hwdef: /home/buzz2/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/Pico2/defaults.parm
+Writing hwdef setup in /home/buzz2/ardupilot/build/Pico2/hwdef.h
+Writing DMA map
+No PWM output defined
+Setting up as normal
+Generating ldscript.ld
+env set ENABLE_DFU_BOOT=0
+env set PROCESS_STACK=0x1C00
+env set MAIN_STACK=0x600
+env set IOMCU_FW=0
+env set IOMCU_FW_WITH_HEATER=0
+env set PERIPH_FW=0
+env set BOARD_FLASH_SIZE=2048
+env set EXT_FLASH_SIZE_MB=0
+env set INT_FLASH_PRIMARY=False
+env set ENABLE_CRASHDUMP=True
+env set CPU_FLAGS=['-mcpu=cortex-m4', '-mfpu=fpv4-sp-d16', '-mfloat-abi=hard', '-DARM_MATH_CM4', '-u_printf_float']
+env set CORTEX=cortex-m4
+env set APJ_BOARD_ID=9
+env set APJ_BOARD_TYPE=PICO2
+env set USBID=0x1209/0x5741
+env set FLASH_RESERVE_START_KB=16
+env set EXT_FLASH_RESERVE_START_KB=0
+env set FLASH_TOTAL=2080768
+env set HAS_EXTERNAL_FLASH_SECTIONS=0
+env set ROMFS_FILES=[('defaults.parm', '/home/buzz2/ardupilot/build/Pico2/processed_defaults.parm'), ('hwdef.dat', '/home/buzz2/ardupilot/build/Pico2/hw.dat'), ('bootloader.bin', '/home/buzz2/ardupilot/Tools/bootloaders/Pico2_bl.bin')]
+env set CHIBIOS_BUILD_FLAGS=USE_FATFS=no CHIBIOS_STARTUP_MK=os/common/startup/ARMCMx/compilers/GCC/mk/startup_rp2350.mk CHIBIOS_PLATFORM_MK=os/hal/ports/RP/RP2350/platform.mk MCU=cortex-m4 ENV_UDEFS=-DCHPRINTF_USE_FLOAT=1
+Enabling ChibiOS asserts                     : no 
+Disabling Watchdog                           : no 
+Enabling malloc guard                        : no 
+Enabling ChibiOS thread statistics           : no 
+Enabling -Werror                             : yes 
+Checking for intelhex module:                : disabled 
+Enabled OpenDroneID                          : no 
+Enabled firmware ID checking                 : no 
+GPS Debug Logging                            : no 
+Enabled custom controller                    : no 
+Checking for HAVE_CMATH_ISFINITE             : yes 
+Checking for HAVE_CMATH_ISINF                : yes 
+Checking for HAVE_CMATH_ISNAN                : yes 
+Checking for NEED_CMATH_ISFINITE_STD_NAMESPACE : yes 
+Checking for NEED_CMATH_ISINF_STD_NAMESPACE    : yes 
+Checking for NEED_CMATH_ISNAN_STD_NAMESPACE    : yes 
+Checking for header endian.h                   : not found 
+Checking for header byteswap.h                 : not found 
+Checking for HAVE_MEMRCHR                      : no 
+Configured VSCode Intellisense:                : no 
+DC_DSDL compiler in                            : /home/buzz2/ardupilot/modules/DroneCAN/dronecan_dsdlc 
+Source is git repository                       : yes 
+Update submodules                              : yes 
+Checking for program 'git'                     : /usr/bin/git 
+Gtest                                          : STM32 boards currently don't support compiling gtest 
+Checking for program 'arm-none-eabi-size'      : /opt/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-size 
+Benchmarks                                     : disabled 
+Unit tests                                     : disabled 
+Scripting                                      : maybe 
+Scripting runtime checks                       : enabled 
+Debug build                                    : disabled 
+Coverage build                                 : disabled 
+Consistent build                               : disabled 
+Force 32-bit build                             : disabled 
+Checking for program 'rsync'                   : /usr/bin/rsync 
+Removing target_list file /home/buzz2/ardupilot/build/Pico2/target_list
+'configure' finished successfully (0.920s)
