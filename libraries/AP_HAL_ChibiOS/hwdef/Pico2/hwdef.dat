@@ -1,5 +1,5 @@
 # hw definition file for processing by chibios_hwdef.py
-# for FMUv3 hardware (ie. for Pixhawk1, Pixhawk2 cube, XUAV2.1 etc)
+# for Pico2 board by raspberry pi
 
 # This hwdef.dat file contains a lot of comments so it can act as a
 # reference for developers adding new boards.
@@ -415,9 +415,9 @@ define HAL_HAVE_SAFETY_SWITCH 1
 # Enable RAMTRON parameter storage.
 define HAL_WITH_RAMTRON 1
 
-# Setup for the possibility of an IMU heater since the pixhawk2 cube has
+# Setup for the possibility of an IMU heater ?
 # an IMU heater.
-define HAL_HAVE_IMU_HEATER 1
+#define HAL_HAVE_IMU_HEATER 1
 
 # Enable FAT filesystem support (needs a microSD defined via SDIO).
 define HAL_OS_FATFS_IO 1
@@ -509,12 +509,6 @@ define BOARD_CHECK_F427_USE_1M "ERROR: 1M flash use fmuv2"
 #        # 3rd non-isolated IMU
 #        IMU Invensense SPI:mpu9250 ROTATION_YAW_270
 #
-#        # alternative IMU set for newer cubes
-#        IMU Invensense SPI:icm20602_ext ROTATION_ROLL_180_YAW_270
-#        IMU Invensensev2 SPI:icm20948_ext ROTATION_PITCH_180
-#        IMU Invensensev2 SPI:icm20948 ROTATION_YAW_270
-#        define HAL_DEFAULT_INS_FAST_SAMPLE 5
-#
 #        # two baros
 #        BARO MS5611 SPI:ms5611_ext
 #        BARO MS5611 SPI:ms5611
@@ -524,8 +518,6 @@ define BOARD_CHECK_F427_USE_1M "ERROR: 1M flash use fmuv2"
 #        # 2nd compass is part of the 2nd invensense IMU
 #        COMPASS AK8963:probe_mpu9250 1 ROTATION_YAW_270
 #
-#        # compass as part of ICM20948 on newer cubes
-#        COMPASS AK09916:probe_ICM20948 0 ROTATION_ROLL_180_YAW_90
 #
 #        # also probe for external compasses
 #        define AP_COMPASS_PROBING_ENABLED 1
@@ -555,8 +547,6 @@ define BOARD_CHECK_F427_USE_1M "ERROR: 1M flash use fmuv2"
 #
 #        # default the 2nd interface to SLCAN
 #        define HAL_OTG2_PROTOCOL SerialProtocol_SLCAN
-#        ROMFS io_firmware_dshot.bin Tools/IO_Firmware/iofirmware_cube_dshot_highpolh.bin
-#        ROMFS io_firmware.bin Tools/IO_Firmware/iofirmware_cube_highpolh.bin
 #
 #        define AP_IOMCU_PROFILED_SUPPORT_ENABLED 1
 #        # enable support for dshot on iomcu
