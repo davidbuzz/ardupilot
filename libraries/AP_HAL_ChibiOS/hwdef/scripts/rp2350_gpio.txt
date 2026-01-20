@@ -1,0 +1,92 @@
+Table 1427
+Name QFN-60-Number QFN-80-Number Type Power-Domain Reset-State Description
+GPIO0 2 77 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO1 3 78 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO2 4 79 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO3 5 80 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO4 7 1 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO5 8 2 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO6 9 3 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO7 10 4 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO8 12 6 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO9 13 7 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO10 14 8 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO11 15 9 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO12 16 11 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO13 17 12 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO14 18 13 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO15 19 14 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO16 27 16 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO17 28 17 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO18 29 18 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO19 31 19 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO20 32 20 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO21 33 21 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO22 34 22 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO23 35 23 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO24 36 25 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO25 37 26 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO26_ADC0 40 - Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input
+GPIO27_ADC1 41 - Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input
+GPIO28_ADC2 42 - Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input
+GPIO29_ADC3 43 - Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input
+GPIO26 - 27 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO27 - 28 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO28 - 36 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO29 - 37 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO30 - 38 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO31 - 39 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO32 - 40 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO33 - 42 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO34 - 43 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO35 - 44 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO36 - 45 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO37 - 46 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO38 - 47 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO39 - 48 Digital-IO-(FT) IOVDD Pull-Down User-IO
+GPIO40_ADC0 - 49 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input
+GPIO41_ADC1 - 52 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input
+GPIO42_ADC2 - 53 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input
+GPIO43_ADC3 - 54 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input
+GPIO44_ADC4 - 55 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input
+GPIO45_ADC5 - 56 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input
+GPIO46_ADC6 - 57 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input
+GPIO47_ADC7 - 58 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input
+
+Table 1428 
+QSPI_SD3 55 70 Digital-IO QSPI_IOVDD Pull-Up QSPI_data
+QSPI_SCLK 56 71 Digital-IO QSPI_IOVDD Pull-Down QSPI_clock
+QSPI_SD0 57 72 Digital-IO QSPI_IOVDD Pull-Down QSPI_data
+QSPI_SD2 58 73 Digital-IO QSPI_IOVDD Pull-Up QSPI_data
+QSPI_SD1 59 74 Digital-IO QSPI_IOVDD Pull-Down QSPI_data
+QSPI_SS 60 75 Digital-IO QSPI_IOVDD Pull-Up QSPI_chip_select/USB_BOOTSEL
+
+Table 1429. Crystal oscillator pins 
+Name QFN-60-Number QFN-80-Number Type Power-Domain Description
+XIN 21 30 Analogue (XOSC) IOVDD Crystal oscillator. XIN may also be driven by a square wave.
+XOUT 22 31 Analogue (XOSC) IOVDD Crystal oscillator.
+
+Table 1430. Miscellaneous pins 
+Name QFN-60-Number QFN-80-Number Type Power-Domain Reset-State Description
+RUN 26 35 Digital-In-(FT) IOVDD Pull-Up Chip enable / reset_n
+SWCLK 24 33 Digital-In-(FT) IOVDD Pull-Up Serial_Wire_Debug_clock
+SWDIO 25 34 Digital-IO-(FT) IOVDD Pull-Up Serial_Wire_Debug_data
+
+Table 1431. USB pins 
+Name QFN-60-Number QFN-80-Number Type Power-Domain Description
+USB_DP 52 67 USB IO USB_OTP_VDD USB Data +ve.
+USB_DM 51 66 USB IO USB_OTP_VDD USB Data -ve. 
+
+Table 1432. Power supply pins 
+Name QFN-60-Number(s) QFN-80-Number(s) Description
+DVDD 6, 23, 39 10, 32, 51 Core supply
+IOVDD 11, 20, 30, 38, 45, 54 5, 15, 24, 29, 41, 50, 60, 76 IO supply
+QSPI_IOVDD 54 69 QSPI IO supply
+USB_OTP_VDD 53 68 USB & OTP supply
+ADC_AVDD 44 59 ADC supply
+VREG_AVDD 46 61 Voltage regulator analogue supply
+VREG_PGND 47 62 Voltage regulator ground
+VREG_LX 48 63 Voltage regulator switching output (connect to inductor)
+VREG_VIN 49 64 Voltage regulator input supply
+VREG_FB 50 65 Voltage regulator feedback input
+GND - - Ground connection via central exposed pad

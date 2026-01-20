@@ -1,0 +1,355 @@
+# hw definition file for processing by chibios_hwdef.py
+# for The xxxx
+
+# hw definition file for processing by chibios_hwdef.py
+# for FMUv3 hardware (ie. for Pixhawk1, Pixhawk2 cube, XUAV2.1 etc)
+
+# This hwdef.dat file contains a lot of comments so it can act as a
+# reference for developers adding new boards.
+
+# The hwdef.dat file defines all the hardware peripherals and pins for
+# a port of ArduPilot to a board using the ChibiOS HAL. You should be
+# able to write the hwdef.dat file for a new board with just the
+# schematic for the board.
+
+# This file is processed by chibios_hwdef.py to create hwdef.h for
+# this board. You may find it useful to run chibios_hwdef.py manually
+# when building this file for a new board. The resulting hwdef.h file
+# is formatted to make it quite readable. It is strongly suggested
+# that you read the resulting hwdef.h file when porting to a new board
+# to make sure it has resulted in what you want.
+
+# You should read this file in conjunction with the schematic for your
+# board, the datasheet for the MCU for your board and the python
+# tables file that we have extracted from the datasheet for your
+# MCU. The python tables file is particularly important, so if you
+# haven't seen it before go and look at it now. For the STM32F427 it
+# it called STM32F427xx.py and it is in the hwdef/script/ directory
+# inside the HAL_ChibiOS directory. That file tells you what each pin
+# can do (the alternate functions table) and what DMA channels can be
+# used for each peripheral type. The alternative functions table is
+# particularly useful when doing a new hwdef.dat file as you can work
+# out peripheral numbers given a port/pin name.
+
+# We need to start off by saying what main CPU is on the board. There
+# are two CPU identifiers that you need to specify. The first is the
+# ChibiOS MCU type. So far we only support STM32F4xx for all STM32F4
+# board types. In the future we will add F7 and other MCU types
+# The second string needs to match the name of a config file in the
+# libraries/AP_HAL_ChibiOS/hwdef/script directory. In this case we are
+# using a F427 MCU, so we select STM32F427xx to match the
+# STM32F427xx.py file in the script directory. If you are supporting a
+# board type that doesn't have a python hardware database file yet
+# then you will need to create one. There are scripts in the scripts
+# directory to help with that by parsing the STM32 datasheets to
+# extract the required DMA and alternate function tables.
+
+# MCU class and specific type
+MCU PICO2 PICO2
+
+# Now we need to specify the APJ_BOARD_ID. This is the ID that the
+# bootloader presents to GCS software so it knows if this firmware is
+# suitable for the board. Please see
+# https://github.com/ArduPilot/Bootloader/blob/master/hw_config.h for
+# a list of current board IDs. If you add a new board type then please
+# get it added to that repository so we don't get conflicts.
+
+# Note that APJ is "ArduPilot JSON Firmware Format".
+
+# board ID. See Tools/AP_Bootloader/board_types.txt
+APJ_BOARD_ID TARGET_HW_CUBE_F4
+
+# Now you need to say what crystal frequency you have for this
+# board. All of the clocks are scaled against this. Typical values are
+# 24000000 or 8000000.
+
+# crystal frequency
+OSCILLATOR_HZ 24000000
+
+
+# ChibiOS system timer
+STM32_ST_USE_TIMER 0
+
+# Now the size of flash in kilobytes, for creating the ld.script.
+
+# flash size
+FLASH_SIZE_KB 2048
+
+
+
+STDOUT_SERIAL SD0
+STDOUT_BAUDRATE 57600
+
+
+# USB setup
+USB_STRING_MANUFACTURER "ArduPilot"
+
+
+# order of I2C buses
+I2C_ORDER I2C2 I2C1
+
+# Now the serial ordering. 
+# The normal usage of this ordering is:
+# 1) SERIAL0: console (primary mavlink, usually USB)
+# 2) SERIAL1: telem1
+
+
+# order of UARTs (and USB)
+SERIAL_ORDER OTG1 USART1 
+
+
+# Now the VDD sense pin. This is used to sense primary board voltage.
+PA4 VDD_5V_SENS ADC1 SCALE(2)
+
+P10 SPI1_SCK SPI1
+P12 SPI1_MISO SPI1
+P15 SPI1_MOSI SPI1
+
+# This defines an output pin which will default to output LOW. It is a
+# pin that enables peripheral power on this board.
+
+PA8 nVDD_5V_PERIPH_EN OUTPUT LOW
+
+# This is the pin that senses USB being connected. It is an input pin
+# setup as OPENDRAIN.
+PA9 VBUS INPUT OPENDRAIN
+
+# This is a commented out pin for talking to the debug UART on the
+# IOMCU, not used yet, but left as a comment (with a '#' in front) for
+# future reference
+# PA10 IO-debug-console
+
+# Now we define the pins that USB is connected on.
+P48 OTG_FS_DM OTG1
+P49 OTG_FS_DP OTG1
+
+# These are the pins for SWD debugging with a STlinkv2 or black-magic probe.
+SWDIO SWDIO SWD
+SWCLK SWCLK SWD
+
+
+# This defines some input pins, currently unused.
+PB2 BOOT1 INPUT
+PB3 FMU_SW0 INPUT
+
+# This defines the pins for the 2nd CAN interface, if available.
+#PB6 CAN2_TX CAN2
+#PB12 CAN2_RX CAN2
+
+# Now the first I2C bus. The pin speeds are automatically setup
+# correctly, but can be overridden here if needed.
+P11 I2C1_SCL I2C1
+P10 I2C1_SDA I2C1
+
+# the 2nd I2C bus
+#PB10 I2C2_SCL I2C2
+#PB11 I2C2_SDA I2C2
+
+# the 2nd SPI bus
+P22 SPI0_SCK  SPI2
+P35 SPI0_RX SPI2
+P36 SPI0_TX SPI2
+
+# This input pin is used to detect that power is valid on USB.
+PC0 VBUS_nVALID INPUT PULLUP
+
+# This defines the CS pin for the magnetometer and first IMU. Note
+# that CS pins are software controlled, and are not tied to a particular
+# SPI bus.
+PC1 MAG_CS CS
+PC2 MPU_CS CS
+
+
+# This sets up the UART for talking to the IOMCU. Note that it is
+# vital that this UART has DMA available. See the DMA settings below
+# for more information.
+
+
+# More CS pins for more sensors. The labels for all CS pins need to
+# match the SPI device table later in this file.
+PC13 GYRO_EXT_CS CS
+PC14 BARO_EXT_CS CS
+PC15 ACCEL_EXT_CS CS
+PD7 BARO_CS CS
+PE4 MPU_EXT_CS CS
+
+
+# Now setup SPI bus4 oh hardware bus spi0
+P22 SPI0_SCK  SPI4
+P35 SPI0_RX SPI4
+P36 SPI0_TX SPI4
+
+
+SPIDEV ms5611         SPI1 DEVID3  BARO_CS      MODE3 20*MHZ 20*MHZ
+SPIDEV mpu6000        SPI1 DEVID4  MPU_CS       MODE3  2*MHZ  8*MHZ
+SPIDEV icm20608-am    SPI1 DEVID2  ACCEL_EXT_CS MODE3  4*MHZ  8*MHZ
+SPIDEV mpu9250        SPI1 DEVID4  MPU_CS       MODE3  4*MHZ  8*MHZ
+SPIDEV icm20948       SPI1 DEVID4  MPU_CS       MODE3  4*MHZ  8*MHZ
+SPIDEV hmc5843        SPI1 DEVID5  MAG_CS       MODE3 11*MHZ 11*MHZ
+SPIDEV lsm9ds0_g      SPI1 DEVID1  GYRO_EXT_CS  MODE3 11*MHZ 11*MHZ 
+SPIDEV lsm9ds0_am     SPI1 DEVID2  ACCEL_EXT_CS MODE3 11*MHZ 11*MHZ 
+
+
+# This adds a C define which sets up the ArduPilot architecture
+# define. Any line starting with 'define' is copied literally as
+# a #define in the hwdef.h header.
+define HAL_CHIBIOS_ARCH_FMUV3 1
+
+# We need to tell HAL_ChibiOS/Storage.cpp how much storage is
+# available (in bytes).
+define HAL_STORAGE_SIZE 16384
+
+# allow to have have a dedicated safety switch pin
+#define HAL_HAVE_SAFETY_SWITCH 1
+
+# This enables the use of a ramtron device for storage, if one is
+# found on SPI. You must have a ramtron entry in the SPI device table.
+
+# Enable RAMTRON parameter storage.
+#define HAL_WITH_RAMTRON 1
+
+# Setup for the possibility of an IMU heater since the pixhawk2 cube has
+# an IMU heater.
+#define HAL_HAVE_IMU_HEATER 1
+
+# Enable FAT filesystem support (needs a microSD defined via SDIO).
+# define HAL_OS_FATFS_IO 1
+
+# Now setup the default battery pins driver analog pins and default
+# scaling for the power brick.
+define HAL_BATT_VOLT_PIN 2
+define HAL_BATT_CURR_PIN 3
+define HAL_BATT_VOLT_SCALE 10.1
+define HAL_BATT_CURR_SCALE 17.0
+
+# This defines the default maximum clock on I2C devices.
+define HAL_I2C_MAX_CLOCK 100000
+
+# We can't share the IO UART (USART6).
+#DMA_NOSHARE USART6_TX ADC1
+#DMA_PRIORITY USART6* SPI*
+
+# List of files to put in ROMFS. For fmuv3 we need an IO firmware so
+# we can automatically update the IOMCU firmware on boot. The format
+# is "ROMFS ROMFS-filename source-filename". Paths are relative to the
+# ardupilot root.
+# ROMFS io_firmware.bin Tools/IO_Firmware/iofirmware_lowpolh.bin
+
+# for users running fmuv3 on their Solo:
+# define AP_NOTIFY_OREOLED_ENABLED (BOARD_FLASH_SIZE > 1024)
+# define HAL_SOLO_GIMBAL_ENABLED (HAL_MOUNT_ENABLED && BOARD_FLASH_SIZE > 1024)
+
+undef AP_BATTERY_SMBUS_SOLO_ENABLED
+# define AP_BATTERY_SMBUS_SOLO_ENABLED (AP_BATTERY_SMBUS_ENABLED && BOARD_FLASH_SIZE > 1024)
+
+# produce this error if we are on a 1M board
+define BOARD_CHECK_F427_USE_1M "ERROR: 1M flash use fmuv2"
+
+
+# if the user has both isolated sensors enabled then force-enable the
+#  non-isolated IMU regardless of parameter setting.  This is done in
+#  case the isolated board fails.
+define AP_INERTIALSENSOR_FORCE_ENABLE_NONISOLATED_INSTANCE 1
+
+env OPTIMIZE -O2
+
+# USB setup
+USB_VENDOR 0x2DAE # ONLY FOR USE BY HEX! NOBODY ELSE
+USB_PRODUCT 0x1011
+USB_STRING_MANUFACTURER "Hex/ProfiCNC"
+
+# remap PB0/1 as ADC's
+# undef PB0
+# undef PB1
+# PB0 PB0_ADC ADC1 SCALE(1)
+#PB1 PB1_ADC ADC1 SCALE(1)
+
+#SPIDEV icm20948_ext   SPI4 DEVID1  MPU_EXT_CS   MODE3  4*MHZ  8*MHZ
+#SPIDEV icm20602_ext   SPI4 DEVID3  GYRO_EXT_CS  MODE3  4*MHZ  8*MHZ
+
+
+# Sensor Check alias for validating board type
+CHECK_MPU9250           spi_check_register("mpu9250", MPUREG_WHOAMI, MPU_WHOAMI_MPU9250)
+CHECK_MPU9250_EXT       spi_check_register("mpu9250_ext", MPUREG_WHOAMI, MPU_WHOAMI_MPU9250)
+CHECK_ICM20602_EXT      spi_check_register("icm20602_ext", MPUREG_WHOAMI, MPU_WHOAMI_ICM20602)
+CHECK_LSM9DS0_EXT_G     spi_check_register("lsm9ds0_ext_g", LSMREG_WHOAMI, LSM_WHOAMI_L3GD20)
+CHECK_LSM9DS0_EXT_AM    spi_check_register("lsm9ds0_ext_am", LSMREG_WHOAMI, LSM_WHOAMI_LSM303D)
+CHECK_ICM20948_EXT      spi_check_register("icm20948_ext", INV2REG_WHOAMI, INV2_WHOAMI_ICM20948)
+#CHECK_MS5611            check_ms5611("ms5611")
+#CHECK_MS5611_EXT        check_ms5611("ms5611_ext")
+
+# Sensor Check Macros to be used for validating board type
+CHECK_IMU0_PRESENT   $CHECK_MPU9250_EXT || $CHECK_ICM20602_EXT
+CHECK_IMU1_PRESENT   ($CHECK_LSM9DS0_EXT_G && $CHECK_LSM9DS0_EXT_AM) || $CHECK_ICM20948_EXT
+CHECK_IMU2_PRESENT   $CHECK_MPU9250
+#CHECK_BARO0_PRESENT  $CHECK_MS5611
+#CHECK_BARO1_PRESENT  $CHECK_MS5611_EXT
+
+BOARD_VALIDATE $CHECK_IMU0_PRESENT $CHECK_IMU1_PRESENT $CHECK_IMU2_PRESENT $CHECK_BARO0_PRESENT $CHECK_BARO1_PRESENT
+
+# also define the default board type
+define BOARD_TYPE_DEFAULT 3
+
+# three IMUs, but allow for different variants. First two IMUs are
+# isolated, 3rd isn't
+IMU Invensense SPI:mpu9250_ext ROTATION_PITCH_180
+
+# the 3 rotations for the LSM9DS0 driver are for the accel, the gyro
+# and the H variant of the gyro
+IMU LSM9DS0 SPI:lsm9ds0_ext_g SPI:lsm9ds0_ext_am ROTATION_ROLL_180_YAW_270 ROTATION_ROLL_180_YAW_90 ROTATION_ROLL_180_YAW_90
+
+# 3rd non-isolated IMU
+IMU Invensense SPI:mpu9250 ROTATION_YAW_270
+
+# alternative IMU set for newer cubes
+IMU Invensense SPI:icm20602_ext ROTATION_ROLL_180_YAW_270
+IMU Invensensev2 SPI:icm20948_ext ROTATION_PITCH_180
+IMU Invensensev2 SPI:icm20948 ROTATION_YAW_270
+define HAL_DEFAULT_INS_FAST_SAMPLE 5
+
+# two baros
+#BARO MS5611 SPI:ms5611_ext
+#BARO MS5611 SPI:ms5611
+
+# two compasses. First is in the LSM303D
+#COMPASS LSM303D SPI:lsm9ds0_ext_am ROTATION_YAW_270
+# 2nd compass is part of the 2nd invensense IMU
+#COMPASS AK8963:probe_mpu9250 1 ROTATION_YAW_270
+
+# compass as part of ICM20948 on newer cubes
+#COMPASS AK09916:probe_ICM20948 0 ROTATION_ROLL_180_YAW_90
+
+# also probe for external compasses
+define AP_COMPASS_PROBING_ENABLED 1
+
+# This defines an output pin which will default to output HIGH. It is
+# a pin that enables peripheral power on this board. It starts in the
+# off state, then is pulled low to enable peripherals in
+# peripheral_power_enable()
+# undef PA8
+# PA8 nVDD_5V_PERIPH_EN OUTPUT HIGH
+
+# This is the pin to enable the sensors rail. It can be used to power
+# cycle sensors to recover them in case there are problems with power on
+# timing affecting sensor stability. We pull it LOW on startup, which
+# means sensors off, then it is pulled HIGH in peripheral_power_enable()
+# undef PE3
+# PE3 VDD_3V3_SENSORS_EN OUTPUT LOW
+
+# if you want to enable parameter backup/restore then uncomment the following two lines
+# Note: this will use 16k more RAM, so ensure you have enough by looking at MEMINFO messages
+# in MAVLink2 or in PM message in logs
+# undef HAL_STORAGE_SIZE
+# define HAL_STORAGE_SIZE 32768
+
+
+define HAL_IMU_TEMP_MARGIN_LOW_DEFAULT 5
+
+# default the 2nd interface to SLCAN
+# define HAL_OTG2_PROTOCOL SerialProtocol_SLCAN
+# ROMFS io_firmware_dshot.bin Tools/IO_Firmware/iofirmware_cube_dshot_highpolh.bin
+# ROMFS io_firmware.bin Tools/IO_Firmware/iofirmware_cube_highpolh.bin
+
+# define AP_IOMCU_PROFILED_SUPPORT_ENABLED 1
+# enable support for dshot on iomcu
+# define HAL_WITH_IO_MCU_DSHOT 1
