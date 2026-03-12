@@ -1328,7 +1328,10 @@ class ChibiOSHWDef(hwdef.HWDef):
         ram_map = self.get_ram_map()
         instruction_ram = self.get_mcu_config('INSTRUCTION_RAM', False)
 
-        flash_base = 0x08000000 + flash_reserve_start * 1024
+        if self.is_rp_mcu():
+            flash_base = 0x10000000 + flash_reserve_start * 1024
+        else:
+            flash_base = 0x08000000 + flash_reserve_start * 1024
         ext_flash_base = 0x90000000 + ext_flash_reserve_start * 1024
         if instruction_ram is not None:
             instruction_ram_base = instruction_ram[0]

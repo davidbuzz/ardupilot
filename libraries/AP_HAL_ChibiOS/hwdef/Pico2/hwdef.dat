@@ -89,6 +89,8 @@ STM32_ST_USE_TIMER 5
 
 # flash size - Raspberry Pi Pico 2 (RP2350) comes standard with 4MB of onboard QSPI Flash memory
 FLASH_SIZE_KB 4096
+# RP2350 has no ArduPilot bootloader offset; flash image starts at 0x10000000
+FLASH_RESERVE_START_KB 0
 
 # Now define which UART is used for printf(). We rarely use printf()
 # in ChibiOS, so this is really only for debugging very early startup
@@ -458,8 +460,10 @@ define HAL_SOLO_GIMBAL_ENABLED (HAL_MOUNT_ENABLED && BOARD_FLASH_SIZE > 1024)
 undef AP_BATTERY_SMBUS_SOLO_ENABLED
 define AP_BATTERY_SMBUS_SOLO_ENABLED (AP_BATTERY_SMBUS_ENABLED && BOARD_FLASH_SIZE > 1024)
 
-# produce this error if we are on a 1M board
-define BOARD_CHECK_F427_USE_1M "ERROR: 1M flash use fmuv2"
+# RP2350 does not have STM32-style crash dump support or DSP library
+define AP_CRASHDUMP_ENABLED 0
+define HAL_GYROFFT_ENABLED 0
+define HAL_WITH_DSP FALSE
 
 
 # chibios drivers for many peripherals on rp2350 are not yet supported or not tested

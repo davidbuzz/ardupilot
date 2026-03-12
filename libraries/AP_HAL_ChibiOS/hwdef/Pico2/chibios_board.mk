@@ -5,7 +5,7 @@
 
 # Compiler options here.
 ifeq ($(USE_OPT),)
-  USE_OPT = -Og -ggdb -fomit-frame-pointer -falign-functions=16
+  USE_OPT = -Og -ggdb -fomit-frame-pointer -falign-functions=16 -DCRT0_AREAS_NUMBER=0
 endif
 
 ifeq ($(ENABLE_DEBUG_SYMBOLS), yes)
