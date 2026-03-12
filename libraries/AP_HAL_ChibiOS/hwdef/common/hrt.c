@@ -97,7 +97,13 @@ static uint64_t hrt_micros64I(void)
 }
 
 static inline bool is_locked(void) {
+#if STM32_AVAILABLE == TRUE
     return !port_irq_enabled(port_get_irq_status());
+#elif PIC02_AVAILABLE == TRUE
+    return !__port_irq_enabled(__port_get_irq_status()); // its just extra underscores.
+#else
+    #error "unsupported target for is_locked()"
+#endif
 }
 
 uint64_t hrt_micros64()

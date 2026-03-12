@@ -17,3 +17,12 @@ uint64_t hrt_millis64(void);
 #ifdef __cplusplus
 }
 #endif
+
+
+#if defined(PIC02) || defined(RP2350) || defined(PIC02_AVAILABLE)
+// #define PIC02_AVAILABLE TRUE   - this comes via hwdef.dat for pico2
+#define STM32_AVAILABLE FALSE 
+#else
+#define STM32_AVAILABLE TRUE
+#define PIC02_AVAILABLE FALSE
+#endif

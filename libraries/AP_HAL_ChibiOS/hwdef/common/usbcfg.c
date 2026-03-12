@@ -427,7 +427,12 @@ const USBConfig usbcfg = {
 const SerialUSBConfig serusbcfg1 = {
 #if STM32_OTG2_IS_OTG1
   &USBD2,
-#else
+#elif STM32_AVAILABLE == TRUE
+  &USBD1,
+#elif PIC02_AVAILABLE == TRUE
+  // todo pico buzz
+  // need also RP_USB_USE_USB1 
+  #warning "USB needs RP_USB_USE_USB1  defined in hwdef.dat for pico2"
   &USBD1,
 #endif
   USBD1_DATA_REQUEST_EP,
