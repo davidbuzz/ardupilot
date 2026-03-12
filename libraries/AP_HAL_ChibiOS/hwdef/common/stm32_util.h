@@ -16,6 +16,17 @@
 
 #include "hal.h"
 
+// todo this block bad as it always defines STM32_AVAILABLE even when it should not.
+// #if defined(STM32_HSECLK) || defined(STM32_LSECLK)  || defined(STM32_LSE_BYPASS)  || defined(STM32_TIM_CCER_CC1E) || defined(STM32_RTCSEL) || defined(STM32F1) || defined(STM32F4) || defined(STM32G4) || defined(STM32F7) || defined(STM32H7) || defined(STM32F427xx) || defined(STM32F3) || defined(STM32G4) || defined(STM32L4) || defined(STM32L4PLUS)
+// #define STM32_AVAILABLE TRUE
+// #define PIC02_AVAILABLE FALSE
+// #error "STM32 utility functions available, no alternate implementation needed"
+// #endif
+#if defined(PIC02) || defined(RP2350) || PIC02_AVAILABLE
+// #define PIC02_AVAILABLE TRUE   - this comes via hwdef.dat for pico2
+#define STM32_AVAILABLE FALSE 
+#endif
+
 #ifndef AP_WATCHDOG_SAVE_FAULT_ENABLED
 #define AP_WATCHDOG_SAVE_FAULT_ENABLED 1
 #endif
@@ -28,8 +39,13 @@
 extern "C" {
 #endif
 
+#if STM32_AVAILABLE == TRUE
 void stm32_timer_set_input_filter(stm32_tim_t *tim, uint8_t channel, uint8_t filter_mode);
 void stm32_timer_set_channel_input(stm32_tim_t *tim, uint8_t channel, uint8_t input_source);
+#endif
+#if PIC02_AVAILABLE == TRUE
+//#warning todo implement pico2 versions of above functions
+#endif
 
 #if CH_DBG_ENABLE_STACK_CHECK == TRUE
 // print stack usage
@@ -185,11 +201,19 @@ extern uint32_t chibios_rand_generate(void);
 void stm32_flash_protect_flash(bool bootloader, bool protect);
 void stm32_flash_unprotect_flash(void);
 
+#if PIC02_AVAILABLE  == TRUE
+typedef uint64_t port_stkalign_t;
+typedef port_stkalign_t stkalign_t;
+#endif
+
 // allow stack view code to show free ISR stack
+//#if STM32_AVAILABLE == TRUE
 extern stkalign_t __main_stack_base__;
 extern stkalign_t __main_stack_end__;
 extern stkalign_t __main_thread_stack_base__;
 extern stkalign_t __main_thread_stack_end__;
+//#endif
+
 
 void stm32_disable_cm4_core(void);
 

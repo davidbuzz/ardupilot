@@ -1,20 +1,18 @@
 /*
- * This file is free software: you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This file is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along
- * with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * Modified for use in AP_HAL by Andrew Tridgell and Siddharth Bharat Purohit 
- * Modified for use in rp2350 by Buzz
- */
+    ChibiOS - Copyright (C) 2006..2025 Giovanni Di Sirio
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+*/
 
 /**
  * @file    rt/templates/chconf.h
@@ -30,62 +28,15 @@
 #ifndef CHCONF_H
 #define CHCONF_H
 
-
-#pragma once
-#include "hwdef.h"
-
 #define _CHIBIOS_RT_CONF_
 #define _CHIBIOS_RT_CONF_VER_8_0_
+
 /*===========================================================================*/
 /**
  * @name System settings
  * @{
  */
 /*===========================================================================*/
-
-#if !defined(FALSE)
-#define FALSE                               0
-#endif
-
-#if !defined(TRUE)
-#define TRUE                                1
-#endif
-
-#ifdef HAL_CHIBIOS_ENABLE_ASSERTS
-        #define CH_DBG_ENABLE_ASSERTS TRUE
-        #define CH_DBG_ENABLE_CHECKS TRUE
-        #define CH_DBG_SYSTEM_STATE_CHECK TRUE
-        #undef CH_DBG_ENABLE_STACK_CHECK
-        #define CH_DBG_ENABLE_STACK_CHECK TRUE
-
-        #define CH_CFG_USE_MEMCHECKS TRUE
-        #define CH_CFG_HARDENING_LEVEL 0
-        #define CH_CFG_SAFETY_CHECK_HOOK false
-        #define _CHIBIOS_RT_CONF_VER_8_0_
-
-
-
-        // Generate assertions on a GPIO pin
-        #ifdef HAL_GPIO_PIN_FAULT
-                #ifndef _FROM_ASM_
-                        #ifdef __cplusplus
-                        extern "C" {
-                        #endif
-                  void fault_printf(const char *fmt, ...);
-                        #ifdef __cplusplus
-                                }
-                        #endif
-                #endif
-                #define osalDbgAssert(c, remark) do { if (!(c)) { fault_printf("%s:%d: %s", __FILE__, __LINE__, remark ); chDbgAssert(c, remark); } } while (0)
-        #endif
-
-#endif // HAL_CHIBIOS_ENABLE_ASSERTS
-
-#if HAL_ENABLE_THREAD_STATISTICS
-#define CH_DBG_STATISTICS TRUE
-#else
-#define CH_DBG_STATISTICS FALSE
-#endif
 
 /**
  * @brief   Handling of instances.
@@ -110,19 +61,21 @@
 #if !defined(CH_CFG_HARDENING_LEVEL)
 #define CH_CFG_HARDENING_LEVEL              0
 #endif
+
+/** @} */
+
+/*===========================================================================*/
 /**
- * @brief   Time Stamps APIs.
- * @details If enabled then the time stamps APIs are included in the kernel.
- *
- * @note    The default is @p TRUE.
+ * @name System timers settings
+ * @{
  */
-#if !defined(CH_CFG_USE_TIMESTAMP)
-#define CH_CFG_USE_TIMESTAMP                TRUE
-#endif
+/*===========================================================================*/
 
 /**
  * @brief   System time counter resolution.
  * @note    Allowed values are 16, 32 or 64 bits.
+ * @note    In tick-less mode this value must match the physical system tick
+ *          timer counter width.
  */
 #if !defined(CH_CFG_ST_RESOLUTION)
 #define CH_CFG_ST_RESOLUTION                32
@@ -131,10 +84,9 @@
 /**
  * @brief   System tick frequency.
  * @details Frequency of the system timer that drives the system ticks. This
- *          setting also defines the system tick time unit. 
+ *          setting also defines the system tick time unit.
  * @note    This must be a frequency that is obtainable from the system tick
  *          timer frequency.
- *  We set this to 1000000 in ArduPilot so we get maximum resolution for timing of delays
  */
 #if !defined(CH_CFG_ST_FREQUENCY)
 #define CH_CFG_ST_FREQUENCY                 1000000
@@ -145,7 +97,7 @@
  * @note    Allowed values are 16, 32 or 64 bits.
  */
 #if !defined(CH_CFG_INTERVALS_SIZE)
-#define CH_CFG_INTERVALS_SIZE               CH_CFG_ST_RESOLUTION
+#define CH_CFG_INTERVALS_SIZE               32
 #endif
 
 /**
@@ -165,19 +117,8 @@
  *          this value.
  */
 #if !defined(CH_CFG_ST_TIMEDELTA)
-#define CH_CFG_ST_TIMEDELTA                 10
+#define CH_CFG_ST_TIMEDELTA                 20
 #endif
-
-/*
-  default to a large interrupt stack for now. We may trim this later
-  if we become confident of our interrupt handler requirements. Note
-  that we pay for this stack size in every thread, so it is quite
-  expensive in memory
- */
-#ifndef PORT_INT_REQUIRED_STACK
-#define PORT_INT_REQUIRED_STACK 128
-#endif
-
 
 /** @} */
 
@@ -202,21 +143,6 @@
  */
 #if !defined(CH_CFG_TIME_QUANTUM)
 #define CH_CFG_TIME_QUANTUM                 0
-#endif
-
-/**
- * @brief   Managed RAM size.
- * @details Size of the RAM area to be managed by the OS. If set to zero
- *          then the whole available RAM is used. The core memory is made
- *          available to the heap allocator and/or can be used directly through
- *          the simplified core memory allocator.
- *
- * @note    In order to let the OS manage the whole RAM the linker script must
- *          provide the @p __heap_base__ and @p __heap_end__ symbols.
- * @note    Requires @p CH_CFG_USE_MEMCORE.
- */
-#if !defined(CH_CFG_MEMCORE_SIZE)
-#define CH_CFG_MEMCORE_SIZE                 0
 #endif
 
 /**
@@ -271,8 +197,14 @@
 #define CH_CFG_USE_TM                       TRUE
 #endif
 
-#if !defined(HAL_USE_LOAD_MEASURE)
-#define HAL_USE_LOAD_MEASURE CH_CFG_USE_TM
+/**
+ * @brief   Time Stamps APIs.
+ * @details If enabled then the time stamps APIs are included in the kernel.
+ *
+ * @note    The default is @p TRUE.
+ */
+#if !defined(CH_CFG_USE_TIMESTAMP)
+#define CH_CFG_USE_TIMESTAMP                TRUE
 #endif
 
 /**
@@ -338,7 +270,7 @@
  * @note    Requires @p CH_CFG_USE_MUTEXES.
  */
 #if !defined(CH_CFG_USE_MUTEXES_RECURSIVE)
-#define CH_CFG_USE_MUTEXES_RECURSIVE        TRUE
+#define CH_CFG_USE_MUTEXES_RECURSIVE        FALSE
 #endif
 
 /**
@@ -350,7 +282,7 @@
  * @note    Requires @p CH_CFG_USE_MUTEXES.
  */
 #if !defined(CH_CFG_USE_CONDVARS)
-#define CH_CFG_USE_CONDVARS                 FALSE
+#define CH_CFG_USE_CONDVARS                 TRUE
 #endif
 
 /**
@@ -362,7 +294,7 @@
  * @note    Requires @p CH_CFG_USE_CONDVARS.
  */
 #if !defined(CH_CFG_USE_CONDVARS_TIMEOUT)
-#define CH_CFG_USE_CONDVARS_TIMEOUT         FALSE
+#define CH_CFG_USE_CONDVARS_TIMEOUT         TRUE
 #endif
 
 /**
@@ -395,7 +327,7 @@
  * @note    The default is @p TRUE.
  */
 #if !defined(CH_CFG_USE_MESSAGES)
-#define CH_CFG_USE_MESSAGES                 FALSE
+#define CH_CFG_USE_MESSAGES                 TRUE
 #endif
 
 /**
@@ -442,7 +374,7 @@
  * @note    Requires @p CH_CFG_USE_SEMAPHORES.
  */
 #if !defined(CH_CFG_USE_MAILBOXES)
-#define CH_CFG_USE_MAILBOXES                FALSE
+#define CH_CFG_USE_MAILBOXES                TRUE
 #endif
 
 /**
@@ -503,18 +435,18 @@
  * @note    The default is @p TRUE.
  */
 #if !defined(CH_CFG_USE_MEMPOOLS)
-#define CH_CFG_USE_MEMPOOLS                 FALSE
+#define CH_CFG_USE_MEMPOOLS                 TRUE
 #endif
 
 /**
- * @brief  Objects FIFOs APIs.
+ * @brief   Objects FIFOs APIs.
  * @details If enabled then the objects FIFOs APIs are included
  *          in the kernel.
  *
  * @note    The default is @p TRUE.
  */
 #if !defined(CH_CFG_USE_OBJ_FIFOS)
-#define CH_CFG_USE_OBJ_FIFOS                FALSE
+#define CH_CFG_USE_OBJ_FIFOS                TRUE
 #endif
 
 /**
@@ -525,7 +457,7 @@
  * @note    The default is @p TRUE.
  */
 #if !defined(CH_CFG_USE_PIPES)
-#define CH_CFG_USE_PIPES                    FALSE
+#define CH_CFG_USE_PIPES                    TRUE
 #endif
 
 /**
@@ -536,7 +468,7 @@
  * @note    The default is @p TRUE.
  */
 #if !defined(CH_CFG_USE_OBJ_CACHES)
-#define CH_CFG_USE_OBJ_CACHES               FALSE
+#define CH_CFG_USE_OBJ_CACHES               TRUE
 #endif
 
 /**
@@ -547,7 +479,7 @@
  * @note    The default is @p TRUE.
  */
 #if !defined(CH_CFG_USE_DELEGATES)
-#define CH_CFG_USE_DELEGATES                FALSE
+#define CH_CFG_USE_DELEGATES                TRUE
 #endif
 
 /**
@@ -558,20 +490,7 @@
  * @note    The default is @p TRUE.
  */
 #if !defined(CH_CFG_USE_JOBS)
-#define CH_CFG_USE_JOBS                     FALSE
-#endif
-
-/**
- * @brief   Dynamic Threads APIs.
- * @details If enabled then the dynamic threads creation APIs are included
- *          in the kernel.
- *
- * @note    The default is @p TRUE.
- * @note    Requires @p CH_CFG_USE_WAITEXIT.
- * @note    Requires @p CH_CFG_USE_HEAP and/or @p CH_CFG_USE_MEMPOOLS.
- */
-#if !defined(CH_CFG_USE_DYNAMIC)
-#define CH_CFG_USE_DYNAMIC                  TRUE
+#define CH_CFG_USE_JOBS                     TRUE
 #endif
 
 /** @} */
@@ -591,7 +510,7 @@
  * @note    The default is @p FALSE.
  */
 #if !defined(CH_CFG_USE_FACTORY)
-#define CH_CFG_USE_FACTORY                  FALSE
+#define CH_CFG_USE_FACTORY                  TRUE
 #endif
 
 /**
@@ -607,42 +526,42 @@
  * @brief   Enables the registry of generic objects.
  */
 #if !defined(CH_CFG_FACTORY_OBJECTS_REGISTRY)
-#define CH_CFG_FACTORY_OBJECTS_REGISTRY     FALSE
+#define CH_CFG_FACTORY_OBJECTS_REGISTRY     TRUE
 #endif
 
 /**
  * @brief   Enables factory for generic buffers.
  */
 #if !defined(CH_CFG_FACTORY_GENERIC_BUFFERS)
-#define CH_CFG_FACTORY_GENERIC_BUFFERS      FALSE
+#define CH_CFG_FACTORY_GENERIC_BUFFERS      TRUE
 #endif
 
 /**
  * @brief   Enables factory for semaphores.
  */
 #if !defined(CH_CFG_FACTORY_SEMAPHORES)
-#define CH_CFG_FACTORY_SEMAPHORES           FALSE
+#define CH_CFG_FACTORY_SEMAPHORES           TRUE
 #endif
 
 /**
  * @brief   Enables factory for mailboxes.
  */
 #if !defined(CH_CFG_FACTORY_MAILBOXES)
-#define CH_CFG_FACTORY_MAILBOXES            FALSE
+#define CH_CFG_FACTORY_MAILBOXES            TRUE
 #endif
 
 /**
  * @brief   Enables factory for objects FIFOs.
  */
 #if !defined(CH_CFG_FACTORY_OBJ_FIFOS)
-#define CH_CFG_FACTORY_OBJ_FIFOS            FALSE
+#define CH_CFG_FACTORY_OBJ_FIFOS            TRUE
 #endif
 
 /**
  * @brief   Enables factory for Pipes.
  */
 #if !defined(CH_CFG_FACTORY_PIPES) || defined(__DOXYGEN__)
-#define CH_CFG_FACTORY_PIPES                FALSE
+#define CH_CFG_FACTORY_PIPES                TRUE
 #endif
 
 /** @} */
@@ -727,7 +646,7 @@
  *          @p panic_msg variable set to @p NULL.
  */
 #if !defined(CH_DBG_ENABLE_STACK_CHECK)
-#define CH_DBG_ENABLE_STACK_CHECK           TRUE
+#define CH_DBG_ENABLE_STACK_CHECK           FALSE
 #endif
 
 /**
@@ -739,7 +658,7 @@
  * @note    The default is @p FALSE.
  */
 #if !defined(CH_DBG_FILL_THREADS)
-#define CH_DBG_FILL_THREADS                 TRUE
+#define CH_DBG_FILL_THREADS                 FALSE
 #endif
 
 /**
@@ -800,10 +719,8 @@
  * @brief   Threads descriptor structure extension.
  * @details User fields added to the end of the @p thread_t structure.
  */
-#ifndef CH_CFG_THREAD_EXTRA_FIELDS
 #define CH_CFG_THREAD_EXTRA_FIELDS                                          \
   /* Add threads custom fields here.*/
-#endif
 
 /**
  * @brief   Threads initialization hook.
@@ -861,8 +778,6 @@
  */
 #define CH_CFG_IDLE_ENTER_HOOK() {                                          \
   /* Idle-enter code here.*/                                                \
-  extern void sysIdleEnterMeasure(void);                                    \
-  sysIdleEnterMeasure();                                                    \
 }
 
 /**
@@ -873,8 +788,6 @@
  */
 #define CH_CFG_IDLE_LEAVE_HOOK() {                                          \
   /* Idle-leave code here.*/                                                \
-  extern void sysIdleLeaveMeasure(void);                                    \
-  sysIdleLeaveMeasure();                                                    \
 }
 
 /**
@@ -898,26 +811,9 @@
  * @brief   System halt hook.
  * @details This hook is invoked in case to a system halting error before
  *          the system is halted.
- *
- * We flush all memory on STM32F7 to allow gdb to access variables currently
- * in the dcache
  */
-#ifndef CH_CFG_SYSTEM_HALT_HOOK
-#define CH_CFG_SYSTEM_HALT_HOOK(reason) do {                               \
-        extern void memory_flush_all(void); \
-        memory_flush_all(); \
-        extern void system_halt_hook(void); \
-        system_halt_hook(); \
-} while(0)
-#endif
-
-/**
- * @brief   stack overflow event hook.
- * @details This hook is invoked when we have a stack overflow on task switch
- */
-#define CH_CFG_STACK_OVERFLOW_HOOK(tp) {                                         \
-  extern void stack_overflow(thread_t *tp); \
-  stack_overflow(tp); \
+#define CH_CFG_SYSTEM_HALT_HOOK(reason) {                                   \
+  /* System halt code here.*/                                               \
 }
 
 /**
@@ -930,45 +826,21 @@
 }
 
 /**
- * @brief   System initialization hook.
- * @details User initialization code added to the @p chSysInit() function
- *          just before interrupts are enabled globally.
- */
-#define CH_CFG_SYSTEM_INIT_HOOK() {                                         \
-  /* Add system initialization code here.*/                                 \
-}
-
-/**
- * @brief   OS instance structure extension.
- * @details User fields added to the end of the @p os_instance_t structure.
- */
-#define CH_CFG_OS_INSTANCE_EXTRA_FIELDS                                     \
-  /* Add OS instance custom fields here.*/
-
-/**
  * @brief   Runtime Faults Collection Unit hook.
  * @details This hook is invoked each time new faults are collected and stored.
  */
 #define CH_CFG_RUNTIME_FAULTS_HOOK(mask) {                                  \
   /* Faults handling code here.*/                                           \
 }
+
 /**
  * @brief   Safety checks hook.
  * @details This hook is invoked when there is a safety violation and the
  *          system is going to stop.
  */
-
 #define CH_CFG_SAFETY_CHECK_HOOK(l, f) {                                    \
   /* Safety handling code here.*/                                           \
   chSysHalt(f);                                                             \
-}
-/**
- * @brief   OS instance initialization hook.
- *
- * @param[in] oip       pointer to the @p os_instance_t structure
- */
-#define CH_CFG_OS_INSTANCE_INIT_HOOK(oip) {                                 \
-  /* Add OS instance initialization code here.*/                            \
 }
 
 /** @} */
