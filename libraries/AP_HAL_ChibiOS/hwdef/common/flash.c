@@ -149,7 +149,7 @@
 #elif defined(STM32L4)
     #define STM32_FLASH_NPAGES (BOARD_FLASH_SIZE/2)
     #define STM32_FLASH_FIXED_PAGE_SIZE 2
-#elif defined(PICO2_AVAILABLE) && PICO2_AVAILABLE == TRUE
+#elif defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE
     #define PICO_FLASH_NPAGES (BOARD_FLASH_SIZE/4)
     #define PICO_FLASH_FIXED_PAGE_SIZE 4
 #else
@@ -167,18 +167,21 @@
 
 #if defined(__GNUC__) && __GNUC__ >= 6
 #ifdef STORAGE_FLASH_PAGE
+#if PIC02_AVAILABLE == TRUE
+static_assert(STORAGE_FLASH_PAGE < PICO_FLASH_NPAGES,
+              "STORAGE_FLASH_PAGE out of range");
+#else
 static_assert(STORAGE_FLASH_PAGE < STM32_FLASH_NPAGES,
               "STORAGE_FLASH_PAGE out of range");
 #endif
 #endif
+#endif
 
-// keep a cache of the page addresses
-#ifndef STM32_FLASH_FIXED_PAGE_SIZE
+// keep a cache of the page addresses (only needed for variable-size page STM32 flash)
+#if !defined(STM32_FLASH_FIXED_PAGE_SIZE) && !(PIC02_AVAILABLE == TRUE)
 static uint32_t flash_pageaddr[STM32_FLASH_NPAGES];
 static bool flash_pageaddr_initialised;
 #endif
-
-static bool flash_keep_unlocked;
 
 #ifndef FLASH_KEY1
 #define FLASH_KEY1      0x45670123
@@ -223,6 +226,11 @@ static inline void putreg32(uint32_t val, unsigned int addr)
 {
     *(volatile uint32_t *)(addr) = val;
 }
+
+// STM32-only: these helper functions use STM32 FLASH peripheral registers
+// RP2350 uses the EFL driver (efl_lld) which manages flash access internally
+#if !defined(PIC02_AVAILABLE) || PIC02_AVAILABLE != TRUE
+static bool flash_keep_unlocked;
 
 static void stm32_flash_wait_idle(void)
 {
@@ -322,6 +330,8 @@ void stm32_flash_lock(void)
 #endif
 }
 
+#endif // !PIC02_AVAILABLE: end of STM32-only flash register helpers
+
 #if (defined(STM32H7) && HAL_FLASH_PROTECTION) || defined(HAL_FLASH_SET_NRST_MODE)
 static void stm32_flash_wait_opt_idle(void)
 {
@@ -390,6 +400,12 @@ static bool stm32_flash_lock_options(void)
  */
 uint32_t stm32_flash_getpageaddr(uint32_t page)
 {
+#if PIC02_AVAILABLE == TRUE
+    if (page >= PICO_FLASH_NPAGES) {
+        return 0;
+    }
+    return RP_FLASH_BASE + page * (uint32_t)(PICO_FLASH_FIXED_PAGE_SIZE * 1024);
+#else
     if (page >= STM32_FLASH_NPAGES) {
         return 0;
     }
@@ -409,6 +425,7 @@ uint32_t stm32_flash_getpageaddr(uint32_t page)
 
     return flash_pageaddr[page];
 #endif
+#endif // PIC02_AVAILABLE
 }
 
 /*
@@ -416,7 +433,10 @@ uint32_t stm32_flash_getpageaddr(uint32_t page)
  */
 uint32_t stm32_flash_getpagesize(uint32_t page)
 {
-#if defined(STM32_FLASH_FIXED_PAGE_SIZE)
+#if PIC02_AVAILABLE == TRUE
+    (void)page;
+    return PICO_FLASH_FIXED_PAGE_SIZE * 1024;
+#elif defined(STM32_FLASH_FIXED_PAGE_SIZE)
     (void)page;
     return STM32_FLASH_FIXED_PAGE_SIZE * 1024;
 #else
@@ -429,7 +449,11 @@ uint32_t stm32_flash_getpagesize(uint32_t page)
  */
 uint32_t stm32_flash_getnumpages()
 {
+#if PIC02_AVAILABLE == TRUE
+    return PICO_FLASH_NPAGES;
+#else
     return STM32_FLASH_NPAGES;
+#endif
 }
 
 bool stm32_flash_ispageerased(uint32_t page)
@@ -437,7 +461,11 @@ bool stm32_flash_ispageerased(uint32_t page)
     uint32_t addr;
     uint32_t count;
 
+#if PIC02_AVAILABLE == TRUE
+    if (page >= PICO_FLASH_NPAGES) {
+#else
     if (page >= STM32_FLASH_NPAGES) {
+#endif
         return false;
     }
 
@@ -522,6 +550,23 @@ void stm32_flash_corrupt(uint32_t addr, bool double_bit)
  */
 bool stm32_flash_erasepage(uint32_t page)
 {
+#if PIC02_AVAILABLE == TRUE
+    // RP2350: use ChibiOS EFL driver to erase a 4KB sector
+    if (page >= PICO_FLASH_NPAGES) {
+        return false;
+    }
+#ifndef HAL_BOOTLOADER_BUILD
+    last_erase_ms = hrt_millis32();
+#endif
+    flash_error_t err = efl_lld_start_erase_sector(&EFLD1, (flash_sector_t)page);
+    if (err != FLASH_NO_ERROR) {
+        return false;
+    }
+#ifndef HAL_BOOTLOADER_BUILD
+    last_erase_ms = hrt_millis32();
+#endif
+    return stm32_flash_ispageerased(page);
+#else
     if (page >= STM32_FLASH_NPAGES) {
         return false;
     }
@@ -627,6 +672,7 @@ bool stm32_flash_erasepage(uint32_t page)
 #endif
 
     return stm32_flash_ispageerased(page);
+#endif // PIC02_AVAILABLE
 }
 
 
@@ -975,7 +1021,14 @@ failed:
 
 bool stm32_flash_write(uint32_t addr, const void *buf, uint32_t count)
 {
-#if defined(STM32F1) || defined(STM32F3)
+#if PIC02_AVAILABLE == TRUE
+    // RP2350: use ChibiOS EFL driver; addr is XIP address, convert to EFL offset
+    if (addr < RP_FLASH_BASE || addr + count > RP_FLASH_BASE + (uint32_t)(PICO_FLASH_NPAGES * PICO_FLASH_FIXED_PAGE_SIZE * 1024U)) {
+        return false;
+    }
+    flash_error_t err = efl_lld_program(&EFLD1, (flash_offset_t)(addr - RP_FLASH_BASE), count, (const uint8_t *)buf);
+    return err == FLASH_NO_ERROR;
+#elif defined(STM32F1) || defined(STM32F3)
     return stm32_flash_write_f1(addr, buf, count);
 #elif defined(STM32F4) || defined(STM32F7)
     return stm32_flash_write_f4f7(addr, buf, count);
@@ -990,6 +1043,10 @@ bool stm32_flash_write(uint32_t addr, const void *buf, uint32_t count)
 
 void stm32_flash_keep_unlocked(bool set)
 {
+#if PIC02_AVAILABLE == TRUE
+    (void)set;
+    // RP2350 EFL driver manages flash access internally; no unlock/lock needed
+#else
     if (set && !flash_keep_unlocked) {
         stm32_flash_unlock();
         flash_keep_unlocked = true;
@@ -997,6 +1054,7 @@ void stm32_flash_keep_unlocked(bool set)
         flash_keep_unlocked = false;
         stm32_flash_lock();        
     }
+#endif
 }
 
 /**

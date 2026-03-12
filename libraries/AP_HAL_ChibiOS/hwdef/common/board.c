@@ -314,6 +314,14 @@ void __late_init(void) {
   chSysInit();
 
   /*
+   * Start EFL driver for RP2350 QSPI flash read/write/erase support.
+   * Must be called after halInit() which runs eflInit().
+   */
+  #if PIC02_AVAILABLE == TRUE && HAL_USE_EFL == TRUE
+    eflStart(&EFLD1, NULL);
+  #endif
+
+  /*
    * Initialize RNG
    */
   #if HAL_USE_HW_RNG && defined(RNG)

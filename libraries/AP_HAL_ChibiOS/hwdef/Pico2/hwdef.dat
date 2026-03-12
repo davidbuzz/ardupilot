@@ -45,9 +45,9 @@
 MCU PICO2 PICO2
 #MCU STM32F4xx STM32F427xx
 
-# not implemented yet in 2350
-define HAL_NO_FLASH_SUPPORT 1
-define HAL_NO_ROMFS_SUPPORT 1
+# flash is now implemented via ChibiOS EFL driver (efl_lld) for RP2350 QSPI flash
+# define HAL_NO_FLASH_SUPPORT 1  -- removed: EFL driver supports flash read/write/erase
+# define HAL_NO_ROMFS_SUPPORT 1  -- removed: ROMFS works as binary-embedded data
 define AP_BOOTLOADER_FLASHING_ENABLED 0
 
 # dma is very stm32 specific, eg stm32_dma_stream_t* rxdma; so we disable it for now, and use polling for uart. todo buzz when we have dma working on 2350.
@@ -443,7 +443,11 @@ define HAL_BATT_CURR_SCALE 17.0
 # This defines the default maximum clock on I2C devices.
 define HAL_I2C_MAX_CLOCK 100000
 
+
 # We can't share the IO UART (USART6).
+
+
+
 #DMA_NOSHARE USART6_TX ADC1
 #DMA_PRIORITY USART6* SPI*
 
@@ -475,7 +479,15 @@ define HAL_USE_ADC                         FALSE
 define HAL_USE_CAN                         FALSE
 define HAL_USE_CRY                         FALSE
 define HAL_USE_DAC                         FALSE
-define HAL_USE_EFL                         FALSE
+define HAL_USE_EFL                         TRUE
+# STORAGE_FLASH_PAGE: use last 16KB of 4MB flash (sectors 1020-1023) for parameter storage
+# AP_FLASH_STORAGE_DOUBLE_PAGE: treat 2x4KB sectors as one logical sector (8KB each)
+# HAL_STORAGE_SIZE: 8KB fits within one 8KB logical storage sector
+define STORAGE_FLASH_PAGE 1020
+define AP_FLASH_STORAGE_DOUBLE_PAGE 1
+# HAL_STORAGE_SIZE reduced from 16384 to 8192 to fit RP2350 4KB flash sector constraint
+undef HAL_STORAGE_SIZE
+define HAL_STORAGE_SIZE 8192
 define HAL_USE_GPT                         FALSE
 define HAL_USE_I2S                         FALSE
 
