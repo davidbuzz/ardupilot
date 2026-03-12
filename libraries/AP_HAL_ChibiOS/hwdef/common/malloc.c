@@ -428,7 +428,7 @@ size_t mem_available(void)
     chHeapStatus(NULL, &totalp, NULL);
 
     // we also need to add in memory that is not yet allocated to the heap
-    totalp += chCoreGetStatusX();
+    totalp += _chCoreGetStatusX();
 
     // now our own heaps
     for (i=1; i<NUM_MEMORY_REGIONS; i++) {
