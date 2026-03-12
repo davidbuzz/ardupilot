@@ -269,6 +269,9 @@ class ChibiOSHWDef(hwdef.HWDef):
                 if type.startswith(prefix):
                     a1 = label.split('_')
                     a2 = type.split('_')
+                    # RP2350: PWM pins use PWMn_A/B labels with TIMn type; skip mismatch check
+                    if prefix == 'TIM' and self.mcu_series.startswith('PICO2') and re.match(r'PWM\d+_[AB]$', label):
+                        continue
                     if a1[0] != a2[0]:
                         self.error("Peripheral prefix mismatch for %s %s %s" % (self.portpin, label, type))
 
@@ -1982,14 +1985,33 @@ INCLUDE common.ld
         self.write_device_table(f, "i2c devices", "HAL_I2C_DEVICE_LIST", devlist)
 
     def parse_timer(self, str):
-        '''parse timer channel string, i.e TIM8_CH2N'''
+        '''parse timer channel string, i.e TIM8_CH2N
+        For RP2350 (PICO2), TIM0..TIM11 map to PWM slices 0..11.
+        Labels use native RP2350 naming: PWMn_A (channel 1) or PWMn_B (channel 2).
+        '''
+        # RP2350 native PWM naming: PWMn_A or PWMn_B
+        rp_result = re.match(r'PWM([0-9]+)_([AB])$', str)
+        if rp_result:
+            tim = int(rp_result.group(1))
+            chan = 1 if rp_result.group(2) == 'A' else 2
+            if tim > 11:
+                self.error("Bad RP2350 PWM slice number %s in %s (max 11)" % (tim, str))
+            return (tim, chan, False)
+
         result = re.match(r'TIM([0-9]*)_CH([1234])(N?)', str)
         if result:
             tim = int(result.group(1))
             chan = int(result.group(2))
             compl = result.group(3) == 'N'
-            if tim < 1 or tim > 17:
-                self.error("Bad timer number %s in %s" % (tim, str))
+            if self.is_rp_mcu():
+                # RP2350: allow slice numbers 0..11, only CH1 and CH2 are valid
+                if tim > 11:
+                    self.error("Bad RP2350 PWM slice number %s in %s (max 11)" % (tim, str))
+                if chan > 2:
+                    self.error("Bad RP2350 PWM channel %s in %s (only CH1/CH2 supported)" % (chan, str))
+            else:
+                if tim < 1 or tim > 17:
+                    self.error("Bad timer number %s in %s" % (tim, str))
             return (tim, chan, compl)
         else:
             self.error("Bad timer definition %s" % str)
@@ -2104,22 +2126,33 @@ INCLUDE common.ld
         f.write('\n')
 
         f.write('// PWM timer config\n')
-        if bidir is not None:
-            f.write('#define HAL_WITH_BIDIR_DSHOT\n')
-        if up_shared is not None:
-            f.write('#define HAL_TIM_UP_SHARED\n')
-            for t in self.shared_up:
-                f.write('#define HAL_%s_SHARED true\n' % t)
-        for t in pwm_timers:
-            n = int(t[3:])
-            f.write('#define STM32_PWM_USE_TIM%u TRUE\n' % n)
-            f.write('#define STM32_TIM%u_SUPPRESS_ISR\n' % n)
+        if self.is_rp_mcu():
+            # RP2350: enable specific PWM slices (RP_PWM_USE_PWMn), no DMA, no bidir dshot
+            for t in pwm_timers:
+                n = int(t[3:])
+                f.write('#define RP_PWM_USE_PWM%u TRUE\n' % n)
+            f.write('// RP2350 PWM slices have 2 channels only (no complementary outputs)\n')
+            f.write('#define HAL_PWM_GROUP_CHANNELS 2\n')
+        else:
+            if bidir is not None:
+                f.write('#define HAL_WITH_BIDIR_DSHOT\n')
+            if up_shared is not None:
+                f.write('#define HAL_TIM_UP_SHARED\n')
+                for t in self.shared_up:
+                    f.write('#define HAL_%s_SHARED true\n' % t)
+            for t in pwm_timers:
+                n = int(t[3:])
+                f.write('#define STM32_PWM_USE_TIM%u TRUE\n' % n)
+                f.write('#define STM32_TIM%u_SUPPRESS_ISR\n' % n)
         f.write('\n')
         f.write('// PWM output config\n')
         groups = []
         # complementary channels require advanced features
-        # which are only available on timers 1 and 8
+        # which are only available on timers 1 and 8 (STM32 only)
         need_advanced = False
+
+        # Collect GPIO lines for RP2350 board GPIO init
+        rp_gpio_pwm_lines = []
 
         for t in pwm_timers:
             group = len(groups) + 1
@@ -2141,44 +2174,80 @@ INCLUDE common.ld
                     chan_mode[chan - 1] = 'PWM_COMPLEMENTARY_OUTPUT_ACTIVE_HIGH'
                 else:
                     chan_mode[chan - 1] = 'PWM_OUTPUT_ACTIVE_HIGH'
-                alt_functions[chan - 1] = p.af
+                if self.is_rp_mcu():
+                    # RP2350 PWM alternate function is always 4
+                    alt_functions[chan - 1] = 4
+                    # Collect GPIO line for pico2_gpio_init()
+                    line = self.make_pal_line(p.port, p.pin)
+                    if line not in rp_gpio_pwm_lines:
+                        rp_gpio_pwm_lines.append(line)
+                else:
+                    alt_functions[chan - 1] = p.af
                 pal_lines[chan - 1] = self.make_pal_line(p.port, p.pin)
             groups.append('HAL_PWM_GROUP%u' % group)
-            if n in [1, 8]:
-                # only the advanced timers do 8MHz clocks
-                need_advanced = True
-                advanced_timer = 'true'
+            if self.is_rp_mcu():
+                # RP2350: no advanced timer, no DMA, no bidir dshot
+                # PWMConfig for RP2350 has only 2 channels (channels[PWM_CHANNELS] with PWM_CHANNELS=2)
+                pwm_clock = 1000000
+                period = 20000 * pwm_clock // 1000000
+                f.write('''#define HAL_PWM_GROUP%u { false, \\
+        {%u, %u, %u, %u}, \\
+        /* Group Initial Config (RP2350: 2-channel PWMConfig) */ \\
+        { \\
+          %u,  /* PWM clock frequency. */ \\
+          %u,   /* Initial PWM period 20ms. */ \\
+          NULL,     /* no callback */ \\
+          { \\
+           /* Channel Config (RP2350 PWM_CHANNELS=2) */ \\
+           {%s, NULL}, \\
+           {%s, NULL}  \\
+          }}, &PWMD%u, %u, \\
+          false, 0, 0, \\
+          { %u, %u, %u, %u }, \\
+          { %s, %s, %s, %s }}\n''' %
+                        (group,
+                         chan_list[0], chan_list[1], chan_list[2], chan_list[3],
+                         pwm_clock, period,
+                         chan_mode[0], chan_mode[1],
+                         n, n,
+                         alt_functions[0], alt_functions[1], alt_functions[2], alt_functions[3],
+                         pal_lines[0], pal_lines[1], pal_lines[2], pal_lines[3]))
             else:
-                advanced_timer = 'false'
-            pwm_clock = 1000000
-            period = 20000 * pwm_clock / 1000000
-            hal_icu_def = ''
-            hal_icu_cfg = ''
-            if bidir is not None:
-                hal_icu_cfg = '\n          {'
-                hal_icu_def = '\n'
-                for i in range(1, 5):
-                    hal_icu_cfg += '{HAL_IC%u_CH%u_DMA_CONFIG},' % (n, i)
-                    hal_icu_def += '''#if defined(STM32_TIM_TIM%u_CH%u_DMA_STREAM) && defined(STM32_TIM_TIM%u_CH%u_DMA_CHAN)
+                if n in [1, 8]:
+                    # only the advanced timers do 8MHz clocks
+                    need_advanced = True
+                    advanced_timer = 'true'
+                else:
+                    advanced_timer = 'false'
+                pwm_clock = 1000000
+                period = 20000 * pwm_clock / 1000000
+                hal_icu_def = ''
+                hal_icu_cfg = ''
+                if bidir is not None:
+                    hal_icu_cfg = '\n          {'
+                    hal_icu_def = '\n'
+                    for i in range(1, 5):
+                        hal_icu_cfg += '{HAL_IC%u_CH%u_DMA_CONFIG},' % (n, i)
+                        hal_icu_def += '''#if defined(STM32_TIM_TIM%u_CH%u_DMA_STREAM) && defined(STM32_TIM_TIM%u_CH%u_DMA_CHAN)
 # define HAL_IC%u_CH%u_DMA_CONFIG true, STM32_TIM_TIM%u_CH%u_DMA_STREAM, STM32_TIM_TIM%u_CH%u_DMA_CHAN
 #else
 # define HAL_IC%u_CH%u_DMA_CONFIG false, 0, 0
 #endif
 ''' % (n, i, n, i, n, i, n, i, n, i, n, i)
-                if up_shared is not None:
-                    hal_icu_cfg += '}, HAL_TIM%u_UP_SHARED, \\' % n
-                else:
-                    hal_icu_cfg += '}, \\'
+                    if up_shared is not None:
+                        hal_icu_cfg += '}, HAL_TIM%u_UP_SHARED, \\' % n
+                    else:
+                        hal_icu_cfg += '}, \\'
 
-            f.write('''#if defined(STM32_TIM_TIM%u_UP_DMA_STREAM) && defined(STM32_TIM_TIM%u_UP_DMA_CHAN)
+                f.write('''#if defined(STM32_TIM_TIM%u_UP_DMA_STREAM) && defined(STM32_TIM_TIM%u_UP_DMA_CHAN)
 # define HAL_PWM%u_DMA_CONFIG true, STM32_TIM_TIM%u_UP_DMA_STREAM, STM32_TIM_TIM%u_UP_DMA_CHAN
 #else
 # define HAL_PWM%u_DMA_CONFIG false, 0, 0
 #endif\n%s''' % (n, n, n, n, n, n, hal_icu_def))
-            f.write('''#if !defined(HAL_TIM%u_UP_SHARED)
+                f.write('''#if !defined(HAL_TIM%u_UP_SHARED)
 #define HAL_TIM%u_UP_SHARED false
 #endif\n''' % (n, n))
-            f.write('''#define HAL_PWM_GROUP%u { %s, \\
+                f.write('''#define HAL_PWM_GROUP%u { %s, \\
         {%u, %u, %u, %u}, \\
         /* Group Initial Config */ \\
         { \\
@@ -2195,16 +2264,20 @@ INCLUDE common.ld
           HAL_PWM%u_DMA_CONFIG, \\%s
           { %u, %u, %u, %u }, \\
           { %s, %s, %s, %s }}\n''' %
-                    (group, advanced_timer,
-                     chan_list[0], chan_list[1], chan_list[2], chan_list[3],
-                     pwm_clock, period,
-                     chan_mode[0], chan_mode[1], chan_mode[2], chan_mode[3],
-                     n, n, n, hal_icu_cfg,
-                     alt_functions[0], alt_functions[1], alt_functions[2], alt_functions[3],
-                     pal_lines[0], pal_lines[1], pal_lines[2], pal_lines[3]))
+                        (group, advanced_timer,
+                         chan_list[0], chan_list[1], chan_list[2], chan_list[3],
+                         pwm_clock, period,
+                         chan_mode[0], chan_mode[1], chan_mode[2], chan_mode[3],
+                         n, n, n, hal_icu_cfg,
+                         alt_functions[0], alt_functions[1], alt_functions[2], alt_functions[3],
+                         pal_lines[0], pal_lines[1], pal_lines[2], pal_lines[3]))
         f.write('#define HAL_PWM_GROUPS %s\n\n' % ','.join(groups))
         if need_advanced:
             f.write('#define STM32_PWM_USE_ADVANCED TRUE\n')
+        # RP2350: emit GPIO lines list for pico2_gpio_init() to configure as PWM alternate function
+        if self.is_rp_mcu() and rp_gpio_pwm_lines:
+            f.write('// RP2350 PWM GPIO lines to configure as PAL_MODE_ALTERNATE_PWM (function 4)\n')
+            f.write('#define HAL_PWM_GPIO_LINES %s\n' % ', '.join(rp_gpio_pwm_lines))
 
     def write_ADC_config(self, f):
         '''write ADC config defines'''
@@ -2828,7 +2901,12 @@ Please run: Tools/scripts/build_bootloaders.py %s
         # special checks for common errors
         m1 = re.match(r'TIM(\d+)', ptype)
         m2 = re.match(r'TIM(\d+)_CH\d+', label)
-        if (m1 and not m2) or (m2 and not m1) or (m1 and m1.group(1) != m2.group(1)):
+        # RP2350: labels use native PWMn_A/B naming (e.g. PWM0_A for TIM0 slice ch A)
+        m2_rp = re.match(r'PWM(\d+)_[AB]$', label)
+        if m1 and m2_rp:
+            # RP2350 PWMn_A/B label is valid for TIMn type; slice number need not match tim number
+            pass
+        elif (m1 and not m2) or (m2 and not m1) or (m1 and m1.group(1) != m2.group(1)):
             '''timer numbers need to match'''
             return False
         m1 = re.match(r'CAN(\d+)', ptype)

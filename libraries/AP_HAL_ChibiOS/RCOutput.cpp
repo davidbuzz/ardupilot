@@ -72,6 +72,13 @@ extern AP_IOMCU iomcu;
 
 #define TELEM_IC_SAMPLE 16
 
+// Number of PWM channels per timer group.
+// RP2350 PWM slices have 2 channels (HAL_PWM_GROUP_CHANNELS=2 set in hwdef.h).
+// STM32 timers have up to 4 channels. Default to 4 for non-RP2350 boards.
+#ifndef HAL_PWM_GROUP_CHANNELS
+#define HAL_PWM_GROUP_CHANNELS 4
+#endif
+
 struct RCOutput::pwm_group RCOutput::pwm_group_list[] = { HAL_PWM_GROUPS };
 #if HAL_SERIAL_ESC_COMM_ENABLED
 struct RCOutput::irq_state RCOutput::irq;
@@ -124,7 +131,7 @@ void RCOutput::init()
                 // alarm takes the whole timer
                 group.ch_mask = 0;
                 group.current_mode = MODE_PWM_NONE;
-                for (uint8_t k = 0; k < 4; k++) {
+                for (uint8_t k = 0; k < HAL_PWM_GROUP_CHANNELS; k++) {
                     group.chan[k] = CHAN_DISABLED;
                     group.pwm_cfg.channels[k].mode = PWM_OUTPUT_DISABLED;
                 }
@@ -395,6 +402,9 @@ void RCOutput::set_freq_group(pwm_group &group)
     // down to 1MHz until it is OK with the hardware timer we
     // are using. If we don't do this we'll hit an assert in
     // the ChibiOS PWM driver on some timers
+#if !defined(PIC02_AVAILABLE) || PIC02_AVAILABLE != TRUE
+    // STM32-specific: check that PSC value fits in 16-bit TIMx prescaler register.
+    // RP2350 PWM driver computes its own divider dynamically (no pwmp->clock field).
     PWMDriver *pwmp = group.pwm_drv;
     uint32_t psc = (pwmp->clock / pwmp->config->frequency) - 1;
     while ((psc > 0xFFFF || ((psc + 1) * pwmp->config->frequency) != pwmp->clock) &&
@@ -402,6 +412,7 @@ void RCOutput::set_freq_group(pwm_group &group)
         group.pwm_cfg.frequency /= 2;
         psc = (pwmp->clock / pwmp->config->frequency) - 1;
     }
+#endif // !PIC02_AVAILABLE
 
     if (group.current_mode == MODE_PWM_ONESHOT ||
         group.current_mode == MODE_PWM_ONESHOT125) {
@@ -412,16 +423,18 @@ void RCOutput::set_freq_group(pwm_group &group)
     }
 
     bool force_reconfig = false;
-    for (uint8_t j=0; j<4; j++) {
+    for (uint8_t j=0; j<HAL_PWM_GROUP_CHANNELS; j++) {
         if (group.pwm_cfg.channels[j].mode == PWM_OUTPUT_ACTIVE_LOW) {
             group.pwm_cfg.channels[j].mode = PWM_OUTPUT_ACTIVE_HIGH;
             force_reconfig = true;
         }
+#if !defined(PIC02_AVAILABLE) || PIC02_AVAILABLE != TRUE
+        // complementary outputs only exist on STM32 advanced timers
         if (group.pwm_cfg.channels[j].mode == PWM_COMPLEMENTARY_OUTPUT_ACTIVE_LOW) {
             group.pwm_cfg.channels[j].mode = PWM_COMPLEMENTARY_OUTPUT_ACTIVE_HIGH;
             force_reconfig = true;
         }
-
+#endif // !PIC02_AVAILABLE
     }
 
     if (old_clock != group.pwm_cfg.frequency ||
@@ -1414,8 +1427,10 @@ void RCOutput::trigger_groups()
             group.current_mode == MODE_PWM_ONESHOT125) {
             const uint8_t i = &group - pwm_group_list;
             if (trigger_groupmask & (1U<<i)) {
+#if !defined(PIC02_AVAILABLE) || PIC02_AVAILABLE != TRUE
                 // this triggers pulse output for a channel group
                 group.pwm_drv->tim->EGR = STM32_TIM_EGR_UG;
+#endif // !PIC02_AVAILABLE
             }
         }
     }
@@ -1932,11 +1947,13 @@ void RCOutput::dma_cancel(pwm_group& group)
 #endif
     // normally the CCR registers are reset by the final 0 in the DMA buffer
     // since we are cancelling early they need to be reset to avoid infinite pulses
+#if !defined(PIC02_AVAILABLE) || PIC02_AVAILABLE != TRUE
     for (uint8_t i = 0; i < 4; i++) {
         if (group.chan[i] != CHAN_DISABLED) {
             group.pwm_drv->tim->CCR[i] = 0;
         }
     }
+#endif // !PIC02_AVAILABLE
     chVTResetI(&group.dma_timeout);
     chEvtGetAndClearEventsI(group.dshot_event_mask | DSHOT_CASCADE);
 
