@@ -54,12 +54,16 @@ mcu = {
         (0x20000000, 512, 1), # main memory, DMA safe, 512k
     ],
 
+# hints also here: https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2_common/pico_unique_id/include/pico/unique_id.c
+	'UDID_START' : 0x1FFF7A10, # 64 bits of "random" on the rp2350 in a OTP , this is 96bits on stm32, and also guaranteed unique on stm32 but not 2350
+
     'EXPECTED_CLOCK' : 150000000,  # 168000000 ?
 
     'DEFINES' : {
-        'STM32F4' : '1',
-    }
-
+        #'STM32F4' : '1',
+    },
+    'CORTEX'    : 'cortex-m33',
+    'CPU_FLAGS' : '-mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=softfp'
 }
 
 #     Table 1427

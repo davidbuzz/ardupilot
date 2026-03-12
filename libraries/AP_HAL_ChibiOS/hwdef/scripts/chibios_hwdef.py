@@ -769,6 +769,10 @@ class ChibiOSHWDef(hwdef.HWDef):
     def get_flash_pages_sizes(self):
         mcu_series = self.mcu_series
         mcu_type = self.mcu_type
+        if mcu_series.startswith('PICO2'):# uses 4 KB sectors for erasing but as its qspi its slow ish.
+            return [1] * self.get_config('FLASH_SIZE_KB', type=int)
+            #return [4] * (self.get_config('FLASH_SIZE_KB', type=int)//4)
+        # STM32 flash page layouts
         if mcu_series.startswith('STM32F4') or mcu_series.startswith('CKS32F4'):
             if self.get_config('FLASH_SIZE_KB', type=int) == 512:
                 return [16, 16, 16, 16, 64, 128, 128, 128]
@@ -942,8 +946,8 @@ class ChibiOSHWDef(hwdef.HWDef):
             else:
                 f.write('#define STM32_USB_USE_OTG1                  TRUE\n')
                 f.write('#define STM32_OTG2_IS_OTG1                  FALSE\n')
-            f.write('#define HAL_USE_USB TRUE\n')
-            f.write('#define HAL_USE_SERIAL_USB TRUE\n')
+            #f.write('#define HAL_USE_USB TRUE\n') - todo buzz fix this
+            #f.write('#define HAL_USE_SERIAL_USB TRUE\n') - todo buzz fix this
         if 'OTG2' in self.bytype:
             f.write('#define STM32_USB_USE_OTG2                  TRUE\n')
 

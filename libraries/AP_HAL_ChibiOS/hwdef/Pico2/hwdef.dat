@@ -45,6 +45,10 @@
 MCU PICO2 PICO2
 #MCU STM32F4xx STM32F427xx
 
+# not implemented yet in 2350
+define HAL_NO_FLASH_SUPPORT 1
+define HAL_NO_ROMFS_SUPPORT 1
+
 # Now we need to specify the APJ_BOARD_ID. This is the ID that the
 # bootloader presents to GCS software so it knows if this firmware is
 # suitable for the board. Please see
@@ -79,8 +83,8 @@ STM32_ST_USE_TIMER 5
 
 # Now the size of flash in kilobytes, for creating the ld.script.
 
-# flash size
-FLASH_SIZE_KB 2048
+# flash size - Raspberry Pi Pico 2 (RP2350) comes standard with 4MB of onboard QSPI Flash memory
+FLASH_SIZE_KB 4096
 
 # Now define which UART is used for printf(). We rarely use printf()
 # in ChibiOS, so this is really only for debugging very early startup
@@ -452,6 +456,39 @@ define AP_BATTERY_SMBUS_SOLO_ENABLED (AP_BATTERY_SMBUS_ENABLED && BOARD_FLASH_SI
 # produce this error if we are on a 1M board
 define BOARD_CHECK_F427_USE_1M "ERROR: 1M flash use fmuv2"
 
+
+# chibios drivers for many peripherals on rp2350 are not yet supported or not tested
+define HAL_USE_PAL                         TRUE
+define HAL_USE_SIO                         TRUE
+define HAL_USE_I2C                         FALSE
+define HAL_USE_SPI                         FALSE
+define HAL_USE_ADC                         FALSE
+define HAL_USE_CAN                         FALSE
+define HAL_USE_CRY                         FALSE
+define HAL_USE_DAC                         FALSE
+define HAL_USE_EFL                         FALSE
+define HAL_USE_GPT                         FALSE
+define HAL_USE_I2S                         FALSE
+define HAL_USE_ICU                         FALSE
+define HAL_USE_MAC                         FALSE
+define HAL_USE_MMC_SPI                     FALSE
+define HAL_USE_PWM                         FALSE
+define HAL_USE_RTC                         FALSE
+define HAL_USE_SDC                         FALSE
+define HAL_USE_SERIAL                      FALSE
+define HAL_USE_SERIAL_USB                  TRUE  #false causes SerialUSBDriver type to be missing
+define HAL_USE_TRNG                        FALSE
+define HAL_USE_UART                        FALSE
+define HAL_USE_USB                         TRUE  #false causes unknown type name 'USBDriver
+define HAL_USE_WDG                         FALSE
+define HAL_USE_WSPI                        FALSE
+#
+define PAL_USE_CALLBACKS                   FALSE
+define PAL_USE_WAIT                        FALSE
+#
+# define RP_USB_USE_USB1                     TRUE 
+
+define PIC02_AVAILABLE 1
 
 #        ---------------------------------------------
 #        # if the user has both isolated sensors enabled then force-enable the

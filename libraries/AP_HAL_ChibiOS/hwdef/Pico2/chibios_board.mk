@@ -1,20 +1,20 @@
 ##############################################################################
 # Build global options
-# NOTE: Can be overridden externally.
+# NOTE: Can be overridden externally.- started with ardupilot ../common/chibios_board.mk and merged bits from git master ChibiOS/ChibiOS/demos/RP/RT-RP2350-BLINK/Makefile by buzz
 #
 
 # Compiler options here.
 ifeq ($(USE_OPT),)
-  USE_OPT = -fomit-frame-pointer -falign-functions=16
+  USE_OPT = -Og -ggdb -fomit-frame-pointer -falign-functions=16
 endif
 
 ifeq ($(ENABLE_DEBUG_SYMBOLS), yes)
-  USE_OPT += -g3
+  #USE_OPT += -g3
 endif
 
 # C specific options here (added to USE_OPT).
 ifeq ($(USE_COPT),)
-  USE_COPT = -Os
+  USE_COPT =
 endif
 
 # C++ specific options here (added to USE_OPT).
@@ -32,7 +32,7 @@ ifeq ($(USE_ASXOPT),)
   USE_ASXOPT =
 endif
 
-# Enable this if you want the linker to remove unused code and data
+# Enable this if you want the linker to remove unused code and data.
 ifeq ($(USE_LINK_GC),)
   USE_LINK_GC = yes
 endif
@@ -42,9 +42,9 @@ ifeq ($(USE_LDOPT),)
   USE_LDOPT =
 endif
 
-# Enable this if you want link time optimizations (LTO)
+# Enable this if you want link time optimizations (LTO).
 ifeq ($(USE_LTO),)
-  USE_LTO = no
+  USE_LTO = yes
 endif
 
 # If enabled, this option allows to compile the application in THUMB mode.
@@ -90,7 +90,12 @@ endif
 
 # Enables the use of FPU (no, softfp, hard).
 ifeq ($(USE_FPU),)
-  USE_FPU = hard
+  USE_FPU = softfp
+endif
+
+# FPU-related options.
+ifeq ($(USE_FPU_OPT),)
+  USE_FPU_OPT = -mfloat-abi=$(USE_FPU) -mfpu=fpv5-sp-d16
 endif
 
 #
@@ -98,22 +103,33 @@ endif
 ##############################################################################
 
 ##############################################################################
-# Project, sources and paths
+# Project, target, sources and paths
 #
 
 # Define project name here
 PROJECT = ch
 
+# Target settings.
+MCU  = cortex-m33
+
 # Imported source files and paths
-# Startup files.
+
+# Licensing files.
+#include $(CHIBIOS)/os/license/license.mk - done below
+# Startup files. CHIBIOS_STARTUP_MK=os/common/startup/ARMCMx/compilers/GCC/mk/startup_rp2350.mk set correct in PICO2.py
 include $(CHIBIOS)/$(CHIBIOS_STARTUP_MK)
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
+# CHIBIOS_PLATFORM_MK=os/hal/ports/RP/RP2350/platform.mk set correct in PICO2.py
 include $(CHIBIOS)/$(CHIBIOS_PLATFORM_MK)
+# this line is extra compared to stm32..
+include $(CHIBIOS)/os/hal/boards/RP_PICO2_RP2350/board.mk
+
 include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
-include $(CHIBIOS)/os/common/ports/ARMv7-M/compilers/GCC/mk/port.mk
+#include $(CHIBIOS)/os/common/ports/ARMv7-M/compilers/GCC/mk/port.mk
+include $(CHIBIOS)/os/common/ports/ARMv8-M-ML/compilers/GCC/mk/port.mk
 # Other files (optional).
 #include $(CHIBIOS)/test/rt/test.mk
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk
@@ -122,6 +138,15 @@ ifeq ($(USE_FATFS),yes)
 include $(CHIBIOS)/os/various/cpp_wrappers/chcpp.mk
 include $(CHIBIOS)/os/various/fatfs_bindings/fatfs.mk
 endif
+
+
+# Define linker script file here
+# For RAM execution (useful for debugging):
+#LDSCRIPT= $(STARTUPLD)/RP2350_RAM.ld
+# For flash (XIP) execution:
+LDSCRIPT= $(STARTUPLD)/RP2350_FLASH.ld
+
+
 
 # C sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
@@ -225,11 +250,15 @@ AOPT =
 # THUMB-specific options here
 TOPT = -mthumb -DTHUMB
 
+# these two are non-error on rp2350 as we somtimes redefine eg HAL_USE_SERIAL_USB from true to false in hwdef.dat
+
 # Define C warning options here
-CWARN = -Wall -Wextra -Wundef -Wstrict-prototypes -Werror
+#CWARN = -Wall -Wextra -Wundef -Wstrict-prototypes -Werror
+CWARN = -Wall -Wextra -Wundef -Wstrict-prototypes
 
 # Define C++ warning options here
-CPPWARN = -Wall -Wextra -Wundef -Werror
+#CPPWARN = -Wall -Wextra -Wundef -Werror
+CPPWARN = -Wall -Wextra -Wundef
 
 #
 # Compiler settings
@@ -241,7 +270,10 @@ CPPWARN = -Wall -Wextra -Wundef -Werror
 
 # List all user C define here, like -D_DEBUG=1
 UDEFS = $(ENV_UDEFS) $(FATFS_FLAGS) -DHAL_BOARD_NAME=\"$(HAL_BOARD_NAME)\" \
-        -DHAL_MAX_STACK_FRAME_SIZE=$(HAL_MAX_STACK_FRAME_SIZE)
+        -DHAL_MAX_STACK_FRAME_SIZE=$(HAL_MAX_STACK_FRAME_SIZE) -DPIC02_AVAILABLE=1
+
+# Single-core demo: disable core 1 startup code
+#UDEFS = -DCRT0_VTOR_INIT=1 -DNDEBUG
 
 ifeq ($(ENABLE_ASSERTS),yes)
  UDEFS += -DHAL_CHIBIOS_ENABLE_ASSERTS
@@ -264,6 +296,8 @@ endif
 
 # Define ASM defines here
 UADEFS =
+# Single-core demo: disable core 1 startup code (CRT0_EXTRA_CORES_NUMBER=0) - buzz todo if we want single core only
+#UADEFS = -DCRT0_VTOR_INIT=1 -DCRT0_EXTRA_CORES_NUMBER=0
 
 ifeq ($(COPY_VECTORS_TO_RAM),yes)
  UADEFS += -DCRT0_INIT_VECTORS=1
@@ -281,4 +315,43 @@ ULIBS =
 #
 # End of user defines
 ##############################################################################
+##############################################################################
+# Common rules
 include $(HWDEF)/common/chibios_common.mk
+#
+# Common rules
+##############################################################################
+
+##############################################################################
+# Custom rules
+#
+
+# Picotool binary location in ./
+PICOTOOL = picotool/picotool
+# Need picotool https://github.com/raspberrypi/picotool, picotool binaries: https://github.com/raspberrypi/pico-sdk-tools/releases
+# Download and extract picotool binary if not present, on linux x86_64
+$(PICOTOOL):
+	@echo "Downloading picotool..."
+	wget -q https://github.com/raspberrypi/pico-sdk-tools/releases/download/v2.2.0-3/picotool-2.2.0-a4-x86_64-lin.tar.gz
+	@echo "Extracting picotool..."
+	tar -xzf picotool-2.2.0-a4-x86_64-lin.tar.gz
+	@echo "Picotool ready at $(PICOTOOL)"
+
+uf2: $(BUILDDIR)/$(PROJECT).elf $(PICOTOOL)
+	$(PICOTOOL) uf2 convert $(BUILDDIR)/$(PROJECT).elf $(BUILDDIR)/$(PROJECT).uf2
+
+
+upload: uf2
+	$(info Uploading UF2 file... please press the BOOTSEL button on the board while connecting the USB cable in the next 5 seconds)
+	@sleep 5
+	$(PICOTOOL) load -v -x $(BUILDDIR)/$(PROJECT).uf2 -f
+	$(info UF2 file uploaded)
+# u can alternatively just copy the uf2 file to the RPI-RP2350 mass storage device if it exists. it only appears when the board is in BOOTSEL mode
+#     @cp $(BUILDDIR)/$(PROJECT).uf2 /media/$(USER)/RP2350
+
+
+
+
+#
+# Custom rules
+##############################################################################
