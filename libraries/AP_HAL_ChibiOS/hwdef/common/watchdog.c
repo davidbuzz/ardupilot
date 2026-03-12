@@ -5,7 +5,7 @@
   #include "hal.h"
   #include "watchdog.h"
 
-   #if STM32_AVAILABLE == TRUE
+  #if defined(STM32_AVAILABLE) && (STM32_AVAILABLE == TRUE)
 
   #include "stm32_util.h"
 

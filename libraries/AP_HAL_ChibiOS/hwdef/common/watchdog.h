@@ -2,7 +2,7 @@
 
 #include "hal.h"
 
-#if STM32_AVAILABLE == TRUE
+#if defined(STM32_AVAILABLE) && (STM32_AVAILABLE == TRUE)
 
     #ifdef __cplusplus
     extern "C" {
