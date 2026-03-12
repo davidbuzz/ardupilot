@@ -1811,8 +1811,12 @@ INCLUDE common.ld
                 f.write('#define HAL_HAVE_RTSCTS_SERIAL%u\n' % num)
 
             if dev.startswith('OTG2'):
-                f.write(
-                    '#define HAL_%s_CONFIG {(BaseSequentialStream*) &SDU2, 2, true, false, 0, 0, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, UINT8_MAX,' % dev)  # noqa
+                if self.intdefines.get('HAL_UART_NODMA', 0):
+                    f.write(
+                        '#define HAL_%s_CONFIG {(BaseSequentialStream*) &SDU2, 2, true, 0, 0, 0, 0, 0, 0, 0, 0, 2, UINT8_MAX,' % dev)  # noqa
+                else:
+                    f.write(
+                        '#define HAL_%s_CONFIG {(BaseSequentialStream*) &SDU2, 2, true, false, 0, 0, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, UINT8_MAX,' % dev)  # noqa
                 if have_low_noise:
                     f.write('false}\n')
                 else:
@@ -1820,8 +1824,12 @@ INCLUDE common.ld
                 OTG2_index = serial_list.index(dev)
                 self.dual_USB_enabled = True
             elif dev.startswith('OTG'):
-                f.write(
-                    '#define HAL_%s_CONFIG {(BaseSequentialStream*) &SDU1, 1, true, false, 0, 0, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, UINT8_MAX,' % dev)  # noqa
+                if self.intdefines.get('HAL_UART_NODMA', 0):
+                    f.write(
+                        '#define HAL_%s_CONFIG {(BaseSequentialStream*) &SDU1, 1, true, 0, 0, 0, 0, 0, 0, 0, 0, 0, UINT8_MAX,' % dev)  # noqa
+                else:
+                    f.write(
+                        '#define HAL_%s_CONFIG {(BaseSequentialStream*) &SDU1, 1, true, false, 0, 0, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, UINT8_MAX,' % dev)  # noqa
                 if have_low_noise:
                     f.write('false}\n')
                 else:
