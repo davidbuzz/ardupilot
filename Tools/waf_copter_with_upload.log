@@ -1,0 +1,40 @@
+$ ./waf copter --upload
+Waf: Entering directory `/home/buzz2/ardupilot/build/Pico2'
+Embedding file defaults.parm:/home/buzz2/ardupilot/build/Pico2/processed_defaults.parm
+Embedding file hwdef.dat:/home/buzz2/ardupilot/build/Pico2/hw.dat
+[ 7/10] Creating build/Pico2/ap_version.h
+Generating compile_commands.json
+Build commands will be stored in build/Pico2/compile_commands.json
+Generating compile_commands.json
+Build commands will be stored in build/Pico2/compile_commands.json
+[ 893/1042] Compiling libraries/AP_Logger/LoggerMessageWriter.cpp
+[ 990/1042] Compiling ArduCopter/Copter.cpp
+[1036/1042] Linking build/Pico2/bin/arducopter
+[1037/1042] Generating bin/arducopter.bin
+[1038/1042] checking symbols build/Pico2/bin/arducopter
+[1039/1042] app_descriptor set_app_descriptor: build/Pico2/bin/arducopter build/Pico2/bin/arducopter.bin
+No APP_DESCRIPTOR found
+[1040/1042] apj_gen build/Pico2/bin/arducopter.bin
+[1041/1042] bin cleanup build/Pico2/bin/arducopter.bin
+[1042/1042] Uploading (Pico2) build/Pico2/bin/arducopter
+Converting ELF to UF2: /home/buzz2/ardupilot/build/Pico2/bin/arducopter -> /home/buzz2/ardupilot/build/Pico2/bin/arducopter.uf2
+
+Uploading to Pico2/RP2350...
+NOTE: Board must be in BOOTSEL mode (hold BOOTSEL button while connecting USB)
+
+Family ID 'absolute' can be downloaded in absolute space:
+  00000000->02000000
+Loading into Flash:   [==============================]  100%
+Verifying Flash:      [==============================]  100%
+  OK
+
+The device was rebooted to start the application.
+Waf: Leaving directory `/home/buzz2/ardupilot/build/Pico2'
+
+BUILD SUMMARY
+Build directory: /home/buzz2/ardupilot/build/Pico2
+Target          Text (B)  Data (B)  BSS (B)  Total Flash Used (B)  Free Flash (B)  External Flash Used (B)
+----------------------------------------------------------------------------------------------------------
+bin/arducopter   1373068        84    76852               1373152         2821140  Not Applicable         
+
+'copter' finished successfully (25.384s)
