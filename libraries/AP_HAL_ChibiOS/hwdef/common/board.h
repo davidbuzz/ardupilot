@@ -42,7 +42,7 @@
 #endif
 
 #if defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE
-void pico2_gpio_init();
+void pico2_gpio_init(void);
 #endif
 #if STM32_AVAILABLE == TRUE
 //void gpio_init(stm32_gpio_t *gpiop, const gpio_setup_t *config);

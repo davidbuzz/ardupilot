@@ -89,12 +89,11 @@ public:
      */
     static ioline_t resolve_alt_config(ioline_t base, PERIPH_TYPE ptype, uint8_t instance);
 
-#if defined(STM32F7) || defined(STM32H7) || defined(STM32F4) || defined(STM32F3) || defined(STM32G4) || defined(STM32L4) || defined(STM32L4PLUS)
+#if defined(STM32F7) || defined(STM32H7) || defined(STM32F4) || defined(STM32F3) || defined(STM32G4) || defined(STM32L4) || defined(STM32L4PLUS) || (PIC02_AVAILABLE == TRUE)
     // allow for save and restore of pin settings
     bool    get_mode(uint8_t pin, uint32_t &mode) override;
     void    set_mode(uint8_t pin, uint32_t mode) override;
 #else
-    #warning "GPIO get_mode and set_mode not implemented for this platform buzz todo?"
     bool    get_mode(uint8_t pin, uint32_t &mode) override;
     void    set_mode(uint8_t pin, uint32_t mode) override;
 #endif

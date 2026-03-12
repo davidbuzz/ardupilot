@@ -16,6 +16,16 @@
 
 #include "hal.h"
 
+#if defined(RP2350)
+/*
+  RP2350 has a single GPIO bank: PAL_LINE(port, pad) discards port via the
+  comma operator, triggering -Wunused-value. Redefine with an explicit void
+  cast to silence the warning while keeping the same semantics.
+ */
+#undef PAL_LINE
+#define PAL_LINE(port, pad) ((void)(port), (ioline_t)(pad))
+#endif
+
 // todo this block bad as it always defines STM32_AVAILABLE even when it should not.
 // #if defined(STM32_HSECLK) || defined(STM32_LSECLK)  || defined(STM32_LSE_BYPASS)  || defined(STM32_TIM_CCER_CC1E) || defined(STM32_RTCSEL) || defined(STM32F1) || defined(STM32F4) || defined(STM32G4) || defined(STM32F7) || defined(STM32H7) || defined(STM32F427xx) || defined(STM32F3) || defined(STM32G4) || defined(STM32L4) || defined(STM32L4PLUS)
 // #define STM32_AVAILABLE TRUE
