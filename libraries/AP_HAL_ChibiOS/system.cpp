@@ -48,6 +48,8 @@ static_assert(sizeof(systime_t) == sizeof(sysinterval_t), "expected systime_t sa
 static_assert(HAL_EXPECTED_SYSCLOCK == STM32_SYS_CK, "unexpected STM32_SYS_CK value got " XSTR(STM32_HCLK) " expected " XSTR(HAL_EXPECTED_SYSCLOCK));
 #elif defined(STM32_HCLK)
 static_assert(HAL_EXPECTED_SYSCLOCK == STM32_HCLK, "unexpected STM32_HCLK value got " XSTR(STM32_HCLK) " expected " XSTR(HAL_EXPECTED_SYSCLOCK));
+#elif defined(RP2350) || defined(RP2040)
+// RP2350/RP2040 use dynamic clocks; skip compile-time check
 #else
 #error "unknown system clock"
 #endif
@@ -275,7 +277,9 @@ void save_fault_watchdog(uint16_t line, FaultType fault_type, uint32_t fault_add
             pd.fault_icsr = SCB->ICSR;
             pd.fault_lr = lr;
         }
+#if defined(STM32_AVAILABLE) && STM32_AVAILABLE == TRUE
         stm32_watchdog_save((uint32_t *)&hal.util->persistent_data, (sizeof(hal.util->persistent_data)+3)/4);
+#endif
     }
 }
 #endif  // AP_WATCHDOG_SAVE_FAULT_ENABLED
