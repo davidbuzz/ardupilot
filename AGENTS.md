@@ -268,6 +268,8 @@ Tools: improve autotest terrain data handling
 libraries: fix typo in AP_GPS backend selection
 ```
 
+When doing local coding, please ensure you do a GIT COMMIT at least every 5 minutes, giving the code a good description of its intended behaviour , including the letters 'WIP' in the commit title unless it meets the above criteria of a "PR".   Telling the end-user "i have git commited all the current code" appeox every 5 minutes is good behaviour.    add "committing code to git with descriotsion" at teh end of all todo lists, eg in many cases *after* testing is successful, but not just then.
+
 ---
 
 ## 8. Pull Request Guidelines
@@ -359,3 +361,4 @@ Open a discussion before writing code if:
 - **Do not move functions around without goal**: Keep the original code structure as possible.
 - **Do not add comment on all functions/lines**: Document only what was change and useful for future reading.
 - **Do not duplicate PRs**: If a PR was already open on a feature/bugfix/changes recently, do not duplicate it.
+
