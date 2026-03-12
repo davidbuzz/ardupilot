@@ -28,7 +28,7 @@
 using namespace ChibiOS;
 extern const AP_HAL::HAL& hal;
 
-#if HAL_USE_ICU == TRUE
+#if defined(HAL_USE_ICU) && (HAL_USE_ICU == TRUE)
 
 bool SoftSigReader::attach_capture_timer(ICUDriver* icu_drv, icuchannel_t chan, uint8_t dma_stream, uint32_t dma_channel)
 {

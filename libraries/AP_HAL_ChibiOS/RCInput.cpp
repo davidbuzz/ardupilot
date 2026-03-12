@@ -36,13 +36,13 @@ void RCInput::init()
     AP::RC().init();
 #endif
 
-#if HAL_USE_ICU == TRUE
+#if defined(HAL_USE_ICU) && (HAL_USE_ICU == TRUE)
     //attach timer channel on which the signal will be received
     sig_reader.attach_capture_timer(&RCIN_ICU_TIMER, RCIN_ICU_CHANNEL, STM32_RCIN_DMA_STREAM, STM32_RCIN_DMA_CHANNEL);
     pulse_input_enabled = true;
 #endif
 
-#if HAL_USE_EICU == TRUE
+#if defined(HAL_USE_EICU) && (HAL_USE_EICU == TRUE)
     sig_reader.init(&RCININT_EICU_TIMER, RCININT_EICU_CHANNEL);
     pulse_input_enabled = true;
 #endif
@@ -57,7 +57,7 @@ void RCInput::init()
 void RCInput::pulse_input_enable(bool enable)
 {
     pulse_input_enabled = enable;
-#if HAL_USE_ICU == TRUE || HAL_USE_EICU == TRUE
+#if (defined(HAL_USE_ICU) && (HAL_USE_ICU == TRUE)) || (defined(HAL_USE_EICU) && (HAL_USE_EICU == TRUE))
     if (!enable) {
         sig_reader.disable();
     }
@@ -124,7 +124,7 @@ void RCInput::_timer_tick(void)
 #if AP_RCPROTOCOL_ENABLED
     AP_RCProtocol &rcprot = AP::RC();
 
-#if HAL_USE_ICU == TRUE
+#if defined(HAL_USE_ICU) && (HAL_USE_ICU == TRUE)
     if (pulse_input_enabled) {
         const uint32_t *p;
         uint32_t n;
@@ -135,7 +135,7 @@ void RCInput::_timer_tick(void)
     }
 #endif
 
-#if HAL_USE_EICU == TRUE
+#if defined(HAL_USE_EICU) && (HAL_USE_EICU == TRUE)
     if (pulse_input_enabled) {
         uint32_t width_s0, width_s1;
         while(sig_reader.read(width_s0, width_s1)) {

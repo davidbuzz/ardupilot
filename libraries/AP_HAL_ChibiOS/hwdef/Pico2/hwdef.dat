@@ -470,7 +470,11 @@ define HAL_USE_DAC                         FALSE
 define HAL_USE_EFL                         FALSE
 define HAL_USE_GPT                         FALSE
 define HAL_USE_I2S                         FALSE
+
+# can we get one of these to work on 2350 or do we do a third? todo buzz
 define HAL_USE_ICU                         FALSE
+define HAL_USE_EICU                        FALSE
+
 define HAL_USE_MAC                         FALSE
 define HAL_USE_MMC_SPI                     FALSE
 define HAL_USE_PWM                         FALSE
