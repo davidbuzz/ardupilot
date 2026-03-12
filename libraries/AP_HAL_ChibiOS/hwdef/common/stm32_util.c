@@ -232,11 +232,12 @@ void get_rtc_backup(uint8_t idx, uint32_t *v, uint8_t n)
 #elif STM32_AVAILABLE == TRUE
         *v++ = ((__IO uint32_t *)&RTC->BKP0R)[idx++];
 #elif PIC02_AVAILABLE == TRUE
-        // todo pico buzz
-        UNUSED(idx);
-        UNUSED(v);
-        UNUSED(n);
-        #warning "RTC backup not implemented for pico2"
+        if (idx < 8) {
+            *v++ = WATCHDOG->SCRATCH[idx++];
+        } else {
+            *v++ = 0;
+            idx++;
+        }
 #else
         #error "Unsupported target for RTC backup"
 #endif
@@ -270,11 +271,12 @@ void set_rtc_backup(uint8_t idx, const uint32_t *v, uint8_t n)
 #elif STM32_AVAILABLE == TRUE
         ((__IO uint32_t *)&RTC->BKP0R)[idx++] = *v++;
 #elif PIC02_AVAILABLE == TRUE
-        // todo pico buzz
-        UNUSED(idx);
-        UNUSED(v);
-        UNUSED(n);
-        #warning "RTC backup not implemented for pico2"
+        if (idx < 8) {
+            WATCHDOG->SCRATCH[idx++] = *v++;
+        } else {
+            v++;
+            idx++;
+        }
 #else
         #warning "Unsupported target for RTC backup"
 #endif
@@ -407,19 +409,48 @@ void palLineSetPushPull(ioline_t line, enum PalPushPull pp)
     uint8_t pad = PAL_PAD(line);
     port->PUPDR = (port->PUPDR & ~(3<<(pad*2))) | (pp<<(pad*2));
 }
-#else 
-#warning "palReadLineMode and palLineSetPushPull not implemented for this platform buzz todo?"
-#if STM32_AVAILABLE == FALSE
+#elif PIC02_AVAILABLE == TRUE
+/*
+  read mode of a pin for RP2350. Reconstructs the ChibiOS iomode_t from
+  hardware: bits 0-22 from IO_BANK0 CTRL, bit 23 from SIO GPIO_OE, bits
+  24-31 from PADS_BANK0 GPIO pad register.
+ */
+iomode_t palReadLineMode(ioline_t line)
+{
+    uint8_t pad = PAL_PAD(line);
+    uint32_t ctrlbits = IO_BANK0->GPIO[pad].CTRL;
+    uint32_t oebits;
+    uint32_t padbits = PADS_BANK0->GPIO[pad];
+    if (pad < 32U) {
+        oebits = (SIO->GPIO_OE >> pad) & 1U;
+    } else {
+        oebits = (SIO->GPIO_HI_OE >> (pad - 32U)) & 1U;
+    }
+    return (iomode_t)(ctrlbits | (oebits << 23U) | (padbits << 24U));
+}
 
+/*
+  set pin as pullup, pulldown or floating for RP2350.
+  PUE is bit 3 and PDE is bit 2 of PADS_BANK0->GPIO[pad].
+ */
+void palLineSetPushPull(ioline_t line, enum PalPushPull pp)
+{
+    uint8_t pad = PAL_PAD(line);
+    uint32_t padbits = PADS_BANK0->GPIO[pad];
+    padbits &= ~((1U << 3U) | (1U << 2U));
+    if (pp == PAL_PUSHPULL_PULLUP) {
+        padbits |= (1U << 3U);
+    } else if (pp == PAL_PUSHPULL_PULLDOWN) {
+        padbits |= (1U << 2U);
+    }
+    PADS_BANK0->GPIO[pad] = padbits;
+}
+#else
 void palLineSetPushPull(ioline_t line, enum PalPushPull pp)
 {
     (void)line;
     (void)pp;
-    #warning "palLineSetPushPull not implemented for this platform buzz todo?"
 }
-
-#endif
-
 #endif // F7, H7, F4
 
 void stm32_cacheBufferInvalidate(const void *p, size_t size)

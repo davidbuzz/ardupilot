@@ -191,18 +191,8 @@
 #endif
 
 #if PIC02_AVAILABLE == TRUE
-    #warning we implement pico2 version of gpio_init without stm32_gpio_t or gpio_setup_t or gpio_config_t
-    static void pico2_gpio_init() {
-
-      // gpiop->OTYPER  = config->otyper;
-      // gpiop->OSPEEDR = config->ospeedr;
-      // gpiop->PUPDR   = config->pupdr;
-      // gpiop->ODR     = config->odr;
-      // gpiop->AFRL    = config->afrl;
-      // gpiop->AFRH    = config->afrh;
-      // gpiop->MODER   = config->moder;
-        palSetLineMode(gpiop, PAL_MODE_RESET); //PAL_MODE_RESET or PAL_MODE_OUTPUT_PUSHPULL ?
-
+    static void pico2_gpio_init(void) {
+        /* GPIO initialization handled by ChibiOS PAL driver */
     }
 #endif
 

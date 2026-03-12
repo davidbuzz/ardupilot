@@ -1053,12 +1053,12 @@ class ChibiOSHWDef(hwdef.HWDef):
         self.env_vars['EXT_FLASH_SIZE_MB'] = self.get_config('EXT_FLASH_SIZE_MB', default=0, type=int)
         self.env_vars['INT_FLASH_PRIMARY'] = self.get_config('INT_FLASH_PRIMARY', default=False, type=bool)
         if self.env_vars['EXT_FLASH_SIZE_MB'] and not self.is_bootloader_fw() and not self.env_vars['INT_FLASH_PRIMARY']:
-            f.write('#define CRT0_AREAS_NUMBER 4\n')
+            f.write('#ifndef CRT0_AREAS_NUMBER\n#define CRT0_AREAS_NUMBER 4\n#endif\n')
             f.write('#define __FASTRAMFUNC__ __attribute__ ((__section__(".fastramfunc")))\n')
             f.write('#define __RAMFUNC__ __attribute__ ((__section__(".ramfunc")))\n')
             f.write('#define PORT_IRQ_ATTRIBUTES __FASTRAMFUNC__\n')
         else:
-            f.write('#define CRT0_AREAS_NUMBER 1\n')
+            f.write('#ifndef CRT0_AREAS_NUMBER\n#define CRT0_AREAS_NUMBER 1\n#endif\n')
 
         if self.env_vars['INT_FLASH_PRIMARY']:
             # this will put methods with low latency requirements into external flash

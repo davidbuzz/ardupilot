@@ -223,8 +223,10 @@ void GPIO::pinMode(uint8_t pin, uint8_t output)
                 g->mode = PAL_MODE_OUTPUT_OPENDRAIN;
             }
         }
+#elif PIC02_AVAILABLE == TRUE
+        /* RP2350 does not have open-drain output mode; push-pull is used as configured */
 #else
-        #warning "GPIO pinMode may not retain open-drain setting on this platform buzz todo?"
+        #warning "GPIO pinMode may not retain open-drain setting on this platform"
 #endif
         palSetLineMode(g->pal_line, g->mode);
         g->is_input = !output;
@@ -585,7 +587,7 @@ bool GPIO::pin_to_servo_channel(uint8_t pin, uint8_t& servo_ch) const
     return false;
 }
 
-#if defined(STM32F7) || defined(STM32H7) || defined(STM32F4) || defined(STM32F3) || defined(STM32G4) || defined(STM32L4) || defined(STM32L4PLUS)
+#if defined(STM32F7) || defined(STM32H7) || defined(STM32F4) || defined(STM32F3) || defined(STM32G4) || defined(STM32L4) || defined(STM32L4PLUS) || (PIC02_AVAILABLE == TRUE)
 
 // allow for save and restore of pin settings
 bool GPIO::get_mode(uint8_t pin, uint32_t &mode)
@@ -606,16 +608,14 @@ void GPIO::set_mode(uint8_t pin, uint32_t mode)
     }
 }
 #else 
-    //#warning "GPIO get_mode and set_mode not implemented for this platform buzz todo?"
+    //#warning "GPIO get_mode and set_mode not implemented for this platform"
 
     bool GPIO::get_mode(uint8_t pin, uint32_t &mode)
     {
-        // buzz todo
         return false;
     }
     void GPIO::set_mode(uint8_t pin, uint32_t mode)
     {
-        // not implemented buzz todo
     }
 #endif
 

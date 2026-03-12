@@ -1680,9 +1680,6 @@ bool UARTDriver::set_options(uint16_t options)
     }
 #endif // STM32xx
 
-//#if not stm32 , eg pico.
-// buzz todo non-stm32 pico here.
-
 
     // both F4 and F7 can do half-duplex
     if (options & OPTION_HDPLEX) {

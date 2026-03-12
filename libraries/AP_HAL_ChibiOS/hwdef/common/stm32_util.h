@@ -137,8 +137,8 @@ void palLineSetPushPull(ioline_t line, enum PalPushPull pp);
 
 #if defined(STM32F7) || defined(STM32H7) || defined(STM32F4) || defined(STM32F3) || defined(STM32G4) || defined(STM32L4) ||defined(STM32L4PLUS)
 iomode_t palReadLineMode(ioline_t line);
-#else 
-#warning "palReadLineMode and palLineSetPushPull not implemented for this platform buzz todo?"
+#elif PIC02_AVAILABLE == TRUE
+iomode_t palReadLineMode(ioline_t line);
 #endif
 
 // set n RTC backup registers starting at given idx
@@ -210,7 +210,6 @@ void stm32_flash_protect_flash(bool bootloader, bool protect);
 void stm32_flash_unprotect_flash(void);
 
 #if PIC02_AVAILABLE  == TRUE
-#warning "PICO2 support is experimental, use with caution"
 typedef uint64_t port_stkalign_t;
 typedef port_stkalign_t stkalign_t;
 #endif
