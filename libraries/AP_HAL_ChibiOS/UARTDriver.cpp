@@ -511,7 +511,7 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
 #endif
     }
 
-#if HAL_UART_STATS_ENABLED && CH_CFG_USE_EVENTS == TRUE
+#if HAL_UART_STATS_ENABLED && CH_CFG_USE_EVENTS == TRUE && defined(HAL_USE_SERIAL) && (HAL_USE_SERIAL == TRUE)
     if (!err_listener_initialised) {
         chEvtRegisterMaskWithFlags(chnGetEventSource((SerialDriver*)sdef.serial),
                                 &err_listener,
@@ -1061,6 +1061,7 @@ void UARTDriver::write_pending_bytes(void)
         {
             // without DMA we need to look at the number of bytes written into the queue versus the
             // remaining queue space
+#if defined(HAL_USE_SERIAL) && (HAL_USE_SERIAL == TRUE)
             uint32_t space = qSpaceI(&((SerialDriver*)sdef.serial)->oqueue);
             uint32_t used = SERIAL_BUFFERS_SIZE - space;
 
@@ -1079,6 +1080,7 @@ void UARTDriver::write_pending_bytes(void)
                 _flow_control = FLOW_CONTROL_ENABLE;
                 return;
             }
+#endif // HAL_USE_SERIAL
         }
         if (AP_HAL::micros() - _first_write_started_us > 500*1000UL) {
             // it doesn't look like hw flow control is working
@@ -1103,10 +1105,12 @@ void UARTDriver::half_duplex_setup_tx(void)
         // half-duplex transmission is done when both the output is empty and the transmission is ended
         // if we only wait for empty output the line can be setup for receive too soon losing data bits
         hd_tx_active = CHN_TRANSMISSION_END | CHN_OUTPUT_EMPTY;
+#if defined(HAL_USE_SERIAL) && (HAL_USE_SERIAL == TRUE)
         SerialDriver *sd = (SerialDriver*)(sdef.serial);
         sdStop(sd);
         sercfg.cr3 &= ~USART_CR3_HDSEL;
         sdStart(sd, &sercfg);
+#endif // HAL_USE_SERIAL
     }
 }
 
@@ -1123,7 +1127,7 @@ void UARTDriver::_rx_timer_tick(void)
 
     WITH_SEMAPHORE(rx_sem);
 
-#if HAL_UART_STATS_ENABLED && CH_CFG_USE_EVENTS == TRUE
+#if HAL_UART_STATS_ENABLED && CH_CFG_USE_EVENTS == TRUE && defined(HAL_USE_SERIAL) && (HAL_USE_SERIAL == TRUE)
     if (!sdef.is_usb) {
         const auto err_flags = chEvtGetAndClearFlags(&err_listener);
         // count the number of errors
@@ -1217,7 +1221,7 @@ void UARTDriver::read_bytes_NODMA()
         if (ret < 0) {
             break;
         }
-#if CH_CFG_USE_EVENTS == TRUE
+#if CH_CFG_USE_EVENTS == TRUE && defined(HAL_USE_SERIAL) && (HAL_USE_SERIAL == TRUE)
         if (parity_enabled && ((chEvtGetAndClearFlags(&ev_listener) & SD_PARITY_ERROR))) {
             // discard bytes with parity error
             ret = -1;
@@ -1255,10 +1259,12 @@ void UARTDriver::_tx_timer_tick(void)
               half-duplex transmit has finished. We now re-enable the
               HDSEL bit for receive
             */
+#if defined(HAL_USE_SERIAL) && (HAL_USE_SERIAL == TRUE)
             SerialDriver *sd = (SerialDriver*)(sdef.serial);
             sdStop(sd);
             sercfg.cr3 |= USART_CR3_HDSEL;
             sdStart(sd, &sercfg);
+#endif // HAL_USE_SERIAL
         }
     }
 
