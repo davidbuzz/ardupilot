@@ -428,7 +428,9 @@ void Scheduler::_monitor_thread(void *arg)
     while (true) {
         sched->delay(100);
         if (using_watchdog) {
+#if defined(STM32_AVAILABLE) && STM32_AVAILABLE == TRUE
             stm32_watchdog_save((uint32_t *)&hal.util->persistent_data, (sizeof(hal.util->persistent_data)+3)/4);
+#endif
         }
 
         // if running memory guard then check all allocations
@@ -780,7 +782,9 @@ void Scheduler::expect_delay_ms(uint32_t ms)
 // pat the watchdog
 void Scheduler::watchdog_pat(void)
 {
+#if defined(STM32_AVAILABLE) && STM32_AVAILABLE == TRUE
     stm32_watchdog_pat();
+#endif
     last_watchdog_pat_ms = AP_HAL::millis();
 #if defined(HAL_GPIO_PIN_EXT_WDOG)
     ext_watchdog_pat(last_watchdog_pat_ms);
