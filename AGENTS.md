@@ -268,7 +268,8 @@ Tools: improve autotest terrain data handling
 libraries: fix typo in AP_GPS backend selection
 ```
 
-When doing local coding, please ensure you do a GIT COMMIT at least every 5 minutes, giving the code a good description of its intended behaviour , including the letters 'WIP' in the commit title unless it meets the above criteria of a "PR".   Telling the end-user "i have git commited all the current code" appeox every 5 minutes is good behaviour.    add "committing code to git with descriotsion" at teh end of all todo lists, eg in many cases *after* testing is successful, but not just then.
+When doing local coding, please ensure you do a GIT COMMIT at least every 5 minutes, giving the code a good description of its intended behaviour , including the letters 'WIP' in the commit title unless it meets the above criteria of a "PR".   Telling the end-user "i have git commited all the current code" appeox every 5 minutes is good behaviour.    
+Add "committing code to git with description" at each step of all todo lists and at the end too, ie one-git-commit-per-todo-item , eg in many cases *after* testing is successful, but not just then.   Better to have to-many git commits rather than too few.
 
 ---
 
