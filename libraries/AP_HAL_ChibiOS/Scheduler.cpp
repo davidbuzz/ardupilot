@@ -866,7 +866,9 @@ void Scheduler::try_force_mutex(void)
     strncpy(thdname, wtmtx->owner->name, sizeof(thdname)-1);
 
     // we will force release the lock
+#if defined(STM32_AVAILABLE) && STM32_AVAILABLE == TRUE
     chMtxForceReleaseS(wtmtx);
+#endif
     chSysUnlock();
 
     // log a DLCK message with information on the deadlock we have avoided
