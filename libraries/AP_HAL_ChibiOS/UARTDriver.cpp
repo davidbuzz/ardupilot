@@ -408,8 +408,10 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
                     chSysUnlock();
 #if defined(STM32F7) || defined(STM32H7) || defined(STM32F3) || defined(STM32G4) || defined(STM32L4) || defined(STM32L4PLUS)
                     dmaStreamSetPeripheral(rxdma, &((SerialDriver*)sdef.serial)->usart->RDR);
-#else
+#elif defined(STM32F1) || defined(STM32F4)
                     dmaStreamSetPeripheral(rxdma, &((SerialDriver*)sdef.serial)->usart->DR);
+#else
+                    #warning "DMA peripheral address not set for this platform buzz todo?"
 #endif // STM32F7
 #if STM32_DMA_SUPPORTS_DMAMUX
                     dmaSetRequestSource(rxdma, sdef.dma_rx_channel_id);
@@ -536,8 +538,10 @@ void UARTDriver::dma_tx_allocate(Shared_DMA *ctx)
     chSysUnlock();
 #if defined(STM32F7) || defined(STM32H7) || defined(STM32F3) || defined(STM32G4) || defined(STM32L4) || defined(STM32L4PLUS)
     dmaStreamSetPeripheral(txdma, &((SerialDriver*)sdef.serial)->usart->TDR);
-#else
+#elif defined(STM32F1) || defined(STM32F4)
     dmaStreamSetPeripheral(txdma, &((SerialDriver*)sdef.serial)->usart->DR);
+#else
+    #warning "DMA peripheral address not set for this platform buzz todo?"
 #endif // STM32F7
 #if STM32_DMA_SUPPORTS_DMAMUX
     dmaSetRequestSource(txdma, sdef.dma_tx_channel_id);
@@ -575,28 +579,28 @@ void UARTDriver::dma_tx_deallocate(Shared_DMA *ctx)
 #ifndef HAL_UART_NODMA
 void UARTDriver::rx_irq_cb(void* self)
 {
-#if HAL_USE_SERIAL == TRUE
-    UARTDriver* uart_drv = (UARTDriver*)self;
-    if (!uart_drv->rx_dma_enabled) {
-        return;
-    }
-#if defined(STM32F7) || defined(STM32H7)
-    //disable dma, triggering DMA transfer complete interrupt
-    uart_drv->rxdma->stream->CR &= ~STM32_DMA_CR_EN;
-#elif defined(STM32F3) || defined(STM32G4) || defined(STM32L4) || defined(STM32L4PLUS)
-    //disable dma, triggering DMA transfer complete interrupt
-    dmaStreamDisable(uart_drv->rxdma);
-    uart_drv->rxdma->channel->CCR &= ~STM32_DMA_CR_EN;
-#else
-    volatile uint16_t sr = ((SerialDriver*)(uart_drv->sdef.serial))->usart->SR;
-    if(sr & USART_SR_IDLE) {
-        volatile uint16_t dr = ((SerialDriver*)(uart_drv->sdef.serial))->usart->DR;
-        (void)dr;
-        //disable dma, triggering DMA transfer complete interrupt
-        uart_drv->rxdma->stream->CR &= ~STM32_DMA_CR_EN;
-    }
-#endif // STM32F7
-#endif // HAL_USE_SERIAL
+    #if HAL_USE_SERIAL == TRUE
+        UARTDriver* uart_drv = (UARTDriver*)self;
+        if (!uart_drv->rx_dma_enabled) {
+            return;
+        }
+        #if defined(STM32F7) || defined(STM32H7)
+            //disable dma, triggering DMA transfer complete interrupt
+            uart_drv->rxdma->stream->CR &= ~STM32_DMA_CR_EN;
+        #elif defined(STM32F3) || defined(STM32G4) || defined(STM32L4) || defined(STM32L4PLUS)
+            //disable dma, triggering DMA transfer complete interrupt
+            dmaStreamDisable(uart_drv->rxdma);
+            uart_drv->rxdma->channel->CCR &= ~STM32_DMA_CR_EN;
+        #else
+            volatile uint16_t sr = ((SerialDriver*)(uart_drv->sdef.serial))->usart->SR;
+            if(sr & USART_SR_IDLE) {
+                volatile uint16_t dr = ((SerialDriver*)(uart_drv->sdef.serial))->usart->DR;
+                (void)dr;
+                //disable dma, triggering DMA transfer complete interrupt
+                uart_drv->rxdma->stream->CR &= ~STM32_DMA_CR_EN;
+            }
+        #endif // STM32F7
+    #endif // HAL_USE_SERIAL
 }
 #endif
 
@@ -1669,6 +1673,10 @@ bool UARTDriver::set_options(uint16_t options)
         ret = false;
     }
 #endif // STM32xx
+
+//#if not stm32 , eg pico.
+// buzz todo non-stm32 pico here.
+
 
     // both F4 and F7 can do half-duplex
     if (options & OPTION_HDPLEX) {

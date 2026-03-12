@@ -248,7 +248,7 @@ I2CDeviceManager::I2CDeviceManager(void)
             businfo[i].i2ccfg.timingr = HAL_I2C_G4_400_TIMINGR;
             businfo[i].busclock = 400000;
         }
-#else // F1 or F4
+#elif defined(STM32F1) || defined(STM32F4)
         businfo[i].i2ccfg.op_mode = OPMODE_I2C;
         businfo[i].i2ccfg.clock_speed = businfo[i].busclock;
         if (businfo[i].i2ccfg.clock_speed <= 100000) {
@@ -256,6 +256,8 @@ I2CDeviceManager::I2CDeviceManager(void)
         } else {
             businfo[i].i2ccfg.duty_cycle = FAST_DUTY_CYCLE_2;
         }
+#else
+        #warning "I2C timing config not set for this platform buzz todo?"
 #endif
     }
 }
@@ -277,12 +279,14 @@ I2CDevice::I2CDevice(uint8_t busnum, uint8_t address, uint32_t bus_clock, bool u
             bus.i2ccfg.timingr = HAL_I2C_F7_100_TIMINGR;
             bus.busclock = 100000;
         }
-#else
+#elif defined(STM32F1) || defined(STM32F4)
         bus.i2ccfg.clock_speed = bus_clock;
         bus.busclock = bus_clock;
         if (bus_clock <= 100000) {
             bus.i2ccfg.duty_cycle = STD_DUTY_CYCLE;
         }
+#else 
+        #warning "I2C timing config not set for this platform buzz todo?"
 #endif
         DEV_PRINTF("I2C%u clock %ukHz\n", busnum, unsigned(bus.busclock/1000));
     }
@@ -325,12 +329,14 @@ bool I2CDevice::transfer(const uint8_t *send, uint32_t send_len,
     } else {
         bus.i2ccfg.cr1 &= ~I2C_CR1_SMBHEN;
     }
-#else
+#else if defined(STM32F1) || defined(STM32F4)
     if (_use_smbus) {
         bus.i2ccfg.op_mode = OPMODE_SMBUS_HOST;
     } else {
         bus.i2ccfg.op_mode = OPMODE_I2C;
     }
+#else
+    #warning "I2C SMBus mode not set for this platform buzz todo?"
 #endif
 
     if (_split_transfers) {

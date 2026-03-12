@@ -407,6 +407,18 @@ void palLineSetPushPull(ioline_t line, enum PalPushPull pp)
     uint8_t pad = PAL_PAD(line);
     port->PUPDR = (port->PUPDR & ~(3<<(pad*2))) | (pp<<(pad*2));
 }
+#else 
+#warning "palReadLineMode and palLineSetPushPull not implemented for this platform buzz todo?"
+#if STM32_AVAILABLE == FALSE
+
+void palLineSetPushPull(ioline_t line, enum PalPushPull pp)
+{
+    (void)line;
+    (void)pp;
+    #warning "palLineSetPushPull not implemented for this platform buzz todo?"
+}
+
+#endif
 
 #endif // F7, H7, F4
 

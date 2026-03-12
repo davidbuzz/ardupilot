@@ -136,6 +136,8 @@ enum PalPushPull {
 };
 
 void palLineSetPushPull(ioline_t line, enum PalPushPull pp);
+#else 
+#warning "palReadLineMode and palLineSetPushPull not implemented for this platform buzz todo?"
 #endif
 
 // set n RTC backup registers starting at given idx

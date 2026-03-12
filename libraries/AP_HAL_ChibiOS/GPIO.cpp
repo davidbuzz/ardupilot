@@ -223,6 +223,8 @@ void GPIO::pinMode(uint8_t pin, uint8_t output)
                 g->mode = PAL_MODE_OUTPUT_OPENDRAIN;
             }
         }
+#else
+        #warning "GPIO pinMode may not retain open-drain setting on this platform buzz todo?"
 #endif
         palSetLineMode(g->pal_line, g->mode);
         g->is_input = !output;
@@ -603,6 +605,18 @@ void GPIO::set_mode(uint8_t pin, uint32_t mode)
         palSetLineMode(p->pal_line, ioline_t(mode));
     }
 }
+#else 
+    //#warning "GPIO get_mode and set_mode not implemented for this platform buzz todo?"
+
+    bool GPIO::get_mode(uint8_t pin, uint32_t &mode)
+    {
+        // buzz todo
+        return false;
+    }
+    void GPIO::set_mode(uint8_t pin, uint32_t mode)
+    {
+        // not implemented buzz todo
+    }
 #endif
 
 #ifndef IOMCU_FW

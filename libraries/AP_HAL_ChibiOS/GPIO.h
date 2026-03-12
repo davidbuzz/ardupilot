@@ -93,6 +93,10 @@ public:
     // allow for save and restore of pin settings
     bool    get_mode(uint8_t pin, uint32_t &mode) override;
     void    set_mode(uint8_t pin, uint32_t mode) override;
+#else
+    #warning "GPIO get_mode and set_mode not implemented for this platform buzz todo?"
+    bool    get_mode(uint8_t pin, uint32_t &mode) override;
+    void    set_mode(uint8_t pin, uint32_t mode) override;
 #endif
     
 private:
