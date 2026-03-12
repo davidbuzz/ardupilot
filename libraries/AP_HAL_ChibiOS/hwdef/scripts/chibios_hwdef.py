@@ -676,11 +676,22 @@ class ChibiOSHWDef(hwdef.HWDef):
         ram0_start_address = ram_map_bootloader[0][0]
         return ram_reserve_start, ram0_start_address
 
+    def is_rp_mcu(self):
+        '''return True if this is a Raspberry Pi RP series MCU (RP2040, RP2350 etc)'''
+        return self.mcu_series.startswith('PICO')
+
+    def make_pal_line(self, port, pin):
+        '''return PAL_LINE string for a given port letter and pin number.
+        RP series has a single flat GPIO bank (IOPORT1); STM32 uses GPIOx ports.'''
+        if self.is_rp_mcu():
+            return 'PAL_LINE(IOPORT1,%uU)' % pin
+        return 'PAL_LINE(GPIO%s,%uU)' % (port, pin)
+
     def make_line(self, label):
         '''return a line for a label'''
         if label in self.bylabel:
             p = self.bylabel[label]
-            line = 'PAL_LINE(GPIO%s,%uU)' % (p.port, p.pin)
+            line = self.make_pal_line(p.port, p.pin)
         else:
             line = "0"
         return line
@@ -1480,7 +1491,7 @@ INCLUDE common.ld
                 self.error("Bad highspeed value %s in SPIDEV line %s" %
                            (highspeed, dev))
             cs_pin = self.bylabel[cs]
-            pal_line = 'PAL_LINE(GPIO%s,%uU)' % (cs_pin.port, cs_pin.pin)
+            pal_line = self.make_pal_line(cs_pin.port, cs_pin.pin)
             devidx = len(devlist)
             f.write(
                 '#define HAL_SPI_DEVICE%-2u SPIDesc(%-17s, %2u, %2u, %-19s, SPIDEV_%s, %7s, %7s)\n'
@@ -1508,7 +1519,7 @@ INCLUDE common.ld
             n = int(dev[3:])
             devlist.append('HAL_SPI%u_CONFIG' % n)
             sck_pin = self.bylabel['SPI%s_SCK' % n]
-            sck_line = 'PAL_LINE(GPIO%s,%uU)' % (sck_pin.port, sck_pin.pin)
+            sck_line = self.make_pal_line(sck_pin.port, sck_pin.pin)
             f.write(
                 '#define HAL_SPI%u_CONFIG { &SPID%u, %u, STM32_SPI_SPI%u_DMA_STREAMS, %s }\n'
                 % (n, n, n, n, sck_line))
@@ -2120,7 +2131,7 @@ INCLUDE common.ld
                 else:
                     chan_mode[chan - 1] = 'PWM_OUTPUT_ACTIVE_HIGH'
                 alt_functions[chan - 1] = p.af
-                pal_lines[chan - 1] = 'PAL_LINE(GPIO%s,%uU)' % (p.port, p.pin)
+                pal_lines[chan - 1] = self.make_pal_line(p.port, p.pin)
             groups.append('HAL_PWM_GROUP%u' % group)
             if n in [1, 8]:
                 # only the advanced timers do 8MHz clocks
@@ -2321,12 +2332,12 @@ INCLUDE common.ld
                 gpios.append((gpio, pwm, port, pin, p, 'false'))
         gpios = sorted(gpios)
         for (gpio, pwm, port, pin, p, enabled) in gpios:
-            f.write('#define HAL_GPIO_LINE_GPIO%u PAL_LINE(GPIO%s,%uU)\n' % (gpio, port, pin))
+            f.write('#define HAL_GPIO_LINE_GPIO%u %s\n' % (gpio, self.make_pal_line(port, pin)))
         if len(gpios) > 0:
             f.write('#define HAL_GPIO_PINS { \\\n')
             for (gpio, pwm, port, pin, p, enabled) in gpios:
-                f.write('{ %3u, %s, %2u, PAL_LINE(GPIO%s,%uU)}, /* %s */ \\\n' %
-                        (gpio, enabled, pwm, port, pin, p))
+                f.write('{ %3u, %s, %2u, %s}, /* %s */ \\\n' %
+                        (gpio, enabled, pwm, self.make_pal_line(port, pin), p))
             # and write #defines for use by config code
             f.write('}\n\n')
         f.write('// full pin define list\n')
@@ -2338,8 +2349,8 @@ INCLUDE common.ld
             if label == last_label:
                 continue
             last_label = label
-            f.write('#define HAL_GPIO_PIN_%-20s PAL_LINE(GPIO%s,%uU)\n' %
-                    (label, p.port, p.pin))
+            f.write('#define HAL_GPIO_PIN_%-20s %s\n' %
+                    (label, self.make_pal_line(p.port, p.pin)))
         f.write('\n')
 
     def bootloader_path(self):
@@ -2448,8 +2459,8 @@ Please run: Tools/scripts/build_bootloaders.py %s
         for alt in sorted(self.altmap.keys()):
             for pp in sorted(self.altmap[alt].keys()):
                 p = self.altmap[alt][pp]
-                f.write("    { %u, %s, PAL_LINE(GPIO%s,%uU), %s, %u}, /* %s */ \\\n" %
-                        (alt, p.pal_modeline(), p.port, p.pin, p.periph_type(), p.periph_instance(), str(p)))
+                f.write("    { %u, %s, %s, %s, %u}, /* %s */ \\\n" %
+                        (alt, p.pal_modeline(), self.make_pal_line(p.port, p.pin), p.periph_type(), p.periph_instance(), str(p)))
         f.write('}\n\n')
 
     def write_all_lines(self, hwdat):
