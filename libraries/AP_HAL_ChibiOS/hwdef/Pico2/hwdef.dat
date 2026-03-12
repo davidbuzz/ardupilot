@@ -424,8 +424,8 @@ define HAL_WITH_RAMTRON 1
 # an IMU heater.
 #define HAL_HAVE_IMU_HEATER 1
 
-# Enable FAT filesystem support (needs a microSD defined via SDIO).
-define HAL_OS_FATFS_IO 1
+# No microSD/SDIO on Pico2, so disable FATFS IO, for now, buzz todo when mmc works.
+define HAL_OS_FATFS_IO 0
 
 # Now setup the default battery pins driver analog pins and default
 # scaling for the power brick.
