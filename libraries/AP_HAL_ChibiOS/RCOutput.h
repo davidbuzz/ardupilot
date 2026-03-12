@@ -753,8 +753,10 @@ private:
     static void bdshot_reset_pwm(pwm_group& group, uint8_t telem_channel);
     static void bdshot_reset_pwm_f1(pwm_group& group, uint8_t telem_channel);
     static void bdshot_disable_pwm_f1(pwm_group& group);
+    #if STM32_AVAILABLE == TRUE
     static void bdshot_config_icu_dshot(stm32_tim_t* TIMx, uint8_t chan, uint8_t ccr_ch);
     static void bdshot_config_icu_dshot_f1(stm32_tim_t* TIMx, uint8_t chan, uint8_t ccr_ch);
+    #endif
     static uint32_t bdshot_get_output_rate_hz(const enum output_mode mode);
 
     /*

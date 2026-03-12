@@ -17,7 +17,9 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
-#include <stm32_dma.h>
+#if STM32_AVAILABLE == TRUE
+    #include <stm32_dma.h>
+#endif
 #include <hrt.h>
 
 static int64_t utc_time_offset;
@@ -25,6 +27,7 @@ static int64_t utc_time_offset;
 /*
   setup the timer capture digital filter for a channel
  */
+#if STM32_AVAILABLE == TRUE
 void stm32_timer_set_input_filter(stm32_tim_t *tim, uint8_t channel, uint8_t filter_mode)
 {
     switch (channel) {
@@ -42,10 +45,12 @@ void stm32_timer_set_input_filter(stm32_tim_t *tim, uint8_t channel, uint8_t fil
         break;
     }
 }
+#endif // STM32_AVAILABLE
 
 /*
   set the input source of a timer channel
  */    
+#if STM32_AVAILABLE == TRUE
 void stm32_timer_set_channel_input(stm32_tim_t *tim, uint8_t channel, uint8_t input_source)
 {
     switch (channel) {
@@ -75,6 +80,7 @@ void stm32_timer_set_channel_input(stm32_tim_t *tim, uint8_t channel, uint8_t in
             break;
     }
 }
+#endif // STM32_AVAILABLE
 
 #if CH_DBG_ENABLE_STACK_CHECK == TRUE && !defined(HAL_BOOTLOADER_BUILD)
 void show_stack_usage(void)
@@ -221,8 +227,12 @@ void get_rtc_backup(uint8_t idx, uint32_t *v, uint8_t n)
         *v++ = (dr[n/2]&0xFFFF) | (dr[n/2+1]<<16);
 #elif defined(STM32G4)
         *v++ = ((__IO uint32_t *)&TAMP->BKP0R)[idx++];
-#else
+#elif STM32_AVAILABLE == TRUE
         *v++ = ((__IO uint32_t *)&RTC->BKP0R)[idx++];
+#elif PIC02_AVAILABLE == TRUE
+        // todo pico buzz
+#else
+        #error "Unsupported target for RTC backup"
 #endif
     }
 }
@@ -230,15 +240,17 @@ void get_rtc_backup(uint8_t idx, uint32_t *v, uint8_t n)
 // set n RTC backup registers starting at given idx
 void set_rtc_backup(uint8_t idx, const uint32_t *v, uint8_t n)
 {
-#if !defined(STM32F1)
+#if STM32_AVAILABLE == TRUE && !defined(STM32F1)
     if ((RCC->BDCR & RCC_BDCR_RTCEN) == 0) {
         RCC->BDCR |= STM32_RTCSEL;
         RCC->BDCR |= RCC_BDCR_RTCEN;
     }
-#ifdef PWR_CR_DBP
+#if STM32_AVAILABLE == TRUE && defined(PWR_CR_DBP)
     PWR->CR |= PWR_CR_DBP;
-#else
+#elif STM32_AVAILABLE == TRUE
     PWR->CR1 |= PWR_CR1_DBP;
+# else 
+    #error "Unsupported target for RTC backup"
 #endif
 #endif
     while (n--) {
@@ -249,8 +261,12 @@ void set_rtc_backup(uint8_t idx, const uint32_t *v, uint8_t n)
         dr[n/2+1] = (*v) >> 16;
 #elif defined(STM32G4)
         ((__IO uint32_t *)&TAMP->BKP0R)[idx++] = *v++;
-#else
+#elif STM32_AVAILABLE == TRUE
         ((__IO uint32_t *)&RTC->BKP0R)[idx++] = *v++;
+#elif PIC02_AVAILABLE == TRUE
+        // todo pico buzz
+#else
+        #error "Unsupported target for RTC backup"
 #endif
     }
 }

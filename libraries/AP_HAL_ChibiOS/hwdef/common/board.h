@@ -31,6 +31,17 @@
 #define HAL_GPIO_INTERRUPT_PORT EXT_MODE_GPIOD
 #endif
 
+#if defined(PIC02) || defined(RP2350) || PIC02_AVAILABLE
+#define STM32_AVAILABLE FALSE 
+#endif
+
+#if PIC02_AVAILABLE == TRUE
+void pico2_gpio_init();
+#endif
+#if STM32_AVAILABLE == TRUE
+void gpio_init(stm32_gpio_t *gpiop, const gpio_setup_t *config);
+#endif
+
 #if !defined(_FROM_ASM_)
 #ifdef __cplusplus
 extern "C" {

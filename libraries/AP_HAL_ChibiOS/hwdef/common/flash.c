@@ -82,72 +82,76 @@
 #define STM32_FLASH_BANK2_START (STM32_FLASH_BASE+0x00080000)
 
 #if defined(STM32F4)
-#if BOARD_FLASH_SIZE == 512
-#define STM32_FLASH_NPAGES  8
-static const uint32_t flash_memmap[STM32_FLASH_NPAGES] = { KB(16), KB(16), KB(16), KB(16), KB(64),
-                                                           KB(128), KB(128), KB(128) };
+    #if BOARD_FLASH_SIZE == 512
+    #define STM32_FLASH_NPAGES  8
+    static const uint32_t flash_memmap[STM32_FLASH_NPAGES] = { KB(16), KB(16), KB(16), KB(16), KB(64),
+                                                            KB(128), KB(128), KB(128) };
 
-#elif BOARD_FLASH_SIZE == 1024
-#define STM32_FLASH_NPAGES  12
-static const uint32_t flash_memmap[STM32_FLASH_NPAGES] = { KB(16), KB(16), KB(16), KB(16), KB(64),
-                                                           KB(128), KB(128), KB(128), KB(128), KB(128), KB(128), KB(128) };
+    #elif BOARD_FLASH_SIZE == 1024
+    #define STM32_FLASH_NPAGES  12
+    static const uint32_t flash_memmap[STM32_FLASH_NPAGES] = { KB(16), KB(16), KB(16), KB(16), KB(64),
+                                                            KB(128), KB(128), KB(128), KB(128), KB(128), KB(128), KB(128) };
 
-#elif BOARD_FLASH_SIZE == 2048
-#define STM32_FLASH_NPAGES  24
-static const uint32_t flash_memmap[STM32_FLASH_NPAGES] = { KB(16), KB(16), KB(16), KB(16), KB(64),
-                                                           KB(128), KB(128), KB(128), KB(128), KB(128), KB(128), KB(128),
-                                                           KB(16), KB(16), KB(16), KB(16), KB(64),
-                                                           KB(128), KB(128), KB(128), KB(128), KB(128), KB(128), KB(128)};
-#else
-#error "BOARD_FLASH_SIZE invalid"
+    #elif BOARD_FLASH_SIZE == 2048
+    #define STM32_FLASH_NPAGES  24
+    static const uint32_t flash_memmap[STM32_FLASH_NPAGES] = { KB(16), KB(16), KB(16), KB(16), KB(64),
+                                                            KB(128), KB(128), KB(128), KB(128), KB(128), KB(128), KB(128),
+                                                            KB(16), KB(16), KB(16), KB(16), KB(64),
+                                                            KB(128), KB(128), KB(128), KB(128), KB(128), KB(128), KB(128)};
+    #else
+    #error "BOARD_FLASH_SIZE invalid for F4"
 #endif
 
 #elif defined(STM32F7)
-#if BOARD_FLASH_SIZE == 512
-#define STM32_FLASH_NPAGES  8
-static const uint32_t flash_memmap[STM32_FLASH_NPAGES] = { KB(16), KB(16), KB(16), KB(16), KB(64), KB(128), KB(128), KB(128) };
+    #if BOARD_FLASH_SIZE == 512
+    #define STM32_FLASH_NPAGES  8
+    static const uint32_t flash_memmap[STM32_FLASH_NPAGES] = { KB(16), KB(16), KB(16), KB(16), KB(64), KB(128), KB(128), KB(128) };
 
-#elif BOARD_FLASH_SIZE == 1024
-#define STM32_FLASH_NPAGES  8
-static const uint32_t flash_memmap[STM32_FLASH_NPAGES] = { KB(32), KB(32), KB(32), KB(32), KB(128), KB(256), KB(256), KB(256) };
+    #elif BOARD_FLASH_SIZE == 1024
+    #define STM32_FLASH_NPAGES  8
+    static const uint32_t flash_memmap[STM32_FLASH_NPAGES] = { KB(32), KB(32), KB(32), KB(32), KB(128), KB(256), KB(256), KB(256) };
 
-#elif BOARD_FLASH_SIZE == 2048
-#define STM32_FLASH_NPAGES  12
-static const uint32_t flash_memmap[STM32_FLASH_NPAGES] = { KB(32), KB(32), KB(32), KB(32), KB(128), KB(256), KB(256), KB(256),
-                                                           KB(256), KB(256), KB(256), KB(256) };
-#else
-#error "BOARD_FLASH_SIZE invalid"
+    #elif BOARD_FLASH_SIZE == 2048
+    #define STM32_FLASH_NPAGES  12
+    static const uint32_t flash_memmap[STM32_FLASH_NPAGES] = { KB(32), KB(32), KB(32), KB(32), KB(128), KB(256), KB(256), KB(256),
+                                                            KB(256), KB(256), KB(256), KB(256) };
+    #else
+    #error "BOARD_FLASH_SIZE invalid for F7"
 #endif
+
 #elif defined(STM32H730xx) || defined(STM32H750xx)
-#define STM32_FLASH_NPAGES 1
-#define STM32_FLASH_NBANKS 1
-#define STM32_FLASH_FIXED_PAGE_SIZE 128
+    #define STM32_FLASH_NPAGES 1
+    #define STM32_FLASH_NBANKS 1
+    #define STM32_FLASH_FIXED_PAGE_SIZE 128
 #elif defined(STM32H7A3xx)
-#define STM32_FLASH_NPAGES (BOARD_FLASH_SIZE / 8)
-#define STM32_FLASH_NBANKS (BOARD_FLASH_SIZE/1024)
-#define STM32_FLASH_FIXED_PAGE_SIZE 8
+    #define STM32_FLASH_NPAGES (BOARD_FLASH_SIZE / 8)
+    #define STM32_FLASH_NBANKS (BOARD_FLASH_SIZE/1024)
+    #define STM32_FLASH_FIXED_PAGE_SIZE 8
 #elif defined(STM32H7)
-#define STM32_FLASH_NPAGES  (BOARD_FLASH_SIZE / 128)
-#define STM32_FLASH_FIXED_PAGE_SIZE 128
-#define STM32_FLASH_NBANKS (BOARD_FLASH_SIZE/1024)
+    #define STM32_FLASH_NPAGES  (BOARD_FLASH_SIZE / 128)
+    #define STM32_FLASH_FIXED_PAGE_SIZE 128
+    #define STM32_FLASH_NBANKS (BOARD_FLASH_SIZE/1024)
 #elif defined(STM32F100_MCUCONF) || defined(STM32F103_MCUCONF)
-#define STM32_FLASH_NPAGES BOARD_FLASH_SIZE
-#define STM32_FLASH_FIXED_PAGE_SIZE 1
+    #define STM32_FLASH_NPAGES BOARD_FLASH_SIZE
+    #define STM32_FLASH_FIXED_PAGE_SIZE 1
 #elif defined(STM32F105_MCUCONF)
-#define STM32_FLASH_NPAGES (BOARD_FLASH_SIZE/2)
-#define STM32_FLASH_FIXED_PAGE_SIZE 2
+    #define STM32_FLASH_NPAGES (BOARD_FLASH_SIZE/2)
+    #define STM32_FLASH_FIXED_PAGE_SIZE 2
 #elif defined(STM32F303_MCUCONF)
-#define STM32_FLASH_NPAGES (BOARD_FLASH_SIZE/2)
-#define STM32_FLASH_FIXED_PAGE_SIZE 2
+    #define STM32_FLASH_NPAGES (BOARD_FLASH_SIZE/2)
+    #define STM32_FLASH_FIXED_PAGE_SIZE 2
 #elif defined(STM32G4)
-#define STM32_FLASH_NPAGES (BOARD_FLASH_SIZE/2)
-#define STM32_FLASH_FIXED_PAGE_SIZE 2
+    #define STM32_FLASH_NPAGES (BOARD_FLASH_SIZE/2)
+    #define STM32_FLASH_FIXED_PAGE_SIZE 2
 #elif defined(STM32L4PLUS)
-#define STM32_FLASH_NPAGES (BOARD_FLASH_SIZE/4)
-#define STM32_FLASH_FIXED_PAGE_SIZE 4 
+    #define STM32_FLASH_NPAGES (BOARD_FLASH_SIZE/4)
+    #define STM32_FLASH_FIXED_PAGE_SIZE 4 
 #elif defined(STM32L4)
-#define STM32_FLASH_NPAGES (BOARD_FLASH_SIZE/2)
-#define STM32_FLASH_FIXED_PAGE_SIZE 2
+    #define STM32_FLASH_NPAGES (BOARD_FLASH_SIZE/2)
+    #define STM32_FLASH_FIXED_PAGE_SIZE 2
+#elif defined(PICO2_AVAILABLE) && PICO2_AVAILABLE == TRUE
+    #define PICO_FLASH_NPAGES (BOARD_FLASH_SIZE/4)
+    #define PICO_FLASH_FIXED_PAGE_SIZE 4
 #else
 #error "Unsupported processor for flash.c"
 #endif

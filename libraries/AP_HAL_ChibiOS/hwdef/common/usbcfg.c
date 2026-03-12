@@ -34,6 +34,10 @@
 #include "usbcfg.h"
 // #pragma GCC optimize("O0")
 
+#if defined(PIC02) || defined(RP2350) || PIC02_AVAILABLE
+#define STM32_AVAILABLE FALSE 
+#endif
+
 #if defined(HAL_USB_PRODUCT_ID) && !HAL_HAVE_DUAL_USB_CDC
 
 /* Virtual serial port over USB.*/
@@ -286,8 +290,12 @@ static const USBEndpointConfig ep1config = {
   0x0040,
   &ep1instate,
   &ep1outstate,
-  2,
+  #if STM32_AVAILABLE == TRUE
+  1U,
   NULL
+  #elif PIC02_AVAILABLE
+  // pico2 lld usb driver doesnt have the last two args when initializing endpoint config
+  #endif
 };
 
 /**
@@ -307,8 +315,12 @@ static const USBEndpointConfig ep2config = {
   0x0000,
   &ep2instate,
   NULL,
-  1,
+  #if STM32_AVAILABLE == TRUE
+  1U,
   NULL
+  #elif PIC02_AVAILABLE
+  // pico2 lld usb driver doesnt have the last two args when initializing endpoint config
+  #endif
 };
 
 /*

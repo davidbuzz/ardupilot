@@ -42,6 +42,7 @@
 /*
  * Virtual serial ports over USB.
  */
+// this type 'SerialUSBDriver' needs HAL_USE_SERIAL_USB to be enabled in chibios. 
 SerialUSBDriver SDU1;
 SerialUSBDriver SDU2;
 
