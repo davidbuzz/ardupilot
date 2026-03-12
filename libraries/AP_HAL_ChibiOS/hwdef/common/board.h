@@ -31,15 +31,21 @@
 #define HAL_GPIO_INTERRUPT_PORT EXT_MODE_GPIOD
 #endif
 
-#if defined(PIC02) || defined(RP2350) || PIC02_AVAILABLE
+//#include "stm32_gpio.h"
+
+#if defined(PIC02) || defined(RP2350) || defined(PIC02_AVAILABLE)
+// #define PIC02_AVAILABLE TRUE   - this comes via hwdef.dat for pico2
 #define STM32_AVAILABLE FALSE 
+#else
+#define STM32_AVAILABLE TRUE
+#define PIC02_AVAILABLE FALSE
 #endif
 
-#if PIC02_AVAILABLE == TRUE
+#if defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE
 void pico2_gpio_init();
 #endif
 #if STM32_AVAILABLE == TRUE
-void gpio_init(stm32_gpio_t *gpiop, const gpio_setup_t *config);
+//void gpio_init(stm32_gpio_t *gpiop, const gpio_setup_t *config);
 #endif
 
 #if !defined(_FROM_ASM_)

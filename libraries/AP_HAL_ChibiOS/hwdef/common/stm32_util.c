@@ -266,7 +266,7 @@ void set_rtc_backup(uint8_t idx, const uint32_t *v, uint8_t n)
 #elif PIC02_AVAILABLE == TRUE
         // todo pico buzz
 #else
-        #error "Unsupported target for RTC backup"
+        #warning "Unsupported target for RTC backup"
 #endif
     }
 }
