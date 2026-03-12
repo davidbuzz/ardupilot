@@ -217,7 +217,9 @@ uint32_t get_fattime()
 
 #if AP_FASTBOOT_ENABLED
 
-// get RTC backup registers starting at given idx
+#define UNUSED(x)                           (void)(x)
+
+        // get RTC backup registers starting at given idx
 void get_rtc_backup(uint8_t idx, uint32_t *v, uint8_t n)
 {
     while (n--) {
@@ -231,6 +233,10 @@ void get_rtc_backup(uint8_t idx, uint32_t *v, uint8_t n)
         *v++ = ((__IO uint32_t *)&RTC->BKP0R)[idx++];
 #elif PIC02_AVAILABLE == TRUE
         // todo pico buzz
+        UNUSED(idx);
+        UNUSED(v);
+        UNUSED(n);
+        #warning "RTC backup not implemented for pico2"
 #else
         #error "Unsupported target for RTC backup"
 #endif
@@ -265,6 +271,10 @@ void set_rtc_backup(uint8_t idx, const uint32_t *v, uint8_t n)
         ((__IO uint32_t *)&RTC->BKP0R)[idx++] = *v++;
 #elif PIC02_AVAILABLE == TRUE
         // todo pico buzz
+        UNUSED(idx);
+        UNUSED(v);
+        UNUSED(n);
+        #warning "RTC backup not implemented for pico2"
 #else
         #warning "Unsupported target for RTC backup"
 #endif
