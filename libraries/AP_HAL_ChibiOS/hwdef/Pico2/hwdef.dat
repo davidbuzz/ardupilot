@@ -50,7 +50,10 @@ MCU PICO2 PICO2
 # define HAL_NO_ROMFS_SUPPORT 1  -- removed: ROMFS works as binary-embedded data
 define AP_BOOTLOADER_FLASHING_ENABLED 0
 
-# dma is very stm32 specific, eg stm32_dma_stream_t* rxdma; so we disable it for now, and use polling for uart. todo buzz when we have dma working on 2350.
+# dma is very stm32 specific, eg stm32_dma_stream_t* rxdma; so we disable it for now, and use polling for uart.
+# todo buzz: DMA UART - RP2350 HAS DMA (modules/ChibiOS/os/hal/ports/RP/LLD/DMAv1/rp_dma.c, 12 channels)
+# but UARTDriver.cpp DMA path uses STM32-specific dmaStreamAllocI/dmaStreamSetPeripheral and
+# USART->RDR/TDR registers. Requires new RP2350-specific DMA paths in UARTDriver.cpp.
 define HAL_UART_NODMA 1
 
 # Now we need to specify the APJ_BOARD_ID. This is the ID that the
@@ -471,6 +474,22 @@ define HAL_WITH_DSP FALSE
 
 
 # chibios drivers for many peripherals on rp2350 are not yet supported or not tested
+# RP2350 capability gap summary:
+#   IMPLEMENTED: flash/param storage (EFL), ROMFS (binary embedded), USB serial
+#   TODO/NEEDS WORK:
+#     RC Output: HAL_USE_PWM FALSE. RP2350 HAS ChibiOS PWMv1 driver (hal_pwm_lld.c) using RP2350 PWM slices.
+#       Needs: chibios_hwdef.py generator path for PICO2 PWM groups (not STM32 timer based),
+#              plus HAL_PWM_GROUPS definition and RCOutput.cpp RP2350-specific setup.
+#       RP2350 has 8 PWM slices x 2 channels = 16 possible PWM outputs.
+#     RC Input: HAL_USE_ICU FALSE, HAL_USE_EICU FALSE. Both ICU/EICU use STM32-specific APIs
+#       (STM32_RCIN_DMA_STREAM, STM32_RCIN_DMA_CHANNEL). Needs RP2350-specific capture timer impl.
+#     CAN: HAL_USE_CAN FALSE. RP2350 has NO hardware CAN. PIO-based CAN would need custom
+#       RP2350 PIO state machine code (no ChibiOS PIO driver exists). Not feasible without
+#       major custom work outside ChibiOS.
+#     Extra UARTs via PIO: No ChibiOS PIO driver. Custom PIO state machine required. Major effort.
+#     DMA for UART: See HAL_UART_NODMA comment above.
+#     Scheduler perf: RP2350 dual Cortex-M33 @ 150MHz vs STM32F4 @ 168MHz; loop times
+#       expected comparable, but profiling needed once more features are enabled.
 define HAL_USE_PAL                         TRUE
 define HAL_USE_SIO                         TRUE
 define HAL_USE_I2C                         FALSE
@@ -491,12 +510,19 @@ define HAL_STORAGE_SIZE 8192
 define HAL_USE_GPT                         FALSE
 define HAL_USE_I2S                         FALSE
 
-# can we get one of these to work on 2350 or do we do a third? todo buzz
+# RC input via ICU/EICU: both disabled on RP2350
+# ICU attach_capture_timer uses STM32_RCIN_DMA_STREAM/CHANNEL which don't exist on RP2350.
+# EICU also uses STM32-specific backeneds. A third approach using RP2350 PWM slice capture
+# mode or direct GPIO interrupt timing would be needed.
 define HAL_USE_ICU                         FALSE
 define HAL_USE_EICU                        FALSE
 
 define HAL_USE_MAC                         FALSE
 define HAL_USE_MMC_SPI                     FALSE
+# RC output via PWM: disabled on RP2350. ChibiOS PWMv1 driver IS available for RP2350
+# but chibios_hwdef.py generator needs a PICO2-specific path for HAL_PWM_GROUPS
+# (RP2350 uses PWM slices, not STM32 TIMx timers). todo buzz: implement PWM group
+# generation for PICO2 in hwdef scripts and add TIMx pin definitions to hwdef.dat.
 define HAL_USE_PWM                         FALSE
 define HAL_USE_RTC                         FALSE
 define HAL_USE_SDC                         FALSE
