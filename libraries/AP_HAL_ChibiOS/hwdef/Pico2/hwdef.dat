@@ -49,6 +49,9 @@ MCU PICO2 PICO2
 define HAL_NO_FLASH_SUPPORT 1
 define HAL_NO_ROMFS_SUPPORT 1
 
+# dma is very stm32 specific, eg stm32_dma_stream_t* rxdma; so we disable it for now, and use polling for uart. todo buzz when we have dma working on 2350.
+define HAL_UART_NODMA 1
+
 # Now we need to specify the APJ_BOARD_ID. This is the ID that the
 # bootloader presents to GCS software so it knows if this firmware is
 # suitable for the board. Please see
