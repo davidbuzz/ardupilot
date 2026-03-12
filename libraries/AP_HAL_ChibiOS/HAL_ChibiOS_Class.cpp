@@ -272,11 +272,13 @@ static void main_loop()
      */
     hal_chibios_set_priority(APM_STARTUP_PRIORITY);
 
+#if defined(STM32_AVAILABLE) && STM32_AVAILABLE == TRUE
     if (stm32_was_watchdog_reset()) {
         // load saved watchdog data
         stm32_watchdog_load((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4);
         utilInstance.last_persistent_data = utilInstance.persistent_data;
     }
+#endif // STM32_AVAILABLE
 
     schedulerInstance.hal_initialized();
 
