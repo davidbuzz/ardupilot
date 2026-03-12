@@ -3,7 +3,7 @@
 # this is based on fmuv3, but with vendor specific USB IDs
 
 # hw definition file for processing by chibios_hwdef.py
-# for bootloader for FMUv3 hardware (ie. for Pixhawk1, Pixhawk2 cube, XUAV2.1 etc)
+# for bootloader for pico2 board by raspberry pi
 
 # MCU class and specific type
 MCU STM32F4xx STM32F427xx

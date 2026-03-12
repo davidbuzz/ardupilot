@@ -2870,6 +2870,9 @@ Please run: Tools/scripts/build_bootloaders.py %s
 
             if a[0] in self.config:
                 self.error("Pin %s redefined" % a[0])
+        else:
+            # warn user it needs to start with p, and the digit after needs to be in ports.
+            print("Not a pin line: %s" % a[0])
 
         if p is None and line.find('ALT(') != -1:
             self.error("ALT() invalid for %s" % a[0])
@@ -2885,6 +2888,7 @@ Please run: Tools/scripts/build_bootloaders.py %s
         self.config[a[0]] = a[1:]
         if p is not None:
             # add to set of pins for primary config
+            print("pin: %s ; port %s ; p %s" % (pin, port, p))
             self.portmap[port][pin] = p
             self.allpins.append(p)
             if type not in self.bytype:
