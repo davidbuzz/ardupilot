@@ -329,7 +329,7 @@ bool I2CDevice::transfer(const uint8_t *send, uint32_t send_len,
     } else {
         bus.i2ccfg.cr1 &= ~I2C_CR1_SMBHEN;
     }
-#else if defined(STM32F1) || defined(STM32F4)
+#elif defined(STM32F1) || defined(STM32F4)
     if (_use_smbus) {
         bus.i2ccfg.op_mode = OPMODE_SMBUS_HOST;
     } else {
