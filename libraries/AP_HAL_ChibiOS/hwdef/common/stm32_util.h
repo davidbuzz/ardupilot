@@ -212,6 +212,14 @@ typedef uint64_t port_stkalign_t;
 typedef port_stkalign_t stkalign_t;
 #endif
 
+// this is what stm32 now calls it:
+//typedef port_stkline_t  stkline_t;          /**< Stack alignment type.      */
+
+#if STM32_AVAILABLE == TRUE
+// old name first, new name second.
+typedef stkline_t stkalign_t;
+#endif
+
 // allow stack view code to show free ISR stack
 //#if STM32_AVAILABLE == TRUE
 extern stkalign_t __main_stack_base__;
