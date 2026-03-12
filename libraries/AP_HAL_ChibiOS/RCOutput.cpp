@@ -1819,8 +1819,10 @@ void RCOutput::send_pulses_DMAR(pwm_group &group, uint32_t buffer_length)
     stm32_cacheBufferFlush(group.dma_buffer, (buffer_length+31)&~31);
     dmaStreamSetMemory0(group.dma, group.dma_buffer);
     dmaStreamSetTransactionSize(group.dma, buffer_length / sizeof(dmar_uint_t));
-#if STM32_DMA_ADVANCED
+#if defined(STM32_DMA_ADVANCED) && STM32_DMA_ADVANCED
     dmaStreamSetFIFO(group.dma, STM32_DMA_FCR_DMDIS | STM32_DMA_FCR_FTH_FULL);
+#else
+#warning "DMA FIFO mode not supported, performance may be poor and DShot may not work at higher bitrates" 
 #endif
     dmaStreamSetMode(group.dma,
                      STM32_DMA_CR_CHSEL(group.dma_up_channel) |
