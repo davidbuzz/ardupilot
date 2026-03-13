@@ -330,7 +330,9 @@ void Storage::_flash_load(void)
 #ifdef STORAGE_FLASH_PAGE
     _flash_page = STORAGE_FLASH_PAGE;
 
-#if AP_FLASH_STORAGE_DOUBLE_PAGE
+#if AP_FLASH_STORAGE_QUAD_PAGE
+    ::printf("Storage: Using flash pages %u to %u\n", _flash_page, _flash_page+7);
+#elif AP_FLASH_STORAGE_DOUBLE_PAGE
     ::printf("Storage: Using flash pages %u to %u\n", _flash_page, _flash_page+3);
 #else
     ::printf("Storage: Using flash pages %u and %u\n", _flash_page, _flash_page+1);
@@ -363,7 +365,9 @@ bool Storage::_flash_write(uint16_t line)
 bool Storage::_flash_write_data(uint8_t sector, uint32_t offset, const uint8_t *data, uint16_t length)
 {
 #ifdef STORAGE_FLASH_PAGE
-#if AP_FLASH_STORAGE_DOUBLE_PAGE
+#if AP_FLASH_STORAGE_QUAD_PAGE
+    sector *= 4;
+#elif AP_FLASH_STORAGE_DOUBLE_PAGE
     sector *= 2;
 #endif
     size_t base_address = hal.flash->getpageaddr(_flash_page+sector);
@@ -397,7 +401,9 @@ bool Storage::_flash_write_data(uint8_t sector, uint32_t offset, const uint8_t *
 bool Storage::_flash_read_data(uint8_t sector, uint32_t offset, uint8_t *data, uint16_t length)
 {
 #ifdef STORAGE_FLASH_PAGE
-#if AP_FLASH_STORAGE_DOUBLE_PAGE
+#if AP_FLASH_STORAGE_QUAD_PAGE
+    sector *= 4;
+#elif AP_FLASH_STORAGE_DOUBLE_PAGE
     sector *= 2;
 #endif
     size_t base_address = hal.flash->getpageaddr(_flash_page+sector);
@@ -415,7 +421,9 @@ bool Storage::_flash_read_data(uint8_t sector, uint32_t offset, uint8_t *data, u
 bool Storage::_flash_erase_sector(uint8_t sector)
 {
 #ifdef STORAGE_FLASH_PAGE
-#if AP_FLASH_STORAGE_DOUBLE_PAGE
+#if AP_FLASH_STORAGE_QUAD_PAGE
+    sector *= 4;
+#elif AP_FLASH_STORAGE_DOUBLE_PAGE
     sector *= 2;
 #endif
     // erasing a page can take long enough that USB may not initialise properly if it happens
@@ -423,7 +431,12 @@ bool Storage::_flash_erase_sector(uint8_t sector)
     for (uint8_t i=0; i<STORAGE_FLASH_RETRIES; i++) {
         // a sector erase stops the whole MCU so set up a long expected delay
         EXPECT_DELAY_MS(1000);
-#if AP_FLASH_STORAGE_DOUBLE_PAGE
+#if AP_FLASH_STORAGE_QUAD_PAGE
+        if (hal.flash->erasepage(_flash_page+sector)   && hal.flash->erasepage(_flash_page+sector+1) &&
+            hal.flash->erasepage(_flash_page+sector+2) && hal.flash->erasepage(_flash_page+sector+3)) {
+            return true;
+        }
+#elif AP_FLASH_STORAGE_DOUBLE_PAGE
         if (hal.flash->erasepage(_flash_page+sector) && hal.flash->erasepage(_flash_page+sector+1)) {
             return true;
         }

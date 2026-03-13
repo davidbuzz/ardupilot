@@ -110,7 +110,7 @@
 
 | Feature | CubeBlack | Pico2 | Status / Notes |
 |---------|-----------|-------|----------------|
-| Flash parameter storage | RAMTRON (FRAM) SPI preferred | EFL flash sectors 1020–1023 | ⚠️ Flash storage works. 8KB (RP2350 4KB sector constraint × 2 with `AP_FLASH_STORAGE_DOUBLE_PAGE 1`). Wear is higher than FRAM. |
+| Flash parameter storage | RAMTRON (FRAM) SPI preferred | EFL flash sectors 1016–1023 | ✅ `AP_FLASH_STORAGE_QUAD_PAGE 1` — 4×4KB physical sectors per logical sector = 16KB per half. Physical sectors 1016–1023 (last 32KB of 4MB). `reserve_size` (8512 bytes) < `sector_size` (16384 bytes); wear-leveling compaction is correct. Previous `AP_FLASH_STORAGE_DOUBLE_PAGE 1` (8KB sectors) was broken: `reserve_size` (8512) > `sector_size` (8192) caused sector to always appear full. Wear is higher than FRAM but functional. |
 | RAMTRON FRAM | SPI DEVID10 `FRAM_CS` | `ramtron` SPIDEV commented out | ❌ `HAL_WITH_RAMTRON 1` defined but SPIDEV line commented out. SPI is now enabled (`HAL_USE_SPI TRUE`); if an external FRAM is wired, uncomment the `ramtron` SPIDEV line. |
 | Storage size | 16384 bytes | 8192 bytes | ⚠️ Half the CubeBlack. Constrained by RP2350 4KB flash page size. |
 | microSD card | SDIO-based | No SDIO on Pico2 | 🚫 No hardware SDIO pins. `HAL_OS_FATFS_IO 0`. Could add SPI-mode SD card via `HAL_USE_MMC_SPI` once SPI works, but not currently planned. |
@@ -183,7 +183,8 @@
 9. **RTC** (`HAL_USE_RTC TRUE`) — Not applicable: RTCv1 LLD is RP2040-only; RP2350 uses POWMAN_TIMER. ArduPilot RTC via GPS time + `hrt_micros64()` offset works without hardware RTC.
 10. **GPT timers** (`HAL_USE_GPT TRUE`) — No GPT LLD for RP2350; TIMERv1 is the system-tick driver only.
 11. ~~**SBUS invert**~~ — ✅ **DONE** (hardware UART). GPIO INOVER bits set via `IO_BANK0->GPIO[pad].CTRL` in `set_options()`. Parity/stop bits applied in `_begin()` SIOConfig. SBUS on UART0/1 at 100kbps 8E2 inverted. PIOUART 8E2 deferred.
-15. ~~**Unique hardware ID**~~ — ✅ **DONE** (`Util.cpp`). `get_system_id()` reads RP2350 OTP via ECC-mapped base `0x40130000`, rows 0–5 (CHIPID0-3 + RANDID0-1 = 96 bits). Per-device ID factory-programmed; no more XIP garbage.
+15. ~~**Unique hardware ID**~~ — ✅ **DONE** (`Util.cpp`). `get_system_id()` reads RP2350 OTP via ECC-mapped base `0x40130000`, rows 0–5 (CHIPID0-3 + RANDID0-1 = 96 bits). Per-device ID factory-programmed; no more XIP garbage. Same OTP fix also applied to `usbcfg_common.c` (`string_substitute()`) and `AP_BLHeli.cpp` (`MSP_UID` handler).
+16. ~~**Flash parameter storage sector size**~~ — ✅ **DONE** (`hwdef.dat`, `Storage.cpp/h`). Switched from `AP_FLASH_STORAGE_DOUBLE_PAGE` (8KB sector) to `AP_FLASH_STORAGE_QUAD_PAGE` (16KB sector). Previous config was broken: `reserve_size` (8512) > `sector_size` (8192) caused sector to always appear full. New config: `reserve_size` (8512) << `sector_size` (16384). `STORAGE_FLASH_PAGE 1016` uses sectors 1016–1023 (last 32KB of 4MB).
 12. **Gyro FFT** — Requires adapting `CMSIS-DSP` for RP2350; deferred.
 13. **DShot via PIO** — Complex custom PIO code needed; no ChibiOS driver.
 14. **SPI-mode SD card** (`HAL_USE_MMC_SPI`) — Possible once SPI works, but no SD slot on standard Pico2.

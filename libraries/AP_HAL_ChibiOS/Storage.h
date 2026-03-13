@@ -54,6 +54,16 @@ static_assert(CH_STORAGE_SIZE % CH_STORAGE_LINE_SIZE == 0,
 #define AP_FLASH_STORAGE_DOUBLE_PAGE 0
 #endif
 
+/*
+  on boards with 4k sector sizes (e.g. RP2350 QSPI flash) we use 4x sector
+  aggregation to ensure the physical sector is large enough to satisfy
+  AP_FlashStorage's reserve_size requirement (reserve_size > sector_size would
+  cause constant compaction with DOUBLE_PAGE).
+ */
+#ifndef AP_FLASH_STORAGE_QUAD_PAGE
+#define AP_FLASH_STORAGE_QUAD_PAGE 0
+#endif
+
 class ChibiOS::Storage : public AP_HAL::Storage {
 public:
     void init() override {}
@@ -93,7 +103,9 @@ private:
 
 #ifdef STORAGE_FLASH_PAGE
     AP_FlashStorage _flash{_buffer,
-#if AP_FLASH_STORAGE_DOUBLE_PAGE
+#if AP_FLASH_STORAGE_QUAD_PAGE
+            stm32_flash_getpagesize(STORAGE_FLASH_PAGE)*4,
+#elif AP_FLASH_STORAGE_DOUBLE_PAGE
             stm32_flash_getpagesize(STORAGE_FLASH_PAGE)*2,
 #else
             stm32_flash_getpagesize(STORAGE_FLASH_PAGE),

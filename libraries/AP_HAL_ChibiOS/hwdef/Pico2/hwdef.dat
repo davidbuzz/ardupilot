@@ -538,12 +538,16 @@ define HAL_USE_CAN                         FALSE
 define HAL_USE_CRY                         FALSE
 define HAL_USE_DAC                         FALSE
 define HAL_USE_EFL                         TRUE
-# STORAGE_FLASH_PAGE: use last 16KB of 4MB flash (sectors 1020-1023) for parameter storage
-# AP_FLASH_STORAGE_DOUBLE_PAGE: treat 2x4KB sectors as one logical sector (8KB each)
-# HAL_STORAGE_SIZE: 8KB fits within one 8KB logical storage sector
-define STORAGE_FLASH_PAGE 1020
-define AP_FLASH_STORAGE_DOUBLE_PAGE 1
-# HAL_STORAGE_SIZE reduced from 16384 to 8192 to fit RP2350 4KB flash sector constraint
+# STORAGE_FLASH_PAGE: start of flash sector group used for parameter storage.
+# AP_FLASH_STORAGE_QUAD_PAGE: aggregate 4x4KB physical sectors into one 16KB logical sector.
+#   Two logical sectors are needed for wear leveling: 2 x 4 x 4KB = 8 physical pages = 32KB total.
+#   Pages 1016-1023 (last 32KB of 4MB flash = 0x10FF8000-0x10FFFFFF).
+# reserve_size for 8KB storage (F4 type, max_write=64): (128*66)+64 = 8512 bytes.
+#   With QUAD_PAGE: sector_size = 16384 > reserve_size (8512) -- compaction works correctly.
+#   With DOUBLE_PAGE: sector_size = 8192 < reserve_size (8512) -- sector always "full", broken.
+define STORAGE_FLASH_PAGE 1016
+define AP_FLASH_STORAGE_QUAD_PAGE 1
+# HAL_STORAGE_SIZE: 8KB fits within one 16KB logical storage sector (with room for write log)
 undef HAL_STORAGE_SIZE
 define HAL_STORAGE_SIZE 8192
 define HAL_USE_GPT                         FALSE
