@@ -87,8 +87,8 @@
 
 | Feature | CubeBlack | Pico2 | Status / Notes |
 |---------|-----------|-------|----------------|
-| ADC | PA2/PA3 (voltage/current), PA4 (VDD) | HAL_BATT_VOLT_PIN 2, HAL_BATT_CURR_PIN 3 | ❌ Pins and scaling defined in hwdef.dat but `HAL_USE_ADC FALSE`. ChibiOS `ADCv1` LLD **exists** in `RP/LLD/ADCv1/` and is in `platform.mk`. 💡 Enable `HAL_USE_ADC TRUE`. |
-| Board voltage sensing | `HAL_HAVE_BOARD_VOLTAGE 1` | — | ❌ Blocked by ADC disabled. |
+| ADC | PA2/PA3 (voltage/current), PA4 (VDD) | PA28/PA29 (GPIO 28/29, ADC ch2/3) | ✅ `HAL_USE_ADC TRUE`, `RP_ADC_USE_ADC1 TRUE`. `PA28 BATT_VOLTAGE_SENS ADC1`, `PA29 BATT_CURRENT_SENS ADC1`. AnalogIn.cpp RP2350 branch uses round-robin rrobin bitmask (ADCv1, no STM32-style SQR/SMPR). |
+| Board voltage sensing | `HAL_HAVE_BOARD_VOLTAGE 1` | — | ⚠️ No VDD_5V_SENS pin on Pico2. `HAL_HAVE_BOARD_VOLTAGE` not set. |
 
 ---
 
@@ -172,8 +172,8 @@
 ### Medium priority (important for functionality)
 
 4. ~~**I2C driver** (`HAL_USE_I2C TRUE`)~~ — ✅ **DONE** (`I2Cv1` LLD enabled; `I2CDevice.cpp` RP2350 baudrate path; `chibios_hwdef.py` PICO2 SHARED_DMA_NONE config)
-5. **ADC driver** (`HAL_USE_ADC TRUE`) — `ADCv1` LLD exists. Needed for battery voltage/current monitoring.
-6. **Battery monitor pins** — `HAL_BATT_VOLT_PIN`/`HAL_BATT_CURR_PIN` already defined; will work once ADC enabled.
+5. ~~**ADC driver** (`HAL_USE_ADC TRUE`)~~ — ✅ **DONE** (`ADCv1` LLD enabled; `PA28/PA29` as battery volt/curr; `AnalogIn.cpp` RP2350 round-robin path)
+6. ~~**Battery monitor pins**~~ — ✅ **DONE** (`HAL_BATT_VOLT_PIN 2`, `HAL_BATT_CURR_PIN 3` active now that ADC is enabled)
 7. **Watchdog** (`HAL_USE_WDG TRUE`) — `WDGv1` LLD exists. One-line change + small init code. Safety-critical.
 8. **APJ_BOARD_ID** — Register a real ID in `board_types.txt`.
 
