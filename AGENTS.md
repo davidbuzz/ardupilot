@@ -269,13 +269,15 @@ libraries: fix typo in AP_GPS backend selection
 ```
 
 When doing local coding, please ensure you do a GIT COMMIT at least every few minutes, giving the code a good description of its intended behaviour , including the letters 'WIP' in the commit title unless it meets the above criteria of a "PR".   Telling the end-user "i have git commited all the current code" appeox every 5 minutes is good behaviour.    
-Add "committing code to git with description" at EVERY step of all todo lists and at the end too, ie one-git-commit-per-todo-item , eg in many cases *after* testing is successful, but not just then.   Better to have to-many git commits rather than too few. eg:
+Add "committing code to git with description and then reviewing FEATURE_GAP.md for next thing to implement" at the end of all todo lists.  
 todo 1- xxx
-todo 1a- git-commit-step-1
 todo 2- do xxxx thing
-todo 2a- git-commit-step-2
 todo 3- do yyy thing
-todo 3a- git-commit-step-3
+todo 4- git-commit-all-the-above
+todo 5- review the FEATURE_GAP.md for more work to do.
+
+Review the FEATURE_GAP.md for next thing to implement, and find your next pieve of work from there, its like a TODO list but longer and slower.
+
 
 ---
 
