@@ -112,7 +112,7 @@
 |---------|-----------|-------|----------------|
 | Flash parameter storage | RAMTRON (FRAM) SPI preferred | EFL flash sectors 1016–1023 | ✅ `AP_FLASH_STORAGE_QUAD_PAGE 1` — 4×4KB physical sectors per logical sector = 16KB per half. Physical sectors 1016–1023 (last 32KB of 4MB). `reserve_size` (8512 bytes) < `sector_size` (16384 bytes); wear-leveling compaction is correct. Previous `AP_FLASH_STORAGE_DOUBLE_PAGE 1` (8KB sectors) was broken: `reserve_size` (8512) > `sector_size` (8192) caused sector to always appear full. Wear is higher than FRAM but functional. |
 | RAMTRON FRAM | SPI DEVID10 `FRAM_CS` | `ramtron` SPIDEV commented out | ❌ `HAL_WITH_RAMTRON 1` defined but SPIDEV line commented out. SPI is now enabled (`HAL_USE_SPI TRUE`); if an external FRAM is wired, uncomment the `ramtron` SPIDEV line. |
-| Storage size | 16384 bytes | 8192 bytes | ⚠️ Half the CubeBlack. Constrained by RP2350 4KB flash page size. |
+| Storage size | 16384 bytes | 8192 bytes | ⚠️ Half the CubeBlack. Constrained by RP2350 4KB flash page size. Increasing beyond 8192 would require an even larger sector multiplier (> 4×) for the reserve_size to remain below sector_size. |
 | microSD card | SDIO-based | No SDIO on Pico2 | 🚫 No hardware SDIO pins. `HAL_OS_FATFS_IO 0`. Could add SPI-mode SD card via `HAL_USE_MMC_SPI` once SPI works, but not currently planned. |
 | ROMFS | IO firmware embedded | Binary data embedded | ✅ `AP_FILESYSTEM_ROMFS_ENABLED 1` works. No IO firmware needed (no IOMCU). |
 
