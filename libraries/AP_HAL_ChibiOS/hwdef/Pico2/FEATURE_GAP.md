@@ -66,7 +66,7 @@
 |---------|-----------|-------|----------------|
 | SPI0 bus | SPI4 | GPIO 22/32/35 (SCK/MISO/MOSI) | ✅ Enabled. `HAL_USE_SPI TRUE`, `RP_SPI_USE_SPI0 TRUE`. ChibiOS `SPIv1` LLD (PL022). SSPCR0/SSPCPSR config paths added to `SPIDevice.cpp`. |
 | SPI1 bus | SPI1 | GPIO 42/40/43 (SCK/MISO/MOSI) | ✅ Enabled. `RP_SPI_USE_SPI1 TRUE`. Same as SPI0. |
-| SPI CS pins | Multiple | PA23 MAG_CS, PA24 MPU_CS, PA25 BARO_EXT_CS, PA26 GYRO_EXT_CS | ⚠️ Defined, SPI enabled. Sensor `IMU`/`BARO`/`COMPASS` lines still commented out in hwdef.dat — need enabling and testing. |
+| SPI CS pins | Multiple | PA23 MAG_CS, PA24 MPU_CS, PA25 BARO_EXT_CS, PA26 GYRO_EXT_CS | ✅ Defined and active. `IMU Invensense`, `BARO MS5611`, `AP_COMPASS_PROBING_ENABLED` lines all enabled in hwdef.dat. |
 
 **SPI is the single biggest blocker** — it gates IMU, barometer, compass, RAMTRON storage, and any external SPI sensors.
 
@@ -110,7 +110,7 @@
 | Feature | CubeBlack | Pico2 | Status / Notes |
 |---------|-----------|-------|----------------|
 | Flash parameter storage | RAMTRON (FRAM) SPI preferred | EFL flash sectors 1020–1023 | ⚠️ Flash storage works. 8KB (RP2350 4KB sector constraint × 2 with `AP_FLASH_STORAGE_DOUBLE_PAGE 1`). Wear is higher than FRAM. |
-| RAMTRON FRAM | SPI DEVID10 `FRAM_CS` | `ramtron` SPIDEV commented out | ❌ `HAL_WITH_RAMTRON 1` defined but SPIDEV line commented out and `HAL_USE_SPI FALSE`. If an external FRAM is wired it could work once SPI is enabled. |
+| RAMTRON FRAM | SPI DEVID10 `FRAM_CS` | `ramtron` SPIDEV commented out | ❌ `HAL_WITH_RAMTRON 1` defined but SPIDEV line commented out. SPI is now enabled (`HAL_USE_SPI TRUE`); if an external FRAM is wired, uncomment the `ramtron` SPIDEV line. |
 | Storage size | 16384 bytes | 8192 bytes | ⚠️ Half the CubeBlack. Constrained by RP2350 4KB flash page size. |
 | microSD card | SDIO-based | No SDIO on Pico2 | 🚫 No hardware SDIO pins. `HAL_OS_FATFS_IO 0`. Could add SPI-mode SD card via `HAL_USE_MMC_SPI` once SPI works, but not currently planned. |
 | ROMFS | IO firmware embedded | Binary data embedded | ✅ `AP_FILESYSTEM_ROMFS_ENABLED 1` works. No IO firmware needed (no IOMCU). |
@@ -157,7 +157,7 @@
 | Double precision | Software only | Software only | Neither has hardware double. |
 | Flash | 2MB internal | 4MB external QSPI | Pico2 flash access is slightly slower (XIP cache mitigates). |
 | RAM | ~256KB | ~520KB (SRAM0+SRAM1) | Pico2 has substantially more RAM. |
-| Unique hardware ID | 96-bit device ID | 8-byte QSPI flash UID | Both can provide a hardware ID for MAVLink. |
+| Unique hardware ID | 96-bit device ID | 8-byte QSPI flash UID | ⚠️ `UDID_START = 0x1FFF7A10` in `PICO2.py` (XIP flash mirror, not guaranteed unique). Proper fix: use RP2350 boot ROM `sys_info` or read OTP rows 0x00-0x03 (`0x401C0000`). WIP placeholder is functional but may not be unique across boards. |
 
 ---
 
