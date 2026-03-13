@@ -341,8 +341,13 @@ bool I2CDevice::transfer(const uint8_t *send, uint32_t send_len,
     } else {
         bus.i2ccfg.op_mode = OPMODE_I2C;
     }
+#elif defined(RP2350)
+    // RP2350 uses Synopsys DesignWare I2C IP via ChibiOS I2Cv1 LLD.
+    // SMBus mode vs I2C mode is not selectable via i2ccfg struct fields;
+    // the LLD defaults to standard I2C. _use_smbus is unsupported on RP2350.
+    (void)_use_smbus;
 #else
-    #warning "I2C SMBus mode not set for this platform buzz todo?"
+    #warning "I2C SMBus mode not set for this platform"
 #endif
 
     if (_split_transfers) {

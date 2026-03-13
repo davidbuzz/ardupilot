@@ -269,7 +269,11 @@ void Shared_DMA::dma_info(ExpandingString &str)
 #elif defined(STM32_AVAILABLE) && STM32_AVAILABLE == FALSE
     #define STREAM_MUX 7
     #define STREAM_OFFSET 1
-#else 
+#elif defined(RP2350)
+    // RP2350 DMAv1 LLD has 12 channels, all in a single controller.
+    #define STREAM_MUX 12
+    #define STREAM_OFFSET 0
+#else
     #warning "unimplemented DMA architecture, DMA stream display may be incorrect"
     #define STREAM_MUX 1 // this just avoids a div by zero.
     #define STREAM_OFFSET 0
