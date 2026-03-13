@@ -488,7 +488,66 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
             }
 #endif // HAL_UART_NODMA
         }
-#endif // HAL_USE_SERIAL
+#elif HAL_USE_SIO == TRUE
+        // RP2350 SIO UART path
+        if (_baudrate != 0) {
+#ifndef HAL_UART_NODMA
+            bool was_initialised = _device_initialised;
+            // setup Rx DMA for RP2350
+            if (!_device_initialised) {
+                if (rx_dma_enabled) {
+                    osalDbgAssert(rxdma == nullptr, "double DMA allocation");
+                    chSysLock();
+                    rxdma = dmaChannelAllocI(sdef.dma_rx_stream_id,
+                                            3,   // IRQ priority
+                                            (rp_dmaisr_t)rxbuff_full_irq,
+                                            (void *)this);
+                    osalDbgAssert(rxdma, "DMA channel alloc failed");
+                    // Set source to UART RX data register (fixed/not-incremented)
+                    dmaChannelSetSourceX(rxdma,
+                        (uint32_t)&((SIODriver*)sdef.serial)->uart->UARTDR);
+                    chSysUnlock();
+                }
+                _device_initialised = true;
+            }
+            if (tx_dma_enabled && dma_handle == nullptr) {
+                // TX DMA channel is managed via Shared_DMA wrapper
+                dma_handle = NEW_NOTHROW Shared_DMA(sdef.dma_tx_stream_id,
+                                            SHARED_DMA_NONE,
+                                            FUNCTOR_BIND_MEMBER(&UARTDriver::dma_tx_allocate, void, Shared_DMA *),
+                                            FUNCTOR_BIND_MEMBER(&UARTDriver::dma_tx_deallocate, void, Shared_DMA *));
+                if (dma_handle == nullptr) {
+                    tx_dma_enabled = false;
+                }
+            }
+#endif // HAL_UART_NODMA
+
+            // Build RP2350 SIO config: 8N1, FIFO enabled
+            SIOConfig siocfg = {
+                .baud      = _baudrate,
+                .UARTLCR_H = UART_UARTLCR_H_WLEN_8BITS | UART_UARTLCR_H_FEN,
+                .UARTCR    = UART_UARTCR_RXE | UART_UARTCR_TXE | UART_UARTCR_UARTEN,
+                .UARTIFLS  = UART_UARTIFLS_RXIFLSEL_1_4F,
+                .UARTDMACR = 0,
+            };
+#ifndef HAL_UART_NODMA
+            if (rx_dma_enabled) {
+                siocfg.UARTDMACR |= UART_UARTDMACR_RXDMAE;
+            }
+            if (tx_dma_enabled) {
+                siocfg.UARTDMACR |= UART_UARTDMACR_TXDMAE;
+            }
+#endif // HAL_UART_NODMA
+            sioStart((SIODriver*)sdef.serial, &siocfg);
+
+#ifndef HAL_UART_NODMA
+            if (rx_dma_enabled && !was_initialised) {
+                dmaChannelDisableX(rxdma);
+                dma_rx_enable();
+            }
+#endif // HAL_UART_NODMA
+        }
+#endif // HAL_USE_SERIAL / HAL_USE_SIO
     }
 
     if (_writebuf.get_size()) {
@@ -546,32 +605,68 @@ void UARTDriver::dma_tx_allocate(Shared_DMA *ctx)
 #if STM32_DMA_SUPPORTS_DMAMUX
     dmaSetRequestSource(txdma, sdef.dma_tx_channel_id);
 #endif
-#endif // HAL_USE_SERIAL
+#elif HAL_USE_SIO == TRUE
+    // RP2350 TX DMA allocation
+    if (txdma != nullptr) {
+        return;
+    }
+    chSysLock();
+    txdma = dmaChannelAllocI(sdef.dma_tx_stream_id,
+                             3,  // IRQ priority
+                             (rp_dmaisr_t)tx_complete,
+                             (void *)this);
+    osalDbgAssert(txdma, "DMA channel alloc failed");
+    // Set destination to UART TX data register (fixed/not-incremented)
+    dmaChannelSetDestinationX(txdma,
+        (uint32_t)&((SIODriver*)sdef.serial)->uart->UARTDR);
+    chSysUnlock();
+#endif // HAL_USE_SERIAL / HAL_USE_SIO
 }
 
 #ifndef HAL_UART_NODMA
 void UARTDriver::dma_rx_enable(void)
 {
+    rx_bounce_idx ^= 1;
+#if defined(RP2350)
+    // RP2350: configure RX DMA channel (P2M: UART DR -> bounce buffer)
+    // Source (READ_ADDR) was set once at alloc time; re-set each start
+    dmaChannelSetSourceX(rxdma,
+        (uint32_t)&((SIODriver*)sdef.serial)->uart->UARTDR);
+    dmaChannelSetDestinationX(rxdma, (uint32_t)rx_bounce_buf[rx_bounce_idx]);
+    dmaChannelSetCounterX(rxdma, RX_BOUNCE_BUFSIZE);
+    // TREQ = sdef.dma_rx_channel_id (precomputed TREQ_SEL bits)
+    // INCR_WRITE = increment WRITE_ADDR (memory side), DATA_SIZE = BYTE
+    uint32_t ctrl = sdef.dma_rx_channel_id |
+                    DMA_CTRL_TRIG_DATA_SIZE_BYTE |
+                    DMA_CTRL_TRIG_INCR_WRITE;
+    dmaChannelEnableInterruptX(rxdma);
+    dmaChannelSetModeX(rxdma, ctrl);
+    dmaChannelEnableX(rxdma);
+#else
     uint32_t dmamode = STM32_DMA_CR_DMEIE | STM32_DMA_CR_TEIE;
     dmamode |= STM32_DMA_CR_CHSEL(sdef.dma_rx_channel_id);
     dmamode |= STM32_DMA_CR_PL(0);
 #if defined(STM32H7)
     dmamode |= DMA_SxCR_TRBUFF;   // TRBUFF See 2.3.1 in the H743 errata
 #endif
-    rx_bounce_idx ^= 1;
     stm32_cacheBufferInvalidate(rx_bounce_buf[rx_bounce_idx], RX_BOUNCE_BUFSIZE);
     dmaStreamSetMemory0(rxdma, rx_bounce_buf[rx_bounce_idx]);
     dmaStreamSetTransactionSize(rxdma, RX_BOUNCE_BUFSIZE);
     dmaStreamSetMode(rxdma, dmamode | STM32_DMA_CR_DIR_P2M |
                      STM32_DMA_CR_MINC | STM32_DMA_CR_TCIE);
     dmaStreamEnable(rxdma);
+#endif // RP2350
 }
 #endif
 
 void UARTDriver::dma_tx_deallocate(Shared_DMA *ctx)
 {
     chSysLock();
+#if defined(RP2350)
+    dmaChannelFreeI(txdma);
+#else
     dmaStreamFreeI(txdma);
+#endif
     txdma = nullptr;
     chSysUnlock();
 }
@@ -642,6 +737,33 @@ __RAMFUNC__ void UARTDriver::rxbuff_full_irq(void* self, uint32_t flags)
     if (uart_drv->_rts_is_active) {
         uart_drv->update_rts_line();
     }
+#elif HAL_USE_SIO == TRUE
+    UARTDriver* uart_drv = (UARTDriver*)self;
+    if (!uart_drv->rx_dma_enabled) {
+        return;
+    }
+    // On RP2350, DMA IRQ fires when the full bounce buffer is received (TRANS_COUNT hits 0)
+    const uint16_t len = RX_BOUNCE_BUFSIZE;
+    const uint8_t bounce_idx = uart_drv->rx_bounce_idx;
+
+    // Restart DMA immediately to minimise dead time, switching to the other bounce buffer
+    dmaChannelDisableX(uart_drv->rxdma);
+    uart_drv->dma_rx_enable();
+
+    if (len > 0) {
+        const uint32_t written = uart_drv->_readbuf.write(uart_drv->rx_bounce_buf[bounce_idx], len);
+        uart_drv->_rx_stats_bytes += len;
+        uart_drv->_rx_stats_dropped_bytes += len - written;
+        uart_drv->receive_timestamp_update();
+    }
+    if (uart_drv->_wait.thread_ctx && uart_drv->_readbuf.available() >= uart_drv->_wait.n) {
+        chSysLockFromISR();
+        chEvtSignalI(uart_drv->_wait.thread_ctx, EVT_DATA);
+        chSysUnlockFromISR();
+    }
+    if (uart_drv->_rts_is_active) {
+        uart_drv->update_rts_line();
+    }
 #endif // HAL_USE_SERIAL
 }
 #endif // HAL_UART_NODMA
@@ -661,6 +783,8 @@ void UARTDriver::_end()
     } else {
 #if HAL_USE_SERIAL == TRUE
         sdStop((SerialDriver*)sdef.serial);
+#elif HAL_USE_SIO == TRUE
+        sioStop((SIODriver*)sdef.serial);
 #endif
     }
 
@@ -825,12 +949,16 @@ __RAMFUNC__ void UARTDriver::tx_complete(void* self, uint32_t flags)
     UARTDriver* uart_drv = (UARTDriver*)self;
     chSysLockFromISR();
 
+#if defined(RP2350)
+    dmaChannelDisableX(uart_drv->txdma);
+#else
     // check nothing bad happened
     if ((flags & STM32_DMA_ISR_TEIF) != 0) {
         INTERNAL_ERROR(AP_InternalError::error_t::dma_fail);
     }
-
     dmaStreamDisable(uart_drv->txdma);
+#endif
+
     uart_drv->_last_write_completed_us = AP_HAL::micros();
 
     chEvtSignalI(uart_drv->uart_thread_ctx, EVT_TRANSMIT_DMA_COMPLETE);
@@ -906,6 +1034,18 @@ void UARTDriver::write_pending_bytes_DMA(uint32_t n)
         }
 
         chSysLock();
+#if defined(RP2350)
+        dmaChannelDisableX(txdma);
+        dmaChannelSetSourceX(txdma, (uint32_t)tx_bounce_buf);
+        dmaChannelSetCounterX(txdma, tx_len);
+        // TREQ in sdef.dma_tx_channel_id, M2P so INCR_READ (memory source increments), DATA_SIZE = BYTE
+        uint32_t dmamode = sdef.dma_tx_channel_id |
+                           DMA_CTRL_TRIG_DATA_SIZE_BYTE |
+                           DMA_CTRL_TRIG_INCR_READ;
+        dmaChannelEnableInterruptX(txdma);
+        dmaChannelSetModeX(txdma, dmamode);
+        dmaChannelEnableX(txdma);
+#else
         dmaStreamDisable(txdma);
         stm32_cacheBufferFlush(tx_bounce_buf, tx_len);
         dmaStreamSetMemory0(txdma, tx_bounce_buf);
@@ -919,6 +1059,7 @@ void UARTDriver::write_pending_bytes_DMA(uint32_t n)
         dmaStreamSetMode(txdma, dmamode | STM32_DMA_CR_DIR_M2P |
                         STM32_DMA_CR_MINC | STM32_DMA_CR_TCIE);
         dmaStreamEnable(txdma);
+#endif // RP2350
         uint32_t timeout_us = ((1000000UL * (tx_len+2) * 10) / _baudrate) + 500;
         // prevent very long timeouts at low baudrates which could cause another thread
         // using begin() to block
@@ -932,9 +1073,13 @@ void UARTDriver::write_pending_bytes_DMA(uint32_t n)
             chSysLock();
             // check whether DMA completion happened in the intervening time
             // first disable the stream to prevent further interrupts
+#if defined(RP2350)
+            dmaChannelDisableX(txdma);
+            const uint32_t tx_size = txdma->channel->TRANS_COUNT;
+#else
             dmaStreamDisable(txdma);
-
             const uint32_t tx_size = dmaStreamGetTransactionSize(txdma);
+#endif
 
             if (tx_size >= tx_len) {
                 // we didn't write any of our bytes
@@ -999,6 +1144,8 @@ void UARTDriver::write_pending_bytes_NODMA(uint32_t n)
         } else {
 #if HAL_USE_SERIAL == TRUE
             ret = chnWriteTimeout((SerialDriver*)sdef.serial, vec[i].data, vec[i].len, TIME_IMMEDIATE);
+#elif HAL_USE_SIO == TRUE
+            ret = chnWriteTimeout((BaseChannel*)sdef.serial, vec[i].data, vec[i].len, TIME_IMMEDIATE);
 #endif
         }
         if (ret < 0) {
@@ -1146,6 +1293,31 @@ void UARTDriver::_rx_timer_tick(void)
 #ifndef HAL_UART_NODMA
     if (rx_dma_enabled && rxdma) {
         chSysLock();
+#if defined(RP2350)
+        // RP2350 has no IDLE interrupt — flush partial receive buffers here (called at 1kHz).
+        // If DMA is running and has consumed some bytes but not yet filled the buffer, abort
+        // and process those bytes now so they are not delayed until the buffer fills.
+        if (dmaChannelIsBusyX(rxdma)) {
+            uint32_t remaining = rxdma->channel->TRANS_COUNT;
+            uint8_t len = RX_BOUNCE_BUFSIZE - (uint8_t)remaining;
+            if (len > 0) {
+                dmaChannelAbortX(rxdma);
+                dmaChannelGetAndClearInterrupts(rxdma);
+                const uint32_t written = _readbuf.write(rx_bounce_buf[rx_bounce_idx], len);
+                _rx_stats_bytes += len;
+                _rx_stats_dropped_bytes += len - written;
+                receive_timestamp_update();
+                if (_rts_is_active) {
+                    update_rts_line();
+                }
+                dma_rx_enable();
+            }
+        } else {
+            // DMA completed but was not restarted (e.g. IRQ was missed) — restart now
+            dmaChannelGetAndClearInterrupts(rxdma);
+            dma_rx_enable();
+        }
+#else
         //Check if DMA is enabled
         //if not, it might be because the DMA interrupt was silenced
         //let's handle that here so that we can continue receiving
@@ -1171,6 +1343,7 @@ void UARTDriver::_rx_timer_tick(void)
             dmaStreamDisable(rxdma);
             dma_rx_enable();
         }
+#endif // RP2350
         chSysUnlock();
     }
 #endif
@@ -1216,6 +1389,8 @@ void UARTDriver::read_bytes_NODMA()
         } else {
 #if HAL_USE_SERIAL == TRUE
             ret = chnReadTimeout((SerialDriver*)sdef.serial, vec[i].data, vec[i].len, TIME_IMMEDIATE);
+#elif HAL_USE_SIO == TRUE
+            ret = chnReadTimeout((BaseChannel*)sdef.serial, vec[i].data, vec[i].len, TIME_IMMEDIATE);
 #endif
         }
         if (ret < 0) {

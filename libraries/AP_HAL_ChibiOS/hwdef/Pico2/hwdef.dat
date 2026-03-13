@@ -50,11 +50,9 @@ MCU PICO2 PICO2
 # define HAL_NO_ROMFS_SUPPORT 1  -- removed: ROMFS works as binary-embedded data
 define AP_BOOTLOADER_FLASHING_ENABLED 0
 
-# dma is very stm32 specific, eg stm32_dma_stream_t* rxdma; so we disable it for now, and use polling for uart.
-# todo buzz: DMA UART - RP2350 HAS DMA (modules/ChibiOS/os/hal/ports/RP/LLD/DMAv1/rp_dma.c, 12 channels)
-# but UARTDriver.cpp DMA path uses STM32-specific dmaStreamAllocI/dmaStreamSetPeripheral and
-# USART->RDR/TDR registers. Requires new RP2350-specific DMA paths in UARTDriver.cpp.
-define HAL_UART_NODMA 1
+# DMA UART is now implemented for RP2350 using the ChibiOS DMAv1 driver (rp_dma.c, 12 channels).
+# UARTDriver.cpp has RP2350-specific dmaChannelAllocI/dmaChannelSetMode paths alongside the
+# existing STM32 paths. HAL_USE_SIO=TRUE uses SIODriver (SIOD0/SIOD1) instead of SerialDriver.
 
 # Now we need to specify the APJ_BOARD_ID. This is the ID that the
 # bootloader presents to GCS software so it knows if this firmware is
@@ -145,7 +143,8 @@ I2C_ORDER I2C2 I2C1
 # order of UARTs (and USB)
 # SERIAL_ORDER OTG1 USART2 USART3 UART4 UART8 UART1
 # the presence of this OTG1 also enables the usb subsystem.
-SERIAL_ORDER OTG1
+# UART0 = serial1 (telem1), UART1 = serial2 (telem2)
+SERIAL_ORDER OTG1 UART0 UART1
 
 # If the board has an IOMCU connected via a UART then this defines the
 # UART to talk to that MCU. Leave it out for boards with no IOMCU.
@@ -360,7 +359,11 @@ PA25 BARO_EXT_CS CS
 # timing affecting sensor stability. We pull it high by default.
 #PE3 VDD_3V3_SENSORS_EN OUTPUT HIGH
 
-# UART1.
+# UART0 on GPIO12/13 (Pico2 pins 16/17)
+PA12 UART0_TX UART0
+PA13 UART0_RX UART0
+
+# UART1 on GPIO10/11 (Pico2 pins 14/15)
 PA11 UART1_RX UART1
 PA10 UART1_TX UART1
 

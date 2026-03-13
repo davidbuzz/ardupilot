@@ -1842,14 +1842,38 @@ INCLUDE common.ld
                     f.write('}\n')
             else:
                 need_uart_driver = True
-                f.write(
-                    "#define HAL_%s_CONFIG { (BaseSequentialStream*) &SD%u, %u, false, "
-                    % (dev, n, n))
-                if self.mcu_series.startswith("STM32F1"):
+                if self.is_rp_mcu():
+                    # RP2350: SIO UART — use SIOD driver and RP2350 DMA TREQ selects
+                    rp_uart_treq_rx = {
+                        0: 'DMA_CTRL_TRIG_TREQ_UART0_RX',
+                        1: 'DMA_CTRL_TRIG_TREQ_UART1_RX',
+                    }
+                    rp_uart_treq_tx = {
+                        0: 'DMA_CTRL_TRIG_TREQ_UART0_TX',
+                        1: 'DMA_CTRL_TRIG_TREQ_UART1_TX',
+                    }
+                    if n not in rp_uart_treq_rx:
+                        self.error("RP2350: unsupported UART%u in SERIAL_ORDER" % n)
+                    f.write(
+                        "#define HAL_%s_CONFIG { (BaseSequentialStream*) &SIOD%u, %u, false, "
+                        % (dev, n, n))
+                    if not self.intdefines.get('HAL_UART_NODMA', 0):
+                        f.write(
+                            "true, STM32_UART_%s_RX_DMA_CHAN, %s, "
+                            "true, STM32_UART_%s_TX_DMA_CHAN, %s, "
+                            % (dev, rp_uart_treq_rx[n], dev, rp_uart_treq_tx[n]))
+                    else:
+                        f.write("false, 0, 0, false, 0, 0, ")
                     f.write("%s, %s, %s, %s, " % (tx_line, rx_line, rts_line, cts_line))
                 else:
-                    f.write("STM32_%s_RX_DMA_CONFIG, STM32_%s_TX_DMA_CONFIG, %s, %s, %s, %s, " %
-                            (dev, dev, tx_line, rx_line, rts_line, cts_line))
+                    f.write(
+                        "#define HAL_%s_CONFIG { (BaseSequentialStream*) &SD%u, %u, false, "
+                        % (dev, n, n))
+                    if self.mcu_series.startswith("STM32F1"):
+                        f.write("%s, %s, %s, %s, " % (tx_line, rx_line, rts_line, cts_line))
+                    else:
+                        f.write("STM32_%s_RX_DMA_CONFIG, STM32_%s_TX_DMA_CONFIG, %s, %s, %s, %s, " %
+                                (dev, dev, tx_line, rx_line, rts_line, cts_line))
 
                 # add inversion pins, if any
                 f.write("%d, " % self.get_gpio_bylabel(dev + "_RXINV"))
@@ -2496,10 +2520,19 @@ Please run: Tools/scripts/build_bootloaders.py %s
         f.write('// peripherals enabled\n')
         for type in sorted(list(self.bytype.keys()) + list(self.alttype.keys())):
             if type.startswith('USART') or type.startswith('UART'):
-                dstr = 'STM32_SERIAL_USE_%-6s' % type
-                f.write('#ifndef %s\n' % dstr)
-                f.write('#define %s TRUE\n' % dstr)
-                f.write('#endif\n')
+                if self.is_rp_mcu():
+                    # RP2350 uses SIO driver, not STM32 serial driver
+                    if type.startswith('UART'):
+                        n = int(type[4:])
+                        dstr = 'RP_SIO_USE_UART%u' % n
+                        f.write('#ifndef %s\n' % dstr)
+                        f.write('#define %s TRUE\n' % dstr)
+                        f.write('#endif\n')
+                else:
+                    dstr = 'STM32_SERIAL_USE_%-6s' % type
+                    f.write('#ifndef %s\n' % dstr)
+                    f.write('#define %s TRUE\n' % dstr)
+                    f.write('#endif\n')
             if type.startswith('SPI'):
                 f.write('#define STM32_SPI_USE_%s                  TRUE\n' % type)
             if type.startswith('I2C'):
