@@ -68,8 +68,9 @@
 | SPI0 bus | SPI4 | GPIO 22/32/35 (SCK/MISO/MOSI) | ✅ Enabled. `HAL_USE_SPI TRUE`, `RP_SPI_USE_SPI0 TRUE`. ChibiOS `SPIv1` LLD (PL022). SSPCR0/SSPCPSR config paths added to `SPIDevice.cpp`. |
 | SPI1 bus | SPI1 | GPIO 42/40/43 (SCK/MISO/MOSI) | ✅ Enabled. `RP_SPI_USE_SPI1 TRUE`. Same as SPI0. |
 | SPI CS pins | Multiple | PA23 MAG_CS, PA24 MPU_CS, PA25 BARO_EXT_CS, PA26 GYRO_EXT_CS | ✅ Defined and active. `IMU Invensense`, `BARO MS5611`, `AP_COMPASS_PROBING_ENABLED` lines all enabled in hwdef.dat. |
+| SPI clock divider | STM32 BR bits | RP2350 PL022 SCR field | ✅ `derive_freq_flag_bus()` fixed: removed erroneous `scr -= 1` which made actual_freq > target_freq for non-integer divisors. `scr = floor(SYSCLK / (CPSR * target))` now correctly guarantees actual ≤ target. |
 
-**SPI is the single biggest blocker** — it gates IMU, barometer, compass, RAMTRON storage, and any external SPI sensors.
+**SPI is complete** — IMU, barometer, compass, and any external SPI sensors are operational.
 
 ---
 
