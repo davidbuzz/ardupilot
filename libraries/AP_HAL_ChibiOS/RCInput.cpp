@@ -47,6 +47,11 @@ void RCInput::init()
     pulse_input_enabled = true;
 #endif
 
+#if defined(HAL_RCIN_IS_GPIO)
+    sig_reader.init(HAL_RCIN_GPIO_LINE);
+    pulse_input_enabled = true;
+#endif
+
     _init = true;
 }
 
@@ -57,7 +62,7 @@ void RCInput::init()
 void RCInput::pulse_input_enable(bool enable)
 {
     pulse_input_enabled = enable;
-#if (defined(HAL_USE_ICU) && (HAL_USE_ICU == TRUE)) || (defined(HAL_USE_EICU) && (HAL_USE_EICU == TRUE))
+#if (defined(HAL_USE_ICU) && (HAL_USE_ICU == TRUE)) || (defined(HAL_USE_EICU) && (HAL_USE_EICU == TRUE)) || defined(HAL_RCIN_IS_GPIO)
     if (!enable) {
         sig_reader.disable();
     }
@@ -139,6 +144,15 @@ void RCInput::_timer_tick(void)
     if (pulse_input_enabled) {
         uint32_t width_s0, width_s1;
         while(sig_reader.read(width_s0, width_s1)) {
+            rcprot.process_pulse(width_s0, width_s1);
+        }
+    }
+#endif
+
+#if defined(HAL_RCIN_IS_GPIO)
+    if (pulse_input_enabled) {
+        uint32_t width_s0, width_s1;
+        while (sig_reader.read(width_s0, width_s1)) {
             rcprot.process_pulse(width_s0, width_s1);
         }
     }

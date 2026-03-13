@@ -257,6 +257,10 @@ PC1 SWDIO SWD
 PA15 I2C1_SCL I2C1
 PA18 I2C1_SDA I2C1
 
+# RC input - GPIO edge-capture based pulse decoder (PAL callback, both edges).
+# GPIO16 (PA16) is free on Pico2; PULLDOWN avoids false edges when unconnected.
+PA16 RCININT INPUT PULLDOWN
+
 # the 2nd I2C bus
 #PB10 I2C2_SCL I2C2
 #PB11 I2C2_SDA I2C2
@@ -564,6 +568,11 @@ define PAL_USE_WAIT                        TRUE
 define RP_USB_USE_USB1                     TRUE 
 
 define PIC02_AVAILABLE 1
+
+# RC input via GPIO PAL callbacks (RP2350 native, no ICU/EICU).
+# HAL_RCIN_GPIO_LINE == 16 because PAL_LINE(IOPORT1, 16U) == 16 on RP2350.
+define HAL_RCIN_IS_GPIO 1
+define HAL_RCIN_GPIO_LINE 16
 
 #        ---------------------------------------------
 #        # if the user has both isolated sensors enabled then force-enable the

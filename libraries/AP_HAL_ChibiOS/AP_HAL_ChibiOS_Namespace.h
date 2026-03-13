@@ -33,6 +33,7 @@ namespace ChibiOS {
     class Shared_DMA;
     class SoftSigReader;
     class SoftSigReaderInt;
+    class SoftSigReaderRP2350;
     class CANIface;
     class Flash;
 }
