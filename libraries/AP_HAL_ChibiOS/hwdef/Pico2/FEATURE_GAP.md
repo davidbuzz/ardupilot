@@ -23,6 +23,9 @@
 | Hardware UART0 (SERIAL1) | USART2 | UART0 (GPIO 12/13) | ✅ Working via `HAL_USE_SIO TRUE` → `SIODriver` (UARTDriver.cpp has `HAL_USE_SIO` paths). |
 | Hardware UART1 (SERIAL2) | USART3 | UART1 (GPIO 10/11) | ✅ Working via SIO. |
 | Additional hardware UARTs | UART4, UART7, UART8, USART6 (IOMCU) | — | 🚫 RP2350 only has 2 hardware UARTs. Covered instead by PIOUART. |
+
+
+
 | PIOUART0 (SERIAL3) | N/A | GPIO 14/17 | ⚠️ RX via PIO ISR → ring buffer works. TX implemented but `txspace()` returns 0 or 1 only (not real FIFO count). `_write()` silently drops bytes if PIO TX FIFO full — no software TX ring buffer. |
 | PIOUART1 (SERIAL4) | N/A | GPIO 19/20 | ⚠️ Same issues as PIOUART0. |
 | PIOUART2 (SERIAL5) | N/A | GPIO 21/27 | ⚠️ Same issues as PIOUART0. |
@@ -73,8 +76,8 @@
 
 | Feature | CubeBlack | Pico2 | Status / Notes |
 |---------|-----------|-------|----------------|
-| I2C1 bus | I2C1 (external) | GPIO 15/18 (SCL/SDA) | ❌ Pins defined. `HAL_USE_I2C FALSE`. ChibiOS `I2Cv1` LLD **exists** in `RP/LLD/I2Cv1/` and is in `platform.mk`. 💡 Enable `HAL_USE_I2C TRUE`. |
-| I2C2 bus | I2C2 (internal) | — | ❌ Not pinned out. |
+| I2C1 bus | I2C1 (external) | GPIO 15/18 (SCL/SDA) | ✅ `HAL_USE_I2C TRUE`, `RP_I2C_USE_I2C1 TRUE`. `I2CDevice.cpp` RP2350 branch sets `baudrate` directly (I2Cv1 LLD, no TIMINGR). `chibios_hwdef.py` emits `SHARED_DMA_NONE` config (no DMA in RP2350 I2C LLD). Builds clean. |
+| I2C2 bus | I2C2 (internal) | — | ❌ Not pinned out on Pico2. |
 
 **I2C needed for:** external GPS (most modern GPS modules), compass, airspeed sensors, rangefinders.
 
@@ -169,7 +172,7 @@
 
 ### Medium priority (important for functionality)
 
-4. **I2C driver** (`HAL_USE_I2C TRUE`) — `I2Cv1` LLD exists. Needed for external GPS, some sensors, airspeed.
+4. ~~**I2C driver** (`HAL_USE_I2C TRUE`)~~ — ✅ **DONE** (`I2Cv1` LLD enabled; `I2CDevice.cpp` RP2350 baudrate path; `chibios_hwdef.py` PICO2 SHARED_DMA_NONE config)
 5. **ADC driver** (`HAL_USE_ADC TRUE`) — `ADCv1` LLD exists. Needed for battery voltage/current monitoring.
 6. **Battery monitor pins** — `HAL_BATT_VOLT_PIN`/`HAL_BATT_CURR_PIN` already defined; will work once ADC enabled.
 7. **Watchdog** (`HAL_USE_WDG TRUE`) — `WDGv1` LLD exists. One-line change + small init code. Safety-critical.
