@@ -154,3 +154,49 @@
   }
 
   #endif // STM32_AVAILABLE
+
+#if defined(RP2350)
+
+#include "hal.h"
+
+/*
+  default watchdog timeout in milliseconds for RP2350
+*/
+#ifndef RP2350_WDG_TIMEOUT_MS
+#define RP2350_WDG_TIMEOUT_MS 2000U
+#endif
+
+static const WDGConfig rp2350_wdg_cfg = {
+    .rlr = RP2350_WDG_TIMEOUT_MS,
+};
+
+static bool rp2350_watchdog_enabled;
+
+/*
+  initialise and start the RP2350 watchdog
+*/
+void rp2350_watchdog_init(void)
+{
+    wdgStart(&WDGD1, &rp2350_wdg_cfg);
+    rp2350_watchdog_enabled = true;
+}
+
+/*
+  reload the watchdog counter to prevent a reset
+*/
+void rp2350_watchdog_pat(void)
+{
+    if (rp2350_watchdog_enabled) {
+        wdgReset(&WDGD1);
+    }
+}
+
+/*
+  return true if the last reboot was caused by the watchdog timer
+*/
+bool rp2350_was_watchdog_reset(void)
+{
+    return (WATCHDOG->REASON & WATCHDOG_REASON_TIMER) != 0U;
+}
+
+#endif // RP2350

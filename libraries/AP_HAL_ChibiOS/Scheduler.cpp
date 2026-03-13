@@ -784,6 +784,8 @@ void Scheduler::watchdog_pat(void)
 {
 #if defined(STM32_AVAILABLE) && STM32_AVAILABLE == TRUE
     stm32_watchdog_pat();
+#elif defined(RP2350)
+    rp2350_watchdog_pat();
 #endif
     last_watchdog_pat_ms = AP_HAL::millis();
 #if defined(HAL_GPIO_PIN_EXT_WDOG)

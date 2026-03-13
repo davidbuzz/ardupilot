@@ -54,4 +54,31 @@
     #endif
 
 #endif // STM32_AVAILABLE
+
+#if defined(RP2350)
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/*
+  initialise the RP2350 watchdog with a 2 second timeout
+*/
+void rp2350_watchdog_init(void);
+
+/*
+  pat the RP2350 watchdog to prevent a reset
+*/
+void rp2350_watchdog_pat(void);
+
+/*
+  return true if the last reboot was caused by the watchdog timer
+*/
+bool rp2350_was_watchdog_reset(void);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // RP2350
     

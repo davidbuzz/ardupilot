@@ -301,6 +301,8 @@ static void main_loop()
 #ifdef IOMCU_FW
 #if defined(STM32_AVAILABLE) && STM32_AVAILABLE == TRUE
     stm32_watchdog_init();
+#elif defined(RP2350)
+    rp2350_watchdog_init();
 #endif
 #elif !defined(HAL_BOOTLOADER_BUILD)
 #if !defined(HAL_EARLY_WATCHDOG_INIT)
@@ -308,6 +310,8 @@ static void main_loop()
     if (AP_BoardConfig::watchdog_enabled()) {
 #if defined(STM32_AVAILABLE) && STM32_AVAILABLE == TRUE
         stm32_watchdog_init();
+#elif defined(RP2350)
+        rp2350_watchdog_init();
 #endif
     }
 #endif
@@ -358,8 +362,13 @@ static void main_loop()
 void HAL_ChibiOS::run(int argc, char * const argv[], Callbacks* callbacks) const
 {
 #if defined(HAL_EARLY_WATCHDOG_INIT) && !defined(DISABLE_WATCHDOG)
+#if defined(STM32_AVAILABLE) && STM32_AVAILABLE == TRUE
     stm32_watchdog_init();
     stm32_watchdog_pat();
+#elif defined(RP2350)
+    rp2350_watchdog_init();
+    rp2350_watchdog_pat();
+#endif
 #endif
     /*
      * System initializations.

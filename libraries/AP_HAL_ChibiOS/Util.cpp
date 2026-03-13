@@ -364,6 +364,8 @@ bool Util::was_watchdog_reset() const
 {
 #if defined(STM32_AVAILABLE) && STM32_AVAILABLE == TRUE
     return stm32_was_watchdog_reset();
+#elif defined(RP2350)
+    return rp2350_was_watchdog_reset();
 #else
     return false;
 #endif
