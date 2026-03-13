@@ -1744,11 +1744,18 @@ INCLUDE common.ld
 
         # write out driver declarations for HAL_ChibOS_Class.cpp
         sdev = 0
+        pio_idx = 0
         for idx, dev in enumerate(serial_list):
             if dev == 'EMPTY':
                 f.write('#define HAL_SERIAL%s_DRIVER Empty::UARTDriver serial%sDriver\n' %
                         (idx, idx))
                 sdev += 1
+            elif dev.startswith('PIOUART'):
+                f.write(
+                    '#define HAL_SERIAL%s_DRIVER ChibiOS::PIORXDriver serial%sDriver(%u)\n'
+                    % (idx, idx, pio_idx))
+                pio_idx += 1
+                # Note: sdev intentionally NOT incremented — PIORXDriver has its own instance index
             else:
                 f.write(
                     '#define HAL_SERIAL%s_DRIVER ChibiOS::UARTDriver serial%sDriver(%u)\n'
@@ -1806,7 +1813,21 @@ INCLUDE common.ld
                 have_low_noise = True
                 break
         for num, dev in enumerate(serial_list):
-            if dev.startswith('UART'):
+            if dev.startswith('PIOUART'):
+                px = int(dev[7:])
+                tx_label = 'PIOUART%u_TX' % px
+                rx_label = 'PIOUART%u_RX' % px
+                if tx_label in self.bylabel:
+                    f.write('#define PIOUART%u_TX_PIN %uU\n' % (px, self.bylabel[tx_label].pin))
+                else:
+                    self.error("Missing pin label %s for PIOUART" % tx_label)
+                if rx_label in self.bylabel:
+                    f.write('#define PIOUART%u_RX_PIN %uU\n' % (px, self.bylabel[rx_label].pin))
+                else:
+                    self.error("Missing pin label %s for PIOUART" % rx_label)
+                # PIOUART has no HAL_xxx_CONFIG entry — not added to devlist
+                continue
+            elif dev.startswith('UART'):
                 n = int(dev[4:])
             elif dev.startswith('USART'):
                 n = int(dev[5:])
@@ -1950,9 +1971,11 @@ INCLUDE common.ld
 #endif
 ''')
         num_ports = len(devlist)
-        if num_ports > 10:
-            self.error("Exceeded max num SERIALs of 10 (%u)" % num_ports)
-        f.write('#define HAL_UART_NUM_SERIAL_PORTS %u\n' % num_ports)
+        # nports is the total number of enabled serial ports (including PIO pseudo-UARTs);
+        # HAL_UART_NUM_SERIAL_PORTS must cover all ports so SERIALMANAGER state[] is large enough.
+        if nports > 10:
+            self.error("Exceeded max num SERIALs of 10 (%u)" % nports)
+        f.write('#define HAL_UART_NUM_SERIAL_PORTS %u\n' % nports)
 
     def write_UART_config_bootloader(self, f):
         '''write UART config defines'''
