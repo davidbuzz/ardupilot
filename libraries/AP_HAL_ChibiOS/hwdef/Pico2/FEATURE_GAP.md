@@ -43,7 +43,7 @@
 |---------|-----------|-------|----------------|
 | RC input method | EICU timer (STM32-specific) | GPIO PAL callback | ✅ `SoftSigReaderRP2350.cpp` (89 lines) uses `palSetLineCallbackI` / `palEnableLineEventI` / `chVTGetSystemTimeX()`. Both edges captured, pulse widths decoded. GPIO 16 (PA16), `PULLDOWN`. |
 | SBUS / inverted input | Dedicated invert pin | — | ✅ GPIO INOVER via `IO_BANK0->GPIO[pad].CTRL`. `set_options(OPTION_RXINV)` sets `PAL_RP_IOCTRL_INOVER_INV` on the HW UART RX pad; `OPTION_TXINV` sets `PAL_RP_IOCTRL_OUTOVER_DRVINVPERI` on TX. `configure_parity(2)` and `set_stop_bits(2)` now stored and applied to `SIOConfig.UARTLCR_H` (`PEN|EPS|STP2`) in `_begin()`. SBUS works on UART0/1 with no external inverter. PIOUART-based SBUS (8E2 PIO program) not implemented. |
-| DSM / SRXL | Shares UART | Possible via PIOUART | ⚠️ Would work once PIOUART TX is fixed (these use half-duplex UART protocols). |
+| DSM / SRXL | Shares UART | Possible via PIOUART | ✅ PIOUART TX ring buffer is now functional; DSM/SRXL auto-detection works on any UART or PIOUART port. Configure via `SERIAL_n_PROTOCOL=23` (RC Input) on the port connected to the receiver. |
 
 ---
 
@@ -175,7 +175,7 @@
 5. ~~**ADC driver** (`HAL_USE_ADC TRUE`)~~ — ✅ **DONE** (`ADCv1` LLD enabled; `PA28/PA29` as battery volt/curr; `AnalogIn.cpp` RP2350 round-robin path)
 6. ~~**Battery monitor pins**~~ — ✅ **DONE** (`HAL_BATT_VOLT_PIN 2`, `HAL_BATT_CURR_PIN 3` active now that ADC is enabled)
 7. ~~**Watchdog** (`HAL_USE_WDG TRUE`)~~ — ✅ **DONE** (`WDGv1` LLD enabled; `rp2350_watchdog_init/pat/was_watchdog_reset()` via ChibiOS WDG API; 2s timeout)
-8. **APJ_BOARD_ID** — Register a real ID in `board_types.txt`.
+8. ~~**APJ_BOARD_ID**~~ — ✅ **DONE** (`hwdef.dat` line: `APJ_BOARD_ID AP_HW_RASPBERRYPI_PICO2`; `Tools/AP_Bootloader/board_types.txt` entry: `AP_HW_RASPBERRYPI_PICO2 189`).
 
 ### Lower priority (nice to have)
 
@@ -195,14 +195,14 @@
 
 ---
 
-## Files to Edit for SPI/I2C/ADC Enabling
+## Files Edited for SPI/I2C/ADC Enabling (DONE)
 
-When enabling SPI, I2C, and ADC, the changes needed are:
+All the changes described below have been applied:
 
-1. **`hwdef/Pico2/hwdef.dat`** — Change `HAL_USE_SPI FALSE → TRUE`, `HAL_USE_I2C FALSE → TRUE`, `HAL_USE_ADC FALSE → TRUE`.
-2. **`hwdef/Pico2/mcuconf.h`** (generated or hand-written) — Set `RP_SPI_USE_SPI0 TRUE`, `RP_SPI_USE_SPI1 TRUE`, `RP_I2C_USE_I2C1 TRUE`, `RP_ADC_USE_ADC1 TRUE` etc. Check `modules/ChibiOS/os/hal/ports/RP/RP2350/mcuconf.h` template.
-3. **`hwdef.dat`** — Uncomment `IMU`, `BARO`, `COMPASS` lines (they are already present at bottom of file, commented out).
-4. **Verify `SPIDevice.cpp`** has no `PIC02_AVAILABLE`-gated stubs that would swallow SPI transactions silently.
-5. **Verify `I2CDevice.cpp`** similarly.
-6. **Verify `AnalogIn.cpp`** has RP2350 ADC read paths.
+1. ✅ **`hwdef/Pico2/hwdef.dat`** — `HAL_USE_SPI TRUE`, `HAL_USE_I2C TRUE`, `HAL_USE_ADC TRUE`.
+2. ✅ **`hwdef/Pico2/mcuconf.h`** — `RP_SPI_USE_SPI0 TRUE`, `RP_SPI_USE_SPI1 TRUE`, `RP_I2C_USE_I2C1 TRUE`, `RP_ADC_USE_ADC1 TRUE`.
+3. ✅ **`hwdef.dat`** — `IMU Invensense SPI:mpu9250`, `BARO MS5611 SPI:ms5611_ext`, `AP_COMPASS_PROBING_ENABLED 1` active.
+4. ✅ **`SPIDevice.cpp`** — RP2350 SSPCR0/SSPCPSR paths implemented, no silent stubs.
+5. ✅ **`I2CDevice.cpp`** — RP2350 baudrate path implemented.
+6. ✅ **`AnalogIn.cpp`** — RP2350 ADC round-robin path implemented.
 
