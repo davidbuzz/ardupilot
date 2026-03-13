@@ -144,7 +144,7 @@
 
 | Feature | CubeBlack | Pico2 | Status / Notes |
 |---------|-----------|-------|----------------|
-| APJ_BOARD_ID | `TARGET_HW_CUBE_F4` | `TARGET_HW_CUBE_F4` | ⚠️ **PLACEHOLDER** — Pico2 uses the same board ID as CubeBlack. A dedicated ID needs to be registered in `Tools/AP_Bootloader/board_types.txt` before production use. |
+| APJ_BOARD_ID | `TARGET_HW_CUBE_F4` | `AP_HW_RASPBERRYPI_PICO2` | ✅ `AP_HW_RASPBERRYPI_PICO2` (ID 189) registered in `Tools/AP_Bootloader/board_types.txt`. Needs formal ArduPilot PR before production merge. |
 
 ---
 

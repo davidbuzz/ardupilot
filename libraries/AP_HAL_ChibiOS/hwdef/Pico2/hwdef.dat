@@ -64,7 +64,8 @@ define AP_BOOTLOADER_FLASHING_ENABLED 0
 # Note that APJ is "ArduPilot JSON Firmware Format".
 
 # board ID. See Tools/AP_Bootloader/board_types.txt
-APJ_BOARD_ID TARGET_HW_CUBE_F4
+# APJ_BOARD_ID: unique ArduPilot board ID registered in board_types.txt
+APJ_BOARD_ID AP_HW_RASPBERRYPI_PICO2
 
 # Now you need to say what crystal frequency you have for this
 # board. All of the clocks are scaled against this. Typical values are
