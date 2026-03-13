@@ -336,7 +336,21 @@ bool Util::get_system_id(char buf[50])
     uint8_t serialid[12];
     char board_name[24];
 
+#if defined(RP2350)
+    // RP2350: read unique ID from OTP. Rows 0-3 = CHIPID (64-bit public ID),
+    // rows 4-5 = RANDID[0:1] (32 more bits). OTP_DATA ECC-mapped base 0x40130000;
+    // each row is a 4-byte word with 16-bit data in bits[15:0].
+    {
+        const uint32_t otp_base = 0x40130000U;
+        uint16_t tmp[6];
+        for (uint32_t i = 0; i < 6U; i++) {
+            tmp[i] = (uint16_t)(*(volatile const uint32_t *)(otp_base + i * 4U));
+        }
+        memcpy(serialid, tmp, 12);
+    }
+#else
     memcpy(serialid, (const void *)UDID_START, 12);
+#endif
     // avoid board names greater than 23 chars (sizeof includes null char, so allow 24 bytes total)
     static_assert(sizeof(CHIBIOS_SHORT_BOARD_NAME) <= 24, "CHIBIOS_SHORT_BOARD_NAME must be 23 characters or less");
     strncpy(board_name, CHIBIOS_SHORT_BOARD_NAME, 23);
@@ -355,7 +369,21 @@ bool Util::get_system_id(char buf[50])
 bool Util::get_system_id_unformatted(uint8_t buf[], uint8_t &len)
 {
     len = MIN(12, len);
+#if defined(RP2350)
+    // RP2350: read unique ID from OTP. Rows 0-3 = CHIPID (64-bit public ID),
+    // rows 4-5 = RANDID[0:1] (32 more bits). OTP_DATA ECC-mapped base 0x40130000;
+    // each row is a 4-byte word with 16-bit data in bits[15:0].
+    {
+        const uint32_t otp_base = 0x40130000U;
+        uint16_t tmp[6];
+        for (uint32_t i = 0; i < 6U; i++) {
+            tmp[i] = (uint16_t)(*(volatile const uint32_t *)(otp_base + i * 4U));
+        }
+        memcpy(buf, tmp, len);
+    }
+#else
     memcpy(buf, (const void *)UDID_START, len);
+#endif
     return true;
 }
 

@@ -157,7 +157,7 @@
 | Double precision | Software only | Software only | Neither has hardware double. |
 | Flash | 2MB internal | 4MB external QSPI | Pico2 flash access is slightly slower (XIP cache mitigates). |
 | RAM | ~256KB | ~520KB (SRAM0+SRAM1) | Pico2 has substantially more RAM. |
-| Unique hardware ID | 96-bit device ID | 8-byte QSPI flash UID | ⚠️ `UDID_START = 0x1FFF7A10` in `PICO2.py` (XIP flash mirror, not guaranteed unique). Proper fix: use RP2350 boot ROM `sys_info` or read OTP rows 0x00-0x03 (`0x401C0000`). WIP placeholder is functional but may not be unique across boards. |
+| Unique hardware ID | 96-bit device ID | RP2350 OTP CHIPID + RANDID | ✅ `get_system_id()` / `get_system_id_unformatted()` in `Util.cpp` read OTP rows 0–5 (CHIPID0-3 + RANDID0-1) via ECC-mapped view at `0x40130000`. Row N at `*(uint32_t*)(0x40130000 + N*4)`, data in bits[15:0]. Genuine per-device 96-bit unique ID factory-programmed at manufacture. |
 
 ---
 
@@ -182,6 +182,7 @@
 9. **RTC** (`HAL_USE_RTC TRUE`) — Not applicable: RTCv1 LLD is RP2040-only; RP2350 uses POWMAN_TIMER. ArduPilot RTC via GPS time + `hrt_micros64()` offset works without hardware RTC.
 10. **GPT timers** (`HAL_USE_GPT TRUE`) — No GPT LLD for RP2350; TIMERv1 is the system-tick driver only.
 11. ~~**SBUS invert**~~ — ✅ **DONE** (hardware UART). GPIO INOVER bits set via `IO_BANK0->GPIO[pad].CTRL` in `set_options()`. Parity/stop bits applied in `_begin()` SIOConfig. SBUS on UART0/1 at 100kbps 8E2 inverted. PIOUART 8E2 deferred.
+15. ~~**Unique hardware ID**~~ — ✅ **DONE** (`Util.cpp`). `get_system_id()` reads RP2350 OTP via ECC-mapped base `0x40130000`, rows 0–5 (CHIPID0-3 + RANDID0-1 = 96 bits). Per-device ID factory-programmed; no more XIP garbage.
 12. **Gyro FFT** — Requires adapting `CMSIS-DSP` for RP2350; deferred.
 13. **DShot via PIO** — Complex custom PIO code needed; no ChibiOS driver.
 14. **SPI-mode SD card** (`HAL_USE_MMC_SPI`) — Possible once SPI works, but no SD slot on standard Pico2.
