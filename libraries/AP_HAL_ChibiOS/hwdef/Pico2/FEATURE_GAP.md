@@ -132,8 +132,8 @@
 | Feature | CubeBlack | Pico2 | Status / Notes |
 |---------|-----------|-------|----------------|
 | Watchdog | ✅ | ✅ | ✅ `HAL_USE_WDG TRUE`. `rp2350_watchdog_init/pat/was_watchdog_reset()` in `watchdog.c` using ChibiOS `wdgStart`/`wdgReset` HAL API. 2s timeout. Guarded with `#elif defined(RP2350)` in `HAL_ChibiOS_Class.cpp`, `Scheduler.cpp`, `Util.cpp`. |
-| RTC | ✅ | — | ❌ `HAL_USE_RTC FALSE`. ChibiOS `RTCv1` LLD **exists** in `RP/LLD/RTCv1/` and is in `platform.mk`. RP2350 has an AOSC (always-on) oscillator for RTC. 💡 Enable + configure. |
-| GPT (general purpose timers) | ✅ | — | ❌ `HAL_USE_GPT FALSE`. ChibiOS `TIMERv1` LLD **exists** in `RP/LLD/TIMERv1/` and is in `platform.mk`. 💡 Enable if needed for tone/beeper or other timer uses. |
+| RTC | ✅ | — | ⚠️ `HAL_USE_RTC FALSE`. RP2350 removed the dedicated RTC peripheral (replaced by POWMAN_TIMER); ChibiOS `RTCv1` LLD is RP2040-only and does not apply. ArduPilot RTC via `stm32_set_utc_usec/get_utc_usec` uses `hrt_micros64()` + GPS-provided UTC offset — no hardware RTC needed. Does not persist across power-off. |
+| GPT (general purpose timers) | ✅ | — | ⚠️ `HAL_USE_GPT FALSE`. ChibiOS `TIMERv1` LLD (`RP/LLD/TIMERv1/`) contains the system-tick driver (`hal_st_lld`), not a GPT driver. No GPT LLD exists for RP2350. GPT not currently used by ArduPilot on this target. |
 | Crash dump | ✅ STM32-style crash registers | — | 🚫 `AP_CRASHDUMP_ENABLED 0`. RP2350 has no equivalent to STM32 crash dump registers. Would need custom fault handler to log to flash. Not planned. |
 | Gyro FFT / DSP | ✅ `HAL_WITH_DSP TRUE` | — | 🚫 `HAL_GYROFFT_ENABLED 0`, `HAL_WITH_DSP FALSE`. RP2350 Cortex-M33 has `CMSIS-DSP` library support, but the ArduPilot STM32-oriented DSP library integration is not adapted. Feasible but deferred. |
 | IMU heater | ✅ `HAL_HAVE_IMU_HEATER 1` | — | ❌ Not defined. Could be added as a PWM output + temperature control loop once ADC and IMU work. |
@@ -179,8 +179,8 @@
 
 ### Lower priority (nice to have)
 
-9. **RTC** (`HAL_USE_RTC TRUE`) — `RTCv1` LLD exists.
-10. **GPT timers** (`HAL_USE_GPT TRUE`) — `TIMERv1` LLD exists; may be needed for tone/buzzer.
+9. **RTC** (`HAL_USE_RTC TRUE`) — Not applicable: RTCv1 LLD is RP2040-only; RP2350 uses POWMAN_TIMER. ArduPilot RTC via GPS time + `hrt_micros64()` offset works without hardware RTC.
+10. **GPT timers** (`HAL_USE_GPT TRUE`) — No GPT LLD for RP2350; TIMERv1 is the system-tick driver only.
 11. **SBUS invert** — Need hardware inverter or investigate RP2350 PIO for UART inversion.
 12. **Gyro FFT** — Requires adapting `CMSIS-DSP` for RP2350; deferred.
 13. **DShot via PIO** — Complex custom PIO code needed; no ChibiOS driver.
