@@ -209,3 +209,18 @@ All the changes described below have been applied:
 5. ✅ **`I2CDevice.cpp`** — RP2350 baudrate path implemented.
 6. ✅ **`AnalogIn.cpp`** — RP2350 ADC round-robin path implemented.
 
+---
+
+## Build Quality (Pico2 clean-build warnings fixed)
+
+All `#warning` directives that fired during a `./waf copter` clean build for Pico2 have been resolved:
+
+| Warning source | Cause | Fix |
+|---|---|---|
+| `I2CDevice.cpp` | SMBus mode `#warning` reached for RP2350 | Added `#elif defined(RP2350)` path; `(void)_use_smbus` |
+| `shared_dma.cpp` | DMA arch `#warning` reached for RP2350 | Added `#elif defined(RP2350)` with `STREAM_MUX 12, STREAM_OFFSET 0` |
+| `PIOUART.cpp` | `CH_IRQ_HANDLER` defines `void VectorXX()` without prior declaration | Added forward-declaration block (`CH_IRQ_HANDLER(x);`) for PIO0/PIO1 handlers |
+| `SPIDevice.cpp` | `scr -= 1` made actual SPI freq exceed target | Removed erroneous `scr -= 1` from RP2350 `derive_freq_flag_bus()` path |
+
+**Remaining warning:** None from ArduPilot code. ChibiOS submodule (`rp_isr.h`) itself had -Wmissing-declarations for these same vectors — this was the root cause; resolved by adding the forward declarations in PIOUART.cpp.
+
