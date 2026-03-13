@@ -29,6 +29,11 @@
 
 #define RP2350_MCUCONF
 
+/* Enable DMA support - required for rp_dma.c code to be compiled in */
+#if !defined(RP_DMA_REQUIRED)
+#define RP_DMA_REQUIRED
+#endif
+
 /*
  * HAL driver system settings.
  */
@@ -55,8 +60,12 @@
 /*
  * SIO driver system settings.
  */
+#ifndef RP_SIO_USE_UART0
 #define RP_SIO_USE_UART0                    TRUE
+#endif
+#ifndef RP_SIO_USE_UART1
 #define RP_SIO_USE_UART1                    FALSE
+#endif
 
 /*
  * SPI driver system settings.
