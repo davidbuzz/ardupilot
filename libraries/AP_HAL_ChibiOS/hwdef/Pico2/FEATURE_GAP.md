@@ -98,10 +98,11 @@
 
 | Feature | CubeBlack | Pico2 | Status / Notes |
 |---------|-----------|-------|----------------|
-| IMU Invensense (mpu9250/icm20948/mpu6000) | SPI `mpu9250` | SPI1/MPU_CS | ✅ `IMU Invensense SPI:mpu9250 ROTATION_NONE`. Driver WHOAMI-probes for mpu6000/mpu9250/icm20948 at same CS. |
+| IMU Invensense gen-1 (mpu6000/mpu9250) | SPI `mpu9250` | SPI1/MPU_CS | ✅ `IMU Invensense SPI:mpu9250 ROTATION_NONE`. Driver WHOAMI-probes for mpu6000/mpu9250/icm20608 on MPU_CS (PA24). |
+| IMU Invensense gen-2 (ICM20948) | SPI `icm20948` | SPI1/MPU_CS | ✅ `IMU Invensensev2 SPI:icm20948 ROTATION_NONE`. ICM20948-compatible probe on same MPU_CS  — Invensensev2 driver handles the 9-axis+AK09916 variant. Gen-1 probe above matches first if that chip is present. |
 | Barometer MS5611 | SPI `ms5611_ext` | SPI0/BARO_EXT_CS | ✅ `BARO MS5611 SPI:ms5611_ext`. |
 | Compass (external) | I2C probe | I2C1 (GPIO 15/18) | ✅ `AP_COMPASS_PROBING_ENABLED 1`. ArduPilot probes I2C1 for HMC5883/IST8310/QMC5883 etc. |
-| IMU LSM9DS0 | SPI `lsm9ds0_g` | SPI1/GYRO_EXT_CS | ⚠️ SPIDEV entry exists; no `IMU LSM9DS0` line added yet (secondary sensor, add if hardware attached). |
+| IMU LSM9DS0 | SPI `lsm9ds0_g` | SPI1/GYRO_EXT_CS | ⚠️ SPIDEV `lsm9ds0_g` exists but `lsm9ds0_am` (accel/mag) requires an `ACCEL_EXT_CS` pin not available on standard Pico2. Cannot enable without hardware change. |
 
 **Status:** Primary sensor lines active. ArduPilot skips sensors whose WHOAMI probe fails — safe to run on hardware that only has a subset of sensors wired.
 
