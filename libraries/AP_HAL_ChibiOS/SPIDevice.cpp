@@ -317,10 +317,11 @@ uint32_t SPIDevice::derive_freq_flag_bus(uint8_t busid, uint32_t _frequency)
     if (_frequency == 0) {
         _frequency = 1;
     }
+    // Compute SCR so actual_freq = SYSCLK / (CPSR * (1 + SCR)) <= target freq.
+    // scr = floor(SYSCLK / (CPSR * freq)) gives actual <= target for all inputs.
+    // (The previous scr-=1 was incorrect: for non-integer ratios it produced
+    //  actual_freq > target_freq, potentially violating device timing specs.)
     uint32_t scr = (RP2350_SPI_SYSCLK / (RP2350_SPI_CPSR * _frequency));
-    if (scr > 0) {
-        scr -= 1;
-    }
     if (scr > 255) {
         scr = 255;
     }
