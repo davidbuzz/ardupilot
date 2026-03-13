@@ -256,8 +256,11 @@ I2CDeviceManager::I2CDeviceManager(void)
         } else {
             businfo[i].i2ccfg.duty_cycle = FAST_DUTY_CYCLE_2;
         }
+#elif defined(RP2350)
+        // RP2350 I2Cv1 LLD uses a simple baudrate field (no TIMINGR register)
+        businfo[i].i2ccfg.baudrate = businfo[i].busclock;
 #else
-        #warning "I2C timing config not set for this platform buzz todo?"
+        #warning "I2C timing config not set for this platform"
 #endif
     }
 }
@@ -285,8 +288,11 @@ I2CDevice::I2CDevice(uint8_t busnum, uint8_t address, uint32_t bus_clock, bool u
         if (bus_clock <= 100000) {
             bus.i2ccfg.duty_cycle = STD_DUTY_CYCLE;
         }
-#else 
-        #warning "I2C timing config not set for this platform buzz todo?"
+#elif defined(RP2350)
+        bus.i2ccfg.baudrate = bus_clock;
+        bus.busclock = bus_clock;
+#else
+        #warning "I2C timing config not set for this platform"
 #endif
         DEV_PRINTF("I2C%u clock %ukHz\n", busnum, unsigned(bus.busclock/1000));
     }

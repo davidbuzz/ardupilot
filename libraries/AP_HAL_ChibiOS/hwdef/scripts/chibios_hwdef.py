@@ -2041,14 +2041,20 @@ INCLUDE common.ld
             devlist.append('HAL_I2C%u_CONFIG' % n)
             sda_line = self.make_line('I2C%u_SDA' % n)
             scl_line = self.make_line('I2C%u_SCL' % n)
-            f.write('''
+            if self.mcu_series.startswith('PICO2'):
+                # RP2350 I2Cv1 LLD has no DMA — always use SHARED_DMA_NONE
+                f.write(
+                    '#define HAL_I2C%u_CONFIG { &I2CD%u, %u, SHARED_DMA_NONE, SHARED_DMA_NONE, %s, %s }\n'
+                    % (n, n, n, scl_line, sda_line))
+            else:
+                f.write('''
 #if defined(STM32_I2C_I2C%u_RX_DMA_STREAM) && defined(STM32_I2C_I2C%u_TX_DMA_STREAM)
 #define HAL_I2C%u_CONFIG { &I2CD%u, %u, STM32_I2C_I2C%u_RX_DMA_STREAM, STM32_I2C_I2C%u_TX_DMA_STREAM, %s, %s }
 #else
 #define HAL_I2C%u_CONFIG { &I2CD%u, %u, SHARED_DMA_NONE, SHARED_DMA_NONE, %s, %s }
 #endif
 '''
-                    % (n, n, n, n, n, n, n, scl_line, sda_line, n, n, n, scl_line, sda_line))
+                        % (n, n, n, n, n, n, n, scl_line, sda_line, n, n, n, scl_line, sda_line))
         f.write('\n')
         self.write_device_table(f, "i2c devices", "HAL_I2C_DEVICE_LIST", devlist)
 
@@ -2580,7 +2586,12 @@ Please run: Tools/scripts/build_bootloaders.py %s
             if type.startswith('SPI'):
                 f.write('#define STM32_SPI_USE_%s                  TRUE\n' % type)
             if type.startswith('I2C'):
-                f.write('#define STM32_I2C_USE_%s                  TRUE\n' % type)
+                if self.mcu_series.startswith('PICO2'):
+                    # RP2350 I2C LLD uses RP_I2C_USE_I2Cx (not STM32_I2C_USE_)
+                    n = int(type[3:])
+                    f.write('#define RP_I2C_USE_I2C%u                  TRUE\n' % n)
+                else:
+                    f.write('#define STM32_I2C_USE_%s                  TRUE\n' % type)
             if type.startswith('QUADSPI'):
                 f.write('#define STM32_WSPI_USE_%s                 TRUE\n' % type)
             if type.startswith('OCTOSPI'):

@@ -119,13 +119,11 @@ USB_STRING_MANUFACTURER "ArduPilot"
 # Now define the order that I2C buses are presented in the hal.i2c API
 # in ArduPilot. For historical reasons inherited from HAL_PX4 the
 # 'external' I2C bus should be bus 1 in hal.i2c, and internal I2C bus
-# should be bus 0. On fmuv3 the STM32 I2C1 is our external bus and
-# I2C2 is our internal bus, so we need to setup the order as I2C2
-# followed by I2C1 in order to achieve the conventional order that
-# drivers expect.
+# should be bus 0. On Pico2 we have only one I2C bus (I2C1 on GPIO 15/18),
+# exposed as hal.i2c bus 0 (external).
 
-# order of I2C buses
-I2C_ORDER I2C2 I2C1
+# order of I2C buses - Pico2 has only I2C1 hardware wired out
+I2C_ORDER I2C1
 
 # Now the serial ordering. These map to the SERIALn_ parameter numbers
 # If you use a shorter list then HAL_Empty::UARTDriver
@@ -526,7 +524,8 @@ define HAL_WITH_DSP FALSE
 #       expected comparable, but profiling needed once more features are enabled.
 define HAL_USE_PAL                         TRUE
 define HAL_USE_SIO                         TRUE
-define HAL_USE_I2C                         FALSE
+define HAL_USE_I2C                         TRUE
+define RP_I2C_USE_I2C1                     TRUE
 define HAL_USE_SPI                         TRUE
 define RP_SPI_USE_SPI0                     TRUE
 define RP_SPI_USE_SPI1                     TRUE

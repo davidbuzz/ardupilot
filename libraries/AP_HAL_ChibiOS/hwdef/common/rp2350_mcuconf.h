@@ -96,4 +96,20 @@
 #endif
 #define RP_SPI_DMA_ERROR_HOOK(spip)
 
+/*
+ * I2C driver system settings.
+ */
+#ifndef RP_I2C_USE_I2C0
+#define RP_I2C_USE_I2C0                     FALSE
+#endif
+#ifndef RP_I2C_USE_I2C1
+#define RP_I2C_USE_I2C1                     FALSE
+#endif
+#ifndef RP_IRQ_I2C0_PRIORITY
+#define RP_IRQ_I2C0_PRIORITY                2
+#endif
+#ifndef RP_IRQ_I2C1_PRIORITY
+#define RP_IRQ_I2C1_PRIORITY                2
+#endif
+
 #endif /* MCUCONF_H */
