@@ -112,4 +112,17 @@
 #define RP_IRQ_I2C1_PRIORITY                2
 #endif
 
+/*
+ * ADC driver system settings.
+ */
+#ifndef RP_ADC_USE_ADC1
+#define RP_ADC_USE_ADC1                     FALSE
+#endif
+#ifndef RP_ADC_ADC1_DMA_PRIORITY
+#define RP_ADC_ADC1_DMA_PRIORITY            0
+#endif
+#ifndef RP_ADC_ADC1_DMA_IRQ_PRIORITY
+#define RP_ADC_ADC1_DMA_IRQ_PRIORITY        3
+#endif
+
 #endif /* MCUCONF_H */

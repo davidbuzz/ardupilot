@@ -109,7 +109,11 @@ static const uint16_t k_pio_uart_rx_pgm[PIO_UART_RX_PROG_LEN] = {
 // RX FIFO not-empty interrupt enable bit for SM sm (in IRQx_INTE)
 #define PIO_INTE_RX_NOTEMPTY(sm)  (1u << ((sm) + 4u))
 
+#ifdef HAL_HAVE_PIO_UARTS
+#define PIO_NUM_INSTANCES  HAL_HAVE_PIO_UARTS
+#else
 #define PIO_NUM_INSTANCES  4U
+#endif
 
 // ---------------------------------------------------------------------------
 // PIORXDriver class — inherits AP_HAL::UARTDriver

@@ -722,10 +722,10 @@ for k,v in _AltFunction_map.items():
 # qfn60 package has 4 ADC pins:, qfn80 todo
 ADC1_map = {
 	# format is PIN : ADC1_CHAN
-	"P26"	:	0,
-	"P27"	:	1,
-	"P28"	:	2,
-	"P29"	:	3,
+	"PA26"	:	0,
+	"PA27"	:	1,
+	"PA28"	:	2,
+	"PA29"	:	3,
     # internal temperature sensor is ADC1_CHAN 4 but we dont map it to a pin
 }
 

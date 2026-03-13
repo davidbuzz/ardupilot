@@ -558,7 +558,9 @@ void AnalogIn::setup_adc(uint8_t index)
     adcgrpcfg[index].circular = true;
     adcgrpcfg[index].num_channels = num_grp_channels;
     adcgrpcfg[index].end_cb = adccallback;
-#if defined(ADC_CFGR_RES_16BITS)
+#if defined(RP2350)
+    // RP2350 ADCv1 has no CFGR/CR2 register fields; channel config is done in the round-robin block below.
+#elif defined(ADC_CFGR_RES_16BITS)
     // use 16 bit resolution
     adcgrpcfg[index].cfgr = ADC_CFGR_CONT | ADC_CFGR_RES_16BITS;
 #elif defined(ADC_CFGR_RES_12BITS)
@@ -576,6 +578,25 @@ void AnalogIn::setup_adc(uint8_t index)
         num_grp_channels /= 2;
     }
 #endif
+#if defined(RP2350)
+    // RP2350 ADCv1: single SAR ADC, round-robin mode for multi-channel sampling.
+    // Channels are sampled in ascending order of the rrobin bitmask.
+    {
+        uint32_t rrobin_mask = 0;
+        uint8_t first_chan = 255U;
+        for (uint8_t i = 0; i < num_grp_channels; i++) {
+            uint8_t chan = get_pin_channel(index, i);
+            rrobin_mask |= (1U << chan);
+            if (chan < first_chan) {
+                first_chan = chan;
+            }
+        }
+        adcgrpcfg[index].channel    = (first_chan == 255U) ? 0U : first_chan;
+        adcgrpcfg[index].rrobin     = (num_grp_channels > 1) ? rrobin_mask : 0U;
+        adcgrpcfg[index].div        = 0U;   // free-running 500 kS/s
+        adcgrpcfg[index].ts_enabled = false;
+    }
+#else
     for (uint8_t i=0; i<num_grp_channels; i++) {
         uint8_t chan = get_pin_channel(index, i);
         // setup cycles per sample for the channel
@@ -639,6 +660,7 @@ void AnalogIn::setup_adc(uint8_t index)
         }
     }
 #endif
+#endif // !RP2350
 
     adcStartConversion(adcp, &adcgrpcfg[index], samples[index], ADC_DMA_BUF_DEPTH);
     return;

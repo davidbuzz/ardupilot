@@ -143,7 +143,7 @@ I2C_ORDER I2C1
 # the presence of this OTG1 also enables the usb subsystem.
 # UART0 = serial1 (telem1), UART1 = serial2 (telem2)
 # PIOUART0-3 = serial3-6 via RP2350 PIO0/PIO1 state machines
-SERIAL_ORDER OTG1 UART0 UART1 PIOUART0 PIOUART1 PIOUART2 PIOUART3
+SERIAL_ORDER OTG1 UART0 UART1 PIOUART0 PIOUART1 PIOUART2
 
 # If the board has an IOMCU connected via a UART then this defines the
 # UART to talk to that MCU. Leave it out for boards with no IOMCU.
@@ -372,15 +372,17 @@ PA10 UART1_TX UART1
 
 # PIO UART pseudo-ports: 4 extra UARTs using RP2350 PIO0 (SM0/1, SM2/3) and PIO1 (SM0/1, SM2/3)
 # Pins chosen from GPIOs not committed to any other function.
-define HAL_HAVE_PIO_UARTS 4
+define HAL_HAVE_PIO_UARTS 3
 PA14 PIOUART0_TX INPUT FLOATING
 PA17 PIOUART0_RX INPUT FLOATING
 PA19 PIOUART1_TX INPUT FLOATING
 PA20 PIOUART1_RX INPUT FLOATING
 PA21 PIOUART2_TX INPUT FLOATING
 PA27 PIOUART2_RX INPUT FLOATING
-PA28 PIOUART3_TX INPUT FLOATING
-PA29 PIOUART3_RX INPUT FLOATING
+# PA28/PA29 are RP2350 ADC2/ADC3 (battery voltage/current sensing).
+# PIOUART3 cannot use these pins simultaneously with ADC — ADC takes priority.
+PA28 BATT_VOLTAGE_SENS ADC1 SCALE(1)
+PA29 BATT_CURRENT_SENS ADC1 SCALE(1)
 
 # Define a LED, mapping it to GPIO(0). LOW will illuminate the LED
 #PE12 FMU_LED_AMBER OUTPUT HIGH OPENDRAIN GPIO(0)
@@ -529,7 +531,8 @@ define RP_I2C_USE_I2C1                     TRUE
 define HAL_USE_SPI                         TRUE
 define RP_SPI_USE_SPI0                     TRUE
 define RP_SPI_USE_SPI1                     TRUE
-define HAL_USE_ADC                         FALSE
+define HAL_USE_ADC                         TRUE
+define RP_ADC_USE_ADC1                     TRUE
 define HAL_USE_CAN                         FALSE
 define HAL_USE_CRY                         FALSE
 define HAL_USE_DAC                         FALSE

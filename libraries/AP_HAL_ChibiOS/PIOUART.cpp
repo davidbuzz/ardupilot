@@ -98,7 +98,11 @@ CH_IRQ_HANDLER(RP_PIO1_IRQ_1_HANDLER)
 void PIORXDriver::_irq_pio0_0() { if (_instances[0]) { _instances[0]->_service_rx_fifo(); } }
 void PIORXDriver::_irq_pio0_1() { if (_instances[1]) { _instances[1]->_service_rx_fifo(); } }
 void PIORXDriver::_irq_pio1_0() { if (_instances[2]) { _instances[2]->_service_rx_fifo(); } }
-void PIORXDriver::_irq_pio1_1() { if (_instances[3]) { _instances[3]->_service_rx_fifo(); } }
+void PIORXDriver::_irq_pio1_1() {
+#if PIO_NUM_INSTANCES > 3
+    if (_instances[3]) { _instances[3]->_service_rx_fifo(); }
+#endif
+}
 
 // ---------------------------------------------------------------------------
 // Constructor
