@@ -158,7 +158,7 @@
 | Double precision | Software only | Software only | Neither has hardware double. |
 | Flash | 2MB internal | 4MB external QSPI | Pico2 flash access is slightly slower (XIP cache mitigates). |
 | RAM | ~256KB | ~520KB (SRAM0+SRAM1) | Pico2 has substantially more RAM. |
-| Unique hardware ID | 96-bit device ID | RP2350 OTP CHIPID + RANDID | ✅ `get_system_id()` / `get_system_id_unformatted()` in `Util.cpp` read OTP rows 0–5 (CHIPID0-3 + RANDID0-1) via ECC-mapped view at `0x40130000`. Row N at `*(uint32_t*)(0x40130000 + N*4)`, data in bits[15:0]. Genuine per-device 96-bit unique ID factory-programmed at manufacture. |
+| Unique hardware ID | 96-bit device ID | RP2350 OTP CHIPID + RANDID | ✅ `get_system_id()` / `get_system_id_unformatted()` in `Util.cpp` read OTP rows 0–5 (CHIPID0-3 + RANDID0-1) via ECC-mapped view at `0x40130000`. Row N at `*(uint32_t*)(0x40130000 + N*4)`, data in bits[15:0]. Genuine per-device 96-bit unique ID factory-programmed at manufacture. Also fixed in `usbcfg_common.c` (`string_substitute()` USB serial descriptor) and `AP_BLHeli.cpp` (`MSP_UID` handler). |
 
 ---
 
