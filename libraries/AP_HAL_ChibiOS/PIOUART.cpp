@@ -32,6 +32,17 @@ extern const AP_HAL::HAL &hal;
 
 // Default RX ring-buffer size (TX goes direct to FIFO — no staging buffer needed)
 static const uint16_t PIO_UART_RX_BUF = 512;
+static const uint16_t PIO_UART_TX_BUF = 512;
+
+// TX FIFO depth per state machine (not joined)
+static const uint8_t PIO_TX_FIFO_DEPTH = 4U;
+
+// Extract TX fill level for SM sm from PIO FLEVEL register.
+// FLEVEL layout: bits [sm*8+3:sm*8] = TX fill, bits [sm*8+7:sm*8+4] = RX fill
+static inline uint32_t pio_tx_level(PIO_TypeDef *pio, uint8_t sm)
+{
+    return (pio->FLEVEL >> (sm * 8U)) & 0xFU;
+}
 
 // NVIC priority for PIO UART RX IRQ
 #define PIO_UART_IRQ_PRIO  5
@@ -112,6 +123,7 @@ PIORXDriver::PIORXDriver(uint8_t instance)
     : _instance(instance)
     , _initialized(false)
     , _readbuf(nullptr)
+    , _writebuf(nullptr)
 {
     if (instance < PIO_NUM_INSTANCES) {
         _instances[instance] = this;
@@ -290,6 +302,16 @@ void PIORXDriver::_begin(uint32_t b, uint16_t rxSpace, uint16_t txSpace)
         }
     }
 
+    if (txSpace == 0) {
+        txSpace = PIO_UART_TX_BUF;
+    }
+    if (_writebuf == nullptr) {
+        _writebuf = new ByteBuffer(txSpace);
+        if (!_writebuf) {
+            return;
+        }
+    }
+
     _upload_programs();
     _configure_gpio(cfg().tx_pin, true);
     _configure_gpio(cfg().rx_pin, false);
@@ -328,7 +350,7 @@ void PIORXDriver::_end()
 
 void PIORXDriver::_flush()
 {
-    // TX goes direct to PIO FIFO — nothing to flush in software
+    _drain_tx_fifo();
 }
 
 uint32_t PIORXDriver::_available()
@@ -356,22 +378,34 @@ ssize_t PIORXDriver::_read(uint8_t *buffer, uint16_t count)
     return (ssize_t)_readbuf->read(buffer, count);
 }
 
-size_t PIORXDriver::_write(const uint8_t *buffer, size_t size)
+void PIORXDriver::_drain_tx_fifo()
 {
-    if (!_initialized || !buffer || size == 0) {
-        return 0;
+    if (!_writebuf || !_initialized) {
+        return;
     }
     PIO_TypeDef *const pio = cfg().pio;
     const uint8_t      sm  = cfg().sm_tx;
 
-    size_t written = 0;
-    for (size_t i = 0; i < size; i++) {
-        if (!(pio->FSTAT & (1u << (PIO_FSTAT_TXFULL_LSB + sm)))) {
-            pio->TXF[sm] = (uint32_t)buffer[i];
-            written++;
-        }
-        // Drop byte if TX FIFO full (non-blocking)
+    // Move as many bytes as the TX FIFO has free slots
+    uint8_t byte;
+    while (pio_tx_level(pio, sm) < PIO_TX_FIFO_DEPTH
+           && _writebuf->read_byte(&byte)) {
+        pio->TXF[sm] = (uint32_t)byte;
     }
+}
+
+size_t PIORXDriver::_write(const uint8_t *buffer, size_t size)
+{
+    if (!_initialized || !_writebuf || !buffer || size == 0) {
+        return 0;
+    }
+
+    // Push all bytes into the software ring buffer
+    const size_t written = _writebuf->write(buffer, size);
+
+    // Opportunistically drain ring buffer into the PIO TX FIFO
+    _drain_tx_fifo();
+
     return written;
 }
 
@@ -381,15 +415,13 @@ size_t PIORXDriver::_write(const uint8_t *buffer, size_t size)
 
 uint32_t PIORXDriver::txspace()
 {
-    if (!_initialized) {
+    if (!_initialized || !_writebuf) {
         return 0;
     }
-    // PIO TX FIFO has 4 words; count free slots in the TX FIFO
-    PIO_TypeDef *const pio = cfg().pio;
-    const uint8_t      sm  = cfg().sm_tx;
-    // FLEVEL[sm*2 .. sm*2+3] gives TX FIFO level (0-4); space = 4 - level
-    // Simpler: check TXFULL bit per slot (crude but works for skeleton)
-    return (pio->FSTAT & (1u << (PIO_FSTAT_TXFULL_LSB + sm))) ? 0U : 1U;
+    // Report software ring buffer free space; callers use this to decide
+    // how many bytes to enqueue. The ring buffer absorbs bursts that
+    // exceed the 4-word PIO TX FIFO depth.
+    return _writebuf->space();
 }
 
 bool PIORXDriver::tx_pending()
@@ -397,7 +429,11 @@ bool PIORXDriver::tx_pending()
     if (!_initialized) {
         return false;
     }
-    // TX FIFO not empty = pending
+    // Pending if the software ring buffer has bytes waiting, or the PIO
+    // TX FIFO has bytes not yet shifted out.
+    if (_writebuf && _writebuf->available() > 0) {
+        return true;
+    }
     PIO_TypeDef *const pio = cfg().pio;
     const uint8_t      sm  = cfg().sm_tx;
     return !(pio->FSTAT & (1u << (PIO_FSTAT_TXEMPTY_LSB + sm)));

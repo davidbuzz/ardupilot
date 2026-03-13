@@ -168,6 +168,7 @@ private:
     const uint8_t _instance;
     bool  _initialized;
     ByteBuffer *_readbuf;
+    ByteBuffer *_writebuf;
 
     const InstanceConfig &cfg() const { return _cfg_table[_instance]; }
 
@@ -176,6 +177,7 @@ private:
     void _start_rx_sm(uint32_t clkdiv_int, uint32_t clkdiv_frac);
     void _configure_gpio(uint8_t pin, bool is_output);
     void _enable_rx_irq();
+    void _drain_tx_fifo();
 
     static void _calc_clkdiv(uint32_t baud, uint32_t &int_div, uint32_t &frac_div);
 };
