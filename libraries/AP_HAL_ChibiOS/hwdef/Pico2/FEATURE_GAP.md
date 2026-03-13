@@ -96,13 +96,12 @@
 
 | Feature | CubeBlack | Pico2 | Status / Notes |
 |---------|-----------|-------|----------------|
-| IMU MPU9250 | SPI `mpu9250` | SPIDEV entry exists | ❌ `HAL_USE_SPI FALSE` blocks all SPI sensors. No `IMU` lines in hwdef.dat. |
-| IMU LSM9DS0 | SPI `lsm9ds0_*` | SPIDEV entry exists | ❌ Same. |
-| Barometer MS5611 | SPI `ms5611_ext` | SPIDEV entry exists | ❌ Same. |
-| Compass LSM303D | SPI `lsm9ds0_ext_am` | SPIDEV entry exists | ❌ Same. |
-| Compass AK8963 | In MPU9250 | SPIDEV entries reference it | ❌ Same. |
+| IMU Invensense (mpu9250/icm20948/mpu6000) | SPI `mpu9250` | SPI1/MPU_CS | ✅ `IMU Invensense SPI:mpu9250 ROTATION_NONE`. Driver WHOAMI-probes for mpu6000/mpu9250/icm20948 at same CS. |
+| Barometer MS5611 | SPI `ms5611_ext` | SPI0/BARO_EXT_CS | ✅ `BARO MS5611 SPI:ms5611_ext`. |
+| Compass (external) | I2C probe | I2C1 (GPIO 15/18) | ✅ `AP_COMPASS_PROBING_ENABLED 1`. ArduPilot probes I2C1 for HMC5883/IST8310/QMC5883 etc. |
+| IMU LSM9DS0 | SPI `lsm9ds0_g` | SPI1/GYRO_EXT_CS | ⚠️ SPIDEV entry exists; no `IMU LSM9DS0` line added yet (secondary sensor, add if hardware attached). |
 
-**Root cause:** All sensor lines (`IMU`, `BARO`, `COMPASS`) are commented out in `hwdef.dat`. They can be uncommented once `HAL_USE_SPI TRUE` is enabled and tested.
+**Status:** Primary sensor lines active. ArduPilot skips sensors whose WHOAMI probe fails — safe to run on hardware that only has a subset of sensors wired.
 
 ---
 
@@ -167,7 +166,7 @@
 ### High priority (blocks flight)
 
 1. ~~**SPI driver** (`HAL_USE_SPI TRUE`)~~ — ✅ **DONE** (`SPIv1` LLD enabled; `SPIDevice.cpp` has RP2350 SSPCR0/SSPCPSR paths)
-2. **Sensor lines in hwdef.dat** — Uncomment `IMU`, `BARO`, `COMPASS` lines now that SPI works. Test sensor detection.
+2. ~~**Sensor lines in hwdef.dat**~~ — ✅ **DONE** (`IMU Invensense SPI:mpu9250 ROTATION_NONE`, `BARO MS5611 SPI:ms5611_ext`, `AP_COMPASS_PROBING_ENABLED 1`)
 3. **PIOUART TX ring buffer + accurate `txspace()`** — Current implementation silently drops bytes; GPS comms need reliable TX.
 
 ### Medium priority (important for functionality)
