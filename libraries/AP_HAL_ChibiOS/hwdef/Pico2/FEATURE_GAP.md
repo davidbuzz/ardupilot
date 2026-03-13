@@ -26,14 +26,14 @@
 
 
 
-| PIOUART0 (SERIAL3) | N/A | GPIO 14/17 | ⚠️ RX via PIO ISR → ring buffer works. TX implemented but `txspace()` returns 0 or 1 only (not real FIFO count). `_write()` silently drops bytes if PIO TX FIFO full — no software TX ring buffer. |
-| PIOUART1 (SERIAL4) | N/A | GPIO 19/20 | ⚠️ Same issues as PIOUART0. |
-| PIOUART2 (SERIAL5) | N/A | GPIO 21/27 | ⚠️ Same issues as PIOUART0. |
-| PIOUART3 (SERIAL6) | N/A | GPIO 28/29 | ⚠️ Same issues as PIOUART0. |
+| PIOUART0 (SERIAL3) | N/A | GPIO 14/17 | ✅ RX via PIO ISR → ring buffer works. TX now uses a 512-byte software ring buffer; `_write()` enqueues to ring buffer and drains opportunistically; `txspace()` returns ring buffer free space. `_drain_tx_fifo()` uses `FLEVEL` register for accurate TX FIFO fill level. |
+| PIOUART1 (SERIAL4) | N/A | GPIO 19/20 | ✅ Same as PIOUART0. |
+| PIOUART2 (SERIAL5) | N/A | GPIO 21/27 | ✅ Same as PIOUART0. |
+| PIOUART3 (SERIAL6) | N/A | GPIO 28/29 | ⚠️ GPIO 28/29 are ADC channels 2/3; removed from SERIAL_ORDER to avoid conflict. Same TX improvements as PIOUART0 if re-enabled on non-ADC pins. |
 | RTS/CTS hardware flow control | USART2, USART3 | — | ❌ Not defined for any port. PIOUART has no flow control support at all. |
 | UART DMA | Yes (STM32 DMA streams) | UART0/UART1 | ✅ DMAv1 driver in use for SIO UART DMA. |
 
-**PIOUART TX fix needed:** `txspace()` in `PIOUART.cpp` should read the `FLEVEL` register from the PIO TX FIFO to return actual free slot count (0–8), not just `!pio_sm_is_tx_fifo_full()` clamped to 0/1. Also needs a software TX ring buffer so `_write()` does not discard bytes when FIFO is full.
+**PIOUART TX fixed:** `txspace()` returns the 512-byte software ring buffer free space. `_drain_tx_fifo()` reads `FLEVEL` for accurate TX FIFO fill level and drains the ring buffer on every `_write()` and `_flush()` call.
 
 ---
 
@@ -131,7 +131,7 @@
 
 | Feature | CubeBlack | Pico2 | Status / Notes |
 |---------|-----------|-------|----------------|
-| Watchdog | ✅ | — | ❌ `HAL_USE_WDG FALSE`. ChibiOS `WDGv1` LLD **exists** in `RP/LLD/WDGv1/` and is in `platform.mk`. 💡 One-line enable. |
+| Watchdog | ✅ | ✅ | ✅ `HAL_USE_WDG TRUE`. `rp2350_watchdog_init/pat/was_watchdog_reset()` in `watchdog.c` using ChibiOS `wdgStart`/`wdgReset` HAL API. 2s timeout. Guarded with `#elif defined(RP2350)` in `HAL_ChibiOS_Class.cpp`, `Scheduler.cpp`, `Util.cpp`. |
 | RTC | ✅ | — | ❌ `HAL_USE_RTC FALSE`. ChibiOS `RTCv1` LLD **exists** in `RP/LLD/RTCv1/` and is in `platform.mk`. RP2350 has an AOSC (always-on) oscillator for RTC. 💡 Enable + configure. |
 | GPT (general purpose timers) | ✅ | — | ❌ `HAL_USE_GPT FALSE`. ChibiOS `TIMERv1` LLD **exists** in `RP/LLD/TIMERv1/` and is in `platform.mk`. 💡 Enable if needed for tone/beeper or other timer uses. |
 | Crash dump | ✅ STM32-style crash registers | — | 🚫 `AP_CRASHDUMP_ENABLED 0`. RP2350 has no equivalent to STM32 crash dump registers. Would need custom fault handler to log to flash. Not planned. |
@@ -167,14 +167,14 @@
 
 1. ~~**SPI driver** (`HAL_USE_SPI TRUE`)~~ — ✅ **DONE** (`SPIv1` LLD enabled; `SPIDevice.cpp` has RP2350 SSPCR0/SSPCPSR paths)
 2. ~~**Sensor lines in hwdef.dat**~~ — ✅ **DONE** (`IMU Invensense SPI:mpu9250 ROTATION_NONE`, `BARO MS5611 SPI:ms5611_ext`, `AP_COMPASS_PROBING_ENABLED 1`)
-3. **PIOUART TX ring buffer + accurate `txspace()`** — Current implementation silently drops bytes; GPS comms need reliable TX.
+3. ~~**PIOUART TX ring buffer + accurate `txspace()`**~~ — ✅ **DONE** (`ByteBuffer _writebuf` added; `_drain_tx_fifo()` uses `FLEVEL` register; `txspace()` returns ring buffer free space)
 
 ### Medium priority (important for functionality)
 
 4. ~~**I2C driver** (`HAL_USE_I2C TRUE`)~~ — ✅ **DONE** (`I2Cv1` LLD enabled; `I2CDevice.cpp` RP2350 baudrate path; `chibios_hwdef.py` PICO2 SHARED_DMA_NONE config)
 5. ~~**ADC driver** (`HAL_USE_ADC TRUE`)~~ — ✅ **DONE** (`ADCv1` LLD enabled; `PA28/PA29` as battery volt/curr; `AnalogIn.cpp` RP2350 round-robin path)
 6. ~~**Battery monitor pins**~~ — ✅ **DONE** (`HAL_BATT_VOLT_PIN 2`, `HAL_BATT_CURR_PIN 3` active now that ADC is enabled)
-7. **Watchdog** (`HAL_USE_WDG TRUE`) — `WDGv1` LLD exists. One-line change + small init code. Safety-critical.
+7. ~~**Watchdog** (`HAL_USE_WDG TRUE`)~~ — ✅ **DONE** (`WDGv1` LLD enabled; `rp2350_watchdog_init/pat/was_watchdog_reset()` via ChibiOS WDG API; 2s timeout)
 8. **APJ_BOARD_ID** — Register a real ID in `board_types.txt`.
 
 ### Lower priority (nice to have)
