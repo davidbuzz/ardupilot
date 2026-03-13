@@ -973,8 +973,8 @@ class ChibiOSHWDef(hwdef.HWDef):
             else:
                 f.write('#define STM32_USB_USE_OTG1                  TRUE\n')
                 f.write('#define STM32_OTG2_IS_OTG1                  FALSE\n')
-            f.write('#define HAL_USE_USB TRUE\n') # todo buzz fix this?
-            #f.write('#define HAL_USE_SERIAL_USB TRUE\n') - todo buzz fix this
+            f.write('#define HAL_USE_USB TRUE\n')
+            f.write('#define HAL_USE_SERIAL_USB TRUE\n')
         if 'OTG2' in self.bytype:
             f.write('#define STM32_USB_USE_OTG2                  TRUE\n')
 

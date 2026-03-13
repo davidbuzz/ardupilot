@@ -70,14 +70,17 @@ bool sdcard_init()
     auto &sdcd = SDCD1;
 #endif
 
-    if (sdcd.bouncebuffer == nullptr) {
+    // local bounce buffer pointer (SDCDriver no longer carries this field)
+    static struct bouncebuffer_t *sdc_bouncebuffer;
+
+    if (sdc_bouncebuffer == nullptr) {
         // allocate 4k-32k bouncebuffer for microSD to match size in
         // AP_Logger
 #if defined(STM32H7)
-        bouncebuffer_init(&sdcd.bouncebuffer, AP_FATFS_MAX_IO_SIZE, true);
+        bouncebuffer_init(&sdc_bouncebuffer, AP_FATFS_MAX_IO_SIZE, true);
         // allocation failure, pick a smaller size
-        if (sdcd.bouncebuffer->dma_buf == nullptr) {
-            bouncebuffer_init(&sdcd.bouncebuffer, AP_FATFS_MIN_IO_SIZE, true);
+        if (sdc_bouncebuffer->dma_buf == nullptr) {
+            bouncebuffer_init(&sdc_bouncebuffer, AP_FATFS_MIN_IO_SIZE, true);
 #if AP_FILESYSTEM_FATFS_ENABLED
             AP_Filesystem_FATFS::set_io_size(AP_FATFS_MIN_IO_SIZE);
 #endif
@@ -87,12 +90,12 @@ bool sdcard_init()
 #endif
         }
 #else
-        bouncebuffer_init(&sdcd.bouncebuffer, AP_FATFS_MAX_IO_SIZE, false);
+        bouncebuffer_init(&sdc_bouncebuffer, AP_FATFS_MAX_IO_SIZE, false);
 #if AP_FILESYSTEM_FATFS_ENABLED
         AP_Filesystem_FATFS::set_io_size(AP_FATFS_MAX_IO_SIZE);
 #endif
 #endif
-        if (sdcd.bouncebuffer->dma_buf == nullptr) {    // we are never going to be able to log
+        if (sdc_bouncebuffer->dma_buf == nullptr) {    // we are never going to be able to log
             sdcard_running = false;
             return false;
         }

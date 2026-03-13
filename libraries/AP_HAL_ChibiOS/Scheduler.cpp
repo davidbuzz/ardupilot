@@ -866,7 +866,7 @@ void Scheduler::try_force_mutex(void)
     strncpy(thdname, wtmtx->owner->name, sizeof(thdname)-1);
 
     // we will force release the lock
-#if defined(STM32_AVAILABLE) && STM32_AVAILABLE == TRUE
+#if defined(STM32_AVAILABLE) && STM32_AVAILABLE == TRUE && !defined(HAL_LLD_SELECT_SPI_V2)
     chMtxForceReleaseS(wtmtx);
 #endif
     chSysUnlock();

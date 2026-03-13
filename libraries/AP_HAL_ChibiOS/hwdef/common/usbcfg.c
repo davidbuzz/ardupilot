@@ -35,7 +35,9 @@
 // #pragma GCC optimize("O0")
 
 #if defined(PIC02) || defined(RP2350) || PIC02_AVAILABLE
-#define STM32_AVAILABLE FALSE 
+#define STM32_AVAILABLE FALSE
+#else
+#define STM32_AVAILABLE TRUE
 #endif
 
 #if defined(HAL_USB_PRODUCT_ID) && !HAL_HAVE_DUAL_USB_CDC

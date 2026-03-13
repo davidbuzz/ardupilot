@@ -459,7 +459,7 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
             if (tx_dma_enabled) {
                 sercfg.cr3 |= USART_CR3_DMAT;
             }
-            sercfg.irq_cb = rx_irq_cb;
+            // sercfg.irq_cb = rx_irq_cb; // custom ArduPilot ChibiOS extension, removed from submodule
 #if HAL_HAVE_LOW_NOISE_UART
             if (sdef.low_noise_line) {
                 // we can mark UART to sample on one bit instead of default 3 bits
@@ -471,7 +471,7 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
             if (!(sercfg.cr2 & USART_CR2_STOP2_BITS)) {
                 sercfg.cr2 |= USART_CR2_STOP1_BITS;
             }
-            sercfg.ctx = (void*)this;
+            // sercfg.ctx = (void*)this; // custom ArduPilot ChibiOS extension, removed from submodule
 
             sdStart((SerialDriver*)sdef.serial, &sercfg);
 
