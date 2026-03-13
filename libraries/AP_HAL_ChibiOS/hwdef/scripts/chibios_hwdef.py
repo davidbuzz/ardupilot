@@ -898,7 +898,20 @@ class ChibiOSHWDef(hwdef.HWDef):
         mcu_subtype = self.get_config('MCU', 1)
         if mcu_subtype[-1:] == 'x' or mcu_subtype[-2:-1] == 'x':
             f.write('#define %s_MCUCONF\n\n' % mcu_subtype[:-2])
-        f.write('#define %s\n\n' % mcu_subtype)
+        f.write('#define %s\n' % mcu_subtype)
+        # For RP series MCUs, also emit the generic RP2350/RP2040 define that
+        # hwdef/common/mcuconf.h uses to select rp2350_mcuconf.h.  board.h
+        # defines it too, but board.h is only reachable after hal.h is included;
+        # emitting it here lets headers that include hwdef.h (via halconf.h ->
+        # mcuconf.h) select the correct MCU configuration unconditionally.
+        if self.is_rp_mcu():
+            rp_mcu = self.get_config('MCU')      # e.g. "PICO2"
+            # Map board MCU name -> the generic RP silicon family symbol
+            rp_family_map = {'PICO2': 'RP2350', 'PICO': 'RP2040'}
+            rp_family = rp_family_map.get(rp_mcu, None)
+            if rp_family is not None:
+                f.write('#define %s\n' % rp_family)
+        f.write('\n')
         f.write('// crystal frequency\n')
         f.write('#define STM32_HSECLK %sU\n\n' % self.get_config('OSCILLATOR_HZ'))
         f.write('// UART used for stdout (printf)\n')
