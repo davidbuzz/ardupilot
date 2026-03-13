@@ -74,6 +74,16 @@ const PIORXDriver::InstanceConfig PIORXDriver::_cfg_table[PIO_NUM_INSTANCES] = {
 // ChibiOS IRQ handlers (C linkage, vector table entries)
 // ---------------------------------------------------------------------------
 
+// Forward declarations suppress -Wmissing-declarations on the IRQ handlers below.
+// CH_IRQ_HANDLER(x) expands to 'extern "C" void x(void)'; the trailing
+// semicolons produce declarations rather than definitions.
+extern "C" {
+CH_IRQ_HANDLER(RP_PIO0_IRQ_0_HANDLER);
+CH_IRQ_HANDLER(RP_PIO0_IRQ_1_HANDLER);
+CH_IRQ_HANDLER(RP_PIO1_IRQ_0_HANDLER);
+CH_IRQ_HANDLER(RP_PIO1_IRQ_1_HANDLER);
+} // extern "C" (declarations)
+
 extern "C" {
 
 CH_IRQ_HANDLER(RP_PIO0_IRQ_0_HANDLER)
