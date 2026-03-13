@@ -1539,9 +1539,17 @@ INCLUDE common.ld
             devlist.append('HAL_SPI%u_CONFIG' % n)
             sck_pin = self.bylabel['SPI%s_SCK' % n]
             sck_line = self.make_pal_line(sck_pin.port, sck_pin.pin)
-            f.write(
-                '#define HAL_SPI%u_CONFIG { &SPID%u, %u, STM32_SPI_SPI%u_DMA_STREAMS, %s }\n'
-                % (n, n, n, n, sck_line))
+            if self.mcu_series.startswith('PICO2'):
+                # RP2350: DMA is managed internally by the SPIv1 LLD driver
+                # (channels assigned via RP_DMA_CHANNEL_ID_ANY in rp2350_mcuconf.h).
+                # SPIDriverInfo fields: {driver, busid, dma_ch_tx=0, dma_ch_rx=0, sck_line}
+                f.write(
+                    '#define HAL_SPI%u_CONFIG { &SPID%u, %u, 0, 0, %s }\n'
+                    % (n, n, n, sck_line))
+            else:
+                f.write(
+                    '#define HAL_SPI%u_CONFIG { &SPID%u, %u, STM32_SPI_SPI%u_DMA_STREAMS, %s }\n'
+                    % (n, n, n, n, sck_line))
         f.write('#define HAL_SPI_BUS_LIST %s\n\n' % ','.join(devlist))
         self.write_SPI_table(f)
 

@@ -70,14 +70,30 @@
 /*
  * SPI driver system settings.
  */
+#ifndef RP_SPI_USE_SPI0
 #define RP_SPI_USE_SPI0                     FALSE
+#endif
+#ifndef RP_SPI_USE_SPI1
 #define RP_SPI_USE_SPI1                     FALSE
+#endif
+#ifndef RP_SPI_SPI0_RX_DMA_CHANNEL
 #define RP_SPI_SPI0_RX_DMA_CHANNEL          RP_DMA_CHANNEL_ID_ANY
+#endif
+#ifndef RP_SPI_SPI0_TX_DMA_CHANNEL
 #define RP_SPI_SPI0_TX_DMA_CHANNEL          RP_DMA_CHANNEL_ID_ANY
+#endif
+#ifndef RP_SPI_SPI1_RX_DMA_CHANNEL
 #define RP_SPI_SPI1_RX_DMA_CHANNEL          RP_DMA_CHANNEL_ID_ANY
+#endif
+#ifndef RP_SPI_SPI1_TX_DMA_CHANNEL
 #define RP_SPI_SPI1_TX_DMA_CHANNEL          RP_DMA_CHANNEL_ID_ANY
+#endif
+#ifndef RP_SPI_SPI0_DMA_PRIORITY
 #define RP_SPI_SPI0_DMA_PRIORITY            1
+#endif
+#ifndef RP_SPI_SPI1_DMA_PRIORITY
 #define RP_SPI_SPI1_DMA_PRIORITY            1
+#endif
 #define RP_SPI_DMA_ERROR_HOOK(spip)
 
 #endif /* MCUCONF_H */

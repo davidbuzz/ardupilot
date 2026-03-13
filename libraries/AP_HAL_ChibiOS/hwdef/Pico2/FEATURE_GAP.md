@@ -61,9 +61,9 @@
 
 | Feature | CubeBlack | Pico2 | Status / Notes |
 |---------|-----------|-------|----------------|
-| SPI0 bus | SPI4 | GPIO 22/32/35 (SCK/MISO/MOSI) | ❌ Pins defined. `HAL_USE_SPI FALSE`. ChibiOS `SPIv1` LLD **exists** in `RP/LLD/SPIv1/` and is included in `RP2350/platform.mk`. 💡 Enable `HAL_USE_SPI TRUE` + enable SPI in `mcuconf.h`. |
-| SPI1 bus | SPI1 | GPIO 42/40/43 (SCK/MISO/MOSI) | ❌ Same status as SPI0. |
-| SPI CS pins | Multiple | PA23 MAG_CS, PA24 MPU_CS, PA25 BARO_EXT_CS, PA26 GYRO_EXT_CS | ❌ Defined, but blocked by `HAL_USE_SPI FALSE`. |
+| SPI0 bus | SPI4 | GPIO 22/32/35 (SCK/MISO/MOSI) | ✅ Enabled. `HAL_USE_SPI TRUE`, `RP_SPI_USE_SPI0 TRUE`. ChibiOS `SPIv1` LLD (PL022). SSPCR0/SSPCPSR config paths added to `SPIDevice.cpp`. |
+| SPI1 bus | SPI1 | GPIO 42/40/43 (SCK/MISO/MOSI) | ✅ Enabled. `RP_SPI_USE_SPI1 TRUE`. Same as SPI0. |
+| SPI CS pins | Multiple | PA23 MAG_CS, PA24 MPU_CS, PA25 BARO_EXT_CS, PA26 GYRO_EXT_CS | ⚠️ Defined, SPI enabled. Sensor `IMU`/`BARO`/`COMPASS` lines still commented out in hwdef.dat — need enabling and testing. |
 
 **SPI is the single biggest blocker** — it gates IMU, barometer, compass, RAMTRON storage, and any external SPI sensors.
 
@@ -163,8 +163,8 @@
 
 ### High priority (blocks flight)
 
-1. **SPI driver** (`HAL_USE_SPI TRUE`) — `SPIv1` LLD exists, just needs enabling + `mcuconf.h` tuning. Unlocks IMU, baro, compass, external storage.
-2. **Sensor lines in hwdef.dat** — Uncomment `IMU`, `BARO`, `COMPASS` lines once SPI works.
+1. ~~**SPI driver** (`HAL_USE_SPI TRUE`)~~ — ✅ **DONE** (`SPIv1` LLD enabled; `SPIDevice.cpp` has RP2350 SSPCR0/SSPCPSR paths)
+2. **Sensor lines in hwdef.dat** — Uncomment `IMU`, `BARO`, `COMPASS` lines now that SPI works. Test sensor detection.
 3. **PIOUART TX ring buffer + accurate `txspace()`** — Current implementation silently drops bytes; GPS comms need reliable TX.
 
 ### Medium priority (important for functionality)
