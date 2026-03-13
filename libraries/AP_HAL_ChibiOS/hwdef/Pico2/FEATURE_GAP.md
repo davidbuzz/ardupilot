@@ -42,7 +42,7 @@
 | Feature | CubeBlack | Pico2 | Status / Notes |
 |---------|-----------|-------|----------------|
 | RC input method | EICU timer (STM32-specific) | GPIO PAL callback | ✅ `SoftSigReaderRP2350.cpp` (89 lines) uses `palSetLineCallbackI` / `palEnableLineEventI` / `chVTGetSystemTimeX()`. Both edges captured, pulse widths decoded. GPIO 16 (PA16), `PULLDOWN`. |
-| SBUS / inverted input | Dedicated invert pin | — | ❌ No invert pin defined. Needs hardware inverter or bit-bang approach. |
+| SBUS / inverted input | Dedicated invert pin | — | ✅ GPIO INOVER via `IO_BANK0->GPIO[pad].CTRL`. `set_options(OPTION_RXINV)` sets `PAL_RP_IOCTRL_INOVER_INV` on the HW UART RX pad; `OPTION_TXINV` sets `PAL_RP_IOCTRL_OUTOVER_DRVINVPERI` on TX. `configure_parity(2)` and `set_stop_bits(2)` now stored and applied to `SIOConfig.UARTLCR_H` (`PEN|EPS|STP2`) in `_begin()`. SBUS works on UART0/1 with no external inverter. PIOUART-based SBUS (8E2 PIO program) not implemented. |
 | DSM / SRXL | Shares UART | Possible via PIOUART | ⚠️ Would work once PIOUART TX is fixed (these use half-duplex UART protocols). |
 
 ---
@@ -181,7 +181,7 @@
 
 9. **RTC** (`HAL_USE_RTC TRUE`) — Not applicable: RTCv1 LLD is RP2040-only; RP2350 uses POWMAN_TIMER. ArduPilot RTC via GPS time + `hrt_micros64()` offset works without hardware RTC.
 10. **GPT timers** (`HAL_USE_GPT TRUE`) — No GPT LLD for RP2350; TIMERv1 is the system-tick driver only.
-11. **SBUS invert** — Need hardware inverter or investigate RP2350 PIO for UART inversion.
+11. ~~**SBUS invert**~~ — ✅ **DONE** (hardware UART). GPIO INOVER bits set via `IO_BANK0->GPIO[pad].CTRL` in `set_options()`. Parity/stop bits applied in `_begin()` SIOConfig. SBUS on UART0/1 at 100kbps 8E2 inverted. PIOUART 8E2 deferred.
 12. **Gyro FFT** — Requires adapting `CMSIS-DSP` for RP2350; deferred.
 13. **DShot via PIO** — Complex custom PIO code needed; no ChibiOS driver.
 14. **SPI-mode SD card** (`HAL_USE_MMC_SPI`) — Possible once SPI works, but no SD slot on standard Pico2.

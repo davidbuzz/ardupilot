@@ -522,10 +522,20 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
             }
 #endif // HAL_UART_NODMA
 
-            // Build RP2350 SIO config: 8N1, FIFO enabled
+            // Build RP2350 SIO config with parity and stop bits applied.
+            // parity: 0=none, 1=odd, 2=even (base class). _cr2_options holds stop bits count.
+            uint32_t lcr_h = UART_UARTLCR_H_WLEN_8BITS | UART_UARTLCR_H_FEN;
+            if (parity == 2U) {
+                lcr_h |= UART_UARTLCR_H_PEN | UART_UARTLCR_H_EPS;  // even parity
+            } else if (parity == 1U) {
+                lcr_h |= UART_UARTLCR_H_PEN;  // odd parity
+            }
+            if (_cr2_options == 2U) {
+                lcr_h |= UART_UARTLCR_H_STP2;  // 2 stop bits
+            }
             SIOConfig siocfg = {
                 .baud      = _baudrate,
-                .UARTLCR_H = UART_UARTLCR_H_WLEN_8BITS | UART_UARTLCR_H_FEN,
+                .UARTLCR_H = lcr_h,
                 .UARTCR    = UART_UARTCR_RXE | UART_UARTCR_TXE | UART_UARTCR_UARTEN,
                 .UARTIFLS  = UART_UARTIFLS_RXIFLSEL_1_4F,
                 .UARTDMACR = 0,
@@ -1687,6 +1697,9 @@ void UARTDriver::set_stop_bits(int n)
         ((SerialDriver*)sdef.serial)->usart->CR1 &= ~USART_CR1_RXNEIE;
     }
 #endif
+#elif HAL_USE_SIO == TRUE
+    // RP2350: store stop bits count in _cr2_options (not used as STM32 bitmask).
+    _cr2_options = (n == 2) ? 2U : 1U;
 #endif // HAL_USE_SERIAL
 }
 
@@ -1898,6 +1911,29 @@ bool UARTDriver::set_options(uint16_t options)
     if (was_enabled) {
         sd->usart->CR1 |= USART_CR1_UE;
     }
+#elif HAL_USE_SIO == TRUE
+    // RP2350: use GPIO IO_BANK0 INOVER/OUTOVER bits to achieve UART line
+    // inversion without requiring an external hardware inverter chip.
+    arx_line = GPIO::resolve_alt_config(sdef.rx_line, PERIPH_TYPE::UART_RX, sdef.instance);
+    atx_line = GPIO::resolve_alt_config(sdef.tx_line, PERIPH_TYPE::UART_TX, sdef.instance);
+    if (arx_line != 0) {
+        const uint32_t pad = PAL_PAD(arx_line);
+        uint32_t ctrl = IO_BANK0->GPIO[pad].CTRL;
+        ctrl &= ~(3U << 16U);  // clear INOVER[17:16]
+        ctrl |= (options & OPTION_RXINV) ? PAL_RP_IOCTRL_INOVER_INV : PAL_RP_IOCTRL_INOVER_NOTINV;
+        IO_BANK0->GPIO[pad].CTRL = ctrl;
+    }
+    if (atx_line != 0) {
+        const uint32_t pad = PAL_PAD(atx_line);
+        uint32_t ctrl = IO_BANK0->GPIO[pad].CTRL;
+        ctrl &= ~(3U << 12U);  // clear OUTOVER[13:12]
+        ctrl |= (options & OPTION_TXINV) ? PAL_RP_IOCTRL_OUTOVER_DRVINVPERI : PAL_RP_IOCTRL_OUTOVER_DRVPERI;
+        IO_BANK0->GPIO[pad].CTRL = ctrl;
+    }
+    if (options & OPTION_SWAP) {
+        ret = false;  // pin swap not supported on RP2350 hardware UART
+    }
+    set_pushpull(options);
 #endif // HAL_USE_SERIAL == TRUE
     return ret;
 }
