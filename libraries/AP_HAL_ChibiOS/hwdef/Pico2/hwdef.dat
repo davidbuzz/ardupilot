@@ -80,12 +80,8 @@ OSCILLATOR_HZ 24000000
 # board. Refer to your MCU datasheet or examples from supported boards
 # in ChibiOS for the right values.
 
-# This is the STM32 timer that ChibiOS will use for the low level
-# driver. This must be a 32 bit timer. We currently only support
-# timers 2, 3, 4, 5 and 21. See hal_st_lld.c in ChibiOS for details.
-
-# ChibiOS system timer
-STM32_ST_USE_TIMER 5
+# RP2350 uses the TIMERv1 LLD (RP/LLD/TIMERv1/) for system ticks via
+# the ChibiOS SysTick mechanism. STM32_ST_USE_TIMER is not applicable.
 
 # Now the size of flash in kilobytes, for creating the ld.script.
 
