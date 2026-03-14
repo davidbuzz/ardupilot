@@ -152,6 +152,52 @@ lines in hwdef.dat to use it instead of flash.
 Flash `build/Pico2/bin/arducopter.elf` via SWD (SWCLK=GPIO0,
 SWDIO=GPIO1 via PC0/PC1 in hwdef) or the RP2350 UF2 bootloader.
 
+## setting up hardware debugging, using *two* Pico2Ws, one running debugprobe_on_pico2.uf2
+https://github.com/raspberrypi/debugprobe/releases/download/debugprobe-v2.3.0/debugprobe_on_pico2.uf2
+ as the debugger, and the other running ardupilot as the "target"
+
+ BOOTSEL flash the above file to a Pico2w, label it "debugger", and ..
+
+ holding a 2w with the cpu facing you, and the usb plug up, the top-left pins starting at the corner, we're interested, on the debugger in skipping two pins , then putting a wire on the next 5 pins.... 
+ pin1/GP0 skip
+ pin2/GP1 skip
+ pin3/GND use/GND
+ pin4/GP2 use/SWCLK
+ pin5/GP3 use/SWDIO
+ pin6/GP4 use/UART0RX to GP1
+ pin7/GP5 use/UART0TX to GP0
+
+Debugger(Probe) | Target-Pico-2w       | 	Notes
+pin4/GP2	    |       SWCLK          |	 Clock signal
+pin5/GP3	    |       SWDIO          |	 Data I/O
+pin3/GND        |   	GND	           |	Common ground is mandatory
+pin6/GP4        |   UART0RX/GP1/pin2   |	
+pin7/GP5        |   UART0TX/GP0/pin1   |	
+
+SWCLK/GND/SWDIO are found on the three pin header in the middle of the board, and if held in the orientation as described above, and left-to-right in that order...  SWCLK(left)/GND(middle)/SWDIO(right)
+
+
+todo document use of openocd here.
+
+## Firmware Flashing
+
+```bash
+./waf configure --board=Pico2 --bootloader
+[ Hold the BOOTSEL button on the Pico2 while plugging in USB,
+then release. The board will appear as a mass-storage device.]
+./waf bootloader --upload
+[ .uf2 bootloader will be uploaded for you and it will reboot, probably staying as a mass-storage device. ]
+
+./waf configure --board=Pico2
+./waf copter --upload
+[ If the board does not respond within 1-2 seconds, unplug and re-plug the USB connector ]
+   
+./waf copter        # (or plane, rover, sub, heli, etc.)
+```
+
+Flash `build/Pico2/bin/arducopter.elf` via SWD (SWCLK=GPIO0,
+SWDIO=GPIO1 via PC0/PC1 in hwdef) or the RP2350 UF2 bootloader.
+
 ## Known Limitations
 
 | Feature | Status |
