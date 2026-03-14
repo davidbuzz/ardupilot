@@ -458,6 +458,12 @@ define HAL_HAVE_SAFETY_SWITCH 0
 # No RAMTRON/FRAM fitted on Pico2; flash EFL storage is used instead.
 define HAL_WITH_RAMTRON 0
 
+# Enable MCU temperature monitoring using the RP2350 internal ADC channel 4
+# (temperature sensor). AnalogIn.cpp uses the RP2350-specific formula:
+#   T(°C) = 27 - (Vadc - 0.706) / 0.001721
+# This populates the `mcu_temperature()` API used by flight logging and GCS.
+define HAL_WITH_MCU_MONITORING 1
+
 # IMU temperature monitoring via HAL_HAVE_IMU_HEATER.
 # No physical heating element exists on the standard Pico2; HAL_HEATER_GPIO_PIN
 # is not defined, so no GPIO is toggled. Enabling this provides HEAT log

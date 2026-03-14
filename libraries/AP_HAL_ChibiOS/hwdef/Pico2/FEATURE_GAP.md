@@ -137,6 +137,7 @@
 | Crash dump | ✅ STM32-style crash registers | — | 🚫 `AP_CRASHDUMP_ENABLED 0`. RP2350 has no equivalent to STM32 crash dump registers. Would need custom fault handler to log to flash. Not planned. |
 | Gyro FFT / DSP | ✅ `HAL_WITH_DSP TRUE` | — | 🚫 `HAL_GYROFFT_ENABLED 0`, `HAL_WITH_DSP FALSE`. RP2350 Cortex-M33 has `CMSIS-DSP` library support, but the ArduPilot STM32-oriented DSP library integration is not adapted. Feasible but deferred. |
 | IMU heater | ✅ `HAL_HAVE_IMU_HEATER 1` | — | ✅ `HAL_HAVE_IMU_HEATER 1` defined. No physical heating element on standard Pico2; `HAL_HEATER_GPIO_PIN` not set so no GPIO is toggled. Enables HEAT log messages (1 Hz: `Temp/Targ/P/I/Out`), IMU temperature monitoring, and `BRD_IMU_TARGTEMP` arming-temperature check. Heating requires an external resistor + GPIO if added later. |
+| MCU temperature sensor | ✅ `HAL_WITH_MCU_MONITORING 1` (STM32H7) | ✅ `HAL_WITH_MCU_MONITORING 1` (RP2350) | ✅ `HAL_WITH_MCU_MONITORING 1` enabled. RP2350 ADC channel 4 (internal temperature sensor, `RP_ADC_TEMPERATURE_CHANNEL`) appended to ADC group 0 as virtual pin 253; `ts_enabled` set automatically when channel 4 appears in the round-robin mask. Formula: `T = 27 − (Vadc − 0.706) / 0.001721` (RP2350 datasheet §4.9.5). Populates `mcu_temperature()` API used by GCS and flight logging. +692 bytes flash. |
 
 ---
 
@@ -189,6 +190,7 @@
 20. ~~**Safety switch config**~~ — ✅ **DONE**. Corrected `HAL_HAVE_SAFETY_SWITCH 0` (was incorrectly set to 1; no physical safety pin on Pico2). `BOARD_SAFETY_ENABLE_DEFAULT` was already 0 so safety was forced off at boot regardless, but the flag was misleading and would cause `force_safety_on()` on disarm if `SAFETY_ON_DISARM` option enabled.
 21. ~~**HAL_CHIBIOS_ARCH_FMUV3 / board auto-detect**~~ — ✅ **DONE**. Removed incorrect `HAL_CHIBIOS_ARCH_FMUV3 1` (set via `undef`). Pico2 is not an FMUv3/Pixhawk2 board. That define caused `AP_FEATURE_BOARD_DETECT 1` which triggered spurious SPI WHOAMI probes for `mpu6000_ext`, `lsm9ds0_ext_am`, `icm20948_ext` etc. at every boot. Now set `AP_FEATURE_BOARD_DETECT 0` explicitly.
 23. ~~**HAL_WITH_RAMTRON disabled**~~ — ✅ **DONE**. No FRAM device fitted on Pico2. `HAL_WITH_RAMTRON 0` set explicitly; SPIDEV `ramtron` and `FRAM_CS` pin remain commented out. Saves 676 bytes flash.
+24. ~~**MCU temperature monitoring**~~ — ✅ **DONE**. `HAL_WITH_MCU_MONITORING 1` enabled. RP2350 internal ADC channel 4 (temperature sensor) added to ADC group 0 as virtual pin 253 in `AnalogIn.cpp`. `ts_enabled` set when channel 4 is in the round-robin mask. Temperature computed using RP2350 formula `T = 27 − (Vadc − 0.706) / 0.001721`. Exposed via `mcu_temperature()` API. `AnalogIn.h` guards updated so `HAL_NUM_ANALOG_INPUTS` stays 1 for RP2350. Costs +692 bytes flash.
 22. ~~**Solo/Oreo/SMBUS-Solo features disabled**~~ — ✅ **DONE**. `AP_NOTIFY_OREOLED_ENABLED`, `HAL_SOLO_GIMBAL_ENABLED`, `AP_BATTERY_SMBUS_SOLO_ENABLED` were inherited from CubeBlack and evaluated to `1` on Pico2 (4096KB > 1024KB). Explicitly set to 0. Saves **17,140 bytes** of flash (1,373,616 → 1,356,476 text bytes). These 3DR Solo-specific features have no hardware support on Pico2.
 19. ~~**IMU temperature monitoring**~~ — ✅ **DONE**. `HAL_HAVE_IMU_HEATER 1` enabled. No physical heating element; `HAL_HEATER_GPIO_PIN` not defined. Logs `HEAT` message at 1 Hz, provides `BRD_IMU_TARGTEMP` parameter. External heater can be wired if needed.
 12. **Gyro FFT** — Requires adapting `CMSIS-DSP` for RP2350; deferred.
@@ -212,7 +214,7 @@ All the changes described below have been applied:
 3. ✅ **`hwdef.dat`** — `IMU Invensense SPI:mpu9250`, `BARO MS5611 SPI:ms5611_ext`, `AP_COMPASS_PROBING_ENABLED 1` active.
 4. ✅ **`SPIDevice.cpp`** — RP2350 SSPCR0/SSPCPSR paths implemented, no silent stubs.
 5. ✅ **`I2CDevice.cpp`** — RP2350 baudrate path implemented.
-6. ✅ **`AnalogIn.cpp`** — RP2350 ADC round-robin path implemented.
+6. ✅ **`AnalogIn.cpp` / `AnalogIn.h`** — RP2350 ADC round-robin path implemented; MCU temperature sensor (ADC channel 4, `HAL_WITH_MCU_MONITORING 1`) added with RP2350-specific formula.
 
 ---
 
