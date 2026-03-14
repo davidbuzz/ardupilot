@@ -1,12 +1,13 @@
 # hw definition file for processing by chibios_hwdef.py
 # for bootloader for Pico2 board (Raspberry Pi RP2350)
 #
-# NOTE: The Raspberry Pi Pico 2 uses the RP2350 ROM bootloader (BOOTSEL
-# button → UF2 mode) and does not require a separate ArduPilot bootloader
-# stage.  The main application hwdef.dat sets FLASH_RESERVE_START_KB 0
-# so the application image starts at 0x10000000 directly.  This file is
-# a minimal placeholder for completeness; a full AP_Bootloader port for
-# RP2350 has not yet been implemented.
+# AP_Bootloader for RP2350.  Flash layout:
+#   0x10000000..0x10007FFF  bootloader (32 KB reserved, ~11 KB used)
+#   0x10008000..0x103FFFFF  application
+#
+# The bootloader accepts firmware via USB (MAVLink/DFU protocol) or UART0
+# and reflashes the application region, enabling repeated over-the-wire
+# updates without physically touching the board.
 
 # MCU class and specific type
 MCU PICO2 PICO2
@@ -17,14 +18,29 @@ APJ_BOARD_ID AP_HW_RASPBERRYPI_PICO2
 # crystal frequency
 OSCILLATOR_HZ 24000000
 
-# ChibiOS system timer
-STM32_ST_USE_TIMER 5
-
 # flash size
 FLASH_SIZE_KB 4096
 
-# application code starts at start of flash (no bootloader offset needed)
+# bootloader itself starts at 0x10000000 (no offset)
 FLASH_RESERVE_START_KB 0
+
+# maximum size of the bootloader binary in KB
+FLASH_BOOTLOADER_LOAD_KB 32
+
+# EFL driver required for RP2350 QSPI flash erase/write
+define HAL_USE_EFL                         TRUE
+define HAL_USE_WDG                         TRUE
+
+# RP2350 availability flag — used by common code (stm32_util.h, flash.c, etc.)
+define PIC02_AVAILABLE                     1
+
+# RP2350 uses SIO driver for UARTs (no hal_serial_lld for this MCU)
+define HAL_USE_PAL                         TRUE
+define HAL_USE_SIO                         TRUE
+define HAL_USE_SERIAL                      FALSE
+define HAL_USE_SERIAL_USB                  TRUE
+define HAL_USE_UART                        FALSE
+define RP_USB_USE_USB1                     TRUE
 
 # USB setup
 USB_STRING_MANUFACTURER "ArduPilot"
@@ -32,10 +48,16 @@ USB_STRING_MANUFACTURER "ArduPilot"
 # baudrate to run bootloader at on uarts
 define BOOTLOADER_BAUDRATE 115200
 
+# disable fastboot (uses stm32_was_watchdog_reset which does not exist on RP2350)
+define AP_FASTBOOT_ENABLED 0
+
+# MCU monitoring not needed in bootloader
+define HAL_WITH_MCU_MONITORING 0
+
 # uarts and USB to run bootloader protocol on
 SERIAL_ORDER OTG1 UART0
 
-# USB and GPIO pins
+# USB pins (virtual PB prefix used by chibios_hwdef.py for RP2350 USB)
 PB0 OTG_FS_DM OTG1
 PB1 OTG_FS_DP OTG1
 
@@ -49,7 +71,7 @@ PC1 SWDIO SWD
 PA12 UART0_TX UART0
 PA13 UART0_RX UART0
 
-# Peripheral enable (active LOW)
+# Peripheral power disabled during bootloader (active-LOW signal, HIGH = off)
 PA8 nVDD_5V_PERIPH_EN OUTPUT HIGH
 
 # CS pins held high in bootloader to avoid spurious SPI activity

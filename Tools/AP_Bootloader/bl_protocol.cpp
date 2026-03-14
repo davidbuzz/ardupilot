@@ -312,7 +312,8 @@ jump_to_app()
     
     led_set(LED_OFF);
 
-    // resetting the clocks is needed for loading NuttX
+    // resetting the clocks is needed for loading NuttX (STM32 only)
+#if !defined(RP2350)
 #if defined(STM32H7)
     rccDisableAPB1L(~0);
     rccDisableAPB1H(~0);
@@ -337,6 +338,7 @@ jump_to_app()
     rccResetOTG_HS();
 #endif
 #endif
+#endif // !defined(RP2350)
     
     // disable all interrupt sources
     port_disable();

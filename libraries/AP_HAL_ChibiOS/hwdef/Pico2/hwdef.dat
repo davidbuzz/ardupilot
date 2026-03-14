@@ -87,8 +87,8 @@ OSCILLATOR_HZ 24000000
 
 # flash size - Raspberry Pi Pico 2 (RP2350) comes standard with 4MB of onboard QSPI Flash memory
 FLASH_SIZE_KB 4096
-# RP2350 has no ArduPilot bootloader offset; flash image starts at 0x10000000
-FLASH_RESERVE_START_KB 0
+# AP_Bootloader occupies first 32 KB; application starts at 0x10008000
+FLASH_RESERVE_START_KB 32
 
 # Now define which UART is used for printf(). We rarely use printf()
 # in ChibiOS, so this is really only for debugging very early startup

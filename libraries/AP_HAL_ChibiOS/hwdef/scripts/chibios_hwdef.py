@@ -2002,7 +2002,11 @@ INCLUDE common.ld
                 devlist.append('(BaseChannel *)&SDU1')
             else:
                 snum = int(s[-1])
-                devlist.append('(BaseChannel *)&SD%u' % snum)
+                if self.mcu_series.startswith('PICO2'):
+                    # RP2350 uses the SIO driver (SIOD) not the Serial driver (SD)
+                    devlist.append('(BaseChannel *)&SIOD%u' % snum)
+                else:
+                    devlist.append('(BaseChannel *)&SD%u' % snum)
                 have_serial = True
         if len(devlist) > 0:
             f.write('#define BOOTLOADER_DEV_LIST %s\n' % ','.join(devlist))

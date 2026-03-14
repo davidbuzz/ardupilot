@@ -243,7 +243,11 @@ bool flash_write_buffer(uint32_t address, const uint32_t *v, uint8_t nwords)
 
 uint32_t get_mcu_id(void)
 {
+#if defined(RP2350)
+    return 0;
+#else
     return *(uint32_t *)DBGMCU_BASE;
+#endif
 }
 
 #define REVID_MASK	0xFFFF0000
@@ -251,6 +255,9 @@ uint32_t get_mcu_id(void)
 
 uint32_t get_mcu_desc(uint32_t max, uint8_t *revstr)
 {
+#if defined(RP2350)
+    return 0;
+#else
     uint32_t idcode = (*(uint32_t *)DBGMCU_BASE);
     int32_t mcuid = idcode & DEVID_MASK;
     uint16_t revid = ((idcode & REVID_MASK) >> 16);
@@ -283,6 +290,7 @@ uint32_t get_mcu_desc(uint32_t max, uint8_t *revstr)
     }
 
     return  strp - revstr;
+#endif
 }
 
 void led_on(unsigned led)
