@@ -459,11 +459,8 @@ define HAL_STORAGE_SIZE 16384
 # No physical safety switch on Pico2; safety is forced off at boot
 define HAL_HAVE_SAFETY_SWITCH 0
 
-# This enables the use of a ramtron device for storage, if one is
-# found on SPI. You must have a ramtron entry in the SPI device table.
-
-# Enable RAMTRON parameter storage.
-define HAL_WITH_RAMTRON 1
+# No RAMTRON/FRAM fitted on Pico2; flash EFL storage is used instead.
+define HAL_WITH_RAMTRON 0
 
 # IMU temperature monitoring via HAL_HAVE_IMU_HEATER.
 # No physical heating element exists on the standard Pico2; HAL_HEATER_GPIO_PIN
