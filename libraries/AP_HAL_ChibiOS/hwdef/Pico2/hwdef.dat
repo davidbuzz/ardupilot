@@ -493,18 +493,14 @@ define HAL_I2C_MAX_CLOCK 100000
 #DMA_NOSHARE USART6_TX ADC1
 #DMA_PRIORITY USART6* SPI*
 
-# List of files to put in ROMFS. For fmuv3 we need an IO firmware so
-# we can automatically update the IOMCU firmware on boot. The format
-# is "ROMFS ROMFS-filename source-filename". Paths are relative to the
-# ardupilot root.
-#ROMFS io_firmware.bin Tools/IO_Firmware/iofirmware_lowpolh.bin
-
-# for users running fmuv3 on their Solo:
-define AP_NOTIFY_OREOLED_ENABLED (BOARD_FLASH_SIZE > 1024)
-define HAL_SOLO_GIMBAL_ENABLED (HAL_MOUNT_ENABLED && BOARD_FLASH_SIZE > 1024)
+# Pico2 is not a 3DR Solo; disable Solo/Oreo-specific features explicitly
+# (these were inherited from the CubeBlack hwdef and would be enabled on
+# Pico2 since BOARD_FLASH_SIZE=4096 > 1024).
+define AP_NOTIFY_OREOLED_ENABLED 0
+define HAL_SOLO_GIMBAL_ENABLED 0
 
 undef AP_BATTERY_SMBUS_SOLO_ENABLED
-define AP_BATTERY_SMBUS_SOLO_ENABLED (AP_BATTERY_SMBUS_ENABLED && BOARD_FLASH_SIZE > 1024)
+define AP_BATTERY_SMBUS_SOLO_ENABLED 0
 
 # RP2350 does not have STM32-style crash dump support or DSP library
 define AP_CRASHDUMP_ENABLED 0
