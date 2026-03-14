@@ -454,8 +454,8 @@ define HAL_CHIBIOS_ARCH_FMUV3 1
 # available (in bytes).
 define HAL_STORAGE_SIZE 16384
 
-# allow to have have a dedicated safety switch pin
-define HAL_HAVE_SAFETY_SWITCH 1
+# No physical safety switch on Pico2; safety is forced off at boot
+define HAL_HAVE_SAFETY_SWITCH 0
 
 # This enables the use of a ramtron device for storage, if one is
 # found on SPI. You must have a ramtron entry in the SPI device table.
