@@ -130,7 +130,7 @@ cd ardupilot
 ./waf configure --board sitl
 
 # Build a vehicle
-./waf copter          # or: plane, rover, sub, heli, antennatracker
+./waf copter -j12          # or: plane, rover, sub, heli, antennatracker
 
 # Build a specific test
 ./waf --targets tests/test_math
@@ -287,7 +287,7 @@ Review the FEATURE_GAP.md for next thing to implement, and find your next pieve 
 
 1. **Fork and branch**: Work on a feature branch in your fork, not on `master`.
 2. **Rebase on master**: Ensure your branch is up to date with the latest `master`.
-3. **Build locally**: `./waf configure --board sitl && ./waf copter` (or the relevant vehicle), if generic feature/bug fix. Build for the specific board, instead of SITL, if a hardware port.
+3. **Build locally**: `./waf configure --board sitl && ./waf copter -j12` (or the relevant vehicle), if generic feature/bug fix. Build for the specific board, instead of SITL, if a hardware port.
 4. **Run relevant tests**: At minimum, run SITL for the affected vehicle and any unit tests in the modified library and related autotests.
 5. **Check formatting**: Check the contribution matches the file code style.
 6. **Check Python linting**: Run `flake8` on modified Python files (if marked `AP_FLAKE8_CLEAN`).
