@@ -301,6 +301,34 @@ void __early_init(void) {
 }
 
 void __late_init(void) {
+
+#if PIC02_AVAILABLE == TRUE
+  /*
+   * The bootloader leaves USB running (NVIC enabled, controller active).
+   * Before halInit() zeroes the USB driver struct (USBD1.config=NULL),
+   * we must prevent the USB ISR from firing, otherwise the first SOF
+   * from the host hits usb_lld_serve_interrupt() with a NULL config
+   * pointer, which reads ROM[12] (the ROM HardFault vector) and jumps
+   * there, ending in the ROM debug BKPT trap at 0x000002f8.
+   *
+   * Fix: disable the USB NVIC IRQ and hold USB in peripheral reset
+   * right here. usb_lld_start() will unreset and re-enable it later.
+   */
+  nvicDisableVector(RP_USBCTRL_IRQ_NUMBER);
+  hal_lld_peripheral_reset(RESETS_ALLREG_USBCTRL);
+
+  /*
+   * RP2350 UART RX pads: at chip reset PADS_BANK0 has ISO=1 + PDE=1 + IE=0.
+   * Setting 0x5A (PUE+IE+SCHMITT) prevents any early glitch on the lines
+   * before halInit() runs.  Note: halInit() → pal_lld_init() will overwrite
+   * these with PAL_MODE_ALTERNATE_UART (IE only, no PUE).  The permanent
+   * pull-up fix that prevents the UART BREAK → IRQ storm is applied in
+   * UARTDriver::_begin() via palLineSetPushPull() before sioStart().
+   */
+  PADS_BANK0->GPIO[13] = 0x5AU;  /* GPIO13 = UART0_RX */
+  PADS_BANK0->GPIO[11] = 0x5AU;  /* GPIO11 = UART1_RX */
+#endif
+
   halInit();
   chSysInit();
 

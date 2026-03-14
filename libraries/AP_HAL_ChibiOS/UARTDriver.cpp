@@ -548,6 +548,19 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
                 siocfg.UARTDMACR |= UART_UARTDMACR_TXDMAE;
             }
 #endif // HAL_UART_NODMA
+            /*
+             * RP2350: PAL_MODE_ALTERNATE_UART only sets IE (bit 6) in the pad
+             * register — no pull-up.  With nothing connected, GPIO13 (UART0_RX)
+             * floats and can sit LOW, which the UART hardware interprets as a
+             * permanent BREAK condition.  UART0 is IRQ33; if it fires continuously
+             * at the same priority as USB (IRQ14) it consumes enough CPU to prevent
+             * the USB ISR from meeting its sub-54 µs response deadline during
+             * enumeration.  Set PUE before sioStart() / nvicEnableVector() so the
+             * line is already pulled HIGH (IDLE) the moment the IRQ is unmasked.
+             */
+            if (sdef.rx_line != 0) {
+                palLineSetPushPull(sdef.rx_line, PAL_PUSHPULL_PULLUP);
+            }
             sioStart((SIODriver*)sdef.serial, &siocfg);
 
 #ifndef HAL_UART_NODMA
