@@ -87,8 +87,9 @@ OSCILLATOR_HZ 24000000
 
 # flash size - Raspberry Pi Pico 2 (RP2350) comes standard with 4MB of onboard QSPI Flash memory
 FLASH_SIZE_KB 4096
-# AP_Bootloader occupies first 32 KB; application starts at 0x10008000
-FLASH_RESERVE_START_KB 32
+# Flash layout: BL(16KB) + Storage(32KB) + App; application starts at 0x1000C000
+# Storage uses QUAD_PAGE: 2 halves × 4×4KB = 32KB total (0x10004000-0x1000BFFF)
+FLASH_RESERVE_START_KB 48
 
 # Now define which UART is used for printf(). We rarely use printf()
 # in ChibiOS, so this is really only for debugging very early startup
@@ -448,9 +449,9 @@ SPIDEV icm20602_ext   SPI0 DEVID4  GYRO_EXT_CS  MODE3  4*MHZ  8*MHZ
 undef HAL_CHIBIOS_ARCH_FMUV3
 define AP_FEATURE_BOARD_DETECT 0
 
-# We need to tell HAL_ChibiOS/Storage.cpp how much storage is
-# available (in bytes).
-define HAL_STORAGE_SIZE 16384
+# Flash parameter storage: 8KB fits within one 16KB QUAD_PAGE logical half.
+# (reserve_size ~8512 bytes < sector_size 16384 — compaction works correctly)
+define HAL_STORAGE_SIZE 8192
 
 # No physical safety switch on Pico2; safety is forced off at boot
 define HAL_HAVE_SAFETY_SWITCH 0
@@ -539,17 +540,13 @@ define HAL_USE_CRY                         FALSE
 define HAL_USE_DAC                         FALSE
 define HAL_USE_EFL                         TRUE
 # STORAGE_FLASH_PAGE: start of flash sector group used for parameter storage.
-# AP_FLASH_STORAGE_QUAD_PAGE: aggregate 4x4KB physical sectors into one 16KB logical sector.
-#   Two logical sectors are needed for wear leveling: 2 x 4 x 4KB = 8 physical pages = 32KB total.
-#   Pages 1016-1023 (last 32KB of 4MB flash = 0x10FF8000-0x10FFFFFF).
-# reserve_size for 8KB storage (F4 type, max_write=64): (128*66)+64 = 8512 bytes.
-#   With QUAD_PAGE: sector_size = 16384 > reserve_size (8512) -- compaction works correctly.
-#   With DOUBLE_PAGE: sector_size = 8192 < reserve_size (8512) -- sector always "full", broken.
-define STORAGE_FLASH_PAGE 1016
+# Placed immediately after the bootloader (page 4 = 16KB offset = 0x10004000).
+# AP_FLASH_STORAGE_QUAD_PAGE: aggregate 4×4KB physical sectors into one 16KB half.
+#   Two halves: pages 4-7 (0x10004000-0x10007FFF) + pages 8-11 (0x10008000-0x1000BFFF) = 32KB.
+# reserve_size ~8512 bytes < sector_size 16384 — wear-leveling compaction works correctly.
+# DOUBLE_PAGE (8KB half) is broken: reserve_size (8512) > sector_size (8192).
+STORAGE_FLASH_PAGE 4
 define AP_FLASH_STORAGE_QUAD_PAGE 1
-# HAL_STORAGE_SIZE: 8KB fits within one 16KB logical storage sector (with room for write log)
-undef HAL_STORAGE_SIZE
-define HAL_STORAGE_SIZE 8192
 define HAL_USE_GPT                         FALSE
 define HAL_USE_I2S                         FALSE
 

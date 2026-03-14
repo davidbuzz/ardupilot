@@ -784,8 +784,8 @@ class ChibiOSHWDef(hwdef.HWDef):
         mcu_series = self.mcu_series
         mcu_type = self.mcu_type
         if mcu_series.startswith('PICO2'):# uses 4 KB sectors for erasing but as its qspi its slow ish.
-            return [1] * self.get_config('FLASH_SIZE_KB', type=int)
-            #return [4] * (self.get_config('FLASH_SIZE_KB', type=int)//4)
+            #return [1] * self.get_config('FLASH_SIZE_KB', type=int)
+            return [4] * (self.get_config('FLASH_SIZE_KB', type=int)//4)
         # STM32 flash page layouts
         if mcu_series.startswith('STM32F4') or mcu_series.startswith('CKS32F4'):
             if self.get_config('FLASH_SIZE_KB', type=int) == 512:
@@ -872,7 +872,9 @@ class ChibiOSHWDef(hwdef.HWDef):
         storage_flash_page = self.get_storage_flash_page()
         pages = self.get_flash_pages_sizes()
         page_size = pages[storage_flash_page] * 1024
-        if self.intdefines.get('AP_FLASH_STORAGE_DOUBLE_PAGE', 0) == 1:
+        if self.intdefines.get('AP_FLASH_STORAGE_QUAD_PAGE', 0) == 1:
+            page_size *= 4
+        elif self.intdefines.get('AP_FLASH_STORAGE_DOUBLE_PAGE', 0) == 1:
             page_size *= 2
         storage_size = self.intdefines.get('HAL_STORAGE_SIZE', None)
         if storage_size is None:
