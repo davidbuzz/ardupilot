@@ -445,10 +445,12 @@ SPIDEV icm20602_ext   SPI0 DEVID4  GYRO_EXT_CS  MODE3  4*MHZ  8*MHZ
 #SPIDEV clock8   SPI0 DEVID5  MPU_EXT_CS   MODE0  8*MHZ 8*MHZ     # gives 5.5MHz
 #SPIDEV clock16  SPI0 DEVID5  MPU_EXT_CS   MODE0  16*MHZ 16*MHZ   # gives 10.6MHz
 
-# This adds a C define which sets up the ArduPilot architecture
-# define. Any line starting with 'define' is copied literally as
-# a #define in the hwdef.h header.
-define HAL_CHIBIOS_ARCH_FMUV3 1
+# Pico2 is not an FMUv3/Pixhawk2 board; undefine FMUv3 board-detect
+# to avoid spurious SPI WHOAMI probes for mpu6000_ext / lsm9ds0_ext etc.
+# AP_FEATURE_BOARD_DETECT derives from HAL_CHIBIOS_ARCH_FMUV3 via
+# AP_BoardConfig_config.h; explicitly setting it 0 bypasses that guard.
+undef HAL_CHIBIOS_ARCH_FMUV3
+define AP_FEATURE_BOARD_DETECT 0
 
 # We need to tell HAL_ChibiOS/Storage.cpp how much storage is
 # available (in bytes).
