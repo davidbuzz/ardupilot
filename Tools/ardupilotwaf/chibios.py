@@ -168,22 +168,24 @@ class upload_fw_pico2(Task.Task):
 
     def run(self):
         elf_path = self.inputs[0].abspath()
-        # Place UF2 alongside the ELF in the bin/ directory
+        # Place UF2 alongside the ELF
         uf2_path = os.path.splitext(elf_path)[0] + '.uf2'
         if not uf2_path.endswith('.uf2'):
             uf2_path = elf_path + '.uf2'
 
         picotool = self.ensure_picotool()
 
-        # Convert ELF to UF2; use -t elf since the file has no .elf extension
-        print("Converting ELF to UF2: %s -> %s" % (elf_path, uf2_path))
+        # Convert BL ELF to UF2; use -t elf since the file has no .elf extension
+        print("Converting bootloader ELF to UF2: %s -> %s" % (elf_path, uf2_path))
         ret = self.exec_command([picotool, 'uf2', 'convert', elf_path, '-t', 'elf', uf2_path])
         if ret != 0:
             print("Error: picotool uf2 convert failed")
             return ret
 
-        print("\nUploading to Pico2/RP2350...")
-        print("NOTE: Board must be in BOOTSEL mode (hold BOOTSEL button while connecting USB)\n")
+        print("\n*** BOOTLOADER FIRST-TIME FLASH ***")
+        print("Hold the BOOTSEL button on the Pico2 while plugging in USB,")
+        print("then release. The board will appear as a mass-storage device.")
+        print("Flashing bootloader UF2 now...\n")
         return self.exec_command([picotool, 'load', '-v', '-x', uf2_path, '-f'])
 
     def exec_command(self, cmd, **kw):
@@ -191,7 +193,7 @@ class upload_fw_pico2(Task.Task):
         return super(upload_fw_pico2, self).exec_command(cmd, **kw)
 
     def keyword(self):
-        return "Uploading (Pico2)"
+        return "Uploading Bootloader (UF2/BOOTSEL)"
 
 class set_default_parameters(Task.Task):
     color='CYAN'
@@ -536,10 +538,13 @@ def chibios_firmware(self):
             hex_task.set_run_after(generate_bin_task)
         
     if self.bld.options.upload:
-        if 'pico2' in self.env.BOARD.lower():
+        if 'pico2' in self.env.BOARD.lower() and self.bld.env.BOOTLOADER:
+            # First-time BL flash: convert to UF2 and load via picotool (requires BOOTSEL mode)
             _upload_task = self.create_task('upload_fw_pico2', src=link_output)
             _upload_task.set_run_after(generate_apj_task)
         else:
+            # App upload (or non-pico2 board): use standard AP uploader.py (MAVLink BL protocol)
+            # On Pico2 this requires the AP_Bootloader to already be installed.
             _upload_task = self.create_task('upload_fw', src=apj_target)
             _upload_task.set_run_after(generate_apj_task)
 
