@@ -110,7 +110,7 @@
 | Feature | CubeBlack | Pico2 | Status / Notes |
 |---------|-----------|-------|----------------|
 | Flash parameter storage | RAMTRON (FRAM) SPI preferred | EFL flash sectors 1016–1023 | ✅ `AP_FLASH_STORAGE_QUAD_PAGE 1` — 4×4KB physical sectors per logical sector = 16KB per half. Physical sectors 1016–1023 (last 32KB of 4MB). `reserve_size` (8512 bytes) < `sector_size` (16384 bytes); wear-leveling compaction is correct. Previous `AP_FLASH_STORAGE_DOUBLE_PAGE 1` (8KB sectors) was broken: `reserve_size` (8512) > `sector_size` (8192) caused sector to always appear full. Wear is higher than FRAM but functional. |
-| RAMTRON FRAM | SPI DEVID10 `FRAM_CS` | `ramtron` SPIDEV commented out | ❌ `HAL_WITH_RAMTRON 1` defined but SPIDEV line commented out. SPI is now enabled (`HAL_USE_SPI TRUE`); if an external FRAM is wired, uncomment the `ramtron` SPIDEV line. |
+| RAMTRON FRAM | SPI DEVID10 `FRAM_CS` | Not fitted | ✅ `HAL_WITH_RAMTRON 0` — no FRAM device on Pico2. SPIDEV `ramtron` line and `FRAM_CS` pin remain commented out. To add external FRAM: uncomment both lines and set `HAL_WITH_RAMTRON 1`. |
 | Storage size | 16384 bytes | 8192 bytes | ⚠️ Half the CubeBlack. Constrained by RP2350 4KB flash page size. Increasing beyond 8192 would require an even larger sector multiplier (> 4×) for the reserve_size to remain below sector_size. |
 | microSD card | SDIO-based | No SDIO on Pico2 | 🚫 No hardware SDIO pins. `HAL_OS_FATFS_IO 0`. Could add SPI-mode SD card via `HAL_USE_MMC_SPI` once SPI works, but not currently planned. |
 | ROMFS | IO firmware embedded | Binary data embedded | ✅ `AP_FILESYSTEM_ROMFS_ENABLED 1` works. No IO firmware needed (no IOMCU). |
@@ -188,6 +188,7 @@
 18. ~~**ICM20948 (Invensensev2) probe**~~ — ✅ **DONE**. Added `IMU Invensensev2 SPI:icm20948 ROTATION_NONE` probe on MPU_CS. Handles ICM20948 + AK09916 integrated magnetometer. Gen-v1 (`Invensense`) probe runs first; Invensensev2 matches if gen-v1 absent.
 20. ~~**Safety switch config**~~ — ✅ **DONE**. Corrected `HAL_HAVE_SAFETY_SWITCH 0` (was incorrectly set to 1; no physical safety pin on Pico2). `BOARD_SAFETY_ENABLE_DEFAULT` was already 0 so safety was forced off at boot regardless, but the flag was misleading and would cause `force_safety_on()` on disarm if `SAFETY_ON_DISARM` option enabled.
 21. ~~**HAL_CHIBIOS_ARCH_FMUV3 / board auto-detect**~~ — ✅ **DONE**. Removed incorrect `HAL_CHIBIOS_ARCH_FMUV3 1` (set via `undef`). Pico2 is not an FMUv3/Pixhawk2 board. That define caused `AP_FEATURE_BOARD_DETECT 1` which triggered spurious SPI WHOAMI probes for `mpu6000_ext`, `lsm9ds0_ext_am`, `icm20948_ext` etc. at every boot. Now set `AP_FEATURE_BOARD_DETECT 0` explicitly.
+23. ~~**HAL_WITH_RAMTRON disabled**~~ — ✅ **DONE**. No FRAM device fitted on Pico2. `HAL_WITH_RAMTRON 0` set explicitly; SPIDEV `ramtron` and `FRAM_CS` pin remain commented out. Saves 676 bytes flash.
 22. ~~**Solo/Oreo/SMBUS-Solo features disabled**~~ — ✅ **DONE**. `AP_NOTIFY_OREOLED_ENABLED`, `HAL_SOLO_GIMBAL_ENABLED`, `AP_BATTERY_SMBUS_SOLO_ENABLED` were inherited from CubeBlack and evaluated to `1` on Pico2 (4096KB > 1024KB). Explicitly set to 0. Saves **17,140 bytes** of flash (1,373,616 → 1,356,476 text bytes). These 3DR Solo-specific features have no hardware support on Pico2.
 19. ~~**IMU temperature monitoring**~~ — ✅ **DONE**. `HAL_HAVE_IMU_HEATER 1` enabled. No physical heating element; `HAL_HEATER_GPIO_PIN` not defined. Logs `HEAT` message at 1 Hz, provides `BRD_IMU_TARGTEMP` parameter. External heater can be wired if needed.
 12. **Gyro FFT** — Requires adapting `CMSIS-DSP` for RP2350; deferred.
@@ -227,4 +228,5 @@ All `#warning` directives that fired during a `./waf copter` clean build for Pic
 | `SPIDevice.cpp` | `scr -= 1` made actual SPI freq exceed target | Removed erroneous `scr -= 1` from RP2350 `derive_freq_flag_bus()` path |
 
 **Remaining warning:** None from ArduPilot code. ChibiOS submodule (`rp_isr.h`) itself had -Wmissing-declarations for these same vectors — this was the root cause; resolved by adding the forward declarations in PIOUART.cpp.
+
 
