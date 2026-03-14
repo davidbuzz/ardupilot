@@ -139,7 +139,7 @@
 | GPT (general purpose timers) | ✅ | — | ⚠️ `HAL_USE_GPT FALSE`. ChibiOS `TIMERv1` LLD (`RP/LLD/TIMERv1/`) contains the system-tick driver (`hal_st_lld`), not a GPT driver. No GPT LLD exists for RP2350. GPT not currently used by ArduPilot on this target. |
 | Crash dump | ✅ STM32-style crash registers | — | 🚫 `AP_CRASHDUMP_ENABLED 0`. RP2350 has no equivalent to STM32 crash dump registers. Would need custom fault handler to log to flash. Not planned. |
 | Gyro FFT / DSP | ✅ `HAL_WITH_DSP TRUE` | — | 🚫 `HAL_GYROFFT_ENABLED 0`, `HAL_WITH_DSP FALSE`. RP2350 Cortex-M33 has `CMSIS-DSP` library support, but the ArduPilot STM32-oriented DSP library integration is not adapted. Feasible but deferred. |
-| IMU heater | ✅ `HAL_HAVE_IMU_HEATER 1` | — | ❌ Not defined. Could be added as a PWM output + temperature control loop once ADC and IMU work. |
+| IMU heater | ✅ `HAL_HAVE_IMU_HEATER 1` | — | ✅ `HAL_HAVE_IMU_HEATER 1` defined. No physical heating element on standard Pico2; `HAL_HEATER_GPIO_PIN` not set so no GPIO is toggled. Enables HEAT log messages (1 Hz: `Temp/Targ/P/I/Out`), IMU temperature monitoring, and `BRD_IMU_TARGTEMP` arming-temperature check. Heating requires an external resistor + GPIO if added later. |
 
 ---
 

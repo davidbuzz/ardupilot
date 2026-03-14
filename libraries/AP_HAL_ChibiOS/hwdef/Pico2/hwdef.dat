@@ -463,9 +463,11 @@ define HAL_HAVE_SAFETY_SWITCH 1
 # Enable RAMTRON parameter storage.
 define HAL_WITH_RAMTRON 1
 
-# Setup for the possibility of an IMU heater ?
-# an IMU heater.
-#define HAL_HAVE_IMU_HEATER 1
+# IMU temperature monitoring via HAL_HAVE_IMU_HEATER.
+# No physical heating element exists on the standard Pico2; HAL_HEATER_GPIO_PIN
+# is not defined, so no GPIO is toggled. Enabling this provides HEAT log
+# messages (1 Hz) and allows BRD_IMU_TARGTEMP arming-temperature checks.
+define HAL_HAVE_IMU_HEATER 1
 
 # No microSD/SDIO on Pico2. HAL_USE_MMC_SPI could be enabled if an SPI-mode
 # SD card is wired to a free SPI bus, but no SD slot exists on standard Pico2.
