@@ -411,7 +411,7 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
 #elif defined(STM32F1) || defined(STM32F4)
                     dmaStreamSetPeripheral(rxdma, &((SerialDriver*)sdef.serial)->usart->DR);
 #else
-                    #warning "DMA peripheral address not set for this platform buzz todo?"
+                    #warning "DMA RX peripheral address not defined for this STM32 variant; add a dmaStreamSetPeripheral call to match the USART data register name"
 #endif // STM32F7
 #if STM32_DMA_SUPPORTS_DMAMUX
                     dmaSetRequestSource(rxdma, sdef.dma_rx_channel_id);
@@ -610,7 +610,7 @@ void UARTDriver::dma_tx_allocate(Shared_DMA *ctx)
 #elif defined(STM32F1) || defined(STM32F4)
     dmaStreamSetPeripheral(txdma, &((SerialDriver*)sdef.serial)->usart->DR);
 #else
-    #warning "DMA peripheral address not set for this platform buzz todo?"
+    #warning "DMA TX peripheral address not defined for this STM32 variant; add a dmaStreamSetPeripheral call to match the USART data register name"
 #endif // STM32F7
 #if STM32_DMA_SUPPORTS_DMAMUX
     dmaSetRequestSource(txdma, sdef.dma_tx_channel_id);
