@@ -24,9 +24,6 @@
 | Hardware UART0 (SERIAL1) | USART2 | UART0 (GPIO 12/13) | ✅ Working via `HAL_USE_SIO TRUE` → `SIODriver` (UARTDriver.cpp has `HAL_USE_SIO` paths). |
 | Hardware UART1 (SERIAL2) | USART3 | UART1 (GPIO 10/11) | ✅ Working via SIO. |
 | Additional hardware UARTs | UART4, UART7, UART8, USART6 (IOMCU) | — | 🚫 RP2350 only has 2 hardware UARTs. Covered instead by PIOUART. |
-
-
-
 | PIOUART0 (SERIAL3) | N/A | GPIO 14/17 | ✅ RX via PIO ISR → ring buffer works. TX now uses a 512-byte software ring buffer; `_write()` enqueues to ring buffer and drains opportunistically; `txspace()` returns ring buffer free space. `_drain_tx_fifo()` uses `FLEVEL` register for accurate TX FIFO fill level. |
 | PIOUART1 (SERIAL4) | N/A | GPIO 19/20 | ✅ Same as PIOUART0. |
 | PIOUART2 (SERIAL5) | N/A | GPIO 21/27 | ✅ Same as PIOUART0. |
