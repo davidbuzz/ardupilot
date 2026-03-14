@@ -1,617 +1,168 @@
-# CubeBlack Flight Controller
+# Raspberry Pi Pico 2 (RP2350) ArduPilot Port
 
-The CubePilot CubeBlack flight controller is sold by a range of resellers
-listed on the
-[CubePilot website](http://cubepilot.org)
+The Pico2 target runs ArduPilot on the Raspberry Pi Pico 2 module
+(RP2350 Cortex-M33 @ 150 MHz). The hwdef.dat is designed for a
+carrier board that provides SPI/I2C sensors and exposes the RP2350's
+full GPIO range including pins above GPIO29 (available on the Pico2
+castellated edges).
 
 ## Features
 
- - STM32F427 microcontroller
- - Two MPU9250 and one LSM303D/L3GD20 IMUs
- - internal heater for IMU temperature control
- - internal vibration isolation for first two IMUs
- - MS5611 SPI barometer
- - builtin SPI LSM303D magnetometer
- - microSD card slot
- - 5 UARTs plus USB
- - 14 PWM outputs
- - I2C and CAN ports
- - Spektrum satellite connector
- - External Buzzer
- - builtin RGB LED
- - external safety Switch
- - voltage monitoring for servo rail and Vcc
- - two dedicated power input ports for external power bricks
- - external USB connectors (micro USB and JST GH)
-
-## Pinout
-
-![CubeBlack Board](CubeBlack-pinout.jpg "CubeBlack")
-
-On each connector the red dot indicates pin 1.
+- RP2350 dual-core Cortex-M33 @ 150 MHz (ArduPilot uses one core)
+- 520 KB SRAM
+- 4 MB external QSPI flash (parameter storage in last 32 KB)
+- USB CDC serial (SERIAL0)
+- 2 hardware UARTs + 3 PIO UARTs (5 telemetry/GPS ports)
+- 8 PWM outputs (GPIO 0–7, 4 PWM slices × 2 channels)
+- SPI0 and SPI1 buses for IMU, barometer, and compass sensors
+- I2C1 bus (GPIO 15/18) for external compass / GPS
+- 2 ADC channels for battery voltage and current sensing
+- RC input via GPIO PAL callback (GPIO 16, PULLDOWN)
+- SBUS/inverted UART on UART0/UART1 via hardware INOVER
+- Watchdog (2 s timeout)
+- IMU temperature monitoring (HEAT log messages)
 
 ## UART Mapping
 
- - SERIAL0 -> USB
- - SERIAL1 -> UART2 (Telem1)
- - SERIAL2 -> UART3 (Telem2)
- - SERIAL3 -> UART4 (GPS)
- - SERIAL4 -> UART8 (GPS2)
- - SERIAL5 -> UART7 (spare, CONS)
+| Serial port | Function | GPIO (Pico2 physical pin) |
+|-------------|----------|--------------------------|
+| SERIAL0 | USB / console | USB connector |
+| SERIAL1 | Telem1 / GPS | TX=GPIO12 (pin 16), RX=GPIO13 (pin 17) |
+| SERIAL2 | Telem2 | TX=GPIO10 (pin 14), RX=GPIO11 (pin 15) |
+| SERIAL3 | GPS / spare (PIOUART0) | TX=GPIO14 (pin 19), RX=GPIO17 (pin 22) |
+| SERIAL4 | spare (PIOUART1) | TX=GPIO19 (pin 25), RX=GPIO20 (pin 26) |
+| SERIAL5 | spare (PIOUART2) | TX=GPIO21 (pin 27), RX=GPIO27 (pin 32) |
 
-The Telem1 and Telem2 ports have RTS/CTS pins, the other UARTs do not
-have RTS/CTS.
-
-The CONS port was originally used as a debug console, but is now a
-general purpose UART (debug output is now on USB).
-
-## Connectors
-
-Unless noted otherwise all connectors are JST GH
-
-### TELEM1, TELEM2 ports
-
-   <table border="1" class="docutils">
-   <tbody>
-   <tr>
-   <th>Pin </th>
-   <th>Signal </th>
-   <th>Volt </th>
-   </tr>
-   <tr>
-   <td>1 (red)</td>
-   <td>VCC</td>
-   <td>+5V</td>
-   </tr>
-   <tr>
-   <td>2 (blk)</td>
-   <td>TX (OUT)</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>3 (blk)</td>
-   <td>RX (IN)</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>4 (blk)</td>
-   <td>CTS</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>5 (blk)</td>
-   <td>RTS</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>6 (blk)</td>
-   <td>GND</td>
-   <td>GND</td>
-   </tr>
-   </tbody>
-   </table>
-
-
-### GPS1 port
-
-   <table border="1" class="docutils">
-   <tbody>
-   <tr>
-   <th>Pin</th>
-   <th>Signal</th>
-   <th>Volt</th>
-   </tr>
-   <tr>
-   <td>1 (red)</td>
-   <td>VCC</td>
-   <td>+5V</td>
-   </tr>
-   <tr>
-   <td>2 (blk)</td>
-   <td>TX (OUT)</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>3 (blk)</td>
-   <td>RX (IN)</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>4 (blk)</td>
-   <td>SCL I2C1</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>5 (blk)</td>
-   <td>SDA I2C1</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>6 (blk)</td>
-   <td>Button</td>
-   <td>GND</td>
-   </tr>
-   <tr>
-   <td>7 (blk)</td>
-   <td>button LED</td>
-   <td>GND</td>
-   </tr>
-   <tr>
-   <td> (blk)</td>
-   <td>GND</td>
-   <td>GND</td>
-   </tr>
-   </tbody>
-   </table>
-
-
-
-### GPS2 port
-
-   <table border="1" class="docutils">
-   <tbody>
-   <tr>
-   <th>Pin</th>
-   <th>Signal</th>
-   <th>Volt</th>
-   </tr>
-   <tr>
-   <td>1 (red)</td>
-   <td>VCC</td>
-   <td>+5V</td>
-   </tr>
-   <tr>
-   <td>2 (blk)</td>
-   <td>TX (OUT)</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>3 (blk)</td>
-   <td>RX (IN)</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>4 (blk)</td>
-   <td>SCL I2C2</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>5 (blk)</td>
-   <td>SDA I2C2</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>6 (blk)</td>
-   <td>GND</td>
-   <td>GND</td>
-   </tr>
-   </tbody>
-   </table>
-
-### CONS port
-
-The CONS port is an additional UART connected to SERIAL5. The pinout
-in the CONS port table below is ordered so that the GND pin is closest
-to the cube. The TX pin is closest to the servo rail.
-
-   <table border="1" class="docutils">
-   <tbody>
-   <tr>
-   <th>Pin</th>
-   <th>Signal</th>
-   <th>Volt</th>
-   </tr>
-   <tr>
-   <td>1</td>
-   <td>GND</td>
-   <td>GND</td>
-   </tr>
-   <tr>
-   <td>2</td>
-   <td>RX (IN)</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>3</td>
-   <td>TX (OUT)</td>
-   <td>+3.3V</td>
-   </tr>
-   </tbody>
-   </table>
-
-### SBUS Out port
-
-The SBUSo port is a port attached to the IO processor which can be
-used to output all servo channels via SBUS. It is enabled by setting
-the BRD_SBUS_OUT parameter.
-
-The pinout below for the SBUSo port is labelled so that GND is closest
-to the cube. The 5V pin on the SBUS output port is connected to the
-servo rail.
-
-When SBUS output is disabled (by setting BRD_SBUS_OUT to 0) you can
-use the port for analog RSSI input from receivers. To enable for RSSI
-input you need to set:
-
- - BRD_SBUS_OUT 0
- - RSSI_TYPE 1
- - RSSI_PIN 103
-
-You cannot have both SBUS output and analog RSSI input at the same time.
-
-   <table border="1" class="docutils">
-   <tbody>
-   <tr>
-   <th>Pin</th>
-   <th>Signal</th>
-   <th>Volt</th>
-   </tr>
-   <tr>
-   <td>1</td>
-   <td>GND</td>
-   <td>GND</td>
-   </tr>
-   <tr>
-   <td>2</td>
-   <td>5v(Vservo)</td>
-   <td>+5.0V</td>
-   </tr>
-   <tr>
-   <td>3</td>
-   <td>TX (OUT)</td>
-   <td>+3.3V</td>
-   </tr>
-   </tbody>
-   </table>
-
-### SPKT port
-
-The SPKT port provides a connector for Spektrum satellite
-receivers. It is needed to allow for software controlled binding of
-satellite receivers.
-
-The pinout of the SPKT port given below is given with the 3.3V power
-pin closest to the cube (pin 3).
-
-   <table border="1" class="docutils">
-   <tbody>
-   <tr>
-   <th>Pin</th>
-   <th>Signal</th>
-   <th>Volt</th>
-   </tr>
-   <tr>
-   <td>1</td>
-   <td>RX (IN)</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>2</td>
-   <td>GND</td>
-   <td>GND</td>
-   </tr>
-   <tr>
-   <td>3</td>
-   <td>3.3v</td>
-   <td>+3.3V</td>
-   </tr>
-   </tbody>
-   </table>
-
-
-### ADC
-
-   <table border="1" class="docutils">
-   <tbody>
-   <tr>
-   <th>Pin</th>
-   <th>Signal</th>
-   <th>Volt</th>
-   </tr>
-   <tr>
-   <td>1 (red)</td>
-   <td>VCC</td>
-   <td>+5V</td>
-   </tr>
-   <tr>
-   <td>2 (blk)</td>
-   <td>ADC IN</td>
-   <td></td>
-   </tr>
-   <tr>
-   <td>3 (blk)</td>
-   <td>GND</td>
-   <td>GND</td>
-   </tr>
-   </tbody>
-   </table>
-
-
-### I2C2
-
-   <table border="1" class="docutils">
-   <tbody>
-   <tr>
-   <th>Pin</th>
-   <th>Signal</th>
-   <th>Volt</th>
-   </tr>
-   <tr>
-   <td>1 (red)</td>
-   <td>VCC</td>
-   <td>+5V</td>
-   </tr>
-   <tr>
-   <td>2 (blk)</td>
-   <td>SCL</td>
-   <td>+3.3 (pullups)</td>
-   </tr>
-   <tr>
-   <td>3 (blk)</td>
-   <td>SDA</td>
-   <td>+3.3 (pullups)</td>
-   </tr>
-   <tr>
-   <td>4 (blk)</td>
-   <td>GND</td>
-   <td>GND</td>
-   </tr>
-   </tbody>
-   </table>
-
-### FMU and IO SWD
-
-When the case is removed there are two SWD connectors, one for FMU and
-the other for IOMCU. The IO SWD connector is the one closer to the
-servo rail. The GND pin of both connectors is the one furthest from
-the servo rail.
-
-   <table border="1" class="docutils">
-   <tbody>
-   <tr>
-   <th>Pin</th>
-   <th>Signal</th>
-   <th>Volt</th>
-   </tr>
-   <tr>
-   <td>1</td>
-   <td>VCC</td>
-   <td>+5V</td>
-   </tr>
-   <tr>
-   <td>2</td>
-   <td>TX</td>
-   <td>+3.3</td>
-   </tr>
-   <tr>
-   <td>3</td>
-   <td>RX</td>
-   <td>+3.3</td>
-   </tr>
-   <tr>
-   <td>4</td>
-   <td>SWDIO</td>
-   <td>+3.3</td>
-   </tr>
-   <tr>
-   <td>5</td>
-   <td>SWCLK</td>
-   <td>+3.3</td>
-   </tr>
-   <tr>
-   <td>6</td>
-   <td>GND</td>
-   <td>GND</td>
-   </tr>
-   </tbody>
-   </table>
-
-
-### CAN1&2
-
-   <table border="1" class="docutils">
-   <tbody>
-   <tr>
-   <th>Pin</th>
-   <th>Signal</th>
-   <th>Volt</th>
-   </tr>
-   <tr>
-   <td>1 (red)</td>
-   <td>VCC</td>
-   <td>+5V</td>
-   </tr>
-   <tr>
-   <td>2 (blk)</td>
-   <td>CAN_H</td>
-   <td>+12V</td>
-   </tr>
-   <tr>
-   <td>3 (blk)</td>
-   <td>CAN_L</td>
-   <td>+12V</td>
-   </tr>
-   <tr>
-   <td>4 (blk)</td>
-   <td>GND</td>
-   <td>GND</td>
-   </tr>
-   </tbody>
-   </table>
-
-
-### POWER1&2
-
-   <table border="1" class="docutils">
-   <tbody>
-   <tr>
-   <th>Pin</th>
-   <th>Signal</th>
-   <th>Volt</th>
-   </tr>
-   <tr>
-   <td>1 (red)</td>
-   <td>VCC</td>
-   <td>+5V</td>
-   </tr>
-   <tr>
-   <td>2 (red)</td>
-   <td>VCC</td>
-   <td>+5V</td>
-   </tr>
-   <tr>
-   <td>3 (blk)</td>
-   <td>CURRENT</td>
-   <td>up to +3.3V</td>
-   </tr>
-   <tr>
-   <td>4 (blk)</td>
-   <td>VOLTAGE</td>
-   <td>up to +3.3V</td>
-   </tr>
-   <td>5 (blk)</td>
-   <td>GND</td>
-   <td>GND</td>
-   </tr>
-   <td>6 (blk)</td>
-   <td>GND</td>
-   <td>GND</td>
-   </tr>
-   </tbody>
-   </table>
-
-
-### USB
-
-   <table border="1" class="docutils">
-   <tbody>
-   <tr>
-   <th>Pin </th>
-   <th>Signal </th>
-   <th>Volt </th>
-   </tr>
-   <tr>
-   <td>1 (red)</td>
-   <td>VCC</td>
-   <td>+5V</td>
-   </tr>
-   <tr>
-   <td>2 (blk)</td>
-   <td>D_plus</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>3 (blk)</td>
-   <td>D_minus</td>
-   <td>+3.3V</td>
-   </tr>
-   <tr>
-   <td>4 (blk)</td>
-   <td>GND</td>
-   <td>GND</td>
-   </tr>
-   <tr>
-   <td>5 (blk)</td>
-   <td>BUZZER</td>
-   <td>battery voltage</td>
-   </tr>
-   <tr>
-   <td>6 (blk)</td>
-   <td>Boot/Error LED</td>
-   <td></td>
-   </tr>
-   </tbody>
-   </table>
+SBUS (100 kbps, 8E2, inverted) is supported on SERIAL1/SERIAL2 using
+the RP2350 GPIO INOVER bit — no external inverter required. Set
+`SERIAL_n_PROTOCOL=23` (RC Input) and `SERIAL_n_OPTIONS=3` on the
+connected port.
 
 ## RC Input
- 
-RC input is configured on the RCIN pin, at one end of the servo rail,
-marked RCIN in the above diagram. This pin supports all RC
-protocols. In addition there is a dedicated Spektrum satellite port
-which supports software power control, allowing for binding of
-Spektrum satellite receivers.
 
-## PWM Output
+Connect RC receiver signal to **GPIO 16** (pin 21). The pin is
+PULLDOWN; for PWM/PPM receivers a 10 kΩ pull-up to 3.3 V may be
+needed. SBUS can be wired to **GPIO 13** (UART0 RX, SERIAL1).
 
-The CubeBlack supports up to 14 PWM outputs. First first 8 outputs (labelled
-"MAIN") are controlled by a dedicated STM32F100 IO controller. These 8
-outputs support all PWM output formats, but not DShot.
+## PWM / Servo Outputs
 
-The remaining 6 outputs (labelled AUX1 to AUX6) are the "auxiliary"
-outputs. These are directly attached to the STM32F427 and support all
-PWM protocols as well as DShot.
+| Output | GPIO | Pico2 pin |
+|--------|------|-----------|
+| PWM1 | GPIO 0 | pin 1 |
+| PWM2 | GPIO 1 | pin 2 |
+| PWM3 | GPIO 2 | pin 4 |
+| PWM4 | GPIO 3 | pin 5 |
+| PWM5 | GPIO 4 | pin 6 |
+| PWM6 | GPIO 5 | pin 7 |
+| PWM7 | GPIO 6 | pin 9 |
+| PWM8 | GPIO 7 | pin 10 |
 
-All 14 PWM outputs have GND on the top row, 5V on the middle row and
-signal on the bottom row.
+Standard 50 Hz PWM servo output. DShot is not supported (no
+timer DMA on RP2350). PWM outputs can also be used as GPIOs by
+setting `BRD_PWM_COUNT` < 8; GPIO numbers start at 50 (PWM1=50 ...
+PWM8=57).
 
-The 8 main PWM outputs are in 3 groups:
+## SPI Buses (carrier board only)
 
- - PWM 1 and 2 in group1
- - PWM 3 and 4 in group2
- - PWM 5, 6, 7 and 8 in group3
+Pins above GPIO29 are not accessible on the standard Pico2 breakout
+header — they appear as castellated-edge pads used by a flight
+controller carrier board.
 
-The 6 auxiliary PWM outputs are in 2 groups:
+**SPI0** (barometer bus)
 
- - PWM 1, 2, 3 and 4 in group1
- - PWM 5 and 6 in group2
+| Signal | GPIO |
+|--------|------|
+| SCK | GPIO 22 |
+| MISO (RX) | GPIO 32 |
+| MOSI (TX) | GPIO 35 |
+| BARO_EXT_CS | GPIO 25 |
 
-Channels within the same group need to use the same output rate. If
-any channel in a group uses DShot then all channels in the group need
-to use DShot.
+**SPI1** (IMU bus)
+
+| Signal | GPIO |
+|--------|------|
+| SCK | GPIO 42 |
+| MISO | GPIO 40 |
+| MOSI | GPIO 43 |
+| MPU_CS | GPIO 24 |
+| MAG_CS | GPIO 23 |
+| GYRO_EXT_CS | GPIO 26 |
+
+## I2C Bus
+
+| Signal | GPIO | Pico2 pin |
+|--------|------|-----------|
+| I2C1 SCL | GPIO 15 | pin 20 |
+| I2C1 SDA | GPIO 18 | pin 24 |
+
+`AP_COMPASS_PROBING_ENABLED 1`: ArduPilot auto-probes for HMC5883,
+IST8310, QMC5883 and other common I2C compasses.
 
 ## Battery Monitoring
 
-The board has two dedicated power monitor ports on 6 pin
-connectors. The correct battery setting parameters are dependent on
-the type of power brick which is connected.
+| Signal | GPIO | Pico2 pin | Default scale |
+|--------|------|-----------|---------------|
+| BATT_VOLTAGE_SENS | GPIO 28 | pin 34 | 10.1 V/V |
+| BATT_CURRENT_SENS | GPIO 29 | pin 35 | 17.0 A/V |
 
-## Compass
+## Sensor Stack
 
-The CubeBlack has two builtin compasses. One is a HMC5843 and the other
-is a part of the MPU9250 IMU. Due to potential interference the board
-is usually used with an external I2C compass as part of a GPS/Compass
-combination.
+The hwdef probes the following sensors; missing sensors are silently
+skipped via WHOAMI check:
 
-## GPIOs
+| Sensor | Bus | CS pin |
+|--------|-----|--------|
+| Invensense gen-1 IMU (mpu6000 / mpu9250) | SPI1 | MPU_CS |
+| Invensense gen-2 IMU (ICM20948 / AK09916) | SPI1 | MPU_CS |
+| MS5611 barometer | SPI0 | BARO_EXT_CS |
+| Compass (I2C auto-probe) | I2C1 | — |
+| LSM9DS0 gyro-only | SPI1 | GYRO_EXT_CS |
 
-The 6 PWM ports can be used as GPIOs (relays, buttons, RPM etc). To
-use them you need to limit the number of these pins that is used for
-PWM by setting the BRD_PWM_COUNT to a number less than 6. For example
-if you set BRD_PWM_COUNT to 4 then PWM5 and PWM6 will be available for
-use as GPIOs.
+Note: LSM9DS0 requires two CS lines (gyro + accel/mag). The accel/mag
+CS (`ACCEL_EXT_CS`) is not mapped on this carrier; only the gyro
+channel can be detected.
 
-The numbering of the GPIOs for PIN variables in ArduPilot is:
+## IMU Temperature Monitoring
 
- - PWM1 50
- - PWM2 51
- - PWM3 52
- - PWM4 53
- - PWM5 54
- - PWM6 55
+`HAL_HAVE_IMU_HEATER 1` is enabled. No physical heating element
+exists on the standard Pico2; `HAL_HEATER_GPIO_PIN` is not defined.
+The subsystem still logs IMU temperature to the `HEAT` log message
+(1 Hz) and exposes the `BRD_IMU_TARGTEMP` parameter for arming
+temperature checks. An external heater resistor + MOSFET can be added
+by defining `HAL_HEATER_GPIO_PIN` in a local hwdef override.
 
-## Analog inputs
+## Parameter Storage
 
-The CubeBlack has 7 analog inputs
+Parameters are stored in the last 32 KB of the 4 MB QSPI flash
+(sectors 1016–1023). `AP_FLASH_STORAGE_QUAD_PAGE 1` aggregates
+4 × 4 KB physical pages into one 16 KB logical sector for correct
+wear-levelling. Storage capacity is 8 KB (vs 16 KB on CubeBlack).
 
- - ADC Pin2 -> Battery Voltage
- - ADC Pin3 -> Battery Current Sensor
- - ADC Pin13 -> Battery2 Voltage
- - ADC Pin14 -> Battery2 Current Sensor
- - ADC Pin4 -> Vdd 5V supply sense
- - ADC Pin15 -> ADC 6.6V port
- - ADC Pin103 -> RSSI voltage monitoring
+If an external SPI FRAM (ramtron-compatible) is wired to a free
+SPI bus, uncomment the `#SPIDEV ramtron` and `#PA_n FRAM_CS CS`
+lines in hwdef.dat to use it instead of flash.
 
-## IMU Heater
+## Firmware Building
 
-The IMU heater in the CubeBlack can be controlled with the
-BRD_HEAT_TARG parameter, which is in degrees C.
+```bash
+./waf configure --board=Pico2
+./waf copter        # (or plane, rover, sub, heli, etc.)
+```
 
-## Loading Firmware
+Flash `build/Pico2/bin/arducopter.elf` via SWD (SWCLK=GPIO0,
+SWDIO=GPIO1 via PC0/PC1 in hwdef) or the RP2350 UF2 bootloader.
 
-The board comes pre-installed with an ArduPilot compatible bootloader,
-allowing the loading of *.apj firmware files with any ArduPilot
-compatible ground station.
+## Known Limitations
 
-## Acknowledgements
+| Feature | Status |
+|---------|--------|
+| DShot / BLHeli / SerialLED | Not supported — no timer DMA on RP2350 |
+| UART RTS/CTS flow control | Not supported — PIOUART has no flow control |
+| CAN / DroneCAN | Not feasible — RP2350 has no CAN peripheral |
+| IOMCU | Not applicable — Pico2 drives servos directly |
+| microSD / FAT logging | Not wired — no SDIO, SPI-mode SD not included |
+| I2C2 | Not available — not pinned out on the standard carrier |
+| Hardware RTC | GPS time used; RP2350 removed hardware RTC (POWMAN_TIMER) |
+| Storage | 8 KB parameter storage (CubeBlack has 16 KB) |
+| Gyro FFT / DSP | Deferred — CMSIS-DSP needs ArduPilot integration for RP2350 |
 
-Thanks to [CubePilot](http://cubepilot.org) for images
