@@ -124,6 +124,10 @@ include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/$(CHIBIOS_PLATFORM_MK)
 # this line is extra compared to stm32..
 include $(CHIBIOS)/os/hal/boards/RP_PICO2_RP2350/board.mk
+# Override: use ArduPilot's board.c (which defines strong __late_init
+# calling halInit and chSysInit before C++ global constructors run).
+# Without this the weak crt1.o stub would be used and ChibiOS never inits.
+ALLCSRC := $(filter-out $(CHIBIOS)/os/hal/boards/RP_PICO2_RP2350/board.c,$(ALLCSRC))
 
 include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk
 # RTOS files (optional).
@@ -152,6 +156,12 @@ LDSCRIPT= $(STARTUPLD)/RP2350_FLASH.ld
 # setting.
 
 CSRC = $(sort $(ALLCSRC))
+
+# hal_safety.c is only included in the USE_SMART_BUILD=yes branch of hal.mk.
+# The non-smart (full) build branch omits it, leaving halSftFail and
+# halRegWaitAnySet32X undefined when rp_pll.o / rp_xosc.o are linked.
+# Add it here explicitly so libch.a always contains hal_safety.o on RP2350.
+CSRC += $(CHIBIOS)/os/hal/src/hal_safety.c
 
 CSRC += $(HWDEF)/common/stubs.c \
         $(HWDEF)/common/board.c \

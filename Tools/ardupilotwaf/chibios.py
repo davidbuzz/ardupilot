@@ -780,6 +780,11 @@ def build(bld):
     bld.env.LIBPATH += ['modules/ChibiOS/']
     if bld.env.ENABLE_CRASHDUMP:
         bld.env.LINKFLAGS += ['-Wl,-whole-archive', 'modules/ChibiOS/libcc.a', '-Wl,-no-whole-archive']
+    # For RP2350/Pico2: force board.o out of libch.a so the strong
+    # __late_init() (calling halInit/chSysInit) overrides the weak crt1.o stub.
+    # boardInit (defined T in ArduPilot's board.o) is used as the pull handle.
+    if 'pico2' in bld.env.BOARD.lower():
+        bld.env.LINKFLAGS += ['-Wl,--undefined=boardInit']
     # list of functions that will be wrapped to move them out of libc into our
     # own code
     wraplist = ['sscanf', 'fprintf', 'snprintf', 'vsnprintf', 'vasprintf', 'asprintf', 'vprintf', 'scanf', 'printf']

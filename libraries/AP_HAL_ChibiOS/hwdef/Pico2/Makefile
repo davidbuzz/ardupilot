@@ -102,6 +102,11 @@ include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_rp2350.mk
 include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/os/hal/ports/RP/RP2350/platform.mk
 include $(CHIBIOS)/os/hal/boards/RP_PICO2_RP2350/board.mk
+# Override board.c: use ArduPilot's board.c which defines a strong
+# __late_init() calling halInit() and chSysInit() before C++ global
+# constructors run (avoiding ChibiOS mutex crash on boot).
+ALLCSRC := $(filter-out $(CHIBIOS)/os/hal/boards/RP_PICO2_RP2350/board.c,$(ALLCSRC))
+ALLCSRC += $(AP_HAL)/hwdef/common/board.c
 include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk

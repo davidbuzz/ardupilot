@@ -2,8 +2,10 @@
 # for bootloader for Pico2 board (Raspberry Pi RP2350)
 #
 # AP_Bootloader for RP2350.  Flash layout:
-#   0x10000000..0x10007FFF  bootloader (32 KB reserved, ~11 KB used)
-#   0x10008000..0x103FFFFF  application
+#   0x10000000..0x10007FFF  bootloader (32 KB, ~17 KB used after ChibiOS HAL init)
+#   0x10008000..0x1000BFFF  storage half-1 (16 KB, flash pages 8-11)
+#   0x1000C000..0x1000FFFF  storage half-2 (16 KB, flash pages 12-15)
+#   0x10010000..0x103FFFFF  application
 #
 # The bootloader accepts firmware via USB (MAVLink/DFU protocol) or UART0
 # and reflashes the application region, enabling repeated over-the-wire
@@ -25,7 +27,23 @@ FLASH_SIZE_KB 4096
 FLASH_RESERVE_START_KB 0
 
 # maximum size of the bootloader binary in KB
-FLASH_BOOTLOADER_LOAD_KB 16
+# 32 KB gives room for the ChibiOS HAL init chain (~17 KB used).
+# Reducing to 16 KB caused a linker overflow once halInit()/chSysInit() were
+# added; restore to the original 32 KB reservation.
+FLASH_BOOTLOADER_LOAD_KB 32
+
+# RP2350 flash base is 0x10000000 (not STM32's 0x08000000).
+# Flash layout: BL(32KB@0x10000000) Storage(32KB@0x10008000) App(4032KB@0x10010000)
+#
+# The RP2350 ChibiOS startup includes an IMAGE_DEF block (32 bytes) at the very
+# start of the app binary, followed by 96 bytes of padding (to reach 128-byte
+# VTOR alignment), giving: app_flash_base + 0x80 = 0x10010080 as the ARM vector
+# table base.  APP_START_ADDRESS must point to the vector table, not the flash base.
+#
+# chibios_hwdef.py computes FLASH_LOAD_ADDRESS as 0x08000000+FLASH_RESERVE_START_KB*1024
+# which is wrong for RP2350.  Override APP_START_ADDRESS directly so bl_protocol.cpp
+# (which uses #ifndef APP_START_ADDRESS) picks up the correct value.
+define APP_START_ADDRESS 0x10010080
 
 # EFL driver required for RP2350 QSPI flash erase/write
 define HAL_USE_EFL                         TRUE

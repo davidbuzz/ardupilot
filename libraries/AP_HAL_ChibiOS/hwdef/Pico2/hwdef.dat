@@ -89,7 +89,11 @@ OSCILLATOR_HZ 24000000
 FLASH_SIZE_KB 4096
 # Flash layout: BL(16KB) + Storage(32KB) + App; application starts at 0x1000C000
 # Storage uses QUAD_PAGE: 2 halves × 4×4KB = 32KB total (0x10004000-0x1000BFFF)
-FLASH_RESERVE_START_KB 48
+# Flash layout: BL(32KB) + Storage-half1(16KB) + Storage-half2(16KB) + App
+#   BL:      0x10000000-0x10007FFF  (32 KB)
+#   Storage: 0x10008000-0x1000FFFF  (32 KB, pages 8-15)
+#   App:     0x10010000-0x103FFFFF  (4032 KB)
+FLASH_RESERVE_START_KB 64
 
 # Now define which UART is used for printf(). We rarely use printf()
 # in ChibiOS, so this is really only for debugging very early startup
@@ -545,7 +549,7 @@ define HAL_USE_EFL                         TRUE
 #   Two halves: pages 4-7 (0x10004000-0x10007FFF) + pages 8-11 (0x10008000-0x1000BFFF) = 32KB.
 # reserve_size ~8512 bytes < sector_size 16384 — wear-leveling compaction works correctly.
 # DOUBLE_PAGE (8KB half) is broken: reserve_size (8512) > sector_size (8192).
-STORAGE_FLASH_PAGE 4
+STORAGE_FLASH_PAGE 8
 define AP_FLASH_STORAGE_QUAD_PAGE 1
 define HAL_USE_GPT                         FALSE
 define HAL_USE_I2S                         FALSE
