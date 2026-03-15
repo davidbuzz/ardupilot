@@ -1,7 +1,7 @@
 From 59ff1c37c4b4974bd66e2a90540d01644f62c1d9 Mon Sep 17 00:00:00 2001
 From: David 'Buzz' Bussenschutt <d.bussenschutt@uq.edu.au>
 Date: Sun, 15 Mar 2026 07:37:38 +1000
-Subject: [PATCH 3/3] RP2350: USB ISR fix BUS_RESET before SETUP_REQ ordering
+Subject: [PATCH] RP2350: USB ISR fix BUS_RESET before SETUP_REQ ordering
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
