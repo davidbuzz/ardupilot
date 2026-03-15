@@ -145,8 +145,11 @@ lines in hwdef.dat to use it instead of flash.
 ## Firmware Building
 
 ```bash
-./waf configure --board=Pico2
-./waf copter        # (or plane, rover, sub, heli, etc.)
+this will usually make/setup the mavlink headers and build both targets.
+./waf configure --board=Pico2 --debug
+./waf copter -j12
+./waf configure --board=Pico2 --debug --bootloader
+./waf bootloader -j12
 ```
 
 Flash `build/Pico2/bin/arducopter.elf` via SWD (SWCLK=GPIO0,
