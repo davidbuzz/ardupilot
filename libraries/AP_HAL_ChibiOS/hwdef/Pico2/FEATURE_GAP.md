@@ -7,6 +7,12 @@ MOST SOFTWARE IMPLEMENTATION IS COMPLETE, its at a satisfactory level, we are fo
 
 **USB CDC Bootloader — FIXED (2025-07):**
 Root cause identified and fixed: `vcom_strings[1..3]` were `{0, NULL}` because `setup_usb_strings()` was never called. The Pico2 BL uses `rp2350_imagedef_ref.c` for `__late_init()` (overrides `board.c`), which was missing the `setup_usb_strings()` call. Without valid string descriptors, Linux USB retried with 5-second timeouts × 3 = 15s enumeration delay, causing the BL to time out before USB was usable. Fix: added `setup_usb_strings()` call in `Tools/AP_Bootloader/rp2350_imagedef_ref.c` `__late_init()`. USB now enumerates in ~3 seconds as "ArduPilot Pico2-BL". `uploader.py --port /dev/ttyACM1` protocol works: INSYNC+OK received, board info read, erase started successfully.
+
+Port-Specific learnings: 
+ - for openocd and gdb use, see the port-specific Pico2/README.md
+ - for the build process, inclusing exact steps to build firmware and bootloader, see the port-specific Pico2/README.md
+ - dont forget --debug and -j12 options as per the above readme.
+
 ---
 
 ## Legend
