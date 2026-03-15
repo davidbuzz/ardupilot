@@ -18,7 +18,11 @@
 #include "support.h"
 
 // swiped from support.cpp:
+#if PIC02_AVAILABLE == TRUE
+static const uint8_t *flash_base = (const uint8_t *)(0x10000000 + (FLASH_BOOTLOADER_LOAD_KB + APP_START_OFFSET_KB)*1024U);
+#else
 static const uint8_t *flash_base = (const uint8_t *)(0x08000000 + (FLASH_BOOTLOADER_LOAD_KB + APP_START_OFFSET_KB)*1024U);
+#endif
 
 
 // taken from AP_Common.cpp as we don't want to compile the AP_Common

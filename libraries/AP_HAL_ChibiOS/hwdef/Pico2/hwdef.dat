@@ -51,6 +51,12 @@ MCU PICO2 PICO2
 define AP_BOOTLOADER_FLASHING_ENABLED 0
 
 # DMA UART is now implemented for RP2350 using the ChibiOS DMAv1 driver (rp_dma.c, 12 channels).
+# WIP: UART DMA has NOT been tested on hardware yet.
+# NOTE: the generated HAL_UART0_CONFIG / HAL_UART1_CONFIG already have dma_rx=false, dma_tx=false,
+# so DMA is NOT active in the current build even though DMA stream IDs are assigned.
+# HAL_UART_NODMA cannot simply be defined here because it removes struct fields from SerialDef
+# while the hwdef.py generator still emits those fields in the config macros, causing a compile
+# error. If you need to force-disable DMA, update hwdef.py to gate DMA field emission on that flag.
 # UARTDriver.cpp has RP2350-specific dmaChannelAllocI/dmaChannelSetMode paths alongside the
 # existing STM32 paths. HAL_USE_SIO=TRUE uses SIODriver (SIOD0/SIOD1) instead of SerialDriver.
 
@@ -144,8 +150,8 @@ I2C_ORDER I2C1
 # SERIAL_ORDER OTG1 USART2 USART3 UART4 UART8 UART1
 # the presence of this OTG1 also enables the usb subsystem.
 # UART0 = serial1 (telem1), UART1 = serial2 (telem2)
-# PIOUART0-3 = serial3-6 via RP2350 PIO0/PIO1 state machines
-SERIAL_ORDER OTG1 UART0 UART1 PIOUART0 PIOUART1 PIOUART2
+# PIOUART0-3 = serial3-6 via RP2350 PIO0/PIO1 state machines (disabled for now)
+SERIAL_ORDER OTG1 UART0 UART1
 
 # If the board has an IOMCU connected via a UART then this defines the
 # UART to talk to that MCU. Leave it out for boards with no IOMCU.
@@ -374,7 +380,7 @@ PA10 UART1_TX UART1
 
 # PIO UART pseudo-ports: 4 extra UARTs using RP2350 PIO0 (SM0/1, SM2/3) and PIO1 (SM0/1, SM2/3)
 # Pins chosen from GPIOs not committed to any other function.
-define HAL_HAVE_PIO_UARTS 3
+define HAL_HAVE_PIO_UARTS 0
 PA14 PIOUART0_TX INPUT FLOATING
 PA17 PIOUART0_RX INPUT FLOATING
 PA19 PIOUART1_TX INPUT FLOATING
@@ -579,6 +585,7 @@ define HAL_USE_SERIAL                      FALSE
 define HAL_USE_SERIAL_USB                  TRUE  #false causes SerialUSBDriver type to be missing
 define HAL_USE_TRNG                        FALSE
 define HAL_USE_UART                        FALSE
+define AP_HAL_UARTDRIVER_ENABLED           1
 define HAL_USE_USB                         TRUE  #false causes unknown type name 'USBDriver
 define HAL_USE_WDG                         TRUE
 define HAL_USE_WSPI                        FALSE

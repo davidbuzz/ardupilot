@@ -32,6 +32,15 @@ FLASH_RESERVE_START_KB 0
 # added; restore to the original 32 KB reservation.
 FLASH_BOOTLOADER_LOAD_KB 32
 
+# APP_START_OFFSET_KB: extra reserved space between bootloader and app.
+# Storage uses 8 pages × 4KB = 32KB (pages 8-15, 0x10008000-0x1000FFFF).
+# This tells support.cpp to compute:
+#   flash_base      = 0x10000000 + (32+32)*1024 = 0x10010000  (page-aligned app start)
+#   flash_base_page = 16                                        (skip 64KB BL+storage)
+# Without this, firmware would be written to the storage area (0x10008000) and
+# the bootloader would jump to 0x10010080 in the middle of the firmware blob.
+APP_START_OFFSET_KB 32
+
 # RP2350 flash base is 0x10000000 (not STM32's 0x08000000).
 # Flash layout: BL(32KB@0x10000000) Storage(32KB@0x10008000) App(4032KB@0x10010000)
 #
@@ -58,6 +67,7 @@ define HAL_USE_SIO                         TRUE
 define HAL_USE_SERIAL                      FALSE
 define HAL_USE_SERIAL_USB                  TRUE
 define HAL_USE_UART                        FALSE
+# AP_HAL_UARTDRIVER_ENABLED defaults to 0 for BL builds (see defaults_bootloader.h)
 define RP_USB_USE_USB1                     TRUE
 
 # USB setup
@@ -76,6 +86,10 @@ define AP_FASTBOOT_ENABLED 1
 
 # MCU monitoring not needed in bootloader
 define HAL_WITH_MCU_MONITORING 0
+
+# Allow 15 seconds for the uploader to connect over USB CDC.
+# USB CDC enumeration + host-side udev takes ~2-3s; 15s gives ample margin.
+define HAL_BOOTLOADER_TIMEOUT 15000
 
 # uarts and USB to run bootloader protocol on
 SERIAL_ORDER OTG1 UART0

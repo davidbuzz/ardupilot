@@ -18,7 +18,8 @@ import keyboard
 while True:
     print ("Pressing ctrl-enter...")
     keyboard.press_and_release('ctrl+enter')
-    time.sleep(15)
+    time.sleep(5)
+    #time.sleep(15)
 
 # needs run with sudo
 

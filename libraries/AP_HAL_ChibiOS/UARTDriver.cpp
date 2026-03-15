@@ -28,8 +28,10 @@
 #include <AP_Common/ExpandingString.h>
 #include "Scheduler.h"
 #include "hwdef/common/stm32_util.h"
+#ifndef HAL_BOOTLOADER_BUILD
 // MAVLink is included to use the MAV_POWER flags for the USB power
 #include <GCS_MAVLink/GCS_MAVLink.h>
+#endif
 
 extern const AP_HAL::HAL& hal;
 
@@ -50,7 +52,12 @@ using namespace ChibiOS;
 extern ChibiOS::UARTDriver uart_io;
 #endif
 
+#ifdef HAL_BOOTLOADER_BUILD
+// BL uses cout()/cin() via BOOTLOADER_DEV_LIST directly; _serial_tab unused
+const UARTDriver::SerialDef UARTDriver::_serial_tab[] = {};
+#else
 const UARTDriver::SerialDef UARTDriver::_serial_tab[] = { HAL_SERIAL_DEVICE_LIST };
+#endif
 
 // handle for UART handling thread
 thread_t* volatile UARTDriver::uart_rx_thread_ctx;
@@ -815,12 +822,55 @@ void UARTDriver::_end()
     _writebuf.set_size(0);
 }
 
+#ifdef HAVE_USB_SERIAL
+/*
+ * Polling TX drain for USB CDC — bypasses obnotify (full-buffer only) and
+ * SOF interrupt flush entirely.  Runs from thread context; directly checks
+ * the obqueue and kicks usbStartTransmitI itself.  Yields between attempts so
+ * the TX-complete ISR (sduDataTransmitted) can release buffers.
+ *
+ * Worst case spins for ~80 × 125 µs = 10 ms, which covers many 64-byte
+ * packets at USB FS 12 Mbit/s.
+ */
+static void usb_tx_poll_drain(SerialUSBDriver *sdu)
+{
+    for (uint8_t i = 0; i < 80; i++) {
+        osalSysLock();
+        if ((usbGetDriverStateI(sdu->config->usbp) != USB_ACTIVE) ||
+            (sdu->state != SDU_READY)) {
+            osalSysUnlock();
+            return;
+        }
+        if (!usbGetTransmitStatusI(sdu->config->usbp, sdu->config->bulk_in)) {
+            /* TX idle — grab next full buffer or force-flush a partial one */
+            size_t n;
+            uint8_t *buf = obqGetFullBufferI(&sdu->obqueue, &n);
+            if (buf == nullptr) {
+                if (obqTryFlushI(&sdu->obqueue)) {
+                    buf = obqGetFullBufferI(&sdu->obqueue, &n);
+                }
+            }
+            if (buf != nullptr) {
+                usbStartTransmitI(sdu->config->usbp, sdu->config->bulk_in, buf, n);
+                osalSysUnlock();
+                chThdSleepMicroseconds(125); /* yield — let TX-complete ISR run */
+                continue;
+            }
+            osalSysUnlock();
+            return; /* queue empty, all data sent */
+        }
+        osalSysUnlock();
+        chThdSleepMicroseconds(125); /* TX in progress — yield and retry */
+    }
+}
+#endif // HAVE_USB_SERIAL
+
 void UARTDriver::_flush()
 {
     if (sdef.is_usb) {
 #ifdef HAVE_USB_SERIAL
-
-        sduSOFHookI((SerialUSBDriver*)sdef.serial);
+        /* Poll-drain bypasses both obnotify (full-buffer only) and SOF flush. */
+        usb_tx_poll_drain((SerialUSBDriver*)sdef.serial);
 #endif
     } else {
         chEvtSignal(uart_thread_ctx, EVT_TRANSMIT_DATA_READY);
@@ -1163,6 +1213,8 @@ void UARTDriver::write_pending_bytes_NODMA(uint32_t n)
             ret = 0;
 #ifdef HAVE_USB_SERIAL
             ret = chnWriteTimeout((SerialUSBDriver*)sdef.serial, vec[i].data, vec[i].len, TIME_IMMEDIATE);
+            /* Immediately poll-drain: don't wait for obnotify or SOF ISR */
+            usb_tx_poll_drain((SerialUSBDriver*)sdef.serial);
 #endif
         } else {
 #if HAL_USE_SERIAL == TRUE

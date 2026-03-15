@@ -70,9 +70,56 @@ int cin_word(uint32_t *wp, unsigned timeout_ms)
 }
 
 
+#if defined(HAVE_USB_SERIAL) || defined(PIC02_AVAILABLE)
+/*
+ * Polling TX drain for USB CDC in the bootloader.
+ * After chnWriteTimeout fills the obqueue, the data still needs a USB TX
+ * to be started.  obnotify only fires on a full 64-byte buffer; partial
+ * buffers rely on the SOF ISR.  This loop kicks TX directly from thread
+ * context so we don't depend on either path.
+ */
+static void bl_usb_tx_poll_drain(void)
+{
+    SerialUSBDriver *sdu = &SDU1;
+    for (uint8_t i = 0; i < 80; i++) {
+        osalSysLock();
+        if ((usbGetDriverStateI(sdu->config->usbp) != USB_ACTIVE) ||
+            (sdu->state != SDU_READY)) {
+            osalSysUnlock();
+            return;
+        }
+        if (!usbGetTransmitStatusI(sdu->config->usbp, sdu->config->bulk_in)) {
+            size_t n;
+            uint8_t *buf = obqGetFullBufferI(&sdu->obqueue, &n);
+            if (buf == nullptr) {
+                if (obqTryFlushI(&sdu->obqueue)) {
+                    buf = obqGetFullBufferI(&sdu->obqueue, &n);
+                }
+            }
+            if (buf != nullptr) {
+                usbStartTransmitI(sdu->config->usbp, sdu->config->bulk_in, buf, n);
+                osalSysUnlock();
+                chThdSleepMicroseconds(125);
+                continue;
+            }
+            osalSysUnlock();
+            return;
+        }
+        osalSysUnlock();
+        chThdSleepMicroseconds(125);
+    }
+}
+#endif // HAVE_USB_SERIAL || PIC02_AVAILABLE
+
 void cout(const uint8_t *data, uint32_t len)
 {
     chnWriteTimeout(uarts[last_uart], data, len, chTimeMS2I(100));
+#if defined(HAVE_USB_SERIAL) || defined(PIC02_AVAILABLE)
+    /* Poll-drain after every write so partial buffers don't wait for SOF */
+    if (uarts[last_uart] == (BaseChannel *)&SDU1) {
+        bl_usb_tx_poll_drain();
+    }
+#endif
 }
 #endif // BOOTLOADER_DEV_LIST
 
@@ -528,6 +575,29 @@ void lock_bl_port(void)
     locked_uart = last_uart;
 }
 
+#if HAL_USE_SERIAL_USB == TRUE
+/*
+  WIP USB TX test: emit sequential bytes 'A'-'Z' to all CDC ports every 100 ms.
+  This bypasses the normal bootloader protocol output so we can verify that USB
+  CDC TX is mechanically working regardless of any higher-level plumbing issues.
+  Remove or gate with a define once the root cause is found.
+ */
+static THD_WORKING_AREA(usb_test_wa, 256);
+static THD_FUNCTION(usb_test_thread, arg)
+{
+    (void)arg;
+    chRegSetThreadName("usb_test");
+    uint8_t c = 'A';
+    while (true) {
+        chThdSleepMilliseconds(100);
+        for (uint8_t i = 0; i < ARRAY_SIZE(uarts); i++) {
+            chnWriteTimeout(uarts[i], &c, 1, TIME_MS2I(20));
+        }
+        c = (c >= 'Z') ? 'A' : c + 1;
+    }
+}
+#endif // HAL_USE_SERIAL_USB
+
 /*
   initialise serial ports
  */
@@ -562,6 +632,12 @@ void init_uarts(void)
 #endif
         sdStart((SerialDriver *)uart, &sercfg);
     }
+#endif
+
+#if HAL_USE_SERIAL_USB == TRUE
+    // WIP: start sequential-byte TX test thread
+    chThdCreateStatic(usb_test_wa, sizeof(usb_test_wa), NORMALPRIO,
+                      usb_test_thread, nullptr);
 #endif
 }
 

@@ -2012,6 +2012,7 @@ INCLUDE common.ld
                 have_serial = True
         if len(devlist) > 0:
             f.write('#define BOOTLOADER_DEV_LIST %s\n' % ','.join(devlist))
+        f.write('#define HAL_UART_NUM_SERIAL_PORTS %u\n' % len(devlist))
         if OTG2_index is not None:
             f.write('#define HAL_OTG2_UART_INDEX %d\n' % OTG2_index)
         if not have_serial:

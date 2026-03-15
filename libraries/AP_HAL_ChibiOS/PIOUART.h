@@ -24,7 +24,7 @@
 
 #include "AP_HAL_ChibiOS.h"
 
-#if defined(HAL_HAVE_PIO_UARTS)
+#if defined(HAL_HAVE_PIO_UARTS) && HAL_HAVE_PIO_UARTS > 0
 
 #include <AP_HAL/AP_HAL.h>
 #include <AP_HAL/utility/RingBuffer.h>
