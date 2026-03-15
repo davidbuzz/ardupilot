@@ -72,13 +72,41 @@ void rp2350_watchdog_init(void);
 void rp2350_watchdog_pat(void);
 
 /*
-  return true if the last reboot was caused by the watchdog timer
+  return true if the last reboot was caused by the watchdog timer.
+  Checks SCRATCH[6] first so a consumed reason is not re-reported.
 */
 bool rp2350_was_watchdog_reset(void);
+
+/* return true if the last reboot was caused by a software (forced) reset */
+bool rp2350_was_software_reset(void);
+
+/* mark the watchdog reset reason as consumed */
+void rp2350_watchdog_clear_reason(void);
+
+/* no-op on RP2350: REASON is a hardware register, always valid */
+void rp2350_watchdog_save_reason(void);
+
+/* persistent data save/load across resets (stub; SCRATCH registers not yet used) */
+void rp2350_watchdog_save(const uint32_t *data, uint32_t nwords);
+void rp2350_watchdog_load(uint32_t *data, uint32_t nwords);
 
 #ifdef __cplusplus
 }
 #endif
+
+/*
+  Redirect the stm32_-prefixed watchdog API used throughout the ChibiOS HAL
+  and bootloader to the correctly named RP2350 implementations above.
+  These are #define macros so no stm32_-named symbols are emitted for RP2350.
+*/
+#define stm32_watchdog_init()          rp2350_watchdog_init()
+#define stm32_watchdog_pat()           rp2350_watchdog_pat()
+#define stm32_was_watchdog_reset()     rp2350_was_watchdog_reset()
+#define stm32_was_software_reset()     rp2350_was_software_reset()
+#define stm32_watchdog_clear_reason()  rp2350_watchdog_clear_reason()
+#define stm32_watchdog_save_reason()   rp2350_watchdog_save_reason()
+#define stm32_watchdog_save(d, n)      rp2350_watchdog_save((d), (n))
+#define stm32_watchdog_load(d, n)      rp2350_watchdog_load((d), (n))
 
 #endif // RP2350
     

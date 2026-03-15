@@ -81,7 +81,12 @@ static uint32_t flash_base_page;
 // number of pages for the main firmware
 static uint16_t num_pages;
 // flash address of the main firmware
+// RP2350 XIP flash is mapped at 0x10000000; STM32/others use 0x08000000
+#if PIC02_AVAILABLE == TRUE
+static const uint8_t *flash_base = (const uint8_t *)(0x10000000 + (FLASH_BOOTLOADER_LOAD_KB + APP_START_OFFSET_KB)*1024U);
+#else
 static const uint8_t *flash_base = (const uint8_t *)(0x08000000 + (FLASH_BOOTLOADER_LOAD_KB + APP_START_OFFSET_KB)*1024U);
+#endif
 
 /*
   initialise flash_base_page and num_pages
@@ -161,6 +166,55 @@ bool flash_func_erase_sector(uint32_t sector, bool force_erase)
 #endif
 }
 
+#if PIC02_AVAILABLE == TRUE
+/*
+ * Erase the app area using 64KB block erases where possible.
+ * Pages 0-7 are the bootloader (32KB) and are skipped.
+ * Pages 8-15 fall in the first partial 64KB block -> 4KB sector erase.
+ * Pages 16-1023: 63 complete 64KB blocks -> block erase (~100ms each).
+ * Total time: ~6.7s vs ~19s with 4KB sector-only erases.
+ */
+bool flash_func_erase_apparea_fast(void)
+{
+    /* All RP2350 flash pages are the same size; query via the public API */
+    const uint32_t PAGE_SIZE = stm32_flash_getpagesize(flash_base_page);
+    const uint32_t BLOCK_SIZE = 64U * 1024U;
+    const uint32_t PAGES_PER_BLOCK = BLOCK_SIZE / PAGE_SIZE; /* = 16 for 4KB pages */
+    uint32_t i = flash_base_page;
+
+    /* sector-erase pages before first 64KB-aligned boundary */
+    uint32_t first_block_page = ((i + PAGES_PER_BLOCK - 1U) / PAGES_PER_BLOCK) * PAGES_PER_BLOCK;
+    for (; i < first_block_page && i < (uint32_t)num_pages; i++) {
+        if (!stm32_flash_erasepage(i)) {
+            return false;
+        }
+    }
+
+    /* block-erase complete 64KB blocks (skip blocks that are already erased) */
+    for (; i + PAGES_PER_BLOCK <= (uint32_t)num_pages; i += PAGES_PER_BLOCK) {
+        /* Check the first page of the block; if it is erased the whole block
+         * was never written (firmware is written sequentially from page 8) */
+        if (stm32_flash_ispageerased(i)) {
+            continue;
+        }
+        flash_offset_t offset = (flash_offset_t)i * PAGE_SIZE;
+        flash_error_t err = efl_lld_start_erase_block(&EFLD1, offset);
+        if (err != FLASH_NO_ERROR) {
+            return false;
+        }
+    }
+
+    /* sector-erase any tail pages after the last full block */
+    for (; i < (uint32_t)num_pages; i++) {
+        if (!stm32_flash_erasepage(i)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+#endif // PIC02_AVAILABLE
+
 // read one-time programmable memory
 uint32_t flash_func_read_otp(uint32_t idx)
 {
@@ -182,7 +236,14 @@ uint32_t flash_func_read_otp(uint32_t idx)
 // read chip serial number
 uint32_t flash_func_read_sn(uint32_t idx)
 {
+#if defined(RP2350)
+    // RP2350 has no UDID at a simple fixed address; return 0 to avoid
+    // reading from invalid XIP space which would stall the XIP controller.
+    (void)idx;
+    return 0;
+#else
     return *(uint32_t *)(UDID_START + idx);
+#endif
 }
 
 /*
@@ -256,7 +317,17 @@ uint32_t get_mcu_id(void)
 uint32_t get_mcu_desc(uint32_t max, uint8_t *revstr)
 {
 #if defined(RP2350)
-    return 0;
+    /* Return a short comma-separated "family,revision" string as expected
+     * by uploader.py.  A zero-length response causes pyserial read(0) to
+     * stall when a port timeout is set.
+     */
+    static const char desc[] = "RP2350,B0";
+    uint32_t len = sizeof(desc) - 1;  /* exclude NUL */
+    if (len > max) {
+        len = max;
+    }
+    memcpy(revstr, desc, len);
+    return len;
 #else
     uint32_t idcode = (*(uint32_t *)DBGMCU_BASE);
     int32_t mcuid = idcode & DEVID_MASK;

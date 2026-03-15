@@ -562,6 +562,17 @@ bool stm32_flash_erasepage(uint32_t page)
     if (err != FLASH_NO_ERROR) {
         return false;
     }
+    // Poll until erase completes (efl_lld_start_erase_sector is asynchronous)
+    uint32_t wait_ms;
+    do {
+        err = efl_lld_query_erase(&EFLD1, &wait_ms);
+        if (err == FLASH_BUSY_ERASING) {
+            chThdSleepMilliseconds(wait_ms > 0 ? wait_ms : 1);
+        }
+    } while (err == FLASH_BUSY_ERASING);
+    if (err != FLASH_NO_ERROR) {
+        return false;
+    }
 #ifndef HAL_BOOTLOADER_BUILD
     last_erase_ms = hrt_millis32();
 #endif
@@ -674,7 +685,6 @@ bool stm32_flash_erasepage(uint32_t page)
     return stm32_flash_ispageerased(page);
 #endif // PIC02_AVAILABLE
 }
-
 
 #if defined(STM32H7)
 // Check that the flash line is erased as writing to an un-erased line causes flash corruption

@@ -643,6 +643,12 @@ bootloader(unsigned timeout)
             led_set(LED_OFF);
 
             // erase all sectors
+#if PIC02_AVAILABLE == TRUE
+            // RP2350: use 64KB block erases for ~8x speedup vs 4KB sector loop
+            if (!flash_func_erase_apparea_fast()) {
+                goto cmd_fail;
+            }
+#else
             for (uint16_t i = 0; flash_func_sector_size(i) != 0; i++) {
 #if defined(STM32F7) || defined(STM32H7)
                 if (!flash_func_erase_sector(i, c == PROTO_CHIP_FULL_ERASE)) {
@@ -652,6 +658,7 @@ bootloader(unsigned timeout)
                     goto cmd_fail;
                 }
             }
+#endif // PIC02_AVAILABLE
 
             // enable the LED while verifying the erase
             led_set(LED_ON);

@@ -192,11 +192,58 @@ void rp2350_watchdog_pat(void)
 }
 
 /*
-  return true if the last reboot was caused by the watchdog timer
+  Magic value written to SCRATCH[6] to indicate the WDT reason has been
+  consumed.  REASON is read-only on RP2350, so we use a scratch register as
+  an "already consumed" flag instead.
+*/
+#define RP2350_WDG_REASON_CLEARED 0xDEADC0DEU
+
+/*
+  return true if the last reboot was caused by the watchdog timer AND the
+  reason has not already been consumed by a prior rp2350_watchdog_clear_reason()
 */
 bool rp2350_was_watchdog_reset(void)
 {
+    if (WATCHDOG->SCRATCH[6] == RP2350_WDG_REASON_CLEARED) {
+        return false;  /* reason already consumed */
+    }
     return (WATCHDOG->REASON & WATCHDOG_REASON_TIMER) != 0U;
+}
+
+/* mark the watchdog reset reason as consumed */
+void rp2350_watchdog_clear_reason(void)
+{
+    /* REASON is read-only; use SCRATCH[6] as the "consumed" flag */
+    WATCHDOG->SCRATCH[6] = RP2350_WDG_REASON_CLEARED;
+}
+
+/* no persistent save needed: REASON is a hardware register, always valid */
+void rp2350_watchdog_save_reason(void)
+{
+}
+
+/*
+ * RP2350 has WATCHDOG SCRATCH[0-7]. SCRATCH[0] is reserved for the
+ * AP_FASTBOOT boot-hold flag and SCRATCH[6] for the WDT reason flag.
+ * Persistent data save/load across resets is not yet implemented;
+ * these are stubs so the upper layers compile and link.
+ */
+void rp2350_watchdog_save(const uint32_t *data, uint32_t nwords)
+{
+    (void)data;
+    (void)nwords;
+}
+
+void rp2350_watchdog_load(uint32_t *data, uint32_t nwords)
+{
+    (void)data;
+    (void)nwords;
+}
+
+bool rp2350_was_software_reset(void)
+{
+    /* RP2350 WATCHDOG REASON.FORCE bit indicates a forced (software) reset */
+    return (WATCHDOG->REASON & WATCHDOG_REASON_FORCE) != 0U;
 }
 
 #endif // RP2350

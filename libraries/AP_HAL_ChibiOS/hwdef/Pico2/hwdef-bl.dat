@@ -66,8 +66,13 @@ USB_STRING_MANUFACTURER "ArduPilot"
 # baudrate to run bootloader at on uarts
 define BOOTLOADER_BAUDRATE 115200
 
-# disable fastboot (uses stm32_was_watchdog_reset which does not exist on RP2350)
-define AP_FASTBOOT_ENABLED 0
+# enable fastboot for RP2350: uses WATCHDOG->SCRATCH[0] (survives SYSRESETREQ) as the
+# reboot-cookie.  stm32_was_watchdog_reset() / stm32_watchdog_clear_reason() stubs are
+# provided in watchdog.c; set_fast_reboot / check_fast_reboot use the PIC02_AVAILABLE
+# path in stm32_util.c (WATCHDOG->SCRATCH).  The app writes RTC_BOOT_HOLD to SCRATCH[0]
+# via Scheduler::reboot(hold_in_bootloader=true) before SYSRESETREQ; the bootloader sees
+# the magic and sets timeout=0 (stay in bootloader indefinitely).
+define AP_FASTBOOT_ENABLED 1
 
 # MCU monitoring not needed in bootloader
 define HAL_WITH_MCU_MONITORING 0
