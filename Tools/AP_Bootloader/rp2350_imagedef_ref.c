@@ -80,6 +80,22 @@ extern void chSysInit(void);
 /* _vectors is defined by the startup section in the linker script */
 extern const uint32_t _vectors[];
 
+/*
+ * setup_usb_strings() is defined in hwdef/common/usbcfg.c (inside
+ * #if defined(HAL_USB_PRODUCT_ID)).  It populates vcom_strings[1..3]
+ * (manufacturer, product, serial) from HAL_USB_STRING_* defines so that
+ * the USB host receives valid string descriptors during enumeration.
+ *
+ * Without this call vcom_strings[1..3] remain {0, NULL} (static-init default)
+ * and the USB device returns a zero-length IN packet for every string request.
+ * Linux treats a ZLP as an error, waits ~5 seconds, and retries three times —
+ * adding ~15 s to enumeration.  The bootloader times out before USB becomes
+ * usable, so uploader.py never gets a chance to connect.
+ */
+#if defined(HAL_USB_PRODUCT_ID)
+extern void setup_usb_strings(void);
+#endif
+
 /* SCB->VTOR register */
 #define SCB_VTOR_REG   (*(volatile uint32_t *)0xE000ED08U)
 
@@ -107,6 +123,17 @@ void __late_init(void)
     SCB_VTOR_REG = (uint32_t)_vectors;
 
     halInit();
+
+#if defined(HAL_USB_PRODUCT_ID)
+    /*
+     * Populate USB string descriptors AFTER halInit() so that ChibiOS HAL
+     * state is fully set up before we access OTP (for the serial number) and
+     * write to vcom_strings[].  This must happen before chSysInit() starts
+     * the USB driver and the host begins enumeration.
+     */
+    setup_usb_strings();
+#endif
+
     chSysInit();
 }
 
