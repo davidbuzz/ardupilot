@@ -2,7 +2,8 @@
 
 **Branch:** `buzz-rp2350-chibios-v2`  
 **Date:** 2025-07  
-**Purpose:** Track what is implemented, what is partially working, and what still needs work on the Pico2 RP2350 port.
+**Purpose:** Track what is implemented, what is partially working, and what still needs work on the Pico2 RP2350 port.  
+MOST SOFTWARE IMPLEMENTATION IS COMPLETE, its at a satisfactory level, we are focusing on HARDWARE VERIFICATION now, with openocd , etc, moving forward. 
 ---
 
 ## Legend
