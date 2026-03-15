@@ -192,6 +192,7 @@ SWDIO=GPIO1 via PC0/PC1 in hwdef) or the RP2350 UF2 bootloader.
         Open On-Chip Debugger 0.12.0+dev-gebec950-dirty (2024-11-25-10:19)
 
 # start openocd and if it finds your usb connected hardware/debugger/picoprobe, leave it running.
+    cp ./Tools/debug/gdb-openocd-rp2350.init .gdbinit
     ~/openocd-pico/openocd -c "gdb_port 50000" -c "tcl_port 50001" -c "telnet_port 50002" -s ~/openocd-pico/scripts  -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 5000"
     Error: Error connecting DP: cannot read IDR
     # if u get this, you didnt plug the second usb cable in, this setup needs both, the target isnt booted/powered.
