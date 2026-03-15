@@ -70,7 +70,7 @@ int cin_word(uint32_t *wp, unsigned timeout_ms)
 }
 
 
-#if defined(HAVE_USB_SERIAL) || defined(PIC02_AVAILABLE)
+#if HAL_USE_SERIAL_USB == TRUE
 /*
  * Polling TX drain for USB CDC in the bootloader.
  * After chnWriteTimeout fills the obqueue, the data still needs a USB TX
@@ -109,12 +109,12 @@ static void bl_usb_tx_poll_drain(void)
         chThdSleepMicroseconds(125);
     }
 }
-#endif // HAVE_USB_SERIAL || PIC02_AVAILABLE
+#endif // HAL_USE_SERIAL_USB
 
 void cout(const uint8_t *data, uint32_t len)
 {
     chnWriteTimeout(uarts[last_uart], data, len, chTimeMS2I(100));
-#if defined(HAVE_USB_SERIAL) || defined(PIC02_AVAILABLE)
+#if HAL_USE_SERIAL_USB == TRUE
     /* Poll-drain after every write so partial buffers don't wait for SOF */
     if (uarts[last_uart] == (BaseChannel *)&SDU1) {
         bl_usb_tx_poll_drain();
@@ -578,9 +578,10 @@ void lock_bl_port(void)
 #if HAL_USE_SERIAL_USB == TRUE
 /*
   WIP USB TX test: emit sequential bytes 'A'-'Z' to all CDC ports every 100 ms.
-  This bypasses the normal bootloader protocol output so we can verify that USB
-  CDC TX is mechanically working regardless of any higher-level plumbing issues.
-  Remove or gate with a define once the root cause is found.
+  Connect a host and run  cat /dev/ttyACM0  (or picocom --baud 115200 /dev/ttyACM0)
+  while the board is in the bootloader.  If you see A B C ... cycling, USB CDC
+  TX is mechanically working; the issue is in higher-level protocol plumbing.
+  If nothing appears at all, there is still a USB driver TX bug below the protocol.
  */
 static THD_WORKING_AREA(usb_test_wa, 256);
 static THD_FUNCTION(usb_test_thread, arg)
@@ -592,6 +593,9 @@ static THD_FUNCTION(usb_test_thread, arg)
         chThdSleepMilliseconds(100);
         for (uint8_t i = 0; i < ARRAY_SIZE(uarts); i++) {
             chnWriteTimeout(uarts[i], &c, 1, TIME_MS2I(20));
+            if (uarts[i] == (BaseChannel *)&SDU1) {
+                bl_usb_tx_poll_drain();
+            }
         }
         c = (c >= 'Z') ? 'A' : c + 1;
     }
@@ -635,7 +639,8 @@ void init_uarts(void)
 #endif
 
 #if HAL_USE_SERIAL_USB == TRUE
-    // WIP: start sequential-byte TX test thread
+    // WIP diagnostic: start sequential-byte TX test thread.
+    // Run  cat /dev/ttyACM0  on the host; A-Z cycling = CDC TX works.
     chThdCreateStatic(usb_test_wa, sizeof(usb_test_wa), NORMALPRIO,
                       usb_test_thread, nullptr);
 #endif
