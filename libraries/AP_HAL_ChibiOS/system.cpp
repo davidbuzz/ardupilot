@@ -267,10 +267,10 @@ void save_fault_watchdog(uint16_t line, FaultType fault_type, uint32_t fault_add
             pd.fault_type = fault_type;
             pd.fault_addr = fault_addr;
             thread_t *tp = chThdGetSelfX();
-            if (tp) {
+            if (tp && is_address_in_memory(tp)) {
                 pd.fault_thd_prio = tp->hdr.pqueue.prio;
                 // get first 4 bytes of the name, but only of first fault
-                if (tp->name && pd.thread_name4[0] == 0) {
+                if (tp->name && is_address_in_memory((void*)tp->name) && pd.thread_name4[0] == 0) {
                     strncpy_noterm(pd.thread_name4, tp->name, 4);
                 }
             }
