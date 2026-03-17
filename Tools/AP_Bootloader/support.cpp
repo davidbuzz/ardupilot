@@ -575,33 +575,6 @@ void lock_bl_port(void)
     locked_uart = last_uart;
 }
 
-#if HAL_USE_SERIAL_USB == TRUE
-/*
-  WIP USB TX test: emit sequential bytes 'A'-'Z' to all CDC ports every 100 ms.
-  Connect a host and run  cat /dev/ttyACM0  (or picocom --baud 115200 /dev/ttyACM0)
-  while the board is in the bootloader.  If you see A B C ... cycling, USB CDC
-  TX is mechanically working; the issue is in higher-level protocol plumbing.
-  If nothing appears at all, there is still a USB driver TX bug below the protocol.
- */
-static THD_WORKING_AREA(usb_test_wa, 256);
-static THD_FUNCTION(usb_test_thread, arg)
-{
-    (void)arg;
-    chRegSetThreadName("usb_test");
-    uint8_t c = 'A';
-    while (true) {
-        chThdSleepMilliseconds(100);
-        for (uint8_t i = 0; i < ARRAY_SIZE(uarts); i++) {
-            chnWriteTimeout(uarts[i], &c, 1, TIME_MS2I(20));
-            if (uarts[i] == (BaseChannel *)&SDU1) {
-                bl_usb_tx_poll_drain();
-            }
-        }
-        c = (c >= 'Z') ? 'A' : c + 1;
-    }
-}
-#endif // HAL_USE_SERIAL_USB
-
 /*
   initialise serial ports
  */
@@ -638,12 +611,6 @@ void init_uarts(void)
     }
 #endif
 
-#if HAL_USE_SERIAL_USB == TRUE
-    // WIP diagnostic: start sequential-byte TX test thread.
-    // Run  cat /dev/ttyACM0  on the host; A-Z cycling = CDC TX works.
-    chThdCreateStatic(usb_test_wa, sizeof(usb_test_wa), NORMALPRIO,
-                      usb_test_thread, nullptr);
-#endif
 }
 
 

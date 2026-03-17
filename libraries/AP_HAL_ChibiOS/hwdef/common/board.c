@@ -330,6 +330,18 @@ void __late_init(void) {
 #endif
 
   halInit();
+
+#ifdef HAL_USB_PRODUCT_ID
+  /*
+   * Populate USB string descriptors AFTER halInit() so HAL state is fully
+   * set up before we access OTP (serial number) and write vcom_strings[].
+   * Must happen BEFORE chSysInit() starts the USB driver so the host
+   * receives valid string descriptors during the first enumeration attempt.
+   * This mirrors the approach used in the bootloader __late_init().
+   */
+  setup_usb_strings();
+#endif
+
   chSysInit();
 
   /*
@@ -357,9 +369,6 @@ void __late_init(void) {
   #endif
   #if CH_CFG_USE_HEAP == TRUE
     malloc_init();
-  #endif
-  #ifdef HAL_USB_PRODUCT_ID
-    setup_usb_strings();
   #endif
 
   #if defined(STM32_AVAILABLE) && defined(HAL_FLASH_SET_NRST_MODE)
