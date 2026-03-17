@@ -208,11 +208,17 @@ void UARTDriver::thread_init(void)
 {
     if (uart_thread_ctx == nullptr) {
         hal.util->snprintf(uart_thread_name, sizeof(uart_thread_name), sdef.is_usb ? "OTG%1u" : "UART%1u", sdef.instance);
+        /*
+         * Briefly boost priority so the newly-created UART thread cannot run
+         * before uart_thread_ctx is assigned.
+         */
+        const tprio_t saved_prio = chThdSetPriority(APM_UART_UNBUFFERED_PRIORITY + 1);
         uart_thread_ctx = thread_create_alloc(THD_WORKING_AREA_SIZE(HAL_UART_STACK_SIZE),
                                               uart_thread_name,
                                               unbuffered_writes ? APM_UART_UNBUFFERED_PRIORITY : APM_UART_PRIORITY,
                                               uart_thread_trampoline,
                                               this);
+        chThdSetPriority(saved_prio);
         if (uart_thread_ctx == nullptr) {
             AP_HAL::panic("Could not create UART TX thread");
         }
@@ -587,8 +593,14 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
         _rx_initialised = true;
     }
     _uart_owner_thd = chThdGetSelfX();
-    // initialize the TX thread if necessary
+    // initialize TX thread only when safe on RP2350, else immediately.
+#if defined(RP2350)
+    if (sdef.is_usb || hal.scheduler->is_system_initialized()) {
+        thread_init();
+    }
+#else
     thread_init();
+#endif
 
     // setup flow control
     set_flow_control(_flow_control);
@@ -873,7 +885,14 @@ void UARTDriver::_flush()
         usb_tx_poll_drain((SerialUSBDriver*)sdef.serial);
 #endif
     } else {
-        chEvtSignal(uart_thread_ctx, EVT_TRANSMIT_DATA_READY);
+#if defined(RP2350)
+        if (uart_thread_ctx == nullptr && hal.scheduler->is_system_initialized()) {
+            thread_init();
+        }
+#endif
+        if (uart_thread_ctx != nullptr) {
+            chEvtSignal(uart_thread_ctx, EVT_TRANSMIT_DATA_READY);
+        }
     }
 }
 
@@ -982,10 +1001,16 @@ size_t UARTDriver::_write(const uint8_t *buffer, size_t size)
 		return 0;
 	}
 
+#if defined(RP2350)
+    if (uart_thread_ctx == nullptr && (sdef.is_usb || hal.scheduler->is_system_initialized())) {
+        thread_init();
+    }
+#endif
+
     WITH_SEMAPHORE(_write_mutex);
 
     size_t ret = _writebuf.write(buffer, size);
-    if (unbuffered_writes) {
+    if (unbuffered_writes && uart_thread_ctx != nullptr) {
         chEvtSignal(uart_thread_ctx, EVT_TRANSMIT_DATA_READY);
     }
     return ret;
@@ -1660,7 +1685,14 @@ __RAMFUNC__ void UARTDriver::update_rts_line(void)
 bool UARTDriver::set_unbuffered_writes(bool on)
 {
     unbuffered_writes = on;
-    chEvtSignal(uart_thread_ctx, EVT_TRANSMIT_UNBUFFERED);
+#if defined(RP2350)
+    if (uart_thread_ctx == nullptr && (sdef.is_usb || hal.scheduler->is_system_initialized())) {
+        thread_init();
+    }
+#endif
+    if (uart_thread_ctx != nullptr) {
+        chEvtSignal(uart_thread_ctx, EVT_TRANSMIT_UNBUFFERED);
+    }
     return true;
 }
 
