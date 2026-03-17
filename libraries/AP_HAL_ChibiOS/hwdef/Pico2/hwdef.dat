@@ -539,7 +539,6 @@ define HAL_WITH_DSP FALSE
 define HAL_USE_PAL                         TRUE
 define HAL_USE_SIO                         TRUE
 define HAL_USE_I2C                         TRUE
-define RP_I2C_USE_I2C1                     TRUE
 define HAL_USE_SPI                         TRUE
 define RP_SPI_USE_SPI0                     TRUE
 define RP_SPI_USE_SPI1                     TRUE
@@ -559,6 +558,11 @@ STORAGE_FLASH_PAGE 8
 define AP_FLASH_STORAGE_QUAD_PAGE 1
 define HAL_USE_GPT                         FALSE
 define HAL_USE_I2S                         FALSE
+#
+# RP2350 ChibiOS I2C LLD defaults to disabled. We use I2C1 on Pico2, so ensure
+# the driver (and its IRQ handler) is enabled to avoid falling into the default
+# unhandled exception handler when I2C1 IRQ fires.
+define RP_I2C_USE_I2C1                     TRUE
 
 # RC input via ICU/EICU: both disabled on RP2350
 # ICU attach_capture_timer uses STM32_RCIN_DMA_STREAM/CHANNEL which don't exist on RP2350.
@@ -589,6 +593,13 @@ define AP_HAL_UARTDRIVER_ENABLED           1
 define HAL_USE_USB                         TRUE  #false causes unknown type name 'USBDriver
 define HAL_USE_WDG                         TRUE
 define HAL_USE_WSPI                        FALSE
+#
+# During RP2350 bring-up, leave the hardware UART telemetry ports disabled by
+# default. A floating RX line can generate continuous UART interrupts and
+# interfere with USB CDC startup/throughput. These can be re-enabled at runtime
+# with `SERIAL1_PROTOCOL`/`SERIAL2_PROTOCOL` once external wiring is known-good.
+define DEFAULT_SERIAL1_PROTOCOL             SerialProtocol_None
+define DEFAULT_SERIAL2_PROTOCOL             SerialProtocol_None
 #
 # PAL callbacks and wait are needed for GPIO interrupt handling (GPIO::_attach_interruptI
 # and GPIO::wait_pin). The RP2350 GPIOv1 ChibiOS driver supports both.

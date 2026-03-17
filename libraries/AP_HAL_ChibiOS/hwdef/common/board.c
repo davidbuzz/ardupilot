@@ -26,6 +26,44 @@
 #define STM32_AVAILABLE FALSE 
 #endif
 
+/*
+ * RP2350 (Pico2) note on XIP cache coherency after SWD flashing:
+ *
+ * When we program flash via SWD/OpenOCD then issue a SYSRESETREQ reset, the
+ * RP2350 XIP cache can retain stale lines across the reset. If those stale
+ * lines include the vector table, an external IRQ can dispatch to the *old*
+ * handler address even though flash now contains the correct ISR entry.
+ *
+ * This shows up as (for example) I2C1 IRQ37 repeatedly landing in the default
+ * DebugMon/_unhandled_exception handler, even though VectorD4 is present and
+ * correctly placed in the vector table in flash.
+ *
+ * The ChibiOS RP2350 EFL driver invalidates the XIP cache by writing through
+ * the XIP "maintenance" alias then re-enabling the cache. We reuse that same
+ * mechanism here, but we must do it after C runtime init so the helper can
+ * execute from RAM (the .ramtext section is copied into RAM as part of .data).
+ */
+#if PIC02_AVAILABLE == TRUE
+#define RP2350_RAMFUNC __attribute__((noinline, section(".ramtext")))
+static RP2350_RAMFUNC void rp2350_invalidate_xip_cache(void)
+{
+    /* Constants mirror modules/ChibiOS/os/hal/ports/RP/RP2350/hal_efl_lld.c */
+    volatile uint8_t *maint = (volatile uint8_t *)0x18000000U;   /* RP_XIP_MAINTENANCE_BASE */
+    volatile uint32_t *xip = (volatile uint32_t *)0x400C8000U;    /* RP_XIP_CTRL_BASE */
+
+    /* 16KB cache, 8-byte cache line size. Writing any value invalidates the line. */
+    for (uint32_t offset = 0U; offset < (16U * 1024U); offset += 8U) {
+        maint[offset] = 0U;
+    }
+
+    __DSB();
+    __ISB();
+
+    /* Re-enable both Secure and Non-secure cache views. */
+    xip[0] = (1U << 0) | (1U << 1); /* EN_SECURE | EN_NONSECURE */
+}
+#endif // PIC02_AVAILABLE
+
 /*===========================================================================*/
 /* Driver local definitions.                                                 */
 /*===========================================================================*/
@@ -295,6 +333,24 @@ void __early_init(void) {
       #endif
     #endif
     #if PIC02_AVAILABLE == TRUE
+      /*
+       * RP2350 note (Pico2/ArduPilot bootloader):
+       * The application vector table lives at __vectors_base__ in flash
+       * (typically app_flash_base + 0x80). If we don't explicitly point
+       * VTOR at that table then external IRQs (for example I2C1 IRQ37)
+       * are taken via the boot ROM vector table and can end up in the
+       * default _unhandled_exception handler even though the real ISR
+       * (for example VectorD4 for I2C1) is linked into the image.
+       *
+       * Set VTOR as early as possible so all peripheral IRQs land in the
+       * correct ChibiOS handlers.
+       */
+      extern uint32_t __vectors_base__;
+
+      SCB->VTOR = (uint32_t)&__vectors_base__;
+      __DSB();
+      __ISB();
+
       // pico2 specific early init can go here
       pico2_gpio_init();
     #endif
@@ -316,6 +372,45 @@ void __late_init(void) {
    */
   nvicDisableVector(RP_USBCTRL_IRQ_NUMBER);
   hal_lld_peripheral_reset(RESETS_ALLREG_USBCTRL);
+
+  /*
+   * Ensure the XIP cache does not hold stale vector table lines (or other
+   * early-startup code) when the firmware was reflashed via SWD and reset
+   * using SYSRESETREQ.
+   *
+   * This must run after the C runtime has initialized .data, because the
+   * helper is located in .ramtext and executes from RAM.
+   */
+  rp2350_invalidate_xip_cache();
+
+  /*
+   * Relocate the vector table into SRAM.
+   *
+   * On the RP2350 we have observed external IRQs occasionally dispatching to
+   * stale/default handlers after SWD reflashing + SYSRESETREQ reset, despite
+   * the flash vector table containing the correct ISR entry.
+   *
+   * Moving the vector table into SRAM makes IRQ dispatch deterministic and
+   * avoids any dependency on XIP flash caching behavior for vector fetches.
+   *
+   * The VTOR alignment requirement for Cortex-M33 is 128 bytes (TBLOFF[6:0]),
+   * so we align the RAM vector table accordingly.
+   *
+   * The RP2350 port defines CORTEX_NUM_VECTORS=56 (see devices/RP2350/cmparams.h),
+   * so the full table is 16 system exceptions + 56 external IRQ vectors.
+   */
+  extern uint32_t __vectors_base__;
+  enum { RP2350_VECTOR_WORDS = 16U + 56U };
+  static uint32_t rp2350_vectors[RP2350_VECTOR_WORDS] __attribute__((aligned(128)));
+  const uint32_t *flash_vectors = (const uint32_t *)&__vectors_base__;
+
+  for (uint32_t i = 0; i < RP2350_VECTOR_WORDS; i++) {
+      rp2350_vectors[i] = flash_vectors[i];
+  }
+
+  SCB->VTOR = (uint32_t)rp2350_vectors;
+  __DSB();
+  __ISB();
 
   /*
    * RP2350 UART RX pads: at chip reset PADS_BANK0 has ISO=1 + PDE=1 + IE=0.
