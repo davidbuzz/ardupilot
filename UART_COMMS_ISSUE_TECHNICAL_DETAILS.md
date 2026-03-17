@@ -201,6 +201,7 @@ Interpreting bytes at offset 13 and 14:
 
 This byte is written by `AP_Scheduler::run()` before each task call with the task index, and reset to -1 after. During `setup()` it is never set (remains BSS default = 0). During `delay()` calls in setup it gets set to -4.
 
+
 The `scheduler_task` byte lives at `hal.util + 0x4c`:
 - `hal.util` = `0x2000d740`
 - `scheduler_task` address = `0x2000d740 + 0x4c = 0x2000d78c`
@@ -458,3 +459,122 @@ arm-none-eabi-nm build/Pico2/bin/arducopter | grep "AP_SerialManager\|serial_man
 | ttyACM1 output | ❌ ZERO BYTES | Expected — MAVLink tasks never run |
 
 **The USB hardware is working perfectly. The silence on ttyACM1 is entirely caused by `setup()` not yet calling `set_system_initialized()`. The main thread is alive and making forward progress (observed creating a dynamic thread), but setup() has not completed. The root cause is somewhere in the ArduCopter subsystem initialization sequence, not in the USB/ChibiOS layer.**
+
+---
+
+## 16. Post-Flash Re-Validation (After Successful `--upload`)
+
+After rebuilding and uploading with:
+
+```bash
+./waf configure --board=Pico2 --debug
+./waf copter -j12
+./waf copter -j12 --upload
+```
+
+the upload completed successfully (`Erase/Program/Verify = 100%`). A manual USB unplug/re-plug was required for the board to reappear and run the application (expected on this setup).
+
+### 16.1 Fresh Symbol Addresses (new build)
+
+From `arm-none-eabi-nm build/Pico2/bin/arducopter`:
+
+| Symbol | Address |
+|--------|---------|
+| `hal` | `0x2000b898` |
+| `_ZL11hal_chibios` | `0x2000cffc` |
+| `_ZL12utilInstance` | `0x2000d208` |
+| `_ZL17schedulerInstance` | `0x2000f8ac` |
+| `SDU1` | `0x20012eac` |
+| `USBD1` | `0x20013690` |
+
+(`scheduler_task` remains at `hal.util + 0x4c = 0x2000d254`.)
+
+### 16.2 Live State Snapshot (after upload + replug)
+
+OpenOCD readout:
+
+```text
+mdw 0x2000f8ac 8  -> 0x1011a800 00000000 00000000 00010000 ...
+mdw 0x2000d254 1  -> 0x00000000
+mdw 0x20012eac 4  -> ... word[2] = 0x00000002 (SDU_ACTIVE)
+mdw 0x20013690 4  -> word[0] = 0x00000004 (USB_ACTIVE)
+```
+
+Interpretation is unchanged:
+
+| Signal | Value | Meaning |
+|--------|-------|---------|
+| `_initialized` (`scheduler + 13`) | `0` | `setup()` still not complete |
+| `_hal_initialized` (`scheduler + 14`) | `1` | HAL init complete |
+| `scheduler_task` | `0` | `AP_Scheduler::run()` not entered |
+| `SDU1.state` | `2` | USB CDC active |
+| `USBD1.state` | `4` | USB device active/configured |
+
+### 16.3 USB Byte Test (non-blocking)
+
+Repeated non-blocking reads from `/dev/ttyACM1` returned no payload bytes (`sum = 0`), only `EAGAIN`/"Resource temporarily unavailable" when no data is present.
+
+### 16.4 Additional Runtime Observation
+
+PC sampling continued to show mostly ChibiOS timer/scheduler paths (`chSysTimerHandlerI`, `chVTDoTickI`, `SVC_Handler`), i.e. RTOS activity is alive while application-level MAVLink tasks remain gated behind incomplete `setup()`.
+
+**Result:** A clean rebuild + successful upload + manual USB replug does **not** change the core diagnosis. USB transport is healthy; MAVLink silence still tracks to `setup()` not reaching `set_system_initialized()`.
+
+---
+
+## 17. Root-Cause Isolation: Exact Blocking Call Identified
+
+Additional instrumentation was added to narrow the stall location:
+
+- `ap_vehicle_setup_stage` in `AP_Vehicle::setup()`
+- `serial_manager_init_stage` in `AP_SerialManager::init()`
+- `uart_begin_stage` in `ChibiOS::UARTDriver::_begin()`
+
+### 17.1 Marker Results (latest SWD-probed build)
+
+One-shot OpenOCD snapshot:
+
+```text
+ap_vehicle_setup_stage      = 0x0000003c  (60)
+serial_manager_init_stage   = 0x000004ea  (1258)
+uart_begin_stage            = 0x00101007
+scheduler._initialized      = 0
+scheduler._hal_initialized  = 1
+scheduler_task              = 0
+SDU1.state                  = 2 (SDU_ACTIVE)
+USBD1.state                 = 4 (USB_ACTIVE)
+```
+
+`serial_manager_init_stage` encoding:
+
+```
+1000 + (port_index << 8) + protocol
+1258 = 1000 + (1 << 8) + 2
+=> port = SERIAL1, protocol = MAVLink2
+```
+
+`uart_begin_stage` encoding:
+
+```
+0x100000 + (serial_num << 12) + substage
+0x00101007 => serial_num=1, substage=7
+```
+
+Substage `7` is set immediately **before** `thread_init()` in `UARTDriver::_begin()`, and substage `8` is set after it returns. Since marker remains at `7`, execution is blocked in:
+
+```cpp
+UARTDriver::_begin(...) -> thread_init()
+```
+
+for `SERIAL1` configured as `MAVLink2` during `serial_manager.init()`.
+
+### 17.2 Conclusion
+
+The blocking software error is not in USB CDC hardware or descriptor enumeration. The startup path stalls while bringing up the UART TX worker thread for `SERIAL1` (MAVLink2), inside `UARTDriver::thread_init()`. Because setup never returns:
+
+- `set_system_initialized()` is never called,
+- `AP_Scheduler::run()` never starts,
+- MAVLink scheduled tasks (`GCS::update_send`) never execute,
+- USB CDC remains active but emits zero MAVLink payload bytes.
+
+This explains why bootloader communications can work (separate path) while main app communications remain silent.
