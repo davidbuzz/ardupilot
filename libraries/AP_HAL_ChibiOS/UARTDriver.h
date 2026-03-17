@@ -22,6 +22,10 @@
 #include "shared_dma.h"
 #include "Semaphores.h"
 
+#if defined(HAL_USB_VENDOR_ID) && !defined(HAVE_USB_SERIAL)
+#define HAVE_USB_SERIAL
+#endif
+
 #if defined(RP2350)
 #include "rp_dma.h"
 #endif
@@ -47,6 +51,9 @@ public:
     bool tx_pending() override;
     uint32_t get_usb_baud() const override;
     uint8_t get_usb_parity() const override;
+#ifdef HAVE_USB_SERIAL
+    bool is_usb_active() const;
+#endif
 
     // disable TX/RX pins for unusued uart
     void disable_rxtx(void) const override;

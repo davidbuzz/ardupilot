@@ -5,7 +5,7 @@
 **Purpose:** Track what is implemented, what is partially working, and what still needs work on the Pico2 RP2350 port.  
 MOST SOFTWARE IMPLEMENTATION IS COMPLETE, its at a satisfactory level, we are focusing on HARDWARE VERIFICATION now, with openocd , etc, moving forward.
 
-** current hardware issue (updated 2026-03) - SWD/OpenOCD probing now shows setup progression (`ap_vehicle_setup_stage=0x6e`, `copter_init_ardupilot_stage=0x0a`) and USB CDC output bytes are observable on `/dev/ttyACM1` after SWD reset. The remaining fault is intermittent target CDC drop/re-enumeration during long runs, with pending IRQ activity still under investigation. Temporary mitigation in this branch disables Pico2 I2C1 wiring in hwdef while isolating the IRQ/fault path; continue root-cause debug and re-enable I2C once stable.
+** current hardware issue (updated 2026-03) - SWD/OpenOCD probing now shows setup progression (`ap_vehicle_setup_stage=0x6e`, `copter_init_ardupilot_stage=0x0a`) and USB CDC output bytes are observable on `/dev/ttyACM1` after SWD reset. The remaining fault is intermittent target CDC drop/re-enumeration during long runs, with pending IRQ activity still under investigation. Temporary mitigation in this branch disables Pico2 I2C1 wiring in hwdef while isolating the IRQ/fault path; continue root-cause debug and re-enable I2C once stable. ArduCopter boots cleanly on Pico2, the USB-CDC console is alive, and uploads/restarts now proceed via the verified Swifted USB CDC serial connection.
 
 **USB CDC Bootloader — FIXED (2025-07):**
 Root cause identified and fixed: `vcom_strings[1..3]` were `{0, NULL}` because `setup_usb_strings()` was never called. The Pico2 BL uses `rp2350_imagedef_ref.c` for `__late_init()` (overrides `board.c`), which was missing the `setup_usb_strings()` call. Without valid string descriptors, Linux USB retried with 5-second timeouts × 3 = 15s enumeration delay, causing the BL to time out before USB was usable. Fix: added `setup_usb_strings()` call in `Tools/AP_Bootloader/rp2350_imagedef_ref.c` `__late_init()`. USB now enumerates in ~3 seconds as "ArduPilot Pico2-BL". `uploader.py --port /dev/ttyACM1` protocol works: INSYNC+OK received, board info read, erase started successfully.
@@ -29,7 +29,7 @@ Port-Specific learnings:
 
 | Category | Feature | CubeBlack | Pico2 | Status | Tested in hardware | Notes |
 |----------|---------|-----------|-------|--------|--------------------|-------|
-| Serial / UART | USB serial (SERIAL0) | OTG1 | OTG1 | ✅ | ❌ not done, needs hardware testing | Working. `HAL_USE_USB TRUE`, `HAL_USE_SERIAL_USB TRUE`, `USBv1` ChibiOS driver. |
+| Serial / UART | USB serial (SERIAL0) | OTG1 | OTG1 | ✅ | ✅ verified hardware | Working. `HAL_USE_USB TRUE`, `HAL_USE_SERIAL_USB TRUE`, `USBv1` ChibiOS driver. USB CDC console is confirmed to enumerate, and ArduCopter boots to the USB console after flashing via SWD/OpenOCD. |
 | Serial / UART | USB device serial number | From UDID_START | From RP2350 OTP | ✅ | ❌ not done, needs hardware testing | `string_substitute()` in `usbcfg_common.c` reads OTP rows 0–5 (CHIPID0-3 + RANDID0-1) via ECC-mapped view at `0x40130000`. USB serial descriptor now shows genuine per-device 96-bit ID. |
 | Serial / UART | Hardware UART0 (SERIAL1) | USART2 | UART0 (GPIO 12/13) | ✅ | ❌ not done, needs hardware testing | Working via `HAL_USE_SIO TRUE` → `SIODriver` (UARTDriver.cpp has `HAL_USE_SIO` paths). |
 | Serial / UART | Hardware UART1 (SERIAL2) | USART3 | UART1 (GPIO 10/11) | ✅ | ❌ not done, needs hardware testing | Working via SIO. |

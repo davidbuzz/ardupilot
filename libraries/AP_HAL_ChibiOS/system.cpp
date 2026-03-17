@@ -29,6 +29,9 @@
 #include <ch.h>
 #include "hal.h"
 #include <hrt.h>
+extern thread_t* get_main_thread(void);
+#include "Scheduler.h"
+#include "UARTDriver.h"
 
 // we rely on systimestamp_t for 64 bit timestamps
 static_assert(sizeof(uint64_t) == sizeof(systimestamp_t), "unexpected systimestamp_t size");
@@ -83,6 +86,74 @@ ASSERT_CLOCK(STM32_FDCANCLK);
 #endif
 
 extern const AP_HAL::HAL& hal;
+void start_serial_rp2350_thread();
+namespace {
+static constexpr uint32_t SERIAL_HELLO_INTERVAL_MS = 10000;
+static constexpr size_t SERIAL_HELLO_STACK_SIZE = 512;
+static thread_t *serial_hello_thread_ctx = nullptr;
+
+static constexpr uint8_t SERIAL_HELLO_PORTS[] = {0, 1, 2};
+}
+// Ensure the hello thread is running once the scheduler is initialized.
+static void serial_hello_thread(void *unused)
+{
+    (void)unused;
+    chRegSetThreadName("SER_HELLO");
+
+    constexpr size_t num_serial_hello_ports = sizeof(SERIAL_HELLO_PORTS) / sizeof(SERIAL_HELLO_PORTS[0]);
+#ifdef HAVE_USB_SERIAL
+    ChibiOS::UARTDriver *usb_driver = nullptr;
+#endif
+    while (true) {
+#ifdef HAVE_USB_SERIAL
+        usb_driver = nullptr;
+#endif
+        for (size_t i = 0; i < num_serial_hello_ports; ++i) {
+            AP_HAL::UARTDriver *uart = hal.serial(SERIAL_HELLO_PORTS[i]);
+            if (uart && uart->is_initialized()) {
+#ifdef HAVE_USB_SERIAL
+                if (SERIAL_HELLO_PORTS[i] == 0) {
+                    usb_driver = static_cast<ChibiOS::UARTDriver *>(uart);
+                }
+#endif
+            }
+        }
+#ifdef HAVE_USB_SERIAL
+        if (usb_driver != nullptr) {
+            AP_HAL::UARTDriver *diag_uart = hal.serial(1);
+            if (diag_uart && diag_uart->is_initialized()) {
+                char status_buffer[64];
+                const char *usb_state = usb_driver->is_usb_active() ? "USB_ACTIVE" : "USB_INACTIVE";
+                int status_len = hal.util->snprintf(status_buffer, sizeof(status_buffer), "usb_state:%s\n", usb_state);
+                if (status_len > 0) {
+                    diag_uart->write(reinterpret_cast<const uint8_t *>(status_buffer), status_len);
+                }
+            }
+        }
+#endif
+        hal.scheduler->delay(SERIAL_HELLO_INTERVAL_MS);
+    }
+} // namespace
+
+// Ensure the hello thread is running once the scheduler is initialized.
+void start_serial_rp2350_thread()
+{
+    if (serial_hello_thread_ctx != nullptr) {
+        return;
+    }
+
+    serial_hello_thread_ctx = thread_create_alloc(
+        THD_WORKING_AREA_SIZE(SERIAL_HELLO_STACK_SIZE),
+        "SERHELLO",
+        APM_UART_PRIORITY,
+        serial_hello_thread,
+        nullptr);
+
+    if (serial_hello_thread_ctx == nullptr) {
+        AP_HAL::panic("serial hello thread");
+    }
+}
+
 extern "C"
 {
 #define bkpt() __asm volatile("BKPT #0\n")
@@ -321,7 +392,7 @@ uint32_t chibios_rand_generate()
     return val;
 }
 
-}
+} // extern "C"
 namespace AP_HAL {
 
 void init()

@@ -37,7 +37,7 @@ extern const AP_HAL::HAL& hal;
 
 using namespace ChibiOS;
 
-#ifdef HAL_USB_VENDOR_ID
+#if defined(HAL_USB_VENDOR_ID) && !defined(HAVE_USB_SERIAL)
 // USB has been configured in hwdef.dat
 #define HAVE_USB_SERIAL
 #endif
@@ -929,6 +929,17 @@ uint8_t UARTDriver::get_usb_parity() const
 #endif
     return 0;
 }
+
+#ifdef HAVE_USB_SERIAL
+bool UARTDriver::is_usb_active() const
+{
+    if (!sdef.is_usb) {
+        return false;
+    }
+    SerialUSBDriver *sdu = (SerialUSBDriver*)sdef.serial;
+    return (sdu->state == SDU_READY) && (usbGetDriverStateI(sdu->config->usbp) == USB_ACTIVE);
+}
+#endif
 
 uint32_t UARTDriver::_available()
 {

@@ -3,6 +3,8 @@ always add good comments to the code that you write, explaining its intent/purpo
 If you loose comms with the device use swd/openocd to reset the target device.
 If you loose comms with the swd/openocd debugger, kill the old process and restart/rerun it.
 the last item in a TODO list is always to CONTINUE WORKING on debugging a hardware fault, even if youve just fixed one.   Pico2/FEATURE_GAP.md has a list of other broken stuff that needs fixing, read that and carry on debugging. 
+    ~/openocd-pico/openocd -c "gdb_port 50000" -c "tcl_port 50001" -c "telnet_port 50002" -s ~/openocd-pico/scripts  -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 5000" &
+
 
 
 
