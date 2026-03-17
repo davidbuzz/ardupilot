@@ -153,6 +153,10 @@ I2C_ORDER I2C1
 # PIOUART0-3 = serial3-6 via RP2350 PIO0/PIO1 state machines (disabled for now)
 SERIAL_ORDER OTG1 UART0 UART1
 
+# Force the USB console (OTG1) to stream MAVLink immediately at 115200 baud.
+define HAL_OTG1_PROTOCOL SerialProtocol_MAVLink2
+define HAL_OTG1_BAUD 115200
+
 # If the board has an IOMCU connected via a UART then this defines the
 # UART to talk to that MCU. Leave it out for boards with no IOMCU.
 

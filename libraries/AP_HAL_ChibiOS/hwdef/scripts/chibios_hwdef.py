@@ -1884,6 +1884,14 @@ INCLUDE common.ld
                     f.write('false}\n')
                 else:
                     f.write('}\n')
+                if dev == 'OTG1':
+                    # Ensure the USB console default stays MAVLink so telemetry appears immediately.
+                    if self.get_config('HAL_OTG1_PROTOCOL', required=False) is None:
+                        f.write('#ifndef HAL_OTG1_PROTOCOL\n#define HAL_OTG1_PROTOCOL SerialProtocol_MAVLink2\n#endif\n')
+                    if self.get_config('HAL_OTG1_BAUD', required=False) is None:
+                        f.write('#ifndef HAL_OTG1_BAUD\n#define HAL_OTG1_BAUD 115200\n#endif\n')
+                    f.write('#define DEFAULT_SERIAL%d_PROTOCOL HAL_OTG1_PROTOCOL\n' % num)
+                    f.write('#define DEFAULT_SERIAL%d_BAUD HAL_OTG1_BAUD\n' % num)
             else:
                 need_uart_driver = True
                 if self.is_rp_mcu():
