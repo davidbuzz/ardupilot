@@ -486,6 +486,21 @@ define HAL_WITH_MCU_MONITORING 1
 # messages (1 Hz) and allows BRD_IMU_TARGTEMP arming-temperature checks.
 define HAL_HAVE_IMU_HEATER 1
 
+# Allow the vehicle to finish initialising even when the SPI baro (MS5611 on
+# SPI0 extended-GPIO pins) is absent. Without this, AP_Baro::init() calls
+# config_error() (NORETURN) and the vehicle never reaches ap.initialised,
+# blocking all post-init telemetry (MCU_STATUS, SYS_STATUS, HEAT logging).
+# Baro absence is still flagged in SYS_STATUS sensor health and arming checks.
+define HAL_BARO_ALLOW_INIT_NO_BARO 1
+
+# Allow the vehicle to finish initialising even when the SPI IMU (Invensense
+# on SPI1 extended-GPIO pins) is absent. Without this, AP_InertialSensor
+# calls config_error() (NORETURN) or wait_for_sample() blocks forever.
+# AP_InertialSensor_NONE mock backend (extended from ESP32) is used instead;
+# it registers dummy gyro+accel instances returning near-zero data so
+# wait_for_sample() completes normally. IMU absence is flagged in SYS_STATUS.
+define AP_INERTIALSENSOR_ALLOW_NO_SENSORS 1
+
 # No microSD/SDIO on Pico2. HAL_USE_MMC_SPI could be enabled if an SPI-mode
 # SD card is wired to a free SPI bus, but no SD slot exists on standard Pico2.
 define HAL_OS_FATFS_IO 0

@@ -1,15 +1,18 @@
 #include <AP_HAL/AP_HAL.h>
 #include "AP_InertialSensor_NONE.h"
-#include <SITL/SITL.h>
 #include <stdio.h>
+#include <stdlib.h>  // rand()
 #include <GCS_MAVLink/GCS.h>
 
-#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+// Available on ESP32 and Pico2 (PIC02_AVAILABLE) — boards without a physical IMU
+// that still need to boot successfully so USB/MAVLink telemetry can reach the GCS.
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32 || (defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE)
 
 
 static float sim_rand_float(void)
 {
-    return ((((unsigned)random()) % 2000000) - 1.0e6) / 1.0e6;
+    // rand() is portable across ESP32 and ChibiOS/RP2350; scale to [-1, 1]
+    return ((((unsigned)rand()) % 2000000) - 1.0e6) / 1.0e6;
 }
 
 const extern AP_HAL::HAL& hal;
@@ -317,4 +320,4 @@ void AP_InertialSensor_NONE::start()
 
 }
 
-#endif // HAL_BOARD_NONE
+#endif // HAL_BOARD_ESP32 || PIC02_AVAILABLE

@@ -1304,7 +1304,10 @@ AP_InertialSensor::detect_backends(void)
     if (_backend_count == 0) {
 
         // no real INS backends avail, lets use an empty substitute to boot ok and get to mavlink
-        #if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+        #if CONFIG_HAL_BOARD == HAL_BOARD_ESP32 || (defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE)
+        // RP2350 (Pico2): SPI IMU pins are on extended-GPIO castellated pads not
+        // connected on bare hardware. Register a mock backend so wait_for_sample()
+        // doesn't block forever and the vehicle reaches ap.initialised.
         ADD_BACKEND(AP_InertialSensor_NONE::detect(*this, INS_NONE_SENSOR_A));
         #else
         DEV_PRINTF("INS: unable to initialise driver\n");

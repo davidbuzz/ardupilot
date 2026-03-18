@@ -7,7 +7,11 @@
  Its a rip-off of _SITL with all the sitl stuff removed or replaced with constants.
 */
 
-#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+// AP_InertialSensor_NONE: mock IMU backend that outputs near-zero data.
+// Used for boards without a physical IMU (ESP32, RP2350) to allow the vehicle
+// to finish initialising, enabling USB/MAVLink telemetry without aborting in
+// config_error() or wait_for_sample().
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32 || (defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE)
 #include "AP_InertialSensor.h"
 #include "AP_InertialSensor_Backend.h"
 
