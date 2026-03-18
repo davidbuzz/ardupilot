@@ -133,10 +133,7 @@ by defining `HAL_HEATER_GPIO_PIN` in a local hwdef override.
 
 ## Parameter Storage
 
-Parameters are stored in the last 32 KB of the 4 MB QSPI flash
-(sectors 1016–1023). `AP_FLASH_STORAGE_QUAD_PAGE 1` aggregates
-4 × 4 KB physical pages into one 16 KB logical sector for correct
-wear-levelling. Storage capacity is 8 KB (vs 16 KB on CubeBlack).
+Parameters are stored in a dedicated 32 KB region at 0x10008000–0x1000FFFF (pages 8–15, two 16KB halves) of the 4 MB QSPI flash. `AP_FLASH_STORAGE_QUAD_PAGE 1` aggregates 4 × 4 KB physical pages into one 16 KB logical sector for correct wear-levelling. Storage capacity is 8 KB (vs 16 KB on CubeBlack).
 
 If an external SPI FRAM (ramtron-compatible) is wired to a free
 SPI bus, uncomment the `#SPIDEV ramtron` and `#PA_n FRAM_CS CS`
@@ -283,6 +280,7 @@ SWDIO=GPIO1 via PC0/PC1 in hwdef) or the RP2350 UF2 bootloader.
 
 
 todo document use of openocd here.
+
 
 ## Firmware Flashing
 

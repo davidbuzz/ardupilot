@@ -3,8 +3,7 @@
 #
 # AP_Bootloader for RP2350.  Flash layout:
 #   0x10000000..0x10007FFF  bootloader (32 KB, ~17 KB used after ChibiOS HAL init)
-#   0x10008000..0x1000BFFF  storage half-1 (16 KB, flash pages 8-11)
-#   0x1000C000..0x1000FFFF  storage half-2 (16 KB, flash pages 12-15)
+#   0x10008000..0x1000FFFF  parameter storage (32 KB, pages 8–15, two 16KB halves)
 #   0x10010000..0x103FFFFF  application
 #
 # The bootloader accepts firmware via USB (MAVLink/DFU protocol) or UART0
@@ -26,20 +25,12 @@ FLASH_SIZE_KB 4096
 # bootloader itself starts at 0x10000000 (no offset)
 FLASH_RESERVE_START_KB 0
 
-# maximum size of the bootloader binary in KB
-# 32 KB gives room for the ChibiOS HAL init chain (~17 KB used).
-# Reducing to 16 KB caused a linker overflow once halInit()/chSysInit() were
-# added; restore to the original 32 KB reservation.
 FLASH_BOOTLOADER_LOAD_KB 32
+# 32 KB bootloader is required; 16 KB caused linker overflow after ChibiOS HAL init chain was added.
 
-# APP_START_OFFSET_KB: extra reserved space between bootloader and app.
-# Storage uses 8 pages × 4KB = 32KB (pages 8-15, 0x10008000-0x1000FFFF).
-# This tells support.cpp to compute:
-#   flash_base      = 0x10000000 + (32+32)*1024 = 0x10010000  (page-aligned app start)
-#   flash_base_page = 16                                        (skip 64KB BL+storage)
-# Without this, firmware would be written to the storage area (0x10008000) and
-# the bootloader would jump to 0x10010080 in the middle of the firmware blob.
 APP_START_OFFSET_KB 32
+# Storage uses 8 pages × 4KB = 32KB (pages 8–15, 0x10008000–0x1000FFFF).
+# App starts at 0x10010000 (page-aligned), vector table at 0x10010080 (VTOR alignment).
 
 # RP2350 flash base is 0x10000000 (not STM32's 0x08000000).
 # Flash layout: BL(32KB@0x10000000) Storage(32KB@0x10008000) App(4032KB@0x10010000)

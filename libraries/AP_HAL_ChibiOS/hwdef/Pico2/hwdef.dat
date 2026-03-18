@@ -91,14 +91,11 @@ OSCILLATOR_HZ 24000000
 
 # Now the size of flash in kilobytes, for creating the ld.script.
 
-# flash size - Raspberry Pi Pico 2 (RP2350) comes standard with 4MB of onboard QSPI Flash memory
 FLASH_SIZE_KB 4096
-# Flash layout: BL(16KB) + Storage(32KB) + App; application starts at 0x1000C000
-# Storage uses QUAD_PAGE: 2 halves × 4×4KB = 32KB total (0x10004000-0x1000BFFF)
-# Flash layout: BL(32KB) + Storage-half1(16KB) + Storage-half2(16KB) + App
-#   BL:      0x10000000-0x10007FFF  (32 KB)
-#   Storage: 0x10008000-0x1000FFFF  (32 KB, pages 8-15)
-#   App:     0x10010000-0x103FFFFF  (4032 KB)
+# Flash layout:
+#   Bootloader: 0x10000000–0x10007FFF (32 KB)
+#   Parameter storage: 0x10008000–0x1000FFFF (32 KB, pages 8–15, two 16KB halves)
+#   App: 0x10010000–0x103FFFFF (4032 KB)
 FLASH_RESERVE_START_KB 64
 
 # Now define which UART is used for printf(). We rarely use printf()
@@ -568,13 +565,9 @@ define HAL_USE_CAN                         FALSE
 define HAL_USE_CRY                         FALSE
 define HAL_USE_DAC                         FALSE
 define HAL_USE_EFL                         TRUE
-# STORAGE_FLASH_PAGE: start of flash sector group used for parameter storage.
-# Placed immediately after the bootloader (page 4 = 16KB offset = 0x10004000).
-# AP_FLASH_STORAGE_QUAD_PAGE: aggregate 4×4KB physical sectors into one 16KB half.
-#   Two halves: pages 4-7 (0x10004000-0x10007FFF) + pages 8-11 (0x10008000-0x1000BFFF) = 32KB.
-# reserve_size ~8512 bytes < sector_size 16384 — wear-leveling compaction works correctly.
-# DOUBLE_PAGE (8KB half) is broken: reserve_size (8512) > sector_size (8192).
 STORAGE_FLASH_PAGE 8
+# Parameter storage uses AP_FLASH_STORAGE_QUAD_PAGE=1: two 16KB halves (pages 8–11 and 12–15, 0x10008000–0x1000FFFF).
+# HAL_STORAGE_SIZE=8192 fits in one 16KB half. Wear-leveling compaction is correct.
 define AP_FLASH_STORAGE_QUAD_PAGE 1
 define HAL_USE_GPT                         FALSE
 define HAL_USE_I2S                         FALSE
