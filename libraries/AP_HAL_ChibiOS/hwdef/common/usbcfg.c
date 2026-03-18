@@ -50,6 +50,20 @@ static cdc_linecoding_t linecoding = {
   LC_STOP_1, LC_PARITY_NONE, 8
 };
 
+static volatile uint32_t usb_event_configured_count;
+static volatile uint32_t usb_event_reset_count;
+static volatile uint32_t usb_event_unconfigured_count;
+static volatile uint32_t usb_event_suspend_count;
+static volatile uint32_t usb_event_wakeup_count;
+static volatile uint32_t usb_event_stalled_count;
+static volatile systime_t usb_event_last_tick;
+
+static void usb_event_note(volatile uint32_t *counter)
+{
+  *counter = *counter + 1U;
+  usb_event_last_tick = chVTGetSystemTimeX();
+}
+
 /*
  * Endpoints to be used for USBD1.
  */
@@ -269,6 +283,41 @@ uint8_t get_usb_parity(uint16_t endpoint_id)
 
       return 0;
 }
+
+uint32_t get_usb_event_configured_count(void)
+{
+  return usb_event_configured_count;
+}
+
+uint32_t get_usb_event_reset_count(void)
+{
+  return usb_event_reset_count;
+}
+
+uint32_t get_usb_event_unconfigured_count(void)
+{
+  return usb_event_unconfigured_count;
+}
+
+uint32_t get_usb_event_suspend_count(void)
+{
+  return usb_event_suspend_count;
+}
+
+uint32_t get_usb_event_wakeup_count(void)
+{
+  return usb_event_wakeup_count;
+}
+
+uint32_t get_usb_event_stalled_count(void)
+{
+  return usb_event_stalled_count;
+}
+
+uint32_t get_usb_event_last_ms(void)
+{
+  return chTimeI2MS(usb_event_last_tick);
+}
 #endif
 /**
  * @brief   IN EP1 state.
@@ -335,6 +384,7 @@ static void usb_event(USBDriver *usbp, usbevent_t event) {
   case USB_EVENT_ADDRESS:
     return;
   case USB_EVENT_CONFIGURED:
+    usb_event_note(&usb_event_configured_count);
     chSysLockFromISR();
 
     /* Enables the endpoints specified into the configuration.
@@ -349,10 +399,13 @@ static void usb_event(USBDriver *usbp, usbevent_t event) {
     chSysUnlockFromISR();
     return;
   case USB_EVENT_RESET:
-    /* Falls into.*/
+    usb_event_note(&usb_event_reset_count);
+    /* fall through */
   case USB_EVENT_UNCONFIGURED:
-    /* Falls into.*/
+    usb_event_note(&usb_event_unconfigured_count);
+    /* fall through */
   case USB_EVENT_SUSPEND:
+    usb_event_note(&usb_event_suspend_count);
     chSysLockFromISR();
 
     /* Disconnection event on suspend.*/
@@ -361,6 +414,7 @@ static void usb_event(USBDriver *usbp, usbevent_t event) {
     chSysUnlockFromISR();
     return;
   case USB_EVENT_WAKEUP:
+    usb_event_note(&usb_event_wakeup_count);
     chSysLockFromISR();
 
     /* Disconnection event on suspend.*/
@@ -369,6 +423,7 @@ static void usb_event(USBDriver *usbp, usbevent_t event) {
     chSysUnlockFromISR();
     return;
   case USB_EVENT_STALLED:
+    usb_event_note(&usb_event_stalled_count);
     return;
   }
   return;

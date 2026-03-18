@@ -32,6 +32,7 @@
 extern thread_t* get_main_thread(void);
 #include "Scheduler.h"
 #include "UARTDriver.h"
+#include "hwdef/common/usbcfg.h"
 
 // we rely on systimestamp_t for 64 bit timestamps
 static_assert(sizeof(uint64_t) == sizeof(systimestamp_t), "unexpected systimestamp_t size");
@@ -122,9 +123,21 @@ static void serial_hello_thread(void *unused)
         if (usb_driver != nullptr) {
             AP_HAL::UARTDriver *diag_uart = hal.serial(1);
             if (diag_uart && diag_uart->is_initialized()) {
-                char status_buffer[64];
+                char status_buffer[96];
                 const char *usb_state = usb_driver->is_usb_active() ? "USB_ACTIVE" : "USB_INACTIVE";
-                int status_len = hal.util->snprintf(status_buffer, sizeof(status_buffer), "usb_state:%s\n", usb_state);
+                const uint32_t cfg = get_usb_event_configured_count();
+                const uint32_t rst = get_usb_event_reset_count();
+                const uint32_t susp = get_usb_event_suspend_count();
+                const uint32_t uncfg = get_usb_event_unconfigured_count();
+                const uint32_t last_ms = get_usb_event_last_ms();
+                int status_len = hal.util->snprintf(status_buffer, sizeof(status_buffer),
+                                                    "usb_state:%s cfg:%lu rst:%lu susp:%lu uncfg:%lu last:%lums\n",
+                                                    usb_state,
+                                                    (unsigned long)cfg,
+                                                    (unsigned long)rst,
+                                                    (unsigned long)susp,
+                                                    (unsigned long)uncfg,
+                                                    (unsigned long)last_ms);
                 if (status_len > 0) {
                     diag_uart->write(reinterpret_cast<const uint8_t *>(status_buffer), status_len);
                 }

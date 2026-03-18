@@ -131,7 +131,8 @@ USB_STRING_MANUFACTURER "ArduPilot"
 # exposed as hal.i2c bus 0 (external).
 
 # order of I2C buses - Pico2 has only I2C1 hardware wired out
-I2C_ORDER I2C1
+# I2C_ORDER I2C1  # DISABLED: floating I2C1 pins (GPIO15/18) cause spurious IRQ37 crash
+#                  Re-enable when carrier board with I2C devices is connected.
 
 # Now the serial ordering. These map to the SERIALn_ parameter numbers
 # If you use a shorter list then HAL_Empty::UARTDriver
@@ -265,8 +266,8 @@ PC1 SWDIO SWD
 
 # Now the first I2C bus. The pin speeds are automatically setup
 # correctly, but can be overridden here if needed.
-PA15 I2C1_SCL I2C1
-PA18 I2C1_SDA I2C1
+# PA15 I2C1_SCL I2C1  # DISABLED: see I2C_ORDER comment above
+# PA18 I2C1_SDA I2C1  # DISABLED: see I2C_ORDER comment above
 
 # RC input - GPIO edge-capture based pulse decoder (PAL callback, both edges).
 # GPIO16 (PA16) is free on Pico2; PULLDOWN avoids false edges when unconnected.
