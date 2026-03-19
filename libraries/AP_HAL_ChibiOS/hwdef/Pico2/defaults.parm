@@ -3,6 +3,14 @@
 # (HAL_BATT_VOLT_SCALE=10.1, HAL_BATT_CURR_SCALE=17.0) and do not need
 # to be overridden here.
 #
+# Reduce main loop rate from the default 400 Hz to 350 Hz.
+# The RP2350 Cortex-M33 @ 150 MHz cannot sustain the full 400 Hz task
+# budget: extra_loop_us accumulates and GCS update_send() tasks are
+# starved of time_available, silencing all MAVLink output.  350 Hz
+# gives ~2857 µs per loop (vs 2500 µs at 400 Hz), enough headroom for
+# the GCS and logging tasks to execute each cycle.
+SCHED_LOOP_RATE 350
+
 # Uncomment and adjust to match your power brick or current sensor:
 #BATT_AMP_PERVLT 17.0
 #BATT_VOLT_MULT 10.1
