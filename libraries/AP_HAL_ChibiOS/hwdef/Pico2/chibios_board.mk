@@ -89,11 +89,17 @@ ifeq ($(USE_EXCEPTIONS_STACKSIZE),)
 endif
 
 # Enables the use of FPU (no, softfp, hard).
+# RP2350 has a full FPv5-D16 FPU (hardware double), so use 'hard' ABI so
+# float/double arguments are passed in FPU registers, eliminating the
+# integer-register round-trip overhead present with 'softfp'.
 ifeq ($(USE_FPU),)
-  USE_FPU = softfp
+  USE_FPU = hard
 endif
 
 # FPU-related options.
+# Keep fpv5-sp-d16 (single-precision) — the RP2350 Cortex-M33 implements
+# FPv5-SP only; fpv5-d16 would emit vmul.f64 etc. causing hard faults.
+# The 'hard' ABI above still saves the int-register round-trip for float args.
 ifeq ($(USE_FPU_OPT),)
   USE_FPU_OPT = -mfloat-abi=$(USE_FPU) -mfpu=fpv5-sp-d16
 endif

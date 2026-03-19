@@ -57,13 +57,20 @@ mcu = {
 # hints also here: https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2_common/pico_unique_id/include/pico/unique_id.c
 	'UDID_START' : 0x1FFF7A10, # 64 bits of "random" on the rp2350 in a OTP , this is 96bits on stm32, and also guaranteed unique on stm32 but not 2350
 
-    'EXPECTED_CLOCK' : 150000000,  # 168000000 ?
+    'EXPECTED_CLOCK' : 250000000,  # overclocked from default 150 MHz via POSTDIV1=3
 
     'DEFINES' : {
         #'STM32F4' : '1',
     },
     'CORTEX'    : 'cortex-m33',
-    'CPU_FLAGS' : '-mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=softfp'
+    # Use fpv5-sp-d16 with hard ABI:
+    #  - hard: float args go in FPU registers directly (eliminates the
+    #    int-register round-trip that softfp incurs per float call).
+    #  - fpv5-sp-d16: Cortex-M33 FPv5 is single-precision only; the RP2350
+    #    does NOT implement hardware double-precision (confirmed in RP2350
+    #    datasheet sec 2.1.3: "single-precision floating-point arithmetic").
+    #    Using fpv5-d16 would generate vmul.f64 etc. which hard-fault.
+    'CPU_FLAGS' : '-mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard'
 }
 
 #     Table 1427

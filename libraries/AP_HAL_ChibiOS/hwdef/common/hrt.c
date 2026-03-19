@@ -101,7 +101,10 @@ static inline bool is_locked(void) {
     return !__port_irq_enabled(__port_get_irq_status());
 }
 
-uint64_t hrt_micros64()
+// hrt timing helpers run from SRAM when __RAMFUNC__ is mapped to .ramtext
+// (e.g. RP2350) so micros()/millis() __FASTRAMFUNC__ wrappers in system.cpp
+// can call these without incurring further XIP cache misses.
+__RAMFUNC__ uint64_t hrt_micros64()
 {
     if (is_locked()) {
         return hrt_micros64I();
@@ -120,7 +123,7 @@ uint64_t hrt_micros64()
     }
 }
 
-uint32_t hrt_micros32()
+__RAMFUNC__ uint32_t hrt_micros32()
 {
 #if CH_CFG_ST_RESOLUTION == 16
     // boards with 16 bit timers need to call get_systime_us32() in a
@@ -146,12 +149,12 @@ uint32_t hrt_micros32()
 #endif
 }
 
-uint64_t hrt_millis64()
+__RAMFUNC__ uint64_t hrt_millis64()
 {
     return uint64_div1000(hrt_micros64());
 }
         
-uint32_t hrt_millis32()
+__RAMFUNC__ uint32_t hrt_millis32()
 {
     return (uint32_t)(hrt_millis64());
 }

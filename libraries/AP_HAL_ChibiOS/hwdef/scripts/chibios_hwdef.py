@@ -1181,11 +1181,21 @@ class ChibiOSHWDef(hwdef.HWDef):
             self.env_vars['CPU_FLAGS'] = ["-mcpu=%s" % cortex, "-mfpu=fpv4-sp-d16", "-mfloat-abi=hard"]
             build_info['MCU'] = cortex
 
+        # RP2350 (Pico2) has a Cortex-M33 with FPv5-D16, which includes a
+        # RP2350 (PICO2) Cortex-M33 implements FPv5-SP-D16 (single-precision
+        # only). The RP2350 datasheet sec 2.1.3 explicitly states "single-
+        # precision floating-point arithmetic". There is NO hardware double.
+        # Using fpv5-d16 / HAL_HAVE_HARDWARE_DOUBLE=1 would instruct GCC to
+        # emit vmul.f64 / vadd.f64 etc., which hard-fault on the actual silicon.
+        # Keep this 0 so the EKF runs in single-precision (ftype=float) with
+        # native VFP single instructions via the hard ABI.
+        # (STM32H7 has double HW and is handled by its own Python config dict.)
+        have_hw_double = 0
         f.write('''
 #ifndef HAL_HAVE_HARDWARE_DOUBLE
-#define HAL_HAVE_HARDWARE_DOUBLE 0
+#define HAL_HAVE_HARDWARE_DOUBLE %d
 #endif
-''')
+''' % have_hw_double)
 
         if self.get_config('MCU_CLOCKRATE_MHZ', required=False):
             clockrate = int(self.get_config('MCU_CLOCKRATE_MHZ'))
