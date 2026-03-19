@@ -12,6 +12,7 @@ const AP_HAL::HAL& hal = AP_HAL::get_HAL();
 
 void setup()
 {
+    hal.scheduler->delay(5000); // time for us to connect
     hal.console->printf("hello world\n");
 }
 

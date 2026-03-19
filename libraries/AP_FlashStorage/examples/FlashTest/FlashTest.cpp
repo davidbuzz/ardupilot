@@ -132,6 +132,7 @@ void FlashTest::write(uint16_t offset, const uint8_t *data, uint16_t length)
  */
 void FlashTest::setup(void)
 {
+    hal.scheduler->delay(5000); // time for us to connect
     hal.console->printf("AP_FlashStorage test\n");
 }
 
