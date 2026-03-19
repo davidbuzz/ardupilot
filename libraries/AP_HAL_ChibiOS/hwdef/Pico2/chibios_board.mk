@@ -139,7 +139,9 @@ include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
 #include $(CHIBIOS)/os/common/ports/ARMv7-M/compilers/GCC/mk/port.mk
-include $(CHIBIOS)/os/common/ports/ARMv8-M-ML/compilers/GCC/mk/port.mk
+# SMP-capable RP2 port: includes chcoresmp.c (SIO spinlock + inter-core FIFO)
+# and sets PORT_CORES_NUMBER=2, enabling ChibiOS full-SMP on both Cortex-M33 cores.
+include $(CHIBIOS)/os/common/ports/ARMv8-M-ML-ALT/compilers/GCC/mk/port_rp2.mk
 # Other files (optional).
 #include $(CHIBIOS)/test/rt/test.mk
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk

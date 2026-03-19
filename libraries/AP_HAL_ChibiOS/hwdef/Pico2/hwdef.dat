@@ -657,6 +657,15 @@ define AP_COMPASS_PROBING_ENABLED 1
 define __RAMFUNC__     __attribute__((__section__(".ramtext")))
 define __FASTRAMFUNC__ __attribute__((__section__(".ramtext")))
 
+# Enable ChibiOS full-SMP mode so both Cortex-M33 cores participate in
+# scheduling.  Threads are statically affinitised to the core that created
+# them; critical sections protect from both IRQ and the other core via
+# the RP2350 SIO hardware spinlock.  Core0 runs the ArduPilot main loop;
+# core1 is available for the fast-rate attitude/motor thread.
+# chconf.h checks #if !defined(CH_CFG_SMP_MODE), so defining it here
+# (which is included via hwdef.h) overrides the common default of FALSE.
+define CH_CFG_SMP_MODE TRUE
+
 # Overclock the RP2350 from the default 150 MHz to 250 MHz.
 # The PLL_SYS VCO is already set to 1500 MHz in rp_clocks.h.
 # Changing POSTDIV1 from 5 to 3 (and keeping POSTDIV2=2) gives
