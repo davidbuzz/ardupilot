@@ -22,6 +22,7 @@ static void read_file(const char *);
 
 void setup()
 {
+    hal.scheduler->delay(5000); // delay to allow time for console to connect and print messages
     board_config.init();
 
     //creating a test directory to store all files
