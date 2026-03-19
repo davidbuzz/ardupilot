@@ -79,6 +79,7 @@ static BinarySemTest *ct;
 
 void setup(void)
 {
+    hal.scheduler->delay(5000); // time for us to connect
     ct = new BinarySemTest;
     ct->setup();
 }
