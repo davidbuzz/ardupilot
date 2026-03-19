@@ -414,14 +414,15 @@ void __late_init(void) {
 
   /*
    * RP2350 UART RX pads: at chip reset PADS_BANK0 has ISO=1 + PDE=1 + IE=0.
-   * Setting 0x5A (PUE+IE+SCHMITT) prevents any early glitch on the lines
-   * before halInit() runs.  Note: halInit() → pal_lld_init() will overwrite
-   * these with PAL_MODE_ALTERNATE_UART (IE only, no PUE).  The permanent
-   * pull-up fix that prevents the UART BREAK → IRQ storm is applied in
-   * UARTDriver::_begin() via palLineSetPushPull() before sioStart().
+   * Setting 0x5A (PUE+IE+SCHMITT) prevents any early glitch on the RX lines
+   * before UARTDriver::_begin() runs.  Neither halInit() / pal_lld_init()
+   * nor sio_lld_start() configure per-pin GPIO CTRL or PADS registers; the
+   * actual FUNCSEL=2 (UART) and permanent pull-up are applied later in
+   * UARTDriver::_begin() via palSetLineMode(PAL_MODE_ALTERNATE_UART) followed
+   * by palLineSetPushPull(PULLUP) before sioStart().
    */
-  PADS_BANK0->GPIO[13] = 0x5AU;  /* GPIO13 = UART0_RX */
-  PADS_BANK0->GPIO[11] = 0x5AU;  /* GPIO11 = UART1_RX */
+  PADS_BANK0->GPIO[13] = 0x5AU;  /* GPIO13 = UART0_RX — early PUE+IE+SCHMITT */
+  PADS_BANK0->GPIO[11] = 0x5AU;  /* GPIO11 = UART1_RX — early PUE+IE+SCHMITT */
 #endif
 
   halInit();

@@ -562,16 +562,29 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
             }
 #endif // HAL_UART_NODMA
             /*
-             * RP2350: PAL_MODE_ALTERNATE_UART only sets IE (bit 6) in the pad
-             * register — no pull-up.  With nothing connected, GPIO13 (UART0_RX)
-             * floats and can sit LOW, which the UART hardware interprets as a
-             * permanent BREAK condition.  UART0 is IRQ33; if it fires continuously
-             * at the same priority as USB (IRQ14) it consumes enough CPU to prevent
-             * the USB ISR from meeting its sub-54 µs response deadline during
-             * enumeration.  Set PUE before sioStart() / nvicEnableVector() so the
-             * line is already pulled HIGH (IDLE) the moment the IRQ is unmasked.
+             * RP2350: Switch UART TX and RX GPIO pins to FUNCSEL=2 (UART alternate
+             * function) so the RP2350 IO mux routes those GPIOs to the UART
+             * peripheral.  After chip reset the IO_BANK0 GPIO_CTRL register has
+             * FUNCSEL=0x1F (NULL/tristate), and nothing else in the startup path
+             * (pal_lld_init, sio_lld_start) sets FUNCSEL for UART pins.  Without
+             * this the UART peripheral output never reaches the pad and received
+             * data is not forwarded to the UART, silently breaking all UART comms.
+             *
+             * PAL_MODE_ALTERNATE_UART sets FUNCSEL=2 in IO_BANK0 CTRL and
+             * IE+SCHMITT in PADS_BANK0.  The subsequent palLineSetPushPull() call
+             * adds the PUE pull-up on the RX line (PADS_BANK0 only, preserving the
+             * FUNCSEL).  Applying PUE before sioStart()/nvicEnableVector() ensures
+             * the RX line idles HIGH so the UART peripheral does not see a permanent
+             * BREAK condition during enumeration (which would fire IRQ33 continuously
+             * and starve the USB IRQ14 handler).
              */
+            if (sdef.tx_line != 0) {
+                /* TX pin: FUNCSEL=2 (UART), IE+SCHMITT in pad */
+                palSetLineMode(sdef.tx_line, PAL_MODE_ALTERNATE_UART);
+            }
             if (sdef.rx_line != 0) {
+                /* RX pin: FUNCSEL=2 (UART), IE+SCHMITT in pad, then add PUE */
+                palSetLineMode(sdef.rx_line, PAL_MODE_ALTERNATE_UART);
                 palLineSetPushPull(sdef.rx_line, PAL_PUSHPULL_PULLUP);
             }
             sioStart((SIODriver*)sdef.serial, &siocfg);
