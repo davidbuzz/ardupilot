@@ -10,6 +10,11 @@
 void setup();
 void loop();
 
+// rp2350 single core result.. ~148k/sec
+// tick 7126 148194.9 ops/s 0.000 timeouts/s
+// tick 8126 148224.4 ops/s 0.000 timeouts/s
+// tick 9126 148278.1 ops/s 0.000 timeouts/s
+
 const AP_HAL::HAL& hal = AP_HAL::get_HAL();
 
 class BinarySemTest {
