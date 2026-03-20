@@ -472,7 +472,68 @@ thread_t *thread_create_alloc(size_t size,
     }
     return NULL;
 }
+
+#if CH_CFG_SMP_MODE == TRUE && PORT_CORES_NUMBER > 1
+/*
+  allocate a thread and pin it to the requested ChibiOS OS instance
+  (i.e. a specific physical core).  This is the SMP-aware counterpart
+  of thread_create_alloc().  The thread descriptor's owner field is set
+  to oip so ChibiOS schedules the thread exclusively on that core.
+
+  @param size       working-area size (use THD_WORKING_AREA_SIZE(n))
+  @param name       thread name string
+  @param prio       ChibiOS priority level
+  @param pf         thread function pointer
+  @param arg        argument passed to pf
+  @param oip        pointer to the target os_instance_t (e.g. &ch1 for core1)
+  @return           thread pointer, or NULL if memory allocation failed
+ */
+thread_t *thread_create_alloc_on_core(size_t size,
+                                      const char *name, tprio_t prio,
+                                      tfunc_t pf, void *arg,
+                                      os_instance_t *oip)
+{
+    void *wbase, *wend;
+
+    // Attempt allocation from each heap in priority order.
+    wbase = chHeapAllocAligned(NULL, size, PORT_WORKING_AREA_ALIGN);
+    if (wbase == NULL) {
+        uint8_t i;
+        for (i = 1; i < NUM_MEMORY_REGIONS; i++) {
+            wbase = chHeapAllocAligned(&heaps[i], size, PORT_WORKING_AREA_ALIGN);
+            if (wbase != NULL) {
+                break;
+            }
+        }
+    }
+    if (wbase == NULL) {
+        return NULL;
+    }
+    wend = (void *)((uint8_t *)wbase + size);
+
+    // Build a thread descriptor that pins execution to oip (the target core).
+    thread_descriptor_t td = __THD_DECL_DATA(name, wbase, wend, prio,
+                                             pf, arg, oip);
+
+#if CH_DBG_FILL_THREADS == TRUE
+    __thd_stackfill((uint8_t *)wbase, (uint8_t *)wend);
 #endif
+
+    chSysLock();
+    thread_t *tp = chThdCreateSuspendedI(&td);
+    // Note: no heap-free callback registered here.  Threads created with
+    // this function (e.g. the "rate" controller) are infinite-loop threads
+    // that never exit, so the callback would never fire.  The working-area
+    // allocation is intentionally retained for the lifetime of the system.
+    // Wake the thread on the target core's ready queue.
+    chSchWakeupS(tp, MSG_OK);
+    chSysUnlock();
+
+    return tp;
+}
+#endif  // CH_CFG_SMP_MODE && PORT_CORES_NUMBER > 1
+
+#endif  // CH_CFG_USE_DYNAMIC
 
 /*
   return heap information

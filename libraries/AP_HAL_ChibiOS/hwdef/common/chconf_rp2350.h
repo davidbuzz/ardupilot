@@ -46,7 +46,7 @@
  *          direct interactions are handled by the OS.
  */
 #if !defined(CH_CFG_SMP_MODE)
-#define CH_CFG_SMP_MODE                     FALSE
+#define CH_CFG_SMP_MODE                     TRUE
 #endif
 
 /**

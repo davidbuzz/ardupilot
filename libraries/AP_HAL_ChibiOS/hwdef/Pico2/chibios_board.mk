@@ -182,7 +182,8 @@ CSRC += $(HWDEF)/common/stubs.c \
         $(HWDEF)/common/stm32_util.c \
         $(HWDEF)/common/bouncebuffer.c \
         $(HWDEF)/common/watchdog.c \
-        $(HWDEF)/common/sysperf.c
+        $(HWDEF)/common/sysperf.c \
+        $(HWDEF)/Pico2/c1_main.c
 
 ifeq ($(USE_USB_MSD),yes)
 CSRC += $(CHIBIOS)/os/various/scsi_bindings/lib_scsi.c \
@@ -288,7 +289,8 @@ CPPWARN = -Wall -Wextra -Wundef
 
 # List all user C define here, like -D_DEBUG=1
 UDEFS = $(ENV_UDEFS) $(FATFS_FLAGS) -DHAL_BOARD_NAME=\"$(HAL_BOARD_NAME)\" \
-        -DHAL_MAX_STACK_FRAME_SIZE=$(HAL_MAX_STACK_FRAME_SIZE) -DPIC02_AVAILABLE=1
+        -DHAL_MAX_STACK_FRAME_SIZE=$(HAL_MAX_STACK_FRAME_SIZE) -DPIC02_AVAILABLE=1 \
+        -DCRT0_EXTRA_CORES_NUMBER=1
 
 # Single-core demo: disable core 1 startup code
 #UDEFS = -DCRT0_VTOR_INIT=1 -DNDEBUG
@@ -313,9 +315,10 @@ ifneq ($(AP_BOARD_START_TIME),)
 endif
 
 # Define ASM defines here
-UADEFS =
-# Single-core demo: disable core 1 startup code (CRT0_EXTRA_CORES_NUMBER=0) - buzz todo if we want single core only
-#UADEFS = -DCRT0_VTOR_INIT=1 -DCRT0_EXTRA_CORES_NUMBER=0
+# CRT0_EXTRA_CORES_NUMBER=1 generates the _crt0_c1_entry startup trampoline
+# which sets up core1's MSP/PSP/FPU then calls c1_main().  Required when
+# RP_CORE1_START=TRUE (CH_CFG_SMP_MODE=TRUE dual-core SMP).
+UADEFS = -DCRT0_EXTRA_CORES_NUMBER=1
 
 ifeq ($(COPY_VECTORS_TO_RAM),yes)
  UADEFS += -DCRT0_INIT_VECTORS=1

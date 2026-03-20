@@ -11,6 +11,13 @@
 # the GCS and logging tasks to execute each cycle.
 SCHED_LOOP_RATE 350
 
+# Enable the fast-rate attitude/motor thread on core1 (ChibiOS SMP).
+# FSTRATE_ENABLE=1: dynamic divisor — scales FSTRATE_DIV automatically to
+# avoid gyro buffer overruns and main loop slowdowns.  The thread runs the
+# gyro→notch filter→rate controller→motor output pipeline at the IMU sample
+# rate, decoupled from the main loop.
+FSTRATE_ENABLE 1
+
 # Uncomment and adjust to match your power brick or current sensor:
 #BATT_AMP_PERVLT 17.0
 #BATT_VOLT_MULT 10.1

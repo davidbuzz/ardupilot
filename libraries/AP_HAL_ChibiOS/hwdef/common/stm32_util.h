@@ -74,6 +74,9 @@ void *malloc_axi_sram(size_t size);
 void *malloc_fastmem(size_t size);
 void *malloc_eth_safe(size_t size);
 thread_t *thread_create_alloc(size_t size, const char *name, tprio_t prio, tfunc_t pf, void *arg);
+#if CH_CFG_SMP_MODE == TRUE && PORT_CORES_NUMBER > 1
+thread_t *thread_create_alloc_on_core(size_t size, const char *name, tprio_t prio, tfunc_t pf, void *arg, os_instance_t *oip);
+#endif
 bool mem_is_dma_safe(const void *addr, uint32_t size, bool filesystem_op);
 
 struct memory_region {

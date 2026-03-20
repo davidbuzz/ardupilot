@@ -423,7 +423,27 @@ void __late_init(void) {
    */
   PADS_BANK0->GPIO[13] = 0x5AU;  /* GPIO13 = UART0_RX — early PUE+IE+SCHMITT */
   PADS_BANK0->GPIO[11] = 0x5AU;  /* GPIO11 = UART1_RX — early PUE+IE+SCHMITT */
-#endif
+
+#if CH_CFG_SMP_MODE == TRUE
+  /*
+   * Drain the SIO inter-core FIFO before ChibiOS SMP initialisation.
+   *
+   * During SMP startup chInstanceObjectInit() calls port_init() →
+   * __port_smp_init() → NVIC_EnableIRQ(SIO_IRQ_FIFOn).  If the FIFO
+   * already contains data (left by the RP2350 ROM core1 launch handshake
+   * or stale debug writes) IRQ25 fires the moment it is unmasked, but the
+   * ChibiOS scheduler ready-list (ch_pqueue_init) hasn't been initialised
+   * yet, so CH_IRQ_EPILOGUE() crashes.
+   *
+   * Draining and clearing error flags here guarantees the FIFO is empty
+   * when __port_smp_init() arms the IRQ.
+   */
+  SIO->FIFO_ST = SIO_FIFO_ST_ROE | SIO_FIFO_ST_WOF;   /* clear error flags */
+  while ((SIO->FIFO_ST & SIO_FIFO_ST_VLD) != 0U) {
+    (void)SIO->FIFO_RD;                                 /* drain stale data  */
+  }
+#endif  /* CH_CFG_SMP_MODE */
+#endif  /* PIC02_AVAILABLE */
 
   halInit();
 

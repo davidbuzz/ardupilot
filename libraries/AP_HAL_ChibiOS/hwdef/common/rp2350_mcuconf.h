@@ -38,7 +38,7 @@
  * HAL driver system settings.
  */
 #define RP_NO_INIT                          FALSE
-#define RP_CORE1_START                      FALSE
+#define RP_CORE1_START                      TRUE
 #define RP_CORE1_VECTORS_TABLE              _vectors
 #define RP_CORE1_ENTRY_POINT                _crt0_c1_entry
 #define RP_CORE1_STACK_END                  __c1_main_stack_end__

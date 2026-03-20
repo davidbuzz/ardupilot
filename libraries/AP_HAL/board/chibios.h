@@ -148,13 +148,18 @@
 
 #ifndef HAL_INS_RATE_LOOP
 #if defined(STM32H7) || defined(STM32F7) || (defined(STM32F4) \
-    && defined(INS_MAX_INSTANCES) && INS_MAX_INSTANCES == 1)
+    && defined(INS_MAX_INSTANCES) && INS_MAX_INSTANCES == 1) \
+    || defined(RP2350)
 /* F405 tested successfully with:
    INS_GYRO_RATE = 1 (2kHz)
    SCHED_LOOP_RATE = 200
    FSTRATE_DIV = 2 (1kHz)
    FSTRATE_ENABLE = 1
-   SERVO_DSHOT_RATE = 1 (1kHz)*/
+   SERVO_DSHOT_RATE = 1 (1kHz)
+   RP2350: rate_controller_thread runs on core1 (ChibiOS SMP, static
+   affinity — the thread is created by core0's scheduler but ChibiOS
+   dispatches it to whichever core is free; with core0 saturated by
+   the main loop, core1 picks it up and keeps it there). */
 #define HAL_INS_RATE_LOOP 1
 #else
 #define HAL_INS_RATE_LOOP 0

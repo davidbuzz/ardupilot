@@ -69,6 +69,7 @@ using namespace ChibiOS;
 #endif
 
 extern const AP_HAL::HAL& hal;
+
 #ifndef HAL_NO_TIMER_THREAD
 THD_WORKING_AREA(_timer_thread_wa, TIMER_THD_WA_SIZE);
 #endif
@@ -725,6 +726,30 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
     *tproc = proc;
 
     const uint8_t thread_priority = calculate_thread_priority(base, priority);
+
+#if CH_CFG_SMP_MODE == TRUE && PORT_CORES_NUMBER > 1
+    // On SMP systems pin the attitude-rate thread to core1, keeping it out of
+    // core0's scheduler entirely.  This gives the rate controller its own
+    // dedicated core and prevents it from competing with the ArduPilot main
+    // loop, EKF, and GCS tasks that run on core0.
+    if (strcmp(name, "rate") == 0) {
+        // ::ch1 uses global-scope qualifier to reach the ChibiOS SMP
+        // os_instance_t for core1 (declared in chsys.h at global scope).
+        // Without :: the name would resolve to ChibiOS::ch1 inside this
+        // namespace, causing an undefined-reference linker error.
+        thread_t *thread_ctx = thread_create_alloc_on_core(THD_WORKING_AREA_SIZE(stack_size),
+                                                           name,
+                                                           thread_priority,
+                                                           thread_create_trampoline,
+                                                           tproc,
+                                                           &::ch1);
+        if (thread_ctx == nullptr) {
+            free(tproc);
+            return false;
+        }
+        return true;
+    }
+#endif  // CH_CFG_SMP_MODE && PORT_CORES_NUMBER > 1
 
     thread_t *thread_ctx = thread_create_alloc(THD_WORKING_AREA_SIZE(stack_size),
                                                name,
