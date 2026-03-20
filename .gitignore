@@ -175,3 +175,5 @@ autotest_result_*_junit.xml
 .python-version
 picotool/
 picotool.tar.gz
+
+libraries/AP_HAL_ChibiOS/hwdef/Pico2/datasheet/images/pages/

@@ -372,6 +372,7 @@ Open a discussion before writing code if:
 - **Do not bypass compile-time guards**: Respect `#if AP_<FEATURE>_ENABLED` guards. Do not remove them to "simplify" code.
 - **Do not introduce platform-specific code** in shared libraries. Use the HAL abstraction layer.
 - **Do not modify submodules** (`modules/` directory) — those are managed as separate upstream projects.
+  - **Exception**: The `modules/ChibiOS` submodule is actively co-developed for the RP2350/Pico2 port. Edits to `modules/ChibiOS/os/common/ports/ARMv8-M-ML-ALT/smp/rp2/` and `modules/ChibiOS/os/hal/ports/RP/RP2350/` are **permitted and encouraged** when fixing bugs in the ChibiOS RP2350 SMP port. Track these changes for eventual upstream submission.
 - **Do not change parameter indices**: Existing `AP_GROUPINFO` index numbers are baked into user configurations. Changing them breaks parameter storage.
 - **Do not add unnecessary dependencies**: ArduPilot runs on constrained embedded hardware. Every byte of RAM and flash matters.
 - **Do not generate large speculative refactors**: Focus on minimal, targeted, well-tested changes.
