@@ -315,3 +315,10 @@ SWDIO=GPIO1 via PC0/PC1 in hwdef) or the RP2350 UF2 bootloader.
 | Storage | 8 KB parameter storage (CubeBlack has 16 KB) |
 | Gyro FFT / DSP | Deferred — CMSIS-DSP needs ArduPilot integration for RP2350 |
 
+## Reference Documentation
+
+The RP2350 datasheet is included in this directory for offline reference:
+
+- **PDF**: [`datasheet/RP-008373-DS-2-rp2350-datasheet.pdf`](datasheet/RP-008373-DS-2-rp2350-datasheet.pdf)
+- **Markdown** (text-only, no images, LLM-readable): [`datasheet/rp2350_datasheet-no-images.md`](datasheet/rp2350_datasheet-no-images.md)
+
