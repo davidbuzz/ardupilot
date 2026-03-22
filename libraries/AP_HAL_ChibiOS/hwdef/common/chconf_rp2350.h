@@ -46,7 +46,11 @@
  *          direct interactions are handled by the OS.
  */
 #if !defined(CH_CFG_SMP_MODE)
-#define CH_CFG_SMP_MODE                     TRUE
+/* Bare-metal core1 dispatcher model: core0 runs ChibiOS alone; core1 is a
+ * pure compute engine driven by SIO FIFO function-pointer dispatch.
+ * ChibiOS SMP mode (TRUE) was abandoned after chInstanceObjectInit crashes
+ * and IRQ25 dispatch failures on core1. See SMP_Status_progress_report.md. */
+#define CH_CFG_SMP_MODE                     FALSE
 #endif
 
 /**

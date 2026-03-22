@@ -1,14 +1,14 @@
-# RP2350 ChibiOS Full-SMP Bring-up: Status & Progress Report
+# RP2350 Dual-Core Bring-up: Status & Progress Report
 
-**Date:** 2026-03-21 (updated)
+**Date:** 2026-03-22 (updated)
 **Branch:** `buzz-rp2350-chibios-v2`
 **Target hardware:** Raspberry Pi Pico2 (RP2350, dual Cortex-M33)
 
 ---
 
-## 1. Goal
+## 1. Goal (Revised)
 
-Enable ChibiOS full-SMP (`CH_CFG_SMP_MODE=TRUE`, `RP_CORE1_START=TRUE`) on the RP2350 so that the ArduPilot "rate" (main flight-control) thread can be pinned to core1 via `thread_create_alloc_on_core()`, leaving core0 free for I/O and peripheral handling.
+Run the ArduPilot rate (flight-control) controller on RP2350 core1, leaving core0 free for I/O, EKF, GCS and peripheral handling. The original approach used ChibiOS full-SMP (`CH_CFG_SMP_MODE=TRUE`); after extensive debugging (see Section 5) this has been **abandoned in favour of a bare-metal core1 dispatcher** (see Section 11).
 
 ---
 
@@ -410,3 +410,70 @@ Two active crash bugs are blocking SMP operation:
 **Bug B (core0 lockup — current build):** Core0 crashes within ~600ms of boot with a double-fault lockup (PC=0xeffffffe, MSP=0x4c12f228 corrupted). The `HardFault_Handler` in `system.cpp` does `memcpy(&ctx, PSP, ...)` as its first action — if PSP is invalid when the first fault fires, this memcpy causes a second HardFault → lockup. Root cause undetermined.
 
 **Immediate priority:** Run `catch_first_fault.tcl` (hw bp at HardFault_Handler 0x100a77f0) to capture the first fault's exception frame and CFSR/HFSR before the double-fault escalation.
+
+---
+
+## 11. Architectural Decision: Abandon ChibiOS SMP, Use Bare-Metal Core1 Dispatcher
+
+### Decision (2026-03-22)
+
+After spending significant time debugging `chInstanceObjectInit` crashes on core1 (Bug A: stuck at `__vt_object_init`, c1_inst_stage=0x42) and a core0 double-fault lockup (Bug B: PC=0xeffffffe), and after observing that core1's IRQ25 (SIO FIFO) consistently dispatches to the default handler instead of VectorA4, the decision was made to **abandon `CH_CFG_SMP_MODE=TRUE`** and replace it with a simpler, more robust architecture.
+
+### New Architecture: "Core0 Schedules, Core1 Runs"
+
+```
+Core0 (ChibiOS, CH_CFG_SMP_MODE=FALSE)
+  ├── All ChibiOS scheduling, IRQs, USB, MAVLink, EKF, etc.
+  ├── Rate tick fires → writes function pointer to SIO->FIFO_WR
+  └── Optionally waits for completion signal from core1
+
+Core1 (bare-metal, no ChibiOS at all)
+  ├── Starts via RP_CORE1_START=TRUE → _crt0_c1_entry → c1_main()
+  ├── Polls SIO->FIFO_RD for function pointer
+  ├── Calls fn() (the rate controller body)
+  └── Writes done-signal to SIO->FIFO_WR → loops
+```
+
+Core0 remains the single source of scheduling truth. Core1 is a pure compute engine: it receives a function pointer, runs it to completion, and signals done. No ChibiOS instance on core1, no chInstanceObjectInit, no virtual timer list, no PendSV, no SIO IRQ handlers.
+
+### Tradeoffs
+
+| | ChibiOS SMP (`CH_CFG_SMP_MODE=TRUE`) | Bare-metal core1 dispatcher |
+|---|---|---|
+| Core1 thread sleep/delay | ✅ Full ChibiOS primitives | ❌ Cannot block — rate body must run to completion each tick |
+| Multiple threads on core1 | ✅ Full scheduler | ❌ One function at a time |
+| Scheduler complexity | ❌ Very high — two scheduler instances, spinlock, FIFO IRQ, cross-core wakeup | ✅ Minimal — SIO FIFO poll loop |
+| Stability | ❌ Currently crashing (Bugs A+B) | ✅ Expected to be stable immediately |
+| Rate controller requirement | Any ChibiOS-aware thread | Body must be a non-blocking function call |
+| Implementation risk | ❌ High | ✅ Low |
+| Performance gain | Same | Same (core1 dedicated to rate controller) |
+
+The rate controller body in ArduPilot (`fast_update()` / `AP_Vehicle::update()` inner loop) is a periodic computation — it does not block within a single iteration. It is suitable for the bare-metal dispatch model.
+
+### To-Do Items (Implementation Checklist)
+
+- [x] **Decision documented** in SMP_Status_progress_report.md
+- [ ] **`chconf_rp2350.h`**: Revert `CH_CFG_SMP_MODE` from `TRUE` → `FALSE`
+- [ ] **`c1_main.c`**: Rewrite as bare-metal SIO FIFO dispatcher:
+  - Poll `SIO->FIFO_ST.VLD`, read function pointer from `SIO->FIFO_RD`
+  - Call the function (rate controller body or test stub)
+  - Write done-signal to `SIO->FIFO_WR`
+  - WFE when idle
+- [ ] **`stm32_util.h`**: Remove `thread_create_alloc_on_core()` declaration (SMP helper, no longer needed)
+- [ ] **`malloc.c`**: Remove `thread_create_alloc_on_core()` implementation
+- [ ] **`Scheduler.cpp`**: Replace the `thread_create_alloc_on_core()` SMP block with a SIO FIFO dispatch hook for the rate thread. The rate thread wrapper on core0 sends the function body to core1 each tick.
+- [ ] **`board.c`**: Keep SIO FIFO drain in `__late_init()` (still correct — drain any ROM-handshake residue before use). Remove `#if CH_CFG_SMP_MODE == TRUE` guard since the drain is useful regardless.
+- [ ] **Linker script** (`common_rp2350_smp.ld`): Keep core1 MSP/PSP stack sections — `_crt0_c1_entry` still needs them. Rename to `common_rp2350_c1.ld` to reflect new non-SMP purpose.
+- [ ] **Build** and confirm zero compile errors
+- [ ] **Flash and verify**: `c1_boot_stage` reaches `0x4D` (idle loop entered), core1 is alive
+- [ ] **Test rate dispatch**: core0 sends test function pointer, core1 executes it, signals done
+- [ ] **Hook rate controller**: dispatch actual `fast_update()` body to core1 each tick
+
+### What Is NOT Needed Anymore
+
+- `CH_CFG_SMP_MODE=TRUE` — remove
+- `chInstanceObjectInit` on core1 — remove from c1_main.c
+- `chSysWaitSystemState` on core1 — remove
+- `ch1` os_instance_t — still declared in ChibiOS but never initialized (harmless)
+- `VectorA4` SIO FIFO ISR on core1 — core1 never enables its NVIC, so IRQ25 never fires
+- `thread_create_alloc_on_core()` — remove entirely

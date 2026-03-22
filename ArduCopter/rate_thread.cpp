@@ -16,6 +16,37 @@
 #include <AP_InertialSensor/AP_InertialSensor_rate_config.h>
 #if AP_INERTIALSENSOR_FAST_SAMPLE_WINDOW_ENABLED
 
+#if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
+#include <AP_HAL_ChibiOS/hwdef/common/stm32_util.h>
+
+/*
+ * Core1 PID dispatch for RP2350.
+ *
+ * rate_controller_run_dt() is pure computation (no ChibiOS blocking calls).
+ * We dispatch it to core1's bare-metal FIFO executor, letting core0 remain
+ * free for motors_output(), logging, and scheduling while core1 does PID.
+ *
+ * Arguments are passed via a file-scope struct — plain SRAM visible to both
+ * cores.  c1_run_sync() provides the required DMB barriers.
+ */
+namespace {
+struct C1RateArgs {
+    AC_AttitudeControl *attitude_control;
+    Vector3f            gyro_with_drift;
+    float               sensor_dt;
+};
+
+static C1RateArgs _c1_rate_args;
+
+static void _c1_rate_compute()
+{
+    _c1_rate_args.attitude_control->rate_controller_run_dt(
+        _c1_rate_args.gyro_with_drift,
+        _c1_rate_args.sensor_dt);
+}
+} // namespace
+#endif  /* RP_CORE1_START */
+
 #pragma GCC optimize("O2")
 
 /*
@@ -262,7 +293,16 @@ void Copter::rate_controller_thread()
         // run the rate controller on all available samples
         // it is important not to drop samples otherwise the filtering will be fubar
         // there is no need to output to the motors more than once for every batch of samples
+#if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
+        // RP2350 dual-core: dispatch PID computation to core1 (bare-metal).
+        // core0 blocks until core1 signals done, then continues with motors_output.
+        _c1_rate_args.attitude_control = attitude_control;
+        _c1_rate_args.gyro_with_drift  = gyro + ahrs.get_gyro_drift();
+        _c1_rate_args.sensor_dt        = sensor_dt;
+        c1_run_sync(_c1_rate_compute);
+#else
         attitude_control->rate_controller_run_dt(gyro + ahrs.get_gyro_drift(), sensor_dt);
+#endif
 
 #ifdef RATE_LOOP_TIMING_DEBUG
         rate_controller_time_us += AP_HAL::micros() - rate_now_us;
