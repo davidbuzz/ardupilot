@@ -283,6 +283,26 @@ void pico2_gpio_init(void) {
         palSetLineMode(lines[i], PAL_MODE_ALTERNATE_PWM);
     }
     #endif
+
+    /* Configure SPI GPIO pins to SPI alternate function (FUNCSEL=1).
+     * The ChibiOS RP2350 SPIv1 LLD (hal_spi_lld.c) does not set GPIO FUNCSEL —
+     * it only programs SPI peripheral registers and DMA.  Without FUNCSEL=1 the
+     * SPI peripheral cannot drive SCK/MOSI or receive MISO, so all sensor probes
+     * would silently return 0xFF.
+     * Additionally, SPIDevice.cpp reads sck_mode = palReadLineMode(sck_line) at
+     * SPIBus construction time (HAL_SPI_SCK_SAVE_RESTORE path) and restores that
+     * mode between transactions.  If we do not set FUNCSEL=1 here first, sck_mode
+     * is saved as FUNCSEL=5 (SIO) and the restore actively defeats any SPI routing. */
+#if defined(HAL_GPIO_PIN_SPI0_SCK)
+    palSetLineMode(HAL_GPIO_PIN_SPI0_SCK, PAL_MODE_ALTERNATE_SPI);
+    palSetLineMode(HAL_GPIO_PIN_SPI0_RX,  PAL_MODE_ALTERNATE_SPI);
+    palSetLineMode(HAL_GPIO_PIN_SPI0_TX,  PAL_MODE_ALTERNATE_SPI);
+#endif
+#if defined(HAL_GPIO_PIN_SPI1_SCK)
+    palSetLineMode(HAL_GPIO_PIN_SPI1_SCK,  PAL_MODE_ALTERNATE_SPI);
+    palSetLineMode(HAL_GPIO_PIN_SPI1_MISO, PAL_MODE_ALTERNATE_SPI);
+    palSetLineMode(HAL_GPIO_PIN_SPI1_MOSI, PAL_MODE_ALTERNATE_SPI);
+#endif
 }
 #endif //PIC02_AVAILABLE
 
