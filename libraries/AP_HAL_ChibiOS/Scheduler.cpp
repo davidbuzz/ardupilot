@@ -727,11 +727,10 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
 
     const uint8_t thread_priority = calculate_thread_priority(base, priority);
 
-    // TODO (RP2350 dual-core Phase 2): when the "rate" thread is created,
-    // wrap thread_create_trampoline so that each rate-controller iteration
-    // is dispatched to core1 via SIO FIFO (bare-metal dispatcher in c1_main.c)
-    // and core0 waits for the done signal before the next tick.
-    // Phase 1: rate thread runs on core0 normally while we prove core1 boots.
+    // RP2350 dual-core dispatch: rate_thread.cpp dispatches
+    // rate_controller_run_dt() to core1 via c1_run_sync() when
+    // FSTRATE_ENABLE=1 and RP_CORE1_START=TRUE. The rate thread itself
+    // still runs on core0 (thread scheduling is not affected here).
 
     thread_t *thread_ctx = thread_create_alloc(THD_WORKING_AREA_SIZE(stack_size),
                                                name,
