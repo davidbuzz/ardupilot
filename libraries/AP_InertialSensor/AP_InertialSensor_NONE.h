@@ -15,8 +15,18 @@
 #include "AP_InertialSensor.h"
 #include "AP_InertialSensor_Backend.h"
 
-// simulated sensor rates in Hz. This matches a pixhawk1
+// Simulated sensor rates in Hz.
+// On ChibiOS/RP2350 the FAST_TASK chain (EKF + attitude control) processes all
+// pending IMU samples every main-loop iteration.  At 1 kHz with a 100 Hz main
+// loop that is 10 samples per loop, consuming ~5 ms of the 10 ms budget and
+// leaving no time for normal-priority GCS tasks.  At 200 Hz there are only 2
+// samples per loop (~1 ms), freeing ~4 ms for GCS heartbeats / MAVLink streams.
+// For ESP32 keep 1 kHz to preserve the original behaviour.
+#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
+const uint16_t INS_NONE_SENSOR_A[] = { 200, 200 };
+#else
 const uint16_t INS_NONE_SENSOR_A[] = { 1000, 1000 };
+#endif
 
 
 class AP_InertialSensor_NONE : public AP_InertialSensor_Backend

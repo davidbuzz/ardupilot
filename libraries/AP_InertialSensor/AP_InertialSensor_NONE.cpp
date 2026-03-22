@@ -88,7 +88,15 @@ void AP_InertialSensor_NONE::generate_accel()
         yAccel += accel_noise * sim_rand_float();
         zAccel += accel_noise * sim_rand_float();
 
-        bool motors_on = 1; 
+        // On ChibiOS/RP2350 hardware the motor vibration simulation consumes
+        // ~60 % of core0 CPU (sinf() at 1 kHz × 15 calls) and starves the
+        // IO thread, silencing MAVLink output.  Motor simulation is only
+        // meaningful in SITL; disable it on resource-constrained targets.
+#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
+        bool motors_on = 0;
+#else
+        bool motors_on = 1;
+#endif
 
         // on a real 180mm copter gyro noise varies between 0.8-4 m/s/s for throttle 0.2-0.8
         // giving a accel noise variation of 5.33 m/s/s over the full throttle range
@@ -196,7 +204,13 @@ void AP_InertialSensor_NONE::generate_gyro()
         q += gyro_noise * sim_rand_float();
         r += gyro_noise * sim_rand_float();
 
+        // See generate_accel() comment: disable motor simulation on ChibiOS
+        // to avoid starving the IO thread with sinf() at 1 kHz.
+#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
+        bool motors_on = 0;
+#else
         bool motors_on = 1;
+#endif
         // on a real 180mm copter gyro noise varies between 0.2-0.4 rad/s for throttle 0.2-0.8
         // giving a gyro noise variation of 0.33 rad/s or 20deg/s over the full throttle range
         if (motors_on) {
@@ -298,10 +312,18 @@ float AP_InertialSensor_NONE::gyro_drift(void)
 }
 
 
-bool AP_InertialSensor_NONE::update(void) 
+bool AP_InertialSensor_NONE::update(void)
 {
     update_accel(accel_instance);
     update_gyro(gyro_instance);
+#if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
+    // update() is called from the main thread (priority 180) every loop
+    // iteration. With no real IMU, wait_for_sample() returns immediately and
+    // the main thread never blocks, starving the IO thread (priority 58) that
+    // drains USB CDC RX. A 1 µs sleep yields to the IO thread once per loop
+    // so ArduPilot can receive GCS heartbeats and keep streams alive.
+    hal.scheduler->delay_microseconds(1);
+#endif
     return true;
 }
 
