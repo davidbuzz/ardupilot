@@ -316,8 +316,8 @@ endif
 
 # Define ASM defines here
 # CRT0_EXTRA_CORES_NUMBER=1 generates the _crt0_c1_entry startup trampoline
-# which sets up core1's MSP/PSP/FPU then calls c1_main().  Required when
-# RP_CORE1_START=TRUE (CH_CFG_SMP_MODE=TRUE dual-core SMP).
+# which sets up core1's MSP/PSP/FPU then calls c1_main().  Required for
+# the bare-metal core1 FIFO dispatcher (RP_CORE1_START=TRUE, SMP=FALSE).
 UADEFS = -DCRT0_EXTRA_CORES_NUMBER=1
 
 ifeq ($(COPY_VECTORS_TO_RAM),yes)
