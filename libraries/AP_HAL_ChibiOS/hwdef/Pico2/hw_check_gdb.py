@@ -78,11 +78,11 @@ def build_gdb_script(elf_path: str) -> list[str]:
     p('GPIO0  CTRL (PWM slice0A, expect 4=PWM)', IO_BANK0_BASE + 0*8 + 4)
     p('GPIO10 CTRL (UART1 TX,   expect 2=UART)', IO_BANK0_BASE + 10*8 + 4)
     p('GPIO12 CTRL (UART0 TX,   expect 2=UART)', IO_BANK0_BASE + 12*8 + 4)
-    p('GPIO22 CTRL (SPI0 SCK,   expect 1=SPI)',  IO_BANK0_BASE + 22*8 + 4)
+    p('GPIO22 CTRL (SPI0 SCK,   expect 1=SPI or 5=SIO-idle)',  IO_BANK0_BASE + 22*8 + 4)
     p('GPIO32 CTRL (SPI0 MISO,  expect 1=SPI)',  IO_BANK0_BASE + 32*8 + 4)
     p('GPIO35 CTRL (SPI0 MOSI,  expect 1=SPI)',  IO_BANK0_BASE + 35*8 + 4)
     p('GPIO40 CTRL (SPI1 MISO,  expect 1=SPI)',  IO_BANK0_BASE + 40*8 + 4)
-    p('GPIO42 CTRL (SPI1 SCK,   expect 1=SPI)',  IO_BANK0_BASE + 42*8 + 4)
+    p('GPIO42 CTRL (SPI1 SCK,   expect 1=SPI or 5=SIO-idle)',  IO_BANK0_BASE + 42*8 + 4)
     p('GPIO43 CTRL (SPI1 MOSI,  expect 1=SPI)',  IO_BANK0_BASE + 43*8 + 4)
 
     # ---- SIO GPIO ----
@@ -225,12 +225,24 @@ def parse_and_report(output: str):
         check('GPIO0 FUNCSEL (PWM=4)', v, 0x4, mask=0x1f)
     if (v := reg('GPIO12 CTRL (UART0 TX,   expect 2=UART)')) is not None:
         check('GPIO12 FUNCSEL (UART=2)', v, 0x2, mask=0x1f)
-    if (v := reg('GPIO22 CTRL (SPI0 SCK,   expect 1=SPI)')) is not None:
-        check('GPIO22 FUNCSEL (SPI=1)', v, 0x1, mask=0x1f)
+    # SCK pins: FUNCSEL=1 (SPI, mid-transaction) or FUNCSEL=5 (SIO, idle) are both correct.
+    # FUNCSEL=31 means pico2_gpio_init() never ran and SPI will be silent.
+    if (v := reg('GPIO22 CTRL (SPI0 SCK,   expect 1=SPI or 5=SIO-idle)')) is not None:
+        fs = v & 0x1f
+        ok = (fs == 1 or fs == 5)
+        sym = 'PASS' if ok else 'FAIL'
+        print(f'  [{sym}] GPIO22 FUNCSEL (SPI=1 or SIO-idle=5): got 0x{fs:x}'
+              f'{", idle=correct" if fs==5 else ", in-transaction" if fs==1 else ", NULL=BROKEN"}')
+        checks.append(ok)
     if (v := reg('GPIO32 CTRL (SPI0 MISO,  expect 1=SPI)')) is not None:
         check('GPIO32 FUNCSEL (SPI=1)', v, 0x1, mask=0x1f)
-    if (v := reg('GPIO42 CTRL (SPI1 SCK,   expect 1=SPI)')) is not None:
-        check('GPIO42 FUNCSEL (SPI=1)', v, 0x1, mask=0x1f)
+    if (v := reg('GPIO42 CTRL (SPI1 SCK,   expect 1=SPI or 5=SIO-idle)')) is not None:
+        fs = v & 0x1f
+        ok = (fs == 1 or fs == 5)
+        sym = 'PASS' if ok else 'FAIL'
+        print(f'  [{sym}] GPIO42 FUNCSEL (SPI=1 or SIO-idle=5): got 0x{fs:x}'
+              f'{", idle=correct" if fs==5 else ", in-transaction" if fs==1 else ", NULL=BROKEN"}')
+        checks.append(ok)
 
     # UART0
     if (v := reg('GPIO12 FUNCSEL (expect 2=UART)')) is not None:
