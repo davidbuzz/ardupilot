@@ -356,6 +356,23 @@ void __early_init(void) {
     #endif
 }
 
+#if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
+/*
+ * Startup verification: ensure the bare-metal core1 FIFO dispatcher
+ * round-trip works before any real dispatches are attempted.
+ *
+ * c1_startup_result:
+ *   0xDEADC1C1 — set by core1 when it executes c1_startup_ping()
+ *   0xBADC1BAD — timeout (core1 did not reach idle in time)
+ */
+volatile uint32_t c1_startup_result = 0U;
+
+static void c1_startup_ping(void)
+{
+    c1_startup_result = 0xDEADC1C1U;
+}
+#endif /* RP_CORE1_START */
+
 void __late_init(void) {
 
 #if PIC02_AVAILABLE == TRUE
@@ -424,25 +441,19 @@ void __late_init(void) {
   PADS_BANK0->GPIO[13] = 0x5AU;  /* GPIO13 = UART0_RX — early PUE+IE+SCHMITT */
   PADS_BANK0->GPIO[11] = 0x5AU;  /* GPIO11 = UART1_RX — early PUE+IE+SCHMITT */
 
-#if CH_CFG_SMP_MODE == TRUE
+#if RP_CORE1_START == TRUE
   /*
-   * Drain the SIO inter-core FIFO before ChibiOS SMP initialisation.
+   * Drain the SIO inter-core FIFO before core1 is started.
    *
-   * During SMP startup chInstanceObjectInit() calls port_init() →
-   * __port_smp_init() → NVIC_EnableIRQ(SIO_IRQ_FIFOn).  If the FIFO
-   * already contains data (left by the RP2350 ROM core1 launch handshake
-   * or stale debug writes) IRQ25 fires the moment it is unmasked, but the
-   * ChibiOS scheduler ready-list (ch_pqueue_init) hasn't been initialised
-   * yet, so CH_IRQ_EPILOGUE() crashes.
-   *
-   * Draining and clearing error flags here guarantees the FIFO is empty
-   * when __port_smp_init() arms the IRQ.
+   * The RP2350 ROM core1 launch handshake leaves residual data in the FIFO.
+   * Drain it so the first real dispatch message from c1_run_sync() is not
+   * lost or misinterpreted by core1's bare-metal dispatcher loop.
    */
   SIO->FIFO_ST = SIO_FIFO_ST_ROE | SIO_FIFO_ST_WOF;   /* clear error flags */
   while ((SIO->FIFO_ST & SIO_FIFO_ST_VLD) != 0U) {
     (void)SIO->FIFO_RD;                                 /* drain stale data  */
   }
-#endif  /* CH_CFG_SMP_MODE */
+#endif  /* RP_CORE1_START */
 #endif  /* PIC02_AVAILABLE */
 
   halInit();
@@ -459,6 +470,28 @@ void __late_init(void) {
 #endif
 
   chSysInit();
+
+#if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
+  /*
+   * Verify core1 bare-metal FIFO dispatcher round-trip at startup.
+   * Poll c1_boot_stage until core1 reaches idle (0x4D) with a 200 ms
+   * timeout, then dispatch c1_startup_ping() and check the result.
+   * c1_startup_result is readable via OpenOCD: should be 0xDEADC1C1.
+   */
+  {
+      extern volatile uint32_t c1_boot_stage;
+      /* Wait for core1 to reach its idle loop (stage 0x4D) before
+       * dispatching.  Worst case is the stack fill (~8 KB at 250 MHz ≈
+       * ~60 µs).  Limit to 1 M iterations (~4 ms at 250 MHz) so we
+       * never block long enough to trigger the watchdog. */
+      for (volatile uint32_t i = 0U; i < 1000000UL && c1_boot_stage != 0x4DU; i++) {}
+      if (c1_boot_stage == 0x4DU) {
+          c1_run_sync(c1_startup_ping);
+      } else {
+          c1_startup_result = 0xBADC1BADU;
+      }
+  }
+#endif /* RP_CORE1_START */
 
   /*
    * Start EFL driver for RP2350 QSPI flash read/write/erase support.
@@ -539,3 +572,51 @@ void __late_init(void) {
 void boardInit(void) {
   HAL_BOARD_INIT_HOOK_CALL;
 }
+
+#if RP_CORE1_START == TRUE
+/*
+ * c1_run_sync() — dispatch a function to core1 and block until done.
+ *
+ * Core1 runs a bare-metal FIFO dispatcher loop (c1_main.c).  It waits for
+ * a 32-bit function pointer from core0's SIO FIFO_WR, calls the function,
+ * then writes 1 back to signal completion.
+ *
+ * Protocol:
+ *   core0 → SIO FIFO_WR: (uint32_t)fn   (fn must not use ChibiOS blocking calls)
+ *   core1 → SIO FIFO_WR: 1              (done signal)
+ *
+ * Memory ordering: DMB barriers ensure all stores made by core0 before the
+ * call are visible to core1, and all stores made by core1 (computation
+ * results) are visible to core0 after the call returns.
+ *
+ * Must only be called after core1 has started (i.e. after hal_lld_init()
+ * has run start_core1()).  Safe to call from any ChibiOS thread on core0.
+ */
+void c1_run_sync(void (*fn)(void))
+{
+    /* Release barrier: ensure preceding stores are visible to core1 before
+     * we write the function pointer to the FIFO. */
+    __DMB();
+
+    /* Wait for TX FIFO space (should always be ready in normal operation). */
+    while (!(SIO->FIFO_ST & SIO_FIFO_ST_RDY)) {
+        /* spin */
+    }
+    SIO->FIFO_WR = (uint32_t)fn;
+
+    /* Core1 sits in a bare-metal WFE loop with no NVIC setup (IRQ26 is not
+     * enabled), so the FIFO write alone does not wake it.  An explicit SEV
+     * is required — the same pattern used by ChibiOS fifoBlockingWrite(). */
+    __SEV();
+
+    /* Wait for core1's done signal (value = 1). */
+    while (!(SIO->FIFO_ST & SIO_FIFO_ST_VLD)) {
+        /* spin — core1 runs the function at ~bare-metal speed */
+    }
+    (void)SIO->FIFO_RD;
+
+    /* Acquire barrier: ensure core1's stores are visible before we read
+     * any data updated by fn() (e.g. PID outputs in attitude_control). */
+    __DMB();
+}
+#endif  /* RP_CORE1_START */
