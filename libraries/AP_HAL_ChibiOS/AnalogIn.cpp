@@ -371,6 +371,27 @@ float AnalogIn::get_pin_scaling(uint8_t adc_index, uint8_t pin_index)
 // RP2350 has no VREFINT channel; only STM32H7 needs min/max vrefint tracking.
 static uint16_t min_vrefint, max_vrefint;
 #endif
+#if defined(RP2350)
+/*
+ * RP2350 ADC error callback — called from DMA ISR context when the ADC FIFO
+ * overflows (ADC_ERR_OVERFLOW).  At the slow sample rate used here (~5 kHz
+ * total) this is benign: the FIFO fills during the ~2.4 ms window while the
+ * previous DMA batch's interrupt is pending but not yet serviced (e.g. if a
+ * higher-priority IRQ or long chSysLock delays the DMA ISR).  Simply
+ * restarting the conversion clears the OVER/UNDER sticky flags and re-arms
+ * the DMA so sampling continues without manual intervention.
+ *
+ * Called with adcp->state == ADC_ERROR and adcp->grpp/samples/depth still
+ * valid.  adcStartConversionI() accepts ADC_ERROR state, sets state back to
+ * ADC_ACTIVE, and calls adc_lld_start_conversion() which resets the FIFO.
+ */
+void AnalogIn::adcerrorcallback(ADCDriver *adcp, adcerror_t err)
+{
+    (void)err;
+    adcStartConversionI(adcp, adcp->grpp, adcp->samples, adcp->depth);
+}
+#endif // RP2350
+
 void AnalogIn::adccallback(ADCDriver *adcp)
 {
     uint8_t index = get_adc_index(adcp);
@@ -569,6 +590,12 @@ void AnalogIn::setup_adc(uint8_t index)
     adcgrpcfg[index].num_channels = num_grp_channels;
     adcgrpcfg[index].end_cb = adccallback;
 #if defined(RP2350)
+    // On RP2350, install an error callback to restart the ADC automatically on
+    // FIFO overflow.  Overflow can occur transiently if a chSysLock or higher-
+    // priority IRQ delays the DMA ISR past the FIFO fill window (~1.6 ms at 5
+    // kHz).  The callback calls adcStartConversionI() which clears the sticky
+    // OVER/UNDER flags and re-arms the DMA so sampling continues uninterrupted.
+    adcgrpcfg[index].error_cb = adcerrorcallback;
     // RP2350 ADCv1 has no CFGR/CR2 register fields; channel config is done in the round-robin block below.
 #elif defined(ADC_CFGR_RES_16BITS)
     // use 16 bit resolution
@@ -603,7 +630,14 @@ void AnalogIn::setup_adc(uint8_t index)
         }
         adcgrpcfg[index].channel    = (first_chan == 255U) ? 0U : first_chan;
         adcgrpcfg[index].rrobin     = (num_grp_channels > 1) ? rrobin_mask : 0U;
-        adcgrpcfg[index].div        = 0U;   // free-running 500 kS/s
+        // RP2350 ADC_DIV: total period = (1 + INT + FRAC/256) cycles at 48 MHz.
+        // div=0 → back-to-back 500 kS/s → 4-entry FIFO fills in 8 µs →
+        // DMA ISR re-arm gap (~2 µs) causes FIFO overflow → ADC_FCS_OVER set →
+        // adc_lld_serve_dma_interrupt calls _adc_isr_error_code → ADC stops permanently.
+        // INT=9599 → period = 9600 cycles → 48 MHz / 9600 = 5000 S/s total
+        // (~1667 S/s per channel) — well above the 100 Hz battery-monitor rate,
+        // and FIFO fills in 800 µs so DMA re-arm latency is irrelevant.
+        adcgrpcfg[index].div        = ADC_DIV(9599, 0);
         // Enable internal temperature sensor when channel 4 is in the round-robin set.
         adcgrpcfg[index].ts_enabled = (rrobin_mask & (1U << RP_ADC_TEMPERATURE_CHANNEL)) != 0U;
     }

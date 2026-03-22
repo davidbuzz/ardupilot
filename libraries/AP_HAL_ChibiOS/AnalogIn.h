@@ -93,6 +93,10 @@ private:
     void update_power_flags(void);
     void setup_adc(uint8_t index);
     static void adccallback(ADCDriver *adcp);
+#if defined(RP2350)
+    // Error callback: restarts ADC on FIFO overflow (called from DMA ISR context).
+    static void adcerrorcallback(ADCDriver *adcp, adcerror_t err);
+#endif
 
     ChibiOS::AnalogSource* _channels[ANALOG_MAX_CHANNELS];
 
