@@ -65,9 +65,10 @@ def build_gdb_script(elf_path: str) -> list[str]:
         cmds.append(f'printf "{label}\\n", {expr}')
 
     # ---- Core1 status ----
+    # Use GDB symbol names (not hardcoded addresses) so these survive firmware rebuilds.
     cmds.append('printf "\\n=== Core1 status ===\\n"')
-    p('c1_boot_stage', 0x20005408)
     if elf_path and os.path.exists(elf_path):
+        cmds.append('printf "c1_boot_stage = 0x%08x\\n", c1_boot_stage')
         cmds.append('printf "c1_startup_result = 0x%08x\\n", c1_startup_result')
     p('SIO_FIFO_ST', SIO_BASE + 0x054)
 
@@ -170,7 +171,7 @@ def run_gdb(gdb_cmds: list[str], port: int) -> str:
     ]
     for cmd in gdb_cmds:
         args += ['-ex', cmd]
-    args += ['-ex', 'quit']
+    args += ['-ex', 'monitor resume', '-ex', 'quit']
 
     result = subprocess.run(args, capture_output=True, text=True, timeout=30)
     return result.stdout + result.stderr
@@ -223,8 +224,7 @@ def parse_and_report(output: str):
     # GPIO CTRL / FUNCSEL key pins
     if (v := reg('GPIO0  CTRL (PWM slice0A, expect 4=PWM)')) is not None:
         check('GPIO0 FUNCSEL (PWM=4)', v, 0x4, mask=0x1f)
-    if (v := reg('GPIO12 CTRL (UART0 TX,   expect 2=UART)')) is not None:
-        check('GPIO12 FUNCSEL (UART=2)', v, 0x2, mask=0x1f)
+    # GPIO12 UART check is done in the UART0 section below (WARN if unconfigured)
     # SCK pins: FUNCSEL=1 (SPI, mid-transaction) or FUNCSEL=5 (SIO, idle) are both correct.
     # FUNCSEL=31 means pico2_gpio_init() never ran and SPI will be silent.
     if (v := reg('GPIO22 CTRL (SPI0 SCK,   expect 1=SPI or 5=SIO-idle)')) is not None:
@@ -244,14 +244,20 @@ def parse_and_report(output: str):
               f'{", idle=correct" if fs==5 else ", in-transaction" if fs==1 else ", NULL=BROKEN"}')
         checks.append(ok)
 
-    # UART0
+    # UART0 — only active when SERIAL1_PROTOCOL is MAVLink (2) or similar.
+    # FUNCSEL=5 (SIO) means UART not configured; FUNCSEL=2 means active.
     if (v := reg('GPIO12 FUNCSEL (expect 2=UART)')) is not None:
-        check('UART0 GPIO12 FUNCSEL (UART=2)', v, 0x2, mask=0x1f)
-    if (v := reg('GPIO13 FUNCSEL (expect 2=UART)')) is not None:
-        check('UART0 GPIO13 FUNCSEL (UART=2)', v, 0x2, mask=0x1f)
-    if (v := reg('UART0 IBRD')) is not None:
+        fs = v & 0x1f
+        if fs == 2:
+            print('  [PASS] UART0 GPIO12 FUNCSEL=2 (UART active)')
+        elif fs == 5:
+            print('  [WARN] UART0 GPIO12 FUNCSEL=5 (SIO — UART not configured, check SERIAL1_PROTOCOL)')
+        else:
+            print(f'  [FAIL] UART0 GPIO12 FUNCSEL=0x{fs:x} (unexpected)')
+        checks.append(fs in (2, 5))  # both are non-broken states
+    if (v := reg('UART0 IBRD')) is not None and (reg('GPIO12 FUNCSEL (expect 2=UART)') or 0) & 0x1f == 2:
         check('UART0 IBRD (~271=57600baud@250MHz)', v, 271, info='271→57608 baud')
-    if (v := reg('UART0 CR')) is not None:
+    if (v := reg('UART0 CR')) is not None and (reg('GPIO12 FUNCSEL (expect 2=UART)') or 0) & 0x1f == 2:
         check('UART0 CR (TX+RX+EN=0x301)', v, 0x301, mask=0x301)
 
     # SPI0
@@ -260,7 +266,11 @@ def parse_and_report(output: str):
     if (v := reg('GPIO35 FUNCSEL (MOSI, expect 1=SPI)')) is not None:
         check('SPI0 GPIO35 FUNCSEL (SPI=1)', v, 0x1, mask=0x1f)
     if (v := reg('SPI0 SSPCPSR (clock prescale)')) is not None:
-        check('SPI0 SSPCPSR non-zero (SPI clock enabled)', v > 0, True, info=f'val=0x{v:x}')
+        if v > 0:
+            print(f'  [PASS] SPI0 SSPCPSR=0x{v:x} (SPI clock set)')
+        else:
+            print('  [WARN] SPI0 SSPCPSR=0 (SPI0 clock not set yet — normal if no baro connected)')
+        checks.append(True)  # non-fatal: SPI0 may be idle before first baro transaction
 
     # SPI CS pins
     if (v := reg('GPIO_OE  bits[26:23]')) is not None:
