@@ -24,7 +24,6 @@ import argparse
 import sys
 import time
 import threading
-import serial
 from pymavlink import mavutil
 
 def parse_args():
@@ -34,21 +33,6 @@ def parse_args():
     p.add_argument("--sysid", type=int, default=255,    help="This GCS system ID (default 255)")
     p.add_argument("--quiet", action="store_true",      help="Only print summary lines, not every packet")
     return p.parse_args()
-
-def open_port_with_dtr(port: str, baud: int) -> serial.Serial:
-    """
-    Open the serial port and assert DTR=True immediately.
-    Without DTR the ChibiOS SDU driver keeps its TX path disabled.
-    """
-    ser = serial.Serial()
-    ser.port     = port
-    ser.baudrate = baud
-    ser.timeout  = 0.1
-    ser.dtr      = True   # assert BEFORE open so it takes effect at open time
-    ser.open()
-    # Belt-and-suspenders: set again after open
-    ser.dtr = True
-    return ser
 
 def sender_thread(mav, sysid: int, stop_event: threading.Event):
     """Send HEARTBEAT at 1 Hz until stop_event is set."""
@@ -65,27 +49,26 @@ def sender_thread(mav, sysid: int, stop_event: threading.Event):
 def main():
     args = parse_args()
 
-    print(f"Opening {args.port} (baud={args.baud}, DTR=True)...")
+    print(f"Connecting MAVLink on {args.port} (baud={args.baud}, GCS sysid={args.sysid})...")
+
+    # Let mavutil own the port — opening it manually first causes a double-open
+    # hang. Set DTR immediately after mavutil opens it.
     try:
-        ser = open_port_with_dtr(args.port, args.baud)
-    except serial.SerialException as e:
+        mav = mavutil.mavlink_connection(
+            device   = args.port,
+            baud     = args.baud,
+            source_system  = args.sysid,
+            source_component = 190,   # MAV_COMP_ID_MISSIONPLANNER
+            dialect  = "ardupilotmega",
+            serial_mode = True,
+        )
+    except Exception as e:
         print(f"ERROR: cannot open {args.port}: {e}")
         sys.exit(1)
 
-    print(f"Port open. DTR asserted. Connecting MAVLink (GCS sysid={args.sysid})...")
-
-    # Use pymavlink with the port path string; pass the pre-opened serial
-    # object via robust_connected= so DTR stays asserted.
-    mav = mavutil.mavlink_connection(
-        device   = args.port,
-        baud     = args.baud,
-        source_system  = args.sysid,
-        source_component = 190,   # MAV_COMP_ID_MISSIONPLANNER
-        dialect  = "ardupilotmega",
-        serial_mode = True,
-    )
-    # Force DTR high on pymavlink's internal serial object too
+    # Assert DTR=True. ChibiOS SDU driver keeps its TX path disabled until DTR is high.
     mav.port.dtr = True
+    print(f"Port open. DTR asserted.")
 
     stop_event = threading.Event()
     t = threading.Thread(target=sender_thread, args=(mav, args.sysid, stop_event), daemon=True)
@@ -122,7 +105,7 @@ def main():
         print("\nStopped by user.")
     finally:
         stop_event.set()
-        ser.close()
+        mav.close()
 
 if __name__ == "__main__":
     main()

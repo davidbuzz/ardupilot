@@ -265,6 +265,13 @@ void Copter::rate_controller_thread()
         // wait for an IMU sample
         Vector3f gyro;
         if (!ins.get_next_gyro_sample(gyro)) {
+            // get_next_gyro_sample() returned without blocking (no real IMU or
+            // fast-rate buffer not yet producing samples).  Yield for 500µs so
+            // lower-priority threads (GCS, USB UART) can run.  Without this
+            // sleep the rate thread spin-loops at high priority, starving USB
+            // output entirely — observable as 0 bytes from /dev/ttyACM1 when
+            // no IMU is fitted (e.g. RP2350/Pico2 bring-up without sensor board).
+            hal.scheduler->delay_microseconds(500);
             continue;   // go around again
         }
 

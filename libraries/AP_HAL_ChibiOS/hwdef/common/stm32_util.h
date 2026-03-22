@@ -80,8 +80,11 @@ thread_t *thread_create_alloc(size_t size, const char *name, tprio_t prio, tfunc
  * Dispatch fn() to core1's bare-metal FIFO dispatcher and block until done.
  * fn must not call any ChibiOS blocking primitives (no semaphores, no sleep).
  * All data fn() reads/writes must be in shared SRAM (no core-local memory).
+ * If core1 does not respond within 1 ms (e.g. after a hard fault), fn() is
+ * run on core0 as a fallback and c1_timeout_count is incremented.
  */
 void c1_run_sync(void (*fn)(void));
+extern volatile uint32_t c1_timeout_count;
 #endif
 bool mem_is_dma_safe(const void *addr, uint32_t size, bool filesystem_op);
 

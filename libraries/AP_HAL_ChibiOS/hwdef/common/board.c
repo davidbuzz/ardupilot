@@ -21,6 +21,7 @@
 #include "flash.h"
 #include "watchdog.h"
 #include "board.h"
+#include "hrt.h"
 
 #if defined(PIC02) || defined(RP2350) || PIC02_AVAILABLE
 #define STM32_AVAILABLE FALSE 
@@ -592,15 +593,29 @@ void boardInit(void) {
  * Must only be called after core1 has started (i.e. after hal_lld_init()
  * has run start_core1()).  Safe to call from any ChibiOS thread on core0.
  */
+/* Count of c1_run_sync() fallbacks due to core1 timeout. Visible via OpenOCD. */
+volatile uint32_t c1_timeout_count;
+
 void c1_run_sync(void (*fn)(void))
 {
     /* Release barrier: ensure preceding stores are visible to core1 before
      * we write the function pointer to the FIFO. */
     __DMB();
 
-    /* Wait for TX FIFO space (should always be ready in normal operation). */
+    /* Wait for TX FIFO space.  If core1 has crashed and returned to ROM, it
+     * will no longer consume FIFO entries; after 4 calls the TX FIFO fills
+     * and RDY goes low.  Time out after 1 ms and fall back to core0.
+     * Use chThdSleep(10µs) on each retry so ChibiOS can schedule
+     * lower-priority threads (main loop, GCS) while we wait. */
+    const uint32_t t0 = hrt_micros32();
     while (!(SIO->FIFO_ST & SIO_FIFO_ST_RDY)) {
-        /* spin */
+        if (hrt_micros32() - t0 > 1000U) {
+            c1_timeout_count++;
+            fn();
+            __DMB();
+            return;
+        }
+        chThdSleep(TIME_US2I(10));
     }
     SIO->FIFO_WR = (uint32_t)fn;
 
@@ -609,9 +624,23 @@ void c1_run_sync(void (*fn)(void))
      * is required — the same pattern used by ChibiOS fifoBlockingWrite(). */
     __SEV();
 
-    /* Wait for core1's done signal (value = 1). */
+    /* Wait for core1's done signal (value = 1).  Time out after 1 ms and
+     * fall back to running fn() on core0 so the caller is not stalled
+     * forever if core1 has faulted (e.g. HardFault → ROM LockUp).
+     * chThdSleep(10µs) between retries yields the CPU in 10µs chunks so the
+     * main loop and GCS threads can run while core1 computes (prevents
+     * priority-182 starvation of the 350 Hz main loop).  10µs balances
+     * low context-switch overhead (~10 switches per 100µs core1 slice) with
+     * giving lower-priority threads adequate CPU time. */
+    const uint32_t t1 = hrt_micros32();
     while (!(SIO->FIFO_ST & SIO_FIFO_ST_VLD)) {
-        /* spin — core1 runs the function at ~bare-metal speed */
+        if (hrt_micros32() - t1 > 1000U) {
+            c1_timeout_count++;
+            fn();
+            __DMB();
+            return;
+        }
+        chThdSleep(TIME_US2I(10));
     }
     (void)SIO->FIFO_RD;
 
