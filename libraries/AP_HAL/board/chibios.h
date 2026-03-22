@@ -156,10 +156,10 @@
    FSTRATE_DIV = 2 (1kHz)
    FSTRATE_ENABLE = 1
    SERVO_DSHOT_RATE = 1 (1kHz)
-   RP2350: rate_controller_thread runs on core1 (ChibiOS SMP, static
-   affinity — the thread is created by core0's scheduler but ChibiOS
-   dispatches it to whichever core is free; with core0 saturated by
-   the main loop, core1 picks it up and keeps it there). */
+   RP2350: rate_controller_thread runs on core0 ChibiOS scheduler;
+   when FSTRATE_ENABLE=1 and RP_CORE1_START=TRUE the rate controller
+   computation (rate_controller_run_dt) is offloaded to core1 via
+   c1_run_sync() bare-metal FIFO dispatch. */
 #define HAL_INS_RATE_LOOP 1
 #else
 #define HAL_INS_RATE_LOOP 0
