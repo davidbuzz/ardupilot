@@ -303,6 +303,34 @@ void pico2_gpio_init(void) {
     palSetLineMode(HAL_GPIO_PIN_SPI1_MISO, PAL_MODE_ALTERNATE_SPI);
     palSetLineMode(HAL_GPIO_PIN_SPI1_MOSI, PAL_MODE_ALTERNATE_SPI);
 #endif
+
+    /* Configure SPI CS pins as output-HIGH (deasserted).
+     * On RP2350, GPIO pads reset to FUNCSEL=31 (NULL / high-Z).  The ChibiOS
+     * SPI_SELECT_MODE_PAD path drives CS via palClearPad/palSetPad, which writes
+     * to the SIO output register.  For those writes to appear on the pad, the pin
+     * must be:
+     *   (a) FUNCSEL=5 (SIO)  — routes SIO output to the GPIO pad, AND
+     *   (b) GPIO_OE=1        — enables the pad driver.
+     * PAL_MODE_OUTPUT_PUSHPULL provides both.  SIO_OUT is written HIGH first
+     * (palSetLine) to pre-arm the latch before OE is asserted, preventing a
+     * brief low-going glitch on CS that would falsely select a device.
+     * If a CS macro is not defined (sensor not fitted), the block is omitted. */
+#if defined(HAL_GPIO_PIN_MAG_CS)
+    palSetLine(HAL_GPIO_PIN_MAG_CS);
+    palSetLineMode(HAL_GPIO_PIN_MAG_CS, PAL_MODE_OUTPUT_PUSHPULL);
+#endif
+#if defined(HAL_GPIO_PIN_MPU_CS)
+    palSetLine(HAL_GPIO_PIN_MPU_CS);
+    palSetLineMode(HAL_GPIO_PIN_MPU_CS, PAL_MODE_OUTPUT_PUSHPULL);
+#endif
+#if defined(HAL_GPIO_PIN_BARO_EXT_CS)
+    palSetLine(HAL_GPIO_PIN_BARO_EXT_CS);
+    palSetLineMode(HAL_GPIO_PIN_BARO_EXT_CS, PAL_MODE_OUTPUT_PUSHPULL);
+#endif
+#if defined(HAL_GPIO_PIN_GYRO_EXT_CS)
+    palSetLine(HAL_GPIO_PIN_GYRO_EXT_CS);
+    palSetLineMode(HAL_GPIO_PIN_GYRO_EXT_CS, PAL_MODE_OUTPUT_PUSHPULL);
+#endif
 }
 #endif //PIC02_AVAILABLE
 
@@ -478,6 +506,20 @@ void __late_init(void) {
 #endif  /* PIC02_AVAILABLE */
 
   halInit();
+
+#if PIC02_AVAILABLE == TRUE
+  /*
+   * Re-apply GPIO configuration after halInit().
+   *
+   * pico2_gpio_init() is also called from __early_init() but SIO GPIO_OE
+   * is cleared somewhere during the RP2350 startup reset sequence before
+   * hal_lld_init() completes.  Calling it again here, after halInit() has
+   * finished initialising all ChibiOS HAL drivers (including pal_lld_init),
+   * ensures SPI CS pins are driven HIGH (output mode) by the time the
+   * application starts.
+   */
+  pico2_gpio_init();
+#endif
 
 #ifdef HAL_USB_PRODUCT_ID
   /*
