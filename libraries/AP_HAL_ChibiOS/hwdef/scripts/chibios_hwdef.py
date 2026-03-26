@@ -1236,6 +1236,14 @@ class ChibiOSHWDef(hwdef.HWDef):
 #define HAL_NO_PRINTF
 #define HAL_USE_I2C FALSE
 #define HAL_USE_PWM FALSE
+/*
+  Bootloader builds aim to keep the RAM footprint small and deterministic, so
+  force ChibiOS stack checking off. Undef first to avoid CPP redefinition
+  warnings when CH_DBG_ENABLE_STACK_CHECK is also set via compiler flags.
+ */
+#ifdef CH_DBG_ENABLE_STACK_CHECK
+#undef CH_DBG_ENABLE_STACK_CHECK
+#endif
 #define CH_DBG_ENABLE_STACK_CHECK FALSE
 // avoid timer and RCIN threads to save memory
 #define HAL_NO_TIMER_THREAD
@@ -1446,7 +1454,10 @@ INCLUDE common.ld
     def copy_common_linkerscript(self, outpath):
         dirpath = os.path.dirname(os.path.realpath(__file__))
 
-        if self.is_bootloader_fw():
+        # Bootloader builds normally use the generic common.ld rules, but RP
+        # MCUs require their MCU-specific linker script (for example RP2350
+        # needs core1 stack symbols when CH_CFG_SMP_MODE is enabled).
+        if self.is_bootloader_fw() and not self.is_rp_mcu():
             linker = 'common.ld'
         else:
             linker = self.get_mcu_config('LINKER_CONFIG')

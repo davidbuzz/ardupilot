@@ -23,6 +23,17 @@
 #include "hrt.h"
 #include <stdint.h>
 
+/*
+  __RAMFUNC__ is normally provided by the board hwdef (for boards that map some
+  hot-path functions into SRAM to avoid XIP/cache stalls).
+
+  Some build contexts compile this file without that definition, so provide a
+  safe fallback to keep builds working.
+ */
+#ifndef __RAMFUNC__
+#define __RAMFUNC__
+#endif
+
 #pragma GCC optimize("O2")
 
 #include "../../../AP_Math/div1000.h"
@@ -158,4 +169,3 @@ __RAMFUNC__ uint32_t hrt_millis32()
 {
     return (uint32_t)(hrt_millis64());
 }
-

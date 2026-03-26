@@ -81,6 +81,14 @@ extern void chSysInit(void);
 extern const uint32_t _vectors[];
 
 /*
+ * These are strong overrides for the ChibiOS startup hooks. Declare them before
+ * defining them to keep -Wmissing-declarations builds warning-free.
+ */
+void __early_init(void);
+void boardInit(void);
+void __late_init(void);
+
+/*
  * setup_usb_strings() is defined in hwdef/common/usbcfg.c (inside
  * #if defined(HAL_USB_PRODUCT_ID)).  It populates vcom_strings[1..3]
  * (manufacturer, product, serial) from HAL_USB_STRING_* defines so that
