@@ -1,0 +1,41 @@
+From 63c1da798ae3c81eb85d7926e49ff93edc450be7 Mon Sep 17 00:00:00 2001
+From: David 'Buzz' Bussenschutt <d.bussenschutt@uq.edu.au>
+Date: Mon, 23 Mar 2026 05:22:29 +1000
+Subject: [PATCH] WIP Pico2: fix PORT_FIFO_PANIC_MESSAGE undefined when SMP
+ disabled
+
+chcoresmp.c uses PORT_FIFO_PANIC_MESSAGE which is defined in
+chcoresmp.h.  chcoresmp.h is only pulled in by chcore.h when
+PORT_CORES_NUMBER > 1 (CH_CFG_SMP_MODE=TRUE).  When building with
+CH_CFG_SMP_MODE=FALSE, the symbol is undefined, causing a compile
+error if chcoresmp.c is rebuilt from scratch (e.g. after waf configure).
+
+Add a #ifndef fallback that matches the canonical value so the file
+compiles cleanly regardless of SMP configuration.
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+---
+ os/common/ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/os/common/ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c b/os/common/ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c
+index 9a2e64558a..9fe957ca6c 100644
+--- a/os/common/ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c
++++ b/os/common/ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c
+@@ -30,6 +30,13 @@
+ /* Module local definitions.                                                 */
+ /*===========================================================================*/
+ 
++/* PORT_FIFO_PANIC_MESSAGE is defined in chcoresmp.h, which is only pulled in
++ * by chcore.h when PORT_CORES_NUMBER > 1 (i.e. CH_CFG_SMP_MODE == TRUE).
++ * Provide a fallback so this file compiles cleanly when SMP is disabled.   */
++#ifndef PORT_FIFO_PANIC_MESSAGE
++#define PORT_FIFO_PANIC_MESSAGE  0xFFFFFFFEU
++#endif
++
+ /*===========================================================================*/
+ /* Module exported variables.                                                */
+ /*===========================================================================*/
+-- 
+2.43.0
+
