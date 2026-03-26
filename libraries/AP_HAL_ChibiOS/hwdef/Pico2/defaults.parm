@@ -24,6 +24,20 @@ INS_FAST_SAMPLE 0
 # of core1 and blocking core0.  With a real high-rate IMU (ICM-42688), set to 1.
 FSTRATE_ENABLE 0
 
+# Enable UART0 (GPIO12/13) and UART1 (GPIO10/11) with MAVLink2.
+# Without this, ArduPilot leaves UARTs unconfigured (FUNCSEL=5/SIO).
+# Setting protocol=2 makes the UARTs start at boot regardless of whether
+# a GCS is connected — required for UART register verification and loopback tests.
+SERIAL1_PROTOCOL 2
+SERIAL2_PROTOCOL 2
+
+# Enable watchdog (bit 0 of BRD_OPTIONS = BOARD_OPTION_WATCHDOG).
+# HAL_WATCHDOG_ENABLED_DEFAULT in hwdef.dat is only the fallback when
+# AP_BoardConfig singleton is absent; at runtime watchdog_enabled() reads
+# BRD_OPTIONS from the param store, so this is the canonical knob.
+# Set to 0 to disable watchdog during debug sessions.
+BRD_OPTIONS 1
+
 # Uncomment and adjust to match your power brick or current sensor:
 #BATT_AMP_PERVLT 17.0
 #BATT_VOLT_MULT 10.1

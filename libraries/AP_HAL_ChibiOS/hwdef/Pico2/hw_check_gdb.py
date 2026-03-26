@@ -19,6 +19,7 @@ Requires: arm-none-eabi-gdb in PATH, OpenOCD running on gdb_port.
 """
 
 import argparse
+import socket
 import subprocess
 import sys
 import re
@@ -324,6 +325,17 @@ def main():
     cmds = build_gdb_script(args.elf)
     output = run_gdb(cmds, args.port)
     parse_and_report(output)
+
+    # OpenOCD halts the board on GDB detach regardless of 'monitor resume'.
+    # Ensure the board is running via the telnet port after GDB exits.
+    telnet_port = args.port + 2  # 50000 → 50002
+    try:
+        with socket.create_connection(('localhost', telnet_port), timeout=3) as s:
+            s.recv(256)  # drain banner
+            s.sendall(b'resume\n')
+            s.recv(64)
+    except Exception:
+        pass  # telnet port not available — board may already be running
 
 
 if __name__ == '__main__':
