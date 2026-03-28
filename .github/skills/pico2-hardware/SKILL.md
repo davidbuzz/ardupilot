@@ -64,6 +64,10 @@ pkill -f openocd          # kill existing process
 
 There are **two separate flash paths** — bootloader (one-time) and app firmware (everyday update).
 
+Before any step that requires touching the target board, the agent must stop and
+explicitly prompt the human for that action. Do not assume the human will unplug,
+re-plug, or hold BOOTSEL without being asked.
+
 ---
 
 ### 1. Bootloader — one-time BOOTSEL flash
@@ -78,6 +82,8 @@ The bootloader is built once and loaded via BOOTSEL/UF2. It is NOT updated by `-
 
 Then ask the human:
 > "Please hold the BOOTSEL button on the Pico2 while plugging in the USB cable, then release. Tell me when the device appears as a mass-storage drive."
+
+Do not start the bootloader upload until the human confirms the board is in BOOTSEL mode.
 
 Once in BOOTSEL mode, flash via `--upload` (triggers picotool UF2 path automatically):
 ```bash
@@ -96,6 +102,8 @@ This uses `uploader.py` which speaks the ArduPilot MAVLink bootloader protocol o
 
 Before running `--upload`, always tell the human:
 > "Please unplug the Pico2 USB cable and plug it back in now."
+
+Do not run `uploader.py` or `./waf ... --upload` until the human confirms they have done the re-plug.
 
 Wait for `/dev/ttyACM*` to re-appear, then run:
 ```bash
