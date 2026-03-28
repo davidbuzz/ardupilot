@@ -342,29 +342,40 @@ jump_to_app()
 
 #if defined(RP2350)
     /*
-     * RP2350: the app image starts with a picobin imagedef block that
-     * occupies the first 0x80 bytes (block is 0x1c bytes, padded to
-     * 0x80-byte alignment). The real ARM vector table — initial SP at
-     * offset 0 and Reset_Handler (with Thumb bit set) at offset 4 —
-     * is at APP_START_ADDRESS + 0x80. Reads from APP_START_ADDRESS
-     * return imagedef magic (0xFFFFDED3 / 0x10210142), not valid SP/PC
-     * values; the reset handler with Thumb bit clear causes an INVSTATE
-     * UsageFault on Cortex-M33 if jumped to, preventing the app from
-     * initialising USB and other peripherals cleanly. Override app_base
-     * to point to the actual vector table before the jump.
+     * RP2350: the app image starts with a picobin imagedef block that occupies
+     * the first 0x80 bytes at APP_START_ADDRESS. The real ARM vector table
+     * (initial SP + Reset_Handler with Thumb bit set) is at APP_START_ADDRESS
+     * + 0x80. Two fixes are needed for a safe jump:
+     *
+     * 1. app_base must point to APP_START_ADDRESS+0x80, not APP_START_ADDRESS,
+     *    so do_jump() gets the correct SP and Reset_Handler values.
+     *
+     * 2. PSPLIM / MSPLIM must be cleared to zero before do_jump(). The
+     *    ChibiOS bootloader context sets PSPLIM to protect its own stack;
+     *    that limit coincides with the app's initial SP (0x20000600). When
+     *    do_jump() executes 'mov sp, r0' with r0 = initial SP = PSPLIM, the
+     *    Cortex-M33 stack-overflow check fires (new SP <= PSPLIM), raising a
+     *    UsageFault (STKOF) before the app has a chance to run.
+     *
+     * 3. VTOR must be set to APP_START_ADDRESS+0x80 (the real vector table)
+     *    so that any exception which fires during the transition lands in a
+     *    valid handler, not in the imagedef magic bytes at APP_START_ADDRESS.
      */
     app_base = (const uint32_t *)(APP_START_ADDRESS + 0x80);
-    // do_jump() reads app_base[0] and app_base[1] from APP_START_ADDRESS, but 
-    // for RP2350 those first two words are the picobin imagedef magic (0xFFFFDED3, 0x10210142) — 
-    // not a valid SP/Reset_Handler. The real ARM vector table is 0x80 bytes into the image at 0x10010080.
-    // The fix: override app_base to point to the real vector table before the jump
+    __set_MSPLIM(0);
+    __set_PSPLIM(0);
 #endif
 
     // disable all interrupt sources
     port_disable();
 
     /* switch exception handlers to the application */
+#if defined(RP2350)
+    /* RP2350: real vector table is at APP_START_ADDRESS+0x80, past imagedef */
+    *(volatile uint32_t *)SCB_VTOR = APP_START_ADDRESS + 0x80;
+#else
     *(volatile uint32_t *)SCB_VTOR = APP_START_ADDRESS;
+#endif
 
     /* extract the stack and entrypoint from the app vector table and go */
     do_jump(app_base[0], app_base[1]);
