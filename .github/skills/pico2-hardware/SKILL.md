@@ -85,7 +85,7 @@ Always flash the `.elf` / no-extension ELF, not the `.uf2` or `.bin`.
 
 ### CRITICAL: always use `--nx`
 
-`/home/buzz2/ardupilot/.gdbinit` contains `mon reset halt`.  
+`/home/buzz/ardupilot/.gdbinit` contains `mon reset halt`.  
 **This resets the board on every standard GDB connect**, masking the real live state.  
 Always use `--nx` for diagnostics:
 
@@ -181,7 +181,7 @@ SERIAL_CONTROL_SERIAL2 = 102   # SERIAL2/UART1
 ## Build Commands
 
 ```bash
-cd /home/buzz2/ardupilot
+cd /home/buzz/ardupilot
 
 # Configure (first time or after hwdef changes)
 ./waf configure --board=Pico2 --debug

@@ -179,6 +179,9 @@ SWDIO=GPIO1 via PC0/PC1 in hwdef) or the RP2350 UF2 bootloader.
 # Get a compatible openocd... eg get premade binaries here:
     https://github.com/raspberrypi/pico-sdk-tools/releases/tag/v2.1.0-0
 
+    # preereq:
+    sudo apt-get update && sudo apt-get install libhidapi-hidraw0
+
     cd ~/Downloads
     wget https://github.com/raspberrypi/pico-sdk-tools/releases/download/v2.1.0-0/openocd-0.12.0+dev-x86_64-lin.tar.gz
     mkdir ~/openocd-pico
