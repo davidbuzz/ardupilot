@@ -339,7 +339,27 @@ jump_to_app()
 #endif
 #endif
 #endif // !defined(RP2350)
-    
+
+#if defined(RP2350)
+    /*
+     * RP2350: the app image starts with a picobin imagedef block that
+     * occupies the first 0x80 bytes (block is 0x1c bytes, padded to
+     * 0x80-byte alignment). The real ARM vector table — initial SP at
+     * offset 0 and Reset_Handler (with Thumb bit set) at offset 4 —
+     * is at APP_START_ADDRESS + 0x80. Reads from APP_START_ADDRESS
+     * return imagedef magic (0xFFFFDED3 / 0x10210142), not valid SP/PC
+     * values; the reset handler with Thumb bit clear causes an INVSTATE
+     * UsageFault on Cortex-M33 if jumped to, preventing the app from
+     * initialising USB and other peripherals cleanly. Override app_base
+     * to point to the actual vector table before the jump.
+     */
+    app_base = (const uint32_t *)(APP_START_ADDRESS + 0x80);
+    // do_jump() reads app_base[0] and app_base[1] from APP_START_ADDRESS, but 
+    // for RP2350 those first two words are the picobin imagedef magic (0xFFFFDED3, 0x10210142) — 
+    // not a valid SP/Reset_Handler. The real ARM vector table is 0x80 bytes into the image at 0x10010080.
+    // The fix: override app_base to point to the real vector table before the jump
+#endif
+
     // disable all interrupt sources
     port_disable();
 
