@@ -1,0 +1,46 @@
+From 19fdb56b5296f2eb4cb185dc52a7f34191eb8b6e Mon Sep 17 00:00:00 2001
+From: David Buzz <davidbuzz@gmail.com>
+Date: Sat, 28 Mar 2026 17:30:29 +1000
+Subject: [PATCH] WIP RP2350: PSM-reset core1 before start_core1 FIFO handshake
+
+Without PSM reset, start_core1() deadlocks if core1 survived a soft
+reset (watchdog/bootloader jump_to_app) still running app code. The
+ROM handshake requires core1 in wait-for-launch state; c1_main drains
+FIFO without echoing, causing core0 to block in fifoBlockingRead.
+
+Fix: assert PSM_ANY_PROC1 in FRCE_OFF, wait DONE bit clears, then
+release so core1 re-enters ROM wait. Makes start_core1 idempotent.
+---
+ os/hal/ports/RP/RP2350/hal_lld.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/os/hal/ports/RP/RP2350/hal_lld.c b/os/hal/ports/RP/RP2350/hal_lld.c
+index 47a4ab995d..7c9410d344 100644
+--- a/os/hal/ports/RP/RP2350/hal_lld.c
++++ b/os/hal/ports/RP/RP2350/hal_lld.c
+@@ -58,6 +58,22 @@ static void start_core1(void) {
+                              (uint32_t)RP_CORE1_ENTRY_POINT};
+   unsigned seq;
+ 
++  /* Force-reset core1 via PSM before starting the FIFO launch handshake.
++   *
++   * If core1 survived a preceding soft reset (e.g. jump_to_app() in the
++   * bootloader, which does a BX not SYSRESETREQ), it may still be executing
++   * application code from a previous run.  In that case the ROM FIFO
++   * handshake protocol will deadlock: core0 sends the sync sequence but
++   * core1 is not in the ROM wait-for-launch loop so it never echoes back.
++   *
++   * PSM FRCE_OFF[24] holds core1 in reset (powered-off state).  Clearing
++   * it releases core1 into the ROM boot-path which immediately enters the
++   * wait-for-launch loop.  The PSM DONE bit falls while the core is held
++   * off, and rises again once it has been released and is running. */
++  PSM->FRCE_OFF = PSM_ANY_PROC1;              /* assert reset to core1  */
++  while (PSM->DONE & PSM_ANY_PROC1) {}        /* wait until it powers off */
++  PSM->FRCE_OFF = 0U;                         /* release — core1 enters ROM */
++
+   /* Starting core 1.*/
+   seq = 0;
+   do {
+-- 
+2.43.0
+
