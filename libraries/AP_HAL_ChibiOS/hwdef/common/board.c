@@ -27,6 +27,34 @@
 #define STM32_AVAILABLE FALSE 
 #endif
 
+#if PIC02_AVAILABLE == TRUE
+/*
+ * Override the ChibiOS weak _unhandled_exception stub.
+ *
+ * The default ChibiOS implementation is an infinite loop (.stay: b .stay).
+ * On RP2350 any unhandled IRQ — whether from a floating pin glitching a
+ * disabled peripheral, a spurious SIO interrupt, or any future vector not
+ * explicitly registered — would permanently lock the CPU in that loop with
+ * the watchdog paused (PAUSE_DBG=1) when GDB is attached, or silently
+ * wedged in production.
+ *
+ * Instead, trigger an immediate SYSRESETREQ so the board self-resets and
+ * recovers.  The watchdog will also catch any case where NVIC_SystemReset
+ * itself is somehow delayed.
+ *
+ * This override is a strong symbol and therefore replaces the weak one.
+ * It must be in a C translation unit (not assembly), so the linker picks
+ * this definition preferentially.
+ */
+void __attribute__((noreturn)) _unhandled_exception(void)
+{
+    NVIC_SystemReset();
+    /* NOTREACHED — NVIC_SystemReset() does not return, but the noreturn   */
+    /* attribute requires an infinite loop to satisfy the compiler.        */
+    while (1) {}
+}
+#endif /* PIC02_AVAILABLE */
+
 /*
  * RP2350 (Pico2) note on XIP cache coherency after SWD flashing:
  *
