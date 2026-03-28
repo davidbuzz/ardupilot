@@ -194,12 +194,16 @@ jobs:
       - name: build plane ${{ matrix.toolchain }}
         shell: bash
         run: |
+          mkdir -p /dev/shm/fast
+          ln -s /dev/shm/fast ~/fast
+          git config --global --add safe.directory ~/fast
           git config --global --add safe.directory ${GITHUB_WORKSPACE}
           if [[ ${{ matrix.toolchain }} == "clang" ]]; then
             export CC=clang
             export CXX=clang++
           fi
           PATH="/github/home/.local/bin:$PATH"
+          cd ~/fast
           ./waf configure --board sitl --debug
           ./waf build --target bin/arduplane
           ccache -s
@@ -247,6 +251,7 @@ jobs:
         shell: bash
         run: |
           git config --global --add safe.directory ${GITHUB_WORKSPACE}
+          git config --global --add safe.directory ~/fast
           PATH="/github/home/.local/bin:$PATH"
           Tools/scripts/build_ci.sh
 
