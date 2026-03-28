@@ -60,12 +60,78 @@ pkill -f openocd          # kill existing process
 
 ---
 
-## Flashing Firmware via SWD (preferred — no BOOTSEL required)
+## Flash Workflows
 
-**Never use `--upload` flag with waf for app firmware.** Use GDB+OpenOCD instead.
+There are **two separate flash paths** — bootloader (one-time) and app firmware (everyday update).
+
+---
+
+### 1. Bootloader — one-time BOOTSEL flash
+
+The bootloader is built once and loaded via BOOTSEL/UF2. It is NOT updated by `--upload`.
 
 ```bash
-arm-none-eabi-gdb --nx --batch \
+# Build the bootloader
+./waf configure --board=Pico2 --bootloader --debug
+./waf bootloader -j12
+```
+
+Then ask the human:
+> "Please hold the BOOTSEL button on the Pico2 while plugging in the USB cable, then release. Tell me when the device appears as a mass-storage drive."
+
+Once in BOOTSEL mode, flash via `--upload` (triggers picotool UF2 path automatically):
+```bash
+./waf configure --board=Pico2 --bootloader
+./waf bootloader --upload
+```
+
+---
+
+### 2. App Firmware — `./waf copter --upload` (everyday path)
+
+This uses `uploader.py` which speaks the ArduPilot MAVLink bootloader protocol over USB CDC.
+**Requires the AP_Bootloader to already be installed (see above).**
+
+**IMPORTANT: This path requires a human to unplug and re-plug the USB cable.**
+
+Before running `--upload`, always tell the human:
+> "Please unplug the Pico2 USB cable and plug it back in now."
+
+Wait for `/dev/ttyACM*` to re-appear, then run:
+```bash
+./waf copter --upload
+# or manually:
+python3 Tools/scripts/uploader.py \
+    --port /dev/ttyACM1,/dev/ttyACM0 \
+    build/Pico2/bin/arducopter.apj
+```
+
+Expected output:
+```
+Found board bd,0 bootloader rev 5 on /dev/ttyACM1
+Bootloader Protocol: 5
+ChipDes:
+  family: RP2350
+Erase  : [====================] 100.0%
+Program: [====================] 100.0%
+Verify : [====================] 100.0%
+Rebooting.
+EXIT: 0
+```
+
+The full flash takes about 60–90 seconds. Use `timeout 120` if calling manually.
+
+**Port locking error** (`[Errno 11] Could not exclusively lock port`): another process (mavproxy, cat, etc.) has the port open. Kill it first.
+
+---
+
+### 3. App Firmware via SWD (developer/debug path — no unplug required)
+
+Use this when OpenOCD is already running and you don't want to disturb the running system,
+or when the AP_Bootloader is not installed.
+
+```bash
+gdb-multiarch --nx --batch \
   -ex "target extended-remote :50000" \
   -ex "mon halt" \
   -ex "mon reset halt" \
@@ -75,9 +141,11 @@ arm-none-eabi-gdb --nx --batch \
   build/Pico2/bin/arducopter
 ```
 
-Expected: `Transfer rate: ~143 KB/sec` — ~11 seconds for a 1.5 MB image.
+Expected: `Transfer rate: ~113 KB/sec` — ~15 seconds for a 1.4 MB image.
 
-Always flash the `.elf` / no-extension ELF, not the `.uf2` or `.bin`.
+Always flash the `.elf` / no-extension ELF (not `.uf2` or `.bin`).
+
+**Note:** `arm-none-eabi-gdb` is broken on Ubuntu 24.04 (missing libncurses.so.5). Use `gdb-multiarch` instead.
 
 ---
 
