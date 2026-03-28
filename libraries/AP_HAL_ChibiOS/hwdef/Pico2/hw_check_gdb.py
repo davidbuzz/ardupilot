@@ -26,7 +26,7 @@ import re
 import os
 
 DEFAULT_ELF = os.path.expanduser(
-    '/home/buzz2/ardupilot/build/Pico2/bin/arducopter'
+    '~/ardupilot/build/Pico2/bin/arducopter'
 )
 
 # ---------------------------------------------------------------------------
@@ -93,13 +93,15 @@ def build_gdb_script(elf_path: str) -> list[str]:
     p('GPIO_OE  (0x030)', SIO_BASE + 0x030)
 
     # ---- PWM (slices 0-3, GPIO0-7) ----
+    # RP2350 PWM register layout per slice (stride 0x14):
+    #   +0x00 CSR, +0x04 DIV, +0x08 CTR (running counter), +0x0C CC, +0x10 TOP
     cmds.append('printf "\\n=== PWM (slices 0-3, GPIO0-7, expect 50Hz) ===\\n"')
     for sl in range(4):
         base = PWM_BASE + sl * 0x14
         cmds.append(
             f'printf "Slice{sl}: CSR=0x%04x DIV=0x%06x TOP=0x%04x CC=0x%08x\\n",'
             f' {rd32(base)}&0xffff, ({rd32(base+0x4)})&0xffffff,'
-            f' {rd32(base+0x8)}&0xffff, {rd32(base+0xc)}'
+            f' {rd32(base+0x10)}&0xffff, {rd32(base+0xc)}'
         )
 
     # ---- UART0 GPIO and registers ----
@@ -166,7 +168,7 @@ def build_gdb_script(elf_path: str) -> list[str]:
 
 def run_gdb(gdb_cmds: list[str], port: int) -> str:
     args = [
-        'arm-none-eabi-gdb', '--nx',
+        'gdb-multiarch', '--nx',
         '-ex', 'set confirm off',
         '-ex', f'target extended-remote :{port}',
     ]
