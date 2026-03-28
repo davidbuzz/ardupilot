@@ -43,7 +43,13 @@
 
 #include <stdint.h>
 
-#if RP_CORE1_START == TRUE
+/*
+ * This translation unit is only added by the Pico2 board makefile and the
+ * generated CRT0 trampoline always expects c1_main() to exist when that
+ * build path is selected. Keep the dispatcher symbols unconditional here so
+ * link success does not depend on external preprocessor state or stale build
+ * dependencies.
+ */
 
 /*
  * RP2350 SIO register block (section 2.3.1 of the RP2350 datasheet).
@@ -151,4 +157,3 @@ void c1_main(void)
     }
 }
 
-#endif /* RP_CORE1_START == TRUE */

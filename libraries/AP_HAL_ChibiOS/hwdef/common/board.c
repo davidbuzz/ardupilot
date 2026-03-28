@@ -394,9 +394,9 @@ void __early_init(void) {
        * Set VTOR as early as possible so all peripheral IRQs land in the
        * correct ChibiOS handlers.
        */
-      extern uint32_t __vectors_base__;
+      extern uint32_t __vectors_base__[];
 
-      SCB->VTOR = (uint32_t)&__vectors_base__;
+      SCB->VTOR = (uint32_t)__vectors_base__;
       __DSB();
       __ISB();
 
@@ -465,10 +465,10 @@ void __late_init(void) {
    * The RP2350 port defines CORTEX_NUM_VECTORS=56 (see devices/RP2350/cmparams.h),
    * so the full table is 16 system exceptions + 56 external IRQ vectors.
    */
-  extern uint32_t __vectors_base__;
+  extern uint32_t __vectors_base__[];
   enum { RP2350_VECTOR_WORDS = 16U + 56U };
   static uint32_t rp2350_vectors[RP2350_VECTOR_WORDS] __attribute__((aligned(128)));
-  const uint32_t *flash_vectors = (const uint32_t *)&__vectors_base__;
+  const uint32_t *flash_vectors = __vectors_base__;
 
   for (uint32_t i = 0; i < RP2350_VECTOR_WORDS; i++) {
       rp2350_vectors[i] = flash_vectors[i];
@@ -490,7 +490,7 @@ void __late_init(void) {
   PADS_BANK0->GPIO[13] = 0x5AU;  /* GPIO13 = UART0_RX — early PUE+IE+SCHMITT */
   PADS_BANK0->GPIO[11] = 0x5AU;  /* GPIO11 = UART1_RX — early PUE+IE+SCHMITT */
 
-#if RP_CORE1_START == TRUE
+#if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
   /*
    * Drain the SIO inter-core FIFO before core1 is started.
    *
@@ -636,7 +636,7 @@ void boardInit(void) {
   HAL_BOARD_INIT_HOOK_CALL;
 }
 
-#if RP_CORE1_START == TRUE
+#if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
 /*
  * c1_run_sync() — dispatch a function to core1 and block until done.
  *
