@@ -27,7 +27,11 @@ cxx_compiler=${CXX:-g++}
 # github.
 export SITL_PANIC_EXIT=1
 
-export BUILDROOT=/tmp/ci.build
+mkdir -p /dev/shm/fast
+ln -s /dev/shm/fast ~/fast
+cd ~/fast
+export BUILDROOT=~/fast
+#export BUILDROOT=/tmp/ci.build
 rm -rf $BUILDROOT
 export GIT_VERSION="abcdef"
 export GIT_VERSION_EXTENDED="0123456789abcdef"
