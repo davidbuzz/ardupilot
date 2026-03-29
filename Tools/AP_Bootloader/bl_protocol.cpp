@@ -370,6 +370,24 @@ jump_to_app()
             : APP_START_ADDRESS);         /* low byte 0x80: already at vector table */
     __set_MSPLIM(0);
     __set_PSPLIM(0);
+
+    /*
+     * RP2350 clean-reset boot: instead of doing a bare do_jump() with the
+     * BL's peripheral state still active (USB CDC running, watchdog armed,
+     * PLLs configured), signal the next BL boot to jump directly to the app
+     * via WATCHDOG_SCRATCH[1], then trigger a full chip reset (SYSRESETREQ).
+     *
+     * WATCHDOG SCRATCH registers survive all reset types except power-on reset,
+     * so the BL's main() can read this flag immediately after waking from reset.
+     * The BL will check SCRATCH[1], consume the flag, and call jump_to_app()
+     * from a clean-hardware-reset state (fresh PLLs, USB un-initialised, etc.).
+     *
+     * This avoids the failure mode where the app's __late_init() / halInit()
+     * tries to reinitialise peripherals that the BL left partially active,
+     * causing a crash or watchdog fire within the first 2 seconds.
+     */
+    WATCHDOG->SCRATCH[1] = 0xB007CAFEU;  /* "BOOT CAFÉ" — launch app after reset */
+    NVIC_SystemReset();  /* triggers SYSRESETREQ — NOTREACHED */
 #endif
 
     // disable all interrupt sources

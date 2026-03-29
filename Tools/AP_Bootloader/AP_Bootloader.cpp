@@ -87,6 +87,23 @@ int main(void)
     bool try_boot = false;
     uint32_t timeout = HAL_BOOTLOADER_TIMEOUT;
 
+#if defined(RP2350)
+    /*
+     * RP2350 fast-boot: jump_to_app() in the previous BL run set
+     * WATCHDOG->SCRATCH[1] = 0xB007CAFE before triggering SYSRESETREQ so
+     * that the next BL boot (this one) skips the 15-second protocol timeout
+     * and goes directly to the app from a clean hardware reset state.
+     *
+     * SCRATCH registers survive all resets except power-on-reset, so this
+     * flag is guaranteed to be readable here immediately after SYSRESETREQ.
+     */
+    if (WATCHDOG->SCRATCH[1] == 0xB007CAFEU) {
+        WATCHDOG->SCRATCH[1] = 0U;  /* consume the flag so next boot is normal */
+        try_boot = true;
+        timeout = 0;
+    }
+#endif
+
 #ifdef HAL_BOARD_AP_PERIPH_ZUBAXGNSS
     // setup remapping register for ZubaxGNSS
     uint32_t mapr = AFIO->MAPR;
