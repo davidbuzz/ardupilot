@@ -80,10 +80,12 @@ static const uint16_t k_pio_uart_rx_pgm[PIO_UART_RX_PROG_LEN] = {
 #define PIO_CTRL_SM_RESTART_LSB       8u
 #define PIO_CTRL_CLKDIV_RESTART_LSB  12u
 
-#define PIO_FSTAT_TXFULL_LSB          0u
-#define PIO_FSTAT_TXEMPTY_LSB         8u
-#define PIO_FSTAT_RXFULL_LSB         16u
-#define PIO_FSTAT_RXEMPTY_LSB        24u
+// RP2350 PIO FSTAT layout (datasheet Table 983):
+// RXFULL[3:0], RXEMPTY[11:8], TXFULL[19:16], TXEMPTY[27:24].
+#define PIO_FSTAT_RXFULL_LSB          0u
+#define PIO_FSTAT_RXEMPTY_LSB         8u
+#define PIO_FSTAT_TXFULL_LSB         16u
+#define PIO_FSTAT_TXEMPTY_LSB        24u
 
 #define PIO_CLKDIV_FRAC_LSB           8u
 #define PIO_CLKDIV_INT_LSB           16u
@@ -169,6 +171,7 @@ private:
 
     const uint8_t _instance;
     bool  _initialized;
+    uint32_t _active_baud;
     ByteBuffer *_readbuf;
     ByteBuffer *_writebuf;
 

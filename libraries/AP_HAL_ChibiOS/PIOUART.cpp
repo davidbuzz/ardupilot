@@ -59,6 +59,8 @@ volatile uint32_t pio_uart_dbg_begin_count[PIO_NUM_INSTANCES];
 volatile uint32_t pio_uart_dbg_ctor_count[PIO_NUM_INSTANCES];
 volatile uint32_t pio_uart_dbg_write_calls[PIO_NUM_INSTANCES];
 volatile uint32_t pio_uart_dbg_write_bytes[PIO_NUM_INSTANCES];
+volatile uint32_t pio_uart_dbg_rx_service_calls[PIO_NUM_INSTANCES];
+volatile uint32_t pio_uart_dbg_rx_bytes[PIO_NUM_INSTANCES];
 
 // InstanceConfig: pin numbers from hwdef.h PIORXDRIVERn_TX/RX_PIN defines
 const PIORXDriver::InstanceConfig PIORXDriver::_cfg_table[PIO_NUM_INSTANCES] = {
@@ -165,6 +167,7 @@ void PIORXDriver::_irq_pio1_1()
 PIORXDriver::PIORXDriver(uint8_t instance)
     : _instance(instance)
     , _initialized(false)
+    , _active_baud(0)
     , _readbuf(nullptr)
     , _writebuf(nullptr)
 {
@@ -200,8 +203,10 @@ void PIORXDriver::_configure_gpio(uint8_t pin, bool is_output)
              | PAL_RP_PAD_IE
              | PAL_RP_PAD_SCHMITT;
     } else {
+        // RX pin should be a plain peripheral input with pull-up.
+        // Open-drain mode here can distort idle/high levels and produce
+        // framing noise on loopback or externally-driven UART lines.
         mode = PAL_RP_IOCTRL_FUNCSEL(funcsel)
-             | PAL_RP_PAD_OD
              | PAL_RP_PAD_IE
              | PAL_RP_PAD_PUE
              | PAL_RP_PAD_SCHMITT;
@@ -341,13 +346,14 @@ void PIORXDriver::_enable_rx_irq()
     }
 
     if (sm_rx <= 1U) {
-        // Keep only the RX-not-empty bit(s) we explicitly manage here.
-        // Stale enable bits (e.g. TXNFULL) can hold IRQ asserted forever.
-        pio->IRQ0_INTE &= 0x0FU;
-        pio->IRQ0_INTE |= rx_mask;
+        // Enable exactly one RXNEMPTY source for this instance.
+        // Preserving previous bits can leave unrelated sources enabled,
+        // causing immediate interrupt storms during early init.
+        pio->IRQ0_INTF = 0U;
+        pio->IRQ0_INTE = rx_mask;
     } else {
-        pio->IRQ1_INTE &= 0x0FU;
-        pio->IRQ1_INTE |= rx_mask;
+        pio->IRQ1_INTF = 0U;
+        pio->IRQ1_INTE = rx_mask;
     }
 
     nvicEnableVector(cfg().irq_num, PIO_UART_IRQ_PRIO);
@@ -359,6 +365,8 @@ void PIORXDriver::_enable_rx_irq()
 
 void PIORXDriver::_service_rx_fifo()
 {
+    pio_uart_dbg_rx_service_calls[_instance]++;
+
     PIO_TypeDef *const pio = cfg().pio;
     const uint8_t      sm  = cfg().sm_rx;
 
@@ -366,8 +374,9 @@ void PIORXDriver::_service_rx_fifo()
     // normal initialization has completed, discarding bytes here prevents
     // an IRQ retrigger storm that can starve the main loop.
     while (!(pio->FSTAT & (1u << (PIO_FSTAT_RXEMPTY_LSB + sm)))) {
-        // Data is in MSB (right-shift ISR, 8-bit autopush)
+        // Data is in MSB (right-shift ISR, 8-bit push)
         const uint8_t byte = (uint8_t)(pio->RXF[sm] >> 24U);
+        pio_uart_dbg_rx_bytes[_instance]++;
         if (_readbuf && _initialized) {
             _readbuf->write(&byte, 1);
         }
@@ -386,6 +395,14 @@ void PIORXDriver::_begin(uint32_t b, uint16_t rxSpace, uint16_t txSpace)
     if (b == 0) {
         b = 57600;
     }
+
+    // SERIAL_CONTROL commonly calls begin() repeatedly with unchanged
+    // parameters. Reinitializing PIO SMs on each packet disrupts RX/TX and
+    // can inject framing noise into loopback tests.
+    if (_initialized && _active_baud == b) {
+        return;
+    }
+
     if (rxSpace == 0) {
         rxSpace = PIO_UART_RX_BUF;
     }
@@ -437,9 +454,9 @@ void PIORXDriver::_begin(uint32_t b, uint16_t rxSpace, uint16_t txSpace)
     // handler runs early, sees !_initialized, and spins on a retriggering
     // not-empty interrupt while startup is still in progress.
     _initialized = true;
-    // Keep RX in polling mode for now; IRQ routing on RP2350 PIO is
-    // still under bring-up and can deadlock startup if misconfigured.
-    // _enable_rx_irq();
+    _active_baud = b;
+    // IRQ-driven RX is required for sustained bidirectional traffic.
+    _enable_rx_irq();
     pio_uart_dbg_begin_count[_instance]++;
 }
 
@@ -463,6 +480,7 @@ void PIORXDriver::_end()
     }
 
     _initialized = false;
+    _active_baud = 0;
 }
 
 void PIORXDriver::_flush()

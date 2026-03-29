@@ -15,11 +15,17 @@
 # the above doesnt inject it into other applications, and i want it to.
 import time
 import keyboard
+secs_counter=0
 while True:
     print ("Pressing ctrl-enter...")
     keyboard.press_and_release('ctrl+enter')
     time.sleep(5)
-    #time.sleep(15)
+    secs_counter += 5
+    if secs_counter >= 3600:
+        print ("typing 'please continue analysis' and then enter...")
+        keyboard.write('please continue analysis')
+        keyboard.press_and_release('enter')
+        secs_counter = 0
 
 # needs run with sudo
 
