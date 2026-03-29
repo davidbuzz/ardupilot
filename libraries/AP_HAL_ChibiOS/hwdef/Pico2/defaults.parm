@@ -31,6 +31,12 @@ FSTRATE_ENABLE 0
 SERIAL1_PROTOCOL 2
 SERIAL2_PROTOCOL 2
 
+# Keep PIOUART ports free for dedicated loopback bring-up on GP14/17 and GP19/20.
+# SerialManager background users (for example GPS probing on SERIAL3 defaults)
+# can otherwise consume RX bytes and mask direct SERIAL_CONTROL validation.
+SERIAL3_PROTOCOL -1
+SERIAL4_PROTOCOL -1
+
 # Enable watchdog (bit 0 of BRD_OPTIONS = BOARD_OPTION_WATCHDOG).
 # HAL_WATCHDOG_ENABLED_DEFAULT in hwdef.dat is only the fallback when
 # AP_BoardConfig singleton is absent; at runtime watchdog_enabled() reads

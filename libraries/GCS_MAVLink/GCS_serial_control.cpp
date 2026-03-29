@@ -33,6 +33,13 @@ volatile uint32_t gcs_serial_ctrl_dbg_dev103;
 volatile uint32_t gcs_serial_ctrl_dbg_dev104;
 volatile uint32_t gcs_serial_ctrl_dbg_stream_null;
 volatile uint32_t gcs_serial_ctrl_dbg_begin_calls;
+volatile uint32_t gcs_serial_ctrl_dbg_reply_send_count;
+volatile uint32_t gcs_serial_ctrl_dbg_reply_dev103;
+volatile uint32_t gcs_serial_ctrl_dbg_reply_dev104;
+volatile uint32_t gcs_serial_ctrl_dbg_last_available;
+volatile uint32_t gcs_serial_ctrl_dbg_last_reply_count;
+volatile uint32_t gcs_serial_ctrl_dbg_last_device;
+volatile uint32_t gcs_serial_ctrl_dbg_hal_fallback_count;
 
 /**
    handle a SERIAL_CONTROL message
@@ -43,6 +50,7 @@ void GCS_MAVLINK::handle_serial_control(const mavlink_message_t &msg)
     mavlink_msg_serial_control_decode(&msg, &packet);
 
     gcs_serial_ctrl_dbg_total++;
+    gcs_serial_ctrl_dbg_last_device = packet.device;
     if (packet.device == SERIAL_CONTROL_SERIAL3) {
         gcs_serial_ctrl_dbg_dev103++;
     }
@@ -91,7 +99,29 @@ void GCS_MAVLINK::handle_serial_control(const mavlink_message_t &msg)
 #endif  // AP_GPS_ENABLED
     case SERIAL_CONTROL_SERIAL0 ... SERIAL_CONTROL_SERIAL9: {
         // direct access to a SERIALn port
-        stream = port = AP::serialmanager().get_serial_by_id(packet.device - SERIAL_CONTROL_SERIAL0);
+        const uint8_t serial_id = packet.device - SERIAL_CONTROL_SERIAL0;
+        stream = port = AP::serialmanager().get_serial_by_id(serial_id);
+
+        // Some bring-up configurations intentionally leave SERIALn protocol
+        // unset, which can make SerialManager return nullptr even though the
+        // HAL driver exists. For SERIAL_CONTROL direct-access semantics we
+        // still want to reach that physical UART/PIOUART.
+        if (port == nullptr) {
+            gcs_serial_ctrl_dbg_hal_fallback_count++;
+            port = hal.serial(serial_id);
+            stream = port;
+        }
+
+#if AP_GPS_ENABLED
+        // SERIAL3/SERIAL4 commonly back GPS1/GPS2. When SERIAL_CONTROL asks
+        // for exclusive direct access, also lock the GPS consumer so probe or
+        // driver traffic cannot pollute loopback validation or raw UART use.
+        if (serial_id == 3U) {
+            AP::gps().lock_port(0, exclusive);
+        } else if (serial_id == 4U) {
+            AP::gps().lock_port(1, exclusive);
+        }
+#endif
 
         // see if we need to lock mavlink
         for (uint8_t i=0; i<gcs().num_gcs(); i++) {
@@ -139,16 +169,13 @@ void GCS_MAVLINK::handle_serial_control(const mavlink_message_t &msg)
             const uint8_t *data = &packet.data[0];
             uint8_t count = packet.count;
             while (count > 0) {
-                while (stream->txspace() <= 0) {
-                    hal.scheduler->delay(5);
+                const size_t written = stream->write(data, count);
+                if (written == 0) {
+                    hal.scheduler->delay_microseconds(50);
+                    continue;
                 }
-                uint16_t n = stream->txspace();
-                if (n > packet.count) {
-                    n = packet.count;
-                }
-                stream->write(data, n);                
-                data += n;
-                count -= n;
+                data += written;
+                count -= written;
             }
         }
     }
@@ -178,6 +205,7 @@ more_data:
     if (available > (int16_t)sizeof(packet.data)) {
         available = sizeof(packet.data);
     }
+    gcs_serial_ctrl_dbg_last_available = available;
     if (available == 0 && (flags & SERIAL_CONTROL_FLAG_BLOCKING) == 0) {
         return;
     }
@@ -201,6 +229,14 @@ more_data:
     while (available > 0) {
         packet.data[packet.count++] = (uint8_t)stream->read();
         available--;
+    }
+    gcs_serial_ctrl_dbg_last_reply_count = packet.count;
+    gcs_serial_ctrl_dbg_reply_send_count++;
+    if (packet.device == SERIAL_CONTROL_SERIAL3) {
+        gcs_serial_ctrl_dbg_reply_dev103++;
+    }
+    if (packet.device == SERIAL_CONTROL_SERIAL4) {
+        gcs_serial_ctrl_dbg_reply_dev104++;
     }
 
     // and send the reply

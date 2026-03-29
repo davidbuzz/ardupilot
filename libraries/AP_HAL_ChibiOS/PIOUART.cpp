@@ -282,7 +282,9 @@ void PIORXDriver::_start_tx_sm(uint32_t int_div, uint32_t frac_div)
     pio->SM[sm].SHIFTCTRL = PIO_SHIFTCTRL_OUT_SHIFTDIR;
 
         pio->SM[sm].PINCTRL =
-                (1u               << PIO_PINCTRL_SIDESET_COUNT_LSB)
+            // SIDE_EN consumes one bit in Delay/Side-set, so one actual
+            // side-set data bit requires SIDESET_COUNT=2 (enable+data).
+            (2u               << PIO_PINCTRL_SIDESET_COUNT_LSB)
                 | ((uint32_t)tx_pin << PIO_PINCTRL_SIDESET_BASE_LSB)
                 | ((uint32_t)tx_pin << PIO_PINCTRL_OUT_BASE_LSB)
                 | (1u               << PIO_PINCTRL_OUT_COUNT_LSB)
@@ -439,29 +441,24 @@ void PIORXDriver::_begin(uint32_t b, uint16_t rxSpace, uint16_t txSpace)
     _start_tx_sm(int_div, frac_div);
     _start_rx_sm(int_div, frac_div);
 
-    // Emit a short one-time signature burst on each TX pin during init.
-    // This gives a deterministic physical marker on a scope so we can
-    // confirm each PIO UART TX path is electrically alive during bring-up.
-    // Instance 0 uses 0x55, instance 1 uses 0xAA to make channels distinct.
+    // Start each session from a clean RX state. During clock/pin bring-up,
+    // the RX SM can capture transient bits; purge both hardware FIFO and
+    // software ring buffer before userspace traffic starts.
     {
         PIO_TypeDef *const pio = cfg().pio;
-        const uint8_t sm = cfg().sm_tx;
-        const uint32_t sig = (_instance & 1U) ? 0xAAU : 0x55U;
-        for (uint8_t i = 0; i < 16U; i++) {
-            while (pio_tx_level(pio, sm) >= PIO_TX_FIFO_DEPTH) {
-                hal.scheduler->delay_microseconds(20);
-            }
-            pio->TXF[sm] = sig;
+        const uint8_t sm = cfg().sm_rx;
+        while (!(pio->FSTAT & (1u << (PIO_FSTAT_RXEMPTY_LSB + sm)))) {
+            (void)pio->RXF[sm];
+        }
+        if (_readbuf) {
+            _readbuf->clear();
         }
     }
 
-    // Mark initialized before enabling RX IRQ to avoid a race where the
-    // handler runs early, sees !_initialized, and spins on a retriggering
-    // not-empty interrupt while startup is still in progress.
+    // Mark initialized before enabling RX IRQ so ISR writes can safely append
+    // into the software ring buffer as soon as bytes start arriving.
     _initialized = true;
     _active_baud = b;
-    // Keep the RX FIFO single-producer: only the RX IRQ drains hardware into
-    // _readbuf, while thread context only consumes from the ring buffer.
     _enable_rx_irq();
     pio_uart_dbg_begin_count[_instance]++;
 }

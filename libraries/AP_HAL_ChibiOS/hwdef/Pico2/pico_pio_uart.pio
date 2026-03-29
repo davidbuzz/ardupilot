@@ -30,19 +30,15 @@ bitloop:
 ; Loaded at PIO_UART_RX_PROG_OFFSET (4) in instruction memory — JMP addresses
 ; below are for offset 0; PIOUART.cpp adds +PIO_UART_RX_PROG_OFFSET at runtime.
 ; PINCTRL: IN_BASE=rx_pin
-; EXECCTRL: JMP_PIN=rx_pin, WRAP_BOTTOM=prog_offset, WRAP_TOP=prog_offset+7
+; EXECCTRL: JMP_PIN=rx_pin, WRAP_BOTTOM=prog_offset, WRAP_TOP=prog_offset+4
 ; SHIFTCTRL: AUTOPUSH=0, IN_SHIFTDIR=right (LSB first), PUSH_THRESH=8
 .program uart_rx
 
     wait 0 pin 0        ; wait for start bit (falling edge)
-    set x, 7 [2]        ; RP2350 bring-up test: sample one bit earlier than the
-                        ; canonical example to compensate for the observed late RX phase
+    set x, 7 [10]       ; half-bit delay to sample near bit center
 bit_loop:
     in pins, 1          ; sample data bit into ISR
     jmp x-- bit_loop [6]; loop for 8 data bits (8 cycles/iter)
-    jmp pin, good_stop  ; check stop bit: jump if high (good)
-    irq 4 rel           ; signal framing error to host (IRQ relative to SM)
-    wait 1 pin 0        ; wait for line to return to idle before next frame
-    jmp 0               ; do not push a byte when stop-bit framing is bad
-good_stop:
+    ; Bring-up path: push after 8 samples without strict stop-bit gate.
+    ; This keeps RX active while sample-phase tuning is in progress.
     push noblock        ; push received byte to RX FIFO
