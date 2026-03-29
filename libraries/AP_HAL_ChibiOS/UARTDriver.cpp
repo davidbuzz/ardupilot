@@ -564,27 +564,36 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
             /*
              * RP2350: Switch UART TX and RX GPIO pins to FUNCSEL=2 (UART alternate
              * function) so the RP2350 IO mux routes those GPIOs to the UART
-             * peripheral.  After chip reset the IO_BANK0 GPIO_CTRL register has
-             * FUNCSEL=0x1F (NULL/tristate), and nothing else in the startup path
+             * peripheral.  The FUNCSEL index is stored in uart_pin_funcsel in
+             * the config: most GPIO pads use F2, but some (e.g. GPIO10/11 for
+             * UART1) have UART_TX/RX at F11 while F2 is UART_CTS/RTS, so the
+             * wrong FUNCSEL silently routes the pad to the flow-control lines
+             * instead of the data lines, breaking all UART traffic.
+             *
+             * After chip reset the IO_BANK0 GPIO_CTRL register has FUNCSEL=0x1F
+             * (NULL/tristate), and nothing else in the startup path
              * (pal_lld_init, sio_lld_start) sets FUNCSEL for UART pins.  Without
              * this the UART peripheral output never reaches the pad and received
              * data is not forwarded to the UART, silently breaking all UART comms.
              *
-             * PAL_MODE_ALTERNATE_UART sets FUNCSEL=2 in IO_BANK0 CTRL and
-             * IE+SCHMITT in PADS_BANK0.  The subsequent palLineSetPushPull() call
-             * adds the PUE pull-up on the RX line (PADS_BANK0 only, preserving the
-             * FUNCSEL).  Applying PUE before sioStart()/nvicEnableVector() ensures
+             * PAL_MODE_ALTERNATE(uart_funcsel) sets the correct FUNCSEL in
+             * IO_BANK0 CTRL plus IE+SCHMITT in PADS_BANK0.  The subsequent
+             * palLineSetPushPull() call adds the PUE pull-up on the RX line
+             * (PADS_BANK0 only, preserving the FUNCSEL).  Applying PUE before
+             * sioStart()/nvicEnableVector() ensures
              * the RX line idles HIGH so the UART peripheral does not see a permanent
              * BREAK condition during enumeration (which would fire IRQ33 continuously
              * and starve the USB IRQ14 handler).
              */
+            // Use the pin-specific FUNCSEL from the config (0 → default F2).
+            const uint32_t uart_funcsel = sdef.uart_pin_funcsel ? sdef.uart_pin_funcsel : 2U;
             if (sdef.tx_line != 0) {
-                /* TX pin: FUNCSEL=2 (UART), IE+SCHMITT in pad */
-                palSetLineMode(sdef.tx_line, PAL_MODE_ALTERNATE_UART);
+                /* TX pin: board-specific FUNCSEL (UART alternate function), IE+SCHMITT */
+                palSetLineMode(sdef.tx_line, PAL_MODE_ALTERNATE(uart_funcsel));
             }
             if (sdef.rx_line != 0) {
-                /* RX pin: FUNCSEL=2 (UART), IE+SCHMITT in pad, then add PUE */
-                palSetLineMode(sdef.rx_line, PAL_MODE_ALTERNATE_UART);
+                /* RX pin: board-specific FUNCSEL, IE+SCHMITT, then add PUE pull-up */
+                palSetLineMode(sdef.rx_line, PAL_MODE_ALTERNATE(uart_funcsel));
                 palLineSetPushPull(sdef.rx_line, PAL_PUSHPULL_PULLUP);
             }
             sioStart((SIODriver*)sdef.serial, &siocfg);

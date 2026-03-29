@@ -1979,14 +1979,32 @@ INCLUDE common.ld
                             if s not in lib.AltFunction_map:
                                 return "UINT8_MAX"
                             return lib.AltFunction_map[s]
+                # For RP2350 boards, look up the TX pin's hardware FUNCSEL to emit
+                # as uart_pin_funcsel in the config (the SerialDef field added under
+                # HAL_USE_SIO==TRUE).  Most GPIO pads have UART TX/RX at F2, but
+                # some pads (e.g. GPIO10/11 for UART1) have UART_TX/RX at F11 while
+                # F2 maps those pads to UART_CTS/RTS.  Non-RP2350 boards don't have
+                # this struct field so rp_uart_funcsel stays None.
+                # see PICO2.py in this folder, and its _AltFunction_map entries, for more details.
+                rp_uart_funcsel = None
+                if self.is_rp_mcu():
+                    tx_label = dev + '_TX'
+                    ua_af = self.bylabel[tx_label].af if tx_label in self.bylabel else None
+                    rp_uart_funcsel = ua_af if ua_af else 2
                 if have_low_noise:
                     low_noise = 'false'
                     rx_port = dev + '_RX'
                     if rx_port in self.bylabel and self.bylabel[rx_port].has_extra('LOW_NOISE'):
                         low_noise = 'true'
-                    f.write("%s, %s}\n" % (get_RTS_alt_function(), low_noise))
+                    if rp_uart_funcsel is not None:
+                        f.write("%s, %u, %s}\n" % (get_RTS_alt_function(), rp_uart_funcsel, low_noise))
+                    else:
+                        f.write("%s, %s}\n" % (get_RTS_alt_function(), low_noise))
                 else:
-                    f.write("%s}\n" % get_RTS_alt_function())
+                    if rp_uart_funcsel is not None:
+                        f.write("%s, %u}\n" % (get_RTS_alt_function(), rp_uart_funcsel))
+                    else:
+                        f.write("%s}\n" % get_RTS_alt_function())
 
         if have_low_noise:
             f.write('#define HAL_HAVE_LOW_NOISE_UART 1\n')
