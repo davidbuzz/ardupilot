@@ -342,26 +342,32 @@ jump_to_app()
 
 #if defined(RP2350)
     /*
-     * RP2350: the app image starts with a picobin imagedef block that occupies
-     * the first 0x80 bytes at APP_START_ADDRESS. The real ARM vector table
-     * (initial SP + Reset_Handler with Thumb bit set) is at APP_START_ADDRESS
-     * + 0x80. Two fixes are needed for a safe jump:
+     * RP2350: determine the ARM vector table address, handling all three cases:
      *
-     * 1. app_base must point to APP_START_ADDRESS+0x80, not APP_START_ADDRESS,
-     *    so do_jump() gets the correct SP and Reset_Handler values.
+     *   (a) APP_START_ADDRESS is the picobin imagedef base (low byte == 0x00,
+     *       e.g. 0x10010000): the imagedef block occupies the first 0x80 bytes;
+     *       the real ARM vector table (initial SP + Reset_Handler) is at +0x80.
      *
-     * 2. PSPLIM / MSPLIM must be cleared to zero before do_jump(). The
-     *    ChibiOS bootloader context sets PSPLIM to protect its own stack;
-     *    that limit coincides with the app's initial SP (0x20000600). When
-     *    do_jump() executes 'mov sp, r0' with r0 = initial SP = PSPLIM, the
-     *    Cortex-M33 stack-overflow check fires (new SP <= PSPLIM), raising a
-     *    UsageFault (STKOF) before the app has a chance to run.
+     *   (b) APP_START_ADDRESS already points to the vector table (low byte == 0x80,
+     *       e.g. 0x10010080, as set in hwdef-bl.dat): use it directly.
      *
-     * 3. VTOR must be set to APP_START_ADDRESS+0x80 (the real vector table)
-     *    so that any exception which fires during the transition lands in a
-     *    valid handler, not in the imagedef magic bytes at APP_START_ADDRESS.
+     *   (c) APP_START_ADDRESS not defined in hwdef-bl.dat: the fallback formula
+     *       above may produce either value; the low-byte mask handles both without
+     *       requiring the caller to know which variant is in use.
+     *
+     * The same adjusted pointer is written to VTOR so that any exception that
+     * fires during the jump transition resolves against the real vector table,
+     * not the imagedef magic bytes.
+     *
+     * Additionally clear MSPLIM and PSPLIM. ChibiOS sets PSPLIM to protect its
+     * own stack; that limit value coincides with the app's initial SP. The
+     * Cortex-M33 raises UsageFault (STKOF) when 'mov sp, r0' sets SP == PSPLIM,
+     * so both limits must be zeroed before do_jump() is called.
      */
-    app_base = (const uint32_t *)(APP_START_ADDRESS + 0x80);
+    app_base = (const uint32_t *)(
+        ((APP_START_ADDRESS & 0xFFU) == 0U)
+            ? APP_START_ADDRESS + 0x80U   /* imagedef base: skip to vector table */
+            : APP_START_ADDRESS);         /* low byte 0x80: already at vector table */
     __set_MSPLIM(0);
     __set_PSPLIM(0);
 #endif
@@ -369,13 +375,11 @@ jump_to_app()
     // disable all interrupt sources
     port_disable();
 
-    /* switch exception handlers to the application */
-#if defined(RP2350)
-    /* RP2350: real vector table is at APP_START_ADDRESS+0x80, past imagedef */
-    *(volatile uint32_t *)SCB_VTOR = APP_START_ADDRESS + 0x80;
-#else
-    *(volatile uint32_t *)SCB_VTOR = APP_START_ADDRESS;
-#endif
+    /* switch exception handlers to the application.
+     * For RP2350, app_base has already been adjusted to the real vector table
+     * address, so VTOR is set from app_base rather than APP_START_ADDRESS to
+     * keep them consistent regardless of how hwdef-bl.dat defined the base. */
+    *(volatile uint32_t *)SCB_VTOR = (uint32_t)app_base;
 
     /* extract the stack and entrypoint from the app vector table and go */
     do_jump(app_base[0], app_base[1]);
