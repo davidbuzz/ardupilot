@@ -1,5 +1,6 @@
 ; RP2350 PIO UART programs for 8N1 serial at 8 cycles/bit
-; These are loaded into RP2350 PIO instruction memory by PIOUART.cpp.
+; Human-readable equivalent of the runtime PIO programs.
+; The live instruction words are hardcoded in PIOUART.h and loaded by PIOUART.cpp.
 ;
 ; Clock divider formula: clkdiv = sys_clk_hz / (PIO_UART_CYCLES_PER_BIT * baud_rate)
 ; At sys_clk = 150 MHz, baud 115200: clkdiv = 150e6 / (8 * 115200) ≈ 163
@@ -15,10 +16,11 @@
 ; Loaded at PIO_UART_TX_PROG_OFFSET (0) in instruction memory
 ; PINCTRL: OUT_BASE=tx_pin, OUT_COUNT=1, SIDESET_BASE=tx_pin, SIDESET_COUNT=2(1+opt)
 ; SHIFTCTRL: AUTOPULL=0, OUT_SHIFTDIR=right (LSB first), PULL_THRESH=0
-; EXECCTRL: WRAP_BOTTOM=0, WRAP_TOP=3
+; EXECCTRL: WRAP_BOTTOM=1, WRAP_TOP=4
 .program uart_tx
 .side_set 1 opt
 
+    set pindirs, 1          ; one-time pin direction init
     pull       side 1 [7]  ; block waiting for data; assert stop bit / idle
     set x, 7   side 0 [7]  ; load bit counter (7 = 8 bits); assert start bit
 bitloop:
@@ -27,8 +29,9 @@ bitloop:
 
 ; ----------------------------------------------------------------------------
 ; UART RX — receive 8N1, samples pin at bit centres
-; Loaded at PIO_UART_RX_PROG_OFFSET (4) in instruction memory — JMP addresses
-; below are for offset 0; PIOUART.cpp adds +PIO_UART_RX_PROG_OFFSET at runtime.
+; Loaded at PIO_UART_RX_PROG_OFFSET (5) in instruction memory.
+; The hardcoded words in PIOUART.h are pre-relocated for that offset.
+; This symbolic source remains the readable equivalent of the same program.
 ; PINCTRL: IN_BASE=rx_pin
 ; EXECCTRL: JMP_PIN=rx_pin, WRAP_BOTTOM=prog_offset, WRAP_TOP=prog_offset+4
 ; SHIFTCTRL: AUTOPUSH=0, IN_SHIFTDIR=right (LSB first), PUSH_THRESH=8
