@@ -40,13 +40,22 @@ except ImportError:
 
 # ---------------------------------------------------------------------------
 # MAVLink SERIAL_CONTROL port numbers
+#
+# SERIAL_CONTROL_DEV_TELEM1 (0) / TELEM2 (1) route through gcs().chan(N)
+# which only works if that serial port is configured as a MAVLink channel.
+#
+# The SERIAL_CONTROL_SERIALn range (100–109) gives *direct* access to
+# SERIALn via AP::serialmanager().get_serial_by_id(n), regardless of what
+# protocol is configured on that port.  Always use these for loopback tests.
 # ---------------------------------------------------------------------------
-SERIAL_CONTROL_PORT_UART0 = 0   # SERIAL1 on ArduPilot = UART0 on Pico2
-SERIAL_CONTROL_PORT_UART1 = 1   # SERIAL2 on ArduPilot = UART1 on Pico2
+SERIAL_CONTROL_PORT_UART0 = 101  # SERIAL_CONTROL_SERIAL1 → SERIAL1 (UART0, GPIO12/13)
+SERIAL_CONTROL_PORT_UART1 = 102  # SERIAL_CONTROL_SERIAL2 → SERIAL2 (UART1, GPIO10/11)
 
-SERIAL_CONTROL_FLAG_EXCLUSIVE  = (1 << 4)  # MAV_SERIAL_CONTROL_FLAG_EXCLUSIVE
-SERIAL_CONTROL_FLAG_RESPOND    = (1 << 1)  # MAV_SERIAL_CONTROL_FLAG_RESPOND
-SERIAL_CONTROL_FLAG_BLOCKING   = (1 << 3)  # MAV_SERIAL_CONTROL_FLAG_BLOCKING
+SERIAL_CONTROL_FLAG_REPLY      = (1 << 0)  # reply packet marker (do not send)
+SERIAL_CONTROL_FLAG_RESPOND    = (1 << 1)  # ask autopilot to send back received bytes
+SERIAL_CONTROL_FLAG_EXCLUSIVE  = (1 << 2)  # take exclusive port ownership
+SERIAL_CONTROL_FLAG_BLOCKING   = (1 << 3)  # block until enough bytes arrive (or timeout)
+SERIAL_CONTROL_FLAG_MULTI      = (1 << 4)  # keep sending until no more data
 
 BAUD_57600 = 57600
 
@@ -59,7 +68,7 @@ def connect(port, baud):
     return mav
 
 
-def serial_control_send(mav, port_id, data_bytes, flags=0, timeout_ms=100, baud=BAUD_57600):
+def serial_control_send(mav, port_id, data_bytes, flags=0, timeout_ms=500, baud=BAUD_57600):
     """Send a SERIAL_CONTROL message with up to 70 bytes of data."""
     assert len(data_bytes) <= 70, "SERIAL_CONTROL payload limited to 70 bytes"
     payload = list(data_bytes) + [0] * (70 - len(data_bytes))
@@ -78,7 +87,7 @@ def serial_control_recv(mav, port_id, timeout=2.0):
     deadline = time.time() + timeout
     while time.time() < deadline:
         msg = mav.recv_match(type='SERIAL_CONTROL', blocking=True, timeout=0.2)
-        if msg and msg.port == port_id and msg.count > 0:
+        if msg and msg.device == port_id and msg.count > 0:
             return bytes(msg.data[:msg.count])
     return None
 
@@ -98,31 +107,47 @@ def test_loopback(mav, port_id, port_name, baud=BAUD_57600):
 
     flush_port(mav, port_id)
 
-    # Generate a unique test payload
+    # Use a short payload and blocking mode so the FC waits for TX space on
+    # the outbound SERIAL_CONTROL reply.
     test_data = (''.join(random.choices(string.ascii_letters + string.digits, k=32))).encode()
     print(f"  Sending  : {test_data!r}")
 
-    serial_control_send(mav, port_id, test_data, baud=baud)
+    flags = SERIAL_CONTROL_FLAG_EXCLUSIVE | SERIAL_CONTROL_FLAG_BLOCKING
 
-    # Allow time for TX → loopback wire → RX
-    time.sleep(0.2)
+    # Drain stale bytes first so we don't compare against old traffic.
+    serial_control_send(mav, port_id, b'', flags=flags, timeout_ms=400, baud=baud)
+    _ = serial_control_recv(mav, port_id, timeout=1.0)
 
-    received = serial_control_recv(mav, port_id, timeout=2.0)
+    serial_control_send(mav, port_id, test_data, flags=flags, timeout_ms=600, baud=baud)
 
-    if received is None:
+    # Replies can arrive with unrelated background bytes and may lag by one
+    # request on loaded links, so accumulate chunks and then do substring match.
+    rx_stream = b''
+    start = time.time()
+    while time.time() - start < 2.0:
+        chunk = serial_control_recv(mav, port_id, timeout=0.25)
+        if chunk:
+            rx_stream += chunk
+
+    # Trigger one extra read cycle to pull any final lagged bytes.
+    serial_control_send(mav, port_id, b'', flags=flags, timeout_ms=600, baud=baud)
+    start = time.time()
+    while time.time() - start < 2.0:
+        chunk = serial_control_recv(mav, port_id, timeout=0.25)
+        if chunk:
+            rx_stream += chunk
+
+    if not rx_stream:
         print(f"  FAIL: no response received (timeout)")
         return False
 
-    print(f"  Received : {received!r}")
+    print(f"  Received : {len(rx_stream)} bytes")
 
-    if received == test_data:
+    if test_data in rx_stream:
         print(f"  PASS: data matches ✓")
         return True
-    elif test_data in received or received in test_data:
-        print(f"  PARTIAL: data partially matched (framing issue?)")
-        return False
     else:
-        print(f"  FAIL: data mismatch")
+        print(f"  FAIL: test token not found in received stream")
         return False
 
 

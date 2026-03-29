@@ -165,7 +165,9 @@ more_data:
         return;
     }
 
-    if (packet.flags & SERIAL_CONTROL_FLAG_BLOCKING) {
+    // packet.flags now carries the outbound REPLY bit, so use the original
+    // request flags to decide whether we must wait for MAVLink TX space.
+    if (flags & SERIAL_CONTROL_FLAG_BLOCKING) {
         while (!HAVE_PAYLOAD_SPACE(chan, SERIAL_CONTROL)) {
             hal.scheduler->delay(1);
         }
