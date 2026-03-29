@@ -15,7 +15,7 @@ datasheets. Always check which one is being referred to before wiring:
 |----------|---------|---------|
 | **GPIO N** / **GP N** | `GPIO12`, `GP2` | Logical RP2350 GPIO number. Used in hwdef.dat as `PA<N>`, in firmware registers, and in datasheets. This is the primary naming used throughout ArduPilot code. |
 | **board pin N** | `board pin 16` | Physical header pin on the Pico2W PCB (the castellation / through-hole pads). Numbered 1–20 down the **left** column and 21–40 back up the **right** column, when the board is oriented with the USB connector at the top and the component side facing you. Not the same as the GPIO number. |
-| **RP2350 package pin N** | `QFN-80 pin 11` | Physical metal pad/leg on the bare RP2350 chip package. Numbered anticlockwise from the marked corner. The Pico2/Pico2W uses the **QFN-80** package; the QFN-60 package only exposes GPIO0–GPIO29. Package pin numbers appear in the RP2350 datasheet §1.4 (GPIO table) and are only relevant when designing a custom carrier board or interpreting oscilloscope probes on the die pads. |
+| **RP2350 package pin N** | `QFN-80 pin 11` | Physical metal pad/leg on the bare RP2350 chip package. Numbered anticlockwise from the marked corner. Two variants exist: **RP2350A** (7×7 QFN-60, 30 GPIO, GPIO0–GPIO29) is used on the standard Pico2 and Pico2W modules; **RP2350B** (10×10 QFN-80, 48 GPIO, GPIO0–GPIO47) is a bare chip used on custom carrier boards that need GPIOs above GPIO29. Package pin numbers appear in the RP2350 datasheet §1.4 (GPIO table) and are only relevant when designing a custom carrier board or interpreting oscilloscope probes on the die pads. |
 
 ### Pico2W board pin ↔ GPIO quick-reference
 
@@ -42,10 +42,12 @@ board pin 19 = GPIO14   board pin 39 = VSYS
 board pin 20 = GPIO15   board pin 40 = VBUS
 ```
 
-> **Note:** GPIO30–GPIO47 exist on the RP2350 QFN-80 package but are **not**
-> available on the standard Pico2W header. They are accessible only via the
-> castellated edge pads on a custom carrier board. See the RP2350 datasheet
-> §1.4 (GPIO Pins table) for QFN-80 package pin numbers for those signals.
+> **Note:** GPIO30–GPIO47 do **not** exist on the RP2350A (QFN-60) used in the
+> standard Pico2 and Pico2W modules — they are only available on the RP2350B
+> (QFN-80, 48-GPIO bare chip). The carrier board hwdef uses GPIOs above GPIO29
+> (e.g. GPIO32/40/42/43 for SPI buses) and therefore requires an RP2350B-based
+> board, not a standard Pico2W module. See the RP2350 datasheet §1.4 for QFN-80
+> package pin numbers for those signals.
 
 ## Features
 
