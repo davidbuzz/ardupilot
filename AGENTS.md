@@ -566,23 +566,29 @@ SWDIO=GPIO1 via PC0/PC1 in hwdef) or the RP2350 UF2 bootloader.
 
     BOOTSEL flash the above file to a Pico2w, label it "debugger", and ..
 
-    holding a 2w with the cpu facing you, and the usb plug up, the top-left pins starting at the corner, we're interested, on the debugger in skipping two pins , then putting a wire on the next 5 pins.... 
-    pin1/GP0 skip
-    pin2/GP1 skip
-    pin3/GND use/GND
-    pin4/GP2 use/SWCLK
-    pin5/GP3 use/SWDIO
-    pin6/GP4 use/UART0RX to GP1
-    pin7/GP5 use/UART0TX to GP0
+    ## Pin numbering conventions
+    Three different pin numbering schemes exist — always be explicit about which one you mean:
+    - **GPIO N** (or GP N): logical RP2350 GPIO number. Used in hwdef.dat, firmware registers, datasheets.
+    - **board pin N**: physical header pin on the Pico2W PCB. Pins 1–20 down the LEFT column, 21–40 back up the RIGHT column, when oriented with USB at top and component side facing you. NOT the same as the GPIO number.
+    - **RP2350 package pin N (QFN-80)**: physical die pad, anticlockwise from marked corner. Only relevant for carrier board PCB design.
 
-    Debugger(Probe) | Target-Pico-2w       | 	Notes
-    pin4/GP2	    |       SWCLK          |	 Clock signal
-    pin5/GP3	    |       SWDIO          |	 Data I/O
-    pin3/GND        |   	GND	           |	Common ground is mandatory
-    pin6/GP4        |   UART0RX/GP1/pin2   |	
-    pin7/GP5        |   UART0TX/GP0/pin1   |	
+    Holding a Pico2W with the component side facing you and USB at the top:
+    board-pin-1 / GPIO0  skip (this is target RX from debugger)
+    board-pin-2 / GPIO1  skip (this is target TX to debugger)
+    board-pin-3 / GND    use / GND
+    board-pin-4 / GPIO2  use / SWCLK  (debugger output)
+    board-pin-5 / GPIO3  use / SWDIO  (debugger output)
+    board-pin-6 / GPIO4  use / UART0RX  → target GPIO1 (board pin 2)
+    board-pin-7 / GPIO5  use / UART0TX  → target GPIO0 (board pin 1)
 
-    SWCLK/GND/SWDIO are found on the three pin header in the middle of the board, and if held in the orientation as described above, and left-to-right in that order...  SWCLK(left)/GND(middle)/SWDIO(right)
+    Debugger board pin | Debugger GPIO | Target signal              | Notes
+    board pin 3        | GND           | GND                        | Common ground — mandatory
+    board pin 4        | GPIO2         | SWCLK (3-pin debug header) | SWD clock
+    board pin 5        | GPIO3         | SWDIO (3-pin debug header) | SWD data
+    board pin 6        | GPIO4/UART0RX | target GPIO1 (board pin 2) | console RX←TX
+    board pin 7        | GPIO5/UART0TX | target GPIO0 (board pin 1) | console TX→RX
+
+    The target's SWD 3-pin debug header (centre of target board, left→right): SWCLK / GND / SWDIO.
 
 # Get a compatible openocd... eg get premade binaries here:
     https://github.com/raspberrypi/pico-sdk-tools/releases/tag/v2.1.0-0

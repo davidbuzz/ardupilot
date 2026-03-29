@@ -6,6 +6,47 @@ carrier board that provides SPI/I2C sensors and exposes the RP2350's
 full GPIO range including pins above GPIO29 (available on the Pico2
 castellated edges).
 
+## Pin Numbering Conventions
+
+Three different pin numbering schemes appear in this documentation and in
+datasheets. Always check which one is being referred to before wiring:
+
+| Notation | Example | Meaning |
+|----------|---------|---------|
+| **GPIO N** / **GP N** | `GPIO12`, `GP2` | Logical RP2350 GPIO number. Used in hwdef.dat as `PA<N>`, in firmware registers, and in datasheets. This is the primary naming used throughout ArduPilot code. |
+| **board pin N** | `board pin 16` | Physical header pin on the Pico2W PCB (the castellation / through-hole pads). Numbered 1–20 down the **left** column and 21–40 back up the **right** column, when the board is oriented with the USB connector at the top and the component side facing you. Not the same as the GPIO number. |
+| **RP2350 package pin N** | `QFN-80 pin 11` | Physical metal pad/leg on the bare RP2350 chip package. Numbered anticlockwise from the marked corner. The Pico2/Pico2W uses the **QFN-80** package; the QFN-60 package only exposes GPIO0–GPIO29. Package pin numbers appear in the RP2350 datasheet §1.4 (GPIO table) and are only relevant when designing a custom carrier board or interpreting oscilloscope probes on the die pads. |
+
+### Pico2W board pin ↔ GPIO quick-reference
+
+```
+board pin 1  = GPIO0    board pin 21 = GPIO16
+board pin 2  = GPIO1    board pin 22 = GPIO17
+board pin 3  = GND      board pin 23 = GND
+board pin 4  = GPIO2    board pin 24 = GPIO18
+board pin 5  = GPIO3    board pin 25 = GPIO19
+board pin 6  = GPIO4    board pin 26 = GPIO20
+board pin 7  = GPIO5    board pin 27 = GPIO21
+board pin 8  = GND      board pin 28 = GND
+board pin 9  = GPIO6    board pin 29 = GPIO22
+board pin 10 = GPIO7    board pin 30 = RUN (reset)
+board pin 11 = GPIO8    board pin 31 = GPIO26 / ADC0
+board pin 12 = GPIO9    board pin 32 = GPIO27 / ADC1
+board pin 13 = GND      board pin 33 = GND
+board pin 14 = GPIO10   board pin 34 = GPIO28 / ADC2
+board pin 15 = GPIO11   board pin 35 = GPIO29 / ADC3
+board pin 16 = GPIO12   board pin 36 = 3V3 (out)
+board pin 17 = GPIO13   board pin 37 = 3V3_EN
+board pin 18 = GND      board pin 38 = GND
+board pin 19 = GPIO14   board pin 39 = VSYS
+board pin 20 = GPIO15   board pin 40 = VBUS
+```
+
+> **Note:** GPIO30–GPIO47 exist on the RP2350 QFN-80 package but are **not**
+> available on the standard Pico2W header. They are accessible only via the
+> castellated edge pads on a custom carrier board. See the RP2350 datasheet
+> §1.4 (GPIO Pins table) for QFN-80 package pin numbers for those signals.
+
 ## Features
 
 - RP2350 dual-core Cortex-M33 @ 150 MHz (ArduPilot uses one core)
@@ -24,14 +65,14 @@ castellated edges).
 
 ## UART Mapping
 
-| Serial port | Function | GPIO (Pico2 physical pin) |
-|-------------|----------|--------------------------|
-| SERIAL0 | USB / console | USB connector |
-| SERIAL1 | Telem1 / GPS | TX=GPIO12 (pin 16), RX=GPIO13 (pin 17) |
-| SERIAL2 | Telem2 | TX=GPIO10 (pin 14), RX=GPIO11 (pin 15) |
-| SERIAL3 | GPS / spare (PIOUART0) | TX=GPIO14 (pin 19), RX=GPIO17 (pin 22) |
-| SERIAL4 | spare (PIOUART1) | TX=GPIO19 (pin 25), RX=GPIO20 (pin 26) |
-| SERIAL5 | spare (PIOUART2) | TX=GPIO21 (pin 27), RX=GPIO27 (pin 32) |
+| Serial port | Function | GPIO | Pico2W board pins |
+|-------------|----------|------|-------------------|
+| SERIAL0 | USB / console | — | USB connector |
+| SERIAL1 | Telem1 / GPS | GPIO12 / GPIO13 | TX=board pin 16, RX=board pin 17 |
+| SERIAL2 | Telem2 | GPIO10 / GPIO11 | TX=board pin 14, RX=board pin 15 |
+| SERIAL3 | GPS / spare (PIOUART0) | GPIO14 / GPIO17 | TX=board pin 19, RX=board pin 22 |
+| SERIAL4 | spare (PIOUART1) | GPIO19 / GPIO20 | TX=board pin 25, RX=board pin 26 |
+| SERIAL5 | spare (PIOUART2) | GPIO21 / GPIO27 | TX=board pin 27, RX=board pin 32 |
 
 SBUS (100 kbps, 8E2, inverted) is supported on SERIAL1/SERIAL2 using
 the RP2350 GPIO INOVER bit — no external inverter required. Set
@@ -40,22 +81,22 @@ connected port.
 
 ## RC Input
 
-Connect RC receiver signal to **GPIO 16** (pin 21). The pin is
+Connect RC receiver signal to **GPIO16** (board pin 21). The pin is
 PULLDOWN; for PWM/PPM receivers a 10 kΩ pull-up to 3.3 V may be
-needed. SBUS can be wired to **GPIO 13** (UART0 RX, SERIAL1).
+needed. SBUS can be wired to **GPIO13** (UART0 RX, SERIAL1, board pin 17).
 
 ## PWM / Servo Outputs
 
-| Output | GPIO | Pico2 pin |
-|--------|------|-----------|
-| PWM1 | GPIO 0 | pin 1 |
-| PWM2 | GPIO 1 | pin 2 |
-| PWM3 | GPIO 2 | pin 4 |
-| PWM4 | GPIO 3 | pin 5 |
-| PWM5 | GPIO 4 | pin 6 |
-| PWM6 | GPIO 5 | pin 7 |
-| PWM7 | GPIO 6 | pin 9 |
-| PWM8 | GPIO 7 | pin 10 |
+| Output | GPIO | Pico2W board pin |
+|--------|------|------------------|
+| PWM1 | GPIO0 | board pin 1 |
+| PWM2 | GPIO1 | board pin 2 |
+| PWM3 | GPIO2 | board pin 4 |
+| PWM4 | GPIO3 | board pin 5 |
+| PWM5 | GPIO4 | board pin 6 |
+| PWM6 | GPIO5 | board pin 7 |
+| PWM7 | GPIO6 | board pin 9 |
+| PWM8 | GPIO7 | board pin 10 |
 
 Standard 50 Hz PWM servo output. DShot is not supported (no
 timer DMA on RP2350). PWM outputs can also be used as GPIOs by
@@ -90,20 +131,20 @@ controller carrier board.
 
 ## I2C Bus
 
-| Signal | GPIO | Pico2 pin |
-|--------|------|-----------|
-| I2C1 SCL | GPIO 15 | pin 20 |
-| I2C1 SDA | GPIO 18 | pin 24 |
+| Signal | GPIO | Pico2W board pin |
+|--------|------|------------------|
+| I2C1 SCL | GPIO15 | board pin 20 |
+| I2C1 SDA | GPIO18 | board pin 24 |
 
 `AP_COMPASS_PROBING_ENABLED 1`: ArduPilot auto-probes for HMC5883,
 IST8310, QMC5883 and other common I2C compasses.
 
 ## Battery Monitoring
 
-| Signal | GPIO | Pico2 pin | Default scale |
-|--------|------|-----------|---------------|
-| BATT_VOLTAGE_SENS | GPIO 28 | pin 34 | 10.1 V/V |
-| BATT_CURRENT_SENS | GPIO 29 | pin 35 | 17.0 A/V |
+| Signal | GPIO | Pico2W board pin | Default scale |
+|--------|------|------------------|---------------|
+| BATT_VOLTAGE_SENS | GPIO28 | board pin 34 | 10.1 V/V |
+| BATT_CURRENT_SENS | GPIO29 | board pin 35 | 17.0 A/V |
 
 ## Sensor Stack
 
@@ -149,32 +190,35 @@ this will usually make/setup the mavlink headers and build both targets.
 ./waf bootloader -j12
 ```
 
-Flash `build/Pico2/bin/arducopter.elf` via SWD (SWCLK=GPIO0,
-SWDIO=GPIO1 via PC0/PC1 in hwdef) or the RP2350 UF2 bootloader.
-
-## setting up hardware debugging, using *two* Pico2Ws, one running debugprobe_on_pico2.uf2
+Flash `build/Pico2/bin/arducopter.elf` via SWD — the target's SWD
+port is on the 3-pin debug header (SWCLK/GND/SWDIO), which connects
+to GPIO0 (board pin 1) and GPIO1 (board pin 2)., using *two* Pico2Ws, one running debugprobe_on_pico2.uf2
     https://github.com/raspberrypi/debugprobe/releases/download/debugprobe-v2.3.0/debugprobe_on_pico2.uf2
     as the debugger, and the other running ardupilot as the "target"
 
     BOOTSEL flash the above file to a Pico2w, label it "debugger", and ..
 
-    holding a 2w with the cpu facing you, and the usb plug up, the top-left pins starting at the corner, we're interested, on the debugger in skipping two pins , then putting a wire on the next 5 pins.... 
-    pin1/GP0 skip
-    pin2/GP1 skip
-    pin3/GND use/GND
-    pin4/GP2 use/SWCLK
-    pin5/GP3 use/SWDIO
-    pin6/GP4 use/UART0RX to GP1
-    pin7/GP5 use/UART0TX to GP0
+    Holding the board with component side facing you and USB at the top:
+    board pins 1-20 run down the LEFT column, board pins 21-40 run UP the RIGHT column.
+    On the debugger board, skip the first two pins, then use the next 5:
 
-    Debugger(Probe) | Target-Pico-2w       | 	Notes
-    pin4/GP2	    |       SWCLK          |	 Clock signal
-    pin5/GP3	    |       SWDIO          |	 Data I/O
-    pin3/GND        |   	GND	           |	Common ground is mandatory
-    pin6/GP4        |   UART0RX/GP1/pin2   |	
-    pin7/GP5        |   UART0TX/GP0/pin1   |	
+    board-pin-1 / GPIO0  skip
+    board-pin-2 / GPIO1  skip
+    board-pin-3 / GND    use / GND
+    board-pin-4 / GPIO2  use / SWCLK
+    board-pin-5 / GPIO3  use / SWDIO
+    board-pin-6 / GPIO4  use / UART0RX  → target GPIO1 (board pin 2)
+    board-pin-7 / GPIO5  use / UART0TX  → target GPIO0 (board pin 1)
 
-    SWCLK/GND/SWDIO are found on the three pin header in the middle of the board, and if held in the orientation as described above, and left-to-right in that order...  SWCLK(left)/GND(middle)/SWDIO(right)
+    Debugger board pin | Debugger GPIO | Target signal        | Notes
+    board pin 3        | GND           | GND                  | Common ground — mandatory
+    board pin 4        | GPIO2         | SWCLK                | SWD clock
+    board pin 5        | GPIO3         | SWDIO                | SWD data
+    board pin 6        | GPIO4/UART0RX | target GPIO1 (board pin 2) | console RX←TX
+    board pin 7        | GPIO5/UART0TX | target GPIO0 (board pin 1) | console TX→RX
+
+    SWCLK/GND/SWDIO are also available on the 3-pin debug header in the centre of the
+    target board: left=SWCLK, middle=GND, right=SWDIO (same orientation as above).
 
 # Get a compatible openocd... eg get premade binaries here:
     https://github.com/raspberrypi/pico-sdk-tools/releases/tag/v2.1.0-0
@@ -301,8 +345,9 @@ then release. The board will appear as a mass-storage device.]
 ./waf copter        # (or plane, rover, sub, heli, etc.)
 ```
 
-Flash `build/Pico2/bin/arducopter.elf` via SWD (SWCLK=GPIO0,
-SWDIO=GPIO1 via PC0/PC1 in hwdef) or the RP2350 UF2 bootloader.
+Flash `build/Pico2/bin/arducopter.elf` via SWD — the target's SWD
+port is on the 3-pin debug header (SWCLK/GND/SWDIO), which connects
+to GPIO0 (board pin 1) and GPIO1 (board pin 2).
 
 ## Known Limitations
 

@@ -14,15 +14,20 @@ Two Pico2W boards are used:
 
 ### Wiring (debugger → target)
 
-| Debugger pin | Target pin | Signal |
-|---|---|---|
-| GP2 (pin 4) | SWCLK | SWD clock |
-| GP3 (pin 5) | SWDIO | SWD data |
-| GND (pin 3) | GND | Common ground — **mandatory** |
-| GP4 (pin 6) / UART0RX | GP1 / pin 2 | UART console RX←TX |
-| GP5 (pin 7) / UART0TX | GP0 / pin 1 | UART console TX→RX |
+Pin numbering conventions — always specify which system you mean:
+- **GPIO N** (or **GP N**): logical RP2350 GPIO number — used in firmware/hwdef
+- **board pin N**: physical header pin on Pico2W PCB (1–20 left column, 21–40 right column, USB at top, component side facing you)
+- **RP2350 package pin N**: bare die pad (QFN-80), only relevant for carrier board PCB design
 
-SWCLK/GND/SWDIO are also on the 3-pin debug header in the centre of the Pico2 board (left→right).
+| Debugger GPIO (board pin) | Target signal | Target GPIO (board pin) | Notes |
+|---|---|---|---|
+| GPIO2 (board pin 4) | SWCLK | 3-pin debug header | SWD clock |
+| GPIO3 (board pin 5) | SWDIO | 3-pin debug header | SWD data |
+| GND (board pin 3) | GND | GND | Common ground — **mandatory** |
+| GPIO4 (board pin 6) / UART0RX | console RX←TX | GPIO1 (board pin 2) | UART bridge |
+| GPIO5 (board pin 7) / UART0TX | console TX→RX | GPIO0 (board pin 1) | UART bridge |
+
+The target's SWD 3-pin debug header (centre of board, left→right) is: SWCLK / GND / SWDIO.
 
 ---
 
