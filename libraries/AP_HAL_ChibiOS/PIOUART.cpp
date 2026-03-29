@@ -21,11 +21,6 @@ using namespace ChibiOS;
 
 extern const AP_HAL::HAL &hal;
 
-// System clock comes from ChibiOS RP2350 rp_clocks.h derived constant.
-#ifndef RP_SYS_CLK_HZ
-#define RP_SYS_CLK_HZ  RP_PLL_SYS_CLK
-#endif
-
 // GPIO funcsel for PIO0=6, PIO1=7
 #define RP_GPIO_FUNCSEL_PIO0  6U
 #define RP_GPIO_FUNCSEL_PIO1  7U
@@ -183,7 +178,13 @@ PIORXDriver::PIORXDriver(uint8_t instance)
 
 void PIORXDriver::_calc_clkdiv(uint32_t baud, uint32_t &int_div, uint32_t &frac_div)
 {
-    const uint32_t sys_clk  = RP_SYS_CLK_HZ;
+    // Use the runtime-configured clk_sys value so PIO UART baud generation
+    // stays aligned with the actual RP2350 clock tree, even if the board
+    // overrides PLL/post-divider settings from the rp_clocks.h defaults.
+    uint32_t sys_clk = rp_clock_get_hz(RP_CLK_SYS);
+    if (sys_clk == 0U) {
+        sys_clk = RP_CLK_SYS_FREQ;
+    }
     const uint32_t divisor  = PIO_UART_CYCLES_PER_BIT * baud;
     int_div  = sys_clk / divisor;
     frac_div = ((sys_clk % divisor) * 256U + divisor / 2U) / divisor;
@@ -369,13 +370,17 @@ void PIORXDriver::_service_rx_fifo()
 
     PIO_TypeDef *const pio = cfg().pio;
     const uint8_t      sm  = cfg().sm_rx;
+    volatile uint8_t *const rxfifo_byte = ((volatile uint8_t *)&pio->RXF[sm]) + 3;
 
     // Always drain hardware FIFO if data is present. If this runs before
     // normal initialization has completed, discarding bytes here prevents
     // an IRQ retrigger storm that can starve the main loop.
     while (!(pio->FSTAT & (1u << (PIO_FSTAT_RXEMPTY_LSB + sm)))) {
-        // Data is in MSB (right-shift ISR, 8-bit push)
-        const uint8_t byte = (uint8_t)(pio->RXF[sm] >> 24U);
+        // For right-shifted UART RX, the received byte is left-justified in
+        // RXF bits [31:24]. The RP2350 datasheet's UART RX example reads the
+        // FIFO as an 8-bit access at RXF+3, which pops the FIFO and returns
+        // that upper byte directly.
+        const uint8_t byte = *rxfifo_byte;
         pio_uart_dbg_rx_bytes[_instance]++;
         if (_readbuf && _initialized) {
             _readbuf->write(&byte, 1);
@@ -455,7 +460,8 @@ void PIORXDriver::_begin(uint32_t b, uint16_t rxSpace, uint16_t txSpace)
     // not-empty interrupt while startup is still in progress.
     _initialized = true;
     _active_baud = b;
-    // IRQ-driven RX is required for sustained bidirectional traffic.
+    // Keep the RX FIFO single-producer: only the RX IRQ drains hardware into
+    // _readbuf, while thread context only consumes from the ring buffer.
     _enable_rx_irq();
     pio_uart_dbg_begin_count[_instance]++;
 }
@@ -502,10 +508,6 @@ uint32_t PIORXDriver::_available()
     if (!_initialized || !_readbuf) {
         return 0;
     }
-    // Drain any pending bytes from the PIO RX FIFO on-demand. This keeps
-    // RX functional even if the platform IRQ routing for this SM is not yet
-    // fully correct during bring-up.
-    _service_rx_fifo();
     return _readbuf->available();
 }
 
@@ -523,8 +525,6 @@ ssize_t PIORXDriver::_read(uint8_t *buffer, uint16_t count)
     if (!_initialized || !_readbuf || !buffer) {
         return -1;
     }
-    // Opportunistically pull from the hardware FIFO before serving reads.
-    _service_rx_fifo();
     return (ssize_t)_readbuf->read(buffer, count);
 }
 

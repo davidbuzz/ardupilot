@@ -35,12 +35,14 @@ bitloop:
 .program uart_rx
 
     wait 0 pin 0        ; wait for start bit (falling edge)
-    set x, 7 [10]       ; preload bit counter; delay to ~centre of first data bit
+    set x, 7 [2]        ; RP2350 bring-up test: sample one bit earlier than the
+                        ; canonical example to compensate for the observed late RX phase
 bit_loop:
     in pins, 1          ; sample data bit into ISR
     jmp x-- bit_loop [6]; loop for 8 data bits (8 cycles/iter)
     jmp pin, good_stop  ; check stop bit: jump if high (good)
     irq 4 rel           ; signal framing error to host (IRQ relative to SM)
     wait 1 pin 0        ; wait for line to return to idle before next frame
+    jmp 0               ; do not push a byte when stop-bit framing is bad
 good_stop:
     push noblock        ; push received byte to RX FIFO

@@ -38,11 +38,11 @@
 
 // Instruction memory layout (12 of 32 words used per PIO):
 //   [0..4]  TX program
-//   [5..12] RX program
+//   [5..13] RX program
 #define PIO_UART_TX_PROG_OFFSET  0U
 #define PIO_UART_TX_PROG_LEN     5U
 #define PIO_UART_RX_PROG_OFFSET  5U
-#define PIO_UART_RX_PROG_LEN     8U
+#define PIO_UART_RX_PROG_LEN     9U
 
 // ---------------------------------------------------------------------------
 // Pre-assembled PIO UART programs
@@ -60,16 +60,17 @@ static const uint16_t k_pio_uart_tx_pgm[PIO_UART_TX_PROG_LEN] = {
 
 // RX: 8 cycles/bit, pre-relocated for offset 5
 //   0x2020: wait  0 pin, 0
-//   0xEA27: set   x, 7             [10]
+//   0xE227: set   x, 7             [2]
 //   0x4001: in    pins, 1
 //   0x0647: jmp   x--, 7           [6]   (target=7 = offset+2)
-//   0x00CC: jmp   pin, 12                (target=12 = offset+7)
+//   0x00CD: jmp   pin, 13                (target=13 = offset+8)
 //   0xC014: irq   4 rel
 //   0x20A0: wait  1 pin, 0
+//   0x0005: jmp   5                      (target=5 = offset+0)
 //   0x8020: push  noblock
 static const uint16_t k_pio_uart_rx_pgm[PIO_UART_RX_PROG_LEN] = {
-    0x2020u, 0xEA27u, 0x4001u, 0x0647u,
-    0x00CCu, 0xC014u, 0x20A0u, 0x8020u,
+    0x2020u, 0xE227u, 0x4001u, 0x0647u, 0x00CDu,
+    0xC014u, 0x20A0u, 0x0005u, 0x8020u,
 };
 
 // ---------------------------------------------------------------------------

@@ -351,6 +351,31 @@ Flash `build/Pico2/bin/arducopter.elf` via SWD — the target's SWD
 port is on the 3-pin debug header (SWCLK/GND/SWDIO), which connects
 to GPIO0 (board pin 1) and GPIO1 (board pin 2).
 
+## Fast-Boot Scratch Helper
+
+When SWD flashing succeeds but the board comes back on the bootloader USB
+port instead of launching the app, use the helper below to request the
+bootloader's clean RP2350 fast-boot handoff into the application.
+
+Start OpenOCD first, then run:
+
+```bash
+python3 libraries/AP_HAL_ChibiOS/hwdef/Pico2/fast_boot_scratch.py
+```
+
+The script writes `0xB007CAFE` to `WATCHDOG->SCRATCH[1]`
+(`0x400D8010`) over the OpenOCD telnet port and then issues `reset run`.
+That is the same sequence used by the Pico2 bootloader to leave the
+bootloader cleanly and start the flashed ArduPilot app.
+
+Useful options:
+
+```bash
+python3 libraries/AP_HAL_ChibiOS/hwdef/Pico2/fast_boot_scratch.py --port 57002
+python3 libraries/AP_HAL_ChibiOS/hwdef/Pico2/fast_boot_scratch.py --no-reset
+python3 libraries/AP_HAL_ChibiOS/hwdef/Pico2/fast_boot_scratch.py --verbose
+```
+
 ## Known Limitations
 
 | Feature | Status |
