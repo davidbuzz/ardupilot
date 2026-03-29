@@ -27,6 +27,13 @@
 
 extern const AP_HAL::HAL& hal;
 
+// SWD-readable diagnostics for SERIAL_CONTROL routing during Pico2 PIOUART bring-up.
+volatile uint32_t gcs_serial_ctrl_dbg_total;
+volatile uint32_t gcs_serial_ctrl_dbg_dev103;
+volatile uint32_t gcs_serial_ctrl_dbg_dev104;
+volatile uint32_t gcs_serial_ctrl_dbg_stream_null;
+volatile uint32_t gcs_serial_ctrl_dbg_begin_calls;
+
 /**
    handle a SERIAL_CONTROL message
  */
@@ -34,6 +41,14 @@ void GCS_MAVLINK::handle_serial_control(const mavlink_message_t &msg)
 {
     mavlink_serial_control_t packet;
     mavlink_msg_serial_control_decode(&msg, &packet);
+
+    gcs_serial_ctrl_dbg_total++;
+    if (packet.device == SERIAL_CONTROL_SERIAL3) {
+        gcs_serial_ctrl_dbg_dev103++;
+    }
+    if (packet.device == SERIAL_CONTROL_SERIAL4) {
+        gcs_serial_ctrl_dbg_dev104++;
+    }
 
     AP_HAL::UARTDriver *port = nullptr;
     AP_HAL::BetterStream *stream = nullptr;
@@ -95,6 +110,7 @@ void GCS_MAVLINK::handle_serial_control(const mavlink_message_t &msg)
         return;
     }
     if (stream == nullptr) {
+        gcs_serial_ctrl_dbg_stream_null++;
         // this is probably very bad
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
         AP_HAL::panic("stream is nullptr");
@@ -111,6 +127,7 @@ void GCS_MAVLINK::handle_serial_control(const mavlink_message_t &msg)
 
     // optionally change the baudrate
     if (packet.baudrate != 0 && port != nullptr) {
+        gcs_serial_ctrl_dbg_begin_calls++;
         port->begin(packet.baudrate);
     }
 

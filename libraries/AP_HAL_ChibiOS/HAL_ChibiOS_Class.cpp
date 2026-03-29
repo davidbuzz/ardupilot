@@ -39,6 +39,10 @@
 
 #include <hwdef.h>
 
+#if HAL_HAVE_PIO_UARTS
+#include "PIOUART.h"
+#endif
+
 #ifndef DEFAULT_SERIAL0_BAUD
 #define SERIAL0_BAUD 115200
 #else
