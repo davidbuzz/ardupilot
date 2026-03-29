@@ -98,7 +98,12 @@ int main(void)
      * flag is guaranteed to be readable here immediately after SYSRESETREQ.
      */
     if (WATCHDOG->SCRATCH[1] == 0xB007CAFEU) {
-        WATCHDOG->SCRATCH[1] = 0U;  /* consume the flag so next boot is normal */
+        /*
+         * Advance from phase 1 ("please reset") to phase 2 ("do bare jump").
+         * Setting 0xB007CA11 tells jump_to_app() that the XIP cache was already
+         * flushed by the SYSRESETREQ ROM path, so the bare BX is now safe.
+         */
+        WATCHDOG->SCRATCH[1] = 0xB007CA11U;  /* phase 2: "BOOT CALL" — do real jump */
         try_boot = true;
         timeout = 0;
     }

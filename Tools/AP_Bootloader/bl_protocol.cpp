@@ -386,8 +386,24 @@ jump_to_app()
      * tries to reinitialise peripherals that the BL left partially active,
      * causing a crash or watchdog fire within the first 2 seconds.
      */
-    WATCHDOG->SCRATCH[1] = 0xB007CAFEU;  /* "BOOT CAFÉ" — launch app after reset */
-    NVIC_SystemReset();  /* triggers SYSRESETREQ — NOTREACHED */
+    /*
+     * Two-phase clean-reset handshake:
+     *   Phase 1 (this is the first jump_to_app call after programming):
+     *     SCRATCH[1] != 0xB007CA11 → set 0xB007CAFE + NVIC_SystemReset().
+     *     BL re-boots from ROM (XIP cache flushed), checks SCRATCH[1],
+     *     changes it to 0xB007CA11, sets try_boot=true and calls us again.
+     *   Phase 2 (second call — clean hardware state already achieved):
+     *     SCRATCH[1] == 0xB007CA11 → clear flag, fall through to do_jump().
+     *     The bare BX is now safe because XIP was flushed during SYSRESETREQ.
+     */
+    if (WATCHDOG->SCRATCH[1] == 0xB007CA11U) {
+        /* Phase 2: XIP cache clean — clear flag and fall through to do_jump() */
+        WATCHDOG->SCRATCH[1] = 0U;
+    } else {
+        /* Phase 1: first jump attempt — request a clean SYSRESETREQ reset */
+        WATCHDOG->SCRATCH[1] = 0xB007CAFEU;  /* "BOOT CAFÉ" — launch app after reset */
+        NVIC_SystemReset();  /* triggers SYSRESETREQ — NOTREACHED */
+    }
 #endif
 
     // disable all interrupt sources
