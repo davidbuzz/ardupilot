@@ -1796,6 +1796,14 @@ INCLUDE common.ld
             f.write('#define HAL_SERIAL%s_DRIVER Empty::UARTDriver serial%sDriver\n' %
                     (idx, idx))
 
+        # Auto-derive HAL_HAVE_PIO_UARTS from the count of PIOUART entries in SERIAL_ORDER.
+        # This avoids the count getting out of sync when adding or removing PIOUART ports.
+        # pio_idx was incremented for each PIOUART found above, so it is the authoritative count.
+        if pio_idx > 0:
+            f.write('#define HAL_HAVE_PIO_UARTS %uU\n' % pio_idx)
+        else:
+            f.write('#define HAL_HAVE_PIO_UARTS 0\n')
+
         if 'IOMCU_UART' in self.config:
             if 'io_firmware.bin' not in self.romfs:
                 self.error("Need io_firmware.bin in ROMFS for IOMCU")
@@ -3345,6 +3353,7 @@ Please run: Tools/scripts/build_bootloaders.py %s
             'HAL_NO_MONITOR_THREAD': 'HAL_NO_MONITOR_THREAD is no longer used; try "define HAL_MONITOR_THREAD_ENABLED 0"',
             'HAL_NO_GPIO_IRQ': 'HAL_NO_GPIO_IRQ is no longer used; remove it from your hwdef',
             'DISABLE_SERIAL_ESC_COMM': 'DISABLE_SERIAL_ESC_COMM is no longer used; try "define HAL_SERIAL_ESC_COMM_ENABLED 1"',
+            'HAL_HAVE_PIO_UARTS': 'HAL_HAVE_PIO_UARTS is auto-derived from PIOUART entries in SERIAL_ORDER; remove this line from hwdef.dat',
         })
         return ret
 

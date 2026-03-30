@@ -148,9 +148,12 @@ USB_STRING_MANUFACTURER "ArduPilot"
 # SERIAL_ORDER OTG1 USART2 USART3 UART4 UART8 UART1
 # the presence of this OTG1 also enables the usb subsystem.
 # UART0 = serial1 (telem1), UART1 = serial2 (telem2)
-# PIOUART0-1 enabled for hardware loopback validation on GPIO14/17 and GPIO19/20.
-# Keep PIOUART2/3 disabled for now until their dedicated tests are run.
-SERIAL_ORDER OTG1 UART0 UART1 PIOUART0 PIOUART1
+# PIOUART0-2 enabled for hardware loopback validation.
+# PIOUART2 (SERIAL5) is intentionally re-enabled for live bring-up debugging.
+# PIOUART3 remains disabled because GPIO28/29 are used for ADC channels.
+# HAL_HAVE_PIO_UARTS is auto-derived from the PIOUART count in SERIAL_ORDER.
+SERIAL_ORDER OTG1 UART0 UART1 PIOUART0 PIOUART1 PIOUART2
+
 
 # Force the USB console (OTG1) to stream MAVLink immediately at 115200 baud.
 define HAL_OTG1_PROTOCOL SerialProtocol_MAVLink2
@@ -384,7 +387,6 @@ PA10 UART1_TX UART1
 # PIO UART pseudo-ports: 4 extra UARTs using RP2350 PIO0 (SM0/1, SM2/3) and PIO1 (SM0/1, SM2/3)
 # Pins chosen from GPIOs not committed to any other function.
 # Enable two instances for current hardware validation (SERIAL3/4).
-define HAL_HAVE_PIO_UARTS 2
 PA14 PIOUART0_TX INPUT FLOATING
 PA17 PIOUART0_RX INPUT FLOATING
 PA19 PIOUART1_TX INPUT FLOATING
