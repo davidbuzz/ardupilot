@@ -23,6 +23,7 @@ import sys
 import time
 import threading
 from pymavlink import mavutil
+from serial import SerialException
 
 
 def parse_args():
@@ -59,10 +60,49 @@ def wait_for_link(mav: mavutil.mavserial, timeout: float = 12.0) -> bool:
     """Wait until we receive any non-BAD_DATA MAVLink message."""
     deadline = time.time() + timeout
     while time.time() < deadline:
-        msg = mav.recv_match(blocking=True, timeout=0.5)
+        try:
+            msg = mav.recv_match(blocking=True, timeout=0.5)
+        except SerialException:
+            # USB CDC can briefly disappear/re-enumerate during reset.
+            return False
         if msg and msg.get_type() != "BAD_DATA":
             return True
     return False
+
+
+def connect_with_retries(port: str,
+                         baud: int,
+                         attempts: int = 8,
+                         retry_delay: float = 1.0) -> mavutil.mavserial:
+    """
+    Repeatedly try to open MAVLink and receive first valid packet.
+
+    RP2350 USB CDC can drop momentarily while the target resets; retrying here
+    makes the tool resilient instead of failing immediately.
+    """
+    last_error = None
+    for attempt in range(1, attempts + 1):
+        print(f"Connect attempt {attempt}/{attempts}…")
+        try:
+            mav = connect(port, baud)
+        except Exception as e:
+            last_error = e
+            print(f"  open failed: {e}")
+            time.sleep(retry_delay)
+            continue
+
+        if wait_for_link(mav):
+            print("  link up")
+            return mav
+
+        print("  no link yet, retrying…")
+        try:
+            mav.close()
+        except Exception:
+            pass
+        time.sleep(retry_delay)
+
+    raise RuntimeError(f"failed to connect after {attempts} attempts: {last_error}")
 
 
 def send_heartbeats(mav: mavutil.mavserial, stop_event: threading.Event):
@@ -196,7 +236,7 @@ def main():
 
     print(f"Connecting to {args.port} at {args.baud} baud…")
     try:
-        mav = connect(args.port, args.baud)
+        mav = connect_with_retries(args.port, args.baud)
     except Exception as e:
         print(f"ERROR: cannot open {args.port}: {e}")
         sys.exit(1)
@@ -205,11 +245,7 @@ def main():
     hb_thread = threading.Thread(target=send_heartbeats, args=(mav, stop_event), daemon=True)
     hb_thread.start()
 
-    print("Waiting for MAVLink link…")
-    if not wait_for_link(mav):
-        print("ERROR: no MAVLink packets received within 12 s")
-        stop_event.set()
-        sys.exit(1)
+    # connect_with_retries() already validated that MAVLink packets are flowing.
 
     # Drain the full param stream — shows all params arriving, lets the
     # operator see the current value before changing it.
