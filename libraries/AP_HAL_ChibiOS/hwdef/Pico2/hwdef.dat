@@ -380,6 +380,12 @@ PA25 BARO_EXT_CS CS
 PA12 UART0_TX UART0
 PA13 UART0_RX UART0
 
+# Optional hardware flow-control lines for UART0 (SERIAL1).
+# Keep these on GPIO15/18 so they do not consume PWM pins or SPI pins.
+# Note: GPIO15/18 are currently not used for I2C in this bring-up config.
+PA18 UART0_CTS UART0
+PA15 UART0_RTS UART0
+
 # UART1 on GPIO10/11 (Pico2 pins 14/15)
 PA11 UART1_RX UART1
 PA10 UART1_TX UART1

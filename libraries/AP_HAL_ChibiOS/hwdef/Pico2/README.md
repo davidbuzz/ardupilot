@@ -77,6 +77,10 @@ board pin 20 = GPIO15   board pin 40 = VBUS
 | SERIAL5 | spare (PIOUART2) | GPIO21 / GPIO27 | TX=board pin 27, RX=board pin 32 |
 | SERIAL6 | spare (PIOUART3) | GPIO30 / GPIO31 | carrier-board only (no standard Pico2 header pins) |
 
+Hardware RTS/CTS flow control is currently wired for SERIAL1 (UART0) only:
+- UART0_CTS: GPIO18 (board pin 24)
+- UART0_RTS: GPIO15 (board pin 20)
+
 SBUS (100 kbps, 8E2, inverted) is supported on SERIAL1/SERIAL2 using
 the RP2350 GPIO INOVER bit — no external inverter required. Set
 `SERIAL_n_PROTOCOL=23` (RC Input) and `SERIAL_n_OPTIONS=3` on the
