@@ -29,6 +29,14 @@
 
 #if PIC02_AVAILABLE == TRUE
 /*
+ * RP2350 reset-cause breadcrumb register used for live SWD diagnosis.
+ * SCRATCH[0] and SCRATCH[1] are used by fastboot/bootloader handoff,
+ * SCRATCH[6] is used by watchdog-reason consumption, so use SCRATCH[7].
+ */
+#define RP2350_RESET_DIAG_SCRATCH_IDX              7U
+#define RP2350_RESET_DIAG_UNHANDLED_EXCEPTION      0x55484E44U /* 'UHND' */
+
+/*
  * Override the ChibiOS weak _unhandled_exception stub.
  *
  * The default ChibiOS implementation is an infinite loop (.stay: b .stay).
@@ -48,6 +56,11 @@
  */
 void __attribute__((noreturn)) _unhandled_exception(void)
 {
+  /* Persist a breadcrumb so SYSRESETREQ loops can be identified post-reset. */
+  WATCHDOG->SCRATCH[RP2350_RESET_DIAG_SCRATCH_IDX] = RP2350_RESET_DIAG_UNHANDLED_EXCEPTION;
+  __DSB();
+  __ISB();
+
     NVIC_SystemReset();
     /* NOTREACHED — NVIC_SystemReset() does not return, but the noreturn   */
     /* attribute requires an infinite loop to satisfy the compiler.        */

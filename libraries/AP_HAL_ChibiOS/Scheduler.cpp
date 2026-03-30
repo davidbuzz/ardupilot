@@ -58,6 +58,11 @@
 extern AP_IOMCU iomcu;
 #endif
 
+#if defined(RP2350)
+#define RP2350_RESET_DIAG_SCRATCH_IDX          7U
+#define RP2350_RESET_DIAG_SCHEDULER_REBOOT     0x53434852U /* 'SCHR' */
+#endif
+
 using namespace ChibiOS;
 
 #ifndef HAL_RCIN_THREAD_ENABLED
@@ -310,6 +315,11 @@ void Scheduler::reboot(bool hold_in_bootloader)
 #if AP_FASTBOOT_ENABLED
     // setup RTC for fast reboot
     set_fast_reboot(hold_in_bootloader?RTC_BOOT_HOLD:RTC_BOOT_FAST);
+#endif
+
+#if defined(RP2350)
+    // Breadcrumb for distinguishing explicit scheduler reboot from fault loops.
+    WATCHDOG->SCRATCH[RP2350_RESET_DIAG_SCRATCH_IDX] = RP2350_RESET_DIAG_SCHEDULER_REBOOT;
 #endif
 
     // disable all interrupt sources

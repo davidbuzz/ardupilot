@@ -36,6 +36,7 @@ SERIAL2_PROTOCOL 2
 # can otherwise consume RX bytes and mask direct SERIAL_CONTROL validation.
 SERIAL3_PROTOCOL -1
 SERIAL4_PROTOCOL -1
+SERIAL5_PROTOCOL -1
 
 # Enable watchdog (bit 0 of BRD_OPTIONS = BOARD_OPTION_WATCHDOG).
 # HAL_WATCHDOG_ENABLED_DEFAULT in hwdef.dat is only the fallback when
