@@ -1,7 +1,7 @@
 ---
 name: pico2-hardware
-description: "Raspberry Pi Pico2 / RP2350 hardware interaction for the ArduPilot port. Use when: flashing firmware via SWD or UF2; starting or restarting OpenOCD; connecting GDB to live hardware; live inspecting memory/registers; diagnosing USB CDC serial silence; diagnosing UART/GPIO FUNCSEL issues; halting vs resetting the board; using --nx with gdb; reading /dev/ttyACM* output; recovering from lost comms."
-argument-hint: "What do you need to do? (flash / gdb / openocd / uart-debug / monitor-serial)"
+description: "Raspberry Pi Pico2 / RP2350 hardware interaction for the ArduPilot port. Use when: flashing firmware via SWD or UF2; starting or restarting OpenOCD; connecting GDB to live hardware; live inspecting memory/registers; diagnosing USB CDC serial silence; adding DEV_PRINTF/print statements to trace boot crashes; diagnosing UART/GPIO FUNCSEL issues; halting vs resetting the board; using --nx with gdb; reading /dev/ttyACM* output; recovering from lost comms."
+argument-hint: "What do you need to do? (flash / gdb / openocd / uart-debug / monitor-serial / print-debug)"
 ---
 
 # Pico2 / RP2350 Hardware Skill
@@ -207,6 +207,108 @@ p SDU1.config->usbp->state  # USB_ACTIVE = good
 
 ---
 
+## USB CDC Serial Debugging (print statements)
+
+**USB CDC serial WORKS** on Pico2 and is the primary debugging tool for boot crashes.
+The device emits both MAVLink frames and plain-text `DEV_PRINTF` / `hal.console->printf` output.
+The port changes ACM number on every reboot (ttyACM1 → ttyACM2 → etc.), so use the stable
+symlink `/dev/serial/by-id/usb-ArduPilot_Pico2_*-if00` instead.
+
+### Read boot output across reboots
+
+```python
+import serial, time, glob, os
+
+BY_ID = '/dev/serial/by-id/usb-ArduPilot_Pico2_9EE4ECE8FA06028D6EAD2FF9-if00'
+
+def find_port():
+    if os.path.exists(BY_ID):
+        return BY_ID
+    ports = sorted(glob.glob('/dev/ttyACM*'))
+    return ports[0] if ports else None
+
+all_data = b''
+t_end = time.time() + 30          # monitor for 30 s across reboots
+while time.time() < t_end:
+    port = find_port()
+    if not port:
+        time.sleep(0.1); continue
+    try:
+        s = serial.Serial(port, 115200, timeout=0.3)
+        t_close = time.time() + 5  # read one cycle then reconnect
+        while time.time() < t_close and time.time() < t_end:
+            d = s.read(256)
+            if d:
+                all_data += d
+                print(d.decode('utf-8', errors='replace'), end='', flush=True)
+        s.close()
+    except Exception as e:
+        time.sleep(0.2)
+```
+
+### Boot sequence visible on USB serial
+
+During normal startup the following text appears in this order:
+```
+\n                          # ChibiOS/ArduPilot boot marker
+<MAVLink binary frames>     # HEARTBEAT etc. (binary, not text)
+No Compass backends available
+Init Gyro                   # AP_InertialSensor gyro calibration starts
+<\n>                        # calibration loop DEV_PRINTF("\n") at end
+ArduCopter Vx.x.x ...       # version banner = successful full boot
+```
+
+If the device reboots after `Init Gyro` but before the version banner, the crash is
+happening inside `AP_InertialSensor::_init_gyro()` or something it calls (e.g. IMU
+driver update loop, SPI transaction, scheduler, DMA).
+
+### Add print statements to narrow down a crash
+
+Use `DEV_PRINTF` for debug prints in ArduPilot C++ code (compiled out on final builds,
+always emits to hal.console in debug builds). Use `hal.console->printf` when you need
+it to always emit regardless of build type.
+
+**In C++ (libraries or vehicle code):**
+```cpp
+// Breadcrumb prints — add around the suspected crash site
+DEV_PRINTF("STAGE A\n");
+// ... suspect code ...
+DEV_PRINTF("STAGE B val=%d\n", (int)some_value);
+```
+
+**In ChibiOS HAL (AP_HAL_ChibiOS/):**
+```cpp
+// Use AP_HAL::panic() for fatal errors — prints to console then halts+resets
+AP_HAL::panic("PIOUART: SM%u failed to start\n", (unsigned)sm_idx);
+
+// Use chprintf to the SD1 (debugprobe UART) if USB isn't up yet
+// (only available early in boot via hal_debug_printf)
+```
+
+**After adding prints, always:**
+1. `./waf configure --board=Pico2 --debug && ./waf copter -j12`
+2. Flash via SWD (OpenOCD telnet `program ... verify reset`)
+3. Monitor USB output with the Python script above — port changes each reboot
+
+### Example: tracing a boot-time crash
+
+The `**` that appeared after `Init Gyro` in the Pico2 boot crash was the watchdog
+firing inside `AP_InertialSensor::_init_gyro()`. To narrow it down:
+
+```cpp
+// In AP_InertialSensor.cpp, _init_gyro():
+DEV_PRINTF("Init Gyro A\n");   // before loop
+for (int16_t j = 0; ...) {
+    DEV_PRINTF("Init Gyro B j=%d\n", j);  // each calibration iteration
+    update();   // <-- if crash is here, B never prints for j > first
+}
+DEV_PRINTF("Init Gyro done\n");
+```
+
+Then monitor USB — last print before reboot identifies the exact line.
+
+---
+
 ## Serial / USB Monitor
 
 ArduPilot maps:
@@ -218,8 +320,8 @@ ArduPilot maps:
 | SERIAL3 | PIOUART0 | TX=GP14, RX=GP17 |
 
 ```bash
-# Detect USB CDC port
-ls /dev/ttyACM*
+# Detect USB CDC port (stable symlink — survives reboots)
+ls /dev/serial/by-id/usb-ArduPilot_Pico2*
 
 # Quick health check — should see "Init ArduCopter" text
 timeout 5 cat /dev/ttyACM1 | head -c 200 | xxd
@@ -337,3 +439,6 @@ Loopback wiring for hardware verification:
 | UART completely silent | FUNCSEL not set to UART before sioStart | Add `palSetLineMode(ALTERNATE_UART)` in `_begin()` |
 | `serial1Driver._device_initialised = false` | `begin()` was never called | SERIAL_CONTROL flags wrong, or device ID wrong |
 | No heartbeats on USB after test | Write buffer empty (not a freeze) | Board is running fine; check MAVLink connection |
+| Device reboots after "Init Gyro" | Crash inside `_init_gyro()` / IMU driver | Add `DEV_PRINTF` breadcrumbs around each calibration step; monitor USB serial |
+| ACM number changes each reboot | USB re-enumeration on every boot | Use `/dev/serial/by-id/usb-ArduPilot_Pico2_*-if00` stable symlink |
+| USB print output mixed with MAVLink binary | Both share SERIAL0/USB | Use `xxd` or Python `serial` to view raw; text prints are readable between binary frames |
