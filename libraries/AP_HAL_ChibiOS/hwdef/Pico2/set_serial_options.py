@@ -56,18 +56,26 @@ def connect(port: str, baud: int) -> mavutil.mavserial:
     return mav
 
 
-def wait_for_link(mav: mavutil.mavserial, timeout: float = 12.0) -> bool:
-    """Wait until we receive any non-BAD_DATA MAVLink message."""
+def wait_for_link(mav: mavutil.mavserial, timeout: float = 12.0):
+    """Wait until we receive any non-BAD_DATA MAVLink message.
+
+    Returns:
+        (sysid, compid) tuple on success, or None on timeout/disconnect.
+    """
     deadline = time.time() + timeout
     while time.time() < deadline:
         try:
             msg = mav.recv_match(blocking=True, timeout=0.5)
         except SerialException:
             # USB CDC can briefly disappear/re-enumerate during reset.
-            return False
+            return None
         if msg and msg.get_type() != "BAD_DATA":
-            return True
-    return False
+            try:
+                return (msg.get_srcSystem(), msg.get_srcComponent())
+            except Exception:
+                # Fallback when src accessors are unavailable.
+                return (mav.target_system or 1, mav.target_component or 1)
+    return None
 
 
 def connect_with_retries(port: str,
@@ -91,8 +99,13 @@ def connect_with_retries(port: str,
             time.sleep(retry_delay)
             continue
 
-        if wait_for_link(mav):
-            print("  link up")
+        target = wait_for_link(mav)
+        if target is not None:
+            sysid, compid = target
+            # Cache discovered target for all subsequent param operations.
+            mav.target_system = sysid
+            mav.target_component = compid
+            print(f"  link up (sysid={sysid}, compid={compid})")
             return mav
 
         print("  no link yet, retrying…")
@@ -122,10 +135,13 @@ def decode_pid(pid) -> str:
     """Decode a MAVLink param_id which may be bytes or str."""
     if hasattr(pid, "decode"):
         pid = pid.decode("utf-8", errors="ignore")
-    return pid.rstrip("\x00")
+    # Some stacks may pad param_id with spaces as well as NUL bytes.
+    return pid.rstrip("\x00 ")
 
 
 def drain_params(mav: mavutil.mavserial,
+                 target_system: int,
+                 target_component: int,
                  timeout: float = 300.0,
                  progress_interval: float = 1.0) -> dict:
     """
@@ -150,7 +166,7 @@ def drain_params(mav: mavutil.mavserial,
 
     # Always request a fresh stream from index 0.
     print("  sending param_request_list…")
-    mav.mav.param_request_list_send(1, 1)
+    mav.mav.param_request_list_send(target_system, target_component)
 
     deadline = time.time() + timeout
     last_recv = time.time()
@@ -194,7 +210,12 @@ def drain_params(mav: mavutil.mavserial,
     return params
 
 
-def set_param(mav: mavutil.mavserial, name: str, value: float, retries: int = 3) -> bool:
+def set_param(mav: mavutil.mavserial,
+              target_system: int,
+              target_component: int,
+              name: str,
+              value: float,
+              retries: int = 3) -> bool:
     """
     Set a parameter and confirm it was accepted.
 
@@ -212,13 +233,21 @@ def set_param(mav: mavutil.mavserial, name: str, value: float, retries: int = 3)
             print(f"  retry {attempt}…")
 
         print(f"  → param_set {name} = {value:.0f}")
-        mav.mav.param_set_send(1, 1, name_bytes, value, mavutil.mavlink.MAV_PARAM_TYPE_INT32)
+        mav.mav.param_set_send(target_system, target_component,
+                               name_bytes, value, mavutil.mavlink.MAV_PARAM_TYPE_INT32)
 
-        # The vehicle echoes the param immediately; scan PARAM_VALUEs for a match.
-        deadline = time.time() + 8.0
+        # The vehicle usually echoes quickly, but in a heavy full-param stream
+        # the response can be delayed. Keep scanning for longer and periodically
+        # request a direct readback by name to surface the target param.
+        deadline = time.time() + 20.0
+        next_readback_req = time.time() + 3.0
         while time.time() < deadline:
             msg = mav.recv_match(type="PARAM_VALUE", blocking=True, timeout=0.5)
             if msg is None:
+                if time.time() >= next_readback_req:
+                    mav.mav.param_request_read_send(target_system, target_component,
+                                                   name_bytes, -1)
+                    next_readback_req = time.time() + 3.0
                 continue
             pid = decode_pid(msg.param_id)
             if pid == name:
@@ -226,7 +255,74 @@ def set_param(mav: mavutil.mavserial, name: str, value: float, retries: int = 3)
                 print(f"  {match} echo: {pid} = {msg.param_value:.0f}  (expected {value:.0f})")
                 return msg.param_value == value
 
+            # Also nudge the stack during long floods even when traffic exists.
+            if time.time() >= next_readback_req:
+                mav.mav.param_request_read_send(target_system, target_component,
+                                               name_bytes, -1)
+                next_readback_req = time.time() + 3.0
+
     print(f"  ✗ no echo for {name} after {retries} attempts")
+    return False
+
+
+def verify_param_from_stream(mav: mavutil.mavserial,
+                             target_system: int,
+                             target_component: int,
+                             name: str,
+                             expected: float,
+                             timeout: float = 300.0,
+                             progress_interval: float = 1.0) -> bool:
+    """
+    Slow fallback verifier: walk the param stream until target param appears.
+
+    This is intentionally slow but robust for links where direct readback gets
+    buried by ongoing PARAM_VALUE floods.
+    """
+    print(f"  fallback verify: scanning stream for {name} (timeout {timeout:.0f}s)…")
+    mav.mav.param_request_list_send(target_system, target_component)
+
+    t_start = time.time()
+    deadline = t_start + timeout
+    rx_msgs = 0
+    unique = 0
+    seen = set()
+    last_idx = -1
+    param_count = None
+    next_progress = t_start + progress_interval
+
+    while time.time() < deadline:
+        msg = mav.recv_match(type="PARAM_VALUE", blocking=True, timeout=1.0)
+        if msg is None:
+            continue
+
+        rx_msgs += 1
+        pid = decode_pid(msg.param_id)
+        last_idx = msg.param_index
+        param_count = msg.param_count
+        if pid not in seen:
+            seen.add(pid)
+            unique = len(seen)
+
+        if pid == name:
+            ok = (msg.param_value == expected)
+            mark = "✓" if ok else "✗"
+            print(f"  {mark} stream verify: {pid}={msg.param_value:.0f} expected={expected:.0f}")
+            return ok
+
+        now = time.time()
+        if now >= next_progress:
+            elapsed = max(now - t_start, 0.001)
+            rate = rx_msgs / elapsed
+            if param_count:
+                pct = 100.0 * unique / param_count
+                print(f"    verify rx={rx_msgs:5d} unique={unique:4d}/{param_count} ({pct:5.1f}%) "
+                      f"last_idx={last_idx:4d} rate={rate:4.1f} msg/s")
+            else:
+                print(f"    verify rx={rx_msgs:5d} unique={unique:4d} "
+                      f"last_idx={last_idx:4d} rate={rate:4.1f} msg/s")
+            next_progress = now + progress_interval
+
+    print(f"  ✗ fallback verify timeout without seeing {name}")
     return False
 
 
@@ -250,7 +346,11 @@ def main():
     # Drain the full param stream — shows all params arriving, lets the
     # operator see the current value before changing it.
     print(f"Downloading param stream to find {param_name} (can take ~4 min at 4 params/sec)…")
+    target_system = mav.target_system or 1
+    target_component = mav.target_component or 1
     all_params = drain_params(mav,
+                              target_system=target_system,
+                              target_component=target_component,
                               timeout=args.drain_timeout,
                               progress_interval=args.progress_interval)
     print(f"  Got {len(all_params)} params total.")
@@ -262,17 +362,33 @@ def main():
         print(f"  WARNING: {param_name} not seen in stream, will set anyway")
 
     print(f"\nSetting {param_name} = {args.options}…")
-    ok = set_param(mav, param_name, float(args.options))
+    ok = set_param(mav,
+                   target_system=target_system,
+                   target_component=target_component,
+                   name=param_name,
+                   value=float(args.options))
+
+    if not ok:
+        # Slow but robust verification path requested by operator.
+        ok = verify_param_from_stream(mav,
+                                      target_system=target_system,
+                                      target_component=target_component,
+                                      name=param_name,
+                                      expected=float(args.options),
+                                      timeout=args.drain_timeout,
+                                      progress_interval=args.progress_interval)
 
     if args.save:
         print("\nSaving parameters to flash (PREFLIGHT_STORAGE)…")
-        mav.mav.command_long_send(1, 1, mavutil.mavlink.MAV_CMD_PREFLIGHT_STORAGE,
+        mav.mav.command_long_send(target_system, target_component,
+                                  mavutil.mavlink.MAV_CMD_PREFLIGHT_STORAGE,
                                   0, 1, 0, 0, 0, 0, 0, 0)
         time.sleep(1.0)
 
     if args.reboot:
         print("Rebooting vehicle (PREFLIGHT_REBOOT_SHUTDOWN)…")
-        mav.mav.command_long_send(1, 1, mavutil.mavlink.MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN,
+        mav.mav.command_long_send(target_system, target_component,
+                                  mavutil.mavlink.MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN,
                                   0, 1, 0, 0, 0, 0, 0, 0)
         time.sleep(0.5)
 
