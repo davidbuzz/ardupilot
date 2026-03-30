@@ -75,6 +75,7 @@ board pin 20 = GPIO15   board pin 40 = VBUS
 | SERIAL3 | GPS / spare (PIOUART0) | GPIO14 / GPIO17 | TX=board pin 19, RX=board pin 22 |
 | SERIAL4 | spare (PIOUART1) | GPIO19 / GPIO20 | TX=board pin 25, RX=board pin 26 |
 | SERIAL5 | spare (PIOUART2) | GPIO21 / GPIO27 | TX=board pin 27, RX=board pin 32 |
+| SERIAL6 | spare (PIOUART3) | GPIO30 / GPIO31 | carrier-board only (no standard Pico2 header pins) |
 
 SBUS (100 kbps, 8E2, inverted) is supported on SERIAL1/SERIAL2 using
 the RP2350 GPIO INOVER bit — no external inverter required. Set
