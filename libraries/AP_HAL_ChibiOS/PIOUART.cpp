@@ -569,7 +569,22 @@ bool PIORXDriver::_discard_input()
     if (!_initialized || !_readbuf) {
         return false;
     }
-    _readbuf->clear();
+    // ByteBuffer::clear() (head=tail=0) is not ISR-safe; the RX ISR also
+    // writes to _readbuf via _service_rx_fifo(). Must disable the NVIC
+    // vector before clearing to prevent a concurrent ISR from corrupting
+    // the ring buffer state. Also drain the PIO hardware FIFO so the ISR
+    // cannot re-populate _readbuf from pending bytes the moment it is
+    // re-enabled — this is the same purge sequence used in _begin().
+    nvicDisableVector(cfg().irq_num);
+    {
+        PIO_TypeDef *const pio = cfg().pio;
+        const uint8_t      sm  = cfg().sm_rx;
+        while (!(pio->FSTAT & (1u << (PIO_FSTAT_RXEMPTY_LSB + sm)))) {
+            (void)pio->RXF[sm];
+        }
+        _readbuf->clear();
+    }
+    nvicEnableVector(cfg().irq_num, PIO_UART_IRQ_PRIO);
     return true;
 }
 

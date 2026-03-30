@@ -161,6 +161,18 @@ void GCS_MAVLINK::handle_serial_control(const mavlink_message_t &msg)
         port->begin(packet.baudrate);
     }
 
+    // When the caller expects a response AND is sending new data, purge any
+    // stale bytes that accumulated in the RX buffer from a previous packet.
+    // Without this, a loopback echo arriving just before this packet can
+    // satisfy the timeout-wait immediately and the caller receives data from
+    // the *prior* transmission instead of the current one. This is the
+    // "one-round pipeline delay" that manifests as consistent but shifted
+    // loopback replies on PIOUART ports (SERIAL3-5 on Pico2) where the
+    // physical TX→RX loop propagation is ~4-5 ms at 57600 baud.
+    if ((packet.flags & SERIAL_CONTROL_FLAG_RESPOND) != 0 && packet.count != 0) {
+        stream->discard_input();
+    }
+
     // write the data
     if (packet.count != 0) {
         if ((packet.flags & SERIAL_CONTROL_FLAG_BLOCKING) == 0) {
