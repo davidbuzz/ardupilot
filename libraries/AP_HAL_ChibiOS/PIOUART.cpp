@@ -42,6 +42,22 @@ static inline uint32_t pio_tx_level(PIO_TypeDef *pio, uint8_t sm)
 // NVIC priority for PIO UART RX IRQ
 #define PIO_UART_IRQ_PRIO  5
 
+#define RP2350_PIOUART2_STAGE_BEGIN_ENTER      0x01U
+#define RP2350_PIOUART2_STAGE_PROG_UPLOADED    0x02U
+#define RP2350_PIOUART2_STAGE_GPIO_CONFIGURED  0x03U
+#define RP2350_PIOUART2_STAGE_SMS_STARTED      0x04U
+#define RP2350_PIOUART2_STAGE_IRQ_ENABLED      0x05U
+#define RP2350_PIOUART2_STAGE_BEGIN_DONE       0x06U
+#define RP2350_PIOUART2_STAGE_WRITE_TIMEOUT    0xE1U
+
+#if defined(RP2350)
+// Temporary RP2350 bring-up breadcrumb for PIOUART2 (SERIAL5) reboot-loop diagnosis.
+// SCRATCH[0] is fastboot, SCRATCH[1] is bootloader handoff, SCRATCH[6] is watchdog,
+// SCRATCH[7] is global reset-cause breadcrumb, so use SCRATCH[5] here.
+#define RP2350_PIOUART_DIAG_SCRATCH_IDX        5U
+#define RP2350_PIOUART2_DIAG_MAGIC             0x50320000U
+#endif
+
 // ---------------------------------------------------------------------------
 // Static members
 // ---------------------------------------------------------------------------
@@ -56,6 +72,25 @@ volatile uint32_t pio_uart_dbg_write_calls[PIO_NUM_INSTANCES];
 volatile uint32_t pio_uart_dbg_write_bytes[PIO_NUM_INSTANCES];
 volatile uint32_t pio_uart_dbg_rx_service_calls[PIO_NUM_INSTANCES];
 volatile uint32_t pio_uart_dbg_rx_bytes[PIO_NUM_INSTANCES];
+volatile uint32_t pio_uart_dbg_begin_reentry[PIO_NUM_INSTANCES];
+volatile uint32_t pio_uart_dbg_irq_count[PIO_NUM_INSTANCES];
+volatile uint32_t pio_uart_dbg_irq_max_drain[PIO_NUM_INSTANCES];
+volatile uint32_t pio_uart_dbg_write_timeout_count[PIO_NUM_INSTANCES];
+volatile uint32_t pio_uart_dbg_last_fstat[PIO_NUM_INSTANCES];
+volatile uint32_t pio_uart_dbg_last_stage[PIO_NUM_INSTANCES];
+
+static inline void pio_uart_debug_stage_mark(const uint8_t instance, const uint8_t stage, const uint8_t aux)
+{
+    const uint32_t marker = ((uint32_t)stage << 8) | aux;
+    pio_uart_dbg_last_stage[instance] = marker;
+
+#if defined(RP2350)
+    if (instance == 2U) {
+        // Persist across SYSRESETREQ to show how far SERIAL5 init progressed.
+        WATCHDOG->SCRATCH[RP2350_PIOUART_DIAG_SCRATCH_IDX] = RP2350_PIOUART2_DIAG_MAGIC | marker;
+    }
+#endif
+}
 
 // InstanceConfig: pin numbers from hwdef.h PIORXDRIVERn_TX/RX_PIN defines
 const PIORXDriver::InstanceConfig PIORXDriver::_cfg_table[PIO_NUM_INSTANCES] = {
@@ -123,6 +158,7 @@ void PIORXDriver::_irq_pio0_0()
 {
 #if PIO_NUM_INSTANCES > 0
     if (_instances[0]) {
+        pio_uart_dbg_irq_count[0]++;
         _instances[0]->_service_rx_fifo();
     }
 #endif
@@ -132,6 +168,7 @@ void PIORXDriver::_irq_pio0_1()
 {
 #if PIO_NUM_INSTANCES > 1
     if (_instances[1]) {
+        pio_uart_dbg_irq_count[1]++;
         _instances[1]->_service_rx_fifo();
     }
 #endif
@@ -141,6 +178,7 @@ void PIORXDriver::_irq_pio1_0()
 {
 #if PIO_NUM_INSTANCES > 2
     if (_instances[2]) {
+        pio_uart_dbg_irq_count[2]++;
         _instances[2]->_service_rx_fifo();
     }
 #endif
@@ -150,6 +188,7 @@ void PIORXDriver::_irq_pio1_1()
 {
 #if PIO_NUM_INSTANCES > 3
     if (_instances[3]) {
+        pio_uart_dbg_irq_count[3]++;
         _instances[3]->_service_rx_fifo();
     }
 #endif
@@ -373,6 +412,7 @@ void PIORXDriver::_service_rx_fifo()
     PIO_TypeDef *const pio = cfg().pio;
     const uint8_t      sm  = cfg().sm_rx;
     volatile uint8_t *const rxfifo_byte = ((volatile uint8_t *)&pio->RXF[sm]) + 3;
+    uint32_t drained = 0;
 
     // Always drain hardware FIFO if data is present. If this runs before
     // normal initialization has completed, discarding bytes here prevents
@@ -384,10 +424,16 @@ void PIORXDriver::_service_rx_fifo()
         // that upper byte directly.
         const uint8_t byte = *rxfifo_byte;
         pio_uart_dbg_rx_bytes[_instance]++;
+        drained++;
         if (_readbuf && _initialized) {
             _readbuf->write(&byte, 1);
         }
     }
+
+    if (drained > pio_uart_dbg_irq_max_drain[_instance]) {
+        pio_uart_dbg_irq_max_drain[_instance] = drained;
+    }
+    pio_uart_dbg_last_fstat[_instance] = pio->FSTAT;
 }
 
 // ---------------------------------------------------------------------------
@@ -399,6 +445,8 @@ void PIORXDriver::_begin(uint32_t b, uint16_t rxSpace, uint16_t txSpace)
     if (_instance >= PIO_NUM_INSTANCES) {
         return;
     }
+    pio_uart_debug_stage_mark(_instance, RP2350_PIOUART2_STAGE_BEGIN_ENTER, 0U);
+
     if (b == 0) {
         b = 57600;
     }
@@ -407,6 +455,7 @@ void PIORXDriver::_begin(uint32_t b, uint16_t rxSpace, uint16_t txSpace)
     // parameters. Reinitializing PIO SMs on each packet disrupts RX/TX and
     // can inject framing noise into loopback tests.
     if (_initialized && _active_baud == b) {
+        pio_uart_dbg_begin_reentry[_instance]++;
         return;
     }
 
@@ -432,14 +481,19 @@ void PIORXDriver::_begin(uint32_t b, uint16_t rxSpace, uint16_t txSpace)
     }
 
     _upload_programs();
+    pio_uart_debug_stage_mark(_instance, RP2350_PIOUART2_STAGE_PROG_UPLOADED, 0U);
+
     _configure_gpio(cfg().tx_pin, true);
     _configure_gpio(cfg().rx_pin, false);
+    pio_uart_debug_stage_mark(_instance, RP2350_PIOUART2_STAGE_GPIO_CONFIGURED, 0U);
 
     uint32_t int_div, frac_div;
     _calc_clkdiv(b, int_div, frac_div);
 
     _start_tx_sm(int_div, frac_div);
     _start_rx_sm(int_div, frac_div);
+    pio_uart_dbg_last_fstat[_instance] = cfg().pio->FSTAT;
+    pio_uart_debug_stage_mark(_instance, RP2350_PIOUART2_STAGE_SMS_STARTED, 0U);
 
     // Start each session from a clean RX state. During clock/pin bring-up,
     // the RX SM can capture transient bits; purge both hardware FIFO and
@@ -460,7 +514,9 @@ void PIORXDriver::_begin(uint32_t b, uint16_t rxSpace, uint16_t txSpace)
     _initialized = true;
     _active_baud = b;
     _enable_rx_irq();
+    pio_uart_debug_stage_mark(_instance, RP2350_PIOUART2_STAGE_IRQ_ENABLED, 0U);
     pio_uart_dbg_begin_count[_instance]++;
+    pio_uart_debug_stage_mark(_instance, RP2350_PIOUART2_STAGE_BEGIN_DONE, (uint8_t)(cfg().sm_rx & 0xFFU));
 }
 
 void PIORXDriver::_end()
@@ -560,6 +616,9 @@ size_t PIORXDriver::_write(const uint8_t *buffer, size_t size)
         const uint32_t wait_start_us = AP_HAL::micros();
         while (pio_tx_level(pio, sm) >= PIO_TX_FIFO_DEPTH) {
             if ((AP_HAL::micros() - wait_start_us) > 20000U) {
+                pio_uart_dbg_write_timeout_count[_instance]++;
+                pio_uart_debug_stage_mark(_instance, RP2350_PIOUART2_STAGE_WRITE_TIMEOUT,
+                                          (uint8_t)(written & 0xFFU));
                 return written;
             }
             hal.scheduler->delay_microseconds(20);

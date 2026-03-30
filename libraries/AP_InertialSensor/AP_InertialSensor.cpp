@@ -708,7 +708,8 @@ AP_InertialSensor *AP_InertialSensor::_singleton = nullptr;
 
 AP_InertialSensor::AP_InertialSensor() :
     _board_orientation(ROTATION_NONE),
-    _log_raw_bit(-1)
+    _log_raw_bit(-1),
+    _gyro_cal_save_pending(false)
 {
     if (_singleton) {
         AP_HAL::panic("Too many inertial sensors");
@@ -1396,9 +1397,23 @@ void
 AP_InertialSensor::init_gyro()
 {
     _init_gyro();
+    // Breadcrumb: 'R' = _init_gyro() returned, about to save calibration
+    DEV_PRINTF("R");
+
+#if defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE
+    // During early Pico2 boot we defer parameter queueing until the scheduler
+    // reports full system init, to isolate startup-reset sensitivity.
+    if (!hal.scheduler->is_system_initialized()) {
+        _gyro_cal_save_pending = true;
+        DEV_PRINTF("Q");
+        return;
+    }
+#endif
 
     // save calibration
     _save_gyro_calibration();
+    // Breadcrumb: 'W' = _save_gyro_calibration() returned
+    DEV_PRINTF("W");
 }
 
 // output GCS startup messages
@@ -1767,19 +1782,28 @@ AP_InertialSensor::_init_gyro()
         }
         accel_start = get_accel(0);
         for (i=0; i<50; i++) {
+            // Breadcrumb: '<i' before update(), '>' after update(), '.' after delay(5).
+            // If we see '<N' but not '>' the crash is inside update().
+            // If we see '>' but not '.' the crash is inside delay(5).
+            DEV_PRINTF("<%u", (unsigned)i);
             update();
+            DEV_PRINTF(">");
             for (uint8_t k=0; k<num_gyros; k++) {
                 gyro_sum[k] += get_gyro(k);
             }
             hal.scheduler->delay(5);
+            DEV_PRINTF(".");
         }
 
+        // Breadcrumb: 'S' = start of post-sample convergence check
+        DEV_PRINTF("S");
         Vector3f accel_diff = get_accel(0) - accel_start;
         if (accel_diff.length() > 0.2f) {
             // the accelerometers changed during the gyro sum. Skip
             // this sample. This copes with doing gyro cal on a
             // steadily moving platform. The value 0.2 corresponds
             // with around 5 degrees/second of rotation.
+            DEV_PRINTF("A");  // accel movement — skipping this iteration
             continue;
         }
 
@@ -1789,6 +1813,8 @@ AP_InertialSensor::_init_gyro()
             diff_norm[k] = gyro_diff[k].length();
         }
 
+        // Breadcrumb: 'D' = diff computed, about to check convergence
+        DEV_PRINTF("D");
         for (uint8_t k=0; k<num_gyros; k++) {
             if (best_diff[k] < 0) {
                 best_diff[k] = diff_norm[k];
@@ -1802,6 +1828,8 @@ AP_InertialSensor::_init_gyro()
                 if (!converged[k]) {
                     converged[k] = true;
                     num_converged++;
+                    // Breadcrumb: 'V' = a gyro channel has converged
+                    DEV_PRINTF("V%u", (unsigned)k);
                 }
             } else if (diff_norm[k] < best_diff[k]) {
                 best_diff[k] = diff_norm[k];
@@ -1809,8 +1837,12 @@ AP_InertialSensor::_init_gyro()
             }
             last_average[k] = gyro_avg[k];
         }
+        // Breadcrumb: 'Z' = end of outer loop body, about to loop or exit
+        DEV_PRINTF("Z%u", (unsigned)num_converged);
     }
 
+    // Breadcrumb: 'F' = outer for-loop finished, about to restore state
+    DEV_PRINTF("F");
     // we've kept the user waiting long enough - use the best pair we
     // found so far
     DEV_PRINTF("\n");
@@ -1831,21 +1863,32 @@ AP_InertialSensor::_init_gyro()
 #endif
         }
     }
+    // Breadcrumb: 'H' = offset-set loop done, about to restore orientation
+    DEV_PRINTF("H");
 
     // restore orientation
     _board_orientation = saved_orientation;
+    // Breadcrumb: 'J' = orientation restored, about to clear _calibrating_gyro flag
+    DEV_PRINTF("J");
 
     // record calibration complete
     _calibrating_gyro = false;
+    // Breadcrumb: 'K' = _calibrating_gyro cleared, about to set AP_Notify flags
+    DEV_PRINTF("K");
 
     // stop flashing leds
     AP_Notify::flags.initialising = false;
     AP_Notify::flags.gyro_calibrated = true;
+    // Breadcrumb: 'L2' = _init_gyro() about to return
+    DEV_PRINTF("L2");
 }
 
 // save parameters to eeprom
 void AP_InertialSensor::_save_gyro_calibration()
 {
+    // AP_Param::save() only queues the write here; the actual flash update runs on the
+    // IO thread. On RP2350 the low-level EFL erase/program path already executes from
+    // .ramtext, so changing this call site does not affect XIP locality.
     for (uint8_t i=0; i<_gyro_count; i++) {
         _gyro_offset(i).save();
         _gyro_id(i).save();
@@ -1982,6 +2025,15 @@ void AP_InertialSensor::update(void)
     _last_update_usec = AP_HAL::micros();
     
     _have_sample = false;
+
+#if defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE
+    if (_gyro_cal_save_pending && hal.scheduler->is_system_initialized()) {
+        // Deferred startup save: queue once the platform has completed init.
+        _save_gyro_calibration();
+        _gyro_cal_save_pending = false;
+        DEV_PRINTF("Y");
+    }
+#endif
 
 #if HAL_INS_TEMPERATURE_CAL_ENABLE
     if (tcal_learning && !temperature_cal_running()) {
