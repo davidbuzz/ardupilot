@@ -598,6 +598,12 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
             }
             sioStart((SIODriver*)sdef.serial, &siocfg);
 
+            // Populate arts_line/acts_line from the config so that the
+            // set_flow_control() call below can route CTS/RTS correctly.
+            // The SIO set_options() path does not set these, so we do it here.
+            arts_line = (ioline_t)sdef.rts_line;
+            acts_line = (ioline_t)sdef.cts_line;
+
 #ifndef HAL_UART_NODMA
             if (rx_dma_enabled && !was_initialised) {
                 dmaChannelDisableX(rxdma);
@@ -1690,6 +1696,72 @@ void UARTDriver::set_flow_control(enum flow_control flowcontrol)
         }
         break;
     }
+#elif HAL_USE_SIO == TRUE
+    // RP2350 PL011 hardware flow control.
+    // arts_line = RTS output (GPIO15 for UART0), acts_line = CTS input (GPIO18 for UART0).
+    // We enable hardware CTS gating (CTSEn in UARTCR) so the PL011 automatically stops
+    // transmitting when nCTS is deasserted.  RTS is driven in software by update_rts_line()
+    // (same strategy as STM32: hardware RTSEn per-FIFO-level is less flexible).
+    _flow_control = (arts_line == 0) ? FLOW_CONTROL_DISABLE : flowcontrol;
+    if (!is_initialized()) {
+        // Not started yet; variable stored, will be applied by begin() on first use.
+        return;
+    }
+    {
+        // uart_pin_funcsel is the same FUNCSEL index for TX/RX/CTS/RTS on the same UART
+        // (e.g. FUNCSEL=2 for UART0 on GPIO12/13/15/18).
+        const uint32_t uart_funcsel = sdef.uart_pin_funcsel ? sdef.uart_pin_funcsel : 2U;
+        SIODriver *sio = (SIODriver*)sdef.serial;
+        switch (_flow_control) {
+
+        case FLOW_CONTROL_DISABLE:
+            // Return CTS/RTS pins to GPIO mode.  Drive nRTS LOW (asserted) so any
+            // connected peer is always allowed to send.  Disable PL011 CTSEn/RTSEn.
+            if (arts_line != 0) {
+                palSetLineMode(arts_line, PAL_MODE_OUTPUT_PUSHPULL);
+                palClearLine(arts_line);   // active-low: LOW = "I am ready to receive"
+            }
+            _rts_is_active = true;
+            sio->uart->UARTCR &= ~(UART_UARTCR_CTSEN | UART_UARTCR_RTSEN);
+            break;
+
+        case FLOW_CONTROL_AUTO:
+            // Reset the auto-detection timer state then fall through to ENABLE.
+            _first_write_started_us = 0;
+            _last_write_completed_us = 0;
+            FALLTHROUGH;
+
+        case FLOW_CONTROL_ENABLE:
+            // RTS pin: keep as GPIO output (software-driven by update_rts_line()).
+            // CTS pin: route to UART alternate function so the PL011 reads nCTS.
+            if (arts_line != 0) {
+                palSetLineMode(arts_line, PAL_MODE_OUTPUT_PUSHPULL);
+                palClearLine(arts_line);   // assert nRTS initially
+            }
+            if (acts_line != 0) {
+                // CTS is an input to the UART peripheral; FUNCSEL=uart_funcsel routes it.
+                // Pull-up ensures an unconnected pin does not block transmission.
+                palSetLineMode(acts_line, PAL_MODE_ALTERNATE(uart_funcsel));
+                palLineSetPushPull(acts_line, PAL_PUSHPULL_PULLUP);
+            }
+            _rts_is_active = true;
+            // Enable hardware CTS gating in PL011 UARTCR (bit 15).
+            // Leave RTSEn clear so software drives nRTS via arts_line (GPIO).
+            sio->uart->UARTCR |= UART_UARTCR_CTSEN;
+            break;
+
+        case FLOW_CONTROL_RTS_DE:
+            // RS-485 DE mode not supported on RP2350 PL011; fall back to disabled.
+            _flow_control = FLOW_CONTROL_DISABLE;
+            if (arts_line != 0) {
+                palSetLineMode(arts_line, PAL_MODE_OUTPUT_PUSHPULL);
+                palClearLine(arts_line);
+            }
+            _rts_is_active = true;
+            sio->uart->UARTCR &= ~(UART_UARTCR_CTSEN | UART_UARTCR_RTSEN);
+            break;
+        }
+    }
 #endif // HAL_USE_SERIAL
 }
 
@@ -2046,6 +2118,10 @@ bool UARTDriver::set_options(uint16_t options)
     // inversion without requiring an external hardware inverter chip.
     arx_line = GPIO::resolve_alt_config(sdef.rx_line, PERIPH_TYPE::UART_RX, sdef.instance);
     atx_line = GPIO::resolve_alt_config(sdef.tx_line, PERIPH_TYPE::UART_TX, sdef.instance);
+    // Resolve RTS/CTS lines for software/hardware flow control; parallels the
+    // HAL_USE_SERIAL path above so set_flow_control() can route them correctly.
+    arts_line = GPIO::resolve_alt_config(sdef.rts_line, PERIPH_TYPE::OTHER, sdef.instance);
+    acts_line = GPIO::resolve_alt_config(sdef.cts_line, PERIPH_TYPE::OTHER, sdef.instance);
     if (arx_line != 0) {
         const uint32_t pad = PAL_PAD(arx_line);
         uint32_t ctrl = IO_BANK0->GPIO[pad].CTRL;
