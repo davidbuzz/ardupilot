@@ -6,11 +6,10 @@
  *
  * RP2350 PIO-based pseudo-UART driver for ArduPilot/ChibiOS.
  *
- * Implements up to 4 additional serial ports via RP2350 PIO state machines:
+ * Implements up to 3 additional serial ports via RP2350 PIO state machines:
  *   PIOUART0: PIO0 SM0 (TX) + SM1 (RX)  — RX IRQ via PIO0 IRQ0
  *   PIOUART1: PIO0 SM2 (TX) + SM3 (RX)  — RX IRQ via PIO0 IRQ1
  *   PIOUART2: PIO1 SM0 (TX) + SM1 (RX)  — RX IRQ via PIO1 IRQ0
- *   PIOUART3: PIO1 SM2 (TX) + SM3 (RX)  — RX IRQ via PIO1 IRQ1
  * 
  * TX: PIO side-set. RX: PIO IN + autopush at 8 bits → ISR ring buffer.
  * Baud clock: sys_clk / (8 cycles_per_bit * baud_rate).
