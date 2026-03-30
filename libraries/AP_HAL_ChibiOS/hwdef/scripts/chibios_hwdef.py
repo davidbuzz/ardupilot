@@ -174,7 +174,30 @@ class ChibiOSHWDef(hwdef.HWDef):
             if function.startswith(label):
                 s = pin + ":" + function
                 if s not in alt_map:
-                    self.error("Unknown pin function %s for MCU %s" % (s, mcu))
+                    # Build a diagnostic message showing:
+                    #   (a) what peripheral functions ARE available on this pin, and
+                    #   (b) which pins DO support the requested function.
+                    # Filter to FUNCSEL values < 32 (real 0-11 + 31=NULL range) to
+                    # exclude the QFN physical-pin-number lookup entries that
+                    # PICO2.py stores in AltFunction_map with values >= 100.
+                    pin_prefix = pin + ":"
+                    pin_funcs = sorted(
+                        k[len(pin_prefix):]
+                        for k, v in alt_map.items()
+                        if k.startswith(pin_prefix) and v < 32
+                    )
+                    func_suffix = ":" + function
+                    func_pins = sorted(
+                        k[:-len(func_suffix)]
+                        for k, v in alt_map.items()
+                        if k.endswith(func_suffix) and v < 32
+                    )
+                    msg = "Invalid pin function %s for MCU %s" % (s, mcu)
+                    if pin_funcs:
+                        msg += "\n  Peripheral functions available on %s: %s" % (pin, ", ".join(pin_funcs))
+                    if func_pins:
+                        msg += "\n  Pins that support %s: %s" % (function, ", ".join(func_pins))
+                    self.error(msg)
                 return alt_map[s]
         return None
 
