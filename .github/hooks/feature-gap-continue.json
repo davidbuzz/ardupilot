@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "type": "command",
+        "command": "bash .github/hooks/scripts/feature-gap-next.sh",
+        "timeout": 10
+      }
+    ]
+  }
+}
