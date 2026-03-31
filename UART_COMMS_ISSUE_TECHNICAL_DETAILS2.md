@@ -1661,3 +1661,215 @@ Handoff acceptance criteria:
 At current evidence depth, the system has moved from anecdotal failure to analytically constrained failure domain. The remaining uncertainty is no longer about whether data is generated or queued on target, but about exact host-transaction behavior at endpoint-level granularity and completion propagation.
 
 This is a strong position for final root-cause closure: the next step is no longer broad debugging, but targeted confirmation of IN submit and completion behavior under controlled application and line-state conditions.
+
+---
+
+## 71. Implemented Fixes And Instrumentation (Applied)
+
+This section records concrete code that has now been implemented from the earlier recommendations.
+
+### 71.1 USB TX diagnostics added to UARTDriver
+
+Added per-UART USB diagnostics counters:
+- _usb_tx_attempts
+- _usb_tx_bytes_requested
+- _usb_tx_bytes_accepted
+- _usb_tx_zero_returns
+- _usb_tx_poll_calls
+- _usb_tx_poll_success
+- _usb_tx_queue_full_events
+
+Behavior:
+- Counters are reset in _begin() when the port is USB-backed.
+- Counters are incremented on every USB immediate-write attempt and drain poll cycle.
+- Counters are intended for live GDB inspection during CDC silence incidents.
+
+### 71.2 Bounded retry on USB immediate zero-write
+
+In write_pending_bytes_NODMA(), USB path now performs:
+1. immediate write attempt
+2. immediate poll-drain
+3. if ret is zero and USB is active, single 125 us yield
+4. single immediate retry
+5. second poll-drain
+
+Design intent:
+- Preserve non-blocking semantics.
+- Improve forward progress when obqueue frees just after first immediate attempt.
+- Avoid long waits or behavior changes on non-USB serial paths.
+
+### 71.3 Poll-drain return semantics improved
+
+usb_tx_poll_drain now returns whether at least one transmit start occurred in the call. This is used to increment _usb_tx_poll_success for visibility into actual endpoint kick activity.
+
+### 71.4 Build validation
+
+ArduCopter build for Pico2 completed successfully after these changes:
+- target: build/Pico2/bin/arducopter
+- build status: success
+
+---
+
+## 72. Immediate Debug Usage For New Counters
+
+Use GDB to inspect the new counters live:
+
+```gdb
+p serial0Driver._usb_tx_attempts
+p serial0Driver._usb_tx_bytes_requested
+p serial0Driver._usb_tx_bytes_accepted
+p serial0Driver._usb_tx_zero_returns
+p serial0Driver._usb_tx_poll_calls
+p serial0Driver._usb_tx_poll_success
+p serial0Driver._usb_tx_queue_full_events
+```
+
+Interpretation:
+- attempts rising with bytes_accepted flat indicates blocked enqueue path.
+- zero_returns and queue_full_events rising together indicates persistent backpressure.
+- poll_calls rising but poll_success flat indicates no transmit kick opportunities discovered.
+- poll_success rising without host bytes suggests completion path or host polling remains problematic.
+
+---
+
+## 73. Next Active Work Item (Post-Implementation)
+
+With instrumentation now present in code, the highest-value next step is a synchronized run combining:
+- host byte logger
+- usbmon endpoint parser
+- live counter sampling via GDB/OpenOCD
+
+This will allow direct classification using rules S1 through S5 with stronger confidence than pre-instrumentation runs.
+
+---
+
+## 74. Continued Analysis Update
+
+Further code-level analysis after the first UARTDriver instrumentation pass established the following:
+
+### 74.1 DTR/control-line gating is not implemented in device-side CDC path
+
+ChibiOS serial USB request handling accepts:
+- CDC_GET_LINE_CODING
+- CDC_SET_LINE_CODING
+- CDC_SET_CONTROL_LINE_STATE
+
+But for control-line state it explicitly does nothing beyond ACKing the request. Therefore the device stack does not use DTR/RTS as a TX gate.
+
+### 74.2 USB descriptors are valid for single CDC ACM
+
+Live lsusb inspection showed:
+- device class 0x02 communications
+- control interface class/subclass/protocol = CDC ACM
+- data interface with EP1 OUT bulk and EP1 IN bulk
+- interrupt notification endpoint EP2 IN
+- max packet size 64 for bulk endpoints
+
+No obvious descriptor defect was found that would explain enumeration with systematic no-read behavior.
+
+### 74.3 EP1 callback wiring is correct in usbcfg
+
+EP1 bulk endpoint configuration uses:
+- in_cb = sduDataTransmitted
+- out_cb = sduDataReceived
+
+Therefore the ChibiOS USB serial completion callback chain is wired correctly at configuration level.
+
+### 74.4 Generic USB transmit bookkeeping is not the stuck point
+
+usbStartTransmitI() in generic ChibiOS USB code:
+- sets the endpoint transmit bit
+- stores tx buffer state
+- calls usb_lld_start_in()
+
+That transmit bit is only cleared on the IN-completion callback path. Since USBD1.transmitting remained set in previous live snapshots, the unresolved missing event is below the generic layer.
+
+---
+
+## 75. New RP2350 USB LLD Instrumentation
+
+To separate host non-consumption from RP2350 low-level completion loss, the following globals were added in hal_usb_lld.c:
+
+- usb_lld_irq_count
+- usb_lld_buff_status_irq_count
+- usb_lld_last_ints
+- usb_lld_last_buf_status
+- usb_lld_ep1_in_complete_count
+- usb_lld_ep1_out_complete_count
+
+These counters are incremented in the low-level ISR and endpoint service routine and are intended for GDB/OpenOCD inspection.
+
+### 75.1 Intended interpretation
+
+- irq_count rising confirms USB IRQ path is alive.
+- buff_status_irq_count rising confirms the controller is reporting endpoint completions.
+- ep1_in_complete_count rising proves EP1 IN completions are reaching the LLD.
+- ep1_out_complete_count helps distinguish control/data receive activity on the opposite direction.
+- last_ints and last_buf_status preserve the most recent raw interrupt/status values for correlation.
+
+### 75.2 Diagnostic decision logic with new counters
+
+Case A:
+- UARTDriver zero-return counters rise
+- LLD irq_count rises
+- LLD ep1_in_complete_count stays flat
+
+Interpretation:
+- Endpoint IN completions are not occurring at LLD level. Strongly supports host non-consumption or hardware completion absence.
+
+Case B:
+- LLD ep1_in_complete_count rises
+- UARTDriver queue-full counters still rise
+- host bytes remain zero
+
+Interpretation:
+- Device is completing IN transfers, so remaining fault shifts toward host/userspace drain or parsing.
+
+Case C:
+- irq_count flat or buff_status_irq_count flat while traffic expected
+
+Interpretation:
+- Investigate RP2350 USB interrupt delivery or controller state more aggressively.
+
+### 75.3 Build status
+
+After adding LLD diagnostics, Pico2 copter build completed successfully again.
+
+---
+
+## 76. Current Live Analysis Status (2026-04-01)
+
+### 76.1 Non-USB SIO activation bug identified and mitigated
+
+During live runs, a HardFault path was observed in `hal_sio` from `serial2Driver` RX processing. Analysis showed a plausible trigger where non-USB ports with baud 0 could still be marked RX/TX initialized, allowing worker thread activity on an unstarted backend.
+
+Applied mitigation in `UARTDriver::_begin()`:
+- only mark `_tx_initialised` and `_rx_initialised` true when port I/O is enabled
+- for non-USB ports, this now requires `_baudrate != 0`
+- worker thread initialization now requires at least one of RX/TX initialized
+
+Build remains successful after this change.
+
+### 76.2 Boot mode during SWD reset-run
+
+After SWD load followed by `monitor reset run`, the USB device commonly enumerates as:
+- `ArduPilot_Pico2-BL`
+
+This indicates bootloader mode rather than app USB endpoint, which blocks direct host-side validation of app CDC behavior in that run mode.
+
+### 76.3 Forced app entry caveat
+
+Attempts to force app start by manually setting core registers can produce unstable/lockup states (`PC=0xEFFFFFFE`) if entry context is incomplete. Such runs are useful for exploratory probing but not yet trusted as canonical app-boot behavior.
+
+### 76.4 Latest counter observation context
+
+In one forced-app window, host read remained zero bytes and both UARTDriver and LLD counters remained mostly static. Because that run later entered lockup, those readings are treated as inconclusive for final USB root-cause attribution.
+
+### 76.5 Immediate next technical requirement
+
+To close USB diagnosis with high confidence, obtain a stable app runtime boot path where:
+- app (not BL) USB endpoint is active
+- no lockup/hardfault during measurement window
+- UARTDriver + LLD counter deltas can be captured alongside host reads and usbmon
+
+Only then should final C1 vs C2 branch attribution be considered closed.

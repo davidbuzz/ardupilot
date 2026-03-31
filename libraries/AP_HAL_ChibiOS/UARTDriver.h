@@ -249,6 +249,17 @@ private:
     uint32_t _rx_stats_bytes;
     uint32_t _rx_stats_dropped_bytes;
 
+#if HAL_USE_SERIAL_USB
+    // USB TX diagnostics used for live GDB inspection during CDC stall analysis.
+    uint32_t _usb_tx_attempts;
+    uint32_t _usb_tx_bytes_requested;
+    uint32_t _usb_tx_bytes_accepted;
+    uint32_t _usb_tx_zero_returns;
+    uint32_t _usb_tx_poll_calls;
+    uint32_t _usb_tx_poll_success;
+    uint32_t _usb_tx_queue_full_events;
+#endif
+
     // we remember config options from set_options to apply on sdStart()
     uint32_t _cr1_options;
     uint32_t _cr2_options;

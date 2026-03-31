@@ -256,6 +256,19 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
     if (sdef.serial == nullptr) {
         return;
     }
+
+#if HAL_USE_SERIAL_USB
+    if (sdef.is_usb) {
+        _usb_tx_attempts = 0;
+        _usb_tx_bytes_requested = 0;
+        _usb_tx_bytes_accepted = 0;
+        _usb_tx_zero_returns = 0;
+        _usb_tx_poll_calls = 0;
+        _usb_tx_poll_success = 0;
+        _usb_tx_queue_full_events = 0;
+    }
+#endif
+
     uint16_t min_tx_buffer = HAL_UART_MIN_TX_SIZE;
     uint16_t min_rx_buffer = HAL_UART_MIN_RX_SIZE;
 
@@ -614,20 +627,24 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
 #endif // HAL_USE_SERIAL / HAL_USE_SIO
     }
 
-    if (_writebuf.get_size()) {
-        _tx_initialised = true;
-    }
-    if (_readbuf.get_size()) {
-        _rx_initialised = true;
-    }
+    // Only mark active when the underlying device can actually transfer.
+    // For non-USB ports with baud=0 we intentionally keep RX/TX inactive so
+    // the UART worker threads do not touch an unstarted SIO/Serial backend.
+    const bool port_io_enabled = sdef.is_usb || (_baudrate != 0);
+    _tx_initialised = (_writebuf.get_size() > 0) && port_io_enabled;
+    _rx_initialised = (_readbuf.get_size() > 0) && port_io_enabled;
+
     _uart_owner_thd = chThdGetSelfX();
     // initialize TX thread only when safe on RP2350, else immediately.
 #if defined(RP2350)
-    if (sdef.is_usb || hal.scheduler->is_system_initialized()) {
+    if ((_tx_initialised || _rx_initialised) &&
+        (sdef.is_usb || hal.scheduler->is_system_initialized())) {
         thread_init();
     }
 #else
-    thread_init();
+    if (_tx_initialised || _rx_initialised) {
+        thread_init();
+    }
 #endif
 
     // setup flow control
@@ -872,14 +889,16 @@ void UARTDriver::_end()
  * Worst case spins for ~80 × 125 µs = 10 ms, which covers many 64-byte
  * packets at USB FS 12 Mbit/s.
  */
-static void usb_tx_poll_drain(SerialUSBDriver *sdu)
+static bool usb_tx_poll_drain(SerialUSBDriver *sdu)
 {
+    bool started_transfer = false;
+
     for (uint8_t i = 0; i < 80; i++) {
         osalSysLock();
         if ((usbGetDriverStateI(sdu->config->usbp) != USB_ACTIVE) ||
             (sdu->state != SDU_READY)) {
             osalSysUnlock();
-            return;
+            return started_transfer;
         }
         if (!usbGetTransmitStatusI(sdu->config->usbp, sdu->config->bulk_in)) {
             /* TX idle — grab next full buffer or force-flush a partial one */
@@ -892,16 +911,19 @@ static void usb_tx_poll_drain(SerialUSBDriver *sdu)
             }
             if (buf != nullptr) {
                 usbStartTransmitI(sdu->config->usbp, sdu->config->bulk_in, buf, n);
+                started_transfer = true;
                 osalSysUnlock();
                 chThdSleepMicroseconds(125); /* yield — let TX-complete ISR run */
                 continue;
             }
             osalSysUnlock();
-            return; /* queue empty, all data sent */
+            return started_transfer; /* queue empty, all data sent */
         }
         osalSysUnlock();
         chThdSleepMicroseconds(125); /* TX in progress — yield and retry */
     }
+
+    return started_transfer;
 }
 #endif // HAVE_USB_SERIAL
 
@@ -910,7 +932,14 @@ void UARTDriver::_flush()
     if (sdef.is_usb) {
 #ifdef HAVE_USB_SERIAL
         /* Poll-drain bypasses both obnotify (full-buffer only) and SOF flush. */
-        usb_tx_poll_drain((SerialUSBDriver*)sdef.serial);
+#if HAL_USE_SERIAL_USB
+    _usb_tx_poll_calls++;
+    if (usb_tx_poll_drain((SerialUSBDriver*)sdef.serial)) {
+        _usb_tx_poll_success++;
+    }
+#else
+    usb_tx_poll_drain((SerialUSBDriver*)sdef.serial);
+#endif
 #endif
     } else {
 #if defined(RP2350)
@@ -1276,9 +1305,54 @@ void UARTDriver::write_pending_bytes_NODMA(uint32_t n)
         if (sdef.is_usb) {
             ret = 0;
 #ifdef HAVE_USB_SERIAL
+#if HAL_USE_SERIAL_USB
+            _usb_tx_attempts++;
+            _usb_tx_bytes_requested += vec[i].len;
+#endif
             ret = chnWriteTimeout((SerialUSBDriver*)sdef.serial, vec[i].data, vec[i].len, TIME_IMMEDIATE);
+
+#if HAL_USE_SERIAL_USB
+            if (ret == 0) {
+                _usb_tx_zero_returns++;
+            }
+#endif
+
             /* Immediately poll-drain: don't wait for obnotify or SOF ISR */
+#if HAL_USE_SERIAL_USB
+            _usb_tx_poll_calls++;
+            if (usb_tx_poll_drain((SerialUSBDriver*)sdef.serial)) {
+                _usb_tx_poll_success++;
+            }
+#else
             usb_tx_poll_drain((SerialUSBDriver*)sdef.serial);
+#endif
+
+            // If immediate-write could not enqueue any bytes, yield once and retry.
+            // This keeps non-blocking semantics while giving TX completion a chance
+            // to release an obqueue buffer under heavy CDC backpressure.
+            if (ret == 0 && is_usb_active()) {
+#if HAL_USE_SERIAL_USB
+                _usb_tx_queue_full_events++;
+#endif
+                chThdSleepMicroseconds(125);
+                const int retry = chnWriteTimeout((SerialUSBDriver*)sdef.serial, vec[i].data, vec[i].len, TIME_IMMEDIATE);
+#if HAL_USE_SERIAL_USB
+                if (retry == 0) {
+                    _usb_tx_zero_returns++;
+                }
+#endif
+                if (retry > 0) {
+                    ret = retry;
+                }
+#if HAL_USE_SERIAL_USB
+                _usb_tx_poll_calls++;
+                if (usb_tx_poll_drain((SerialUSBDriver*)sdef.serial)) {
+                    _usb_tx_poll_success++;
+                }
+#else
+                usb_tx_poll_drain((SerialUSBDriver*)sdef.serial);
+#endif
+            }
 #endif
         } else {
 #if HAL_USE_SERIAL == TRUE
@@ -1293,6 +1367,11 @@ void UARTDriver::write_pending_bytes_NODMA(uint32_t n)
         if (ret > 0) {
             _last_write_completed_us = AP_HAL::micros();
             nwritten += ret;
+#if HAL_USE_SERIAL_USB
+            if (sdef.is_usb) {
+                _usb_tx_bytes_accepted += ret;
+            }
+#endif
         }
         _writebuf.advance(ret);
 
