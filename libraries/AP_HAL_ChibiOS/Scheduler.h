@@ -67,7 +67,13 @@
 #endif
 
 #ifndef RCOUT_THD_WA_SIZE
+#if defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE
+// RP2350/Pico2 debug builds exercise deeper RCOutput paths and need a larger
+// working area to avoid stack corruption during early bring-up.
+#define RCOUT_THD_WA_SIZE    1024
+#else
 #define RCOUT_THD_WA_SIZE    512
+#endif
 #endif
 
 #ifndef RCIN_THD_WA_SIZE

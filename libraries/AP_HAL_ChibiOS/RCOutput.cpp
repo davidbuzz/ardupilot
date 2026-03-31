@@ -149,6 +149,16 @@ void RCOutput::init()
 #endif
         }
         if (group.ch_mask != 0) {
+#if defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE
+            // RP2350 safety net: re-assert per-channel PWM alternate function
+            // before starting the timer block. This prevents stale pin mux
+            // state from earlier consumers from leaving a channel unrouted.
+            for (uint8_t j = 0; j < HAL_PWM_GROUP_CHANNELS; j++) {
+                if (group.chan[j] != CHAN_DISABLED) {
+                    palSetLineMode(group.pal_lines[j], PAL_MODE_ALTERNATE(group.alt_functions[j]));
+                }
+            }
+#endif
             pwmStart(group.pwm_drv, &group.pwm_cfg);
             group.pwm_started = true;
         }
