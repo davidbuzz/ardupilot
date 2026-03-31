@@ -77,7 +77,13 @@
 #endif
 
 #ifndef RCIN_THD_WA_SIZE
+#if defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE
+// RP2350/Pico2 RC-in protocol parsing and timing checks can exceed the
+// default stack budget in debug builds; increase margin to avoid corruption.
+#define RCIN_THD_WA_SIZE    2048
+#else
 #define RCIN_THD_WA_SIZE    1024
+#endif
 #endif
 
 #ifndef IO_THD_WA_SIZE
