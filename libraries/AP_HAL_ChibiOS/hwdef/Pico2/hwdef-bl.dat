@@ -69,8 +69,6 @@ define BOOTLOADER_BAUDRATE 115200
 
 # Keep the bootloader single-core.
 #
-# The application uses RP_CORE1_START=TRUE with a bare-metal core1 FIFO
-# dispatcher dedicated to the rate-thread offload path.  If the bootloader
 # also launches core1, then a PROTO_BOOT jump-to-app leaves core1 executing
 # bootloader code while core0 enters the app.  The app then hangs in
 # hal_lld_init()->start_core1() waiting for a clean ROM FIFO handshake that

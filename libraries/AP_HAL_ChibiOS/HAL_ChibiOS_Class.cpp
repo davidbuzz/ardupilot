@@ -39,7 +39,7 @@
 
 #include <hwdef.h>
 
-#if HAL_HAVE_PIO_UARTS
+#if defined(HAL_HAVE_PIO_UARTS) && HAL_HAVE_PIO_UARTS
 #include "PIOUART.h"
 #endif
 
