@@ -64,6 +64,16 @@ void SoftSigReaderRP2350::init(ioline_t line)
     _last_tick = 0;
     _pending_w0 = 0;
 
+    /*
+     * Explicitly set the pin to SIO input mode with pull-down before enabling
+     * the PAL edge-callback. On RP2350 the reset default for PADS_BANK0 is
+     * FUNCSEL=NULL (31) with IE=0 and ISO=1 (analog-isolated), which prevents
+     * the digital input path from seeing any edges. PAL_MODE_INPUT_PULLDOWN
+     * sets FUNCSEL=5 (SIO), clears ISO, and enables IE so the pad input is
+     * connected to the GPIO interrupt logic.
+     */
+    palSetLineMode(_line, PAL_MODE_INPUT_PULLDOWN);
+
     chSysLock();
     palSetLineCallbackI(_line, _irq_handler, this);
     palEnableLineEventI(_line, PAL_EVENT_MODE_BOTH_EDGES);
