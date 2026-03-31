@@ -381,6 +381,70 @@ python3 libraries/AP_HAL_ChibiOS/hwdef/Pico2/fast_boot_scratch.py --no-reset
 python3 libraries/AP_HAL_ChibiOS/hwdef/Pico2/fast_boot_scratch.py --verbose
 ```
 
+## Connecting with MAVProxy (USB CDC)
+
+ArduPilot's USB serial port (SERIAL0) appears as `/dev/ttyACM*` on Linux.
+If a CMSIS-DAP debugprobe is also connected, it gets the first ACM node;
+the ArduPilot target gets the next one. Use `ls /dev/ttyACM*` to see what
+is present, or `lsusb | grep -i pico` to identify the target (VID:PID
+`1209:5741`).
+
+### Why plain `mavproxy.py --master=/dev/ttyACMx` produces no heartbeats
+
+The ChibiOS SDU (USB-CDC) driver uses the **DTR** (Data Terminal Ready)
+handshake line as a "terminal present" signal. Until DTR is asserted by the
+host, the firmware will not transmit a single byte — the port opens fine but
+remains silent. This is **not** RTS/CTS flow control; it is a deliberate
+hold-off to avoid buffering data when nothing is listening.
+
+A plain `mavproxy.py --master=/dev/ttyACMx` invocation does **not** assert
+DTR by default, so the board stays silent and MAVProxy never sees a
+heartbeat.
+
+### The fix: `--setup`
+
+Pass `--setup` to MAVProxy. This flag puts MAVProxy in "setup mode" (raw,
+unfiltered messages) and, as a side effect, asserts DTR on the port. The
+firmware then starts streaming MAVLink immediately:
+
+```bash
+mavproxy.py --master=/dev/ttyACM1 --baudrate=115200 --setup
+```
+
+Replace `ttyACM1` with whichever node the target board claimed.
+
+### Alternative: set DTR explicitly in Python
+
+```python
+import serial
+ser = serial.Serial('/dev/ttyACM1', 115200)
+ser.dtr = True          # must be set before or right after open
+# now pass the fd to pymavlink, or read MAVLink bytes directly
+```
+
+### Typical connection sequence
+
+```bash
+# 1. Find the right port (debugprobe is ACM0, target is the next one)
+ls /dev/ttyACM*
+lsusb | grep -i pico    # target shows VID:PID 1209:5741
+
+# 2. Connect (--setup asserts DTR)
+mavproxy.py --master=/dev/ttyACM1 --baudrate=115200 --setup
+
+# 3. You should see within a few seconds:
+#    APM: ArduCopter ...
+#    online system 1
+```
+
+If the board is still silent after asserting DTR, check that it is not
+halted in an OpenOCD/GDB session — a halted board does not run the USB
+task. Resume it via the OpenOCD telnet port:
+
+```bash
+printf "resume\nexit\n" | nc -w 2 localhost 50012
+```
+
 ## Known Limitations
 
 | Feature | Status |
