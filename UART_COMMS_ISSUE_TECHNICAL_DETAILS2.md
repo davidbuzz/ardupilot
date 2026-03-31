@@ -1868,8 +1868,89 @@ In one forced-app window, host read remained zero bytes and both UARTDriver and 
 ### 76.5 Immediate next technical requirement
 
 To close USB diagnosis with high confidence, obtain a stable app runtime boot path where:
-- app (not BL) USB endpoint is active
-- no lockup/hardfault during measurement window
-- UARTDriver + LLD counter deltas can be captured alongside host reads and usbmon
 
 Only then should final C1 vs C2 branch attribution be considered closed.
+---+
+
+## 77. Session 2 - April 1, 2026 - Hard Fault Root Cause Blocker+
+
+### 77.1 Progress Summary+
+
+Starting from the previous session's instrumented state, this session focused on:+
+
+1. Verifying that UARTDriver instrumentation (7 diagnostics counters) and RP2350 LLD instrumentation (6 counters) compiled correctly into fresh build.+
+2. Applying the SIO activation guard: UART RX/TX threads only initialize when I/O is enabled (USB OR baud != 0). Built successfully.+
+3. Attempting to resolve the boot-mode enumeration blocker by setting WATCHDOG SCRATCH[1] magic flag (0xB007CAFE) via OpenOCD to force bootloader to jump to app.+
+4. **CRITICAL BLOCKER DISCOVERED**: App firmware enters hard fault (CFSR=0x31001 usage fault, PC=0xeffffffe exception return) consistently during boot after SWD load+reset.+
+
+### 77.2 Boot-Mode Enumeration Workaround Successful+
+
+The bootloader behavior was successfully understood and a workaround developed:+
+
+- SWD load places app firmware at correct address (0x10010080).+
+- `monitor reset run` causes bootloader to start.+
+- Bootloader checks WATCHDOG SCRATCH[1] for magic value 0xB007CAFE (set by prior app jump, indicates "XIP cache flushed at reset").+
+- If flag not present, bootloader enters protocol mode (USB enumeration as "Pico2-BL") and waits for host commands or timeout (5 seconds).+
+- If flag IS present, bootloader skips timeout and jumps directly to app.+
+
+**Workaround technique:**+
+1. OpenOCD `mww 0x400d801c 0xB007CAFE` — write magic to SCRATCH[1] while halted+
+2. `reset halt` via OpenOCD (magic preserved across reset)+
+3. `resume` — bootloader detects flag at startup and jumps to app directly+
+
+**Result:** Boot-mode enumeration workaround is reliable and can force app launch without waiting for timeout.+
+
+### 77.3 App Hard Fault Blocker+
+
+**The critical issue:** Every attempt to run app firmware (whether via bootloader jump or SWD direct resume after load) results in immediate hard fault:+
+
+- PC = 0xeffffffe (exception return code)  for "unwind ISR stack"—indicates CPU tried to return from exception that doesn't exist or ISR context is corrupted+
+- CFSR = 0x31001 (usage fault + preciserr + stacking error + hard fault forced)+ - MSP invalid when fault occurred+
+
+**Evidence this is NOT caused by recent instrumentation changes:**+
+- Reverted to commit daaf8b63d2 (before instrumentation changes)+ - Built previous version successfully+
+- Hard faults persist in previous version too+
+- Conclusion: the issue is pre-existing in app boot sequence, not introduced by instrumentation+
+
+**Likely root causes (in priority order):**+
+
+1. **App vector table corrupted or misaligned**+ - APP_START_ADDRESS=0x10010080 (128-byte aligned, correct per VTOR requirements)+ - But WATCHDOG->SCRATCH indicates SWD load may be placing code at wrong offset relative to image header+ - ChibiOS image header adds 32-byte prefix + 96-byte padding; could be miscalculated+
+
+2. **Stack pointer initialization in app vector table (word 0) points to invalid SRAM region**+  - Word 0 at 0x10010080 should be top-of-MSP+  - If SRAM range is wrong, CPU raises STKOF (stacking overflow) during exception context save+ - Would produce exactly CFSR=0x31001+
+
+3. **Bootloader jump-to-app sequence incomplete**+  - jump_to_app() is supposed to flush XIP cache and set correct SP/MSP limits before BX to app+  - If PSPLIM/MSPLIM are not cleared properly, Cortex-M33 STKOF check fires on any ISR+  - Session 5 notes mention a prior PSPLIM fix (commits 54bb763/9fab42f), but may have regressed or new condition discovered+
+
+4. **App initialization code touching unmapped/uninitialized peripheral**+  - Early app code (pre-scheduler, pre-HAL init) may access SIO/UART that hasn't been started+  - Non-USB UARTs with baud=0 now skip thread init (SIO guard), but device itself (GPIO, UART controller) may still be probed+  - Could trigger a fault if code reads or writes disabled peripheral registers+
+
+### 77.4 Evidence From Live Inspection+
+
+When board halted in hard-fault state (PC=0xeffffffe):+
+
+- WATCHDOG SCRATCH[1] = 0 (flag not cleared/advanced by app)+
+- WATCHDOG SCRATCH[0] = 0 (expected)+
+- c1_boot_stage = 0x55555555 (uninitialized, core1 not reached main)+
+- Scheduler state registers not yet populated (app failed on first instruction path)+
+- NVIC, USB ISR state could not be assessed (board crashed before USB enumeration)+
+
+### 77.5 Next Actions Required+
+
+To unblock USB analysis:+
+
+1. **Diagnose app vector table setup**+  - Via GDB/OpenOCD, inspect the physical memory at 0x10010080 (app start)+ - Verify first word (MSP) and second word (reset PC) are sensible+  - Cross-check against build/Pico2/bin/arducopter binary dump+  - Check if SWD load placed image at correct file offset+
+
+2. **Inspect bootloader jump_to_app() implementation**+  - May need to add debug output or additional guards+  - Verify PSPLIM/MSPLIM register state before BX instruction+  - Check whether __set_MSPLIM(0) and __set_PSPLIM(0) from prior commits are actually executing+
+
+3. **Simplify app initialization for testing**+ - Possibility: disable early GPIO/peripheral probing+  - Build a minimal test firmware that just blinks LED or toggles GPIO to confirm CPU execution works at all+  - If minimal test boots successfully, issue is in full app init sequence (sensors, UART, GCS setup)+
+
+4. **Verify ChibiOS boot sequence on RP2350**+  - Check that Vector_Table/Chip_Reset_Handler/early_init paths match RP2350 specifics+  - Non-SMP (current mode) initialization sequence may have RP2350-specific assumptions+
+
+### 77.6 Work Preservation+
+
+Current branch state (commit 372490d27c):+
+- UARTDriver instrumentation: complete, compiles+
+- RP2350 LLD instrumentation: complete, compiles+
+- SIO activation guard: complete, compiles+
+- Boot-mode workaround documented and proven functional+
+- Comprehensive technical notes added to this file+
+
+**Critical note for next session:** The hard fault blocker MUST be resolved before USB CDC measurement can proceed. Without a stable app runtime, the C1 vs C2 classification cannot be completed. The instrumentation is in place and ready; it just needs a working runtime to collect data on.
