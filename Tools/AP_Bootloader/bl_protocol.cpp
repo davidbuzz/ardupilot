@@ -371,6 +371,11 @@ jump_to_app()
     __set_MSPLIM(0);
     __set_PSPLIM(0);
 
+#if defined(AP_DEBUG_BUILD) || defined(DEBUG_BUILD)
+    DEV_PRINTF("BL: jump_to_app starting\n");
+    DEV_PRINTF("BL: APP_START_ADDRESS=0x%x, app_base=0x%x\n", APP_START_ADDRESS, (uint32_t)app_base);
+    DEV_PRINTF("BL: PSPLIM/MSPLIM cleared\n");
+#endif
     /*
      * RP2350 clean-reset boot: instead of doing a bare do_jump() with the
      * BL's peripheral state still active (USB CDC running, watchdog armed,
@@ -406,6 +411,9 @@ jump_to_app()
     }
 #endif
 
+#if defined(AP_DEBUG_BUILD) || defined(DEBUG_BUILD)
+    DEV_PRINTF("BL: WATCHDOG scratch check done, about to disable interrupts\n");
+#endif
     // disable all interrupt sources
     port_disable();
 
