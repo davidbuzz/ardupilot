@@ -151,6 +151,7 @@ void RCInput::_timer_tick(void)
 
 #if defined(HAL_RCIN_IS_GPIO)
     if (pulse_input_enabled) {
+        sig_reader.enable();
         uint32_t width_s0, width_s1;
         while (sig_reader.read(width_s0, width_s1)) {
             rcprot.process_pulse(width_s0, width_s1);

@@ -23,7 +23,6 @@
 
 #if defined(HAL_RCIN_IS_GPIO)
 
-#include <AP_HAL/utility/RingBuffer.h>
 #include <hal.h>
 
 #ifndef SOFTSIG_MAX_SIGNAL_TRANSITIONS
@@ -36,6 +35,7 @@ public:
     CLASS_NO_COPY(SoftSigReaderRP2350);
 
     void init(ioline_t line);
+    void enable(void);
 
     /*
      * Returns true and fills widths0/widths1 with the next pulse pair
@@ -56,12 +56,22 @@ private:
         uint32_t w1;
     };
 
-    ObjectBuffer<pulse_t> sigbuf{SOFTSIG_MAX_SIGNAL_TRANSITIONS};
+    // Single-producer (ISR) / single-consumer (RCIN thread) fixed ring buffer.
+    // Keeping this structure simple avoids heavy ByteBuffer operations in ISR
+    // context and reduces MSP/IRQ stack pressure on RP2350.
+    pulse_t _ring[SOFTSIG_MAX_SIGNAL_TRANSITIONS];
+    volatile uint16_t _head = 0;
+    volatile uint16_t _tail = 0;
+
+    bool _push_isr(const pulse_t &p);
+    bool _pop_thread(pulse_t &p);
+
     ioline_t _line;
     uint32_t _last_tick;
     uint32_t _pending_w0;
     bool _got_first;
     bool _pending_valid;
+    bool _irq_enabled;
 };
 
 #endif // HAL_RCIN_IS_GPIO

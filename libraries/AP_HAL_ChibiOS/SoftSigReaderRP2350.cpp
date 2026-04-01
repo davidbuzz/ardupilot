@@ -51,18 +51,49 @@ void SoftSigReaderRP2350::_edge(void)
         pulse_t p;
         p.w0 = _pending_w0;
         p.w1 = delta;
-        sigbuf.push(p);
+        (void)_push_isr(p);
         _pending_valid = false;
     }
+}
+
+bool SoftSigReaderRP2350::_push_isr(const pulse_t &p)
+{
+    const uint16_t head = _head;
+    const uint16_t next = (uint16_t)((head + 1U) % SOFTSIG_MAX_SIGNAL_TRANSITIONS);
+
+    // Drop oldest new sample when ring is full; this matches the existing
+    // behavior of non-blocking RC pulse capture under overload.
+    if (next == _tail) {
+        return false;
+    }
+
+    _ring[head] = p;
+    _head = next;
+    return true;
+}
+
+bool SoftSigReaderRP2350::_pop_thread(pulse_t &p)
+{
+    const uint16_t tail = _tail;
+    if (tail == _head) {
+        return false;
+    }
+
+    p = _ring[tail];
+    _tail = (uint16_t)((tail + 1U) % SOFTSIG_MAX_SIGNAL_TRANSITIONS);
+    return true;
 }
 
 void SoftSigReaderRP2350::init(ioline_t line)
 {
     _line = line;
+    _head = 0;
+    _tail = 0;
     _got_first = false;
     _pending_valid = false;
     _last_tick = 0;
     _pending_w0 = 0;
+    _irq_enabled = false;
 
     /*
      * Explicitly set the pin to SIO input mode with pull-down before enabling
@@ -76,14 +107,33 @@ void SoftSigReaderRP2350::init(ioline_t line)
 
     chSysLock();
     palSetLineCallbackI(_line, _irq_handler, this);
+    chSysUnlock();
+}
+
+void SoftSigReaderRP2350::enable(void)
+{
+    if (_irq_enabled) {
+        return;
+    }
+
+    // Arm GPIO edge capture only after the scheduler/timer path is alive.
+    // Early RC receiver traffic can generate a dense IRQ stream during
+    // AP_Vehicle::setup(), which consumes the tiny startup MSP stack on RP2350.
+    _got_first = false;
+    _pending_valid = false;
+    _last_tick = 0;
+    _pending_w0 = 0;
+
+    chSysLock();
     palEnableLineEventI(_line, PAL_EVENT_MODE_BOTH_EDGES);
     chSysUnlock();
+    _irq_enabled = true;
 }
 
 bool SoftSigReaderRP2350::read(uint32_t &widths0, uint32_t &widths1)
 {
     pulse_t p;
-    if (!sigbuf.pop(p)) {
+    if (!_pop_thread(p)) {
         return false;
     }
     widths0 = p.w0;
@@ -93,7 +143,10 @@ bool SoftSigReaderRP2350::read(uint32_t &widths0, uint32_t &widths1)
 
 void SoftSigReaderRP2350::disable(void)
 {
-    palDisableLineEvent(_line);
+    if (_irq_enabled) {
+        palDisableLineEvent(_line);
+        _irq_enabled = false;
+    }
 }
 
 #endif // HAL_RCIN_IS_GPIO

@@ -733,6 +733,14 @@ void AP_RCProtocol_CRSF::start_bind(void)
 bool AP_RCProtocol_CRSF::bind_in_progress(void)
 {
 #if !APM_BUILD_TYPE(APM_BUILD_UNKNOWN) && !APM_BUILD_TYPE(APM_BUILD_Replay)
+    // On fast bring-up paths the RCIN thread can start polling protocols
+    // before vehicle setup has finished. Avoid constructing the CRSF telemetry
+    // singleton from that early thread context; defer allocation until the
+    // scheduler reports full system initialization.
+    if (hal.scheduler == nullptr || !hal.scheduler->is_system_initialized()) {
+        return false;
+    }
+
     AP_CRSF_Telem* telem = AP::crsf_telem();
     if (telem != nullptr) {
         return telem->bind_in_progress();
