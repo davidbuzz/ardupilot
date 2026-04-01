@@ -51,19 +51,34 @@ define HAL_OTG1_BAUD 115200
 # --------------------------------------------------------------------------
 
 # SPI0 - ICM42688P IMU
+# Verified against Laurel schematic:
+#   CIPO=GPIO4, CSn=GPIO1, SCLK=GPIO2, COPI=GPIO3, IRQn=GPIO22.
+# The IMU CLKIN net is also routed to GPIO23, but this RP2350 port does not
+# currently drive or configure that pin for the ICM42688P.
 PA2  SPI0_SCK SPI0
 PA4  SPI0_RX  SPI0
 PA3  SPI0_TX  SPI0
 PA1  ICM42688_CS CS
 PA22 ICM42688_DRDY INPUT
 
-# SPI1 - OSD (AT7456E / MAX7456 compatible)
+# SPI1 - shared OSD and microSD bus
+# Verified against Laurel schematic:
+#   SCLK=GPIO26, COPI/CMD=GPIO27, CIPO/DAT0=GPIO24.
+# Laurel cannot use OSD and microSD at the same time on this hardware.
+# This target chooses microSD support and leaves the hardware OSD SPI device
+# disabled.
+# If a user wants hardware OSD instead, keep the shared SPI1 pins as-is,
+# disable the sdcard entries below, and uncomment the OSD lines in this file.
 PA26 SPI1_SCK  SPI1
 PA24 SPI1_MISO SPI1
 PA27 SPI1_MOSI SPI1
 PA17 AT7456E_CS CS
+PA25 SDCARD_CS  CS
 
 # I2C0 - DPS310 barometer and optional external compass
+# Verified against Laurel schematic:
+#   SCL=GPIO45, SDA=GPIO44, with bus pull-ups fitted.
+# DPS310 SDO is strapped low, so the expected I2C address is 0x76.
 PA45 I2C0_SCL I2C0
 PA44 I2C0_SDA I2C0
 
@@ -95,29 +110,36 @@ PA29 PWM6_B TIM6 PWM(2) GPIO(51)
 PA30 PWM7_A TIM7 PWM(3) GPIO(52)
 PA31 PWM7_B TIM7 PWM(4) GPIO(53)
 
-# Status LEDs
-PA6 LED0 OUTPUT LOW
-PA7 LED1 OUTPUT LOW
+# Status indicators
+PA6 LED_BLUE OUTPUT LOW GPIO(90)
+PA7 LED_GREEN OUTPUT LOW GPIO(91)
+define HAL_GPIO_A_LED_PIN 90
+define HAL_GPIO_B_LED_PIN 91
 
 # Beeper and regulator enables
 PA5  BUZZER OUTPUT LOW GPIO(80)
+define HAL_BUZZER_PIN 80
+# Keep 5V peripherals powered during bring-up, but hold the 9V rail off
+# until the Laurel power tree has been validated on hardware.
 PA14 BEC_5V_EN OUTPUT HIGH
-PA15 BEC_9V_EN OUTPUT HIGH
+PA15 BEC_9V_EN OUTPUT LOW
 
 # Analog inputs on RP2350B-only ADC pins
 PA40 BATT_VOLTAGE_SENS ADC1 SCALE(1)
 PA41 BATT_CURRENT_SENS ADC1 SCALE(1)
 PA42 RSSI_ADC ADC1 SCALE(1)
 
-# WS2812 pad exists on PA38 but RP2350 serial LED output remains disabled in
-# this port, so leave it unbound until a supported backend exists.
+# Laurel has an onboard single-wire RGB LED on PA39, but RP2350 serial LED
+# output remains disabled in this port, so leave it unbound until a supported
+# backend exists.
 
 # --------------------------------------------------------------------------
 # SPI device table
 # --------------------------------------------------------------------------
 
 SPIDEV icm42688 SPI0 DEVID1 ICM42688_CS MODE3 2*MHZ 8*MHZ
-SPIDEV osd      SPI1 DEVID4 AT7456E_CS  MODE0 10*MHZ 10*MHZ
+# SPIDEV osd      SPI1 DEVID4 AT7456E_CS  MODE0 10*MHZ 10*MHZ
+SPIDEV sdcard   SPI1 DEVID3 SDCARD_CS   MODE0 400*KHZ 25*MHZ
 
 # --------------------------------------------------------------------------
 # Feature defaults
@@ -138,7 +160,7 @@ define HAL_WITH_MCU_MONITORING 1
 define HAL_HAVE_IMU_HEATER 0
 define HAL_BARO_ALLOW_INIT_NO_BARO 1
 define AP_INERTIALSENSOR_ALLOW_NO_SENSORS 1
-define HAL_OS_FATFS_IO 0
+define HAL_OS_FATFS_IO 1
 
 # Battery and RSSI channels on RP2350 ADC inputs.
 define HAL_BATT_MONITOR_DEFAULT 4
@@ -176,7 +198,7 @@ define RP_I2C_USE_I2C0                     TRUE
 define HAL_USE_ICU                         FALSE
 define HAL_USE_EICU                        FALSE
 define HAL_USE_MAC                         FALSE
-define HAL_USE_MMC_SPI                     FALSE
+define HAL_USE_MMC_SPI                     TRUE
 define HAL_USE_PWM                         TRUE
 define HAL_DSHOT_ENABLED                   0
 define HAL_SERIALLED_ENABLED               0
@@ -209,6 +231,10 @@ define AP_COMPASS_PROBING_ENABLED          1
 define HAL_I2C_INTERNAL_MASK               0
 define HAL_COMPASS_AUTO_ROT_DEFAULT        2
 
+# Keep the generic OSD framework enabled because MSP DisplayPort on SERIAL1
+# depends on AP_OSD being built, even when the hardware SPI OSD is not fitted.
+# Uncomment the SPIDEV osd line above, and disable the sdcard path above, if
+# SPI1 is being used for hardware OSD instead of the microSD socket.
 define OSD_ENABLED                         1
 define HAL_OSD_TYPE_DEFAULT                1
 ROMFS_WILDCARD libraries/AP_OSD/fonts/font*.bin
@@ -221,11 +247,18 @@ define RP_CORE1_START TRUE
 define RP_PLL_SYS_POSTDIV1 3
 
 # Board-specific notes:
-# - PA38 is routed to WS2812 but serial LED support remains disabled on RP2350.
+# - PA39 is routed to the onboard RGB LED but serial LED support remains
+#   disabled on RP2350.
+# - PA23 is routed to the ICM42688P CLKIN net; left unbound for now.
 # - PA36/PA37 are RX-only board pads (SBUS / ESC telemetry in Betaflight) and
 #   are intentionally not declared until RX-only serial support exists here.
+# - microSD is wired in SPI mode on the shared SPI1 bus with a dedicated
+#   chip-select on PA25.
+# - SPI1 is a hardware either-or choice: microSD or hardware OSD. This target
+#   selects microSD and keeps the hardware OSD SPI device disabled.
 # - The secondary W25Q128 blackbox flash on Laurel is not yet represented in
-#   the RP2350 hwdef path, so only main XIP flash storage is enabled.
+#   the RP2350 hwdef path, so only main XIP flash storage plus microSD are
+#   currently enabled.
 
 # Sensors
 IMU Invensensev3 SPI:icm42688 ROTATION_NONE

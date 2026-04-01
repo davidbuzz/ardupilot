@@ -195,6 +195,12 @@ class upload_fw_pico2(Task.Task):
     def keyword(self):
         return "Uploading Bootloader (UF2/BOOTSEL)"
 
+
+def board_uses_rp2350_bootsel(board_name):
+    '''Return true for boards that use the RP2350 ROM BOOTSEL + picotool path.'''
+    board = board_name.lower()
+    return 'pico2' in board or board == 'laurel'
+
 class set_default_parameters(Task.Task):
     color='CYAN'
     always_run = True
@@ -538,7 +544,7 @@ def chibios_firmware(self):
             hex_task.set_run_after(generate_bin_task)
         
     if self.bld.options.upload:
-        if 'pico2' in self.env.BOARD.lower() and self.bld.env.BOOTLOADER:
+        if board_uses_rp2350_bootsel(self.env.BOARD) and self.bld.env.BOOTLOADER:
             # First-time BL flash: convert to UF2 and load via picotool (requires BOOTSEL mode)
             _upload_task = self.create_task('upload_fw_pico2', src=link_output)
             _upload_task.set_run_after(generate_apj_task)
@@ -783,7 +789,7 @@ def build(bld):
     # For RP2350/Pico2: force board.o out of libch.a so the strong
     # __late_init() (calling halInit/chSysInit) overrides the weak crt1.o stub.
     # boardInit (defined T in ArduPilot's board.o) is used as the pull handle.
-    if 'pico2' in bld.env.BOARD.lower():
+    if board_uses_rp2350_bootsel(bld.env.BOARD):
         bld.env.LINKFLAGS += ['-Wl,--undefined=boardInit']
     # list of functions that will be wrapped to move them out of libc into our
     # own code
