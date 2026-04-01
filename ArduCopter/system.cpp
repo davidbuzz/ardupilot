@@ -21,8 +21,14 @@ void Copter::init_ardupilot()
 #endif
 
     // initialise notify system
+#if defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE
+    // RP2350/Pico2 bring-up: AP_Notify backend allocation currently trips
+    // allocator corruption very early in startup. Skip notify init so core
+    // comms and sensor bring-up can proceed for hardware debugging.
+#else
     notify.init();
     notify_flight_mode();
+#endif
 
     // initialise battery monitor
     battery.init();
