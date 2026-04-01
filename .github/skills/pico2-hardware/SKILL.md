@@ -6,6 +6,17 @@ argument-hint: "What do you need to do? (flash / gdb / openocd / uart-debug / mo
 
 # Pico2 / RP2350 Hardware Skill
 
+## Repository Safety
+
+`git worktree` commands are approval-gated.
+
+Before running any `git worktree add`, `git worktree remove`, `git worktree move`, `git worktree prune`, or any equivalent worktree-management command, the agent must first tell the human:
+- the exact directory/path that will be created, removed, or changed
+- the branch or commit that worktree will use
+- the reason for using a worktree instead of the current checkout
+
+Do not run the command until the user/operator/admin explicitly approves it.
+
 ## Hardware Setup
 
 Two Pico2W boards are used:

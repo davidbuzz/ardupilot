@@ -6,6 +6,7 @@
 - Commit message format (`Subsystem: description`, WIP prefix for local work)
 - Git commit every ~5 minutes during active coding
 - TODO list must always end with: git-commit + review FEATURE_GAP.md for next task
+- `git worktree` commands require explicit prior user/operator/admin consent after stating the intended path/name, target branch or commit, and purpose
 - Coding style (4 spaces, K&R braces, `#pragma once`, snake_case methods)
 - What AI must NOT do (no fabrication, no safety-critical guessing, no submodule edits except ChibiOS RP2350)
 - After fixing one hardware fault, always continue to the next item in FEATURE_GAP.md
