@@ -266,6 +266,9 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
         _usb_tx_poll_calls = 0;
         _usb_tx_poll_success = 0;
         _usb_tx_queue_full_events = 0;
+        _usb_tx_backlog_drops = 0;
+        _usb_tx_timer_ticks = 0;
+        _usb_tx_timer_ticks_with_pending = 0;
     }
 #endif
 
@@ -864,7 +867,6 @@ void UARTDriver::_end()
 
     if (sdef.is_usb) {
 #ifdef HAVE_USB_SERIAL
-
         sduStop((SerialUSBDriver*)sdef.serial);
 #endif
     } else {
@@ -924,6 +926,34 @@ static bool usb_tx_poll_drain(SerialUSBDriver *sdu)
     }
 
     return started_transfer;
+}
+
+static uint16_t usb_try_write_direct(SerialUSBDriver *sdu, const uint8_t *data, uint16_t len)
+{
+    int ret = chnWriteTimeout(sdu, data, len, TIME_IMMEDIATE);
+    if (ret > 0) {
+        (void)usb_tx_poll_drain(sdu);
+        return ret;
+    }
+
+    return 0;
+}
+
+static void usb_try_read_direct(SerialUSBDriver *sdu, ByteBuffer &readbuf, uint32_t &rx_stats_bytes)
+{
+    ByteBuffer::IoVec vec[2];
+    const auto n_vec = readbuf.reserve(vec, readbuf.space());
+    for (int i = 0; i < n_vec; i++) {
+        const int ret = chnReadTimeout(sdu, vec[i].data, vec[i].len, TIME_IMMEDIATE);
+        if (ret <= 0) {
+            break;
+        }
+        readbuf.commit((unsigned)ret);
+        rx_stats_bytes += ret;
+        if ((unsigned)ret < vec[i].len) {
+            break;
+        }
+    }
 }
 #endif // HAVE_USB_SERIAL
 
@@ -996,6 +1026,37 @@ bool UARTDriver::is_usb_active() const
     SerialUSBDriver *sdu = (SerialUSBDriver*)sdef.serial;
     return (sdu->state == SDU_READY) && (usbGetDriverStateI(sdu->config->usbp) == USB_ACTIVE);
 }
+
+bool UARTDriver::is_usb_host_open() const
+{
+#if HAL_USE_SERIAL_USB
+    return is_usb_active() && ::usb_cdc_host_open(sdef.endpoint_id);
+#else
+    return false;
+#endif
+}
+
+void UARTDriver::drop_unopened_usb_tx_backlog()
+{
+#if HAL_USE_SERIAL_USB
+    if (!sdef.is_usb || is_usb_host_open()) {
+        return;
+    }
+
+    // If the host has not opened the CDC port then stale queued output has no value.
+    // Drop it so queue-full remains a short transient instead of a persistent wedge.
+    _writebuf.clear();
+    _usb_tx_backlog_drops++;
+
+    auto *sdu = (SerialUSBDriver *)sdef.serial;
+    chSysLock();
+    obqResetI(&sdu->obqueue);
+    if (sdu->config != nullptr && sdu->config->usbp != nullptr && sdu->config->bulk_in > 0) {
+        sdu->config->usbp->transmitting &= ~(1U << (sdu->config->bulk_in - 1U));
+    }
+    chSysUnlock();
+#endif
+}
 #endif
 
 uint32_t UARTDriver::_available()
@@ -1009,6 +1070,9 @@ uint32_t UARTDriver::_available()
         if (((SerialUSBDriver*)sdef.serial)->config->usbp->state != USB_ACTIVE) {
             return 0;
         }
+
+        WITH_SEMAPHORE(rx_sem);
+        usb_try_read_direct((SerialUSBDriver*)sdef.serial, _readbuf, _rx_stats_bytes);
 #endif
     }
     return _readbuf.available();
@@ -1050,6 +1114,13 @@ ssize_t UARTDriver::_read(uint8_t *buffer, uint16_t count)
         return -1;
     }
 
+    if (sdef.is_usb && _readbuf.available() == 0) {
+#ifdef HAVE_USB_SERIAL
+        WITH_SEMAPHORE(rx_sem);
+        usb_try_read_direct((SerialUSBDriver*)sdef.serial, _readbuf, _rx_stats_bytes);
+#endif
+    }
+
     const uint32_t ret = _readbuf.read(buffer, count);
     if (ret == 0) {
         return 0;
@@ -1077,7 +1148,51 @@ size_t UARTDriver::_write(const uint8_t *buffer, size_t size)
 
     WITH_SEMAPHORE(_write_mutex);
 
+    if (sdef.is_usb && !is_usb_host_open() && _writebuf.available() > 0) {
+        drop_unopened_usb_tx_backlog();
+    }
+
+    if (sdef.is_usb && is_usb_host_open() && _usb_tx_attempts == 0 && _writebuf.available() > 0) {
+        // If the host has just opened after a long disconnected period then any residual
+        // buffered bytes are stale. Drop them so new traffic can be transmitted immediately.
+        _writebuf.clear();
+    }
+
+    if (sdef.is_usb && size > _writebuf.space()) {
+        drop_unopened_usb_tx_backlog();
+    }
+
+    size_t direct_written = 0;
+    if (sdef.is_usb && is_usb_host_open() && size > 0) {
+        auto *sdu = (SerialUSBDriver *)sdef.serial;
+#if HAL_USE_SERIAL_USB
+        _usb_tx_attempts++;
+        _usb_tx_bytes_requested += size;
+#endif
+        direct_written = usb_try_write_direct(sdu, buffer, size);
+#if HAL_USE_SERIAL_USB
+        if (direct_written == 0) {
+            _usb_tx_zero_returns++;
+        } else {
+            _usb_tx_bytes_accepted += direct_written;
+            _usb_tx_poll_calls++;
+            _usb_tx_poll_success++;
+        }
+#endif
+        if (direct_written > 0) {
+            _last_write_completed_us = AP_HAL::micros();
+            _total_written += direct_written;
+            _tx_stats_bytes += direct_written;
+            if (direct_written == size) {
+                return direct_written;
+            }
+            buffer += direct_written;
+            size -= direct_written;
+        }
+    }
+
     size_t ret = _writebuf.write(buffer, size);
+    ret += direct_written;
     if (unbuffered_writes && uart_thread_ctx != nullptr) {
         chEvtSignal(uart_thread_ctx, EVT_TRANSMIT_DATA_READY);
     }
@@ -1303,6 +1418,12 @@ void UARTDriver::write_pending_bytes_NODMA(uint32_t n)
     for (int i = 0; i < n_vec; i++) {
         int ret = -1;
         if (sdef.is_usb) {
+#ifdef HAVE_USB_SERIAL
+            if (!is_usb_host_open()) {
+                drop_unopened_usb_tx_backlog();
+                break;
+            }
+#endif
             ret = 0;
 #ifdef HAVE_USB_SERIAL
 #if HAL_USE_SERIAL_USB
@@ -1334,6 +1455,22 @@ void UARTDriver::write_pending_bytes_NODMA(uint32_t n)
 #if HAL_USE_SERIAL_USB
                 _usb_tx_queue_full_events++;
 #endif
+                drop_unopened_usb_tx_backlog();
+                if (!is_usb_host_open()) {
+                    ret = chnWriteTimeout((SerialUSBDriver*)sdef.serial, vec[i].data, vec[i].len, TIME_IMMEDIATE);
+#if HAL_USE_SERIAL_USB
+                    if (ret == 0) {
+                        _usb_tx_zero_returns++;
+                    }
+#endif
+                    _usb_tx_poll_calls++;
+                    if (usb_tx_poll_drain((SerialUSBDriver*)sdef.serial)) {
+                        _usb_tx_poll_success++;
+                    }
+                }
+            }
+
+            if (ret == 0 && is_usb_active()) {
                 chThdSleepMicroseconds(125);
                 const int retry = chnWriteTimeout((SerialUSBDriver*)sdef.serial, vec[i].data, vec[i].len, TIME_IMMEDIATE);
 #if HAL_USE_SERIAL_USB
@@ -1643,6 +1780,15 @@ void UARTDriver::_tx_timer_tick(void)
     if (!_tx_initialised) {
         return;
     }
+
+#if HAL_USE_SERIAL_USB
+    if (sdef.is_usb) {
+        _usb_tx_timer_ticks++;
+        if (_writebuf.available() > 0) {
+            _usb_tx_timer_ticks_with_pending++;
+        }
+    }
+#endif
 
     if (hd_tx_active) {
         WITH_SEMAPHORE(tx_sem);

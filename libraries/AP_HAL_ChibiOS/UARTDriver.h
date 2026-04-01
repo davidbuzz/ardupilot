@@ -53,6 +53,7 @@ public:
     uint8_t get_usb_parity() const override;
 #ifdef HAVE_USB_SERIAL
     bool is_usb_active() const;
+    bool is_usb_host_open() const;
 #endif
 
     // disable TX/RX pins for unusued uart
@@ -258,6 +259,9 @@ private:
     uint32_t _usb_tx_poll_calls;
     uint32_t _usb_tx_poll_success;
     uint32_t _usb_tx_queue_full_events;
+    uint32_t _usb_tx_backlog_drops;
+    uint32_t _usb_tx_timer_ticks;
+    uint32_t _usb_tx_timer_ticks_with_pending;
 #endif
 
     // we remember config options from set_options to apply on sdStart()
@@ -303,6 +307,7 @@ private:
     void write_pending_bytes_NODMA(uint32_t n);
     void write_pending_bytes(void);
     void read_bytes_NODMA();
+    void drop_unopened_usb_tx_backlog();
 
     void receive_timestamp_update(void);
 

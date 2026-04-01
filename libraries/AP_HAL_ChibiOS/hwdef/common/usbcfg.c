@@ -49,6 +49,7 @@ static cdc_linecoding_t linecoding = {
   {0x00, 0x96, 0x00, 0x00},             /* 38400.                           */
   LC_STOP_1, LC_PARITY_NONE, 8
 };
+static volatile uint16_t control_line_state;
 
 static volatile uint32_t usb_event_configured_count;
 static volatile uint32_t usb_event_reset_count;
@@ -62,6 +63,11 @@ static void usb_event_note(volatile uint32_t *counter)
 {
   *counter = *counter + 1U;
   usb_event_last_tick = chVTGetSystemTimeX();
+}
+
+static void usb_control_line_reset(void)
+{
+  control_line_state = 0;
 }
 
 /*
@@ -284,6 +290,19 @@ uint8_t get_usb_parity(uint16_t endpoint_id)
       return 0;
 }
 
+uint16_t get_usb_control_line_state(uint16_t endpoint_id)
+{
+  if (endpoint_id == 0) {
+    return control_line_state;
+  }
+  return 0;
+}
+
+bool usb_cdc_host_open(uint16_t endpoint_id)
+{
+  return (get_usb_control_line_state(endpoint_id) & 0x1U) != 0;
+}
+
 uint32_t get_usb_event_configured_count(void)
 {
   return usb_event_configured_count;
@@ -399,12 +418,15 @@ static void usb_event(USBDriver *usbp, usbevent_t event) {
     chSysUnlockFromISR();
     return;
   case USB_EVENT_RESET:
+    usb_control_line_reset();
     usb_event_note(&usb_event_reset_count);
     /* fall through */
   case USB_EVENT_UNCONFIGURED:
+    usb_control_line_reset();
     usb_event_note(&usb_event_unconfigured_count);
     /* fall through */
   case USB_EVENT_SUSPEND:
+    usb_control_line_reset();
     usb_event_note(&usb_event_suspend_count);
     chSysLockFromISR();
 
@@ -448,7 +470,7 @@ static bool requests_hook(USBDriver *usbp) {
       usbSetupTransfer(usbp, (uint8_t *)&linecoding, sizeof(linecoding), NULL);
       return true;
     case CDC_SET_CONTROL_LINE_STATE:
-      /* Nothing to do, there are no control lines.*/
+      control_line_state = usbp->setup[2] | ((uint16_t)usbp->setup[3] << 8);
       usbSetupTransfer(usbp, NULL, 0, NULL);
       return true;
     }

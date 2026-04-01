@@ -47,6 +47,8 @@ extern const SerialUSBConfig serusbcfg2;
 #endif //HAL_HAVE_DUAL_USB_CDC
 uint32_t get_usb_baud(uint16_t endpoint_id);
 uint8_t get_usb_parity(uint16_t endpoint_id);
+uint16_t get_usb_control_line_state(uint16_t endpoint_id);
+bool usb_cdc_host_open(uint16_t endpoint_id);
 uint32_t get_usb_event_configured_count(void);
 uint32_t get_usb_event_reset_count(void);
 uint32_t get_usb_event_unconfigured_count(void);
