@@ -12,13 +12,14 @@ How it works
   on each USB reconnect is not a problem.
 * Asserts DTR immediately on open so the ChibiOS SDU driver releases its
   TX hold-off (the board will not send a single byte until DTR is high).
-* Distinguishes printable text from binary MAVLink frames in the display:
-    - Printable UTF-8 runs are printed as-is (early boot DEV_PRINTF output
-      appears here before MAVLink initialises).
+* By default, stdout shows only plain printable text.
+* MAVLink/binary output remains in the raw log file and can be shown on
+    stdout with --show-mavlink.
+* When MAVLink display is enabled:
     - Binary blobs are summarised as  [42 bin]  so the terminal is not
-      flooded with garbage, but the raw bytes are preserved in the .log file.
-* MAVLink STATUSTEXT messages (msgid 253, both v1 0xFE and v2 0xFD framing)
-  are decoded inline and printed with a  [MSG]  prefix so they stand out.
+        flooded with garbage.
+    - MAVLink STATUSTEXT messages (msgid 253, both v1 0xFE and v2 0xFD
+        framing) are decoded inline and printed with a  [MSG]  prefix.
 
 Usage
 -----
@@ -32,8 +33,12 @@ Usage
     python3 libraries/AP_HAL_ChibiOS/hwdef/Pico2/capture_startup.py \\
             --port /dev/ttyACM1 --duration 120
 
-    # show raw hex instead of [N bin] for binary chunks
-    python3 libraries/AP_HAL_ChibiOS/hwdef/Pico2/capture_startup.py --hex
+        # also show MAVLink/binary traffic on stdout
+        python3 libraries/AP_HAL_ChibiOS/hwdef/Pico2/capture_startup.py --show-mavlink
+
+        # show raw hex instead of [N bin] for MAVLink/binary chunks
+        python3 libraries/AP_HAL_ChibiOS/hwdef/Pico2/capture_startup.py \
+            --show-mavlink --hex
 
     # suppress log file
     python3 libraries/AP_HAL_ChibiOS/hwdef/Pico2/capture_startup.py --no-log
@@ -62,9 +67,12 @@ def _find_port_once():
     matches = sorted(glob.glob(BY_ID_GLOB))
     if matches:
         return matches[0]
-    # Fall back to ttyACM* — take the highest-numbered one (debugprobe
-    # usually gets ACM0; the target gets ACM1 or higher)
+    # Fall back to ttyACM* only if there is a plausible target port.
+    # ttyACM0 on its own is usually the debugprobe UART bridge, not the
+    # ArduPilot target, so treat that as "not found" and keep waiting.
     acm = sorted(glob.glob('/dev/ttyACM*'))
+    if len(acm) == 1 and acm[0].endswith('ttyACM0'):
+        return None
     if acm:
         return acm[-1]
     return None
@@ -146,11 +154,12 @@ def _try_parse_statustext(frame_bytes):
 # Output formatting
 # ---------------------------------------------------------------------------
 
-def _print_chunk(data, show_hex, log_fh):
+def _print_chunk(data, show_hex, show_mavlink, log_fh):
     """Print *data* bytes to stdout (and write raw to log_fh).
 
-    Tries to decode runs of printable bytes as UTF-8 text; summarises
-    non-printable runs.  STATUSTEXT frames are decoded inline with [MSG].
+    Tries to decode runs of printable bytes as UTF-8 text. MAVLink/binary
+    content is hidden unless *show_mavlink* is True. STATUSTEXT frames are
+    decoded inline with [MSG] when MAVLink display is enabled.
     """
     if log_fh:
         log_fh.write(data)
@@ -174,7 +183,7 @@ def _print_chunk(data, show_hex, log_fh):
         b = data[i]
 
         # MAVLink frame start?
-        if b in (MAVLINK_V1_STX, MAVLINK_V2_STX) and i + 4 < len(data):
+        if show_mavlink and b in (MAVLINK_V1_STX, MAVLINK_V2_STX) and i + 4 < len(data):
             # Grab enough bytes to attempt parse (max STATUSTEXT frame ~65 B)
             chunk = data[i:i + 256]
             text = _try_parse_statustext(chunk)
@@ -198,8 +207,11 @@ def _print_chunk(data, show_hex, log_fh):
             i += 1
             continue
 
-        # Binary byte — flush text buffer, then emit summary or hex
+        # Binary byte — flush text buffer, then optionally emit summary or hex
         flush_printable()
+        if not show_mavlink:
+            i += 1
+            continue
         # Collect a run of binary bytes
         j = i
         while j < len(data) and not (
@@ -207,6 +219,11 @@ def _print_chunk(data, show_hex, log_fh):
             data[j] in (MAVLINK_V1_STX, MAVLINK_V2_STX)
         ):
             j += 1
+        if j == i:
+            # A non-STATUSTEXT MAVLink frame start byte (0xFD/0xFE) reaches
+            # this path. Consume at least that byte so the parser never stalls
+            # on normal MAVLink traffic.
+            j = i + 1
         bin_chunk = data[i:j]
         if show_hex:
             hex_str = ' '.join(f'{x:02x}' for x in bin_chunk)
@@ -222,23 +239,38 @@ def _print_chunk(data, show_hex, log_fh):
 # Main capture loop
 # ---------------------------------------------------------------------------
 
-def capture(port_path, duration, show_hex, log_path):
+def capture(port_path, duration, show_hex, show_mavlink, log_path):
     try:
         import serial
     except ImportError:
         print("ERROR: pyserial not installed.  Run: pip install pyserial")
         sys.exit(1)
 
-    print(f"Opening {port_path} …", flush=True)
-    try:
-        ser = serial.Serial(port_path, baudrate=115200, timeout=0.1)
-    except serial.SerialException as e:
-        print(f"ERROR: could not open {port_path}: {e}")
-        sys.exit(1)
+    def open_port(path_hint, wait_for_device):
+        resolved = path_hint
+        if path_hint is None or not os.path.exists(path_hint):
+            resolved = find_port(wait=wait_for_device)
+        if not resolved:
+            return None, None
 
-    # Assert DTR so ChibiOS SDU driver releases its TX hold-off.
-    # Without this the board will not send a single byte.
-    ser.dtr = True
+        print(f"Opening {resolved} …", flush=True)
+        try:
+            ser_local = serial.Serial(resolved, baudrate=115200, timeout=0.1)
+        except serial.SerialException as e:
+            if wait_for_device:
+                return None, None
+            print(f"ERROR: could not open {resolved}: {e}")
+            sys.exit(1)
+
+        # Assert DTR so ChibiOS SDU driver releases its TX hold-off.
+        # Without this the board will not send a single byte.
+        ser_local.dtr = True
+        return ser_local, resolved
+
+    ser, port_path = open_port(port_path, wait_for_device=True)
+    if ser is None:
+        print("ERROR: could not find a Pico2 target serial port to capture.")
+        sys.exit(1)
 
     log_fh = None
     if log_path:
@@ -257,11 +289,37 @@ def capture(port_path, duration, show_hex, log_path):
         log_fh.write(header.encode())
 
     total_bytes = 0
+    reconnects = 0
     try:
         while time.time() < t_end:
-            chunk = ser.read(256)   # non-blocking read (timeout=0.1 s)
+            if ser is None:
+                ser, port_path = open_port(None, wait_for_device=True)
+                if ser is None:
+                    time.sleep(0.1)
+                    continue
+                reconnects += 1
+                print(f"[reconnected to {port_path}]", flush=True)
+
+            try:
+                chunk = ser.read(256)   # non-blocking read (timeout=0.1 s)
+            except (serial.SerialException, OSError) as e:
+                print(f"\n[serial disconnect: {e}]", flush=True)
+                try:
+                    ser.close()
+                except Exception:
+                    pass
+                ser = None
+                chunk = b''
+
+            if ser is not None and not os.path.exists(port_path):
+                print("\n[target USB disappeared; waiting for re-enumeration]", flush=True)
+                try:
+                    ser.close()
+                except Exception:
+                    pass
+                ser = None
             if chunk:
-                _print_chunk(bytearray(chunk), show_hex, log_fh)
+                _print_chunk(bytearray(chunk), show_hex, show_mavlink, log_fh)
                 total_bytes += len(chunk)
     except KeyboardInterrupt:
         print("\n[interrupted]")
@@ -269,9 +327,12 @@ def capture(port_path, duration, show_hex, log_path):
         elapsed = time.time() - t_start
         print(f"\n{'─' * 60}")
         print(f"Captured {total_bytes} bytes in {elapsed:.1f} s")
+        if reconnects:
+            print(f"Reconnected {reconnects} time(s) during capture")
         if log_path:
             print(f"Raw log: {log_path}")
-        ser.close()
+        if ser is not None:
+            ser.close()
         if log_fh:
             log_fh.close()
 
@@ -294,7 +355,11 @@ def main():
                         help='Wait up to 120 s for the device to appear '
                              '(useful when run before power-cycling the board)')
     parser.add_argument('--hex', action='store_true',
-                        help='Show hex dump of binary chunks (default: [N bin])')
+                        help='Show hex dump of MAVLink/binary chunks '
+                             '(requires --show-mavlink)')
+    parser.add_argument('--show-mavlink', action='store_true',
+                        help='Show MAVLink/binary traffic on stdout '
+                             '(default: hide it and only print plain text)')
     parser.add_argument('--no-log', action='store_true',
                         help='Do not write a raw log file')
     args = parser.parse_args()
@@ -318,7 +383,7 @@ def main():
         script_dir = os.path.dirname(os.path.abspath(__file__))
         log_path = os.path.join(script_dir, f'startup_{ts}.log')
 
-    capture(port_path, args.duration, args.hex, log_path)
+    capture(port_path, args.duration, args.hex, args.show_mavlink, log_path)
 
 
 if __name__ == '__main__':
