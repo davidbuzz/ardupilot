@@ -2124,7 +2124,10 @@ INCLUDE common.ld
 
         # write out config structures
         for dev in i2c_list:
-            if not dev.startswith('I2C') or dev[3] not in "1234":
+            if not dev.startswith('I2C'):
+                self.error("Bad I2C_ORDER element %s" % dev)
+            valid_i2c_digits = "01234" if self.mcu_series.startswith('PICO2') else "1234"
+            if dev[3] not in valid_i2c_digits:
                 self.error("Bad I2C_ORDER element %s" % dev)
             n = int(dev[3:])
             devlist.append('HAL_I2C%u_CONFIG' % n)

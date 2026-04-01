@@ -737,6 +737,15 @@ ADC1_map = {
 	"PA27"	:	1,
 	"PA28"	:	2,
 	"PA29"	:	3,
+	# RP2350 QFN-80 adds four more ADC-capable GPIOs.
+	"PA40"	:	0,
+	"PA41"	:	1,
+	"PA42"	:	2,
+	"PA43"	:	3,
+	"PA44"	:	4,
+	"PA45"	:	5,
+	"PA46"	:	6,
+	"PA47"	:	7,
     # internal temperature sensor is ADC1_CHAN 4 but we dont map it to a pin
 }
 
