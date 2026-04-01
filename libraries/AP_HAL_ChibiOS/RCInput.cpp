@@ -161,7 +161,11 @@ void RCInput::_timer_tick(void)
 
     if (rcprot.new_input()) {
         WITH_SEMAPHORE(rcin_mutex);
-        _rcin_timestamp_last_signal = AP_HAL::micros();
+        // This field is only used as a change marker for new_input(). Using
+        // a local generation count avoids an expensive hrt_micros64() read in
+        // the RC polling path, which can starve Pico2 USB CDC under GPIO pulse
+        // bursts.
+        _rcin_timestamp_last_signal++;
         _num_channels = rcprot.num_channels();
         _num_channels = MIN(_num_channels, RC_INPUT_MAX_CHANNELS);
         rcprot.read(_rc_values, _num_channels);

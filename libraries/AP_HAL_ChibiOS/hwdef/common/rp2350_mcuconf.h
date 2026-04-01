@@ -56,6 +56,11 @@
 #define RP_IRQ_UART0_PRIORITY               3
 #define RP_IRQ_UART1_PRIORITY               3
 #define RP_IRQ_USB0_PRIORITY                3
+/*
+ * GPIO edge callbacks are used for RC input on Pico2. Keeping the bank IRQ
+ * below USB avoids RC pulse bursts starving CDC completion handling.
+ */
+#define RP_IO_IRQ_BANK0_PRIORITY            10
 #define RP_IRQ_SPI0_PRIORITY                2
 #define RP_IRQ_SPI1_PRIORITY                2
 
