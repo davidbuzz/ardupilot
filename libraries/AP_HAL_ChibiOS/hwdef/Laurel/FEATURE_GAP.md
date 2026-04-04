@@ -1,0 +1,115 @@
+# Laurel (RP2350B) vs CubeBlack (STM32F427) — Feature Gap Analysis
+
+**Branch:** `buzz-rp2350-chibios-v3`  
+**Date:** 2026-04-04 (initial Laurel variant)  
+**Purpose:** Track what is already described in the Laurel hwdef, what is only partially wired up, and what still needs hardware verification on the Laurel RP2350B flight controller target.
+
+This file is the Laurel-target counterpart to `hwdef/Pico2/FEATURE_GAP.md`.
+Unlike Pico2, Laurel is not a generic carrier-board reference target. It is a fixed RP2350B flight controller with an onboard IMU, onboard barometer, shared SPI1 microSD/OSD wiring, regulator enables, status LEDs, buzzer, and ADC pins above GPIO29.
+
+Current Laurel status at a glance:
+
+- The board definition exists and is substantially populated in `hwdef.dat` and `hwdef-bl.dat`.
+- Core platform features match the Pico2-family RP2350 porting work: USB CDC, hardware UARTs, PIO UARTs, PWM, SPI, I2C, ADC, XIP flash storage, watchdog, and the core1 dispatcher path are all represented in the target configuration.
+- Laurel-specific board wiring is now documented in `README.md`, including the fixed ICM42688P + DPS310 sensor stack and the SPI1 either-or choice between microSD and hardware OSD.
+- Most Laurel items still need explicit runtime and hardware verification. This document should be updated as bring-up proceeds.
+
+---
+
+## Legend
+
+- ✅ Code written and configured in the target
+- ⚠️ Present but only partially implemented, constrained, or still awaiting proof
+- ❌ Not implemented or not yet tested on Laurel hardware
+- 🚫 Not feasible on Laurel / RP2350 hardware
+- 💡 Driver/framework already exists; mainly needs Laurel-specific enablement or verification
+
+---
+
+## Features List
+
+| Category | Feature | CubeBlack | Laurel | Status | Tested in hardware | Notes |
+|----------|---------|-----------|--------|--------|--------------------|-------|
+| Serial / UART | USB serial (`SERIAL0`) | OTG1 | OTG1 | ✅ | ❌ not done | Laurel enables `HAL_USE_SERIAL_USB`, `RP_USB_USE_USB1`, and maps `SERIAL0` to USB CDC. This should inherit the RP2350 USB CDC path already used by Pico2, but Laurel-specific runtime verification is still needed. |
+| Serial / UART | Hardware UART0 (`SERIAL1`) | USART2 | UART0 on GPIO12/GPIO13 | ✅ | ❌ not done | Default role is DVTX / MSP DisplayPort. Present in `SERIAL_ORDER` and pinned in `hwdef.dat`. Needs loopback or attached-peripheral validation on Laurel hardware. |
+| Serial / UART | Hardware UART1 (`SERIAL2`) | USART3 | UART1 on GPIO8/GPIO9 | ✅ | ❌ not done | Default role is GPS. Present in `SERIAL_ORDER` and pinned in `hwdef.dat`. Needs baud / pinmux / live GPS verification on Laurel hardware. |
+| Serial / UART | PIOUART0 (`SERIAL3`) | N/A | GPIO20/GPIO21 | ✅ | ❌ not done | Default role is RC input (`DEFAULT_SERIAL3_PROTOCOL SerialProtocol_RCIN`). The generic RP2350 PIOUART path exists, but Laurel-specific end-to-end verification is still pending. |
+| Serial / UART | PIOUART1 (`SERIAL4`) | N/A | GPIO34/GPIO35 | ✅ | ❌ not done | Default role is MAVLink2 AUX port. Present in `SERIAL_ORDER`; needs loopback or telemetry-radio validation on Laurel hardware. |
+| Serial / UART | Extra RX-only pads | N/A | GPIO36/GPIO37 board pads | ❌ | — | Board notes mention additional RX-only pads, but they are intentionally not declared in the current hwdef because this serial path expects full-duplex port definitions. |
+| Serial / UART | RTS/CTS hardware flow control | Some STM32 UARTs | Not declared | ❌ | — | Laurel `hwdef.dat` does not currently declare CTS/RTS lines for its UART ports. |
+| RC Input | RC input via serial protocol | EICU timer / UART | `SERIAL3` default RCIN | ✅ | ❌ not done | Laurel chooses CRSF / ELRS on PIOUART0 by default. Needs live CRSF/ELRS or SBUS-style runtime verification on the board. |
+| RC Output | Standard PWM outputs | 6 + 6 via main + IOMCU | 4 outputs on GPIO28-31 | ✅ | ❌ not done | Laurel maps four PWM outputs on RP2350 PWM slices 6 and 7: GPIO28-31 become ArduPilot GPIOs 50-53. Electrical verification is still pending. |
+| RC Output | DShot | ✅ | — | 🚫 | — | `HAL_DSHOT_ENABLED 0`. RP2350 still lacks the timer-DMA path ArduPilot uses for DShot on STM32 targets. |
+| RC Output | SerialLED / BLHeli-style timing features | ✅ | Onboard RGB LED present but unsupported | ❌ | — | Laurel has a single-wire RGB LED on GPIO39, but `HAL_SERIALLED_ENABLED 0` remains set. No RP2350 Laurel backend is enabled for that LED yet. |
+| RC Output | IOMCU | ✅ STM32F100 | — | 🚫 | — | Laurel, like Pico2, drives outputs directly and has no IOMCU. |
+| SPI | SPI0 IMU bus | SPI1/SPI4 etc. | GPIO2/GPIO4/GPIO3 with CS on GPIO1 | ✅ | ❌ not done | Laurel dedicates SPI0 to the onboard ICM42688P (`IMU Invensensev3 SPI:icm42688`). IMU DRDY is wired to GPIO22. Needs live WHOAMI / sample verification. |
+| SPI | ICM42688P onboard IMU | Board-specific SPI IMU | SPI0 + GPIO1 CS | ✅ | ❌ not done | Sensor is fixed by the Laurel PCB rather than optional carrier wiring. Driver probe is present in `hwdef.dat`, but Laurel hardware bring-up still needs to confirm detection and stable sampling. Explicitly not yet hardware tested on Laurel. |
+| SPI | SPI1 shared OSD / microSD bus | SPI buses separated on Cube | GPIO26/GPIO24/GPIO27 | ⚠️ | ❌ not done | Laurel shares SPI1 between the hardware OSD footprint and the microSD socket. The current target chooses microSD and leaves the OSD `SPIDEV` line commented out. This is a board-level either-or constraint, not just a software choice. |
+| SPI | AT7456E / MAX7456 hardware OSD | MAX7456-class | AT7456E CS on GPIO17 | ⚠️ | ❌ not done | The OSD framework stays enabled because MSP DisplayPort needs AP_OSD built, but the hardware SPI OSD device is intentionally disabled in the current Laurel target. Enabling it means giving up the current SPI-mode microSD path on the shared bus. Explicitly not hardware tested on Laurel. |
+| I2C | I2C0 barometer bus | I2C1/I2C2 | GPIO45/GPIO44 | ✅ | ❌ not done | Laurel uses `I2C0`, not `I2C1`, with pull-ups fitted per the README. This is cleaner than the early Pico2 floating-I2C bring-up case, but still needs live verification. |
+| I2C | DPS310 onboard barometer | MS5611 on CubeBlack variants | I2C0 address `0x76` | ✅ | ❌ not done | `BARO DPS310 I2C:0:0x76` is declared in the Laurel hwdef. Live probe, altitude sanity, and boot-with-baro-present checks remain to be done. Explicitly not hardware tested on Laurel. |
+| I2C | External compass probing | I2C external compass | Same I2C0 bus | ✅ | ❌ not done | `AP_COMPASS_PROBING_ENABLED 1` is set. Needs real external-bus validation if Laurel exposes the bus in a usable connector form. |
+| ADC | Battery voltage sense | Analog pin | GPIO40 / ADC0 | ✅ | ❌ not done | Laurel uses RP2350B-only ADC-capable pins above GPIO29. The channel is declared, but scale remains placeholder (`HAL_BATT_VOLT_SCALE 1.0`). Hardware calibration is still required. |
+| ADC | Battery current sense | Analog pin | GPIO41 / ADC1 | ✅ | ❌ not done | Declared in hwdef with placeholder scale factor `1.0`. Needs calibration against the actual Laurel analog frontend. |
+| ADC | Analog RSSI | Analog pin | GPIO42 / ADC2 | ✅ | ❌ not done | `BOARD_RSSI_ANA_PIN 2` is set for Laurel. Needs live ADC verification and scaling checks. |
+| ADC | MCU temperature sensor | STM32 internal temp | RP2350 ADC temp channel | ✅ | ❌ not done | `HAL_WITH_MCU_MONITORING 1` is enabled, so Laurel should inherit the RP2350 MCU temperature support. Laurel-specific runtime proof is still pending. |
+| Storage | Main parameter storage in XIP flash | FRAM / flash | RP2350 main flash | ✅ | ❌ not done | Laurel uses the same RP2350 XIP flash storage model as Pico2: `STORAGE_FLASH_PAGE 8`, `AP_FLASH_STORAGE_QUAD_PAGE 1`, `HAL_STORAGE_SIZE 8192`. Needs persistence testing on Laurel hardware. |
+| Storage | Flash capacity | 2 MB internal | 8 MB external XIP flash | ✅ | ❌ not done | Laurel declares `FLASH_SIZE_KB 8192`, larger than Pico2. Current layout reserves 32 KB bootloader + 32 KB parameter area, with the rest for the application image. |
+| Storage | microSD in SPI mode | SDIO / microSD | SPI1 + CS on GPIO25 | ✅ | ❌ not done | Laurel enables `HAL_USE_MMC_SPI TRUE` and declares `SPIDEV sdcard` on the shared SPI1 bus. Functional card-detect, mount, and logging verification are still pending. Explicitly not hardware tested on Laurel. |
+| Storage | Secondary blackbox flash (`W25Q128JVPIM`, 128 Mbit) | Some FCs have dedicated logging flash | Mentioned in board notes | ❌ | ❌ not done | Earlier Laurel notes mention a second blackbox flash device, but the current RP2350 hwdef path does not model it yet. Treat as present-in-board-notes but not integrated and not hardware tested on Laurel. |
+| Storage | ROMFS / embedded resources | Embedded data | Enabled | ✅ | ❌ not done | Laurel enables AP_OSD fonts via `ROMFS_WILDCARD libraries/AP_OSD/fonts/font*.bin`. No Laurel-specific ROMFS validation has been recorded yet. |
+| Notify / Board IO | Blue status LED | Board LED | GPIO6 | ✅ | ❌ not done | Exposed as `LED_BLUE`, with `HAL_GPIO_A_LED_PIN 90`. Needs confirmation of polarity and runtime use on real Laurel hardware. Explicitly not hardware tested on Laurel. |
+| Notify / Board IO | Green status LED | Board LED | GPIO7 | ✅ | ❌ not done | Exposed as `LED_GREEN`, with `HAL_GPIO_B_LED_PIN 91`. Needs hardware verification. Explicitly not hardware tested on Laurel. |
+| Notify / Board IO | RGB LED | Single-wire RGB LED | GPIO39 | ❌ | ❌ not done | Laurel has an onboard RGB LED on GPIO39, but the current target leaves it unbound because RP2350 serial LED support is still disabled here. Explicitly not hardware tested on Laurel. |
+| Notify / Board IO | 1-wire LED output | Serial LED style output | GPIO39 path | ❌ | ❌ not done | Board hardware appears to provide a 1-wire LED path via the onboard RGB LED, but no supported Laurel backend is enabled in `hwdef.dat`. Explicitly not hardware tested on Laurel. |
+| Notify / Board IO | Buzzer | Board buzzer | GPIO5 | ✅ | ❌ not done | `HAL_BUZZER_PIN 80` is defined. Needs physical buzzer verification and polarity confirmation. Explicitly not hardware tested on Laurel. |
+| Notify / Board IO | 5 V BEC / regulator enable | Board-specific rail control | GPIO14 | ✅ | ❌ not done | `BEC_5V_EN` is driven high by default in the application. This should be validated against the actual Laurel power tree and downstream loads. Explicitly not hardware tested on Laurel. |
+| Notify / Board IO | 9 V BEC / regulator enable | Board-specific rail control | GPIO15 | ⚠️ | ❌ not done | `BEC_9V_EN` is deliberately held low by default for bring-up. This reflects incomplete hardware validation of the Laurel power rail rather than a missing GPIO definition. Explicitly not hardware tested on Laurel. |
+| Connectors | FTRX connector | Board-specific serial connector | Not broken out in current hwdef | ❌ | ❌ not done | Requested tracking item. The current Laurel hwdef/README do not spell out this connector's exact mapped peripheral path, so keep it listed as a board-level item pending documentation and hardware verification. |
+| Connectors | GNSS connector | GPS connector | Expected to map to `SERIAL2` | ⚠️ | ❌ not done | Requested tracking item. Laurel default GPS role is on UART1 (`SERIAL2`), but connector-level validation on the actual GNSS header has not been recorded. Explicitly not hardware tested on Laurel. |
+| Connectors | I2C connector | External I2C expansion | Expected to share I2C0 | ⚠️ | ❌ not done | Requested tracking item. `AP_COMPASS_PROBING_ENABLED` is on and Laurel has an I2C0 bus, but connector-level bring-up has not been recorded. Explicitly not hardware tested on Laurel. |
+| Connectors | DVTX connector | Video transmitter / MSP DisplayPort | Expected to map to `SERIAL1` | ⚠️ | ❌ not done | Requested tracking item. Laurel defaults `SERIAL1` to MSP DisplayPort, but the physical DVTX connector path has not yet been hardware tested on Laurel. |
+| Connectors | Spare UART connector | AUX / spare serial port | Expected to map to `SERIAL4` | ⚠️ | ❌ not done | Requested tracking item. Laurel defines `SERIAL4` on PIOUART1, but spare-port connector validation has not been recorded. Explicitly not hardware tested on Laurel. |
+| Connectors | Spare IO | Board-specific spare GPIO / pad | Not documented in current hwdef | ❌ | ❌ not done | Requested tracking item. The current Laurel hwdef does not identify a dedicated spare-IO connector contract, so this remains a documentation and hardware-validation gap. |
+| Power / Sensing | ESC current sensor | Analog / telemetry current path | Not identified beyond battery-current ADC path | ❌ | ❌ not done | Requested tracking item. The current Laurel hwdef exposes `BATT_CURRENT_SENS` on ADC1, but does not separately document an ESC-specific current-sense path. Keep this as not hardware tested on Laurel. |
+| Power / Sensing | ESC voltage sensor | Analog / telemetry voltage path | Not identified beyond battery-voltage ADC path | ❌ | ❌ not done | Requested tracking item. The current Laurel hwdef exposes `BATT_VOLTAGE_SENS` on ADC0, but does not separately document an ESC-specific voltage-sense path. Keep this as not hardware tested on Laurel. |
+| Video | CVBS input | Analog video input | Not modelled in current hwdef | ❌ | ❌ not done | Requested tracking item. The current Laurel target documentation does not describe a validated CVBS input path. Listed here explicitly as not hardware tested on Laurel. |
+| Video | CVBS output | Analog video output | Associated with AT7456E/OSD path | ⚠️ | ❌ not done | Requested tracking item. Any CVBS output behavior depends on the hardware OSD/video path, which is not enabled or verified in the current Laurel target. Explicitly not hardware tested on Laurel. |
+| System | Watchdog | ✅ | ✅ | ✅ | ❌ not done | Laurel enables `HAL_USE_WDG` and `HAL_WATCHDOG_ENABLED_DEFAULT 1`. Needs real timeout / recovery proof on Laurel hardware. |
+| System | Hardware RTC | ✅ | — | 🚫 | — | `HAL_USE_RTC FALSE`. Same RP2350 limitation as Pico2: no ArduPilot hardware RTC implementation here. |
+| System | Crash dump | STM32-style crash dump path | Disabled | 🚫 | — | `AP_CRASHDUMP_ENABLED 0`. No Laurel-specific crash-dump backend exists. |
+| System | Gyro FFT / DSP | ✅ on higher-end STM32 targets | Disabled | 🚫 | — | `HAL_GYROFFT_ENABLED 0` and `HAL_WITH_DSP FALSE`. Still deferred on RP2350 Laurel. |
+| System | IMU heater | Some boards support it | Not fitted | 🚫 | — | `HAL_HAVE_IMU_HEATER 0` in Laurel. |
+| Startup / Resilience | Allow boot without barometer | Usually hard-fails | Laurel allows it | ✅ | ❌ not done | `HAL_BARO_ALLOW_INIT_NO_BARO 1` is set, so Laurel is intended to continue booting even if the DPS310 is missing or not responding. This behavior should still be tested explicitly. |
+| Startup / Resilience | Allow boot without IMU | Usually hard-fails | Laurel allows it | ✅ | ❌ not done | `AP_INERTIALSENSOR_ALLOW_NO_SENSORS 1` is set. That makes bring-up easier, but Laurel should still verify both the graceful no-sensor path and the normal sensor-present path. |
+| Startup / Resilience | Main stack increase for RP2350 bring-up | Board-specific | `MAIN_STACK 0x1000` | ✅ | ❌ not done | Laurel inherits the larger MSP strategy used on RP2350 bring-up to reduce early-startup fault risk. |
+| Bootloader | AP bootloader target | ✅ | ✅ | ✅ | ❌ not done | Laurel has a dedicated `hwdef-bl.dat`, `APJ_BOARD_ID AP_HW_RASPBERRYPI_LAUREL`, USB bootloader support, and `APP_START_ADDRESS 0x10010080`. Laurel-specific upload / jump-to-app validation still needs to be recorded. |
+| Bootloader | AP bootloader flashing policy | Some boards allow in-app bootloader flashing | Disabled | ✅ | ❌ not done | `AP_BOOTLOADER_FLASHING_ENABLED 0` is set in the application hwdef. This should be kept in mind during bring-up and documentation. |
+| Bootloader | ROM BOOTSEL path | MCU ROM support | Physical BOOT + RESET buttons | ✅ | ❌ not done | Laurel board notes document BOOT and RESET buttons wired to the RP2350 strap/reset path. The README describes the intended recovery flow, but it still needs explicit bring-up confirmation. |
+| Board ID | APJ board ID | Cube family board IDs | `AP_HW_RASPBERRYPI_LAUREL` | ✅ | ❌ not done | The Laurel board ID is declared in both application and bootloader hwdefs. Runtime upload-tool recognition still needs verification. |
+| Filesystem / Logging | FATFS via microSD | SDIO/FAT on STM32 boards | SPI-mode FATFS | ⚠️ | ❌ not done | Laurel enables `HAL_OS_FATFS_IO 1` together with `HAL_USE_MMC_SPI TRUE`. This should allow filesystem-backed logging, but only once the shared SPI1 microSD path is verified on hardware. |
+| CPU / Architecture | Dual-core RP2350 model | Single-core STM32 | Core0 ChibiOS + core1 dispatcher | ✅ | ❌ not done | Laurel sets `CH_CFG_SMP_MODE FALSE` and `RP_CORE1_START TRUE`, matching the non-SMP RP2350 architecture already used by Pico2. Laurel itself still needs proof that core1 bring-up is stable on this board. |
+| CPU / Architecture | MCU | STM32F427 @ 168 MHz | RP2350B @ 150 MHz | — | — | Laurel uses the RP2350B QFN-80 package, which exposes GPIOs 30-47 and enables the board's ADC40-42 and I2C0 GPIO44/45 choices. |
+| CPU / Architecture | RAM | ~256 KB | ~520 KB | — | — | Same RP2350-family RAM budget as Pico2. |
+| CPU / Architecture | Flash | 2 MB internal | 8 MB external XIP | — | — | Laurel declares a larger 8 MB flash than the Pico2 reference board. |
+| CAN | CAN / DroneCAN | ✅ | — | 🚫 | — | Laurel still runs on RP2350, which has no hardware CAN peripheral. |
+| PWM / Safety | Safety switch | Common on Cube class boards | Disabled | ✅ | ❌ not done | `HAL_HAVE_SAFETY_SWITCH 0`. This is a deliberate Laurel target choice. |
+
+---
+
+## Laurel-Specific Gaps To Close
+
+1. Verify basic boot and USB CDC runtime on real Laurel hardware, including AP bootloader jump-to-app behavior.
+2. Verify fixed onboard sensors: ICM42688P on SPI0 and DPS310 on I2C0.
+3. Verify all declared serial ports, especially `SERIAL3` CRSF/ELRS on PIOUART0 and `SERIAL4` AUX on PIOUART1.
+4. Calibrate Laurel battery voltage and current scaling; current hwdef values are placeholders.
+5. Validate the SPI1 microSD path and decide whether this target should stay microSD-first or gain a hardware-OSD variant.
+6. Confirm board IO polarity and behavior for LEDs, buzzer, and the 5 V / 9 V regulator enable pins.
+7. Decide whether Laurel needs support for the currently unmodelled secondary blackbox flash.
+
+---
+
+## Notes
+
+- Laurel is intentionally more board-specific than Pico2. The fixed sensor and rail wiring should keep this file shorter and less speculative than the Pico2 bring-up log.
+- As Laurel hardware tests are performed, replace broad `❌ not done` entries with concrete results, dates, and root-cause notes in the same style used by the Pico2 feature-gap file.
