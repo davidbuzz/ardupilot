@@ -245,7 +245,13 @@ bool flash_func_erase_apparea_fast(void)
             continue;
         }
         flash_offset_t offset = (flash_offset_t)i * PAGE_SIZE;
-        flash_error_t err = efl_lld_start_erase_block(&EFLD1, offset);
+        /* New EFLv1 API: pass JEDEC cmd, erase granularity, and block number
+         * (block_number = byte_offset / block_size). Use 64KB block erase
+         * command (0xD8) matching BLOCK_SIZE defined above. */
+        flash_error_t err = efl_lld_start_erase_block(&EFLD1,
+                                                      RP_FLASH_CMD_BLOCK_ERASE_64K,
+                                                      BLOCK_SIZE,
+                                                      offset / BLOCK_SIZE);
         if (err != FLASH_NO_ERROR) {
             return false;
         }
