@@ -263,7 +263,21 @@ expected to use the ArduPilot bootloader over USB CDC.
 
 ### SWD / OpenOCD path
 
-Laurel also exposes SWD through:
+Laurel exposes SWD through connector `J12`.
+
+Physical identification:
+
+- `J12` is the only connector that is not on the PCB edge.
+- It is the small 3-pin header near the middle of the board.
+- When the PCB is lying flat on the table, this header "points up".
+
+Pinout, with pin 1 being the pin nearest the board edge:
+
+- Pin 1: `SWCLK`
+- Pin 2: `GND`
+- Pin 3: `SWDIO`
+
+In the hwdef this corresponds to:
 
 - `PC0`: SWCLK
 - `PC1`: SWDIO
