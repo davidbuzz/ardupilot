@@ -210,34 +210,34 @@ void HardFault_Handler(void) {
 #endif
 
 #ifdef HAL_GPIO_PIN_FAULT
-    while (true) {
-        // forced means that another kind of unhandled fault got escalated to a hardfault
-        if (faultType == BusFault) {
-            fault_printf("BUSFAULT\n");
-        } else if (forced) {
-            fault_printf("FORCED HARDFAULT\n");
-        } else {
-            fault_printf("HARDFAULT(%d)\n", int(faultType));
-        }
-        fault_printf("CSFR=0x%08x\n", cfsr);
-        fault_printf("CUR=0x%08x\n", currcore->rlist.current);
-        if (currcore->rlist.current) {
-            fault_printf("NAME=%s\n", currcore->rlist.current->name);
-        }
-        fault_printf("FA=0x%08x\n", faultAddress);
-        fault_printf("PC=0x%08x\n", ctx.pc);
-        fault_printf("LR=0x%08x\n", ctx.lr_thd);
-        fault_printf("R0=0x%08x\n", ctx.r0);
-        fault_printf("R1=0x%08x\n", ctx.r1);
-        fault_printf("R2=0x%08x\n", ctx.r2);
-        fault_printf("R3=0x%08x\n", ctx.r3);
-        fault_printf("R12=0x%08x\n", ctx.r12);
-        fault_printf("XPSR=0x%08x\n", ctx.xpsr);
-        fault_printf("\n\n");
+    // Print fault info once (not in a loop) then fall through to reset
+    // forced means that another kind of unhandled fault got escalated to a hardfault
+    if (faultType == BusFault) {
+        fault_printf("BUSFAULT\n");
+    } else if (forced) {
+        fault_printf("FORCED HARDFAULT\n");
+    } else {
+        fault_printf("HARDFAULT(%d)\n", int(faultType));
     }
+    fault_printf("CSFR=0x%08x\n", cfsr);
+    fault_printf("CUR=0x%08x\n", currcore->rlist.current);
+    if (currcore->rlist.current) {
+        fault_printf("NAME=%s\n", currcore->rlist.current->name);
+    }
+    fault_printf("FA=0x%08x\n", faultAddress);
+    fault_printf("PC=0x%08x\n", ctx.pc);
+    fault_printf("LR=0x%08x\n", ctx.lr_thd);
+    fault_printf("R0=0x%08x\n", ctx.r0);
+    fault_printf("R1=0x%08x\n", ctx.r1);
+    fault_printf("R2=0x%08x\n", ctx.r2);
+    fault_printf("R3=0x%08x\n", ctx.r3);
+    fault_printf("R12=0x%08x\n", ctx.r12);
+    fault_printf("XPSR=0x%08x\n", ctx.xpsr);
+    fault_printf("\n\n");
 #endif
-    //Cause debugger to stop. Ignored if no debugger is attached
-    while(1) {}
+    // Reset the chip so the watchdog/bootloader can recover rather than hanging forever
+    NVIC_SystemReset();
+    while(1) {} // unreachable; satisfies noreturn if compiler requires it
 }
 
 // For the BusFault handler to be active SCB_SHCSR_BUSFAULTENA_Msk should be set in SCB->SHCSR
@@ -277,8 +277,9 @@ void UsageFault_Handler(void) {
     save_fault_watchdog(__LINE__, faultType, faultAddress, (uint32_t)ctx.lr_thd);
 #endif
 
-    //Cause debugger to stop. Ignored if no debugger is attached
-    while(1) {}
+    // Reset the chip so the watchdog/bootloader can recover rather than hanging forever
+    NVIC_SystemReset();
+    while(1) {} // unreachable
 }
 
 void MemManage_Handler(void);
@@ -313,7 +314,9 @@ void MemManage_Handler(void) {
     save_fault_watchdog(__LINE__, faultType, faultAddress, (uint32_t)ctx.lr_thd);
 #endif
 
-    while(1) {}
+    // Reset the chip so the watchdog/bootloader can recover rather than hanging forever
+    NVIC_SystemReset();
+    while(1) {} // unreachable
 }
 #else
 // Handle via Crash Catcher
