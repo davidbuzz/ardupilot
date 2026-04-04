@@ -345,6 +345,24 @@ void pico2_gpio_init(void) {
     palSetLineMode(HAL_GPIO_PIN_SPI1_MOSI, PAL_MODE_ALTERNATE_SPI);
 #endif
 
+    /* Configure I2C GPIO pins to I2C alternate function (FUNCSEL=3).
+     * The ChibiOS RP2350 I2Cv1 LLD (hal_i2c_lld.c) does not configure GPIO
+     * FUNCSEL — it only programs the I2C peripheral controller registers.
+     * Without FUNCSEL=3 the I2C hardware peripheral cannot drive/sample the
+     * SCL and SDA pads: all I2C probe transfers time out silently and sensors
+     * are not detected (DPS310, external compass, etc.).
+     * This mirrors the SPI pin setup block above and must run after halInit()
+     * so that _pal_lld_init()'s reset-unreset of IO_BANK0/PADS_BANK0 does
+     * not clobber the FUNCSEL settings. */
+#if defined(HAL_GPIO_PIN_I2C0_SCL)
+    palSetLineMode(HAL_GPIO_PIN_I2C0_SCL, PAL_MODE_ALTERNATE_I2C);
+    palSetLineMode(HAL_GPIO_PIN_I2C0_SDA, PAL_MODE_ALTERNATE_I2C);
+#endif
+#if defined(HAL_GPIO_PIN_I2C1_SCL)
+    palSetLineMode(HAL_GPIO_PIN_I2C1_SCL, PAL_MODE_ALTERNATE_I2C);
+    palSetLineMode(HAL_GPIO_PIN_I2C1_SDA, PAL_MODE_ALTERNATE_I2C);
+#endif
+
     /* Configure SPI CS pins as output-HIGH (deasserted).
      * On RP2350, GPIO pads reset to FUNCSEL=31 (NULL / high-Z).  The ChibiOS
      * SPI_SELECT_MODE_PAD path drives CS via palClearPad/palSetPad, which writes

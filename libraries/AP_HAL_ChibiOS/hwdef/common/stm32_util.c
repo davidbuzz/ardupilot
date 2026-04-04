@@ -414,17 +414,24 @@ void palLineSetPushPull(ioline_t line, enum PalPushPull pp)
   read mode of a pin for RP2350. Reconstructs the ChibiOS iomode_t from
   hardware: bits 0-22 from IO_BANK0 CTRL, bit 23 from SIO GPIO_OE, bits
   24-31 from PADS_BANK0 GPIO pad register.
+
+  IMPORTANT: For RP2350 PAL, ioline_t encodes the ABSOLUTE GPIO number
+  directly (PAL_LINE(IOPORT1, n) = n for N=0-47, since IOPORT1=0).
+  PAL_PAD(line) gives only bits[4:0] of the line (= pad within port),
+  which is WRONG for GPIO32+ (gives 0-15 instead of 32-47).
+  Must use (uint32_t)line as the absolute GPIO index into IO_BANK0/PADS_BANK0.
  */
 iomode_t palReadLineMode(ioline_t line)
 {
-    uint8_t pad = PAL_PAD(line);
-    uint32_t ctrlbits = IO_BANK0->GPIO[pad].CTRL;
+    /* abspad = absolute GPIO number (0-47) as used by IO_BANK0/PADS_BANK0 */
+    uint32_t abspad = (uint32_t)line;
+    uint32_t ctrlbits = IO_BANK0->GPIO[abspad].CTRL;
     uint32_t oebits;
-    uint32_t padbits = PADS_BANK0->GPIO[pad];
-    if (pad < 32U) {
-        oebits = (SIO->GPIO_OE >> pad) & 1U;
+    uint32_t padbits = PADS_BANK0->GPIO[abspad];
+    if (abspad < 32U) {
+        oebits = (SIO->GPIO_OE >> abspad) & 1U;
     } else {
-        oebits = (SIO->GPIO_HI_OE >> (pad - 32U)) & 1U;
+        oebits = (SIO->GPIO_HI_OE >> (abspad - 32U)) & 1U;
     }
     return (iomode_t)(ctrlbits | (oebits << 23U) | (padbits << 24U));
 }
@@ -432,18 +439,21 @@ iomode_t palReadLineMode(ioline_t line)
 /*
   set pin as pullup, pulldown or floating for RP2350.
   PUE is bit 3 and PDE is bit 2 of PADS_BANK0->GPIO[pad].
+
+  Uses absolute GPIO number — see palReadLineMode comment above.
  */
 void palLineSetPushPull(ioline_t line, enum PalPushPull pp)
 {
-    uint8_t pad = PAL_PAD(line);
-    uint32_t padbits = PADS_BANK0->GPIO[pad];
+    /* abspad = absolute GPIO number (0-47) */
+    uint32_t abspad = (uint32_t)line;
+    uint32_t padbits = PADS_BANK0->GPIO[abspad];
     padbits &= ~((1U << 3U) | (1U << 2U));
     if (pp == PAL_PUSHPULL_PULLUP) {
         padbits |= (1U << 3U);
     } else if (pp == PAL_PUSHPULL_PULLDOWN) {
         padbits |= (1U << 2U);
     }
-    PADS_BANK0->GPIO[pad] = padbits;
+    PADS_BANK0->GPIO[abspad] = padbits;
 }
 #else
 void palLineSetPushPull(ioline_t line, enum PalPushPull pp)
