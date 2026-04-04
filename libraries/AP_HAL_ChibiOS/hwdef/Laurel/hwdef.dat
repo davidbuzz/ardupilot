@@ -14,7 +14,12 @@ define AP_BOOTLOADER_FLASHING_ENABLED 0
 # board ID. See Tools/AP_Bootloader/board_types.txt
 APJ_BOARD_ID AP_HW_RASPBERRYPI_LAUREL
 
-# Laurel uses a 12MHz crystal.
+# Laurel uses a 12 MHz crystal (same as all standard Pico/Pico2W modules).
+# NOTE: on RP2350 this value is emitted as STM32_HSECLK and does NOT directly
+# drive the ChibiOS hardware — RP_XOSCCLK in board.h (hardcoded 12 MHz via an
+# #if !defined guard) is what the XOSC/PLL init actually uses.  Keeping this
+# correct ensures the RTC2US diagnostic macro in Util.cpp produces accurate
+# timing thresholds for thread-profiling warnings.
 OSCILLATOR_HZ 12000000
 
 # 8MB application flash (W25Q64 on the fixed RP2350 QSPI/XIP interface)

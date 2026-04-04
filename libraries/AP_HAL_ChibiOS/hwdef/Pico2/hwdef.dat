@@ -77,8 +77,13 @@ APJ_BOARD_ID AP_HW_RASPBERRYPI_PICO2
 # board. All of the clocks are scaled against this. Typical values are
 # 24000000 or 8000000.
 
-# crystal frequency
-OSCILLATOR_HZ 24000000
+# Pico2 uses a 12 MHz crystal (same as all standard Pico/Pico2W modules).
+# NOTE: on RP2350 this value is emitted as STM32_HSECLK and does NOT directly
+# drive the ChibiOS hardware — RP_XOSCCLK in board.h (hardcoded 12 MHz via an
+# #if !defined guard) is what the XOSC/PLL init actually uses.  Keeping this
+# correct ensures the RTC2US diagnostic macro in Util.cpp produces accurate
+# timing thresholds for thread-profiling warnings.
+OSCILLATOR_HZ 12000000
 
 # On some boards you will need to also set the various PLL values. See
 # the defaults in common/mcuconf.h, and use the define mechanism
