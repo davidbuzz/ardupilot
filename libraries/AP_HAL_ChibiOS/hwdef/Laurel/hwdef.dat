@@ -235,6 +235,11 @@ define RP_USB_USE_USB1                     TRUE
 define PIC02_AVAILABLE                     1
 
 define ALLOW_ARM_NO_COMPASS
+# Re-enabled for Laurel diagnostics so the next hardware run can capture
+# exactly which external-compass probe attempt is stretching startup time.
+# AP_Compass.cpp and ArduCopter/system.cpp now emit timing breadcrumbs around
+# each probe and around AP::compass().init().
+undef AP_COMPASS_PROBING_ENABLED
 define AP_COMPASS_PROBING_ENABLED          1
 define HAL_I2C_INTERNAL_MASK               0
 define HAL_COMPASS_AUTO_ROT_DEFAULT        2

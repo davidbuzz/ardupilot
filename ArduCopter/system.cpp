@@ -109,7 +109,13 @@ void Copter::init_ardupilot()
     DEV_PRINTF("6");
 
     AP::compass().set_log_bit(MASK_LOG_COMPASS);
+    // Laurel/RP2350 debug breadcrumb: compass probing was the next suspected
+    // long-startup fault after the DPS310 path was fixed. Print explicit
+    // stage markers around compass init so boot captures show whether the
+    // stall is inside AP_Compass::init() or later startup code.
+    DEV_PRINTF("COMPASS init begin\n");
     AP::compass().init();
+    DEV_PRINTF("COMPASS init done\n");
 
 #if AP_AIRSPEED_ENABLED
     airspeed.set_log_bit(MASK_LOG_IMU);

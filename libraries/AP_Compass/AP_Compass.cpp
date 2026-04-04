@@ -1600,11 +1600,24 @@ void Compass::probe_i2c_dev(DriverType driver_type, probe_i2c_dev_probefn_t prob
     if (!_driver_enabled(driver_type)) {
         return;
     }
+    const uint32_t probe_start_ms = AP_HAL::millis();
+    DEV_PRINTF("COMPASS probe begin drv=%u bus=%u addr=0x%02x ext=%u\n",
+               (unsigned)driver_type,
+               (unsigned)i2c_bus,
+               (unsigned)i2c_addr,
+               (unsigned)external);
     auto *backend = probefn(
         GET_I2C_DEVICE(i2c_bus, i2c_addr),
         external,
         rotation
         );
+
+    DEV_PRINTF("COMPASS probe %s drv=%u bus=%u addr=0x%02x dt=%lu\n",
+               backend != nullptr ? "ok" : "miss",
+               (unsigned)driver_type,
+               (unsigned)i2c_bus,
+               (unsigned)i2c_addr,
+               (unsigned long)(AP_HAL::millis() - probe_start_ms));
 
     add_backend(driver_type, backend);  // add_backend does nullptr check
 }
