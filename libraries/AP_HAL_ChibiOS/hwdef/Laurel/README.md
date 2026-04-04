@@ -285,6 +285,42 @@ In the hwdef this corresponds to:
 Flash the ELF over SWD with OpenOCD + GDB when doing low-level bring-up or
 when the USB boot path is unavailable.
 
+using *a* dedicated Pico2W for a debugger, running debugprobe_on_pico2.uf2
+    https://github.com/raspberrypi/debugprobe/releases/download/debugprobe-v2.3.0/debugprobe_on_pico2.uf2
+    as the debugger
+    BOOTSEL flash the above file to a Pico2w, label it "debugger", and ..
+
+    Debugger board pin | Debugger GPIO | Target signal        | Notes
+    board pin 3        | GND           | GND                  | Common ground — mandatory
+    board pin 4        | GPIO2         | SWCLK                | SWD clock
+    board pin 5        | GPIO3         | SWDIO                | SWD data
+    optional extras
+    board pin 6        | GPIO4/UART0RX | target GPIO1 (board pin 2) | console RX←TX
+    board pin 7        | GPIO5/UART0TX | target GPIO0 (board pin 1) | console TX→RX
+
+# Get a compatible openocd... eg get premade binaries here:
+    https://github.com/raspberrypi/pico-sdk-tools/releases/tag/v2.1.0-0
+
+    # preereq:
+    sudo apt-get update && sudo apt-get install libhidapi-hidraw0
+
+    cd ~/Downloads
+    wget https://github.com/raspberrypi/pico-sdk-tools/releases/download/v2.1.0-0/openocd-0.12.0+dev-x86_64-lin.tar.gz
+    mkdir ~/openocd-pico
+    mv openocd-0.12.0+dev-x86_64-lin.tar.gz ~/openocd-pico
+    cd ~/openocd-pico
+    tar -zxvf openocd-0.12.0+dev-x86_64-lin.tar.gz
+    ~/openocd-pico/openocd
+        Open On-Chip Debugger 0.12.0+dev-gebec950-dirty (2024-11-25-10:19)
+
+# start openocd and if it finds your usb connected hardware/debugger/picoprobe, leave it running.
+    cp ./Tools/debug/gdb-openocd-rp2350.init .gdbinit
+    ~/openocd-pico/openocd -c "gdb_port 50000" -c "tcl_port 50001" -c "telnet_port 50002" -s ~/openocd-pico/scripts  -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 5000"
+    Error: Error connecting DP: cannot read IDR
+    # if u get this, you didnt plug the second usb cable in, this setup needs both, the target isnt booted/powered.
+    # if it stays running without errors, mentions 'Cortex-M33 r1p0 processor detected' and is last line says ..
+    'Info : Listening on port 50000 for gdb connections', then its working perfectly.
+
 ## Current Laurel-Specific Notes
 
 - Laurel is an RP2350B board, so GPIOs above `GPIO29` are valid and are used heavily.
