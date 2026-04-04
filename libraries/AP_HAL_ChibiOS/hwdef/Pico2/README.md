@@ -53,7 +53,7 @@ board pin 20 = GPIO15   board pin 40 = VBUS
 
 - RP2350 dual-core Cortex-M33 @ 150 MHz (ArduPilot uses one core)
 - 520 KB SRAM
-- 4 MB external QSPI flash (parameter storage in last 32 KB)
+- 4 MB external QSPI flash (parameter storage in pages 8–15, at 0x10008000–0x1000FFFF)
 - USB CDC serial (SERIAL0)
 - 2 hardware UARTs + 3 PIO UARTs (5 telemetry/GPS ports)
 - 8 PWM outputs (GPIO 0–7, 4 PWM slices × 2 channels)

@@ -412,7 +412,7 @@ The Laurel target is 99% the same as Pico2, but its a different pcb with differe
 - RP2350 dual-core Cortex-M33 @ 150 MHz (ArduPilot uses one core)
 
 - 520 KB SRAM
-- 4 MB external QSPI flash (parameter storage in last 32 KB)
+- 4 MB external QSPI flash (parameter storage in pages 8–15, at 0x10008000–0x1000FFFF)
 - USB CDC serial (SERIAL0)
 - 2 hardware UARTs + 3 PIO UARTs (5 telemetry/GPS ports)
 - 8 PWM outputs (GPIO 0–7, 4 PWM slices × 2 channels)
@@ -553,9 +553,9 @@ by defining `HAL_HEATER_GPIO_PIN` in a local hwdef override.
 
 ## Parameter Storage
 
-Parameters are stored in the last 32 KB of the 4 MB QSPI flash
-(sectors 1016–1023). `AP_FLASH_STORAGE_QUAD_PAGE 1` aggregates
-4 × 4 KB physical pages into one 16 KB logical sector for correct
+Parameters are stored in a dedicated 32 KB region at 0x10008000–0x1000FFFF
+(pages 8–15, immediately after the 32 KB bootloader). `AP_FLASH_STORAGE_QUAD_PAGE 1`
+aggregates 4 × 4 KB physical pages into one 16 KB logical sector for correct
 wear-levelling. Storage capacity is 8 KB (vs 16 KB on CubeBlack).
 
 If an external SPI FRAM (ramtron-compatible) is wired to a free
