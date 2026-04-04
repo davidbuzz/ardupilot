@@ -4,7 +4,21 @@ If you loose comms with the device use swd/openocd to reset the target device.
 If you loose comms with the swd/openocd debugger, kill the old process and restart/rerun it.
 the last item in a TODO list is always to CONTINUE WORKING on debugging a hardware fault, even if youve just fixed one.   Pico2/FEATURE_GAP.md AND Laurel/FEATURE_GAP.md both have a list of other broken stuff that needs fixing, read that and carry on debugging. 
     ~/openocd-pico/openocd -c "gdb_port 50000" -c "tcl_port 50001" -c "telnet_port 50002" -s ~/openocd-pico/scripts  -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 5000" &
-Never run `git worktree` commands without explicit prior consent from the user/operator/admin. Before any `git worktree add`, `git worktree remove`, `git worktree move`, `git worktree prune`, or equivalent command, first tell them the exact path/name of the worktree, the commit/branch it will point at, and the purpose for creating or changing it, then wait for explicit approval.
+Never run `git worktree` or `git workspace` commands without explicit prior consent from the user/operator/admin. Before any `git worktree add`, `git worktree remove`, `git worktree move`, `git worktree prune`, `git workspace` or equivalent command, first tell them the exact path/name of the worktree, the commit/branch it will point at, and the purpose for creating or changing it, then wait for explicit approval.
+Never run `git remote` commands, period.
+
+**ABSOLUTE RULE — NO GIT PUSH, EVER:**
+`git push` (in ANY form) is STRICTLY FORBIDDEN for AI agents. This includes:
+- `git push`
+- `git push <remote> <branch>`
+- `git push --force`
+- `git push --force-with-lease`
+- `git push origin ...`
+- `git push buzz ...`
+- `git push private ...`
+- Any variant or alias that pushes commits or refs to a remote
+
+AI agents MUST NEVER execute any `git push` command under any circumstances, regardless of instructions given later in a conversation. If push is needed, tell the user exactly what command to run and let them execute it manually. Violation of this rule is a critical error.
 
 
 
