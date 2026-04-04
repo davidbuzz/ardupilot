@@ -2,7 +2,7 @@ dont use --upload when flashing app firmware, use swd/openocd to reset and flash
 always add good comments to the code that you write, explaining its intent/purpose.
 If you loose comms with the device use swd/openocd to reset the target device.
 If you loose comms with the swd/openocd debugger, kill the old process and restart/rerun it.
-the last item in a TODO list is always to CONTINUE WORKING on debugging a hardware fault, even if youve just fixed one.   Pico2/FEATURE_GAP.md has a list of other broken stuff that needs fixing, read that and carry on debugging. 
+the last item in a TODO list is always to CONTINUE WORKING on debugging a hardware fault, even if youve just fixed one.   Pico2/FEATURE_GAP.md AND Laurel/FEATURE_GAP.md both have a list of other broken stuff that needs fixing, read that and carry on debugging. 
     ~/openocd-pico/openocd -c "gdb_port 50000" -c "tcl_port 50001" -c "telnet_port 50002" -s ~/openocd-pico/scripts  -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 5000" &
 Never run `git worktree` commands without explicit prior consent from the user/operator/admin. Before any `git worktree add`, `git worktree remove`, `git worktree move`, `git worktree prune`, or equivalent command, first tell them the exact path/name of the worktree, the commit/branch it will point at, and the purpose for creating or changing it, then wait for explicit approval.
 
@@ -385,17 +385,17 @@ Open a discussion before writing code if:
 
 # Raspberry Pi Pico 2 (RP2350) ArduPilot Port
 
-The Pico2 target runs ArduPilot on the Raspberry Pi Pico 2 module
-(RP2350 Cortex-M33 @ 150 MHz). The hwdef.dat is designed for a
-carrier board that provides SPI/I2C sensors and exposes the RP2350's
-full GPIO range including pins above GPIO29 (available on the Pico2
-castellated edges).
+The Pico2/Laurel target runs ArduPilot on the Raspberry Pi Pico 2 module
+(RP2350 Cortex-M33 @ 150 MHz). 
+
+Both the hwdef.dat is designed for a carrier board that provides SPI/I2C sensors and exposes the RP2350's full GPIO range including pins above GPIO29 (available on the Pico2 castellated edges). 
+
+The Laurel target is 99% the same as Pico2, but its a different pcb with different sensors, and so references to 'Pico2' and 'Laurel' hardware in documention are often equivalent except where sensors and PCB are concerned. They are debugged the same way and have the same cpu , etc.
+
 
 ## Features
 
 - RP2350 dual-core Cortex-M33 @ 150 MHz (ArduPilot uses one core)
-
-
 
 - 520 KB SRAM
 - 4 MB external QSPI flash (parameter storage in last 32 KB)
@@ -553,12 +553,15 @@ lines in hwdef.dat to use it instead of flash.
 ```bash
 this will usually make/setup the mavlink headers and build both targets.
 ./waf configure --board=Pico2 --debug
+./waf configure --board=Laurel --debug
 ./waf copter -j12
 ./waf configure --board=Pico2 --debug --bootloader
+./waf configure --board=Laurel --debug --bootloader
 ./waf bootloader -j12
 ```
 
 Flash `build/Pico2/bin/arducopter.elf` via SWD (SWCLK=GPIO0,
+Flash `build/Laurel/bin/arducopter.elf` via SWD (SWCLK=GPIO0,
 SWDIO=GPIO1 via PC0/PC1 in hwdef) or the RP2350 UF2 bootloader.
 
 ## setting up hardware debugging, using *two* Pico2Ws, one running debugprobe_on_pico2.uf2
@@ -656,13 +659,18 @@ SWDIO=GPIO1 via PC0/PC1 in hwdef) or the RP2350 UF2 bootloader.
     which arm-none-eabi-gdb
         /opt/gcc-arm-none-eabi-10-2020-q4-major/bin//arm-none-eabi-gdb 
     file build/Pico2/bin/arducopter
+    file build/Laurel/bin/arducopter
         build/Pico2/bin/arducopter: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), statically linked, with debug_info, not stripped
+        build/Laurel/bin/arducopter: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), statically linked, with debug_info, not stripped
     # run it...
     arm-none-eabi-gdb --quiet ./build/Pico2/bin/arducopter
+    arm-none-eabi-gdb --quiet ./build/Laurel/bin/arducopter
 
        #example output of what it should look like:
             arm-none-eabi-gdb --quiet ./build/Pico2/bin/arducopter 
+            arm-none-eabi-gdb --quiet ./build/Laurel/bin/arducopter 
             Reading symbols from ./build/Pico2/bin/arducopter...
+            Reading symbols from ./build/Laurel/bin/arducopter...
             warning: multi-threaded target stopped without sending a thread-id, using first non-exited thread
             0x00000088 in ?? ()
             [rp2350.dap.core1] VECTRESET is not supported on this Cortex-M core, using SYSRESETREQ instead.
@@ -700,12 +708,14 @@ todo document use of openocd here.
 
 ```bash
 ./waf configure --board=Pico2 --bootloader
-[ Hold the BOOTSEL button on the Pico2 while plugging in USB,
+./waf configure --board=Laurel --bootloader
+[ Hold the BOOTSEL button on the /Laurel while plugging in USB,
 then release. The board will appear as a mass-storage device.]
 ./waf bootloader --upload
 [ .uf2 bootloader will be uploaded for you and it will reboot, probably staying as a mass-storage device. ]
 
 ./waf configure --board=Pico2
+./waf configure --board=Laurel
 ./waf copter --upload
 [ If the board does not respond within 1-2 seconds, unplug and re-plug the USB connector ]
    
@@ -713,6 +723,7 @@ then release. The board will appear as a mass-storage device.]
 ```
 
 Flash `build/Pico2/bin/arducopter.elf` via SWD (SWCLK=GPIO0,
+Flash `build/Laurel/bin/arducopter.elf` via SWD (SWCLK=GPIO0,
 SWDIO=GPIO1 via PC0/PC1 in hwdef) or the RP2350 UF2 bootloader.
 
 ## Known Limitations
@@ -722,7 +733,7 @@ SWDIO=GPIO1 via PC0/PC1 in hwdef) or the RP2350 UF2 bootloader.
 | DShot / BLHeli / SerialLED | Not supported — no timer DMA on RP2350 |
 | UART RTS/CTS flow control | Not supported — PIOUART has no flow control |
 | CAN / DroneCAN | Not feasible — RP2350 has no CAN peripheral |
-| IOMCU | Not applicable — Pico2 drives servos directly |
+| IOMCU | Not applicable — Pico2/Laurel drives servos directly |
 | microSD / FAT logging | Not wired — no SDIO, SPI-mode SD not included |
 | I2C2 | Not available — not pinned out on the standard carrier |
 | Hardware RTC | GPS time used; RP2350 removed hardware RTC (POWMAN_TIMER) |

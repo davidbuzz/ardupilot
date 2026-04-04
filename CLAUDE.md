@@ -1,4 +1,4 @@
-# ArduPilot / Pico2 — Claude Code Instructions
+# ArduPilot / Pico2 / Laurel targets  — Claude Code Instructions
 
 ## IMPORTANT: Also read AGENTS.md
 
@@ -13,10 +13,10 @@
 
 ## Skills
 
-This project has a hardware interaction skill for the Raspberry Pi Pico2 / RP2350 target.
+This project has a hardware interaction skill for the Raspberry Pi 'Pico2' dev board, a RP2350 target and a variant with a a custom PCB and different sensors called 'Laurel' with the same cpu.
 
 Use the **`pico2-hardware`** skill (`.github/skills/pico2-hardware/SKILL.md`) whenever:
-- Flashing new firmware to the Pico2 (always use GDB+OpenOCD, never `--upload`)
+- Flashing new firmware to the Pico2 OR Laurel targets (always use GDB+OpenOCD, never `--upload`)
 - Starting or checking OpenOCD (`~/openocd-pico/openocd`)
 - Reading memory/registers on live hardware (OpenOCD telnet on port 50002)
 - Verifying boot-time canary values (e.g. `c1_boot_stage`, `c1_startup_result`)
@@ -38,12 +38,18 @@ Use the **`pico2-hardware`** skill (`.github/skills/pico2-hardware/SKILL.md`) wh
 ```bash
 cd /home/buzz2/ardupilot
 python waf build --target bin/arducopter   # incremental
+pick one of these:
 ./waf configure --board=Pico2 --debug      # after hwdef changes
+./waf configure --board=Laurel --debug      # after hwdef changes
 ```
 
 ## Feature Gap / Work Queue
 
+if we did --board=Pico2, then update this file:
 [`libraries/AP_HAL_ChibiOS/hwdef/Pico2/FEATURE_GAP.md`](libraries/AP_HAL_ChibiOS/hwdef/Pico2/FEATURE_GAP.md) is the AI-maintained task list and status tracker for this port. Read it and keep it up to date:
+if we did --board=Laurel, then update this file:
+[`libraries/AP_HAL_ChibiOS/hwdef/Laurel/FEATURE_GAP.md`](libraries/AP_HAL_ChibiOS/hwdef/Laurel/FEATURE_GAP.md) is the AI-maintained task list and status tracker for this port. Read it and keep it up to date:
+
 
 - **After completing any task**: update the relevant row's status column and notes
 - **When choosing next work**: pick the highest-priority `❌ not done` item
@@ -56,6 +62,8 @@ Legend: ✅ done · ⚠️ partial · ❌ not done · 🚫 not feasible · 💡 
 **Always read these before making hardware-related changes:**
 
 - [`libraries/AP_HAL_ChibiOS/hwdef/Pico2/README.md`](libraries/AP_HAL_ChibiOS/hwdef/Pico2/README.md) — canonical reference for pin assignments, UART/SPI/I2C/PWM mapping, sensor stack, known limitations, and build/flash instructions. If a question involves GPIO numbers, serial ports, sensor buses, or peripheral capabilities, check here first.
+- [`libraries/AP_HAL_ChibiOS/hwdef/Laurel/README.md`](libraries/AP_HAL_ChibiOS/hwdef/Laurel/README.md) — canonical reference for pin assignments, UART/SPI/I2C/PWM mapping, sensor stack, known limitations, and build/flash instructions. If a question involves GPIO numbers, serial ports, sensor buses, or peripheral capabilities, check here first.
+
 
 - [`libraries/AP_HAL_ChibiOS/hwdef/Pico2/datasheet/rp2350_datasheet-no-images.md`](libraries/AP_HAL_ChibiOS/hwdef/Pico2/datasheet/rp2350_datasheet-no-images.md) — local RP2350 datasheet (text, LLM-readable). Use for register layouts, peripheral details (SIO FIFO, PIO, DMA, clocks, etc.).
 
@@ -69,4 +77,4 @@ Key facts from README:
 
 ## Branch
 
-Active branch: `buzz-rp2350-chibios-v2` — RP2350/Pico2 ChibiOS HAL port.
+Active branch: `buzz-rp2350-chibios-v2` — RP2350/Pico2/Laurel ChibiOS HAL port.
