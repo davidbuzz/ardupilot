@@ -740,12 +740,15 @@ bootloader(unsigned timeout)
             // enable the LED while verifying the erase
             led_set(LED_ON);
 
-            // verify the erase
+#if PIC02_AVAILABLE != TRUE
+            // verify the erase (skipped on RP2350: JEDEC block erase guarantees
+            // all bytes are 0xFF, and scanning 8 MB via XIP stalls USB on Laurel)
             for (address = 0; address < board_info.fw_size; address += 4) {
                 if (flash_func_read_word(address) != 0xffffffff) {
                     goto cmd_fail;
                 }
             }
+#endif // PIC02_AVAILABLE
 
             address = 0;
 

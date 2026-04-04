@@ -24,6 +24,9 @@ OSCILLATOR_HZ 12000000
 
 # 8MB application flash (W25Q64 on the fixed RP2350 QSPI/XIP interface)
 FLASH_SIZE_KB 8192
+# The ChibiOS EFLv1 driver defaults RP_FLASH_SIZE to 4MB; override it to the
+# actual flash capacity so efl_lld_program and block-erase accept 8MB offsets.
+define RP_FLASH_SIZE (BOARD_FLASH_SIZE * 1024U)
 # Flash layout:
 #   Bootloader: 0x10000000-0x10007FFF (32KB)
 #   Parameter storage: 0x10008000-0x1000FFFF (32KB)

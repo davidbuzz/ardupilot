@@ -1036,6 +1036,29 @@ bool stm32_flash_write(uint32_t addr, const void *buf, uint32_t count)
     if (addr < RP_FLASH_BASE || addr + count > RP_FLASH_BASE + (uint32_t)(PICO_FLASH_NPAGES * PICO_FLASH_FIXED_PAGE_SIZE * 1024U)) {
         return false;
     }
+    /*
+     * Skip the page program command when every byte is 0xFF.  NOR flash
+     * cells are erased to 1; programming with all-1s changes nothing.
+     * Issuing a no-op PP on an already-erased page still "commits" a
+     * partial-page-program cycle on the W25Q64, which prevents later PP
+     * calls from writing into the same 256-byte page (they are silently
+     * discarded by the flash chip).  Skipping the no-op PP leaves the
+     * page fully available for subsequent partial writes with real data.
+     * This is safe because on erased flash 0xFF is always the initial
+     * state; no bits can be changed from 0→1 by any PP operation anyway.
+     */
+    {
+        const uint8_t *p = (const uint8_t *)buf;
+        uint32_t i;
+        for (i = 0; i < count; i++) {
+            if (p[i] != 0xFF) {
+                break;
+            }
+        }
+        if (i == count) {
+            return true;  /* all bytes already 0xFF: PP is a no-op, skip it */
+        }
+    }
     flash_error_t err = efl_lld_program(&EFLD1, (flash_offset_t)(addr - RP_FLASH_BASE), count, (const uint8_t *)buf);
     return err == FLASH_NO_ERROR;
 #elif defined(STM32F1) || defined(STM32F3)
