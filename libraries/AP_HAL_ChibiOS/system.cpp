@@ -235,9 +235,9 @@ void HardFault_Handler(void) {
     fault_printf("XPSR=0x%08x\n", ctx.xpsr);
     fault_printf("\n\n");
 #endif
-    // Reset the chip so the watchdog/bootloader can recover rather than hanging forever
-    NVIC_SystemReset();
-    while(1) {} // unreachable; satisfies noreturn if compiler requires it
+    // DEBUG: reset commented out so GDB can inspect fault state; re-enable for production
+    // NVIC_SystemReset();
+    while(1) {} // halt here — attach GDB to inspect ctx, cfsr, faultAddress
 }
 
 // For the BusFault handler to be active SCB_SHCSR_BUSFAULTENA_Msk should be set in SCB->SHCSR
@@ -277,9 +277,9 @@ void UsageFault_Handler(void) {
     save_fault_watchdog(__LINE__, faultType, faultAddress, (uint32_t)ctx.lr_thd);
 #endif
 
-    // Reset the chip so the watchdog/bootloader can recover rather than hanging forever
-    NVIC_SystemReset();
-    while(1) {} // unreachable
+    // DEBUG: reset commented out so GDB can inspect fault state; re-enable for production
+    // NVIC_SystemReset();
+    while(1) {} // halt here — attach GDB to inspect ctx, cfsr
 }
 
 void MemManage_Handler(void);
@@ -314,9 +314,9 @@ void MemManage_Handler(void) {
     save_fault_watchdog(__LINE__, faultType, faultAddress, (uint32_t)ctx.lr_thd);
 #endif
 
-    // Reset the chip so the watchdog/bootloader can recover rather than hanging forever
-    NVIC_SystemReset();
-    while(1) {} // unreachable
+    // DEBUG: reset commented out so GDB can inspect fault state; re-enable for production
+    // NVIC_SystemReset();
+    while(1) {} // halt here — attach GDB to inspect ctx, cfsr
 }
 #else
 // Handle via Crash Catcher
