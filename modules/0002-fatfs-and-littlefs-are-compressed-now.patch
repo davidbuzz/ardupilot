@@ -1,7 +1,7 @@
-From a7092ae29f690738a8cd7e422668ebc520c428e0 Mon Sep 17 00:00:00 2001
+From f49258b069995cf3e265f3e86ffa69afe27b7007 Mon Sep 17 00:00:00 2001
 From: David Buzz <davidbuzz@gmail.com>
 Date: Thu, 12 Mar 2026 15:16:56 +1000
-Subject: [PATCH 2/3] fatfs and littlefs are compressed now.
+Subject: [PATCH 2/8] fatfs and littlefs are compressed now.
 
 ---
  .gitignore                         | 2 ++

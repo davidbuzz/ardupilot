@@ -1,7 +1,7 @@
-From 4c0a51b01849c9c91d6155d8e243987ee66a6dbd Mon Sep 17 00:00:00 2001
+From 24167786637cbaccec1a6c244a87df4b45dd0822 Mon Sep 17 00:00:00 2001
 From: David 'Buzz' Bussenschutt <d.bussenschutt@uq.edu.au>
 Date: Mon, 23 Mar 2026 05:04:53 +1000
-Subject: [PATCH 2/3] =?UTF-8?q?WIP=20Pico2:=20SMP=20exploration=20artifact?=
+Subject: [PATCH 4/8] =?UTF-8?q?WIP=20Pico2:=20SMP=20exploration=20artifact?=
  =?UTF-8?q?s=20=E2=80=94=20guarded=20by=20CH=5FCFG=5FSMP=5FMODE?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -36,10 +36,10 @@ Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
  4 files changed, 186 insertions(+), 3 deletions(-)
 
 diff --git a/os/common/ports/ARMv8-M-ML-ALT/chcore.c b/os/common/ports/ARMv8-M-ML-ALT/chcore.c
-index f783483ab9..b2b6031673 100644
+index e5f24b97e1..abf60bac47 100644
 --- a/os/common/ports/ARMv8-M-ML-ALT/chcore.c
 +++ b/os/common/ports/ARMv8-M-ML-ALT/chcore.c
-@@ -149,12 +149,29 @@ uint64_t __port_schedule_next(void) {
+@@ -141,12 +141,29 @@ uint64_t __port_schedule_next(void) {
   *
   * @notapi
   */
@@ -69,7 +69,7 @@ index f783483ab9..b2b6031673 100644
  
  #if CORTEX_USE_FPU == TRUE
    {
-@@ -180,22 +197,27 @@ void port_init(os_instance_t *oip) {
+@@ -172,22 +189,27 @@ void port_init(os_instance_t *oip) {
      __set_CONTROL(control);
      __ISB();
    }
@@ -97,7 +97,7 @@ index f783483ab9..b2b6031673 100644
  
  #if PORT_MPU_INITIALIZE == TRUE
    /* MPU initialization as specified in port options.*/
-@@ -209,6 +231,7 @@ void port_init(os_instance_t *oip) {
+@@ -201,6 +223,7 @@ void port_init(os_instance_t *oip) {
                                        PORT_MPU_RBAR2_INIT, PORT_MPU_RLAR2_INIT,
                                        PORT_MPU_RBAR3_INIT, PORT_MPU_RLAR3_INIT};
      port_init_regions(regs0, &MPU->RNR);
@@ -105,7 +105,7 @@ index f783483ab9..b2b6031673 100644
  
  #if CORTEX_MPU_REGIONS > 4
      static const uint32_t regs4[]  = {MPU_RNR_REGION(4U),
-@@ -242,6 +265,7 @@ void port_init(os_instance_t *oip) {
+@@ -234,6 +257,7 @@ void port_init(os_instance_t *oip) {
  #if (PORT_MPU_INITIALIZE == TRUE) || (PORT_SWITCHED_REGIONS_NUMBER > 0)
    /* MPU is enabled.*/
    mpuEnable(MPU_CTRL_PRIVDEFENA);
@@ -114,10 +114,10 @@ index f783483ab9..b2b6031673 100644
  }
  
 diff --git a/os/common/ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c b/os/common/ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c
-index 7f0efaa94d..9a2e64558a 100644
+index 21d1f0cfd3..9fe957ca6c 100644
 --- a/os/common/ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c
 +++ b/os/common/ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c
-@@ -42,6 +42,20 @@
+@@ -49,6 +49,20 @@
  /* Module local variables.                                                   */
  /*===========================================================================*/
  
@@ -138,7 +138,7 @@ index 7f0efaa94d..9a2e64558a 100644
  /*===========================================================================*/
  /* Module local functions.                                                   */
  /*===========================================================================*/
-@@ -76,12 +90,20 @@ CH_IRQ_HANDLER(VectorA4) {
+@@ -83,12 +97,20 @@ CH_IRQ_HANDLER(VectorA4) {
  
    CH_IRQ_PROLOGUE();
  
@@ -159,7 +159,7 @@ index 7f0efaa94d..9a2e64558a 100644
        port_local_halt();
      }
  #if defined(PORT_HANDLE_FIFO_MESSAGE)
-@@ -93,8 +115,12 @@ CH_IRQ_HANDLER(VectorA4) {
+@@ -100,8 +122,12 @@ CH_IRQ_HANDLER(VectorA4) {
  #endif
    }
  
@@ -172,7 +172,7 @@ index 7f0efaa94d..9a2e64558a 100644
    CH_IRQ_EPILOGUE();
  }
  
-@@ -116,6 +142,16 @@ void __port_smp_init(os_instance_t *oip) {
+@@ -123,6 +149,16 @@ void __port_smp_init(os_instance_t *oip) {
  
  #if CH_CFG_SMP_MODE == TRUE
    /* FIFO handler for this core. RP2350 uses a single shared IRQ 25.*/

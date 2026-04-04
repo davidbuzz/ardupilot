@@ -1,7 +1,8 @@
-From 19fdb56b5296f2eb4cb185dc52a7f34191eb8b6e Mon Sep 17 00:00:00 2001
+From ae1e775c374605b0403c5af1839bc54c064facf5 Mon Sep 17 00:00:00 2001
 From: David Buzz <davidbuzz@gmail.com>
 Date: Sat, 28 Mar 2026 17:30:29 +1000
-Subject: [PATCH] WIP RP2350: PSM-reset core1 before start_core1 FIFO handshake
+Subject: [PATCH 7/8] WIP RP2350: PSM-reset core1 before start_core1 FIFO
+ handshake
 
 Without PSM reset, start_core1() deadlocks if core1 survived a soft
 reset (watchdog/bootloader jump_to_app) still running app code. The
@@ -15,10 +16,10 @@ release so core1 re-enters ROM wait. Makes start_core1 idempotent.
  1 file changed, 16 insertions(+)
 
 diff --git a/os/hal/ports/RP/RP2350/hal_lld.c b/os/hal/ports/RP/RP2350/hal_lld.c
-index 47a4ab995d..7c9410d344 100644
+index 5f79345ec9..69990dff62 100644
 --- a/os/hal/ports/RP/RP2350/hal_lld.c
 +++ b/os/hal/ports/RP/RP2350/hal_lld.c
-@@ -58,6 +58,22 @@ static void start_core1(void) {
+@@ -60,6 +60,22 @@ static void start_core1(void) {
                               (uint32_t)RP_CORE1_ENTRY_POINT};
    unsigned seq;
  

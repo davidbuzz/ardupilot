@@ -1,7 +1,7 @@
-From 15311432eb164805eae5693fc1c95e935a95bb66 Mon Sep 17 00:00:00 2001
+From 9fa5b7f5b732798b32676146bc6bd3574dadf061 Mon Sep 17 00:00:00 2001
 From: David Buzz <davidbuzz@gmail.com>
 Date: Sat, 28 Mar 2026 14:31:08 +1000
-Subject: [PATCH] fix some warnings  in rp2350
+Subject: [PATCH 5/8] fix some warnings  in rp2350
 
 ---
  os/common/ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c | 13 +++++++++++++
