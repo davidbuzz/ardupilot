@@ -550,6 +550,15 @@ bootloader(unsigned timeout)
     uint32_t	read_address = 0;
     uint32_t	first_words[RESERVE_LEAD_WORDS];
     bool done_sync = false;
+#if PIC02_AVAILABLE == TRUE
+    /* Running CRC accumulated during PROG_MULTI so GET_CRC does not need to
+     * read back from flash via XIP (XIP readback is unreliable on Laurel due
+     * to the 8 MB W25Q64 having different timing than the Pico2 4 MB flash).
+     * prog_crc_sum is the crc32 of every byte received so far;
+     * prog_crc_len tracks how many bytes have been accumulated. */
+    uint32_t    prog_crc_sum = 0;
+    uint32_t    prog_crc_len = 0;
+#endif
     uint8_t done_get_device_flags = 0;
     bool done_erase = false;
     static bool done_timer_init;
@@ -712,6 +721,11 @@ bootloader(unsigned timeout)
             // to zero
             done_erase = true;
             timeout = 0;
+#if PIC02_AVAILABLE == TRUE
+            /* Reset the running CRC state for the new upload session. */
+            prog_crc_sum = 0;
+            prog_crc_len = 0;
+#endif
             
             flash_set_keep_unlocked(true);
 
@@ -963,6 +977,15 @@ bootloader(unsigned timeout)
             }
 
             // save the first words and don't program it until everything else is done
+#if PIC02_AVAILABLE == TRUE
+            /* Accumulate CRC over the REAL received bytes BEFORE the first_words
+             * 0xFF masking below corrupts flash_buffer.  The uploader computes its
+             * expected CRC over the original firmware image bytes (including the
+             * real vector-table words at offset 0), so we must do the same here.
+             * prog_crc_len grows by arg bytes each PROG_MULTI call. */
+            prog_crc_sum = crc32_small(prog_crc_sum, flash_buffer.c, arg);
+            prog_crc_len += arg;
+#endif
 #if !BOOT_FROM_EXT_FLASH
             if (address < sizeof(first_words)) {
                 uint8_t n = MIN(sizeof(first_words)-address, arg);
@@ -997,6 +1020,19 @@ bootloader(unsigned timeout)
             // compute CRC of the programmed area
             uint32_t sum = 0;
 
+#if PIC02_AVAILABLE == TRUE
+            /* On RP2350 boards use the CRC accumulated during PROG_MULTI rather
+             * than reading back from flash via XIP.  XIP readback after a fresh
+             * program is unreliable on the Laurel board (W25Q64 8 MB flash).
+             * Pad the tail (unprogrammed area = erased 0xFF) to match what the
+             * uploader computed: uploader CRCs image bytes then extends with
+             * 0xFFFFFFFF words up to fw_size (same loop bounds as below). */
+            sum = prog_crc_sum;
+            for (uint32_t p = prog_crc_len; p < board_info.fw_size; p += 4) {
+                uint32_t fill = 0xFFFFFFFF;
+                sum = crc32_small(sum, (uint8_t *)&fill, sizeof(fill));
+            }
+#else
             for (unsigned p = 0; p < board_info.fw_size; p += 4) {
                 uint32_t bytes;
 
@@ -1010,6 +1046,7 @@ bootloader(unsigned timeout)
                 }
                 sum = crc32_small(sum, (uint8_t *)&bytes, sizeof(bytes));
             }
+#endif // PIC02_AVAILABLE
 
             cout_word(sum);
             break;
