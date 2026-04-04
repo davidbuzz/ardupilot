@@ -50,6 +50,13 @@ protected:
     bool pending_reset;
     bool is_dps310;
 
+    // Diagnostic counters updated by timer(), reported by update() on main thread
+    uint32_t _dbg_calls;
+    uint32_t _dbg_i2c_fail;
+    uint32_t _dbg_not_ready;
+    uint32_t _dbg_success;
+    uint32_t _dbg_last_report_ms;
+
     struct dps280_cal {
         int16_t C0;  // 12bit
         int16_t C1;  // 12bit

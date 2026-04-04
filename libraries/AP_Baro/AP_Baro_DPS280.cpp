@@ -22,6 +22,8 @@
 
 #include <stdio.h>
 #include <AP_Math/definitions.h>
+#include <GCS_MAVLink/GCS.h>
+#include <AP_HAL/AP_HAL.h>
 
 extern const AP_HAL::HAL &hal;
 
@@ -45,6 +47,7 @@ extern const AP_HAL::HAL &hal;
 AP_Baro_DPS280::AP_Baro_DPS280(AP_Baro &baro, AP_HAL::Device &_dev)
     : AP_Baro_Backend(baro)
     , dev(&_dev)
+    , _dbg_calls(0), _dbg_i2c_fail(0), _dbg_not_ready(0), _dbg_success(0), _dbg_last_report_ms(0)
 {
 }
 
@@ -169,13 +172,16 @@ bool AP_Baro_DPS280::init(bool _is_dps310)
     dev->set_chip_select(false);
 
     uint8_t whoami=0;
-    if (!dev->read_registers(DPS280_REG_PID, &whoami, 1) ||
-        whoami != DPS280_WHOAMI) {
+    bool ok_read = dev->read_registers(DPS280_REG_PID, &whoami, 1);
+    DEV_PRINTF("DPS280 init: read=%d whoami=0x%02x (expect 0x%02x)\n",
+               (int)ok_read, (unsigned)whoami, (unsigned)DPS280_WHOAMI);
+    if (!ok_read || whoami != DPS280_WHOAMI) {
         dev->get_semaphore()->give();
         return false;
     }
 
     if (!read_calibration()) {
+        DEV_PRINTF("DPS280 init: read_calibration failed\n");
         dev->get_semaphore()->give();
         return false;
     }
@@ -247,22 +253,51 @@ void AP_Baro_DPS280::timer(void)
     uint8_t buf[6];
     uint8_t ready;
 
+    // Increment diagnostic counter for this timer call
+    _dbg_calls++;
+
     if (pending_reset) {
-        // reset registers after software reset from check_health()
+        // After a soft reset the DPS310 must reload its calibration
+        // coefficients before it will accept a new measurement-mode write.
+        // COEF_RDY (bit7) and SENSOR_RDY (bit6) must both be 1 first.
+        uint8_t mconf = 0;
+        if (!dev->read_registers(DPS280_REG_MCONF, &mconf, 1)) {
+            return;  // I2C fail during recovery - try again next call
+        }
+        if ((mconf & 0xC0) != 0xC0) {
+            // Chip still re-initialising after soft reset - wait
+            return;
+        }
         pending_reset = false;
         set_config_registers();
         return;
     }
 
-    if (!dev->read_registers(DPS280_REG_MCONF, &ready, 1) ||
-        !(ready & (1U<<4)) ||
-        !dev->read_registers(DPS280_REG_PRESS, buf, 3) ||
-        !dev->read_registers(DPS280_REG_TEMP, &buf[3], 3)) {
-        // data not ready
+    if (!dev->read_registers(DPS280_REG_MCONF, &ready, 1)) {
+        // I2C read of MCONF completely failed (timeout, NACK, etc.)
+        _dbg_i2c_fail++;
         err_count++;
         check_health();
         return;
     }
+
+    if (!(ready & (1U<<4))) {
+        // Pressure measurement result not yet available.
+        // This is normal in continuous mode between measurements and must
+        // NOT be counted as an error - doing so caused a reset-loop.
+        _dbg_not_ready++;
+        return;
+    }
+
+    if (!dev->read_registers(DPS280_REG_PRESS, buf, 3) ||
+        !dev->read_registers(DPS280_REG_TEMP, &buf[3], 3)) {
+        // PRS_RDY was set but the data read failed - genuine bus error
+        _dbg_not_ready++;
+        err_count++;
+        check_health();
+        return;
+    }
+    _dbg_success++;
 
     int32_t press = (buf[2]) + (buf[1]<<8) + (buf[0]<<16);
     int32_t temp  = (buf[5]) + (buf[4]<<8) + (buf[3]<<16);
@@ -295,6 +330,17 @@ void AP_Baro_DPS280::timer(void)
 // transfer data to the frontend
 void AP_Baro_DPS280::update(void)
 {
+    // Diagnostic: report timer counters every ~10s from main thread (safe for GCS_SEND_TEXT).
+    // This helps diagnose why DPS310 stays unhealthy after probe succeeds.
+    uint32_t now_ms = AP_HAL::millis();
+    if (now_ms - _dbg_last_report_ms > 10000) {
+        _dbg_last_report_ms = now_ms;
+        GCS_SEND_TEXT(MAV_SEVERITY_DEBUG,
+                      "DPS310 dbg: calls=%u i2c_fail=%u notready=%u ok=%u",
+                      (unsigned)_dbg_calls, (unsigned)_dbg_i2c_fail,
+                      (unsigned)_dbg_not_ready, (unsigned)_dbg_success);
+    }
+
     if (count == 0) {
         return;
     }
