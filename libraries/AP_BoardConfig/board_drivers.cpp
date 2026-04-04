@@ -431,8 +431,11 @@ void AP_BoardConfig::board_setup()
 #if CONFIG_HAL_BOARD == HAL_BOARD_CHIBIOS
     // init needs to be done after boardconfig is read so parameters are set
     hal.gpio->init();
+    DEV_PRINTF("BCFG: gpio.init done\n");
     hal.rcin->init();
+    DEV_PRINTF("BCFG: rcin.init done\n");
     hal.rcout->init();
+    DEV_PRINTF("BCFG: rcout.init done\n");
 #endif
 
 #ifdef HAL_GPIO_PWM_VOLT_PIN
@@ -443,9 +446,12 @@ void AP_BoardConfig::board_setup()
     }
 #endif
     board_setup_uart();
+    DEV_PRINTF("BCFG: board_setup_uart done\n");
     board_setup_sbus();
+    DEV_PRINTF("BCFG: board_setup_sbus done\n");
 #if AP_FEATURE_BOARD_DETECT
     board_setup_drivers();
+    DEV_PRINTF("BCFG: board_setup_drivers done\n");
 #endif
 }
 

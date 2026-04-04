@@ -407,29 +407,37 @@ void AP_Vehicle::setup()
     // initialise stats module
     stats.init();
 #endif
+    DEV_PRINTF("SETUP: stats.init done\n");
 
     BoardConfig.init();
+    DEV_PRINTF("SETUP: BoardConfig.init done\n");
 
 #if HAL_CANMANAGER_ENABLED
     can_mgr.init();
 #endif
+    DEV_PRINTF("SETUP: can_mgr.init done\n");
 
 #if HAL_MSP_ENABLED
     // call MSP init before init_ardupilot to allow for MSP sensors
     msp.init();
 #endif
+    DEV_PRINTF("SETUP: msp.init done\n");
 
 #if HAL_LOGGING_ENABLED
     logger.init(get_log_bitmask(), get_log_structures(), get_num_log_structures());
 #endif
+    DEV_PRINTF("SETUP: logger.init done\n");
 
     // init cargo gripper
 #if AP_GRIPPER_ENABLED
     AP::gripper().init();
 #endif
+    DEV_PRINTF("SETUP: gripper.init done\n");
 
     // init_ardupilot is where the vehicle does most of its initialisation.
+    DEV_PRINTF("SETUP: init_ardupilot begin\n");
     init_ardupilot();
+    DEV_PRINTF("SETUP: init_ardupilot done\n");
 
 #if AP_SCRIPTING_ENABLED
     scripting.init();

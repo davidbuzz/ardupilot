@@ -469,7 +469,12 @@ void AP_BoardConfig::init()
     uint8_t slowdown = constrain_int16(_sdcard_slowdown.get(), 0, 32);
     const uint8_t max_slowdown = 8;
     do {
-        if (AP::FS().retry_mount()) {
+        printf("BCFG: fs.retry begin slow=%u\n", (unsigned int)slowdown);
+        const uint32_t t0_ms = AP_HAL::millis();
+        const bool mount_ok = AP::FS().retry_mount();
+        printf("BCFG: fs.retry %s dt=%lu\n", mount_ok ? "ok" : "miss",
+               (unsigned long)(AP_HAL::millis() - t0_ms));
+        if (mount_ok) {
             break;
         }
         slowdown++;
