@@ -453,6 +453,10 @@ void palLineSetPushPull(ioline_t line, enum PalPushPull pp)
 }
 #endif // F7, H7, F4
 
+#if !defined(RP2350) && !(defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE)
+/* These wrappers exist only on platforms that have a D-cache.  On RP2350
+ * the cacheBuffer* macros expand to no-ops and are used directly via the
+ * header-level #define redirects, so no wrapper function is needed. */
 void stm32_cacheBufferInvalidate(const void *p, size_t size)
 {
     cacheBufferInvalidate(p, size);
@@ -462,6 +466,7 @@ void stm32_cacheBufferFlush(const void *p, size_t size)
 {
     cacheBufferFlush(p, size);
 }
+#endif // !RP2350
 
 
 #ifdef HAL_GPIO_PIN_FAULT

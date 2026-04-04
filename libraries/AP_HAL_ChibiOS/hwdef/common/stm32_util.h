@@ -100,9 +100,21 @@ uint8_t malloc_get_heaps(memory_heap_t **_heaps, const struct memory_region **re
 // flush all dcache
 void memory_flush_all(void);
     
-// UTC system clock handling    
+// UTC system clock handling
+#if defined(RP2350) || (defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE)
+/*
+ * Rename UTC helpers to remove the stm32_ prefix from the RP2350 binary.
+ * stm32_util.c includes this header, so both the function definitions and
+ * all external callers are renamed consistently by the preprocessor.
+ */
+#define stm32_set_utc_usec  rp2350_set_utc_usec
+#define stm32_get_utc_usec  rp2350_get_utc_usec
+void rp2350_set_utc_usec(uint64_t time_utc_usec);
+uint64_t rp2350_get_utc_usec(void);
+#else
 void stm32_set_utc_usec(uint64_t time_utc_usec);
 uint64_t stm32_get_utc_usec(void);
+#endif // RP2350 UTC helpers
 
 // hook for FAT timestamps    
 uint32_t get_fattime(void);
@@ -169,8 +181,18 @@ void set_rtc_backup(uint8_t idx, const uint32_t *v, uint8_t n);
 // get RTC backup registers starting at given idx
 void get_rtc_backup(uint8_t idx, uint32_t *v, uint8_t n);
 
+#if defined(RP2350) || (defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE)
+/*
+ * On RP2350 there is no data cache; cacheBufferInvalidate/Flush are no-ops.
+ * Inline them directly instead of calling stm32_-prefixed wrapper functions
+ * to avoid emitting stm32_ symbols in the RP2350 binary.
+ */
+#define stm32_cacheBufferInvalidate(p, sz)  cacheBufferInvalidate((p), (sz))
+#define stm32_cacheBufferFlush(p, sz)       cacheBufferFlush((p), (sz))
+#else
 void stm32_cacheBufferInvalidate(const void *p, size_t size);
 void stm32_cacheBufferFlush(const void *p, size_t size);
+#endif // RP2350 cacheBuffer
 
 #ifdef HAL_GPIO_PIN_FAULT
 // printf for fault handlers

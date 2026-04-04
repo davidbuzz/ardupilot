@@ -20,6 +20,29 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#if defined(RP2350) || (defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE)
+/*
+ * Rename all stm32_flash_* symbols to rp2350_flash_* for RP2350 builds.
+ * These macros must be defined BEFORE the function declarations below so
+ * that the preprocessor renames both the declarations (introducing
+ * rp2350_flash_* prototypes) and every call site that includes this header.
+ * flash.c also includes this header, so the function definitions are renamed
+ * consistently.  No stm32_-prefixed flash symbols are emitted into the
+ * RP2350 binary.
+ */
+#define stm32_flash_getpageaddr       rp2350_flash_getpageaddr
+#define stm32_flash_getpagesize       rp2350_flash_getpagesize
+#define stm32_flash_getnumpages       rp2350_flash_getnumpages
+#define stm32_flash_erasepage         rp2350_flash_erasepage
+#define stm32_flash_write             rp2350_flash_write
+#define stm32_flash_keep_unlocked     rp2350_flash_keep_unlocked
+#define stm32_flash_ispageerased      rp2350_flash_ispageerased
+#define stm32_flash_protect_flash     rp2350_flash_protect_flash
+#define stm32_flash_unprotect_flash   rp2350_flash_unprotect_flash
+#define stm32_flash_recent_erase      rp2350_flash_recent_erase
+#endif // RP2350
+
 uint32_t stm32_flash_getpageaddr(uint32_t page);
 uint32_t stm32_flash_getpagesize(uint32_t page);
 uint32_t stm32_flash_getnumpages(void);
@@ -36,6 +59,7 @@ void stm32_flash_corrupt(uint32_t addr, bool double_bit);
 #ifndef HAL_BOOTLOADER_BUILD
 bool stm32_flash_recent_erase(void);
 #endif
+
 #ifdef __cplusplus
 }
 #endif
