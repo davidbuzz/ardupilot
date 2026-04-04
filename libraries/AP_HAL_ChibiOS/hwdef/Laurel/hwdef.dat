@@ -168,7 +168,10 @@ define HAL_WITH_MCU_MONITORING 1
 define HAL_HAVE_IMU_HEATER 0
 define HAL_BARO_ALLOW_INIT_NO_BARO 1
 define AP_INERTIALSENSOR_ALLOW_NO_SENSORS 1
-define HAL_OS_FATFS_IO 1
+# Laurel bring-up: keep SPI microSD/FATFS disabled until the shared SPI1
+# storage path is validated. BoardConfig::init() performs mount retries that
+# can dominate startup time when no card is present or the bus is noisy.
+define HAL_OS_FATFS_IO 0
 
 # Battery and RSSI channels on RP2350 ADC inputs.
 define HAL_BATT_MONITOR_DEFAULT 4
@@ -226,8 +229,14 @@ define HAL_USE_WSPI                        FALSE
 # Port roles chosen to match the Laurel carrier wiring.
 define DEFAULT_SERIAL1_PROTOCOL            SerialProtocol_MSP_DisplayPort
 define DEFAULT_SERIAL2_PROTOCOL            SerialProtocol_GPS
-define DEFAULT_SERIAL3_PROTOCOL            SerialProtocol_RCIN
-define DEFAULT_SERIAL4_PROTOCOL            SerialProtocol_MAVLink2
+# During RP2350 bring-up, keep PIOUART ports disabled by default.
+# Floating RX inputs on unconnected external headers can generate high-rate
+# IRQ traffic that starves startup progress before ap.initialised_params.
+# Re-enable at runtime after wiring validation:
+#   SERIAL3_PROTOCOL=23 (RCIN) when CRSF/ELRS receiver is attached
+#   SERIAL4_PROTOCOL=2  (MAVLink2) when an AUX telemetry link is attached
+define DEFAULT_SERIAL3_PROTOCOL            SerialProtocol_None
+define DEFAULT_SERIAL4_PROTOCOL            SerialProtocol_None
 
 define PAL_USE_CALLBACKS                   TRUE
 define PAL_USE_WAIT                        TRUE
@@ -241,6 +250,20 @@ define ALLOW_ARM_NO_COMPASS
 # each probe and around AP::compass().init().
 undef AP_COMPASS_PROBING_ENABLED
 define AP_COMPASS_PROBING_ENABLED          1
+
+# Laurel startup safeguard: limit external-I2C compass probe fan-out to
+# common field hardware while we root-cause the long probe stall path.
+# This keeps external compass support available but avoids probing uncommon
+# backends that add reset/wait sequences during init on an empty bus.
+define AP_COMPASS_BMM150_ENABLED           0
+define AP_COMPASS_BMM350_ENABLED           0
+define AP_COMPASS_MAG3110_ENABLED          0
+define AP_COMPASS_MMC3416_ENABLED          0
+define AP_COMPASS_MMC5XX3_ENABLED          0
+define AP_COMPASS_RM3100_ENABLED           0
+define AP_COMPASS_LSM303D_ENABLED          0
+define AP_COMPASS_LSM9DS1_ENABLED          0
+
 define HAL_I2C_INTERNAL_MASK               0
 define HAL_COMPASS_AUTO_ROT_DEFAULT        2
 
@@ -256,7 +279,8 @@ define __RAMFUNC__     __attribute__((__section__(".ramtext")))
 define __FASTRAMFUNC__ __attribute__((__section__(".ramtext")))
 
 define CH_CFG_SMP_MODE FALSE
-define RP_CORE1_START TRUE
+# Laurel bring-up: run core0-only until core1 launch handshake is stable.
+define RP_CORE1_START FALSE
 define RP_PLL_SYS_POSTDIV1 3
 
 # Board-specific notes:
