@@ -250,6 +250,22 @@ void
 jump_to_app()
 {
     const uint32_t *app_base = (const uint32_t *)(APP_START_ADDRESS);
+#if defined(RP2350)
+    /*
+     * RP2350 app images may start with a picobin/imagedef header at
+     * APP_START_ADDRESS and place the real ARM vector table at +0x80.
+     *
+     * Some picobin header words are validly 0xFFFFFFFF padding, so the generic
+     * "first 8 words must be non-0xFFFFFFFF" check used by STM32 targets can
+     * falsely reject a good RP2350 image and leave the board stuck in BL mode.
+     *
+     * Use the actual vector table location for validity checks and for the
+     * stack/entrypoint validation below.
+     */
+    const uint32_t app_vectors =
+        ((APP_START_ADDRESS & 0xFFU) == 0U) ? (APP_START_ADDRESS + 0x80U) : APP_START_ADDRESS;
+    const uint32_t *const app_vtor = (const uint32_t *)app_vectors;
+#endif
 
 #if AP_CHECK_FIRMWARE_ENABLED
     const auto ok = check_good_firmware();
@@ -272,11 +288,22 @@ jump_to_app()
      * is marked complete by the host. So if they are not 0xffffffff,
      * we should try booting it.
      */
+#if defined(RP2350)
+    /*
+     * For RP2350, validate only the real vector table SP/Reset words.
+     * Picobin lead words can include 0xFFFFFFFF padding by design.
+     */
+    if (app_vtor[0] == 0xffffffffU || app_vtor[1] == 0xffffffffU) {
+        goto exit;
+    }
+    app_base = app_vtor;
+#else
     for (uint8_t i=0; i<RESERVE_LEAD_WORDS; i++) {
         if (app_base[i] == 0xffffffff) {
             goto exit;
         }
     }
+#endif
 
     /*
      * The second word of the app is the entrypoint; it must point within the
