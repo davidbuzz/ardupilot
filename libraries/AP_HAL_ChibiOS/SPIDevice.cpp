@@ -144,6 +144,7 @@ void SPIBus::dma_deallocate(Shared_DMA *ctx)
 SPIDevice::SPIDevice(SPIBus &_bus, SPIDesc &_device_desc)
     : bus(_bus)
     , device_desc(_device_desc)
+    , cs_forced(false)
 {
     set_device_bus(spi_devices[_bus.bus].busid);
     set_device_address(_device_desc.device);
@@ -484,6 +485,14 @@ bool SPIDevice::acquire_bus(bool set, bool skip_cs)
         cs_forced = false;
         bus.dma_handle->unlock();
     } else {
+#if defined(RP2350)
+        // RP2350 pads reset to FUNCSEL=NULL. In SPI_SELECT_MODE_PAD, spiSelectI()
+        // toggles CS via SIO, so the CS line must be routed to SIO output first.
+        // Some boards use custom CS names (for example ICM42688_CS) that are not
+        // covered by board-level GPIO init helper macros.
+        palSetLine(device_desc.pal_line);
+        palSetLineMode(device_desc.pal_line, PAL_MODE_OUTPUT_PUSHPULL);
+#endif
         bus.dma_handle->lock();
         spiAcquireBus(spi_devices[device_desc.bus].driver);              /* Acquire ownership of the bus.    */
         bus.spicfg.ssport = PAL_PORT(device_desc.pal_line);

@@ -864,8 +864,17 @@ void AP_InertialSensor::_start_backends()
 {
     detect_backends();
 
+    GCS_SEND_TEXT(MAV_SEVERITY_INFO, "INS dbg: detected_backends=%u", (unsigned)_backend_count);
+
     for (uint8_t i = 0; i < _backend_count; i++) {
         _backends[i]->start();
+
+        char banner[64];
+        if (_backends[i]->get_output_banner(banner, sizeof(banner))) {
+            GCS_SEND_TEXT(MAV_SEVERITY_INFO, "INS dbg: backend[%u] %s", (unsigned)i, banner);
+        } else {
+            GCS_SEND_TEXT(MAV_SEVERITY_INFO, "INS dbg: backend[%u] started (no banner)", (unsigned)i);
+        }
     }
 
 #if AP_INERTIALSENSOR_ALLOW_NO_SENSORS

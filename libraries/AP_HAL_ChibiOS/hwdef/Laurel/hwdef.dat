@@ -94,9 +94,11 @@ PA44 I2C0_SDA I2C0
 PB0 OTG_FS_DM OTG1
 PB1 OTG_FS_DP OTG1
 
-# SWD debug
-PC0 SWCLK SWD
-PC1 SWDIO SWD
+# SWD debug pins intentionally not declared in the application hwdef.
+# Laurel routes SWDIO on GPIO1, which is also the ICM42688 CS line.
+# Declaring SWD here can leave the pin muxed away from GPIO CS behavior,
+# causing IMU WHOAMI reads to return 0x00. Keep SWD use external via probe,
+# and let the application own GPIO1 as ICM42688_CS.
 
 # UART0 - DVTX / MSP DisplayPort
 PA12 UART0_TX UART0

@@ -205,6 +205,12 @@ AP_InertialSensor_Invensensev3::AP_InertialSensor_Invensensev3(AP_InertialSensor
     : AP_InertialSensor_Backend(imu)
     , rotation(_rotation)
     , dev(std::move(_dev))
+    , dbg_sample_count(0)
+    , dbg_fifo_calls(0)
+    , dbg_fifo_empty(0)
+    , dbg_fifo_xfer_fail(0)
+    , dbg_last_report_ms(0)
+    , dbg_have_sample(false)
 {
 }
 
@@ -227,6 +233,7 @@ AP_InertialSensor_Backend *AP_InertialSensor_Invensensev3::probe(AP_InertialSens
                                                                  enum Rotation _rotation)
 {
     if (!_dev) {
+        DEV_PRINTF("ICM dbg: probe no device\n");
         return nullptr;
     }
 
@@ -236,10 +243,24 @@ AP_InertialSensor_Backend *AP_InertialSensor_Invensensev3::probe(AP_InertialSens
 
     AP_InertialSensor_Invensensev3 *sensor =
         NEW_NOTHROW AP_InertialSensor_Invensensev3(imu, std::move(_dev), _rotation);
-    if (!sensor || !sensor->hardware_init()) {
+    if (sensor == nullptr) {
+        DEV_PRINTF("ICM dbg: probe alloc failed\n");
+        return nullptr;
+    }
+
+    if (!sensor->hardware_init()) {
+        DEV_PRINTF("ICM dbg: hw_init failed who42=0x%02x who456=0x%02x tries=%lu ok=%lu\n",
+                   (unsigned)rp_inv3_probe_last_whoami_42,
+                   (unsigned)rp_inv3_probe_last_whoami_456,
+                   (unsigned long)rp_inv3_probe_attempt_count,
+                   (unsigned long)rp_inv3_probe_success_count);
         delete sensor;
         return nullptr;
     }
+
+    DEV_PRINTF("ICM dbg: probe ok who42=0x%02x who456=0x%02x\n",
+               (unsigned)rp_inv3_probe_last_whoami_42,
+               (unsigned)rp_inv3_probe_last_whoami_456);
 
     return sensor;
 }
@@ -271,6 +292,7 @@ void AP_InertialSensor_Invensensev3::start()
 {
     // pre-fetch instance numbers for checking fast sampling settings
     if (!_imu.get_gyro_instance(gyro_instance) || !_imu.get_accel_instance(accel_instance)) {
+        DEV_PRINTF("ICM dbg: start failed to get gyro/accel instance\n");
         return;
     }
     WITH_SEMAPHORE(dev->get_semaphore());
@@ -404,6 +426,10 @@ void AP_InertialSensor_Invensensev3::start()
 
     // start the timer process to read samples, using the fastest rate avilable
     periodic_handle = dev->register_periodic_callback(backend_period_us, FUNCTOR_BIND_MEMBER(&AP_InertialSensor_Invensensev3::read_fifo, void));
+    DEV_PRINTF("ICM dbg: start ok type=%u backend_hz=%u sample_hz=%u\n",
+               (unsigned)inv3_type,
+               (unsigned)backend_rate_hz,
+               (unsigned)sampling_rate_hz);
 }
 
 // get a startup banner to output to the GCS
@@ -427,6 +453,28 @@ bool AP_InertialSensor_Invensensev3::update()
     update_accel(accel_instance);
     update_gyro(gyro_instance);
     _publish_temperature(accel_instance, temp_filtered);
+
+    const uint32_t now_ms = AP_HAL::millis();
+    if (now_ms - dbg_last_report_ms > 10000U) {
+        dbg_last_report_ms = now_ms;
+        if (dbg_have_sample) {
+            GCS_SEND_TEXT(MAV_SEVERITY_DEBUG,
+                          "ICM dbg: fifo=%lu empty=%lu fail=%lu n=%lu ax=%.3f ay=%.3f az=%.3f gx=%.3f gy=%.3f gz=%.3f t=%.2fC",
+                          (unsigned long)dbg_fifo_calls,
+                          (unsigned long)dbg_fifo_empty,
+                          (unsigned long)dbg_fifo_xfer_fail,
+                          (unsigned long)dbg_sample_count,
+                          (double)dbg_last_accel.x, (double)dbg_last_accel.y, (double)dbg_last_accel.z,
+                          (double)dbg_last_gyro.x,  (double)dbg_last_gyro.y,  (double)dbg_last_gyro.z,
+                          (double)temp_filtered);
+        } else {
+            GCS_SEND_TEXT(MAV_SEVERITY_DEBUG,
+                          "ICM dbg: fifo=%lu empty=%lu fail=%lu n=0 (no samples yet)",
+                          (unsigned long)dbg_fifo_calls,
+                          (unsigned long)dbg_fifo_empty,
+                          (unsigned long)dbg_fifo_xfer_fail);
+        }
+    }
 
     return true;
 }
@@ -486,6 +534,12 @@ bool AP_InertialSensor_Invensensev3::accumulate_samples(const FIFOData *data, ui
         // these four calls are about 40us
         _rotate_and_correct_accel(accel_instance, accel);
         _rotate_and_correct_gyro(gyro_instance, gyro);
+
+        // Keep a latest-value snapshot for throttled debug reporting in update().
+        dbg_last_accel = accel;
+        dbg_last_gyro = gyro;
+        dbg_sample_count++;
+        dbg_have_sample = true;
 
         _notify_new_accel_raw_sample(accel_instance, accel, 0);
         _notify_new_gyro_raw_sample(gyro_instance, gyro);
@@ -549,6 +603,12 @@ bool AP_InertialSensor_Invensensev3::accumulate_highres_samples(const FIFODataHi
         _rotate_and_correct_accel(accel_instance, accel);
         _rotate_and_correct_gyro(gyro_instance, gyro);
 
+        // Keep a latest-value snapshot for throttled debug reporting in update().
+        dbg_last_accel = accel;
+        dbg_last_gyro = gyro;
+        dbg_sample_count++;
+        dbg_have_sample = true;
+
         _notify_new_accel_raw_sample(accel_instance, accel, 0);
         _notify_new_gyro_raw_sample(gyro_instance, gyro);
 
@@ -570,6 +630,8 @@ void AP_InertialSensor_Invensensev3::read_fifo()
     uint8_t reg_data;
     uint8_t* samples = nullptr;
     uint8_t* tfr_buffer = (uint8_t*)fifo_buffer;
+
+    dbg_fifo_calls++;
 
     switch (inv3_type) {
     case Invensensev3_Type::ICM45686:
@@ -597,6 +659,7 @@ void AP_InertialSensor_Invensensev3::read_fifo()
 
     if (n_samples == 0) {
         /* Not enough data in FIFO */
+        dbg_fifo_empty++;
         goto check_registers;
     }
 
@@ -617,6 +680,7 @@ void AP_InertialSensor_Invensensev3::read_fifo()
         // transfer will also be sending data, make sure that data is zero
         memset(tfr_buffer + 1, 0, n * fifo_sample_size);
         if (!dev->transfer_fullduplex(tfr_buffer, n * fifo_sample_size + 1)) {
+            dbg_fifo_xfer_fail++;
             goto check_registers;
         }
         samples = tfr_buffer + 1;
@@ -1059,6 +1123,9 @@ bool AP_InertialSensor_Invensensev3::check_whoami(void)
         return true;
     }
     // not a value WHOAMI result
+    DEV_PRINTF("ICM dbg: whoami miss who42=0x%02x who456=0x%02x\n",
+               (unsigned)rp_inv3_probe_last_whoami_42,
+               (unsigned)rp_inv3_probe_last_whoami_456);
     return false;
 }
 
@@ -1114,6 +1181,7 @@ bool AP_InertialSensor_Invensensev3::hardware_init(void)
     dev->set_speed(AP_HAL::Device::SPEED_LOW);
 
     if (!check_whoami()) {
+        DEV_PRINTF("ICM dbg: hardware_init check_whoami failed\n");
         return false;
     }
 
