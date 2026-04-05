@@ -27,6 +27,13 @@
 
 extern const AP_HAL::HAL &hal;
 
+extern "C" {
+extern volatile uint8_t rp_inv3_probe_last_whoami_42;
+extern volatile uint8_t rp_inv3_probe_last_whoami_456;
+extern volatile uint32_t rp_inv3_probe_attempt_count;
+extern volatile uint32_t rp_inv3_probe_success_count;
+}
+
 #define DPS280_REG_PRESS  0x00
 #define DPS280_REG_TEMP   0x03
 #define DPS280_REG_PCONF  0x06
@@ -349,11 +356,15 @@ void AP_Baro_DPS280::update(void)
         // Include live pressure and temperature so each debug report carries
         // sensor values, not only transport/ready counters.
         GCS_SEND_TEXT(MAV_SEVERITY_DEBUG,
-                      "DPS310 dbg: calls=%u i2c_fail=%u notready=%u ok=%u p=%.2fPa t=%.2fC",
+                      "DPS310 dbg: calls=%u i2c_fail=%u notready=%u ok=%u p=%.2fPa t=%.2fC inv3_try=%lu ok=%lu who42=0x%02x who456=0x%02x",
                       (unsigned)_dbg_calls, (unsigned)_dbg_i2c_fail,
                       (unsigned)_dbg_not_ready, (unsigned)_dbg_success,
                       (double)dbg_pressure,
-                      (double)dbg_temperature);
+                      (double)dbg_temperature,
+                      (unsigned long)rp_inv3_probe_attempt_count,
+                      (unsigned long)rp_inv3_probe_success_count,
+                      (unsigned)rp_inv3_probe_last_whoami_42,
+                      (unsigned)rp_inv3_probe_last_whoami_456);
     }
 
     if (count == 0) {
