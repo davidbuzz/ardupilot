@@ -29,6 +29,7 @@
 
 #include "ch.h"
 #include "hal.h"
+#include "hwdef/common/watchdog.h"
 
 static const struct I2CInfo {
     I2CDriver *i2c;
@@ -398,11 +399,31 @@ bool I2CDevice::_transfer(const uint8_t *send, uint32_t send_len,
         bus.dma_handle->lock();
 
         i2cStart(I2CD[bus.busnum].i2c, &bus.i2ccfg);
+
+#if PIC02_AVAILABLE == TRUE
+        /*
+         * RP2350: the LLD does not use the extended API, so i2cStart() always
+         * transitions the driver to READY.  Use a soft early-out instead of an
+         * assert so that a misbehaving I2C peripheral cannot trigger
+         * _unhandled_exception() -> NVIC_SystemReset() on RP2350.
+         */
+        if (I2CD[bus.busnum].i2c->state != I2C_READY) {
+            bus.dma_handle->unlock();
+            continue;
+        }
+#else
         osalDbgAssert(I2CD[bus.busnum].i2c->state == I2C_READY, "i2cStart state");
+#endif
 
         osalSysLock();
         hal.util->persistent_data.i2c_count++;
         osalSysUnlock();
+
+#if PIC02_AVAILABLE == TRUE
+        /* Pat the watchdog on RP2350: I2C probing of absent devices can be
+         * slow enough to starve the 2-second watchdog between main-loop iters. */
+        stm32_watchdog_pat();
+#endif
 
         if(send_len == 0) {
             ret = i2cMasterReceiveTimeout(I2CD[bus.busnum].i2c, _address, recv, recv_len, chTimeMS2I(timeout_ms));
@@ -412,7 +433,19 @@ bool I2CDevice::_transfer(const uint8_t *send, uint32_t send_len,
         }
 
         i2cStop(I2CD[bus.busnum].i2c);
-        osalDbgAssert(I2CD[bus.busnum].i2c->state == I2C_STOP, "i2cStart state");
+
+#if PIC02_AVAILABLE == TRUE
+        /*
+         * RP2350: soft check — a stuck LLD cannot be allowed to panic the
+         * board; skip this retry instead of asserting.
+         */
+        if (I2CD[bus.busnum].i2c->state != I2C_STOP) {
+            bus.dma_handle->unlock();
+            continue;
+        }
+#else
+        osalDbgAssert(I2CD[bus.busnum].i2c->state == I2C_STOP, "i2cStop state");
+#endif
 
         bus.dma_handle->unlock();
 
