@@ -39,6 +39,17 @@
 
 extern const AP_HAL::HAL& hal;
 
+extern "C" {
+/*
+    RP2350/Laurel probe breadcrumbs for SWD debugging.
+    These remain readable in GDB even if probe() fails before GCS output.
+ */
+volatile uint8_t rp_inv3_probe_last_whoami_42 = 0;
+volatile uint8_t rp_inv3_probe_last_whoami_456 = 0;
+volatile uint32_t rp_inv3_probe_attempt_count = 0;
+volatile uint32_t rp_inv3_probe_success_count = 0;
+}
+
 // set bit 0x80 in register ID for read on SPI
 #define BIT_READ_FLAG                           0x80
 
@@ -1002,37 +1013,49 @@ void AP_InertialSensor_Invensensev3::set_filter_and_scaling_icm456xy(void)
  */
 bool AP_InertialSensor_Invensensev3::check_whoami(void)
 {
+    rp_inv3_probe_attempt_count++;
+
     uint8_t whoami = register_read(INV3REG_WHOAMI);
+    rp_inv3_probe_last_whoami_42 = whoami;
 
     switch (whoami) {
     case INV3_ID_ICM40609:
         inv3_type = Invensensev3_Type::ICM40609;
+        rp_inv3_probe_success_count++;
         return true;
     case INV3_ID_ICM42688_P:
     case INV3_ID_ICM42688_V:
         inv3_type = Invensensev3_Type::ICM42688;
+        rp_inv3_probe_success_count++;
         return true;
     case INV3_ID_ICM42605:
         inv3_type = Invensensev3_Type::ICM42605;
+        rp_inv3_probe_success_count++;
         return true;
     case INV3_ID_ICM40605:
         inv3_type = Invensensev3_Type::ICM40605;
+        rp_inv3_probe_success_count++;
         return true;
     case INV3_ID_IIM42652:
         inv3_type = Invensensev3_Type::IIM42652;
+        rp_inv3_probe_success_count++;
         return true;
     case INV3_ID_IIM42653:
         inv3_type = Invensensev3_Type::IIM42653;
+        rp_inv3_probe_success_count++;
         return true;
     case INV3_ID_ICM42670:
         inv3_type = Invensensev3_Type::ICM42670;
+        rp_inv3_probe_success_count++;
         return true;
     }
     // check 456 who am i
     whoami = register_read(INV3REG_456_WHOAMI);
+    rp_inv3_probe_last_whoami_456 = whoami;
     switch (whoami) {
     case INV3_ID_ICM45686:
         inv3_type = Invensensev3_Type::ICM45686;
+        rp_inv3_probe_success_count++;
         return true;
     }
     // not a value WHOAMI result
