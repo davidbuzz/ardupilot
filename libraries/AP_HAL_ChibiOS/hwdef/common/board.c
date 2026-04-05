@@ -413,6 +413,19 @@ void pico2_gpio_init(void) {
     palSetLine(HAL_GPIO_PIN_GYRO_EXT_CS);
     palSetLineMode(HAL_GPIO_PIN_GYRO_EXT_CS, PAL_MODE_OUTPUT_PUSHPULL);
 #endif
+
+  /* Configure board status LEDs as SIO outputs.
+   * Some RP2350 bring-up paths can leave GPIOs in a non-SIO function after
+   * reset-domain churn; explicitly restoring push-pull output mode here keeps
+   * board LED behavior deterministic for AP_Notify and hardware diagnostics.
+   * We do not force output level in this block so existing hwdef/AP_Notify
+   * polarity and state ownership remain unchanged. */
+#if defined(HAL_GPIO_PIN_LED_BLUE)
+  palSetLineMode(HAL_GPIO_PIN_LED_BLUE, PAL_MODE_OUTPUT_PUSHPULL);
+#endif
+#if defined(HAL_GPIO_PIN_LED_GREEN)
+  palSetLineMode(HAL_GPIO_PIN_LED_GREEN, PAL_MODE_OUTPUT_PUSHPULL);
+#endif
 }
 #endif //PIC02_AVAILABLE
 
