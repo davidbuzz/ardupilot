@@ -200,8 +200,8 @@ bool AP_Baro_DPS280::init(bool _is_dps310)
     
     dev->get_semaphore()->give();
 
-    // request 64Hz update. New data will be available at 32Hz
-    dev->register_periodic_callback((1000 / 64) * AP_USEC_PER_MSEC, FUNCTOR_BIND_MEMBER(&AP_Baro_DPS280::timer, void));
+    // poll at 32Hz to match configured sensor output data rate
+    dev->register_periodic_callback((1000 / 32) * AP_USEC_PER_MSEC, FUNCTOR_BIND_MEMBER(&AP_Baro_DPS280::timer, void));
 
     return true;
 }
@@ -330,15 +330,30 @@ void AP_Baro_DPS280::timer(void)
 // transfer data to the frontend
 void AP_Baro_DPS280::update(void)
 {
+    float dbg_pressure = 0.0f;
+    float dbg_temperature = last_temperature;
+
     // Diagnostic: report timer counters every ~10s from main thread (safe for GCS_SEND_TEXT).
     // This helps diagnose why DPS310 stays unhealthy after probe succeeds.
     uint32_t now_ms = AP_HAL::millis();
+
+    // Snapshot one representative sensor sample for debug output.
+    WITH_SEMAPHORE(_sem);
+    if (count > 0) {
+        dbg_pressure = pressure_sum / count;
+        dbg_temperature = temperature_sum / count;
+    }
+
     if (now_ms - _dbg_last_report_ms > 10000) {
         _dbg_last_report_ms = now_ms;
+        // Include live pressure and temperature so each debug report carries
+        // sensor values, not only transport/ready counters.
         GCS_SEND_TEXT(MAV_SEVERITY_DEBUG,
-                      "DPS310 dbg: calls=%u i2c_fail=%u notready=%u ok=%u",
+                      "DPS310 dbg: calls=%u i2c_fail=%u notready=%u ok=%u p=%.2fPa t=%.2fC",
                       (unsigned)_dbg_calls, (unsigned)_dbg_i2c_fail,
-                      (unsigned)_dbg_not_ready, (unsigned)_dbg_success);
+                      (unsigned)_dbg_not_ready, (unsigned)_dbg_success,
+                      (double)dbg_pressure,
+                      (double)dbg_temperature);
     }
 
     if (count == 0) {
