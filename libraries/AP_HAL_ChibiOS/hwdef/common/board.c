@@ -56,38 +56,15 @@
  */
 void __attribute__((noreturn)) _unhandled_exception(void)
 {
-  /* Persist a breadcrumb so SYSRESETREQ loops can be identified post-reset.
-   * SCRATCH[5] = exception number (IPSR); SCRATCH[4] = VTOR value at crash;
-   * SCRATCH[3] = vector table entry for the crashing exception;
-   * SCRATCH[2] = MSP value at crash (to detect stack issues);
-   * SCRATCH[1] = [MSP+4] (saved LR in exception handler frame).
-   * All survive the SYSRESETREQ and can be read via OpenOCD/GDB. */
-  uint32_t ipsr = __get_IPSR();
-  uint32_t vtor = SCB->VTOR;
-  uint32_t vec_entry = ((volatile uint32_t *)vtor)[ipsr]; /* what vector table said */
-  uint32_t msp_val;
-  __asm__ volatile ("mrs %0, msp" : "=r"(msp_val));
+  /* Persist a breadcrumb so SYSRESETREQ loops can be identified post-reset. */
   WATCHDOG->SCRATCH[RP2350_RESET_DIAG_SCRATCH_IDX] = RP2350_RESET_DIAG_UNHANDLED_EXCEPTION;
-  WATCHDOG->SCRATCH[5] = ipsr;      /* exception number: 16+IRQn for external IRQs */
-  WATCHDOG->SCRATCH[4] = vtor;      /* VTOR value at crash time */
-  WATCHDOG->SCRATCH[3] = vec_entry; /* vector table entry for this exception */
-  WATCHDOG->SCRATCH[2] = msp_val;   /* MSP at crash (to diagnose stack issues) */
-  /* SCRATCH[1] not touched - reserved for BL fast-boot. */
-  /* Save contents of the stack near where VectorD0 would save lr (EXC_RETURN):
-   * VectorD0 does push {r3,lr} before bl i2c_lld_serve_interrupt.
-   * If nothing else pushed after VectorD0, [msp_val-4] = saved LR (should be EXC_RETURN).
-   * Check [msp_val-4] for 0xFFFFFFF_x pattern to confirm it's EXC_RETURN. */
-  /* [MSP-4] = saved LR in VectorD0 frame; should be EXC_RETURN (0xFFFFFF..).
-   * Stored in SCRATCH[6] (not SCRATCH[0]) so the BL's partial SCRATCH clear
-   * does not erase it before we can read it via OpenOCD/telnet. */
-  WATCHDOG->SCRATCH[6] = ((volatile uint32_t *)(msp_val - 4))[0]; /* [MSP-4] */
   __DSB();
   __ISB();
 
-  /* DEBUG: do NOT NVIC_SystemReset here — spin forever so OpenOCD/GDB can
-   * halt and inspect all registers.  To re-enable auto-reset behaviour once
-   * the bug is fixed, replace the while(1) below with NVIC_SystemReset(). */
-  while (1) {}
+    NVIC_SystemReset();
+    /* NOTREACHED — NVIC_SystemReset() does not return, but the noreturn   */
+    /* attribute requires an infinite loop to satisfy the compiler.        */
+    while (1) {}
 }
 #endif /* PIC02_AVAILABLE */
 
@@ -478,37 +455,6 @@ void __early_init(void) {
     #endif
     #if PIC02_AVAILABLE == TRUE
       /*
-       * RP2350 NVIC nuclear clear — must happen as the VERY FIRST thing in
-       * __early_init, before VTOR is updated or any other peripheral code
-       * runs.
-       *
-       * The ArduPilot bootloader uses I2C (and possibly other peripherals)
-       * and leaves NVIC ISER bits set for those peripherals.  The RP2350 has
-       * a silicon bug where NVIC ISPR (pending) bits survive SYSRESETREQ.
-       * When the bootloader hands off to the app via a bare BX (no reset),
-       * both ISER and ISPR may be non-zero for peripheral IRQs.  Any such
-       * IRQ that fires BEFORE __late_init's NVIC clear (or before the XIP
-       * cache has been invalidated) will dispatch through the stale / old
-       * vector table in the XIP cache and land in the default weak handler
-       * (_unhandled_exception), even though the correct VectorXX is present
-       * in flash.
-       *
-       * Solution: disable and clear every external IRQ here, before VTOR
-       * is pointed anywhere or any code that might enable interrupts runs.
-       * CORTEX_NUM_VECTORS = 56 on RP2350, so 2 × 32-bit words suffice.
-       * Writing 0xFFFFFFFF to ICER / ICPR is always safe; unused bits are
-       * silently ignored by the Cortex-M33 NVIC.
-       *
-       * __late_init() repeats this clear as a second line of defence, but
-       * the window between the first app instruction and `__late_init` is
-       * the dangerous one and must be covered here.
-       */
-      for (unsigned i = 0U; i < 2U; i++) {
-          NVIC->ICER[i] = 0xFFFFFFFFU;   /* disable  ALL external IRQs */
-          NVIC->ICPR[i] = 0xFFFFFFFFU;   /* clear    ALL pending bits  */
-      }
-
-      /*
        * RP2350 note (Pico2/ArduPilot bootloader):
        * The application vector table lives at __vectors_base__ in flash
        * (typically app_flash_base + 0x80). If we don't explicitly point
@@ -518,10 +464,7 @@ void __early_init(void) {
        * (for example VectorD4 for I2C1) is linked into the image.
        *
        * Set VTOR as early as possible so all peripheral IRQs land in the
-       * correct ChibiOS handlers.  (The XIP cache may still be stale at
-       * this point — that is handled in __late_init via
-       * rp2350_invalidate_xip_cache() — but with ISER=0 no IRQ can fire
-       * until __late_init has safely corrected both the cache and VTOR.)
+       * correct ChibiOS handlers.
        */
       extern uint32_t __vectors_base__[];
 
@@ -554,30 +497,6 @@ static void c1_startup_ping(void)
 void __late_init(void) {
 
 #if PIC02_AVAILABLE == TRUE
-  /*
-   * RP2350 NVIC nuclear clean-slate.
-   *
-   * RP2350 does not clear NVIC ISER (enable) or ISPR (pending) bits on
-   * SYSRESETREQ.  The ArduPilot bootloader leaves various peripherals
-   * enabled in NVIC.  If these ISER bits are not cleared before halInit()
-   * re-enables them, the per-driver nvicClearPending calls may be bypassed
-   * by a window where the peripheral generates a new request after the clear
-   * but before halInit() reconfigures the hardware.
-   *
-   * Solution: at the very start of app startup, atomically clear ALL NVIC
-   * ISER (Interrupt Clear-Enable) and ALL NVIC ICPR (Interrupt Clear-Pending)
-   * registers.  CORTEX_NUM_VECTORS=56, so 2 × 32-bit words suffice for the
-   * 56 RP2350 external IRQs.  Writing 0xFFFFFFFF to ICER/ICPR is always
-   * safe; unused bits are ignored by the hardware.
-   *
-   * After this, each ChibiOS LLD driver is responsible for its own
-   * nvicClearPending + nvicEnableVector sequence (which they do).
-   */
-  for (unsigned i = 0; i < 2U; i++) {
-      NVIC->ICER[i] = 0xFFFFFFFFU;   /* disable ALL IRQs */
-      NVIC->ICPR[i] = 0xFFFFFFFFU;   /* clear ALL pending bits */
-  }
-
   /*
    * The bootloader leaves USB running (NVIC enabled, controller active).
    * Before halInit() zeroes the USB driver struct (USBD1.config=NULL),
@@ -612,15 +531,16 @@ void __late_init(void) {
    * Moving the vector table into SRAM makes IRQ dispatch deterministic and
    * avoids any dependency on XIP flash caching behavior for vector fetches.
    *
-   * Although VTOR architecturally exposes TBLOFF[6:0] (128-byte granularity),
-   * the RP2350 startup path proved sensitive to coarser alignment when using
-   * the full 16+56 entry table.  Aligning to 512 bytes avoids aliasing into
-   * wrong vector slots for higher IRQ numbers during early startup.
+   * The VTOR alignment requirement for Cortex-M33 is 128 bytes (TBLOFF[6:0]),
+   * so we align the RAM vector table accordingly.
+   *
+   * The RP2350 port defines CORTEX_NUM_VECTORS=56 (see devices/RP2350/cmparams.h),
+   * so the full table is 16 system exceptions + 56 external IRQ vectors.
    */
   extern uint32_t __vectors_base__[];
   enum { RP2350_VECTOR_WORDS = 16U + 56U };
-  static uint32_t rp2350_vectors[RP2350_VECTOR_WORDS] __attribute__((aligned(512)));
-    const uint32_t *flash_vectors = __vectors_base__;
+  static uint32_t rp2350_vectors[RP2350_VECTOR_WORDS] __attribute__((aligned(128)));
+  const uint32_t *flash_vectors = __vectors_base__;
 
   for (uint32_t i = 0; i < RP2350_VECTOR_WORDS; i++) {
       rp2350_vectors[i] = flash_vectors[i];
