@@ -40,7 +40,7 @@ Current Laurel status at a glance:
 | RC Input | RC input via serial protocol | EICU timer / UART | `SERIAL3` default RCIN | ✅ | ❌ not done | Laurel chooses CRSF / ELRS on PIOUART0 by default. Needs live CRSF/ELRS or SBUS-style runtime verification on the board. |
 | RC Output | Standard PWM outputs | 6 + 6 via main + IOMCU | 4 outputs on GPIO28-31 | ✅ | ❌ not done | Laurel maps four PWM outputs on RP2350 PWM slices 6 and 7: GPIO28-31 become ArduPilot GPIOs 50-53. Electrical verification is still pending. |
 | RC Output | DShot | ✅ | — | 🚫 | — | `HAL_DSHOT_ENABLED 0`. RP2350 still lacks the timer-DMA path ArduPilot uses for DShot on STM32 targets. |
-| RC Output | SerialLED / BLHeli-style timing features | ✅ | Onboard RGB LED present but unsupported | ❌ | — | Laurel has a single-wire RGB LED on GPIO39, but `HAL_SERIALLED_ENABLED 0` remains set. No RP2350 Laurel backend is enabled for that LED yet. |
+| RC Output | SerialLED / BLHeli-style timing features | ✅ | Onboard RGB LED present but unsupported | 🚫 | — | `HAL_SERIALLED_ENABLED 0`. GPIO39 WS2812 RGB LED was attempted (bit-bang DWT + PIO) but produced no hardware output. Shelved as **will not implement** for now — see Notify/Board-IO rows below. |
 | RC Output | IOMCU | ✅ STM32F100 | — | 🚫 | — | Laurel, like Pico2, drives outputs directly and has no IOMCU. |
 | SPI | SPI0 IMU bus | SPI1/SPI4 etc. | GPIO2/GPIO4/GPIO3 with CS on GPIO1 | ✅ | ✅ done | Verified on Laurel hardware (2026-04-05): runtime `IO_BANK0->GPIO[2/3/4].CTRL=1` (SPI FUNCSEL) and stable IMU traffic after CS fix. Root cause was custom CS lines not guaranteed to be switched from reset FUNCSEL=NULL to SIO output when using `SPI_SELECT_MODE_PAD`; fixed in `SPIDevice::acquire_bus()` by forcing CS deassert + `PAL_MODE_OUTPUT_PUSHPULL` before select on RP2350. |
 | SPI | ICM42688P onboard IMU | Board-specific SPI IMU | SPI0 + GPIO1 CS | ✅ | ✅ done | Verified on Laurel hardware (2026-04-05) with live MAVLink debug: `inv3_try=1 ok=1 who42=0x47 who456=0x00`, plus continuous `ICM dbg` FIFO/sample output (`fail=0`). This confirms working WHOAMI, backend start, FIFO reads, and accel/gyro data publication. |
@@ -60,8 +60,8 @@ Current Laurel status at a glance:
 | Storage | ROMFS / embedded resources | Embedded data | Enabled | ✅ | ❌ not done | Laurel enables AP_OSD fonts via `ROMFS_WILDCARD libraries/AP_OSD/fonts/font*.bin`. No Laurel-specific ROMFS validation has been recorded yet. |
 | Notify / Board IO | Blue status LED | Board LED | GPIO6 | ✅ | ❌ not done | Exposed as `LED_BLUE`, with `HAL_GPIO_A_LED_PIN 90`. Needs confirmation of polarity and runtime use on real Laurel hardware. Explicitly not hardware tested on Laurel. |
 | Notify / Board IO | Green status LED | Board LED | GPIO7 | ✅ | ❌ not done | Exposed as `LED_GREEN`, with `HAL_GPIO_B_LED_PIN 91`. Needs hardware verification. Explicitly not hardware tested on Laurel. |
-| Notify / Board IO | RGB LED | Single-wire RGB LED | GPIO39 | ❌ | ❌ not done | Laurel has an onboard RGB LED on GPIO39, but the current target leaves it unbound because RP2350 serial LED support is still disabled here. Explicitly not hardware tested on Laurel. |
-| Notify / Board IO | 1-wire LED output | Serial LED style output | GPIO39 path | ❌ | ❌ not done | Board hardware appears to provide a 1-wire LED path via the onboard RGB LED, but no supported Laurel backend is enabled in `hwdef.dat`. Explicitly not hardware tested on Laurel. |
+| Notify / Board IO | RGB LED | Single-wire RGB LED | GPIO39 | 🚫 | 🚫 will not implement | Attempted 2026-04-05: bit-bang DWT WS2812 driver and PIO NeoPixel path both tried. PIO abandoned (PIOUART conflict). Bit-bang produced **no visible output** on hardware; root cause unresolved. Code discarded. **Will not implement — shelved indefinitely.** |
+| Notify / Board IO | 1-wire LED output | Serial LED style output | GPIO39 path | 🚫 | 🚫 will not implement | Same GPIO39 path as RGB LED above. Both approaches (PIO and bit-bang) failed to produce hardware output. Shelved alongside RGB LED. **Will not implement.** |
 | Notify / Board IO | Buzzer | Board buzzer | GPIO5 | ✅ | ❌ not done | `HAL_BUZZER_PIN 80` is defined. Needs physical buzzer verification and polarity confirmation. Explicitly not hardware tested on Laurel. |
 | Notify / Board IO | 5 V BEC / regulator enable | Board-specific rail control | GPIO14 | ✅ | ❌ not done | `BEC_5V_EN` is driven high by default in the application. This should be validated against the actual Laurel power tree and downstream loads. Explicitly not hardware tested on Laurel. |
 | Notify / Board IO | 9 V BEC / regulator enable | Board-specific rail control | GPIO15 | ⚠️ | ❌ not done | `BEC_9V_EN` is deliberately held low by default for bring-up. This reflects incomplete hardware validation of the Laurel power rail rather than a missing GPIO definition. Explicitly not hardware tested on Laurel. |
@@ -106,6 +106,16 @@ Current Laurel status at a glance:
 5. Validate the SPI1 microSD path and decide whether this target should stay microSD-first or gain a hardware-OSD variant.
 6. Confirm board IO polarity and behavior for LEDs, buzzer, and the 5 V / 9 V regulator enable pins.
 7. Decide whether Laurel needs support for the currently unmodelled secondary blackbox flash.
+
+---
+
+## Will Not Implement
+
+The following items have been explicitly shelved after investigation determined they are not viable with current hardware knowledge or RP2350 peripheral constraints. They will not be pursued further unless new information changes the situation.
+
+| Item | Reason | Date |  
+|------|--------|------|
+| **RGB LED / WS2812 on GPIO39** | Bit-bang (DWT cycle-timed) and PIO-NeoPixel drivers both implemented and flashed; neither produced any visible output on real Laurel hardware. PIO path abandoned early due to PIOUART PIO state-machine conflict (PIO0/PIO1 fully allocated by PIOUART). Bit-bang path completed and swept R→G→B at boot with IRQs disabled, but GPIO39 stayed dark. Root cause not identified — possible candidates: wrong GPIO number, GPIO39 FUNCSEL clobbered after `__late_init()`, hardware wiring difference from schematic, or wrong LED protocol. All code discarded/reverted. | 2026-04-05 |
 
 ---
 
