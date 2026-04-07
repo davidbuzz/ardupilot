@@ -109,8 +109,6 @@ static ChibiOS::RCOutput rcoutDriver;
 static Empty::RCOutput rcoutDriver;
 #endif
 
-extern void start_serial_rp2350_thread();
-
 static ChibiOS::Scheduler schedulerInstance;
 static ChibiOS::Util utilInstance;
 static Empty::OpticalFlow opticalFlowDriver;
@@ -271,7 +269,6 @@ static void main_loop()
 
     hal.analogin->init();
     hal.scheduler->init();
-    start_serial_rp2350_thread();
 
     /*
       run setup() at low priority to ensure CLI doesn't hang the
