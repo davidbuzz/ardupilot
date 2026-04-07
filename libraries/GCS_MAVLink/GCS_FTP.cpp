@@ -50,8 +50,23 @@ bool GCS_FTP::init(void)
     // keeps large request and reply objects on its stack while serving sysfs
     // diagnostics such as @SYS/threads.txt, so leave enough margin for the
     // worker to keep draining its request queue under load.
+    //
+    // On RP2350 (ChibiOS, CH_CFG_TIME_QUANTUM=0 = pure priority-preemptive,
+    // no round-robin), the FTP worker at PRIORITY_IO (58) is starved by
+    // UART threads that wake every 1 ms at PRIORITY_UART (60).  Raise the
+    // worker to 61 — one step above the UART/LED/NET cluster (all at 60)
+    // but well below the first hardware-ISR priority (I2C at 176).  This
+    // guarantees the worker is scheduled within 2 ms (its polling period)
+    // when a request is pending, without affecting normal serial I/O:
+    // push_reply()'s 100 µs delay_microseconds() still yields to USB/UART
+    // threads before the TX ring-buffer can fill.
+#if defined(RP2350)
+    initialised = hal.scheduler->thread_create(FUNCTOR_BIND_MEMBER(&GCS_FTP::worker, void),
+                                               "FTP", 6144, AP_HAL::Scheduler::PRIORITY_UART, 1);
+#else
     initialised = hal.scheduler->thread_create(FUNCTOR_BIND_MEMBER(&GCS_FTP::worker, void),
                                                "FTP", 6144, AP_HAL::Scheduler::PRIORITY_IO, 0);
+#endif
     if (!initialised) {
         GCS_SEND_TEXT(MAV_SEVERITY_WARNING, "failed to initialize MAVFTP");
     }
