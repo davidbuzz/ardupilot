@@ -105,7 +105,15 @@ void GCS_FTP::handle_file_transfer_protocol(const mavlink_message_t &msg, mavlin
 
 bool GCS_FTP::send_reply(const Transaction &reply)
 {
-    if (!GCS_MAVLINK::last_txbuf_is_greater(33)) { // It helps avoid GCS timeout if this is less than the threshold where we slow down normal streams (<=49)
+    // RP2350 USB CDC can run with a much smaller effective tx free-space
+    // window than larger STM32 targets. Using the generic 33-byte gate can
+    // starve FTP replies and cause repeated Open/List timeouts on Laurel.
+#if defined(RP2350)
+    constexpr uint8_t ftp_min_txbuf = 8;
+#else
+    constexpr uint8_t ftp_min_txbuf = 33;
+#endif
+    if (!GCS_MAVLINK::last_txbuf_is_greater(ftp_min_txbuf)) { // Keep a little headroom while still allowing replies out on constrained links.
         return false;
     }
     WITH_SEMAPHORE(comm_chan_lock(reply.chan));
@@ -141,7 +149,19 @@ bool GCS_FTP::Session::check_name_len(const Transaction &request)
     if (file_name_len == request.size) {
         return true;
     }
-    return (request.size - file_name_len == 1) && (request.data[sizeof(request.data) - 1] == 0);
+    if (request.size - file_name_len != 1) {
+        return false;
+    }
+
+    // Accept the normal MAVFTP form where the request length includes the
+    // trailing NUL byte at file_name_len.
+    if (request.data[file_name_len] == 0) {
+        return true;
+    }
+
+    // Keep compatibility with legacy clients that zero-fill the whole payload
+    // and rely on the final byte being NUL.
+    return request.data[sizeof(request.data) - 1] == 0;
 }
 
 // send our response back out to the system
@@ -215,7 +235,7 @@ void GCS_FTP::Session::list_dir(Transaction &request, Transaction &response)
         return;
     }
 
-    request.data[sizeof(request.data) - 1] = 0; // ensure the path is null terminated
+    request.data[(request.size < sizeof(request.data)) ? request.size : (sizeof(request.data) - 1)] = 0; // ensure the path is null terminated
 
     // Strip trailing /
     const size_t dir_len = strlen((char *)request.data);
@@ -361,7 +381,7 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
             break;
         }
 
-        request.data[sizeof(request.data) - 1] = 0; // ensure the path is null terminated
+        request.data[(request.size < sizeof(request.data)) ? request.size : (sizeof(request.data) - 1)] = 0; // ensure the path is null terminated
 
         // get the file size
         struct stat st;
@@ -448,7 +468,7 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
             break;
         }
 
-        request.data[sizeof(request.data) - 1] = 0; // ensure the path is null terminated
+        request.data[(request.size < sizeof(request.data)) ? request.size : (sizeof(request.data) - 1)] = 0; // ensure the path is null terminated
 
         // actually open the file
         fd = AP::FS().open((char *)request.data,
@@ -501,7 +521,7 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
             break;
         }
 
-        request.data[sizeof(request.data) - 1] = 0; // ensure the path is null terminated
+        request.data[(request.size < sizeof(request.data)) ? request.size : (sizeof(request.data) - 1)] = 0; // ensure the path is null terminated
 
         // actually make the directory
         if (AP::FS().mkdir((char *)request.data) == -1) {
@@ -521,7 +541,7 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
             break;
         }
 
-        request.data[sizeof(request.data) - 1] = 0; // ensure the path is null terminated
+        request.data[(request.size < sizeof(request.data)) ? request.size : (sizeof(request.data) - 1)] = 0; // ensure the path is null terminated
 
         // remove the file/dir
         if (AP::FS().unlink((char *)request.data) == -1) {
@@ -540,7 +560,7 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
             break;
         }
 
-        request.data[sizeof(request.data) - 1] = 0; // ensure the path is null terminated
+        request.data[(request.size < sizeof(request.data)) ? request.size : (sizeof(request.data) - 1)] = 0; // ensure the path is null terminated
 
         uint32_t checksum = 0;
         if (!AP::FS().crc32((char *)request.data, checksum)) {
@@ -654,7 +674,7 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
             GCS_FTP::error(reply, FTP_ERROR::InvalidDataSize);
             break;
         }
-        request.data[sizeof(request.data) - 1] = 0; // ensure the 2nd path is null terminated
+        request.data[(request.size < sizeof(request.data)) ? request.size : (sizeof(request.data) - 1)] = 0; // ensure the 2nd path is null terminated
         // remove the file/dir
         if (AP::FS().rename(filename1, filename2) != 0) {
             GCS_FTP::error(reply, FTP_ERROR::FailErrno);
