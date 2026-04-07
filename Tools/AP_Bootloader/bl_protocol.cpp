@@ -250,7 +250,11 @@ void
 jump_to_app()
 {
     const uint32_t *app_base = (const uint32_t *)(APP_START_ADDRESS);
-#if defined(RP2350)
+#if defined(HAL_RP2350) || defined(RP2350)
+    // Persist jump_to_app progress/failure codes for SWD post-mortem.
+    WATCHDOG->SCRATCH[3] = 0xA0000001U;
+#endif
+#if defined(HAL_RP2350) || defined(RP2350)
     /*
      * RP2350 app images may start with a picobin/imagedef header at
      * APP_START_ADDRESS and place the real ARM vector table at +0x80.
@@ -272,6 +276,9 @@ jump_to_app()
     if (ok != check_fw_result_t::CHECK_FW_OK) {
         // bad firmware, don't try and boot
         led_set(LED_BAD_FW);
+#if defined(HAL_RP2350) || defined(RP2350)
+        WATCHDOG->SCRATCH[3] = 0xA0000002U;
+#endif
         return;
     }
 #endif
@@ -280,6 +287,9 @@ jump_to_app()
 #if EXT_FLASH_SIZE_MB
     uint8_t* ext_flash_start_addr;
     if (!ext_flash.start_xip_mode((void**)&ext_flash_start_addr)) {
+#if defined(HAL_RP2350) || defined(RP2350)
+        WATCHDOG->SCRATCH[3] = 0xA0000003U;
+#endif
         return;
     }
 #endif
@@ -288,12 +298,15 @@ jump_to_app()
      * is marked complete by the host. So if they are not 0xffffffff,
      * we should try booting it.
      */
-#if defined(RP2350)
+#if defined(HAL_RP2350) || defined(RP2350)
     /*
      * For RP2350, validate only the real vector table SP/Reset words.
      * Picobin lead words can include 0xFFFFFFFF padding by design.
      */
     if (app_vtor[0] == 0xffffffffU || app_vtor[1] == 0xffffffffU) {
+#if defined(HAL_RP2350) || defined(RP2350)
+        WATCHDOG->SCRATCH[3] = 0xA0000004U;
+#endif
         goto exit;
     }
     app_base = app_vtor;
@@ -310,15 +323,24 @@ jump_to_app()
      * flash area (or we have a bad flash).
      */
     if (app_base[1] < APP_START_ADDRESS) {
+#if defined(HAL_RP2350) || defined(RP2350)
+        WATCHDOG->SCRATCH[3] = 0xA0000005U;
+#endif
         goto exit;
     }
 
 #if BOOT_FROM_EXT_FLASH
     if (app_base[1] >= (APP_START_ADDRESS + board_info.extf_size)) {
+#if defined(HAL_RP2350) || defined(RP2350)
+        WATCHDOG->SCRATCH[3] = 0xA0000006U;
+#endif
         goto exit;
     }
 #else
     if (app_base[1] >= (APP_START_ADDRESS + board_info.fw_size)) {
+#if defined(HAL_RP2350) || defined(RP2350)
+        WATCHDOG->SCRATCH[3] = 0xA0000007U;
+#endif
         goto exit;
     }
 #endif
@@ -340,7 +362,7 @@ jump_to_app()
     led_set(LED_OFF);
 
     // resetting the clocks is needed for loading NuttX (STM32 only)
-#if !defined(RP2350)
+#if !(defined(HAL_RP2350) || defined(RP2350))
 #if defined(STM32H7)
     rccDisableAPB1L(~0);
     rccDisableAPB1H(~0);
@@ -365,9 +387,9 @@ jump_to_app()
     rccResetOTG_HS();
 #endif
 #endif
-#endif // !defined(RP2350)
+#endif // !(defined(HAL_RP2350) || defined(RP2350))
 
-#if defined(RP2350)
+#if defined(HAL_RP2350) || defined(RP2350)
     /*
      * RP2350: determine the ARM vector table address, handling all three cases:
      *
@@ -431,9 +453,15 @@ jump_to_app()
     if (WATCHDOG->SCRATCH[1] == 0xB007CA11U) {
         /* Phase 2: XIP cache clean — clear flag and fall through to do_jump() */
         WATCHDOG->SCRATCH[1] = 0U;
+#if defined(HAL_RP2350) || defined(RP2350)
+        WATCHDOG->SCRATCH[3] = 0xA0000008U;
+#endif
     } else {
         /* Phase 1: first jump attempt — request a clean SYSRESETREQ reset */
         WATCHDOG->SCRATCH[1] = 0xB007CAFEU;  /* "BOOT CAFÉ" — launch app after reset */
+#if defined(HAL_RP2350) || defined(RP2350)
+        WATCHDOG->SCRATCH[3] = 0xA0000009U;
+#endif
         NVIC_SystemReset();  /* triggers SYSRESETREQ — NOTREACHED */
     }
 #endif
@@ -451,8 +479,14 @@ jump_to_app()
     *(volatile uint32_t *)SCB_VTOR = (uint32_t)app_base;
 
     /* extract the stack and entrypoint from the app vector table and go */
+#if defined(HAL_RP2350) || defined(RP2350)
+    WATCHDOG->SCRATCH[3] = 0xA000000AU;
+#endif
     do_jump(app_base[0], app_base[1]);
 exit:
+#if defined(HAL_RP2350) || defined(RP2350)
+    WATCHDOG->SCRATCH[3] = 0xA000000BU;
+#endif
 #if EXT_FLASH_SIZE_MB
     ext_flash.stop_xip_mode();
 #endif
@@ -748,6 +782,10 @@ bootloader(unsigned timeout)
             // to zero
             done_erase = true;
             timeout = 0;
+#if defined(HAL_RP2350) || defined(RP2350)
+            // Protocol state marker: timeout disabled after erase command.
+            WATCHDOG->SCRATCH[2] = 0xA1000001U;
+#endif
 #if PIC02_AVAILABLE == TRUE
             /* Reset the running CRC state for the new upload session. */
             prog_crc_sum = 0;
@@ -1375,6 +1413,10 @@ bootloader(unsigned timeout)
 
             lock_bl_port();
             timeout = 0;
+#if defined(HAL_RP2350) || defined(RP2350)
+            // Protocol state marker: timeout disabled after SET_BAUD.
+            WATCHDOG->SCRATCH[2] = 0xA1000002U;
+#endif
             
             // this is different to what every other case in this
             // switch does!  Most go through sync_response down the
@@ -1394,6 +1436,10 @@ bootloader(unsigned timeout)
         // the timeout
         if (done_sync && CHECK_GET_DEVICE_FINISHED(done_get_device_flags)) {
             timeout = 0;
+#if defined(HAL_RP2350) || defined(RP2350)
+            // Protocol state marker: timeout disabled after sync/get-device handshake.
+            WATCHDOG->SCRATCH[2] = 0xA1000003U;
+#endif
         }
 
         // send the sync response for this command

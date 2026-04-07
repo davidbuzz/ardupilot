@@ -29,6 +29,7 @@
 #ifdef PICO2
 
 #include <stdint.h>
+#include "hal.h"
 
 /* Defined in modules/ChibiOS/os/common/startup/ARMCMx/devices/RP2350/rp2350_imagedef.S */
 extern const char __embedded_block[];
@@ -106,9 +107,73 @@ extern void setup_usb_strings(void);
 
 /* SCB->VTOR register */
 #define SCB_VTOR_REG   (*(volatile uint32_t *)0xE000ED08U)
+/* NVIC external IRQ disable/clear registers. */
+#define NVIC_ICER0_REG (*(volatile uint32_t *)0xE000E180U)
+#define NVIC_ICER1_REG (*(volatile uint32_t *)0xE000E184U)
+#define NVIC_ICPR0_REG (*(volatile uint32_t *)0xE000E280U)
+#define NVIC_ICPR1_REG (*(volatile uint32_t *)0xE000E284U)
+/*
+ * RP2350 has external IRQs 0..51 spread across NVIC banks 0 and 1.
+ * Keep bootloader-critical lines enabled:
+ * - TIMER0 IRQ0 (scheduler tick setup path)
+ * - USBCTRL IRQ (USB CDC bootloader transport)
+ * - UART0/UART1 IRQs (defensive keep for board variants / debug transport)
+ *
+ * Note: XIP flash execution does not depend on an NVIC IRQ line, so there is
+ * no dedicated "flash interrupt" that must be preserved here.
+ */
+#define RP2350_NVIC_KEEP_BANK0_MASK (uint32_t)((1U << 0U) | (1U << 14U))
+#define RP2350_NVIC_KEEP_BANK1_MASK (uint32_t)((1U << (33U - 32U)) | (1U << (34U - 32U)))
+#define RP2350_NVIC_EXT_IRQS_BANK0_DISABLE_MASK (uint32_t)(0xFFFFFFFFU & ~RP2350_NVIC_KEEP_BANK0_MASK)
+#define RP2350_NVIC_EXT_IRQS_BANK1_DISABLE_MASK (uint32_t)(0x000FFFFFU & ~RP2350_NVIC_KEEP_BANK1_MASK)
+/* Crash breadcrumb values mirrored with app-side diagnostics. */
+#define RP2350_RESET_DIAG_UNHANDLED_EXCEPTION 0x55484E44U /* 'UHND' */
 
-/* Called from crt0 before BSS/data init.  No GPIO setup needed in bootloader. */
-void __early_init(void) {}
+void __attribute__((noreturn)) _unhandled_exception(void);
+
+void __attribute__((noreturn)) _unhandled_exception(void)
+{
+    /*
+     * Persist trap context for SWD post-mortem:
+     *   SCRATCH[2] = xPSR  (IPSR low bits = active exception number)
+     *   SCRATCH[3] = ICSR  (active/pending exception state)
+     *   SCRATCH[4] = VTOR  (vector table base at trap time)
+     *   SCRATCH[7] = 'UHND' marker
+     */
+    WATCHDOG->SCRATCH[2] = __get_xPSR();
+    WATCHDOG->SCRATCH[3] = SCB->ICSR;
+    WATCHDOG->SCRATCH[4] = SCB->VTOR;
+    WATCHDOG->SCRATCH[7] = RP2350_RESET_DIAG_UNHANDLED_EXCEPTION;
+    __DSB();
+    __ISB();
+
+    NVIC_SystemReset();
+    while (1) {}
+}
+
+/* Called from crt0 before BSS/data init.  No GPIO setup needed in bootloader,
+ * but we do need to reset peripherals and start the PLLs.
+ *
+ * ChibiOS commit a7485da935 ("Fix RP Peripheral Init and move clock setup
+ * early to match STM32 convention") removed rp_peripheral_reset() and
+ * rp_clock_init() from hal_lld_init() and requires the board-level
+ * __early_init() to call them instead.  Without this, after any NVIC_SystemReset
+ * (including the phase-1 reset in jump_to_app()), the system stays on the ROM
+ * ROSC clock (~12 MHz), USB PLL never locks, and USB CDC never enumerates. */
+void __early_init(void) {
+#if RP_NO_INIT == FALSE
+    /* Reset all peripherals except what is needed to keep XIP flash running
+     * and the PLLs (rp_clock_init() below handles PLL_SYS/PLL_USB after
+     * switching CLK_SYS to the safe ROSC glitchless mux). */
+    rp_peripheral_reset(~(RESETS_ALLREG_IO_QSPI  | RESETS_ALLREG_PADS_QSPI |
+                           RESETS_ALLREG_PLL_SYS  | RESETS_ALLREG_PLL_USB));
+
+    /* Configure PLL_SYS → 150 MHz system clock and PLL_USB → 48 MHz USB
+     * reference.  Must happen before halInit() so USB CDC can enumerate and
+     * so the ChibiOS scheduler tick period is correct. */
+    rp_clock_init();
+#endif /* RP_NO_INIT */
+}
 
 /* stub for the boardInit() hook called inside halInit() */
 void boardInit(void) {}
@@ -129,6 +194,17 @@ void __late_init(void)
      * real ChibiOS TIMER0 handler in our vector table.
      */
     SCB_VTOR_REG = (uint32_t)_vectors;
+
+    /*
+     * Defensive IRQ scrub for RP2350 bootloader isolation:
+     * after SYSRESETREQ handoff from app, we can inherit stale enable/pending
+     * state on unrelated peripheral lines. Clear and mask only non-essential
+     * vectors so scheduler timing and USB bootloader transport remain intact.
+     */
+    NVIC_ICER0_REG = RP2350_NVIC_EXT_IRQS_BANK0_DISABLE_MASK;
+    NVIC_ICER1_REG = RP2350_NVIC_EXT_IRQS_BANK1_DISABLE_MASK;
+    NVIC_ICPR0_REG = RP2350_NVIC_EXT_IRQS_BANK0_DISABLE_MASK;
+    NVIC_ICPR1_REG = RP2350_NVIC_EXT_IRQS_BANK1_DISABLE_MASK;
 
     halInit();
 

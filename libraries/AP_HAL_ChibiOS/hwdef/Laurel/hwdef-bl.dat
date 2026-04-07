@@ -33,6 +33,9 @@ USB_STRING_MANUFACTURER "ArduPilot"
 define BOOTLOADER_BAUDRATE 115200
 define RP_CORE1_START FALSE
 define AP_FASTBOOT_ENABLED 1
+// Laurel RP2350 bring-up: allow app jump even when APP_DESCRIPTOR is missing
+// so runtime faults can be debugged on-target instead of being masked by BL.
+define AP_CHECK_FIRMWARE_ENABLED 0
 define HAL_WITH_MCU_MONITORING 0
 define HAL_BOOTLOADER_TIMEOUT 15000
 
