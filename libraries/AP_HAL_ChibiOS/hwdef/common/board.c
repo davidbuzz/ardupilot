@@ -509,7 +509,7 @@ void __late_init(void) {
    * right here. usb_lld_start() will unreset and re-enable it later.
    */
   nvicDisableVector(RP_USBCTRL_IRQ_NUMBER);
-  hal_lld_peripheral_reset(RESETS_ALLREG_USBCTRL);
+  rp_peripheral_reset(RESETS_ALLREG_USBCTRL);
 
   /*
    * Ensure the XIP cache does not hold stale vector table lines (or other

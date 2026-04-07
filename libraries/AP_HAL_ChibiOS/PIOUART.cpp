@@ -283,8 +283,8 @@ void PIORXDriver::_upload_programs()
     // RP2350 keeps many peripherals asserted in reset until explicitly
     // released. Ensure the selected PIO block is live before touching any
     // PIO registers, otherwise register writes are ignored.
-    hal_lld_peripheral_unreset((pio_idx == 0U) ? RESETS_ALLREG_PIO0
-                                                : RESETS_ALLREG_PIO1);
+    rp_peripheral_unreset((pio_idx == 0U) ? RESETS_ALLREG_PIO0
+                                           : RESETS_ALLREG_PIO1);
 
     pio->CTRL = 0U; // stop all SMs
     // Start from a known IRQ mask state; RX polling is used during bring-up.
