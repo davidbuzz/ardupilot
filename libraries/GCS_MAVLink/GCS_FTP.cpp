@@ -46,8 +46,12 @@ bool GCS_FTP::init(void)
         return true;
     }
 
+    // RP2350 needs more headroom here than the generic default. The FTP worker
+    // keeps large request and reply objects on its stack while serving sysfs
+    // diagnostics such as @SYS/threads.txt, so leave enough margin for the
+    // worker to keep draining its request queue under load.
     initialised = hal.scheduler->thread_create(FUNCTOR_BIND_MEMBER(&GCS_FTP::worker, void),
-                                               "FTP", 2560, AP_HAL::Scheduler::PRIORITY_IO, 0);
+                                               "FTP", 6144, AP_HAL::Scheduler::PRIORITY_IO, 0);
     if (!initialised) {
         GCS_SEND_TEXT(MAV_SEVERITY_WARNING, "failed to initialize MAVFTP");
     }
