@@ -638,7 +638,7 @@ void AnalogIn::setup_adc(uint8_t index)
         // (~1667 S/s per channel) — well above the 100 Hz battery-monitor rate,
         // and FIFO fills in 800 µs so DMA re-arm latency is irrelevant.
         adcgrpcfg[index].div        = ADC_DIV(9599, 0);
-        // Enable internal temperature sensor when channel 4 is in the round-robin set.
+        // Enable internal temperature sensor when RP_ADC_TEMPERATURE_CHANNEL is sampled.
         adcgrpcfg[index].ts_enabled = (rrobin_mask & (1U << RP_ADC_TEMPERATURE_CHANNEL)) != 0U;
     }
 #else

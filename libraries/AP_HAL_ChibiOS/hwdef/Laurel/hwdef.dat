@@ -8,6 +8,10 @@
 # MCU class and specific type
 MCU PICO2 PICO2
 
+# Laurel uses the RP2350B QFN-80 package: ADC external inputs are GPIO40-47
+# and the internal temperature sensor is ADC channel 8.
+define RP2350B_QFN80 1
+
 # Flash is provided by the RP2350 XIP/QSPI path through the ChibiOS EFL driver.
 define AP_BOOTLOADER_FLASHING_ENABLED 0
 

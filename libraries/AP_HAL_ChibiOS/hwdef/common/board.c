@@ -824,6 +824,16 @@ void __late_init(void) {
  * @todo    Add your board-specific code, if any.
  */
 void boardInit(void) {
+#if defined(RP2350B_QFN80) && (HAL_USE_ADC == TRUE)
+  /*
+   * RP2350B QFN-80 analog inputs are on GPIO40-47 (AINSEL 0-7).
+   * Laurel uses GPIO40/41/42 for battery voltage/current and RSSI, so force
+   * those pads into analog mode early to disable digital input and pulls.
+   */
+  adcRPGpioInit(40U);
+  adcRPGpioInit(41U);
+  adcRPGpioInit(42U);
+#endif
   HAL_BOARD_INIT_HOOK_CALL;
 }
 
