@@ -288,8 +288,11 @@ define __RAMFUNC__     __attribute__((__section__(".ramtext")))
 define __FASTRAMFUNC__ __attribute__((__section__(".ramtext")))
 
 define CH_CFG_SMP_MODE FALSE
-# Laurel bring-up: run core0-only until core1 launch handshake is stable.
-define RP_CORE1_START FALSE
+# Core1 launch re-enabled: the VTOR crash-loop (I2C0 unhandled exception every
+# ~5s) that previously deadlocked start_core1() FIFO handshake is now fixed.
+# The PSM FRCE_OFF pre-reset in start_core1() ensures a clean ROM wait-for-
+# launch state even if core1 survived a soft reset from the bootloader.
+define RP_CORE1_START TRUE
 define RP_PLL_SYS_POSTDIV1 3
 
 # Board-specific notes:
