@@ -81,6 +81,7 @@ void GCS_FTP::handle_file_transfer_protocol(const mavlink_message_t &msg, mavlin
         mavlink_file_transfer_protocol_t packet;
         mavlink_msg_file_transfer_protocol_decode(&msg, &packet);
 
+
         Transaction request;
 
         request.chan = chan;
@@ -105,17 +106,14 @@ void GCS_FTP::handle_file_transfer_protocol(const mavlink_message_t &msg, mavlin
 
 bool GCS_FTP::send_reply(const Transaction &reply)
 {
-    // RP2350 USB CDC can run with a much smaller effective tx free-space
-    // window than larger STM32 targets. Using the generic 33-byte gate can
-    // starve FTP replies and cause repeated Open/List timeouts on Laurel.
-#if defined(RP2350)
-    constexpr uint8_t ftp_min_txbuf = 8;
-#else
+    // RP2350 USB CDC has shown reply starvation with extra tx-buffer gating,
+    // so rely on HAVE_PAYLOAD_SPACE() alone there.
+#if !defined(RP2350)
     constexpr uint8_t ftp_min_txbuf = 33;
-#endif
     if (!GCS_MAVLINK::last_txbuf_is_greater(ftp_min_txbuf)) { // Keep a little headroom while still allowing replies out on constrained links.
         return false;
     }
+#endif
     WITH_SEMAPHORE(comm_chan_lock(reply.chan));
     if (!HAVE_PAYLOAD_SPACE(reply.chan, FILE_TRANSFER_PROTOCOL)) {
         return false;
