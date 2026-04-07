@@ -425,6 +425,27 @@ void pico2_gpio_init(void) {
 #if defined(HAL_GPIO_PIN_LED_GREEN)
   palSetLineMode(HAL_GPIO_PIN_LED_GREEN, PAL_MODE_OUTPUT_PUSHPULL);
 #endif
+
+  /* Configure board regulator-enable lines as SIO push-pull outputs at the
+   * correct initial levels declared in hwdef.dat (OUTPUT HIGH / OUTPUT LOW).
+   *
+   * These pins revert to FUNCSEL=31 (NULL, Hi-Z) with PAD_BANK0 reset
+   * default PDE=1 (pull-down) after _pal_lld_init() resets the IO_BANK0
+   * and PADS_BANK0 peripherals.  Without this block BEC_5V_EN (GPIO14) is
+   * left floating LOW, which disables the 5 V BEC at boot and cuts power to
+   * any load on that rail before ArduPilot's runtime code can assert it.
+   *
+   * Set the output latch (palSetLine / palClearLine) before asserting OE via
+   * palSetLineMode so the pad instantaneously shows the correct level the
+   * moment the driver is enabled, with no unwanted transient glitch. */
+#if defined(HAL_GPIO_PIN_BEC_5V_EN)
+  palSetLine(HAL_GPIO_PIN_BEC_5V_EN);                /* pre-arm latch HIGH (5 V BEC enabled) */
+  palSetLineMode(HAL_GPIO_PIN_BEC_5V_EN, PAL_MODE_OUTPUT_PUSHPULL);  /* FUNCSEL=5 + OE */
+#endif
+#if defined(HAL_GPIO_PIN_BEC_9V_EN)
+  palClearLine(HAL_GPIO_PIN_BEC_9V_EN);              /* pre-arm latch LOW (9 V BEC disabled at boot) */
+  palSetLineMode(HAL_GPIO_PIN_BEC_9V_EN, PAL_MODE_OUTPUT_PUSHPULL);  /* FUNCSEL=5 + OE */
+#endif
 }
 #endif //PIC02_AVAILABLE
 
