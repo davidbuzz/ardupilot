@@ -74,10 +74,14 @@ Current hwdef defaults:
 - `SERIAL3`: RC input
 - `SERIAL4`: MAVLink2
 
-Two additional RX-only pads exist on the Laurel PCB (`GPIO36` and `GPIO37`
-in the earlier board notes), but they are not yet represented in the current
-hwdef because the RP2350 serial path here expects full-duplex port
-definitions.
+Two additional RX-only pads exist on the Laurel PCB and are not yet declared
+in the current hwdef:
+
+- `GPIO36` — `DVTX_SBUS_RX` — SBUS receiver input, on connector `J5`.
+- `GPIO37` — `TELEM_RX` — ESC sensor telemetry receive, on connector `J1` pin 4.
+
+They are intentionally omitted from `hwdef.dat` because the RP2350 serial
+path requires a full-duplex TX+RX pair to declare a serial port.
 
 ## PWM Outputs
 
@@ -219,6 +223,29 @@ Earlier Laurel board notes indicated a second QSPI flash device for blackbox
 logging. That secondary flash is not yet modelled in the current RP2350 hwdef
 path, so storage currently consists of the main XIP flash plus the SPI-mode
 microSD card.
+
+## Connectors
+
+### J1 — ESC Connector (8-pin)
+
+`J1` is the main ESC connector. It carries battery power, the current-sense
+signal, ESC telemetry, and all four PWM motor outputs:
+
+| J1 Pin | Signal | GPIO | Notes |
+|--------|--------|------|---------|
+| 1 | VBAT | — | Battery positive supply to/from ESC |
+| 2 | GND | — | Battery ground |
+| 3 | BAT_CURRENT | GPIO41 | Analog current-sense input (`BATT_CURRENT_SENS`, ADC channel 1) |
+| 4 | TELEM_RX | GPIO37 | ESC sensor telemetry RX (not yet declared in `hwdef.dat`) |
+| 5 | ESC1 | GPIO28 | PWM motor output 1 (ArduPilot GPIO 50) |
+| 6 | ESC2 | GPIO29 | PWM motor output 2 (ArduPilot GPIO 51) |
+| 7 | ESC3 | GPIO30 | PWM motor output 3 (ArduPilot GPIO 52) |
+| 8 | ESC4 | GPIO31 | PWM motor output 4 (ArduPilot GPIO 53) |
+
+`J1` pin 4 (`TELEM_RX` / `GPIO37`) is an RX-only input for ESC telemetry
+protocols (KISS, BLHeli32, Scorpion, etc.). It is not yet declared in
+`hwdef.dat` because ArduPilot's RP2350 serial path requires a matched TX+RX
+pair to register a port.
 
 ## Firmware Building
 

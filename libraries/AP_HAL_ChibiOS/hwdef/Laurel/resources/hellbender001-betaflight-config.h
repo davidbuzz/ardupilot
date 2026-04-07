@@ -99,7 +99,7 @@
 #define PIOUART1_RX_PIN         PA35
 // SBus RX J5
 #define UART5_RX_PIN         PA36
-// ESC sensor connection J1
+// J1 ESC connector pin 4 (TELEM_RX) - ESC sensor telemetry RX
 #define UART6_RX_PIN         PA37
 #define ESC_SENSOR_UART      SERIAL_PORT_USART6
 
