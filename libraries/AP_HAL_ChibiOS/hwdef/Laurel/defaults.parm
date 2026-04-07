@@ -1,10 +1,14 @@
-# Conservative Laurel defaults for RP2350 bring-up.
+# Laurel defaults tuned for the onboard ICM42688P sensor stack.
 
-# Keep loop rate conservative until the RP2350 Laurel target has seen runtime
-# validation with its real sensor stack.
-SCHED_LOOP_RATE 100
-INS_FAST_SAMPLE 0
-FSTRATE_ENABLE 0
+# Run the main loop at 400 Hz — appropriate for a real high-rate IMU.
+# INS_FAST_SAMPLE 1 enables 8x oversampling in the ICM42688P backend
+# (internal gyro ODR ~8 kHz, decimated to the scheduler rate).
+# FSTRATE_ENABLE 1 uses dynamic rate mode: the FC backs off if CPU load
+# is too high (full gyro queue / slow main loops), which is the safest
+# choice for initial flight testing on a new port.
+SCHED_LOOP_RATE 400
+INS_FAST_SAMPLE 1
+FSTRATE_ENABLE 1
 
 # Enable watchdog by default.
 BRD_OPTIONS 1
