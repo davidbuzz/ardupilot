@@ -8,8 +8,26 @@ import time
 window_name = "Visual Studio Code" # paste the wndiw name substring .
 window_id = 0
 
+seconds_conter = 0
+
 while True:
     print("Nudging VSCODE...")
+
+    seconds_conter += 5
+    print(f"Seconds since start: {seconds_conter}")
+
+    # every so often.. say once per minute...
+    if seconds_conter % 60 == 0:
+        print("Resetting counter...")
+        seconds_conter = 0
+        #type DEL key.
+        subprocess.run(['xdotool', 'key', '--window', window_id, 'Delete'])
+        # wait 1/2 sec.
+        time.sleep(0.5)
+        # type esc key.
+        subprocess.run(['xdotool', 'key', '--window', window_id, 'Escape'])
+        # wait 1/2 sec.
+        time.sleep(0.5)
 
     # find the right window
     result = subprocess.run(
