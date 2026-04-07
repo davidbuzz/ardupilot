@@ -121,10 +121,17 @@ PA30 PWM7_A TIM7 PWM(3) GPIO(52)
 PA31 PWM7_B TIM7 PWM(4) GPIO(53)
 
 # Status indicators
+# GPIO6 = blue LED, GPIO7 = green LED.  Both are active-LOW (writing 0 illuminates the LED).
+# AP_BoardLED2 uses HAL_GPIO_A_LED_PIN / HAL_GPIO_B_LED_PIN to select the two physical pins
+# and relies on the HAL_GPIO_LED_ON=0 polarity defined in AP_HAL/AP_HAL_Boards.h.
 PA6 LED_BLUE OUTPUT LOW GPIO(90)
 PA7 LED_GREEN OUTPUT LOW GPIO(91)
 define HAL_GPIO_A_LED_PIN 90
 define HAL_GPIO_B_LED_PIN 91
+# Enable the 2-LED board notification driver (AP_BoardLED2).
+# Without this define, AP_Notify skips the LED backend entirely and the LEDs
+# remain driven LOW (both on) at all times with no blinking.
+define AP_NOTIFY_GPIO_LED_2_ENABLED 1
 
 # Beeper and regulator enables
 PA5  BUZZER OUTPUT LOW GPIO(80)

@@ -21,14 +21,13 @@ void Copter::init_ardupilot()
 #endif
 
     // initialise notify system
-#if defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE
-    // RP2350/Pico2 bring-up: AP_Notify backend allocation currently trips
-    // allocator corruption very early in startup. Skip notify init so core
-    // comms and sensor bring-up can proceed for hardware debugging.
-#else
+    // RP2350/Pico2 bring-up: AP_Notify was previously disabled here because
+    // it triggered allocator corruption during the crash-loop era (VTOR was
+    // never reaching SRAM so I2C0 fired an unhandled exception every ~5s).
+    // That root cause is now fixed (VTOR relocated to SRAM post-halInit() and
+    // hal_lld_init() guarded).  Re-enable notify so LEDs blink correctly.
     notify.init();
     notify_flight_mode();
-#endif
 
     // initialise battery monitor
     battery.init();
