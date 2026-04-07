@@ -74,7 +74,7 @@ private:
         Write,
     };
 
-    ObjectBuffer<Transaction> requests{AP_MAVLINK_FTP_MAX_SESSIONS};
+    ObjectBuffer_TS<Transaction> requests{AP_MAVLINK_FTP_MAX_SESSIONS};
 
     bool initialised = false;
 
