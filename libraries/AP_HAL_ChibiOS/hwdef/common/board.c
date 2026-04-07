@@ -32,6 +32,7 @@
  * RP2350 reset-cause breadcrumb register used for live SWD diagnosis.
  * SCRATCH[0] and SCRATCH[1] are used by fastboot/bootloader handoff,
  * SCRATCH[6] is used by watchdog-reason consumption, so use SCRATCH[7].
+ * SCRATCH[2..4] are reserved here for unhandled-exception context capture.
  */
 #define RP2350_RESET_DIAG_SCRATCH_IDX              7U
 #define RP2350_RESET_DIAG_UNHANDLED_EXCEPTION      0x55484E44U /* 'UHND' */
@@ -56,7 +57,28 @@
  */
 void __attribute__((noreturn)) _unhandled_exception(void)
 {
-  /* Persist a breadcrumb so SYSRESETREQ loops can be identified post-reset. */
+  /*
+   * Persist breadcrumbs so SYSRESETREQ loops can be identified post-reset.
+   *
+   * SCRATCH[0] = SCB->VTOR at trap time — tells us which vector table was
+   *              active. Should be &_vectors (flash, 0x10010080 for Laurel).
+   *              If VTOR ≠ expected, that is why the wrong handler fired.
+   * SCRATCH[2] = xPSR at trap (IPSR bits[8:0] = active exception number;
+   *              subtract 16 to get external IRQ number, e.g. 52-16=36=I2C0)
+   * SCRATCH[3] = ICSR snapshot (VECTACTIVE, VECTPENDING, NMIPENDSET, etc.)
+   * SCRATCH[4] = NVIC ISPR0 (pending IRQ 0..31)
+   * SCRATCH[5] = NVIC ISPR1 (pending IRQ 32..51 — covers I2C0=36, I2C1=37,
+   *              UART0=33, UART1=34, SPI0=31(in ISPR0), SPI1=32, USB=28)
+   * SCRATCH[6] = LR at trap entry (EXC_RETURN pattern 0xFFFFxx..)
+   * SCRATCH[7] = 'UHND' sentinel (0x55484E44)
+   */
+  WATCHDOG->SCRATCH[0] = SCB->VTOR;       /* vector table base at trap time */
+  WATCHDOG->SCRATCH[2] = __get_xPSR();
+  WATCHDOG->SCRATCH[3] = SCB->ICSR;
+  WATCHDOG->SCRATCH[4] = NVIC->ISPR[0];
+  WATCHDOG->SCRATCH[5] = NVIC->ISPR[1];  /* IRQ32..51: I2C0=bit4, I2C1=bit5, SPI1=bit0 */
+  /* Capture EXC_RETURN from LR — tells us which stack and FPU state was active */
+  __asm volatile ("str lr, %0" : "=m"(WATCHDOG->SCRATCH[6]) :: "memory");
   WATCHDOG->SCRATCH[RP2350_RESET_DIAG_SCRATCH_IDX] = RP2350_RESET_DIAG_UNHANDLED_EXCEPTION;
   __DSB();
   __ISB();
@@ -472,7 +494,36 @@ void __early_init(void) {
       __DSB();
       __ISB();
 
-      // pico2 specific early init can go here
+#if RP_NO_INIT == FALSE
+      /*
+       * Reset all peripherals except those needed for XIP flash and the PLLs.
+       * IO_QSPI / PADS_QSPI must stay unreset because the CPU is executing
+       * from flash via XIP.  PLL_SYS / PLL_USB are handled below by
+       * rp_clock_init() after it first switches CLK_SYS to the safe ROSC.
+       *
+       * This call was previously made inside hal_lld_init() but ChibiOS
+       * commit a7485da935 ("Fix RP Peripheral Init and move clock setup early")
+       * moved it here.  Without it, the RP2350 peripheral reset state is
+       * whatever the ROM or bootloader left it — often some peripherals are
+       * still held in reset — and rp_clock_init() may not have a clean
+       * RESETS_DONE handshake.
+       */
+      rp_peripheral_reset(~(RESETS_ALLREG_IO_QSPI  | RESETS_ALLREG_PADS_QSPI |
+                             RESETS_ALLREG_PLL_SYS  | RESETS_ALLREG_PLL_USB));
+
+      /*
+       * Configure PLL_SYS (→ 150 MHz system clock) and PLL_USB (→ 48 MHz).
+       *
+       * Also previously in hal_lld_init() and moved to __early_init() in the
+       * same ChibiOS commit.  Without this call the RP2350 runs on the ROSC
+       * (~12 MHz), the USB PLL never locks, and USB CDC never enumerates.
+       * ChibiOS still starts (ROSC is stable), but all timing is ~12× off
+       * and any USB-dependent path (MAVLink, uploader.py) silently freezes.
+       */
+      rp_clock_init();
+#endif /* RP_NO_INIT */
+
+      /* Configure SPI CS pins and PWM GPIOs now that IO_BANK0 is out of reset. */
       pico2_gpio_init();
     #endif
 }
@@ -512,6 +563,27 @@ void __late_init(void) {
   rp_peripheral_reset(RESETS_ALLREG_USBCTRL);
 
   /*
+   * Clear all external IRQ pending bits before halInit() fires ChibiOS drivers.
+   *
+   * RP2350 NVIC pending bits (NVIC_ISPR) are NOT guaranteed cleared by
+   * SYSRESETREQ — they survive the reset and live across boots.  This means
+   * any IRQ that fired as unhandled in a previous boot (e.g. I2C0=IRQ36,
+   * SPI1=IRQ32) still has its ISPR pending bit set at the start of the next
+   * boot.  The first chSysInit() CPSIE immediately dispatches those stale
+   * pending IRQs before ChibiOS drivers have registered their handlers,
+   * landing in _unhandled_exception → NVIC_SystemReset → reset loop.
+   *
+   * Writing all-ones to NVIC_ICPR (interrupt-clear-pending) clears every
+   * pending bit that exists.  halInit() and each ChibiOS peripheral driver
+   * will re-arm only the IRQs they actually own.
+   *
+   * RP2350 has 52 external IRQs (0..51), so ICPR[0] covers 0..31 and
+   * ICPR[1] covers 32..51 (upper bits 52..63 are unimplemented, writes ignored).
+   */
+  NVIC->ICPR[0] = 0xFFFFFFFFU;
+  NVIC->ICPR[1] = 0xFFFFFFFFU;
+
+  /*
    * Ensure the XIP cache does not hold stale vector table lines (or other
    * early-startup code) when the firmware was reflashed via SWD and reset
    * using SYSRESETREQ.
@@ -546,9 +618,13 @@ void __late_init(void) {
       rp2350_vectors[i] = flash_vectors[i];
   }
 
-  SCB->VTOR = (uint32_t)rp2350_vectors;
-  __DSB();
-  __ISB();
+  /*
+   * NOTE: SCB->VTOR is set to rp2350_vectors AFTER halInit() below.
+   * hal_lld_init() (called inside halInit) resets VTOR to &_vectors (the
+   * flash address), so any VTOR write here would be immediately overwritten.
+   * The assignment is deferred to the post-halInit() #if PIC02_AVAILABLE
+   * block so the RAM vector table is the final, active table.
+   */
 
   /*
    * RP2350 UART RX pads: at chip reset PADS_BANK0 has ISO=1 + PDE=1 + IE=0.
@@ -591,6 +667,28 @@ void __late_init(void) {
    * application starts.
    */
   pico2_gpio_init();
+
+  /*
+   * Activate the RAM vector table that was populated from flash before
+   * halInit() above.  We do this here — after halInit() / hal_lld_init() —
+   * because hal_lld_init() unconditionally resets SCB->VTOR to &_vectors
+   * (the flash alias, 0x10010080 for Laurel).  Setting VTOR now overrides
+   * that and makes all subsequent IRQ dispatches use the SRAM copy instead.
+   *
+   * Why RAM is better than flash for the vector table on RP2350:
+   *   - The XIP cache can serve stale lines after SWD reflash + SYSRESETREQ.
+   *     A stale cache entry at a vector slot makes the CPU jump to the old
+   *     (pre-flash) handler address, causing an _unhandled_exception crash.
+   *   - SRAM accesses are deterministic; no cache coherency concern.
+   *   - rp2350_vectors[] was filled from flash after rp2350_invalidate_xip_cache()
+   *     flushed stale lines, so the content is guaranteed correct.
+   *
+   * The Cortex-M33 TBLOFF requires 128-byte alignment; rp2350_vectors is
+   * __attribute__((aligned(128))) so this write is always valid.
+   */
+  SCB->VTOR = (uint32_t)rp2350_vectors;
+  __DSB();
+  __ISB();
 #endif
 
 #ifdef HAL_USB_PRODUCT_ID
