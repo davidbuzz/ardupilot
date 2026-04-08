@@ -33,6 +33,38 @@ extern const AP_HAL::HAL& hal;
 
 GCS_FTP *GCS_FTP::ftp;
 
+static uint32_t mavftp_send_blocked;
+static uint32_t mavftp_send_ok;
+static uint32_t mavftp_reset_ack_timeout;
+static uint32_t mavftp_nosessions_nack_timeout;
+static uint32_t mavftp_openro_requests;
+static uint32_t mavftp_openro_acks;
+static uint32_t mavftp_openro_failures;
+
+extern "C" bool ap_mavftp_get_debug_counters(uint32_t *send_blocked,
+                                               uint32_t *send_ok,
+                                               uint32_t *reset_ack_timeout,
+                                               uint32_t *nosessions_nack_timeout,
+                                               uint32_t *openro_requests,
+                                               uint32_t *openro_acks,
+                                               uint32_t *openro_failures)
+{
+    if (send_blocked == nullptr || send_ok == nullptr || reset_ack_timeout == nullptr ||
+        nosessions_nack_timeout == nullptr || openro_requests == nullptr ||
+        openro_acks == nullptr || openro_failures == nullptr) {
+        return false;
+    }
+
+    *send_blocked = mavftp_send_blocked;
+    *send_ok = mavftp_send_ok;
+    *reset_ack_timeout = mavftp_reset_ack_timeout;
+    *nosessions_nack_timeout = mavftp_nosessions_nack_timeout;
+    *openro_requests = mavftp_openro_requests;
+    *openro_acks = mavftp_openro_acks;
+    *openro_failures = mavftp_openro_failures;
+    return true;
+}
+
 // timeout for session inactivity, when we will kill the session if
 // the session slot is needed
 #define FTP_SESSION_TIMEOUT 3000
@@ -46,26 +78,15 @@ bool GCS_FTP::init(void)
         return true;
     }
 
-    // RP2350 needs more headroom here than the generic default. The FTP worker
-    // keeps large request and reply objects on its stack while serving sysfs
-    // diagnostics such as @SYS/threads.txt, so leave enough margin for the
-    // worker to keep draining its request queue under load.
-    //
-    // On RP2350 (ChibiOS, CH_CFG_TIME_QUANTUM=0 = pure priority-preemptive,
-    // no round-robin), the FTP worker at PRIORITY_IO (58) is starved by
-    // UART threads that wake every 1 ms at PRIORITY_UART (60).  Raise the
-    // worker to 61 — one step above the UART/LED/NET cluster (all at 60)
-    // but well below the first hardware-ISR priority (I2C at 176).  This
-    // guarantees the worker is scheduled within 2 ms (its polling period)
-    // when a request is pending, without affecting normal serial I/O:
-    // push_reply()'s 100 µs delay_microseconds() still yields to USB/UART
-    // threads before the TX ring-buffer can fill.
+    // RP2350 needs a larger stack (ExpandingString for @SYS files) and higher
+    // priority (PRIORITY_UART+1 = 61) so the worker is not starved by UART
+    // threads that wake at PRIORITY_UART (60) every 1 ms.
 #if defined(RP2350)
     initialised = hal.scheduler->thread_create(FUNCTOR_BIND_MEMBER(&GCS_FTP::worker, void),
                                                "FTP", 8192, AP_HAL::Scheduler::PRIORITY_UART, 1);
 #else
     initialised = hal.scheduler->thread_create(FUNCTOR_BIND_MEMBER(&GCS_FTP::worker, void),
-                                               "FTP", 6144, AP_HAL::Scheduler::PRIORITY_IO, 0);
+                                               "FTP", 2560, AP_HAL::Scheduler::PRIORITY_IO, 0);
 #endif
     if (!initialised) {
         GCS_SEND_TEXT(MAV_SEVERITY_WARNING, "failed to initialize MAVFTP");
@@ -96,7 +117,6 @@ void GCS_FTP::handle_file_transfer_protocol(const mavlink_message_t &msg, mavlin
         mavlink_file_transfer_protocol_t packet;
         mavlink_msg_file_transfer_protocol_decode(&msg, &packet);
 
-
         Transaction request;
 
         request.chan = chan;
@@ -121,18 +141,46 @@ void GCS_FTP::handle_file_transfer_protocol(const mavlink_message_t &msg, mavlin
 
 bool GCS_FTP::send_reply(const Transaction &reply)
 {
-    // RP2350 USB CDC has shown reply starvation with extra tx-buffer gating,
-    // so rely on HAVE_PAYLOAD_SPACE() alone there.
+    // RP2350 USB CDC with FLOW_CONTROL_ENABLE skips the bandwidth-throttle path,
+    // so last_txbuf is not updated and this gate always blocks replies.  Skip it
+    // for RP2350; HAVE_PAYLOAD_SPACE() alone is sufficient back-pressure.
 #if !defined(RP2350)
-    constexpr uint8_t ftp_min_txbuf = 33;
-    if (!GCS_MAVLINK::last_txbuf_is_greater(ftp_min_txbuf)) { // Keep a little headroom while still allowing replies out on constrained links.
+    if (!GCS_MAVLINK::last_txbuf_is_greater(33)) { // It helps avoid GCS timeout if this is less than the threshold where we slow down normal streams (<=49)
+        mavftp_send_blocked++;
         return false;
     }
 #endif
-    WITH_SEMAPHORE(comm_chan_lock(reply.chan));
-    if (!HAVE_PAYLOAD_SPACE(reply.chan, FILE_TRANSFER_PROTOCOL)) {
+#if defined(RP2350)
+    // On RP2350, holding comm_chan_lock() across mavlink_msg_*_send_struct() causes
+    // a nested lock: send_struct calls comm_send_lock() which tries to take the
+    // same chan_lock again.  Even with CH_CFG_USE_MUTEXES_RECURSIVE=TRUE the
+    // chMtxTryLock() fast path used inside comm_send_lock checks can interact
+    // badly with the blocking take already held here.
+    //
+    // Fix: use take_nonblocking() so we return false immediately if the channel
+    // is busy (the caller retry-loops), check space with the lock held, then
+    // RELEASE the lock before the actual send.  mavlink_msg_*_send_struct()
+    // takes chan_lock internally via comm_send_lock so the send itself is safe.
+    AP_HAL::Semaphore &chan_lock = comm_chan_lock(reply.chan);
+    if (!chan_lock.take_nonblocking()) {
+        // channel lock is held by another thread — caller will retry
+        mavftp_send_blocked++;
         return false;
     }
+    const bool have_space = HAVE_PAYLOAD_SPACE(reply.chan, FILE_TRANSFER_PROTOCOL);
+    chan_lock.give();
+    if (!have_space) {
+        mavftp_send_blocked++;
+        return false;
+    }
+#else
+    // Keep historical lock behavior on non-RP2350 targets.
+    WITH_SEMAPHORE(comm_chan_lock(reply.chan));
+    if (!HAVE_PAYLOAD_SPACE(reply.chan, FILE_TRANSFER_PROTOCOL)) {
+        mavftp_send_blocked++;
+        return false;
+    }
+#endif
     mavlink_file_transfer_protocol_t pkt {};
     pkt.target_network = 0;
     pkt.target_system = reply.sysid;
@@ -147,6 +195,7 @@ bool GCS_FTP::send_reply(const Transaction &reply)
     put_le32_ptr(&payload[8], reply.offset);
     memcpy(&pkt.payload[12], reply.data, sizeof(reply.data));
     mavlink_msg_file_transfer_protocol_send_struct(reply.chan, &pkt);
+    mavftp_send_ok++;
     return true;
 }
 
@@ -162,27 +211,25 @@ bool GCS_FTP::Session::check_name_len(const Transaction &request)
     if (file_name_len == request.size) {
         return true;
     }
-    if (request.size - file_name_len != 1) {
-        return false;
-    }
-
-    // Accept the normal MAVFTP form where the request length includes the
-    // trailing NUL byte at file_name_len.
-    if (request.data[file_name_len] == 0) {
-        return true;
-    }
-
-    // Keep compatibility with legacy clients that zero-fill the whole payload
-    // and rely on the final byte being NUL.
-    return request.data[sizeof(request.data) - 1] == 0;
+    return (request.size - file_name_len == 1) && (request.data[sizeof(request.data) - 1] == 0);
 }
 
 // send our response back out to the system
 void GCS_FTP::Session::push_reply(Transaction &reply)
 {
-    last_send_ms = AP_HAL::millis(); // Used to detect active FTP session
+    const uint32_t send_start_ms = AP_HAL::millis();
+    last_send_ms = send_start_ms; // Used to detect active FTP session
 
+    // Spin until TX buffer has space, with a 2-second hard timeout.
+    // Without the timeout, if the USB host disconnects mid-transfer the
+    // TX ring stays full forever and the FTP worker thread stalls permanently,
+    // preventing new clients from getting their ResetSessions Ack.
     while (!send_reply(reply)) {
+        if (AP_HAL::millis() - send_start_ms > 20000) {
+            // host gone — abandon this session so the worker can serve new clients
+            close();
+            return;
+        }
         hal.scheduler->delay_microseconds(100);
     }
 
@@ -248,7 +295,7 @@ void GCS_FTP::Session::list_dir(Transaction &request, Transaction &response)
         return;
     }
 
-    request.data[(request.size < sizeof(request.data)) ? request.size : (sizeof(request.data) - 1)] = 0; // ensure the path is null terminated
+    request.data[sizeof(request.data) - 1] = 0; // ensure the path is null terminated
 
     // Strip trailing /
     const size_t dir_len = strlen((char *)request.data);
@@ -375,6 +422,7 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
         break;
     case FTP_OP::OpenFileRO:
     {
+        mavftp_openro_requests++;
         // only allow one file to be open per session
         if (fd != -1 && now - last_send_ms > FTP_SESSION_TIMEOUT) {
             // no activity for 3s, assume client has
@@ -383,22 +431,35 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
             close();    // error code ignored
             fd = -1;
         }
+#if defined(RP2350)
         if (fd != -1) {
+            // RP2350 links can lose read replies under heavy stream pressure.
+            // If a client retries OpenFileRO on the same session, recover by
+            // forcing the stale open file closed and reopening cleanly.
+            close();    // error code ignored
+            fd = -1;
+        }
+#else
+        if (fd != -1) {
+            mavftp_openro_failures++;
             GCS_FTP::error(reply, FTP_ERROR::Fail);
             break;
         }
+#endif
 
         // sanity check that the request looks well formed
         if (!check_name_len(request)) {
+            mavftp_openro_failures++;
             GCS_FTP::error(reply, FTP_ERROR::InvalidDataSize);
             break;
         }
 
-        request.data[(request.size < sizeof(request.data)) ? request.size : (sizeof(request.data) - 1)] = 0; // ensure the path is null terminated
+        request.data[sizeof(request.data) - 1] = 0; // ensure the path is null terminated
 
         // get the file size
         struct stat st;
         if (AP::FS().stat((char *)request.data, &st)) {
+            mavftp_openro_failures++;
             GCS_FTP::error(reply, FTP_ERROR::FailErrno);
             break;
         }
@@ -407,12 +468,14 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
         // actually open the file
         fd = AP::FS().open((char *)request.data, O_RDONLY);
         if (fd == -1) {
+            mavftp_openro_failures++;
             GCS_FTP::error(reply, FTP_ERROR::FailErrno);
             break;
         }
         mode = FTP_FILE_MODE::Read;
 
         reply.opcode = FTP_OP::Ack;
+        mavftp_openro_acks++;
         reply.size = sizeof(uint32_t);
         put_le32_ptr(reply.data, (uint32_t)file_size);
 
@@ -446,7 +509,13 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
         }
 
         // fill the buffer
-        const ssize_t read_bytes = AP::FS().read(fd, reply.data, MIN(sizeof(reply.data),request.size));
+        uint16_t read_size = MIN(sizeof(reply.data), request.size);
+#if defined(RP2350)
+        // Keep RP2350 FTP replies small enough that TX-space back-pressure can
+        // satisfy them quickly on USB CDC under stream load.
+        read_size = MIN<uint16_t>(read_size, 48);
+#endif
+        const ssize_t read_bytes = AP::FS().read(fd, reply.data, read_size);
         if (read_bytes == -1) {
             GCS_FTP::error(reply, FTP_ERROR::FailErrno);
             break;
@@ -481,7 +550,7 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
             break;
         }
 
-        request.data[(request.size < sizeof(request.data)) ? request.size : (sizeof(request.data) - 1)] = 0; // ensure the path is null terminated
+        request.data[sizeof(request.data) - 1] = 0; // ensure the path is null terminated
 
         // actually open the file
         fd = AP::FS().open((char *)request.data,
@@ -534,7 +603,7 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
             break;
         }
 
-        request.data[(request.size < sizeof(request.data)) ? request.size : (sizeof(request.data) - 1)] = 0; // ensure the path is null terminated
+        request.data[sizeof(request.data) - 1] = 0; // ensure the path is null terminated
 
         // actually make the directory
         if (AP::FS().mkdir((char *)request.data) == -1) {
@@ -554,7 +623,7 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
             break;
         }
 
-        request.data[(request.size < sizeof(request.data)) ? request.size : (sizeof(request.data) - 1)] = 0; // ensure the path is null terminated
+        request.data[sizeof(request.data) - 1] = 0; // ensure the path is null terminated
 
         // remove the file/dir
         if (AP::FS().unlink((char *)request.data) == -1) {
@@ -573,7 +642,7 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
             break;
         }
 
-        request.data[(request.size < sizeof(request.data)) ? request.size : (sizeof(request.data) - 1)] = 0; // ensure the path is null terminated
+        request.data[sizeof(request.data) - 1] = 0; // ensure the path is null terminated
 
         uint32_t checksum = 0;
         if (!AP::FS().crc32((char *)request.data, checksum)) {
@@ -590,7 +659,12 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
     }
     case FTP_OP::BurstReadFile:
     {
-        const uint16_t max_read = (request.size == 0?sizeof(reply.data):request.size);
+        uint16_t max_read = (request.size == 0?sizeof(reply.data):request.size);
+#if defined(RP2350)
+        // Keep burst chunks small enough to avoid prolonged send blocking on
+        // RP2350 USB CDC when normal MAVLink streams are active.
+        max_read = MIN<uint16_t>(max_read, 48);
+#endif
         // must actually be working on a file
         if (fd == -1) {
             GCS_FTP::error(reply, FTP_ERROR::FileNotFound);
@@ -687,7 +761,7 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
             GCS_FTP::error(reply, FTP_ERROR::InvalidDataSize);
             break;
         }
-        request.data[(request.size < sizeof(request.data)) ? request.size : (sizeof(request.data) - 1)] = 0; // ensure the 2nd path is null terminated
+        request.data[sizeof(request.data) - 1] = 0; // ensure the 2nd path is null terminated
         // remove the file/dir
         if (AP::FS().rename(filename1, filename2) != 0) {
             GCS_FTP::error(reply, FTP_ERROR::FailErrno);
@@ -808,7 +882,20 @@ void GCS_FTP::worker(void)
             // always ACK, even if no sessions were closed
             setup_reply(request, reply);
             reply.opcode = FTP_OP::Ack;
-            send_reply(reply);
+            // Retry until TX buffer has space. pymavlink.mavftp blocks indefinitely
+            // waiting for this Ack before it sends any other command; a single-shot
+            // send_reply() would silently drop the Ack if the buffer is momentarily
+            // full (e.g. immediately after a burst from a previous killed session).
+            {
+                const uint32_t rs_start_ms = AP_HAL::millis();
+                while (!send_reply(reply)) {
+                    if (AP_HAL::millis() - rs_start_ms > 1000) {
+                        mavftp_reset_ack_timeout++;
+                        break;  // give up after 1 s rather than blocking forever
+                    }
+                    hal.scheduler->delay_microseconds(100);
+                }
+            }
             continue;
         }
 
@@ -845,12 +932,36 @@ void GCS_FTP::worker(void)
                 // the oldest session is still active, reject the request
                 setup_reply(request, reply);
                 error(reply, FTP_ERROR::NoSessionsAvailable);
-                send_reply(reply);
+                // Use a retry loop so the Nack is not silently dropped when the
+                // TX buffer is momentarily full.
+                {
+                    const uint32_t ns_start_ms = AP_HAL::millis();
+                    while (!send_reply(reply)) {
+                        if (AP_HAL::millis() - ns_start_ms > 1000) {
+                            mavftp_nosessions_nack_timeout++;
+                            break;
+                        }
+                        hal.scheduler->delay_microseconds(100);
+                    }
+                }
                 continue;
             }
             // claim the session
             s.close();   // error code ignored
-            s.session_id = request.session;
+
+            // MAVFTP clients start with session=0 and expect the server to
+            // allocate a real session id in the Open* Ack. Keeping 0 causes
+            // stale-session aliasing and can break follow-up ReadFile requests.
+            if (request.session == 0) {
+                static uint8_t next_session_id = 1;
+                s.session_id = next_session_id++;
+                if (next_session_id == 0) {
+                    next_session_id = 1;
+                }
+                request.session = s.session_id;
+            } else {
+                s.session_id = request.session;
+            }
             s.sysid = request.sysid;
             s.compid = request.compid;
             s.chan = request.chan;
