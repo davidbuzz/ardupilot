@@ -622,7 +622,8 @@ void NavEKF3_core::CovarianceInit()
 *                 UPDATE FUNCTIONS                      *
 ********************************************************/
 // Update Filter States - this should be called whenever new IMU data is available
-void NavEKF3_core::UpdateFilter(bool predict)
+// __RAMFUNC__: runs from SRAM on RP2350 to bypass 16KB XIP cache (65.7% CPU in read_AHRS)
+__RAMFUNC__ void NavEKF3_core::UpdateFilter(bool predict)
 {
     // don't run filter updates if states have not been initialised
     if (!statesInitialised) {
@@ -740,7 +741,7 @@ void NavEKF3_core::correctDeltaVelocity(Vector3F &delVel, ftype delVelDT, uint8_
  * the vehicle when each observation is fused. This attitude error is then used to correct
  * the quaternion.
 */
-void NavEKF3_core::UpdateStrapdownEquationsNED()
+__RAMFUNC__ void NavEKF3_core::UpdateStrapdownEquationsNED()
 {
     // update the quaternion states by rotating from the previous attitude through
     // the delta angle rotation quaternion and normalise
@@ -816,7 +817,7 @@ void NavEKF3_core::UpdateStrapdownEquationsNED()
  * "Recursive Attitude Estimation in the Presence of Multi-rate and Multi-delay Vector Measurements"
  * A Khosravian, J Trumpf, R Mahony, T Hamel, Australian National University
 */
-void NavEKF3_core::calcOutputStates()
+__RAMFUNC__ void NavEKF3_core::calcOutputStates()
 {
     // apply corrections to the IMU data
     Vector3F delAngNewCorrected = imuDataNew.delAng;
@@ -1005,7 +1006,7 @@ void NavEKF3_core::calcOutputStates()
  * Argument rotVarVecPtr is pointer to a vector defining the earth frame uncertainty variance of the quaternion states
  * used to perform a reset of the quaternion state covariances only. Set to null for normal operation.
 */
-void NavEKF3_core::CovariancePrediction(Vector3F *rotVarVecPtr)
+__RAMFUNC__ void NavEKF3_core::CovariancePrediction(Vector3F *rotVarVecPtr)
 {
     ftype daxVar;       // X axis delta angle noise variance rad^2
     ftype dayVar;       // Y axis delta angle noise variance rad^2

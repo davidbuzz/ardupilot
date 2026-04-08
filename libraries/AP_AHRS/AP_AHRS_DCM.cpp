@@ -56,8 +56,8 @@ AP_AHRS_DCM::reset_gyro_drift(void)
     _omega_I_sum_time = 0;
 }
 
-// run a full DCM update round
-void
+// run a full DCM update round — __RAMFUNC__ for SRAM execution on RP2350
+__RAMFUNC__ void
 AP_AHRS_DCM::update()
 {
     AP_InertialSensor &_ins = AP::ins();
@@ -175,8 +175,8 @@ void AP_AHRS_DCM::backup_attitude(void)
     pd.yaw_rad = yaw;
 }
 
-// update the DCM matrix using only the gyros
-void AP_AHRS_DCM::matrix_update(void)
+// update the DCM matrix using only the gyros — __RAMFUNC__ for SRAM execution
+__RAMFUNC__ void AP_AHRS_DCM::matrix_update(void)
 {
     // use only the primary gyro so our bias estimate is valid, allowing us to return the right filtered gyro
     // for rate controllers
@@ -672,7 +672,7 @@ bool AP_AHRS_DCM::should_correct_centrifugal() const
 // This drift correction implementation is based on a paper
 // by Bill Premerlani from here:
 //   http://gentlenav.googlecode.com/files/RollPitchDriftCompensation.pdf
-void
+__RAMFUNC__ void
 AP_AHRS_DCM::drift_correction(float deltat)
 {
     Vector3f velocity;

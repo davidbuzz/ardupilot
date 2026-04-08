@@ -392,7 +392,7 @@ void NavEKF3_core::readMagData()
  *  Downsampling is done using a method that does not introduce coning or sculling
  *  errors.
  */
-void NavEKF3_core::readIMUData(bool startPredictEnabled)
+__RAMFUNC__ void NavEKF3_core::readIMUData(bool startPredictEnabled)
 {
     const auto &ins = dal.ins();
 

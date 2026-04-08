@@ -450,8 +450,8 @@ void AP_AHRS::update_state(void)
     state.velocity_NED_ok = _get_velocity_NED(state.velocity_NED);
 }
 
-// update run at loop rate
-void AP_AHRS::update(bool skip_ins_update)
+// update run at loop rate — __RAMFUNC__ to run from SRAM on RP2350 (65.7% CPU)
+__RAMFUNC__ void AP_AHRS::update(bool skip_ins_update)
 {
     // periodically checks to see if we should update the AHRS
     // orientation (e.g. based on the AHRS_ORIENTATION parameter)

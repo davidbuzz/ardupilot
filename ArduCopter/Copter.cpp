@@ -911,7 +911,7 @@ void Copter::update_super_simple_bearing(bool force_update)
     super_simple_sin_yaw = sinf(angle_rad);
 }
 
-void Copter::read_AHRS(void)
+__RAMFUNC__ void Copter::read_AHRS(void)
 {
     // we tell AHRS to skip INS update as we have already done it in FAST_TASK.
     ahrs.update(true);
