@@ -300,7 +300,16 @@ uint16_t get_usb_control_line_state(uint16_t endpoint_id)
 
 bool usb_cdc_host_open(uint16_t endpoint_id)
 {
-  return (get_usb_control_line_state(endpoint_id) & 0x1U) != 0;
+  /*
+   * Always report "host open" once USB is configured.
+   * The real USB-active/configured check is done separately by
+   * UARTDriver::is_usb_active() (SDU_READY && USB_ACTIVE).
+   * We do NOT gate MAVLink TX on DTR/RTS control lines because
+   * many hosts and tools never set them, and ArduPilot should
+   * transmit MAVLink as soon as USB enumeration completes.
+   */
+  (void)endpoint_id;
+  return true;
 }
 
 uint32_t get_usb_event_configured_count(void)
@@ -461,6 +470,22 @@ static bool requests_hook(USBDriver *usbp) {
     usbSetupTransfer(usbp, NULL, 0, NULL);
     return true;
   }
+
+  /*
+   * Intercept CDC_SET_CONTROL_LINE_STATE before the wIndex filter below and
+   * before sduRequestsHook().  ChibiOS's default handler ACKs this request
+   * but discards the DTR/RTS bits ("no control lines").  We store
+   * control_line_state for informational purposes (diagnostics / stats)
+   * but ArduPilot does NOT gate MAVLink TX on DTR — usb_cdc_host_open()
+   * always returns true so data flows as soon as USB is enumerated.
+   */
+  if ((usbp->setup[0] & USB_RTYPE_TYPE_MASK) == USB_RTYPE_TYPE_CLASS &&
+      usbp->setup[1] == CDC_SET_CONTROL_LINE_STATE) {
+    control_line_state = usbp->setup[2] | ((uint16_t)usbp->setup[3] << 8);
+    usbSetupTransfer(usbp, NULL, 0, NULL);
+    return true;
+  }
+
   if ((usbp->setup[0] & USB_RTYPE_TYPE_MASK) == USB_RTYPE_TYPE_CLASS && usbp->setup[4] == 0x00 && usbp->setup[5] == 0x00) {
     switch (usbp->setup[1]) {
     case CDC_GET_LINE_CODING:
@@ -468,10 +493,6 @@ static bool requests_hook(USBDriver *usbp) {
       return true;
     case CDC_SET_LINE_CODING:
       usbSetupTransfer(usbp, (uint8_t *)&linecoding, sizeof(linecoding), NULL);
-      return true;
-    case CDC_SET_CONTROL_LINE_STATE:
-      control_line_state = usbp->setup[2] | ((uint16_t)usbp->setup[3] << 8);
-      usbSetupTransfer(usbp, NULL, 0, NULL);
       return true;
     }
   }

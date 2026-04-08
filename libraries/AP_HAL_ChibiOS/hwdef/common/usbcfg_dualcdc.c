@@ -348,7 +348,12 @@ uint16_t get_usb_control_line_state(uint16_t endpoint_id)
 
 bool usb_cdc_host_open(uint16_t endpoint_id)
 {
-  return (get_usb_control_line_state(endpoint_id) & 0x1U) != 0;
+  /*
+   * Always report "host open" — do not gate MAVLink TX on DTR/RTS.
+   * The real USB-configured check is in UARTDriver::is_usb_active().
+   */
+  (void)endpoint_id;
+  return true;
 }
 #endif
 /**
