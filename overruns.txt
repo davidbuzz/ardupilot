@@ -1,0 +1,112 @@
+ mavproxy.py --master=/dev/serial/by-id/usb-ArduPilot_Laurel_B8CE48E2E19D881E67A96B1B-if00 --baudrate=115200 
+Connect /dev/serial/by-id/usb-ArduPilot_Laurel_B8CE48E2E19D881E67A96B1B-if00 source_system=255
+Log Directory: 
+Telemetry log: mav.tlog
+Waiting for heartbeat from /dev/serial/by-id/usb-ArduPilot_Laurel_B8CE48E2E19D881E67A96B1B-if00
+MAV> Device /dev/serial/by-id/usb-ArduPilot_Laurel_B8CE48E2E19D881E67A96B1B-if00 is dead
+link 1 down
+Device /dev/serial/by-id/usb-ArduPilot_Laurel_B8CE48E2E19D881E67A96B1B-if00 reopened OK
+Detected vehicle 1:1 on link 0
+link 1 OK
+online system 1
+STABILIZE> Mode STABILIZE
+6COMPASS init begin
+COMPASS probe begin drv=0 bus=0 addr=0x1E ext=1
+COMPASS probe miss drv=0 bus=0 addr=0x1E dt=9
+COMPASS probe begin drv=12 bus=0 addr=0x0D ext=1
+COMPASS probe miss drv=12 bus=0 addr=0x0D dt=10
+COMPASS probe begin drv=20 bus=0 addr=0x2C ext=1
+COMPASS probe miss drv=20 bus=0 addr=0x2C dt=9
+COMPASS probe begin drv=5 bus=0 addr=0x1C ext=1
+COMPASS probe miss drv=5 bus=0 addr=0x1C dt=9
+COMPASS probe begin drv=5 bus=0 addr=0x1E ext=1
+COMPASS probe miss drv=5 bus=0 addr=0x1E dt=9
+COMPASS probe begin drv=23 bus=0 addr=0x1E ext=1
+COMPASS probe miss drv=23 bus=0 addr=0x1E dt=9
+COMPASS probe begin drv=6 bus=0 addr=0x0C ext=1
+COMPASS probe miss drv=6 bus=0 addr=0x0C dt=8
+COMPASS probe begin drv=7 bus=0 addr=0x0C ext=1
+COMPASS probe miss drv=7 bus=0 addr=0x0C dt=21
+COMPASS probe begin drv=7 bus=0 addr=0x0D ext=1
+AP: ArduCopter V4.8.0-dev (ba13ac33)
+AP: ChibiOS: 44804d10
+AP: Laurel E248CEB8 1E889DE1 1B6BA967
+AP: RCOut: Initialising
+AP: Frame: UNSUPPORTED
+COMPASS probe miss drv=7 bus=0 addr=0x0D dt=21
+COMPASS probe begin drv=7 bus=0 addr=0x0E ext=1
+CPSreiU( v s d0EtK44\	OA o g ^Xv s&\ d0F0Px1OA o sd=S<b=arx 4OA o g v`	5u0da9=0eKC=CfGSYb35m*Xsr7p1b=3`arx =9ooa cn aoWaeoCPSnO^ nAP: Calibrating barometer
+Read failed with 60 gaps OP seq:90 sess:5 opcode:129 req_opcode:5 size:2 bc:0 ofs:0 plen=2 [2]
+AP: ArduCopter V4.8.0-dev (ba13ac33)
+AP: ChibiOS: 44804d10
+AP: Laurel E248CEB8 1E889DE1 1B6BA967
+AP: RCOut: Initialising
+AP: Frame: UNSUPPORTED
+AP: Barometer 1 calibration complete
+ICM dbg: probe ok who42=0x47 who456=0x00
+AP: INS dbg: detected_backends=1
+ICM dbg: start ok type=1 backend_hz=1000 sample_hz=1000
+AP: INS dbg: backend[0] IMU0: normal sampling 1.0kHz/1.0kHz
+Init Gyro*<0>.<1>.<2>.<3>.<4>.<5>.<6>.<7>.<8>.<9>.<10>.<11>.<12>.<13>.<14>.<15>.<16>.<17>.<18>.<19>.<20>.<21>.<22>.<23>.<24>.<25>.<26>.<27>.<28>.<29>.<30>.<31>.<32>AP: Initialising ArduPilot
+.<33>.<34>.<35>.<36>.<37>.<38>.<39>.<40>.<41>.<42>.<43>.<44>.<45>.<46>.<47>.<48>.<49>.SDZ0*<0>.<1>.<2>.<3>.<4>.<5>.<6>.<7>.<8>.<9>.<10>.<11>.<12>.<13>.<14>.<15>.<16>.<17>.<18>.<19>.<20>.<21>.<22>.<23>.<24>.<25>.<26>.<27>.<28>.<29>.<30>.<31>.<32>.<33>.<34>.<35>.<36>.<37>.<38>.<39>.<40>.<41>.<42>.<43>.<44>.<45>.<46>.<47>.<48>.<49>.SDV0Z1F
+HJKL2RQI2R3ABCDEFGSETUP: init_ardupilot done
+YScheduler overrun task[13-Copter::throttle_loop] (538/75)
+Scheduler overrun task[15-AP_GPS::update] (875/200)
+Scheduler overrun task[21-Copter::read_rangefinder] (1047/100)
+Scheduler overrun task[35-AP_Notify::update] (556/300)
+Scheduler overrun task[40-Copter::takeoff_check] (13513/50)
+Scheduler overrun task[44-GCS::update_receive] (991/180)
+Scheduler overrun task[44-GCS::update_receive] (187/180)
+AP: ArduPilot Ready
+AP: AHRS: DCM active
+AP: RCOut: PWM:1-4
+Scheduler overrun task[45-GCS::update_send] (16503/550)
+Scheduler overrun task[23-AP_Beacon::update] (104/50)
+Scheduler overrun task[32-Copter::update_precland] (13573/50)
+Scheduler overrun task[15-AP_GPS::update] (578/200)
+Scheduler overrun task[16-AP_OpticalFlow::update] (13030/160)
+Scheduler overrun task[45-GCS::update_send] (1572/550)
+Scheduler overrun task[51-AP_InertialSensor::periodic] (61/50)
+Scheduler overrun task[58-Copter::update_dynamic_notch_at_specified_rate_main] (15493/200)
+Scheduler overrun task[26-Copter::run_nav_updates] (526/100)
+Scheduler overrun task[27-Copter::update_throttle_hover] (15488/90)
+Scheduler overrun task[45-GCS::update_send] (1880/550)
+Scheduler overrun task[13-Copter::throttle_loop] (91/75)
+Scheduler overrun task[16-AP_OpticalFlow::update] (15478/160)
+Scheduler overrun task[17-Copter::update_batt_compass] (692/120)
+Scheduler overrun task[18-RC_Channels::read_aux_all] (16533/50)
+Scheduler overrun task[25-Copter::update_altitude] (191/100)
+Scheduler overrun task[27-Copter::update_throttle_hover] (15753/90)
+Scheduler overrun task[32-Copter::update_precland] (492/50)
+Scheduler overrun task[33-Copter::loop_rate_logging] (15594/50)
+Scheduler overrun task[45-GCS::update_send] (1398/550)
+Scheduler overrun task[54-Copter::avoidance_adsb_update] (582/100)
+Scheduler overrun task[55-AP_Winch::update] (16719/50)
+Scheduler overrun task[22-AP_Proximity::update] (81/50)
+Scheduler overrun task[23-AP_Beacon::update] (14830/50)
+Scheduler overrun task[33-Copter::loop_rate_logging] (377/50)
+Scheduler overrun task[35-AP_Notify::update] (16260/300)
+Scheduler overrun task[21-Copter::read_rangefinder] (263/100)
+Scheduler overrun task[22-AP_Proximity::update] (158020)
+Scduler overrun k[hN45-GCS::upd_CALTEMP	2283/550)
+Scheduler overrun task[23-AP_Beacon::update] (59/50)
+Scheduler overrun task[32-Copter::update_precland] (12447/50)
+Scheduler overrun task[44-GCS::update_receive] (573/180)
+Scheduler overrun task[45-GCS::update_send] (13631/550)
+Scheduler overrun task[62-AP_ESC_Telem::update] (51/50)
+Scheduler overrun task[63-AP_Servo_Telem::update] (12870/50)
+Scheduler overrun task[45-GCS::update_send] (1442/550)
+Scheduler overrun task[46-AP_Mount::update] (12650/75)
+Scheduler overrun task[45-GCS::update_send] (1301/550)
+Scheduler overrun task[47-AP_Camera::update] (12651/75)
+Scheduler overrun task[32-Copter::update_precland] (63/50)
+Scheduler overrun task[33-Copter::loop_rate_logging] (14498/50)
+Scheduler overrun task[45-GCS::update_send] (1816/550)
+Scheduler overrun task[50-AP_Logger::periodic_tasks] (12859/300)
+Scheduler overrun task[3-Copter::read_AHRS*] (7280/2500)
+Scheduler overrun task[4-Copter::read_inertia*] (13065/2500)
+Scheduler overrun task[5-Copter::check_ekf_reset*] (13454/2500)
+Scheduler overrun task[6-Copter::update_flight_mode*] (15651/2500)
+Scheduler overrun task[7-Copter::update_home_from_EKF*] (15032/2500)
+Scheduler overrun task[8-Copter::update_land_and_crash_detectors*] (15833/2500)
+
