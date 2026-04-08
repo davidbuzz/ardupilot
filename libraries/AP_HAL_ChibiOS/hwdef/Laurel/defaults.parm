@@ -13,6 +13,10 @@ FSTRATE_ENABLE 1
 # Enable watchdog by default.
 BRD_OPTIONS 1
 
+# Quad-X frame with 4 motors (matches the 4 PWM outputs on GPIO28-31).
+FRAME_CLASS 1
+FRAME_TYPE 1
+
 # Battery scaling values need Laurel hardware calibration.
 #BATT_AMP_PERVLT 1.0
 #BATT_VOLT_MULT 1.0
