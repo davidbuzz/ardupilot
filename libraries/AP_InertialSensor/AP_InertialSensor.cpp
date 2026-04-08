@@ -1949,6 +1949,7 @@ void AP_InertialSensor::set_primary(uint8_t instance)
 /*
   update gyro and accel values from backends
  */
+__RAMFUNC__
 void AP_InertialSensor::update(void)
 {
     // during initialisation update() may be called without
