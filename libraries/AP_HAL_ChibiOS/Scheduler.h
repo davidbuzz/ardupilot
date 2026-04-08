@@ -70,9 +70,9 @@
 #ifndef RCOUT_THD_WA_SIZE
 #if defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE
 // RP2350/Pico2 debug builds exercise deeper RCOutput paths and need a larger
-// working area to avoid stack corruption during early bring-up.
-// Increased from 1024: live threads.txt showed rcout at 86% (184 B free).
-#define RCOUT_THD_WA_SIZE    1536
+// working area.  Bumped 1024 → 1536 → 2048: live threads.txt showed
+// 1608/1792 used (90%) with the 1536 allocation.
+#define RCOUT_THD_WA_SIZE    2048
 #else
 #define RCOUT_THD_WA_SIZE    512
 #endif
@@ -80,10 +80,10 @@
 
 #ifndef RCIN_THD_WA_SIZE
 #if defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE
-// RP2350/Pico2 RC-in protocol parsing and timing checks can exceed the
-// default stack budget in debug builds; increase margin to avoid corruption.
-// Increased from 2048: live threads.txt showed rcin at 94% (144 B free).
-#define RCIN_THD_WA_SIZE    3072
+// RP2350/Pico2 RC-in protocol parsing and timing checks exceed the default
+// stack budget in debug builds.  Bumped 2048 → 3072 → 4096: live
+// threads.txt showed 3184/3328 used (96%) with the 3072 allocation.
+#define RCIN_THD_WA_SIZE    4096
 #else
 #define RCIN_THD_WA_SIZE    1024
 #endif
@@ -98,8 +98,8 @@
 #endif
 
 #ifndef MONITOR_THD_WA_SIZE
-// Increased from 1024: live threads.txt showed monitor at 82% (232 B free).
-#define MONITOR_THD_WA_SIZE 1536
+// Bumped 1024 → 1536 → 2048: live threads.txt showed 1560/1792 used (87%).
+#define MONITOR_THD_WA_SIZE 2048
 #endif
 
 // MEMCHECK_ENABLED checks the bottom 1kB of RAM on H7 to ensure it is

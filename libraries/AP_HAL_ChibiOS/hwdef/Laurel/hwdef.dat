@@ -38,8 +38,9 @@ define RP_FLASH_SIZE (BOARD_FLASH_SIZE * 1024U)
 FLASH_RESERVE_START_KB 64
 
 # GPIO IRQ handling and early bring-up on RP2350 benefit from a larger MSP.
-# Doubled from 0x1000: live threads.txt showed ISR stack at 95% (208 B free).
-MAIN_STACK 0x2000
+# Doubled from 0x1000 → 0x2000: still at 97% (208 B free in live threads.txt).
+# Bumped again to 0x3000 (12 KB): ISR used 7984/8192 with the previous size.
+MAIN_STACK 0x3000
 
 # USB setup
 USB_STRING_MANUFACTURER "ArduPilot"

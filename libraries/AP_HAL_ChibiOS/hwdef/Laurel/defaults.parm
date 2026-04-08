@@ -1,12 +1,15 @@
 # Laurel defaults tuned for the onboard ICM42688P sensor stack.
-
-# Run the main loop at 400 Hz — appropriate for a real high-rate IMU.
-# INS_FAST_SAMPLE 1 enables 8x oversampling in the ICM42688P backend
-# (internal gyro ODR ~8 kHz, decimated to the scheduler rate).
-# FSTRATE_ENABLE 1 uses dynamic rate mode: the FC backs off if CPU load
-# is too high (full gyro queue / slow main loops), which is the safest
-# choice for initial flight testing on a new port.
-SCHED_LOOP_RATE 400
+#
+# Scheduler rate: live tasks.txt profiling (2025-04 debug build) shows
+# FAST_TASK functions alone consume ~7500 us/loop:
+#   read_AHRS      AVG=5226 us  (65.7% CPU — EKF3 dominates)
+#   update_flight_mode AVG=1566 us  (20.1%)
+# At 400 Hz the budget is 2500 us — 3x over, so the loop only hits ~114 Hz
+# and GCS::update_send (AVG=1100 us, OVR=999) is perpetually starved.
+# At 200 Hz the budget is 5000 us — still tight for debug, but leaves
+# headroom for GCS, logging, and IO tasks.  For release builds (-O2)
+# EKF drops to ~500 us and 400 Hz should be achievable; revisit then.
+SCHED_LOOP_RATE 200
 INS_FAST_SAMPLE 1
 FSTRATE_ENABLE 1
 
