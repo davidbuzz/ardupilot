@@ -63,14 +63,16 @@
 #endif
 
 #ifndef TIMER_THD_WA_SIZE
-#define TIMER_THD_WA_SIZE   1536
+// Increased from 1536: live threads.txt showed timer at 84% (288 B free).
+#define TIMER_THD_WA_SIZE   2048
 #endif
 
 #ifndef RCOUT_THD_WA_SIZE
 #if defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE
 // RP2350/Pico2 debug builds exercise deeper RCOutput paths and need a larger
 // working area to avoid stack corruption during early bring-up.
-#define RCOUT_THD_WA_SIZE    1024
+// Increased from 1024: live threads.txt showed rcout at 86% (184 B free).
+#define RCOUT_THD_WA_SIZE    1536
 #else
 #define RCOUT_THD_WA_SIZE    512
 #endif
@@ -80,7 +82,8 @@
 #if defined(PIC02_AVAILABLE) && PIC02_AVAILABLE == TRUE
 // RP2350/Pico2 RC-in protocol parsing and timing checks can exceed the
 // default stack budget in debug builds; increase margin to avoid corruption.
-#define RCIN_THD_WA_SIZE    2048
+// Increased from 2048: live threads.txt showed rcin at 94% (144 B free).
+#define RCIN_THD_WA_SIZE    3072
 #else
 #define RCIN_THD_WA_SIZE    1024
 #endif
@@ -95,7 +98,8 @@
 #endif
 
 #ifndef MONITOR_THD_WA_SIZE
-#define MONITOR_THD_WA_SIZE 1024
+// Increased from 1024: live threads.txt showed monitor at 82% (232 B free).
+#define MONITOR_THD_WA_SIZE 1536
 #endif
 
 // MEMCHECK_ENABLED checks the bottom 1kB of RAM on H7 to ensure it is

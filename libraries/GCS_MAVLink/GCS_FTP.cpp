@@ -62,7 +62,7 @@ bool GCS_FTP::init(void)
     // threads before the TX ring-buffer can fill.
 #if defined(RP2350)
     initialised = hal.scheduler->thread_create(FUNCTOR_BIND_MEMBER(&GCS_FTP::worker, void),
-                                               "FTP", 6144, AP_HAL::Scheduler::PRIORITY_UART, 1);
+                                               "FTP", 8192, AP_HAL::Scheduler::PRIORITY_UART, 1);
 #else
     initialised = hal.scheduler->thread_create(FUNCTOR_BIND_MEMBER(&GCS_FTP::worker, void),
                                                "FTP", 6144, AP_HAL::Scheduler::PRIORITY_IO, 0);
