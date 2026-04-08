@@ -274,7 +274,13 @@
  * @note    Requires @p CH_CFG_USE_MUTEXES.
  */
 #if !defined(CH_CFG_USE_MUTEXES_RECURSIVE)
-#define CH_CFG_USE_MUTEXES_RECURSIVE        FALSE
+// AP_HAL states "All semaphores are recursive. This allows for the thread holding
+// the semaphore to take it again." Code that takes a comm_chan_lock and then
+// calls mavlink_msg_*_send_struct (which internally takes the same lock via
+// MAVLINK_START_UART_SEND / comm_send_lock) requires recursive mutexes.
+// Without this, the GCS_FTP send_reply() deadlocks on any HAVE_PAYLOAD_SPACE
+// success path. Set TRUE to match the STM32/common chconf.h behaviour.
+#define CH_CFG_USE_MUTEXES_RECURSIVE        TRUE
 #endif
 
 /**
