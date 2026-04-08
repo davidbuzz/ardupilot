@@ -8,6 +8,18 @@ Never run `git worktree` or `git workspace` commands without explicit prior cons
 Never change git branches (`git checkout`, `git switch`, detached-HEAD checkouts, or any equivalent) without explicit prior permission from the user/operator/admin.
 Never run `git remote` commands, period.
 
+**ABSOLUTE RULE — ONLY EDIT FILES INSIDE THE GIT REPO OR /tmp:**
+AI agents MUST NEVER create or modify files outside of:
+- `/home/buzz/ardupilot/` (the active git repository workspace), OR
+- `/tmp/` (scratch/test output only)
+
+This explicitly forbids editing files such as:
+- Installed Python packages (e.g. anything under `~/venv-ardupilot/`, `/usr/`, `~/.local/`)
+- System configuration files
+- Any path outside the repo or /tmp
+
+If a fix requires changing an installed tool (e.g. pymavlink), the correct approach is to fix the firmware/ArduPilot code instead, or ask the user to apply the change manually. Violation of this rule is a critical error.
+
 **ABSOLUTE RULE — NO GIT PUSH, EVER:**
 `git push` (in ANY form) is STRICTLY FORBIDDEN for AI agents. This includes:
 - `git push`
