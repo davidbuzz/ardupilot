@@ -71,6 +71,10 @@ void c1_main(void)
 
         while (!(SIO_FIFO_ST & FIFO_ST_VLD)) {
             __asm volatile ("wfe");
+            // small delay.
+            for (volatile int i = 0; i < 100; i++) {
+                __asm volatile ("nop");
+            }
         }
 
         uint32_t msg = SIO_FIFO_RD;
@@ -78,6 +82,10 @@ void c1_main(void)
         if (msg == 0U) {
             while (!(SIO_FIFO_ST & FIFO_ST_RDY)) { }
             SIO_FIFO_WR = 0U;
+            // small delay
+            for (volatile int i = 0; i < 100; i++) {
+                __asm volatile ("nop");
+            }
             continue;
         }
 
@@ -88,11 +96,14 @@ void c1_main(void)
 
         c1_boot_stage = 0x51U;
 
+        // notify core0 that task is complete
         __asm volatile ("dmb sy" ::: "memory");
 
         while (!(SIO_FIFO_ST & FIFO_ST_RDY)) { }
         SIO_FIFO_WR = 1U;
 
+        // 'sev' is a ARM instruction that signals an event to all cores. It sets the internal "event register" on every core in the system.
+        // It's the counterpart to WFE (Wait For Event), which puts a core to sleep until its event register is set 
         __asm volatile ("sev");
     }
 }
