@@ -286,7 +286,7 @@ static void main_loop()
 
     schedulerInstance.hal_initialized();
 
-    g_callbacks->setup();
+    g_callbacks->setup();//
 
 #if HAL_ENABLE_SAVE_PERSISTENT_PARAMS
     utilInstance.apply_persistent_params();
@@ -343,7 +343,7 @@ static void main_loop()
 #endif  // AP_BOARDCONFIG_MCU_MEMPROTECT_ENABLED
 
     while (true) {
-        g_callbacks->loop();
+        g_callbacks->loop(); // this does AP_Vehicle::loop() and that does AP_Scheduler::loop() , eventually callig stuff like AP_AHRS::update() and NavEKF3_core::UpdateFilter() and more.
 
 #if HAL_SCHEDULER_LOOP_DELAY_ENABLED && !APM_BUILD_TYPE(APM_BUILD_Replay)
         /*
