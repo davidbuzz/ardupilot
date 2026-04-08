@@ -3,6 +3,7 @@
         "augustocdias.tasks-shell-input",
         "bierner.markdown-mermaid",
         "ms-vscode.cpptools",
+        "marus25.cortex-debug",
         "sumneko.lua",
         "ms-python.python",
         "ms-python.vscode-pylance",
