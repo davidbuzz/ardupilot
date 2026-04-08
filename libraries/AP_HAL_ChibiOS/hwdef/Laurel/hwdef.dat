@@ -39,8 +39,9 @@ FLASH_RESERVE_START_KB 64
 
 # GPIO IRQ handling and early bring-up on RP2350 benefit from a larger MSP.
 # Doubled from 0x1000 → 0x2000: still at 97% (208 B free in live threads.txt).
-# Bumped again to 0x3000 (12 KB): ISR used 7984/8192 with the previous size.
-MAIN_STACK 0x3000
+# Then 0x3000 (12 KB): ISR used 12064/12288 (98%) — still growing with
+# __RAMFUNC__ additions.  Bumped to 0x4000 (16 KB) for headroom.
+MAIN_STACK 0x4000
 
 # USB setup
 USB_STRING_MANUFACTURER "ArduPilot"
