@@ -38,6 +38,7 @@
 #include <AP_HAL_ChibiOS/RCInput.h>
 #include <AP_HAL_ChibiOS/CANIface.h>
 #include <AP_InternalError/AP_InternalError.h>
+#include <cstring>
 
 #if CH_CFG_USE_DYNAMIC == TRUE
 
@@ -64,6 +65,42 @@ extern AP_IOMCU iomcu;
 #endif
 
 using namespace ChibiOS;
+
+extern "C" {
+
+thread_t *ap_chibios_first_thread(void);
+thread_t *ap_chibios_next_thread(thread_t *tp);
+thread_t *ap_chibios_find_thread_by_name(const char *name);
+
+// GDB helper: always-present entry points for thread-registry introspection.
+// We expose these from ArduPilot so debug sessions do not depend on whether
+// specific ChibiOS helper symbols were linked in or dead-stripped.
+thread_t *ap_chibios_first_thread(void)
+{
+    return chRegFirstThread();
+}
+
+thread_t *ap_chibios_next_thread(thread_t *tp)
+{
+    return chRegNextThread(tp);
+}
+
+thread_t *ap_chibios_find_thread_by_name(const char *name)
+{
+    if (name == nullptr) {
+        return nullptr;
+    }
+
+    for (thread_t *tp = chRegFirstThread(); tp != nullptr; tp = chRegNextThread(tp)) {
+        if (tp->name != nullptr && strcmp(tp->name, name) == 0) {
+            return tp;
+        }
+    }
+
+    return nullptr;
+}
+
+}
 
 #ifndef HAL_RCIN_THREAD_ENABLED
 #define HAL_RCIN_THREAD_ENABLED 1
@@ -107,6 +144,12 @@ Scheduler::Scheduler()
 
 void Scheduler::init()
 {
+    // Keep debug helper symbols linked by executing a real call path once.
+    // This is intentionally side-effect free and guarantees the helpers are
+    // available to GDB even with --gc-sections.
+    (void)ap_chibios_first_thread();
+    (void)ap_chibios_find_thread_by_name("nonexistent");
+
     chBSemObjectInit(&_timer_semaphore, false);
     chBSemObjectInit(&_io_semaphore, false);
 
