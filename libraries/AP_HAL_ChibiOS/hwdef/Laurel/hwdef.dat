@@ -41,7 +41,8 @@ FLASH_RESERVE_START_KB 64
 # Doubled from 0x1000 → 0x2000: still at 97% (208 B free in live threads.txt).
 # Then 0x3000 (12 KB): ISR used 12064/12288 (98%) — still growing with
 # __RAMFUNC__ additions.  Bumped to 0x4000 (16 KB) for headroom.
-MAIN_STACK 0x4000
+# threads.new2.txt: 16168/16384 (98.7%) — bump again to 0x6000 (24 KB).
+MAIN_STACK 0x6000
 
 # USB setup
 USB_STRING_MANUFACTURER "ArduPilot"
