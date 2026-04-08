@@ -302,11 +302,14 @@ void Copter::rate_controller_thread()
         // there is no need to output to the motors more than once for every batch of samples
 #if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
         // RP2350 dual-core: dispatch PID computation to core1 (bare-metal).
-        // core0 blocks until core1 signals done, then continues with motors_output.
+        // Uses c1_try_run_sync() — a non-blocking TryLock variant.  If core1 is
+        // currently busy running EKF covariance prediction (~3000 µs), PID falls
+        // back to core0 immediately rather than stalling this 1 kHz control loop.
+        // core0 then continues with motors_output() without delay.
         _c1_rate_args.attitude_control = attitude_control;
         _c1_rate_args.gyro_with_drift  = gyro + ahrs.get_gyro_drift();
         _c1_rate_args.sensor_dt        = sensor_dt;
-        c1_run_sync(_c1_rate_compute);
+        c1_try_run_sync(_c1_rate_compute);
 #else
         attitude_control->rate_controller_run_dt(gyro + ahrs.get_gyro_drift(), sensor_dt);
 #endif

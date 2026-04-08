@@ -84,6 +84,17 @@ thread_t *thread_create_alloc(size_t size, const char *name, tprio_t prio, tfunc
  * run on core0 as a fallback and c1_timeout_count is incremented.
  */
 void c1_run_sync(void (*fn)(void));
+/*
+ * c1_run_sync_locked(): serialised dispatch — acquires dispatch mutex first.
+ * Use when multiple threads may dispatch to core1 (e.g. EKF covariance).
+ */
+void c1_run_sync_locked(void (*fn)(void));
+/*
+ * c1_try_run_sync(): non-blocking try-dispatch.
+ * If dispatch mutex is held, fn() runs on core0 and returns false.
+ * Use for high-rate callers (e.g. rate_thread PID) that must not stall.
+ */
+bool c1_try_run_sync(void (*fn)(void));
 extern volatile uint32_t c1_timeout_count;
 #endif
 bool mem_is_dma_safe(const void *addr, uint32_t size, bool filesystem_op);

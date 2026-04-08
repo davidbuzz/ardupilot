@@ -7,6 +7,46 @@
 #include <AP_Logger/AP_Logger.h>
 #include <AP_DAL/AP_DAL.h>
 
+/*
+ * RP2350 dual-core EKF offload
+ * =============================
+ * On RP2350 targets with RP_CORE1_START=TRUE, CovariancePrediction() is
+ * dispatched to core1's bare-metal FIFO executor via c1_run_sync_locked().
+ *
+ * CovariancePrediction() is pure floating-point matrix computation (~3000 µs
+ * in a 200 Hz debug build) with no ChibiOS calls, no I/O, and no shared-state
+ * writes other than the P[][] array owned by this NavEKF3_core instance.
+ *
+ * While core1 computes P[][], the c1_run_sync_locked() wait loop calls
+ * chThdSleep(10 µs) on each iteration, yielding 10 µs slices to lower-priority
+ * ChibiOS threads (GCS send/receive, USB TX).  This drains the MAVLink TX
+ * buffer during what would otherwise be a 3000 µs dead zone, reducing
+ * GCS::update_send overrun count (OVR was 980 at 200 Hz in debug builds).
+ *
+ * Serialisation: a ChibiOS mutex in board.c is shared between this dispatch
+ * and the rate_thread PID dispatch.  EKF uses c1_run_sync_locked() (blocking
+ * lock) and rate_thread uses c1_try_run_sync() (non-blocking, falls back to
+ * core0 rather than stalling the 1 kHz PID loop for 3000 µs).
+ */
+#if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
+#include <AP_HAL_ChibiOS/hwdef/common/stm32_util.h>
+
+/* Pointer to 'this' passed via file scope so the zero-arg static method wrapper
+ * can call the instance method.  Set with a DMB fence before every dispatch. */
+NavEKF3_core *_c1_cov_core;
+
+/*
+ * NavEKF3_core::c1_covariance_entry() — static wrapper called on core1.
+ * A static member function has the same ABI as a free void(*)(void) function,
+ * so it can be passed directly to c1_run_sync_locked().
+ * Invokes CovariancePrediction(nullptr) on the stored _c1_cov_core instance.
+ */
+void NavEKF3_core::c1_covariance_entry(void)
+{
+    _c1_cov_core->CovariancePrediction(nullptr);
+}
+#endif  /* RP_CORE1_START */
+
 // constructor
 NavEKF3_core::NavEKF3_core(NavEKF3 *_frontend, AP_DAL &_dal) :
     dal(_dal),
@@ -648,8 +688,17 @@ __RAMFUNC__ void NavEKF3_core::UpdateFilter(bool predict)
         // Predict states using IMU data from the delayed time horizon
         UpdateStrapdownEquationsNED();
 
-        // Predict the covariance growth
+        // Predict the covariance growth.
+        // On RP2350: dispatch to core1 via a serialised locked call so core1 does
+        // ~3000 µs of matrix math while core0 yields 10 µs slices to GCS/USB threads.
+        // On all other targets (non-RP2350): run on core0 as before.
+#if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
+        _c1_cov_core = this;
+        __DMB();  /* ensure _c1_cov_core pointer is visible to core1 */
+        c1_run_sync_locked(NavEKF3_core::c1_covariance_entry);
+#else
         CovariancePrediction(nullptr);
+#endif
 
         // Run the IMU prediction step for the GSF yaw estimator algorithm
         // using IMU and optionally true airspeed data.

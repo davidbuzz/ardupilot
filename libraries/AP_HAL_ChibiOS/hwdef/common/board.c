@@ -859,6 +859,58 @@ void boardInit(void) {
 /* Count of c1_run_sync() fallbacks due to core1 timeout. Visible via OpenOCD. */
 volatile uint32_t c1_timeout_count;
 
+/*
+ * Dispatch serialisation: multiple ChibiOS threads (main scheduler for EKF
+ * covariance, high-rate rate_thread for PID) may both want core1 at once.
+ * Without serialisation the SIO FIFO write + completion-read pair of one
+ * caller can interleave with the other, causing each to consume the wrong
+ * "done = 1" signal.
+ *
+ * Strategy:
+ *   • c1_run_sync_locked()  — used by EKF: acquires the mutex, dispatches,
+ *                             releases.  The ~3000 µs wait with chThdSleep
+ *                             inside c1_run_sync() still yields 10 µs slices
+ *                             to lower-priority threads (GCS, USB TX).
+ *   • c1_try_run_sync()     — used by rate_thread: non-blocking TryLock.
+ *                             If EKF already holds the mutex, PID computation
+ *                             falls back to core0 immediately rather than
+ *                             stalling the 1 kHz control loop for 3000 µs.
+ */
+static MUTEX_DECL(c1_dispatch_mtx);
+
+/*
+ * c1_run_sync_locked() — serialised c1_run_sync().
+ * Blocks until the dispatch mutex is free, then dispatches fn to core1.
+ * Use for callers that must have core1 results eventually (e.g. EKF).
+ */
+void c1_run_sync_locked(void (*fn)(void))
+{
+    chMtxLock(&c1_dispatch_mtx);
+    c1_run_sync(fn);
+    chMtxUnlock(&c1_dispatch_mtx);
+}
+
+/*
+ * c1_try_run_sync() — best-effort core1 dispatch with immediate fallback.
+ * Attempts a non-blocking TryLock on the dispatch mutex.  If the mutex is
+ * already held (e.g. EKF covariance is running), fn() executes on core0
+ * instead and the function returns false.  This avoids stalling a
+ * high-priority caller (rate_thread) for the full ~3000 µs EKF covariance
+ * window.  Returns true if core1 was used, false if core0 fallback was used.
+ */
+bool c1_try_run_sync(void (*fn)(void))
+{
+    if (!chMtxTryLock(&c1_dispatch_mtx)) {
+        /* Core1 is busy — run fn on core0 and report fallback. */
+        fn();
+        __DMB();
+        return false;
+    }
+    c1_run_sync(fn);
+    chMtxUnlock(&c1_dispatch_mtx);
+    return true;
+}
+
 void c1_run_sync(void (*fn)(void))
 {
     /* Release barrier: ensure preceding stores are visible to core1 before
