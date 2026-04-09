@@ -51,6 +51,20 @@ __ram0_start__          = ORIGIN(ram0);
 __ram0_size__           = LENGTH(ram0);
 __ram0_end__            = __ram0_start__ + __ram0_size__;
 
+/*
+ * RP2350 __RAMFUNC__ guard.
+ *
+ * Older fixed-size guards were intentionally conservative but could trip even
+ * when total SRAM headroom was still healthy.  Use a mathematical SRAM guard
+ * based on post-link heap headroom instead:
+ *
+ *   - keep a minimum heap reserve (__rp2350_min_heap__)
+ *
+ * This makes the primary pass/fail decision depend on total used/available
+ * SRAM rather than an arbitrary single .ramtext threshold.
+ */
+PROVIDE(__rp2350_min_heap__ = 0x00020000);          /* 128 KB minimum heap */
+
 ENTRY(Reset_Handler)
 
 /* Force rp2350_imagedef.o to be pulled from libch.a so the PICOBIN IMAGE_DEF
@@ -171,7 +185,13 @@ SECTIONS
     /* Core 1 MSP exception stack (rules_stacks_c1.ld pattern inlined here
        so we can control placement without a separate MEMORY region for ram4/5). */
     __c1_main_stack_size__    = __main_stack_size__;
-    __c1_process_stack_size__ = __process_stack_size__;
+    /* Core1 process stack is sized independently to give EKF CovariancePrediction
+       sufficient headroom.  CovariancePrediction is a large float-heavy function
+       that previously ran on a dedicated EKF thread (large stack); now it runs
+       on core1's PSP.  Use 0x4000 (16 KB) rather than matching core0's 7 KB
+       __process_stack_size__ to avoid PSP overflow during matrix computation. */
+    __c1_process_stack_size__ = 0x4000;  
+    /*__c1_process_stack_size__ = __process_stack_size__;*/
 
     .c1_mstack (NOLOAD) :
     {
@@ -203,7 +223,13 @@ SECTIONS
         __data_base__ = .;
         *(.data)
         *(.data.*)
+        . = ALIGN(16);
+        __ramfunc_start__ = .;
         *(.ramtext)
+        *(.ramtext.*)
+        . = ALIGN(16);
+        __ramfunc_end__ = .;
+        __ramfunc_size__ = __ramfunc_end__ - __ramfunc_start__;
         . = ALIGN(4);
         PROVIDE(_edata = .);
         __data_end__ = .;
@@ -252,6 +278,16 @@ SECTIONS
         __heap_base__ = .;
         . = ORIGIN(HEAP_RAM) + LENGTH(HEAP_RAM);
         __heap_end__ = .;
+        __heap_size__ = __heap_end__ - __heap_base__;
+
+        /* Explicit SRAM accounting for link-time diagnostics:
+           - allowed: max static SRAM usage while preserving min heap
+           - used:    current static SRAM usage before heap
+           - over:    how far static usage exceeds allowed budget */
+        __rp2350_sram_allowed__ = LENGTH(HEAP_RAM) - __rp2350_min_heap__;
+        __rp2350_sram_used__ = __heap_base__ - ORIGIN(HEAP_RAM);
+        __rp2350_sram_over_limit__ = (__rp2350_sram_used__ > __rp2350_sram_allowed__) ?
+            (__rp2350_sram_used__ - __rp2350_sram_allowed__) : 0;
     } > HEAP_RAM
 
     /* The crash log uses the unused part of a flash section.*/
@@ -262,5 +298,8 @@ SECTIONS
         . = ORIGIN(flash) + LENGTH(flash);
         __crash_log_end__ = .;
     } > flash
+
+        ASSERT(__rp2350_sram_used__ <= __rp2350_sram_allowed__,
+            "RP2350: SRAM over limit after RAMFUNC placement; see __rp2350_sram_allowed__, __rp2350_sram_used__, __rp2350_sram_over_limit__")
 
 }
