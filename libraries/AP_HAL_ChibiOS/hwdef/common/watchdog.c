@@ -267,21 +267,83 @@ void rp2350_watchdog_save_reason(void)
 }
 
 /*
- * RP2350 has WATCHDOG SCRATCH[0-7]. SCRATCH[0] is reserved for the
- * AP_FASTBOOT boot-hold flag and SCRATCH[6] for the WDT reason flag.
- * Persistent data save/load across resets is not yet implemented;
- * these are stubs so the upper layers compile and link.
+ * RP2350 persistent data save/load across WD resets using a no-init SRAM buffer.
+ *
+ * SRAM on RP2350 is in the always-on power domain: it is NOT reset by the
+ * PSM watchdog reset (which only resets peripherals listed in PSM->WDSEL).
+ * Placing the buffer in the ".ram0" section (after __ram0_noinit__) ensures that
+ * ChibiOS CRT0 does NOT zero it during startup initialisation.
+ *
+ * The AP_Bootloader only zeros its own BSS (defined by its own linker symbols),
+ * leaving the application's noinit region untouched during bootloader execution
+ * before the jump-to-app. This makes the noinit SRAM a reliable cross-reset
+ * storage area as long as powered.
+ *
+ * A magic header guards against reading stale / power-on-reset random data.
+ * The caller (HAL_ChibiOS_Class.cpp) only calls rp2350_watchdog_load() when
+ * rp2350_was_watchdog_reset() returns true (i.e. the WD canary was set in
+ * SCRATCH[6]), providing a second layer of protection.
+ *
+ * Maximum saved words: RP2350_WD_PERSIST_MAX_WORDS (covers the full
+ * AP_HAL::Util::PersistentData struct which is ~22 uint32_t words as of this
+ * writing; 32 words gives comfortable headroom for future growth).
  */
+#define RP2350_WD_PERSIST_MAGIC     0x5750444fU  /* 'WPDO' little-endian */
+#define RP2350_WD_PERSIST_MAX_WORDS 32U
+
+typedef struct {
+    uint32_t magic;                              /* RP2350_WD_PERSIST_MAGIC when valid */
+    uint32_t nwords;                             /* number of valid words in data[] */
+    uint32_t data[RP2350_WD_PERSIST_MAX_WORDS];  /* copy of HAL::Util::PersistentData */
+} rp2350_wd_persist_t;
+
+/*
+ * Placed in ".ram0" (no-init section): CRT0 copies initialised data up to
+ * __ram0_noinit__ and zeros BSS up to __ram0_noinit__, but does NOT touch
+ * anything after that marker. The struct therefore retains its value across
+ * WD-triggered PSM resets.
+ */
+static rp2350_wd_persist_t wd_persist_buf __attribute__((section(".ram0")));
+
 void rp2350_watchdog_save(const uint32_t *data, uint32_t nwords)
 {
-    (void)data;
-    (void)nwords;
+    /* Cap at our buffer limit to prevent overflow. */
+    if (nwords > RP2350_WD_PERSIST_MAX_WORDS) {
+        nwords = RP2350_WD_PERSIST_MAX_WORDS;
+    }
+
+    wd_persist_buf.nwords = nwords;
+    for (uint32_t i = 0U; i < nwords; i++) {
+        wd_persist_buf.data[i] = data[i];
+    }
+    /* Write magic last so a partial write leaves an invalid header. */
+    wd_persist_buf.magic = RP2350_WD_PERSIST_MAGIC;
 }
 
 void rp2350_watchdog_load(uint32_t *data, uint32_t nwords)
 {
-    (void)data;
-    (void)nwords;
+    /* Reject invalid header (power-on-reset, no prior save, or partial write). */
+    if (wd_persist_buf.magic != RP2350_WD_PERSIST_MAGIC) {
+        return;
+    }
+
+    uint32_t saved = wd_persist_buf.nwords;
+    if (saved > RP2350_WD_PERSIST_MAX_WORDS) {
+        saved = RP2350_WD_PERSIST_MAX_WORDS;  /* guard against corrupt nwords */
+    }
+    const uint32_t copy = (saved < nwords) ? saved : nwords;
+
+    for (uint32_t i = 0U; i < copy; i++) {
+        data[i] = wd_persist_buf.data[i];
+    }
+    /* Zero any words the caller wants that we did not save. */
+    for (uint32_t i = copy; i < nwords; i++) {
+        data[i] = 0U;
+    }
+
+    /* Invalidate the buffer so a cold POR (even without re-arm by save())
+     * does not replay stale data on the next boot. */
+    wd_persist_buf.magic = 0U;
 }
 
 bool rp2350_was_software_reset(void)

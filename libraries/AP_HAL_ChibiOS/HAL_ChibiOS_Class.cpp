@@ -282,7 +282,15 @@ static void main_loop()
         stm32_watchdog_load((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4);
         utilInstance.last_persistent_data = utilInstance.persistent_data;
     }
-#endif // STM32_AVAILABLE
+#elif defined(RP2350)
+    // On RP2350, rp2350_was_watchdog_reset() caches the detection result at
+    // init time. Load persistent data from the noinit SRAM buffer only when
+    // a WD-triggered reset is confirmed (canary in SCRATCH[6] still present).
+    if (rp2350_was_watchdog_reset()) {
+        rp2350_watchdog_load((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4);
+        utilInstance.last_persistent_data = utilInstance.persistent_data;
+    }
+#endif // STM32_AVAILABLE / RP2350
 
     schedulerInstance.hal_initialized();
 

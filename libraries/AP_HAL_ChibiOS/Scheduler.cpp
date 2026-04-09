@@ -484,6 +484,10 @@ void Scheduler::_monitor_thread(void *arg)
         if (using_watchdog) {
 #if defined(STM32_AVAILABLE) && STM32_AVAILABLE == TRUE
             stm32_watchdog_save((uint32_t *)&hal.util->persistent_data, (sizeof(hal.util->persistent_data)+3)/4);
+#elif defined(RP2350)
+            // Save persistent data into noinit SRAM on every watchdog pat so
+            // it can be restored after a WD-triggered PSM reset.
+            rp2350_watchdog_save((uint32_t *)&hal.util->persistent_data, (sizeof(hal.util->persistent_data)+3)/4);
 #endif
         }
 
