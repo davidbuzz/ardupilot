@@ -251,7 +251,15 @@ void PIORXDriver::_configure_gpio(uint8_t pin, bool is_output)
              | PAL_RP_PAD_PUE
              | PAL_RP_PAD_SCHMITT;
     }
-    palSetPadMode(IOPORT1, pin, mode);
+    // RP2350B has 48 GPIOs split across two PAL ports:
+    // IOPORT1 (port 0) covers GPIO 0-31, IOPORT2 (port 1) covers GPIO 32-47.
+    // palSetPadMode() silently returns if pad >= PAL_IOPORTS_WIDTH (32), so
+    // we must use IOPORT2 with the local pad offset for extended-range pins.
+    if (pin < 32U) {
+        palSetPadMode(IOPORT1, pin, mode);
+    } else {
+        palSetPadMode(IOPORT2, pin - 32U, mode);
+    }
 
     // Keep GPIO direction sane even when routed to PIO function.
     // On RP2350 bring-up, explicitly setting SIO OE avoids silent TX pins
