@@ -1226,6 +1226,13 @@ void boardInit(void) {
 /* Count of c1_run_sync() fallbacks due to core1 timeout. Visible via OpenOCD. */
 volatile uint32_t c1_timeout_count;
 
+/* Per-type dispatch counts for the 10-second dual-core utilisation report.
+ * Updated by c1_run_sync_locked() for EKF and c1_try_run_sync() for PID. */
+volatile uint32_t c1_ekf_c1_count;  /* EKF covariance dispatches that ran on Core1  */
+volatile uint32_t c1_ekf_c0_count;  /* EKF covariance dispatches that fell back to Core0 */
+volatile uint32_t c1_pid_c1_count;  /* PID rate-loop dispatches that ran on Core1  */
+volatile uint32_t c1_pid_c0_count;  /* PID rate-loop dispatches that fell back to Core0 */
+
 /*
  * Dispatch serialisation: multiple ChibiOS threads (main scheduler for EKF
  * covariance, high-rate rate_thread for PID) may both want core1 at once.
@@ -1253,8 +1260,10 @@ static MUTEX_DECL(c1_dispatch_mtx);
 void c1_run_sync_locked(void (*fn)(void))
 {
     chMtxLock(&c1_dispatch_mtx);
-    c1_run_sync(fn);
+    bool on_c1 = c1_run_sync(fn);
     chMtxUnlock(&c1_dispatch_mtx);
+    /* Count whether EKF covariance ran on Core1 or fell back to Core0. */
+    if (on_c1) { c1_ekf_c1_count++; } else { c1_ekf_c0_count++; }
 }
 
 /*
@@ -1268,18 +1277,21 @@ void c1_run_sync_locked(void (*fn)(void))
 bool c1_try_run_sync(void (*fn)(void))
 {
     if (!chMtxTryLock(&c1_dispatch_mtx)) {
-        /* Core1 is busy — run fn on core0 and report fallback. */
+        /* Core1 is busy (EKF holding mutex) — run fn on core0 immediately. */
         fn();
         __DMB();
+        c1_pid_c0_count++;  /* mutex-contention fallback */
         return false;
     }
-    c1_run_sync(fn);
+    bool on_c1 = c1_run_sync(fn);
     chMtxUnlock(&c1_dispatch_mtx);
-    return true;
+    /* Count whether PID ran on Core1 or timed out and fell back to Core0. */
+    if (on_c1) { c1_pid_c1_count++; } else { c1_pid_c0_count++; }
+    return on_c1;
 }
 
 // this is the core0 handler to talk with core1
-void c1_run_sync(void (*fn)(void))
+bool c1_run_sync(void (*fn)(void))
 {
     /* Release barrier: ensure preceding stores are visible to core1 before
      * we write the function pointer to the FIFO. */
@@ -1298,7 +1310,7 @@ void c1_run_sync(void (*fn)(void))
             c1_timeout_count++;
             fn();
             __DMB();
-            return;
+            return false;  /* Core0 fallback — Core1 not consuming FIFO */
         }
         chThdSleep(TIME_US2I(10));
     }
@@ -1324,7 +1336,7 @@ void c1_run_sync(void (*fn)(void))
             c1_timeout_count++;
             fn();
             __DMB();
-            return;
+            return false;  /* Core0 fallback — Core1 did not signal completion in time */
         }
         chThdSleep(TIME_US2I(10));
     }
@@ -1333,5 +1345,6 @@ void c1_run_sync(void (*fn)(void))
     /* Acquire barrier: ensure core1's stores are visible before we read
      * any data updated by fn() (e.g. PID outputs in attitude_control). */
     __DMB();
+    return true;  /* fn() ran and completed on Core1 */
 }
 #endif  /* RP_CORE1_START */

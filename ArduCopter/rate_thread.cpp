@@ -310,6 +310,51 @@ void Copter::rate_controller_thread()
         _c1_rate_args.gyro_with_drift  = gyro + ahrs.get_gyro_drift();
         _c1_rate_args.sensor_dt        = sensor_dt;
         c1_try_run_sync(_c1_rate_compute);
+
+        /* Every 10 seconds: print dual-core dispatch counts and CPU utilisation.
+         *
+         * Output format (two MAVLink statustext lines):
+         *   "EKF C1=N C0=N PID C1=N C0=N"  — dispatch counts in last window
+         *   "CPU C0=N% C1=N%"               — approximate utilisation
+         *
+         * EKF counts from c1_run_sync_locked() in AP_NavEKF3_core.cpp.
+         * PID counts from c1_try_run_sync() above.
+         * Core1 CPU% = c1_busy_us / (window_ms * 10), capped at 100.
+         * Core0 CPU% from AP_Scheduler::load_average().
+         */
+        {
+            static uint32_t _stats_last_ms;
+            static uint32_t _s_ekf_c1, _s_ekf_c0, _s_pid_c1, _s_pid_c0, _s_busy_us;
+            const uint32_t _now_ms = AP_HAL::millis();
+            if (_now_ms - _stats_last_ms >= 10000U) {
+                if (_stats_last_ms != 0U) {
+                    const uint32_t _dt_ms  = _now_ms - _stats_last_ms;
+                    const uint32_t _ekf_c1 = c1_ekf_c1_count - _s_ekf_c1;
+                    const uint32_t _ekf_c0 = c1_ekf_c0_count - _s_ekf_c0;
+                    const uint32_t _pid_c1 = c1_pid_c1_count - _s_pid_c1;
+                    const uint32_t _pid_c0 = c1_pid_c0_count - _s_pid_c0;
+                    const uint32_t _busy   = c1_busy_us       - _s_busy_us;
+                    /* Core1 busy%: busy_µs × 100 / (window_ms × 1000 µs). */
+                    uint32_t _c1_pct = (_dt_ms > 0U) ? (_busy / (_dt_ms * 10U)) : 0U;
+                    if (_c1_pct > 100U) { _c1_pct = 100U; }
+                    const uint32_t _c0_pct = (uint32_t)(AP::scheduler().load_average() * 100.0f);
+                    GCS_SEND_TEXT(MAV_SEVERITY_INFO,
+                                  "EKF C1=%u C0=%u PID C1=%u C0=%u",
+                                  (unsigned)_ekf_c1, (unsigned)_ekf_c0,
+                                  (unsigned)_pid_c1, (unsigned)_pid_c0);
+                    GCS_SEND_TEXT(MAV_SEVERITY_INFO,
+                                  "CPU C0=%u%% C1=%u%%",
+                                  (unsigned)_c0_pct, (unsigned)_c1_pct);
+                }
+                /* Snap counters for next window. */
+                _stats_last_ms = _now_ms;
+                _s_ekf_c1  = c1_ekf_c1_count;
+                _s_ekf_c0  = c1_ekf_c0_count;
+                _s_pid_c1  = c1_pid_c1_count;
+                _s_pid_c0  = c1_pid_c0_count;
+                _s_busy_us = c1_busy_us;
+            }
+        }
 #else
         attitude_control->rate_controller_run_dt(gyro + ahrs.get_gyro_drift(), sensor_dt);
 #endif

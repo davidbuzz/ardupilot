@@ -66,6 +66,14 @@
 #define FIFO_ST_WOF     (1u << 2)   /* TX underflow error */
 
 /*
+ * TIMER0 TIMERAWL — free-running 1 MHz counter, safe for multi-core reads.
+ * Unlike TIMELR, reading TIMERAWL does NOT latch TIMERAWH so it is safe
+ * to read from Core1 concurrently with Core0 without coordination.
+ * Used to measure Core1 busy time in microseconds for CPU% reporting.
+ */
+#define TIMER0_TIMERAWL  (*(volatile uint32_t *)0x400B0028U)
+
+/*
  * Core-Private NVIC registers (PPB, banked per-core on RP2350).
  * RP2350 has 52 external IRQs → two 32-bit words.
  */
@@ -76,6 +84,13 @@
 
 /* Boot-stage canary — visible to OpenOCD/GDB after halt. */
 volatile uint32_t c1_boot_stage = 0xDEAD0000U;
+
+/*
+ * Accumulated microseconds Core1 has spent executing dispatched functions.
+ * Stamped on entry/exit of every fn() call using TIMER0_TIMERAWL.
+ * Core0 reads this every 10 s to compute Core1 CPU utilisation.
+ */
+volatile uint32_t c1_busy_us __attribute__((used, externally_visible)) = 0U;
 
 /*
  * Override the weak __c1_cpu_init stub.
@@ -162,7 +177,9 @@ void c1_main(void)
         /* Call the function.  It must run to completion (no ChibiOS
          * blocking calls allowed on core1). */
         typedef void (*c1_task_fn)(void);
+        const uint32_t _c1_t0 = TIMER0_TIMERAWL;
         ((c1_task_fn)msg)();
+        c1_busy_us += TIMER0_TIMERAWL - _c1_t0;  /* accumulate Core1 busy time in µs */
 
         c1_boot_stage = 0x51U;  /* task returned, sending done */
 

@@ -66,8 +66,23 @@
 #define SHCSR_BUSFAULTENA  (1u << 17)  /* enable BusFault handler            */
 #define SHCSR_USGFAULTENA  (1u << 18)  /* enable UsageFault handler          */
 
+/*
+ * TIMER0 TIMERAWL — free-running 1 MHz counter, safe for multi-core reads.
+ * Unlike TIMELR, reading TIMERAWL does NOT latch TIMERAWH so it is safe to
+ * read from Core1 concurrently with Core0 without coordination.
+ * Used to measure Core1 busy time in microseconds for CPU% reporting.
+ */
+#define TIMER0_TIMERAWL  (*(volatile uint32_t *)0x400B0028U)
+
 /* Diagnostic: captures Core 1's VTOR at init time — readable via OpenOCD/GDB. */
 volatile uint32_t c1_vtor_at_boot = 0U;
+
+/*
+ * Accumulated microseconds Core1 has spent executing dispatched functions.
+ * Stamped on entry/exit of every fn() call using TIMER0_TIMERAWL.
+ * Core0 reads this every 10 s to compute Core1 CPU utilisation.
+ */
+volatile uint32_t c1_busy_us __attribute__((used, externally_visible)) = 0U;
 
 volatile uint32_t c1_boot_stage = 0xDEAD0000U;
 
@@ -188,7 +203,9 @@ void c1_main(void)
 
         // treat the message as a function pointer and call it.  The function is responsible for doing its own DMB if it needs to ensure memory visibility of its actions to core0 before signaling completion.
         typedef void (*c1_task_fn)(void);
+        const uint32_t _c1_t0 = TIMER0_TIMERAWL;
         ((c1_task_fn)msg)();
+        c1_busy_us += TIMER0_TIMERAWL - _c1_t0;  /* accumulate Core1 busy time in µs */
 
         c1_boot_stage = 0x51U;
 
