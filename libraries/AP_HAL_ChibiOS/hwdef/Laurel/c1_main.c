@@ -98,8 +98,9 @@ void c1_main(void)
     while (1) {
         c1_boot_stage = 0x4DU;
 
+        // wait for a function pointer from core0, execute it, then signal completion by writing 1 back to core0.  If we receive 0 instead of a valid pointer, it's a ping from core0 — write 0 back and wait for the next message.
         while (!(SIO_FIFO_ST & FIFO_ST_VLD)) {
-            __asm volatile ("wfe");
+            __asm volatile ("wfe"); // wait for event — low-power sleep until core0 writes to the FIFO and signals with SEV
             // small delay.
             for (volatile int i = 0; i < 100; i++) {
                 __asm volatile ("nop");
@@ -108,6 +109,7 @@ void c1_main(void)
 
         uint32_t msg = SIO_FIFO_RD;
 
+        // if msg is 0, it's a ping from core0.  Write 0 back and wait for the next message.
         if (msg == 0U) {
             while (!(SIO_FIFO_ST & FIFO_ST_RDY)) { }
             SIO_FIFO_WR = 0U;
@@ -120,6 +122,7 @@ void c1_main(void)
 
         c1_boot_stage = 0x50U;
 
+        // treat the message as a function pointer and call it.  The function is responsible for doing its own DMB if it needs to ensure memory visibility of its actions to core0 before signaling completion.
         typedef void (*c1_task_fn)(void);
         ((c1_task_fn)msg)();
 

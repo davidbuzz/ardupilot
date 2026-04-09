@@ -55,6 +55,8 @@
  * It must be in a C translation unit (not assembly), so the linker picks
  * this definition preferentially.
  */
+static volatile uint8_t etype = 0;
+static volatile uint8_t e_number = 0;
 void __attribute__((noreturn)) _unhandled_exception(void)
 {
   /*
@@ -73,8 +75,8 @@ void __attribute__((noreturn)) _unhandled_exception(void)
    * SCRATCH[7] = 'UHND' sentinel (0x55484E44)
    */
   WATCHDOG->SCRATCH[0] = SCB->VTOR;       /* vector table base at trap time */
-  WATCHDOG->SCRATCH[2] = __get_xPSR();
-  WATCHDOG->SCRATCH[3] = SCB->ICSR;
+  WATCHDOG->SCRATCH[2] = e_number = (__get_xPSR() & 0x1FFU) - 16U;
+  WATCHDOG->SCRATCH[3] = etype = SCB->ICSR;
   WATCHDOG->SCRATCH[4] = NVIC->ISPR[0];
   WATCHDOG->SCRATCH[5] = NVIC->ISPR[1];  /* IRQ32..51: I2C0=bit4, I2C1=bit5, SPI1=bit0 */
   /* Capture EXC_RETURN from LR — tells us which stack and FPU state was active */
@@ -151,36 +153,50 @@ void turn_off_timer(int timerid) {
 }
 
 // Vector50	4	TIMER1_IRQ0
+// todo work out why _WFI in idle bring us to Vector50 constatly.
+// Vector50-5C: TIMER1_IRQ0-3 (IRQ 4-7)
+//
+// TIMER1 alarms are level-triggered: TIMER->INTS asserts the IRQ line
+// continuously while any alarm fires.  We must:
+//   1. Silence the peripheral (INTE=0 drives INTS=0, de-asserting the line)
+//   2. DSB so the APB write propagates before the NVIC sees it
+//   3. nvicClearPending — safe now that the input line is LOW
+//   4. nvicDisableVector — belt-and-suspenders so this never fires again
+// Reversing steps 1/3 or omitting __DSB causes the NVIC to immediately
+// re-assert ISPR (level input still HIGH) and loop forever in idle.
 OSAL_IRQ_HANDLER(Vector50) {
     OSAL_IRQ_PROLOGUE();
-    // on timers, you might also need to clear the timer's own interrupt flags here too.
-    turn_off_timer(1);
-    nvicDisableVector(4U);   /* TIMER1_IRQ0  */
-    nvicClearPending(4U);
+    turn_off_timer(1);           /* silence peripheral FIRST (INTE=0→INTS=0) */
+    __DSB();                     /* ensure APB writes reach TIMER1 before NVIC op */
+    nvicClearPending(4U);        /* TIMER1_IRQ0 — safe now that INTS is de-asserted */
+    nvicDisableVector(4U);       /* never fire again */
     OSAL_IRQ_EPILOGUE();
 }
 // Vector54	5	TIMER1_IRQ1
 OSAL_IRQ_HANDLER(Vector54) {
     OSAL_IRQ_PROLOGUE();
-        turn_off_timer(1);
-    nvicDisableVector(5U);   /* TIMER1_IRQ1  */
-    nvicClearPending(5U);
+    turn_off_timer(1);           /* peripheral silence first */
+    __DSB();
+    nvicClearPending(5U);        /* TIMER1_IRQ1 */
+    nvicDisableVector(5U);
     OSAL_IRQ_EPILOGUE();
 }
 // Vector58	6	TIMER1_IRQ2
 OSAL_IRQ_HANDLER(Vector58) {
     OSAL_IRQ_PROLOGUE();
-        turn_off_timer(1);
-    nvicDisableVector(6U);   /* TIMER1_IRQ2  */
-    nvicClearPending(6U);
+    turn_off_timer(1);           /* peripheral silence first */
+    __DSB();
+    nvicClearPending(6U);        /* TIMER1_IRQ2 */
+    nvicDisableVector(6U);
     OSAL_IRQ_EPILOGUE();
 }
 // Vector5C	7	TIMER1_IRQ3
 OSAL_IRQ_HANDLER(Vector5C) {
     OSAL_IRQ_PROLOGUE();
-        turn_off_timer(1);
-    nvicDisableVector(7U);   /* TIMER1_IRQ3  */
-    nvicClearPending(7U);
+    turn_off_timer(1);           /* peripheral silence first */
+    __DSB();
+    nvicClearPending(7U);        /* TIMER1_IRQ3 */
+    nvicDisableVector(7U);
     OSAL_IRQ_EPILOGUE();
 }
 // Vector60	8	PWM_IRQ_WRAP_0
@@ -319,7 +335,17 @@ OSAL_IRQ_HANDLER(VectorCC) {
     OSAL_IRQ_EPILOGUE();
 }
 // 36 and 37 are I2C0_IRQ and I2C1_IRQ, and I2C1 is conditionally in-use, so defined elsewhere in lld.
+//the board uses I2C1 (GPIO15/18) for the compass — not I2C0
 //VectorD0	36	I2C0_IRQ
+#if RP_I2C_USE_I2C0 == FALSE
+OSAL_IRQ_HANDLER(VectorD0) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(36U);   /* I2C0_IRQ */
+    nvicClearPending(36U);
+    OSAL_IRQ_EPILOGUE();
+}
+#endif 
+
 //VectorD4	37	I2C1_IRQ
 OSAL_IRQ_HANDLER(VectorD8) {
     OSAL_IRQ_PROLOGUE();
@@ -925,6 +951,21 @@ void __late_init(void) {
   NVIC->ICPR[1] = 0xFFFFFFFFU;
 
   /*
+   * Proactively silence TIMER1 at the peripheral level before halInit().
+   *
+   * TIMER1->INTS is a level-driven output (= TIMER1->INTR & TIMER1->INTE).
+   * Setting INTE=0 forces INTS=0 regardless of INTR, which de-asserts the
+   * NVIC input lines for IRQ4-7 (TIMER1_IRQ0-3).  Without this, the NVIC
+   * ICPR scrub above clears the pending bits momentarily, but the peripheral
+   * immediately re-asserts them (the ROM/bootloader leaves alarms armed with
+   * past target times), causing halInit() CPSIE to immediately take Vector50.
+   */
+  TIMER1->INTE  = 0U;           /* de-assert IRQ4-7 NVIC input lines */
+  TIMER1->INTR  = 0xFU;         /* W1C: clear all 4 raw alarm pending bits */
+  TIMER1->ARMED = 0xFU;         /* W1C: disarm all 4 alarms */
+  __DSB();                       /* ensure APB writes reach peripheral */
+
+  /*
    * Ensure the XIP cache does not hold stale vector table lines (or other
    * early-startup code) when the firmware was reflashed via SWD and reset
    * using SYSRESETREQ.
@@ -1231,6 +1272,7 @@ bool c1_try_run_sync(void (*fn)(void))
     return true;
 }
 
+// this is the core0 handler to talk with core1
 void c1_run_sync(void (*fn)(void))
 {
     /* Release barrier: ensure preceding stores are visible to core1 before
@@ -1243,6 +1285,8 @@ void c1_run_sync(void (*fn)(void))
      * Use chThdSleep(10µs) on each retry so ChibiOS can schedule
      * lower-priority threads (main loop, GCS) while we wait. */
     const uint32_t t0 = hrt_micros32();
+    // what is SIO->FIFO_ST ? its bit 0 is RDY (ready for write), bit 1 is VLD (valid data to read), bit 2 is ROE (read overrun error), bit 3 is WOF (write overrun error)
+
     while (!(SIO->FIFO_ST & SIO_FIFO_ST_RDY)) {
         if (hrt_micros32() - t0 > 1000U) {
             c1_timeout_count++;
@@ -1252,6 +1296,7 @@ void c1_run_sync(void (*fn)(void))
         }
         chThdSleep(TIME_US2I(10));
     }
+    // execute it on core 1. write the function pointer to the FIFO
     SIO->FIFO_WR = (uint32_t)fn;
 
     /* Core1 sits in a bare-metal WFE loop with no NVIC setup (IRQ26 is not
