@@ -57,6 +57,18 @@
 
 #if defined(RP2350)
 
+/*
+  Shared SCRATCH register constants used for reset-cause breadcrumbs.
+  These magic sentinels survive PSM-level resets (WD reset, software reset)
+  and are used to identify the cause of the last reboot.
+  They are stored in WATCHDOG->SCRATCH[RP2350_RESET_DIAG_SCRATCH_IDX].
+  Also referenced in board.c (unhandled-exception trap) and Scheduler.cpp
+  (explicit reboot path) — keep these values consistent across all files.
+*/
+#define RP2350_RESET_DIAG_SCRATCH_IDX          7U
+#define RP2350_RESET_DIAG_UNHANDLED_EXCEPTION  0x55484E44U  /* 'UHND' */
+#define RP2350_RESET_DIAG_SCHEDULER_REBOOT     0x53434852U  /* 'SCHR' */
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -73,7 +85,9 @@ void rp2350_watchdog_pat(void);
 
 /*
   return true if the last reboot was caused by the watchdog timer.
-  Checks SCRATCH[6] first so a consumed reason is not re-reported.
+  Uses SCRATCH[6] canary (not WATCHDOG->REASON, which is cleared by the
+  WD-triggered PSM reset on RP2350).  Returns false once
+  rp2350_watchdog_clear_reason() has been called.
 */
 bool rp2350_was_watchdog_reset(void);
 
@@ -83,7 +97,8 @@ bool rp2350_was_software_reset(void);
 /* mark the watchdog reset reason as consumed */
 void rp2350_watchdog_clear_reason(void);
 
-/* no-op on RP2350: REASON is a hardware register, always valid */
+/* no-op on RP2350: REASON is cleared by WD-triggered PSM reset; detection
+   uses SCRATCH[6] canary written by rp2350_watchdog_pat() instead */
 void rp2350_watchdog_save_reason(void);
 
 /* persistent data save/load across resets (stub; SCRATCH registers not yet used) */

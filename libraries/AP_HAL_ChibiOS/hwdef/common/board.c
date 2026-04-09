@@ -31,11 +31,12 @@
 /*
  * RP2350 reset-cause breadcrumb register used for live SWD diagnosis.
  * SCRATCH[0] and SCRATCH[1] are used by fastboot/bootloader handoff,
- * SCRATCH[6] is used by watchdog-reason consumption, so use SCRATCH[7].
- * SCRATCH[2..4] are reserved here for unhandled-exception context capture.
+ * SCRATCH[6] is used by watchdog-reason detection (see watchdog.c/h),
+ * so use SCRATCH[7] (RP2350_RESET_DIAG_SCRATCH_IDX) for the sentinel.
+ * SCRATCH[2..5] are reserved here for exception context capture.
+ * The sentinel constants are defined in watchdog.h — include it for consistency.
  */
-#define RP2350_RESET_DIAG_SCRATCH_IDX              7U
-#define RP2350_RESET_DIAG_UNHANDLED_EXCEPTION      0x55484E44U /* 'UHND' */
+#include "watchdog.h"
 
 /*
  * Override the ChibiOS weak _unhandled_exception stub.

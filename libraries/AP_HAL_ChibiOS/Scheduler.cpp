@@ -60,8 +60,8 @@ extern AP_IOMCU iomcu;
 #endif
 
 #if defined(RP2350)
-#define RP2350_RESET_DIAG_SCRATCH_IDX          7U
-#define RP2350_RESET_DIAG_SCHEDULER_REBOOT     0x53434852U /* 'SCHR' */
+/* RP2350 reset-cause constants live in watchdog.h — include for SCRATCH idx / sentinel defines */
+#include <AP_HAL_ChibiOS/hwdef/common/watchdog.h>
 #endif
 
 using namespace ChibiOS;
