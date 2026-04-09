@@ -20,5 +20,18 @@ FRAME_CLASS 1
 FRAME_TYPE 1
 
 # Battery scaling values need Laurel hardware calibration.
+
+# Serial port protocol defaults.
+# SERIAL1 (UART0 / DVTX connector): MSP DisplayPort is compiled-in default.
+# SERIAL2 (UART1 / GPS connector): GPS is compiled-in default.
+# SERIAL3 (PIOUART0 / CRSF-ELRS port, GPIO20/21): enable RCIN by default so
+#   PIOUART0 is initialised and the PIO state machine configures GPIO20/21
+#   FUNCSEL=6(PIO0) at boot.  Without a receiver plugged in, the board simply
+#   shows "PreArm: RC not found" (normal behaviour).
+SERIAL3_PROTOCOL 23
+
+# SERIAL4 (PIOUART1 / AUX port, GPIO34/35): leave as None until an AUX device
+# is attached; the user can enable e.g. MAVLink2 (protocol=2) manually.
+# SERIAL4_PROTOCOL 2
 #BATT_AMP_PERVLT 1.0
 #BATT_VOLT_MULT 1.0
