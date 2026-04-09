@@ -84,6 +84,14 @@ class MapMetrics:
     ramfunc_start: int
     ramfunc_end: int
     ramfunc_size: int
+    # Per-section sizes extracted from the linker map (0 when absent).
+    # These let us show a full slice-by-slice RAM breakdown without ambiguity.
+    c0_msp_size: int     # core0 IRQ/main stack (descends from __main_stack_end__)
+    c0_psp_size: int     # core0 thread/process stack
+    c1_msp_size: int     # core1 IRQ/main stack (0 when SMP not enabled)
+    c1_psp_size: int     # core1 thread/process stack (0 when SMP not enabled)
+    data_size: int       # .data section (initialized globals, excluding RAMFUNC bytes)
+    bss_size: int        # .bss section (includes thread working areas and all other globals)
 
 
 @dataclass
@@ -186,6 +194,29 @@ def collect_map_metrics(map_path: Path) -> MapMetrics:
     sram_over_limit = max(sram_used - sram_allowed, 0)
     ramfunc_size = ramfunc_end - ramfunc_start
 
+    # Optional per-section symbols: parse defensively so the script still works
+    # on simpler linker scripts that omit them.
+    def _span(base_sym: str, end_sym: str) -> int:
+        """Return end_sym - base_sym if both exist and make sense, else 0."""
+        b = symbols.get(base_sym, 0)
+        e = symbols.get(end_sym, 0)
+        return (e - b) if (b and e and e > b) else 0
+
+    # Core0 stacks: MSP lives at the very bottom of RAM in ChibiOS SMP layout.
+    c0_msp_size = _span("__main_stack_base__", "__main_stack_end__")
+    c0_psp_size = _span("__process_stack_base__", "__process_stack_end__")
+    # Core1 stacks: only present when SMP is enabled (RP_CORE1_START == TRUE).
+    c1_msp_size = _span("__c1_main_stack_base__", "__c1_main_stack_end__")
+    c1_psp_size = _span("__c1_process_stack_base__", "__c1_process_stack_end__")
+    # .data: initialized globals, NOT counting the RAMFUNC bytes that are
+    # interleaved in the same region.  In the ChibiOS RP2350 ld script the
+    # .data region starts at __data_base__ and the RAMFUNC code follows
+    # immediately at __ramfunc_start__, so pure data = ramfunc_start - data_base.
+    data_base = symbols.get("__data_base__", 0)
+    data_size = (ramfunc_start - data_base) if (data_base and data_base < ramfunc_start) else 0
+    # .bss: zero-initialised globals, includes all thread working areas.
+    bss_size = _span("__bss_base__", "__bss_end__")
+
     return MapMetrics(
         ram0_start=ram0_start,
         ram0_size=ram0_size,
@@ -200,6 +231,12 @@ def collect_map_metrics(map_path: Path) -> MapMetrics:
         ramfunc_start=ramfunc_start,
         ramfunc_end=ramfunc_end,
         ramfunc_size=ramfunc_size,
+        c0_msp_size=c0_msp_size,
+        c0_psp_size=c0_psp_size,
+        c1_msp_size=c1_msp_size,
+        c1_psp_size=c1_psp_size,
+        data_size=data_size,
+        bss_size=bss_size,
     )
 
 
@@ -617,6 +654,13 @@ def build_report(
             "heap_size": map_metrics.heap_size,
             "current_min_heap": map_metrics.min_heap,
             "ramfunc_size": map_metrics.ramfunc_size,
+            # Per-section sizes from linker map symbols (0 when absent).
+            "c0_msp_size": map_metrics.c0_msp_size,
+            "c0_psp_size": map_metrics.c0_psp_size,
+            "c1_msp_size": map_metrics.c1_msp_size,
+            "c1_psp_size": map_metrics.c1_psp_size,
+            "data_size": map_metrics.data_size,
+            "bss_size": map_metrics.bss_size,
         },
         "allocations": {
             "files_scanned": alloc_metrics.files_scanned,
@@ -682,12 +726,17 @@ def print_human_report(report: Dict[str, object]) -> None:
     print()
     print("SRAM / Heap")
     print(f"- RAM total:          {human_bytes(sram['ram0_size'])}")
-    print(f"- SRAM used:          {human_bytes(sram['sram_used'])}")
+    # Show both bytes and % so the summary line is immediately actionable.
+    sram_used_pct = sram['sram_used'] * 100 // sram['ram0_size'] if sram['ram0_size'] else 0
+    print(f"- SRAM used:          {human_bytes(sram['sram_used'])}  ({sram_used_pct}% of SRAM)")
     print(f"- SRAM allowed:       {human_bytes(sram['sram_allowed'])}")
     print(f"- SRAM over limit:    {human_bytes(sram['sram_over_limit'])}")
     print(f"- Heap available:     {human_bytes(sram['heap_size'])}")
     print(f"- Current min heap:   {human_bytes(sram['current_min_heap'])}")
-    print(f"- RAMFUNC size:       {human_bytes(sram['ramfunc_size'])}")
+    # Show RAMFUNC footprint both as bytes and as a % of total SRAM, so it's
+    # obvious how much of the 512 KiB is locked into SRAM-resident code.
+    ramfunc_pct = sram['ramfunc_size'] * 100 // sram['ram0_size'] if sram['ram0_size'] else 0
+    print(f"- RAMFUNC size:       {human_bytes(sram['ramfunc_size'])}  ({ramfunc_pct}% of SRAM)")
     print()
     print("Allocation scan (source)")
     print(f"- Files scanned:      {alloc['files_scanned']}")
@@ -757,6 +806,85 @@ def print_human_report(report: Dict[str, object]) -> None:
                 wa_pct = sum_wa * 100 // sram["ram0_size"]
                 wa_pct_note = f"  ({wa_pct}% of SRAM committed to thread WAs)"
             print(f"  {'TOTAL':<14} {human_bytes(sum_used):>6}  {human_bytes(sum_wa):>7}{wa_pct_note}")
+
+    # Full breakdown of every major RAM consumer as a fraction of total SRAM,
+    # slice by slice from low to high address.  When the linker map has the
+    # expected SMP symbols we use exact values; when absent we fall back to
+    # estimates so the block still renders with a clear "estimated" note.
+    print()
+    print("SRAM breakdown — slice by slice (low → high address)")
+    _ram  = sram['ram0_size']
+    _used = sram['sram_used']
+    _rf   = sram['ramfunc_size']
+    _mhp  = sram['current_min_heap']
+    _heap = sram['heap_size']
+
+    # Per-section sizes from linker map (0 when the symbols are absent).
+    _c0_msp = sram.get('c0_msp_size', 0)
+    _c0_psp = sram.get('c0_psp_size', 0)
+    _c1_msp = sram.get('c1_msp_size', 0)
+    _c1_psp = sram.get('c1_psp_size', 0)
+    _data   = sram.get('data_size', 0)
+    _bss    = sram.get('bss_size', 0)
+
+    # Thread working-area total from runtime profiling (zero if threads.txt absent).
+    _wa = (runtime.get('total_stack_allocated_bytes') or 0) if runtime is not None else 0
+
+    # Determine whether we have the full linker-map slices.
+    _have_map_sections = bool(_c0_msp or _c1_msp or _data or _bss)
+
+    def _pct(v: int) -> int:
+        """Return v as an integer percentage of total SRAM."""
+        return v * 100 // _ram if _ram else 0
+
+    _C = 34  # label column width for alignment
+    _DIV = '-' * (_C + 28)
+
+    if _have_map_sections:
+        # Use real linker-symbol data for a precise slice-by-slice view.
+        # .bss contains both thread WAs and other global objects; split when
+        # threads.txt is available so the user sees both contributions.
+        _bss_other = max(_bss - _wa, 0) if _wa else 0
+
+        if _c0_msp:
+            print(f"  {'core0 MSP (IRQ/hard-fault stack):':<{_C}} {human_bytes(_c0_msp):>10}  ({_pct(_c0_msp):2}%)")
+        if _c0_psp:
+            print(f"  {'core0 PSP (scheduler / idle stack):':<{_C}} {human_bytes(_c0_psp):>10}  ({_pct(_c0_psp):2}%)")
+        if _c1_msp:
+            print(f"  {'core1 MSP (SMP IRQ stack):':<{_C}} {human_bytes(_c1_msp):>10}  ({_pct(_c1_msp):2}%)")
+        if _c1_psp:
+            print(f"  {'core1 PSP (SMP scheduler stack):':<{_C}} {human_bytes(_c1_psp):>10}  ({_pct(_c1_psp):2}%)")
+        if _data:
+            print(f"  {'.data (initialized globals):':<{_C}} {human_bytes(_data):>10}  ({_pct(_data):2}%)")
+        if _rf:
+            print(f"  {'.ramtext (RAMFUNC — XIP bypass):':<{_C}} {human_bytes(_rf):>10}  ({_pct(_rf):2}%)")
+        if _bss:
+            if _wa:
+                # Split .bss into thread WAs vs other globals.
+                print(f"  {'.bss (globals + thread WAs):':<{_C}} {human_bytes(_bss):>10}  ({_pct(_bss):2}%)")
+                print(f"  {'  of which thread working areas:':<{_C}} {human_bytes(_wa):>10}  ({_pct(_wa):2}%)  [from threads.txt]")
+                print(f"  {'  of which other globals:':<{_C}} {human_bytes(_bss_other):>10}  ({_pct(_bss_other):2}%)")
+            else:
+                print(f"  {'.bss (globals + thread WAs mixed):':<{_C}} {human_bytes(_bss):>10}  ({_pct(_bss):2}%)  [provide threads.txt to split]")
+    else:
+        # Linker-map section symbols absent: fall back to estimated values.
+        # Main stack from hwdef MAIN_STACK directive (zero if hwdef not found).
+        _ms = (hwdef.get('main_stack') or 0) if hwdef is not None else 0
+        _dbss = max(_used - _rf - _wa - _ms, 0)
+        _ms_note = "" if _ms else "  (n/a — hwdef not found)"
+        _wa_note = "  (incl. thread WAs — provide threads.txt to separate)" if not _wa else ""
+        print(f"  {'[estimated] data+bss+stacks:':<{_C}} {human_bytes(_dbss):>10}  ({_pct(_dbss):2}%){_wa_note}")
+        print(f"  {'[estimated] RAMFUNC (.ramtext):':<{_C}} {human_bytes(_rf):>10}  ({_pct(_rf):2}%)")
+        print(f"  {'[estimated] thread working areas:':<{_C}} {human_bytes(_wa):>10}  ({_pct(_wa):2}%)")
+        print(f"  {'[estimated] main stack:':<{_C}} {human_bytes(_ms):>10}  ({_pct(_ms):2}%){_ms_note}")
+
+    print(f"  {_DIV}")
+    print(f"  {'USED (static total):':<{_C}} {human_bytes(_used):>10}  ({_pct(_used):2}%)")
+    print(f"  {'heap min reserved:':<{_C}} {human_bytes(_mhp):>10}  ({_pct(_mhp):2}%)")
+    _free = max(_heap - _mhp, 0)
+    print(f"  {'heap free above min:':<{_C}} {human_bytes(_free):>10}  ({_pct(_free):2}%)  <- available to assign")
+    print(f"  {_DIV}")
+    print(f"  {'RAM total:':<{_C}} {human_bytes(_ram):>10}  (100%)")
 
     print()
     print("Suggested threshold")
