@@ -1,15 +1,14 @@
 # Laurel defaults tuned for the onboard ICM42688P sensor stack.
 #
-# Scheduler rate: live tasks.txt profiling (2025-04 debug build) shows
-# FAST_TASK functions alone consume ~7500 us/loop:
-#   read_AHRS      AVG=5226 us  (65.7% CPU — EKF3 dominates)
-#   update_flight_mode AVG=1566 us  (20.1%)
-# At 400 Hz the budget is 2500 us — 3x over, so the loop only hits ~114 Hz
-# and GCS::update_send (AVG=1100 us, OVR=999) is perpetually starved.
-# At 200 Hz the budget is 5000 us — still tight for debug, but leaves
-# headroom for GCS, logging, and IO tasks.  For release builds (-O2)
-# EKF drops to ~500 us and 400 Hz should be achievable; revisit then.
-SCHED_LOOP_RATE 200
+# Scheduler rate: live profiling (2025-04) shows main loop tasks take ~7 ms
+# in release builds.  Setting SCHED_LOOP_RATE=125 (8 ms budget) gives:
+#   - ~87% Core0 CPU usage (spare ~1 ms per loop for idle/GCS)
+#   - Attitude rate stays at 1000/7=142 Hz (rate ceiling > 125 Hz)
+#   - PreArm "main loop slow" check passes (target 125 Hz, actual ~125 Hz)
+# Debug builds run at ~7 ms/loop too so the rate drops to ~123-133 Hz,
+# still above the 125 Hz threshold in most cases.
+# If performance improves in future, bump SCHED_LOOP_RATE towards 200-400 Hz.
+SCHED_LOOP_RATE 125
 INS_FAST_SAMPLE 1
 FSTRATE_ENABLE 1
 
