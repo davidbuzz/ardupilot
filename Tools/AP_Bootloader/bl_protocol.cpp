@@ -472,6 +472,31 @@ jump_to_app()
     // disable all interrupt sources
     port_disable();
 
+#if defined(HAL_RP2350) || defined(RP2350)
+    /*
+     * RP2350: clear all NVIC enable and pending bits before jumping to the app.
+     *
+     * port_disable() only sets PRIMASK=1, which masks interrupts at the CPU level
+     * but leaves the NVIC hardware state (ISER/ISPR) completely intact.  Any IRQ
+     * that was enabled or pending in the bootloader — or that the RP2350 ROM left
+     * pending from its inter-core boot signalling (including the SPARE_IRQ lines,
+     * IRQs 46–51) — will fire the instant the app clears PRIMASK in chSysUnlock().
+     * This shows up as VectorFC (_unhandled_exception) from SPARE_IRQ_1 (IRQ 47).
+     *
+     * Scrubbing both ICER and ICPR gives the application a clean NVIC slate
+     * equivalent to a power-on-reset.  The app re-enables only the IRQs it
+     * actually needs as part of halInit() / driver start-up.
+     *
+     * RP2350 has 52 external IRQs (2 words cover IRQs 0..51).
+     */
+    NVIC->ICER[0] = 0xFFFFFFFFU;   /* disable IRQs  0..31 */
+    NVIC->ICER[1] = 0xFFFFFFFFU;   /* disable IRQs 32..51 */
+    NVIC->ICPR[0] = 0xFFFFFFFFU;   /* clear pending IRQs  0..31 */
+    NVIC->ICPR[1] = 0xFFFFFFFFU;   /* clear pending IRQs 32..51 */
+    __DSB();
+    __ISB();
+#endif
+
     /* switch exception handlers to the application.
      * For RP2350, app_base has already been adjusted to the real vector table
      * address, so VTOR is set from app_base rather than APP_START_ADDRESS to

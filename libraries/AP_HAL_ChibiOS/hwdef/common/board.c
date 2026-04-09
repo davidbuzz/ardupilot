@@ -88,6 +88,326 @@ void __attribute__((noreturn)) _unhandled_exception(void)
     /* attribute requires an infinite loop to satisfy the compiler.        */
     while (1) {}
 }
+
+
+/*
+ * VectorD4 = IRQ 37 = I2C1_IRQ.
+ *
+ * When RP_I2C_USE_I2C1 is FALSE the ChibiOS I2C LLD does not register a strong
+ * VectorD4 handler, leaving the weak stub active.  If the ROM Core-1 launch
+ * sequence fires IRQ 37 at Core-0 (observed during the descending IRQ sweep),
+ * the weak stub falls through to _unhandled_exception.
+ *
+ * Guard with RP_I2C_USE_I2C1 == FALSE so that boards that do enable I2C1 keep
+ * the real driver handler and do not get a linker duplicate-symbol error.
+ */
+#if RP_I2C_USE_I2C1 == FALSE
+OSAL_IRQ_HANDLER(VectorD4) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(37U);   /* I2C1_IRQ — spurious ROM launch IRQ, I2C1 not in use */
+    nvicClearPending(37U);
+    OSAL_IRQ_EPILOGUE();
+}
+#endif /* RP_I2C_USE_I2C1 == FALSE */
+
+// TODO add more conditional blocks like teh above that disable other ROM-spawned IRQs that we don't use, e.g. USB=28, SPI1=32, I2C0=36 
+
+/*
+ * No-op handlers for the IRQs we dont really care about
+ *
+ * The RP2350 ROM Core-1 multicore launch sequence (inside start_core1() in hal_lld.c)
+ * powers up Core-1 via the POWMAN domain sequencer and fires a descending sequence of
+ * IRQs at Core-0 .
+ *
+ * All of these fire *after* nvicInit() has run, so the NVIC scrub in the bootloader
+ * cannot prevent them.  Without strong handler symbols the .weak VectorXX stubs in
+ * vectors.S fall through to _unhandled_exception → NVIC_SystemReset() crash loop.
+ * We cover the full range as each of these either needs to be handled by a LLD or handled here.
+ *
+ */
+
+ // timer0 is the system timer.
+ //
+// Vector40	0	TIMER0_IRQ0
+// Vector44	1	TIMER0_IRQ1
+// Vector48	2	TIMER0_IRQ2
+// Vector4C	3	TIMER0_IRQ3
+
+void turn_off_timer(int timerid) { 
+  switch (timerid) {
+    case 0:
+      TIMER0->INTE  = 0U;
+      TIMER0->INTR  = 0xFU;   /* W1C: clear all 4 alarm pending bits */
+      TIMER0->ARMED = 0xFU;   /* W1C: disarm all 4 alarms */
+      break;
+    case 1:
+      TIMER1->INTE  = 0U;
+      TIMER1->INTR  = 0xFU;   /* W1C: clear all 4 alarm pending bits */
+      TIMER1->ARMED = 0xFU;   /* W1C: disarm all 4 alarms */
+      break;
+    default:
+      break;
+  }
+}
+
+// Vector50	4	TIMER1_IRQ0
+OSAL_IRQ_HANDLER(Vector50) {
+    OSAL_IRQ_PROLOGUE();
+    // on timers, you might also need to clear the timer's own interrupt flags here too.
+    turn_off_timer(1);
+    nvicDisableVector(4U);   /* TIMER1_IRQ0  */
+    nvicClearPending(4U);
+    OSAL_IRQ_EPILOGUE();
+}
+// Vector54	5	TIMER1_IRQ1
+OSAL_IRQ_HANDLER(Vector54) {
+    OSAL_IRQ_PROLOGUE();
+        turn_off_timer(1);
+    nvicDisableVector(5U);   /* TIMER1_IRQ1  */
+    nvicClearPending(5U);
+    OSAL_IRQ_EPILOGUE();
+}
+// Vector58	6	TIMER1_IRQ2
+OSAL_IRQ_HANDLER(Vector58) {
+    OSAL_IRQ_PROLOGUE();
+        turn_off_timer(1);
+    nvicDisableVector(6U);   /* TIMER1_IRQ2  */
+    nvicClearPending(6U);
+    OSAL_IRQ_EPILOGUE();
+}
+// Vector5C	7	TIMER1_IRQ3
+OSAL_IRQ_HANDLER(Vector5C) {
+    OSAL_IRQ_PROLOGUE();
+        turn_off_timer(1);
+    nvicDisableVector(7U);   /* TIMER1_IRQ3  */
+    nvicClearPending(7U);
+    OSAL_IRQ_EPILOGUE();
+}
+// Vector60	8	PWM_IRQ_WRAP_0
+// Vector64	9	PWM_IRQ_WRAP_1
+OSAL_IRQ_HANDLER(Vector64) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(9U);   /* PWM_IRQ_WRAP_1  */
+    nvicClearPending(9U);
+    OSAL_IRQ_EPILOGUE();
+}
+// Vector68	10	DMA_IRQ_0
+// Vector6C	11	DMA_IRQ_1
+ //Vector70	12	DMA_IRQ_2
+OSAL_IRQ_HANDLER(Vector70) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(12U);   /* DMA_IRQ_2  */
+    nvicClearPending(12U);
+    OSAL_IRQ_EPILOGUE();
+}
+ //Vector74	13	DMA_IRQ_3
+OSAL_IRQ_HANDLER(Vector74) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(13U);   /* DMA_IRQ_3  */
+    nvicClearPending(13U);
+    OSAL_IRQ_EPILOGUE();
+}
+// 14 is 
+//Vector78	14	USBCTRL_IRQ
+
+// 15&16 is PIO0
+//Vector7C	15	PIO0_IRQ_0
+//Vector80	16	PIO0_IRQ_1
+// 17&18 is PIO1
+//Vector84	17	PIO1_IRQ_0
+//Vector88	18	PIO1_IRQ_1
+// 19&20 is PIO2
+//Vector8C	19	PIO2_IRQ_0
+//Vector90	20	PIO2_IRQ_1
+// OSAL_IRQ_HANDLER(Vector88) {
+//     OSAL_IRQ_PROLOGUE();
+//     nvicDisableVector(18U);   /* PIO1_IRQ_1  */
+//     nvicClearPending(18U);
+//     OSAL_IRQ_EPILOGUE();
+// }
+OSAL_IRQ_HANDLER(Vector8C) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(19U);   /* PIO2_IRQ_0  */
+    nvicClearPending(19U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(Vector90) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(20U);   /* PIO2_IRQ_1  */
+    nvicClearPending(20U);
+    OSAL_IRQ_EPILOGUE();
+}
+// 21 is IO_IRQ_BANK0, and we use that, so defined in the LLD, not here.
+//Vector94	IRQ21	IO_IRQ_BANK0
+ OSAL_IRQ_HANDLER(Vector98) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(22U);   /* IO_IRQ_BANK0_NS  */
+    nvicClearPending(22U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(Vector9C) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(23U);   /* IO_IRQ_QSPI  */
+    nvicClearPending(23U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorA0) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(24U);   /* IO_IRQ_QSPI_NS  */
+    nvicClearPending(24U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorA4) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(25U);   /* SIO_IRQ_FIFO  */
+    nvicClearPending(25U);
+    OSAL_IRQ_EPILOGUE();
+}
+// caution. if the ChibiOS SIO LLD registers a strong VectorA8, since the SIO bell is used for inter-core signalling in some ChibiOS configurations.
+OSAL_IRQ_HANDLER(VectorA8) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(26U);   /* SIO_IRQ_BELL  */
+    nvicClearPending(26U);
+    OSAL_IRQ_EPILOGUE();
+}
+
+OSAL_IRQ_HANDLER(VectorAC) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(27U);   /* SIO_IRQ_FIFO_NS */
+    nvicClearPending(27U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorB0) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(28U);   /* SIO_IRQ_BELL_NS */
+    nvicClearPending(28U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorB4) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(29U);   /* SIO_IRQ_MTIMECMP */
+    nvicClearPending(29U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorB8) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(30U);   /* CLOCKS_IRQ */
+    nvicClearPending(30U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorBC) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(31U);   /* SPI0_IRQ  */
+    nvicClearPending(31U);
+    OSAL_IRQ_EPILOGUE();
+}
+ //#if RP_SPI_USE_SPI1 == FALSE - currently not reqd as SPI1 LLD doesnt use VectorC0
+ OSAL_IRQ_HANDLER(VectorC0) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(32U);   /* SPI1_IRQ */
+    nvicClearPending(32U);
+    OSAL_IRQ_EPILOGUE();
+}
+//#endif
+// 33 and 34 are UART0_IRQ and UART1_IRQ,  and in-use, so defined elsewhere in lld.
+//VectorC4	33	UART0_IRQ
+//VectorC8	34	UART1_IRQ
+OSAL_IRQ_HANDLER(VectorCC) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(35U);   /* ADC_IRQ_FIFO */
+    nvicClearPending(35U);
+    OSAL_IRQ_EPILOGUE();
+}
+// 36 and 37 are I2C0_IRQ and I2C1_IRQ, and I2C1 is conditionally in-use, so defined elsewhere in lld.
+//VectorD0	36	I2C0_IRQ
+//VectorD4	37	I2C1_IRQ
+OSAL_IRQ_HANDLER(VectorD8) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(38U);   /* OTP_IRQ */
+    nvicClearPending(38U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorDC) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(39U);   /* TRNG_IRQ */
+    nvicClearPending(39U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorE0) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(40U);   /* PROC0_IRQ_CTI */
+    nvicClearPending(40U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorE4) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(41U);   /* PROC1_IRQ_CTI */
+    nvicClearPending(41U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorE8) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(42U);   /* PLL_SYS_IRQ */
+    nvicClearPending(42U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorEC) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(43U);   /* PLL_USB_IRQ */
+    nvicClearPending(43U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorF0) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(44U);   /* POWMAN_IRQ_POW */
+    nvicClearPending(44U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorF4) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(45U);   /* POWMAN_IRQ_TIMER */
+    nvicClearPending(45U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorF8) {
+    OSAL_IRQ_PROLOGUE();
+    /* Disable and clear du — no further action needed. */
+    nvicDisableVector(46U);
+    nvicClearPending(46U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(VectorFC) {
+    OSAL_IRQ_PROLOGUE();
+    /* Disable and clear SPARE_IRQ_1 (IRQ 47) — no further action needed. */
+    nvicDisableVector(47U);
+    nvicClearPending(47U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(Vector100) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(48U);   /* SPAREIRQ_IRQ_2 */
+    nvicClearPending(48U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(Vector104) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(49U);   /* SPAREIRQ_IRQ_3 */
+    nvicClearPending(49U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(Vector108) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(50U);   /* SPAREIRQ_IRQ_4 */
+    nvicClearPending(50U);
+    OSAL_IRQ_EPILOGUE();
+}
+OSAL_IRQ_HANDLER(Vector10C) {
+    OSAL_IRQ_PROLOGUE();
+    nvicDisableVector(51U);   /* SPAREIRQ_IRQ_5 */
+    nvicClearPending(51U);
+    OSAL_IRQ_EPILOGUE();
+}
+
 #endif /* PIC02_AVAILABLE */
 
 /*

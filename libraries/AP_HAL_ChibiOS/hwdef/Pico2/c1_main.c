@@ -65,6 +65,15 @@
 #define FIFO_ST_ROE     (1u << 3)   /* RX overflow error */
 #define FIFO_ST_WOF     (1u << 2)   /* TX underflow error */
 
+/*
+ * Core-Private NVIC registers (PPB, banked per-core on RP2350).
+ * RP2350 has 52 external IRQs → two 32-bit words.
+ */
+#define NVIC_ICER0  (*(volatile uint32_t *)0xE000E180U)
+#define NVIC_ICER1  (*(volatile uint32_t *)0xE000E184U)
+#define NVIC_ICPR0  (*(volatile uint32_t *)0xE000E280U)
+#define NVIC_ICPR1  (*(volatile uint32_t *)0xE000E284U)
+
 /* Boot-stage canary — visible to OpenOCD/GDB after halt. */
 volatile uint32_t c1_boot_stage = 0xDEAD0000U;
 
@@ -74,6 +83,23 @@ volatile uint32_t c1_boot_stage = 0xDEAD0000U;
  */
 void __c1_cpu_init(void)
 {
+    /*
+     * Scrub Core 1's own NVIC immediately on entry.
+     *
+     * The RP2350 ROM Core 1 launch protocol leaves SPARE_IRQ_1 (IRQ 47,
+     * VectorFC) enabled in Core 1's banked NVIC after the 6-step FIFO
+     * handshake. Without this scrub, the first WFE wakeup fires VectorFC →
+     * weak _unhandled_exception → NVIC_SystemReset() and the board resets.
+     *
+     * Core 1 is bare-metal (WFE/SEV + SIO FIFO polling) and uses no NVIC
+     * IRQs, so disable and clear all 52 external IRQ lines.
+     */
+    NVIC_ICER0 = 0xFFFFFFFFU;  /* disable IRQs  0..31 */
+    NVIC_ICER1 = 0xFFFFFFFFU;  /* disable IRQs 32..51 (SPARE_IRQ_1=47 here) */
+    NVIC_ICPR0 = 0xFFFFFFFFU;  /* clear pending 0..31 */
+    NVIC_ICPR1 = 0xFFFFFFFFU;  /* clear pending 32..51 */
+    __asm volatile ("dsb sy\n isb" ::: "memory");
+
     c1_boot_stage = 1U;
 }
 
