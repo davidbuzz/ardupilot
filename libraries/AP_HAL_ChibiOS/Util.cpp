@@ -443,21 +443,39 @@ __RAMFUNC__ void Util::thread_info(ExpandingString &str)
             // above the stack top
             total_stack = uint32_t(tp) - uint32_t(tp->wabase);
         }
+        // The idle thread (realprio==1) runs on the hardware Main Stack
+        // (MSP) rather than a ChibiOS working area.  The tp - wabase
+        // subtraction above wraps around and produces a meaningless
+        // ~UINT32_MAX value.  Emit "MSP" as the total so log parsers can
+        // identify the row without trying to interpret a garbage number.
+        const bool is_idle = (tp->realprio == 1);
 #if HAL_ENABLE_THREAD_STATISTICS
         time_measurement_t stats = tp->stats;
         if (tp->stats.best > 0) { // not run
-            str.printf("%-13.13s PRI=%3u sp=%p STACK=%4u/%4u LOAD=%4.1f%%%s\n",
-                        tp->name, unsigned(tp->realprio), tp->wabase,
-                        unsigned(stack_free(tp->wabase)), unsigned(total_stack),
-                        100.0f * float(stats.cumulative) / float(cumulative_cycles),
-                        // more than a loop slice is bad for everyone else, warn on
-                        // more than a 200Hz slice so that only the worst offenders are identified
-                        // also don't do this for the main or idle threads
-                        tp != chThdGetSelfX() && unsigned(RTC2US(STM32_HSECLK, stats.worst)) > 5000
-                            && tp != get_main_thread() && tp->realprio != 1 ? "*" : "");
+            if (is_idle) {
+                str.printf("%-13.13s PRI=%3u sp=%p STACK=%4u/MSP  LOAD=%4.1f%%\n",
+                            tp->name, unsigned(tp->realprio), tp->wabase,
+                            unsigned(stack_free(tp->wabase)),
+                            100.0f * float(stats.cumulative) / float(cumulative_cycles));
+            } else {
+                str.printf("%-13.13s PRI=%3u sp=%p STACK=%4u/%4u LOAD=%4.1f%%%s\n",
+                            tp->name, unsigned(tp->realprio), tp->wabase,
+                            unsigned(stack_free(tp->wabase)), unsigned(total_stack),
+                            100.0f * float(stats.cumulative) / float(cumulative_cycles),
+                            // more than a loop slice is bad for everyone else, warn on
+                            // more than a 200Hz slice so that only the worst offenders are identified
+                            // also don't do this for the main or idle threads
+                            tp != chThdGetSelfX() && unsigned(RTC2US(STM32_HSECLK, stats.worst)) > 5000
+                                && tp != get_main_thread() ? "*" : "");
+            }
         } else {
-            str.printf("%-13.13s PRI=%3u sp=%p STACK=%4u/%4u\n",
-                        tp->name, unsigned(tp->realprio), tp->wabase, unsigned(stack_free(tp->wabase)), unsigned(total_stack));
+            if (is_idle) {
+                str.printf("%-13.13s PRI=%3u sp=%p STACK=%4u/MSP\n",
+                            tp->name, unsigned(tp->realprio), tp->wabase, unsigned(stack_free(tp->wabase)));
+            } else {
+                str.printf("%-13.13s PRI=%3u sp=%p STACK=%4u/%4u\n",
+                            tp->name, unsigned(tp->realprio), tp->wabase, unsigned(stack_free(tp->wabase)), unsigned(total_stack));
+            }
         }
         // Giovanni thinks this is dangerous, but we can't get useable data without it
         if (tp != chThdGetSelfX()) {
@@ -466,9 +484,15 @@ __RAMFUNC__ void Util::thread_info(ExpandingString &str)
             tp->stats.cumulative = 0U;
         }
 #else
-        str.printf("%-13.13s PRI=%3u sp=%p STACK=%u/%u\n",
-                    tp->name, unsigned(tp->realprio), tp->wabase,
-                    unsigned(stack_free(tp->wabase)), unsigned(total_stack));
+        if (is_idle) {
+            str.printf("%-13.13s PRI=%3u sp=%p STACK=%u/MSP\n",
+                        tp->name, unsigned(tp->realprio), tp->wabase,
+                        unsigned(stack_free(tp->wabase)));
+        } else {
+            str.printf("%-13.13s PRI=%3u sp=%p STACK=%u/%u\n",
+                        tp->name, unsigned(tp->realprio), tp->wabase,
+                        unsigned(stack_free(tp->wabase)), unsigned(total_stack));
+        }
 #endif
     }
 #if AP_CPU_IDLE_STATS_ENABLED && HAL_USE_LOAD_MEASURE
