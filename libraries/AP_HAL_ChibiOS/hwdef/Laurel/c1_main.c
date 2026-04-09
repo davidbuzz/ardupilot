@@ -55,6 +55,20 @@
 #define NVIC_ICPR0  (*(volatile uint32_t *)0xE000E280U)
 #define NVIC_ICPR1  (*(volatile uint32_t *)0xE000E284U)
 
+/*
+ * SCB registers used in __c1_cpu_init() to configure Core 1's exception handling.
+ * All PPB addresses are per-core on Cortex-M33 / RP2350.
+ */
+#define SCB_VTOR    (*(volatile uint32_t *)0xE000ED08U)  /* Vector Table Offset Register       */
+#define SCB_SHCSR   (*(volatile uint32_t *)0xE000ED24U)  /* System Handler Control and State   */
+/* SHCSR enable bits for configurable-priority system exceptions */
+#define SHCSR_MEMFAULTENA  (1u << 16)  /* enable MemManage fault handler     */
+#define SHCSR_BUSFAULTENA  (1u << 17)  /* enable BusFault handler            */
+#define SHCSR_USGFAULTENA  (1u << 18)  /* enable UsageFault handler          */
+
+/* Diagnostic: captures Core 1's VTOR at init time — readable via OpenOCD/GDB. */
+volatile uint32_t c1_vtor_at_boot = 0U;
+
 volatile uint32_t c1_boot_stage = 0xDEAD0000U;
 
 void __c1_cpu_init(void)
@@ -78,6 +92,38 @@ void __c1_cpu_init(void)
      * re-enable IRQs or take an exception sees the updated NVIC state. */
     __asm volatile ("dsb sy\n isb" ::: "memory");
 
+    /*
+     * Re-assert VTOR explicitly on Core 1.
+     *
+     * The ChibiOS CRT1 startup (crt0_v8m-ml.S extra-core path) already sets
+     * VTOR = &_vectors when CRT0_VTOR_INIT=TRUE.  We repeat it here
+     * belt-and-suspenders style to guard against any ROM or bootloader
+     * artefact that may have left VTOR at an invalid address on Core 1.
+     *
+     * Without a valid VTOR, any fault causes a vector-table bus error
+     * (HFSR.VECTTBL = 1) → immediate LOCKUP (double fault) with no
+     * handler running.  Explicitly setting VTOR here breaks that cycle.
+     */
+    extern uint32_t _vectors[];
+    SCB_VTOR = (uint32_t)_vectors;
+    c1_vtor_at_boot = (uint32_t)_vectors;  /* readable via OpenOCD for diagnosis */
+
+    /*
+     * Enable configurable-priority fault handlers on Core 1.
+     *
+     * By default SHCSR.MEMFAULTENA/BUSFAULTENA/USGFAULTENA are 0, which
+     * means any MemManage, BusFault, or UsageFault fault on Core 1 silently
+     * escalates to HardFault (HFSR.FORCED=1).  The HardFault handler on
+     * Core 1 can then itself fault (e.g. VECTTBL), causing a double-fault
+     * lockup that is opaque to the debugger.
+     *
+     * With these bits set, each fault type invokes its own handler directly.
+     * The handlers (at VTOR[4..6]) loop safely via save_fault_watchdog,
+     * and OpenOCD can halt Core 1 to read CFSR/MMFAR/BFAR for diagnosis.
+     */
+    SCB_SHCSR |= SHCSR_MEMFAULTENA | SHCSR_BUSFAULTENA | SHCSR_USGFAULTENA;
+    __asm volatile ("dsb sy\n isb" ::: "memory");
+
     c1_boot_stage = 1U;
 }
 
@@ -89,6 +135,24 @@ void __c1_late_init(void)
 void c1_main(void)
 {
     c1_boot_stage = 3U;
+
+    /*
+     * Re-enable maskable interrupts on Core 1.
+     *
+     * The ChibiOS CRT1 startup sets PRIMASK=1 (cpsid i) at entry to give
+     * the startup code a stable environment.  With PRIMASK=1, configurable
+     * priority faults (BusFault, MemManage, UsageFault) cannot be delivered
+     * directly — they escalate to HardFault (HFSR.FORCED=1).  If the
+     * HardFault handler then itself encounters a fault (e.g. bad VTOR →
+     * HFSR.VECTTBL), the core goes to lockup with no recoverable state.
+     *
+     * We have already disabled all 52 NVIC IRQs via NVIC_ICER, so clearing
+     * PRIMASK here is safe: no peripheral interrupt can fire.  But clearing
+     * PRIMASK allows MemManage/BusFault/UsageFault to fire directly into
+     * their respective handlers (save_fault_watchdog + infinite loop) rather
+     * than escalating.  This survives a single fault without double-faulting.
+     */
+    __asm volatile ("cpsie i" ::: "memory");
 
     SIO_FIFO_ST = FIFO_ST_ROE | FIFO_ST_WOF;
     while (SIO_FIFO_ST & FIFO_ST_VLD) {
