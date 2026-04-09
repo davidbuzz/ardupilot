@@ -985,15 +985,21 @@ void __late_init(void) {
    * Moving the vector table into SRAM makes IRQ dispatch deterministic and
    * avoids any dependency on XIP flash caching behavior for vector fetches.
    *
-   * The VTOR alignment requirement for Cortex-M33 is 128 bytes (TBLOFF[6:0]),
-   * so we align the RAM vector table accordingly.
+   * The VTOR hardware enforces bits[6:0]=0 (128-byte minimum), but the ARM
+   * Cortex-M33 architecture spec requires the table to be aligned to the next
+   * power-of-two >= table size.  With 72 entries (16 system + 56 external) the
+   * table is 288 bytes, so the required alignment is 512 bytes.  Using only
+   * 128-byte alignment leaves bits[8:7] of the VTOR base potentially non-zero,
+   * which violates the spec and may cause the CPU to fetch wrong vector entries
+   * for high-numbered IRQs.
    *
    * The RP2350 port defines CORTEX_NUM_VECTORS=56 (see devices/RP2350/cmparams.h),
-   * so the full table is 16 system exceptions + 56 external IRQ vectors.
+   * so the full table is 16 system exceptions + 56 external IRQ vectors = 288 bytes.
+   * Next power-of-2 >= 288 = 512.
    */
   extern uint32_t __vectors_base__[];
   enum { RP2350_VECTOR_WORDS = 16U + 56U };
-  static uint32_t rp2350_vectors[RP2350_VECTOR_WORDS] __attribute__((aligned(128)));
+  static uint32_t rp2350_vectors[RP2350_VECTOR_WORDS] __attribute__((aligned(512)));
   const uint32_t *flash_vectors = __vectors_base__;
 
   for (uint32_t i = 0; i < RP2350_VECTOR_WORDS; i++) {
