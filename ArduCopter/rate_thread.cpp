@@ -36,13 +36,28 @@ struct C1RateArgs {
     float               sensor_dt;
 };
 
+struct C1FilterArgs {
+    Copter *copter;
+};
+
 static C1RateArgs _c1_rate_args;
+static C1FilterArgs _c1_filter_args;
 
 static void _c1_rate_compute()
 {
     _c1_rate_args.attitude_control->rate_controller_run_dt(
         _c1_rate_args.gyro_with_drift,
         _c1_rate_args.sensor_dt);
+}
+
+/*
+ * Offload filter/notch frontend updates to core1.
+ * This path is computation-only and does not use ChibiOS blocking primitives,
+ * so it is safe to run on the bare-metal core1 dispatcher.
+ */
+static void _c1_filter_update()
+{
+    _c1_filter_args.copter->rate_controller_filter_update_for_core1();
 }
 } // namespace
 #endif  /* RP_CORE1_START */
@@ -238,6 +253,9 @@ void Copter::rate_controller_thread()
 #endif
     uint8_t main_loop_count = 0;
     uint8_t filter_loop_count = 0;
+#if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
+    static uint32_t _filt_c1_count, _filt_c0_count;
+#endif
 
     while (true) {
 
@@ -325,6 +343,7 @@ void Copter::rate_controller_thread()
         {
             static uint32_t _stats_last_ms;
             static uint32_t _s_ekf_c1, _s_ekf_c0, _s_pid_c1, _s_pid_c0, _s_busy_us;
+            static uint32_t _s_filt_c1, _s_filt_c0;
             const uint32_t _now_ms = AP_HAL::millis();
             if (_now_ms - _stats_last_ms >= 10000U) {
                 if (_stats_last_ms != 0U) {
@@ -333,15 +352,18 @@ void Copter::rate_controller_thread()
                     const uint32_t _ekf_c0 = c1_ekf_c0_count - _s_ekf_c0;
                     const uint32_t _pid_c1 = c1_pid_c1_count - _s_pid_c1;
                     const uint32_t _pid_c0 = c1_pid_c0_count - _s_pid_c0;
+                    const uint32_t _filt_c1 = _filt_c1_count - _s_filt_c1;
+                    const uint32_t _filt_c0 = _filt_c0_count - _s_filt_c0;
                     const uint32_t _busy   = c1_busy_us       - _s_busy_us;
                     /* Core1 busy%: busy_µs × 100 / (window_ms × 1000 µs). */
                     uint32_t _c1_pct = (_dt_ms > 0U) ? (_busy / (_dt_ms * 10U)) : 0U;
                     if (_c1_pct > 100U) { _c1_pct = 100U; }
                     const uint32_t _c0_pct = (uint32_t)(AP::scheduler().load_average() * 100.0f);
                     GCS_SEND_TEXT(MAV_SEVERITY_INFO,
-                                  "EKF C1=%u C0=%u PID C1=%u C0=%u",
+                                  "EKF C1=%u C0=%u PID C1=%u C0=%u FILT C1=%u C0=%u",
                                   (unsigned)_ekf_c1, (unsigned)_ekf_c0,
-                                  (unsigned)_pid_c1, (unsigned)_pid_c0);
+                                  (unsigned)_pid_c1, (unsigned)_pid_c0,
+                                  (unsigned)_filt_c1, (unsigned)_filt_c0);
                     GCS_SEND_TEXT(MAV_SEVERITY_INFO,
                                   "CPU C0=%u%% C1=%u%%",
                                   (unsigned)_c0_pct, (unsigned)_c1_pct);
@@ -352,6 +374,8 @@ void Copter::rate_controller_thread()
                 _s_ekf_c0  = c1_ekf_c0_count;
                 _s_pid_c1  = c1_pid_c1_count;
                 _s_pid_c0  = c1_pid_c0_count;
+                _s_filt_c1 = _filt_c1_count;
+                _s_filt_c0 = _filt_c0_count;
                 _s_busy_us = c1_busy_us;
             }
         }
@@ -374,7 +398,13 @@ void Copter::rate_controller_thread()
         if (run_decimated_callback(rates.filter_rate, filter_loop_count)) {
             filter_loop_count = 0;
 
-            rate_controller_filter_update();
+            // Try core1 first to reduce core0 pressure; fall back immediately if busy.
+            _c1_filter_args.copter = this;
+            if (c1_try_run_sync(_c1_filter_update)) {
+                _filt_c1_count++;
+            } else {
+                _filt_c0_count++;
+            }
         }
 
         max_dt = MAX(dt, max_dt);
