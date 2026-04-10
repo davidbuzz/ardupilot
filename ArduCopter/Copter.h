@@ -1113,9 +1113,6 @@ private:
 
 public:
     void failsafe_check();      // failsafe.cpp
-    // RP2350 core1 trampoline: allows the bare-metal dispatcher wrapper in
-    // rate_thread.cpp to run filter updates without exposing internal details.
-    void rate_controller_filter_update_for_core1() { rate_controller_filter_update(); }
 };
 
 extern Copter copter;
