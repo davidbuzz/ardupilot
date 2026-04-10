@@ -30,8 +30,9 @@ FRAME_TYPE 1
 #   shows "PreArm: RC not found" (normal behaviour).
 SERIAL3_PROTOCOL 23
 
-# SERIAL4 (PIOUART1 / AUX port, GPIO34/35): leave as None until an AUX device
-# is attached; the user can enable e.g. MAVLink2 (protocol=2) manually.
-# SERIAL4_PROTOCOL 2
+# SERIAL4 (PIOUART1 / AUX port, GPIO34/35): MAVLink2 by default so the
+# spare UART connector is ready for a telemetry radio or GCS link.
+# Protocol 2 enables PIOUART1 PIO1 state machines (GPIO34/35 FUNCSEL=7).
+SERIAL4_PROTOCOL 2
 #BATT_AMP_PERVLT 1.0
 #BATT_VOLT_MULT 1.0
