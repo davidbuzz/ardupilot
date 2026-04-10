@@ -119,8 +119,20 @@ void c1_att_barrier(void);
 /* True while a c1_att_dispatch_async() dispatch is in flight (not yet barrier'd). */
 extern volatile bool c1_att_pending;
 /* Side-channel variables shared between board.c and Laurel/Pico2 c1_main.c. */
-extern volatile uint32_t c1_att_fn_sidechan;    /* fn ptr queued for Core1 side-channel */
-extern volatile uint8_t  c1_att_sidechan_done;  /* 1 when Core1 finished the side-channel fn */
+extern volatile uint32_t c1_att_fn_sidechan;    /* fn ptr queued for Core1 att side-channel */
+extern volatile uint8_t  c1_att_sidechan_done;  /* 1 when Core1 finished att side-channel fn */
+/*
+ * c1_cov_dispatch_async() / c1_cov_barrier():
+ * Covariance side-channel — separate from attitude so UpdateFilter() does not
+ * need to drain the attitude channel before dispatching covariance.
+ * Core1's WFE idle loop checks c1_cov_fn_sidechan independently of
+ * c1_att_fn_sidechan; both are processed every idle iteration.
+ */
+bool c1_cov_dispatch_async(void (*fn)(void));
+void c1_cov_barrier(void);
+extern volatile bool     c1_cov_pending;
+extern volatile uint32_t c1_cov_fn_sidechan;
+extern volatile uint8_t  c1_cov_sidechan_done;
 extern volatile uint32_t c1_timeout_count;
 /* Per-type dispatch counters — used by the 10 s dual-core utilisation print. */
 extern volatile uint32_t c1_ekf_c1_count;  /* EKF dispatches that ran on Core1        */

@@ -1307,22 +1307,32 @@ bool c1_try_run_sync(void (*fn)(void))
  *             deadlock.  Board appeared online (GCS thread + rate thread ran)
  *             but main scheduler was frozen.
  *
- * Side-channel variables (declared in Laurel/c1_main.c):
- *   c1_att_fn_sidechan   — Core0 writes fn ptr; Core1 reads and clears.
- *   c1_att_sidechan_done — Core1 sets to 1 when done; Core0 clears in barrier.
+ * Two independent side-channels are provided so that EKF covariance and
+ * attitude control can each have their own fn/done variables.  This avoids
+ * the need for UpdateFilter() to drain the attitude side-channel before
+ * dispatching covariance (which added ~92 µs to the critical path when both
+ * jobs shared a single channel, regressing the loop rate by ~7 Hz).
  *
- * Core1's WFE idle loop checks c1_att_fn_sidechan on every iteration.  When
- * non-zero, it clears the pointer, calls the function, accumulates busy time
- * in c1_busy_us, sets c1_att_sidechan_done=1, and calls SEV to wake Core0.
+ *   Attitude (c1_att_fn_sidechan / c1_att_sidechan_done):
+ *     Dispatched from update_flight_mode; collected at start of next
+ *     update_flight_mode (~8 ms gap → ~0 µs barrier wait).
  *
- * Returns true  — fn() queued for Core1; results arrive via c1_att_barrier().
- * Returns false — previous side-channel job not yet consumed; do it on Core0.
+ *   Covariance (c1_cov_fn_sidechan / c1_cov_sidechan_done):
+ *     Dispatched from UpdateFilter(); collected in the same UpdateFilter()
+ *     call after runYawEstimatorPrediction() (~191 µs barrier wait typical).
+ *
+ * Core1's WFE idle loop checks both fn variables on each iteration.
+ * Returns true  — fn() queued for Core1; results arrive via the barrier.
+ * Returns false — side-channel occupied; caller should fall back to Core0.
  */
-volatile bool c1_att_pending;      /* true while a side-channel dispatch is in flight */
+volatile bool c1_att_pending;      /* true while an attitude side-channel dispatch is in flight */
+volatile bool c1_cov_pending;      /* true while a covariance side-channel dispatch is in flight */
 
 /* Side-channel variables — defined in Laurel/c1_main.c; extern here. */
 extern volatile uint32_t c1_att_fn_sidechan;
 extern volatile uint8_t  c1_att_sidechan_done;
+extern volatile uint32_t c1_cov_fn_sidechan;
+extern volatile uint8_t  c1_cov_sidechan_done;
 
 bool c1_att_dispatch_async(void (*fn)(void))
 {
@@ -1378,6 +1388,59 @@ void c1_att_barrier(void)
     __DMB();
     c1_att_sidechan_done = 0U;  /* clear for next cycle */
     c1_att_pending = false;
+}
+
+/*
+ * c1_cov_dispatch_async() — fire EKF covariance to Core1 via dedicated side-channel.
+ *
+ * This is the covariance counterpart to c1_att_dispatch_async().  It uses a
+ * SEPARATE pair of fn/done variables (c1_cov_fn_sidechan / c1_cov_sidechan_done)
+ * so that UpdateFilter() can dispatch covariance without first draining the
+ * attitude side-channel.  Core1 checks both channels in its WFE idle loop.
+ *
+ * Returns true  — covariance queued for Core1; collect via c1_cov_barrier().
+ * Returns false — covariance side-channel occupied; caller should use sync path.
+ */
+bool c1_cov_dispatch_async(void (*fn)(void))
+{
+    if (c1_cov_fn_sidechan != 0U) {
+        return false;   /* Core1 hasn't consumed the previous covariance job yet */
+    }
+    if (c1_cov_sidechan_done != 0U) {
+        return false;   /* previous done flag not yet collected — would alias results */
+    }
+    __DMB();            /* release barrier: _c1_cov_core visible to Core1 before fn ptr */
+    c1_cov_fn_sidechan = (uint32_t)fn;
+    __SEV();            /* wake Core1 if sleeping in WFE */
+    c1_cov_pending = true;
+    return true;
+}
+
+/*
+ * c1_cov_barrier() — wait for an in-flight covariance side-channel dispatch.
+ *
+ * Spins on c1_cov_sidechan_done with a 3 ms timeout.  On success applies an
+ * acquire barrier (DMB) to make Core1's P[][] writes visible to Core0, then
+ * clears the done flag.  On timeout clears the pending fn pointer.
+ */
+void c1_cov_barrier(void)
+{
+    if (!c1_cov_pending) {
+        return;     /* nothing in flight */
+    }
+    const uint32_t t0 = hrt_micros32();
+    while (c1_cov_sidechan_done == 0U) {
+        if (hrt_micros32() - t0 > 3000U) {
+            c1_cov_fn_sidechan = 0U;
+            c1_timeout_count++;
+            c1_cov_pending = false;
+            return;
+        }
+        chThdSleep(TIME_US2I(10));
+    }
+    __DMB();                    /* acquire barrier: Core1's P[][] writes are now visible */
+    c1_cov_sidechan_done = 0U;  /* clear for next cycle */
+    c1_cov_pending = false;
 }
 
 // this is the core0 handler to talk with core1

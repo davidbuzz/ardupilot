@@ -705,10 +705,19 @@ __RAMFUNC__ void NavEKF3_core::UpdateFilter(bool predict)
         UpdateStrapdownEquationsNED();
 
         // Predict the covariance growth.
-        // On RP2350: dispatch covariance to Core1 via FIFO+mutex (c1_run_sync_locked),
-        // which blocks Core0 for ~491 us but serialises correctly with the PID rate thread.
-        // TODO: async covariance via separate side-channel (c1_cov_fn_sidechan) to overlap
-        // with runYawEstimatorPrediction(), saving ~300 us per EKF cycle.
+        // On RP2350: synchronous dispatch to Core1 via FIFO+mutex (c1_run_sync_locked).
+        //
+        // NOTE: Async covariance via side-channel was tested (both shared attitude
+        // channel and a dedicated c1_cov_fn_sidechan channel) and caused consistent
+        // 4-7 Hz loop-rate regression vs the 121 Hz sync baseline:
+        //   - Shared att channel (gate att barrier in UpdateFilter): 114 Hz
+        //   - Dedicated cov channel (no att barrier overhead):       116 Hz
+        // Root cause is unclear — the cov_barrier() wait after runYawEstimatorPrediction
+        // adds ~191-283 µs of chThdSleep spinning to the main loop critical path,
+        // which apparently offsets the ~300 µs saved from covariance overlap.
+        // The c1_cov_fn_sidechan infrastructure is kept in c1_main.c and board.c
+        // for future investigation (e.g. if yaw_est is moved to Core1 too, making
+        // the cov_barrier wait ~0 µs instead of ~191 µs).
 #if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
         _c1_cov_core = this;
         __DMB();  /* ensure _c1_cov_core pointer is visible to Core1 before dispatch */

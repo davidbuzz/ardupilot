@@ -86,26 +86,39 @@ volatile uint32_t c1_busy_us __attribute__((used, externally_visible)) = 0U;
 
 volatile uint32_t c1_boot_stage = 0xDEAD0000U;
 /*
- * Side-channel async attitude dispatch.
+ * Side-channel async dispatch — attitude (c1_att_*) and covariance (c1_cov_*).
  *
- * These two variables implement a zero-mutex, zero-FIFO-protocol mechanism
- * for the attitude controller's async Core1 dispatch.  Unlike the main SIO
- * FIFO path (used by EKF covariance and PID rate control), the side-channel
- * does NOT produce a FIFO done token.  Instead Core1 signals completion via
- * the c1_att_sidechan_done volatile flag, which Core0 polls in c1_att_barrier.
+ * Two independent zero-mutex, zero-FIFO-protocol side-channels let Core0 fire
+ * jobs on Core1 without touching the SIO FIFO done-token stream used by the
+ * synchronous dispatchers (c1_run_sync / c1_run_sync_locked / c1_try_run_sync).
  *
- * Protocol (Core0 → Core1):
- *   Core0 writes a non-zero function pointer to c1_att_fn_sidechan + calls SEV.
- *   Core1 detects the non-zero value in its WFE idle loop, clears the pointer,
- *   calls the function, then sets c1_att_sidechan_done = 1 and calls SEV.
- *   Core0 c1_att_barrier() spins on c1_att_sidechan_done (2 ms timeout).
+ * ATTITUDE side-channel (c1_att_fn_sidechan / c1_att_sidechan_done):
+ *   Used by AC_AttitudeControl to run quaternion attitude control on Core1
+ *   asynchronously.  Dispatched from update_flight_mode; collected at the
+ *   start of the next update_flight_mode cycle (~8 ms gap → ~0 µs wait).
  *
- * This avoids sharing the SIO FIFO done-token stream with the sync dispatchers
- * (c1_run_sync / c1_run_sync_locked / c1_try_run_sync), eliminating the
- * protocol-corruption deadlock that occurs when mutex ownership spans cycles.
+ * COVARIANCE side-channel (c1_cov_fn_sidechan / c1_cov_sidechan_done):
+ *   Used by NavEKF3_core::UpdateFilter() to run CovariancePrediction on Core1
+ *   in parallel with runYawEstimatorPrediction() on Core0.  Having a separate
+ *   channel means UpdateFilter() does NOT need to drain the attitude side-channel
+ *   before dispatching covariance — eliminating the ~92 µs extra barrier wait
+ *   that regressed the loop rate when both jobs shared the same channel.
+ *
+ * Protocol (Core0 → Core1, identical for both channels):
+ *   Core0 writes a non-zero function pointer to the fn variable and calls SEV.
+ *   Core1 detects the non-zero fn in its WFE idle loop, clears the pointer,
+ *   calls the function, accumulates busy time, sets done=1, calls SEV.
+ *   Core0 barrier spins on the done variable (3 ms timeout).
+ *
+ * Core1 checks attitude fn first, then covariance fn, each idle-loop iteration.
+ * In normal operation only one channel is set at a time.
  */
 volatile uint32_t c1_att_fn_sidechan  __attribute__((used, externally_visible)) = 0U;
 volatile uint8_t  c1_att_sidechan_done __attribute__((used, externally_visible)) = 0U;
+/* Covariance side-channel — separate from attitude so UpdateFilter() can
+ * dispatch covariance without first draining the attitude side-channel.     */
+volatile uint32_t c1_cov_fn_sidechan  __attribute__((used, externally_visible)) = 0U;
+volatile uint8_t  c1_cov_sidechan_done __attribute__((used, externally_visible)) = 0U;
 void __c1_cpu_init(void)
 {
     /*
@@ -200,17 +213,24 @@ void c1_main(void)
         // wait for a function pointer from core0, execute it, then signal completion by writing 1 back to core0.  If we receive 0 instead of a valid pointer, it's a ping from core0 — write 0 back and wait for the next message.
         while (!(SIO_FIFO_ST & FIFO_ST_VLD)) {
             /*
-             * Side-channel: check for an async attitude job queued by Core0.
-             * Core0 sets c1_att_fn_sidechan (non-zero) and calls SEV to wake us.
+             * Side-channel: check for async jobs queued by Core0.
+             * Two independent channels are checked in order:
+             *   1. c1_att_fn_sidechan  — attitude quaternion controller
+             *   2. c1_cov_fn_sidechan  — EKF covariance prediction
+             * In normal operation only one channel is set per idle-loop iteration.
+             * Core0 sets the fn variable (non-zero) and calls SEV to wake us.
              * We consume the pointer (clear before calling to prevent re-entry),
-             * run it, then signal done via c1_att_sidechan_done flag (NOT via the
-             * SIO FIFO, to avoid corrupting the sync-dispatch done-token stream).
+             * run it, accumulate busy time, signal done, call SEV to wake Core0.
+             * Done is signalled via the dedicated done flag, NOT via the SIO FIFO,
+             * to avoid corrupting the sync-dispatch done-token stream.
              */
+            typedef void (*c1_task_fn)(void);
+
+            /* --- attitude side-channel --- */
             uint32_t att_fn_raw = c1_att_fn_sidechan;
             if (att_fn_raw != 0U) {
                 c1_att_fn_sidechan = 0U;   /* consume before calling (prevents re-entry) */
                 __asm volatile ("dsb sy\n isb" ::: "memory");
-                typedef void (*c1_task_fn)(void);
                 const uint32_t t0 = TIMER0_TIMERAWL;
                 ((c1_task_fn)att_fn_raw)();
                 c1_busy_us += TIMER0_TIMERAWL - t0;
@@ -218,6 +238,20 @@ void c1_main(void)
                 c1_att_sidechan_done = 1U; /* signal completion to Core0 */
                 __asm volatile ("sev");    /* wake Core0 if it is WFEing in c1_att_barrier */
             }
+
+            /* --- covariance side-channel (separate from attitude) --- */
+            uint32_t cov_fn_raw = c1_cov_fn_sidechan;
+            if (cov_fn_raw != 0U) {
+                c1_cov_fn_sidechan = 0U;   /* consume before calling (prevents re-entry) */
+                __asm volatile ("dsb sy\n isb" ::: "memory");
+                const uint32_t tc0 = TIMER0_TIMERAWL;
+                ((c1_task_fn)cov_fn_raw)();
+                c1_busy_us += TIMER0_TIMERAWL - tc0;
+                __asm volatile ("dmb sy" ::: "memory");
+                c1_cov_sidechan_done = 1U; /* signal completion to Core0 */
+                __asm volatile ("sev");    /* wake Core0 if it is WFEing in c1_cov_barrier */
+            }
+
             __asm volatile ("wfe"); // wait for event — low-power sleep until core0 writes to the FIFO and signals with SEV
             // small delay.
             for (volatile int i = 0; i < 100; i++) {
