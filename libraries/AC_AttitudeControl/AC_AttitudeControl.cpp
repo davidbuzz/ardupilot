@@ -4,6 +4,39 @@
 #include <AP_Scheduler/AP_Scheduler.h>
 #include <AP_Vehicle/AP_Vehicle_Type.h>
 
+// RP2350 dual-core async dispatch for attitude controller inner loop.
+// On RP2350 with Core1 enabled, the heavy attitude quaternion math runs on
+// Core1 asynchronously while Core0 proceeds with motors_output and other
+// scheduler tasks.  Results in _ang_vel_body_rads are guaranteed stable
+// before the next call to attitude_controller_run_quat() via c1_att_barrier().
+#if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
+#include <AP_HAL_ChibiOS/hwdef/common/stm32_util.h>
+
+// File-scope pointer to the AC_AttitudeControl instance being computed on Core1.
+// Set with a DMB fence before every async dispatch.
+static AC_AttitudeControl *_c1_att_ctrl_ptr;
+
+// Flag: true while Core1 is executing inside attitude_controller_run_quat().
+// Used to detect the re-entry from the Core1 trampoline and skip the dispatch path,
+// preventing infinite recursion and deadlock in c1_att_barrier().
+static volatile bool _c1_att_running;
+
+// Core1 trampoline.  Called by Core1's bare-metal FIFO dispatcher.
+// Sets the re-entry guard, delegates to the real implementation on the stored
+// instance, then clears the guard so Core0 can dispatch the next cycle.
+static void _c1_att_trampoline(void)
+{
+    _c1_att_running = true;                                  /* mark Core1 active */
+    _c1_att_ctrl_ptr->attitude_controller_run_quat();        /* inner loop runs on Core1 */
+    _c1_att_running = false;                                 /* Core1 done */
+}
+#endif  /* RP_CORE1_START */
+
+// Optimize the hot attitude-control path at -O2 (same as the rate thread).
+// On RP2350 all of these functions are also placed in SRAM via __RAMFUNC__ to
+// eliminate XIP cache-miss latency for the 200 Hz main-loop hot path.
+#pragma GCC optimize("O2")
+
 extern const AP_HAL::HAL& hal;
 
 #if APM_BUILD_TYPE(APM_BUILD_ArduPlane)
@@ -391,7 +424,8 @@ void AC_AttitudeControl::input_euler_angle_roll_pitch_euler_rate_yaw_cd(float eu
 // If body-frame rate feedforward shaping is enabled, shapes Euler rate/acceleration targets
 // with configured limits and time constants and converts them back to body-frame targets.
 // Otherwise, updates the attitude target directly and zeros rate/accel feedforward targets.
-void AC_AttitudeControl::input_euler_angle_roll_pitch_euler_rate_yaw_rad(float euler_roll_angle_rad, float euler_pitch_angle_rad, float euler_yaw_rate_rads)
+// __RAMFUNC__: runs from SRAM on RP2350 to save XIP cache pressure at 200 Hz.
+__RAMFUNC__ void AC_AttitudeControl::input_euler_angle_roll_pitch_euler_rate_yaw_rad(float euler_roll_angle_rad, float euler_pitch_angle_rad, float euler_yaw_rate_rads)
 {
     // update attitude target
     update_attitude_target();
@@ -966,7 +1000,8 @@ Quaternion AC_AttitudeControl::attitude_from_thrust_vector(Vector3f thrust_vecto
 }
 
 // Calculates the body frame angular velocities to follow the target attitude
-void AC_AttitudeControl::update_attitude_target()
+// __RAMFUNC__: hot function called at every main-loop iteration (200 Hz on RP2350).
+__RAMFUNC__ void AC_AttitudeControl::update_attitude_target()
 {
     // rotate target and normalize
     Quaternion attitude_target_update;
@@ -975,9 +1010,31 @@ void AC_AttitudeControl::update_attitude_target()
     _attitude_target.normalize();
 }
 
-// Calculates the body frame angular velocities to follow the target attitude
-void AC_AttitudeControl::attitude_controller_run_quat()
+// Calculates the body frame angular velocities to follow the target attitude.
+// On RP2350 with Core1 enabled: first call each cycle waits for the previous
+// cycle's async dispatch to complete (c1_att_barrier), then fires this cycle's
+// computation to Core1 and returns immediately, allowing Core0 to handle
+// motors_output and other scheduler tasks concurrently.  The __RAMFUNC__
+// attribute keeps the dispatch scaffolding in SRAM with zero flash-fetch overhead.
+__RAMFUNC__ void AC_AttitudeControl::attitude_controller_run_quat()
 {
+#if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
+    // Detect Core1 re-entry from _c1_att_trampoline: skip barrier and dispatch
+    // to avoid deadlock (c1_att_barrier would spin-wait for itself) and infinite recursion.
+    if (!_c1_att_running) {
+        // Core0 path: wait for any in-flight async from the previous cycle, then
+        // attempt to fire this cycle's computation to Core1 asynchronously.
+        c1_att_barrier();
+        _c1_att_ctrl_ptr = this;
+        __DMB();  /* ensure _c1_att_ctrl_ptr is visible to Core1 before dispatch */
+        if (c1_att_dispatch_async(_c1_att_trampoline)) {
+            /* Dispatched to Core1. Core0 returns immediately; Core1 will write
+             * _ang_vel_body_rads.  Results guaranteed stable at next call's barrier. */
+            return;
+        }
+        /* Core1 busy (EKF mutex held or FIFO full) — fall through to Core0. */
+    }
+#endif
     // This represents a quaternion rotation in NED frame to the body
     Quaternion attitude_body;
     _ahrs.get_quat_body_to_ned(attitude_body);
@@ -1020,7 +1077,8 @@ void AC_AttitudeControl::attitude_controller_run_quat()
 
 // thrust_heading_rotation_angles - calculates two ordered rotations to move the attitude_body quaternion to the attitude_target quaternion.
 // The maximum error in the yaw axis is limited based on static output saturation.
-void AC_AttitudeControl::thrust_heading_rotation_angles(Quaternion& attitude_target, const Quaternion& attitude_body, Vector3f& attitude_error_rad, float& thrust_angle_rad, float& thrust_error_angle_rad) const
+// __RAMFUNC__: called from attitude_controller_run_quat every 200 Hz cycle on RP2350.
+__RAMFUNC__ void AC_AttitudeControl::thrust_heading_rotation_angles(Quaternion& attitude_target, const Quaternion& attitude_body, Vector3f& attitude_error_rad, float& thrust_angle_rad, float& thrust_error_angle_rad) const
 {
     Quaternion thrust_vector_correction;
     thrust_vector_rotation_angles(attitude_target, attitude_body, thrust_vector_correction, attitude_error_rad, thrust_angle_rad, thrust_error_angle_rad);
@@ -1043,7 +1101,8 @@ void AC_AttitudeControl::thrust_heading_rotation_angles(Quaternion& attitude_tar
 
 // thrust_vector_rotation_angles - calculates two ordered rotations to move the attitude_body quaternion to the attitude_target quaternion.
 // The first rotation corrects the thrust vector and the second rotation corrects the heading vector.
-void AC_AttitudeControl::thrust_vector_rotation_angles(const Quaternion& attitude_target, const Quaternion& attitude_body, Quaternion& thrust_vector_correction, Vector3f& attitude_error_rad, float& thrust_angle_rad, float& thrust_error_angle_rad) const
+// __RAMFUNC__: called from thrust_heading_rotation_angles every 200 Hz cycle on RP2350.
+__RAMFUNC__ void AC_AttitudeControl::thrust_vector_rotation_angles(const Quaternion& attitude_target, const Quaternion& attitude_body, Quaternion& thrust_vector_correction, Vector3f& attitude_error_rad, float& thrust_angle_rad, float& thrust_error_angle_rad) const
 {
     // The direction of thrust is [0,0,-1] is any body-fixed frame, inc. body frame and target frame.
     const Vector3f thrust_vector_up{0.0f, 0.0f, -1.0f};
@@ -1095,7 +1154,8 @@ void AC_AttitudeControl::thrust_vector_rotation_angles(const Quaternion& attitud
 
 // calculates the velocity correction from an angle error. The angular velocity has acceleration and
 // deceleration limits including basic jerk limiting using _input_tc
-void AC_AttitudeControl::attitude_command_model(float error_angle, float desired_ang_vel, float& target_ang_vel, float& target_ang_accel, float max_ang_vel, float accel_max, float input_tc, float dt) const
+// __RAMFUNC__: input shaping called 3× per cycle from input_euler_angle_roll_pitch_euler_rate_yaw_rad on RP2350.
+__RAMFUNC__ void AC_AttitudeControl::attitude_command_model(float error_angle, float desired_ang_vel, float& target_ang_vel, float& target_ang_accel, float max_ang_vel, float accel_max, float input_tc, float dt) const
 {
     if (!is_positive(dt)) {
         return;
@@ -1332,7 +1392,8 @@ bool AC_AttitudeControl::body_to_euler_derivative(const Quaternion& att, const V
 }
 
 // Update rate_target_ang_vel using attitude_error_rot_vec_rad
-Vector3f AC_AttitudeControl::update_ang_vel_target_from_att_error(const Vector3f &attitude_error_rot_vec_rad)
+// __RAMFUNC__: P-controller output called every 200 Hz cycle from attitude_controller_run_quat.
+__RAMFUNC__ Vector3f AC_AttitudeControl::update_ang_vel_target_from_att_error(const Vector3f &attitude_error_rot_vec_rad)
 {
     Vector3f rate_target_ang_vel;
 

@@ -85,7 +85,27 @@ volatile uint32_t c1_vtor_at_boot = 0U;
 volatile uint32_t c1_busy_us __attribute__((used, externally_visible)) = 0U;
 
 volatile uint32_t c1_boot_stage = 0xDEAD0000U;
-
+/*
+ * Side-channel async attitude dispatch.
+ *
+ * These two variables implement a zero-mutex, zero-FIFO-protocol mechanism
+ * for the attitude controller's async Core1 dispatch.  Unlike the main SIO
+ * FIFO path (used by EKF covariance and PID rate control), the side-channel
+ * does NOT produce a FIFO done token.  Instead Core1 signals completion via
+ * the c1_att_sidechan_done volatile flag, which Core0 polls in c1_att_barrier.
+ *
+ * Protocol (Core0 → Core1):
+ *   Core0 writes a non-zero function pointer to c1_att_fn_sidechan + calls SEV.
+ *   Core1 detects the non-zero value in its WFE idle loop, clears the pointer,
+ *   calls the function, then sets c1_att_sidechan_done = 1 and calls SEV.
+ *   Core0 c1_att_barrier() spins on c1_att_sidechan_done (2 ms timeout).
+ *
+ * This avoids sharing the SIO FIFO done-token stream with the sync dispatchers
+ * (c1_run_sync / c1_run_sync_locked / c1_try_run_sync), eliminating the
+ * protocol-corruption deadlock that occurs when mutex ownership spans cycles.
+ */
+volatile uint32_t c1_att_fn_sidechan  __attribute__((used, externally_visible)) = 0U;
+volatile uint8_t  c1_att_sidechan_done __attribute__((used, externally_visible)) = 0U;
 void __c1_cpu_init(void)
 {
     /*
@@ -179,6 +199,25 @@ void c1_main(void)
 
         // wait for a function pointer from core0, execute it, then signal completion by writing 1 back to core0.  If we receive 0 instead of a valid pointer, it's a ping from core0 — write 0 back and wait for the next message.
         while (!(SIO_FIFO_ST & FIFO_ST_VLD)) {
+            /*
+             * Side-channel: check for an async attitude job queued by Core0.
+             * Core0 sets c1_att_fn_sidechan (non-zero) and calls SEV to wake us.
+             * We consume the pointer (clear before calling to prevent re-entry),
+             * run it, then signal done via c1_att_sidechan_done flag (NOT via the
+             * SIO FIFO, to avoid corrupting the sync-dispatch done-token stream).
+             */
+            uint32_t att_fn_raw = c1_att_fn_sidechan;
+            if (att_fn_raw != 0U) {
+                c1_att_fn_sidechan = 0U;   /* consume before calling (prevents re-entry) */
+                __asm volatile ("dsb sy\n isb" ::: "memory");
+                typedef void (*c1_task_fn)(void);
+                const uint32_t t0 = TIMER0_TIMERAWL;
+                ((c1_task_fn)att_fn_raw)();
+                c1_busy_us += TIMER0_TIMERAWL - t0;
+                __asm volatile ("dmb sy" ::: "memory");
+                c1_att_sidechan_done = 1U; /* signal completion to Core0 */
+                __asm volatile ("sev");    /* wake Core0 if it is WFEing in c1_att_barrier */
+            }
             __asm volatile ("wfe"); // wait for event — low-power sleep until core0 writes to the FIFO and signals with SEV
             // small delay.
             for (volatile int i = 0; i < 100; i++) {

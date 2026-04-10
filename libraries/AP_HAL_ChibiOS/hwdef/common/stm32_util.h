@@ -96,6 +96,31 @@ void c1_run_sync_locked(void (*fn)(void));
  * Use for high-rate callers (e.g. rate_thread PID) that must not stall.
  */
 bool c1_try_run_sync(void (*fn)(void));
+/*
+ * c1_att_dispatch_async(): fire attitude controller fn() to Core1 via side-channel.
+ *
+ * Uses a volatile pointer side-channel (c1_att_fn_sidechan / c1_att_sidechan_done)
+ * rather than the SIO FIFO done-token protocol. This eliminates the cross-cycle
+ * mutex deadlock that occurred with the old FIFO-based async dispatch.
+ *
+ * Core1's WFE idle loop checks c1_att_fn_sidechan on every iteration.  When
+ * non-zero it calls the function and signals completion via c1_att_sidechan_done.
+ *
+ * Returns true if queued for Core1; false if a previous job is still pending
+ * (caller should fall through to computing on Core0 instead).
+ */
+bool c1_att_dispatch_async(void (*fn)(void));
+/*
+ * c1_att_barrier(): wait for the in-flight side-channel attitude dispatch.
+ * Spins on c1_att_sidechan_done (3 ms timeout), applies a DMB acquire barrier,
+ * then clears the flag for the next cycle.  No-op if no dispatch is pending.
+ */
+void c1_att_barrier(void);
+/* True while a c1_att_dispatch_async() dispatch is in flight (not yet barrier'd). */
+extern volatile bool c1_att_pending;
+/* Side-channel variables shared between board.c and Laurel/Pico2 c1_main.c. */
+extern volatile uint32_t c1_att_fn_sidechan;    /* fn ptr queued for Core1 side-channel */
+extern volatile uint8_t  c1_att_sidechan_done;  /* 1 when Core1 finished the side-channel fn */
 extern volatile uint32_t c1_timeout_count;
 /* Per-type dispatch counters — used by the 10 s dual-core utilisation print. */
 extern volatile uint32_t c1_ekf_c1_count;  /* EKF dispatches that ran on Core1        */

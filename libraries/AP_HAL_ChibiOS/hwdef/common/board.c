@@ -1291,6 +1291,95 @@ bool c1_try_run_sync(void (*fn)(void))
     return on_c1;
 }
 
+/*
+ * Async attitude-controller dispatch — side-channel protocol.
+ *
+ * This is a ZERO-MUTEX, ZERO-FIFO-DONE-TOKEN mechanism for the attitude
+ * controller inner loop.  Unlike the main SIO FIFO path used by EKF
+ * covariance (c1_run_sync_locked) and PID (c1_try_run_sync), this path
+ * does NOT produce a FIFO done token and does NOT hold c1_dispatch_mtx
+ * across scheduler cycles — avoiding the cross-cycle deadlock that resulted
+ * from the old mutex-based design:
+ *
+ *   Old bug:  update_flight_mode (main thread) held c1_dispatch_mtx after
+ *             dispatch.  Next cycle's read_AHRS → c1_run_sync_locked (same
+ *             main thread) tried chMtxLock on the mutex it already held →
+ *             deadlock.  Board appeared online (GCS thread + rate thread ran)
+ *             but main scheduler was frozen.
+ *
+ * Side-channel variables (declared in Laurel/c1_main.c):
+ *   c1_att_fn_sidechan   — Core0 writes fn ptr; Core1 reads and clears.
+ *   c1_att_sidechan_done — Core1 sets to 1 when done; Core0 clears in barrier.
+ *
+ * Core1's WFE idle loop checks c1_att_fn_sidechan on every iteration.  When
+ * non-zero, it clears the pointer, calls the function, accumulates busy time
+ * in c1_busy_us, sets c1_att_sidechan_done=1, and calls SEV to wake Core0.
+ *
+ * Returns true  — fn() queued for Core1; results arrive via c1_att_barrier().
+ * Returns false — previous side-channel job not yet consumed; do it on Core0.
+ */
+volatile bool c1_att_pending;      /* true while a side-channel dispatch is in flight */
+
+/* Side-channel variables — defined in Laurel/c1_main.c; extern here. */
+extern volatile uint32_t c1_att_fn_sidechan;
+extern volatile uint8_t  c1_att_sidechan_done;
+
+bool c1_att_dispatch_async(void (*fn)(void))
+{
+    /* Bail if the previous side-channel job hasn't been consumed by Core1 yet.
+     * This prevents overwriting a pending pointer before Core1 reads it. */
+    if (c1_att_fn_sidechan != 0U) {
+        return false;
+    }
+    /* Bail if a previous dispatch's done flag hasn't been cleared yet.
+     * This ensures c1_att_barrier() always sees exactly one done per dispatch. */
+    if (c1_att_sidechan_done != 0U) {
+        return false;
+    }
+    /* Release barrier: ensure _c1_att_ctrl_ptr and all other inputs are
+     * visible to Core1 before it reads c1_att_fn_sidechan. */
+    __DMB();
+    c1_att_fn_sidechan = (uint32_t)fn;
+    __SEV();  /* wake Core1 from its WFE in case it is sleeping */
+    c1_att_pending = true;
+    return true;
+}
+
+/*
+ * c1_att_barrier() — wait for an in-flight side-channel attitude dispatch.
+ *
+ * Spins on c1_att_sidechan_done (set by Core1 when fn() returns), applies
+ * an acquire barrier (DMB) to make Core1's stores visible to Core0, then
+ * clears the done flag ready for the next cycle.
+ *
+ * No-op if no dispatch has been issued since the last barrier call.
+ */
+void c1_att_barrier(void)
+{
+    if (!c1_att_pending) {
+        return;     /* nothing in flight */
+    }
+    /* Spin-wait for Core1's completion flag with a 3 ms timeout.
+     * Use chThdSleep to yield to lower-priority threads (GCS, USB TX). */
+    const uint32_t t0 = hrt_micros32();
+    while (c1_att_sidechan_done == 0U) {
+        if (hrt_micros32() - t0 > 3000U) {
+            /* Timeout: Core1 did not finish in time.  Clear any stale pointer
+             * so Core1 won't call a fn that Core0 no longer owns. */
+            c1_att_fn_sidechan = 0U;
+            c1_timeout_count++;
+            c1_att_pending = false;
+            return;
+        }
+        chThdSleep(TIME_US2I(10));
+    }
+    /* Acquire barrier: Core1's stores (_ang_vel_body_rads etc.) are now
+     * visible to Core0. */
+    __DMB();
+    c1_att_sidechan_done = 0U;  /* clear for next cycle */
+    c1_att_pending = false;
+}
+
 // this is the core0 handler to talk with core1
 bool c1_run_sync(void (*fn)(void))
 {
