@@ -133,6 +133,15 @@ void c1_cov_barrier(void);
 extern volatile bool     c1_cov_pending;
 extern volatile uint32_t c1_cov_fn_sidechan;
 extern volatile uint8_t  c1_cov_sidechan_done;
+/*
+ * c1_flash_begin() / c1_flash_end():
+ * Enter/leave a flash-program/erase critical section on RP2350.
+ * While active, new Core1 dispatches are blocked and in-flight async
+ * side-channel jobs are drained so QSPI direct-mode flash operations do
+ * not race with Core1 code execution.
+ */
+void c1_flash_begin(void);
+void c1_flash_end(void);
 extern volatile uint32_t c1_timeout_count;
 /* Per-type dispatch counters — used by the 10 s dual-core utilisation print. */
 extern volatile uint32_t c1_ekf_c1_count;  /* EKF dispatches that ran on Core1        */

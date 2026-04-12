@@ -1327,6 +1327,11 @@ bool c1_try_run_sync(void (*fn)(void))
  */
 volatile bool c1_att_pending;      /* true while an attitude side-channel dispatch is in flight */
 volatile bool c1_cov_pending;      /* true while a covariance side-channel dispatch is in flight */
+/*
+ * Set while core0 performs direct flash program/erase operations.
+ * New core1 dispatches are rejected during this window.
+ */
+static volatile bool c1_dispatch_blocked;
 
 /* Side-channel variables — defined in Laurel/c1_main.c; extern here. */
 extern volatile uint32_t c1_att_fn_sidechan;
@@ -1336,6 +1341,9 @@ extern volatile uint8_t  c1_cov_sidechan_done;
 
 bool c1_att_dispatch_async(void (*fn)(void))
 {
+  if (c1_dispatch_blocked) {
+    return false;
+  }
     /* Bail if the previous side-channel job hasn't been consumed by Core1 yet.
      * This prevents overwriting a pending pointer before Core1 reads it. */
     if (c1_att_fn_sidechan != 0U) {
@@ -1403,6 +1411,9 @@ void c1_att_barrier(void)
  */
 bool c1_cov_dispatch_async(void (*fn)(void))
 {
+  if (c1_dispatch_blocked) {
+    return false;
+  }
     if (c1_cov_fn_sidechan != 0U) {
         return false;   /* Core1 hasn't consumed the previous covariance job yet */
     }
@@ -1446,6 +1457,12 @@ void c1_cov_barrier(void)
 // this is the core0 handler to talk with core1
 bool c1_run_sync(void (*fn)(void))
 {
+  if (c1_dispatch_blocked) {
+    fn();
+    __DMB();
+    return false;
+  }
+
     /* Release barrier: ensure preceding stores are visible to core1 before
      * we write the function pointer to the FIFO. */
     __DMB();
@@ -1500,4 +1517,34 @@ bool c1_run_sync(void (*fn)(void))
     __DMB();
     return true;  /* fn() ran and completed on Core1 */
 }
+
+  /*
+   * Enter a flash critical section for RP2350 QSPI direct-mode operations.
+   *
+   * Direct flash erase/program uses the QMI direct path. Running concurrent
+   * Core1 dispatches while this path is active can wedge the transaction.
+   * We gate all new dispatches, drain any in-flight async jobs, then hold the
+   * shared dispatch mutex so no FIFO-based jobs can start until flash_end().
+   */
+  void c1_flash_begin(void)
+  {
+    c1_dispatch_blocked = true;
+    __DMB();
+
+    /* Drain any in-flight async side-channel jobs before taking the mutex. */
+    c1_att_barrier();
+    c1_cov_barrier();
+
+    chMtxLock(&c1_dispatch_mtx);
+  }
+
+  /*
+   * Leave a flash critical section and re-enable Core1 dispatch.
+   */
+  void c1_flash_end(void)
+  {
+    chMtxUnlock(&c1_dispatch_mtx);
+    __DMB();
+    c1_dispatch_blocked = false;
+  }
 #endif  /* RP_CORE1_START */
