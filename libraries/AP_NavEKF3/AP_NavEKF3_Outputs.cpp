@@ -123,14 +123,16 @@ bool NavEKF3_core::getHeightControlLimit(float &height) const
 
 
 // return the Euler roll, pitch and yaw angle in radians
-void NavEKF3_core::getEulerAngles(Vector3f &euler) const
+// These output accessors sit directly in the AHRS publication path, so keep
+// them in SRAM on RP2350 to avoid per-loop XIP fetches around quaternion math.
+__RAMFUNC__ void NavEKF3_core::getEulerAngles(Vector3f &euler) const
 {
     outputDataNew.quat.to_euler(euler);
     euler = euler - dal.get_trim();
 }
 
 // return body axis gyro bias estimates in rad/sec
-void NavEKF3_core::getGyroBias(Vector3f &gyroBias) const
+__RAMFUNC__ void NavEKF3_core::getGyroBias(Vector3f &gyroBias) const
 {
     if (dtEkfAvg < 1e-6f) {
         gyroBias.zero();
@@ -140,7 +142,7 @@ void NavEKF3_core::getGyroBias(Vector3f &gyroBias) const
 }
 
 // return accelerometer bias in m/s/s
-void NavEKF3_core::getAccelBias(Vector3f &accelBias) const
+__RAMFUNC__ void NavEKF3_core::getAccelBias(Vector3f &accelBias) const
 {
     if (!statesInitialised) {
         accelBias.zero();
@@ -150,7 +152,7 @@ void NavEKF3_core::getAccelBias(Vector3f &accelBias) const
 }
 
 // return the transformation matrix from XYZ (body) to NED axes
-void NavEKF3_core::getRotationBodyToNED(Matrix3f &mat) const
+__RAMFUNC__ void NavEKF3_core::getRotationBodyToNED(Matrix3f &mat) const
 {
     outputDataNew.quat.rotation_matrix(mat);
     mat = mat * dal.get_rotation_vehicle_body_to_autopilot_body();

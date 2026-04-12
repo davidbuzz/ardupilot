@@ -245,7 +245,7 @@ void Copter::failsafe_ekf_recheck()
 }
 
 // check for ekf yaw reset and adjust target heading, also log position reset
-void Copter::check_ekf_reset()
+__RAMFUNC__ void Copter::check_ekf_reset()
 {
     // check for yaw reset
     float yaw_angle_change_rad;

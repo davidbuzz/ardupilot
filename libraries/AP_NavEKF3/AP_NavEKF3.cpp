@@ -904,10 +904,12 @@ bool NavEKF3::coreBetterScore(uint8_t new_core, uint8_t current_core) const
 }
 
 /* 
-  Update Filter States - this should be called whenever new IMU data is available
-  Execution speed governed by SCHED_LOOP_RATE
+    Update Filter States - this should be called whenever new IMU data is available
+    Execution speed governed by SCHED_LOOP_RATE
 */
-void NavEKF3::UpdateFilter(void)
+// Run the EKF3 wrapper from SRAM on RP2350 so the scheduler stays on the
+// same SRAM hot path while dispatching each core update.
+__RAMFUNC__ void NavEKF3::UpdateFilter(void)
 {
     dal.start_frame(AP_DAL::FrameType::UpdateFilterEKF3);
 
@@ -1278,7 +1280,9 @@ float NavEKF3::getPosDownDerivative() const
 }
 
 // return body axis gyro bias estimates in rad/sec
-void NavEKF3::getGyroBias(int8_t instance, Vector3f &gyroBias) const
+// Keep these tiny wrappers in SRAM on RP2350 because AP_AHRS::update_EKF3()
+// calls them every main-loop iteration as part of attitude publication.
+__RAMFUNC__ void NavEKF3::getGyroBias(int8_t instance, Vector3f &gyroBias) const
 {
     if (instance < 0 || instance >= num_cores) instance = primary;
     if (core) {
@@ -1287,7 +1291,7 @@ void NavEKF3::getGyroBias(int8_t instance, Vector3f &gyroBias) const
 }
 
 // return accelerometer bias estimate in m/s/s
-void NavEKF3::getAccelBias(int8_t instance, Vector3f &accelBias) const
+__RAMFUNC__ void NavEKF3::getAccelBias(int8_t instance, Vector3f &accelBias) const
 {
     if (instance < 0 || instance >= num_cores) instance = primary;
     if (core) {
@@ -1485,7 +1489,7 @@ bool NavEKF3::getHAGL(float &HAGL) const
 }
 
 // return the Euler roll, pitch and yaw angle in radians
-void NavEKF3::getEulerAngles(Vector3f &eulers) const
+__RAMFUNC__ void NavEKF3::getEulerAngles(Vector3f &eulers) const
 {
     if (core) {
         core[primary].getEulerAngles(eulers);
@@ -1493,7 +1497,7 @@ void NavEKF3::getEulerAngles(Vector3f &eulers) const
 }
 
 // return the transformation matrix from XYZ (body) to NED axes
-void NavEKF3::getRotationBodyToNED(Matrix3f &mat) const
+__RAMFUNC__ void NavEKF3::getRotationBodyToNED(Matrix3f &mat) const
 {
     if (core) {
         core[primary].getRotationBodyToNED(mat);

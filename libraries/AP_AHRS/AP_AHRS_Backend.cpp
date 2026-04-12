@@ -140,7 +140,9 @@ void AP_AHRS::calc_trig(const Matrix3f &rot,
 
 // update_trig - recalculates _cos_roll, _cos_pitch, etc based on latest attitude
 //      should be called after _dcm_matrix is updated
-void AP_AHRS::update_trig(void)
+// Run from SRAM on RP2350 because this executes on every AHRS update directly
+// after EKF output extraction.
+__RAMFUNC__ void AP_AHRS::update_trig(void)
 {
     calc_trig(get_rotation_body_to_ned(),
               _cos_roll, _cos_pitch, _cos_yaw,
@@ -148,9 +150,11 @@ void AP_AHRS::update_trig(void)
 }
 
 /*
-  update the centi-degree values
+    update the centi-degree values
  */
-void AP_AHRS::update_cd_values(void)
+// Run from SRAM on RP2350 because this is part of the per-loop AHRS output
+// publishing path after EKF3 finishes its state update.
+__RAMFUNC__ void AP_AHRS::update_cd_values(void)
 {
     roll_sensor  = degrees(roll) * 100;
     pitch_sensor = degrees(pitch) * 100;

@@ -1331,7 +1331,7 @@ AP_InertialSensor::detect_backends(void)
 
 // Armed, Copter, PixHawk:
 // ins_periodic: 57500 events, 0 overruns, 208754us elapsed, 3us avg, min 1us max 218us 40.662us rms
-void AP_InertialSensor::periodic()
+__RAMFUNC__ void AP_InertialSensor::periodic()
 {
 #if AP_INERTIALSENSOR_BATCHSAMPLER_ENABLED
     batchsampler.periodic();

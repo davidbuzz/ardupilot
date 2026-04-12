@@ -575,7 +575,7 @@ void Copter::rate_controller_log_update()
 }
 
 // run notch update at either loop rate or 200Hz
-void Copter::update_dynamic_notch_at_specified_rate_main()
+__RAMFUNC__ void Copter::update_dynamic_notch_at_specified_rate_main()
 {
     if (using_rate_thread) {
         return;

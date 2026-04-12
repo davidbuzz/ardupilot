@@ -13,7 +13,7 @@ static uint32_t land_detector_count = 0;
 
 // run land and crash detectors
 // called at MAIN_LOOP_RATE
-void Copter::update_land_and_crash_detectors()
+__RAMFUNC__ void Copter::update_land_and_crash_detectors()
 {
     // update 1hz filtered acceleration
     Vector3f accel_ef_mss = ahrs.get_accel_ef();
