@@ -16,19 +16,6 @@ while True:
     seconds_conter += 5
     print(f"Seconds since start: {seconds_conter}")
 
-    # every so often.. say once per minute...
-    if seconds_conter % 60 == 0:
-        print("Resetting counter...")
-        seconds_conter = 0
-        #type DEL key.
-        subprocess.run(['xdotool', 'key', '--window', window_id, 'Delete'])
-        # wait 1/2 sec.
-        time.sleep(0.5)
-        # type esc key.
-        subprocess.run(['xdotool', 'key', '--window', window_id, 'Escape'])
-        # wait 1/2 sec.
-        time.sleep(0.5)
-
     # find the right window
     result = subprocess.run(
         ['xdotool', 'search', '--name', window_name],
@@ -36,9 +23,6 @@ while True:
         capture_output=True, text=True
     )
     window_id = result.stdout.strip().split('\n')[0]
-    #print(f"VS Code window ID: {window_id}")
-    # Send ctrl+enter to the window
-    subprocess.run(['xdotool', 'key', '--window', window_id, 'ctrl+Return'])
 
     # find its window geometry
     result = subprocess.run(
@@ -76,6 +60,27 @@ while True:
     cmd = f'xdotool mousemove --window {window_id} {click_spot_x} {click_spot_y} click 1'
     #print(f"Running command: {cmd}")
     subprocess.run(['bash', '-c', cmd])
+
+    # time for the click to take effect
+    time.sleep(1)
+
+    #print(f"VS Code window ID: {window_id}")
+    # Send ctrl+enter to the window
+    subprocess.run(['xdotool', 'key', '--window', window_id, 'ctrl+Return'])
+
+        # every so often.. say once per minute...
+    if seconds_conter % 60 == 0:
+        print("Resetting counter...")
+        seconds_conter = 0
+        #type DEL key.
+        subprocess.run(['xdotool', 'key', '--window', window_id, 'Delete'])
+        # wait 1/2 sec.
+        time.sleep(0.5)
+        # type esc key.
+        subprocess.run(['xdotool', 'key', '--window', window_id, 'Escape'])
+        # wait 1/2 sec.
+        time.sleep(0.5)
+
 
 
     time.sleep(5)
