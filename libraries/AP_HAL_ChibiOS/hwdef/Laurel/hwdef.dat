@@ -305,12 +305,24 @@ define CH_CFG_SMP_MODE FALSE
 # The PSM FRCE_OFF pre-reset in start_core1() ensures a clean ROM wait-for-
 # launch state even if core1 survived a soft reset from the bootloader.
 define RP_CORE1_START TRUE
-# CPU clock: 250 MHz (1500 MHz VCO / POSTDIV1=3 / POSTDIV2=2 = 250 MHz).
-# 300 MHz was attempted (2026-04-12) but caused LOCKUP (UNDEFINSTR HardFault escalated
-# to double-fault lockup; HFSR=0x40000000 FORCED). Root cause: this RP2350B chip needs
-# VDD_CORE above the default 1.1V for stable operation at 300 MHz.
-# To attempt 300 MHz: set POSTDIV1=5, POSTDIV2=1 AND raise VDD_CORE to ~1.2V.
-define RP_PLL_SYS_POSTDIV1 3
+# CPU clock: 375 MHz (1500 MHz VCO / POSTDIV1=4 / POSTDIV2=1 = 375 MHz).
+# The on-chip VREG is raised to 1.30 V (VSEL=0x0f) in software BEFORE the
+# PLL is switched — see rp2350_vreg_init() in rp_clocks.c.  1.30 V supports
+# up to ~384 MHz per community testing (MichaelBell/power.py MicroPython gist)
+# and requires no DISABLE_VOLTAGE_LIMIT flag.
+# Previous attempts:
+#   300 MHz at default 1.1 V (2026-04-12): LOCKUP — VREG not initialized first.
+define RP_PLL_SYS_POSTDIV1 4
+define RP_PLL_SYS_POSTDIV2 1
+# On-chip VREG voltage select: 0x0f = 1.30 V (datasheet Table 481, VREG.VSEL).
+# This is raised in rp_clocks.c before PLL_SYS is started.
+define RP_VREG_VSEL 15
+# QMI flash timing for 375 MHz operation.  At 375 MHz the bootloader's
+# CLKDIV=3 gives SCK = 125 MHz which is over-spec for W25Q32 (80 MHz max).
+# CLKDIV=6 → SCK = 62.5 MHz (safe).  RXDELAY=6 → 8 ns capture delay,
+# covering the W25Q32 tCHQV of ≤7 ns.  Must be applied before PLL switch.
+define RP_QMI_CLKDIV 6
+define RP_QMI_RXDELAY 6
 
 # Board-specific notes:
 # - PA39 is routed to the onboard RGB LED but serial LED support remains
