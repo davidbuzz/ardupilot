@@ -56,8 +56,7 @@ I2C_ORDER I2C0
 #   SERIAL2: GPS                    (real UART1 on PA8/PA9,   schematic:UART1/GNSSUART )
 #   SERIAL3: CRSF/ELRS                (PIOUART0 on PA20/PA21, schematic:UART2/FTRXUART)
 #   SERIAL4: AUX port                 (PIOUART1 on PA34/PA35, schematic:UART3)
-#   SERIAL5: second USB CDC interface (OTG2)
-SERIAL_ORDER OTG1 UART0 UART1 PIOUART0 PIOUART1 OTG2
+SERIAL_ORDER OTG1 UART0 UART1 PIOUART0 PIOUART1
 
 # Stream MAVLink on USB immediately.
 define HAL_OTG1_PROTOCOL SerialProtocol_MAVLink2
