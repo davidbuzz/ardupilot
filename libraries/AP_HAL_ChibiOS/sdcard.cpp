@@ -20,6 +20,7 @@
 #include "bouncebuffer.h"
 #include "hwdef/common/spi_hook.h"
 #include <AP_BoardConfig/AP_BoardConfig.h>
+#include <AP_HAL/AP_HAL.h>
 #include <AP_Filesystem/AP_Filesystem.h>
 #include "bouncebuffer.h"
 #include "stm32_util.h"
@@ -32,6 +33,10 @@ static FATFS SDC_FS; // FATFS object
 static HAL_Semaphore sem;
 #endif
 static bool sdcard_running;
+static uint32_t sdcard_last_fail_ms;
+#ifndef HAL_SDCARD_RETRY_INTERVAL_MS
+#define HAL_SDCARD_RETRY_INTERVAL_MS 2000U
+#endif
 #endif
 
 #if HAL_USE_SDC
@@ -209,7 +214,14 @@ bool sdcard_retry(void)
 {
 #if HAL_USE_FATFS
     if (!sdcard_running) {
+        // Avoid repeated long probe sequences when no card is present.
+        // Boot paths can call retry_mount() many times in a tight loop.
+        const uint32_t now_ms = AP_HAL::millis();
+        if ((now_ms - sdcard_last_fail_ms) < HAL_SDCARD_RETRY_INTERVAL_MS) {
+            return false;
+        }
         if (sdcard_init()) {
+            sdcard_last_fail_ms = 0;
 #if AP_FILESYSTEM_FILE_WRITING_ENABLED
             // create APM directory without re-entering AP::FS(); callers may
             // already hold the FATFS backend mutex on targets where mutexes
@@ -217,6 +229,8 @@ bool sdcard_retry(void)
             const FRESULT res = f_mkdir("/APM");
             (void)res;
 #endif
+        } else {
+            sdcard_last_fail_ms = now_ms;
         }
     }
     return sdcard_running;
