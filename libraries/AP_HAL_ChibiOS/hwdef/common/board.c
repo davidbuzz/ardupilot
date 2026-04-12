@@ -1333,11 +1333,16 @@ volatile bool c1_cov_pending;      /* true while a covariance side-channel dispa
  */
 static volatile bool c1_dispatch_blocked;
 
-/* Side-channel variables — defined in Laurel/c1_main.c; extern here. */
-extern volatile uint32_t c1_att_fn_sidechan;
-extern volatile uint8_t  c1_att_sidechan_done;
-extern volatile uint32_t c1_cov_fn_sidechan;
-extern volatile uint8_t  c1_cov_sidechan_done;
+/*
+ * Side-channel variables for optional async Core1 dispatch.
+ * Laurel provides strong definitions in hwdef/Laurel/c1_main.c.
+ * Keep weak fallbacks here so other RP2350 targets still link when they
+ * don't provide board-local side-channel symbols.
+ */
+volatile uint32_t c1_att_fn_sidechan __attribute__((weak)) = 0U;
+volatile uint8_t  c1_att_sidechan_done __attribute__((weak)) = 0U;
+volatile uint32_t c1_cov_fn_sidechan __attribute__((weak)) = 0U;
+volatile uint8_t  c1_cov_sidechan_done __attribute__((weak)) = 0U;
 
 bool c1_att_dispatch_async(void (*fn)(void))
 {

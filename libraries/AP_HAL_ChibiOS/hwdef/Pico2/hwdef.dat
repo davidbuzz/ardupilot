@@ -161,9 +161,10 @@ USB_STRING_MANUFACTURER "ArduPilot"
 # UART0 = serial1 (telem1), UART1 = serial2 (telem2)
 # PIOUART0-1 for SERIAL3-4: GPIO14/17, GPIO19/20 (verified on standard Pico2W).
 # PIOUART2 (SERIAL5) for GPIO21/27 (verified on standard Pico2W with loopback).
+# OTG2 is appended as SERIAL6 to enable dual CDC without changing existing serial indices.
 # PIOUART3 disabled: GPIO30/31 exist only on RP2350B carrier boards, not standard Pico2W (QFN-60).
 # HAL_HAVE_PIO_UARTS is auto-derived from the PIOUART count in SERIAL_ORDER.
-SERIAL_ORDER OTG1 UART0 UART1 PIOUART0 PIOUART1 PIOUART2
+SERIAL_ORDER OTG1 UART0 UART1 PIOUART0 PIOUART1 PIOUART2 OTG2
 
 
 # Force the USB console (OTG1) to stream MAVLink immediately at 115200 baud.
