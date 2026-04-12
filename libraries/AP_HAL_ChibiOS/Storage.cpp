@@ -51,6 +51,12 @@ extern const AP_HAL::HAL& hal;
 #define HAL_FLASH_READ_FAIL_LIMIT 10
 #endif
 
+#ifdef USE_POSIX
+#ifndef HAL_STORAGE_SDCARD_RETRY_MS
+#define HAL_STORAGE_SDCARD_RETRY_MS 2000U
+#endif
+#endif
+
 // by default don't allow fallback to sdcard for storage
 #ifndef HAL_RAMTRON_ALLOW_FALLBACK
 #define HAL_RAMTRON_ALLOW_FALLBACK 0
@@ -88,34 +94,10 @@ void Storage::_storage_open(void)
         _save_backup();
         _initialisedType = StorageBackend::Flash;
 #elif defined(USE_POSIX)
-        // if we have failed filesystem init don't try again
-        if (log_fd == -1) {
-            return;
-        }
-
         // use microSD based storage
-        if (AP::FS().retry_mount()) {
-            log_fd = AP::FS().open(HAL_STORAGE_FILE, O_RDWR|O_CREAT);
-            if (log_fd == -1) {
-                ::printf("open failed of " HAL_STORAGE_FILE "\n");
-                return;
-            }
-            int ret = AP::FS().read(log_fd, _buffer, CH_STORAGE_SIZE);
-            if (ret < 0) {
-                ::printf("read failed for " HAL_STORAGE_FILE "\n");
-                AP::FS().close(log_fd);
-                log_fd = -1;
-                return;
-            }
-            // pre-fill to full size
-            if (AP::FS().lseek(log_fd, ret, SEEK_SET) != ret ||
-                (CH_STORAGE_SIZE-ret > 0 && AP::FS().write(log_fd, &_buffer[ret], CH_STORAGE_SIZE-ret) != CH_STORAGE_SIZE-ret)) {
-                ::printf("setup failed for " HAL_STORAGE_FILE "\n");
-                AP::FS().close(log_fd);
-                log_fd = -1;
-                return;
-            }
+        if (_sdcard_open()) {
             _save_backup();
+            _sdcard_had_io_failure = false;
             _initialisedType = StorageBackend::SDCard;
         }
 #endif
@@ -126,6 +108,69 @@ void Storage::_storage_open(void)
         AP_HAL::panic("Unable to init Storage backend");
     }
 }
+
+#ifdef USE_POSIX
+bool Storage::_sdcard_open(void)
+{
+    if (log_fd >= 0) {
+        return true;
+    }
+
+    if (!AP::FS().retry_mount()) {
+        return false;
+    }
+
+    log_fd = AP::FS().open(HAL_STORAGE_FILE, O_RDWR|O_CREAT);
+    if (log_fd == -1) {
+        ::printf("Storage: open failed of " HAL_STORAGE_FILE "\n");
+        return false;
+    }
+
+    int ret = AP::FS().read(log_fd, _buffer, CH_STORAGE_SIZE);
+    if (ret < 0) {
+        ::printf("Storage: read failed for " HAL_STORAGE_FILE "\n");
+        _sdcard_close();
+        return false;
+    }
+
+    // Ensure the file exists at full storage size. This keeps line writes valid
+    // after remount/reopen and preserves dirty-mask replay semantics.
+    if (AP::FS().lseek(log_fd, ret, SEEK_SET) != ret ||
+        (CH_STORAGE_SIZE-ret > 0 && AP::FS().write(log_fd, &_buffer[ret], CH_STORAGE_SIZE-ret) != CH_STORAGE_SIZE-ret)) {
+        ::printf("Storage: setup failed for " HAL_STORAGE_FILE "\n");
+        _sdcard_close();
+        return false;
+    }
+
+    return true;
+}
+
+void Storage::_sdcard_close(void)
+{
+    if (log_fd >= 0) {
+        AP::FS().close(log_fd);
+    }
+    log_fd = -2;
+}
+
+void Storage::_sdcard_note_failure(const char *reason)
+{
+    if (!_sdcard_had_io_failure) {
+        ::printf("Storage: SDCard I/O failed (%s), enabling reopen/retry\n", reason);
+    }
+    _sdcard_had_io_failure = true;
+    _sdcard_last_retry_ms = AP_HAL::millis();
+    _sdcard_close();
+}
+
+void Storage::_sdcard_note_recovered(void)
+{
+    if (_sdcard_had_io_failure) {
+        ::printf("Storage: SDCard I/O recovered\n");
+    }
+    _sdcard_had_io_failure = false;
+}
+#endif
 
 /*
   save a backup of storage file if we have microSD available. This is
@@ -291,17 +336,33 @@ void Storage::_timer_tick(void)
 #endif
 
 #ifdef USE_POSIX
-    if ((_initialisedType == StorageBackend::SDCard) && log_fd != -1) {
+    if (_initialisedType == StorageBackend::SDCard) {
+        if (log_fd < 0) {
+            const uint32_t now = AP_HAL::millis();
+            if ((now - _sdcard_last_retry_ms) < HAL_STORAGE_SDCARD_RETRY_MS) {
+                return;
+            }
+            _sdcard_last_retry_ms = now;
+            if (!_sdcard_open()) {
+                return;
+            }
+            _sdcard_note_recovered();
+        }
+
         uint32_t offset = CH_STORAGE_LINE_SIZE*i;
         if (AP::FS().lseek(log_fd, offset, SEEK_SET) != offset) {
+            _sdcard_note_failure("lseek");
             return;
         }
         if (AP::FS().write(log_fd, &_buffer[offset], CH_STORAGE_LINE_SIZE) != CH_STORAGE_LINE_SIZE) {
+            _sdcard_note_failure("write");
             return;
         }
         if (AP::FS().fsync(log_fd) != 0) {
+            _sdcard_note_failure("fsync");
             return;
         }
+        _sdcard_note_recovered();
         write_ok = true;
     }
 #endif

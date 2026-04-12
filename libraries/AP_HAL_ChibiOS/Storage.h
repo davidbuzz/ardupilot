@@ -125,7 +125,15 @@ private:
     AP_RAMTRON fram;
 #endif
 #ifdef USE_POSIX
-    int log_fd;
+    bool _sdcard_open(void);
+    void _sdcard_close(void);
+    void _sdcard_note_failure(const char *reason);
+    void _sdcard_note_recovered(void);
+
+    // -2 means closed and available for reopen attempts, -1 means disabled at init.
+    int log_fd = -2;
+    uint32_t _sdcard_last_retry_ms = 0;
+    bool _sdcard_had_io_failure = false;
 #endif
 };
 
