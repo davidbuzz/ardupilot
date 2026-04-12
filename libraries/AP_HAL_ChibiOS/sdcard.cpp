@@ -211,8 +211,11 @@ bool sdcard_retry(void)
     if (!sdcard_running) {
         if (sdcard_init()) {
 #if AP_FILESYSTEM_FILE_WRITING_ENABLED
-            // create APM directory
-            AP::FS().mkdir("/APM");
+            // create APM directory without re-entering AP::FS(); callers may
+            // already hold the FATFS backend mutex on targets where mutexes
+            // are non-recursive.
+            const FRESULT res = f_mkdir("/APM");
+            (void)res;
 #endif
         }
     }

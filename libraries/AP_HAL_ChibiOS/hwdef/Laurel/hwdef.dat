@@ -185,10 +185,13 @@ define HAL_WITH_MCU_MONITORING 1
 define HAL_HAVE_IMU_HEATER 0
 define HAL_BARO_ALLOW_INIT_NO_BARO 1
 define AP_INERTIALSENSOR_ALLOW_NO_SENSORS 1
-# Laurel bring-up: keep SPI microSD/FATFS disabled until the shared SPI1
-# storage path is validated. BoardConfig::init() performs mount retries that
-# can dominate startup time when no card is present or the bus is noisy.
-define HAL_OS_FATFS_IO 0
+# Enable SPI microSD via the shared SPI1 bus.  The ChibiOS MMC_SPI driver is
+# already compiled in (HAL_USE_MMC_SPI TRUE) and all SPI hooks are in
+# sdcard.cpp.  HAL_OS_FATFS_IO=1 enables the ArduPilot filesystem layer so
+# that AP_Logger, terrain data, and scripting can use the SD card.
+# If no card is present sdcard_init() will fail gracefully after 3 retries
+# (~200 ms extra startup time) and logging will be disabled in flight.
+define HAL_OS_FATFS_IO 1
 
 # Battery and RSSI channels on RP2350 ADC inputs.
 define HAL_BATT_MONITOR_DEFAULT 4
