@@ -1,0 +1,453 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
+GIT_DIR=$(git rev-parse --git-dir)
+GIT_ROOT=$(git rev-parse --show-toplevel)
+
+usage() {
+    cat >&$1 <<EOF
+Usage: git subsystems-rebase [OPTIONS]
+
+ArduPilot git helper.
+
+Rewrite the last N commits by grouping commits with the same subsystem prefix
+(<subsystem>: ...) into one commit per subsystem.
+
+Examples:
+  Tools: ...         -> one grouped Tools commit
+  AP_Scheduler: ...  -> one grouped AP_Scheduler commit
+
+Commits without a recognized "<subsystem>:" prefix are kept as standalone
+commits in their original order.
+
+Options:
+  -n, --lookback N   Number of commits from HEAD to rewrite.
+    --yes               Do not prompt when mixed-subsystem commits are found.
+    --stop-on-mixed     Exit when mixed-subsystem commits are found.
+    --auto-split-mixed  Auto-split mixed-subsystem commits during rewrite (default).
+    --no-auto-split-mixed
+                                            Disable auto-splitting mixed-subsystem commits.
+    --allow-mixed-authors
+                                            Allow rewrite even if commits have different authors.
+  -h, --help         Show this help text.
+
+If --lookback is not provided, the script prompts:
+  "How many commits are we gonna look back at? [N]"
+
+Where N defaults to the number of consecutive commits at HEAD authored by
+the same person.
+EOF
+}
+
+detect_default_lookback() {
+    local first_author
+    local count=0
+
+    first_author=$(git show -s --format='%an <%ae>' HEAD 2>/dev/null || true)
+    if [[ -z "$first_author" ]]; then
+        printf '1'
+        return
+    fi
+
+    while IFS= read -r author; do
+        if [[ "$author" == "$first_author" ]]; then
+            count=$((count + 1))
+        else
+            break
+        fi
+    done < <(git log --format='%an <%ae>' HEAD)
+
+    if [[ "$count" -le 0 ]]; then
+        count=1
+    fi
+
+    printf '%s' "$count"
+}
+
+print_split_recipe() {
+        local lookback_val="$1"
+        local hash="$2"
+        cat <<EOF
+    Commit $hash appears to touch multiple subsystems.
+    Safe manual split flow:
+        git rebase -i HEAD~$lookback_val
+        # mark $hash as 'edit' in the todo
+        ./Tools/gittools/git-subsystems-split
+        git rebase --continue
+EOF
+}
+
+trim() {
+    local s="$1"
+    s="${s#"${s%%[![:space:]]*}"}"
+    s="${s%"${s##*[![:space:]]}"}"
+    printf '%s' "$s"
+}
+
+extract_subsystem() {
+    local subject="$1"
+    if [[ "$subject" =~ ^([^:[:space:]][^:]*)[[:space:]]*:(.*)$ ]]; then
+        trim "${BASH_REMATCH[1]}"
+        return 0
+    fi
+    return 1
+}
+
+append_group_entry() {
+    local key="$1"
+    local entry="$2"
+    local hash="$3"
+    local subject="$4"
+
+    if [[ -z "${seen[$key]:-}" ]]; then
+        ordered_keys+=("$key")
+        seen[$key]=1
+        group_first_hash[$key]="$hash"
+        group_first_subject[$key]="$subject"
+    fi
+
+    group_entries[$key]="${group_entries[$key]:-} $entry"
+    group_count[$key]=$(( ${group_count[$key]:-0} + 1 ))
+}
+
+apply_split_subsystem_commit() {
+    local commit_hash="$1"
+    local subsystem="$2"
+    local map_key="${commit_hash}|${subsystem}"
+    local files_blob="${commit_subsystem_files[$map_key]:-}"
+
+    if [[ -z "$files_blob" ]]; then
+        return 0
+    fi
+
+    mapfile -t files < <(printf '%s' "$files_blob" | sed '/^$/d')
+    if [[ ${#files[@]} -eq 0 ]]; then
+        return 0
+    fi
+
+    local patch_file
+    patch_file=$(mktemp "$GIT_DIR/SUBSYSTEMS_REBASE_PATCH.XXXXXX")
+    git show --format= --binary "$commit_hash" -- "${files[@]}" > "$patch_file"
+
+    if [[ ! -s "$patch_file" ]]; then
+        rm -f "$patch_file"
+        return 0
+    fi
+
+    if ! git apply --3way --index "$patch_file"; then
+        rm -f "$patch_file"
+        echo "Failed applying split patch for $commit_hash ($subsystem)." >&2
+        exit 1
+    fi
+
+    rm -f "$patch_file"
+}
+
+lookback=""
+option_yes=false
+option_stop_on_mixed=false
+option_auto_split_mixed=true
+option_allow_mixed_authors=false
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+    -h|--help)
+        usage 1
+        exit 0
+        ;;
+    -n|--lookback)
+        shift
+        if [[ $# -eq 0 ]]; then
+            echo "Option --lookback requires a value." >&2
+            exit 1
+        fi
+        lookback="$1"
+        ;;
+    --yes)
+        option_yes=true
+        ;;
+    --stop-on-mixed)
+        option_stop_on_mixed=true
+        ;;
+    --auto-split-mixed)
+        option_auto_split_mixed=true
+        ;;
+    --no-auto-split-mixed)
+        option_auto_split_mixed=false
+        ;;
+    --allow-mixed-authors)
+        option_allow_mixed_authors=true
+        ;;
+    *)
+        echo "Unknown option: $1" >&2
+        usage 2
+        exit 1
+        ;;
+    esac
+    shift
+done
+
+if [[ -z "$lookback" ]]; then
+    default_lookback=$(detect_default_lookback)
+    read -r -p "How many commits are we gonna look back at? [${default_lookback}] " lookback
+    if [[ -z "$lookback" ]]; then
+        lookback="$default_lookback"
+    fi
+fi
+
+if [[ ! "$lookback" =~ ^[0-9]+$ ]] || [[ "$lookback" -le 0 ]]; then
+    echo "Lookback must be a positive integer." >&2
+    exit 1
+fi
+
+if ! git -C "$GIT_ROOT" diff --quiet || ! git -C "$GIT_ROOT" diff --cached --quiet; then
+    echo "Working tree/index must be clean before running subsystems-rebase." >&2
+    exit 1
+fi
+
+total_commits=$(git rev-list --count HEAD)
+if [[ "$lookback" -gt "$total_commits" ]]; then
+    echo "Lookback $lookback exceeds available commit count ($total_commits)." >&2
+    exit 1
+fi
+
+mapfile -t commits < <(git rev-list --reverse "HEAD~${lookback}..HEAD")
+if [[ ${#commits[@]} -eq 0 ]]; then
+    echo "No commits selected." >&2
+    exit 1
+fi
+
+for c in "${commits[@]}"; do
+    parent_count=$(git rev-list --parents -n 1 "$c" | awk '{print NF-1}')
+    if [[ "$parent_count" -gt 1 ]]; then
+        echo "Merge commit found in selected range ($c). This tool handles linear history only." >&2
+        exit 1
+    fi
+done
+
+declare -A author_seen=()
+declare -a author_list=()
+
+for c in "${commits[@]}"; do
+    author=$(git show -s --format='%an <%ae>' "$c")
+    if [[ -z "${author_seen[$author]:-}" ]]; then
+        author_seen[$author]=1
+        author_list+=("$author")
+    fi
+done
+
+if [[ ${#author_list[@]} -gt 1 && $option_allow_mixed_authors == false ]]; then
+    echo "ERROR: Selected range contains commits from multiple authors." >&2
+    echo "This script is configured to require a single author to avoid accidental history contamination." >&2
+    echo >&2
+    echo "Authors found:" >&2
+    for a in "${author_list[@]}"; do
+        echo "  - $a" >&2
+    done
+    echo >&2
+    echo "Commits in range by author:" >&2
+    for c in "${commits[@]}"; do
+        author=$(git show -s --format='%an <%ae>' "$c")
+        subject=$(git show -s --format=%s "$c")
+        echo "  $(git rev-parse --short "$c")  [$author] $subject" >&2
+    done
+    echo >&2
+    echo "If this is intentional, rerun with: --allow-mixed-authors" >&2
+    exit 1
+fi
+
+declare -A commit_mixed_subsystems=()
+declare -A commit_subsystems=()
+declare -A commit_subsystem_files=()
+declare -a mixed_commits=()
+
+for c in "${commits[@]}"; do
+    mapfile -t files < <(git diff-tree --no-commit-id --name-only -r "$c")
+    if [[ ${#files[@]} -eq 0 ]]; then
+        continue
+    fi
+
+    mapfile -t subsystem_paths < <(
+        printf '%s\n' "${files[@]}" | "$SCRIPT_DIR/path-libraries.sh" -p
+        printf '%s\n' "${files[@]}" | "$SCRIPT_DIR/path-nonlibraries.sh" -p
+    )
+
+    if [[ ${#subsystem_paths[@]} -eq 0 ]]; then
+        continue
+    fi
+
+    mapfile -t unique_subsystems < <(printf '%s\n' "${subsystem_paths[@]}" | awk '{print $1}' | sort -u)
+    commit_subsystems[$c]="${unique_subsystems[*]}"
+
+    for item in "${subsystem_paths[@]}"; do
+        subsystem_name="${item%%$'\t'*}"
+        file_path="${item#*$'\t'}"
+        map_key="${c}|${subsystem_name}"
+        commit_subsystem_files[$map_key]="${commit_subsystem_files[$map_key]:-}${file_path}"$'\n'
+    done
+
+    if [[ ${#unique_subsystems[@]} -gt 1 ]]; then
+        commit_mixed_subsystems[$c]="$(printf '%s, ' "${unique_subsystems[@]}")"
+        commit_mixed_subsystems[$c]="${commit_mixed_subsystems[$c]%, }"
+        mixed_commits+=("$c")
+    fi
+done
+
+if [[ ${#mixed_commits[@]} -gt 0 ]]; then
+    echo "Found ${#mixed_commits[@]} mixed-subsystem commit(s) in the selected range:"
+    for c in "${mixed_commits[@]}"; do
+        subject=$(git show -s --format=%s "$c")
+        echo "  $(git rev-parse --short "$c")  [$subject]"
+        echo "    subsystems: ${commit_mixed_subsystems[$c]}"
+        print_split_recipe "$lookback" "$c"
+    done
+
+    if $option_stop_on_mixed; then
+        echo "Exiting because --stop-on-mixed is set." >&2
+        exit 1
+    fi
+
+    if $option_auto_split_mixed; then
+        echo "WARNING: Auto-splitting mixed commits is best-effort."
+        echo "WARNING: Review rewritten history; manual reconciliation may still be required."
+        echo "Auto-split mode enabled: mixed commits will be split by subsystem during rewrite."
+    else
+        echo "WARNING: Auto-splitting mixed commits is disabled (--no-auto-split-mixed)."
+        echo "WARNING: Manual reconciliation may be required while/after rewrite."
+    fi
+
+    if ! $option_yes; then
+        if $option_auto_split_mixed; then
+            read -r -p "Continue with rewrite and auto-split mixed commits? [y/N] " yn
+        else
+            read -r -p "Continue with subsystem-grouping rewrite anyway? [y/N] " yn
+        fi
+        case "$yn" in
+            y|Y|yes|YES)
+                ;;
+            *)
+                echo "Aborted by user." >&2
+                exit 1
+                ;;
+        esac
+    fi
+fi
+
+base=$(git rev-parse "HEAD~${lookback}")
+backup_ref="refs/rewrites/subsystems-rebase-$(date +%Y%m%d-%H%M%S)-$$"
+git update-ref "$backup_ref" HEAD
+
+echo "Backup created at: $backup_ref"
+
+declare -a ordered_keys=()
+declare -A seen=()
+declare -A group_entries=()
+declare -A group_count=()
+declare -A group_first_hash=()
+declare -A group_first_subject=()
+
+for c in "${commits[@]}"; do
+    subject=$(git show -s --format=%s "$c")
+
+    if $option_auto_split_mixed && [[ -n "${commit_mixed_subsystems[$c]:-}" ]]; then
+        for subsystem in ${commit_subsystems[$c]}; do
+            key="subsystem:${subsystem}"
+            entry="split|${c}|${subsystem}"
+            append_group_entry "$key" "$entry" "$c" "$subject"
+        done
+        continue
+    fi
+
+    if subsystem=$(extract_subsystem "$subject"); then
+        key="subsystem:${subsystem}"
+    else
+        key="single:${c}"
+    fi
+
+    append_group_entry "$key" "full|${c}" "$c" "$subject"
+done
+
+orig_ref=$(git symbolic-ref --quiet --short HEAD || true)
+tmp_branch="subsystems-rebase-tmp-$$"
+msg_file="$GIT_DIR/SUBSYSTEMS_REBASE_MSG"
+
+git checkout -q -b "$tmp_branch" "$base"
+
+for key in "${ordered_keys[@]}"; do
+    read -r -a entries <<< "${group_entries[$key]}"
+
+    if [[ "$key" == single:* ]]; then
+        IFS='|' read -r mode hash _ <<< "${entries[0]}"
+        if [[ "$mode" != "full" ]]; then
+            echo "Internal error: single commit key must not contain split entries." >&2
+            exit 1
+        fi
+        git cherry-pick "$hash"
+        continue
+    fi
+
+    for e in "${entries[@]}"; do
+        IFS='|' read -r mode hash split_subsystem <<< "$e"
+        if [[ "$mode" == "full" ]]; then
+            git cherry-pick -n "$hash"
+        elif [[ "$mode" == "split" ]]; then
+            apply_split_subsystem_commit "$hash" "$split_subsystem"
+        else
+            echo "Unknown group entry mode: $mode" >&2
+            exit 1
+        fi
+    done
+
+    first_hash="${group_first_hash[$key]}"
+    first_subject="${group_first_subject[$key]}"
+    first_body=$(git show -s --format=%B "$first_hash")
+    first_author_name=$(git show -s --format=%an "$first_hash")
+    first_author_email=$(git show -s --format=%ae "$first_hash")
+    IFS='|' read -r first_mode _ _ <<< "${entries[0]}"
+
+    if [[ ${group_count[$key]} -eq 1 && "$first_mode" == "full" ]]; then
+        printf '%s\n' "$first_body" > "$msg_file"
+    else
+        subsystem="${key#subsystem:}"
+        remainder="${first_subject#*:}"
+        remainder=$(trim "$remainder")
+        if [[ -z "$remainder" ]]; then
+            remainder="consolidate changes"
+        fi
+
+        {
+            printf '%s: %s\n\n' "$subsystem" "$remainder"
+            printf 'Squashed %d commits:\n' "${group_count[$key]}"
+            for e in "${entries[@]}"; do
+                IFS='|' read -r mode hash split_subsystem <<< "$e"
+                if [[ "$mode" == "split" ]]; then
+                    printf -- '- %s %s [split:%s]\n' \
+                        "$(git rev-parse --short "$hash")" \
+                        "$(git show -s --format=%s "$hash")" \
+                        "$split_subsystem"
+                else
+                    printf -- '- %s %s\n' \
+                        "$(git rev-parse --short "$hash")" \
+                        "$(git show -s --format=%s "$hash")"
+                fi
+            done
+        } > "$msg_file"
+    fi
+
+    git commit --author="$first_author_name <$first_author_email>" -F "$msg_file"
+done
+
+new_head=$(git rev-parse "$tmp_branch")
+
+if [[ -n "$orig_ref" ]]; then
+    git checkout -q "$orig_ref"
+    git reset --hard "$new_head" >/dev/null
+    git branch -D "$tmp_branch" >/dev/null
+else
+    git checkout -q --detach "$new_head"
+fi
+
+echo "Done. Rewrote last $lookback commits grouped by subsystem."
+echo "Recovery reference: $backup_ref"
