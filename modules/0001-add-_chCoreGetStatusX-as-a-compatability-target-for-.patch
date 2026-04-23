@@ -1,0 +1,72 @@
+From 8f7d5a92b99a82adb2389f1d6e6782f45ab4d633 Mon Sep 17 00:00:00 2001
+From: David Buzz <davidbuzz@gmail.com>
+Date: Thu, 29 Jan 2026 10:56:22 +1000
+Subject: [PATCH 1/8] add _chCoreGetStatusX() as a compatability target for 
+ people wanting to use the old way
+
+choice: chCoreGetStatusX(xxx) or _chCoreGetStatusX()
+---
+ demos/various/RT-ARMCM4-USELIB/rt/ch.h | 1 +
+ os/oslib/include/chmemcore.h           | 1 +
+ os/oslib/src/chmemcore.c               | 7 +++++++
+ readme.txt                             | 3 +--
+ 4 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/demos/various/RT-ARMCM4-USELIB/rt/ch.h b/demos/various/RT-ARMCM4-USELIB/rt/ch.h
+index dc2b49bc29..66cb2c83bf 100644
+--- a/demos/various/RT-ARMCM4-USELIB/rt/ch.h
++++ b/demos/various/RT-ARMCM4-USELIB/rt/ch.h
+@@ -1728,6 +1728,7 @@ extern memcore_t ch_memcore;
+   void *chCoreAllocFromBase(size_t size, unsigned align, size_t offset);
+   void *chCoreAllocFromTop(size_t size, unsigned align, size_t offset);
+   void chCoreGetStatusX(memory_area_t *map);
++  size_t _chCoreGetStatusX(void);
+ static inline void *chCoreAllocAlignedI(size_t size, unsigned align) {
+   return chCoreAllocAlignedWithOffsetI(size, align, 0U);
+ }
+diff --git a/os/oslib/include/chmemcore.h b/os/oslib/include/chmemcore.h
+index 97dede2c5e..32c35bd6ef 100644
+--- a/os/oslib/include/chmemcore.h
++++ b/os/oslib/include/chmemcore.h
+@@ -125,6 +125,7 @@ extern "C" {
+   void *chCoreAllocFromBase(size_t size, unsigned align, size_t offset);
+   void *chCoreAllocFromTop(size_t size, unsigned align, size_t offset);
+   void chCoreGetStatusX(memory_area_t *map);
++  size_t _chCoreGetStatusX(void); // old version for compatibility
+ #ifdef __cplusplus
+ }
+ #endif
+diff --git a/os/oslib/src/chmemcore.c b/os/oslib/src/chmemcore.c
+index 475bf712a1..cf0c909653 100644
+--- a/os/oslib/src/chmemcore.c
++++ b/os/oslib/src/chmemcore.c
+@@ -252,6 +252,13 @@ void chCoreGetStatusX(memory_area_t *map) {
+   map->size = (size_t)(ch_memcore.topmem - ch_memcore.basemem);
+   /*lint -restore*/
+ }
++size_t _chCoreGetStatusX() {
++
++  /*lint -save -e9033 [10.8] The cast is safe.*/
++  return (size_t)(ch_memcore.topmem - ch_memcore.basemem);
++  /*lint -restore*/
++}
++
+ #endif /* CH_CFG_USE_MEMCORE == TRUE */
+ 
+ /** @} */
+diff --git a/readme.txt b/readme.txt
+index 20c816d18b..8dca2a24a0 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -155,7 +155,6 @@
+ - NEW: Added MEM_NATURAL_ALIGN macro to RT and NIL.
+ - NEW: Added static initializer for virtual timers in RT.
+ - NEW: Added new function chHeapIntegrityCheck().
+-- NEW: Function chCoreGetStatusX() changed to return a memory region object
+-       instead of a simple size.
++- NEW: Function chCoreGetStatusX() changed to return a memory region object instead of a simple size.
+ - NEW: RT and NIL upgraded to support the enhanced OSLIB.
+ - NEW: Memory areas/pointers checker functions added to OSLIB.
+-- 
+2.43.0
+

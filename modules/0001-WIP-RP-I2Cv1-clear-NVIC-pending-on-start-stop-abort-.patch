@@ -1,0 +1,94 @@
+From 9035c373114aa31578f08971db23db215240c17c Mon Sep 17 00:00:00 2001
+From: David Buzz <davidbuzz@gmail.com>
+Date: Sun, 5 Apr 2026 10:30:16 +1000
+Subject: [PATCH] WIP RP/I2Cv1: clear NVIC pending on start/stop, abort on
+ timeout
+
+Clear stale NVIC pending IRQ bits via nvicClearPending() before
+enabling (in i2c_lld_start) and after disabling (in i2c_lld_stop)
+the I2C interrupt vectors.  On RP2350 a pending bit can survive
+peripheral reset; without this it fires _unhandled_exception() ->
+NVIC_SystemReset() on the first i2cStart() call.
+
+Also trigger hardware abort (I2C_IC_ENABLE_ABORT) on MSG_TIMEOUT in
+both master_transmit and master_receive paths to cleanly drain any
+in-progress transaction.
+---
+ os/hal/ports/RP/LLD/I2Cv1/hal_i2c_lld.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
+
+diff --git a/os/hal/ports/RP/LLD/I2Cv1/hal_i2c_lld.c b/os/hal/ports/RP/LLD/I2Cv1/hal_i2c_lld.c
+index a3dd46c60b..d48613e441 100644
+--- a/os/hal/ports/RP/LLD/I2Cv1/hal_i2c_lld.c
++++ b/os/hal/ports/RP/LLD/I2Cv1/hal_i2c_lld.c
+@@ -428,6 +428,10 @@ void i2c_lld_start(I2CDriver *i2cp) {
+     if (&I2CD0 == i2cp) {
+       hal_lld_peripheral_unreset(RESETS_ALLREG_I2C0);
+ 
++      /* Clear any pending I2C0 IRQ that may have been latched before the
++       * peripheral was last reset. A stale pending bit would otherwise fire
++       * _unhandled_exception() -> NVIC_SystemReset() on the first enable. */
++      nvicClearPending(RP_I2C0_IRQ_NUMBER);
+       nvicEnableVector(RP_I2C0_IRQ_NUMBER, RP_IRQ_I2C0_PRIORITY);
+     }
+ #endif
+@@ -436,6 +440,8 @@ void i2c_lld_start(I2CDriver *i2cp) {
+     if (&I2CD1 == i2cp) {
+       hal_lld_peripheral_unreset(RESETS_ALLREG_I2C1);
+ 
++      /* Same pending-IRQ defence for I2C1. */
++      nvicClearPending(RP_I2C1_IRQ_NUMBER);
+       nvicEnableVector(RP_I2C1_IRQ_NUMBER, RP_IRQ_I2C1_PRIORITY);
+     }
+ #endif
+@@ -487,7 +493,9 @@ void i2c_lld_stop(I2CDriver *i2cp) {
+ #if RP_I2C_USE_I2C0 == TRUE
+     if (&I2CD0 == i2cp) {
+       nvicDisableVector(RP_I2C0_IRQ_NUMBER);
+-
++      /* Clear any IRQ that fired between the disable and the peripheral reset;
++       * prevents a stale pending bit from triggering _unhandled_exception(). */
++      nvicClearPending(RP_I2C0_IRQ_NUMBER);
+       hal_lld_peripheral_reset(RESETS_ALLREG_I2C0);
+     }
+ #endif
+@@ -495,7 +503,8 @@ void i2c_lld_stop(I2CDriver *i2cp) {
+ #if RP_I2C_USE_I2C1 == TRUE
+     if (&I2CD1 == i2cp) {
+       nvicDisableVector(RP_I2C1_IRQ_NUMBER);
+-
++      /* Same defence for I2C1. */
++      nvicClearPending(RP_I2C1_IRQ_NUMBER);
+       hal_lld_peripheral_reset(RESETS_ALLREG_I2C1);
+     }
+ #endif
+@@ -589,9 +598,11 @@ msg_t i2c_lld_master_receive_timeout(I2CDriver *i2cp, i2caddr_t addr,
+   msg = osalThreadSuspendTimeoutS(&i2cp->thread, timeout);
+ 
+   if (msg == MSG_TIMEOUT) {
+-    /* Disable and clear interrupts. */
++    /* Disable all interrupt enables and abort the in-progress transfer so the
++     * bus is not left holding SCL/SDA.  Mirrors the transmit-timeout path. */
+     dp->INTRMASK = 0U;
+     (void)dp->CLRINTR;
++    dp->ENABLE |= I2C_IC_ENABLE_ABORT;   /* request hardware abort */
+   }
+ 
+   return msg;
+@@ -687,9 +698,12 @@ msg_t i2c_lld_master_transmit_timeout(I2CDriver *i2cp, i2caddr_t addr,
+   msg = osalThreadSuspendTimeoutS(&i2cp->thread, timeout);
+ 
+   if (msg == MSG_TIMEOUT) {
+-    /* Disable and clear interrupts. */
++    /* Disable all interrupt enables in the peripheral so no further IRQs
++     * are generated.  Then abort any in-progress transaction so the bus is
++     * not left holding SCL/SDA and the peripheral returns to IDLE. */
+     dp->INTRMASK = 0U;
+     (void)dp->CLRINTR;
++    dp->ENABLE |= I2C_IC_ENABLE_ABORT;   /* request hardware abort */
+   }
+ 
+   return msg;
+-- 
+2.43.0
+

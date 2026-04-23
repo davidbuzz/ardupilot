@@ -1,0 +1,62 @@
+From 1c10c0b9fcaa22804fce7009d7037490952f3b38 Mon Sep 17 00:00:00 2001
+From: David Buzz <davidbuzz@gmail.com>
+Date: Sun, 12 Apr 2026 18:23:57 +1000
+Subject: [PATCH] WIP: MMC_SPI: add fast-fail connect idle timeout for no-card
+ boot
+
+- add MMC_CONNECT_IDLE_TIMEOUT_MS override (defaults to MMC_IDLE_TIMEOUT_MS)
+- use connect-specific timeout while BLK_CONNECTING in mmc_wait_idle()
+- allows board-level fast-fail probing without changing runtime MMC idle waits
+---
+ os/hal/include/hal_mmc_spi.h | 11 +++++++++++
+ os/hal/src/hal_mmc_spi.c     |  5 ++++-
+ 2 files changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/os/hal/include/hal_mmc_spi.h b/os/hal/include/hal_mmc_spi.h
+index 5358f6e05f..539b206831 100644
+--- a/os/hal/include/hal_mmc_spi.h
++++ b/os/hal/include/hal_mmc_spi.h
+@@ -59,6 +59,17 @@
+ #define MMC_IDLE_TIMEOUT_MS             1000
+ #endif
+ 
++/**
++ * @brief   Timeout used while probing/connecting a card.
++ * @details This allows boards without reliable card-detect to fail fast at
++ *          boot when no card is present, while keeping normal runtime idle
++ *          timeouts unchanged for active card operations.
++ * @note    Time is in milliseconds.
++ */
++#if !defined(MMC_CONNECT_IDLE_TIMEOUT_MS) || defined(__DOXYGEN__)
++#define MMC_CONNECT_IDLE_TIMEOUT_MS     MMC_IDLE_TIMEOUT_MS
++#endif
++
+ /**
+  * @brief   Mutual exclusion on the SPI bus.
+  */
+diff --git a/os/hal/src/hal_mmc_spi.c b/os/hal/src/hal_mmc_spi.c
+index d6aef64209..b27460647a 100644
+--- a/os/hal/src/hal_mmc_spi.c
++++ b/os/hal/src/hal_mmc_spi.c
+@@ -280,6 +280,9 @@ static uint8_t mmc_crc7(uint8_t crc, const uint8_t *buffer, size_t len) {
+  * @notapi
+  */
+ static bool mmc_wait_idle(MMCDriver *mmcp) {
++  const unsigned timeout_ms =
++      (mmcp->state == BLK_CONNECTING) ? (unsigned)MMC_CONNECT_IDLE_TIMEOUT_MS :
++                                        (unsigned)MMC_IDLE_TIMEOUT_MS;
+   unsigned i;
+ 
+   for (i = 0U; i < 16U; i++) {
+@@ -299,7 +302,7 @@ static bool mmc_wait_idle(MMCDriver *mmcp) {
+ 
+     /* Trying to be nice with the other threads.*/
+     osalThreadSleepMilliseconds(1);
+-  } while (++i < (unsigned)MMC_IDLE_TIMEOUT_MS);
++  } while (++i < timeout_ms);
+ 
+   return HAL_FAILED;
+ }
+-- 
+2.43.0
+

@@ -1,0 +1,106 @@
+From d15e10979eed7698ac7306f56b1dd8cd2f586334 Mon Sep 17 00:00:00 2001
+From: David Buzz <davidbuzz@gmail.com>
+Date: Sun, 5 Apr 2026 15:17:01 +1000
+Subject: [PATCH 1/2] RP I2C: WIP add ISR stage breadcrumbs
+
+---
+ os/hal/ports/RP/LLD/I2Cv1/hal_i2c_lld.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/os/hal/ports/RP/LLD/I2Cv1/hal_i2c_lld.c b/os/hal/ports/RP/LLD/I2Cv1/hal_i2c_lld.c
+index 16a79ba3b1..04cf42187f 100644
+--- a/os/hal/ports/RP/LLD/I2Cv1/hal_i2c_lld.c
++++ b/os/hal/ports/RP/LLD/I2Cv1/hal_i2c_lld.c
+@@ -50,6 +50,12 @@ I2CDriver I2CD0;
+ I2CDriver I2CD1;
+ #endif
+ 
++/*
++ * Debug breadcrumb for RP2350 startup IRQ diagnosis.
++ * This is intentionally global so it can be read from SWD/GDB at crash time.
++ */
++volatile uint32_t rp_i2c_isr_stage;
++
+ /*===========================================================================*/
+ /* Driver local variables and types.                                         */
+ /*===========================================================================*/
+@@ -308,6 +314,8 @@ static void i2c_lld_serve_interrupt(I2CDriver *i2cp) {
+   I2C_TypeDef *dp = i2cp->i2c;
+   uint32_t intr = dp->INTRSTAT;
+ 
++  rp_i2c_isr_stage = 0x10U; /* ISR entry */
++
+   /* Guard: if no interrupt bits are set, or if the driver is not actively
+    * transferring, silence the hardware and return without touching the thread
+    * reference.  A spurious interrupt arriving while I2C is in the READY (or
+@@ -318,6 +326,7 @@ static void i2c_lld_serve_interrupt(I2CDriver *i2cp) {
+   if (intr == 0U ||
+       i2cp->thread == NULL ||
+       (i2cp->state != I2C_ACTIVE_TX && i2cp->state != I2C_ACTIVE_RX)) {
++    rp_i2c_isr_stage = 0x11U; /* guarded spurious/stale IRQ path */
+     dp->INTRMASK = 0U;  /* disable all interrupt sources in the hardware */
+     (void)dp->CLRINTR;  /* clear any stale flags */
+     if (i2cp->state != I2C_STOP) {
+@@ -328,20 +337,26 @@ static void i2c_lld_serve_interrupt(I2CDriver *i2cp) {
+ 
+   /* Transmission error detected. */
+   if (intr & I2C_ERROR_INTERRUPTS) {
++    rp_i2c_isr_stage = 0x12U; /* error path */
+     return i2c_lld_handle_errors(i2cp);
+   }
+ 
+   /* If the TX FIFO is empty we can request or send more data. */
+   if (intr & I2C_IC_INTR_STAT_R_TX_EMPTY) {
++    rp_i2c_isr_stage = 0x20U; /* TX_EMPTY dispatch */
+     if (i2cp->state == I2C_ACTIVE_TX) {
++      rp_i2c_isr_stage = 0x21U; /* transmit branch */
+       i2c_lld_transmit_data(i2cp);
+     } else {
++      rp_i2c_isr_stage = 0x22U; /* request-data branch */
+       i2c_lld_request_data(i2cp);
+     }
++    rp_i2c_isr_stage = 0x23U; /* TX_EMPTY path complete */
+     return;
+   }
+ 
+   if (intr & I2C_IC_INTR_STAT_R_RX_FULL) {
++    rp_i2c_isr_stage = 0x24U; /* RX_FULL branch */
+     while (dp->STATUS & I2C_IC_STATUS_RFNE) {
+       /* Read out received data. */
+       *i2cp->rxptr = (uint8_t)dp->DATACMD;
+@@ -356,10 +371,12 @@ static void i2c_lld_serve_interrupt(I2CDriver *i2cp) {
+       /* Enable TX FIFO empty IRQ to request more data. */
+       dp->SET.INTRMASK = I2C_IC_INTR_STAT_R_TX_EMPTY;
+     }
++    rp_i2c_isr_stage = 0x25U; /* RX_FULL complete */
+     return;
+   }
+ 
+   if (intr & I2C_IC_INTR_STAT_R_STOP_DET) {
++    rp_i2c_isr_stage = 0x26U; /* STOP_DET branch */
+     /* Clear irq flag. */
+     (void)dp->CLRSTOPDET;
+     if (i2cp->state == I2C_ACTIVE_TX && i2cp->rxbytes > 0U) {
+@@ -370,6 +387,7 @@ static void i2c_lld_serve_interrupt(I2CDriver *i2cp) {
+ 
+       /* Enable TX FIFO empty IRQ to request more data to be received. */
+       dp->SET.INTRMASK = I2C_IC_INTR_STAT_R_TX_EMPTY;
++      rp_i2c_isr_stage = 0x27U; /* STOP_DET restart path */
+       return;
+     }
+   }
+@@ -380,8 +398,11 @@ static void i2c_lld_serve_interrupt(I2CDriver *i2cp) {
+ 
+   /* Same safety guard as error path: only wake a valid waiter. */
+   if (i2cp->thread != NULL) {
++    rp_i2c_isr_stage = 0x30U; /* about to resume waiting thread */
+     _i2c_wakeup_isr(i2cp);
++    rp_i2c_isr_stage = 0x31U; /* resumed waiting thread */
+   } else {
++    rp_i2c_isr_stage = 0x32U; /* no waiter, forced READY */
+     i2cp->state = I2C_READY;
+   }
+ }
+-- 
+2.43.0
+

@@ -1,0 +1,105 @@
+From a1fe12a0bedc0fd8ea688db4a73e4e5bc2c61621 Mon Sep 17 00:00:00 2001
+From: David Buzz <davidbuzz@gmail.com>
+Date: Sun, 5 Apr 2026 15:10:38 +1000
+Subject: [PATCH] assorted more   nvicClearPending
+
+---
+ os/hal/ports/RP/LLD/PIOv1/rp_pio.c       | 8 ++++++++
+ os/hal/ports/RP/LLD/PWMv1/hal_pwm_lld.c  | 2 ++
+ os/hal/ports/RP/LLD/TIMERv1/hal_st_lld.c | 6 ++++++
+ os/hal/ports/RP/LLD/USBv1/hal_usb_lld.c  | 2 ++
+ 4 files changed, 18 insertions(+)
+
+diff --git a/os/hal/ports/RP/LLD/PIOv1/rp_pio.c b/os/hal/ports/RP/LLD/PIOv1/rp_pio.c
+index 672cb57c86..e3054e4870 100644
+--- a/os/hal/ports/RP/LLD/PIOv1/rp_pio.c
++++ b/os/hal/ports/RP/LLD/PIOv1/rp_pio.c
+@@ -268,13 +268,17 @@ const rp_pio_sm_t *pioSmAllocI(const rp_pio_block_t *block,
+         if (pio.blocks[b].c0_allocated_mask == 0U) {
+           switch (b) {
+           case 0U:
++            /* Clear stale NVIC pending bit before enabling (RP2350 errata). */
++            nvicClearPending(RP_PIO0_IRQ_0_NUMBER);
+             nvicEnableVector(RP_PIO0_IRQ_0_NUMBER, irq_priority);
+             break;
+           case 1U:
++            nvicClearPending(RP_PIO1_IRQ_0_NUMBER);
+             nvicEnableVector(RP_PIO1_IRQ_0_NUMBER, irq_priority);
+             break;
+ #if RP_HAS_PIO2 == TRUE
+           case 2U:
++            nvicClearPending(RP_PIO2_IRQ_0_NUMBER);
+             nvicEnableVector(RP_PIO2_IRQ_0_NUMBER, irq_priority);
+             break;
+ #endif
+@@ -289,13 +293,17 @@ const rp_pio_sm_t *pioSmAllocI(const rp_pio_block_t *block,
+         if (pio.blocks[b].c1_allocated_mask == 0U) {
+           switch (b) {
+           case 0U:
++            /* Clear stale NVIC pending bit before enabling (RP2350 errata). */
++            nvicClearPending(RP_PIO0_IRQ_1_NUMBER);
+             nvicEnableVector(RP_PIO0_IRQ_1_NUMBER, irq_priority);
+             break;
+           case 1U:
++            nvicClearPending(RP_PIO1_IRQ_1_NUMBER);
+             nvicEnableVector(RP_PIO1_IRQ_1_NUMBER, irq_priority);
+             break;
+ #if RP_HAS_PIO2 == TRUE
+           case 2U:
++            nvicClearPending(RP_PIO2_IRQ_1_NUMBER);
+             nvicEnableVector(RP_PIO2_IRQ_1_NUMBER, irq_priority);
+             break;
+ #endif
+diff --git a/os/hal/ports/RP/LLD/PWMv1/hal_pwm_lld.c b/os/hal/ports/RP/LLD/PWMv1/hal_pwm_lld.c
+index 85a259c946..0adcc428b1 100644
+--- a/os/hal/ports/RP/LLD/PWMv1/hal_pwm_lld.c
++++ b/os/hal/ports/RP/LLD/PWMv1/hal_pwm_lld.c
+@@ -363,6 +363,8 @@ void pwm_lld_start(PWMDriver *pwmp) {
+   if (pwmp->state == PWM_STOP) {
+     /* Clock activation and timer reset. */
+     hal_lld_peripheral_unreset(RESETS_ALLREG_PWM);
++    /* Clear stale NVIC pending bit before enabling (RP2350 errata). */
++    nvicClearPending(RP_PWM_IRQ_WRAP_0_NUMBER);
+     nvicEnableVector(RP_PWM_IRQ_WRAP_0_NUMBER, RP_PWM_IRQ_WRAP_NUMBER_PRIORITY);
+   } else {
+     /* Driver re-configuration scenario, it must be stopped first. */
+diff --git a/os/hal/ports/RP/LLD/TIMERv1/hal_st_lld.c b/os/hal/ports/RP/LLD/TIMERv1/hal_st_lld.c
+index 4c8c507136..ed3d30f404 100644
+--- a/os/hal/ports/RP/LLD/TIMERv1/hal_st_lld.c
++++ b/os/hal/ports/RP/LLD/TIMERv1/hal_st_lld.c
+@@ -240,6 +240,10 @@ void st_lld_init(void) {
+ void st_lld_bind(void) {
+ 
+ #if OSAL_ST_MODE == OSAL_ST_MODE_FREERUNNING
++  /* Clear any stale NVIC pending bit before enabling — RP2350 does not clear
++   * ISPR on peripheral reset, so a spurious IRQ would fire immediately and
++   * trip the 'not pending' assertion in the handler. */
++  nvicClearPending(RP_TIMER0_IRQ0_NUMBER);
+   nvicEnableVector(RP_TIMER0_IRQ0_NUMBER, RP_IRQ_TIMER0_ALARM0_PRIORITY);
+ #endif
+ #if OSAL_ST_MODE == OSAL_ST_MODE_PERIODIC
+@@ -275,6 +279,8 @@ void st_lld_bind(void) {
+  */
+ void st_lld_bind_alarm_n(unsigned alarm) {
+ 
++  /* Clear any stale NVIC pending bit — same RP2350 errata as st_lld_bind(). */
++  nvicClearPending(alarm_irqs[alarm].n);
+   nvicEnableVector(alarm_irqs[alarm].n, alarm_irqs[alarm].prio);
+ }
+ #endif /* ST_LLD_NUM_ALARMS > 1 */
+diff --git a/os/hal/ports/RP/LLD/USBv1/hal_usb_lld.c b/os/hal/ports/RP/LLD/USBv1/hal_usb_lld.c
+index b2bd14e4bb..9b001ca9e4 100644
+--- a/os/hal/ports/RP/LLD/USBv1/hal_usb_lld.c
++++ b/os/hal/ports/RP/LLD/USBv1/hal_usb_lld.c
+@@ -568,6 +568,8 @@ void usb_lld_start(USBDriver *usbp) {
+       USB->SET.INTE = USB_INTE_ERROR_DATA_SEQ;
+ #endif /* RP_USB_USE_ERROR_DATA_SEQ_INTR */
+ 
++      /* Clear stale NVIC pending bit before enabling (RP2350 errata). */
++      nvicClearPending(RP_USBCTRL_IRQ_NUMBER);
+       /* Enable USB interrupt. */
+       nvicEnableVector(RP_USBCTRL_IRQ_NUMBER, RP_IRQ_USB0_PRIORITY);
+     }
+-- 
+2.43.0
+

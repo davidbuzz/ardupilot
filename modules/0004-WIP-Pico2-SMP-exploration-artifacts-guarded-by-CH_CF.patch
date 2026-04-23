@@ -1,0 +1,412 @@
+From 24167786637cbaccec1a6c244a87df4b45dd0822 Mon Sep 17 00:00:00 2001
+From: David 'Buzz' Bussenschutt <d.bussenschutt@uq.edu.au>
+Date: Mon, 23 Mar 2026 05:04:53 +1000
+Subject: [PATCH 4/8] =?UTF-8?q?WIP=20Pico2:=20SMP=20exploration=20artifact?=
+ =?UTF-8?q?s=20=E2=80=94=20guarded=20by=20CH=5FCFG=5FSMP=5FMODE?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Changes from dual-core ChibiOS SMP exploration (now abandoned in
+favour of bare-metal core1 dispatch). CH_CFG_SMP_MODE=FALSE in the
+build so all SMP-specific code is compiled out.
+
+chinstances.c: SMP_REG_LOCK/UNLOCK macros to protect registry list
+  modifications from core0 data races during chInstanceObjectInit.
+  Guarded by #if CH_CFG_SMP_MODE == TRUE, zero cost when SMP=FALSE.
+
+chsys.c: release SIO spinlock at chSysInit() start to recover from
+  prior run that crashed while holding it (OpenOCD halt can leave
+  spinlocks asserted across a SYSRESETREQ).
+  Guarded by #if CH_CFG_SMP_MODE == TRUE.
+
+chcore.c: c1_inst_stage canary writes in port_init() for SMP debug
+  (stages 0x4F-0x57).  No functional effect when SMP=FALSE (just
+  writes to a volatile extern that GDB can inspect).
+
+chcoresmp.c: SMP core-1 init path changes.
+  Only active when CH_CFG_SMP_MODE == TRUE.
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+---
+ os/common/ports/ARMv8-M-ML-ALT/chcore.c       |  24 ++++
+ .../ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c  |  36 ++++++
+ os/rt/src/chinstances.c                       | 120 +++++++++++++++++-
+ os/rt/src/chsys.c                             |   9 ++
+ 4 files changed, 186 insertions(+), 3 deletions(-)
+
+diff --git a/os/common/ports/ARMv8-M-ML-ALT/chcore.c b/os/common/ports/ARMv8-M-ML-ALT/chcore.c
+index e5f24b97e1..abf60bac47 100644
+--- a/os/common/ports/ARMv8-M-ML-ALT/chcore.c
++++ b/os/common/ports/ARMv8-M-ML-ALT/chcore.c
+@@ -141,12 +141,29 @@ uint64_t __port_schedule_next(void) {
+  *
+  * @notapi
+  */
++/* RP2350 SMP debug: fine-grained port_init stage canary.
++ * Check c1_inst_stage after halt:
++ *  0x50 = after port_suspend (BASEPRI=16)
++ *  0x51 = after FPU init (FPDSCR/FPSCR/FPCCR/CONTROL)
++ *  0x52 = after NVIC_SetPriorityGrouping (AIRCR write)
++ *  0x53 = after CoreDebug/DWT enable
++ *  0x54 = after port_smp_init (timer+SIO FIFO IRQs armed)
++ *  0x55 = after SVCall/PendSV priority set
++ *  0x56 = after MPU regions programmed
++ *  0x57 = after mpuEnable (port_init about to return)
++ */
++extern volatile uint32_t c1_inst_stage;
++#define C1_PI(n) do { c1_inst_stage = (n); } while(0)
++
+ void port_init(os_instance_t *oip) {
+ 
+   (void)oip;
+ 
++  C1_PI(0x4FU); /* before port_suspend — after function prologue push */
++
+   /* Starting in a known IRQ configuration.*/
+   port_suspend();
++  C1_PI(0x50U);
+ 
+ #if CORTEX_USE_FPU == TRUE
+   {
+@@ -172,22 +189,27 @@ void port_init(os_instance_t *oip) {
+     __set_CONTROL(control);
+     __ISB();
+   }
++  C1_PI(0x51U);
+ #endif /* CORTEX_USE_FPU == TRUE */
+ 
+   /* Initializing priority grouping.*/
+   NVIC_SetPriorityGrouping(PORT_PRIGROUP_INIT);
++  C1_PI(0x52U);
+ 
+   /* DWT cycle counter enable.*/
+   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
++  C1_PI(0x53U);
+ 
+ #if defined(port_smp_init)
+   port_smp_init(oip);
++  C1_PI(0x54U);
+ #endif
+ 
+   /* Initialization of the system vectors used by the port.*/
+   NVIC_SetPriority(SVCall_IRQn, CORTEX_PRIORITY_SVCALL);
+   NVIC_SetPriority(PendSV_IRQn, CORTEX_PRIORITY_PENDSV);
++  C1_PI(0x55U);
+ 
+ #if PORT_MPU_INITIALIZE == TRUE
+   /* MPU initialization as specified in port options.*/
+@@ -201,6 +223,7 @@ void port_init(os_instance_t *oip) {
+                                       PORT_MPU_RBAR2_INIT, PORT_MPU_RLAR2_INIT,
+                                       PORT_MPU_RBAR3_INIT, PORT_MPU_RLAR3_INIT};
+     port_init_regions(regs0, &MPU->RNR);
++    C1_PI(0x56U);
+ 
+ #if CORTEX_MPU_REGIONS > 4
+     static const uint32_t regs4[]  = {MPU_RNR_REGION(4U),
+@@ -234,6 +257,7 @@ void port_init(os_instance_t *oip) {
+ #if (PORT_MPU_INITIALIZE == TRUE) || (PORT_SWITCHED_REGIONS_NUMBER > 0)
+   /* MPU is enabled.*/
+   mpuEnable(MPU_CTRL_PRIVDEFENA);
++  C1_PI(0x57U);
+ #endif
+ }
+ 
+diff --git a/os/common/ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c b/os/common/ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c
+index 21d1f0cfd3..9fe957ca6c 100644
+--- a/os/common/ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c
++++ b/os/common/ports/ARMv8-M-ML-ALT/smp/rp2/chcoresmp.c
+@@ -49,6 +49,20 @@
+ /* Module local variables.                                                   */
+ /*===========================================================================*/
+ 
++/* RP2350 SMP debug: canaries written inside VectorA4.
++ * Read via GDB/OpenOCD after halt to diagnose SIO_IRQ_FIFO behaviour:
++ *   0 = ISR never fired
++ *   1 = ISR entered (CH_IRQ_PROLOGUE done)
++ *   2 = FIFO_ST error flags cleared
++ *   3 = entered FIFO drain loop (VLD was set — stale data present!)
++ *   4 = exited drain loop (all words consumed), last word in c1_fifo_last_msg
++ *   5 = panic message detected — port_local_halt() about to be called
++ *   6 = CH_IRQ_EPILOGUE reached (normal return path)
++ */
++volatile uint32_t c1_fifo_isr_stage = 0U;
++volatile uint32_t c1_fifo_last_msg  = 0xDEADBEEFU;
++volatile uint32_t c1_fifo_msg_count = 0U;
++
+ /*===========================================================================*/
+ /* Module local functions.                                                   */
+ /*===========================================================================*/
+@@ -83,12 +97,20 @@ CH_IRQ_HANDLER(VectorA4) {
+ 
+   CH_IRQ_PROLOGUE();
+ 
++  c1_fifo_isr_stage = 1U;
++
+   SIO->FIFO_ST = SIO_FIFO_ST_ROE | SIO_FIFO_ST_WOF;
+ 
++  c1_fifo_isr_stage = 2U;
++
+   while ((SIO->FIFO_ST & SIO_FIFO_ST_VLD) != 0U) {
+     uint32_t message = SIO->FIFO_RD;
++    c1_fifo_isr_stage = 3U;
++    c1_fifo_last_msg  = message;
++    c1_fifo_msg_count++;
+     /* Core 1 checks for panic from Core 0.*/
+     if ((message == PORT_FIFO_PANIC_MESSAGE) && (port_get_core_id() == 1U)) {
++      c1_fifo_isr_stage = 5U;
+       port_local_halt();
+     }
+ #if defined(PORT_HANDLE_FIFO_MESSAGE)
+@@ -100,8 +122,12 @@ CH_IRQ_HANDLER(VectorA4) {
+ #endif
+   }
+ 
++  c1_fifo_isr_stage = 4U;
++
+   __SEV();
+ 
++  c1_fifo_isr_stage = 6U;
++
+   CH_IRQ_EPILOGUE();
+ }
+ 
+@@ -123,6 +149,16 @@ void __port_smp_init(os_instance_t *oip) {
+ 
+ #if CH_CFG_SMP_MODE == TRUE
+   /* FIFO handler for this core. RP2350 uses a single shared IRQ 25.*/
++
++  /* Drain any stale FIFO words left by the RP2350 ROM boot sequence
++   * (which uses SIO FIFO to hand off [0,0,1,vtor,sp,pc] to core1).
++   * If not drained, SIO_FIFO_ST_VLD stays set and the ISR fires
++   * immediately the first time BASEPRI drops to 0, potentially with
++   * a stale PC=0 or other garbage in the exception frame.           */
++  while ((SIO->FIFO_ST & SIO_FIFO_ST_VLD) != 0U) {
++    (void)SIO->FIFO_RD;
++  }
++
+   SIO->FIFO_ST = SIO_FIFO_ST_ROE | SIO_FIFO_ST_WOF;
+   NVIC_SetPriority(SIO_IRQ_FIFOn, CORTEX_MINIMUM_PRIORITY);
+   NVIC_EnableIRQ(SIO_IRQ_FIFOn);
+diff --git a/os/rt/src/chinstances.c b/os/rt/src/chinstances.c
+index 307eece3dc..2351509e79 100644
+--- a/os/rt/src/chinstances.c
++++ b/os/rt/src/chinstances.c
+@@ -31,6 +31,53 @@
+ /* Module local definitions.                                                 */
+ /*===========================================================================*/
+ 
++#if CH_CFG_SMP_MODE == TRUE
++/*
++ * SMP registry-protection helpers for chInstanceObjectInit.
++ *
++ * Problem: chInstanceObjectInit modifies the global ch_system.reglist
++ * (a linked list) twice during init — via REG_INSERT (for the main thread)
++ * and inside chThdSpawnSuspendedI (for the idle thread).  Neither holds
++ * the inter-core spinlock.  Core0 may be running chThdCreateStatic, which
++ * DOES hold the spinlock during its own reglist modification, creating a
++ * data race that corrupts the list.
++ *
++ * Fix: wrap each registry modification with a brief critical section that
++ * uses PRIMASK=1 (cpsid i) to block ALL IRQs on this core — including
++ * TIMER0_IRQ_1 (priority 2, which bypasses BASEPRI=16) — and then acquires
++ * the spinlock.  PRIMASK prevents the timer ISR from re-acquiring the same
++ * spinlock on the same core (which would deadlock).  The window is tiny
++ * (a handful of list-pointer writes).
++ */
++#define SMP_REG_LOCK()   do {                         \
++  __disable_irq();   /* PRIMASK = 1 */                \
++  port_spinlock_take();                               \
++} while (0)
++#define SMP_REG_UNLOCK() do {                         \
++  port_spinlock_release();                            \
++  __enable_irq();    /* PRIMASK = 0 */                \
++} while (0)
++/*
++ * SMP_REG_KEEP_LOCK: like SMP_REG_LOCK but does NOT release the spinlock.
++ * Used for the FINAL critical section in chInstanceObjectInit so that the
++ * function returns with the spinlock HELD.  This satisfies the ChibiOS SMP
++ * I-Lock contract (BASEPRI=16 + spinlock) that chSysUnlock() in c1_main
++ * expects to dissolve: port_unlock() releases the spinlock FIRST and then
++ * sets BASEPRI=0.  If the spinlock is not held when chSysUnlock() runs, the
++ * port_spinlock_release() call writes 0 to the SIO SPINLOCK register even
++ * when another core holds it, silently breaking mutual exclusion and
++ * corrupting the scheduler data structures.
++ */
++#define SMP_REG_KEEP_LOCK() do {                      \
++  /* Keep spinlock held; re-enable IRQs only. */      \
++  __enable_irq();    /* PRIMASK = 0 */                \
++} while (0)
++#else
++#define SMP_REG_LOCK()      do {} while (0)
++#define SMP_REG_UNLOCK()    do {} while (0)
++#define SMP_REG_KEEP_LOCK() do {} while (0)
++#endif /* CH_CFG_SMP_MODE */
++
+ /*===========================================================================*/
+ /* Module exported variables.                                                */
+ /*===========================================================================*/
+@@ -85,6 +132,24 @@ static void __idle_thread(void *p) {
+  *
+  * @special
+  */
++
++/* RP2350 SMP bring-up: fine-grained canary to locate core1 crash inside
++ * chInstanceObjectInit.  Written unconditionally so core1's progress
++ * overwrites the values left by core0's successful run through the same
++ * function.  Read c1_inst_stage via GDB/OpenOCD after halt:
++ *   0x40 = entered, core_id/config set, about to call port_init
++ *   0x41 = port_init returned (BASEPRI=16, FPU, MPU, SIO FIFO IRQ armed)
++ *   0x42 = ch_pqueue_init returned (rlist ready)
++ *   0x43 = __vt_object_init returned (vtlist ready)
++ *   0x44 = __dbg_object_init returned
++ *   0x45 = chThdObjectInit (main thread) returned
++ *   0x46 = REG_INSERT done, state=CURRENT set
++ *   0x47 = __thd_stackfill for idle thread done, about to chThdSpawnRunningI
++ *   0x48 = chThdSpawnRunningI returned (function about to return)
++ */
++extern volatile uint32_t c1_inst_stage;
++volatile uint32_t c1_inst_stage = 0xDEAD0001U;
++
+ void chInstanceObjectInit(os_instance_t *oip,
+                           const os_instance_config_t *oicp) {
+   core_id_t core_id;
+@@ -104,9 +169,14 @@ void chInstanceObjectInit(os_instance_t *oip,
+   /* Keeping a reference to the configuration data.*/
+   oip->config = oicp;
+ 
++  c1_inst_stage = 0x40U;
++  c1_inst_stage = 0x4AU;  /* just before bl port_init */
++
+   /* Port initialization for the current instance.*/
+   port_init(oip);
+ 
++  c1_inst_stage = 0x41U;
++
+   /* Ready list initialization.*/
+   ch_pqueue_init(&oip->rlist.pqueue);
+ 
+@@ -120,12 +190,35 @@ void chInstanceObjectInit(os_instance_t *oip,
+   __rfcu_object_init(&oip->rfcu);
+ #endif
+ 
+-  /* Virtual timers list initialization.*/
+-  __vt_object_init(&oip->vtlist);
++  c1_inst_stage = 0x42U;
++
++  /* Virtual timers list initialization — inlined with sub-stage canaries.
++   * 0x421 = after ch_dlist_init (dlist.next/prev/delta written)
++   * 0x422 = after lasttime = 0
++   * 0x423 = after lastdelta = CH_CFG_ST_TIMEDELTA
++   * 0x424 = before chVTGetSystemTimeX (stGetCounter call)
++   * 0x425 = after laststamp written
++   */
++  {
++    virtual_timers_list_t *_vtlp = &oip->vtlist;
++    ch_dlist_init(&_vtlp->dlist);
++    c1_inst_stage = 0x421U;
++    _vtlp->lasttime = (systime_t)0;
++    c1_inst_stage = 0x422U;
++    _vtlp->lastdelta = (sysinterval_t)CH_CFG_ST_TIMEDELTA;
++    c1_inst_stage = 0x423U;
++    c1_inst_stage = 0x424U;
++    _vtlp->laststamp = (systimestamp_t)chVTGetSystemTimeX();
++    c1_inst_stage = 0x425U;
++  }
++
++  c1_inst_stage = 0x43U;
+ 
+   /* Debug support initialization.*/
+   __dbg_object_init(&oip->dbg);
+ 
++  c1_inst_stage = 0x44U;
++
+ #if CH_DBG_TRACE_MASK != CH_DBG_TRACE_MASK_DISABLED
+   /* Trace buffer initialization.*/
+   __trace_object_init(&oip->trace_buffer);
+@@ -156,39 +249,60 @@ void chInstanceObjectInit(os_instance_t *oip,
+ #endif
+   }
+ 
++  c1_inst_stage = 0x45U;
++
+ #if CH_CFG_USE_REGISTRY == TRUE
++  SMP_REG_LOCK();
+   REG_INSERT(oip, oip->rlist.current);
++  SMP_REG_UNLOCK();
+ #endif
+ 
+   /* Setting up the caller as current thread.*/
+   oip->rlist.current->state = CH_STATE_CURRENT;
+ 
++  c1_inst_stage = 0x46U;
++
+ #if CH_DBG_STATISTICS == TRUE
+   /* Starting measurement for this thread.*/
+   chTMStartMeasurementX(&oip->rlist.current->stats);
+ #endif
+ 
++  c1_inst_stage = 0x461U;  /* after chTMStartMeasurementX */
++
+   /* User instance initialization hook.*/
+   CH_CFG_OS_INSTANCE_INIT_HOOK(oip);
+ 
++  c1_inst_stage = 0x462U;  /* after CH_CFG_OS_INSTANCE_INIT_HOOK */
++
+ #if CH_CFG_NO_IDLE_THREAD == FALSE
+   {
++    c1_inst_stage = 0x463U;  /* before THD_DECL for idle thread */
+     const THD_DECL(idle_thd_desc,
+                    "idle", oicp->idlestack_base, oicp->idlestack_end,
+                    IDLEPRIO, __idle_thread, NULL, oip
+     );
++    c1_inst_stage = 0x464U;  /* after THD_DECL (idle stack addrs resolved) */
+ 
+ #if CH_DBG_FILL_THREADS == TRUE
+     __thd_stackfill((uint8_t *)idle_thd_desc.wbase,
+                     (uint8_t *)idle_thd_desc.wend);
++    c1_inst_stage = 0x465U;  /* after __thd_stackfill */
+ #endif
+ 
++  c1_inst_stage = 0x47U;
++
+     /* This thread has the lowest priority in the system, its role is just to
+        serve interrupts in its context while keeping the lowest energy saving
+-       mode compatible with the system status.*/
++       mode compatible with the system status.
++       chThdSpawnRunningI → chThdSpawnSuspendedI modifies ch_system.reglist;
++       protect with the same SMP lock used for REG_INSERT above. */
++    SMP_REG_LOCK();
+     (void) chThdSpawnRunningI(&oip->idlethread, &idle_thd_desc);
++    SMP_REG_UNLOCK();
+   }
+ #endif /* CH_CFG_NO_IDLE_THREAD == FALSE */
++
++  c1_inst_stage = 0x48U;
+ }
+ 
+ /** @} */
+diff --git a/os/rt/src/chsys.c b/os/rt/src/chsys.c
+index 8373732941..3bb215809b 100644
+--- a/os/rt/src/chsys.c
++++ b/os/rt/src/chsys.c
+@@ -154,6 +154,15 @@ void chSysWaitSystemState(system_state_t state) {
+ void chSysInit(void) {
+   unsigned i;
+ 
++#if CH_CFG_SMP_MODE == TRUE
++  /* RP2350: SIO spinlocks are NOT cleared by SYSRESETREQ — only by power-on
++   * or external-pin reset.  If a previous run was halted (OpenOCD) or crashed
++   * while holding spinlock N, the next boot would spin forever in
++   * port_spinlock_take().  Unconditionally release the kernel spinlock here
++   * before first use — safe whether or not it is currently held.           */
++  port_spinlock_release();
++#endif
++
+   /* System object initialization.*/
+   ch_system.state = ch_sys_initializing;
+   for (i = 0U; i < (unsigned)PORT_CORES_NUMBER; i++) {
+-- 
+2.43.0
+
