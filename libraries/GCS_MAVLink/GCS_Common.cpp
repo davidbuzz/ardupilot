@@ -2736,6 +2736,8 @@ void GCS::send_message(enum ap_message id)
     }
 }
 
+/* Run from RAM to avoid XIP cache thrashing on RP2350 */
+__RAMFUNC2__
 void GCS::update_send()
 {
     // cope with changes to mavlink system ID parameter
@@ -2791,6 +2793,8 @@ void GCS::update_send()
     }
 }
 
+/* Run from RAM to avoid XIP cache thrashing on RP2350 */
+__RAMFUNC2__
 void GCS::update_receive(void)
 {
     for (uint8_t i=0; i<num_gcs(); i++) {

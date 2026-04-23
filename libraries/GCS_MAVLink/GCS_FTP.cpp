@@ -33,6 +33,7 @@ extern const AP_HAL::HAL& hal;
 
 GCS_FTP *GCS_FTP::ftp;
 
+
 // timeout for session inactivity, when we will kill the session if
 // the session slot is needed
 #define FTP_SESSION_TIMEOUT 3000
@@ -46,8 +47,16 @@ bool GCS_FTP::init(void)
         return true;
     }
 
+    // RP2350 needs a larger stack (ExpandingString for @SYS files) and higher
+    // priority (PRIORITY_UART+1 = 61) so the worker is not starved by UART
+    // threads that wake at PRIORITY_UART (60) every 1 ms.
+#if defined(RP2350)
+    initialised = hal.scheduler->thread_create(FUNCTOR_BIND_MEMBER(&GCS_FTP::worker, void),
+                                               "FTP", 8192, AP_HAL::Scheduler::PRIORITY_UART, 1);
+#else
     initialised = hal.scheduler->thread_create(FUNCTOR_BIND_MEMBER(&GCS_FTP::worker, void),
                                                "FTP", 2560, AP_HAL::Scheduler::PRIORITY_IO, 0);
+#endif
     if (!initialised) {
         GCS_SEND_TEXT(MAV_SEVERITY_WARNING, "failed to initialize MAVFTP");
     }
@@ -101,13 +110,42 @@ void GCS_FTP::handle_file_transfer_protocol(const mavlink_message_t &msg, mavlin
 
 bool GCS_FTP::send_reply(const Transaction &reply)
 {
+    // RP2350 USB CDC with FLOW_CONTROL_ENABLE skips the bandwidth-throttle path,
+    // so last_txbuf is not updated and this gate always blocks replies.  Skip it
+    // for RP2350; HAVE_PAYLOAD_SPACE() alone is sufficient back-pressure.
+#if !defined(RP2350)
     if (!GCS_MAVLINK::last_txbuf_is_greater(33)) { // It helps avoid GCS timeout if this is less than the threshold where we slow down normal streams (<=49)
         return false;
     }
+#endif
+#if defined(RP2350)
+    // On RP2350, holding comm_chan_lock() across mavlink_msg_*_send_struct() causes
+    // a nested lock: send_struct calls comm_send_lock() which tries to take the
+    // same chan_lock again.  Even with CH_CFG_USE_MUTEXES_RECURSIVE=TRUE the
+    // chMtxTryLock() fast path used inside comm_send_lock checks can interact
+    // badly with the blocking take already held here.
+    //
+    // Fix: use take_nonblocking() so we return false immediately if the channel
+    // is busy (the caller retry-loops), check space with the lock held, then
+    // RELEASE the lock before the actual send.  mavlink_msg_*_send_struct()
+    // takes chan_lock internally via comm_send_lock so the send itself is safe.
+    AP_HAL::Semaphore &chan_lock = comm_chan_lock(reply.chan);
+    if (!chan_lock.take_nonblocking()) {
+        // channel lock is held by another thread — caller will retry
+        return false;
+    }
+    const bool have_space = HAVE_PAYLOAD_SPACE(reply.chan, FILE_TRANSFER_PROTOCOL);
+    chan_lock.give();
+    if (!have_space) {
+        return false;
+    }
+#else
+    // Keep historical lock behavior on non-RP2350 targets.
     WITH_SEMAPHORE(comm_chan_lock(reply.chan));
     if (!HAVE_PAYLOAD_SPACE(reply.chan, FILE_TRANSFER_PROTOCOL)) {
         return false;
     }
+#endif
     mavlink_file_transfer_protocol_t pkt {};
     pkt.target_network = 0;
     pkt.target_system = reply.sysid;
@@ -143,9 +181,19 @@ bool GCS_FTP::Session::check_name_len(const Transaction &request)
 // send our response back out to the system
 void GCS_FTP::Session::push_reply(Transaction &reply)
 {
-    last_send_ms = AP_HAL::millis(); // Used to detect active FTP session
+    const uint32_t send_start_ms = AP_HAL::millis();
+    last_send_ms = send_start_ms; // Used to detect active FTP session
 
+    // Spin until TX buffer has space, with a 2-second hard timeout.
+    // Without the timeout, if the USB host disconnects mid-transfer the
+    // TX ring stays full forever and the FTP worker thread stalls permanently,
+    // preventing new clients from getting their ResetSessions Ack.
     while (!send_reply(reply)) {
+        if (AP_HAL::millis() - send_start_ms > 20000) {
+            // host gone — abandon this session so the worker can serve new clients
+            close();
+            return;
+        }
         hal.scheduler->delay_microseconds(100);
     }
 
@@ -346,10 +394,20 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
             close();    // error code ignored
             fd = -1;
         }
+#if defined(RP2350)
+        if (fd != -1) {
+            // RP2350 links can lose read replies under heavy stream pressure.
+            // If a client retries OpenFileRO on the same session, recover by
+            // forcing the stale open file closed and reopening cleanly.
+            close();    // error code ignored
+            fd = -1;
+        }
+#else
         if (fd != -1) {
             GCS_FTP::error(reply, FTP_ERROR::Fail);
             break;
         }
+#endif
 
         // sanity check that the request looks well formed
         if (!check_name_len(request)) {
@@ -409,7 +467,13 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
         }
 
         // fill the buffer
-        const ssize_t read_bytes = AP::FS().read(fd, reply.data, MIN(sizeof(reply.data),request.size));
+        uint16_t read_size = MIN(sizeof(reply.data), request.size);
+#if defined(RP2350)
+        // Keep RP2350 FTP replies small enough that TX-space back-pressure can
+        // satisfy them quickly on USB CDC under stream load.
+        read_size = MIN<uint16_t>(read_size, 48);
+#endif
+        const ssize_t read_bytes = AP::FS().read(fd, reply.data, read_size);
         if (read_bytes == -1) {
             GCS_FTP::error(reply, FTP_ERROR::FailErrno);
             break;
@@ -553,7 +617,12 @@ bool GCS_FTP::Session::handle_request(Transaction &request, Transaction &reply)
     }
     case FTP_OP::BurstReadFile:
     {
-        const uint16_t max_read = (request.size == 0?sizeof(reply.data):request.size);
+        uint16_t max_read = (request.size == 0?sizeof(reply.data):request.size);
+#if defined(RP2350)
+        // Keep burst chunks small enough to avoid prolonged send blocking on
+        // RP2350 USB CDC when normal MAVLink streams are active.
+        max_read = MIN<uint16_t>(max_read, 48);
+#endif
         // must actually be working on a file
         if (fd == -1) {
             GCS_FTP::error(reply, FTP_ERROR::FileNotFound);
@@ -772,7 +841,19 @@ void GCS_FTP::worker(void)
             // always ACK, even if no sessions were closed
             setup_reply(request, reply);
             reply.opcode = FTP_OP::Ack;
-            send_reply(reply);
+            // Retry until TX buffer has space. pymavlink.mavftp blocks indefinitely
+            // waiting for this Ack before it sends any other command; a single-shot
+            // send_reply() would silently drop the Ack if the buffer is momentarily
+            // full (e.g. immediately after a burst from a previous killed session).
+            {
+                const uint32_t rs_start_ms = AP_HAL::millis();
+                while (!send_reply(reply)) {
+                    if (AP_HAL::millis() - rs_start_ms > 1000) {
+                        break;  // give up after 1 s rather than blocking forever
+                    }
+                    hal.scheduler->delay_microseconds(100);
+                }
+            }
             continue;
         }
 
@@ -809,12 +890,35 @@ void GCS_FTP::worker(void)
                 // the oldest session is still active, reject the request
                 setup_reply(request, reply);
                 error(reply, FTP_ERROR::NoSessionsAvailable);
-                send_reply(reply);
+                // Use a retry loop so the Nack is not silently dropped when the
+                // TX buffer is momentarily full.
+                {
+                    const uint32_t ns_start_ms = AP_HAL::millis();
+                    while (!send_reply(reply)) {
+                        if (AP_HAL::millis() - ns_start_ms > 1000) {
+                            break;
+                        }
+                        hal.scheduler->delay_microseconds(100);
+                    }
+                }
                 continue;
             }
             // claim the session
             s.close();   // error code ignored
-            s.session_id = request.session;
+
+            // MAVFTP clients start with session=0 and expect the server to
+            // allocate a real session id in the Open* Ack. Keeping 0 causes
+            // stale-session aliasing and can break follow-up ReadFile requests.
+            if (request.session == 0) {
+                static uint8_t next_session_id = 1;
+                s.session_id = next_session_id++;
+                if (next_session_id == 0) {
+                    next_session_id = 1;
+                }
+                request.session = s.session_id;
+            } else {
+                s.session_id = request.session;
+            }
             s.sysid = request.sysid;
             s.compid = request.compid;
             s.chan = request.chan;
