@@ -39,6 +39,10 @@
 
 #include <hwdef.h>
 
+#if defined(HAL_HAVE_PIO_UARTS) && HAL_HAVE_PIO_UARTS
+#include "PIOUART.h"
+#endif
+
 #ifndef DEFAULT_SERIAL0_BAUD
 #define SERIAL0_BAUD 115200
 #else
@@ -272,15 +276,25 @@ static void main_loop()
      */
     hal_chibios_set_priority(APM_STARTUP_PRIORITY);
 
+#if defined(STM32_HW)
     if (stm32_was_watchdog_reset()) {
         // load saved watchdog data
         stm32_watchdog_load((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4);
         utilInstance.last_persistent_data = utilInstance.persistent_data;
     }
+#elif defined(RP2350)
+    // On RP2350, rp2350_was_watchdog_reset() caches the detection result at
+    // init time. Load persistent data from the noinit SRAM buffer only when
+    // a WD-triggered reset is confirmed (canary in SCRATCH[6] still present).
+    if (rp2350_was_watchdog_reset()) {
+        rp2350_watchdog_load((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4);
+        utilInstance.last_persistent_data = utilInstance.persistent_data;
+    }
+#endif // STM32_HW / RP2350
 
     schedulerInstance.hal_initialized();
 
-    g_callbacks->setup();
+    g_callbacks->setup();//
 
 #if HAL_ENABLE_SAVE_PERSISTENT_PARAMS
     utilInstance.apply_persistent_params();
@@ -297,12 +311,20 @@ static void main_loop()
 
 #if !defined(DISABLE_WATCHDOG)
 #ifdef IOMCU_FW
+#if defined(STM32_HW)
     stm32_watchdog_init();
+#elif defined(RP2350)
+    rp2350_watchdog_init();
+#endif
 #elif !defined(HAL_BOOTLOADER_BUILD)
 #if !defined(HAL_EARLY_WATCHDOG_INIT)
     // setup watchdog to reset if main loop stops
     if (AP_BoardConfig::watchdog_enabled()) {
+#if defined(STM32_HW)
         stm32_watchdog_init();
+#elif defined(RP2350)
+        rp2350_watchdog_init();
+#endif
     }
 #endif
 
@@ -329,7 +351,7 @@ static void main_loop()
 #endif  // AP_BOARDCONFIG_MCU_MEMPROTECT_ENABLED
 
     while (true) {
-        g_callbacks->loop();
+        g_callbacks->loop(); // this does AP_Vehicle::loop() and that does AP_Scheduler::loop() , eventually callig stuff like AP_AHRS::update() and NavEKF3_core::UpdateFilter() and more.
 
 #if HAL_SCHEDULER_LOOP_DELAY_ENABLED && !APM_BUILD_TYPE(APM_BUILD_Replay)
         /*
@@ -352,8 +374,13 @@ static void main_loop()
 void HAL_ChibiOS::run(int argc, char * const argv[], Callbacks* callbacks) const
 {
 #if defined(HAL_EARLY_WATCHDOG_INIT) && !defined(DISABLE_WATCHDOG)
+#if defined(STM32_HW)
     stm32_watchdog_init();
     stm32_watchdog_pat();
+#elif defined(RP2350)
+    rp2350_watchdog_init();
+    rp2350_watchdog_pat();
+#endif
 #endif
     /*
      * System initializations.

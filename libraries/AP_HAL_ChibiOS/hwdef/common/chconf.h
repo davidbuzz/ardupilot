@@ -12,11 +12,12 @@
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * Modified for use in AP_HAL by Andrew Tridgell and Siddharth Bharat Purohit
+ * Modified for use in AP_HAL by Andrew Tridgell and Siddharth Bharat Purohit 
+ * Modified for use in rp2350 by Buzz
  */
 
 /**
- * @file    templates/chconf.h
+ * @file    rt/templates/chconf.h
  * @brief   Configuration file template.
  * @details A copy of this file must be placed in each project directory, it
  *          contains the application specific kernel settings.
@@ -26,15 +27,18 @@
  * @{
  */
 
-#pragma once
+#ifndef CHCONF_H
+#define CHCONF_H
 
+
+#pragma once
 #include "hwdef.h"
 
 #define _CHIBIOS_RT_CONF_
-#define _CHIBIOS_RT_CONF_VER_7_0_
+#define _CHIBIOS_RT_CONF_VER_8_0_
 /*===========================================================================*/
 /**
- * @name System timers settings
+ * @name System settings
  * @{
  */
 /*===========================================================================*/
@@ -48,25 +52,32 @@
 #endif
 
 #ifdef HAL_CHIBIOS_ENABLE_ASSERTS
-#define CH_DBG_ENABLE_ASSERTS TRUE
-#define CH_DBG_ENABLE_CHECKS TRUE
-#define CH_DBG_SYSTEM_STATE_CHECK TRUE
-#undef CH_DBG_ENABLE_STACK_CHECK
-#define CH_DBG_ENABLE_STACK_CHECK TRUE
+        #define CH_DBG_ENABLE_ASSERTS TRUE
+        #define CH_DBG_ENABLE_CHECKS TRUE
+        #define CH_DBG_SYSTEM_STATE_CHECK TRUE
+        #undef CH_DBG_ENABLE_STACK_CHECK
+        #define CH_DBG_ENABLE_STACK_CHECK TRUE
 
-// Generate assertions on a GPIO pin
-#ifdef HAL_GPIO_PIN_FAULT
-#ifndef _FROM_ASM_
-#ifdef __cplusplus
-extern "C" {
-#endif
-  void fault_printf(const char *fmt, ...);
-#ifdef __cplusplus
-}
-#endif
-#endif
-#define osalDbgAssert(c, remark) do { if (!(c)) { fault_printf("%s:%d: %s", __FILE__, __LINE__, remark ); chDbgAssert(c, remark); } } while (0)
-#endif
+        #define CH_CFG_USE_MEMCHECKS TRUE
+        #define CH_CFG_HARDENING_LEVEL 0
+        #define CH_CFG_SAFETY_CHECK_HOOK false
+        #define _CHIBIOS_RT_CONF_VER_8_0_
+
+
+
+        // Generate assertions on a GPIO pin
+        #ifdef HAL_GPIO_PIN_FAULT
+                #ifndef _FROM_ASM_
+                        #ifdef __cplusplus
+                        extern "C" {
+                        #endif
+                  void fault_printf(const char *fmt, ...);
+                        #ifdef __cplusplus
+                                }
+                        #endif
+                #endif
+                #define osalDbgAssert(c, remark) do { if (!(c)) { fault_printf("%s:%d: %s", __FILE__, __LINE__, remark ); chDbgAssert(c, remark); } } while (0)
+        #endif
 
 #endif // HAL_CHIBIOS_ENABLE_ASSERTS
 
@@ -88,6 +99,18 @@ extern "C" {
 #endif
 
 /**
+ * @brief   Kernel hardening level.
+ * @details This option is the level of functional-safety checks enabled
+ *          in the kerkel. The meaning is:
+ *          - 0: No checks, maximum performance.
+ *          - 1: Reasonable checks.
+ *          - 2: All checks.
+ *          .
+ */
+#if !defined(CH_CFG_HARDENING_LEVEL)
+#define CH_CFG_HARDENING_LEVEL              0
+#endif
+/**
  * @brief   Time Stamps APIs.
  * @details If enabled then the time stamps APIs are included in the kernel.
  *
@@ -99,19 +122,21 @@ extern "C" {
 
 /**
  * @brief   System time counter resolution.
- * @note    Allowed values are 16 or 32 bits.
+ * @note    Allowed values are 16, 32 or 64 bits.
  */
-#ifndef CH_CFG_ST_RESOLUTION
+#if !defined(CH_CFG_ST_RESOLUTION)
 #define CH_CFG_ST_RESOLUTION                32
 #endif
 
 /**
  * @brief   System tick frequency.
  * @details Frequency of the system timer that drives the system ticks. This
- *          setting also defines the system tick time unit. We set this to 1000000
- *          in ArduPilot so we get maximum resolution for timing of delays
+ *          setting also defines the system tick time unit. 
+ * @note    This must be a frequency that is obtainable from the system tick
+ *          timer frequency.
+ *  We set this to 1000000 in ArduPilot so we get maximum resolution for timing of delays
  */
-#ifndef CH_CFG_ST_FREQUENCY
+#if !defined(CH_CFG_ST_FREQUENCY)
 #define CH_CFG_ST_FREQUENCY                 1000000
 #endif
 
@@ -139,7 +164,7 @@ extern "C" {
  *          The value one is not valid, timeouts are rounded up to
  *          this value.
  */
-#ifndef CH_CFG_ST_TIMEDELTA
+#if !defined(CH_CFG_ST_TIMEDELTA)
 #define CH_CFG_ST_TIMEDELTA                 10
 #endif
 
@@ -387,6 +412,28 @@ extern "C" {
 #endif
 
 /**
+ * @brief   Dynamic Threads APIs.
+ * @details If enabled then the dynamic threads creation APIs are included
+ *          in the kernel.
+ *
+ * @note    The default is @p TRUE.
+ * @note    Requires @p CH_CFG_USE_WAITEXIT.
+ * @note    Requires @p CH_CFG_USE_HEAP and/or @p CH_CFG_USE_MEMPOOLS.
+ */
+#if !defined(CH_CFG_USE_DYNAMIC)
+#define CH_CFG_USE_DYNAMIC                  TRUE
+#endif
+
+/** @} */
+
+/*===========================================================================*/
+/**
+ * @name OSLIB options
+ * @{
+ */
+/*===========================================================================*/
+
+/**
  * @brief   Mailboxes APIs.
  * @details If enabled then the asynchronous messages (mailboxes) APIs are
  *          included in the kernel.
@@ -399,6 +446,16 @@ extern "C" {
 #endif
 
 /**
+ * @brief   Memory checks APIs.
+ * @details If enabled then the memory checks APIs are included in the kernel.
+ *
+ * @note    The default is @p TRUE.
+ */
+#if !defined(CH_CFG_USE_MEMCHECKS)
+#define CH_CFG_USE_MEMCHECKS                TRUE
+#endif
+
+/**
  * @brief   Core Memory Manager APIs.
  * @details If enabled then the core memory manager APIs are included
  *          in the kernel.
@@ -407,6 +464,21 @@ extern "C" {
  */
 #if !defined(CH_CFG_USE_MEMCORE)
 #define CH_CFG_USE_MEMCORE                  TRUE
+#endif
+
+/**
+ * @brief   Managed RAM size.
+ * @details Size of the RAM area to be managed by the OS. If set to zero
+ *          then the whole available RAM is used. The core memory is made
+ *          available to the heap allocator and/or can be used directly through
+ *          the simplified core memory allocator.
+ *
+ * @note    In order to let the OS manage the whole RAM the linker script must
+ *          provide the @p __heap_base__ and @p __heap_end__ symbols.
+ * @note    Requires @p CH_CFG_USE_MEMCORE.
+ */
+#if !defined(CH_CFG_MEMCORE_SIZE)
+#define CH_CFG_MEMCORE_SIZE                 0
 #endif
 
 /**
@@ -697,7 +769,7 @@ extern "C" {
  * @details User fields added to the end of the @p ch_system_t structure.
  */
 #define CH_CFG_SYSTEM_EXTRA_FIELDS                                          \
-  /* Add threads custom fields here.*/
+  /* Add system custom fields here.*/
 
 /**
  * @brief   System initialization hook.
@@ -705,7 +777,23 @@ extern "C" {
  *          just before interrupts are enabled globally.
  */
 #define CH_CFG_SYSTEM_INIT_HOOK() {                                         \
-  /* Add threads initialization code here.*/                                \
+  /* Add system initialization code here.*/                                 \
+}
+
+/**
+ * @brief   OS instance structure extension.
+ * @details User fields added to the end of the @p os_instance_t structure.
+ */
+#define CH_CFG_OS_INSTANCE_EXTRA_FIELDS                                     \
+  /* Add OS instance custom fields here.*/
+
+/**
+ * @brief   OS instance initialization hook.
+ *
+ * @param[in] oip       pointer to the @p os_instance_t structure
+ */
+#define CH_CFG_OS_INSTANCE_INIT_HOOK(oip) {                                 \
+  /* Add OS instance initialization code here.*/                            \
 }
 
 /**
@@ -723,6 +811,8 @@ extern "C" {
  *
  * @note    It is invoked from within @p _thread_init() and implicitly from all
  *          the threads creation APIs.
+ *
+ * @param[in] tp        pointer to the @p thread_t structure
  */
 #define CH_CFG_THREAD_INIT_HOOK(tp) {                                       \
   /* Add threads initialization code here.*/                                \
@@ -731,6 +821,8 @@ extern "C" {
 /**
  * @brief   Threads finalization hook.
  * @details User finalization code added to the @p chThdExit() API.
+ *
+ * @param[in] tp        pointer to the @p thread_t structure
  */
 #define CH_CFG_THREAD_EXIT_HOOK(tp) {                                       \
   /* Add threads finalization code here.*/                                  \
@@ -739,6 +831,9 @@ extern "C" {
 /**
  * @brief   Context switch hook.
  * @details This hook is invoked just before switching between threads.
+ *
+ * @param[in] ntp       thread being switched in
+ * @param[in] otp       thread being switched out
  */
 #define CH_CFG_CONTEXT_SWITCH_HOOK(ntp, otp) {                              \
   /* Context switch code here.*/                                            \
@@ -857,7 +952,16 @@ extern "C" {
 #define CH_CFG_RUNTIME_FAULTS_HOOK(mask) {                                  \
   /* Faults handling code here.*/                                           \
 }
+/**
+ * @brief   Safety checks hook.
+ * @details This hook is invoked when there is a safety violation and the
+ *          system is going to stop.
+ */
 
+#define CH_CFG_SAFETY_CHECK_HOOK(l, f) {                                    \
+  /* Safety handling code here.*/                                           \
+  chSysHalt(f);                                                             \
+}
 /**
  * @brief   OS instance initialization hook.
  *
@@ -873,5 +977,6 @@ extern "C" {
 /* Port-specific settings (override port settings defaulted in chcore.h).    */
 /*===========================================================================*/
 
+#endif  /* CHCONF_H */
 
 /** @} */

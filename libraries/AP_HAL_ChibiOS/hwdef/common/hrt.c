@@ -23,6 +23,18 @@
 #include "hrt.h"
 #include <stdint.h>
 
+/*
+  __RAMFUNC2__
+is normally provided by the board hwdef (for boards that map some
+  hot-path functions into SRAM to avoid XIP/cache stalls).
+
+  Some build contexts compile this file without that definition, so provide a
+  safe fallback to keep builds working.
+ */
+#ifndef __RAMFUNC2__
+#define __RAMFUNC2__
+#endif
+
 #pragma GCC optimize("O2")
 
 #include "../../../AP_Math/div1000.h"
@@ -97,28 +109,39 @@ static uint64_t hrt_micros64I(void)
 }
 
 static inline bool is_locked(void) {
-    return !port_irq_enabled(port_get_irq_status());
+    // All ChibiOS ARM ports (ARMv6-M, ARMv7-M, ARMv8-M) use __port_irq_enabled
+    return !__port_irq_enabled(__port_get_irq_status());
 }
 
+// hrt timing helpers run from SRAM when __RAMFUNC2__
+is mapped to .ramtext
+// (e.g. RP2350) so micros()/millis() __FASTRAMFUNC__ wrappers in system.cpp
+// can call these without incurring further XIP cache misses.
+__RAMFUNC2__
 uint64_t hrt_micros64()
 {
     if (is_locked()) {
         return hrt_micros64I();
     } else if (port_is_isr_context()) {
-        uint64_t ret;
-        chSysLockFromISR();
-        ret = hrt_micros64I();
-        chSysUnlockFromISR();
+        // Use the port-level lock helpers directly here. On ARMv8-M these are
+        // inlined BASEPRI operations, which avoids the extra veneer calls and
+        // stack spill/reload sequence generated around chSysLockFromISR().
+        port_lock_from_isr();
+        const uint64_t ret = hrt_micros64I();
+        port_unlock_from_isr();
         return ret;
     } else {
-        uint64_t ret;
-        chSysLock();
-        ret = hrt_micros64I();
-        chSysUnlock();
+        // Thread-context timestamp reads only require the ChibiOS system lock,
+        // not a full scheduler call chain. Keeping this path inline avoids the
+        // post-unlock stack reload that has been faulting on Pico2 bring-up.
+        port_lock();
+        const uint64_t ret = hrt_micros64I();
+        port_unlock();
         return ret;
     }
 }
 
+__RAMFUNC2__
 uint32_t hrt_micros32()
 {
 #if CH_CFG_ST_RESOLUTION == 16
@@ -145,13 +168,14 @@ uint32_t hrt_micros32()
 #endif
 }
 
+__RAMFUNC2__
 uint64_t hrt_millis64()
 {
     return uint64_div1000(hrt_micros64());
 }
         
+__RAMFUNC2__
 uint32_t hrt_millis32()
 {
     return (uint32_t)(hrt_millis64());
 }
-
