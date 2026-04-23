@@ -56,7 +56,9 @@ AP_AHRS_DCM::reset_gyro_drift(void)
     _omega_I_sum_time = 0;
 }
 
-// run a full DCM update round
+// run a full DCM update round — __RAMFUNC2__
+for SRAM execution on RP2350
+__RAMFUNC2__
 void
 AP_AHRS_DCM::update()
 {
@@ -175,7 +177,9 @@ void AP_AHRS_DCM::backup_attitude(void)
     pd.yaw_rad = yaw;
 }
 
-// update the DCM matrix using only the gyros
+// update the DCM matrix using only the gyros — __RAMFUNC2__
+for SRAM execution
+__RAMFUNC2__
 void AP_AHRS_DCM::matrix_update(void)
 {
     // use only the primary gyro so our bias estimate is valid, allowing us to return the right filtered gyro
@@ -510,7 +514,7 @@ AP_AHRS_DCM::drift_correction_yaw(void)
 {
     bool new_value = false;
     float yaw_error;
-    float yaw_deltat;
+    float yaw_deltat = 0.0f;
 
     const AP_GPS &_gps = AP::gps();
 
@@ -672,6 +676,7 @@ bool AP_AHRS_DCM::should_correct_centrifugal() const
 // This drift correction implementation is based on a paper
 // by Bill Premerlani from here:
 //   http://gentlenav.googlecode.com/files/RollPitchDriftCompensation.pdf
+__RAMFUNC2__
 void
 AP_AHRS_DCM::drift_correction(float deltat)
 {

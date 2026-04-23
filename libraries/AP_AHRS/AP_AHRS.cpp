@@ -450,7 +450,9 @@ void AP_AHRS::update_state(void)
     state.velocity_NED_ok = _get_velocity_NED(state.velocity_NED);
 }
 
-// update run at loop rate
+// update run at loop rate — __RAMFUNC2__
+to run from SRAM on RP2350 (65.7% CPU)
+__RAMFUNC2__
 void AP_AHRS::update(bool skip_ins_update)
 {
     // periodically checks to see if we should update the AHRS
@@ -609,6 +611,20 @@ void AP_AHRS::copy_estimates_from_backend_estimates(const AP_AHRS_Backend::Estim
 #if AP_AHRS_DCM_ENABLED
 void AP_AHRS::update_DCM()
 {
+#if defined(RP2350)
+    if (_active_EKF_type() != EKFType::DCM) {
+        // On RP2350 the full DCM backup path is expensive enough to cap the
+        // main loop rate. Once a non-DCM estimator is active, DCM only serves
+        // as a backup/fallback source, so updating it at half rate preserves a
+        // fresh fallback solution while materially reducing Core0 load.
+        static uint8_t backup_dcm_skip_count;
+        backup_dcm_skip_count ^= 1U;
+        if (backup_dcm_skip_count != 0U) {
+            return;
+        }
+    }
+#endif
+
     dcm.update();
     dcm.get_results(dcm_estimates);
 
@@ -617,9 +633,12 @@ void AP_AHRS::update_DCM()
     // an EKF or external AHRS.  This is long-held behaviour, but this
     // really shouldn't be doing this.
 
-    // if (active_EKF_type() == EKFType::DCM) {
+    // Avoid copying DCM outputs into the canonical AHRS state when another
+    // estimator is already active; EKF/external AHRS will overwrite that state
+    // later in the same update cycle anyway.
+    if (_active_EKF_type() == EKFType::DCM) {
         copy_estimates_from_backend_estimates(dcm_estimates);
-    // }
+    }
 }
 #endif
 
@@ -728,6 +747,10 @@ void AP_AHRS::update_EKF2(void)
 #endif
 
 #if HAL_NAVEKF3_AVAILABLE
+// Keep the EKF3 handoff in SRAM on RP2350 so read_AHRS() stays on the
+// SRAM-resident hot path instead of bouncing back into XIP flash between
+// the already-RAMFUNC AHRS update and EKF core update.
+__RAMFUNC2__
 void AP_AHRS::update_EKF3(void)
 {
     if (!_ekf3_started) {
