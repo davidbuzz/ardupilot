@@ -224,6 +224,7 @@ void NavEKF3_core::alignYawAngle(const yaw_elements &yawAngData)
 ********************************************************/
 
 // select fusion of magnetometer data
+__RAMFUNC2__
 void NavEKF3_core::SelectMagFusion()
 {
     // clear the flag that lets other processes know that the expensive magnetometer fusion operation has been performed on that time step
@@ -470,6 +471,7 @@ void NavEKF3_core::SelectMagFusion()
  * The script file used to generate these and other equations in this filter can be found here:
  * https://github.com/PX4/ecl/blob/master/matlab/scripts/Inertial%20Nav%20EKF/GenerateNavFilterEquations.m
 */
+__RAMFUNC2__
 void NavEKF3_core::FuseMagnetometer()
 {
     // perform sequential fusion of magnetometer measurements.

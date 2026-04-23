@@ -499,6 +499,7 @@ void NavEKF3_core::CalculateVelInnovationsAndVariances(const Vector3F &velocity,
 *                   FUSE MEASURED_DATA                  *
 ********************************************************/
 // select fusion of velocity, position and height measurements
+__RAMFUNC2__
 void NavEKF3_core::SelectVelPosFusion()
 {
     // Check if the magnetometer has been fused on that time step and the filter is running at faster than 200 Hz
@@ -743,6 +744,7 @@ void NavEKF3_core::SelectVelPosFusion()
 }
 
 // fuse selected position, velocity and height measurements
+__RAMFUNC2__
 void NavEKF3_core::FuseVelPosNED()
 {
     // declare variables used to control access to arrays
