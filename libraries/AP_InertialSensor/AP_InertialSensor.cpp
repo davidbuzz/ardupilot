@@ -710,7 +710,8 @@ AP_InertialSensor *AP_InertialSensor::_singleton = nullptr;
 
 AP_InertialSensor::AP_InertialSensor() :
     _board_orientation(ROTATION_NONE),
-    _log_raw_bit(-1)
+    _log_raw_bit(-1),
+    _gyro_cal_save_pending(false)
 {
     if (_singleton) {
         AP_HAL::panic("Too many inertial sensors");
@@ -865,8 +866,10 @@ void AP_InertialSensor::_start_backends()
 {
     detect_backends();
 
+
     for (uint8_t i = 0; i < _backend_count; i++) {
         _backends[i]->start();
+
     }
 
 #if AP_INERTIALSENSOR_ALLOW_NO_SENSORS
@@ -1306,10 +1309,12 @@ AP_InertialSensor::detect_backends(void)
     if (_backend_count == 0) {
 
         // no real INS backends avail, lets use an empty substitute to boot ok and get to mavlink
-        #if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+        #if CONFIG_HAL_BOARD == HAL_BOARD_ESP32 || defined(RP2350) 
+        // RP2350 (Pico2): SPI IMU pins are on extended-GPIO castellated pads not
+        // connected on bare hardware. Register a mock backend so wait_for_sample()
+        // doesn't block forever and the vehicle reaches ap.initialised.
         ADD_BACKEND(AP_InertialSensor_NONE::detect(*this, INS_NONE_SENSOR_A));
         #else
-        DEV_PRINTF("INS: unable to initialise driver\n");
         GCS_SEND_TEXT(MAV_SEVERITY_DEBUG, "INS: unable to initialise driver");
         #if !AP_INERTIALSENSOR_ALLOW_NO_SENSORS
         AP_BoardConfig::config_error("INS: unable to initialise driver");
@@ -1320,6 +1325,7 @@ AP_InertialSensor::detect_backends(void)
 
 // Armed, Copter, PixHawk:
 // ins_periodic: 57500 events, 0 overruns, 208754us elapsed, 3us avg, min 1us max 218us 40.662us rms
+__RAMFUNC2__
 void AP_InertialSensor::periodic()
 {
 #if AP_INERTIALSENSOR_BATCHSAMPLER_ENABLED
@@ -1395,6 +1401,15 @@ void
 AP_InertialSensor::init_gyro()
 {
     _init_gyro();
+
+#if defined(RP2350)
+    // During early Pico2 boot we defer parameter queueing until the scheduler
+    // reports full system init, to isolate startup-reset sensitivity.
+    if (!hal.scheduler->is_system_initialized()) {
+        _gyro_cal_save_pending = true;
+        return;
+    }
+#endif
 
     // save calibration
     _save_gyro_calibration();
@@ -1708,7 +1723,6 @@ AP_InertialSensor::_init_gyro()
     AP_Notify::flags.initialising = true;
 
     // cold start
-    DEV_PRINTF("Init Gyro");
 
     /*
       we do the gyro calibration with no board rotation. This avoids
@@ -1759,13 +1773,14 @@ AP_InertialSensor::_init_gyro()
 
         memset(diff_norm, 0, sizeof(diff_norm));
 
-        DEV_PRINTF("*");
 
         for (uint8_t k=0; k<num_gyros; k++) {
             gyro_sum[k].zero();
         }
         accel_start = get_accel(0);
         for (i=0; i<50; i++) {
+            // If we see '<N' but not '>' the crash is inside update().
+            // If we see '>' but not '.' the crash is inside delay(5).
             update();
             for (uint8_t k=0; k<num_gyros; k++) {
                 gyro_sum[k] += get_gyro(k);
@@ -1812,13 +1827,8 @@ AP_InertialSensor::_init_gyro()
 
     // we've kept the user waiting long enough - use the best pair we
     // found so far
-    DEV_PRINTF("\n");
     for (uint8_t k=0; k<num_gyros; k++) {
         if (!converged[k]) {
-            DEV_PRINTF("gyro[%u] did not converge: diff=%f dps (expected < %f)\n",
-                                (unsigned)k,
-                                (double)degrees(best_diff[k]),
-                                (double)GYRO_INIT_MAX_DIFF_DPS);
             _gyro_offset(k).set(best_avg[k]);
             // flag calibration as failed for this gyro
             _gyro_cal_ok[k] = false;
@@ -1845,6 +1855,9 @@ AP_InertialSensor::_init_gyro()
 // save parameters to eeprom
 void AP_InertialSensor::_save_gyro_calibration()
 {
+    // AP_Param::save() only queues the write here; the actual flash update runs on the
+    // IO thread. On RP2350 the low-level EFL erase/program path already executes from
+    // .ramtext, so changing this call site does not affect XIP locality.
     for (uint8_t i=0; i<_gyro_count; i++) {
         _gyro_offset(i).save();
         _gyro_id(i).save();
@@ -1896,6 +1909,7 @@ void AP_InertialSensor::set_primary(uint8_t instance)
 /*
   update gyro and accel values from backends
  */
+__RAMFUNC2__
 void AP_InertialSensor::update(void)
 {
     // during initialisation update() may be called without
@@ -1981,6 +1995,14 @@ void AP_InertialSensor::update(void)
     _last_update_usec = AP_HAL::micros();
     
     _have_sample = false;
+
+#if defined(RP2350)
+    if (_gyro_cal_save_pending && hal.scheduler->is_system_initialized()) {
+        // Deferred startup save: queue once the platform has completed init.
+        _save_gyro_calibration();
+        _gyro_cal_save_pending = false;
+    }
+#endif
 
 #if HAL_INS_TEMPERATURE_CAL_ENABLE
     if (tcal_learning && !temperature_cal_running()) {
@@ -2452,7 +2474,6 @@ void AP_InertialSensor::_acal_save_calibrations()
     if (fabsf(_trim_rad.x) > radians(HAL_INS_TRIM_LIMIT_DEG) ||
         fabsf(_trim_rad.y) > radians(HAL_INS_TRIM_LIMIT_DEG) ||
         fabsf(_trim_rad.z) > radians(HAL_INS_TRIM_LIMIT_DEG)) {
-        DEV_PRINTF("ERR: Trim over maximum of %.1f degrees!!", float(HAL_INS_TRIM_LIMIT_DEG));
         _new_trim = false;  //we have either got faulty level during acal or highly misaligned accelerometers
     }
 
@@ -2608,7 +2629,6 @@ MAV_RESULT AP_InertialSensor::simple_accel_cal()
 
         memset(diff_norm, 0, sizeof(diff_norm));
 
-        DEV_PRINTF("*");
 
         for (uint8_t k=0; k<num_accels; k++) {
             accel_sum[k].zero();
@@ -2656,7 +2676,6 @@ MAV_RESULT AP_InertialSensor::simple_accel_cal()
     _board_orientation = saved_orientation;
 
     if (result == MAV_RESULT_ACCEPTED) {
-        DEV_PRINTF("\nPASSED\n");
         for (uint8_t k=0; k<num_accels; k++) {
             // remove rotated gravity
             new_accel_offset[k] -= rotated_gravity;
@@ -2680,7 +2699,6 @@ MAV_RESULT AP_InertialSensor::simple_accel_cal()
         AP::ahrs().set_trim(Vector3f(0, 0, 0));
 #endif
     } else {
-        DEV_PRINTF("\nFAILED\n");
         // restore old values
         for (uint8_t k=0; k<num_accels; k++) {
             _accel_offset(k).set(saved_offsets[k]);
