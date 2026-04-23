@@ -494,6 +494,7 @@ bool Copter::set_mode(const uint8_t new_mode, const ModeReason reason)
 
 // update_flight_mode - calls the appropriate attitude controllers based on flight mode
 // called at 100hz or more
+__RAMFUNC2__
 void Copter::update_flight_mode()
 {
 #if AP_RANGEFINDER_ENABLED

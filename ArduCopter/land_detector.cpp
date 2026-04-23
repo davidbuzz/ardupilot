@@ -13,6 +13,7 @@ static uint32_t land_detector_count = 0;
 
 // run land and crash detectors
 // called at MAIN_LOOP_RATE
+__RAMFUNC2__
 void Copter::update_land_and_crash_detectors()
 {
     // update 1hz filtered acceleration

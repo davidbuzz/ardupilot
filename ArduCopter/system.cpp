@@ -21,6 +21,11 @@ void Copter::init_ardupilot()
 #endif
 
     // initialise notify system
+    // RP2350/Pico2 bring-up: AP_Notify was previously disabled here because
+    // it triggered allocator corruption during the crash-loop era (VTOR was
+    // never reaching SRAM so I2C0 fired an unhandled exception every ~5s).
+    // That root cause is now fixed (VTOR relocated to SRAM post-halInit() and
+    // hal_lld_init() guarded).  Re-enable notify so LEDs blink correctly.
     notify.init();
     notify_flight_mode();
 
@@ -33,9 +38,13 @@ void Copter::init_ardupilot()
 #endif
 
     barometer.init();
+    // Breadcrumb 1: barometer.init() returned
+    DEV_PRINTF("1");
 
     // setup telem slots with serial ports
     gcs().setup_uarts();
+    // Breadcrumb 2: gcs().setup_uarts() returned
+    DEV_PRINTF("2");
 
 #if OSD_ENABLED
     osd.init();
@@ -53,6 +62,8 @@ void Copter::init_ardupilot()
 #endif
 
     init_rc_in();               // sets up rc channels from radio
+    // Breadcrumb 3: init_rc_in() returned
+    DEV_PRINTF("3");
 
 #if AP_RANGEFINDER_ENABLED
     // initialise surface to be tracked in SurfaceTracking
@@ -62,6 +73,8 @@ void Copter::init_ardupilot()
 
     // allocate the motors class
     allocate_motors();
+    // Breadcrumb 4: allocate_motors() returned
+    DEV_PRINTF("4");
 
     // initialise rc channels including setting mode
     rc().convert_options(RC_Channel::AUX_FUNC::ARMDISARM_UNUSED, RC_Channel::AUX_FUNC::ARMDISARM_AIRMODE);
@@ -69,6 +82,8 @@ void Copter::init_ardupilot()
 
     // sets up motors and output to escs
     init_rc_out();
+    // Breadcrumb 5: init_rc_out() returned
+    DEV_PRINTF("5");
 
     // check if we should enter esc calibration mode
     esc_calibration_startup_check();
@@ -89,9 +104,17 @@ void Copter::init_ardupilot()
     // Do GPS init
     gps.set_log_gps_bit(MASK_LOG_GPS);
     gps.init();
+    // Breadcrumb 6: gps.init() returned
+    DEV_PRINTF("6");
 
     AP::compass().set_log_bit(MASK_LOG_COMPASS);
+    // Laurel/RP2350 debug breadcrumb: compass probing was the next suspected
+    // long-startup fault after the DPS310 path was fixed. Print explicit
+    // stage markers around compass init so boot captures show whether the
+    // stall is inside AP_Compass::init() or later startup code.
+    DEV_PRINTF("COMPASS init begin\n");
     AP::compass().init();
+    DEV_PRINTF("COMPASS init done\n");
 
 #if AP_AIRSPEED_ENABLED
     airspeed.set_log_bit(MASK_LOG_IMU);
@@ -171,6 +194,8 @@ void Copter::init_ardupilot()
 #endif
 
     startup_INS_ground();
+    // Breadcrumb A: startup_INS_ground() returned OK
+    DEV_PRINTF("A");
 
 #if AC_CUSTOMCONTROL_MULTI_ENABLED
     custom_control.init();
@@ -179,25 +204,37 @@ void Copter::init_ardupilot()
     // set landed flags
     set_land_complete(true);
     set_land_complete_maybe(true);
+    // Breadcrumb B: land_complete flags set
+    DEV_PRINTF("B");
 
     // enable CPU failsafe
     failsafe_enable();
+    // Breadcrumb C: failsafe enabled
+    DEV_PRINTF("C");
 
     ins.set_log_raw_bit(MASK_LOG_IMU_RAW);
+    // Breadcrumb D: log raw bit set
+    DEV_PRINTF("D");
 
     motors->output_min();  // output lowest possible value to motors
+    // Breadcrumb E: motors->output_min() returned
+    DEV_PRINTF("E");
 
     // attempt to set the initial_mode, else set to STABILIZE
     if (!set_mode((enum Mode::Number)g.initial_mode.get(), ModeReason::INITIALISED)) {
         // set mode to STABILIZE will trigger mode change notification to pilot
         set_mode(Mode::Number::STABILIZE, ModeReason::UNAVAILABLE);
     }
+    // Breadcrumb F: set_mode() returned
+    DEV_PRINTF("F");
 
     pos_variance_filt.set_cutoff_frequency(g2.fs_ekf_filt_hz);
     vel_variance_filt.set_cutoff_frequency(g2.fs_ekf_filt_hz);
 
     // flag that initialisation has completed
     ap.initialised = true;
+    // Breadcrumb G: init complete
+    DEV_PRINTF("G");
 }
 
 
@@ -212,9 +249,13 @@ void Copter::startup_INS_ground()
 
     // Warm up and calibrate gyro offsets
     ins.init(scheduler.get_loop_rate_hz());
+    // Breadcrumb: print 'I2' after ins.init() returns; if crash is before this it's in the tail of ins.init()
+    DEV_PRINTF("I2");
 
     // reset ahrs including gyro bias
     ahrs.reset();
+    // Breadcrumb: print 'R3' after ahrs.reset() returns; if crash is before this it's in ahrs.reset()
+    DEV_PRINTF("R3");
 }
 
 // position_ok - returns true if the horizontal absolute position is ok and home position is set

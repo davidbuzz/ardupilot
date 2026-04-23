@@ -13,6 +13,7 @@ void Copter::init_precland()
     copter.precland.init(MIN(400, scheduler.get_loop_rate_hz()));
 }
 
+__RAMFUNC2__
 void Copter::update_precland()
 {
     // alt will be unused if we pass false through as the second parameter:

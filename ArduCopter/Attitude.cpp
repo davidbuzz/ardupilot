@@ -1,5 +1,23 @@
 #include "Copter.h"
 
+#if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
+#include <AP_HAL_ChibiOS/hwdef/common/stm32_util.h>
+
+namespace {
+struct C1MainRateArgs {
+    AC_AttitudeControl *attitude_control;
+};
+
+static C1MainRateArgs c1_main_rate_args;
+
+// Core1 callback for main-loop rate controller math.
+static void c1_main_rate_compute(void)
+{
+    c1_main_rate_args.attitude_control->rate_controller_run();
+}
+} // namespace
+#endif
+
 /*************************************************************
  *  Attitude Rate controllers and timing
  ****************************************************************/
@@ -7,6 +25,7 @@
 /*
   update rate controller when run from main thread (normal operation)
 */
+__RAMFUNC2__
 void Copter::run_rate_controller_main()
 {
     // set attitude and position controller loop time
@@ -16,8 +35,14 @@ void Copter::run_rate_controller_main()
 
     if (!using_rate_thread) {
         motors->set_dt_s(last_loop_time_s);
+        // Keep core0 available for scheduler/GCS work by running pure PID math on core1 when available.
+    #if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
+        c1_main_rate_args.attitude_control = attitude_control;
+        c1_try_run_sync(c1_main_rate_compute);
+    #else
         // only run the rate controller if we are not using the rate thread
         attitude_control->rate_controller_run();
+    #endif
     }
     // reset sysid and other temporary inputs
     attitude_control->rate_controller_target_reset();
