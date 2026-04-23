@@ -540,7 +540,7 @@ bool RC_Channel::has_override() const
         return false;
     }
 
-    uint32_t override_timeout_ms;
+    uint32_t override_timeout_ms = 0;
     if (!rc().get_override_timeout_ms(override_timeout_ms)) {
         // timeouts are disabled
         return true;
