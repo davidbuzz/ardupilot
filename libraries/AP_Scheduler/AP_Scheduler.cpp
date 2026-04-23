@@ -188,6 +188,9 @@ static void fill_nanf_stack(void)
   run one tick
   this will run as many scheduler tasks as we can in the specified time
  */
+// Run from SRAM on XIP-flash boards (e.g. RP2350) to eliminate cache miss
+// overhead in the inner task-dispatch loop that executes every scheduler tick.
+__RAMFUNC2__
 void AP_Scheduler::run(uint32_t time_available)
 {
     uint32_t run_started_usec = AP_HAL::micros();
@@ -258,7 +261,11 @@ void AP_Scheduler::run(uint32_t time_available)
                 continue;
             }
         } else {
-            _task_time_allowed = get_loop_period_us();
+            // FAST_TASK: skip on non-zero modulo remainder to reduce per-tick load
+            if (_fast_task_modulo > 1 && (_tick_counter % _fast_task_modulo) != 0) {
+                continue;
+            }
+            _task_time_allowed = get_loop_period_us() * _fast_task_modulo;
         }
 
         // run it
@@ -345,6 +352,9 @@ float AP_Scheduler::load_average()
     return constrain_float(used_time / (float)loop_us, 0, 1);
 }
 
+// Run from SRAM on XIP-flash boards (e.g. RP2350) so the outermost timing
+// loop (wait_for_sample, perf accounting, run()) has no XIP fetch overhead.
+__RAMFUNC2__
 void AP_Scheduler::loop()
 {
     // wait for an INS sample
