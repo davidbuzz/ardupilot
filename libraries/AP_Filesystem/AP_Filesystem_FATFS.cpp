@@ -793,7 +793,9 @@ bool AP_Filesystem_FATFS::set_mtime(const char *filename, const uint32_t mtime_s
 bool AP_Filesystem_FATFS::retry_mount(void)
 {
     FS_CHECK_ALLOWED(false);
-    WITH_SEMAPHORE(sem);
+    // Do not lock the FATFS backend mutex here: retry_mount() can be called
+    // from boot paths that already hold this mutex indirectly. On targets
+    // with non-recursive HAL mutexes this would self-deadlock the main thread.
     return sdcard_retry();
 }
 
