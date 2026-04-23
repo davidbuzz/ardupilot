@@ -364,6 +364,12 @@
 #define __RAMFUNC__
 #endif
 
+// rp2350 uses this to put more stuff in ram.
+#ifndef __RAMFUNC2__
+#define __RAMFUNC2__
+__RAMFUNC__
+#endif
+
 #ifndef __FASTRAMFUNC__
 #define __FASTRAMFUNC__
 #endif
