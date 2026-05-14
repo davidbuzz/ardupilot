@@ -76,6 +76,10 @@ private:
 
     ObjectBuffer<Transaction> requests{AP_MAVLINK_FTP_MAX_SESSIONS};
 
+    // signalled by handle_file_transfer_protocol() when a request is pushed;
+    // allows the worker thread to wake immediately instead of polling every 2ms
+    HAL_BinarySemaphore *_requests_sem{nullptr};
+
     bool initialised = false;
 
     // session specific info
