@@ -107,6 +107,9 @@ ALLCSRC := $(filter-out $(CHIBIOS)/os/hal/boards/RP_PICO2_RP2350/board.c,$(ALLCS
 
 include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk
 include $(CHIBIOS)/os/rt/rt.mk
+# SMP port: includes chcoresmp.c (hardware spinlock + inter-core FIFO) and
+# sets PORT_CORES_NUMBER=2.  CH_CFG_SMP_MODE=TRUE activates spinlocks in
+# chSysLock/chSysUnlock for real dual-core operation.
 include $(CHIBIOS)/os/common/ports/ARMv8-M-ML-ALT/compilers/GCC/mk/port_rp2.mk
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk
 
@@ -223,8 +226,7 @@ ifneq ($(AP_BOARD_START_TIME),)
  UDEFS += -DAP_BOARD_START_TIME=$(AP_BOARD_START_TIME)
 endif
 
-# CRT0_EXTRA_CORES_NUMBER=1 generates the _crt0_c1_entry trampoline for the
-# bare-metal core1 FIFO dispatcher used by the Laurel RP2350 target.
+# SMP: generate _crt0_c1_entry trampoline for bare-metal core1 FIFO dispatcher.
 UADEFS = -DCRT0_EXTRA_CORES_NUMBER=1
 
 ifeq ($(COPY_VECTORS_TO_RAM),yes)
