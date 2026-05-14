@@ -168,10 +168,9 @@
    FSTRATE_DIV = 2 (1kHz)
    FSTRATE_ENABLE = 1
    SERVO_DSHOT_RATE = 1 (1kHz)
-   RP2350: rate_controller_thread runs on core0 ChibiOS scheduler;
-   when FSTRATE_ENABLE=1 and RP_CORE1_START=TRUE the rate controller
-   computation (rate_controller_run_dt) is offloaded to core1 via
-   c1_run_sync() bare-metal FIFO dispatch. */
+   RP2350: rate_controller_thread runs on core0 ChibiOS scheduler.
+   With INS_GYRO_RATE=1 (2kHz FIFO) and FSTRATE_DIV=5 the rate loop
+   runs at 400Hz alongside a 400Hz main scheduler. */
 #define HAL_INS_RATE_LOOP 1
 #else
 #define HAL_INS_RATE_LOOP 0
