@@ -36,6 +36,7 @@
 #include <utility>
 #include <stdio.h>
 #include <GCS_MAVLink/GCS.h>
+#include <AP_Scheduler/AP_Scheduler.h>
 
 extern const AP_HAL::HAL& hal;
 
@@ -447,6 +448,11 @@ bool AP_InertialSensor_Invensensev3::update()
                           (unsigned long)dbg_fifo_empty,
                           (unsigned long)dbg_fifo_xfer_fail);
         }
+        GCS_SEND_TEXT(MAV_SEVERITY_INFO,
+                      "Perf: main=%.0fHz rate=%uHz load=%.0f%%",
+                      (double)AP::scheduler().get_filtered_loop_rate_hz(),
+                      (unsigned)(_imu.get_raw_gyro_rate_hz() / _imu.get_rate_decimation()),
+                      (double)(AP::scheduler().load_average() * 100.0f));
     }
 
     return true;
@@ -823,7 +829,7 @@ void AP_InertialSensor_Invensensev3::set_filter_and_scaling(void)
     // ICM-42688
     // ICM-42605
     // IIM-42652
-    if (enable_fast_sampling(accel_instance) && get_fast_sampling_rate() > 1) {
+    if (enable_fast_sampling(accel_instance) && get_fast_sampling_rate() > 0) {
         fast_sampling = dev->bus_type() == AP_HAL::Device::BUS_TYPE_SPI;
 
         if (fast_sampling) {
