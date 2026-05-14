@@ -198,6 +198,7 @@ const AP_Scheduler::Task Copter::scheduler_tasks[] = {
     SCHED_TASK(loop_rate_logging, LOOP_RATE,    50,  75),
 #endif
     SCHED_TASK(one_hz_loop,            1,    100,  81),
+    SCHED_TASK(perf_report,           0.1,   50,  82),
     SCHED_TASK(ekf_check,             10,     75,  84),
     SCHED_TASK(check_vibration,       10,     50,  87),
     SCHED_TASK(gpsglitch_check,       10,     50,  90),
@@ -774,6 +775,36 @@ uint32_t Copter::ap_value() const
     }
 
     return ret;
+}
+
+// perf_report - prints main loop rate, rate thread Hz and scheduler CPU load every ~30 s
+void Copter::perf_report()
+{
+    const float main_hz  = AP::scheduler().get_filtered_loop_rate_hz();
+    const float load_pct = AP::scheduler().load_average() * 100.0f;
+    const uint32_t rate_hz = ins.get_raw_gyro_rate_hz() / ins.get_rate_decimation();
+#if defined(RP_CORE1_START) && RP_CORE1_START == TRUE
+    extern volatile uint32_t c1_busy_us;
+    static uint32_t last_c1_busy_us;
+    static uint32_t last_report_us;
+    const uint32_t now_us = AP_HAL::micros();
+    const uint32_t c1_snap = c1_busy_us;
+    const uint32_t elapsed_us = now_us - last_report_us;
+    const float c1_pct = (elapsed_us > 0) ? (float)(c1_snap - last_c1_busy_us) * 100.0f / elapsed_us : 0.0f;
+    last_c1_busy_us = c1_snap;
+    last_report_us  = now_us;
+    hal.console->printf("Perf: main=%.0fHz rate=%uHz c0=%.0f%% c1=%.0f%%\n",
+                        main_hz, (unsigned)rate_hz, load_pct, c1_pct);
+    gcs().send_text(MAV_SEVERITY_INFO,
+                    "Perf: main=%.0fHz rate=%uHz c0=%.0f%% c1=%.0f%%",
+                    main_hz, (unsigned)rate_hz, load_pct, c1_pct);
+#else
+    hal.console->printf("Perf: main=%.0fHz rate=%uHz load=%.0f%%\n",
+                        main_hz, (unsigned)rate_hz, load_pct);
+    gcs().send_text(MAV_SEVERITY_INFO,
+                    "Perf: main=%.0fHz rate=%uHz load=%.0f%%",
+                    main_hz, (unsigned)rate_hz, load_pct);
+#endif
 }
 
 // one_hz_loop - runs at 1Hz
