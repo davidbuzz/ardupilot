@@ -688,17 +688,9 @@ define AP_COMPASS_PROBING_ENABLED 1
 # RP2350 now sets these centrally in AP_HAL_Boards.h, so no hwdef override
 # is needed here.
 
-# Bare-metal dual-core architecture: core0 runs ChibiOS (single-instance),
-# core1 runs a bare-metal SIO FIFO dispatcher (c1_main.c).
-# CH_CFG_SMP_MODE=FALSE: core1 has no ChibiOS instance, no scheduler,
-# no NVIC setup.  All ChibiOS threads live on core0.  Core1 is launched
-# by hal_lld via start_core1() (gated on RP_CORE1_START=TRUE below) and
-# executes tasks dispatched by c1_run_sync() in board.c.
+# Single-core: ChibiOS port.mk (no SMP spinlock overhead), core1 parked.
 define CH_CFG_SMP_MODE FALSE
-
-# Enable core1 bare-metal startup: hal_lld_init() calls start_core1()
-# which sends the ROM handshake then jumps to _crt0_c1_entry → c1_main().
-define RP_CORE1_START TRUE
+define RP_CORE1_START FALSE
 
 # Overclock the RP2350 from the default 150 MHz to 250 MHz.
 # The PLL_SYS VCO is already set to 1500 MHz in rp_clocks.h.

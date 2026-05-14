@@ -196,16 +196,11 @@ SECTIONS
         __main_thread_stack_end__ = .;
     } > PROCESS_STACK_RAM
 
-    /* Core 1 MSP exception stack (rules_stacks_c1.ld pattern inlined here
-       so we can control placement without a separate MEMORY region for ram4/5). */
-    __c1_main_stack_size__    = __main_stack_size__;
-    /* Core1 process stack is sized independently to give EKF CovariancePrediction
-       sufficient headroom.  CovariancePrediction is a large float-heavy function
-       that previously ran on a dedicated EKF thread (large stack); now it runs
-       on core1's PSP.  Use 0x4000 (16 KB) rather than matching core0's 7 KB
-       __process_stack_size__ to avoid PSP overflow during matrix computation. */
-    __c1_process_stack_size__ = 0x4000;
-    /*__c1_process_stack_size__ = __process_stack_size__;*/
+    /* Core 1 MSP and PSP stacks: zeroed because this branch runs single-core
+       (RP_CORE1_START=FALSE / CRT0_EXTRA_CORES_NUMBER=0).  Core1 never starts
+       so reserving 40 KB here wastes SRAM that would otherwise go to the heap. */
+    __c1_main_stack_size__    = 0;
+    __c1_process_stack_size__ = 0;
 
     .c1_mstack (NOLOAD) :
     {

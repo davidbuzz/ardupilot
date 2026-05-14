@@ -34,7 +34,7 @@
  */
 #define RP_NO_INIT                          FALSE
 #ifndef RP_CORE1_START
-#define RP_CORE1_START                      TRUE
+#define RP_CORE1_START                      FALSE
 #endif
 #define RP_CORE1_VECTORS_TABLE              _vectors
 #define RP_CORE1_ENTRY_POINT                _crt0_c1_entry

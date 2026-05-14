@@ -107,7 +107,9 @@ ALLCSRC := $(filter-out $(CHIBIOS)/os/hal/boards/RP_PICO2_RP2350/board.c,$(ALLCS
 
 include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk
 include $(CHIBIOS)/os/rt/rt.mk
-include $(CHIBIOS)/os/common/ports/ARMv8-M-ML-ALT/compilers/GCC/mk/port_rp2.mk
+# Single-core port: no chcoresmp.c, no smp/rp2/ include dir, no PORT_CORES_NUMBER=2.
+# port_rp2.mk carries SMP spinlock overhead even when CH_CFG_SMP_MODE=FALSE.
+include $(CHIBIOS)/os/common/ports/ARMv8-M-ML-ALT/compilers/GCC/mk/port.mk
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk
 
 ifeq ($(USE_FATFS),yes)
@@ -138,8 +140,7 @@ CSRC += $(HWDEF)/common/stubs.c \
 				$(HWDEF)/common/stm32_util.c \
 				$(HWDEF)/common/bouncebuffer.c \
 				$(HWDEF)/common/watchdog.c \
-				$(HWDEF)/common/sysperf.c \
-				$(HWDEF)/Laurel/c1_main.c
+				$(HWDEF)/common/sysperf.c
 
 ifeq ($(USE_FATFS),yes)
 # Use ArduPilot's FatFS disk I/O shim so get_fattime() continues to come
@@ -202,7 +203,7 @@ CPPWARN = -Wall -Wextra -Wundef
 
 UDEFS = $(ENV_UDEFS) $(FATFS_FLAGS) -DHAL_BOARD_NAME=\"$(HAL_BOARD_NAME)\" \
 				-DHAL_MAX_STACK_FRAME_SIZE=$(HAL_MAX_STACK_FRAME_SIZE) \
-				-DCRT0_EXTRA_CORES_NUMBER=1 -DRP2350B_QFN80=1
+				-DCRT0_EXTRA_CORES_NUMBER=0 -DRP2350B_QFN80=1
 
 ifeq ($(ENABLE_ASSERTS),yes)
  UDEFS += -DHAL_CHIBIOS_ENABLE_ASSERTS
@@ -223,9 +224,8 @@ ifneq ($(AP_BOARD_START_TIME),)
  UDEFS += -DAP_BOARD_START_TIME=$(AP_BOARD_START_TIME)
 endif
 
-# CRT0_EXTRA_CORES_NUMBER=1 generates the _crt0_c1_entry trampoline for the
-# bare-metal core1 FIFO dispatcher used by the Laurel RP2350 target.
-UADEFS = -DCRT0_EXTRA_CORES_NUMBER=1
+# Single-core: no core1 trampoline generation.
+UADEFS = -DCRT0_EXTRA_CORES_NUMBER=0
 
 ifeq ($(COPY_VECTORS_TO_RAM),yes)
  UADEFS += -DCRT0_INIT_VECTORS=1
