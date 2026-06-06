@@ -37,6 +37,21 @@ libraries/AP_InertialSensor/AP_InertialSensor.cpp|AP_InertialSensor::periodic
 libraries/AP_InertialSensor/AP_InertialSensor.cpp|AP_InertialSensor::HarmonicNotch::update_params
 libraries/AP_InertialSensor/AP_InertialSensor.cpp|AP_InertialSensor::update
 libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp|AP_InertialSensor_Backend::update_gyro_filters
+# apply_gyro_filters: called per-gyro-sample (1 kHz) from SPI thread; calls HarmonicNotchFilter::apply chain
+# Moving to SRAM eliminates 260+94+308+108 = 770 B of per-sample XIP pressure from core0 SPI thread.
+libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp|AP_InertialSensor_Backend::apply_gyro_filters
+# NotchFilter<Vector3f>::apply (308 B) + NotchFilter<float>::apply (108 B): the inner biquad compute loop.
+# Called at 1 kHz by apply_gyro_filters on core0, and indirectly by HarmonicNotchFilter::apply.
+libraries/Filter/NotchFilter.h|NotchFilter<Vector3<float>>::apply
+libraries/Filter/NotchFilter.h|NotchFilter<float>::apply
+# HarmonicNotchFilter<Vector3f>::apply (94 B) + update (22+352 B): harmonic envelope applied to each raw sample.
+# Called at 1 kHz from apply_gyro_filters and at 500 Hz from rate_controller_filter_update on core1.
+libraries/Filter/HarmonicNotchFilter.h|HarmonicNotchFilter<Vector3<float>>::apply
+libraries/Filter/HarmonicNotchFilter.h|HarmonicNotchFilter<Vector3<float>>::update
+# update_dynamic_notch (252 B) + update_throttle_notch (204 B): called at 500 Hz from rate thread core1.
+# Previously in FLASH — both cores share the 16 KB XIP cache, causing cache evictions to stall core1.
+libraries/AP_Vehicle/AP_Vehicle.cpp|AP_Vehicle::update_dynamic_notch
+libraries/AP_Vehicle/AP_Vehicle.cpp|AP_Vehicle::update_throttle_notch
 libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp|AP_InertialSensor_Invensensev3::accumulate_samples
 libraries/AP_InertialSensor/AP_InertialSensor_Invensensev3.cpp|AP_InertialSensor_Invensensev3::read_fifo
 libraries/AP_InertialSensor/FastRateBuffer.cpp|AP_InertialSensor::update_backend_filters
