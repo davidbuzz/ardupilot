@@ -7,14 +7,15 @@
 # The linker claims .text sections first-come-first-served; duplicates would be silently dropped.
 #
 # Rate controller PID (core1, 1 kHz — called 3x per tick for roll/pitch/yaw):
-libraries/AC_PID/AC_PID.cpp|AC_PID::update_all
+#libraries/AC_PID/AC_PID.cpp|AC_PID::update_all
 # Rate controller entry point (core1, 1 kHz):
-libraries/AC_AttitudeControl/AC_AttitudeControl_Multi.cpp|AC_AttitudeControl_Multi::rate_controller_run_dt
-# Notch filter inner loops (core1, 1 kHz via apply_gyro_filters + rate_controller_filter_update):
-libraries/Filter/HarmonicNotchFilter.h|HarmonicNotchFilter<Vector3<float>>::update
-libraries/Filter/HarmonicNotchFilter.h|HarmonicNotchFilter<Vector3<float>>::apply
-libraries/Filter/NotchFilter.h|NotchFilter<Vector3<float>>::apply
-libraries/Filter/NotchFilter.h|NotchFilter<float>::apply
+#libraries/AC_AttitudeControl/AC_AttitudeControl_Multi.cpp|AC_AttitudeControl_Multi::rate_controller_run_dt
+# NOTE: HarmonicNotchFilter::update is called from core0 (update_dynamic_notch_at_ in scheduler),
+# and HarmonicNotchFilter::apply / NotchFilter::apply are called from AP_InertialSensor::update on
+# core0 as well as the rate thread on core1.  Placing these in SRAM9 creates AHB bus contention
+# (core0 accessing SRAM9 via bus fabric while core1 fetches from SRAM9 via dedicated I-CODE).
+# Keep them in flash (XIP cache) where both cores benefit from the shared 16 KB I-cache.
+#
 # Gyro sample fetch (core1, 1 kHz — feeds rate controller):
-libraries/AP_InertialSensor/FastRateBuffer.cpp|FastRateBuffer::get_next_gyro_sample
-libraries/AP_InertialSensor/FastRateBuffer.cpp|AP_InertialSensor::get_next_gyro_sample
+#libraries/AP_InertialSensor/FastRateBuffer.cpp|FastRateBuffer::get_next_gyro_sample
+#libraries/AP_InertialSensor/FastRateBuffer.cpp|AP_InertialSensor::get_next_gyro_sample

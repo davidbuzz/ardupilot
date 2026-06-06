@@ -41,8 +41,13 @@ libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp|AP_InertialSensor_Back
 libraries/AP_InertialSensor/AP_InertialSensor_Backend.cpp|AP_InertialSensor_Backend::apply_gyro_filters
 # NotchFilter<Vector3f>::apply (308 B) + NotchFilter<float>::apply (108 B): the inner biquad compute loop.
 # Called at 1 kHz by apply_gyro_filters on core0, and indirectly by HarmonicNotchFilter::apply.
-# NOTE: NotchFilter::apply, HarmonicNotchFilter::apply/update moved to Scratch Y.
-# Core1-dedicated SRAM9 for zero-contention fetches at 1 kHz.
+# NotchFilter and HarmonicNotchFilter apply/update: called from BOTH cores (core0 SPI thread and
+# core1 rate thread), so keeping in main SRAM (RAMFUNC2) where both cores get shared fast access.
+# Scratch Y caused cross-core contention on SRAM9's AHB port.
+libraries/Filter/NotchFilter.h|NotchFilter<Vector3<float>>::apply
+libraries/Filter/NotchFilter.h|NotchFilter<float>::apply
+libraries/Filter/HarmonicNotchFilter.h|HarmonicNotchFilter<Vector3<float>>::apply
+libraries/Filter/HarmonicNotchFilter.h|HarmonicNotchFilter<Vector3<float>>::update
 # update_dynamic_notch (252 B) + update_throttle_notch (204 B): called at 500 Hz from rate thread core1.
 # Previously in FLASH — both cores share the 16 KB XIP cache, causing cache evictions to stall core1.
 libraries/AP_Vehicle/AP_Vehicle.cpp|AP_Vehicle::update_dynamic_notch
@@ -86,7 +91,12 @@ modules/ChibiOS/os/hal/lib/streams/chprintf.c|chvprintf
 modules/ChibiOS/os/hal/lib/streams/chprintf.c|chprintf
 libraries/AC_AttitudeControl/AC_AttitudeControl_Multi.cpp|AC_AttitudeControl_Multi::update_throttle_gain_boost
 libraries/AC_AttitudeControl/AC_AttitudeControl_Multi.cpp|AC_AttitudeControl_Multi::update_throttle_rpy_mix
-# NOTE: rate_controller_run_dt, AC_PID::update_all moved to Scratch Y (rp2350_scratchy_registry.txt).
+# rate_controller_run_dt + AC_PID::update_all: core1-only at 1 kHz, but keeping in RAMFUNC2 (main SRAM)
+# rather than Scratch Y (SRAM9) because the Scratch Y dedicated bus only helps core1's I-CODE path;
+# data-path accesses (shared struct fields) still go through AXI fabric regardless.
+# Measured: Scratch Y placement showed no rate improvement vs RAMFUNC2. RAMFUNC2 avoids XIP pressure.
+libraries/AC_AttitudeControl/AC_AttitudeControl_Multi.cpp|AC_AttitudeControl_Multi::rate_controller_run_dt
+libraries/AC_PID/AC_PID.cpp|AC_PID::update_all
 # rate_controller_run (44 B wrapper) stays in main SRAM; it's a trivial dispatcher.
 libraries/AC_AttitudeControl/AC_AttitudeControl_Multi.cpp|AC_AttitudeControl_Multi::rate_controller_run
 libraries/AP_InertialSensor/AP_InertialSensor.cpp|AP_InertialSensor::wait_for_sample
@@ -118,7 +128,10 @@ modules/ChibiOS/os/hal/ports/RP/LLD/SPIv1/hal_spi_lld.c|spi_lld_send
 modules/ChibiOS/os/hal/ports/RP/LLD/SPIv1/hal_spi_lld.c|spi_lld_receive
 modules/ChibiOS/os/hal/ports/RP/LLD/SPIv1/hal_spi_lld.c|spi_lld_serve_rx_interrupt
 modules/ChibiOS/os/hal/ports/RP/LLD/SPIv1/hal_spi_lld.cspi_lld_serve_tx_interrupt
-# NOTE: get_next_gyro_sample moved to Scratch Y (core1 feeds rate controller at 1 kHz).
+# get_next_gyro_sample: back in RAMFUNC2. Scratch Y (SRAM9) showed no rate improvement vs RAMFUNC2,
+# and added complexity. Keep in main SRAM where both cores can reach it via fast AXI striped banks.
+libraries/AP_InertialSensor/FastRateBuffer.cpp|FastRateBuffer::get_next_gyro_sample
+libraries/AP_InertialSensor/FastRateBuffer.cpp|AP_InertialSensor::get_next_gyro_sample
 libraries/AP_HAL_ChibiOS/RCOutput.cpp|ChibiOS::RCOutput::push_local
 libraries/AP_HAL_ChibiOS/RCOutput.cpp|ChibiOS::RCOutput::push
 libraries/AP_NavEKF3/AP_NavEKF3_Control.cpp|NavEKF3_core::runYawEstimatorPrediction
