@@ -1026,7 +1026,7 @@ def main() -> int:
     if args.threads_file:
         threads_path = Path(args.threads_file).expanduser().resolve()
     else:
-        threads_path = detect_default_runtime_file(repo_root, ["threads.new2.txt", "threads.new.txt", "threads.current.txt", "threads.txt"])
+        threads_path = detect_default_runtime_file(repo_root, ["libraries/AP_HAL_ChibiOS/hwdef/Laurel/threads.enable-stats.txt","threads.new2.txt", "threads.new.txt", "threads.current.txt", "threads.txt"])
 
     if args.tasks_file:
         tasks_path = Path(args.tasks_file).expanduser().resolve()

@@ -1,0 +1,80 @@
+RP2350 Heap Budget Report
+========================
+map: /home/buzz/ardupilot/build/Laurel/Linker.map
+
+SRAM / Heap
+- RAM total:          512.00 KiB
+- SRAM used:          226.23 KiB  (44% of SRAM)
+- SRAM allowed:       384.00 KiB
+- SRAM over limit:    0 B
+- Heap available:     285.77 KiB
+- Current min heap:   128.00 KiB
+- RAMFUNC size:       60.89 KiB  (11% of SRAM)
+
+Allocation scan (source)
+- Files scanned:      2496
+- malloc():           36
+- calloc():           40
+- realloc():          0
+- new/new[]:          19 / 5
+- Literal bytes seen: 0 B
+
+Board config inputs (hwdef.dat)
+- File:               /home/buzz/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/Laurel/hwdef.dat
+- MAIN_STACK:         24.00 KiB
+- FLASH_SIZE_KB:      8192
+- STORAGE page/count: 8 / None
+- SCHED_LOOP_RATE:    n/a
+
+Runtime profiling inputs
+- Threads file:       /home/buzz/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/Laurel/threads.enable-stats.txt
+- Tasks file:         /home/buzz/ardupilot/libraries/AP_HAL_ChibiOS/hwdef/Laurel/tasks.txt
+- Max thread usage:   98% (ISR)
+- Fast loop avg sum:  8142 us
+- Total overruns:     442
+- Max task TOT:       46.0%
+
+Thread stack usage
+  Thread           Used   Total   Pct
+  -------------- ------ -------  ----
+  ISR             24208 / 24576   98% ***
+  ArduCopter       5328 /  7168   74%
+  main            16264 /105272   15%
+  timer            1976 /  2304   85%
+  rcout            8264 /  8448   97% ***
+  rcin            12272 / 12544   97% ***
+  io               1552 /  2304   67%
+  log_io           1328 /  1824   72%
+  FTP              1464 /  2816   51%
+  rate             3728 /  4352   85%
+  -------------- ------ -------  ----
+  TOTAL          74.59 KiB  167.59 KiB  (32% of SRAM committed to thread WAs)
+
+SRAM breakdown — slice by slice (low → high address)
+  core0 MSP (IRQ/hard-fault stack):   24.00 KiB  ( 4%)
+  core0 PSP (scheduler / idle stack):   7.00 KiB  ( 1%)
+  core1 MSP (SMP IRQ stack):          24.00 KiB  ( 4%)
+  core1 PSP (SMP scheduler stack):    16.00 KiB  ( 3%)
+  .data (initialized globals):         3.81 KiB  ( 0%)
+  .ramtext (RAMFUNC — XIP bypass):    60.89 KiB  (11%)
+  .bss (globals + thread WAs):        90.10 KiB  (17%)
+    of which thread working areas:   167.59 KiB  (32%)  [from threads.txt]
+    of which other globals:                 0 B  ( 0%)
+  --------------------------------------------------------------
+  USED (static total):               226.23 KiB  (44%)
+  heap min reserved:                 128.00 KiB  (25%)
+  heap free above min:               157.77 KiB  (30%)  <- available to assign
+  --------------------------------------------------------------
+  RAM total:                         512.00 KiB  (100%)
+
+Suggested threshold
+- ram_percent_floor:  64.00 KiB
+- absolute_floor:     64.00 KiB
+- callsite_pressure:  95.00 KiB
+- literal_pressure:   0 B
+- stack_pressure:     24.00 KiB
+- stack_wa_pressure:  8.00 KiB
+- runtime_overrun:    16.00 KiB
+- hwdef_pressure:     8.00 KiB
+- recommended min:    128.00 KiB
+- delta vs current:   +0 B
