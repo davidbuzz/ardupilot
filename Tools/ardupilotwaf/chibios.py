@@ -816,11 +816,14 @@ def build(bld):
     # boardInit (defined T in ArduPilot's board.o) is used as the pull handle.
     if board_uses_rp2350_bootsel(bld.env.BOARD):
         bld.env.LINKFLAGS += ['-Wl,--undefined=boardInit']
-        # Ensure rp2350_ramfunc2_sections.ld exists as an empty placeholder so
-        # the linker-script INCLUDE doesn't fail before rp2350_ramfunc2_gen runs.
-        ld_placeholder = os.path.join(bld.env.BUILDROOT, 'rp2350_ramfunc2_sections.ld')
-        if not os.path.exists(ld_placeholder):
-            open(ld_placeholder, 'w').close()
+        # Ensure scratch/ramfunc LD files exist as empty placeholders so the
+        # linker-script INCLUDEs don't fail before rp2350_ramfunc2_gen runs.
+        for ld_name in ('rp2350_ramfunc2_sections.ld',
+                        'rp2350_scratchx_sections.ld',
+                        'rp2350_scratchy_sections.ld'):
+            ld_placeholder = os.path.join(bld.env.BUILDROOT, ld_name)
+            if not os.path.exists(ld_placeholder):
+                open(ld_placeholder, 'w').close()
     # list of functions that will be wrapped to move them out of libc into our
     # own code
     wraplist = ['sscanf', 'fprintf', 'snprintf', 'vsnprintf', 'vasprintf', 'asprintf', 'vprintf', 'scanf', 'printf']
