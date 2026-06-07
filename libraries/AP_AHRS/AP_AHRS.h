@@ -817,6 +817,15 @@ private:
 #endif
 #if HAL_NAVEKF3_AVAILABLE
     void update_EKF3(void);
+#if defined(RP2350)
+public:
+    // Called by the EKF thread on core1 to run NavEKF3 and copy results.
+    void update_EKF3_from_thread(void);
+    // Enable EKF-in-thread mode: update_EKF3() becomes a no-op on the calling thread.
+    void set_ekf_runs_in_thread(bool v) { _ekf_runs_in_thread = v; }
+private:
+    bool _ekf_runs_in_thread;
+#endif  // defined(RP2350)
 #endif
 
     static constexpr uint16_t startup_delay_ms = 1000;

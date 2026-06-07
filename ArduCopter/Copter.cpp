@@ -788,18 +788,24 @@ void Copter::perf_report()
     if (AP_HAL::millis() < 5000) {
         return;
     }
+    // c1_pct sentinels: -2.0 = SMP active but core1 thread not yet started
+    // (suppress to avoid bogus single-core output); -1.0 = non-SMP target
+    // (print single-core format); >= 0.0 = SMP ready (print dual-core format).
+    if (c1_pct < -1.5f) {
+        return;
+    }
 
     if (c1_pct >= 0.0f) {
-        hal.console->printf("Perf: main=%.0fHz rate=%uHz core1load:%.0f%% core2load:%.0f%%\n",
+        hal.console->printf("Perf: main=%.0fHz rate=%uHz core0load:%.0f%% core1load:%.0f%%\n",
                             main_hz, (unsigned)rate_hz, load_pct, c1_pct);
         gcs().send_text(MAV_SEVERITY_INFO,
-                        "Perf: main=%.0fHz rate=%uHz core1load:%.0f%% core2load:%.0f%%",
+                        "Perf: main=%.0fHz rate=%uHz core0load:%.0f%% core1load:%.0f%%",
                         main_hz, (unsigned)rate_hz, load_pct, c1_pct);
     } else {
-        hal.console->printf("Perf: main=%.0fHz rate=%uHz core1load:%.0f%%\n",
+        hal.console->printf("Perf: main=%.0fHz rate=%uHz core0load:%.0f%%\n",
                             main_hz, (unsigned)rate_hz, load_pct);
         gcs().send_text(MAV_SEVERITY_INFO,
-                        "Perf: main=%.0fHz rate=%uHz core1load:%.0f%%",
+                        "Perf: main=%.0fHz rate=%uHz core0load:%.0f%%",
                         main_hz, (unsigned)rate_hz, load_pct);
     }
 }
@@ -865,7 +871,25 @@ void Copter::one_hz_loop()
             AP_BoardConfig::allocation_error("rate thread");
         }
     }
-#endif
+
+#endif  // AP_INERTIALSENSOR_FAST_SAMPLE_WINDOW_ENABLED
+
+#if defined(RP2350)
+    // EKF thread: runs NavEKF3::UpdateFilter() on core1 concurrently with core0's
+    // main scheduler. Lower priority than rate thread so PID math is never starved.
+    // read_AHRS() on core0 reads cached EKF output instead of running the filter itself.
+    if (!started_ekf_thread) {
+        bool ekf_ok = hal.scheduler->thread_create_pinned_to_core(
+                      FUNCTOR_BIND_MEMBER(&Copter::ekf_thread, void),
+                      "ekf", 8192, AP_HAL::Scheduler::PRIORITY_IO, 1, 1);
+        if (ekf_ok) {
+            started_ekf_thread = true;
+            AP::ahrs().set_ekf_runs_in_thread(true);
+        } else {
+            AP_BoardConfig::allocation_error("ekf thread");
+        }
+    }
+#endif  // defined(RP2350)
 }
 
 void Copter::init_simple_bearing()

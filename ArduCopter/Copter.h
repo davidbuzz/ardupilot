@@ -1114,6 +1114,17 @@ private:
 
     bool started_rate_thread;
     bool using_rate_thread;
+#if defined(RP2350)
+    bool started_ekf_thread;
+    HAL_BinarySemaphore _ekf_notifier;
+    // Written by EKF thread, read by rate thread. ARM 32-bit store is atomic.
+    volatile uint32_t _ekf_last_duration_us;
+    volatile uint32_t _ekf_total_duration_us;
+
+    // ekf_thread.cpp
+    void ekf_thread();
+    void signal_ekf_thread();
+#endif
 
 public:
     void failsafe_check();      // failsafe.cpp

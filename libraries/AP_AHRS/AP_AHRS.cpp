@@ -715,6 +715,13 @@ void AP_AHRS::update_EKF2(void)
 #if HAL_NAVEKF3_AVAILABLE
 void AP_AHRS::update_EKF3(void)
 {
+#if defined(RP2350)
+    if (_ekf_runs_in_thread) {
+        // NavEKF3 is owned by the EKF thread on core1.
+        // ekf3_estimates and state are already current — nothing to do here.
+        return;
+    }
+#endif
     if (!ekf3.started) {
         // wait 1 second for DCM to output a valid tilt error estimate
         if (start_time_ms == 0) {
@@ -764,7 +771,60 @@ void AP_AHRS::update_EKF3(void)
         }
     }
 }
+
+#if defined(RP2350)
+/*
+  Called from the EKF thread on core1. Runs NavEKF3 outside the main scheduler.
+
+  Step 1: ekf3.update() runs the prediction/correction step (~2ms). This only
+  writes EKF-internal state, so no _rsem needed here — _rsem protects the
+  AP_AHRS::state struct, not EKF internal arrays.
+
+  Step 2: get_results() + copy_estimates() publish the new attitude/position/
+  velocity into AP_AHRS::state. Brief _rsem acquisition (~50µs) serialises
+  against read_AHRS() on core0 reading the same state.
+*/
+void AP_AHRS::update_EKF3_from_thread(void)
+{
+    if (!ekf3.started) {
+        if (start_time_ms == 0) {
+            start_time_ms = AP_HAL::millis();
+        }
+        if (AP_HAL::millis() - start_time_ms > startup_delay_ms) {
+            WITH_SEMAPHORE(_rsem);
+            ekf3.started = ekf3.EKF3.InitialiseFilter();
+        }
+        return;
+    }
+
+    // Run EKF prediction + correction — expensive, no lock needed.
+    ekf3.update();
+
+    // Publish results into shared AHRS state — brief lock.
+    WITH_SEMAPHORE(_rsem);
+    ekf3_estimates = {};
+    ekf3.get_results(ekf3_estimates);
+    if (_active_EKF_type() == EKFType::THREE) {
+        copy_estimates_from_backend_estimates(ekf3_estimates);
+        nav_filter_status filt_state;
+        ekf3.get_filter_status(filt_state);
+        update_notify_from_filter_status(filt_state);
+    }
+    if (!done_common_origin) {
+        Location new_origin;
+        if (ekf3.get_origin(new_origin)) {
+            done_common_origin = true;
+#if HAL_NAVEKF2_AVAILABLE
+            ekf2.set_origin(new_origin);
 #endif
+#if AP_AHRS_EXTERNAL_ENABLED
+            external.set_origin(new_origin);
+#endif
+        }
+    }
+}
+#endif  // defined(RP2350)
+#endif  // HAL_NAVEKF3_AVAILABLE
 
 #if AP_AHRS_EXTERNAL_ENABLED
 void AP_AHRS::update_external(void)

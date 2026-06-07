@@ -489,7 +489,7 @@ void AP_Scheduler::Log_Write_Performance()
 void AP_Scheduler::task_info(ExpandingString &str)
 {
     // a header to allow for machine parsers to determine format
-    str.printf("TasksV2\n");
+    str.printf("TasksV2 CORE=0\n");
 
     // dynamically enable statistics collection; allocate now so the
     // caller gets a well-formed (but empty-stats) file on the very
