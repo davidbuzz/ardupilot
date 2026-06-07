@@ -74,6 +74,7 @@ uint32_t stm32_crash_dump_max_size(void)
 
 uint32_t stm32_crash_dump_addr(void)
 {
+    return (uint32_t)&__crash_log_base__;
 }
 
 bool stm32_crash_dump_region_erased(void)
