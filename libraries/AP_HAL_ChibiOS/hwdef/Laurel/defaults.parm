@@ -1,31 +1,23 @@
 # Laurel defaults tuned for the onboard ICM42688P sensor stack.
 #
-# IMU / rate-loop split — targeting 1 kHz backend and ~333 Hz rate control:
+# IMU / rate-loop split — 1 kHz backend, 1 kHz rate thread on core1:
 #
-#   INS_GYRO_RATE=0  → get_fast_sampling_rate()=1, and Laurel keeps the
-#     Invensensev3 SPI FIFO path enabled at the base 1000 Hz backend rate.
-#     Per-sample filter work stays in the IMU interrupt path; ins.update() in
-#     the main loop just reads aggregated output instead of draining queued
-#     samples per iteration (which was causing the 73 Hz main-loop stall).
+#   INS_GYRO_RATE=0  → get_fast_sampling_rate()=1, Invensensev3 SPI FIFO at
+#     1000 Hz backend rate.
 #
 #   FSTRATE_ENABLE=1 (FAST_RATE_DYNAMIC): rate thread active, pinned to core1
-#     via ChibiOS SMP thread affinity (THD_DESCRIPTOR_AFFINITY + &ch1).
-#     IMU sample read → rate PID → motors output all run on core1.
-#     SPI IRQs remain on core0 (core that started the SPI driver); rate thread
-#     consumes from FastRateBuffer and writes PWM registers directly.
+#     via ChibiOS SMP thread affinity.
 #
-#   FSTRATE_DIV=3: rate thread runs at 1000 Hz / 3 ≈ 333 Hz.
-#
-#   SCHED_LOOP_RATE=150: EKF, attitude target, GCS, logging at 150 Hz.
-#     The rate thread remains decoupled from the main loop and now runs at
-#     about 333 Hz independently (FSTRATE_DIV=3) to reduce SPI/backend load.
+#   FSTRATE_DIV=1: rate thread runs at 1000 Hz / 1 = 1000 Hz. DO NOT CHANGE.
+#     Any value > 1 divides the rate thread frequency (DIV=3 gives 333 Hz).
+#     1 kHz on core1 is required. FSTRATE_DIV=1 is non-negotiable.
 #
 #   INS_FAST_SAMPLE=1: enables fast-sample window for the rate thread (required
 #     for AP_INERTIALSENSOR_FAST_SAMPLE_WINDOW).
 SCHED_LOOP_RATE 150
 INS_FAST_SAMPLE 1
 INS_GYRO_RATE 0
-FSTRATE_DIV 3
+FSTRATE_DIV 1
 FSTRATE_ENABLE 1
 
 # Enable watchdog by default.

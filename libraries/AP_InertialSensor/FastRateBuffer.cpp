@@ -143,7 +143,12 @@ bool AP_InertialSensor::push_next_gyro_sample(const Vector3f& gyro)
     WITH_SEMAPHORE(fast_rate_buffer->_mutex);
 
     if (!fast_rate_buffer->_rate_loop_gyro_window.push(gyro)) {
-        debug("dropped rate loop sample");
+        static uint32_t last_warn_ms;
+        const uint32_t now_ms = AP_HAL::millis();
+        if (now_ms - last_warn_ms >= 1000) {
+            last_warn_ms = now_ms;
+            debug("dropped rate loop sample");
+        }
     }
     fast_rate_buffer->rate_decimation_count = 0;
     fast_rate_buffer->_notifier.signal();
