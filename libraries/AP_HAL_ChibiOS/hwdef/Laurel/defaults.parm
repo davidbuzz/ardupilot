@@ -14,7 +14,7 @@
 #
 #   INS_FAST_SAMPLE=1: enables fast-sample window for the rate thread (required
 #     for AP_INERTIALSENSOR_FAST_SAMPLE_WINDOW).
-SCHED_LOOP_RATE 150
+SCHED_LOOP_RATE 400
 INS_FAST_SAMPLE 1
 INS_GYRO_RATE 0
 FSTRATE_DIV 1

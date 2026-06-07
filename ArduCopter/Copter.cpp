@@ -784,6 +784,11 @@ void Copter::perf_report()
     const float load_pct = AP::scheduler().load_average() * 100.0f;
     const uint32_t rate_hz = ins.get_raw_gyro_rate_hz() / ins.get_rate_decimation();
     const float c1_pct = hal.scheduler->get_core1_load_pct();
+
+    if (AP_HAL::millis() < 5000) {
+        return;
+    }
+
     if (c1_pct >= 0.0f) {
         hal.console->printf("Perf: main=%.0fHz rate=%uHz core1load:%.0f%% core2load:%.0f%%\n",
                             main_hz, (unsigned)rate_hz, load_pct, c1_pct);
