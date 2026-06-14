@@ -188,7 +188,7 @@ void Copter::rate_controller_thread()
     uint32_t c1_rate_ticks = 0;
     uint32_t c1_ekf_ticks = 0;
 #if defined(RP2350)
-    uint8_t  ekf_decim = 1;
+    uint8_t  ekf_decim = 2;  // minimum 2: see adaptive algorithm comment below
     uint8_t  ekf_decim_count = 0;
     uint32_t ekf_prev_total_dur_us = 0;
 #endif
@@ -453,11 +453,16 @@ void Copter::rate_controller_thread()
 
             // Wind-back: step ±1 to avoid oscillation.
             // Target: 25-50% EKF duty on core1.
+            // Minimum ekf_decim=2: prevents EKF from speeding up beyond ~164 Hz when
+            // Core0 gets faster (e.g. from DCM rate reduction). Without this floor,
+            // the adaptive algorithm drives ekf_decim to 1 (329 Hz EKF), increasing
+            // SMP spinlock contention until Core0 slows back down — a feedback loop
+            // that cancels any Core0 optimisation. Cap at 2 to break the loop.
             if (duty_pct > 50 && ekf_decim < 8) {
                 ekf_decim++;
                 gcs().send_text(MAV_SEVERITY_WARNING, "EKF CPU %u%% (>50), decim->%u",
                                 (unsigned)duty_pct, (unsigned)ekf_decim);
-            } else if (duty_pct < 25 && ekf_decim > 1) {
+            } else if (duty_pct < 25 && ekf_decim > 2) {
                 ekf_decim--;
                 gcs().send_text(MAV_SEVERITY_INFO, "EKF CPU %u%% (<25), decim->%u",
                                 (unsigned)duty_pct, (unsigned)ekf_decim);
