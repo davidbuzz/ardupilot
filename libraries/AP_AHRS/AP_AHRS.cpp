@@ -465,7 +465,10 @@ void AP_AHRS::update(bool skip_ins_update)
     }
 
     // support locked access functions to AHRS data
+    // On RP2350: _rsem is deferred until after update_DCM() — see below.
+#if !defined(RP2350)
     WITH_SEMAPHORE(_rsem);
+#endif
 
     // see if we have to restore home after a watchdog reset:
     if (!_checked_watchdog_home) {
@@ -513,6 +516,12 @@ void AP_AHRS::update(bool skip_ins_update)
         update_EKF2();
 #endif
     }
+
+#if defined(RP2350)
+    // Re-acquire _rsem after update_DCM(): EKF3 ran on Core1 so the lock window
+    // is ~200µs here vs ~2000µs if held across update_DCM().
+    WITH_SEMAPHORE(_rsem);
+#endif
 
 #if AP_MODULE_SUPPORTED
     // call AHRS_update hook if any
@@ -611,11 +620,10 @@ void AP_AHRS::update_DCM()
 {
 #if defined(RP2350)
     if (_active_EKF_type() != EKFType::DCM) {
-// RP2350: DCM::Update() costs ~800-1000 µs at 150 Hz — a large fraction of the 6.7 ms budget.
-// When EKF3 is active, DCM is only a fallback; run it at half rate to preserve a fresh
-// fallback solution while halving its Core0 cost. Full rate when DCM is the active estimator.
+// RP2350: DCM costs ~2246 µs/call. Run at 1/16 rate as emergency backup when
+// EKF3 is active; full rate when DCM is the active estimator.
         static uint8_t backup_dcm_skip_count;
-        backup_dcm_skip_count ^= 1U;
+        backup_dcm_skip_count = (backup_dcm_skip_count + 1U) & 15U;
         if (backup_dcm_skip_count != 0U) {
             return;
         }
