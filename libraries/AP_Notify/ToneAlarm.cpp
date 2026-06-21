@@ -27,6 +27,7 @@
 #include <stdio.h>
 
 #include <AP_Filesystem/AP_Filesystem.h>
+#include <AP_Arming/AP_Arming.h>
 
 extern const AP_HAL::HAL& hal;
 
@@ -99,6 +100,44 @@ const AP_ToneAlarm::Tone AP_ToneAlarm::_tones[] {
 #define AP_NOTIFY_TONE_EKF_ALERT 31
     { "MBNT255>A#8A#8A#8A#8P8A#8A#8A#8A#8P8A#8A#8A#8A#8P8A#8A#8A#8A#8", true },
 };
+
+#ifdef AP_NOTIFY_LAUREL_TONE_COUNT_PREARM
+static int8_t laurel_prearm_failure_tone(const AP_Arming::Check check)
+{
+    switch (check) {
+    case AP_Arming::Check::RC:
+        return AP_NOTIFY_TONE_LOUD_3;
+
+    case AP_Arming::Check::VOLTAGE:
+    case AP_Arming::Check::BATTERY:
+        return AP_NOTIFY_TONE_LOUD_4;
+
+    case AP_Arming::Check::BARO:
+    case AP_Arming::Check::COMPASS:
+    case AP_Arming::Check::GPS:
+    case AP_Arming::Check::INS:
+    case AP_Arming::Check::AIRSPEED:
+    case AP_Arming::Check::RANGEFINDER:
+    case AP_Arming::Check::VISION:
+    case AP_Arming::Check::FFT:
+        return AP_NOTIFY_TONE_LOUD_5;
+
+    case AP_Arming::Check::PARAMETERS:
+    case AP_Arming::Check::LOGGING:
+    case AP_Arming::Check::SWITCH:
+    case AP_Arming::Check::GPS_CONFIG:
+    case AP_Arming::Check::SYSTEM:
+    case AP_Arming::Check::MISSION:
+    case AP_Arming::Check::CAMERA:
+    case AP_Arming::Check::AUX_AUTH:
+    case AP_Arming::Check::OSD:
+        return AP_NOTIFY_TONE_LOUD_6;
+
+    default:
+        return -1;
+    }
+}
+#endif
 
 bool AP_ToneAlarm::init()
 {
@@ -306,6 +345,13 @@ void AP_ToneAlarm::update()
 
     // notify the user when arming fails
     if (AP_Notify::events.arming_failed) {
+#ifdef AP_NOTIFY_LAUREL_TONE_COUNT_PREARM
+        const int8_t tone = laurel_prearm_failure_tone(AP::arming().get_last_failed_prearm_check());
+        if (tone >= 0) {
+            play_tone(tone);
+            return;
+        }
+#endif
         play_tone(AP_NOTIFY_TONE_QUIET_NEG_FEEDBACK);
     }
 
@@ -350,6 +396,13 @@ void AP_ToneAlarm::update()
             play_tone(AP_NOTIFY_TONE_QUIET_READY_OR_FINISHED);
             _have_played_ready_tone = true;
         } else {
+#ifdef AP_NOTIFY_LAUREL_TONE_COUNT_PREARM
+            const int8_t tone = laurel_prearm_failure_tone(AP::arming().get_last_failed_prearm_check());
+            if (tone >= 0) {
+                play_tone(tone);
+                return;
+            }
+#endif
             // only play sad tone if we've ever played happy tone:
             if (_have_played_ready_tone) {
                 play_tone(AP_NOTIFY_TONE_QUIET_NOT_READY_OR_NOT_FINISHED);

@@ -24,8 +24,7 @@ public:
     void update();
 
     enum class Check {
-        // 0 used to be ALL, though it could be reused as the SKIPCHK conversion
-        // never sets it. check_mask would also need updating.
+        NONE        = 0,
         BARO        = (1U << 1),
         COMPASS     = (1U << 2),
         GPS         = (1U << 3),
@@ -121,6 +120,7 @@ public:
     // pre_arm_checks() is virtual so it can be modified in a vehicle specific subclass
     virtual bool pre_arm_checks(bool report);
     bool get_last_prearm_checks_result() const { return last_prearm_checks_result; }
+    Check get_last_failed_prearm_check() const { return last_failed_prearm_check; }
 
     // some arming checks have side-effects, or require some form of state
     // change to have occurred, and thus should not be done as pre-arm
@@ -340,6 +340,7 @@ private:
     
     bool last_prearm_checks_result; // result of last prearm check
     bool report_immediately; // set to true when check goes from true to false, to trigger immediate report
+    mutable Check last_failed_prearm_check = Check::NONE;
 
     void update_arm_gpio();
 
