@@ -25,7 +25,7 @@ FSTRATE_ENABLE 1
 BRD_OPTIONS 5
 
 # No compass hardware on Laurel — disable to suppress pre-arm warnings.
-COMPASS_ENABLE 0
+COMPASS_ENABLE 0 @READONLY
 
 # Laurel bring-up default: avoid hard pre-arm failure when filesystem logging
 # backend cannot initialise (e.g. no/unstable SPI microSD path).
