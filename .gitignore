@@ -31,8 +31,7 @@
 *.obj
 *.px4
 *.pyc
-*.tlog
-*.tlog.raw
+
 *.vbrain
 *.vrx
 *.zip
