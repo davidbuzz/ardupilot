@@ -1,3 +1,7 @@
+#if defined(RP2350)
+#pragma GCC optimize("O2")
+#endif
+
 #include "AP_NavEKF3_core.h"
 
 // reset the body axis gyro bias states to zero and re-initialise the corresponding covariances
