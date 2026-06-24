@@ -288,6 +288,15 @@ void PIORXDriver::_upload_programs()
                                            : RESETS_ALLREG_PIO1);
 
     pio->CTRL = 0U; // stop all SMs
+
+    // RP2350 PIO PINCTRL BASE fields are 5-bit (0-31). With GPIOBASE=0 (default),
+    // GPIO32+ is inaccessible — a 5-bit value truncates modulo 32, so GPIO34
+    // becomes GPIO2. Set GPIOBASE=16 to shift the window to GPIO16-47, making
+    // GPIO20/21 (PIOUART0, rel 4/5) and GPIO34/35 (PIOUART1, rel 18/19) both
+    // reachable. Only 0 and 16 are valid per the RP2350 datasheet (bit 4 only).
+    // rp2350.h incorrectly marks GPIOBASE as __I, so write via raw pointer.
+    (*reinterpret_cast<volatile uint32_t *>(reinterpret_cast<uintptr_t>(pio) + 0x168U)) = 16U;
+
     // Start from a known IRQ mask state; RX polling is used during bring-up.
     pio->IRQ0_INTE = 0U;
     pio->IRQ1_INTE = 0U;
@@ -324,14 +333,18 @@ void PIORXDriver::_start_tx_sm(uint32_t int_div, uint32_t frac_div)
 
     pio->SM[sm].SHIFTCTRL = PIO_SHIFTCTRL_OUT_SHIFTDIR;
 
+    // PINCTRL BASE fields are 5-bit and GPIOBASE-relative (GPIOBASE=16 set in
+    // _upload_programs). GPIO34 → rel 18, GPIO20 → rel 4.
+    const uint8_t rel_tx = tx_pin - 16U;
+
         pio->SM[sm].PINCTRL =
             // SIDE_EN consumes one bit in Delay/Side-set, so one actual
             // side-set data bit requires SIDESET_COUNT=2 (enable+data).
-            (2u               << PIO_PINCTRL_SIDESET_COUNT_LSB)
-                | ((uint32_t)tx_pin << PIO_PINCTRL_SIDESET_BASE_LSB)
-                | ((uint32_t)tx_pin << PIO_PINCTRL_OUT_BASE_LSB)
+            (2u              << PIO_PINCTRL_SIDESET_COUNT_LSB)
+                | ((uint32_t)rel_tx << PIO_PINCTRL_SIDESET_BASE_LSB)
+                | ((uint32_t)rel_tx << PIO_PINCTRL_OUT_BASE_LSB)
                 | (1u               << PIO_PINCTRL_OUT_COUNT_LSB)
-                | ((uint32_t)tx_pin << PIO_PINCTRL_SET_BASE_LSB)
+                | ((uint32_t)rel_tx << PIO_PINCTRL_SET_BASE_LSB)
                 | (1u               << PIO_PINCTRL_SET_COUNT_LSB);
 
     pio->CTRL |= (1u << (PIO_CTRL_CLKDIV_RESTART_LSB + sm))
@@ -360,16 +373,20 @@ void PIORXDriver::_start_rx_sm(uint32_t int_div, uint32_t frac_div)
     pio->SM[sm].CLKDIV = (int_div  << PIO_CLKDIV_INT_LSB)
                        | (frac_div << PIO_CLKDIV_FRAC_LSB);
 
+    // PINCTRL IN_BASE and EXECCTRL JMP_PIN are 5-bit and GPIOBASE-relative.
+    // GPIO35 → rel 19, GPIO21 → rel 5.
+    const uint8_t rel_rx = rx_pin - 16U;
+
     pio->SM[sm].EXECCTRL =
           ((uint32_t)(rx_offset + rx_len - 1) << PIO_EXECCTRL_WRAP_TOP_LSB)
         | ((uint32_t)rx_offset << PIO_EXECCTRL_WRAP_BOT_LSB)
-        | ((uint32_t)rx_pin << PIO_EXECCTRL_JMP_PIN_LSB);
+        | ((uint32_t)rel_rx << PIO_EXECCTRL_JMP_PIN_LSB);
 
     // RX program uses explicit 'push noblock' after stop-bit validation,
     // so AUTOPUSH must remain disabled.
     pio->SM[sm].SHIFTCTRL = PIO_SHIFTCTRL_IN_SHIFTDIR;
 
-    pio->SM[sm].PINCTRL = ((uint32_t)rx_pin << PIO_PINCTRL_IN_BASE_LSB);
+    pio->SM[sm].PINCTRL = ((uint32_t)rel_rx << PIO_PINCTRL_IN_BASE_LSB);
 
     pio->CTRL |= (1u << (PIO_CTRL_CLKDIV_RESTART_LSB + sm))
               |  (1u << (PIO_CTRL_SM_RESTART_LSB      + sm));
@@ -699,10 +716,17 @@ uint32_t PIORXDriver::txspace()
     if (!_initialized) {
         return 0;
     }
+    // _write() blocks on FIFO drain internally, so we can always accept up to
+    // the TX ring-buffer size. Returning only the 4-byte hardware FIFO depth
+    // causes HAVE_PAYLOAD_SPACE to be permanently false for every MAVLink
+    // message (which are ≥17 bytes), silently dropping all GCS output.
     PIO_TypeDef *const pio = cfg().pio;
     const uint8_t sm = cfg().sm_tx;
     const uint32_t level = pio_tx_level(pio, sm);
-    return (level < PIO_TX_FIFO_DEPTH) ? (PIO_TX_FIFO_DEPTH - level) : 0U;
+    if (level >= PIO_TX_FIFO_DEPTH) {
+        return 0;
+    }
+    return PIO_UART_TX_BUF;
 }
 
 bool PIORXDriver::tx_pending()
