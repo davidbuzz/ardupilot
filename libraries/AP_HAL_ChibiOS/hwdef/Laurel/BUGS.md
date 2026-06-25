@@ -1,21 +1,84 @@
 # Laurel / RP2350 Known Bugs and Flight-Blocking Issues
 
-Last updated: 2026-06-24 (tlog analysis). Branch: `rp2350-v5-etc-dual-core`.
+Last updated: 2026-06-26 (SD card / logging fully fixed). Branch: `rp2350-v5-etc-dual-core`.
 
 ---
 
 ## FIXED
 
 ### BUG-002 — SD card logging disabled; logs never written
-**Commit:** (pending — defaults.parm change, LOG_BACKEND_TYPE 1 @READONLY)
+**Commit:** `90d2bef186` (SD card hardware fixes + LOG_BACKEND_TYPE), `31770c8759` (Shared_DMA fix)
 **Symptom:** SD card present and formatted but all log files missing after flight.
-Mission Planner log download returns empty list.
-**Root cause:** `LOG_BACKEND_TYPE 0` in defaults.parm explicitly disabled the logging
-backend. Set during early bring-up to avoid pre-arm failures when SD card path was
-unstable.
-**Fix:** `LOG_BACKEND_TYPE 1 @READONLY` in defaults.parm. `HAL_LOGGING_BACKEND_DEFAULT_ENABLED 1`
-and `HAL_SDCARD_SPI_INIT_TRIES 3` (was 1 — one failed probe meant 30-second retry delay)
-in hwdef.dat.
+Mission Planner log download returns empty list. Accompanied by `AP_Logger: stuck thread ()`
+in GCS messages after a few minutes of operation.
+**Root cause:** Three independent hardware/driver bugs prevented the SD card from ever
+mounting, plus a fourth bug caused the logger thread to hang even after the card mounted.
+See BUG-005 through BUG-008 for individual root causes.
+`LOG_BACKEND_TYPE 0` in defaults.parm was also set during early bring-up to avoid
+pre-arm failures; this has been changed to `LOG_BACKEND_TYPE 1 @READONLY`.
+**Fix:** All four bugs resolved. `LOG_BACKEND_TYPE 1 @READONLY` in defaults.parm.
+`HAL_SDCARD_SPI_INIT_TRIES 3` in hwdef.dat (was 1 — one failed probe triggered 30 s retry).
+
+---
+
+### BUG-005 — SD card MISO floats LOW without pull-up → mmc_wait_idle 30 s boot hang
+**Commit:** `90d2bef186`
+**Symptom:** SD card never mounted. Boot hangs ~30 s with no log output during that window,
+then reports mount failure. `mmc_wait_idle` timeout (1 s × 10 CMD0 retries × 3 tries).
+**Root cause:** `PAL_MODE_ALTERNATE_SPI` does not set `PAL_RP_PAD_PUE`. Without an internal
+pull-up the SPI1 MISO line (GPIO24) floats to 0x00 whenever the SD card tri-states it
+(between bytes, before card responds). `mmc_wait_idle` reads MISO looking for 0xFF (card
+idle); floating LOW means it always times out.
+**Fix:** Add `PAL_RP_PAD_PUE` to SPI0_RX and SPI1_MISO in `board_rp2350.c`.
+
+---
+
+### BUG-006 — SCR overflow corrupts SPI init frequency (880 kHz instead of 400 kHz)
+**Commit:** `90d2bef186`
+**Symptom:** SD card occasionally failed CMD0/ACMD41 at the boundary-case cards that
+require strict ≤ 400 kHz init. Even when it didn't fail outright, SD spec violation.
+**Root cause:** `lowspeed.SSPCR0 = (468U << 8U) | 0x07U`. SCR is an 8-bit field
+(SSPCR0 bits[15:8]); SCR=468 truncates to 212 stored. Actual frequency: 375 MHz /
+(SSPCPSR=2 × (212+1)) = 880 kHz — more than double the SD spec maximum for init.
+**Fix:** SSPCPSR=4, SCR=234 → 375 MHz / (4 × 235) = 398.9 kHz. SCR=234 fits in 8 bits.
+
+---
+
+### BUG-007 — DMA IRQ core mismatch on SPI restart → SD write hangs on wrong core
+**Commit:** `90d2bef186` (sdcard.cpp spiStop guard + rp_dma.c cross-core free)
+**Symptom:** SD card mounted on some boots but subsequent reads/writes hung indefinitely,
+or the board crashed with a DMA assertion when `sdcard_init()` restarted SPID1.
+**Root cause:** `sdcard_init()` runs on core0 (IO thread). If the SPI1 bus thread (core1)
+had already called `spiStart(SPID1)`, DMA channels were allocated to core1's IRQ mask.
+`mmcConnect` then called `spiStart` again — no-op since SPID1 was already `SPI_READY` —
+leaving DMA IRQs routed to core1 while the blocking thread was on core0 → deadlock.
+Also, `dmaChannelFreeI` only removed channels from `c0_allocated_mask`, so a cross-core
+`spiStop` left the channel in `c1_allocated_mask` with a stale NVIC enable.
+**Fix:** Call `spiStop(SPID1)` before `mmcConnect` when SPID1 is already `SPI_READY`
+(guarded `#if defined(RP2350) && CH_CFG_SMP_MODE == TRUE`), forcing re-start on core0.
+Fix `dmaChannelFreeI` in `rp_dma.c` to check and clear both `c0_allocated_mask` and
+`c1_allocated_mask`.
+
+---
+
+### BUG-008 — Shared_DMA false-sharing → AP_Logger IO thread hangs permanently
+**Commit:** `31770c8759`
+**Symptom:** `AP_Logger: stuck thread ()` appears in GCS ~60 s after boot regardless of
+whether the SD card mounted. Logging never works. Rebooting does not fix it.
+**Root cause:** ArduPilot's `Shared_DMA` framework is designed for STM32 where DMA
+channels are scarce and shared between peripherals. The hwdef generator was emitting
+`dma_channel_tx=0, dma_channel_rx=0` for all RP2350 SPI buses. `Shared_DMA` interpreted
+channel number 0 for both SPI0 and SPI1 as "competing for the same physical channel".
+Whenever SPI0 (IMU, core1) locked its DMA for a gyro read, `dma_deallocate` fired on
+SPI1 → `spiStop(SPID1)` was called mid-transfer → the ChibiOS MMC-SPI driver's DMA
+completion IRQ was silenced → the AP_Logger IO thread suspended in `chSemWait` never
+woke up → stuck forever.
+**RP2350 context:** RP2350 has 16 dedicated DMA channels. No sharing is required or
+desirable — ChibiOS SPIv1 LLD allocates them at runtime via `RP_DMA_CHANNEL_ID_ANY`.
+`Shared_DMA` must not be involved in RP2350 SPI DMA management at all.
+**Fix:** `chibios_hwdef.py` now emits `SHARED_DMA_NONE` for both `dma_channel_tx` and
+`dma_channel_rx` in `HAL_SPIn_CONFIG` when `mcu_series` starts with `PICO2`. This
+prevents `Shared_DMA` from ever calling `dma_deallocate` / `spiStop` on RP2350 SPI buses.
 
 ---
 
