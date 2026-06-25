@@ -292,6 +292,10 @@ void pico2_gpio_init(void)
     palSetLine(HAL_GPIO_PIN_GYRO_EXT_CS);
     palSetLineMode(HAL_GPIO_PIN_GYRO_EXT_CS, PAL_MODE_OUTPUT_PUSHPULL);
 #endif
+#if defined(HAL_GPIO_PIN_SDCARD_CS)
+    palSetLine(HAL_GPIO_PIN_SDCARD_CS);
+    palSetLineMode(HAL_GPIO_PIN_SDCARD_CS, PAL_MODE_OUTPUT_PUSHPULL);
+#endif
 
 #if defined(HAL_GPIO_PIN_LED_BLUE)
     palSetLineMode(HAL_GPIO_PIN_LED_BLUE, PAL_MODE_OUTPUT_PUSHPULL);

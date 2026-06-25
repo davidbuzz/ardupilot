@@ -167,10 +167,15 @@ bool sdcard_init()
         mmcStart(&MMCD1, &mmcconfig);
 
         if (mmcConnect(&MMCD1) == HAL_FAILED) {
+            printf("SDCard mmcConnect failed (try %u/%u slowdown=%u)\n",
+                   (unsigned)(i+1), (unsigned)tries, (unsigned)sd_slowdown);
             mmcStop(&MMCD1);
             continue;
         }
-        if (f_mount(&SDC_FS, "/", 1) != FR_OK) {
+        FRESULT res = f_mount(&SDC_FS, "/", 1);
+        if (res != FR_OK) {
+            printf("SDCard f_mount failed res=%u (try %u/%u slowdown=%u)\n",
+                   (unsigned)res, (unsigned)(i+1), (unsigned)tries, (unsigned)sd_slowdown);
             mmcDisconnect(&MMCD1);
             mmcStop(&MMCD1);
             continue;
