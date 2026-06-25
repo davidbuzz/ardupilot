@@ -284,6 +284,14 @@ void pico2_gpio_init(void)
     palSetLine(HAL_GPIO_PIN_MPU_CS);
     palSetLineMode(HAL_GPIO_PIN_MPU_CS, PAL_MODE_OUTPUT_PUSHPULL);
 #endif
+#if defined(HAL_GPIO_PIN_ICM42688_CS)
+    palSetLine(HAL_GPIO_PIN_ICM42688_CS);
+    palSetLineMode(HAL_GPIO_PIN_ICM42688_CS, PAL_MODE_OUTPUT_PUSHPULL);
+#endif
+#if defined(HAL_GPIO_PIN_AT7456E_CS)
+    palSetLine(HAL_GPIO_PIN_AT7456E_CS);
+    palSetLineMode(HAL_GPIO_PIN_AT7456E_CS, PAL_MODE_OUTPUT_PUSHPULL);
+#endif
 #if defined(HAL_GPIO_PIN_BARO_EXT_CS)
     palSetLine(HAL_GPIO_PIN_BARO_EXT_CS);
     palSetLineMode(HAL_GPIO_PIN_BARO_EXT_CS, PAL_MODE_OUTPUT_PUSHPULL);
