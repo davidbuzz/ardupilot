@@ -106,6 +106,49 @@ for the Laurel hardware voltage divider and current sense resistor values. Set
 
 ## OPEN — Performance / EKF
 
+### PERF-002 — Main loop 400 Hz target not met; best achieved is 360–367 Hz (Config E)
+**Observed:** bench testing, all bugs fixed. Branch: `rp2350-v5-etc-dual-core`.
+**Symptom:** With the best known config (Config E: SPI0 on Core1, DCM backup at 1/8 rate, `ekf_decim_min=2`), the settled main loop rate is 360–367 Hz against a target of 400 Hz. Gap is ~35 Hz. Core0 is at 100% CPU. Core1 is at 97% (SPI + rate + EKF all on Core1). EKF adaptive decimation lands at decim=8 (EKF running 61 Hz) to keep Core1 duty cycle manageable.
+**Remaining headroom:** Two concrete optimisations have been designed (see PERF-003 and PERF-004 below) that together are expected to close the gap: lock-free EKF publish saves ~40 Hz, cross-core IMU latency fix saves ~18 Hz — total projected 418 Hz.
+**Config E regressions vs Config A that must be accepted or mitigated:**
+- `InertialSensor::update*`: 156 µs → 405 µs (Core0 waiting on Core1 SPI DMA). See PERF-004.
+- `GCS::update_receive`: 1269 µs → 1773 µs (Core1 at 97% → more SMP spinlock contention under every `chSysLock` Core0 issues).
+
+---
+
+### PERF-003 — `read_AHRS` semaphore stall: lock-free EKF result sharing not yet implemented
+**Observed:** tasks.txt in Config E. `read_AHRS*` = 1070 µs AVG, MAX = 5547 µs.
+**Root cause:** `AP_AHRS::update()` calls `WITH_SEMAPHORE(_rsem)` to read the EKF output. `_rsem` is also held by Core1 during EKF publish. When Core1 publishes (at 61 Hz) the Core0 call into `read_AHRS` blocks until Core1 releases the semaphore. The MIN=243 µs (fast path, no contention) vs MAX=5547 µs (contention path) variance drives scheduler irregularity.
+**Fix designed, not yet implemented:** Replace `_rsem` with an atomic triple/double buffer. Core1 writes EKF results to a write slot then `std::atomic::store(release)` the published index. Core0 reads from `published.load(acquire)` — never blocks. Eliminates the semaphore contention entirely. Expected `read_AHRS` drop: 1070 µs → ~400–500 µs. At 181 Hz fast-task rate: 620 µs × 181 = 112 ms/s freed = ~+11% Core0 = **~+40 Hz**. Implementation risk: medium — needs correct `memory_order_acquire/release` across Cortex-M33 cores; only the publish/consume path changes, not EKF internals.
+
+---
+
+### PERF-004 — `InertialSensor::update` cross-core latency: 405 µs in Config E vs 156 µs in Config A
+**Observed:** tasks.txt Config E. 405 µs AVG in fast task (target 156 µs).
+**Root cause:** With SPI0 on Core1, Core0's `InertialSensor::update` must signal the Core1 SPI thread, then wait for the DMA completion to be posted back. Core1 is at 97% load — the SPI thread may queue behind the rate thread and EKF before being scheduled. The 250 µs extra round-trip is Core0 sleeping in a semaphore wait while Core1 catches up.
+**Option A (raise SPI thread priority):** Set the SPI0 bus thread priority higher than EKF on Core1 so Core0-initiated requests are served immediately. Risk: more EKF preemptions → higher `ekf_dur` jitter → adaptive algorithm may decimate further.
+**Option B (push model for IMU reads):** SPI thread posts completed IMU frames to a Core0-readable ring buffer without waiting for Core0 to ask. Core0 reads the latest frame without blocking. In theory this is already how it should work via the IMU FIFO path — investigate why `InertialSensor::update` still blocks in Config E before choosing an option.
+**Expected saving:** ~250 µs × 181 Hz = 45 ms/s = ~+4.5% Core0 = **~+18 Hz**.
+
+---
+
+### DIAG-001 — `AP_InternalError` bitmask not preserved across reset; invisible after reboot
+**Symptom:** When `INTERNAL_ERROR()` fires, the scheduler enters a fast-spinning empty loop (visible as an anomalously high Perf Hz reading — 500–700+ Hz is the diagnostic signature). After the watchdog fires and the board resets, the error bitmask is lost. The only way to confirm an InternalError occurred is to observe the Perf Hz anomaly live or to halt under GDB during the event. Post-reset diagnosis is impossible.
+**Fix designed, not yet implemented:** Add a write to a WATCHDOG SCRATCH register inside `AP_InternalError::error()` (or its platform hook) saving the bitmask. SCRATCH registers survive PSM resets. The existing watchdog detection path in `rp2350_watchdog_init()` already reads SCRATCH[6]/[7] — add SCRATCH[8] (or repurpose a free slot) for the InternalError bitmask. After a WD reset, `HAL_ChibiOS_Class.cpp` can report it via GCS just as it does for the watchdog reset event. Filed as design intent; not yet implemented.
+
+---
+
+### ARCH-001 — Symmetric XIP lockout (Core1 → Core0) not implemented
+**Symptom:** No current crash — Core1 does not write to flash today. If any future code path causes Core1 to call `AP_Param::save()` or trigger a flash erase (e.g. parameter storage relocated, or `AP_Logger_Flash` enabled on Core1), Core1 will call `rpEflBeforeXipOff()` which currently assumes it is always called from Core0. Core0 would not be parked. If Core0 is executing code from XIP flash while Core1 disables XIP, Core0 gets IBUSERR and crashes.
+**Fix designed, not yet implemented:** `rpEflBeforeXipOff()` reads `SIO->CPUID` to determine which core is writing flash, then rings the OTHER core's doorbell. For Core1 → Core0 lockout, Core0 needs a matching SRAM-resident handler installed in `rp2350_vectors[42]` (Core0's RAM vector table in `board_rp2350.c`). The Core1→Core0 path is symmetric with the existing Core0→Core1 protocol. Deferred until a concrete need arises.
+
+---
+
+### ARCH-002 — Rate thread is not XIP-lockout-immune; misses ticks during flash erase
+**Symptom:** During flash erase (parameter storage writes at first boot and after GCS param saves), Core1 is parked by the XIP lockout protocol. TIMER0_ALARM1 (Core1 tick) does not fire during the park window (~30–50 ms per erase sector). The rate thread misses ~30–50 tick periods. The tick re-arms immediately when Core1 resumes.
+**Current acceptability:** Flash writes happen only at first boot and on user-initiated param saves — never during flight. The 30–50 ms gap at boot is acceptable.
+**Future option — not yet pursued:** A rate loop whose entire call chain executes from SRAM (no XIP fetches) would not need to be parked and could maintain exact 1 kHz through flash erases. Requires moving the rate loop body, `AP_InertialSensor` fast path, and motor output path entirely into SRAM — very large footprint, significant refactoring. Not feasible without dedicated work.
+
 ---
 
 ## OPEN — Flight / Tuning
