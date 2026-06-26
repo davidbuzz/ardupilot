@@ -887,7 +887,7 @@ void Copter::one_hz_loop()
     if (!started_ekf_thread) {
         bool ekf_ok = hal.scheduler->thread_create_pinned_to_core(
                       FUNCTOR_BIND_MEMBER(&Copter::ekf_thread, void),
-                      "ekf", 8192, AP_HAL::Scheduler::PRIORITY_IO, 1, 1);
+                      "ekf", 9216, AP_HAL::Scheduler::PRIORITY_IO, 1, 1);
         if (ekf_ok) {
             started_ekf_thread = true;
             AP::ahrs().set_ekf_runs_in_thread(true);
