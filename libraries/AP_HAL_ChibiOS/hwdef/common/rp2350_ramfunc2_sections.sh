@@ -62,6 +62,7 @@ generate_ld_from_registry() {
         /^[[:space:]]*$/ { next }
         NF >= 2 {
             s=$2
+            gsub(/#.*/, "", s)
             gsub(/^[[:space:]]+|[[:space:]]+$/, "", s)
             if (s != "") print s
         }
