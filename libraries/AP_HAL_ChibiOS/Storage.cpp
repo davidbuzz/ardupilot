@@ -23,6 +23,9 @@
 #include "hwdef/common/flash.h"
 #include <AP_Filesystem/AP_Filesystem.h>
 #include <stdio.h>
+#if defined(RP2350) && defined(AP_STORAGE_M1_FLASH)
+#include "RP2350M1Flash.h"
+#endif
 
 using namespace ChibiOS;
 
@@ -398,9 +401,20 @@ void Storage::_timer_tick(void)
  */
 void Storage::_flash_load(void)
 {
-#ifdef STORAGE_FLASH_PAGE
+#if defined(RP2350) && defined(AP_STORAGE_M1_FLASH)
     _flash_page = STORAGE_FLASH_PAGE;
-
+    rp2350_m1_flash_init();
+#if AP_FLASH_STORAGE_QUAD_PAGE
+    ::printf("Storage: M1 flash pages %u-%u at 0x%08X\n",
+             _flash_page, _flash_page + 7,
+             (unsigned)(RP2350_M1_FLASH_BASE + (uint32_t)_flash_page * RP2350_M1_SECTOR_SIZE));
+#else
+    ::printf("Storage: M1 flash page %u at 0x%08X\n",
+             _flash_page,
+             (unsigned)(RP2350_M1_FLASH_BASE + (uint32_t)_flash_page * RP2350_M1_SECTOR_SIZE));
+#endif
+#elif defined(STORAGE_FLASH_PAGE)
+    _flash_page = STORAGE_FLASH_PAGE;
 #if AP_FLASH_STORAGE_QUAD_PAGE
     ::printf("Storage: Using flash pages %u to %u\n", _flash_page, _flash_page+7);
 #elif AP_FLASH_STORAGE_DOUBLE_PAGE
@@ -408,7 +422,9 @@ void Storage::_flash_load(void)
 #else
     ::printf("Storage: Using flash pages %u and %u\n", _flash_page, _flash_page+1);
 #endif
+#endif /* AP_STORAGE_M1_FLASH / STORAGE_FLASH_PAGE setup */
 
+#if defined(AP_STORAGE_M1_FLASH) || defined(STORAGE_FLASH_PAGE)
     while (!_flash.init()) {
         _flash_read_fail_count++;
         if (_flash_read_fail_count > HAL_FLASH_READ_FAIL_LIMIT) {
@@ -443,7 +459,27 @@ bool Storage::_flash_write(uint16_t line)
  */
 bool Storage::_flash_write_data(uint8_t sector, uint32_t offset, const uint8_t *data, uint16_t length)
 {
-#ifdef STORAGE_FLASH_PAGE
+#if defined(RP2350) && defined(AP_STORAGE_M1_FLASH)
+#if AP_FLASH_STORAGE_QUAD_PAGE
+    sector *= 4;
+#elif AP_FLASH_STORAGE_DOUBLE_PAGE
+    sector *= 2;
+#endif
+    const uint32_t m1_base = ((uint32_t)_flash_page + sector) * RP2350_M1_SECTOR_SIZE;
+    /* Write in up to 256-byte page-aligned chunks. */
+    uint32_t written = 0;
+    while (written < length) {
+        uint32_t page_off  = (offset + written) & (RP2350_M1_PAGE_SIZE - 1U);
+        uint16_t chunk     = (uint16_t)MIN((uint32_t)(length - written),
+                                           (uint32_t)(RP2350_M1_PAGE_SIZE - page_off));
+        if (!rp2350_m1_flash_program_page(m1_base + offset + written,
+                                          data + written, chunk)) {
+            return false;
+        }
+        written += chunk;
+    }
+    return true;
+#elif defined(STORAGE_FLASH_PAGE)
 #if AP_FLASH_STORAGE_QUAD_PAGE
     sector *= 4;
 #elif AP_FLASH_STORAGE_DOUBLE_PAGE
@@ -471,7 +507,7 @@ bool Storage::_flash_write_data(uint8_t sector, uint32_t offset, const uint8_t *
     return false;
 #else
     return false;
-#endif
+#endif /* AP_STORAGE_M1_FLASH / STORAGE_FLASH_PAGE */
 }
 
 /*
@@ -479,7 +515,21 @@ bool Storage::_flash_write_data(uint8_t sector, uint32_t offset, const uint8_t *
  */
 bool Storage::_flash_read_data(uint8_t sector, uint32_t offset, uint8_t *data, uint16_t length)
 {
-#ifdef STORAGE_FLASH_PAGE
+#if defined(RP2350) && defined(AP_STORAGE_M1_FLASH)
+    if (_flash_read_disabled) {
+        memset(data, 0, length);
+        return true;
+    }
+#if AP_FLASH_STORAGE_QUAD_PAGE
+    sector *= 4;
+#elif AP_FLASH_STORAGE_DOUBLE_PAGE
+    sector *= 2;
+#endif
+    const uint32_t m1_base = ((uint32_t)_flash_page + sector) * RP2350_M1_SECTOR_SIZE;
+    rp2350_m1_flash_read(m1_base + offset, data, length);
+    _flash_read_fail_count = 0;
+    return true;
+#elif defined(STORAGE_FLASH_PAGE)
     if (_flash_read_disabled) {
         memset(data, 0, length);
         return true;
@@ -513,7 +563,7 @@ bool Storage::_flash_read_data(uint8_t sector, uint32_t offset, uint8_t *data, u
     return true;
 #else
     return false;
-#endif
+#endif /* AP_STORAGE_M1_FLASH / STORAGE_FLASH_PAGE */
 }
 
 /*
@@ -521,7 +571,29 @@ bool Storage::_flash_read_data(uint8_t sector, uint32_t offset, uint8_t *data, u
  */
 bool Storage::_flash_erase_sector(uint8_t sector)
 {
-#ifdef STORAGE_FLASH_PAGE
+#if defined(RP2350) && defined(AP_STORAGE_M1_FLASH)
+#if AP_FLASH_STORAGE_QUAD_PAGE
+    sector *= 4;
+#elif AP_FLASH_STORAGE_DOUBLE_PAGE
+    sector *= 2;
+#endif
+    /* Erase one logical sector = AP_FLASH_STORAGE_QUAD_PAGE × 4 KB sectors. */
+    EXPECT_DELAY_MS(1000);
+#if AP_FLASH_STORAGE_QUAD_PAGE
+    const int n_physical = 4;
+#elif AP_FLASH_STORAGE_DOUBLE_PAGE
+    const int n_physical = 2;
+#else
+    const int n_physical = 1;
+#endif
+    for (int i = 0; i < n_physical; i++) {
+        uint32_t off = ((uint32_t)_flash_page + sector + i) * RP2350_M1_SECTOR_SIZE;
+        if (!rp2350_m1_flash_erase_sector(off)) {
+            return false;
+        }
+    }
+    return true;
+#elif defined(STORAGE_FLASH_PAGE)
 #if AP_FLASH_STORAGE_QUAD_PAGE
     sector *= 4;
 #elif AP_FLASH_STORAGE_DOUBLE_PAGE
@@ -551,7 +623,7 @@ bool Storage::_flash_erase_sector(uint8_t sector)
     return false;
 #else
     return false;
-#endif
+#endif /* AP_STORAGE_M1_FLASH / STORAGE_FLASH_PAGE */
 }
 
 /*
