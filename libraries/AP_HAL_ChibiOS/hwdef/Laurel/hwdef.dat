@@ -31,7 +31,7 @@ APJ_BOARD_ID AP_HW_RASPBERRYPI_LAUREL
 OSCILLATOR_HZ 12000000
 
 # 8MB boot/XIP flash: W25Q64JVXGIM (Winbond, 133 MHz max, QSPI, chip-select = QSPI_SS / pin75 — dedicated HW pin, QMI-controlled)
-# 16MB blackbox flash: W25Q128JVPIM (Winbond, 133 MHz max, SPI, chip-select = PA0 / GPIO0 / pin77)
+# 16MB blackbox flash: W25Q128JVPIM (Winbond, 133 MHz max, QSPI, chip-select = QSPI_CS1n / GPIO0 / pin77 — QMI M1, shares QSPI bus (SD0-3 + CLK) with boot flash)
 FLASH_SIZE_KB 8192
 # The ChibiOS EFLv1 driver defaults RP_FLASH_SIZE to 4MB; override it to the
 # actual flash capacity so efl_lld_program and block-erase accept 8MB offsets.
@@ -209,7 +209,12 @@ define AP_FEATURE_BOARD_DETECT 0
 # used for Betaflight blackbox logging is not yet modelled by the RP2350 hwdef.
 define HAL_STORAGE_SIZE 8192
 define HAL_WITH_RAMTRON 0
-STORAGE_FLASH_PAGE 8
+# Parameter storage on QMI M1 (W25Q128, 0x11000000). Page 0 = first 4KB sector.
+# AP_STORAGE_M1_FLASH bypasses hal.flash (M0 EFL) entirely; erase/write go
+# via rp2350_m1_flash_erase_sector / rp2350_m1_flash_program_page (RAMFUNC,
+# CS1n, no XIP cache flush). M0 boot flash layout is untouched.
+define AP_STORAGE_M1_FLASH 1
+STORAGE_FLASH_PAGE 0
 define AP_FLASH_STORAGE_QUAD_PAGE 1
 
 define HAL_HAVE_SAFETY_SWITCH 0
@@ -405,11 +410,10 @@ define RP_QMI_RXDELAY 3
 #   chip-select on PA25 (microSD).
 # - SPI1 is a hardware either-or choice: microSD or hardware OSD. This target
 #   selects microSD and keeps the hardware OSD SPI device disabled.
-# - The secondary W25Q128JVPIM blackbox flash (Winbond, 128 Mbit) on Laurel
-#   uses chip-select PA0 (GPIO0, pin77). The SPI bus it shares is not yet
-#   confirmed from schematic; it is not yet represented in
-#   the RP2350 hwdef path, so only main XIP flash storage plus microSD are
-#   currently enabled.
+# - The secondary W25Q128JVPIM blackbox flash is QMI M1: it shares the QSPI
+#   bus (QSPI_SD0-3 + QSPI_CLK) with the boot flash (M0), with its own CS
+#   on QSPI_CS1n (GPIO0, pin77) — confirmed from schematic. Not yet enabled
+#   in the hwdef; only main XIP flash storage plus microSD are currently active.
 
 # Sensors
 define HAL_INS_ALLOW_NO_SENSORS 1

@@ -27,7 +27,7 @@ header-pin numbering from the Pico2 README does not apply here.
 - RP2350B dual-core Cortex-M33 @ 375 MHz
 - 520 KB SRAM
 - 8 MB boot/XIP flash: `W25Q64JVXGIM` (Winbond, 133 MHz max, CS = `QSPI_SS` pin75 — dedicated QMI hardware pin)
-- 16 MB blackbox flash: `W25Q128JVPIM` (Winbond, 133 MHz max, CS = `PA0`/GPIO0/pin77) — SPI bus not yet confirmed in hwdef
+- 16 MB blackbox flash: `W25Q128JVPIM` (Winbond, 133 MHz max, CS = `QSPI_CS1n`/GPIO0/pin77 — QMI M1, shares QSPI bus with boot flash; not yet enabled in hwdef)
 - USB CDC serial on `SERIAL0`
 - 2 hardware UARTs + 2 PIO UARTs in the current Laurel hwdef
 - 4 PWM motor outputs on GPIO28-31
@@ -234,9 +234,10 @@ Main parameter storage uses the RP2350 XIP flash. Logs use the SPI-mode microSD 
 - logical parameter capacity: 8 KB with `AP_FLASH_STORAGE_QUAD_PAGE 1`
 
 The Laurel board carries a secondary `W25Q128JVPIM` (Winbond 128 Mbit / 16 MB)
-blackbox flash in addition to the boot flash. Its chip-select is `PA0` (GPIO0,
-pin77), confirmed from the Betaflight board config. The SPI bus it shares has
-not yet been confirmed from the schematic. Storage currently consists of the
+blackbox flash in addition to the boot flash. It is QMI M1: it shares the QSPI
+bus (QSPI_SD0-3 + QSPI_CLK) with the boot flash, with its own CS on `QSPI_CS1n`
+(GPIO0,
+pin77) — confirmed from schematic. Storage currently consists of the
 main XIP flash (`W25Q64JVXGIM`) plus the SPI-mode microSD card.
 
 ## Connectors
@@ -509,7 +510,7 @@ using *a* dedicated Pico2W for a debugger, running debugprobe_on_pico2.uf2
 | DShot / BLHeli / SerialLED | Not supported on current RP2350 target |
 | CAN / DroneCAN | Not supported by RP2350 hardware |
 | Hardware OSD and microSD together | Not possible on Laurel hardware; current target chooses microSD |
-| Secondary blackbox flash (`W25Q128JVPIM`) | CS = `PA0`/GPIO0/pin77 confirmed; SPI bus not yet confirmed — not modelled in hwdef |
+| Secondary blackbox flash (`W25Q128JVPIM`) | QMI M1; CS = `QSPI_CS1n`/GPIO0/pin77; shares QSPI bus with boot flash (confirmed from schematic) — not yet enabled in hwdef |
 | RX-only extra serial pads | Not yet represented in current serial definitions |
 | Analog scaling calibration | Placeholder scale factors still in use |
 
