@@ -13,8 +13,10 @@ from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
-from dataclasses import dataclass
+import tempfile
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -79,6 +81,72 @@ HWDEF_BOOL_DEFINE_KEYS = {
     "HAL_LOGGING_FILESYSTEM_ENABLED",
     "AP_SCRIPTING_ENABLED",
 }
+
+
+_LAUREL_PORT = "/dev/serial/by-id/usb-ArduPilot_Laurel_B8CE48E2E19D881E67A96B1B-if00"
+
+
+@dataclass
+class LiveHeapMetrics:
+    port: str
+    heap_free: int        # current total free bytes across all heaps
+    heap_largest: int     # largest contiguous free block (fragmentation indicator)
+    heap_regions: List[Dict]  # raw region records from MemInfoV1
+
+
+def detect_board_port() -> Optional[str]:
+    if Path(_LAUREL_PORT).exists():
+        return _LAUREL_PORT
+    import glob
+    acm = sorted(glob.glob("/dev/ttyACM*"))
+    return acm[0] if acm else None
+
+
+def fetch_memory_txt(port: str, timeout_s: int = 15) -> Optional[Path]:
+    tmp = Path(tempfile.mkdtemp(prefix="rp2350_heap_"))
+    out = tmp / "memory.txt"
+    cmd = [
+        "mavproxy.py",
+        f"--master={port}",
+        "--non-interactive",
+        f"--cmd=ftp get @SYS/memory.txt {out}",
+    ]
+    try:
+        subprocess.run(cmd, timeout=timeout_s, capture_output=True, text=True)
+    except (subprocess.TimeoutExpired, FileNotFoundError):
+        return None
+    return out if out.exists() and out.stat().st_size > 0 else None
+
+
+def parse_memory_txt(path: Path) -> Optional[LiveHeapMetrics]:
+    re_region = re.compile(
+        r"START=0x([0-9a-fA-F]+)\s+LEN=\s*(\d+)k\s+FREE=\s*(\d+)\s+LRG=\s*(\d+)\s+TYPE=(\d+)"
+    )
+    regions = []
+    try:
+        text = path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return None
+    if "MemInfoV1" not in text:
+        return None
+    for m in re_region.finditer(text):
+        regions.append({
+            "start": int(m.group(1), 16),
+            "len_kb": int(m.group(2)),
+            "free": int(m.group(3)),
+            "largest": int(m.group(4)),
+            "type": int(m.group(5)),
+        })
+    if not regions:
+        return None
+    total_free = sum(r["free"] for r in regions)
+    total_largest = max(r["largest"] for r in regions)
+    return LiveHeapMetrics(
+        port=str(path),
+        heap_free=total_free,
+        heap_largest=total_largest,
+        heap_regions=regions,
+    )
 
 
 @dataclass
@@ -495,6 +563,7 @@ def recommend_min_heap(
     alloc_metrics: AllocationMetrics,
     hwdef_metrics: Optional[HwdefMetrics],
     runtime_metrics: Optional[RuntimeMetrics],
+    live_heap: Optional[LiveHeapMetrics] = None,
 ) -> Dict[str, int]:
     # Base floors: keep at least 12.5% of RAM or 64KB, whichever is larger.
     ram_percent_floor = map_metrics.ram0_size // 8
@@ -566,6 +635,16 @@ def recommend_min_heap(
         hwdef_pressure,
     )
 
+    # Live heap measurement: when available this overrides all heuristics.
+    # After full boot init the heap is in a stable post-allocation state.
+    # peak_used = heap_total - live_free; recommend = peak_used + 32 KB margin.
+    live_recommendation = 0
+    if live_heap is not None:
+        heap_total = map_metrics.heap_size
+        live_peak_used = heap_total - live_heap.heap_free
+        live_recommendation = live_peak_used + 32 * 1024
+        recommended = max(recommended, live_recommendation)
+
     # Keep recommendation sane and inside RAM.
     max_reasonable = map_metrics.ram0_size - (32 * 1024)
     recommended = min(recommended, max_reasonable)
@@ -579,6 +658,7 @@ def recommend_min_heap(
         "stack_wa_pressure": stack_wa_pressure,
         "runtime_overrun_pressure": runtime_overrun_pressure,
         "hwdef_pressure": hwdef_pressure,
+        "live_recommendation": live_recommendation,
         "recommended_min_heap": recommended,
         "delta_vs_current": recommended - map_metrics.min_heap,
     }
@@ -678,6 +758,7 @@ def build_report(
     recommendation: Dict[str, int],
     hwdef_metrics: Optional[HwdefMetrics],
     runtime_metrics: Optional[RuntimeMetrics],
+    live_heap: Optional[LiveHeapMetrics] = None,
 ) -> Dict[str, object]:
     report: Dict[str, object] = {
         "map_file": str(map_path),
@@ -726,6 +807,14 @@ def build_report(
             "storage_flash_pages": hwdef_metrics.storage_flash_pages,
             "sched_loop_rate": hwdef_metrics.sched_loop_rate,
             "bool_defines": hwdef_metrics.bool_defines,
+        }
+
+    if live_heap is not None:
+        report["live_heap"] = {
+            "port": live_heap.port,
+            "heap_free": live_heap.heap_free,
+            "heap_largest": live_heap.heap_largest,
+            "regions": live_heap.heap_regions,
         }
 
     if runtime_metrics:
@@ -931,6 +1020,22 @@ def print_human_report(report: Dict[str, object]) -> None:
     print(f"  {_DIV}")
     print(f"  {'RAM total:':<{_C}} {human_bytes(_ram):>10}  (100%)")
 
+    live_heap = report.get("live_heap")
+    if live_heap is not None:
+        print()
+        print("Live heap (fetched from board)")
+        print(f"- Board port:         {live_heap['port']}")
+        print(f"- Heap free now:      {human_bytes(live_heap['heap_free'])}")
+        print(f"- Largest block:      {human_bytes(live_heap['heap_largest'])}")
+        heap_total = sram['heap_size']
+        if heap_total > 0:
+            peak_used = heap_total - live_heap['heap_free']
+            frag_gap = live_heap['heap_free'] - live_heap['heap_largest']
+            print(f"- Peak heap used:     {human_bytes(peak_used)}  (heap_total - free)")
+            print(f"- Fragmentation gap:  {human_bytes(frag_gap)}  (free - largest_block)")
+        for r in live_heap.get('regions', []):
+            print(f"  region START=0x{r['start']:08x} LEN={r['len_kb']}k  FREE={human_bytes(r['free'])}  LRG={human_bytes(r['largest'])}  TYPE={r['type']}")
+
     print()
     print("Suggested threshold")
     print(f"- ram_percent_floor:  {human_bytes(rec['ram_percent_floor'])}")
@@ -941,6 +1046,8 @@ def print_human_report(report: Dict[str, object]) -> None:
     print(f"- stack_wa_pressure:  {human_bytes(rec['stack_wa_pressure'])}")
     print(f"- runtime_overrun:    {human_bytes(rec['runtime_overrun_pressure'])}")
     print(f"- hwdef_pressure:     {human_bytes(rec['hwdef_pressure'])}")
+    if rec.get('live_recommendation', 0) > 0:
+        print(f"- live_measurement:   {human_bytes(rec['live_recommendation'])}  *** authoritative (peak_used + 32KB margin)")
     print(f"- recommended min:    {human_bytes(rec['recommended_min_heap'])}")
 
     delta = rec["delta_vs_current"]
@@ -1037,7 +1144,24 @@ def main() -> int:
     if (threads_path and threads_path.exists()) or (tasks_path and tasks_path.exists()):
         runtime_metrics = parse_runtime_metrics(threads_path, tasks_path)
 
-    recommendation = recommend_min_heap(map_metrics, alloc_metrics, hwdef_metrics, runtime_metrics)
+    # Auto-detect board and fetch live heap data from @SYS/memory.txt.
+    # Laurel port is fixed; fall back to first /dev/ttyACM* if symlink absent.
+    live_heap: Optional[LiveHeapMetrics] = None
+    board_port = detect_board_port()
+    if board_port:
+        print(f"Board detected: {board_port}")
+        print("Fetching @SYS/memory.txt from board (15 s timeout)...")
+        mem_path = fetch_memory_txt(board_port, timeout_s=15)
+        if mem_path:
+            live_heap = parse_memory_txt(mem_path)
+            if live_heap is None:
+                print("warning: memory.txt fetched but could not be parsed", file=sys.stderr)
+        else:
+            print("warning: memory.txt fetch failed (board not ready or FTP not working)", file=sys.stderr)
+    else:
+        print("No board detected — live heap measurement skipped.")
+
+    recommendation = recommend_min_heap(map_metrics, alloc_metrics, hwdef_metrics, runtime_metrics, live_heap)
 
     report = build_report(
         map_path=map_path,
@@ -1046,6 +1170,7 @@ def main() -> int:
         recommendation=recommendation,
         hwdef_metrics=hwdef_metrics,
         runtime_metrics=runtime_metrics,
+        live_heap=live_heap,
     )
 
     print_human_report(report)
