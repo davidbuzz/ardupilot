@@ -50,7 +50,9 @@ static const SysFileList sysfs_file_list[] = {
 #if !defined(HAL_BOOTLOADER_BUILD) && (defined(STM32F7) || defined(STM32H7))
     {"persistent.parm"},
 #endif
+#if AP_CRASHDUMP_ENABLED
     {"crash_dump.bin"},
+#endif
     {"storage.bin"},
 #if AP_FILESYSTEM_SYS_FLASH_ENABLED
     {"flash.bin"},
