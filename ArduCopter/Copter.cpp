@@ -870,7 +870,7 @@ void Copter::one_hz_loop()
         const uint8_t rate_core = 1;
         bool rate_ok = hal.scheduler->thread_create_pinned_to_core(
                       FUNCTOR_BIND_MEMBER(&Copter::rate_controller_thread, void),
-                      "rate", 4096, AP_HAL::Scheduler::PRIORITY_RCOUT, 1, rate_core);
+                      "rate", 5120, AP_HAL::Scheduler::PRIORITY_RCOUT, 1, rate_core);
         if (rate_ok) {
             started_rate_thread = true;
         } else {
@@ -887,7 +887,7 @@ void Copter::one_hz_loop()
     if (!started_ekf_thread) {
         bool ekf_ok = hal.scheduler->thread_create_pinned_to_core(
                       FUNCTOR_BIND_MEMBER(&Copter::ekf_thread, void),
-                      "ekf", 9216, AP_HAL::Scheduler::PRIORITY_IO, 1, 1);
+                      "ekf", 12288, AP_HAL::Scheduler::PRIORITY_IO, 1, 1);
         if (ekf_ok) {
             started_ekf_thread = true;
             AP::ahrs().set_ekf_runs_in_thread(true);
