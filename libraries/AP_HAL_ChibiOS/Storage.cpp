@@ -477,6 +477,7 @@ bool Storage::_flash_write_data(uint8_t sector, uint32_t offset, const uint8_t *
                                           data + written, chunk)) {
             return false;
         }
+        rp2350_m1_flash_wait_ready();
         written += chunk;
     }
     return true;
@@ -592,6 +593,7 @@ bool Storage::_flash_erase_sector(uint8_t sector)
         if (!rp2350_m1_flash_erase_sector(off)) {
             return false;
         }
+        rp2350_m1_flash_wait_ready();
     }
     return true;
 #elif defined(STORAGE_FLASH_PAGE)

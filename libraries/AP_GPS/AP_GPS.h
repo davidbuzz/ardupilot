@@ -682,6 +682,7 @@ private:
     // state of auto-detection process, per instance
     struct detect_state {
         uint32_t last_baud_change_ms;
+        uint32_t last_scan_log_ms;  // rate-limit for per-baud diagnostic GCS messages
         uint8_t current_baud;
         uint32_t probe_baud;
         bool auto_detected_baud;
@@ -704,6 +705,11 @@ private:
         struct ERB_detect_state erb_detect_state;
 #endif
     } detect_state[GPS_MAX_RECEIVERS];
+
+    // timestamp (ms) when we first entered the no-driver detection loop for each
+    // instance; reset to 0 when a driver is successfully created.  Used to
+    // force a full baud-cycle restart after GPS_NO_DETECT_RESET_MS of failure.
+    uint32_t no_detect_start_ms[GPS_MAX_RECEIVERS];
 
     struct {
         const char *blob;

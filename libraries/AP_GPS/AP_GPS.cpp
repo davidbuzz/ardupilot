@@ -523,7 +523,7 @@ void AP_GPS::send_blob_start(uint8_t instance)
     const auto type = params[instance].type;
 
 #if AP_GPS_UBLOX_ENABLED
-    if (type == GPS_TYPE_UBLOX && option_set(DriverOptions::UBX_Use115200)) {
+    if ((type == GPS_TYPE_UBLOX || type == GPS_TYPE_AUTO) && option_set(DriverOptions::UBX_Use115200)) {
         static const char blob[] = UBLOX_SET_BINARY_115200;
         send_blob_start(instance, blob, sizeof(blob));
         return;
@@ -594,9 +594,13 @@ void AP_GPS::send_blob_update(uint8_t instance)
     // see if we can write some more of the initialisation blob
     const uint16_t n = MIN(_port[instance]->txspace(),
                            initblob_state[instance].remaining);
+    const uint16_t prev_remaining = initblob_state[instance].remaining;
     const size_t written = _port[instance]->write((const uint8_t*)initblob_state[instance].blob, n);
     initblob_state[instance].blob += written;
     initblob_state[instance].remaining -= written;
+    if (prev_remaining != 0 && initblob_state[instance].remaining == 0) {
+        GCS_SEND_TEXT(MAV_SEVERITY_DEBUG, "GPS %u: blob fully sent", (unsigned)(instance+1));
+    }
 }
 
 /*
@@ -604,6 +608,10 @@ void AP_GPS::send_blob_update(uint8_t instance)
   will fill in drivers[instance] and change state[instance].status
   from NO_GPS to NO_FIX.
  */
+// after this many ms with no driver found, reset the baud-cycle state machine
+// and try again from scratch
+#define GPS_NO_DETECT_RESET_MS 30000U
+
 void AP_GPS::detect_instance(uint8_t instance)
 {
     const uint32_t now = AP_HAL::millis();
@@ -612,10 +620,24 @@ void AP_GPS::detect_instance(uint8_t instance)
     state[instance].hdop = GPS_UNKNOWN_DOP;
     state[instance].vdop = GPS_UNKNOWN_DOP;
 
+    // track how long we've been unable to detect a GPS on this instance
+    if (no_detect_start_ms[instance] == 0) {
+        no_detect_start_ms[instance] = now;
+    } else if (now - no_detect_start_ms[instance] > GPS_NO_DETECT_RESET_MS) {
+        // full baud-cycle restart: zero all detection state so the next call to
+        // _detect_instance() begins probing from the first baud rate again
+        memset(&detect_state[instance], 0, sizeof(detect_state[instance]));
+        memset(&initblob_state[instance], 0, sizeof(initblob_state[instance]));
+        no_detect_start_ms[instance] = now;
+    }
+
     AP_GPS_Backend *new_gps = _detect_instance(instance);
     if (new_gps == nullptr) {
         return;
     }
+
+    // driver found — clear the no-detect timer
+    no_detect_start_ms[instance] = 0;
 
     state[instance].status = AP_GPS_FixType::NONE;
     drivers[instance] = new_gps;
@@ -709,9 +731,14 @@ AP_GPS_Backend *AP_GPS::_detect_instance(const uint8_t instance)
         port->begin(dstate->probe_baud, rx_size, tx_size);
         port->set_flow_control(AP_HAL::UARTDriver::FLOW_CONTROL_DISABLE);
         dstate->last_baud_change_ms = now;
+        dstate->last_scan_log_ms = 0;  // reset rate-limiter for new baud window
+        GCS_SEND_TEXT(MAV_SEVERITY_DEBUG, "GPS %u: probing baud %lu ac=%d",
+                      (unsigned)(instance+1), (unsigned long)dstate->probe_baud, (int)_auto_config);
 
         if (_auto_config >= GPS_AUTO_CONFIG_ENABLE_SERIAL_ONLY) {
             send_blob_start(instance);
+            GCS_SEND_TEXT(MAV_SEVERITY_DEBUG, "GPS %u: blob queued %u bytes",
+                          (unsigned)(instance+1), (unsigned)initblob_state[instance].remaining);
         }
     }
 
@@ -742,21 +769,36 @@ AP_GPS_Backend *AP_GPS::_detect_instance(const uint8_t instance)
 
     if (initblob_state[instance].remaining != 0) {
         // don't run detection engines if we haven't sent out the initblobs
+        if (now - dstate->last_scan_log_ms > 1000U) {
+            dstate->last_scan_log_ms = now;
+            GCS_SEND_TEXT(MAV_SEVERITY_DEBUG, "GPS %u: blob pending %u bytes, detect blocked",
+                          (unsigned)(instance+1), (unsigned)initblob_state[instance].remaining);
+        }
         return nullptr;
     }
 
     uint16_t bytecount = MIN(8192U, port->available());
+    if (now - dstate->last_scan_log_ms > 1000U) {
+        dstate->last_scan_log_ms = now;
+        GCS_SEND_TEXT(MAV_SEVERITY_DEBUG, "GPS %u: scanning %u bytes @ %lu baud",
+                      (unsigned)(instance+1), (unsigned)bytecount, (unsigned long)dstate->probe_baud);
+    }
 
     while (bytecount-- > 0) {
         const uint8_t data = port->read();
         (void)data;  // if all backends are compiled out then "data" is unused
 
 #if AP_GPS_UBLOX_ENABLED
+        // Use dstate->probe_baud (the actual UART baud) rather than
+        // _baudrates[current_baud].  The first probe uses get_baud_rate()
+        // which leaves current_baud=0 (9600 in the array) even though the
+        // UART is already running at SERIAL2_BAUD (e.g. 115200), causing the
+        // condition to incorrectly evaluate against 9600 and skip detection.
         if ((type == GPS_TYPE_AUTO ||
              type == GPS_TYPE_UBLOX) &&
-            ((!_auto_config && _baudrates[dstate->current_baud] >= 38400) ||
-             (_baudrates[dstate->current_baud] >= 115200 && option_set(DriverOptions::UBX_Use115200)) ||
-             _baudrates[dstate->current_baud] == 230400) &&
+            ((!_auto_config && dstate->probe_baud >= 38400) ||
+             (dstate->probe_baud >= 115200 && option_set(DriverOptions::UBX_Use115200)) ||
+             dstate->probe_baud == 230400) &&
             AP_GPS_UBLOX::_detect(dstate->ublox_detect_state, data)) {
             return NEW_NOTHROW AP_GPS_UBLOX(*this, params[instance], state[instance], port, GPS_ROLE_NORMAL);
         }
@@ -903,6 +945,9 @@ void AP_GPS::update_instance(uint8_t instance)
                 delete drivers[instance];
                 drivers[instance] = nullptr;
                 state[instance].status = AP_GPS_FixType::NO_GPS;
+                // reset the no-detect timer so the 30s re-probe clock starts
+                // from this transition back to NO_GPS
+                no_detect_start_ms[instance] = 0;
             }
             // log this data as a "flag" that the GPS is no longer
             // valid (see PR#8144)

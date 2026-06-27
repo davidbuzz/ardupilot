@@ -63,8 +63,11 @@ EK3_IMU_MASK 1
 SCHED_OPTIONS 1
 
 
-# 2 = ublox serial (GPS1_TYPE was GPS_TYPE in older ArduPilot)
-GPS1_TYPE 2
+# 1 = AUTO detect.
+# Laurel field behavior: some GPS modules power up after FC boot (USB-only boot,
+# then external rail present). AUTO keeps probing all supported serial formats,
+# avoiding a sticky "No GPS" state when a late-powered module is not yet in UBX.
+GPS1_TYPE 1
 # GPS_DRV_OPTIONS bit 2: cap ublox baud at 115200 instead of 230400.
 # Preferring 115200 for GPS as less overhead and more proven on this hardware.
 GPS_DRV_OPTIONS 4

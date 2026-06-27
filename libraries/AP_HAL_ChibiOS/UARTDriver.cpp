@@ -521,6 +521,17 @@ void UARTDriver::_begin(uint32_t b, uint16_t rxS, uint16_t txS)
         if (_baudrate != 0) {
 #ifndef HAL_UART_NODMA
             bool was_initialised = _device_initialised;
+            // Flush the PL011 hardware RX FIFO before reprogramming baud rate.
+            // sioStart() does not reset the FIFO when the peripheral is already
+            // running (SIO_READY state), so stale bytes framed at the old baud
+            // rate would otherwise pollute the new detection window.
+            // Per ARM PL011 spec: clearing FEN in LCR_H disables and flushes
+            // both RX and TX FIFOs; writing FEN=1 re-enables them empty.
+            if (clear_buffers && _device_initialised) {
+                auto *pl011 = ((SIODriver*)sdef.serial)->uart;
+                pl011->UARTLCR_H &= ~UART_UARTLCR_H_FEN;  // flush FIFOs
+                pl011->UARTLCR_H |=  UART_UARTLCR_H_FEN;  // re-enable empty
+            }
             // setup Rx DMA for RP2350
             if (!_device_initialised) {
                 if (rx_dma_enabled) {
