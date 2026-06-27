@@ -1,5 +1,10 @@
 #pragma once
 
+/* hwdef.h defines RP2350 (and other board macros) — must come first. */
+#if __has_include(<hwdef.h>)
+#include <hwdef.h>
+#endif
+
 /*
  * RP2350 QMI M1 flash driver — W25Q128JVPIM blackbox flash on QSPI CS1n.
  *
@@ -42,6 +47,23 @@ void rp2350_m1_flash_read(uint32_t offset, void *buf, size_t len);
 /* Erase a 4 KB sector.  offset must be 4 KB-aligned.
  * Runs with XIP in direct mode; M0 XIP cache is NOT flushed on exit. */
 bool rp2350_m1_flash_erase_sector(uint32_t offset);
+
+/* Erase a 64 KB block.  offset must be 64 KB-aligned.
+ * Runs with XIP in direct mode; M0 XIP cache is NOT flushed on exit. */
+bool rp2350_m1_flash_erase_block64(uint32_t offset);
+
+/* Start a whole-chip bulk erase (0xC7).  Returns immediately; chip is busy
+ * erasing.  Poll rp2350_m1_flash_busy() to detect completion. */
+bool rp2350_m1_flash_bulk_erase(void);
+
+/* Non-blocking busy check — returns true if chip is still erasing/programming.
+ * Each call is one ~5 µs direct-mode window; M0 XIP active between calls. */
+bool rp2350_m1_flash_busy(void);
+
+/* Block until SR.BUSY clears, yielding M0 XIP between each ~5 µs poll.
+ * Use this after async erase/program when the caller must wait for completion
+ * before issuing the next command (e.g. Sector4kErase → BufferToPage). */
+void rp2350_m1_flash_wait_ready(void);
 
 /* Program up to 256 bytes.  offset+len must not cross a 256-byte page.
  * Runs with XIP in direct mode; M0 XIP cache is NOT flushed on exit. */

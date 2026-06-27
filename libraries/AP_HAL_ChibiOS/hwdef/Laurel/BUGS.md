@@ -135,7 +135,7 @@ for the Laurel hardware voltage divider and current sense resistor values. Set
 ---
 
 ### DIAG-001 — `AP_InternalError` bitmask not preserved across reset; invisible after reboot
-**Symptom:** When `INTERNAL_ERROR()` fires, the scheduler enters a fast-spinning empty loop (visible as an anomalously high Perf Hz reading — 500–700+ Hz is the diagnostic signature). After the watchdog fires and the board resets, the error bitmask is lost. The only way to confirm an InternalError occurred is to observe the Perf Hz anomaly live or to halt under GDB during the event. Post-reset diagnosis is impossible.
+**Symptom:** When `INTERNAL_ERROR()` fires, the scheduler enters a fast-spinning empty loop (visible as an anomalously high Perf Hz reading — 600–700+ Hz is the diagnostic signature). After the watchdog fires and the board resets, the error bitmask is lost. The only way to confirm an InternalError occurred is to observe the Perf Hz anomaly live or to halt under GDB during the event. Post-reset diagnosis is impossible.
 **Fix designed, not yet implemented:** Add a write to a WATCHDOG SCRATCH register inside `AP_InternalError::error()` (or its platform hook) saving the bitmask. SCRATCH registers survive PSM resets. The existing watchdog detection path in `rp2350_watchdog_init()` already reads SCRATCH[6]/[7] — add SCRATCH[8] (or repurpose a free slot) for the InternalError bitmask. After a WD reset, `HAL_ChibiOS_Class.cpp` can report it via GCS just as it does for the watchdog reset event. Filed as design intent; not yet implemented.
 
 ---

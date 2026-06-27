@@ -16,6 +16,7 @@
  */
 #include <AP_HAL/AP_HAL.h>
 #include <AP_BoardConfig/AP_BoardConfig.h>
+#include <AP_Math/AP_Math.h>
 
 #include "Storage.h"
 #include "HAL_ChibiOS_Class.h"

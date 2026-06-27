@@ -214,6 +214,10 @@ define HAL_WITH_RAMTRON 0
 # via rp2350_m1_flash_erase_sector / rp2350_m1_flash_program_page (RAMFUNC,
 # CS1n, no XIP cache flush). M0 boot flash layout is untouched.
 define AP_STORAGE_M1_FLASH 1
+# Use RP2350 QMI M1 flash as the block-based logger backend.
+define HAL_LOGGING_DATAFLASH_ENABLED 1
+define HAL_LOGGING_FLASH_RP2350M1_ENABLED 1
+define HAL_LOGGING_DATAFLASH_DRIVER AP_Logger_Flash_RP2350M1
 STORAGE_FLASH_PAGE 0
 define AP_FLASH_STORAGE_QUAD_PAGE 1
 
