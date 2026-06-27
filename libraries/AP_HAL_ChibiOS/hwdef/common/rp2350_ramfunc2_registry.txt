@@ -207,6 +207,16 @@ modules/ChibiOS/os/rt/src/chsys.c|chSysGetIdleThreadX
 modules/ChibiOS/os/common/ports/ARMv8-M-ML-ALT/compilers/GCC/chcoreasm.S|PendSV_Handler
 modules/ChibiOS/os/common/ports/ARMv8-M-ML-ALT/compilers/GCC/chcoreasm.S|SVC_Handler
 modules/ChibiOS/os/common/ports/ARMv8-M-ML-ALT/compilers/GCC/chcoreasm.S|__port_thread_start
+# Storage M1 flash path: all in SRAM to prevent UNDEFINSTR when DIRECT_CSR_EN=1 causes XIP miss on either core
+libraries/AP_HAL_ChibiOS/Storage.cpp|ChibiOS::Storage::_storage_open  # 72 B (sram)
+libraries/AP_HAL_ChibiOS/Storage.cpp|ChibiOS::Storage::_mark_dirty  # 70 B (sram)
+libraries/AP_HAL_ChibiOS/Storage.cpp|ChibiOS::Storage::read_block  # 46 B (sram)
+libraries/AP_HAL_ChibiOS/Storage.cpp|ChibiOS::Storage::write_block  # 98 B (sram)
+libraries/AP_HAL_ChibiOS/Storage.cpp|ChibiOS::Storage::_flash_read_data  # 56 B (sram)
+libraries/AP_HAL_ChibiOS/Storage.cpp|ChibiOS::Storage::_flash_write_data  # 88 B (sram)
+libraries/AP_HAL_ChibiOS/Storage.cpp|ChibiOS::Storage::_flash_erase_sector  # 64 B (sram)
+libraries/AP_HAL_ChibiOS/Storage.cpp|ChibiOS::Storage::_flash_erase_ok  # 20 B (sram)
+libraries/AP_HAL_ChibiOS/RP2350M1Flash.cpp|rp2350_m1_flash_wait_ready  # 12 B (sram)
 modules/ChibiOS/os/hal/ports/RP/LLD/DMAv1/rp_dma.h|dmaChannelAbortX
 modules/ChibiOS/os/hal/ports/RP/LLD/DMAv1/rp_dma.h|dmaChannelDisableX
 modules/ChibiOS/os/hal/ports/RP/LLD/DMAv1/rp_dma.h|dmaChannelGetAndClearInterrupts
