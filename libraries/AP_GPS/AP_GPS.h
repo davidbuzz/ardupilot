@@ -725,6 +725,10 @@ private:
 #endif
     } detect_state[GPS_MAX_RECEIVERS];
 
+    // millis() when detection last started failing for each instance, or 0
+    // while a driver is attached
+    uint32_t no_detect_start_ms[GPS_MAX_RECEIVERS];
+
     struct {
         const char *blob;
         uint16_t remaining;

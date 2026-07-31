@@ -517,7 +517,7 @@ void AP_GPS::send_blob_start(uint8_t instance)
     const auto type = params[instance].type;
 
 #if AP_GPS_UBLOX_ENABLED
-    if (type == GPS_TYPE_UBLOX && option_set(DriverOptions::UBX_Use115200)) {
+    if ((type == GPS_TYPE_UBLOX || type == GPS_TYPE_AUTO) && option_set(DriverOptions::UBX_Use115200)) {
         static const char blob[] = UBLOX_SET_BINARY_115200;
         send_blob_start(instance, blob, sizeof(blob));
         return;
@@ -593,6 +593,9 @@ void AP_GPS::send_blob_update(uint8_t instance)
     initblob_state[instance].remaining -= written;
 }
 
+// after this many ms with no driver found, restart the baud-cycle state machine
+#define GPS_NO_DETECT_RESET_MS 30000U
+
 /*
   run detection step for one GPS instance. If this finds a GPS then it
   will fill in drivers[instance] and change state[instance].status
@@ -606,10 +609,22 @@ void AP_GPS::detect_instance(uint8_t instance)
     state[instance].hdop = GPS_UNKNOWN_DOP;
     state[instance].vdop = GPS_UNKNOWN_DOP;
 
+    if (no_detect_start_ms[instance] == 0) {
+        no_detect_start_ms[instance] = now;
+    } else if (now - no_detect_start_ms[instance] > GPS_NO_DETECT_RESET_MS) {
+        // probe from the first baud again, for a receiver that only powered up
+        // after we had already cycled past its rate
+        memset(&detect_state[instance], 0, sizeof(detect_state[instance]));
+        memset(&initblob_state[instance], 0, sizeof(initblob_state[instance]));
+        no_detect_start_ms[instance] = now;
+    }
+
     AP_GPS_Backend *new_gps = _detect_instance(instance);
     if (new_gps == nullptr) {
         return;
     }
+
+    no_detect_start_ms[instance] = 0;
 
     state[instance].status = AP_GPS_FixType::NONE;
     drivers[instance] = new_gps;
@@ -748,9 +763,11 @@ AP_GPS_Backend *AP_GPS::_detect_instance(const uint8_t instance)
 #if AP_GPS_UBLOX_ENABLED
         if ((type == GPS_TYPE_AUTO ||
              type == GPS_TYPE_UBLOX) &&
-            ((!_auto_config && _baudrates[dstate->current_baud] >= 38400) ||
-             (_baudrates[dstate->current_baud] >= 115200 && option_set(DriverOptions::UBX_Use115200)) ||
-             _baudrates[dstate->current_baud] == 230400) &&
+            // probe_baud is the rate the port is actually running at; on the
+            // first probe current_baud is still 0 (9600) even when it is higher
+            ((!_auto_config && dstate->probe_baud >= 38400) ||
+             (dstate->probe_baud >= 115200 && option_set(DriverOptions::UBX_Use115200)) ||
+             dstate->probe_baud == 230400) &&
             AP_GPS_UBLOX::_detect(dstate->ublox_detect_state, data)) {
             return NEW_NOTHROW AP_GPS_UBLOX(*this, params[instance], state[instance], port, GPS_ROLE_NORMAL);
         }
@@ -922,6 +939,7 @@ void AP_GPS::update_instance(uint8_t instance)
                 delete drivers[instance];
                 drivers[instance] = nullptr;
                 state[instance].status = AP_GPS_FixType::NO_GPS;
+                no_detect_start_ms[instance] = 0;
             }
             // log this data as a "flag" that the GPS is no longer
             // valid (see PR#8144)
