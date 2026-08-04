@@ -38,6 +38,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
     container:
       image: ardupilot/ardupilot-dev-base:v0.1.3
       options: --privileged --cap-add=SYS_PTRACE --security-opt apparmor=unconfined --security-opt seccomp=unconfined
@@ -84,6 +86,8 @@ jobs:
   test-multi-instance-sync:
     needs: build
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
     container:
       image: ardupilot/ardupilot-dev-base:v0.1.3
       options: --privileged --cap-add=SYS_PTRACE --security-opt apparmor=unconfined --security-opt seccomp=unconfined
