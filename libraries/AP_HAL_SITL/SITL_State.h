@@ -6,6 +6,7 @@
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
 
 #include "SITL_State_common.h"
+#include "SITL_SharedMem.h"
 
 #if defined(HAL_BUILD_AP_PERIPH)
 #include "SITL_Periph_State.h"
@@ -79,6 +80,8 @@ private:
     uint16_t _base_port;
     pid_t _parent_pid;
     uint32_t _update_count;
+
+    AP_SITL_SharedMem _shared_mem;
 
     Scheduler *_scheduler;
 
