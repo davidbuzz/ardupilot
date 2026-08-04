@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <sys/time.h>
 #include <unistd.h>
 #include <signal.h>
 #include <string.h>
@@ -25,7 +26,7 @@ AP_SITL_SharedMem::~AP_SITL_SharedMem()
     _cleanup();
 }
 
-bool AP_SITL_SharedMem::init(uint8_t instance_id)
+bool AP_SITL_SharedMem::init(uint8_t instance_id, uint8_t total_instances)
 {
     if (instance_id >= AP_SITL_SHMEM_MAX_INSTANCES) {
         fprintf(stderr, "SITL_SharedMem: instance_id %u >= max %u\n",
@@ -78,6 +79,11 @@ bool AP_SITL_SharedMem::init(uint8_t instance_id)
         return false;
     }
 
+    // publish total_instances: use max of current value and what we know
+    if (total_instances > _data->total_instances) {
+        _data->total_instances = total_instances;
+    }
+
     // claim our slot
     _data->instance[_instance_id].pid         = getpid();
     _data->instance[_instance_id].sim_time_us = 0;
@@ -126,6 +132,88 @@ uint8_t AP_SITL_SharedMem::get_instance_count() const
         }
     }
     return count;
+}
+
+/*
+  spin-wait barrier: pause until all expected peer instances have
+  published a sim_time_us >= (sim_time_us - max_skew_us).
+
+  At high speedup each instance advances sim time much faster than wall
+  time. Without coordination the instances can diverge by arbitrarily
+  many simulated seconds. This function is called from
+  Aircraft::sync_frame_time() after every simulation step; it holds the
+  fastest instance back until the slowest catches up within max_skew_us.
+
+  A wall-clock timeout (default 5 s) prevents an indefinite stall when a
+  peer has crashed.
+*/
+bool AP_SITL_SharedMem::sync_with_peers(uint64_t sim_time_us,
+                                         uint64_t max_skew_us,
+                                         uint64_t timeout_us)
+{
+    if (_data == nullptr || _data->total_instances <= 1) {
+        return true;
+    }
+
+    const uint32_t n = _data->total_instances;
+    if (n > AP_SITL_SHMEM_MAX_INSTANCES) {
+        return true;
+    }
+
+    // minimum sim_time we are willing to be ahead of peers
+    const uint64_t min_peer_time = (sim_time_us > max_skew_us)
+                                    ? sim_time_us - max_skew_us
+                                    : 0;
+
+    // get wall-clock start for timeout
+    struct timeval tv_start;
+    gettimeofday(&tv_start, nullptr);
+
+    while (true) {
+        bool all_ok = true;
+        for (uint32_t i = 0; i < n; i++) {
+            if (i == _instance_id) {
+                continue;
+            }
+            const pid_t pid = _data->instance[i].pid;
+            if (pid <= 0) {
+                // slot not yet registered; wait for it
+                all_ok = false;
+                break;
+            }
+            // if the peer has crashed, stop waiting for it
+            if (kill(pid, 0) != 0) {
+                // dead peer - clear its slot so future calls skip it
+                _data->instance[i].pid = 0;
+                continue;
+            }
+            if (_data->instance[i].sim_time_us < min_peer_time) {
+                all_ok = false;
+                break;
+            }
+        }
+        if (all_ok) {
+            return true;
+        }
+
+        // check wall-clock timeout
+        struct timeval tv_now;
+        gettimeofday(&tv_now, nullptr);
+        const uint64_t elapsed_us =
+            (uint64_t)(tv_now.tv_sec  - tv_start.tv_sec)  * 1000000ULL +
+            (uint64_t)(tv_now.tv_usec - tv_start.tv_usec);
+        if (elapsed_us > timeout_us) {
+            fprintf(stderr,
+                    "SITL_SharedMem: sync timeout after %.1f s waiting for "
+                    "peers (our sim_time_us=%llu)\n",
+                    elapsed_us * 1e-6,
+                    (unsigned long long)sim_time_us);
+            return false;
+        }
+
+        // short sleep to avoid hammering the cache line
+        usleep(100);
+    }
 }
 
 void AP_SITL_SharedMem::_clear_slot()

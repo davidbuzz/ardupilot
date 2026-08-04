@@ -322,6 +322,14 @@ void Aircraft::sync_frame_time(void)
         last_frame_count = frame_counter;
         last_fps_report_ms = now_ms;
     }
+
+#if CONFIG_HAL_BOARD == HAL_BOARD_SITL
+    // When running multiple SITL instances in parallel (e.g. for CI with
+    // speedup=100), keep all instances within a tight sim-time window so
+    // that inter-vehicle communication is consistent.  The barrier is a
+    // no-op for single-instance runs.
+    hal_sitl.get_sitl_state()->_shared_mem.sync_with_peers(time_now_us);
+#endif
 }
 
 /* add noise based on throttle level (from 0..1) */

@@ -376,7 +376,20 @@ void SITL_State::init(int argc, char * const argv[])
 {
     _scheduler = Scheduler::from(hal.scheduler);
     _parse_command_line(argc, argv);
-    _shared_mem.init(_instance);
+
+    // Determine fleet size for shared-memory peer synchronisation.
+    // SITL_INSTANCE_COUNT env var allows the launch script to advertise the
+    // total number of concurrent instances.  Defaults to instance+1 so that
+    // single-instance runs still work without any environment variable.
+    uint8_t total_instances = _instance + 1;
+    const char *env_count = getenv("SITL_INSTANCE_COUNT");
+    if (env_count != nullptr) {
+        const int n = atoi(env_count);
+        if (n > 0 && n <= AP_SITL_SHMEM_MAX_INSTANCES) {
+            total_instances = (uint8_t)n;
+        }
+    }
+    _shared_mem.init(_instance, total_instances);
 }
 
 /*

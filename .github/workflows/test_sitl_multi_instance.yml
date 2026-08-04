@@ -1,0 +1,119 @@
+name: test SITL multi-instance clock sync
+
+on:
+  push:
+    paths-ignore:
+      # remove other vehicles
+      - 'AntennaTracker/**'
+      - 'ArduPlane/**'
+      - 'ArduSub/**'
+      - 'Blimp/**'
+      - 'Rover/**'
+      # remove non SITL HAL
+      - 'libraries/AP_HAL_ChibiOS/**'
+      - 'libraries/AP_HAL_ESP32/**'
+      - 'libraries/AP_HAL_QURT/**'
+      # Remove markdown files as irrelevant
+      - '**.md'
+
+  pull_request:
+    paths-ignore:
+      # remove other vehicles
+      - 'AntennaTracker/**'
+      - 'ArduPlane/**'
+      - 'ArduSub/**'
+      - 'Blimp/**'
+      - 'Rover/**'
+      # remove non SITL HAL
+      - 'libraries/AP_HAL_ChibiOS/**'
+      - 'libraries/AP_HAL_ESP32/**'
+      - 'libraries/AP_HAL_QURT/**'
+      # Remove markdown files as irrelevant
+      - '**.md'
+
+concurrency:
+  group: ci-${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    container:
+      image: ardupilot/ardupilot-dev-base:v0.1.3
+      options: --privileged --cap-add=SYS_PTRACE --security-opt apparmor=unconfined --security-opt seccomp=unconfined
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: 'recursive'
+
+      - name: get timestamp for ccache
+        id: ccache_cache_timestamp
+        run: |
+          NOW=$(date -u +"%F-%T")
+          echo "timestamp=${NOW}" >> $GITHUB_OUTPUT
+
+      - name: ccache cache files
+        uses: actions/cache@v5
+        with:
+          path: ~/.ccache
+          key: ${{github.workflow}}-ccache-base-${{steps.ccache_cache_timestamp.outputs.timestamp}}
+          restore-keys: ${{github.workflow}}-ccache-base-
+
+      - name: setup ccache
+        run: |
+          . .github/workflows/ccache.env
+
+      - name: build arducopter
+        shell: bash
+        run: |
+          git config --global --add safe.directory ${GITHUB_WORKSPACE}
+          PATH="/github/home/.local/bin:$PATH"
+          pip install empy==3.3.4
+          ./waf configure --board sitl
+          ./waf copter
+          ccache -s
+
+      - name: upload arducopter binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: arducopter-multi-instance
+          path: build/sitl/bin/arducopter
+          retention-days: 1
+
+  test-multi-instance-sync:
+    needs: build
+    runs-on: ubuntu-22.04
+    container:
+      image: ardupilot/ardupilot-dev-base:v0.1.3
+      options: --privileged --cap-add=SYS_PTRACE --security-opt apparmor=unconfined --security-opt seccomp=unconfined
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: 'recursive'
+
+      - name: download arducopter binary
+        uses: actions/download-artifact@v4
+        with:
+          name: arducopter-multi-instance
+          path: build/sitl/bin/
+
+      - name: make binary executable
+        run: chmod +x build/sitl/bin/arducopter
+
+      - name: run 3x SITL instances at speedup=100 and verify clock sync
+        shell: bash
+        timeout-minutes: 5
+        run: |
+          git config --global --add safe.directory ${GITHUB_WORKSPACE}
+          PATH="/github/home/.local/bin:$PATH"
+          Tools/scripts/test_sitl_multi_instance.sh build/sitl/bin/arducopter
+
+      - name: archive logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: multi-instance-logs
+          path: /tmp/sitl_multi_*
+          retention-days: 7

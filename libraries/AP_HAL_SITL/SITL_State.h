@@ -56,6 +56,10 @@ public:
     
     uint8_t get_instance() const { return _instance; }
 
+    // shared memory for multi-instance clock synchronisation; accessible
+    // from SIM_Aircraft::sync_frame_time() via hal_sitl.get_sitl_state()
+    AP_SITL_SharedMem _shared_mem;
+
 private:
     void _parse_command_line(int argc, char * const argv[]);
     void _usage(void);
@@ -80,8 +84,6 @@ private:
     uint16_t _base_port;
     pid_t _parent_pid;
     uint32_t _update_count;
-
-    AP_SITL_SharedMem _shared_mem;
 
     Scheduler *_scheduler;
 

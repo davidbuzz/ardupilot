@@ -30,9 +30,15 @@
 struct AP_SITL_ShmData {
     uint32_t magic;
     uint32_t version;
+    // number of instances expected in this session; set by each registering
+    // instance.  The highest value written wins, so all instances must agree
+    // on the fleet size before calling sync_with_peers().
+    uint32_t total_instances;
+    uint32_t _pad;
     struct {
         uint64_t sim_time_us;   // simulated time in microseconds
         pid_t    pid;           // pid of owning process (0 = slot unused)
+        uint32_t _pad;
     } instance[AP_SITL_SHMEM_MAX_INSTANCES];
 };
 
@@ -43,9 +49,10 @@ public:
 
     /*
       initialise shared memory for the given instance number.
+      total_instances is the total fleet size (e.g. 3 for --instance 0/1/2).
       Must be called once on startup before update() or get_time_us().
     */
-    bool init(uint8_t instance_id);
+    bool init(uint8_t instance_id, uint8_t total_instances = 1);
 
     /*
       update this instance's clock in the shared segment.
@@ -70,7 +77,20 @@ public:
     */
     uint8_t get_instance_count() const;
 
+    /*
+      barrier sync: spin-wait until all expected peer instances have
+      published a sim_time_us >= (sim_time_us - max_skew_us).
+      This keeps all instances within max_skew_us of each other.
+      timeout_us is the wall-clock timeout in microseconds; if exceeded
+      the function returns false (e.g. a peer crashed).
+      Only effective when total_instances > 1 and the segment is initialised.
+    */
+    bool sync_with_peers(uint64_t sim_time_us,
+                         uint64_t max_skew_us = 5000,
+                         uint64_t timeout_us = 5000000);
+
     bool is_initialised() const { return _data != nullptr; }
+    bool is_multi_instance() const { return _data != nullptr && _data->total_instances > 1; }
 
 private:
     AP_SITL_ShmData *_data;
