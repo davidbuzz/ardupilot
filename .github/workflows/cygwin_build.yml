@@ -185,6 +185,8 @@ jobs:
         run: >-
           python3 --version &&
           python3 -m pip install --progress-bar off empy==3.3.4 pexpect &&
+          python3 -m pip install --progress-bar off future &&
+          DISABLE_MAVNATIVE=True python3 -m pip install --progress-bar off --no-deps modules/mavlink/pymavlink &&
           python3 -m pip install --progress-bar off dronecan --upgrade &&
           cp /usr/bin/ccache /usr/local/bin/ &&
           cd /usr/local/bin && ln -s ccache /usr/local/bin/gcc &&
@@ -219,3 +221,46 @@ jobs:
           name: binaries
           path: artifacts
           retention-days: 7
+
+      # runs the freshly built Windows binaries as a real shared-memory
+      # cluster: three copters at a commanded 100x speedup with the
+      # adaptive rate governor on, asserting lock-step engages and the
+      # governor acts, and printing the speedup the runner actually
+      # achieves - so every CI run shows what the Cygwin build is
+      # capable of, not just that it compiles. Placed after the artifact
+      # upload so binaries ship even when the runtime tests fail.
+      - name: Run SITL cluster smoke test
+        env:
+          PATH: /usr/bin:$(cygpath ${SYSTEMROOT})/system32
+        shell: C:\cygwin\bin\bash.exe -eo pipefail '{0}'
+        run: >-
+          CYGPATH_GITHUB_WORKSPACE=$(cygpath -u "$GITHUB_WORKSPACE") &&
+          cd "${CYGPATH_GITHUB_WORKSPACE}" &&
+          bash Tools/scripts/cygwin_cluster_smoke.sh
+
+      # the full cluster follow flight on the Windows runner: a plane
+      # loiters, two copters chase it in formation, everything in
+      # lock-step at a commanded 100x with the governor tuning each
+      # vehicle. The binaries are run from a copy WITHOUT the bundled
+      # cyg*.dlls beside them - the exe directory's DLLs would shadow
+      # the installed Cygwin's runtime and kill the processes at
+      # startup - and the harness's powercfg calls skip themselves
+      # under a cygwin python.
+      - name: Run cluster follow flight test
+        env:
+          PATH: /usr/bin:$(cygpath ${SYSTEMROOT})/system32
+        shell: C:\cygwin\bin\bash.exe -eo pipefail '{0}'
+        run: >-
+          CYGPATH_GITHUB_WORKSPACE=$(cygpath -u "$GITHUB_WORKSPACE") &&
+          cd "${CYGPATH_GITHUB_WORKSPACE}" &&
+          mkdir -p followrun &&
+          cp build/sitl/bin/arducopter followrun/ArduCopter.elf.exe &&
+          cp build/sitl/bin/arduplane followrun/ArduPlane.elf.exe &&
+          cp Tools/autotest/test_cluster_follow_windows.py followrun/ &&
+          cd followrun &&
+          export CLUSTER_FOLLOW_TIME=25 &&
+          if ! python3 test_cluster_follow_windows.py; then
+          echo "=== follow test FAILED, vehicle logs follow ===" &&
+          tail -n 80 sitl_cluster_follow_*/[a-z]*.log /tmp/sitl_cluster_follow_*/[a-z]*.log ;
+          exit 1 ;
+          fi
