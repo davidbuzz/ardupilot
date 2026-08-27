@@ -1,0 +1,13 @@
+name: buzzbox probe
+on:
+  push:
+    branches: [buzzbox-probe]
+jobs:
+  probe:
+    runs-on: buzzbox
+    steps:
+      - name: prove where we are
+        run: |
+          echo "runner=$RUNNER_NAME on $(hostname)"
+          echo "cpus=$(nproc) mem=$(free -h | awk '/Mem/{print $2}')"
+          uname -a
