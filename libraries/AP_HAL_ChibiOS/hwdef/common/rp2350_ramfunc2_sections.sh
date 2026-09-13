@@ -20,6 +20,16 @@ trap 'rm -rf "$tmpdir"' EXIT
 
 raw_txt="$tmpdir/raw_symbols.txt"
 map_txt="$tmpdir/mangled_map.txt"
+misses_txt="$tmpdir/misses.txt"
+: > "$misses_txt"
+
+# A registry entry that matches no symbol fails the build, except in the
+# bootloader: the registries describe the firmware, so most entries are
+# legitimately absent there.
+allow_missing=0
+if grep -qE '^#define[[:space:]]+HAL_BOOTLOADER_BUILD[[:space:]]+TRUE' "$buildroot/hwdef.h" 2>/dev/null; then
+    allow_missing=1
+fi
 
 # Collect all defined global symbols from build artifacts (done once, shared).
 # nm cannot read GIMPLE-only LTO objects (empty/guarded-out translation units)
@@ -55,7 +65,7 @@ paste "$raw_txt" <(c++filt < "$raw_txt") \
 
 # Is a hwdef define enabled for this build? Used by the "[needs X]" marker so an
 # entry whose symbol only exists under some define does not raise a spurious
-# "no symbol match". Absent hwdef.h means we cannot tell, so warn as before.
+# "no symbol match". Absent hwdef.h means we cannot tell, so count it as a miss.
 define_enabled() {
     local name="$1" hdr="$buildroot/hwdef.h" line val
     [[ -f "$hdr" ]] || return 0
@@ -133,7 +143,10 @@ generate_ld_from_registry() {
                 if [[ -n "$needs" ]] && ! define_enabled "$needs"; then
                     continue
                 fi
-                echo "rp2350_ramfunc2_sections: $(basename "$registry"): no symbol match for '$wanted'" >&2
+                if [[ $allow_missing -eq 0 ]]; then
+                    echo "rp2350_ramfunc2_sections: $(basename "$registry"): no symbol match for '$wanted'" >&2
+                    echo "$wanted" >> "$misses_txt"
+                fi
                 continue
             fi
             printf '%s\n' "$picks"
@@ -159,5 +172,10 @@ generate_ld_from_registry \
     "$script_dir/rp2350_scratchy_registry.txt" \
     "$buildroot/rp2350_scratchy_sections.ld" \
     "rp2350_scratchy_registry.txt"
+
+if [[ -s "$misses_txt" ]]; then
+    echo "rp2350_ramfunc2_sections: $(wc -l < "$misses_txt") registry entries matched no symbol" >&2
+    exit 1
+fi
 
 exit 0

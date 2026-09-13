@@ -1,13 +1,13 @@
 # RP2350 RAMFUNC2 registry
 # format: path|symbol
 #
-# A "no symbol match" warning at link time means the entry did nothing, and a
-# silent miss is a trap - the build succeeds and the entry looks like it took
-# effect. So the warning is deliberately loud.
+# An entry that matches no symbol fails the firmware build with "no symbol
+# match". A silent miss is a trap - the build succeeds and the entry looks like
+# it took effect. The bootloader is exempt: most entries are absent there.
 #
 # An entry whose symbol only exists under some build option carries a
 # "[needs <DEFINE>]" marker. The generator reads that define out of the
-# generated hwdef.h and stays quiet when it is off, while still warning if the
+# generated hwdef.h and stays quiet when it is off, while still failing if the
 # define is on and the symbol is missing - which would be a real miss. The
 # __stats_* entries below are the case in point: they need
 # HAL_ENABLE_THREAD_STATISTICS, which is off in every flight build.
@@ -515,7 +515,7 @@ modules/ChibiOS/os/rt/src/chthreads.c|chThdSleep
 # the flash .text sweep. That is the only mechanism that works for them:
 # newlib has no per-function sections, and its libc.a is not under the build
 # root that the symbol map is built from, so a symbol entry here matches
-# nothing and only prints a warning. It is safe because the copy loop in
+# nothing and fails the build. It is safe because the copy loop in
 # rp_clocks.c was rewritten as a volatile word loop so it no longer calls
 # them. See the memcpy/memset section of hwdef/Laurel/BASELINE.md before
 # touching that, and do not add entries for them here - a duplicate pick is
