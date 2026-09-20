@@ -137,7 +137,7 @@ void RCOutput::init()
      * output just because CH4/CH6 have no pad yet. */
     _map_ready = true;
 #elif DT_NODE_HAS_STATUS(DT_NODELABEL(ledc0), okay)
-    /* Espressif LEDC (ESP32-C6): PWM1-4 on GPIO1/2/3/23, LEDC channels
+    /* Espressif LEDC: PWM1-4 on GPIO1/2/3/23, LEDC channels
        0-3, one low-speed timer per channel (board DTS) so every output can
        run its own frequency. pwm_led_esp32.c channels are 0-based. */
     const struct device *ledc = DEVICE_DT_GET(DT_NODELABEL(ledc0));
