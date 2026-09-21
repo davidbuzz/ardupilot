@@ -449,6 +449,90 @@ def _zephyr_apj_board_info(env):
     return board_id, (board_type or board).strip('"')
 
 
+# Bytes into the .bin where the app's vector table must sit so a
+# bootloader-mediated upload lands it at APP_LOAD_ADDRESS+APP_VECTOR_OFFSET.
+# NOT CONFIG_FLASH_LOAD_OFFSET: that double-counts the bootloader region.
+_BOOTLOADER_UPLOAD_PAD_BYTES = {
+    'mr_vmu_rt1176': 0x2000,
+}
+
+
+def _bootloader_pad_bytes(env):
+    """How many 0xFF bytes must precede the image for a bootloader upload.
+
+    Zero when padding does not apply:
+      - a bootloader image, booted by the BootROM from the flash base and
+        carrying its own FCB, so it must start at offset 0 as linked;
+      - an app built with CONFIG_NXP_IMXRT_BOOT_HEADER=y, which carries its
+        own FCB/IVT and likewise boots from the flash base;
+      - any board with no entry in _BOOTLOADER_UPLOAD_PAD_BYTES.
+    """
+    if getattr(env, 'BOOTLOADER', False):
+        return 0
+
+    autoconf = os.path.join(
+        env.get_flat('BUILDROOT'), 'zephyr_build', 'zephyr',
+        'include', 'generated', 'zephyr', 'autoconf.h')
+    try:
+        with open(autoconf, 'r', encoding='utf-8') as f:
+            for line in f:
+                if re.match(r'#define\s+CONFIG_NXP_IMXRT_BOOT_HEADER\s+1', line):
+                    return 0
+    except OSError:
+        pass
+
+    return _BOOTLOADER_UPLOAD_PAD_BYTES.get(env.get_flat('BOARD'), 0)
+
+
+def _write_padded_image(image, dest_path, offset, board, what):
+    """Write `image` to `dest_path` behind `offset` 0xFF bytes, and prove it.
+
+    Every check here guards a failure that is otherwise SILENT: the bootloader
+    reads the vector table at APP_VECTOR_OFFSET, and if it is not there it
+    reads whatever code happens to sit at that address, takes the second word
+    as the entry point, finds it out of range and refuses to boot without
+    saying so. uploader.py still reports a clean erase/program/verify."""
+    if len(image) < 8:
+        raise RuntimeError(
+            '%s is too small (%d bytes) to contain a vector table - '
+            'refusing to pad' % (what, len(image)))
+
+    # The unpadded image's first word is the app's real initial SP (must
+    # point into RAM, i.e. word & 0x20000000 set per ARM Cortex-M SRAM
+    # convention on this SoC family) - sanity-check we are padding an
+    # image that actually starts with a vector table, not something
+    # objcopy produced from an unexpected LOAD segment layout.
+    initial_sp = int.from_bytes(image[0:4], byteorder='little')
+    if (initial_sp & 0x20000000) == 0:
+        raise RuntimeError(
+            '%s does not start with a plausible vector table (first word '
+            '0x%08x is not a RAM address) - refusing to pad %d bytes for '
+            'board %s; the objcopy output layout may have changed, verify '
+            'manually before flashing via a bootloader-mediated path'
+            % (what, initial_sp, offset, board))
+
+    with open(dest_path, 'wb') as f:
+        f.write(b'\xFF' * offset + image)
+
+    # Verify the write landed exactly where expected: the vector table's
+    # initial SP word must now sit at file-offset `offset`.
+    with open(dest_path, 'rb') as f:
+        check = f.read()
+    if len(check) != len(image) + offset:
+        raise RuntimeError(
+            '%s padding size mismatch after write: expected %d bytes, got %d'
+            % (what, len(image) + offset, len(check)))
+    if check[offset:offset + 4] != image[0:4]:
+        raise RuntimeError(
+            '%s padding verification failed: vector table not found at file '
+            'offset 0x%x after padding by 0x%x bytes - the image would '
+            'silently fail to boot' % (what, offset, offset))
+    if check[0:offset] != b'\xFF' * offset:
+        raise RuntimeError(
+            '%s padding verification failed: leading %d bytes are not all '
+            '0xFF' % (what, offset))
+
+
 def _zephyr_emit_apj(bld):
     """Turn the linked firmware into a .apj, the way a ChibiOS build does.
 
@@ -487,6 +571,34 @@ def _zephyr_emit_apj(bld):
             Logs.warn('Zephyr: objcopy failed, no .apj emitted for %s' % board)
             return
 
+    # A bootloader-mediated upload expects the vector table at
+    # APP_VECTOR_OFFSET, not at the start of the image. Without this pad the
+    # .apj erases, programs and verifies cleanly and then never boots: the
+    # bootloader reads whatever code sits at that address, takes its second
+    # word as the entry point, finds it out of range and stays in the
+    # bootloader without a word. The upload command pads its own copy; this
+    # is the same pad applied to the artifact an ordinary build leaves in
+    # bin/, so the two can never disagree about bootability.
+    pad = _bootloader_pad_bytes(bld.env)
+    if pad > 0:
+        try:
+            with open(bin_path, 'rb') as f:
+                image = f.read()
+        except OSError as e:
+            Logs.warn('Zephyr: cannot read %s: %s' % (bin_path, e))
+            return
+        # A separate file: zephyr/zephyr.bin is the Zephyr build's own output
+        # and is what a direct SWD flash uses, which must NOT be shifted.
+        padded_path = os.path.join(build_dir, 'zephyr_apj_padded.bin')
+        try:
+            _write_padded_image(image, padded_path, pad, board,
+                                'the bin/%s.apj image' % board)
+        except RuntimeError as e:
+            # No .apj at all is the safe outcome; a broken one is not.
+            Logs.warn('Zephyr: no .apj for %s - %s' % (board, e))
+            return
+        bin_path = padded_path
+
     out_dir = os.path.join(bld.env.get_flat('BUILDROOT'), 'bin')
     try:
         os.makedirs(out_dir, exist_ok=True)
@@ -501,8 +613,10 @@ def _zephyr_emit_apj(bld):
     if ret != 0:
         Logs.warn('Zephyr: make_apj.py failed (exit %d), no .apj for %s' % (ret, board))
         return
-    Logs.info('Zephyr: %s  (board %s, APJ_BOARD_ID %d)'
-              % (os.path.relpath(apj_out, bld.env.get_flat('SRCROOT')), board_type, board_id))
+    Logs.info('Zephyr: %s  (board %s, APJ_BOARD_ID %d%s)'
+              % (os.path.relpath(apj_out, bld.env.get_flat('SRCROOT')),
+                 board_type, board_id,
+                 ', vector table padded to 0x%x' % pad if pad > 0 else ''))
 
 
 def _unlink_build_symlinks(build_dir):
@@ -922,85 +1036,25 @@ class upload_fw_zephyr(Task.Task):
         self._build_apj_from_bin(bin_source, apj_out)
         return apj_out
 
-    # Bytes into the .bin where the app's vector table must sit so a
-    # bootloader-mediated upload lands it at APP_LOAD_ADDRESS+APP_VECTOR_OFFSET.
-    # NOT CONFIG_FLASH_LOAD_OFFSET: that double-counts the bootloader region.
-    _BOOTLOADER_UPLOAD_PAD_BYTES = {
-        'mr_vmu_rt1176': 0x2000,
-    }
-
     def _pad_bin_for_flash_load_offset(self, bin_source):
-        """See _BOOTLOADER_UPLOAD_PAD_BYTES for why this pad amount is a
-        per-board bootloader constant, not derived from Kconfig."""
-        # Never pad a bootloader image. It is booted directly by the BootROM from
-        # the flash base and carries its own FCB, so it must start at offset 0 as
-        # linked; its first word is the FCB, not a vector table.
-        if getattr(self.env, 'BOOTLOADER', False):
-            return
+        """Shift the upload image so its vector table lands at the
+        bootloader's APP_VECTOR_OFFSET.
 
-        # Same for a direct-flash app: with CONFIG_NXP_IMXRT_BOOT_HEADER=y the
-        # image carries its own FCB/IVT and boots from the flash base, so it must
-        # not be shifted. Padding applies only to the bootloader-relative case.
-        autoconf = os.path.join(
-            self.env.get_flat('BUILDROOT'), 'zephyr_build', 'zephyr',
-            'include', 'generated', 'zephyr', 'autoconf.h')
-        try:
-            with open(autoconf, 'r', encoding='utf-8') as f:
-                for line in f:
-                    if re.match(r'#define\s+CONFIG_NXP_IMXRT_BOOT_HEADER\s+1', line):
-                        return
-        except OSError:
-            pass
-
+        Pads in place: bin_source is this command's own zephyr_upload.bin,
+        not the Zephyr build's zephyr.bin. See _bootloader_pad_bytes() for
+        when this applies and _write_padded_image() for the checks - the
+        same pair produces bin/<board>.apj, so a built artifact and an
+        upload can never disagree about where the vector table is."""
         board = self.env.get_flat('BOARD')
-        offset = self._BOOTLOADER_UPLOAD_PAD_BYTES.get(board, 0)
+        offset = _bootloader_pad_bytes(self.env)
         if offset <= 0:
             return
 
         with open(bin_source, 'rb') as f:
             image = f.read()
 
-        if len(image) < 8:
-            raise RuntimeError(
-                'Zephyr upload .bin is too small (%d bytes) to contain a '
-                'vector table - refusing to pad' % len(image))
-
-        # The unpadded .bin's first word is the app's real initial SP (must
-        # point into RAM, i.e. word & 0x20000000 set per ARM Cortex-M SRAM
-        # convention on this SoC family) - sanity-check we are padding an
-        # image that actually starts with a vector table, not something
-        # objcopy produced from an unexpected LOAD segment layout.
-        initial_sp = int.from_bytes(image[0:4], byteorder='little')
-        if (initial_sp & 0x20000000) == 0:
-            raise RuntimeError(
-                'Zephyr upload .bin does not start with a plausible vector '
-                'table (first word 0x%08x is not a RAM address) - refusing '
-                'to pad %d bytes for board %s; the objcopy output layout '
-                'may have changed, verify manually before flashing via a '
-                'bootloader-mediated path' % (initial_sp, offset, board))
-
-        padded = b'\xFF' * offset + image
-        with open(bin_source, 'wb') as f:
-            f.write(padded)
-
-        # Verify the write landed exactly where expected: the vector table's
-        # initial SP word must now sit at file-offset `offset`.
-        with open(bin_source, 'rb') as f:
-            check = f.read()
-        if len(check) != len(image) + offset:
-            raise RuntimeError(
-                'Zephyr upload .bin padding size mismatch after write: '
-                'expected %d bytes, got %d' % (len(image) + offset, len(check)))
-        if check[offset:offset + 4] != image[0:4]:
-            raise RuntimeError(
-                'Zephyr upload .bin padding verification failed: vector '
-                'table not found at file offset 0x%x after padding by '
-                '0x%x bytes - upload would silently flash a broken image'
-                % (offset, offset))
-        if check[0:offset] != b'\xFF' * offset:
-            raise RuntimeError(
-                'Zephyr upload .bin padding verification failed: leading '
-                '%d bytes are not all 0xFF' % offset)
+        _write_padded_image(image, bin_source, offset, board,
+                            'Zephyr upload .bin')
 
         Logs.info('Zephyr: padded zephyr_upload.bin by 0x%x bytes '
                   '(bootloader APP_VECTOR_OFFSET for board %s) for '
@@ -1228,7 +1282,9 @@ class upload_fw_zephyr(Task.Task):
         default bootloader build accepts - Ed25519 enforcement is a
         compile-time option there)."""
         board = self.env.get_flat('BOARD') or 'zephyr'
-        pad = self._BOOTLOADER_UPLOAD_PAD_BYTES.get(board, 0)
+        # Same answer _pad_bin_for_flash_load_offset() used, so this stays
+        # true to whether zephyr_upload.bin actually carries the pad.
+        pad = _bootloader_pad_bytes(self.env)
         if pad <= 0:
             return   # no bootloader-relative app layout on this board
         buildroot = self.env.get_flat('BUILDROOT')
