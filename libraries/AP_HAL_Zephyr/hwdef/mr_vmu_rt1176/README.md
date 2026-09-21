@@ -54,7 +54,7 @@ Two parts of this board's documentation now live in the ArduPilot wiki:
 | SERIAL5   | `lpuart10`     | TELEM3                                                          |
 | SERIAL6   | `lpuart11`     | External, DTS node not enabled                                  |
 | SERIAL7   | `lpuart6`      | RC input, single-wire (`RCInput.cpp` hardcodes `hal.serial(7)`) |
-| SERIAL8   | `lpuart1`      | Debug connector, also `zephyr,console` and `zephyr,shell-uart`  |
+| SERIAL8   | `lpuart1`      | Debug connector                                                 |
 
 `lpuart11` has no enabled node and no pinctrl group in the board DTS, so SERIAL6
 resolves to nothing at runtime even though the slot exists.
@@ -62,11 +62,22 @@ resolves to nothing at runtime even though the slot exists.
 Every enabled LPUART carries `dmas`/`dma-names` and runs the async eDMA UART
 API.
 
-`zephyr,console = &lpuart1`. [PROCESS.md](../../PROCESS.md) records a standing
-policy (2026-08-15) that consoles move to USB CDC on all boards and lists this
-board as not yet compliant. `CONFIG_LOG=n` here comes from `prj.nxprt1176.conf`
-as a sanctioned case-by-case disable under the same policy, with the
-cbprintf-hang rationale in that file.
+`zephyr,console` and `zephyr,shell-uart` are `&usb_cdc_acm0`, the same USB
+CDC-ACM port ArduPilot uses for MAVLink (SERIAL0), matching CubeOrangeZephyr
+and the standing policy that consoles live on USB CDC on every board. Console
+text and MAVLink frames share the one stream.
+
+Two things follow. Output produced before `usbd_enable()`, or before a host
+opens the port, is discarded rather than buffered - `CONFIG_LOG_MODE_DEFERRED`
+with `CONFIG_LOG_BLOCK_IN_THREAD=n` in `prj.mr_vmu_rt1176.conf` makes `printk`
+drop instead of blocking a flight-loop thread on a port nothing is reading. For
+a fault before USB is up, use SWD: the fault handler halts and leaves the
+record readable. And `lpuart1` is now only the debug connector, so SERIAL8 is
+an ordinary port - previously the kernel printed into a UART ArduPilot could
+also open, so setting `SERIAL8_PROTOCOL` gave one port two owners.
+
+`CONFIG_LOG=n` here comes from `prj.nxprt1176.conf` as a sanctioned
+case-by-case disable, with the cbprintf-hang rationale in that file.
 
 ## RC input
 

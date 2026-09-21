@@ -118,10 +118,28 @@
 		zephyr,sram = &ocram;
 		zephyr,itcm = &itcm;
 		zephyr,dtcm = &dtcm;
-		/* Debug console = LPUART1 on GPIO_AD_24/25, the FMU debug connector, so ArduPilot's
-		 * console and Zephyr's boot output stay in one stream during bring-up. */
-		zephyr,console = &lpuart1;
-		zephyr,shell-uart = &lpuart1;
+		/* Console on the first USB CDC-ACM instance - the same port ArduPilot
+		 * uses for MAVLink (SERIAL0), and what every other Zephyr board here
+		 * does (CubeOrangeZephyr: zephyr,console = &cdc_acm0). Console text
+		 * and MAVLink frames share the one stream; the text stays readable
+		 * between the binary.
+		 *
+		 * This was LPUART1 (the FMU debug header) during bring-up. Two
+		 * reasons it is not any more:
+		 *  - boot output needed a second cable nobody has in the field, so
+		 *    on a flying board the console was simply dark;
+		 *  - LPUART1 is SERIAL8 in SERIAL_ORDER, so the kernel was printing
+		 *    into a port ArduPilot could also open. Setting SERIAL8_PROTOCOL
+		 *    handed one UART to two owners.
+		 *
+		 * The cost is deliberate: output before usbd_enable(), and before a
+		 * host opens the port, is dropped rather than buffered. That is what
+		 * LOG_MODE_DEFERRED + LOG_BLOCK_IN_THREAD=n in prj.mr_vmu_rt1176.conf
+		 * are for - printk discards instead of blocking a flight-loop thread
+		 * on a port with no reader. For pre-USB boot faults use SWD (the
+		 * fault handler halts and leaves the record readable). */
+		zephyr,console = &usb_cdc_acm0;
+		zephyr,shell-uart = &usb_cdc_acm0;
 		zephyr,usb-device = &usb1;
 		zephyr,flash-controller = &ext_flash_ctrl;
 		zephyr,flash = &mx25um51345g;
@@ -136,7 +154,8 @@
 
 	aliases {
 		/* UART function map, from the schematic net names (page 4), NOT from the EVK. */
-		serial1  = &lpuart1;   /* DEBUG console  - DISP_B1_02/03            */
+		serial1  = &lpuart1;   /* DEBUG header   - DISP_B1_02/03            */
+		                       /*   (no longer the console - see chosen)    */
 		serial3  = &lpuart3;   /* GPS1           - AD_30 TX / AD_31 RX      */
 		serial4  = &lpuart4;   /* TELEM1         - DISP_B1_04..07           */
 		                       /*   (connector pin name is "UART7")         */

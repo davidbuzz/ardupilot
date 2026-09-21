@@ -85,7 +85,7 @@ a pad and want to know which ArduPilot port it becomes:
 | UART   | Function                     | ArduPilot                                         |
 | ------ | ---------------------------- | ------------------------------------------------- |
 | (USB)  | USB CDC ACM (`usb_cdc_acm0`) | SERIAL0 = MAVLink2                                |
-| UART1  | Debug console                | SERIAL8 (also Zephyr `zephyr,console`)            |
+| UART1  | Debug connector              | SERIAL8                                           |
 | UART3  | GPS1                         | SERIAL3 = GPS                                     |
 | UART4  | TELEM1                       | SERIAL1                                           |
 | UART5  | GPS2                         | SERIAL4 = GPS2                                    |
@@ -107,7 +107,7 @@ reading `hwdef.dat` or setting `SERIALn_` parameters:
 | UART10 | TELEM3                    | SERIAL5                                           |
 | UART11 | External                  | SERIAL6                                           |
 | UART6  | RC-IN (SBUS, single-wire) | SERIAL7 — `RCInput.cpp` hardcodes `hal.serial(7)` |
-| UART1  | Debug console             | SERIAL8 (also Zephyr `zephyr,console`)            |
+| UART1  | Debug connector           | SERIAL8                                           |
 
 **IOMCU: optional on this schematic, NOT fitted on the hardware we have.** The
 PX4IO co-processor is a build option that would sit on UART6; the boards in use
