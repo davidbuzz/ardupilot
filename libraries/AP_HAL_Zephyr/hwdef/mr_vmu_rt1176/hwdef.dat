@@ -87,6 +87,18 @@ define HAL_WITH_IO_MCU 0
 # and this board's dedicated PPM pad has no UART behind it.
 define RCIN_PULSE_GPIO_SHARES_UART_PAD 1
 
+# CRSF/ELRS telemetry back to the transmitter. HAL_CRSF_TELEM_ENABLED is
+# "AP_RCPROTOCOL_CRSF_ENABLED && AP_FRSKY_SPORT_PASSTHROUGH_ENABLED"
+# (AP_RCTelemetry_config.h), and that second term ends at
+# AP_FRSKY_TELEM_ENABLED, which AP_HAL/board/zephyr.h defaults to 0 for every
+# Zephyr board. The result was a firmware that decodes CRSF perfectly and
+# never transmits a byte back: AP_CRSF_Telem was not compiled in at all, the
+# handset reported "No Telemetry Data", and RC_OPTIONS bit 8
+# (CRSF_CUSTOM_TELEMETRY) had nothing to switch on. Enabling it here rather
+# than in board/zephyr.h keeps the flash cost on this board only.
+# The tell is UARTSTAT queued= staying 0 on the RC port while rx= climbs.
+define AP_FRSKY_TELEM_ENABLED 1
+
 # Serial protocol defaults: GPS on SERIAL3 (UART3) per the PX4 map. This just
 # restates AP_SerialManager's built-in DEFAULT_SERIAL3_PROTOCOL, kept explicit.
 # (SBUS RC is a direct UART here - LPUART6 = SERIAL7 - as no IOMCU is fitted.)
