@@ -139,6 +139,24 @@ void UARTDriver::_begin(uint32_t baud, uint16_t rxSpace, uint16_t txSpace)
 #endif
 
     _dev = uart_device_for_serial(_serial_num);
+
+    /* Is this port a USB CDC-ACM instance rather than a hardware UART?
+       ChibiOS carries the same fact as sdef.is_usb and uses it to answer
+       bw_in_bytes_per_second(); without it a USB port is budgeted as if it
+       were a 57600-baud radio. Compared by device pointer against the CDC
+       nodes, so it stays correct whatever SERIAL_ORDER puts at index 0. */
+    _is_usb = false;
+#if DT_NODE_HAS_STATUS(DT_NODELABEL(usb_cdc_acm0), okay)
+    if (_dev == DEVICE_DT_GET(DT_NODELABEL(usb_cdc_acm0))) {
+        _is_usb = true;
+    }
+#endif
+#if DT_NODE_HAS_STATUS(DT_NODELABEL(cdc_acm0), okay)
+    if (_dev == DEVICE_DT_GET(DT_NODELABEL(cdc_acm0))) {
+        _is_usb = true;
+    }
+#endif
+
     if (_dev == nullptr) {
         /* Warn ONCE per port: AP_RCProtocol's serial_configs[] autodetect reopens the port
          * repeatedly, so an unconditional warning floods the console. */

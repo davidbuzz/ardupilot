@@ -42,6 +42,37 @@ public:
         return _baudrate;
     }
 
+    /* ChibiOS parity (AP_HAL_ChibiOS/UARTDriver.h). Both of these were left on
+       the AP_HAL defaults, and both are consulted by code that then silently
+       does less work than it should. */
+
+    /* Default is false, which told AP_RCProtocol_CRSF::change_baud_rate() that
+       this port has no DMA, so it refused every rate above the bootstrap baud
+       and CRSF could never negotiate up. The async UART API rides the DTS
+       `dmas` properties, so _use_async is exactly "DMA is in use here" -
+       ChibiOS answers the same question with rx_dma_enabled && tx_dma_enabled. */
+    bool is_dma_enabled() const override { return _use_async; }
+
+    /* Default is a flat 5760 B/s. GCS_MAVLink budgets parameter sending from
+       this, so a USB port that really moves ~200 KB/s was being rationed as if
+       it were a 57600-baud radio - parameter downloads crawled and single
+       PARAM_REQUEST_READ replies missed their window entirely. Same numbers
+       ChibiOS uses. */
+    uint32_t bw_in_bytes_per_second() const override
+    {
+        if (_is_usb) {
+            return 200 * 1024;
+        }
+        /* ChibiOS returns _baudrate/10 unguarded because its _baudrate is set
+           before anything can ask. Here a port can be queried before begin(),
+           and answering 0 would stall the caller completely rather than merely
+           slow it, so fall back to the AP_HAL default. */
+        if (_baudrate == 0) {
+            return AP_HAL::UARTDriver::bw_in_bytes_per_second();
+        }
+        return _baudrate / 10;
+    }
+
     uint64_t receive_time_constraint_us(uint16_t nbytes) override;
 
 #if HAL_UART_STATS_ENABLED
@@ -104,6 +135,9 @@ private:
     static void _async_cb(const struct device *dev, struct uart_event *evt, void *user_data);
     void _tx_dma_kick();
     bool _use_async = false;
+    /* Set in _begin(): this port's device is a USB CDC-ACM instance, not a
+       hardware UART. ChibiOS carries the same flag as sdef.is_usb. */
+    bool _is_usb = false;
     volatile bool _tx_dma_busy = false;
     /* Bytes staged in _tx_dma_buf and handed to uart_tx(), still owned by the
        write ring until the transfer reports how many actually went out. */
