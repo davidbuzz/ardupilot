@@ -15,14 +15,12 @@
  */
 
 #include <hal.h>
-#include <string.h>
 #include "SPIDevice.h"
 #include "sdcard.h"
 #include "bouncebuffer.h"
 #include "CrashDump.h"
 #include "hwdef/common/spi_hook.h"
 #include <AP_BoardConfig/AP_BoardConfig.h>
-#include <AP_HAL/AP_HAL.h>
 #include <AP_Filesystem/AP_Filesystem.h>
 #include "stm32_util.h"
 
@@ -34,15 +32,6 @@ static FATFS SDC_FS; // FATFS object
 static HAL_Semaphore sem;
 #endif
 static bool sdcard_running;
-static uint32_t sdcard_last_fail_ms;
-static uint32_t sdcard_retry_interval_ms;
-
-#ifndef HAL_SDCARD_RETRY_INTERVAL_MS
-#define HAL_SDCARD_RETRY_INTERVAL_MS 2000U
-#endif
-#ifndef HAL_SDCARD_RETRY_INTERVAL_MAX_MS
-#define HAL_SDCARD_RETRY_INTERVAL_MAX_MS 30000U
-#endif
 #endif
 
 #if HAL_USE_SDC
@@ -56,9 +45,6 @@ static AP_HAL::SPIDevice *device;
 static MMCConfig mmcconfig;
 static SPIConfig lowspeed;
 static SPIConfig highspeed;
-#ifndef HAL_SDCARD_SPI_INIT_TRIES
-#define HAL_SDCARD_SPI_INIT_TRIES 3U
-#endif
 #endif
 
 // initialise the microSD block device without mounting its filesystem
@@ -66,7 +52,6 @@ bool sdcard_init_raw(uint8_t sd_slowdown, uint8_t tries)
 {
 #if HAL_USE_FATFS
 #if HAL_USE_SDC
-
 #if STM32_SDC_USE_SDMMC2 == TRUE
     auto &sdcd = SDCD2;
 #else
@@ -115,7 +100,213 @@ bool sdcard_init_raw(uint8_t sd_slowdown, uint8_t tries)
         sdcard_running = true;
         return true;
     }
+#elif HAL_USE_MMC_SPI && defined(RP2350)
+    return sdcard_init_raw_mmc_rp2350(sd_slowdown);
 #elif HAL_USE_MMC_SPI
+    if (MMCD1.buffer == nullptr) {
+        // allocate 16 byte non-cacheable buffer for microSD
+        MMCD1.buffer = (uint8_t*)malloc_axi_sram(MMC_BUFFER_SIZE);
+    }
+
+    if (sdcard_running) {
+        sdcard_stop();
+    }
+
+    sdcard_running = true;
+
+    if (device == nullptr) {
+        device = AP_HAL::get_HAL().spi->get_device_ptr("sdcard");
+        if (!device) {
+            printf("No sdcard SPI device found\n");
+            sdcard_running = false;
+            return false;
+        }
+    }
+    device->set_slowdown(sd_slowdown);
+
+    mmcObjectInit(&MMCD1, MMCD1.buffer);
+
+    mmcconfig.spip = (static_cast<ChibiOS::SPIDevice*>(device))->get_driver();
+    mmcconfig.hscfg = &highspeed;
+    mmcconfig.lscfg = &lowspeed;
+
+    // try the requested number of times to initialise the microSD interface
+    for (uint8_t i=0; i<tries; i++) {
+        mmcStart(&MMCD1, &mmcconfig);
+        if (mmcConnect(&MMCD1) == HAL_FAILED) {
+            mmcStop(&MMCD1);
+            continue;
+        }
+        sdcard_running = true;
+        return true;
+    }
+#endif
+    sdcard_running = false;
+#endif  // HAL_USE_FATFS
+    return false;
+}
+
+BaseBlockDevice *sdcard_get_block_device()
+{
+#if HAL_USE_SDC
+#if STM32_SDC_USE_SDMMC2 == TRUE
+    return reinterpret_cast<BaseBlockDevice *>(&SDCD2);
+#else
+    return reinterpret_cast<BaseBlockDevice *>(&SDCD1);
+#endif
+#elif HAL_USE_MMC_SPI
+    return reinterpret_cast<BaseBlockDevice *>(&MMCD1);
+#else
+    return nullptr;
+#endif
+}
+
+bool sdcard_init()
+{
+#if HAL_USE_FATFS
+#ifndef HAL_BOOTLOADER_BUILD
+    WITH_SEMAPHORE(sem);
+    const uint8_t sd_slowdown = AP_BoardConfig::get_sdcard_slowdown();
+#else
+    const uint8_t sd_slowdown = 0;
+#endif
+
+    for (uint8_t i = 0; i < 3; i++) {
+        if (!sdcard_init_raw(sd_slowdown, 1)) {
+            continue;
+        }
+        if (f_mount(&SDC_FS, "/", 1) == FR_OK) {
+            printf("Successfully mounted SDCard (slowdown=%u)\n", (unsigned)sd_slowdown);
+            return true;
+        }
+        sdcard_stop();
+    }
+#endif
+    return false;
+}
+
+/*
+  stop sdcard interface (for reboot)
+ */
+void sdcard_stop(void)
+{
+#if AP_CRASHDUMP_FATFS_ENABLED && (HAL_USE_SDC || \
+    (HAL_USE_MMC_SPI && CRASHDUMP_SD_SPI_SUPPORTED_MCU))
+    // Do this before unmounting or disabling the peripheral clock. A fault
+    // after this point must not try to use the cached sector map.
+    crashdump_sd_invalidate();
+#endif
+#if HAL_USE_FATFS
+    // unmount
+    f_mount(nullptr, "/", 1);
+#endif
+#if HAL_USE_SDC
+#if STM32_SDC_USE_SDMMC2 == TRUE
+    auto &sdcd = SDCD2;
+#else
+    auto &sdcd = SDCD1;
+#endif
+    if (sdcard_running) {
+        sdcDisconnect(&sdcd);
+        sdcStop(&sdcd);
+        sdcard_running = false;
+    }
+#elif HAL_USE_MMC_SPI
+    if (sdcard_running) {
+        mmcDisconnect(&MMCD1);
+        mmcStop(&MMCD1);
+        sdcard_running = false;
+    }
+#endif
+}
+
+bool sdcard_retry(void)
+{
+#if HAL_USE_FATFS
+#if AP_CRASHDUMP_FATFS_ENABLED && (HAL_USE_SDC || \
+    (HAL_USE_MMC_SPI && CRASHDUMP_SD_SPI_SUPPORTED_MCU))
+    const bool sdcard_was_running = sdcard_running;
+#endif
+    if (!sdcard_running) {
+#if defined(RP2350)
+        sdcard_retry_rp2350();
+#else
+        if (sdcard_init()) {
+#if AP_FILESYSTEM_FILE_WRITING_ENABLED
+            // create APM directory
+            AP::FS().mkdir("/APM");
+#endif
+        }
+#endif
+    }
+#if AP_CRASHDUMP_FATFS_ENABLED && (HAL_USE_SDC || \
+    (HAL_USE_MMC_SPI && CRASHDUMP_SD_SPI_SUPPORTED_MCU))
+    if (sdcard_running &&
+        (!sdcard_was_running || !crashdump_sd_ready())) {
+        crashdump_sd_init();
+    }
+#endif
+    return sdcard_running;
+#endif
+    return false;
+}
+
+#if defined(RP2350) && HAL_USE_FATFS
+#ifndef HAL_SDCARD_RETRY_INTERVAL_MS
+#define HAL_SDCARD_RETRY_INTERVAL_MS 2000U
+#endif
+#ifndef HAL_SDCARD_RETRY_INTERVAL_MAX_MS
+#define HAL_SDCARD_RETRY_INTERVAL_MAX_MS 30000U
+#endif
+
+static uint32_t sdcard_last_fail_ms;
+static uint32_t sdcard_retry_interval_ms;
+
+// sdcard_retry() for RP2350, called with the card not running
+void sdcard_retry_rp2350(void)
+{
+    // Avoid repeated long probe sequences when no card is present.
+    // Boot paths can call retry_mount() many times in a tight loop.
+    const uint32_t now_ms = AP_HAL::millis();
+    const uint32_t interval = (sdcard_retry_interval_ms != 0)
+                              ? sdcard_retry_interval_ms
+                              : HAL_SDCARD_RETRY_INTERVAL_MS;
+    if ((now_ms - sdcard_last_fail_ms) < interval) {
+        return;
+    }
+    if (sdcard_init()) {
+        sdcard_last_fail_ms = 0;
+        sdcard_retry_interval_ms = 0;
+#if AP_FILESYSTEM_FILE_WRITING_ENABLED
+// create APM directory without re-entering AP::FS()
+// callers may already hold the FATFS backend mutex on targets where mutexes are non-recursive.
+        const FRESULT res = f_mkdir("/APM");
+        (void)res;
+#endif
+    } else {
+        sdcard_last_fail_ms = now_ms;
+        // exponential backoff: 1 s -> 2 s -> 4 s ... -> 30 s max
+        // fast early retries catch the SD card power-on delay (~1-2 s);
+        // the cap avoids hammering the SPI bus when no card is present.
+        if (sdcard_retry_interval_ms == 0) {
+            sdcard_retry_interval_ms = HAL_SDCARD_RETRY_INTERVAL_MS;
+        } else {
+            sdcard_retry_interval_ms = sdcard_retry_interval_ms * 2;
+            if (sdcard_retry_interval_ms > HAL_SDCARD_RETRY_INTERVAL_MAX_MS) {
+                sdcard_retry_interval_ms = HAL_SDCARD_RETRY_INTERVAL_MAX_MS;
+            }
+        }
+    }
+}
+
+#if HAL_USE_MMC_SPI
+#ifndef HAL_SDCARD_SPI_INIT_TRIES
+#define HAL_SDCARD_SPI_INIT_TRIES 3U
+#endif
+
+// the HAL_USE_MMC_SPI part of sdcard_init_raw() for RP2350
+bool sdcard_init_raw_mmc_rp2350(uint8_t sd_slowdown)
+{
     if (MMCD1.buffer == nullptr) {
         // allocate 16 byte non-cacheable buffer for microSD
         MMCD1.buffer = (uint8_t*)malloc_axi_sram(MMC_BUFFER_SIZE);
@@ -262,138 +453,11 @@ bool sdcard_init_raw(uint8_t sd_slowdown, uint8_t tries)
         sdcard_running = true;
         return true;
     }
-#endif
     sdcard_running = false;
-#endif  // HAL_USE_FATFS
     return false;
 }
-
-BaseBlockDevice *sdcard_get_block_device()
-{
-#if HAL_USE_SDC
-#if STM32_SDC_USE_SDMMC2 == TRUE
-    return reinterpret_cast<BaseBlockDevice *>(&SDCD2);
-#else
-    return reinterpret_cast<BaseBlockDevice *>(&SDCD1);
-#endif
-#elif HAL_USE_MMC_SPI
-    return reinterpret_cast<BaseBlockDevice *>(&MMCD1);
-#else
-    return nullptr;
-#endif
-}
-
-bool sdcard_init()
-{
-#if HAL_USE_FATFS
-#ifndef HAL_BOOTLOADER_BUILD
-    WITH_SEMAPHORE(sem);
-    const uint8_t sd_slowdown = AP_BoardConfig::get_sdcard_slowdown();
-#else
-    const uint8_t sd_slowdown = 0;
-#endif
-
-    for (uint8_t i = 0; i < 3; i++) {
-        if (!sdcard_init_raw(sd_slowdown, 1)) {
-            continue;
-        }
-        if (f_mount(&SDC_FS, "/", 1) == FR_OK) {
-            printf("Successfully mounted SDCard (slowdown=%u)\n", (unsigned)sd_slowdown);
-            return true;
-        }
-        sdcard_stop();
-    }
-#endif
-    return false;
-}
-
-/*
-  stop sdcard interface (for reboot)
- */
-void sdcard_stop(void)
-{
-#if AP_CRASHDUMP_FATFS_ENABLED && (HAL_USE_SDC || \
-    (HAL_USE_MMC_SPI && CRASHDUMP_SD_SPI_SUPPORTED_MCU))
-    // Do this before unmounting or disabling the peripheral clock. A fault
-    // after this point must not try to use the cached sector map.
-    crashdump_sd_invalidate();
-#endif
-#if HAL_USE_FATFS
-    // unmount
-    f_mount(nullptr, "/", 1);
-#endif
-#if HAL_USE_SDC
-#if STM32_SDC_USE_SDMMC2 == TRUE
-    auto &sdcd = SDCD2;
-#else
-    auto &sdcd = SDCD1;
-#endif
-    if (sdcard_running) {
-        sdcDisconnect(&sdcd);
-        sdcStop(&sdcd);
-        sdcard_running = false;
-    }
-#elif HAL_USE_MMC_SPI
-    if (sdcard_running) {
-        mmcDisconnect(&MMCD1);
-        mmcStop(&MMCD1);
-        sdcard_running = false;
-    }
-#endif
-}
-
-bool sdcard_retry(void)
-{
-#if HAL_USE_FATFS
-#if AP_CRASHDUMP_FATFS_ENABLED && (HAL_USE_SDC || \
-    (HAL_USE_MMC_SPI && CRASHDUMP_SD_SPI_SUPPORTED_MCU))
-    const bool sdcard_was_running = sdcard_running;
-#endif
-    if (!sdcard_running) {
-        // Avoid repeated long probe sequences when no card is present.
-        // Boot paths can call retry_mount() many times in a tight loop.
-        const uint32_t now_ms = AP_HAL::millis();
-        const uint32_t interval = (sdcard_retry_interval_ms != 0)
-                                  ? sdcard_retry_interval_ms
-                                  : HAL_SDCARD_RETRY_INTERVAL_MS;
-        if ((now_ms - sdcard_last_fail_ms) < interval) {
-            return false;
-        }
-        if (sdcard_init()) {
-            sdcard_last_fail_ms = 0;
-            sdcard_retry_interval_ms = 0;
-#if AP_FILESYSTEM_FILE_WRITING_ENABLED
-// create APM directory without re-entering AP::FS()
-// callers may already hold the FATFS backend mutex on targets where mutexes are non-recursive.
-            const FRESULT res = f_mkdir("/APM");
-            (void)res;
-#endif
-        } else {
-            sdcard_last_fail_ms = now_ms;
-            // exponential backoff: 1 s -> 2 s -> 4 s ... -> 30 s max
-            // fast early retries catch the SD card power-on delay (~1-2 s);
-            // the cap avoids hammering the SPI bus when no card is present.
-            if (sdcard_retry_interval_ms == 0) {
-                sdcard_retry_interval_ms = HAL_SDCARD_RETRY_INTERVAL_MS;
-            } else {
-                sdcard_retry_interval_ms = sdcard_retry_interval_ms * 2;
-                if (sdcard_retry_interval_ms > HAL_SDCARD_RETRY_INTERVAL_MAX_MS) {
-                    sdcard_retry_interval_ms = HAL_SDCARD_RETRY_INTERVAL_MAX_MS;
-                }
-            }
-        }
-    }
-#if AP_CRASHDUMP_FATFS_ENABLED && (HAL_USE_SDC || \
-    (HAL_USE_MMC_SPI && CRASHDUMP_SD_SPI_SUPPORTED_MCU))
-    if (sdcard_running &&
-        (!sdcard_was_running || !crashdump_sd_ready())) {
-        crashdump_sd_init();
-    }
-#endif
-    return sdcard_running;
-#endif
-    return false;
-}
+#endif // HAL_USE_MMC_SPI
+#endif // RP2350 && HAL_USE_FATFS
 
 #if HAL_USE_MMC_SPI
 

@@ -27,3 +27,8 @@ BaseBlockDevice *sdcard_get_block_device();
 void sdcard_stop();
 bool sdcard_retry();
 AP_HAL::SPIDevice *sdcard_get_spi_device();
+
+#if defined(RP2350)
+bool sdcard_init_raw_mmc_rp2350(uint8_t sd_slowdown);
+void sdcard_retry_rp2350(void);
+#endif
