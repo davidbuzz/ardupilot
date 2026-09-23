@@ -15,7 +15,7 @@
  * Baud clock: sys_clk / (8 cycles_per_bit * baud_rate).
  *
  * Instruction words derived from pico-sdk uart_tx.pio / uart_rx.pio.
- * Source in hwdef/Pico2/pico_pio_uart.pio.
+ * Source in rp2350/pico_pio_uart.pio.
  *
  * WIP: skeleton -- verify on real RP2350 hardware.
  */

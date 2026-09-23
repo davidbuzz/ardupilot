@@ -1,4 +1,4 @@
-# Flashing and Debugging RPI_UAVFC / Laurel / Pico2 (RP2350) Hardware
+# Flashing and Debugging RPI_UAVFC / Laurel (RP2350) Hardware
 
 ## Repository Safety
 
@@ -20,17 +20,15 @@ Do not run the command until the user explicitly approves it.
 |---|---|---|
 | **RPI_UAVFC** | `--board=RPI_UAVFC` | `/dev/serial/by-id/usb-ArduPilot_RPI_UAVFC_*-if00` |
 | **Laurel** | `--board=Laurel` | `/dev/serial/by-id/usb-ArduPilot_Laurel_B8CE48E2E19D881E67A96B1B-if00` |
-| **Pico2** | `--board=Pico2` | `/dev/serial/by-id/usb-ArduPilot_Pico2_*-if00` |
 
-RPI_UAVFC is the board this directory documents; the Laurel and Pico2 rows are
-kept because the same debug probe and workflow serve all three.
+RPI_UAVFC is the board this directory documents; the Laurel row is kept
+because the same debug probe and workflow serve both.
 
-Pico2 builds and links, so it is usable as a sanity check. If it fails with
-`No rule to make target .../AP_HAL_Pico/...`, the build directory is stale:
-`build/Pico2/.dep` holds dependency files naming a path from an earlier tree
-layout. `rm -rf build/Pico2/.dep build/Pico2/modules/ChibiOS` and rebuild. The
-same applies to any board after its chibios_board.mk changes - the ChibiOS step
-is a make invocation inside waf and does not notice the switch.
+If a build fails with `No rule to make target` naming an old path, the build
+directory is stale: `build/<board>/.dep` holds dependency files from an earlier
+tree layout. `rm -rf build/<board>/.dep build/<board>/modules/ChibiOS` and
+rebuild. The same applies after a board's chibios_board.mk changes - the
+ChibiOS step is a make invocation inside waf and does not notice the switch.
 
 ### Flash layout (RPI_UAVFC)
 
@@ -52,10 +50,10 @@ reached (see ESC calibration in `DEVELOPMENT.md`).
 
 ## Hardware Setup (Pico2 as debugger)
 
-Two Pico2W boards are used:
+A Pico2W is used as the debug probe:
 
 - **Debugger** (labeled): flashed with `debugprobe_on_pico2.uf2` — provides CMSIS-DAP SWD + UART bridge
-- **Target**: runs ArduPilot firmware (Pico2 or Laurel carrier board)
+- **Target**: runs ArduPilot firmware (RPI_UAVFC or Laurel)
 
 ### Wiring (debugger → target)
 
@@ -222,70 +220,17 @@ Expected output ends with:
 shutdown command invoked
 ```
 
-### Pico2 — Bootloader (one-time BOOTSEL flash)
-
-The bootloader is built once and loaded via BOOTSEL/UF2. It is NOT updated by `--upload`.
-
-```bash
-./waf configure --board=Pico2 --bootloader --debug
-./waf bootloader -j12
-```
-
-Then ask the human:
-> "Please hold the BOOTSEL button on the Pico2 while plugging in the USB cable, then release. Tell me when the device appears as a mass-storage drive."
-
-Do not start the bootloader upload until the human confirms the board is in BOOTSEL mode.
-
-Once in BOOTSEL mode:
-
-```bash
-./waf configure --board=Pico2 --bootloader
-./waf bootloader --upload
-```
-
-### Pico2 — App Firmware via `--upload` (MAVLink bootloader path)
-
-**Requires AP_Bootloader already installed. Requires a human to unplug and re-plug the USB cable.**
-
-Before running, tell the human:
-> "Please unplug the Pico2 USB cable and plug it back in now."
-
-Do not run until the human confirms the re-plug.
-
-```bash
-./waf copter --upload
-# or manually:
-python3 Tools/scripts/uploader.py \
-    --port /dev/ttyACM1,/dev/ttyACM0 \
-    build/Pico2/bin/arducopter.apj
-```
-
-Expected output:
-
-```text
-Found board bd,0 bootloader rev 5 on /dev/ttyACM1
-Erase  : [====================] 100.0%
-Program: [====================] 100.0%
-Verify : [====================] 100.0%
-Rebooting.
-EXIT: 0
-```
-
-Full flash takes ~60–90 seconds. Use `timeout 120` if calling manually.
-
-**Port locking error** (`[Errno 11] Could not exclusively lock port`): another process has the port. Kill it first.
-
-### Pico2 — App Firmware via SWD (no unplug required, debug path)
+### App Firmware via GDB load (no unplug required, debug path)
 
 ```bash
 gdb-multiarch --nx --batch \
   -ex "target extended-remote :50000" \
   -ex "mon halt" \
   -ex "mon reset halt" \
-  -ex "load build/Pico2/bin/arducopter" \
+  -ex "load build/RPI_UAVFC/bin/arducopter" \
   -ex "mon reset run" \
   -ex "quit" \
-  build/Pico2/bin/arducopter
+  build/RPI_UAVFC/bin/arducopter
 ```
 
 Expected: `Transfer rate: ~113 KB/sec` — ~15 seconds for a 1.4 MB image.
@@ -431,11 +376,6 @@ Run from the repository root.
 ./waf configure --board=Laurel
 ./waf copter -j12
 # output: build/Laurel/bin/arducopter.bin
-
-# Pico2 - currently fails to link, see Board Identity above
-./waf configure --board=Pico2 --debug
-./waf copter -j12
-# output: build/Pico2/bin/arducopter (ELF)
 ```
 
 ---

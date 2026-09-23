@@ -379,7 +379,7 @@ files the port owns rather than to shared code:
   differently, and without the aliases `ch0`/`ch1` and both idle stacks fall
   silently out of the scratch banks into main SRAM. It still builds and still
   boots, so check the symbols, not the build:
-  `arm-none-eabi-objdump -t build/Pico2/bin/arducopter | grep -E '\bch0$|\bch1$'`
+  `arm-none-eabi-objdump -t build/RPI_UAVFC/bin/arducopter | grep -E '\bch0$|\bch1$'`
   must show `.ram4_clear.core0` and `.ram5_clear.core1`.
 - `mpu_v8m.h`, placed beside the existing `mpu_v7m.h` in
   `os/hal/ports/common/ARMCMx/` rather than in a parallel include tree.
