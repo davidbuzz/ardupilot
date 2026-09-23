@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 
-# derived from 405
+# RP2350 MCU tables, laid out like the STM32 ones (derived from STM32F405xx.py)
 
 # flake8: noqa
-'''
-these tables are NOT generated from the STM32 datasheets for theSTM32F40x
-'''
 
 # additional build information for ChibiOS
 build = {
@@ -13,43 +10,30 @@ build = {
     "CHIBIOS_PLATFORM_MK" : "os/hal/ports/RP/RP2350/platform.mk"
     }
 
-# 2350 official / nominal core speed to 150Mhz, but its trivially overclockable to 168Mhz like the F4 series
-
-# a 4M onboard flash: #define PICO_FLASH_SIZE_BYTES (4 * 1024 * 1024) a 16M onboard flash: #define PICO_FLASH_SIZE_BYTES (16 * 1024 * 1024)
-
-# 2.2 Address map - Table 8.
-# Address Map / explain Bus Segment / Base Address ROM 0x00000000 XIP 0x10000000 / eXecute In Place from fast nor flash, and XIP cache, saves ram, but slower than internal memory.
-
 pincount = {
-# 'A': 16, 'B': 16, 'C': 16, 'D': 16,
     'A': 48	,  # GPIO0 to GPIO47 - its not really called A in the datasheet or whatever, but we had to call it something aligned with what stm does.
 	'B': 2,	   # 0&1 are fake pins for USB_DP/DM
-	'C': 4,  # a fake one for 0=SWCLK=24, 1=SWDIO=25, 2=RUN=26 , 4=unused - q60 layout
+	'C': 4,  # fake pins for debug: 0=SWCLK, 1=SWDIO, 2=RUN, 3=unused
 	'D': 0,	'E': 0,	'F': 0,
 	'G': 0,	'H': 0,	'I': 0, 'J': 0,	'K': 0,
 }
-
 
 # MCU parameters
 mcu = {
 # ram map, as list of (address, size-kb, flags) flags of 1 means DMA-capable flags of 2 means faster memory for CPU intensive work
     'RAM_MAP' : [
-        # ROM 				0x00000000
-        # XIP 				0x10000000
         (0x20000000, 512, 1), # main memory, DMA safe, 512k
     ],
 
 # hints also here: https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2_common/pico_unique_id/include/pico/unique_id.c
-	'UDID_START' : 0x1FFF7A10, # 64 bits of "random" on the rp2350 in a OTP , this is 96bits on stm32, and also guaranteed unique on stm32 but not 2350
+	'UDID_START' : 0x1FFF7A10, # unused placeholder: RP2350 code reads the chip ID from OTP instead
 
-    # Use the RP2350 SMP linker script that adds core1 MSP/PSP stack sections.
-    # Required when CH_CFG_SMP_MODE=TRUE and RP_CORE1_START=TRUE.
+    # RP2350 SMP linker script, adding the core1 MSP/PSP stack sections.
     'LINKER_CONFIG' : 'common_rp2350_smp.ld',
 
-    'EXPECTED_CLOCK' : 375000000,  # overclocked from default.
+    'EXPECTED_CLOCK' : 375000000,  # boards set MCU_CLOCKRATE_MHZ; not checked on RP2350
 
     'DEFINES' : {
-        #'STM32F4' : '1',
     },
     'CORTEX'    : 'cortex-m33',
 # Use fpv5-sp-d16 with hard ABI: - hard: float args go in FPU registers directly (eliminates the int-register round-trip that softfp incurs per float call).
@@ -57,23 +41,7 @@ mcu = {
     'CPU_FLAGS' : '-mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard'
 }
 
-# Table 1427 Name QFN-60-Number QFN-80-Number Type Power-Domain Reset-State Description GPIO0 2 77 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO1 3 78 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO2 4 79 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO3 5 80 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO4 7 1 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO5 8 2 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO6 9 3 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO7 10 4 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO8 12 6 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO9 13 7 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO10 14 8 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO11 15 9 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO12 16 11 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO13 17 12 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO14 18 13 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO15 19 14 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO16 27 16 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO17 28 17 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO18 29 18 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO19 31 19 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO20 32 20 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO21 33 21 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO22 34 22 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO23 35 23 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO24 36 25 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO25 37 26 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO26_ADC0 40 - Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input GPIO27_ADC1 41 - Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input GPIO28_ADC2 42 - Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input GPIO29_ADC3 43 - Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input GPIO26 - 27 Digital-IO-(FT) IOVDD Pull-Down User-IO gpio26-39 are qfn-80 only GPIO27 - 28 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO28 - 36 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO29 - 37 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO30 - 38 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO31 - 39 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO32 - 40 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO33 - 42 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO34 - 43 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO35 - 44 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO36 - 45 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO37 - 46 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO38 - 47 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO39 - 48 Digital-IO-(FT) IOVDD Pull-Down User-IO GPIO40_ADC0 - 49 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input qfn-80 only from here down GPIO41_ADC1 - 52 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input GPIO42_ADC2 - 53 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input GPIO43_ADC3 - 54 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input GPIO44_ADC4 - 55 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input GPIO45_ADC5 - 56 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input GPIO46_ADC6 - 57 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input GPIO47_ADC7 - 58 Digital-IO/Analogue IOVDD/ADC_AVDD Pull-Down User-IO-or-ADC-input
-
-# Table 1428 QSPI_SD3 55 70 Digital-IO QSPI_IOVDD Pull-Up QSPI_data QSPI_SCLK 56 71 Digital-IO QSPI_IOVDD Pull-Down QSPI_clock QSPI_SD0 57 72 Digital-IO QSPI_IOVDD Pull-Down QSPI_data QSPI_SD2 58 73 Digital-IO QSPI_IOVDD Pull-Up QSPI_data QSPI_SD1 59 74 Digital-IO QSPI_IOVDD Pull-Down QSPI_data QSPI_SS 60 75 Digital-IO QSPI_IOVDD Pull-Up QSPI_chip_select/USB_BOOTSEL
-
-# Table 1429.
-# Crystal oscillator pins Name QFN-60-Number QFN-80-Number Type Power-Domain Description XIN 21 30 Analogue (XOSC) IOVDD Crystal oscillator.
-
-# Table 1430.
-# Miscellaneous pins Name QFN-60-Number QFN-80-Number Type Power-Domain Reset-State Description SWCLK 24 33 Digital-In-(FT) IOVDD Pull-Up Serial_Wire_Debug_clock SWDIO 25 34 Digital-IO-(FT) IOVDD Pull-Up Serial_Wire_Debug_data RUN 26 35 Digital-In-(FT) IOVDD Pull-Up Chip enable / reset_n
-
-# Table 1431.
-# USB pins Name QFN-60-Number QFN-80-Number Type Power-Domain Description USB_DP 52 67 USB IO USB_OTP_VDD USB Data +ve.
-
-# Table 1432.
-# Power supply pins Name QFN-60-Number(s) QFN-80-Number(s) Description DVDD 6, 23, 39 10, 32, 51 Core supply IOVDD 11, 20, 30, 38, 45, 54 5, 15, 24, 29, 41, 50, 60, 76 IO supply QSPI_IOVDD 54 69 QSPI IO supply USB_OTP_VDD 53 68 USB & OTP supply ADC_AVDD 44 59 ADC supply VREG_AVDD 46 61 Voltage regulator analogue supply VREG_PGND 47 62 Voltage regulator ground VREG_LX 48 63 Voltage regulator switching output (connect to inductor) VREG_VIN 49 64 Voltage regulator input supply VREG_FB 50 65 Voltage regulator feedback input GND - - Ground connection via central exposed pad
-
-# we'll commect the normal pin names to the alternate function map too.
+# we'll connect the normal pin names to the alternate function map too.
 AltFunction_map = {
 }
 
@@ -90,7 +58,6 @@ regular_pins_q60 = {
 }
 for k,v in regular_pins_q60.items():
 	AltFunction_map[f"PA{v}:{k}"] = v+100  # offset by 100 to avoid clashes
-
 
  # q80 uses the QFN-80-Number - these have weird offsets, do not "fix", this is how they are numbered in the datasheet for realz.
 regular_pins_q80 = {
@@ -611,7 +578,7 @@ _AltFunction_map = {
 # PB0&PB1 are fake ones for USB doesnt really exist or map to a pin.
 "PB0:OTG_FS_DM"	:	1,
 "PB1:OTG_FS_DP"	:	2,
-# PC0&PC1&PC2 are fake ones for debug doesnt really exist or map to a pin.q60: "SWCLK" : 24,"SWDIO" : 25,"RUN" : 26,
+# PC0&PC1&PC2 are fake ones for debug doesnt really exist or map to a pin.
 "PC0:SWCLK"	:	1,
 "PC1:SWDIO"	:	2,
 "PC2:RUN"	:	3,
@@ -620,17 +587,14 @@ _AltFunction_map = {
 for k,v in _AltFunction_map.items():
 	AltFunction_map[k] = v
 
-# 12.4.
-# ADC and Temperature Sensor RP2350 has an internal analogue-digital converter (ADC) with the following features: - SAR ADC (see Section 12.4.3) - 500 kS/s (using an independent 48 MHz clock) - 12-bit with 9.2 ENOB (see Section 12.4.4) - Five or nine input mux: ◦ Four inputs available on QFN-60 package pins shared with GPIO[29:26] ◦ One input dedicated to the internal temperature sensor (see Section 12.4.6) - Eight element receive sample FIFO - Interrupt generation - DMA interface (see Section 12.4.3.5)
-
-# qfn60 package has 4 ADC pins:, qfn80 todo
+# QFN-60 has 4 ADC pins (GPIO26-29), QFN-80 has 8 (GPIO40-47)
 ADC1_map = {
 	# format is PIN : ADC1_CHAN
 	"PA26"	:	0,
 	"PA27"	:	1,
 	"PA28"	:	2,
 	"PA29"	:	3,
-	# RP2350 QFN-80 adds four more ADC-capable GPIOs.
+	# QFN-80 has eight ADC-capable GPIOs instead.
 	"PA40"	:	0,
 	"PA41"	:	1,
 	"PA42"	:	2,
@@ -639,18 +603,14 @@ ADC1_map = {
 	"PA45"	:	5,
 	"PA46"	:	6,
 	"PA47"	:	7,
-    # internal temperature sensor is ADC1_CHAN 4 but we dont map it to a pin
+    # the internal temperature sensor (channel 4 on QFN-60, 8 on QFN-80) is not mapped to a pin
 }
 
 # 2350 has 16 dma channels, 4 shared irqs.
-# a READ_ADDR, WRITE_ADDR, TRANS_COUNT, and CTRL register per-channel.
-
-# dma subsystem cant access SIO subsystem use PIO instead.
 
 # DREQ is totally different from stm32.
-# While the STM32F4 relies on a fixed "stream/channel" mapping where specific peripherals are tied to specific DMA streams, the RP2350 uses a flexible "request signal" (DREQ) system, where any of the 12+ DMA channels can be mapped to any peripheral or PIO state machine
-
-#we can fake the any-dma-of-12 -> to any peripheral, by mapping 12 for each peripheral.
+# Any RP2350 DMA channel can serve any peripheral. This table only feeds
+# dma_resolver; the RP drivers allocate channels from RP_*_DMA_CHANNEL.
 
 DMA_Map = {
 
@@ -669,7 +629,6 @@ DMA_Map = {
 	"PIO2_TX" 	:	[(0,0,0),(1,1,1),(2,2,2),(1,3,3),(4,4,4),(5,5,5),(6,6,6),(7,7,7),(8,8,8),(9,9,9),(10,10,10),(11,11,11)],
 
 # dma subsystem cant access SIO subsystem use PIO instead.
-# "SIO_RX" : [(0,0,0),(1,1,1),(2,2,2),(1,3,3),(4,4,4),(5,5,5),(6,6,6),(7,7,7),(8,8,8),(9,9,9),(10,10,10),(11,11,11)], "SIO_TX" : [(0,0,0),(1,1,1),(2,2,2),(1,3,3),(4,4,4),(5,5,5),(6,6,6),(7,7,7),(8,8,8),(9,9,9),(10,10,10),(11,11,11)],
 
 	"SPI0_RX" 	:	[(0,0,0),(1,1,1),(2,2,2),(1,3,3),(4,4,4),(5,5,5),(6,6,6),(7,7,7),(8,8,8),(9,9,9),(10,10,10),(11,11,11)],
 	"SPI0_TX" 	:	[(0,0,0),(1,1,1),(2,2,2),(1,3,3),(4,4,4),(5,5,5),(6,6,6),(7,7,7),(8,8,8),(9,9,9),(10,10,10),(11,11,11)],
@@ -685,7 +644,6 @@ DMA_Map = {
 	"I2C0_TX" 	:	[(0,0,0),(1,1,1),(2,2,2),(1,3,3),(4,4,4),(5,5,5),(6,6,6),(7,7,7),(8,8,8),(9,9,9),(10,10,10),(11,11,11)],
 	"I2C1_RX" 	:	[(0,0,0),(1,1,1),(2,2,2),(1,3,3),(4,4,4),(5,5,5),(6,6,6),(7,7,7),(8,8,8),(9,9,9),(10,10,10),(11,11,11)],
 	"I2C1_TX" 	:	[(0,0,0),(1,1,1),(2,2,2),(1,3,3),(4,4,4),(5,5,5),(6,6,6),(7,7,7),(8,8,8),(9,9,9),(10,10,10),(11,11,11)],
-
 
 	# pwm, thre are 12 pwm outs that "can be continuously reprogrammed via the DMA", and "can generate interrupts to either of two system IRQ lines" and "can trigger DMA transfers to other peripherals"
     "PWM0"    	:	[(0,0,0),(1,1,1),(2,2,2),(1,3,3),(4,4,4),(5,5,5),(6,6,6),(7,7,7),(8,8,8),(9,9,9),(10,10,10),(11,11,11)],
@@ -704,7 +662,5 @@ DMA_Map = {
 	#TIMER0 and TIMER1
 	"TIMER0"  	:	[(0,0,0),(1,1,1),(2,2,2),(1,3,3),(4,4,4),(5,5,5),(6,6,6),(7,7,7),(8,8,8),(9,9,9),(10,10,10),(11,11,11)],
 	"TIMER1"  	:	[(0,0,0),(1,1,1),(2,2,2),(1,3,3),(4,4,4),(5,5,5),(6,6,6),(7,7,7),(8,8,8),(9,9,9),(10,10,10),(11,11,11)],
-
-
 
 }
