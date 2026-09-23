@@ -22,7 +22,7 @@ import sys
 from pathlib import Path
 
 REGISTRY = Path(__file__).resolve().parent.parent.parent / \
-    "libraries/AP_HAL_ChibiOS/hwdef/common/rp2350_ramfunc2_registry.txt"
+    "libraries/AP_HAL_ChibiOS/rp2350/rp2350_ramfunc2_registry.txt"
 
 NM = "arm-none-eabi-nm"
 XIP_BASE  = 0x10000000   # flash window on RP2350

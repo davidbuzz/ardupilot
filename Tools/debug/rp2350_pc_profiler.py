@@ -14,7 +14,7 @@ are bucketed by memory region so XIP-flash-resident hot code (the code that
 thrashes the 16 KB XIP cache) is separated from code already relocated to SRAM.
 
 The main output is a ranked table plus a set of ready-to-paste lines for
-libraries/AP_HAL_ChibiOS/hwdef/common/rp2350_ramfunc2_registry.txt covering the
+libraries/AP_HAL_ChibiOS/rp2350/rp2350_ramfunc2_registry.txt covering the
 hottest XIP-resident functions not already relocated.
 
 Prerequisites:
@@ -531,7 +531,7 @@ def main():
     here = os.path.dirname(os.path.abspath(__file__))
     default_root = os.path.abspath(os.path.join(here, '..', '..'))
     default_registry = os.path.join(
-        default_root, 'libraries/AP_HAL_ChibiOS/hwdef/common/rp2350_ramfunc2_registry.txt')
+        default_root, 'libraries/AP_HAL_ChibiOS/rp2350/rp2350_ramfunc2_registry.txt')
 
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
