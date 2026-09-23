@@ -94,8 +94,9 @@ Laurel currently exposes four PWM outputs:
 | PWM4 | GPIO31 | PWM7_B |
 
 These are configured as ArduPilot GPIOs `50` through `53` when used as
-servo outputs. Standard 50 Hz PWM is supported. DShot is not supported on
-RP2350 in this target.
+servo outputs. Standard PWM and DShot600, including bidirectional eRPM
+telemetry, are supported. DShot is selected with `MOT_PWM_TYPE 6`; the
+default stays at normal PWM.
 
 ## LEDs, Beeper, And Power Rails
 
@@ -485,7 +486,7 @@ board; see `../RPI_UAVFC/FLASHING.md`.
 
 | Feature | Status |
 |---------|--------|
-| DShot / BLHeli / SerialLED | Disabled in the Laurel hwdef |
+| BLHeli passthrough / SerialLED | Disabled in the Laurel hwdef |
 | CAN / DroneCAN | Not supported by RP2350 hardware |
 | Hardware OSD and microSD together | Not possible on Laurel hardware; current target chooses microSD |
 | RX-only extra serial pads | Not yet represented in current serial definitions |

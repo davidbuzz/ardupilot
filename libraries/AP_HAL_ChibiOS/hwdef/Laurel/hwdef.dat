@@ -134,7 +134,8 @@ define HAL_RCIN_GPIO_LINE 21
 PA34 PIOUART1_TX INPUT FLOATING
 PA35 PIOUART1_RX INPUT FLOATING
 
-# Motor outputs (PWM slices 6 and 7)
+# Motor outputs (PWM slices 6 and 7). The RP2350 PIO driver supports DShot600,
+# including bidirectional eRPM telemetry; plain PWM remains available.
 PA28 PWM6_A TIM6 PWM(1) GPIO(50)
 PA29 PWM6_B TIM6 PWM(2) GPIO(51)
 PA30 PWM7_A TIM7 PWM(3) GPIO(52)
@@ -232,6 +233,12 @@ define HAL_GCS_UPDATE_RATE_HZ 25
 # 1536 byte default allows.
 define HAL_RATE_THREAD_STACK_SIZE 5120
 
+# 32-bit timestamps in the rcout cycle. The 64-bit default puts micros64() and
+# the wrap arithmetic around it on core1's dshot path, where PC sampling found
+# the micros64 veneer alone at 1.2% of samples. AP_HAL::timeout_remaining() is
+# unsigned delta subtraction so the 71 minute micros() wrap is safe here.
+define AP_RCOUT_USE_32BIT_TIME 1
+
 # Timer-driven statistical PC sampler (rp2350_pc_sampler.cpp), used to guide
 # __RAMFUNC2__ relocation. Samples the interrupted PC on each core via a free
 # TIMER0 alarm and dumps per-core histograms from perf_report. See
@@ -301,7 +308,7 @@ define HAL_USE_EICU                        FALSE
 define HAL_USE_MAC                         FALSE
 define HAL_USE_MMC_SPI                     TRUE
 define HAL_USE_PWM                         TRUE
-define HAL_DSHOT_ENABLED                   0
+define HAL_DSHOT_ENABLED                   1
 define HAL_SERIALLED_ENABLED               0
 define HAL_SERIAL_ESC_COMM_ENABLED         0
 define HAL_USE_RTC                         FALSE
