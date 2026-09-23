@@ -153,7 +153,7 @@ Each hardware target may have its own README with build, flash, and debug steps.
 | Board | Build & Flash instructions |
 |-------|---------------------------|
 | Laurel (RP2350B) | [libraries/AP_HAL_ChibiOS/hwdef/Laurel/README.md](libraries/AP_HAL_ChibiOS/hwdef/Laurel/README.md) |
-| Pico2 (RP2350) | [libraries/AP_HAL_ChibiOS/hwdef/Pico2/README.md](libraries/AP_HAL_ChibiOS/hwdef/Pico2/README.md) |
+| RPI_UAVFC (RP2350B) | [libraries/AP_HAL_ChibiOS/hwdef/RPI_UAVFC/README.md](libraries/AP_HAL_ChibiOS/hwdef/RPI_UAVFC/README.md) |
 
 Example for the Laurel board:
 
@@ -169,13 +169,13 @@ Example for the Laurel board:
 When the USB boot path is unavailable, flash the ELF over SWD using OpenOCD.
 Full step-by-step instructions (debugprobe wiring, OpenOCD install, GDB setup) are in:
 
-- [libraries/AP_HAL_ChibiOS/hwdef/Pico2/Debugger.md](libraries/AP_HAL_ChibiOS/hwdef/Pico2/Debugger.md) — applies to Pico2 and Laurel (same RP2350 debug process)
+- [libraries/AP_HAL_ChibiOS/hwdef/RPI_UAVFC/FLASHING.md](libraries/AP_HAL_ChibiOS/hwdef/RPI_UAVFC/FLASHING.md) — applies to RPI_UAVFC and Laurel (same RP2350 debug process)
 - [libraries/AP_HAL_ChibiOS/hwdef/Laurel/README.md#swd--openocd-path](libraries/AP_HAL_ChibiOS/hwdef/Laurel/README.md) — Laurel J12 SWD connector pinout
 
 Quick reference:
 
 ```sh
-# Install Raspberry Pi's pico-compatible openocd (see Debugger.md for download link)
+# Install Raspberry Pi's pico-compatible openocd (see FLASHING.md for download link)
 sudo apt-get install libhidapi-hidraw0
 # Then run OpenOCD (leave running in a separate terminal):
 ~/openocd-pico/openocd -c "gdb_port 50000" -c "tcl_port 50001" -c "telnet_port 50002" \

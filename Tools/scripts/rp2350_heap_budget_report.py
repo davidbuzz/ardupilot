@@ -1011,7 +1011,7 @@ def detect_default_map(repo_root: Path) -> Optional[Path]:
     # Prefer the common RP2350 targets first, then fall back to newest build map.
     preferred = [
         repo_root / "build" / "Laurel" / "Linker.map",
-        repo_root / "build" / "Pico2" / "Linker.map",
+        repo_root / "build" / "RPI_UAVFC" / "Linker.map",
     ]
     for candidate in preferred:
         if candidate.exists():
@@ -1032,7 +1032,7 @@ def detect_default_hwdef(repo_root: Path, map_path: Path) -> Optional[Path]:
 
     fallbacks = [
         repo_root / "libraries" / "AP_HAL_ChibiOS" / "hwdef" / "Laurel" / "hwdef.dat",
-        repo_root / "libraries" / "AP_HAL_ChibiOS" / "hwdef" / "Pico2" / "hwdef.dat",
+        repo_root / "libraries" / "AP_HAL_ChibiOS" / "hwdef" / "RPI_UAVFC" / "hwdef.dat",
     ]
     for candidate in fallbacks:
         if candidate.exists():
@@ -1042,7 +1042,7 @@ def detect_default_hwdef(repo_root: Path, map_path: Path) -> Optional[Path]:
 
 _HWDEF_FALLBACK_DIRS = [
     Path("libraries/AP_HAL_ChibiOS/hwdef/Laurel"),
-    Path("libraries/AP_HAL_ChibiOS/hwdef/Pico2"),
+    Path("libraries/AP_HAL_ChibiOS/hwdef/RPI_UAVFC"),
 ]
 
 
@@ -1376,7 +1376,7 @@ def main() -> int:
     parser.add_argument(
         "--map",
         default="",
-        help="Path to linker map file (default: auto-detect Laurel/Pico2/latest Linker.map)",
+        help="Path to linker map file (default: auto-detect Laurel/RPI_UAVFC/latest Linker.map)",
     )
     parser.add_argument(
         "--source-root",
