@@ -460,7 +460,7 @@ modules/ChibiOS/os/hal/src/hal_spi_v1.inc|spiStart
 (profiled)|std::enable_if<std::is_floating_point<std::common_type<float, float>::type>::value, bool>::type is_equal<float, float>
 (profiled)|AP_MotorsMulticopter::output_rpyt
 (profiled)|void Functor<void>::method_wrapper<AP_InertialSensor_Invensensev3, &AP_InertialSensor_Invensensev3::read_fifo>
-libraries/AP_HAL_ChibiOS/hwdef/common/watchdog.c|rp2350_was_watchdog_reset
+libraries/AP_HAL_ChibiOS/rp2350/watchdog.rp2350.c|rp2350_was_watchdog_reset
 libraries/AP_HAL_ChibiOS/hwdef/common/bouncebuffer.c|bouncebuffer_setup_write
 (profiled)|Vector3<float>::operator*=
 (profiled)|AP_Logger::in_log_persistance

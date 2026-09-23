@@ -145,7 +145,7 @@ CSRC += $(HWDEF)/common/stubs.c \
         $(HWDEF)/common/hrt.c \
         $(HWDEF)/common/stm32_util.c \
         $(HWDEF)/common/bouncebuffer.c \
-        $(HWDEF)/common/watchdog.c \
+        $(RP2350DIR)/watchdog.rp2350.c \
         $(HWDEF)/common/sysperf.c \
         $(RP2350DIR)/c1_main.c
 
