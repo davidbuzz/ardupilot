@@ -334,7 +334,7 @@ because Core1's ChibiOS tick (TIMER0_ALARM1) is not yet active during that windo
 - `libraries/AP_HAL_ChibiOS/hwdef/common/board_rp2350.c` — defines `c1_xip_lock`,
   `c1_xip_lock_ready`, `rpEflBeforeXipOff()`, `rpEflAfterXipOn()` (all inside
   `#if defined(RP_CORE1_START) && RP_CORE1_START == TRUE`)
-- `libraries/AP_HAL_ChibiOS/hwdef/Laurel/c1_main.c` — adds NVIC_ISER0/ISER1 and
+- `libraries/AP_HAL_ChibiOS/rp2350/c1_main.c` — adds NVIC_ISER0/ISER1 and
   SIO_DOORBELL_IN_CLR macros; adds `c1_xip_lockout_handler` in `.ramtext`; installs
   it in `c1_vtable[42]`; enables IRQ26 and sets `c1_xip_lock_ready = 1` after
   `chInstanceObjectInit()`.
@@ -693,7 +693,7 @@ These are the bring-up values, not a constraint. RPI_UAVFC ships
 
 | File | Purpose |
 |---|---|
-| `hwdef/Laurel/c1_main.c` | Core1 startup, c1_vtable in SRAM9, fault handler, XIP lockout handler |
+| `rp2350/c1_main.c` | Core1 startup, c1_vtable in SRAM9, fault handler, XIP lockout handler |
 | `hwdef/common/board_rp2350.c` | Core0 board init, `rpEflBeforeXipOff/AfterXipOn`, XIP lockout state vars |
 | `hwdef/common/flash.c` | `stm32_flash_erasepage` / `stm32_flash_write` — calls EFL driver |
 | `modules/ChibiOS/os/hal/ports/RP/LLD/EFLv1/rp_efl_lld.c` | EFL driver: `rpEflBeforeXipOff/AfterXipOn` weak hooks |

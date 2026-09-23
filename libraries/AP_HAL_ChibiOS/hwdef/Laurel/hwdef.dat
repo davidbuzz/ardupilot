@@ -235,7 +235,7 @@ define HAL_RATE_THREAD_STACK_SIZE 5120
 # Timer-driven statistical PC sampler (rp2350_pc_sampler.cpp), used to guide
 # __RAMFUNC2__ relocation. Samples the interrupted PC on each core via a free
 # TIMER0 alarm and dumps per-core histograms from perf_report. See
-# Laurel/xip-cache-and-pgo.md. Off by default; set to 1 to profile.
+# rp2350/xip-cache-and-pgo.md. Off by default; set to 1 to profile.
 define AP_RP2350_PC_SAMPLER_ENABLED 0
 
 # When enabled the PC sampler owns TIMER0 ALARM2 (core0) and ALARM3 (core1)

@@ -384,7 +384,7 @@ Two reads from this:
   conclusion.
 
 Note core load is ~55% peak, not the 100% saturation of the older
-`XIP.notes.md` runs - the current RAMFUNC2 set plus 93.75 MHz flash
+`rp2350_XIP_notes.md` runs - the current RAMFUNC2 set plus 93.75 MHz flash
 already removed the CPU-bound regime.
 
 ### Run 2 - 2026-07-02 (on-chip timer sampler, EKF3 active)

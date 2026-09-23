@@ -18,7 +18,7 @@
   rp2350_core_affinity.h -- per-thread core assignment for RP2350 SMP.
 
   Change a single define to move a bus thread (and its peripheral IRQs) between
-  cores. See libraries/AP_HAL_ChibiOS/hwdef/Laurel/ANY_THREAD_ANY_CORE.md.
+  cores. See libraries/AP_HAL_ChibiOS/rp2350/ANY_THREAD_ANY_CORE.md.
   Valid values: 0 (Core0) or 1 (Core1). Only threads that something actually
   reads a define for are listed: RCOUT in Scheduler.cpp, and the SPI/I2C bus
   threads in Device.cpp. Every other thread is created on Core0 by a plain

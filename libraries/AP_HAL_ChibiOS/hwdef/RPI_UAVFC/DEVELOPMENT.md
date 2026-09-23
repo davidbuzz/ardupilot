@@ -198,8 +198,8 @@ about that does not apply here.
 ## Performance architecture, inherited from v1
 
 The configuration is carried over unchanged from the v1 baseline, which was
-validated on hardware. See `../Laurel/BASELINE.md` for how it was derived and
-`../Laurel/xip-cache-and-pgo.md` for the XIP cache analysis behind it.
+validated on hardware. See `../../rp2350/BASELINE.md` for how it was derived and
+`../../rp2350/xip-cache-and-pgo.md` for the XIP cache analysis behind it.
 
 Core clock is 225 MHz at 1.15 V, down from an original 375 MHz / 1.30 V
 overclock. It remains above the RP2350 datasheet's 150 MHz clk_sys/clk_peri
@@ -865,7 +865,7 @@ registries is silently dropped from one. See `PROFILING.md`.
 `memcpy` and `memset` are relocated into `.ramtext` because they are the top
 flash-resident functions on the core1 rate/IMU path. The relocation has a
 boot-order gotcha involving a volatile copy loop; see the memcpy/memset section
-of `../Laurel/BASELINE.md` before touching it.
+of `../../rp2350/BASELINE.md` before touching it.
 
 They are relocated by `common_rp2350_smp.ld` picking the newlib archive members
 directly, *not* through a registry, and that is the only mechanism that can

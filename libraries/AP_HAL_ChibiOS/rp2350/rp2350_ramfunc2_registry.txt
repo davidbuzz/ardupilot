@@ -298,7 +298,7 @@ modules/ChibiOS/os/hal/ports/RP/LLD/DMAv1/rp_dma.h|dmaChannelGetAndClearInterrup
 
 # Motor output chain - hottest core1 cluster from Run 3 PC-sampler profiling
 # (~12% of core1, run every rate cycle). Paths are documentation only; the
-# generator matches on the symbol. See Laurel/xip-cache-and-pgo.md.
+# generator matches on the symbol. See rp2350/xip-cache-and-pgo.md.
 libraries/SRV_Channel/SRV_Channels.cpp|SRV_Channels::set_output_pwm  # 3.6%, 60 B
 libraries/AP_HAL_ChibiOS/RCOutput.cpp|ChibiOS::RCOutput::write  # 2.4%, 94 B
 libraries/SRV_Channel/SRV_Channels.cpp|SRV_Channels::calc_pwm  # 1.4%, 212 B
@@ -314,7 +314,7 @@ libraries/SRV_Channel/SRV_Channels.cpp|SRV_Channels::get_motor_function  # 0.3%,
 # use). Relocating the whole set stops core1 touching the shared 16 KB XIP
 # cache, leaving it to core0's EKF. ~10 KB SRAM. Generated from Run 4
 # (@SYS/pcprof.txt) profiling; generator matches on symbol so placeholder
-# paths are cosmetic. See Laurel/xip-cache-and-pgo.md.
+# paths are cosmetic. See rp2350/xip-cache-and-pgo.md.
 modules/ChibiOS/os/rt/src/chstats.c|__stats_start_measure_crit_thd  # [needs HAL_ENABLE_THREAD_STATISTICS]
 modules/ChibiOS/os/rt/src/chstats.c|__stats_stop_measure_crit_thd  # [needs HAL_ENABLE_THREAD_STATISTICS]
 (profiled)|std::__atomic_base<unsigned long>::operator unsigned long
@@ -517,7 +517,7 @@ modules/ChibiOS/os/rt/src/chthreads.c|chThdSleep
 # root that the symbol map is built from, so a symbol entry here matches
 # nothing and fails the build. It is safe because the copy loop in
 # rp_clocks.c was rewritten as a volatile word loop so it no longer calls
-# them. See the memcpy/memset section of hwdef/Laurel/BASELINE.md before
+# them. See the memcpy/memset section of rp2350/BASELINE.md before
 # touching that, and do not add entries for them here - a duplicate pick is
 # claimed first-come-first-served and silently drops one of the two.
 #

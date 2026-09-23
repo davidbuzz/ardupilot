@@ -2,9 +2,8 @@
 
 The Laurel target runs ArduPilot on a custom RP2350B flight controller
 board built around the Raspberry Pi RP2350B (QFN-80, 48 GPIO) running at
-375 MHz. Unlike the Pico2 carrier-board reference target, Laurel has its
-own fixed sensor stack, power rails, PWM outputs, edge buttons, and a
-different bus layout.
+225 MHz. It has its own fixed sensor stack, power rails, PWM outputs, edge
+buttons, and bus layout.
 
 This README documents the Laurel-specific wiring and the current state of
 the `hwdef/Laurel/` target.
@@ -19,12 +18,12 @@ Three different numbering schemes may appear in Laurel documentation:
 | **RP2350B QFN-80 pin N** | `pin 35`, `pin 75` | Physical package pin on the RP2350B chip. Used when tracing the PCB or matching schematic netlists. |
 | **Board net name** | `BOOTSW`, `BEC_5V_EN` | Schematic / PCB signal name on the Laurel board. |
 
-Laurel is a custom RP2350B board, not a Pico2W module, so the Pico2W
-header-pin numbering from the Pico2 README does not apply here.
+Laurel is a custom RP2350B board, not a Pico2W module, so Pico2W
+header-pin numbering does not apply here.
 
 ## Features
 
-- RP2350B dual-core Cortex-M33 @ 375 MHz
+- RP2350B dual-core Cortex-M33 @ 225 MHz
 - 520 KB SRAM
 - 4 MB boot/XIP flash (Winbond, 133 MHz max, CS = `QSPI_SS` pin75 - dedicated QMI hardware pin)
 - USB CDC serial on `SERIAL0`
@@ -217,10 +216,6 @@ The current Laurel target probes the following onboard sensors:
 | ICM42688P IMU | SPI0 | `GPIO1` CS, `GPIO22` DRDY |
 | DPS310 barometer | I2C0 | `0x76` |
 | AT7456E / MAX7456 OSD | SPI1 | `GPIO17` CS |
-
-The Laurel README is intentionally more specific than the Pico2 README here:
-the sensor buses are fixed by the board layout rather than being a generic
-carrier-board example.
 
 ## Storage
 
@@ -417,7 +412,7 @@ Build the Laurel bootloader:
 ```
 
 > **Important:** `waf configure` must be re-run whenever `hwdef.dat` or
-> `rp2350_ramfunc2_registry.txt` is edited.  These files are consumed at
+> `libraries/AP_HAL_ChibiOS/rp2350/rp2350_ramfunc2_registry.txt` is edited.  These files are consumed at
 > configure time to generate linker scripts and compilation flags; a
 > subsequent `waf copter` without reconfiguring will silently use stale
 > generated files and produce an incorrect binary.
@@ -467,26 +462,13 @@ to be in bootloader mode.
 ```
 
 **Important:** always flash `arducopter.bin` at offset `0x10010000` (the app start address,
-after the 64 KB bootloader region). Never flash `arducopter_with_bl.hex` via OpenOCD —
+after the 32 KB bootloader and 32 KB parameter regions). Never flash `arducopter_with_bl.hex` via OpenOCD —
 that file contains segments at STM32 addresses and will overwrite the bootloader.
 
-using *a* dedicated Pico2W for a debugger, running debugprobe_on_pico2.uf2
+## Debugging
 
-```text
-    <https://github.com/raspberrypi/debugprobe/releases/download/debugprobe-v2.3.0/debugprobe_on_pico2.uf2>
-    as the debugger
-    BOOTSEL flash the above file to a Pico2w, label it "debugger", and ..
-
-    Debugger board pin | Debugger GPIO | Target signal        | Notes
-    board pin 3        | GND           | GND                  | Common ground — mandatory
-    board pin 4        | GPIO2         | SWCLK                | SWD clock
-    board pin 5        | GPIO3         | SWDIO                | SWD data
-    optional extras
-    board pin 6        | GPIO4/UART0RX | target GPIO1 (board pin 2) | console RX←TX
-    board pin 7        | GPIO5/UART0TX | target GPIO0 (board pin 1) | console TX→RX
-```
-
-## Debugging Laurel, see Pico2/Debugger.md as its the same process
+The debug probe, wiring, OpenOCD and GDB setup are the same for every RP2350
+board; see `../RPI_UAVFC/FLASHING.md`.
 
 ## Current Laurel-Specific Notes
 
@@ -503,30 +485,15 @@ using *a* dedicated Pico2W for a debugger, running debugprobe_on_pico2.uf2
 
 | Feature | Status |
 |---------|--------|
-| DShot / BLHeli / SerialLED | Not supported on current RP2350 target |
+| DShot / BLHeli / SerialLED | Disabled in the Laurel hwdef |
 | CAN / DroneCAN | Not supported by RP2350 hardware |
 | Hardware OSD and microSD together | Not possible on Laurel hardware; current target chooses microSD |
 | RX-only extra serial pads | Not yet represented in current serial definitions |
 | Analog scaling calibration | Placeholder scale factors still in use |
 
-## Summary
-
-Laurel is not just a renamed Pico2 target. It is a different RP2350B flight
-controller board with:
-
-- different sensor buses
-- different PWM outputs
-- different ADC pins
-- different flash layout expectations
-- dedicated hardware `BOOT` and `RESET` buttons
-
-Use this README and `hwdef/Laurel/hwdef.dat` together as the canonical local
-reference for the current Laurel port.
-
 ## Implemented Features
 
-This short list reflects the implemented RP2350 platform features already
-landed on the Pico2 base port and inherited by the current Laurel target.
+RP2350 platform features in use on the current Laurel target:
 
 | Feature | Status |
 |---------|--------|
@@ -545,5 +512,4 @@ landed on the Pico2 base port and inherited by the current Laurel target.
 | Dual-core RP2350 dispatch path | Implemented |
 | SPI-mode microSD card and AP_Logger logging | Implemented and confirmed working |
 | Boot without mandatory barometer | Implemented |
-| Boot without mandatory IMU | Implemented |
 | Build-time RP2350 pin validation | Implemented |
