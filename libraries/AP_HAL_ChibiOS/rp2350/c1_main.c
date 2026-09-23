@@ -14,7 +14,7 @@
  */
 
 /*
- * @file RPI_UAVFC/c1_main.c
+ * @file rp2350/c1_main.c
  * RP2350 Core1 entry point for ChibiOS Full SMP mode.
  * Initialises the ch1 OS instance so threads created with affinity &ch1
  * (e.g. the rate thread) are scheduled on core1.
@@ -23,7 +23,7 @@
 #include <stdint.h>
 
 /*
- * This translation unit is added directly by the RPI_UAVFC board makefile and the generated CRT0 trampoline expects c1_main() to exist whenever the extra-core startup path is selected.
+ * This translation unit is added by hwdef/common/chibios_board_rp2350.mk for every RP2350 board and the generated CRT0 trampoline expects c1_main() to exist whenever the extra-core startup path is selected.
  */
 
 /*

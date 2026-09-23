@@ -31,7 +31,7 @@
 #include "Util.h"
 #include "GPIO.h"
 #if defined(RP2350)
-#include "hwdef/common/rp2350_core_affinity.h"
+#include "rp2350/rp2350_core_affinity.h"
 #endif
 
 #include <AP_HAL_ChibiOS/UARTDriver.h>

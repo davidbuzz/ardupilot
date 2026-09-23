@@ -9,13 +9,8 @@
 #
 # A board makefile sets the variables below, then includes this file:
 #
-#   RP2350_BOARD_DIR          hwdef directory holding the board's c1_main.c
 #   RP2350_CRT0_AREAS_NUMBER  RAM areas crt0 initialises (default 6)
 #   RP2350_EXTRA_UDEFS        extra -D flags for the ChibiOS C/C++ sources
-
-ifeq ($(RP2350_BOARD_DIR),)
-  $(error RP2350_BOARD_DIR must be set before including chibios_board_rp2350.mk)
-endif
 
 RP2350_CRT0_AREAS_NUMBER ?= 6
 
@@ -84,6 +79,7 @@ endif
 # ############################################################################# Architecture or project specific options #############################################################################
 
 HWDEF = $(AP_HAL)/hwdef
+RP2350DIR = $(AP_HAL)/rp2350
 
 ifeq ($(USE_PROCESS_STACKSIZE),)
   USE_PROCESS_STACKSIZE = 0x400
@@ -151,7 +147,7 @@ CSRC += $(HWDEF)/common/stubs.c \
         $(HWDEF)/common/bouncebuffer.c \
         $(HWDEF)/common/watchdog.c \
         $(HWDEF)/common/sysperf.c \
-        $(HWDEF)/$(RP2350_BOARD_DIR)/c1_main.c
+        $(RP2350DIR)/c1_main.c
 
 ifeq ($(USE_USB_MSD),yes)
 CSRC += $(CHIBIOS)/os/various/scsi_bindings/lib_scsi.c \
@@ -175,11 +171,11 @@ ASMSRC = $(ALLASMSRC)
 # arbitration stalls and keep idle execution available while XIP is disabled.
 ALLXASMSRC += $(CHIBIOS)/os/rt/src/rp2350_idle_loops.S
 # fast memset/memcpy in SRAM, replacing the byte-at-a-time newlib-nano pair
-ALLXASMSRC += $(HWDEF)/common/rp2350_memfunctions.S
+ALLXASMSRC += $(RP2350DIR)/rp2350_memfunctions.S
 ASMXSRC = $(ALLXASMSRC)
 
 INCDIR = $(CHIBIOS)/os/license \
-         $(ALLINC) $(HWDEF)/common
+         $(ALLINC) $(HWDEF)/common $(RP2350DIR)
 
 ifneq ($(CRASHCATCHER),)
 INCDIR += $(CRASHCATCHER)/include

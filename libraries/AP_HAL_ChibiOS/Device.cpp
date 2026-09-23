@@ -26,7 +26,7 @@
 #include "Util.h"
 #include "hwdef/common/stm32_util.h"
 #if defined(RP2350) && CH_CFG_SMP_MODE == TRUE
-#include "hwdef/common/rp2350_core_affinity.h"
+#include "rp2350/rp2350_core_affinity.h"
 #endif
 
 #ifndef HAL_DEVICE_THREAD_STACK
