@@ -1470,7 +1470,6 @@ def main() -> int:
         threads_path = Path(args.threads_file).expanduser().resolve()
     else:
         threads_path = detect_default_runtime_file(repo_root, [
-            "libraries/AP_HAL_ChibiOS/hwdef/Laurel/threads.enable-stats.txt",
             "threads.new2.txt", "threads.new.txt", "threads.current.txt",
             "threads.txt"])
 
