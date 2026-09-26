@@ -33,8 +33,61 @@
 #define RT1176_FCB_TAG  0x42464346U   // "FCFB" LE, NXP FCB magic
 #define ROM_API_INSTANCE 1U           // FlexSPI1; inst 0 = InvalidArgument
 
+/* WHY MIRROR THE SDK's PRIVATE STRUCTS: the erase/program primitives below are
+ * __ramfunc because the flash they touch is the one the CPU fetches from. The
+ * SDK's ROM_FLEXSPI_NorFlash_* entry points are ordinary functions that link
+ * into XIP flash, so calling them put an XIP fetch INSIDE the window where the
+ * ROM has taken the FlexSPI controller away - the fetch returns garbage, the
+ * core branches through it and takes an illegal-EPSR UsageFault (Zephyr fatal
+ * reason 35). Measured on silicon: repeated resets, every record naming the
+ * AP_storage thread at priority 10.
+ *
+ * Those entry points only dereference the bootloader API tree, so we read the
+ * tree ourselves, cache the NOR interface in RAM, and call through it. The
+ * pointers in it aim at ROM (0x0020xxxx), which stays readable throughout.
+ *
+ * Layout copied verbatim from the SDK's fsl_romapi.c, which is in modules/ and
+ * must not be modified. Its own comment on the tree reads "The order of
+ * existing fields must not be changed", so this mirror is stable. */
+typedef struct {
+	uint32_t version;
+	status_t (*init)(uint32_t instance, flexspi_nor_config_t *config);
+	status_t (*page_program)(uint32_t instance, flexspi_nor_config_t *config,
+				 uint32_t dst_addr, const uint32_t *src);
+	status_t (*erase_all)(uint32_t instance, flexspi_nor_config_t *config);
+	status_t (*erase)(uint32_t instance, flexspi_nor_config_t *config,
+			  uint32_t start, uint32_t length);
+	status_t (*read)(uint32_t instance, flexspi_nor_config_t *config,
+			 uint32_t *dst, uint32_t start, uint32_t bytes);
+	void (*clear_cache)(uint32_t instance);
+	status_t (*xfer)(uint32_t instance, void *xfer);
+	status_t (*update_lut)(uint32_t instance, uint32_t seqIndex,
+			       const uint32_t *lutBase, uint32_t numberOfSeq);
+	status_t (*get_config)(uint32_t instance, flexspi_nor_config_t *config,
+			       serial_nor_config_option_t *option);
+	status_t (*erase_sector)(uint32_t instance, flexspi_nor_config_t *config,
+				 uint32_t address);
+	status_t (*erase_block)(uint32_t instance, flexspi_nor_config_t *config,
+				uint32_t address);
+	const uint32_t reserved0;
+	status_t (*wait_busy)(uint32_t instance, flexspi_nor_config_t *config,
+			      bool isParallelMode, uint32_t address);
+	const uint32_t reserved1[2];
+} ap_rom_nor_iface_t;
+
+typedef struct {
+	void (*runBootloader)(void *arg);
+	uint32_t version;                            /* standard_version_t, 4 bytes */
+	const char *copyright;
+	const ap_rom_nor_iface_t *flexSpiNorDriver;
+	const uint32_t reserved[8];
+} ap_rom_tree_t;
+
 static flexspi_nor_config_t romapi_config;
 static bool romapi_ready;
+/* The NOR interface, cached in RAM so the __ramfunc paths never fetch from
+ * flash to reach it. NULL until romapi_ensure_init() has validated it. */
+static const ap_rom_nor_iface_t *rom_nor;
 
 /* WHY A RUNTIME CHECK AND NOT A BUILD OPTION: the same image has to run on
  * silicon, where the BootROM flash API lives in the 256 KB ROM at 0x00200000,
@@ -104,6 +157,29 @@ static bool romapi_ensure_init(void)
 	/* Initialise the NOR driver behind the ROM API. */
 	(void)ROM_FLEXSPI_NorFlash_Init(ROM_API_INSTANCE, &romapi_config);
 
+	/* Cache the NOR interface in RAM for the __ramfunc paths. Read the same
+	 * tree slot ROM_API_Init() selected, and require every pointer we will
+	 * call to land in ROM - a bad mirror offset would otherwise hand us a
+	 * plausible-looking pointer and fault identically to the bug this
+	 * replaces. */
+	{
+		const uintptr_t slot = (ANADIG_MISC->MISC_DIFPROG == 0x001170a0U)
+				       ? RT1176_ROM_TREE_PTR_A0 : RT1176_ROM_TREE_PTR;
+		const ap_rom_tree_t *tree =
+			(const ap_rom_tree_t *)(uintptr_t)*(const volatile uint32_t *)slot;
+		const ap_rom_nor_iface_t *nor = tree->flexSpiNorDriver;
+		const uintptr_t e = (uintptr_t)(void *)nor->erase;
+		const uintptr_t p = (uintptr_t)(void *)nor->page_program;
+
+		if (e < RT1176_ROM_BASE || e >= RT1176_ROM_END ||
+		    p < RT1176_ROM_BASE || p >= RT1176_ROM_END) {
+			printk("rt1176 flash: ROM NOR iface implausible (erase=%08x program=%08x)\n",
+			       (unsigned)e, (unsigned)p);
+			return false;
+		}
+		rom_nor = nor;
+	}
+
 	romapi_ready = true;
 	return true;
 }
@@ -113,11 +189,47 @@ int rt1176_flash_init(void)
 	return romapi_ensure_init() ? 0 : -1;
 }
 
+/* WHY A CONTROLLER RESET AFTER EVERY ROM ERASE AND PROGRAM: the ROM drives the
+ * flash with IP commands and leaves the FlexSPI AHB buffer holding whatever it
+ * had prefetched beforehand. The buffer is what serves instruction fetches
+ * under XIP, so the first fetch after the ROM returns can be answered out of
+ * stale bytes; the core then branches through them and takes an illegal-EPSR
+ * UsageFault (Zephyr fatal reason 35). Whether it hits depends on which lines
+ * the buffer happens to hold, which is why it presented as resets at
+ * unpredictable uptimes naming whichever thread was next to run.
+ *
+ * NXP's answer is ROM_FLEXSPI_NorFlash_ClearCache(), which fsl_romapi.c places
+ * in RAM (AT_QUICKACCESS_SECTION_CODE) and leaves for the caller to invoke -
+ * the SDK never calls it itself. Its register sequence is mirrored here rather
+ * than called, for the same reason the erase and program calls go through the
+ * cached ROM interface: the SDK entry point is an ordinary function that links
+ * into XIP, so calling it would put an XIP fetch inside the very window this
+ * has to repair.
+ *
+ * Sequence copied from fsl_romapi.c ROM_FLEXSPI_NorFlash_ClearCache(), which
+ * is in modules/ and must not be modified. */
+__ramfunc static void romapi_flexspi_reset(void)
+{
+	FLEXSPI_Type *base = (ROM_API_INSTANCE == 2U) ? FLEXSPI2 : FLEXSPI1;
+
+	base->MCR0 |= FLEXSPI_MCR0_SWRESET_MASK;
+	while (base->MCR0 & FLEXSPI_MCR0_SWRESET_MASK) {
+	}
+
+	/* no instruction may be fetched until the reset has settled */
+	__ISB();
+}
+
 /* Range erase, NOT EraseBlock: this part's FCB sets is_uniform_block_size, which
  * the block call does not honour. */
 __ramfunc int rt1176_flash_erase(uint32_t offset, uint32_t size)
 {
-	if (!romapi_ensure_init()) {
+	/* romapi_ready is a RAM flag: in steady state this returns without
+	 * branching into romapi_ensure_init(), which links into XIP. */
+	if (!romapi_ready && !romapi_ensure_init()) {
+		return -1;
+	}
+	if (!romapi_memmap && rom_nor == NULL) {
 		return -1;
 	}
 
@@ -135,9 +247,12 @@ __ramfunc int rt1176_flash_erase(uint32_t offset, uint32_t size)
 		const uint32_t chunk = MIN(RT1176_FLASH_ERASE_CHUNK, size - done);
 
 		const unsigned int key = irq_lock();
-		status_t status = ROM_FLEXSPI_NorFlash_Erase(ROM_API_INSTANCE,
-							     &romapi_config,
-							     offset + done, chunk);
+		status_t status = rom_nor->erase(ROM_API_INSTANCE,
+						 &romapi_config,
+						 offset + done, chunk);
+		/* inside the lock: nothing may fetch from XIP between the ROM
+		   call and the reset that makes XIP trustworthy again */
+		romapi_flexspi_reset();
 		irq_unlock(key);
 
 		if (status != kStatus_Success) {
@@ -154,7 +269,12 @@ __ramfunc int rt1176_flash_erase(uint32_t offset, uint32_t size)
 /* Program exactly one page per ROM call; bytes the caller omits are left 0xff. */
 __ramfunc int rt1176_flash_program(uint32_t offset, const uint8_t *data, uint32_t len)
 {
-	if (!romapi_ensure_init()) {
+	/* romapi_ready is a RAM flag: in steady state this returns without
+	 * branching into romapi_ensure_init(), which links into XIP. */
+	if (!romapi_ready && !romapi_ensure_init()) {
+		return -1;
+	}
+	if (!romapi_memmap && rom_nor == NULL) {
 		return -1;
 	}
 
@@ -179,9 +299,10 @@ __ramfunc int rt1176_flash_program(uint32_t offset, const uint8_t *data, uint32_
 		memcpy(&page[in_page], data, this_page);
 
 		const unsigned int key = irq_lock();
-		status_t status = ROM_FLEXSPI_NorFlash_ProgramPage(
+		status_t status = rom_nor->page_program(
 			ROM_API_INSTANCE, &romapi_config, page_base,
 			(const uint32_t *)page);
+		romapi_flexspi_reset();
 		irq_unlock(key);
 
 		if (status != kStatus_Success) {
