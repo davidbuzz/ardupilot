@@ -78,14 +78,43 @@ void ap_diag_puthex(const char *label, uint32_t val)
 /* Crash forensics, readable over SWD when the fault handler cannot print.
    Tools/zephyr/zephyr_read_fatal.py reads these five symbols by name. */
 #if defined(CONFIG_CPU_CORTEX_M)
-volatile unsigned int g_ap_fatal_reason;
-volatile uint32_t g_ap_fatal_pc;
-volatile uint32_t g_ap_fatal_lr;
-volatile uint32_t g_ap_fatal_cfsr;
-volatile uint32_t g_ap_fatal_count;
+/* __noinit so they SURVIVE the watchdog reset the fault leads to.
+   They used to be ordinary .bss, zeroed on the way back up, so the only way to
+   read them was over SWD while the board sat halted. With no probe on the bench
+   that left the persistent-data WDG statustext as the sole channel, and that
+   carries neither a usable PC nor a guarantee of being the LATEST fault (see
+   ap_persistent_save_fault()). g_ap_fatal_magic separates "we wrote this" from
+   uninitialised RAM, the same trick the bootloader's g_jump_* record uses. */
+#define AP_FATAL_MAGIC 0x46415441u   /* 'FATA' */
+__noinit volatile uint32_t g_ap_fatal_magic;
+__noinit volatile unsigned int g_ap_fatal_reason;
+__noinit volatile uint32_t g_ap_fatal_pc;
+__noinit volatile uint32_t g_ap_fatal_lr;
+__noinit volatile uint32_t g_ap_fatal_cfsr;
+__noinit volatile uint32_t g_ap_fatal_count;
+__noinit volatile uint32_t g_ap_fatal_icsr;
+__noinit volatile uint32_t g_ap_fatal_thd_prio;
 
 /* Crash-forensics bridge into the C++ HAL (AP_HAL_Zephyr/Scheduler.cpp):
    ap_persistent_save_fault(), declared in ap_hooks.h. */
+
+bool ap_fault_record_take(unsigned int *reason, uint32_t *pc, uint32_t *lr,
+			  uint32_t *cfsr, uint32_t *icsr, uint32_t *thd_prio,
+			  uint32_t *count)
+{
+	if (g_ap_fatal_magic != AP_FATAL_MAGIC) {
+		return false;
+	}
+	*reason   = g_ap_fatal_reason;
+	*pc       = g_ap_fatal_pc;
+	*lr       = g_ap_fatal_lr;
+	*cfsr     = g_ap_fatal_cfsr;
+	*icsr     = g_ap_fatal_icsr;
+	*thd_prio = g_ap_fatal_thd_prio;
+	*count    = g_ap_fatal_count;
+	g_ap_fatal_magic = 0;   /* report once per reset */
+	return true;
+}
 
 void k_sys_fatal_error_handler(unsigned int reason, const struct arch_esf *esf)
 {
@@ -93,8 +122,19 @@ void k_sys_fatal_error_handler(unsigned int reason, const struct arch_esf *esf)
 	g_ap_fatal_pc = esf ? esf->basic.pc : 0;
 	g_ap_fatal_lr = esf ? esf->basic.lr : 0;
 	g_ap_fatal_cfsr = *(volatile uint32_t *)0xE000ED28;  // ARM SCB CFSR
+	g_ap_fatal_icsr = *(volatile uint32_t *)0xE000ED04;  // ARM SCB ICSR
+	{
+		k_tid_t tid = k_current_get();
+		g_ap_fatal_thd_prio = (tid != NULL) ? (uint32_t)k_thread_priority_get(tid)
+						    : 0xFFFFFFFFu;
+	}
 	__asm__ volatile("dsb");
+	if (g_ap_fatal_magic != AP_FATAL_MAGIC) {
+		g_ap_fatal_count = 0;        /* first fault since a cold boot */
+	}
 	g_ap_fatal_count++;
+	g_ap_fatal_magic = AP_FATAL_MAGIC;
+	__asm__ volatile("dsb");
 
 #ifndef AP_ZEPHYR_BOOTLOADER_BUILD
 	/* fault_addr = faulting PC, fault_icsr = SCB->ICSR (0xE000ED04), matching

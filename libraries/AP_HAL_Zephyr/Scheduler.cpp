@@ -1064,6 +1064,37 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
         }
 #endif
 
+        /* Report the fault record that survived the last reset, once, over
+           MAVLink. Needed because this board's console is USB CDC, and
+           uart_poll_out() on a CDC endpoint cannot transmit from the halted,
+           irq-locked fault context - so k_sys_fatal_error_handler()'s own
+           "### FATAL ERROR ### pc=..." dump never leaves the board. The
+           persistent-data WDG statustext is no substitute: it records only the
+           FIRST fault of a boot and carried neither PC nor CFSR in practice.
+           Reported from here rather than at init because the GCS link has to
+           be up for a STATUSTEXT to go anywhere. */
+        {
+            static bool fault_reported;
+            if (!fault_reported) {
+                unsigned int reason;
+                uint32_t pc, lr, cfsr, icsr, prio, count;
+                if (ap_fault_record_take(&reason, &pc, &lr, &cfsr, &icsr,
+                                         &prio, &count)) {
+                    fault_reported = true;
+                    GCS_SEND_TEXT(MAV_SEVERITY_CRITICAL,
+                                  "FAULT r=%u pc=%08lx lr=%08lx",
+                                  reason, (unsigned long)pc, (unsigned long)lr);
+                    GCS_SEND_TEXT(MAV_SEVERITY_CRITICAL,
+                                  "FAULT cfsr=%08lx icsr=%08lx pri=%ld n=%lu",
+                                  (unsigned long)cfsr, (unsigned long)icsr,
+                                  (long)(int32_t)prio, (unsigned long)count);
+                } else {
+                    /* nothing stored: a clean boot, so stop looking */
+                    fault_reported = true;
+                }
+            }
+        }
+
         /* GPIO ISR-flood quota refill + disabled-pin retry, ChibiOS parity
            (AP_HAL_ChibiOS/GPIO.cpp's own timer_tick(), same 100ms cadence
            from its own monitor thread). See GPIO.h's override comment. */
