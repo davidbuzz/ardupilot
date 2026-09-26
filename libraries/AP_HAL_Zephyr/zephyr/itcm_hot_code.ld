@@ -187,3 +187,28 @@
        RC timestamp, not loop throughput. */
 *libdrivers__gpio.a:gpio_mcux_igpio.c.obj(.text .text.*)
 *libArduCopter_libs.a:RCInput.cpp*.o(.text .text.*)
+
+    /* THE FAULT PATH (2026-09-26). Not for speed - for being fetchable at all.
+       A fault whose cause is the FlexSPI controller leaves the CPU unable to
+       read XIP flash, and every one of these objects was IN that flash:
+
+         30098fb0 z_arm_fault        30099188 z_arm_usage_fault
+         30097e48 k_sys_fatal_error_handler
+
+       So the core took a UsageFault, could not fetch the handler for it,
+       escalated to HardFault, could not fetch that either, and locked up until
+       the 2 s watchdog reset it - losing the fault record every time. Observed
+       on silicon as "WDG: ... FT0 FA0 FTP0 FLR0 FICSR0": a watchdog reset with
+       nothing recorded, next to otherwise identical resets that DID record
+       reason 35, the difference being only whether flash happened to read back
+       in time.
+
+       The chain is vectors -> z_arm_usage_fault (fault_s.S) -> z_arm_fault
+       (fault.c) -> z_arm_fatal_error (fatal.c) -> z_fatal_error (libkernel,
+       already here) -> k_sys_fatal_error_handler (ap_fault_handler.c). All of
+       it has to be resident, and so does its rodata: the dump reads its own
+       strings. */
+*libarch__arm__core__cortex_m.a:fault_s.S.obj(.text .text.* .rodata .rodata.*)
+*libarch__arm__core__cortex_m.a:fault.c.obj(.text .text.* .rodata .rodata.*)
+*libarch__arm__core.a:fatal.c.obj(.text .text.* .rodata .rodata.*)
+*libapp.a:ap_fault_handler.c.obj(.text .text.* .rodata .rodata.*)
