@@ -35,6 +35,8 @@
 extern const AP_HAL::HAL& hal;
 
 GCS_FTP *GCS_FTP::ftp;
+uint32_t GCS_FTP::dbg_pushes;
+uint32_t GCS_FTP::dbg_drops;
 
 // timeout for session inactivity, when we will kill the session if
 // the session slot is needed
@@ -107,6 +109,28 @@ void GCS_FTP::handle_file_transfer_protocol(const mavlink_message_t &msg, mavlin
         const bool pushed = ftp->requests.push(request);
         if (pushed && ftp->requests_sem != nullptr) {
             ftp->requests_sem->signal();
+        }
+        if (pushed) {
+            ftp->dbg_pushes++;
+        } else {
+            ftp->dbg_drops++;
+        }
+        /* Over MAVLINK, not just printk: this is the line that separates
+           "the request never arrived" from "the worker never ran". If push
+           climbs while pops stays flat, the worker is stuck or dead. */
+        static uint32_t last_txt_ms;
+        const uint32_t now_txt_ms = AP_HAL::millis();
+        if (now_txt_ms - last_txt_ms > 2000) {
+            last_txt_ms = now_txt_ms;
+            GCS_SEND_TEXT(MAV_SEVERITY_INFO,
+                          "FTP i%u q%u pu%lu dr%lu po%lu re%lu sp%lu",
+                          (unsigned)ftp->initialised,
+                          (unsigned)ftp->requests.space(),
+                          (unsigned long)ftp->dbg_pushes,
+                          (unsigned long)ftp->dbg_drops,
+                          (unsigned long)ftp->dbg_pops,
+                          (unsigned long)ftp->dbg_replies,
+                          (unsigned long)ftp->dbg_spins);
         }
         ::printk("FTPDIAG rx op=%u seq=%u sess=%u push=%u qspace=%u init=%u "
                  "spins=%lu pops=%lu replies=%lu\n",

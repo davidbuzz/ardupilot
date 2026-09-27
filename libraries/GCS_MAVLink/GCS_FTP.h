@@ -79,6 +79,12 @@ private:
     // signalled when a request is queued, so the worker wakes for it
     HAL_BinarySemaphore *requests_sem;
 
+    /* Push/drop counts for the STATUSTEXT below. The printk FTPDIAG lines are
+       invisible whenever a GCS holds the USB CDC console, which is always, so
+       the same facts have to reach MAVLink to be readable at all. */
+    static uint32_t dbg_pushes;
+    static uint32_t dbg_drops;
+
     /* FTPDIAG counters, written by worker() and read from the receive path -
        which runs even when worker() does not, so they are visible whether or
        not the worker is being scheduled. Distinguishes three causes that all
