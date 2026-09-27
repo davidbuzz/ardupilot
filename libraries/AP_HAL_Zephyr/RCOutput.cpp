@@ -25,10 +25,12 @@
 #ifdef __ZEPHYR__
 #include <zephyr/devicetree.h>
 #include <zephyr/drivers/pwm.h>
-#include <zephyr/sys/printk.h>   /* _report_pwm_set() */
+#include <zephyr/sys/printk.h>
+#include <zephyr/sys/sys_io.h>   /* _report_pwm_set() */
 #endif
 
 #include <AP_BoardConfig/AP_BoardConfig.h>
+#include <GCS_MAVLink/GCS.h>   /* GCS_SEND_TEXT in ap_flexpwm_dump() */
 #if HAL_WITH_IO_MCU
 #include <AP_IOMCU/AP_IOMCU.h>
 extern AP_IOMCU iomcu;
@@ -436,6 +438,101 @@ uint16_t g_rcout_last_pulse[4];
 int16_t  g_rcout_last_rc[4];
 uint8_t  g_rcout_safety = 255;
 }
+
+/*
+  FLEXPWM register dump for the four motor channels.
+
+  Motive: two of four motors cycled/pulsed while two ran correctly, and one ESC
+  destroyed itself. RCOUT already proves the HAL wrote the right pulse and that
+  pwm_set() returned 0 - but an ACCEPTED write does NOT mean the pin emits a
+  correct waveform. The per-submodule registers are the only direct evidence.
+
+  Motor map on mr_vmu_rt1176 (see _map[] below):
+     motor1 = CH1 = flexpwm1 SM0     motor3 = CH3 = flexpwm1 SM2
+     motor2 = CH2 = flexpwm1 SM1     motor4 = CH4 = flexpwm2 SM0
+  The 2026-08-11 bench verification covered CH1/4/8/11 - pwm0 of each instance -
+  so SM1 and SM2 of any instance have never been verified on this hardware.
+
+  What to look for:
+    OUTEN bits [11:8] are the per-submodule PWM_A output enables. A clear bit
+    means that pad emits NOTHING while pwm_set() still returns 0. If SM1/SM2 of
+    flexpwm1 are clear while SM0 is set, that is the fault.
+    MCTRL bits [3:0] are the per-submodule RUN bits.
+    Per submodule, period = VAL1 - INIT + 1 and pulse = VAL3 - VAL2. These must
+    be consistent across submodules driven at the same rate.
+
+  Offsets from MIMXRT1176 PERI_PWM.h: SM step 0x60; CNT 0x00 INIT 0x02 CTRL2 0x04
+  CTRL 0x06 VAL0 0x0A VAL1 0x0E VAL2 0x12 VAL3 0x16 OCTRL 0x22 STS 0x24;
+  OUTEN 0x180 MCTRL 0x188. Bases PWM1 0x4018C000, PWM2 0x40190000.
+ */
+#ifdef __ZEPHYR__
+#define AP_FLEXPWM1_BASE 0x4018C000UL
+#define AP_FLEXPWM2_BASE 0x40190000UL
+#define AP_FPWM_SM_STEP  0x60UL
+#define AP_FPWM_OUTEN    0x180UL
+#define AP_FPWM_MCTRL    0x188UL
+
+extern "C" void ap_flexpwm_dump(void)
+{
+    /* mux = IOMUXC SW_MUX_CTL_PAD for that motor's pad; the FlexPWM ALT is 1 on
+       all four (fsl_iomuxc.h: GPIO_EMC_B1_23/25/27 -> FLEXPWM1_PWM0/1/2_A,
+       GPIO_EMC_B1_06 -> FLEXPWM2_PWM0_A). */
+    struct { const char *nm; uint32_t base; uint8_t sm; uint32_t mux; } ch[4] = {
+        { "m1", AP_FLEXPWM1_BASE, 0, 0x400E806CUL },   /* GPIO_EMC_B1_23 */
+        { "m2", AP_FLEXPWM1_BASE, 1, 0x400E8074UL },   /* GPIO_EMC_B1_25 */
+        { "m3", AP_FLEXPWM1_BASE, 2, 0x400E807CUL },   /* GPIO_EMC_B1_27 */
+        { "m4", AP_FLEXPWM2_BASE, 0, 0x400E8028UL },   /* GPIO_EMC_B1_06 */
+    };
+    /* per-instance first: which A outputs are enabled and which timers run */
+    const uint16_t oe1 = sys_read16(AP_FLEXPWM1_BASE + AP_FPWM_OUTEN);
+    const uint16_t mc1 = sys_read16(AP_FLEXPWM1_BASE + AP_FPWM_MCTRL);
+    const uint16_t oe2 = sys_read16(AP_FLEXPWM2_BASE + AP_FPWM_OUTEN);
+    const uint16_t mc2 = sys_read16(AP_FLEXPWM2_BASE + AP_FPWM_MCTRL);
+    GCS_SEND_TEXT(MAV_SEVERITY_INFO, "FPWM1 OUTEN%04x MCTRL%04x", oe1, mc1);
+    GCS_SEND_TEXT(MAV_SEVERITY_INFO, "FPWM2 OUTEN%04x MCTRL%04x", oe2, mc2);
+    printk("FPWM1 OUTEN=0x%04x MCTRL=0x%04x | FPWM2 OUTEN=0x%04x MCTRL=0x%04x\n",
+           oe1, mc1, oe2, mc2);
+    for (uint8_t i = 0; i < 4; i++) {
+        const uint32_t sm = ch[i].base + (uint32_t)ch[i].sm * AP_FPWM_SM_STEP;
+        const uint16_t init = sys_read16(sm + 0x02);
+        const uint16_t ctrl = sys_read16(sm + 0x06);
+        const uint16_t val1 = sys_read16(sm + 0x0E);
+        const uint16_t val2 = sys_read16(sm + 0x12);
+        const uint16_t val3 = sys_read16(sm + 0x16);
+        const uint16_t oct  = sys_read16(sm + 0x22);
+        const uint16_t per  = (uint16_t)(val1 - init + 1U);
+        const uint16_t pul  = (uint16_t)(val3 - val2);
+        /* Two things a VALx snapshot cannot show, both checkable here:
+
+           1. Is the PAD still routed to FlexPWM? A pad muxed away (to SEMC,
+              GPIO, FlexIO...) leaves the peripheral configured perfectly while
+              the pin carries nothing. MUX_MODE must be the FLEXPWMn_PWMn_A ALT,
+              which is 1 for all four of these pads.
+           2. Is the counter actually ADVANCING? The MCTRL RUN bit says the timer
+              is enabled, not that it is counting. Sample CNT twice across a
+              known delay: at 1.875 MHz the counter moves ~1 tick per 533 ns, so
+              10 us should advance it ~19 ticks (modulo VAL1). Zero delta with
+              RUN set would mean a stopped or unclocked counter. */
+        const uint32_t mux = sys_read32(ch[i].mux);
+        const uint32_t cnt_a = sys_read16(sm + 0x00);
+        k_busy_wait(10);
+        const uint32_t cnt_b = sys_read16(sm + 0x00);
+        const uint16_t cnt_d = (uint16_t)((cnt_b >= cnt_a)
+                                          ? (cnt_b - cnt_a)
+                                          : (per + cnt_b - cnt_a));
+        GCS_SEND_TEXT(MAV_SEVERITY_INFO, "%s sm%u per%u pul%u mux%u d%u",
+                      ch[i].nm, (unsigned)ch[i].sm, (unsigned)per, (unsigned)pul,
+                      (unsigned)(mux & 0xFU), (unsigned)cnt_d);
+        printk("%s pad mux=0x%08x MUX_MODE=%u SION=%u | CNT %u->%u delta=%u "
+               "(expect ~19 at 1.875MHz over 10us)\n",
+               ch[i].nm, mux, (unsigned)(mux & 0xFU),
+               (unsigned)((mux >> 4) & 1U), cnt_a, cnt_b, cnt_d);
+        printk("%s sm%u INIT=%u VAL1=%u VAL2=%u VAL3=%u period=%u pulse=%u "
+               "CTRL=0x%04x OCTRL=0x%04x\n",
+               ch[i].nm, ch[i].sm, init, val1, val2, val3, per, pul, ctrl, oct);
+    }
+}
+#endif  /* __ZEPHYR__ */
 
 void RCOutput::_apply_channel(uint8_t chan)
 {

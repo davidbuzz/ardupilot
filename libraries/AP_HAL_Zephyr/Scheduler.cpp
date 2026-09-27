@@ -442,6 +442,10 @@ extern "C" uint32_t ap_lpi2c_stat_bbok_us;
 extern "C" uint16_t g_rcout_last_pulse[4];
 extern "C" int16_t  g_rcout_last_rc[4];
 extern "C" uint8_t  g_rcout_safety;
+/* Defined in AP_HAL_Zephyr/RCOutput.cpp. extern "C" and at FILE scope: a plain
+   extern inside namespace Zephyr resolves to Zephyr::ap_flexpwm_dump, and a
+   linkage specification is not allowed inside a function body. */
+extern "C" void ap_flexpwm_dump(void);
 extern "C" uint32_t g_logdiag_gap_max;
 extern "C" uint32_t g_logdiag_snl_max;
 extern "C" uint32_t g_logdiag_snl_calls;
@@ -1841,6 +1845,10 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                     /* sf: 0=SAFETY_DISARMED (pulses FORCED TO ZERO), 1=ARMED.
                        p1..p4: the pulse in us actually handed to pwm_set() for
                        motors 1-4. rc: the driver's return code, 0 = accepted. */
+                    /* Per-submodule FlexPWM registers: the only direct
+                       evidence of what the PINS do, as opposed to what the HAL
+                       wrote. See ap_flexpwm_dump() in RCOutput.cpp. */
+                    ap_flexpwm_dump();
                     GCS_SEND_TEXT(MAV_SEVERITY_INFO, "RCOUT sf%u p%u,%u,%u,%u rc%d",
                            (unsigned)g_rcout_safety,
                            (unsigned)g_rcout_last_pulse[0], (unsigned)g_rcout_last_pulse[1],
