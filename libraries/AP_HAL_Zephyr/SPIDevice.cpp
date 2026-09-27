@@ -355,7 +355,7 @@ bool SPIDevice::transfer(const uint8_t *send, uint32_t send_len,
 #ifdef __ZEPHYR__
     if (!_bus_ready) {
         if (_spec == nullptr || !spi_is_ready_dt(_spec)) {
-            return false;
+    return false;
         }
         _bus_ready = true;
     }
@@ -425,7 +425,7 @@ bool SPIDevice::transfer(const uint8_t *send, uint32_t send_len,
     }
     if (!combined) {
         if (_bus == nullptr || !_bus->bouncebuffer_setup(tx_buf, send_len, rx_buf, recv_len)) {
-            return false;
+    return false;
         }
         tx_bufs[0] = { .buf = const_cast<uint8_t *>(tx_buf), .len = send_len };
         tx_bufs[1] = { .buf = nullptr, .len = recv_len };

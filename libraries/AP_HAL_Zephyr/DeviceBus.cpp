@@ -180,6 +180,18 @@ DeviceBus *DeviceBus::get_bus(uint8_t bus_num, uint8_t bus_type)
 /*
   per-bus callback thread
 */
+/* BUSCB: SPI2 measured 20% of the whole CPU in CPUALL, and it sits at PREEMPT(2)
+   so it outranks main AND the entire p>=10 band. The loop below is already at
+   ChibiOS parity (AP_HAL_ChibiOS/Device.cpp, same 50ms cap and same 100us floor
+   with the same reason), so the cost is either the call RATE or the callback
+   BODY. Timing cb() separates those two: calls/window gives the rate, mean gives
+   the body. Slot numbering matches prof_slot below (0-2 SPI 1-3, 3-5 I2C 1-3). */
+extern "C" {
+uint32_t g_buscb_calls[6];
+uint64_t g_buscb_us[6];
+uint32_t g_buscb_max_us[6];
+}
+
 void DeviceBus::bus_thread(void *arg1, void *arg2, void *arg3)
 {
     struct DeviceBus *binfo = (struct DeviceBus *)arg1;
@@ -213,7 +225,15 @@ void DeviceBus::bus_thread(void *arg1, void *arg2, void *arg3)
                     AP_PHASE_BUSN(prof_slot, AP_PHASE_BUS_CB);
                     AP_PROF_TICK(AP_PROF_BUSCB_COUNT);
                     AP_PROF_TICK(AP_PROF_BUSCNT0 + (prof_slot % AP_PROF_MAX_BUSES));
+                    const uint64_t cb_t0 = AP_HAL::micros64();
                     callback->cb();
+                    const uint32_t cb_dt = (uint32_t)(AP_HAL::micros64() - cb_t0);
+                    const uint8_t bs = prof_slot % 6U;
+                    g_buscb_calls[bs]++;
+                    g_buscb_us[bs] += cb_dt;
+                    if (cb_dt > g_buscb_max_us[bs]) {
+                        g_buscb_max_us[bs] = cb_dt;
+                    }
                 }
             }
         }

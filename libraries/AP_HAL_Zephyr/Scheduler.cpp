@@ -381,6 +381,46 @@ uint32_t g_boost_calls;           // delay_microseconds_boost() calls
 uint64_t g_boost_total_us;        // summed time spun in boost
 #endif
 
+/* DELAYPROF: requested vs actual for SHORT delays, split by thread, because the
+   FTP worker's idle loop is hal.scheduler->delay(2) and its measured poll rate
+   was ~1.1 Hz where 2 ms implies ~500 Hz. Split main/non-main because the
+   deadline loop below issues one k_msleep(1) per millisecond, so each wake has
+   to win the CPU again - which costs far more at PRIORITY_IO than on main. */
+/* Bucketed by CALLER PRIORITY, not main/other: the deadline loop issues one
+   k_msleep(1) per millisecond requested and each wake must re-win the CPU, so
+   the same delay(ms) can cost wildly different wall time depending on where the
+   caller sits in the ladder. main at PREEMPT(3) measured x1.09; the FTP worker
+   at PRIORITY_IO was never sampled because it never reached its idle loop.
+   Buckets: 0 = prio<=3 (main and above), 1 = prio 4..9, 2 = prio>=10. */
+#define DLY_BUCKETS 3
+static volatile uint32_t g_dly_calls[DLY_BUCKETS];
+static volatile uint64_t g_dly_req_us[DLY_BUCKETS];
+static volatile uint64_t g_dly_act_us[DLY_BUCKETS];
+static volatile uint32_t g_dly_max_us[DLY_BUCKETS];
+
+/* HANDBACK: the test for "the prio>=10 band is starved by scheduling POLICY".
+   ChibiOS lets a thread that no longer needs its slot hand the remainder back
+   early (chThdSleep, with a CH_CFG_ST_TIMEDELTA 10us floor). This build has
+   every ChibiOS scheduling knob at parity - 1 MHz tick, tickless,
+   CONFIG_TIMESLICING off (== CH_CFG_TIME_QUANTUM 0), io/storage woken at 1 kHz
+   by timer not by donation - so the handback exists here too. What is NOT
+   measured anywhere yet is whether it reaches the bottom of the ladder.
+   Split by boost state on purpose: a handback made while main is still at
+   APM_MAIN_PRIORITY_BOOST (prio 1) is offered ABOVE timer/SPI/rcout and can
+   never reach prio>=10, so "main hands back plenty" and "the low band can
+   receive it" are two different claims. */
+static volatile uint32_t g_hb_calls;        /* main handbacks, boost already dropped */
+static volatile uint64_t g_hb_req_us;
+static volatile uint64_t g_hb_act_us;
+static volatile uint32_t g_hb_boost_calls;  /* main handbacks made while boosted (prio 1) */
+/* Defined in DeviceBus.cpp. extern "C" so the name does not pick up namespace
+   Zephyr, and at file scope because a linkage specification is not allowed
+   inside a function body. */
+extern "C" uint32_t g_buscb_calls[6];
+extern "C" uint64_t g_buscb_us[6];
+extern "C" uint32_t g_buscb_max_us[6];
+static volatile uint64_t g_hb_boost_act_us;
+
 void Scheduler::delay(uint16_t ms)
 {
     /* (The note that used to sit here said micros64() relies on
@@ -409,6 +449,9 @@ void Scheduler::delay(uint16_t ms)
        zephyr/prj.conf. */
     const uint64_t start_us = AP_HAL::micros64();
     const uint64_t target_us = (uint64_t)ms * 1000U;
+    const bool dly_short = (ms <= 4);
+    const int dly_prio = k_thread_priority_get(k_current_get());
+    const uint8_t dly_b = (dly_prio <= 3) ? 0 : ((dly_prio <= 9) ? 1 : 2);
     while (AP_HAL::micros64() - start_us < target_us) {
         /* k_msleep(1), NOT delay_microseconds(1000): the latter busy-waits on some paths,
          * which is exactly what this loop must not do. */
@@ -430,6 +473,15 @@ void Scheduler::delay(uint16_t ms)
                 call_delay_cb();
 #endif
             }
+        }
+    }
+    if (dly_short) {
+        const uint64_t act = AP_HAL::micros64() - start_us;
+        g_dly_calls[dly_b]++;
+        g_dly_req_us[dly_b] += target_us;
+        g_dly_act_us[dly_b] += act;
+        if (act > g_dly_max_us[dly_b]) {
+            g_dly_max_us[dly_b] = (uint32_t)act;
         }
     }
 #ifdef CONFIG_AP_DELAY_CB_PROFILE
@@ -483,6 +535,24 @@ void Scheduler::delay_microseconds(uint16_t us)
     uint32_t ticks = k_us_to_ticks_ceil32(us);
     if (ticks == 0) {
         ticks = 1;
+    }
+    /* HANDBACK: only main's handbacks are counted - they are the slack the
+       prio>=10 band could receive. Two micros64() reads per call, diagnostic
+       build only. */
+    if (in_main_thread()) {
+        const bool boosted = _priority_boosted;
+        const uint64_t t0 = AP_HAL::micros64();
+        k_sleep(K_TICKS(ticks));
+        const uint64_t dt = AP_HAL::micros64() - t0;
+        if (boosted) {
+            g_hb_boost_calls++;
+            g_hb_boost_act_us += dt;
+        } else {
+            g_hb_calls++;
+            g_hb_req_us += us;
+            g_hb_act_us += dt;
+        }
+        return;
     }
     k_sleep(K_TICKS(ticks));
 }
@@ -1548,6 +1618,238 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                 }
                 printk("%s\n", line);
             }
+            for (uint8_t b = 0; b < DLY_BUCKETS; b++) {
+                if (g_dly_calls[b] == 0) {
+                    continue;
+                }
+                static const char *bn[DLY_BUCKETS] = { "p<=3", "p4-9", "p>=10" };
+                printk("DELAYPROF %s n=%lu req=%luus mean=%luus max=%luus x%lu.%02lu\n",
+                       bn[b], (unsigned long)g_dly_calls[b],
+                       (unsigned long)(g_dly_req_us[b]/g_dly_calls[b]),
+                       (unsigned long)(g_dly_act_us[b]/g_dly_calls[b]),
+                       (unsigned long)g_dly_max_us[b],
+                       (unsigned long)(g_dly_req_us[b] ? g_dly_act_us[b]/g_dly_req_us[b] : 0),
+                       (unsigned long)(g_dly_req_us[b] ? (g_dly_act_us[b]*100/g_dly_req_us[b])%100 : 0));
+                g_dly_calls[b] = 0; g_dly_req_us[b] = 0;
+                g_dly_act_us[b] = 0; g_dly_max_us[b] = 0;
+            }
+            /* EVERY thread, by name, not a fixed list. The CPU% line above
+               names a hand-written set plus _user_threads, which together came
+               to 78-85% while CPUACCT measured threads=100% - so 15-22% was in
+               threads never being reported. The DeviceBus threads (SPI1..3,
+               I2C1..3) are created with k_thread_create directly rather than
+               through thread_create, so they are in neither list, and they run
+               at prio 2, ABOVE main. */
+            {
+                static uint64_t prev_each[24];
+                static uintptr_t known[24];
+                k_thread_runtime_stats_t tota;
+                if (k_thread_runtime_stats_all_get(&tota) == 0) {
+                    struct ea { uint64_t *prev; uintptr_t *known; uint64_t all; char *buf; int off; int cap; };
+                    static char eline[420];
+                    int eoff = snprintf(eline, sizeof(eline), "CPUALL");
+                    static uint64_t prev_tot;
+                    const uint64_t dall = (prev_tot && tota.execution_cycles > prev_tot)
+                                          ? tota.execution_cycles - prev_tot : 0;
+                    prev_tot = tota.execution_cycles;
+                    if (dall > 0) {
+                        struct ea acc { prev_each, known, dall, eline, eoff, (int)sizeof(eline) };
+                        k_thread_foreach_unlocked([](const struct k_thread *th, void *ud) {
+                            auto *e = (struct ea *)ud;
+                            k_thread_runtime_stats_t st;
+                            if (k_thread_runtime_stats_get((k_tid_t)th, &st) != 0) {
+                                return;
+                            }
+                            int slot = -1;
+                            for (int i = 0; i < 24; i++) {
+                                if (e->known[i] == (uintptr_t)th) { slot = i; break; }
+                                if (e->known[i] == 0) { e->known[i] = (uintptr_t)th; slot = i; break; }
+                            }
+                            if (slot < 0) { return; }
+                            const uint64_t d = (st.execution_cycles >= e->prev[slot])
+                                               ? st.execution_cycles - e->prev[slot] : 0;
+                            e->prev[slot] = st.execution_cycles;
+                            const unsigned pct = (unsigned)(d * 100U / e->all);
+                            if (pct < 2U) { return; }
+                            const char *nm = k_thread_name_get((k_tid_t)th);
+                            if (e->off > 0 && e->off < e->cap - 1) {
+                                e->off += snprintf(e->buf + e->off, e->cap - e->off,
+                                                   " %s(p%d)=%u%%", nm ? nm : "?",
+                                                   (int)th->base.prio, pct);
+                            }
+                        }, &acc);
+                        printk("%s\n", eline);
+                    }
+                }
+            }
+            /* IDLE vs ISR. A thread reported "queued" (runnable) while the
+               idle thread is getting CPU would be a scheduler fault outright.
+               If idle is 0 and the named threads do not add up to 100%, the
+               missing time is interrupt context, which no thread can have.
+               k_thread_runtime_stats does not attribute ISR time to any
+               thread, so the only way to see it is total minus the sum over
+               ALL threads - not the sum over the ones we happen to name. */
+            {
+                /* Own baseline for the total. prev_cyc[0] is NOT usable here:
+                   the CPU% block above runs first in the same pass and has
+                   already advanced it to the current total, so reusing it makes
+                   the denominator ~0 and the percentages absurd. */
+                static uint64_t prev_sum, prev_idle, prev_all;
+                struct acc { uint64_t sum; uint64_t idle; } a { 0, 0 };
+                k_thread_foreach_unlocked([](const struct k_thread *th, void *ud) {
+                    auto *p = (struct acc *)ud;
+                    k_thread_runtime_stats_t st;
+                    if (k_thread_runtime_stats_get((k_tid_t)th, &st) != 0) {
+                        return;
+                    }
+                    p->sum += st.execution_cycles;
+                    const char *nm = k_thread_name_get((k_tid_t)th);
+                    if (th->base.prio >= K_IDLE_PRIO ||
+                        (nm != nullptr && strncmp(nm, "idle", 4) == 0)) {
+                        p->idle += st.execution_cycles;
+                    }
+                }, &a);
+                k_thread_runtime_stats_t tot2;
+                if (k_thread_runtime_stats_all_get(&tot2) == 0 &&
+                    a.sum >= prev_sum && tot2.execution_cycles > prev_all &&
+                    prev_all != 0) {
+                    const uint64_t all2 = tot2.execution_cycles - prev_all;
+                    const uint64_t dsum = a.sum - prev_sum;
+                    const uint64_t didle = (a.idle >= prev_idle) ? a.idle - prev_idle : 0;
+                    printk("CPUACCT threads=%u%% idle=%u%% isr_or_unattributed=%u%%\n",
+                           (unsigned)(all2 ? dsum * 100U / all2 : 0),
+                           (unsigned)(all2 ? didle * 100U / all2 : 0),
+                           (unsigned)(all2 && dsum <= all2 ? (all2 - dsum) * 100U / all2 : 0));
+                }
+                prev_sum = a.sum; prev_idle = a.idle;
+                if (k_thread_runtime_stats_all_get(&tot2) == 0) {
+                    prev_all = tot2.execution_cycles;
+                }
+            }
+            /* BUSCB: SPI2 is 20% of the machine at PREEMPT(2), above main and
+               above the whole p>=10 band, so it is the largest single block of
+               CPU that could become free slack. calls tells us the rate, mean
+               tells us the body cost. Counters live in DeviceBus.cpp. */
+            {
+                static const char *bnm[6] = { "SPI1", "SPI2", "SPI3",
+                                              "I2C1", "I2C2", "I2C3" };
+                char bl[300];
+                int bo = snprintf(bl, sizeof(bl), "BUSCB");
+                bool any = false;
+                for (uint8_t i = 0; i < 6; i++) {
+                    const uint32_t c = g_buscb_calls[i];
+                    if (c == 0) {
+                        continue;
+                    }
+                    const uint64_t t = g_buscb_us[i];
+                    const uint32_t mx = g_buscb_max_us[i];
+                    g_buscb_calls[i] = 0; g_buscb_us[i] = 0; g_buscb_max_us[i] = 0;
+                    any = true;
+                    if (bo > 0 && bo < (int)sizeof(bl) - 1) {
+                        bo += snprintf(bl + bo, sizeof(bl) - bo,
+                                       " %s n=%lu tot=%luus mean=%luus max=%luus",
+                                       bnm[i], (unsigned long)c,
+                                       (unsigned long)t,
+                                       (unsigned long)(t / c),
+                                       (unsigned long)mx);
+                    }
+                }
+                if (any) {
+                    printk("%s\n", bl);
+                }
+            }
+            /* HANDBACK: prove or disprove that scheduling POLICY is what
+               converts a saturated CPU into total starvation of prio>=10.
+               Three numbers decide it, and the reading is fixed in advance:
+                 free   = what main hands back with the boost already dropped
+                 boost  = what main hands back while still at prio 1, which is
+                          offered above timer/SPI and cannot reach prio>=10
+                 lo     = what the prio>=10 band actually received
+               free large and lo ~0  -> the slack is real but the prio<=6 band
+                                        takes it first: rank IS the mechanism.
+               free ~0, boost large  -> main only ever hands back while boosted;
+                                        boost_end() is not being reached: policy,
+                                        and a different fix from rank.
+               free ~0, boost ~0     -> main has no slack to give: capacity, and
+                                        rank is not the mechanism.
+               lo substantial        -> the band IS being scheduled and FTP's
+                                        problem is not starvation at all. */
+            {
+                static uint64_t prev_lo, prev_hi, prev_mid, prev_main, prev_all_b;
+                struct bacc { uint64_t lo; uint64_t hi; uint64_t mid; uint64_t mn; } b { 0, 0, 0, 0 };
+                k_thread_foreach_unlocked([](const struct k_thread *th, void *ud) {
+                    auto *p = (struct bacc *)ud;
+                    k_thread_runtime_stats_t st;
+                    if (k_thread_runtime_stats_get((k_tid_t)th, &st) != 0) {
+                        return;
+                    }
+                    if (th->base.prio >= K_IDLE_PRIO) {
+                        return;         /* idle is in none of the bands */
+                    }
+                    /* main MUST be its own column. Lumping it into p<=6 made the
+                       first run report hi=97.5%, which is mostly main itself and
+                       says nothing about who takes the handback. The claim under
+                       test is specifically that the NON-MAIN p<=6 threads absorb
+                       main's handback before anything at p>=10 can be chosen. */
+                    const char *nm = k_thread_name_get((k_tid_t)th);
+                    if (nm != nullptr && strcmp(nm, "main") == 0) {
+                        p->mn += st.execution_cycles;
+                    } else if (th->base.prio >= 10) {
+                        p->lo += st.execution_cycles;
+                    } else if (th->base.prio <= 6) {
+                        p->hi += st.execution_cycles;
+                    } else {
+                        p->mid += st.execution_cycles;
+                    }
+                }, &b);
+                k_thread_runtime_stats_t tb;
+                if (k_thread_runtime_stats_all_get(&tb) == 0 && prev_all_b != 0 &&
+                    tb.execution_cycles > prev_all_b) {
+                    const uint32_t cyc_per_us =
+                        CONFIG_SYS_CLOCK_HW_CYCLES_PER_SEC / 1000000U;
+                    const uint64_t win = tb.execution_cycles - prev_all_b;
+                    const uint64_t dlo = (b.lo >= prev_lo) ? b.lo - prev_lo : 0;
+                    const uint64_t dhi = (b.hi >= prev_hi) ? b.hi - prev_hi : 0;
+                    const uint64_t dmid = (b.mid >= prev_mid) ? b.mid - prev_mid : 0;
+                    const uint64_t dmn = (b.mn >= prev_main) ? b.mn - prev_main : 0;
+                    const uint32_t hbc = g_hb_calls;
+                    const uint64_t hbr = g_hb_req_us;
+                    const uint64_t hba = g_hb_act_us;
+                    const uint32_t hbbc = g_hb_boost_calls;
+                    const uint64_t hbba = g_hb_boost_act_us;
+                    g_hb_calls = 0; g_hb_req_us = 0; g_hb_act_us = 0;
+                    g_hb_boost_calls = 0; g_hb_boost_act_us = 0;
+                    printk("HANDBACK gave n=%lu req=%luus act=%luus (boosted n=%lu "
+                           "act=%luus) | took main=%luus hi_nonmain=%luus "
+                           "mid=%luus lo=%luus | win=%luus\n",
+                           (unsigned long)hbc, (unsigned long)hbr,
+                           (unsigned long)hba,
+                           (unsigned long)hbbc, (unsigned long)hbba,
+                           (unsigned long)(dmn / cyc_per_us),
+                           (unsigned long)(dhi / cyc_per_us),
+                           (unsigned long)(dmid / cyc_per_us),
+                           (unsigned long)(dlo / cyc_per_us),
+                           (unsigned long)(win / cyc_per_us));
+                }
+                prev_lo = b.lo; prev_hi = b.hi; prev_mid = b.mid; prev_main = b.mn;
+                if (k_thread_runtime_stats_all_get(&tb) == 0) {
+                    prev_all_b = tb.execution_cycles;
+                }
+            }
+            /* The FTP worker's state WHILE PARKED is what separates the two
+               explanations: Zephyr reports a mutex/semaphore waiter as
+               "pending" with pended_on set, and a ready-but-starved thread as
+               "queued" with pended_on null. */
+            k_thread_foreach_unlocked([](const struct k_thread *th, void *) {
+                const char *nm = k_thread_name_get((k_tid_t)th);
+                if (nm == nullptr || strcmp(nm, "FTP") != 0) {
+                    return;
+                }
+                char sb[16];
+                printk("FTPTHREAD state=%s prio=%d pended_on=%p\n",
+                       k_thread_state_str((k_tid_t)th, sb, sizeof(sb)),
+                       (int)th->base.prio, (void *)th->base.pended_on);
+            }, nullptr);
             ap_pcprofile_report();
         }
 #endif
