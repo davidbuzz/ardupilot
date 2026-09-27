@@ -4,7 +4,16 @@
  * zero-wait-state at core speed. Measured 2026-08-01: ITCM was 0.00% used.
  */
 
-/* EKF3 - the dominant math consumer; the reason this file exists. */
+/* EKF3 - the dominant math consumer; the reason this file exists.
+ *
+ * EVICTED AND RESTORED 2026-09-26, within the hour. The eviction freed 107,532
+ * bytes and paid for the position controller, the navigation math, the GPS
+ * parser, AP_Param, CRSF telemetry and GCS_MAVLINK. The result on silicon:
+ * MAIN LOOP 190 Hz -> 83 Hz, followed by a reboot loop with fault 25
+ * (K_ERR_ARM_BUS_PRECISE_DATA_BUS) in the main thread. Whatever those additions
+ * were worth, they were worth less than a fifth of the region spent on EKF3.
+ * Do not evict it again without being ready to measure the loop rate inside a
+ * minute and revert. */
 *libArduCopter_libs.a:AP_NavEKF3*.o(.text .text.*)
 
 /* AP_Math - vector/matrix/quaternion helpers called from EKF3 and the IMU path. */
@@ -132,27 +141,22 @@
 *libArduCopter_libs.a:AP_Vehicle*.o(.text .text.*)
 *libArduCopter_libs.a:RCOutput*.o(.text .text.*)
 *libc.a:libm_math_s_atan.c.o(.text .text.*)
+
+    /* Moved out of .ramfunc (OCRAM) 2026-09-26 to shrink that region's
+     * power-of-two slot and give the OCRAM malloc arena its 64 KB back. Both
+     * are hot in their own right: SCurve runs every loop under AC_PosControl,
+     * AP_Param is every parameter read plus the io thread's save queue. */
+*libArduCopter_libs.a:SCurve*.o(.text .text.*)
+*libArduCopter_libs.a:AP_Param.cpp*.o(.text .text.*)
+*libArduCopter_libs.a:AP_ParamT*.o(.text .text.*)
 *libc.a:libm_math_s_atan2.c.o(.text .text.*)
 
-    /* GyroFFT / CMSIS-DSP hot set (2026-08-11). */
-*libmodules__cmsis-dsp.a:arm_cfft_f32.c.obj(.text .text.* .rodata .rodata.*)
-*libmodules__cmsis-dsp.a:arm_rfft_fast_f32.c.obj(.text .text.* .rodata .rodata.*)
-*libmodules__cmsis-dsp.a:arm_rfft_fast_init_f32.c.obj(.text .text.* .rodata .rodata.*)
-*libmodules__cmsis-dsp.a:arm_bitreversal2.c.obj(.text .text.* .rodata .rodata.*)
-*libmodules__cmsis-dsp.a:arm_cmplx_mag_squared_f32.c.obj(.text .text.*)
-*libmodules__cmsis-dsp.a:arm_mult_f32.c.obj(.text .text.*)
-*libmodules__cmsis-dsp.a:arm_add_f32.c.obj(.text .text.*)
-*libmodules__cmsis-dsp.a:arm_scale_f32.c.obj(.text .text.*)
-*libmodules__cmsis-dsp.a:arm_max_f32.c.obj(.text .text.*)
-*libmodules__cmsis-dsp.a:arm_mean_f32.c.obj(.text .text.*)
-*libmodules__cmsis-dsp.a:arm_const_structs.c.obj(.text .text.* .rodata .rodata.*)
-*libmodules__cmsis-dsp.a:arm_common_tables.c.obj(.text .text.* .rodata .rodata.*)
-
-/* AP-side FFT drivers: Zephyr::DSP's step functions and AP_GyroFFT's
- * per-sample window pushes + analysis loop (10.6 KB, called at gyro rate
- * from sample_gyros even between analysis cycles). */
-*libArduCopter_libs.a:DSP.cpp*.o(.text .text.*)
-*libArduCopter_libs.a:AP_GyroFFT*.o(.text .text.*)
+    /* GyroFFT / CMSIS-DSP used to live here and held ~53 KB of ITCM. The
+     * board now builds with HAL_GYROFFT_ENABLED 0 (see hwdef.dat), so there is
+     * nothing to place and the space goes to code that runs every loop.
+     * If FFT is ever turned back on it MUST come back here with it: with the
+     * FFT enabled and its code left in XIP the loop ran 57-72 Hz, and putting
+     * it in ITCM was what restored 190 Hz. */
 
     /* Fifth PCSR round (2026-08-12): CAN/DroneCAN, RC protocol scan, PWM. */
 *libArduCopter_libs.a:CANIface.cpp.1.o(.text .text.* .rodata .rodata.*)
@@ -212,3 +216,47 @@
 *libarch__arm__core__cortex_m.a:fault.c.obj(.text .text.* .rodata .rodata.*)
 *libarch__arm__core.a:fatal.c.obj(.text .text.* .rodata .rodata.*)
 *libapp.a:ap_fault_handler.c.obj(.text .text.* .rodata .rodata.*)
+
+    /* USB into ITCM (2026-09-26). Not for speed. The USB device interrupt is the
+       one that fires constantly - the host polls at 1 kHz - so it is the
+       interrupt most likely to be taken the instant rt1176_flash_erase()
+       releases its lock between chunks. Fetching that handler from the NOR that
+       was just being erased is the worst possible moment to need the FlexSPI,
+       and unlike a thread an ISR cannot be deferred. ~16 KB for all three. */
+*libdrivers__usb__udc.a:*(.text .text.* .rodata .rodata.*)
+*libsubsys__usb__device_next.a:*(.text .text.* .rodata .rodata.*)
+*libdrivers__usb__common__buf.a:*(.text .text.* .rodata .rodata.*)
+
+    /* FastRateBuffer (2026-09-26). The AP_InertialSensor*.o glob above does NOT
+       match FastRateBuffer.cpp.3.o, so all seven fast-rate hand-off functions
+       were left executing XIP from external NOR. The rate loop enters them four
+       times per iteration and the IMU bus thread three times per gyro sample at
+       1012 Hz, and they sat in two XIP regions 421 KB apart, so in separate
+       I-cache line sets. Verified against the ELF: of 8552 functions in XIP
+       text, these seven were the ONLY rate-loop symbols still there. Same class
+       of pattern miss this file already records for libm. ~460 bytes. */
+*libArduCopter_libs.a:FastRateBuffer*.o(.text .text.*)
+
+    /* RC-IN HOT PATH (2026-09-26). The rcin thread measured 17-19% of the CPU.
+       AP_RCProtocol.cpp and RCInput.cpp were already resident, but the BACKEND
+       that actually decodes was not: every received byte made two virtual calls
+       into XIP - process_byte() and new_input() on the locked protocol - at
+       ~13 kB/s from a 500 Hz CRSF link, so ~26,000 XIP entries per second.
+       Verified: all 26 AP_RCProtocol_CRSF functions were in XIP, and
+       process_byte (0x300c98ec) sat 360 KB from _process_byte (0x30121242), in
+       separate I-cache line sets. Only ~2.2 KB of ITCM for the pair.
+       Measure the result - XIP placement misses in this file have repeatedly
+       come out larger than predicted, and 19% is far more than call overhead
+       alone explains, so this may well be only part of it. */
+*libArduCopter_libs.a:AP_RCProtocol_CRSF*.o(.text .text.*)
+*libArduCopter_libs.a:AP_RCProtocol_Backend*.o(.text .text.*)
+
+    /* REVERTED with the EKF3 eviction (2026-09-26): AC_PosControl, SCurve,
+       AC_WPNav, AC_Loiter, AC_Circle, AP_GPS, AP_GPS_UBLOX, GPS_Backend,
+       AP_Param, AP_CRSF_Telem, GCS_MAVLINK and GCS_Common all went in here when
+       EKF3 came out, and all came back out when that halved the loop rate. They
+       are still XIP. If ITCM headroom ever appears, AC_PosControl is the best
+       candidate of them - it is genuinely per-loop code.
+
+       WHAT WAS KEPT, because it was measured and cheap: the RC-in decode chain
+       below. rcin went from 17% of CPU to 2% for about 3.4 KB. */

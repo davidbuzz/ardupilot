@@ -20,12 +20,14 @@
  * traps the core in the BootROM at pc=0x00223104. */
 
 #include <zephyr/kernel.h>
+#include <zephyr/cache.h>
 #include <zephyr/toolchain.h>
 #include <string.h>
 
 #include <fsl_romapi.h>
 
 #include "rt1176_romapi_flash.h"
+#include "ap_hooks.h"
 
 /* The FCB the BootROM already used to bring this flash up, reused as the ROM
  * API's config so the two agree on timing and geometry. */
@@ -82,6 +84,30 @@ typedef struct {
 	const ap_rom_nor_iface_t *flexSpiNorDriver;
 	const uint32_t reserved[8];
 } ap_rom_tree_t;
+
+/* Breadcrumbs for the WDG line. These paths lock interrupts around a ROM call,
+ * so if the SoC freezes inside one, nothing below interrupt level can report it
+ * afterwards - the monitor thread never runs again. Written here and sampled by
+ * Scheduler.cpp's monitor every 100 ms, so the LAST saved snapshot before a
+ * watchdog reset says whether a flash operation was in progress. */
+volatile uint32_t g_ap_flash_busy;   /* 1 = erase, 2 = program, 0 = idle */
+volatile uint32_t g_ap_flash_ops;    /* completed operations, to spot a stuck one */
+
+/* STICKY markers, written by this path itself rather than sampled by the monitor
+ * every 100 ms. The monitor's snapshot is up to 100 ms stale, which is far too
+ * coarse: at ~0.8 flash operations per second it catches one about 8% of the
+ * time, so a "no flash operation in progress" reading proves nothing. These are
+ * set on entry and only cleared on successful completion, so a freeze that
+ * happens INSIDE an operation leaves them set for the next boot to read. */
+/* Seeded once via g_ap_flash_seed. These are __noinit so they survive a reset,
+ * which also means they start as RAM GARBAGE on the first boot after a flash -
+ * enter minus exit then reads as a fixed nonsense offset (observed: 174). */
+#define AP_FLASH_SEED_MAGIC 0x464c5348u   /* 'FLSH' */
+__noinit volatile uint32_t g_ap_flash_seed;
+__noinit volatile uint32_t g_ap_flash_enter;   /* ops started */
+__noinit volatile uint32_t g_ap_flash_exit;    /* ops completed */
+__noinit volatile uint32_t g_ap_flash_last_off;/* offset of the op in progress */
+__noinit volatile uint32_t g_ap_flash_last_op; /* 1 = erase, 2 = program */
 
 static flexspi_nor_config_t romapi_config;
 static bool romapi_ready;
@@ -180,6 +206,17 @@ static bool romapi_ensure_init(void)
 		rom_nor = nor;
 	}
 
+	if (g_ap_flash_seed != AP_FLASH_SEED_MAGIC) {
+		/* First boot after a flash: clear the garbage so enter-minus-exit is a
+		   real in-flight count from here on. Deliberately NOT done on every
+		   boot - the difference has to survive a reset to be evidence. */
+		g_ap_flash_enter = 0;
+		g_ap_flash_exit = 0;
+		g_ap_flash_last_op = 0;
+		g_ap_flash_last_off = 0;
+		g_ap_flash_seed = AP_FLASH_SEED_MAGIC;
+	}
+
 	romapi_ready = true;
 	return true;
 }
@@ -220,6 +257,26 @@ __ramfunc static void romapi_flexspi_reset(void)
 	__ISB();
 }
 
+/* Drop any cached view of a range that the flash underneath has just changed.
+ * The FlexSPI software reset above clears the CONTROLLER's AHB buffer, but the
+ * M7 has its own 32 KB data cache (CONFIG_DCACHE=y) and Storage's
+ * _flash_read_data() reads this NOR through the memory-mapped window with a
+ * plain memcpy. Without this, a read after a write can be answered from a line
+ * cached before the write and return the old bytes - which for AP_FlashStorage
+ * means reading back a sector header or record it has just replaced.
+ *
+ * Called after the mutex is released, where XIP is sound again, because
+ * sys_cache_data_invd_range() is not itself RAM-resident. The mapped window is
+ * never written by the CPU, so no line here can be dirty and nothing is lost. */
+static void romapi_invalidate_mapped(uint32_t offset, uint32_t size)
+{
+	if (romapi_memmap || size == 0U) {
+		return;   /* emulator path writes the window directly, nothing stale */
+	}
+	(void)sys_cache_data_invd_range(
+		(void *)(uintptr_t)(RT1176_FLASH_MEMMAP_BASE + offset), size);
+}
+
 /* Range erase, NOT EraseBlock: this part's FCB sets is_uniform_block_size, which
  * the block call does not honour. */
 __ramfunc int rt1176_flash_erase(uint32_t offset, uint32_t size)
@@ -234,8 +291,14 @@ __ramfunc int rt1176_flash_erase(uint32_t offset, uint32_t size)
 	}
 
 	k_mutex_lock(&romapi_mutex, K_FOREVER);
+	g_ap_flash_busy = 1;
+	g_ap_flash_last_op = 1;
+	g_ap_flash_last_off = offset;
+	g_ap_flash_enter++;
+	ap_persistent_flash_mark(1, offset, g_ap_flash_enter - g_ap_flash_exit);
 	if (romapi_memmap) {
 		memset((void *)(uintptr_t)(RT1176_FLASH_MEMMAP_BASE + offset), 0xFF, size);
+		g_ap_flash_busy = 0;
 		k_mutex_unlock(&romapi_mutex);
 		return 0;
 	}
@@ -250,18 +313,38 @@ __ramfunc int rt1176_flash_erase(uint32_t offset, uint32_t size)
 		status_t status = rom_nor->erase(ROM_API_INSTANCE,
 						 &romapi_config,
 						 offset + done, chunk);
+		/* WAIT FOR THE DEVICE, still inside the lock. erase() issuing the
+		   command is not the same as the NOR having finished it, which is
+		   why the ROM exposes wait_busy() separately. Without this the
+		   lock is released while the flash is still erasing, and the very
+		   next instruction fetch - the first interrupt to be taken, USB
+		   being the frequent one - reaches a busy device. That read does
+		   not fault, it stalls the bus, so the core simply stops with
+		   interrupts enabled and no thread able to run: the monitor never
+		   feeds the watchdog, the watchdog resets the SoC, and nothing is
+		   recorded because nothing executed. */
+		if (status == kStatus_Success && rom_nor->wait_busy != NULL) {
+			status = rom_nor->wait_busy(ROM_API_INSTANCE, &romapi_config,
+						    false, offset + done);
+		}
 		/* inside the lock: nothing may fetch from XIP between the ROM
 		   call and the reset that makes XIP trustworthy again */
 		romapi_flexspi_reset();
 		irq_unlock(key);
 
 		if (status != kStatus_Success) {
+			g_ap_flash_busy = 0;
 			k_mutex_unlock(&romapi_mutex);
 			return -1;
 		}
 		done += chunk;
 	}
+	g_ap_flash_busy = 0;
+	g_ap_flash_ops++;
+	g_ap_flash_exit++;
+	ap_persistent_flash_mark(1, offset, g_ap_flash_enter - g_ap_flash_exit);
 	k_mutex_unlock(&romapi_mutex);
+	romapi_invalidate_mapped(offset, size);
 
 	return 0;
 }
@@ -278,13 +361,22 @@ __ramfunc int rt1176_flash_program(uint32_t offset, const uint8_t *data, uint32_
 		return -1;
 	}
 
+	const uint32_t prog_start = offset;
+	const uint32_t prog_len = len;
+
 	k_mutex_lock(&romapi_mutex, K_FOREVER);
+	g_ap_flash_busy = 2;
+	g_ap_flash_last_op = 2;
+	g_ap_flash_last_off = offset;
+	g_ap_flash_enter++;
+	ap_persistent_flash_mark(2, offset, g_ap_flash_enter - g_ap_flash_exit);
 	if (romapi_memmap) {
 		/* NOR can only clear bits without an erase; keep the emulator honest. */
 		uint8_t *dst = (uint8_t *)(uintptr_t)(RT1176_FLASH_MEMMAP_BASE + offset);
 		for (uint32_t i = 0; i < len; i++) {
 			dst[i] &= data[i];
 		}
+		g_ap_flash_busy = 0;
 		k_mutex_unlock(&romapi_mutex);
 		return 0;
 	}
@@ -302,10 +394,17 @@ __ramfunc int rt1176_flash_program(uint32_t offset, const uint8_t *data, uint32_
 		status_t status = rom_nor->page_program(
 			ROM_API_INSTANCE, &romapi_config, page_base,
 			(const uint32_t *)page);
+		/* same reason as the erase path: the program has to have LANDED
+		   before the lock is released and something fetches from here. */
+		if (status == kStatus_Success && rom_nor->wait_busy != NULL) {
+			status = rom_nor->wait_busy(ROM_API_INSTANCE, &romapi_config,
+						    false, page_base);
+		}
 		romapi_flexspi_reset();
 		irq_unlock(key);
 
 		if (status != kStatus_Success) {
+			g_ap_flash_busy = 0;
 			k_mutex_unlock(&romapi_mutex);
 			return -1;
 		}
@@ -314,7 +413,12 @@ __ramfunc int rt1176_flash_program(uint32_t offset, const uint8_t *data, uint32_
 		data += this_page;
 		len -= this_page;
 	}
+	g_ap_flash_busy = 0;
+	g_ap_flash_ops++;
+	g_ap_flash_exit++;
+	ap_persistent_flash_mark(2, prog_start, g_ap_flash_enter - g_ap_flash_exit);
 	k_mutex_unlock(&romapi_mutex);
+	romapi_invalidate_mapped(prog_start, prog_len);
 
 	return 0;
 }

@@ -155,6 +155,16 @@ public:
 private:
     volatile bool _rx_need_restart = false;
     volatile bool _rx_dma_next_is_1 = false;
+    /* Backoff for the async RX restart. A port with nothing on its RX pin
+       reports a line error, goes RX_DISABLED, and asks to be restarted again
+       immediately - every 1 ms tick, for as long as the board is powered. Each
+       restart tears down and re-arms an eDMA transfer, and PC sampling put
+       mcux_lpuart_rx_enable and mcux_lpuart_rx_disable at 7.0% and 3.8% of all
+       thread time with TELEM1's broken RX line churning. Delay doubles from
+       1 ms to 1 s and is cleared by the next byte that actually arrives, so a
+       real one-off error still recovers on the very next tick. */
+    uint32_t _rx_restart_next_ms = 0;
+    uint16_t _rx_restart_delay_ms = 0;
     uint8_t *_rx_dma_buf[2] = {};   // __nocache pool allocations
     uint8_t *_tx_dma_buf = nullptr; // __nocache pool allocation
 #endif

@@ -95,8 +95,93 @@ __noinit volatile uint32_t g_ap_fatal_count;
 __noinit volatile uint32_t g_ap_fatal_icsr;
 __noinit volatile uint32_t g_ap_fatal_thd_prio;
 
+/* WATCHDOG STALL RECORD. A watchdog reset is not a fault: no exception is
+   taken, so the record above stays empty and AP's WDG line reads FT0 FLR0
+   FICSR0 - which says only "the main loop stopped patting", never why. The
+   hardware watchdog raises an interrupt about half a period before it resets
+   the SoC, and that interrupt is the one chance to look at the system while
+   it is still stuck. Observed on mr_vmu_rt1176 as resets at 88 s to 190 s
+   with FT0 every time, even with the whole fault path resident in ITCM.
+
+   Same __noinit + magic scheme as the fault record, and reported the same way
+   by the monitor thread once a GCS is listening. */
+#define AP_WDG_MAGIC 0x57444721u   /* 'WDG!' */
+__noinit volatile uint32_t g_ap_wdg_magic;
+__noinit volatile uint32_t g_ap_wdg_stall_ms;    /* since the last main-loop pat */
+__noinit volatile int32_t  g_ap_wdg_sched_task;  /* -1 = between tasks */
+__noinit volatile uint32_t g_ap_wdg_cur_prio;    /* thread the interrupt hit */
+__noinit volatile uint32_t g_ap_wdg_main_state;  /* main's Zephyr state bits */
+__noinit volatile uint32_t g_ap_wdg_main_pended; /* wait queue main is blocked on */
+__noinit volatile uint32_t g_ap_wdg_main_pc;     /* main's PC, from its own stack */
+__noinit volatile char     g_ap_wdg_cur_name[12];
+
+void ap_wdg_record_put(uint32_t stall_ms, int32_t sched_task, uint32_t cur_prio,
+		       const char *cur_name, uint32_t main_state,
+		       uint32_t main_pended, uint32_t main_pc)
+{
+	g_ap_wdg_stall_ms    = stall_ms;
+	g_ap_wdg_sched_task  = sched_task;
+	g_ap_wdg_cur_prio    = cur_prio;
+	g_ap_wdg_main_state  = main_state;
+	g_ap_wdg_main_pended = main_pended;
+	g_ap_wdg_main_pc     = main_pc;
+	unsigned int i = 0;
+	if (cur_name != NULL) {
+		for (; i < sizeof(g_ap_wdg_cur_name) - 1U && cur_name[i] != '\0'; i++) {
+			g_ap_wdg_cur_name[i] = cur_name[i];
+		}
+	}
+	g_ap_wdg_cur_name[i] = '\0';
+	__asm__ volatile("dsb");
+	g_ap_wdg_magic = AP_WDG_MAGIC;   /* last, so a torn record is not believed */
+	__asm__ volatile("dsb");
+}
+
+bool ap_wdg_record_take(uint32_t *stall_ms, int32_t *sched_task,
+			uint32_t *cur_prio, char *cur_name, size_t cur_name_len,
+			uint32_t *main_state, uint32_t *main_pended,
+			uint32_t *main_pc)
+{
+	if (g_ap_wdg_magic != AP_WDG_MAGIC) {
+		return false;
+	}
+	*stall_ms    = g_ap_wdg_stall_ms;
+	*sched_task  = g_ap_wdg_sched_task;
+	*cur_prio    = g_ap_wdg_cur_prio;
+	*main_state  = g_ap_wdg_main_state;
+	*main_pended = g_ap_wdg_main_pended;
+	*main_pc     = g_ap_wdg_main_pc;
+	unsigned int i = 0;
+	if (cur_name != NULL && cur_name_len > 0U) {
+		for (; i < cur_name_len - 1U && i < sizeof(g_ap_wdg_cur_name) - 1U &&
+		       g_ap_wdg_cur_name[i] != '\0'; i++) {
+			cur_name[i] = g_ap_wdg_cur_name[i];
+		}
+		cur_name[i] = '\0';
+	}
+	g_ap_wdg_magic = 0;   /* report once per reset */
+	return true;
+}
+
 /* Crash-forensics bridge into the C++ HAL (AP_HAL_Zephyr/Scheduler.cpp):
    ap_persistent_save_fault(), declared in ap_hooks.h. */
+
+bool ap_fault_record_peek(unsigned int *reason, uint32_t *pc, uint32_t *lr,
+			  uint32_t *cfsr, uint32_t *icsr, uint32_t *thd_prio,
+			  uint32_t *count)
+{
+	if (g_ap_fatal_magic != AP_FATAL_MAGIC) {
+		return false;
+	}
+	*reason   = g_ap_fatal_reason;
+	*pc       = g_ap_fatal_pc;
+	*lr       = g_ap_fatal_lr;
+	*cfsr     = g_ap_fatal_cfsr;
+	*icsr     = g_ap_fatal_icsr;
+	*thd_prio = g_ap_fatal_thd_prio;
+	*count    = g_ap_fatal_count;
+	return true;   /* left in place: the WDG line and the monitor both want it */
+}
 
 bool ap_fault_record_take(unsigned int *reason, uint32_t *pc, uint32_t *lr,
 			  uint32_t *cfsr, uint32_t *icsr, uint32_t *thd_prio,

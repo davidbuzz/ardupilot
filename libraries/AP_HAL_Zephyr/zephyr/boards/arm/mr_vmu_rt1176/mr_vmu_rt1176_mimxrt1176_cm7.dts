@@ -199,6 +199,17 @@ zephyr_udc0: &usb1 {
 		status = "okay";
 		/* USB interface string descriptor - a self-describing name for the CDC port. */
 		label = "MAVLink";
+		/* The binding defaults both FIFOs to 1024 B, which is too small for
+		 * this port: it carries MAVLink, the console AND MAVFTP. An FTP reply
+		 * is a 251-byte payload plus overhead, and GCS_FTP::send_reply()
+		 * DROPS it silently when HAVE_PAYLOAD_SPACE fails - the worker ignores
+		 * the return value. The HAL's _writebuf can only drain into this ring,
+		 * so under stream load the ring stays full, txspace() stays below one
+		 * FTP packet, and every transfer times out while small STATUSTEXTs
+		 * still get through. Measured: FTP succeeded once on a quiet link
+		 * immediately after boot and failed on five later attempts. */
+		tx-fifo-size = <4096>;
+		rx-fifo-size = <2048>;
 	};
 
 	/* Second CDC-ACM interface: mcumgr SMP transport (see the

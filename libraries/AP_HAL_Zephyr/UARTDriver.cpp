@@ -229,7 +229,39 @@ void UARTDriver::_begin(uint32_t baud, uint16_t rxSpace, uint16_t txSpace)
     /* Enforce practical minimum buffer sizes, as AP_HAL_ChibiOS does
        with HAL_UART_MIN_RX/TX_SIZE: AP_SerialManager requests tiny
        per-protocol buffers (GPS TX is 16 B!) and relies on the HAL
-       rounding up. Grow-only: never shrink an existing buffer. */
+       rounding up. Grow-only: never shrink an existing buffer.
+
+       SCALED THE WAY ChibiOS SCALES IT (AP_HAL_ChibiOS/UARTDriver.cpp:246-286),
+       which this used to ignore by applying one flat figure to every port:
+
+         - base 512 each way, ChibiOS's HAL_UART_MIN_RX/TX_SIZE;
+         - RX grown to hold 25 ms of a fully busy link at the configured baud
+           (b/(40*10)), so a 40 Hz read loop cannot overrun;
+         - TX doubled for USB, "give more buffer space for log download";
+         - both doubled again on HAL_MEM_CLASS >= 500, which this SoC is.
+
+       For USB that comes to 2048 B of TX where the flat default gave 1024.
+       It matters because MAVFTP replies are 251-byte payloads plus overhead:
+       GCS_FTP::send_reply() checks HAVE_PAYLOAD_SPACE and, when the buffer
+       cannot take one, DROPS the reply silently - the worker ignores the
+       return. Small STATUSTEXTs still fit, so the link looks healthy while
+       every FTP transfer times out, which is exactly what was observed. */
+    uint16_t min_rx = 512, min_tx = 512;
+    min_rx = MAX(min_rx, (uint16_t)(_baudrate / (40U * 10U)));
+    if (_is_usb) {
+        min_tx *= 2;
+    }
+#if HAL_MEM_CLASS >= HAL_MEM_CLASS_500
+    min_tx *= 2;
+    min_rx *= 2;
+#endif
+    if (rxSpace < min_rx) {
+        rxSpace = min_rx;
+    }
+    if (txSpace < min_tx) {
+        txSpace = min_tx;
+    }
+
     const uint16_t req_rx = (rxSpace > DEFAULT_RX_BUF_SIZE) ? rxSpace : DEFAULT_RX_BUF_SIZE;
     if (_readbuf.get_size() < req_rx) {
         if (!_readbuf.set_size(req_rx)) {
@@ -654,6 +686,9 @@ void UARTDriver::_async_cb(const struct device *dev, struct uart_event *evt, voi
         }
         if (evt->data.rx.len > 0) {
             self->_receive_timestamp_update();
+            /* bytes are arriving, so the line is healthy: drop any restart
+               backoff so the next genuine error recovers on the next tick */
+            self->_rx_restart_delay_ms = 0;
         }
         break;
     }
@@ -913,14 +948,21 @@ __RAMFUNC__ void UARTDriver::_rx_timer_tick()
            restarting reception after an error/disable (thread context -
            uart_rx_enable() from the ISR is not universally safe) */
         if (_rx_need_restart) {
+            const uint32_t now_ms = AP_HAL::millis();
+            if (_rx_restart_delay_ms != 0 && now_ms < _rx_restart_next_ms) {
+                return;     // backing off; see _rx_restart_delay_ms in the header
+            }
             _rx_need_restart = false;
             _rx_dma_next_is_1 = false;
             /* uart_rx_enable() fails -EBUSY whenever the mcux_lpuart driver's async state is
              * still armed, so the retry is required rather than defensive. */
             uart_rx_disable(_dev);
             if (uart_rx_enable(_dev, _rx_dma_buf[0], RX_DMA_BUF_SIZE, RX_DMA_TIMEOUT_US) != 0) {
-                _rx_need_restart = true;   // try again next tick
+                _rx_need_restart = true;   // try again after the backoff
             }
+            _rx_restart_delay_ms = (_rx_restart_delay_ms == 0)
+                                   ? 1 : MIN(_rx_restart_delay_ms * 2, 1000);
+            _rx_restart_next_ms = now_ms + _rx_restart_delay_ms;
         }
         return;
     }

@@ -42,3 +42,16 @@ int rt1176_flash_program(uint32_t offset, const uint8_t *data, uint32_t len);
 #ifdef __cplusplus
 }
 #endif
+
+/* Set while a ROM flash erase (1) or program (2) is in progress, 0 when idle.
+   Sampled by the monitor thread into the persistent data so a watchdog reset
+   that happens inside one of these interrupt-locked windows is attributable. */
+extern volatile uint32_t g_ap_flash_busy;
+extern volatile uint32_t g_ap_flash_ops;
+
+/* Sticky, survive a reset: enter != exit on the next boot means an operation was
+   in progress when the SoC died, and last_op/last_off say which and where. */
+extern volatile uint32_t g_ap_flash_enter;
+extern volatile uint32_t g_ap_flash_exit;
+extern volatile uint32_t g_ap_flash_last_off;
+extern volatile uint32_t g_ap_flash_last_op;

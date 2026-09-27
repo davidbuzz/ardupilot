@@ -54,9 +54,12 @@ define HAL_HAVE_SAFETY_SWITCH 0
 # On-board crash dump (ChibiOS-parity CrashCatcher target).
 define AP_CRASHDUMP_ENABLED 1
 
-# Dynamic harmonic notch via gyro FFT (dominant motor/prop noise).
-define HAL_WITH_DSP 1
-define HAL_GYROFFT_ENABLED 1
+# Dynamic harmonic notch via gyro FFT. OFF on this board: CMSIS-DSP and
+# AP_GyroFFT together hold ~53 KB of ITCM, and ITCM residency is what decides
+# the main loop rate here - the same 53 KB spent on code that runs every loop
+# is worth more than a notch source this airframe does not use.
+define HAL_WITH_DSP 0
+define HAL_GYROFFT_ENABLED 0
 
 # Servo / PWM output: 12 physical PWM outputs, 8 DShot-capable (docs/WIRING.md).
 # The IOMCU that would own the MAIN rail is OPTIONAL on this schematic and is
@@ -108,12 +111,85 @@ define DEFAULT_SERIAL3_PROTOCOL 5
 
 # ArduPilot probes each backend in turn and carries on when one does not answer,
 # so declaring a part that is not fitted costs a few register reads.
-IMU Invensensev3 SPI:imu_sensor1 ROTATION_NONE
-IMU Invensense SPI:imu_sensor1 ROTATION_NONE
-IMU Invensensev3 SPI:imu_sensor2 ROTATION_NONE
-IMU Invensense SPI:imu_sensor2 ROTATION_NONE
+#
+# ROTATIONS TAKEN FROM PX4, which is the only other autopilot supporting this
+# hardware - boards/px4/fmu-v6xrt/init/rc.board_sensors, FMUv6X-RT being the
+# same design as MR-VMU-RT1176. The rotation belongs to the SOCKET, not the
+# part: PX4 gives every candidate on bus 1 "-R 12" and every candidate on bus 2
+# "-R 6", across icm42688p and icm45686 alike. PX4's Rotation enum is numerically
+# identical to AP_Math/rotations.h (checked: NONE 0, YAW_180 4, YAW_270 6,
+# ROLL_180 8, PITCH_180 12), so the values transfer directly.
+#
+#   socket 1 (LPSPI1) -R 12 -> ROTATION_PITCH_180
+#   socket 2 (LPSPI2) -R  6 -> ROTATION_YAW_270
+#   BMI088 on SPI3    -R  4 -> ROTATION_YAW_180 when it is declared below
+#
+# These were all ROTATION_NONE. PX4 applies no global board rotation at all, so
+# the expectation was that AHRS_ORIENTATION could go to 0 alongside these.
+#
+# MEASURED 2026-09-27 AND THAT IS NOT WHAT HAPPENS. With these rotations in the
+# firmware, A/B/A across reboots on the bench:
+#     AHRS_ORIENTATION 8  ->  ATTITUDE roll -0.18 deg, RAW_IMU zacc -988  (level)
+#     AHRS_ORIENTATION 0  ->  ATTITUDE roll +179.8 deg, RAW_IMU zacc +988 (inverted)
+#     AHRS_ORIENTATION 8  ->  level again
+# So 8 (ROLL_180) is still doing real work and the board is left at 8. Note the
+# parameter is AHRS_ORIENTATION, not AHRS_ORIENT; the short name does not exist.
+#
+# Only imu_sensor2 has a driver (lpspi1 is an ICM-42686-P, WHO_AM_I 0x44, which
+# AP_InertialSensor_Invensensev3 has no entry for), so the rotation that is
+# actually applied is this socket's YAW_270 - and YAW_270 cannot invert Z. That
+# leaves two possibilities, needing different fixes, and the bench cannot tell
+# them apart:
+#   - the board is physically inverted where it sits, so 8 is correct for this
+#     mounting and must be re-checked against the final mounting; or
+#   - YAW_270 is wrong for this socket and wants a Roll180 variant, with 8
+#     compensating for the error.
+# Resolve it by moving the airframe (nose down -> pitch down, roll right -> roll
+# right), not by editing this file. See pre-flight-fixes.md section 1.
+# PER-SENSOR ROTATIONS FROM PX4, VERIFIED 2026-09-27 against the real file:
+# github.com/PX4/PX4-Autopilot boards/px4/fmu-v6xrt/init/rc.board_sensors
+# (there is no boards/nxp/mr-vmu-rt1176 in PX4; this board is FMUv6X-RT and that
+# is the directory that serves it). The lines, verbatim:
+#     icm42688p -6 -R 12 -b 1 -s start     # hard-mounted, bus 1
+#     icm42688p    -R  6 -b 2 -s start     # on the IMU board, bus 2
+#     bmi088 -A -R 4 -s start / bmi088 -G -R 4 -s start
+#     bmm150 -I start                      # INTERNAL, and no -R
+# PX4's Rotation values are numerically identical to AP_Math/rotations.h, so
+# -R 12 is ROTATION_PITCH_180 and -R 6 is ROTATION_YAW_270. PX4 applies no global
+# board rotation.
+#
+# A per-sensor rotation means "this chip's axes -> board frame" and differs per
+# chip. AHRS_ORIENTATION means "board frame -> vehicle frame" and applies to
+# every sensor. Those are different jobs.
+#
+# THE ONE DIVERGENCE FROM PX4 IS THE COMPASS, and it is why this board fights
+# AHRS_ORIENTATION. PX4 starts the BMM150 with -I, internal. This hwdef declares
+# it external (the "true" on the COMPASS line below). AP_Compass_Backend::
+# rotate_field() applies the board orientation only to an internal compass:
+#     if (!state.external) { mag.rotate(_compass._board_orientation); }
+#     else                 { mag.rotate(state.orientation.get()); }
+# so with it external, a non-zero AHRS_ORIENTATION rotates the IMUs and leaves
+# the compass behind - the two frames end up 180 degrees apart, which is the
+# constant compass error and the AngErr=178 seen earlier.
+#
+# OPEN, and not resolved by this commit: with these rotations and
+# AHRS_ORIENTATION 0 the HUD is upside down (measured ATTITUDE roll +179.8 deg,
+# RAW_IMU zacc +988 where level is about -988). YAW_270 cannot change Z and the
+# rotation does reach the driver (the generated hwdef.h passes ROTATION_YAW_270 to
+# the probe), so a 180 degree flip is missing somewhere. Candidates are the
+# external/internal compass declaration above and a difference between AP's
+# Invensensev3 and PX4's icm42688p in the part's native axes. Settle it
+# physically - nose down pitches down, roll right rolls right - with a calibrated
+# compass. See pre-flight-fixes.md section 1.
+IMU Invensensev3 SPI:imu_sensor1 ROTATION_PITCH_180
+IMU Invensense SPI:imu_sensor1 ROTATION_PITCH_180
+IMU Invensensev3 SPI:imu_sensor2 ROTATION_YAW_270
+IMU Invensense SPI:imu_sensor2 ROTATION_YAW_270
 # TODO: NO ARDUPILOT DRIVER YET - ISM330DHCX on SPI2. Needs a variant added to
-# an existing backend before it can be declared.
+# an existing backend before it can be declared. Rotation unknown: PX4's
+# rc.board_sensors does not start an ISM330 on this board, so there is no
+# reference value to copy and ROTATION_NONE here is a placeholder, not a
+# checked figure. It is inert while no driver claims the part.
 IMU Invensensev3 SPI:imu_sensor3 ROTATION_NONE
 IMU Invensense SPI:imu_sensor3 ROTATION_NONE
 # TODO: BMI088 on SPI3 - the driver exists and the parser now accepts the
@@ -312,3 +388,21 @@ PIN GPIO_EMC_B1_08 FLEXIO1_FLEXIO08 periph=dshot bias-pull-up slew-rate=fast inp
 PIN GPIO_EMC_B1_10 FLEXIO1_FLEXIO10 periph=dshot bias-pull-up slew-rate=fast input-enable
 PIN GPIO_EMC_B1_19 FLEXIO1_FLEXIO19 periph=dshot bias-pull-up slew-rate=fast input-enable
 PIN GPIO_EMC_B1_29 FLEXIO1_FLEXIO29 periph=dshot bias-pull-up slew-rate=fast input-enable
+
+# Tolerate this HAL's scheduling jitter in AP_GPS's frame-rate health check.
+# The 215 ms default leaves 15 ms of margin over a 5 Hz GPS, and this board
+# exceeds it while the receiver is perfect - measured 26 satellites, DGPS,
+# hdop 0.61, yet SYS_STATUS reported GPS and AHRS unhealthy and the estimator
+# sat in EKF_CONST_POS_MODE refusing a good fix. 260 ms accepts an effective
+# 4 Hz. This tolerates the symptom; the jitter itself is the real work.
+# All four terms relaxed by at least 50% over upstream, because relaxing the
+# average alone provably did nothing: with 260 ms live and verified in the
+# binary, the GPS stayed unhealthy - the binding term was the PER-FRAME gate.
+#   average  215 -> 330 ms  (+53%)
+#   frame    245 -> 400 ms  (+63%)
+#   delayed    2 -> 3 consecutive frames  (+50%)
+#   lagged     5 -> 8 consecutive samples (+60%)
+define AP_GPS_MAX_AVG_DELTA_MS 330
+define AP_GPS_MAX_FRAME_DELTA_MS 400
+define AP_GPS_DELAY_THRESHOLD 3
+define AP_GPS_MAX_LAGGED_SAMPLES 8

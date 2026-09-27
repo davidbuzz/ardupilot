@@ -49,9 +49,23 @@
  * below main permanently, the larger fraction becomes
  * available again - and is needed there, because at 50 us AP_Logger's io
  * process was never scheduled at all. The two settings are coupled; do not
- * change one alone. */
+ * change one alone.
+ *
+ * 2026-09-26: io IS below main permanently now - APM_IO_PRIORITY is
+ * PREEMPT(11) against main's PREEMPT(3), the ChibiOS-by-rank layout - so the
+ * condition above is met and the larger fraction is taken. 100 us rather than
+ * 160, because this board no longer runs at 125 Hz: the loop measures ~224 Hz,
+ * a 4.5 ms period, where 100 us is 2.2% - the same share ChibiOS yields out of
+ * its 2.5 ms period at 400 Hz. 160 us would be 3.6% here, more than ChibiOS
+ * gives away, and the point is parity rather than generosity.
+ * Symptom it fixes: "AP_Logger: stuck thread ()" with an empty
+ * last_io_operation, meaning the io callback had never run at all.
+ *
+ * The 160 us hang is NOT a counter-example to this: it was measured with io at
+ * PREEMPT(5), ABOVE main, where giving main's time to a thread that outranks it
+ * starves the loop. That configuration no longer exists. */
 #ifndef AP_SCHEDULER_LOOP_YIELD_US
-#define AP_SCHEDULER_LOOP_YIELD_US 50U   /* ChibiOS's value. 160 HANGS - see below. */
+#define AP_SCHEDULER_LOOP_YIELD_US 100U  /* 2.2% of a 224 Hz loop. See above. */
 #endif
 #include "WiFiDriver.h"
 #include "SPIDevice.h"

@@ -28,7 +28,8 @@ extern AP_IOMCU iomcu;
 #endif
 #include "DeviceBus.h"
 #include "UARTDriver.h"   /* UARTSTAT byte counters in the LOOPRATE report */
-#include "zephyr/src/ap_hooks.h"   /* ap_sysinfo_capture(), ap_persistent_save_fault() */
+#include "zephyr/src/ap_hooks.h"
+#include "zephyr/src/rt1176_romapi_flash.h"   /* g_ap_flash_busy/_ops for the WDG line */   /* ap_sysinfo_capture(), ap_persistent_save_fault() */
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_ZEPHYR
 #include <zephyr/kernel.h>
@@ -578,10 +579,59 @@ bool Scheduler::check_called_boost()
 
 /* ─── watchdog / expected delay ──────────────────────────────────────── */
 
+/* Hardware-watchdog pre-reset interrupt. The WDOG raises this about half a
+   period before it resets the SoC, which is the only moment the system can be
+   looked at while it is still stuck: a watchdog reset takes no exception, so
+   the fault record stays empty and AP's WDG line reads FT0 with nothing in it.
+
+   Runs in interrupt context, so it only reads - no locks, no printk. Scheduler
+   is already resident in ITCM (see zephyr/itcm_hot_code.ld), which matters
+   because the point of this is to work when flash is not readable.
+
+   main_pended is the wait queue the main thread is blocked on; resolving that
+   address against the map file names what it is waiting for. main_pc comes
+   from main's own stacked exception frame, PC being the seventh word at its
+   saved process stack pointer. */
+static Scheduler *s_wdt_sched;
+
+/* Mirror of Scheduler::_last_watchdog_pat_ms, written by watchdog_pat(). The
+   interrupt below is file-scope and the member is private; a mirror is less
+   intrusive than widening the class for a diagnostic. */
+static volatile uint32_t s_last_pat_ms;
+
+static void ap_wdt_stall_cb(const struct device *dev, int channel_id)
+{
+    (void)dev;
+    (void)channel_id;
+
+    const uint32_t now = (uint32_t)k_uptime_get_32();
+    const uint32_t stall = now - s_last_pat_ms;
+
+    k_tid_t cur = k_current_get();
+    const char *name = (cur != nullptr) ? k_thread_name_get(cur) : nullptr;
+    const uint32_t cur_prio = (cur != nullptr)
+                              ? (uint32_t)(int32_t)k_thread_priority_get(cur) : 0xFFFFFFFFu;
+
+    uint32_t main_state = 0, main_pended = 0, main_pc = 0;
+    if (s_main_tid != nullptr) {
+        main_state = s_main_tid->base.thread_state;
+        main_pended = (uint32_t)(uintptr_t)s_main_tid->base.pended_on;
+        const uint32_t psp = (uint32_t)s_main_tid->callee_saved.psp;
+        /* Only dereference a plausible stack pointer: ITCM/DTCM/OCRAM/SDRAM. */
+        if (psp >= 0x20000000u && psp < 0x20400000u) {
+            main_pc = ((const uint32_t *)(uintptr_t)psp)[6];
+        }
+    }
+
+    ap_wdg_record_put(stall, (int32_t)hal.util->persistent_data.scheduler_task,
+                      cur_prio, name, main_state, main_pended, main_pc);
+}
+
 void Scheduler::watchdog_pat()
 {
 
     _last_watchdog_pat_ms = (uint32_t)k_uptime_get_32();
+    s_last_pat_ms = _last_watchdog_pat_ms;
 }
 
 /* Persistent crash/watchdog forensics, ChibiOS parity: the record must survive the
@@ -615,10 +665,71 @@ void Scheduler::restore_persistent_data()
     }
     hal.util->persistent_data = g_persistent_backup.data;
     hal.util->last_persistent_data = g_persistent_backup.data;
+
+    /* Fill the fault fields AP's WDG statustext prints from the record that
+       survived the reset. They were reaching the screen as FA0 FLR0 FICSR0:
+       ap_persistent_save_fault() is handed what the fatal handler was given,
+       and on the paths seen on this board the exception frame pointer was
+       null, so the PC and LR it would have carried were zero. The __noinit
+       record has the same values captured directly, plus the CFSR, and AP
+       repeats the WDG line every ~16 s - which is why it arrives when a
+       one-shot STATUSTEXT sent 100 ms into the boot does not.
+       Only filled where the restored data has nothing, so a genuine record is
+       never overwritten. */
+    unsigned int reason;
+    uint32_t pc, lr, cfsr, icsr, prio, count;
+    if (ap_fault_record_peek(&reason, &pc, &lr, &cfsr, &icsr, &prio, &count)) {
+        AP_HAL::Util::PersistentData &pd = hal.util->persistent_data;
+        if (pd.fault_type == 0) {
+            pd.fault_type = (uint8_t)reason;
+        }
+        if (pd.fault_addr == 0) {
+            pd.fault_addr = pc;
+        }
+        if (pd.fault_lr == 0) {
+            pd.fault_lr = lr;
+        }
+        if (pd.fault_icsr == 0) {
+            /* CFSR, not ICSR, when ICSR had nothing: which of UNDEFINSTR /
+               INVSTATE / INVPC / UNALIGNED fired is what identifies the fault,
+               and the slot is otherwise printed as zero. */
+            pd.fault_icsr = (icsr != 0) ? icsr : cfsr;
+        }
+        hal.util->last_persistent_data = pd;
+    }
 }
 
 /* Crash-forensics bridge, called from the C fatal handler; declared in
    zephyr/src/ap_hooks.h. */
+/*
+  Stamp the flash-operation state straight into the persistent data and its
+  backup, called by the ROM flash path at the start and end of every operation.
+
+  WHY NOT SAMPLE IT: the monitor thread samples every 100 ms, and at roughly
+  0.8 flash operations per second each lasting far less than that, it catches one
+  about 8% of the time - so "no operation in progress" in the record proved
+  nothing. Worse, the freeze being chased stops the monitor too, so the last
+  sample is always up to 100 ms STALE and can never show an operation that began
+  after it. Writing from the flash path closes both gaps: if the SoC dies inside
+  an operation, the surviving record says so because nothing cleared it.
+
+  Called outside the interrupt-locked window at both ends, so XIP is sound and
+  the ~50 byte backup copy is safe. At 0.8 operations per second the cost is
+  immaterial.
+ */
+extern "C" void ap_persistent_flash_mark(uint32_t op, uint32_t offset, uint32_t in_flight)
+{
+    AP_HAL::Util::PersistentData &pd = hal.util->persistent_data;
+    if (pd.fault_type != 0) {
+        // a real fault owns these fields; never overwrite its evidence
+        return;
+    }
+    pd.fault_line = (uint16_t)(((op & 0xFF) << 8) | (in_flight & 0xFF));
+    pd.fault_icsr = offset;
+    g_persistent_backup.data = pd;
+    g_persistent_backup.magic = AP_PERSISTENT_DATA_MAGIC;
+}
+
 extern "C" void ap_persistent_save_fault(uint16_t line, uint8_t fault_type,
                                          uint32_t fault_addr, uint32_t fault_lr,
                                          uint32_t fault_icsr)
@@ -1024,6 +1135,7 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
 #endif
 
     uint32_t lr_last_ms = 0, lr_last_count = 0;
+    uint32_t last_cpu_report_ms = 0;
 
     while (true) {
         k_msleep(100);
@@ -1038,7 +1150,8 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                 struct wdt_timeout_cfg wcfg = {};
                 wcfg.window.min = 0U;
                 wcfg.window.max = HW_WDT_TIMEOUT_MS;
-                wcfg.callback = nullptr;
+                s_wdt_sched = sched;
+                wcfg.callback = ap_wdt_stall_cb;
                 wcfg.flags = WDT_FLAG_RESET_SOC;
                 wdt_channel = wdt_install_timeout(wdt, &wcfg);
                 /* Prefer freeze-on-debug (STM32 supports it); fall back to no
@@ -1073,14 +1186,41 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
            FIRST fault of a boot and carried neither PC nor CFSR in practice.
            Reported from here rather than at init because the GCS link has to
            be up for a STATUSTEXT to go anywhere. */
+        /* REPEATED, not sent once: the first pass through here is ~100 ms into
+           the boot, long before a GCS has attached, and a STATUSTEXT with no
+           listener is simply dropped. Sending it once lost every report on a
+           board that reboots every minute - AP's own WDG line only reaches the
+           screen because send_watchdog_reset_statustext() repeats it. Take the
+           record on the first pass so nothing can overwrite it, then re-send
+           for a minute. */
         {
-            static bool fault_reported;
-            if (!fault_reported) {
-                unsigned int reason;
-                uint32_t pc, lr, cfsr, icsr, prio, count;
-                if (ap_fault_record_take(&reason, &pc, &lr, &cfsr, &icsr,
-                                         &prio, &count)) {
-                    fault_reported = true;
+            static bool record_taken;
+            static bool have_fault;
+            static unsigned int reason;
+            static uint32_t pc, lr, cfsr, icsr, prio, count;
+            static bool have_wdg;
+            static uint32_t stall_ms, cur_prio, main_state, main_pended, main_pc;
+            static int32_t sched_task;
+            static char cur_name[12];
+            static uint8_t sends_left;
+            static uint32_t last_send_ms;
+
+            if (!record_taken) {
+                record_taken = true;
+                have_fault = ap_fault_record_take(&reason, &pc, &lr, &cfsr, &icsr,
+                                                  &prio, &count);
+                have_wdg = ap_wdg_record_take(&stall_ms, &sched_task, &cur_prio,
+                                              cur_name, sizeof(cur_name),
+                                              &main_state, &main_pended, &main_pc);
+                if (have_fault || have_wdg) {
+                    sends_left = 6;   /* six tries over a minute */
+                }
+            }
+            const uint32_t now_ms = AP_HAL::millis();
+            if (sends_left > 0 && (last_send_ms == 0 || now_ms - last_send_ms > 10000)) {
+                last_send_ms = now_ms;
+                sends_left--;
+                if (have_fault) {
                     GCS_SEND_TEXT(MAV_SEVERITY_CRITICAL,
                                   "FAULT r=%u pc=%08lx lr=%08lx",
                                   reason, (unsigned long)pc, (unsigned long)lr);
@@ -1088,9 +1228,17 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                                   "FAULT cfsr=%08lx icsr=%08lx pri=%ld n=%lu",
                                   (unsigned long)cfsr, (unsigned long)icsr,
                                   (long)(int32_t)prio, (unsigned long)count);
-                } else {
-                    /* nothing stored: a clean boot, so stop looking */
-                    fault_reported = true;
+                }
+                if (have_wdg) {
+                    GCS_SEND_TEXT(MAV_SEVERITY_CRITICAL,
+                                  "WSTALL %lums in %s pri=%ld task=%ld",
+                                  (unsigned long)stall_ms, cur_name,
+                                  (long)(int32_t)cur_prio, (long)sched_task);
+                    GCS_SEND_TEXT(MAV_SEVERITY_CRITICAL,
+                                  "WSTALL main state=%02lx pended=%08lx pc=%08lx",
+                                  (unsigned long)main_state,
+                                  (unsigned long)main_pended,
+                                  (unsigned long)main_pc);
                 }
             }
         }
@@ -1103,6 +1251,35 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
 #if defined(HAVE_HW_WATCHDOG)
         /* Persistent crash/watchdog forensics, ChibiOS parity. */
         if (wdt_channel >= 0) {
+            /* FILL THE WDG LINE'S SPARE FIELDS EVERY PASS, not at the moment a
+               stall is detected. The freeze this is chasing stops every thread -
+               the monitor included - so code that runs "when it goes wrong"
+               never runs at all, which is why a 500 ms recorder and a watchdog
+               pre-reset interrupt both produced nothing. What DOES survive is
+               the snapshot taken up to 100 ms earlier, because AP repeats the
+               WDG statustext on the next boot from restored persistent data.
+               So: sample continuously and read the last one.
+
+               Only while fault_type is 0. A real fault fills these same fields
+               with better information and must not be overwritten. */
+            AP_HAL::Util::PersistentData &pd = hal.util->persistent_data;
+            if (pd.fault_type == 0) {
+                /* FL and FICSR are written by the flash path itself now, via
+                   ap_persistent_flash_mark() - see there for why sampling them
+                   here was useless. Left alone so this does not clobber them. */
+                /* FA: where the main thread is, from its own stacked frame.
+                   FLR: the wait queue it is blocked on, 0 if it is runnable. */
+                uint32_t main_pc = 0, main_pended = 0;
+                if (s_main_tid != nullptr) {
+                    main_pended = (uint32_t)(uintptr_t)s_main_tid->base.pended_on;
+                    const uint32_t psp = (uint32_t)s_main_tid->callee_saved.psp;
+                    if (psp >= 0x20000000u && psp < 0x20400000u) {
+                        main_pc = ((const uint32_t *)(uintptr_t)psp)[6];
+                    }
+                }
+                pd.fault_addr = main_pc;
+                pd.fault_lr = main_pended;
+            }
             sched->save_persistent_data();
         }
 #endif
@@ -1253,6 +1430,39 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
         } else if (elapsed >= MONITOR_WARN_MS && !warned) {
             printk("AP_Zephyr: WARNING main loop stuck %u ms\n",
                    (unsigned)elapsed);
+            /* Record it where a reset cannot erase it. The printk above goes to
+               the USB CDC console, which drops output when its ring fills or the
+               host is not reading, so its absence proved nothing. Writing the
+               record here - from the monitor thread, which is still running -
+               also settles whether the monitor is alive during the stall at all:
+               if the next boot reports a WSTALL, it was; if it never does, then
+               nothing below interrupt level is running and main is not merely
+               starved. */
+            {
+                k_tid_t cur = k_current_get();
+                uint32_t main_state = 0, main_pended = 0, main_pc = 0;
+                if (s_main_tid != nullptr) {
+                    main_state = s_main_tid->base.thread_state;
+                    main_pended = (uint32_t)(uintptr_t)s_main_tid->base.pended_on;
+                    const uint32_t psp = (uint32_t)s_main_tid->callee_saved.psp;
+                    if (psp >= 0x20000000u && psp < 0x20400000u) {
+                        main_pc = ((const uint32_t *)(uintptr_t)psp)[6];
+                    }
+                }
+                ap_wdg_record_put(elapsed,
+                                  (int32_t)hal.util->persistent_data.scheduler_task,
+                                  (uint32_t)(int32_t)k_thread_priority_get(cur),
+                                  k_thread_name_get(cur),
+                                  main_state, main_pended, main_pc);
+            }
+            /* ChibiOS raises this at the same 500 ms (its Scheduler.cpp:462), and
+               it is what puts a non-zero IE/IEC on AP's repeating WDG line - the
+               one channel that has reliably reached the screen all along. The
+               Zephyr monitor was only printing. */
+#if AP_INTERNALERROR_ENABLED
+            AP::internalerror().error(AP_InternalError::error_t::main_loop_stuck,
+                                      hal.util->persistent_data.semaphore_line);
+#endif
             /* One-shot thread-state dump on the first stuck warning, so a hang is diagnosable
              * without attaching a debugger. */
 #ifdef CONFIG_THREAD_MONITOR
@@ -1270,6 +1480,77 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
         } else if (elapsed < MONITOR_WARN_MS) {
             warned = false;
         }
+
+#ifdef CONFIG_THREAD_RUNTIME_STATS
+        /* Per-thread CPU, once per 10 s. Measured rather than inferred: which
+           threads actually consume the core is the question that decides
+           whether a starved thread needs a bigger share or the load needs to
+           come down, and until now there was no number for it. One line per
+           report, so it cannot flood the console. */
+        if ((now - last_cpu_report_ms) >= 10000) {
+            last_cpu_report_ms = now;
+            k_thread_runtime_stats_t tot;
+            /* Cycles consumed IN THIS WINDOW, not since boot: a cumulative
+               percentage keeps reporting a load the board shed ten minutes
+               ago, which is how a thread that stopped running can still look
+               busy. Index 0 is the total; the rest follow the print order. */
+            static uint64_t prev_cyc[1 + 7 + ZEPHYR_MAX_USER_THREADS];
+            uint8_t slot = 0;
+            if (k_thread_runtime_stats_all_get(&tot) == 0 &&
+                tot.execution_cycles > prev_cyc[0]) {
+                const uint64_t all = tot.execution_cycles - prev_cyc[0];
+                prev_cyc[0] = tot.execution_cycles;
+                char line[460];
+                int n = snprintf(line, sizeof(line), "CPU%%");
+                const struct { struct k_thread *t; const char *nm; } who[] = {
+                    { s_main_tid,             "main" },
+                    { &sched->_timer_thread_data,   "tmr" },
+                    { &sched->_io_thread_data,      "io"  },
+                    { &sched->_rcin_thread_data,    "rcin"},
+                    { &sched->_rcout_thread_data,   "rcout"},
+                    { &sched->_storage_thread_data, "stor"},
+                    { &sched->_monitor_thread_data, "mon" },
+                };
+                for (uint8_t i = 0; i < ARRAY_SIZE(who) && n > 0 && n < (int)sizeof(line); i++) {
+                    k_thread_runtime_stats_t st;
+                    slot++;
+                    if (who[i].t != nullptr &&
+                        k_thread_runtime_stats_get(who[i].t, &st) == 0) {
+                        /* State as well as load: a thread at 0% is either
+                           blocked on something that never comes or ready and
+                           never scheduled, and those need opposite fixes. */
+                        char sb[16];
+                        const char *stt = k_thread_state_str(who[i].t, sb, sizeof(sb));
+                        const uint64_t d = st.execution_cycles - prev_cyc[slot];
+                        prev_cyc[slot] = st.execution_cycles;
+                        n += snprintf(line + n, sizeof(line) - n, " %s=%u/%s",
+                                      who[i].nm, (unsigned)((d * 100U) / all),
+                                      stt ? stt : "?");
+                    }
+                }
+                for (uint8_t i = 0; i < ZEPHYR_MAX_USER_THREADS && n > 0 && n < (int)sizeof(line); i++) {
+                    if (!sched->_user_threads[i].in_use) {
+                        continue;
+                    }
+                    k_thread_runtime_stats_t st;
+                    slot++;
+                    if (k_thread_runtime_stats_get(&sched->_user_threads[i].thread_data, &st) == 0) {
+                        const char *nm = k_thread_name_get(&sched->_user_threads[i].thread_data);
+                        char sb[16];
+                        const char *stt = k_thread_state_str(&sched->_user_threads[i].thread_data,
+                                                             sb, sizeof(sb));
+                        const uint64_t d = st.execution_cycles - prev_cyc[slot];
+                        prev_cyc[slot] = st.execution_cycles;
+                        n += snprintf(line + n, sizeof(line) - n, " %s=%u/%s",
+                                      nm ? nm : "usr", (unsigned)((d * 100U) / all),
+                                      stt ? stt : "?");
+                    }
+                }
+                printk("%s\n", line);
+            }
+            ap_pcprofile_report();
+        }
+#endif
 
         /* stack health check once per second */
         if ((now - last_stack_check_ms) >= 1000) {
