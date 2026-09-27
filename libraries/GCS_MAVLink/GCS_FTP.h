@@ -76,6 +76,30 @@ private:
 
     ObjectBuffer<Transaction> requests{AP_MAVLINK_FTP_MAX_SESSIONS};
 
+    /* FTPDIAG counters, written by worker() and read from the receive path -
+       which runs even when worker() does not, so they are visible whether or
+       not the worker is being scheduled. Distinguishes three causes that all
+       present as "MAVFTP times out":
+         dbg_spins   frozen  -> worker never scheduled
+         dbg_spins   rising, dbg_pops 0 -> worker runs but sees an EMPTY queue
+                                           while the producer reports it FULL
+         dbg_pops    rising, dbg_replies 0 -> the reply path
+       dbg_spins also gives the real poll rate: the idle loop is delay(2), so
+       it should climb about 500/s if the worker is healthy. */
+    static volatile uint32_t dbg_spins;
+    static volatile uint32_t dbg_pops;
+    static volatile uint32_t dbg_replies;
+    /* send_reply() bracketing: pinpoints which statement the worker parks on.
+       enter > lock   -> blocked acquiring comm_chan_lock(chan)
+       lock  > ok     -> HAVE_PAYLOAD_SPACE never true, or stuck in the send
+       txbuf_fail     -> the radio flow-control gate is rejecting (should not
+                         happen on USB, where the stale-report path returns true) */
+    static volatile uint32_t dbg_send_enter;
+    static volatile uint32_t dbg_send_txbuf_fail;
+    static volatile uint32_t dbg_send_lock;
+    static volatile uint32_t dbg_send_nospace;
+    static volatile uint32_t dbg_send_ok;
+
     bool initialised;
 
     // session specific info

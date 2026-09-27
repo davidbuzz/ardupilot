@@ -99,20 +99,34 @@ void GCS_FTP::handle_file_transfer_protocol(const mavlink_message_t &msg, mavlin
         // we could NACK it, but that can lead to GCS
         // confusion, so we're treating it like lost data
         const bool pushed = ftp->requests.push(request);
-        ::printk("FTPDIAG rx op=%u seq=%u sess=%u push=%u qspace=%u init=%u\n",
+        ::printk("FTPDIAG rx op=%u seq=%u sess=%u push=%u qspace=%u init=%u "
+                 "spins=%lu pops=%lu replies=%lu\n",
                  (unsigned)request.opcode, (unsigned)request.seq_number,
                  (unsigned)request.session, (unsigned)pushed,
-                 (unsigned)ftp->requests.space(), (unsigned)ftp->initialised);
+                 (unsigned)ftp->requests.space(), (unsigned)ftp->initialised,
+                 (unsigned long)ftp->dbg_spins, (unsigned long)ftp->dbg_pops,
+                 (unsigned long)ftp->dbg_replies);
+        ::printk("FTPDIAG snd enter=%lu txbuf_fail=%lu lock=%lu nospace=%lu ok=%lu chan=%u\n",
+                 (unsigned long)ftp->dbg_send_enter,
+                 (unsigned long)ftp->dbg_send_txbuf_fail,
+                 (unsigned long)ftp->dbg_send_lock,
+                 (unsigned long)ftp->dbg_send_nospace,
+                 (unsigned long)ftp->dbg_send_ok,
+                 (unsigned)request.chan);
     }
 }
 
 bool GCS_FTP::send_reply(const Transaction &reply)
 {
+    dbg_send_enter++;
     if (!GCS_MAVLINK::last_txbuf_is_greater(33)) { // It helps avoid GCS timeout if this is less than the threshold where we slow down normal streams (<=49)
+        dbg_send_txbuf_fail++;
         return false;
     }
     WITH_SEMAPHORE(comm_chan_lock(reply.chan));
+    dbg_send_lock++;
     if (!HAVE_PAYLOAD_SPACE(reply.chan, FILE_TRANSFER_PROTOCOL)) {
+        dbg_send_nospace++;
         return false;
     }
     mavlink_file_transfer_protocol_t pkt {};
@@ -129,6 +143,7 @@ bool GCS_FTP::send_reply(const Transaction &reply)
     put_le32_ptr(&payload[8], reply.offset);
     memcpy(&pkt.payload[12], reply.data, sizeof(reply.data));
     mavlink_msg_file_transfer_protocol_send_struct(reply.chan, &pkt);
+    dbg_send_ok++;
     return true;
 }
 
@@ -161,6 +176,8 @@ void GCS_FTP::Session::push_reply(Transaction &reply)
         ::printk("FTPDIAG reply op=%u waited %u x100us for txspace\n",
                  (unsigned)reply.req_opcode, (unsigned)spins);
     }
+
+    dbg_replies++;
 
     if (reply.req_opcode == FTP_OP::TerminateSession) {
         last_send_ms = 0;
@@ -766,6 +783,17 @@ void GCS_FTP::setup_reply(const Transaction &request, Transaction &reply)
 /*
   main FTP thread
  */
+/* FTPDIAG counters - static so the reply path, which is not a member context,
+   can increment them too. */
+volatile uint32_t GCS_FTP::dbg_spins;
+volatile uint32_t GCS_FTP::dbg_pops;
+volatile uint32_t GCS_FTP::dbg_replies;
+volatile uint32_t GCS_FTP::dbg_send_enter;
+volatile uint32_t GCS_FTP::dbg_send_txbuf_fail;
+volatile uint32_t GCS_FTP::dbg_send_lock;
+volatile uint32_t GCS_FTP::dbg_send_nospace;
+volatile uint32_t GCS_FTP::dbg_send_ok;
+
 void GCS_FTP::worker(void)
 {
     Transaction request;
@@ -774,6 +802,7 @@ void GCS_FTP::worker(void)
 
     while (true) {
         while (!requests.pop(request)) {
+            dbg_spins++;
             // nothing to handle, delay ourselves a bit then check again. Ideally we'd use conditional waits here
             hal.scheduler->delay(2);
 
@@ -786,6 +815,8 @@ void GCS_FTP::worker(void)
                 }
             }
         }
+
+        dbg_pops++;
 
         if (request.opcode == FTP_OP::ResetSessions) {
             /*
