@@ -24,6 +24,9 @@
 #include <AP_HAL/AP_HAL.h>
 
 #include "GCS.h"
+#if CONFIG_HAL_BOARD == HAL_BOARD_ZEPHYR
+#include <zephyr/sys/printk.h>
+#endif
 
 #include <AP_Filesystem/AP_Filesystem.h>
 #include <AP_HAL/utility/sparse-endian.h>
@@ -95,7 +98,11 @@ void GCS_FTP::handle_file_transfer_protocol(const mavlink_message_t &msg, mavlin
         // if the push fails we drop the message
         // we could NACK it, but that can lead to GCS
         // confusion, so we're treating it like lost data
-        ftp->requests.push(request);
+        const bool pushed = ftp->requests.push(request);
+        ::printk("FTPDIAG rx op=%u seq=%u sess=%u push=%u qspace=%u init=%u\n",
+                 (unsigned)request.opcode, (unsigned)request.seq_number,
+                 (unsigned)request.session, (unsigned)pushed,
+                 (unsigned)ftp->requests.space(), (unsigned)ftp->initialised);
     }
 }
 
@@ -145,8 +152,14 @@ void GCS_FTP::Session::push_reply(Transaction &reply)
 {
     last_send_ms = AP_HAL::millis(); // Used to detect active FTP session
 
+    uint32_t spins = 0;
     while (!send_reply(reply)) {
+        spins++;
         hal.scheduler->delay_microseconds(100);
+    }
+    if (spins > 0) {
+        ::printk("FTPDIAG reply op=%u waited %u x100us for txspace\n",
+                 (unsigned)reply.req_opcode, (unsigned)spins);
     }
 
     if (reply.req_opcode == FTP_OP::TerminateSession) {
