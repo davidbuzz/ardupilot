@@ -419,6 +419,24 @@ static volatile uint32_t g_hb_boost_calls;  /* main handbacks made while boosted
 extern "C" uint32_t g_buscb_calls[6];
 extern "C" uint64_t g_buscb_us[6];
 extern "C" uint32_t g_buscb_max_us[6];
+/* Defined in I2CDevice.cpp - see the I2CERR comment there. */
+extern "C" uint32_t g_i2c_ok[3];
+extern "C" uint32_t g_i2c_nak[3];
+extern "C" uint32_t g_i2c_timeout[3];
+extern "C" uint32_t g_i2c_otherr[3];
+extern "C" uint32_t g_i2c_reset[3];
+extern "C" int32_t  g_i2c_lasterr[3];
+extern "C" uint32_t g_i2c_maxus[3];
+extern "C" uint64_t g_i2c_okus[3];
+/* Defined in modules/zephyr/drivers/i2c/i2c_mcux_lpi2c.c - the phase split for a
+   successful transfer. AP measured 7-21 ms mean successful transfers with zero
+   NAKs and zero completion timeouts, so the time must be in the driver's
+   K_FOREVER lock or its busy-bus check; these say which. */
+extern "C" uint32_t ap_lpi2c_stat_lock_us;
+extern "C" uint32_t ap_lpi2c_stat_lock_n;
+extern "C" uint32_t ap_lpi2c_stat_busy_us;
+extern "C" uint32_t ap_lpi2c_stat_busy_n;
+extern "C" uint32_t ap_lpi2c_stat_bbok_us;
 static volatile uint64_t g_hb_boost_act_us;
 
 void Scheduler::delay(uint16_t ms)
@@ -535,24 +553,6 @@ void Scheduler::delay_microseconds(uint16_t us)
     uint32_t ticks = k_us_to_ticks_ceil32(us);
     if (ticks == 0) {
         ticks = 1;
-    }
-    /* HANDBACK: only main's handbacks are counted - they are the slack the
-       prio>=10 band could receive. Two micros64() reads per call, diagnostic
-       build only. */
-    if (in_main_thread()) {
-        const bool boosted = _priority_boosted;
-        const uint64_t t0 = AP_HAL::micros64();
-        k_sleep(K_TICKS(ticks));
-        const uint64_t dt = AP_HAL::micros64() - t0;
-        if (boosted) {
-            g_hb_boost_calls++;
-            g_hb_boost_act_us += dt;
-        } else {
-            g_hb_calls++;
-            g_hb_req_us += us;
-            g_hb_act_us += dt;
-        }
-        return;
     }
     k_sleep(K_TICKS(ticks));
 }
@@ -1375,8 +1375,14 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                     if (u == nullptr) {
                         continue;
                     }
-                    printk("UARTSTAT s%u queued=%lu dma=%lu done=%lu fail=%lu "
-                           "rx=%lu rxev=%lu\n", sn,
+                    /* async= is the DMA path flag. The four counters after it
+                       are TX ONLY (_dbg_tx_*), so a port that never transmits
+                       shows queued=0 dma=0 done=0 and that says nothing about
+                       whether RX is on DMA - which is exactly how it was
+                       misread once. rx/rxev come only from _async_cb's
+                       UART_RX_RDY, so non-zero rx PROVES the async path. */
+                    printk("UARTSTAT s%u async=%u queued=%lu dma=%lu done=%lu fail=%lu "
+                           "rx=%lu rxev=%lu\n", sn, (unsigned)u->is_dma_enabled(),
                            (unsigned long)u->_dbg_tx_queued,
                            (unsigned long)u->_dbg_tx_dma,
                            (unsigned long)u->_dbg_tx_done,
@@ -1410,6 +1416,60 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                               (unsigned long)(g_ap_main_prio_reasserts - lr_last_reassert),
                               (unsigned long)g_ap_main_prio_leaks,
                               (unsigned long)(g_ap_main_prio_inherit_holds - lr_last_hold));
+                /* I2C health over MAVLink as well as the console I2CERR line:
+                   the compass and both baros sit on I2C, and when they report
+                   Bad Health the question is always the same - did the device
+                   NAK (absent part, or an unpowered vehicle rail) or did the
+                   controller time out (bus/driver fault). The console is held by
+                   whatever is attached to USB CDC, so a printk alone is not
+                   readable while a GCS is connected. One line per bus that saw
+                   traffic, kept short because a STATUSTEXT is 50 characters. */
+                for (uint8_t b = 0; b < 3; b++) {
+                    if ((g_i2c_ok[b] | g_i2c_nak[b] | g_i2c_timeout[b]) == 0) {
+                        continue;
+                    }
+                    /* Label is b, NOT b+1: the slot index IS the AP bus number
+                       (I2CDevice uses slot = _bus, and hwdef declares I2C:1 and
+                       I2C:2), so b+1 printed bus 1 as "I2C2". DeviceBus numbers
+                       its own profiling slots differently - I2C bus n lands at
+                       3+(n-1) - hence the +2 below. cb/us are the bus thread's
+                       callback count and mean for the window, which is what
+                       says whether a 60 Hz BMM150 is actually getting 60 Hz. */
+                    const uint8_t cbslot = (uint8_t)(b + 2U);
+                    const uint32_t cbn = (b >= 1U && cbslot < 6U) ? g_buscb_calls[cbslot] : 0U;
+                    const uint32_t cbmean = (cbn != 0U)
+                        ? (uint32_t)(g_buscb_us[cbslot] / cbn) : 0U;
+                    /* xfer = mean microseconds of a SUCCESSFUL transfer, mx = the
+                       worst one. This is the number that splits the two
+                       explanations for a 24-29 ms callback with zero failures:
+                       a large xfer means the transfer itself is slow (driver /
+                       DMA completion), while a small xfer with a low cb count
+                       means the bus thread is simply not being run. */
+                    const uint32_t okn = g_i2c_ok[b];
+                    const uint32_t okmean = (okn != 0U)
+                        ? (uint32_t)(g_i2c_okus[b] / okn) : 0U;
+                    GCS_SEND_TEXT(MAV_SEVERITY_INFO,
+                                  "I2C%u ok=%lu oth=%lu xfer=%luus mx=%lu",
+                                  (unsigned)b,
+                                  (unsigned long)okn,
+                                  (unsigned long)g_i2c_otherr[b],
+                                  (unsigned long)okmean,
+                                  (unsigned long)g_i2c_maxus[b]);
+                    if (g_i2c_nak[b] || g_i2c_timeout[b] || g_i2c_reset[b]) {
+                        GCS_SEND_TEXT(MAV_SEVERITY_WARNING,
+                                      "I2C%u FAIL nak=%lu to=%lu rst=%lu e=%ld",
+                                      (unsigned)b,
+                                      (unsigned long)g_i2c_nak[b],
+                                      (unsigned long)g_i2c_timeout[b],
+                                      (unsigned long)g_i2c_reset[b],
+                                      (long)g_i2c_lasterr[b]);
+                    }
+                    /* Sole owner of the reset - see the note in the I2CERR
+                       printk block below. */
+                    g_i2c_ok[b] = 0; g_i2c_nak[b] = 0; g_i2c_timeout[b] = 0;
+                    g_i2c_otherr[b] = 0; g_i2c_reset[b] = 0; g_i2c_maxus[b] = 0;
+                    g_i2c_okus[b] = 0;
+                }
                 lr_last_hold = g_ap_main_prio_inherit_holds;
                 lr_last_boost = g_ap_boost_count;
                 lr_last_reassert = g_ap_main_prio_reasserts;
@@ -1724,6 +1784,62 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                 prev_sum = a.sum; prev_idle = a.idle;
                 if (k_thread_runtime_stats_all_get(&tot2) == 0) {
                     prev_all = tot2.execution_cycles;
+                }
+            }
+            /* I2CERR: which failure mode is costing the I2C bus threads their
+               24-29 ms. nak means the device did not answer (absent part, or an
+               unpowered rail - both baros and the compass sit on the vehicle
+               rail); timeout means the controller never completed the transfer,
+               which is a bus or driver fault, not a device one. reset counts the
+               ap_lpi2c_hard_reset() after every attempt failed. */
+            {
+                char il[300];
+                int io2 = snprintf(il, sizeof(il), "I2CERR");
+                bool anyi = false;
+                for (uint8_t b = 0; b < 3; b++) {
+                    const uint32_t tot = g_i2c_ok[b] + g_i2c_nak[b] +
+                                         g_i2c_timeout[b] + g_i2c_otherr[b];
+                    if (tot == 0) {
+                        continue;
+                    }
+                    anyi = true;
+                    if (io2 > 0 && io2 < (int)sizeof(il) - 1) {
+                        io2 += snprintf(il + io2, sizeof(il) - io2,
+                                        " b%u ok=%lu nak=%lu to=%lu oth=%lu rst=%lu"
+                                        " err=%ld max=%luus",
+                                        (unsigned)(b + 1),
+                                        (unsigned long)g_i2c_ok[b],
+                                        (unsigned long)g_i2c_nak[b],
+                                        (unsigned long)g_i2c_timeout[b],
+                                        (unsigned long)g_i2c_otherr[b],
+                                        (unsigned long)g_i2c_reset[b],
+                                        (long)g_i2c_lasterr[b],
+                                        (unsigned long)g_i2c_maxus[b]);
+                    }
+                    /* Deliberately does NOT zero: the I2C STATUSTEXT above owns
+                       the reset. Two readers zeroing one counter set made the
+                       STATUSTEXT report a shrinking fraction of each window
+                       (ok=59 -> 26 -> 3) that looked exactly like the buses
+                       dying, and was not. */
+                }
+                if (anyi) {
+                    printk("%s\n", il);
+                }
+                /* Driver phase split: lk is the mean wait on the per-device
+                   K_FOREVER lock, bb counts busy-bus rejections (-EBUSY, which
+                   lands in the oth= bucket above), bbok is time spent in the
+                   busy check when it passed. */
+                if (ap_lpi2c_stat_lock_n != 0U) {
+                    GCS_SEND_TEXT(MAV_SEVERITY_INFO,
+                                  "LPI2C lk=%luus n=%lu bb=%lu bbok=%luus",
+                                  (unsigned long)(ap_lpi2c_stat_lock_us /
+                                                  ap_lpi2c_stat_lock_n),
+                                  (unsigned long)ap_lpi2c_stat_lock_n,
+                                  (unsigned long)ap_lpi2c_stat_busy_n,
+                                  (unsigned long)ap_lpi2c_stat_bbok_us);
+                    ap_lpi2c_stat_lock_us = 0; ap_lpi2c_stat_lock_n = 0;
+                    ap_lpi2c_stat_busy_us = 0; ap_lpi2c_stat_busy_n = 0;
+                    ap_lpi2c_stat_bbok_us = 0;
                 }
             }
             /* BUSCB: SPI2 is 20% of the machine at PREEMPT(2), above main and

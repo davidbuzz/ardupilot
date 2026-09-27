@@ -260,3 +260,25 @@
 
        WHAT WAS KEPT, because it was measured and cheap: the RC-in decode chain
        below. rcin went from 17% of CPU to 2% for about 3.4 KB. */
+
+    /* Fourth PCSR/PC-sample round (2026-09-27). Measured with the in-firmware PC
+       profiler at ~1 kHz over 10052 samples: itcm=42% xip=57%, and the single
+       HOTTEST 64-byte bucket in the whole system was 0x300b4740 at 523/10052 =
+       5.2%, which resolves to the AP_InternalError region (errors_as_string at
+       0x300b4718+100, plus AP::internalerror() at 0x300b477c).
+
+       That cannot be algorithmic work: errors_as_string() is called from exactly
+       one place, AP_Arming.cpp:1203, at roughly 1 Hz. A 100-byte function called
+       once a second is not 5% of a 996 MHz CPU. The samples are INSTRUCTION FETCH
+       STALLS - the CPU parked at that PC waiting on FlexSPI. The two veneers that
+       also showed up hot (__k_heap_init_veneer, __k_queue_append_veneer) are the
+       corroboration: veneers exist only because ITCM-resident code branches to
+       XIP targets.
+
+       AP_InternalError.cpp is 681 bytes of text, and ITCM had 30.8 KB free, so
+       this is the cheapest possible test of that reading. The Zephyr ARM cache
+       ops go in with it: arch_dcache_flush_range is called on every SPI DMA
+       transfer (~850/s from AP_HAL_Zephyr/SPIDevice.cpp:45) and its bucket was
+       ~2%, for 464 bytes total across all arch_dcache/arch_icache entries. */
+*libArduCopter_libs.a:AP_InternalError*.o(.text .text.*)
+*libarch__arm__core__cortex_m.a:cache.c.obj(.text .text.*)

@@ -202,10 +202,22 @@ void ap_pcprofile_report(void)
     }
 }
 
+/* Off by default since 2026-09-27. The sampler is a 1 kHz k_timer, and with
+ * CONFIG_TICKLESS_KERNEL on a 1 MHz tick every expiry reprograms the hardware
+ * timer - so it costs far more than the sample itself. It has already given its
+ * answer on this board (itcm=42% xip=57%, hottest bucket the AP_InternalError
+ * region at 5.2%), and the CPU it frees is needed by the below-main threads.
+ * Set AP_ZEPHYR_PCPROFILE_ENABLED to 1 to profile again. */
+#ifndef AP_ZEPHYR_PCPROFILE_ENABLED
+#define AP_ZEPHYR_PCPROFILE_ENABLED 0
+#endif
+
 static int ap_pcprofile_init(void)
 {
+#if AP_ZEPHYR_PCPROFILE_ENABLED
     k_timer_init(&pcp_timer, pcp_tick, NULL);
     k_timer_start(&pcp_timer, K_USEC(PCP_PERIOD_US), K_USEC(PCP_PERIOD_US));
+#endif
     return 0;
 }
 

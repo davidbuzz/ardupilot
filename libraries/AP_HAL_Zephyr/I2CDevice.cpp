@@ -24,7 +24,26 @@
 #ifdef __ZEPHYR__
 #include <zephyr/devicetree.h>
 #include <zephyr/drivers/i2c.h>
+#include <errno.h>
 #include <zephyr/sys/sys_io.h>
+
+/* I2CERR: the compass and baro on this board report Bad Health, and the bus
+   threads were measured blocking 24-29 ms per callback (max 1.68 s) while
+   holding the DeviceBus semaphore. Cheapening a failure does not make a
+   transfer succeed, so count WHY it fails before changing any timeout:
+   -ETIMEDOUT means the controller never completed (wedged bus / missing IRQ),
+   while -EIO/-ENXIO means the device NAKed (absent, or an unpowered rail).
+   Slots 0-2 = I2C bus 1-3, matching DeviceBus's prof_slot numbering. */
+extern "C" {
+uint32_t g_i2c_ok[3];
+uint32_t g_i2c_nak[3];
+uint32_t g_i2c_timeout[3];
+uint32_t g_i2c_otherr[3];
+uint32_t g_i2c_reset[3];
+int32_t  g_i2c_lasterr[3];
+uint32_t g_i2c_maxus[3];
+uint64_t g_i2c_okus[3];   /* summed elapsed of SUCCESSFUL transfers */
+}
 #endif
 
 using namespace Zephyr;
@@ -210,6 +229,22 @@ bool I2CDevice::transfer(const uint8_t *send, uint32_t send_len,
     }
 
     const uint8_t attempts = (_retries == 0U) ? 1U : (uint8_t)(_retries + 1U);
+
+    /* ChibiOS bounds EVERY attempt: timeout = MAX(_timeout_ms, 2x the expected
+       transfer time) - AP_HAL_ChibiOS/I2CDevice.cpp:374-376 - so its three
+       attempts cost at most about 12 ms. Zephyr's i2c_write_read() takes no
+       timeout at all, and the mcux_lpi2c eDMA path waits a flat K_MSEC(100)
+       internally, so the same three attempts cost up to 300 ms - with the
+       DeviceBus semaphore held, which starves every other device on the bus.
+       Bound the RETRY BUDGET here to the ChibiOS figure: once it is spent, do
+       not start another attempt that could block for the driver's full wait. */
+    const uint32_t bclk = i2c_bus_clock(_bus, _bus_clock);
+    const uint32_t expected_ms = (bclk == 0U) ? _timeout_ms
+        : (1U + 2U * (((8U * 1000000UL / bclk) * (send_len + recv_len)) / 1000U));
+    const uint32_t budget_ms = MAX(expected_ms, _timeout_ms);
+    const uint32_t t0_us = AP_HAL::micros();
+    const uint8_t slot = (uint8_t)((_bus < 3U) ? _bus : 2U);
+
     for (uint8_t i = 0; i < attempts; i++) {
         int ret = 0;
         /* One count per attempt, as ChibiOS does per i2cStart (I2CDevice.cpp),
@@ -234,12 +269,36 @@ bool I2CDevice::transfer(const uint8_t *send, uint32_t send_len,
         }
 
         if (ret == 0) {
+            g_i2c_ok[slot]++;
+            const uint32_t el = AP_HAL::micros() - t0_us;
+            g_i2c_okus[slot] += el;
+            if (el > g_i2c_maxus[slot]) { g_i2c_maxus[slot] = el; }
             return true;
+        }
+
+        g_i2c_lasterr[slot] = (int32_t)ret;
+        if (ret == -ETIMEDOUT) {
+            g_i2c_timeout[slot]++;
+        } else if (ret == -EIO || ret == -ENXIO || ret == -ENODEV) {
+            g_i2c_nak[slot]++;
+        } else {
+            g_i2c_otherr[slot]++;
+        }
+
+        /* Out of budget - another attempt would cost the driver's whole
+           internal wait again, and the bus semaphore is held throughout. */
+        if ((AP_HAL::micros() - t0_us) / 1000U >= budget_ms) {
+            break;
         }
     }
 
     /* Every attempt failed. DISARM THE PERIPHERAL before giving up, or the next
      * transfer inherits a controller still mid-transaction. */
+    g_i2c_reset[slot]++;
+    {
+        const uint32_t el = AP_HAL::micros() - t0_us;
+        if (el > g_i2c_maxus[slot]) { g_i2c_maxus[slot] = el; }
+    }
     ap_lpi2c_hard_reset(_bus);
     /* re-apply THIS device's requested clock, not an unconditional FAST:
        a 100 kHz device (e.g. the INA2xx battery backend) would otherwise
