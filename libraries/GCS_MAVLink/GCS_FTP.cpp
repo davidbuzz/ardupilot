@@ -122,6 +122,19 @@ void GCS_FTP::handle_file_transfer_protocol(const mavlink_message_t &msg, mavlin
         const uint32_t now_txt_ms = AP_HAL::millis();
         if (now_txt_ms - last_txt_ms > 2000) {
             last_txt_ms = now_txt_ms;
+            /* Send-side counters too: a worker stuck in push_reply() waiting for
+               TX space looks identical to a dead worker from the client side,
+               and with the FTP_SESSION_KILL_TIMEOUT bound it stays stuck for up
+               to 20 s. ns/tb rising is that; they are the same numbers the
+               FTPDIAG printk reports, which is unreadable while anything holds
+               the USB CDC console. */
+            GCS_SEND_TEXT(MAV_SEVERITY_INFO,
+                          "FTPS en%lu tb%lu ns%lu ok%lu lk%lu",
+                          (unsigned long)ftp->dbg_send_enter,
+                          (unsigned long)ftp->dbg_send_txbuf_fail,
+                          (unsigned long)ftp->dbg_send_nospace,
+                          (unsigned long)ftp->dbg_send_ok,
+                          (unsigned long)ftp->dbg_send_lock);
             GCS_SEND_TEXT(MAV_SEVERITY_INFO,
                           "FTP i%u q%u pu%lu dr%lu po%lu re%lu sp%lu",
                           (unsigned)ftp->initialised,
