@@ -183,8 +183,8 @@ define DEFAULT_SERIAL3_PROTOCOL 5
 # compass. See pre-flight-fixes.md section 1.
 IMU Invensensev3 SPI:imu_sensor1 ROTATION_PITCH_180
 IMU Invensense SPI:imu_sensor1 ROTATION_PITCH_180
-IMU Invensensev3 SPI:imu_sensor2 ROTATION_YAW_270
-IMU Invensense SPI:imu_sensor2 ROTATION_YAW_270
+IMU Invensensev3 SPI:imu_sensor2 ROTATION_ROLL_180_YAW_270
+IMU Invensense SPI:imu_sensor2 ROTATION_ROLL_180_YAW_270
 # TODO: NO ARDUPILOT DRIVER YET - ISM330DHCX on SPI2. Needs a variant added to
 # an existing backend before it can be declared. Rotation unknown: PX4's
 # rc.board_sensors does not start an ISM330 on this board, so there is no
