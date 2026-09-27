@@ -201,3 +201,240 @@ driver-flip-before) and would have flown backwards.
   fix this bug once the rotation is per-IMU, but it is a real difference.
 - Accelerometer, compass and RC calibration have still never been done on this
   board, and all of them must be redone after any rotation change.
+
+---
+
+## 8. Compass cal requires the ENTIRE VEHICLE powered
+
+**The compass and the barometer are on the main battery rail. USB power alone is
+not enough.** With the battery off they are detected but never produce samples,
+and compass calibration cannot start.
+
+Symptoms seen with USB power only, battery off:
+
+```
+COMMAND_ACK: DO_START_MAG_CAL: FAILED
+AP: Compass calibration failed to start
+COMMAND_ACK: FIXED_MAG_CAL_YAW: FAILED
+AP: Mag[0]: unhealthy
+```
+
+and measured over MAVLink:
+
+```
+mag triple CHANGED 1 time in 30 s  ->  ~0.03 Hz
+3D_MAG        present=1 health=0
+ABS_PRESSURE  present=1 health=0      <- the baro too, same rail
+3D_GYRO       present=1 health=1      <- SPI, on USB power
+3D_ACCEL      present=1 health=1
+```
+
+With the battery connected, the same measurement:
+
+```
+mag changed 64 times in 28 s  ->  ~2.3 Hz
+3D_MAG health=1   ABS_PRESSURE health=1   AHRS health=1
+```
+
+Why it presents as a calibration fault rather than a power fault:
+`Compass::_start_calibration()` in `AP_Compass_Calibration.cpp:74` tests
+`!healthy(i)` **first** and returns false with **no message**. Only the later
+guards - priority change, allocation, GPS lock, thread creation - explain
+themselves. So an unpowered compass produces a bare "failed to start" with no
+reason given. `Compass::healthy()` is simply "a sample arrived within the last
+500 ms".
+
+**Do not read an unhealthy compass or baro as a driver, orientation or
+calibration problem until the vehicle is fully powered.** That mistake was made
+here: the 183 mGauss reading recorded on day 1, which looked like missing
+hard-iron offsets, was a stale sample from an unpowered sensor. The field
+magnitude with power on is about 512 mGauss, which is correct for Australia.
+
+### Still marginal once powered
+
+At ~2.3 Hz the compass is slower than the ~10 Hz AP normally reads, and the
+gaps flap across the health threshold:
+
+```
+gaps between samples: min 50 ms, median 254 ms, max 3681 ms
+gaps over 500 ms: 10 of 63
+```
+
+So `healthy()` goes false intermittently even with the battery on, and a
+calibration command can still be rejected if it lands in a gap - **retry before
+concluding anything**. A 3.7 second stall is a separate, real problem: the
+backend registers a periodic callback at `MEASURE_TIME_USEC`
+(`AP_Compass_BMM150.cpp:230`), so a gap that long means the callback is not
+being serviced on time, which is the starved-scheduling signature recorded in
+day-1 section 7 and is NOT explained by power.
+
+---
+
+## 9. MAVFTP: Scheduler::delay() sleeps far too long
+
+**MAVFTP is not broken. It is ~400x too slow to answer, and every GCS times out
+before it does.** Established 2026-09-27 with counters added to GCS_FTP.
+
+### MAVFTP works when driven slowly
+
+Driving `OpenFileRO @SYS/threads.txt` by hand, six attempts at 8 second
+intervals, over the USB CDC link: **six requests, six FILE_TRANSFER_PROTOCOL
+replies.** Verified.
+
+```
+12:25:22  seq=0  push=1 qspace=4  spins=0  pops=0  replies=0   enter=0
+12:25:30  seq=1  push=1 qspace=3  spins=0  pops=0  replies=0   enter=0
+12:25:38  seq=2  push=1 qspace=3  spins=0  pops=1  replies=0   enter=0
+12:25:46  seq=3  push=1 qspace=2  spins=0  pops=1  replies=0   enter=0
+12:25:47-49                        <- replies #1..#4 all arrive at once
+12:25:54  seq=4  push=1 qspace=4  spins=5  pops=4  replies=4   enter=4 lock=4 ok=4
+12:26:02  seq=5  push=1 qspace=4  spins=14 pops=5  replies=5   enter=5 lock=5 ok=5
+```
+
+### What is exonerated
+
+`send_reply()` was bracketed with counters at each early-return:
+
+- `txbuf_fail=0` - the radio flow-control gate
+  (`GCS_MAVLINK::last_txbuf_is_greater(33)`) never rejects. It cannot on USB:
+  with no radio, `last_radio_status.received_ms` stays 0, so the
+  `millis() - received_ms > 5000` stale-report branch returns true.
+- `nospace=0` - `HAVE_PAYLOAD_SPACE` never fails.
+- `enter == lock == ok` - no blocking on `comm_chan_lock(chan)`, and every
+  attempted send succeeded immediately.
+
+So: no deadlock, no channel-space shortage, no radio gate, and no UART write
+problem. Three earlier theories of mine are dead, and so is one more:
+**console/MAVLink contention on the CDC stream is NOT the cause** - FTP
+succeeded with the full console diagnostics printing throughout.
+
+### The actual defect
+
+The worker's idle loop is `hal.scheduler->delay(2)`
+(`GCS_FTP.cpp`, `while (!requests.pop(request))`), which implies roughly 500
+iterations per second. Measured: `spins` went 5 -> 14 in 8 seconds, so **9
+iterations in 8 s, about 1.1 Hz** - around 400x slow. The first reply took
+**25 seconds** to appear after the first request.
+
+`Scheduler::delay(uint16_t ms)` in `AP_HAL_Zephyr/Scheduler.cpp` is a deadline
+loop that sleeps in **1 ms steps**:
+
+```c
+const uint64_t start_us = AP_HAL::micros64();
+const uint64_t target_us = (uint64_t)ms * 1000U;
+while (AP_HAL::micros64() - start_us < target_us) {
+    k_msleep(1);
+    ...delay callback, main thread only...
+}
+```
+
+So a `delay(ms)` issues **ms separate sleeps and ms separate wakes**, and each
+wake has to win the CPU again before it can re-test the deadline. On main at
+PREEMPT(3) that is cheap. At PRIORITY_IO, below main, tmr, rcin, rate, rcout and
+the bus threads, it is not - which is why this presents as "the FTP thread is
+never scheduled" and why it worsened as the board got busier. INFERRED: the
+per-priority split is the proposed mechanism and is being measured (see below).
+
+### Why it looks like a queue or a scheduling bug
+
+At ~1 Hz the worker handles about one request per second. A GCS retries far
+faster, the request queue is `AP_MAVLINK_FTP_MAX_SESSIONS` = **5** deep, so it
+saturates within seconds and everything after is dropped on arrival with
+`push=0 qspace=0`. MAVProxy's FTP timeout is far shorter than the 25 s the
+worker needs, so it always gives up. That also explains the day-1 observation
+that FTP "worked once immediately after boot": an empty queue and few retries is
+the only condition a 1 Hz worker can service.
+
+Note `ResetSessions` calls `send_reply(reply)` once and **discards the return
+value**, so a dropped ACK is invisible to the GCS, which then retries the reset -
+filling the queue faster.
+
+### Before changing delay()
+
+- **The deadline loop is itself a deliberate earlier fix.** Its comment records
+  that counting a fixed number of iterations ADDED the delay callback's cost to
+  the wait, so `delay(100)` took 300 ms with a 2 ms callback. Any fix must keep
+  the deadline behaviour and stop issuing one wake per millisecond - e.g. sleep
+  the whole remaining interval when there is no callback to run, and step 1 ms
+  only when `_min_delay_cb_ms <= ms` on the main thread.
+- **There is a standing warning not to re-fix `delay()` without measuring it on
+  hardware first**, because it has been "fixed" wrongly before. A DELAYPROF
+  probe (mean requested vs actual for `delay(<=4ms)`, split main vs non-main) was
+  added to the 10 s report for exactly this. **Its result is not in this document
+  yet.**
+- The separate unbounded `while (!send_reply(reply))` retry in the non-Reset
+  path has no timeout. It is not the current fault, but on a link that stops
+  accepting it would park the worker permanently.
+
+---
+
+## 10. RETRACTION of section 9's cause: delay() is NOT the problem
+
+Section 9 above is left as written, but **its conclusion is wrong and is
+retracted here.** Measured 2026-09-27, minutes after writing it.
+
+### delay() is accurate
+
+A DELAYPROF probe was added to `Scheduler::delay()` recording mean requested vs
+mean actual for `delay(<=4ms)`:
+
+```
+DELAYPROF main n=54 req=1851us act=2021us x1.09 | other n=0 req=0us act=0us x0.00
+```
+
+**x1.09 - a 9% overshoot, not 400x.** Section 9's "~400x too slow" figure was
+derived from the rate at which the FTP worker's `spins` counter advanced. That
+inference was invalid: **`spins` only increments when `requests.pop()` FAILS**,
+i.e. when the queue is empty. With requests arriving and being serviced, a low
+`spins` rate says nothing whatever about how long `delay()` sleeps. A timing
+claim was made from a counter that does not measure time.
+
+`other n=0` also shows the worker never called `delay(2)` in that window, so it
+never reached the idle loop at all - which is itself the clue section 9 missed.
+
+### What the four runs actually show
+
+| Run | Path | Result |
+|---|---|---|
+| 12:25 | `@SYS/threads.txt` | 6 requests, **6 replies** |
+| 12:29 | `@SYS/threads.txt` | **0 replies**, parked at `pops=1 enter=0` |
+| 12:31 | `@PARAM/param.pck` | void - queue still saturated from the 12:29 park |
+| 12:33 | `@PARAM/param.pck` | 6 requests, **3 replies**, then parked at `pops=4 enter=3` |
+
+The pattern is the same each time it fails: the worker pops a request, and
+`dbg_send_enter` never increments for it. **It parks inside the OpenFileRO
+handling, before `send_reply` is ever called**, after a variable number of
+successful transactions, and never recovers. The queue then saturates and every
+later request is dropped with `push=0 qspace=0` - which is the state originally
+reported as "MAVFTP is broken".
+
+It happens on both `@SYS` and `@PARAM` paths, so it is not specific to the
+thread-walking that generates `@SYS/threads.txt`.
+
+### Everything now excluded, with the evidence
+
+- **delay() / timing** - measured x1.09. Retracted above.
+- **Scheduling, priority, CPU sharing** - the worker demonstrably runs and
+  completes transactions; `spins`, `pops`, `enter`, `ok` all advance.
+- **Deadlock on `comm_chan_lock`** - `enter == lock` on every attempted send.
+- **Channel buffer space** - `nospace=0`.
+- **Radio flow control** - `txbuf_fail=0`; on USB the stale-report branch of
+  `last_txbuf_is_greater()` returns true anyway.
+- **Console/MAVLink contention on the CDC stream** - FTP returned 6/6 replies
+  with the full console diagnostics printing throughout. Both belong on the CDC
+  by design; if interleaving ever did break framing, that would be a parser
+  defect, not a reason to remove console output.
+- **Queue saturation as a root cause** - it is a CONSEQUENCE of the park, not a
+  precondition: the 12:33 run began with a fresh queue after a reboot.
+
+### Where to look next
+
+The hang is inside the AP_Filesystem open path reached from `OpenFileRO`,
+non-deterministic, and permanent once entered. Bracketing counters between the
+`pops++` and the `send_reply()` call - around `setup_reply()` and around the
+filesystem open itself - would localise it to a statement the way the
+`send_reply` bracket did.
+
+Worth noting alongside: the standing note that `@SYS` MAVFTP fetches "often
+fail, retry 2-4x" describes the same area, except this parks permanently rather
+than failing and retrying.
