@@ -457,3 +457,254 @@ whether RX is on DMA. `rx`/`rxev` come only from `_async_cb`'s `UART_RX_RDY`, so
 non-zero `rx` *proves* the async/DMA path. s2 (LPUART8) does use DMA; one byte per
 event is the 1 ms idle flush firing between genuinely isolated arrivals (~450-580
 events/s, and isolated bytes cap at 1000/s with a 1 ms timeout).
+
+
+---
+
+## 10. FlexPWM per-submodule register evidence — MEASURED
+
+Captured with the board on USB alone, disarmed, no battery, no props (register
+reads only). Four consecutive samples, all identical:
+
+    FPWM1 OUTEN=0x0700 MCTRL=0x0700 | FPWM2 OUTEN=0x0f00 MCTRL=0x0f0e
+    m1 sm0 INIT=0 VAL1=3824 VAL2=0 VAL3=1875 period=3825 pulse=1875 CTRL=0x0470 OCTRL=0x0000
+    m2 sm1 INIT=0 VAL1=3824 VAL2=0 VAL3=1875 period=3825 pulse=1875 CTRL=0x0470 OCTRL=0x0000
+    m3 sm2 INIT=0 VAL1=3824 VAL2=0 VAL3=1875 period=3825 pulse=1875 CTRL=0x0470 OCTRL=0x0000
+    m4 sm0 INIT=0 VAL1=3824 VAL2=0 VAL3=1875 period=3825 pulse=1875 CTRL=0x0470 OCTRL=0x0000
+
+Bit masks from `PERI_PWM.h` (note the layout - it is easy to get backwards):
+`MCTRL`: LDOK [3:0], CLDOK [7:4], **RUN [11:8]**, IPOL [15:12].
+`OUTEN`: PWMX_EN [3:0], PWMB_EN [7:4], **PWMA_EN [11:8]**.
+
+| register | value | decode |
+|---|---|---|
+| FPWM1 OUTEN | 0x0700 | PWMA_EN = 0x7 -> SM0/1/2 A-outputs ENABLED (CH1,2,3) |
+| FPWM1 MCTRL | 0x0700 | RUN = 0x7 -> SM0/1/2 timers RUNNING |
+| FPWM2 OUTEN | 0x0f00 | PWMA_EN = 0xF -> SM0-3 enabled (CH4-7) |
+| FPWM2 MCTRL | 0x0f0e | RUN = 0xF -> all running; LDOK = 0xE pending on SM1-3 |
+
+Timing decode, which confirms the waveform is correct:
+
+    1000 us / 1875 ticks = 0.5333 us/tick -> 1.875 MHz (240 MHz bus / 128 prescaler)
+    period 3825 ticks x 0.5333 = 2040 us -> 490 Hz   (Copter RC_SPEED default)
+    pulse  1875 ticks x 0.5333 = 1000 us            (correct disarmed value)
+
+### Conclusions
+
+**Target: per-channel register evidence — SATISFIED.**
+**Target: submodules 1/2 equivalent to submodule 0 — SATISFIED.** All four motor
+submodules are byte-identical in INIT, VAL1, VAL2, VAL3, CTRL and OCTRL, all have
+their PWM_A output enabled, and all have their timer running.
+
+**The per-submodule hypothesis is REFUTED.** The idea was that SM1/SM2 of flexpwm1
+had never been verified (the 2026-08-11 test covered `pwm0` of each instance) and
+might be misconfigured. They are not. There is no per-submodule difference.
+
+So the FlexPWM *configuration* is correct and uniform on all four motor channels,
+at 490 Hz with a correct 1000 us disarmed pulse. Combined with `RCOUT` (section
+3.3 - correct value written, `rc0` accepted), the chain from vehicle to PWM
+registers is now proven correct end to end.
+
+### What this promotes
+
+With per-submodule misconfiguration eliminated, the **CLDOK glitch window
+(section 4.4 / `pwm_mcux.c:183-220`) becomes the leading remaining software
+candidate**, and its status changes:
+
+Earlier judgement: "affects every submodule identically, so it would give rare
+glitches on all four motors, not systematic failure on two - not our fault."
+
+Revised: that reasoning was too quick. The *window* is identical per submodule,
+but whether a glitched pulse actually desynchronises a given ESC depends on
+timing luck and on that ESC's tolerance. Two of four desyncing while two ran
+cleanly is entirely consistent with an intermittent single-cycle glitch, because
+susceptibility is per-ESC rather than per-channel. It is now the only remaining
+software mechanism that can produce a malformed pulse at all.
+
+The defect precisely: `VAL2` and `VAL3` are written as two separate 16-bit stores
+between CLDOK and LDOK. If the counter reaches its reload point between them, the
+submodule latches a half-updated edge pair - one cycle with a wrong pulse width.
+The original busy-wait-for-LDOK could not do this, because it only wrote once the
+previous load had latched. The optimisation traded ~350 us of CPU per 400 Hz
+update for an occasional single-cycle output glitch.
+
+### Still outstanding for this goal
+
+- **Which two motors ran correctly** - still unknown, and now less diagnostic than
+  expected: since all four submodules are identical, a 1+4 pairing would no longer
+  implicate submodules. It would instead point at wiring or per-ESC tolerance.
+- **Independent scope/analyser confirmation on CH1-4.** The registers say the
+  waveform is correct; a scope would confirm the pad actually carries it, and
+  would catch the CLDOK glitch, which is invisible in a register snapshot because
+  it lasts one cycle.
+
+
+---
+
+## 11. CLDOK glitch — REFUTED by the CTRL register
+
+Section 10 promoted the CLDOK write window to "the only remaining software
+mechanism that can produce a malformed pulse". **That is wrong, and so was the
+earlier, milder version of the claim.** Both were reasoned from the write
+*sequence* without checking whether the hardware latch is atomic. It is.
+
+`CTRL = 0x0470` on all four motor submodules decodes as:
+
+| field | bits | value | meaning |
+|---|---|---|---|
+| DBLEN | [0] | 0 | double-switching off |
+| DBLX | [1] | 0 | |
+| **LDMOD** | **[2]** | **0** | **buffered VALx load at RELOAD, not immediately** |
+| SPLIT | [3] | 0 | |
+| PRSC | [6:4] | 7 | divide by 2^7 = 128 -> 240 MHz / 128 = 1.875 MHz |
+| COMPMODE | [7] | 0 | |
+| DT | [9:8] | 0 | |
+| FULL | [10] | 1 | reload at full cycle |
+
+`LDMOD = 0` is decisive. The `VALx` registers are double-buffered, and the buffer
+transfers to the active registers **atomically at the next reload, and only when
+LDOK is set**. So the driver's sequence is safe by construction:
+
+1. `CLDOK` clears LDOK  -> the buffer cannot latch
+2. `VAL2` then `VAL3` written -> both land in the buffer, unlatched
+3. `LDOK` set -> the next reload latches **both together**
+
+There is no window in which a half-updated edge pair reaches the pad. The
+optimisation is correct, not merely fast.
+
+Note the PRSC decode independently confirms the timing in section 10: prescaler
+128 on a 240 MHz bus gives 1.875 MHz, which is exactly the clock derived from
+`pulse 1875 ticks == 1000 us`. Two independent routes to the same number.
+
+## 12. Where this leaves the goal
+
+**Every software and register-level mechanism is now eliminated:**
+
+- correct values written, driver accepts them (`RCOUT sf2 p... rc0`)
+- all four motor submodules byte-identical; PWM_A outputs enabled; timers running
+- 490 Hz, exactly 1000 us disarmed pulse; prescaler confirmed two ways
+- latch is atomic (`LDMOD=0`), so no glitch path exists
+
+What remains is **physically past the FlexPWM pad**: track/connector wiring, the
+signal ground reference, or the ESCs themselves. That is also consistent with the
+observation that two ESCs desynchronised while two ran cleanly *on an identical
+signal* - per-ESC tolerance, not per-channel signal.
+
+### The one thing a register dump cannot do
+
+Prove the pad carries the waveform the registers describe. A pad can be
+mux-switched away, damaged, or loaded down while the peripheral is configured
+perfectly. **Target 5 (scope or logic analyser on CH1-4) is therefore the only
+remaining way to close the stated bar**, and it is the right next step before any
+replacement ESC is fitted - precisely so the replacement is not destroyed by a
+fault that was never in the firmware.
+
+Expected on a good channel: 490 Hz (2.04 ms period), 1000 us pulse while disarmed,
+rising to ~1950 us at full throttle, clean edges, 3.3 V logic.
+
+### Hypotheses refuted in this goal (do not re-propose)
+
+| hypothesis | how it died |
+|---|---|
+| SM1/SM2 of flexpwm1 misconfigured (never verified since 2026-08-11) | all four submodules byte-identical |
+| Per-submodule PWM_A output enable clear | `OUTEN=0x0700`, PWMA_EN=0x7, SM0/1/2 all enabled |
+| Per-submodule timer not running | `MCTRL=0x0700`, RUN=0x7, SM0/1/2 all running |
+| Wrong period or pulse on some channel | identical VAL1/VAL2/VAL3 on all four |
+| CLDOK non-atomic edge-pair glitch | `LDMOD=0` - buffer latches atomically at reload |
+| Submodules not clocked | each gets `clockSource = kPWM_BusClock` + own `PWM_StartTimer` |
+
+### Process note
+
+Two register-layout assumptions were nearly acted on and both were backwards:
+`MCTRL` RUN is **[11:8]** (assumed [3:0], which would have read as "no timer
+running" and sent the investigation down a false path), and `OUTEN` PWMA_EN is
+**[11:8]**. Read the masks out of `PERI_PWM.h`; do not recall them.
+
+
+---
+
+## 13. Pad routing and counter advance — MEASURED
+
+Still USB only, disarmed, no battery, no props.
+
+    m1 pad mux=0x00000001 MUX_MODE=1 SION=0 | CNT 3768->3787 delta=19
+    m2 pad mux=0x00000001 MUX_MODE=1 SION=0 | CNT 1217->1236 delta=19
+    m3 pad mux=0x00000001 MUX_MODE=1 SION=0 | CNT 2050->2070 delta=20
+    m4 pad mux=0x00000001 MUX_MODE=1 SION=0 | CNT 2446->2465 delta=19
+
+Two failure modes previously listed as "only a scope can see" are now closed:
+
+**Pad routing.** `MUX_MODE=1` on all four pads is the `FLEXPWM*_PWM*_A` ALT
+(fsl_iomuxc.h: `GPIO_EMC_B1_23/25/27 -> FLEXPWM1_PWM0/1/2_A`, `GPIO_EMC_B1_06 ->
+FLEXPWM2_PWM0_A`). No pad has been muxed away to SEMC (0), GPIO (5) or FlexIO (8),
+which would leave the peripheral perfect while the pin carried nothing.
+
+**Counter actually advancing.** The MCTRL RUN bit says a timer is *enabled*, not
+that it is *counting*. Sampling CNT across a 10 us `k_busy_wait` gives 19-20 ticks
+on every channel, against ~19 predicted at 1.875 MHz. The counters are live and at
+the correct rate, and their differing phases (3768/1217/2050/2446) confirm four
+independent submodules.
+
+This is the **third independent confirmation of the 1.875 MHz PWM clock**:
+`PRSC=7` (240 MHz / 128), `pulse 1875 ticks == 1000 us`, and now the measured
+counter rate. Three routes agreeing means the timing decode is not a coincidence.
+
+## 14. Goal outcome
+
+**The FlexPWM waveform generation is proven correct and uniform on all four motor
+channels, as far as firmware can prove it.** Summary of the evidence chain:
+
+| link | evidence |
+|---|---|
+| vehicle commands the right value | `SERVO_OUTPUT_RAW` tracks RC with attitude differential |
+| HAL writes it to hardware | `RCOUT sf2 p1885,1950,1889,1931 rc0` |
+| driver accepts the write | `rc0` on every call |
+| safety not zeroing pulses | `sf2` = SAFETY_ARMED |
+| submodule configured identically | identical INIT/VAL1/VAL2/VAL3/CTRL/OCTRL x4 |
+| output enabled | `OUTEN` PWMA_EN = 0x7 (fpwm1), 0xF (fpwm2) |
+| timer running | `MCTRL` RUN = 0x7 / 0xF |
+| timer counting at the right rate | CNT delta 19-20 per 10 us |
+| pad routed to the peripheral | `MUX_MODE=1` on all four pads |
+| latch atomic, no glitch path | `LDMOD=0` |
+| frequency and pulse correct | 490 Hz, 1000 us disarmed (= Copter RC_SPEED default) |
+
+**What remains is strictly electrical, beyond the pad:** trace or connector
+continuity, series components, signal ground reference, or the ESCs themselves.
+Since all four channels are demonstrably identical at the pad, the two ESCs that
+desynchronised did so **on a signal indistinguishable from the two that ran
+cleanly** - which points at per-ESC tolerance or per-channel wiring, not the HAL.
+
+**Residual scope check (target 5), now narrow:** confirm the pad is electrically
+sound - correct amplitude (3.3 V), clean edges, no excessive loading, and that a
+series resistor or track is not open. Expect 490 Hz / 2.04 ms period, 1000 us
+disarmed, ~1950 us at full throttle.
+
+**Practical recommendation before fitting a replacement ESC:** swap the suspect
+ESC onto a channel that ran correctly (and vice versa). If the fault follows the
+ESC, the ESCs are at fault; if it follows the channel, it is wiring. That
+distinguishes the two remaining possibilities with no instruments at all, and it
+is cheaper than risking a new ESC.
+
+### Why target 5 cannot be closed in firmware (checked, not assumed)
+
+An in-firmware pad-level read was evaluated and is not possible:
+
+- **SION** (bit 4 of `SW_MUX_CTL_PAD`) forces the input path for the **selected
+  mux mode** - i.e. FlexPWM's input - not GPIO's. Setting it does not let GPIO
+  sample the pad.
+- The pad reaches GPIO only via ALT 5 (`GPIO_MUX1_IO23`) or ALT 10
+  (`GPIO7_IO23`). Selecting either takes the pad **away** from FlexPWM, so
+  nothing would be driving it while it was read.
+- FlexPWM input capture would work, but the capture inputs are on different pads,
+  so it needs a physical jumper from the motor output to a capture pin.
+
+So the remaining options all need hands on the hardware:
+
+1. **ESC/channel swap (no instruments, and the best first test).** Move the
+   suspect ESC to a channel that ran correctly and vice versa. Fault follows the
+   ESC -> ESCs at fault. Fault follows the channel -> wiring. This distinguishes
+   the last two possibilities for free, and does it *before* a new ESC is risked.
+2. **Scope or logic analyser on CH1-4.** Expect 490 Hz / 2.04 ms period, 1000 us
+   disarmed, ~1950 us at full throttle, clean 3.3 V edges.
+3. **Jumper a motor output to a FlexPWM capture pin** and use hardware capture.
+   More work than the scope for the same answer.
