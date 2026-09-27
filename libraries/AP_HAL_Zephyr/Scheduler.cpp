@@ -437,6 +437,16 @@ extern "C" uint32_t ap_lpi2c_stat_lock_n;
 extern "C" uint32_t ap_lpi2c_stat_busy_us;
 extern "C" uint32_t ap_lpi2c_stat_busy_n;
 extern "C" uint32_t ap_lpi2c_stat_bbok_us;
+/* Defined in AP_Logger/AP_Logger_File.cpp - reported from HERE, not from
+   io_timer(), because that runs on the starved log_io thread. */
+extern "C" uint16_t g_rcout_last_pulse[4];
+extern "C" int16_t  g_rcout_last_rc[4];
+extern "C" uint8_t  g_rcout_safety;
+extern "C" uint32_t g_logdiag_gap_max;
+extern "C" uint32_t g_logdiag_snl_max;
+extern "C" uint32_t g_logdiag_snl_calls;
+extern "C" uint32_t g_logdiag_iot_max;
+extern "C" uint32_t g_logdiag_iot_calls;
 static volatile uint64_t g_hb_boost_act_us;
 
 void Scheduler::delay(uint16_t ms)
@@ -1739,6 +1749,51 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                             }
                         }, &acc);
                         printk("%s\n", eline);
+                        /* The same top consumers over MAVLINK: a clean boot now
+                           measures 310-325 Hz where it measured 423-443 Hz, and
+                           the printk is unreadable while a GCS holds the USB CDC
+                           console. Without this, "what is eating the CPU" is not
+                           answerable at all from a connected GCS. */
+                        {
+                            struct top { char nm[10]; unsigned pct; int prio; } t1{{0},0,0}, t2{{0},0,0}, t3{{0},0,0};
+                            struct tacc { top *a; top *b; top *c; uint64_t all; uint64_t *prev; uintptr_t *known; };
+                            static uint64_t tprev[24]; static uintptr_t tknown[24];
+                            static uint64_t tprev_tot;
+                            k_thread_runtime_stats_t tt;
+                            if (k_thread_runtime_stats_all_get(&tt) == 0 && tprev_tot != 0 &&
+                                tt.execution_cycles > tprev_tot) {
+                                const uint64_t dall = tt.execution_cycles - tprev_tot;
+                                struct tacc ta { &t1, &t2, &t3, dall, tprev, tknown };
+                                k_thread_foreach_unlocked([](const struct k_thread *th, void *ud) {
+                                    auto *e = (struct tacc *)ud;
+                                    k_thread_runtime_stats_t st;
+                                    if (k_thread_runtime_stats_get((k_tid_t)th, &st) != 0) { return; }
+                                    int slot = -1;
+                                    for (int i = 0; i < 24; i++) {
+                                        if (e->known[i] == (uintptr_t)th) { slot = i; break; }
+                                        if (e->known[i] == 0) { e->known[i] = (uintptr_t)th; slot = i; break; }
+                                    }
+                                    if (slot < 0) { return; }
+                                    const uint64_t d = (st.execution_cycles >= e->prev[slot])
+                                                       ? st.execution_cycles - e->prev[slot] : 0;
+                                    e->prev[slot] = st.execution_cycles;
+                                    const unsigned pct = (unsigned)(d * 100U / e->all);
+                                    const char *nm = k_thread_name_get((k_tid_t)th);
+                                    top cand{{0}, pct, (int)th->base.prio};
+                                    strncpy(cand.nm, nm ? nm : "?", sizeof(cand.nm) - 1);
+                                    if (pct > e->a->pct)      { *e->c = *e->b; *e->b = *e->a; *e->a = cand; }
+                                    else if (pct > e->b->pct) { *e->c = *e->b; *e->b = cand; }
+                                    else if (pct > e->c->pct) { *e->c = cand; }
+                                }, &ta);
+                                GCS_SEND_TEXT(MAV_SEVERITY_INFO, "CPU %s%u=%u %s%u=%u %s%u=%u",
+                                              t1.nm, t1.prio, t1.pct,
+                                              t2.nm, t2.prio, t2.pct,
+                                              t3.nm, t3.prio, t3.pct);
+                            }
+                            if (k_thread_runtime_stats_all_get(&tt) == 0) {
+                                tprev_tot = tt.execution_cycles;
+                            }
+                        }
                     }
                 }
             }
@@ -1776,6 +1831,33 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                     const uint64_t all2 = tot2.execution_cycles - prev_all;
                     const uint64_t dsum = a.sum - prev_sum;
                     const uint64_t didle = (a.idle >= prev_idle) ? a.idle - prev_idle : 0;
+                    /* Over MAVLINK too. The top-3 CPU line sums to only ~75%
+                       while the loop rate fell ~30% with no thread showing a
+                       rise, and k_thread_runtime_stats attributes NO interrupt
+                       time to any thread - so the missing quarter is either idle
+                       (the loop is waiting on something) or ISR context. Those
+                       two have completely different fixes, and this line is the
+                       only thing that separates them. */
+                    /* sf: 0=SAFETY_DISARMED (pulses FORCED TO ZERO), 1=ARMED.
+                       p1..p4: the pulse in us actually handed to pwm_set() for
+                       motors 1-4. rc: the driver's return code, 0 = accepted. */
+                    GCS_SEND_TEXT(MAV_SEVERITY_INFO, "RCOUT sf%u p%u,%u,%u,%u rc%d",
+                           (unsigned)g_rcout_safety,
+                           (unsigned)g_rcout_last_pulse[0], (unsigned)g_rcout_last_pulse[1],
+                           (unsigned)g_rcout_last_pulse[2], (unsigned)g_rcout_last_pulse[3],
+                           (int)g_rcout_last_rc[0]);
+                    GCS_SEND_TEXT(MAV_SEVERITY_INFO, "LOGDIAG gap%lu snl%lu/%lu iot%lu n%lu",
+                           (unsigned long)g_logdiag_gap_max,
+                           (unsigned long)g_logdiag_snl_max,
+                           (unsigned long)g_logdiag_snl_calls,
+                           (unsigned long)g_logdiag_iot_max,
+                           (unsigned long)g_logdiag_iot_calls);
+                    g_logdiag_gap_max = 0; g_logdiag_snl_max = 0;
+                    g_logdiag_iot_max = 0; g_logdiag_iot_calls = 0;
+                    GCS_SEND_TEXT(MAV_SEVERITY_INFO, "ACCT thr%u idle%u isr%u",
+                           (unsigned)(all2 ? dsum * 100U / all2 : 0),
+                           (unsigned)(all2 ? didle * 100U / all2 : 0),
+                           (unsigned)(all2 && dsum <= all2 ? (all2 - dsum) * 100U / all2 : 0));
                     printk("CPUACCT threads=%u%% idle=%u%% isr_or_unattributed=%u%%\n",
                            (unsigned)(all2 ? dsum * 100U / all2 : 0),
                            (unsigned)(all2 ? didle * 100U / all2 : 0),

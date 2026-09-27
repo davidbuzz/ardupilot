@@ -430,6 +430,13 @@ void RCOutput::_report_pwm_set(uint8_t chan, int rc)
     }
 }
 
+/* Published for the HAL monitor thread - see the RCOUTDIAG note below. */
+extern "C" {
+uint16_t g_rcout_last_pulse[4];
+int16_t  g_rcout_last_rc[4];
+uint8_t  g_rcout_safety = 255;
+}
+
 void RCOutput::_apply_channel(uint8_t chan)
 {
     if (!_map_ready || chan >= NUM_CHANNELS) {
@@ -475,8 +482,20 @@ void RCOutput::_apply_channel(uint8_t chan)
         pulse_us = period_us;
     }
 
-    _report_pwm_set(chan, pwm_set(m.dev, m.hw_channel,
-                                  PWM_USEC(period_us), PWM_USEC(pulse_us), 0));
+    /* RCOUTDIAG: SERVO_OUTPUT_RAW reports what the VEHICLE intended, which is
+       not what reached the FlexPWM. If safety_state is SAFETY_DISARMED the line
+       above forces pulse_us to 0 while telemetry still shows ~1950 us - the two
+       are indistinguishable from a GCS, and that is exactly the "firmware
+       commands spin but nothing turns" case. Record the pulse actually passed to
+       pwm_set(), plus the safety state and the driver's return code. */
+    const int rc_set = pwm_set(m.dev, m.hw_channel,
+                               PWM_USEC(period_us), PWM_USEC(pulse_us), 0);
+    if (chan < 4) {
+        g_rcout_last_pulse[chan] = pulse_us;
+        g_rcout_last_rc[chan] = (int16_t)rc_set;
+    }
+    g_rcout_safety = (uint8_t)safety_state;
+    _report_pwm_set(chan, rc_set);
 }
 #endif
 
