@@ -438,3 +438,63 @@ filesystem open itself - would localise it to a statement the way the
 Worth noting alongside: the standing note that `@SYS` MAVFTP fetches "often
 fail, retry 2-4x" describes the same area, except this parks permanently rather
 than failing and retrying.
+
+---
+
+## 11. The below-main threads' CPU scales with the ACHIEVED loop rate
+
+`AP_SCHEDULER_LOOP_YIELD_US` (HAL_Zephyr_Class.cpp:68, applied at :293) is the
+only CPU that any thread below main ever receives on this board. Measured, not
+assumed: with the machine 100% busy and 0% idle, main released **4.48%** of the
+CPU with its boost dropped, against `100 us x 466 loops/s = 4.66%` predicted.
+That agreement is the proof - everything the prio>=7 threads get arrives through
+that single call.
+
+The consequence is that their income is a PRODUCT:
+
+    income = AP_SCHEDULER_LOOP_YIELD_US x achieved_loops_per_second
+
+so it falls when *either* term falls. At 443 Hz with a 400 us yield the band
+receives ~17.7% of the machine; at 290 Hz the same yield gives only ~11.6%. A
+third of the band's CPU disappears without anything else changing.
+
+Why this is worth writing down: it inverts the intuition that lowering the loop
+rate "frees up CPU". On this HAL a lower loop rate hands the IO band LESS, because
+there are fewer yields per second. Anything living below main - storage, log_io,
+AP_io, compasscal, the MAVFTP worker, and the I2C sensor buses at prio 7 - gets
+squeezed, not relieved.
+
+Measured effects of the band being squeezed, same build, disarmed:
+- I2C transfers per 10 s window: 427-498 -> 56-92
+- mean I2C transfer WALL time: 5-7 ms -> 63-98 ms (the transfer is ~200 us of
+  work; the rest is preemption)
+- worst single transfer: 45-86 ms -> 509 ms, i.e. back over the 500 ms
+  `Compass::healthy()` window
+- `AP_Logger::io_timer()` entries per 10 s: ~10000 expected, 23-58 observed
+
+### What is NOT established - a theory that failed its own test
+
+It is tempting to conclude "lowering SCHED_LOOP_RATE caused the regression", and
+two data points appeared to support it: 600 -> 423-443 Hz (ratio 0.74) and
+400 -> 277-310 Hz (ratio 0.73), suggesting the loop simply achieves ~73% of
+whatever it is commanded.
+
+**That was tested by setting it back to 600, and it is refuted.** The third point
+does not fit:
+
+    SCHED_LOOP_RATE 600 (earlier)  -> 423-443 Hz   ratio 0.74
+    SCHED_LOOP_RATE 400            -> 277-310 Hz   ratio 0.73
+    SCHED_LOOP_RATE 600 (restored) -> 307-336 Hz   ratio 0.52   <-- does not fit
+
+Restoring 600 did not restore the loop rate, so SCHED_LOOP_RATE is not the cause
+of the drop from ~440 Hz to ~310 Hz. Something else changed in between and is
+still unidentified; the boost count also fell from b=1054-1360 to b=276-400 per
+10 s, which is a further clue (fewer `wait_for_sample()` boosts means fewer
+loops, not merely slower ones). Per-thread CPU during the degraded state shows
+`main3=53-55% SPI2=10-11% AP_timer2=11% AP_rcin6=10-12%` - i.e. **no new
+consumer**, main is unchanged, so the missing time is not a thread that started
+eating CPU.
+
+The mechanism in the first half of this section stands on its own measurement.
+The causal claim about SCHED_LOOP_RATE does not, and is recorded here only so it
+is not re-proposed.
