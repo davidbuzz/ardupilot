@@ -1888,6 +1888,14 @@ class mr_vmu_rt1176(zephyr_board):
             # -Os for most AP code; hot math libraries get -O3 via
             # O3_LIBRARIES (see ap_library.py o3_libraries_check).
             # Appended AFTER the base class's -O2, and the last -O wins.
+            #
+            # TRIED -O2 ON 2026-09-26 AND REVERTED. Flash is 97.8% free so the
+            # size trade looks pointless, but -O2 overflowed ITCM by 3648 bytes,
+            # and ITCM residency is worth far more here than the instruction
+            # scheduling is: the buzz-zephyr-project history shows single ITCM
+            # rounds moving the loop 80 -> 282 Hz and 57-72 -> 190 Hz. Paying for
+            # -O2 by evicting anything from ITCM is a bad trade at any price.
+            # Revisit only if ITCM gains real headroom.
             env.CFLAGS += ['-Os']
             env.CXXFLAGS += ['-Os']
         env.O3_LIBRARIES = ['AP_NavEKF', 'AP_NavEKF2', 'AP_NavEKF3', 'AP_Math', 'Filter']

@@ -619,6 +619,73 @@ def _zephyr_emit_apj(bld):
                  ', vector table padded to 0x%x' % pad if pad > 0 else ''))
 
 
+def _zephyr_apply_ramtext(bld):
+    """Rename listed objects' text sections so their code runs from RAM.
+
+    Idempotent: a second run finds no .text* sections left to rename, because the
+    first renamed them all. Safe to skip silently - the only consequence of not
+    running is that the code executes XIP, which is what it did before.
+    """
+    env = bld.env
+    srcroot = bld.srcnode.abspath()
+    listfile = os.path.join(srcroot, 'libraries', 'AP_HAL_Zephyr', 'zephyr',
+                            'ramtext_objects.txt')
+    if not os.path.isfile(listfile):
+        return
+    patterns = []
+    with open(listfile) as f:
+        for line in f:
+            line = line.split('#', 1)[0].strip()
+            if line:
+                patterns.append(line)
+    if not patterns:
+        return
+    lib_dir = env.get_flat('ARDUPILOT_LIB') or os.path.join(bld.bldnode.abspath(), 'lib')
+    # EVERY vehicle archive, not the first one listdir happens to return. The
+    # build directory also holds libAP_Bootloader_libs.a, and picking that one -
+    # which os.listdir did - matched no members and reported failure while the
+    # real archive went untouched.
+    archives = []
+    for cand in sorted(os.listdir(lib_dir)) if os.path.isdir(lib_dir) else []:
+        if cand.endswith('_libs.a') and 'Bootloader' not in cand:
+            archives.append(os.path.join(lib_dir, cand))
+    if not archives:
+        Logs.warn('Zephyr: no vehicle *_libs.a archive found, RAM text placement skipped')
+        return
+    tool = os.path.join(srcroot, 'Tools', 'zephyr', 'zephyr_ramtext_rename.py')
+    if not os.path.isfile(tool):
+        return
+    # The Zephyr SDK binutils, not the host's - the objects are ARM. waf records
+    # AR as a full path to <sdk>/bin/arm-zephyr-eabi-ar and does NOT set OBJCOPY
+    # or OBJDUMP, so the sibling tools are derived from AR's own prefix. Falling
+    # back to bare names would pick up arm-none-eabi-* off PATH, or nothing -
+    # which is how this first failed, silently leaving the code in XIP.
+    sub = dict(os.environ)
+    ar = env.get_flat('AR') or ''
+    if ar.endswith('-ar'):
+        prefix = ar[:-len('ar')]
+        sub['AR'] = ar
+        sub['OBJCOPY'] = prefix + 'objcopy'
+        sub['OBJDUMP'] = prefix + 'objdump'
+    else:
+        Logs.warn('Zephyr: cannot derive binutils from AR=%r, RAM text placement '
+                  'skipped (code stays in XIP)' % ar)
+        return
+    for tool_var in ('AR', 'OBJCOPY', 'OBJDUMP'):
+        if not os.path.isfile(sub[tool_var]):
+            Logs.warn('Zephyr: %s not found at %s, RAM text placement skipped'
+                      % (tool_var, sub[tool_var]))
+            return
+    for archive in archives:
+        ret = subprocess.call([sys.executable, tool, archive] + patterns, env=sub)
+        if ret != 0:
+            Logs.warn('Zephyr: RAM text placement failed on %s (exit %d); that '
+                      'code stays in XIP' % (os.path.basename(archive), ret))
+        else:
+            Logs.info('Zephyr: RAM text placement applied to %s in %s'
+                      % (', '.join(patterns), os.path.basename(archive)))
+
+
 def _unlink_build_symlinks(build_dir):
     '''Make 'waf clean' symlink-aware for a Zephyr build directory.
 
@@ -1189,6 +1256,14 @@ class upload_fw_zephyr(Task.Task):
         else:
             Logs.info('Zephyr: cmake cache already current, skipping re-configure '
                       '(ninja re-runs cmake itself if the DTS or CMakeLists change)')
+
+        # Move the objects listed in zephyr/ramtext_objects.txt out of XIP flash
+        # and into the big RAM, by renaming their .text* sections to .ramfunc.* so
+        # the generated linker script's existing .ramfunc rule claims them. Must
+        # run AFTER the AP archive is built and BEFORE this link. There is no
+        # linker-script route for a waf-built archive - see the note in
+        # AP_HAL_Zephyr/zephyr/CMakeLists.txt for the four that were tried.
+        _zephyr_apply_ramtext(bld)
 
         ret = subprocess.call([cmake_bin, '--build', cmake_bld, '--target', 'all'])
         if ret != 0:
