@@ -708,3 +708,93 @@ So the remaining options all need hands on the hardware:
    disarmed, ~1950 us at full throttle, clean 3.3 V edges.
 3. **Jumper a motor output to a FlexPWM capture pin** and use hardware capture.
    More work than the scope for the same answer.
+
+---
+
+## 15. REAL BUG FOUND AND FIXED: non-atomic read-modify-write on the shared MCTRL
+
+Sections 11-12 concluded the CLDOK change was safe and that no software mechanism
+remained. **That was wrong.** It was reasoned from the `VALx` write sequence and
+`LDMOD=0`, without reading what `PWM_SetPwmLdok()` actually does.
+
+From `fsl_pwm.h:1243`:
+
+    static inline void PWM_SetPwmLdok(PWM_Type *base, uint8_t subModulesToUpdate, bool value)
+    {
+        if (value) { base->MCTRL |= PWM_MCTRL_LDOK(subModulesToUpdate); }
+        else       { base->MCTRL |= PWM_MCTRL_CLDOK(subModulesToUpdate); }
+    }
+
+`base->MCTRL |= ...` is a **read-modify-write on a register shared by ALL FOUR
+submodules of a FlexPWM instance.** `PWM_StartTimer()` and `PWM_StopTimer()` do
+the same on the RUN bits.
+
+### Why the existing mutex does not protect it
+
+`pwm_mcux.c` does hold a mutex around the update:
+
+    k_mutex_lock(&data->lock, K_FOREVER);
+    result = mcux_pwm_set_cycles_internal(...);
+    k_mutex_unlock(&data->lock);
+
+but `data->lock` is in the **per-device** data, and in Zephyr's model each FlexPWM
+**submodule is its own device**. CH1, CH2 and CH3 are `flexpwm1_pwm0/1/2` - three
+separate devices, three separate mutexes - and all three read-modify-write
+`flexpwm1->MCTRL` at 490 Hz each. The contending callers never share a lock, so
+the mutex cannot serialise them. Nor can ordering fix it: the window is one C
+statement compiled to load/or/store.
+
+### Consequences when two interleave
+
+- **Lost LDOK** - a submodule's newly buffered VALx never latch, so that channel
+  emits its previous pulse for a cycle. Repeated, this is an erratic output.
+- **Clobbered RUN bit** - via `PWM_StartTimer`/`PWM_StopTimer`, one submodule's
+  update can clear another's RUN bit and **stop its timer**.
+
+### Why this fits the observed failure
+
+On this board **three channels share flexpwm1's MCTRL** (CH1/CH2/CH3 = SM0/1/2),
+while CH4 sits on flexpwm2 alongside enabled-but-idle CH5-7. Three contenders at
+490 Hz each is exactly the condition for intermittent interleaving, and "two of
+four motors cycling/pulsing while two ran correctly" is the shape that produces -
+**without any per-submodule configuration difference**, which is consistent with
+the registers being byte-identical (section 10).
+
+It also explains why the register snapshots look perfect: the corruption is
+transient, in MCTRL's LDOK/RUN bits, and self-heals on the next update. A snapshot
+between updates sees a correct configuration.
+
+### The fix
+
+Three `ALWAYS_INLINE` wrappers in `pwm_mcux.c` put every shared-register
+read-modify-write inside `irq_lock()`/`irq_unlock()`:
+
+    mcux_pwm_ldok_atomic()   -> PWM_SetPwmLdok()
+    mcux_pwm_start_atomic()  -> PWM_StartTimer()
+    mcux_pwm_stop_atomic()   -> PWM_StopTimer()
+
+and the CLDOK read-and-clear is folded into a single critical section, so a
+separate read cannot observe an LDOK that another submodule sets immediately
+afterwards. Every call site in the driver was routed through them (3 LDOK,
+2 StartTimer, 1 StopTimer); a grep confirms no unprotected RMW remains.
+
+`irq_lock()` rather than a mutex because:
+- it is the only thing that also covers ISR-context callers, which cannot take a
+  mutex at all;
+- the correct scope is per-**instance**, not per-device, and there is no existing
+  per-instance lock to take;
+- the critical section is three instructions, negligible against the ~350 us
+  busy-wait the surrounding optimisation exists to avoid.
+
+### Status of my own claims about this area
+
+Third position taken on it, and the first two were wrong:
+
+1. "A real defect, but it cannot explain 2-of-4" - wrong, dismissed too early.
+2. "Refuted: LDMOD=0 makes the latch atomic, so no glitch exists" - correct about
+   the `VALx` pair, but it answered the wrong question; the race is in MCTRL.
+3. **"There is a genuine race, in the shared MCTRL rather than the VALx pair"** -
+   established by reading `PWM_SetPwmLdok()`'s implementation.
+
+Lesson: read the vendor inline's body. Both earlier positions were reasoned from
+what the call *ought* to do.
