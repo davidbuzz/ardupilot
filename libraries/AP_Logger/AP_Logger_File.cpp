@@ -912,12 +912,46 @@ void AP_Logger_File::flush(void)
 void AP_Logger_File::io_timer(void)
 {
     uint32_t tnow = AP_HAL::millis();
+    /* LOGDIAG: "AP_Logger: stuck thread ()" means this function was not ENTERED
+       for 10 s (the Zephyr timeout), because the heartbeat below is set before
+       any work. The empty parentheses narrow it further: every named operation
+       sets last_io_operation, so a blank one points at the unnamed calls at the
+       top of this function - start_new_log() above all, which scans the log
+       directory and creates a file the instant the vehicle arms. Time each phase
+       and report the worst, so the blocking call is named rather than guessed. */
+    const uint32_t iot_entry = tnow;
+    static uint32_t dbg_gap_max, dbg_snl_max, dbg_iot_max, dbg_last_report;
+    static uint32_t dbg_snl_calls, dbg_iot_calls;
+    if (_io_timer_heartbeat != 0) {
+        const uint32_t gap = tnow - _io_timer_heartbeat;
+        if (gap > dbg_gap_max) { dbg_gap_max = gap; }
+    }
     _io_timer_heartbeat = tnow;
+    dbg_iot_calls++;
 
     if (start_new_log_pending) {
+        const uint32_t t0 = AP_HAL::millis();
         start_new_log();
+        const uint32_t d = AP_HAL::millis() - t0;
+        dbg_snl_calls++;
+        if (d > dbg_snl_max) { dbg_snl_max = d; }
         start_new_log_pending = false;
     }
+    if (tnow - dbg_last_report > 10000) {
+        dbg_last_report = tnow;
+        GCS_SEND_TEXT(MAV_SEVERITY_INFO,
+                      "LOGDIAG gap%lu snl%lu/%lu iot%lu n%lu",
+                      (unsigned long)dbg_gap_max,
+                      (unsigned long)dbg_snl_max, (unsigned long)dbg_snl_calls,
+                      (unsigned long)dbg_iot_max, (unsigned long)dbg_iot_calls);
+        dbg_gap_max = 0; dbg_snl_max = 0; dbg_iot_max = 0;
+        dbg_iot_calls = 0;
+    }
+    struct IotTimer {
+        uint32_t t0; uint32_t *mx;
+        ~IotTimer() { const uint32_t d = AP_HAL::millis() - t0; if (d > *mx) { *mx = d; } }
+    } iot_guard { iot_entry, &dbg_iot_max };
+    (void)iot_guard;
 
     if (erase.log_num != 0) {
         // continue erase
