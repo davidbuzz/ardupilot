@@ -66,13 +66,7 @@
  * starves the loop. That configuration no longer exists. */
 #ifndef AP_SCHEDULER_LOOP_YIELD_US
 #define AP_SCHEDULER_LOOP_YIELD_US 400U
-/* 400 us (2026-09-27, second step). 100 us gave the I2C sensors an unhealthy
-   fraction of 46-51%; 250 us took it to 4% each and barely moved the loop rate
-   (357-416 Hz) because the ITCM change paid for it. The residual 4% is the TAIL,
-   not the mean: individual I2C transfers still stalled 306-582 ms of wall time,
-   which crosses Compass/Baro's 500 ms health window. This step targets that
-   tail, funded by switching the 1 kHz PC sampler off. */
-/* 250 us, raised from 100 us on 2026-09-27. MEASURED, not guessed: this yield is
+/* 400 us, raised from 100 us on 2026-09-27. MEASURED, not guessed: this yield is
    the ONLY income the below-main threads have. Per-thread runtime accounting on
    mr_vmu_rt1176 showed the CPU 100% busy with 0% idle, and main releasing 4.48%
    of the machine with its boost dropped - against 100 us x 466 loops/s = 4.66%.
@@ -85,7 +79,14 @@
    Raising the yield is the one lever that adds time to those threads without
    inverting any priority: the ChibiOS rank order (main 180 > rcin 177 > I2C 176)
    is deliberate and is asserted in Scheduler.h, so it stays. Precedent: this
-   same constant went 50 -> 100 us to stop AP_Logger reporting a stuck thread. */
+   same constant went 50 -> 100 us to stop AP_Logger reporting a stuck thread.
+
+   It got here in two steps. 250 us took the I2C sensors' unhealthy fraction
+   from 46-51% to 4% each and barely moved the loop rate (357-416 Hz), because
+   the ITCM change paid for it. The residual 4% is the TAIL, not the mean:
+   individual I2C transfers still stalled 306-582 ms of wall time, which crosses
+   Compass/Baro's 500 ms health window. 400 us targets that tail, funded by
+   switching the 1 kHz PC sampler off. */
 #endif
 #include "WiFiDriver.h"
 #include "SPIDevice.h"

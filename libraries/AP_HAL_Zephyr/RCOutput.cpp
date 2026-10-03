@@ -25,8 +25,8 @@
 #ifdef __ZEPHYR__
 #include <zephyr/devicetree.h>
 #include <zephyr/drivers/pwm.h>
-#include <zephyr/sys/printk.h>
-#include <zephyr/sys/sys_io.h>   /* _report_pwm_set() */
+#include <zephyr/sys/printk.h>   /* _report_pwm_set() */
+#include <zephyr/sys/sys_io.h>   /* ap_flexpwm_dump() */
 #endif
 
 #include <AP_BoardConfig/AP_BoardConfig.h>
@@ -465,7 +465,7 @@ uint8_t  g_rcout_safety = 255;
   CTRL 0x06 VAL0 0x0A VAL1 0x0E VAL2 0x12 VAL3 0x16 OCTRL 0x22 STS 0x24;
   OUTEN 0x180 MCTRL 0x188. Bases PWM1 0x4018C000, PWM2 0x40190000.
  */
-#ifdef __ZEPHYR__
+#if defined(__ZEPHYR__) && defined(CONFIG_SOC_SERIES_IMXRT11XX)
 #define AP_FLEXPWM1_BASE 0x4018C000UL
 #define AP_FLEXPWM2_BASE 0x40190000UL
 #define AP_FPWM_SM_STEP  0x60UL
@@ -532,7 +532,7 @@ extern "C" void ap_flexpwm_dump(void)
                ch[i].nm, ch[i].sm, init, val1, val2, val3, per, pul, ctrl, oct);
     }
 }
-#endif  /* __ZEPHYR__ */
+#endif  /* __ZEPHYR__ && CONFIG_SOC_SERIES_IMXRT11XX */
 
 void RCOutput::_apply_channel(uint8_t chan)
 {

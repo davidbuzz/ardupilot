@@ -398,21 +398,6 @@ static volatile uint64_t g_dly_req_us[DLY_BUCKETS];
 static volatile uint64_t g_dly_act_us[DLY_BUCKETS];
 static volatile uint32_t g_dly_max_us[DLY_BUCKETS];
 
-/* HANDBACK: the test for "the prio>=10 band is starved by scheduling POLICY".
-   ChibiOS lets a thread that no longer needs its slot hand the remainder back
-   early (chThdSleep, with a CH_CFG_ST_TIMEDELTA 10us floor). This build has
-   every ChibiOS scheduling knob at parity - 1 MHz tick, tickless,
-   CONFIG_TIMESLICING off (== CH_CFG_TIME_QUANTUM 0), io/storage woken at 1 kHz
-   by timer not by donation - so the handback exists here too. What is NOT
-   measured anywhere yet is whether it reaches the bottom of the ladder.
-   Split by boost state on purpose: a handback made while main is still at
-   APM_MAIN_PRIORITY_BOOST (prio 1) is offered ABOVE timer/SPI/rcout and can
-   never reach prio>=10, so "main hands back plenty" and "the low band can
-   receive it" are two different claims. */
-static volatile uint32_t g_hb_calls;        /* main handbacks, boost already dropped */
-static volatile uint64_t g_hb_req_us;
-static volatile uint64_t g_hb_act_us;
-static volatile uint32_t g_hb_boost_calls;  /* main handbacks made while boosted (prio 1) */
 /* Defined in DeviceBus.cpp. extern "C" so the name does not pick up namespace
    Zephyr, and at file scope because a linkage specification is not allowed
    inside a function body. */
@@ -437,21 +422,24 @@ extern "C" uint32_t ap_lpi2c_stat_lock_n;
 extern "C" uint32_t ap_lpi2c_stat_busy_us;
 extern "C" uint32_t ap_lpi2c_stat_busy_n;
 extern "C" uint32_t ap_lpi2c_stat_bbok_us;
-/* Defined in AP_Logger/AP_Logger_File.cpp - reported from HERE, not from
-   io_timer(), because that runs on the starved log_io thread. */
+/* Defined in AP_HAL_Zephyr/RCOutput.cpp - see the RCOUTDIAG note there. */
 extern "C" uint16_t g_rcout_last_pulse[4];
 extern "C" int16_t  g_rcout_last_rc[4];
 extern "C" uint8_t  g_rcout_safety;
-/* Defined in AP_HAL_Zephyr/RCOutput.cpp. extern "C" and at FILE scope: a plain
-   extern inside namespace Zephyr resolves to Zephyr::ap_flexpwm_dump, and a
-   linkage specification is not allowed inside a function body. */
+/* Defined in AP_Logger/AP_Logger_File.cpp - reported from HERE, not from
+   io_timer(), because that runs on the starved log_io thread. */
+/* Defined in AP_HAL_Zephyr/RCOutput.cpp, for the i.MX RT11xx only. extern "C"
+   and at FILE scope: a plain extern inside namespace Zephyr resolves to
+   Zephyr::ap_flexpwm_dump, and a linkage specification is not allowed inside a
+   function body. */
+#if defined(CONFIG_SOC_SERIES_IMXRT11XX)
 extern "C" void ap_flexpwm_dump(void);
+#endif
 extern "C" uint32_t g_logdiag_gap_max;
 extern "C" uint32_t g_logdiag_snl_max;
 extern "C" uint32_t g_logdiag_snl_calls;
 extern "C" uint32_t g_logdiag_iot_max;
 extern "C" uint32_t g_logdiag_iot_calls;
-static volatile uint64_t g_hb_boost_act_us;
 
 void Scheduler::delay(uint16_t ms)
 {
@@ -1444,15 +1432,10 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                     }
                     /* Label is b, NOT b+1: the slot index IS the AP bus number
                        (I2CDevice uses slot = _bus, and hwdef declares I2C:1 and
-                       I2C:2), so b+1 printed bus 1 as "I2C2". DeviceBus numbers
-                       its own profiling slots differently - I2C bus n lands at
-                       3+(n-1) - hence the +2 below. cb/us are the bus thread's
-                       callback count and mean for the window, which is what
-                       says whether a 60 Hz BMM150 is actually getting 60 Hz. */
-                    const uint8_t cbslot = (uint8_t)(b + 2U);
-                    const uint32_t cbn = (b >= 1U && cbslot < 6U) ? g_buscb_calls[cbslot] : 0U;
-                    const uint32_t cbmean = (cbn != 0U)
-                        ? (uint32_t)(g_buscb_us[cbslot] / cbn) : 0U;
+                       I2C:2), so b+1 printed bus 1 as "I2C2". The bus thread's
+                       own callback count and mean are NOT repeated here - a
+                       STATUSTEXT is 50 characters and the BUSCB printk below
+                       already carries them per bus. */
                     /* xfer = mean microseconds of a SUCCESSFUL transfer, mx = the
                        worst one. This is the number that splits the two
                        explanations for a 24-29 ms callback with zero failures:
@@ -1847,8 +1830,11 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                        motors 1-4. rc: the driver's return code, 0 = accepted. */
                     /* Per-submodule FlexPWM registers: the only direct
                        evidence of what the PINS do, as opposed to what the HAL
-                       wrote. See ap_flexpwm_dump() in RCOutput.cpp. */
+                       wrote. See ap_flexpwm_dump() in RCOutput.cpp - it reads
+                       absolute i.MX RT11xx addresses, so it exists only there. */
+#if defined(CONFIG_SOC_SERIES_IMXRT11XX)
                     ap_flexpwm_dump();
+#endif
                     GCS_SEND_TEXT(MAV_SEVERITY_INFO, "RCOUT sf%u p%u,%u,%u,%u rc%d",
                            (unsigned)g_rcout_safety,
                            (unsigned)g_rcout_last_pulse[0], (unsigned)g_rcout_last_pulse[1],
@@ -1964,22 +1950,19 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                     printk("%s\n", bl);
                 }
             }
-            /* HANDBACK: prove or disprove that scheduling POLICY is what
-               converts a saturated CPU into total starvation of prio>=10.
-               Three numbers decide it, and the reading is fixed in advance:
-                 free   = what main hands back with the boost already dropped
-                 boost  = what main hands back while still at prio 1, which is
-                          offered above timer/SPI and cannot reach prio>=10
-                 lo     = what the prio>=10 band actually received
-               free large and lo ~0  -> the slack is real but the prio<=6 band
-                                        takes it first: rank IS the mechanism.
-               free ~0, boost large  -> main only ever hands back while boosted;
-                                        boost_end() is not being reached: policy,
-                                        and a different fix from rank.
-               free ~0, boost ~0     -> main has no slack to give: capacity, and
-                                        rank is not the mechanism.
-               lo substantial        -> the band IS being scheduled and FTP's
-                                        problem is not starvation at all. */
+            /* CPUBAND: where the CPU goes, split by position in the priority
+               ladder, which is what says whether prio>=10 is starved by RANK or
+               simply by a saturated machine.
+                 main        main itself, its own column - lumping it into the
+                             p<=6 band reported 97.5% and said nothing
+                 hi_nonmain  the non-main p<=6 threads, which are the ones that
+                             could take main's slack before prio>=10 sees it
+                 mid         p 7..9 (the I2C baro/compass band)
+                 lo          p>=10 (log_io, storage, the FTP worker)
+               lo ~0 with hi_nonmain large -> rank IS the mechanism.
+               lo ~0 with the window nearly all main -> capacity, not rank.
+               lo substantial -> the band IS scheduled and FTP's problem is not
+               starvation at all. */
             {
                 static uint64_t prev_lo, prev_hi, prev_mid, prev_main, prev_all_b;
                 struct bacc { uint64_t lo; uint64_t hi; uint64_t mid; uint64_t mn; } b { 0, 0, 0, 0 };
@@ -2018,19 +2001,8 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                     const uint64_t dhi = (b.hi >= prev_hi) ? b.hi - prev_hi : 0;
                     const uint64_t dmid = (b.mid >= prev_mid) ? b.mid - prev_mid : 0;
                     const uint64_t dmn = (b.mn >= prev_main) ? b.mn - prev_main : 0;
-                    const uint32_t hbc = g_hb_calls;
-                    const uint64_t hbr = g_hb_req_us;
-                    const uint64_t hba = g_hb_act_us;
-                    const uint32_t hbbc = g_hb_boost_calls;
-                    const uint64_t hbba = g_hb_boost_act_us;
-                    g_hb_calls = 0; g_hb_req_us = 0; g_hb_act_us = 0;
-                    g_hb_boost_calls = 0; g_hb_boost_act_us = 0;
-                    printk("HANDBACK gave n=%lu req=%luus act=%luus (boosted n=%lu "
-                           "act=%luus) | took main=%luus hi_nonmain=%luus "
+                    printk("CPUBAND main=%luus hi_nonmain=%luus "
                            "mid=%luus lo=%luus | win=%luus\n",
-                           (unsigned long)hbc, (unsigned long)hbr,
-                           (unsigned long)hba,
-                           (unsigned long)hbbc, (unsigned long)hbba,
                            (unsigned long)(dmn / cyc_per_us),
                            (unsigned long)(dhi / cyc_per_us),
                            (unsigned long)(dmid / cyc_per_us),
