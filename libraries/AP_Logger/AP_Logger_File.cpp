@@ -929,7 +929,6 @@ void AP_Logger_File::io_timer(void)
        directory and creates a file the instant the vehicle arms. Time each phase
        and report the worst, so the blocking call is named rather than guessed. */
     const uint32_t iot_entry = tnow;
-    (void)0;
     if (_io_timer_heartbeat != 0) {
         const uint32_t gap = tnow - _io_timer_heartbeat;
         if (gap > g_logdiag_gap_max) { g_logdiag_gap_max = gap; }
