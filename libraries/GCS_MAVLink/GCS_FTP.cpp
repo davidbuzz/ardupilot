@@ -145,6 +145,7 @@ void GCS_FTP::handle_file_transfer_protocol(const mavlink_message_t &msg, mavlin
                           (unsigned long)ftp->dbg_replies,
                           (unsigned long)ftp->dbg_spins);
         }
+#if CONFIG_HAL_BOARD == HAL_BOARD_ZEPHYR
         ::printk("FTPDIAG rx op=%u seq=%u sess=%u push=%u qspace=%u init=%u "
                  "spins=%lu pops=%lu replies=%lu\n",
                  (unsigned)request.opcode, (unsigned)request.seq_number,
@@ -159,6 +160,7 @@ void GCS_FTP::handle_file_transfer_protocol(const mavlink_message_t &msg, mavlin
                  (unsigned long)ftp->dbg_send_nospace,
                  (unsigned long)ftp->dbg_send_ok,
                  (unsigned)request.chan);
+#endif  // CONFIG_HAL_BOARD == HAL_BOARD_ZEPHYR
     }
 }
 
@@ -228,10 +230,14 @@ bool GCS_FTP::Session::push_reply(Transaction &reply)
         spins++;
         hal.scheduler->delay_microseconds(100);
     }
+#if CONFIG_HAL_BOARD == HAL_BOARD_ZEPHYR
     if (spins > 0) {
         ::printk("FTPDIAG reply op=%u waited %u x100us for txspace\n",
                  (unsigned)reply.req_opcode, (unsigned)spins);
     }
+#else
+    (void)spins;
+#endif
 
     dbg_replies++;
 
