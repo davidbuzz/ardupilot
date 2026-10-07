@@ -7,11 +7,8 @@ MCU ESP32S3
 
 APJ_BOARD_ID AP_HW_ESP32S3Zephyr
 
-# SERIAL0 = USB CDC-ACM console (cdc_acm0); no other UARTs wired yet
-# WiFi virtual serials: auto-placed at SERIAL1/SERIAL2 by zephyr_hwdef.py
-# (see prj.esp32.conf). NOTE the S3's internal DRAM headroom is ~33 KB; if
-# the WiFi stack OOMs at boot, the .dram0.noinit audit graduates from
-# future work to prerequisite.
+# SERIAL0 = USB CDC-ACM console (cdc_acm0); no other UARTs wired yet.
+# WiFi is disabled on this board for now - see AP_ZEPHYR_WIFI_DISABLE below.
 SERIAL_ORDER OTG1
 
 # IMU and baro: none by default (a bare DevKitC has neither). The "Sensors"
@@ -99,7 +96,10 @@ define ZEPHYR_MAX_USER_THREADS 6
 PIN GPIO43 UART0_TX output-enable
 PIN GPIO44 UART0_RX bias-pull-up
 
-# WiFi MAVLink ports (family default) are OPTED OUT on this board.
+# WiFi: DISABLED for now - re-enable when there is space.
+# Enabling it (even with reduced buffers) overflowed dram0_0_seg by ~94 KB;
+# the driver heap alone is 50 KB and this module has no PSRAM. Remove this
+# line once that much DRAM has been freed.
 define AP_ZEPHYR_WIFI_DISABLE 1
 
 # ── Sensors ────────────────────────────────────────────────────────────────
