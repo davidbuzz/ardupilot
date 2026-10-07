@@ -676,11 +676,13 @@ static void ap_wdt_stall_cb(const struct device *dev, int channel_id)
     if (s_main_tid != nullptr) {
         main_state = s_main_tid->base.thread_state;
         main_pended = (uint32_t)(uintptr_t)s_main_tid->base.pended_on;
+#if defined(CONFIG_ARM)
         const uint32_t psp = (uint32_t)s_main_tid->callee_saved.psp;
         /* Only dereference a plausible stack pointer: ITCM/DTCM/OCRAM/SDRAM. */
         if (psp >= 0x20000000u && psp < 0x20400000u) {
             main_pc = ((const uint32_t *)(uintptr_t)psp)[6];
         }
+#endif
     }
 
     ap_wdg_record_put(stall, (int32_t)hal.util->persistent_data.scheduler_task,
@@ -1559,10 +1561,12 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                 if (s_main_tid != nullptr) {
                     main_state = s_main_tid->base.thread_state;
                     main_pended = (uint32_t)(uintptr_t)s_main_tid->base.pended_on;
+#if defined(CONFIG_ARM)
                     const uint32_t psp = (uint32_t)s_main_tid->callee_saved.psp;
                     if (psp >= 0x20000000u && psp < 0x20400000u) {
                         main_pc = ((const uint32_t *)(uintptr_t)psp)[6];
                     }
+#endif
                 }
                 ap_wdg_record_put(elapsed,
                                   (int32_t)hal.util->persistent_data.scheduler_task,
@@ -2016,7 +2020,9 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                        k_thread_state_str((k_tid_t)th, sb, sizeof(sb)),
                        (int)th->base.prio, (void *)th->base.pended_on);
             }, nullptr);
+#if defined(CONFIG_SOC_SERIES_IMXRT11XX)
             ap_pcprofile_report();
+#endif
         }
 #endif
 

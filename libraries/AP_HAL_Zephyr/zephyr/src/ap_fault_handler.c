@@ -249,4 +249,35 @@ void k_sys_fatal_error_handler(unsigned int reason, const struct arch_esf *esf)
 		/* spin so state is inspectable / message is the last thing sent */
 	}
 }
+#else
+/* No persistent fault/watchdog record outside Cortex-M: the callers in
+   Scheduler.cpp see "nothing recorded". */
+void ap_wdg_record_put(uint32_t stall_ms, int32_t sched_task, uint32_t cur_prio,
+                       const char *cur_name, uint32_t main_state,
+                       uint32_t main_pended, uint32_t main_pc)
+{
+}
+
+bool ap_wdg_record_take(uint32_t *stall_ms, int32_t *sched_task,
+                        uint32_t *cur_prio, char *cur_name, size_t cur_name_len,
+                        uint32_t *main_state, uint32_t *main_pended,
+                        uint32_t *main_pc)
+{
+        return false;
+}
+
+bool ap_fault_record_peek(unsigned int *reason, uint32_t *pc, uint32_t *lr,
+                          uint32_t *cfsr, uint32_t *icsr, uint32_t *thd_prio,
+                          uint32_t *count)
+{
+        return false;
+}
+
+bool ap_fault_record_take(unsigned int *reason, uint32_t *pc, uint32_t *lr,
+                          uint32_t *cfsr, uint32_t *icsr, uint32_t *thd_prio,
+                          uint32_t *count)
+{
+        return false;
+}
 #endif  /* CONFIG_CPU_CORTEX_M */
+

@@ -123,8 +123,11 @@ target_sources(app PRIVATE src/main.cpp)
 target_sources(app PRIVATE src/ap_fault_handler.c)
 
 # Statistical PC profiler: answers "which code, fetched from where" with no SWD
-# probe attached. Costs one timer callback per millisecond.
-target_sources(app PRIVATE src/ap_pcprofile.c)
+# probe attached. Costs one timer callback per millisecond. Reads the Cortex-M
+# exception frame and RT1176 memory map, so RT11xx only.
+if(CONFIG_SOC_SERIES_IMXRT11XX)
+    target_sources(app PRIVATE src/ap_pcprofile.c)
+endif()
 # Boot-stage checkpoint tracing - diagnostic only, for a board that will not boot
 if(CONFIG_AP_BOOT_CHECKPOINTS)
     target_sources(app PRIVATE src/boot_checkpoints.c)
