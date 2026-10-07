@@ -627,6 +627,12 @@ def _zephyr_apply_ramtext(bld):
     running is that the code executes XIP, which is what it did before.
     """
     env = bld.env
+    # The list is sized for the RT1176's RAM at 0x20200000. On other SoCs the
+    # renamed sections are orphans: on the ESP32-S3 they land after
+    # .flash.text, inside the pages the MMU maps to .flash.rodata, and the
+    # first call into one is an illegal-instruction fault at boot.
+    if 'mimxrt1176' not in (env.get_flat('ZEPHYR_BOARD') or ''):
+        return
     srcroot = bld.srcnode.abspath()
     listfile = os.path.join(srcroot, 'libraries', 'AP_HAL_Zephyr', 'zephyr',
                             'ramtext_objects.txt')
