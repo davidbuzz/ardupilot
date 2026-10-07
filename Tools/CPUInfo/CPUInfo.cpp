@@ -520,12 +520,6 @@ volatile uint64_t v_out_64 = 1;
 //Main loop where the action takes place
 #if defined(__clang_major__)
 // clang doesn't understand -Wframe-larger-than=
-#elif defined(__riscv)
-/* RV32 has no register-window/ldm-stm equivalents and spills far more of
-   the TIMEIT locals; the same function that fits in 2000 bytes on ARM
-   measures 3216 here. Thread stacks on the RISC-V Zephyr targets are
-   8 KB, so allow it rather than restructure the benchmark. */
-#pragma GCC diagnostic error "-Wframe-larger-than=3500"
 #else
 #pragma GCC diagnostic error "-Wframe-larger-than=2000"
 #endif
