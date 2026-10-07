@@ -316,11 +316,6 @@
 #ifndef HAL_HAVE_HARDWARE_DOUBLE
 #if defined(__XTENSA__)
 #define HAL_HAVE_HARDWARE_DOUBLE 0
-#elif defined(__riscv) && (!defined(__riscv_flen) || __riscv_flen < 64)
-/* RISC-V with no FPU or a single-precision-only FPU: doubles are
-   libgcc soft-float, same trap as Xtensa above. __riscv_flen is 32 for an
-   F-extension core, 64 for FD - only the latter has hardware doubles. */
-#define HAL_HAVE_HARDWARE_DOUBLE 0
 #else
 #define HAL_HAVE_HARDWARE_DOUBLE 1
 #endif
