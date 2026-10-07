@@ -90,6 +90,13 @@ define HAL_LOGGING_MAVLINK_ENABLED 0
 # fails LOUDLY (printk + false return) if it ever runs out.
 define ZEPHYR_MAX_USER_THREADS 6
 
+# Match AP_HAL/board/esp32.h. CONFIG_SRAM_SIZE (416) would derive
+# HAL_MEM_CLASS_300, but only ~390 KB is dram0 and it is ~97% used, so
+# class 192 is the honest figure (smaller statustext queue, one vibration
+# check instance). 16 servo channels halves the SRV_Channel arrays.
+define HAL_MEMORY_TOTAL_KB 192
+define NUM_SERVO_CHANNELS 16
+
 # ── class-generator migration ──────────────────────────────────────────────
 # First migrated peripheral on the ESP32 family: UART0 (console, GPIO matrix
 # pins mirroring the hand uart0_default group incl. per-pin props).
