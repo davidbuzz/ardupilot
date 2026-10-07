@@ -14,8 +14,8 @@ APJ_BOARD_ID AP_HW_ESP32S3Zephyr
 # future work to prerequisite.
 SERIAL_ORDER OTG1
 
-# IMU and baro: see the "Sensors" block at the end of this file. A bare
-# DevKitC has neither, so those describe the conventional breakout wiring.
+# IMU and baro: none by default (a bare DevKitC has neither). The "Sensors"
+# block at the end of this file has ready-to-uncomment lines for breakouts.
 
 # No SD card on dev board
 define HAL_OS_FATFS_IO 0
@@ -124,12 +124,16 @@ PIN GPIO13 SPIM2_MISO
 PIN GPIO9 I2C0_SCL
 PIN GPIO8 I2C0_SDA
 
+# Sensors are OFF by default: declaring a part that is not wired stalls the
+# main loop (loop_hz=0, no heartbeats). To use a breakout, uncomment its
+# lines below AND delete the two HAL_*_DEFAULT defines at the end of the file.
+#
 # ICM-42688-P. MODE3 and the 2/8 MHz pair match how the other boards in this
 # port drive Invensensev3 parts; the datasheet allows more, but a sensor on
 # flying leads is not where to spend that margin.
-SPIDEV icm42688 SPI2 DEVID1 IMU_CS MODE3 2*MHZ 8*MHZ
+# SPIDEV icm42688 SPI2 DEVID1 IMU_CS MODE3 2*MHZ 8*MHZ
 
-IMU Invensensev3 SPI:icm42688 ROTATION_NONE
+# IMU Invensensev3 SPI:icm42688 ROTATION_NONE
 
 # I2C bus order. Without this there is no I2C_ORDER at all, so
 # zephyr_hwdef.py generates no HAL_I2C_DT_DEVICE_LOOKUP, i2c_device_for_bus()
@@ -138,4 +142,8 @@ IMU Invensensev3 SPI:icm42688 ROTATION_NONE
 I2C_ORDER I2C0
 
 # BMP280 at 0x76 (SDO low). The part also answers at 0x77 with SDO high.
-BARO BMP280 I2C:0:0x76
+# BARO BMP280 I2C:0:0x76
+
+# No-sensor defaults. Remove these when uncommenting any sensor above.
+define HAL_INS_DEFAULT HAL_INS_NONE
+define HAL_BARO_PROBE_EXT_DEFAULT 0
