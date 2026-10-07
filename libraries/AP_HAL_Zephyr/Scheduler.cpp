@@ -74,13 +74,6 @@ extern AP_IOMCU iomcu;
 #define AP_STACK_SECTION_HOT __noinit
 #endif
 
-#if defined(__riscv)
-/* RISC-V ONLY: restore Zephyr's MAX macro for the stack definitions below. */
-#pragma push_macro("MAX")
-#undef MAX
-#define MAX(a, b) (((a) > (b)) ? (a) : (b))
-#endif
-
 /* DTCM. 1 kHz timer callbacks (Scheduler::_timer_thread_fn), PREEMPT(2). Runs
    above main and fires 1000x/s, so its stack is touched constantly. */
 // _zephyr_timer_stack    0x20022180  DTCM ✅
@@ -110,11 +103,6 @@ Z_KERNEL_STACK_DEFINE_IN(_zephyr_storage_stack, ZEPHYR_STORAGE_THREAD_STACK_SZ, 
 // _zephyr_user_stacks    0x20000000  DTCM ✅
 Z_KERNEL_STACK_ARRAY_DEFINE_IN(_zephyr_user_stacks, ZEPHYR_MAX_USER_THREADS,
                                ZEPHYR_USER_THREAD_STACK_SZ, AP_STACK_SECTION);
-
-#if defined(__riscv)
-/* restore AP_Math's MAX template for the rest of this file */
-#pragma pop_macro("MAX")
-#endif
 
 #if HAL_LOGGING_ENABLED
 /* For AP::logger().StopLogging() in reboot(), so a reboot does not truncate a log. */

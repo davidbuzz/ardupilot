@@ -151,9 +151,7 @@ on boards known working that no longer need it. Extra boot and early-console
 verbosity is an acceptable price.
 
 With `CONFIG_LOG=n`, every `LOG_ERR` and `LOG_WRN` in the drivers compiles out,
-and so do Zephyr's fatal-error dumps, so crashes become silent resets. A
-watchdog reset at WiFi AP start on the C6 presented as an unexplained `rst:0xc`
-reboot loop that logging would have named immediately.
+and so do Zephyr's fatal-error dumps, so crashes become silent resets.
 
 The base `zephyr/prj.conf` carries `CONFIG_LOG=y` and `CONFIG_CONSOLE=y`.
 `LOG=y` alone is not enough: it needs a sink, and `LOG_BACKEND_UART` depends on
@@ -179,8 +177,8 @@ loss window is accepted. Enable the USB device stack in the board fragment.
 **MAVLink on USB CDC as SERIAL0 is required from boot, by design.** Do not
 propose moving MAVLink off USB CDC, moving it to a UART to avoid contention,
 making it opt-in, or reordering `SERIAL_ORDER` so USB is not SERIAL0. A console
-CDC must not displace it: share the endpoint the way the C6 does, or add a
-second CDC instance as a composite device. Fix contention on its own terms.
+CDC must not displace it: share the endpoint, or add a second CDC instance
+as a composite device. Fix contention on its own terms.
 
 | Board              | Console state                                                                                |
 | ------------------ | -------------------------------------------------------------------------------------------- |

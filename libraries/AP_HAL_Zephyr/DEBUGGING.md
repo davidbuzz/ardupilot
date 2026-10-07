@@ -586,7 +586,7 @@ This is what you get when the fault handler itself wedged before printing.
 
 **The coredump** is Zephyr's own `coredump` subsystem, not CrashCatcher.
 CrashCatcher's capture engine is hand-written ARMv7-M assembly and cannot be
-ported to Xtensa or RISC-V at all, which is why we did not.
+ported to Xtensa at all, which is why we did not.
 
 The full cycle - a real fault, the write from fault context, the reset, and
 retrieving the dump afterwards - has not been run on hardware. The backend says

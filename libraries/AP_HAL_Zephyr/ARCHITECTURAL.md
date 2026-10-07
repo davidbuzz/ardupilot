@@ -248,8 +248,8 @@ timing conclusion drawn in that window was invalid.
 **`HAL_HAVE_HARDWARE_DOUBLE` is per-architecture, not per-port.** Asserting it
 true for every board compiled the double-ftype EKF3 into 8,243 soft-float
 libgcc calls on a single-precision-FPU Xtensa part: 43 ms per loop iteration
-and permanent scheduler overrun. Key it on `__XTENSA__`, `__riscv_flen < 64`
-and so on; `AP_HAL/board/zephyr.h` shows the pattern.
+and permanent scheduler overrun. Key it on the architecture, e.g.
+`__XTENSA__`; `AP_HAL/board/zephyr.h` shows the pattern.
 
 **Know where your soft-float lives.** Espressif parts bind `__addsf3`-class
 routines and `__udivdi3` to mask ROM through the `*.rom.libgcc.ld` scripts,
@@ -279,9 +279,7 @@ neighbouring `CMakeLists.txt`. The board's most recent recorded loop rate is in
 `libraries/AP_HAL_Zephyr/hwdef/mr_vmu_rt1176/README.md`; read it as the best
 figure written down rather than a settled one, because a later profiling run on
 the same board read substantially lower and nothing in the tree resolves the
-two. The same method on an ESP32-C6 measured null, because that platform
-already places the kernel, arch core, ISR entry and timer driver in IRAM. There
-was nothing left for placement to win, and knowing that saved doing the work.
+two.
 
 **Wildcard placement fails silently and greedily.** waf object names come from
 source files, so `Scheduler.cpp.1.o` exists in several libraries and a
@@ -415,11 +413,6 @@ ChibiOS console writes land in a buffered stream drained by an I/O thread, so a
 saturated console never stalls a flight thread. Raw Zephyr `printk` is a
 synchronous per-character `uart_poll_out()` busy-wait, and each of the tree's
 ~108 serial drivers implements that wait its own way.
-
-Measured on ESP32-C6: a priority-3 thread printing one line every 10 s through
-the USB Serial/JTAG console starved the WiFi thread until the softAP stopped
-beaconing. That driver re-armed a 50 ms per-character wait on every trickle of
-successful characters.
 
 The policy is to discard characters that cannot be printed rather than block on
 a UART that is not ready. Three ways to get it, cheapest first.
