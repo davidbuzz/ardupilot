@@ -520,7 +520,7 @@ class ESP32Backend(Backend):
     GDMA is driver-internal on this family, there is no dmas property.'''
 
     name = 'esp32'
-    dts_roots = ('dts/xtensa/espressif', 'dts/riscv/espressif')
+    dts_roots = ('dts/xtensa/espressif',)
 
     def soc_dts_hint(self):
         return self._variant()
