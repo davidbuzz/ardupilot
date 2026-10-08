@@ -65,8 +65,9 @@ zephyr_udc0: &usb_otg {
 	cdc_acm0: cdc_acm0 {
 		compatible = "zephyr,cdc-acm-uart";
 		/* Console + SERIAL0 share this CDC. The default 1024-byte TX fifo drops
-		 * everything past the first KB of boot output when the host attaches late. */
-		tx-fifo-size = <16384>;
+		 * everything past the first KB of boot output when the host attaches late.
+		 * 16384 -> 4096 (2026-10-07) to free DRAM for WiFi. */
+		tx-fifo-size = <4096>;
 	};
 };
 
