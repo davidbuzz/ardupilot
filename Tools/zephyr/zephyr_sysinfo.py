@@ -142,7 +142,7 @@ def main():
         # threads-only. Do not invent an empty tasks.txt in that case.
         parts = {'threads.txt': text}
         print('\nNOTE: no TasksV2 section yet - task_info() self-enables on its '
-              'first call. Re-run in a few seconds for tasks.txt.')
+              'first call. Re-run at least 5 s later for tasks.txt.')
 
     def header_for(name):
         return '\n'.join([

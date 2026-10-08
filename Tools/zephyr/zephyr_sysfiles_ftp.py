@@ -54,7 +54,8 @@ def main():
     ap.add_argument('--outdir', default='.')
     ap.add_argument('--attempts', type=int, default=4)
     ap.add_argument('--keep-first', action='store_true',
-                    help='keep the first read (default discards it and keeps the second)')
+                    help='keep the first read (default discards it and keeps the second); '
+                    'tasks.txt is skipped, its first read is header-only')
     args = ap.parse_args()
 
     conn = mavutil.mavlink_connection(args.link, baud=args.baud)
@@ -85,6 +86,9 @@ def main():
     for r in range(reads):
         print('read %d of %d%s' % (r + 1, reads, '' if r == reads - 1 else ' (will be discarded)'), flush=True)
         for name in SYS_FILES:
+            if args.keep_first and name == 'tasks.txt':
+                print('  tasks.txt: skipped, a single read is header-only')
+                continue
             # mem.txt is not served by every firmware (absent on AP_HAL_Zephyr
             # builds before 2026-09-12); one attempt is enough to find out.
             attempts = 1 if name == 'mem.txt' else args.attempts
@@ -99,7 +103,10 @@ def main():
             per_read[r][name] = text
             print('  %s: %d bytes' % (name, len(text)))
         if r < reads - 1:
-            time.sleep(2.0)
+            # the first tasks.txt fetch only starts the scheduler's perf
+            # collection and comes back as the header alone; the counts need
+            # at least 5 s to accumulate before the second fetch
+            time.sleep(5.0)
 
     # Keep the LAST read that succeeded for each file, and say which one that
     # was: a second read that failed must not be reported as "read 2 of 2 kept"
@@ -115,6 +122,11 @@ def main():
         return 1
     rc = 0
     for name, (which, text) in kept.items():
+        if which != reads and name == 'tasks.txt':
+            print('  tasks.txt: only read %d of %d succeeded - not kept, the first read is header-only'
+                  % (which, reads))
+            rc = 2
+            continue
         if which != reads:
             print('  %s: only read %d of %d succeeded - keeping it, but it is the boot-time read' % (name, which, reads))
             rc = 2
