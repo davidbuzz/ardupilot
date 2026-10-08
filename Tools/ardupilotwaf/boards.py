@@ -2074,6 +2074,11 @@ class ESP32S3Zephyr(zephyr_board):
 
         env.ZEPHYR_BOARD = "esp32s3_zephyr/esp32s3/procpu"
 
+        # Hot maths at -O3 over the base -O2 (see ap_library.py
+        # o3_libraries_check). Code runs from flash cache, so the growth
+        # costs flash (8 MB here), not dram0.
+        env.O3_LIBRARIES = ['AP_NavEKF', 'AP_NavEKF2', 'AP_NavEKF3', 'AP_Math', 'Filter']
+
         env.DEFINES.update(
             CONFIG_HAL_BOARD = 'HAL_BOARD_ZEPHYR',
             CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_NONE',

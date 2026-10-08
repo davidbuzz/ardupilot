@@ -289,7 +289,7 @@ def o3_libraries_check(tasks):
         if len(t.inputs) == 1 and t.env.O3_LIBRARIES:
             src = str(t.inputs[0]).split('/')[-2:]
             if src[0] in t.env.O3_LIBRARIES:
-                t.env.CXXFLAGS = [f for f in t.env.CXXFLAGS if not f.startswith('-O')] + ['-O3']
+                t.env.CXXFLAGS = [f for f in t.env.CXXFLAGS if not f.startswith('-O')] + ['-O3', '-DAP_BUILD_O3']
 
 
 def gsoap_library_check(bld, tasks):
