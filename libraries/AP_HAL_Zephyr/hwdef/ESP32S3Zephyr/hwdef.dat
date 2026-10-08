@@ -91,6 +91,10 @@ define HAL_LOGGING_MAVLINK_ENABLED 0
 # and the device-bus allocator fail LOUDLY if a pool runs out.
 # Pool users: FTP (2560), APM_WIFI_TCP (4096), APM_WIFI_UDP (4096) + 1 spare.
 define ZEPHYR_MAX_USER_THREADS 4
+# Largest request above is 4096; the 8 KB default slot wasted 16 KB of DRAM
+# across 4 slots, and --enable-stats with WiFi overflowed dram0 by 7.9 KB.
+# A larger request is refused loudly by thread_create().
+define ZEPHYR_USER_THREAD_STACK_SZ 4096
 define ZEPHYR_IO_THREAD_STACK_SZ 4096
 # two bus threads: enough for the commented-out SPI IMU + I2C baro below
 define HAL_ZEPHYR_MAX_DEVICE_BUSES 2
