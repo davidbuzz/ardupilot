@@ -1832,6 +1832,7 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                            (unsigned)g_rcout_last_pulse[0], (unsigned)g_rcout_last_pulse[1],
                            (unsigned)g_rcout_last_pulse[2], (unsigned)g_rcout_last_pulse[3],
                            (int)g_rcout_last_rc[0]);
+#if HAL_LOGGING_ENABLED
                     GCS_SEND_TEXT(MAV_SEVERITY_INFO, "LOGDIAG gap%lu snl%lu/%lu iot%lu n%lu",
                            (unsigned long)g_logdiag_gap_max,
                            (unsigned long)g_logdiag_snl_max,
@@ -1840,6 +1841,7 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                            (unsigned long)g_logdiag_iot_calls);
                     g_logdiag_gap_max = 0; g_logdiag_snl_max = 0;
                     g_logdiag_iot_max = 0; g_logdiag_iot_calls = 0;
+#endif
                     GCS_SEND_TEXT(MAV_SEVERITY_INFO, "ACCT thr%u idle%u isr%u",
                            (unsigned)(all2 ? dsum * 100U / all2 : 0),
                            (unsigned)(all2 ? didle * 100U / all2 : 0),
@@ -1897,6 +1899,7 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                    K_FOREVER lock, bb counts busy-bus rejections (-EBUSY, which
                    lands in the oth= bucket above), bbok is time spent in the
                    busy check when it passed. */
+#if defined(CONFIG_I2C_MCUX_LPI2C)
                 if (ap_lpi2c_stat_lock_n != 0U) {
                     GCS_SEND_TEXT(MAV_SEVERITY_INFO,
                                   "LPI2C lk=%luus n=%lu bb=%lu bbok=%luus",
@@ -1909,6 +1912,7 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                     ap_lpi2c_stat_busy_us = 0; ap_lpi2c_stat_busy_n = 0;
                     ap_lpi2c_stat_bbok_us = 0;
                 }
+#endif
             }
             /* BUSCB: SPI2 is 20% of the machine at PREEMPT(2), above main and
                above the whole p>=10 band, so it is the largest single block of

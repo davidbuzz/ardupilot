@@ -111,9 +111,11 @@ extern "C" void ap_sysinfo_capture(void)
     if (captures < 255) {
         captures++;
     }
+#if HAL_LOGGING_ENABLED
     if (captures == 2) {
         AP::scheduler().update_logging();
     }
+#endif
     AP::scheduler().task_info(str);
     const uint32_t tasks_len = str.get_length() - threads_len;
 
@@ -405,13 +407,17 @@ struct memory_region {
 };
 
 /* Region 0 is the DEFAULT heap, handled by calloc()/free() rather than a k_heap. */
+#ifndef ZEPHYR_DMA_POOL_SIZE
 #define ZEPHYR_DMA_POOL_SIZE  16384
+#endif
 /* 16 KB, not the original 65536. MEASURED 2026-08-07: the only MEM_FAST consumer
  * never approached the larger size, and DTCM is scarce. */
 /* 16384 -> 14336 on 2026-08-09: CONFIG_SPI_RTIO's per-instance context
    pushed .dtcm_noinit 1536 B past the 32 KB DTCM; the FAST pool is the
    only elastic tenant in that region. */
+#ifndef ZEPHYR_FAST_POOL_SIZE
 #define ZEPHYR_FAST_POOL_SIZE 14336
+#endif
 
 #ifdef CONFIG_NOCACHE_MEMORY
 static __nocache uint8_t dma_pool_mem[ZEPHYR_DMA_POOL_SIZE] __aligned(32);

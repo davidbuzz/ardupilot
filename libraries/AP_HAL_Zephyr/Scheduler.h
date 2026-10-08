@@ -35,7 +35,9 @@
 /* THREAD STACK SIZES: every one of these DIVERGES FROM ChibiOS, because Zephyr
  * stacks carry the kernel's own frame and guard region on top of AP's usage. */
 #define ZEPHYR_TIMER_THREAD_STACK_SZ    4096
+#ifndef ZEPHYR_IO_THREAD_STACK_SZ
 #define ZEPHYR_IO_THREAD_STACK_SZ       8192  // bytes
+#endif
 #define ZEPHYR_MONITOR_THREAD_STACK_SZ  2048  // bytes
 #define ZEPHYR_RCIN_THREAD_STACK_SZ     4096  // bytes
 #define ZEPHYR_RCOUT_THREAD_STACK_SZ    4096  // bytes

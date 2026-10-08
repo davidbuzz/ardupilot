@@ -39,8 +39,12 @@ extern const AP_HAL::HAL& hal;
 
 #ifdef __ZEPHYR__
 
+#ifndef HAL_ZEPHYR_DEVICE_STACK_SIZE
 #define HAL_ZEPHYR_DEVICE_STACK_SIZE 4096  // bytes, per bus thread
+#endif
+#ifndef HAL_ZEPHYR_MAX_DEVICE_BUSES
 #define HAL_ZEPHYR_MAX_DEVICE_BUSES  4
+#endif
 
 /* Bus-thread stacks in DTCM - see the stack definitions in Scheduler.h.
  *
