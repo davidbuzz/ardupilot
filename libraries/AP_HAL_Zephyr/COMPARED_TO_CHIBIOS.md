@@ -35,7 +35,7 @@ something to find out later.
 | Storage         | verified      | untested         | untested      | verified   |
 | SD logging      | verified      | untested         | absent        | RAM disk   |
 | CAN / DroneCAN  | verified      | absent           | absent        | loopback   |
-| WiFi            | n/a           | n/a              | absent        | n/a        |
+| WiFi            | n/a           | n/a              | verified      | n/a        |
 | Crash dump      | verified      | absent           | absent        | absent     |
 | Bootloader      | verified      | absent           | absent        | n/a        |
 
@@ -145,7 +145,7 @@ fast memory, and any number without a firmware hash beside it is folklore.
 | Tone alarm                                       | yes                                   | absent                                             | Moot on rt1176, no buzzer pin. A live gap on CubeOrangeZephyr, which has the same buzzer a ChibiOS CubeOrange has.                                                                                                                                                                                                                                                   |
 | Lua scripting                                    | full                                  | untested                                           | Builds on rt1176, 36 Lua symbols in the ELF. No script has been run. Off by default.                                                                                                                                                                                                                                                                                 |
 | IOMCU                                            | `AP_IOMCU` over UART                  | absent                                             | `HAL_WITH_IO_MCU 0` is an unconditional `#define`, not an `#ifndef` default. n/a on rt1176, no co-processor fitted. A real gap on CubeOrangeZephyr, which has the same STM32F103 every CubeOrange has. Its hwdef carries `IOMCU_UART` and `ROMFS` lines that are inert: `zephyr_hwdef.py` parses neither.                                                            |
-| WiFi                                             | n/a                                   | built for S3, opted out                            | softAP, TCP 5760 and broadcast UDP 14550, auto-placed into empty SERIAL slots on ESP32-family boards. On S3 the stack overflows DRAM by 90,588 B, so `ESP32S3Zephyr/hwdef.dat` sets `AP_ZEPHYR_WIFI_DISABLE 1` until that is solved.                                                                                 |
+| WiFi                                             | n/a                                   | verified on S3                                     | softAP, TCP 5760 and broadcast UDP 14550, auto-placed into empty SERIAL slots on ESP32-family boards. On S3 it fits in DRAM (99.2%) only with the trimmed Kconfig in `prj.ESP32S3Zephyr.conf`: AP-only, WPA2 only, no AMPDU, fewer buffers. Verified 2026-10-08: a laptop joins, gets 192.168.4.2 by DHCP, and gets heartbeats and parameter reads over both TCP and UDP, with the loop holding 50 Hz.                                                                                 |
 | Bootloader                                       | `AP_Bootloader`                       | verified, rt1176                                   | A Zephyr port of AP_Bootloader is resident and exercised by every upload. Also verified: SNVS fast reboot matching `board_get/set_rtc_signature()`, and reboot-to-bootloader by MAVLink.                                                                                                                                                                             |
 | MCUboot A/B                                      | n/a                                   | verified, rt1176                                   | Overwrite-only A/B with SHA-256 slot validation.                                                                                                                                                                                                                                                                                                                     |
 | In-app bootloader update                         | `flash_bootloader()`                  | verified both directions, rt1176                   | Pacing decides whether this works: unpaced back-to-back erase and program starved the watchdog feeder and reset the SoC mid-flash. Fixed by writing 4 KB slices with real sleeps.                                                                                                                                                                                               |
@@ -253,6 +253,22 @@ console behave the same.
 
 Audit every service thread's priority against the main loop, yours and the
 RTOS's.
+
+### The ESP32 entropy driver is a busy-wait
+
+With `CONFIG_ENTROPY_DEVICE_RANDOM_GENERATOR`, every `sys_rand_get()` goes to
+the hardware RNG driver. On ESP32-S3 that driver spins about 22 us per byte to
+let the RNG refill. Linking WiFi made random requests frequent enough that
+`AP_timer`, which runs above main, spent its time in that spin, and the main
+loop fell to about 1 Hz. Use `CONFIG_XOSHIRO_RANDOM_GENERATOR`, which seeds a
+fast PRNG from the hardware once. ChibiOS boards never meet this, because
+their RNG reads do not block.
+
+### ESP32-S3 loop rate
+
+The S3 holds 50 Hz with WiFi up. At `SCHED_LOOP_RATE 100` it reached about
+72 Hz in permanent overrun: the threads below main stopped running and the
+softAP took about 160 s to appear. So `defaults.parm` stays at 50 Hz.
 
 ### Devicetree owns what hwdef.dat owns
 
