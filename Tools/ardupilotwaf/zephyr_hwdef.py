@@ -99,7 +99,11 @@ class ZephyrHWDef:
             return []
         if p.startswith('OTG'):
             idx = int(p[3:]) - 1
-            return ['usb_cdc_acm%d' % idx, 'cdc_acm%d' % idx]
+            labels = ['usb_cdc_acm%d' % idx, 'cdc_acm%d' % idx]
+            if idx == 0:
+                # ESP32 built-in USB-Serial/JTAG CDC (no OTG stack).
+                labels.append('usb_serial')
+            return labels
         if p.startswith('LPUART'):
             return [p.lower()]
         if p.startswith('USART'):
