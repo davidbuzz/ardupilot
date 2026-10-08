@@ -156,11 +156,21 @@ void UARTDriver::_begin(uint32_t baud, uint16_t rxSpace, uint16_t txSpace)
         _is_usb = true;
     }
 #endif
+#if DT_NODE_HAS_STATUS(DT_NODELABEL(usb_serial), okay)
+    if (_dev == DEVICE_DT_GET(DT_NODELABEL(usb_serial))) {
+        _is_usb = true;
+    }
+#endif
 
     if (_dev == nullptr) {
         /* Warn ONCE per port: AP_RCProtocol's serial_configs[] autodetect reopens the port
-         * repeatedly, so an unconditional warning floods the console. */
-        if (!_lookup_warned) {
+         * repeatedly, so an unconditional warning floods the console.
+         * Ports past SERIAL_ORDER are empty by design (as on ChibiOS): no warning. */
+        if (!_lookup_warned
+#ifdef HAL_UART_NUM_SERIAL_PORTS
+            && _serial_num < HAL_UART_NUM_SERIAL_PORTS
+#endif
+            ) {
             _lookup_warned = true;
             printk("UART: device lookup returned nullptr for serial %d\n", _serial_num);
         }
