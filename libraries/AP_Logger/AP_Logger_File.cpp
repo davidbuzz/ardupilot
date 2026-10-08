@@ -909,12 +909,57 @@ void AP_Logger_File::flush(void)
 #endif // APM_BUILD_TYPE(APM_BUILD_Replay) || APM_BUILD_TYPE(APM_BUILD_UNKNOWN)
 #endif
 
+#if CONFIG_HAL_BOARD == HAL_BOARD_ZEPHYR
+/*
+  LOGDIAG counters, read and reported by the Zephyr HAL monitor thread rather
+  than from here: GCS_SEND_TEXT() takes a semaphore, and log_io is starved
+  enough on Zephyr boards that holding one here blocked the main loop.
+ */
+extern "C" {
+uint32_t g_logdiag_gap_max;
+uint32_t g_logdiag_snl_max;
+uint32_t g_logdiag_snl_calls;
+uint32_t g_logdiag_iot_max;
+uint32_t g_logdiag_iot_calls;
+}
+
+// record the longest time spent in a scope
+class LogDiagTimer {
+public:
+    LogDiagTimer(uint32_t &max_ms) : _t0(AP_HAL::millis()), _max_ms(max_ms) {}
+    ~LogDiagTimer() {
+        const uint32_t dt = AP_HAL::millis() - _t0;
+        if (dt > _max_ms) {
+            _max_ms = dt;
+        }
+    }
+private:
+    const uint32_t _t0;
+    uint32_t &_max_ms;
+};
+#endif  // CONFIG_HAL_BOARD == HAL_BOARD_ZEPHYR
+
 void AP_Logger_File::io_timer(void)
 {
     uint32_t tnow = AP_HAL::millis();
+#if CONFIG_HAL_BOARD == HAL_BOARD_ZEPHYR
+    /* "AP_Logger: stuck thread ()" means this function was not entered for
+       10 s; a blank operation points at the unnamed calls at the top of this
+       function, start_new_log() above all. Time each so the blocking call is
+       named rather than guessed. */
+    LogDiagTimer iot_timer { g_logdiag_iot_max };
+    if (_io_timer_heartbeat != 0 && tnow - _io_timer_heartbeat > g_logdiag_gap_max) {
+        g_logdiag_gap_max = tnow - _io_timer_heartbeat;
+    }
+    g_logdiag_iot_calls++;
+#endif
     _io_timer_heartbeat = tnow;
 
     if (start_new_log_pending) {
+#if CONFIG_HAL_BOARD == HAL_BOARD_ZEPHYR
+        LogDiagTimer snl_timer { g_logdiag_snl_max };
+        g_logdiag_snl_calls++;
+#endif
         start_new_log();
         start_new_log_pending = false;
     }
@@ -1049,7 +1094,7 @@ bool AP_Logger_File::io_thread_alive() const
         return true;
     }
     // if the io thread hasn't had a heartbeat in a while then it is
-#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32
+#if CONFIG_HAL_BOARD == HAL_BOARD_ESP32 || CONFIG_HAL_BOARD == HAL_BOARD_ZEPHYR
     uint32_t timeout_ms = 10000;
 #else
     uint32_t timeout_ms = 5000;
