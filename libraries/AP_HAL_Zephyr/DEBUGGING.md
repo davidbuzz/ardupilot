@@ -17,7 +17,7 @@ before running it, particularly anything that writes flash.
 | ---------------- | ----------------------------------------- |
 | mr_vmu_rt1176    | USB CDC, plus LPUART1 on the debug header |
 | CubeOrangeZephyr | UART                                      |
-| ESP32S3Zephyr    | USB CDC                                   |
+| ESP32S3Zephyr    | uart0 on the UART/PROG USB port (JTAG on the native USB port) |
 | native_sim       | stdout                                    |
 
 ## The tools

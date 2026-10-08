@@ -7,7 +7,8 @@ MCU ESP32S3
 
 APJ_BOARD_ID AP_HW_ESP32S3Zephyr
 
-# SERIAL0 = USB CDC-ACM console (cdc_acm0); no other UARTs wired yet.
+# SERIAL0 = MAVLink on the native USB port's built-in USB-Serial/JTAG CDC
+# (usb_serial); JTAG shares that port. Console is uart0 on the UART/PROG port.
 # WiFi TCP/UDP serials are auto-appended - see the WiFi block below.
 SERIAL_ORDER OTG1
 

@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  *
  * ESP32-S3 generic dev board (ESP32-S3-DevKitC compatible)
- * USB CDC ACM via built-in USB OTG peripheral.
+ * Dual-USB-port board: native USB = built-in USB-Serial/JTAG (JTAG debug +
+ * MAVLink serial), UART/PROG USB = uart0 console. MAVLink also on WiFi.
  */
 /dts-v1/;
 
@@ -56,23 +57,26 @@
 	status = "okay";
 };
 
-/* USB OTG — device mode, CDC ACM console.
- * GPIO19 (D-) / GPIO20 (D+) are connected to the DevKitC USB-C connector
- * and are shared by both usb_serial and usb_otg — only one may be active. */
+/* USB OTG — DISABLED (2026-10-08). GPIO19 (D-) / GPIO20 (D+) go to the
+ * native USB connector and the S3 has a single USB PHY: enabling usb_otg
+ * takes it from the built-in USB-Serial/JTAG controller and JTAG vanishes.
+ * The native port is reserved for JTAG debugging; the console is uart0 on
+ * the UART/PROG port. Both cannot work on one USB port at the same time. */
 zephyr_udc0: &usb_otg {
-	status = "okay";
+	status = "disabled";
 
 	cdc_acm0: cdc_acm0 {
 		compatible = "zephyr,cdc-acm-uart";
-		/* Console + SERIAL0 share this CDC. The default 1024-byte TX fifo drops
-		 * everything past the first KB of boot output when the host attaches late.
-		 * 16384 -> 4096 (2026-10-07) to free DRAM for WiFi. */
+		status = "disabled";
 		tx-fifo-size = <4096>;
 	};
 };
 
+/* Built-in USB-Serial/JTAG: one USB device (303a:1001) exposing both a
+ * CDC serial and JTAG, so MAVLink (SERIAL0, hwdef OTG1) and OpenOCD share
+ * the native port. No OTG stack needed. */
 &usb_serial {
-	status = "disabled";
+	status = "okay";
 };
 
 /* SoC WiFi MAC - required by CONFIG_WIFI_ESP32 (DT_HAS_ESPRESSIF_ESP32_WIFI);

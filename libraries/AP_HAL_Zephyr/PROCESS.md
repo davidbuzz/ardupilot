@@ -182,7 +182,7 @@ as a composite device. Fix contention on its own terms.
 
 | Board              | Console state                                                                                |
 | ------------------ | -------------------------------------------------------------------------------------------- |
-| `ESP32S3Zephyr`    | MAVLink on OTG CDC-ACM. Console placement needs checking.                                    |
+| `ESP32S3Zephyr`    | Done. Dual-USB-port board, see below: console on UART/PROG USB; MAVLink + JTAG on native USB. |
 | `mr_vmu_rt1176`    | MAVLink SERIAL0 on OTG1 CDC. Console needs a CDC instance, most likely a dual-CDC composite. |
 | `CubeOrangeZephyr` | Console needs moving onto USB CDC.                                                           |
 | `native_sim`       | No USB. Console stays on stdout.                                                             |
@@ -190,34 +190,55 @@ as a composite device. Fix contention on its own terms.
 A move counts as done when the console has been seen over the USB port on
 hardware.
 
-On ESP32-S3 the chosen block is:
+## ESP32-S3 is a dual-USB-port board
+
+`ESP32S3Zephyr` meets the purpose of the rule above: the console is always on
+a USB cable. It reaches that through the board's second USB port, not through
+CDC, because CDC would cost the debugger. The S3 has a
+single USB PHY on GPIO19/20, shared by the built-in USB-Serial/JTAG controller
+(`303a:1001`) and the USB OTG controller. Starting the OTG device stack takes
+the PHY and the JTAG controller disappears from the bus, so one USB port cannot
+carry both a CDC device and JTAG at the same time. The board is therefore run
+with two USB cables:
+
+| USB port                | Device                                   | Job                                   |
+| ----------------------- | ---------------------------------------- | ------------------------------------- |
+| Native USB (GPIO19/20)  | built-in USB-Serial/JTAG, `303a:1001`    | JTAG debugging with OpenOCD and GDB, plus MAVLink SERIAL0 on its CDC serial (`usb_serial`, `/dev/ttyACM*`) |
+| UART / PROG             | onboard USB-UART bridge to uart0 (GPIO43/44) | console, `printk`, crash dumps, `esptool` flashing |
+
+MAVLink is on both the native USB port (SERIAL0, `SERIAL_ORDER OTG1`, which
+the generator maps to `usb_serial` when no OTG CDC node exists) and the WiFi
+softAP (TCP 5760, UDP 14550). The built-in controller's CDC serial and JTAG
+are one composite device in silicon, so they coexist. The app runs no USB
+device stack: `&usb_otg` and `cdc_acm0` are disabled in the board devicetree
+and `CONFIG_USB_DEVICE_STACK_NEXT=n` in `prj.ESP32S3Zephyr.conf`. Do not
+re-enable them; that silently removes JTAG and the `usb_serial` MAVLink port.
+
+The chosen block is:
 
 ```dts
 chosen {
-    zephyr,console    = &cdc_acm0;
-    zephyr,shell-uart = &cdc_acm0;
+    zephyr,console    = &uart0;
+    zephyr,shell-uart = &uart0;
 };
 ```
 
-with `&usb_serial { status = "disabled"; };` to free the shared GPIO19/20 pins
-for the OTG peripheral. One exception, for early bring-up only: point the
-console at `&uart0`, which the ESP32-S3's built-in JTAG/serial bridge forwards
-to `/dev/ttyACM0`, when the USB OTG stack is not yet known to work and you need
-to see boot panics. Revert once the board boots reliably. Never commit a
-uart0-only console devicetree.
+## ESP32-S3 flash, console and debug
 
-## ESP32-S3 flash and console
+* **Console** is uart0 at 115200 on the UART/PROG port, for example
+  `/dev/ttyUSB0` through the DevKitC's CP210x.
+* **JTAG** uses the Espressif OpenOCD fork with Zephyr awareness and a single
+  core. SMP plus `ESP_RTOS Zephyr` fails while the targets are created:
 
-* **Two USB peripherals share GPIO19/20.** `303a:1001` is the JTAG/serial
-  bridge, present in ROM and bootloader mode. `27b1:0004` is the OTG CDC ACM,
-  present once the Zephyr app runs. Mutually exclusive: the JTAG interface
-  disappears as soon as Zephyr starts the OTG stack.
+  ```sh
+  ~/openocd-espressif/src/openocd -s ~/openocd-espressif/tcl \
+      -c 'set ESP_RTOS Zephyr; set ESP_ONLYCPU 1' -f board/esp32s3-builtin.cfg
+  xtensa-espressif_esp32s3_zephyr-elf-gdb build/ESP32S3Zephyr/zephyr_build/zephyr/zephyr.elf \
+      -ex 'target extended-remote :3333'
+  ```
 * **`waf --upload`** calls `esptool write-flash 0x0 zephyr.bin` for any board
   whose `ZEPHYR_BOARD` contains `esp32`. Put the board in bootloader mode with
   BOOT plus RESET first, or esptool fails with "Write timeout".
-* **Console** appears as
-  `/dev/serial/by-id/usb-ArduPilot_esp32s3_zephyr_<MAC>-if00` about a second
-  after reset, once the CDC ACM stack initialises.
 * **OpenOCD** needs the Espressif fork. The distro 0.12.0 build does not
   support `303a:1001`.
 
