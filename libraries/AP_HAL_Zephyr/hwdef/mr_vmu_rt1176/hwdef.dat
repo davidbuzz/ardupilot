@@ -76,6 +76,12 @@ define AP_PICCOLOCAN_ENABLED 0
 # AP_FETtecOneWire (serial ESC protocol, unrelated to CAN) never enabled here.
 define AP_FETTEC_ONEWIRE_ENABLED 0
 
+# Per-motor MOT_SPIN_MINx override (experimental, bench). Lets a weak corner
+# (here rear-left) be given more low/mid output to match the others. Each
+# MOT_SPIN_MINx defaults 0 = use the global MOT_SPIN_MIN (stock behaviour).
+define AP_MOTORS_SPIN_MIN_PER_MOTOR_ENABLED 1
+define AP_MOTORS_SPIN_ARM_PER_MOTOR_ENABLED 1
+
 # 16 KiB parameter/mission storage (was the 8 KiB zephyr.h default).
 define HAL_STORAGE_SIZE 16384
 

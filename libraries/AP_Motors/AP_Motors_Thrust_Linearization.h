@@ -1,5 +1,6 @@
 #pragma once
 
+#include "AP_Motors_config.h"
 #include <AP_Param/AP_Param.h>
 #include <Filter/LowPassFilter.h>
 
@@ -19,6 +20,12 @@ public:
 
     // Converts desired thrust to linearized actuator output in a range of 0~1
     float thrust_to_actuator(float thrust_in) const;
+
+#if AP_MOTORS_SPIN_MIN_PER_MOTOR_ENABLED
+    // as thrust_to_actuator() above but with an explicit spin_min, used by the
+    // per-motor MOT_SPIN_MINx experiment
+    float thrust_to_actuator(float thrust_in, float spin_min_override) const;
+#endif
 
     // Inverse of above
     float actuator_to_thrust(float actuator) const;

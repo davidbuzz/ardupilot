@@ -158,7 +158,11 @@ void AP_MotorsMatrix::output_to_motors()
             // sends output to motors when armed but not flying
             for (i = 0; i < AP_MOTORS_MAX_NUM_MOTORS; i++) {
                 if (motor_enabled[i]) {
+#if AP_MOTORS_SPIN_ARM_PER_MOTOR_ENABLED
+                    set_actuator_with_slew(_actuator[i], actuator_spin_up_to_ground_idle(i));
+#else
                     set_actuator_with_slew(_actuator[i], actuator_spin_up_to_ground_idle());
+#endif
                 }
             }
             break;
@@ -168,7 +172,11 @@ void AP_MotorsMatrix::output_to_motors()
             // set motor output based on thrust requests
             for (i = 0; i < AP_MOTORS_MAX_NUM_MOTORS; i++) {
                 if (motor_enabled[i]) {
+#if AP_MOTORS_SPIN_MIN_PER_MOTOR_ENABLED
+                    set_actuator_with_slew(_actuator[i], thr_lin.thrust_to_actuator(_thrust_rpyt_out[i], get_spin_min(i)));
+#else
                     set_actuator_with_slew(_actuator[i], thr_lin.thrust_to_actuator(_thrust_rpyt_out[i]));
+#endif
                 }
             }
             break;

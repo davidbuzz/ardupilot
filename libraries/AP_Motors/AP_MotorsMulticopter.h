@@ -112,6 +112,12 @@ public:
     // Thrust Linearization handling
     Thrust_Linearization thr_lin {*this};
 
+#if AP_MOTORS_SPIN_MIN_PER_MOTOR_ENABLED
+    // spin_min to use for a given motor: the per-motor MOT_SPIN_MINx when set
+    // (>0), otherwise the global MOT_SPIN_MIN.  Experimental, bench only.
+    float get_spin_min(uint8_t motor_num) const;
+#endif
+
     // var_info for holding Parameter information
     static const struct AP_Param::GroupInfo        var_info[];
 
@@ -154,7 +160,13 @@ protected:
 
     // gradually increase actuator output to spin_min
     // equals _spin_up_ratio * spin_min (constrained to [0..1])
+#if AP_MOTORS_SPIN_ARM_PER_MOTOR_ENABLED
+    // motor_num 0xFF (default) = global MOT_SPIN_ARM; otherwise scale the
+    // ground-idle target to that motor's MOT_SPIN_ARMx (experimental)
+    float               actuator_spin_up_to_ground_idle(uint8_t motor_num = 0xFF) const;
+#else
     float               actuator_spin_up_to_ground_idle() const;
+#endif
 
     // apply any thrust compensation for the frame
     virtual void        thrust_compensation(void) {}
@@ -184,6 +196,12 @@ protected:
     AP_Float            _slew_dn_time;          // throttle decrease slew limiting
     AP_Float            _safe_time;             // delay after arming when pwm has been re-enabled (esc/servo startup window)
     AP_Float            _spin_arm;              // throttle out ratio which produces the armed spin rate.  (i.e. 0 ~ 1 ) of the full throttle range
+#if AP_MOTORS_SPIN_MIN_PER_MOTOR_ENABLED
+    AP_Float            _spin_min_pm[4];        // per-motor MOT_SPIN_MINx override (0 = use global MOT_SPIN_MIN)
+#endif
+#if AP_MOTORS_SPIN_ARM_PER_MOTOR_ENABLED
+    AP_Float            _spin_arm_pm[4];        // per-motor MOT_SPIN_ARMx override (0 = use global MOT_SPIN_ARM)
+#endif
     AP_Float            _batt_current_max;      // current over which maximum throttle is limited
     AP_Float            _batt_current_time_constant;    // Time constant used to limit the maximum current
     AP_Int16            _pwm_min;               // minimum PWM value that will ever be output to the motors (if 0, vehicle's throttle input channel's min pwm used)

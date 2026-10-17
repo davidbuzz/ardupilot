@@ -8,6 +8,20 @@
 #define AP_MOTORS_TRI_ENABLED 1
 #endif  // AP_MOTORS_TRI_ENABLED
 
+// Per-motor MOT_SPIN_MINx override (experimental, bench use).  When disabled the
+// single MOT_SPIN_MIN is used for every motor, which is the stock behaviour and
+// leaves this shared library byte-identical.  Enable per-board via hwdef.
+#ifndef AP_MOTORS_SPIN_MIN_PER_MOTOR_ENABLED
+#define AP_MOTORS_SPIN_MIN_PER_MOTOR_ENABLED 0
+#endif
+
+// Per-motor MOT_SPIN_ARMx armed-idle override (experimental, bench use).  When
+// disabled the single MOT_SPIN_ARM applies to every motor (stock behaviour,
+// byte-identical).  Enable per-board via hwdef.
+#ifndef AP_MOTORS_SPIN_ARM_PER_MOTOR_ENABLED
+#define AP_MOTORS_SPIN_ARM_PER_MOTOR_ENABLED 0
+#endif
+
 #ifndef AP_MOTORS_FRAME_DEFAULT_ENABLED
 #define AP_MOTORS_FRAME_DEFAULT_ENABLED 1
 #endif

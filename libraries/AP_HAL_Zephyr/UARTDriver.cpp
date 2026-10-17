@@ -823,7 +823,15 @@ void UARTDriver::_irq_handler(const struct device *dev, void *user_data)
 
 void UARTDriver::_fill_tx_fifo()
 {
-    uint8_t tmp[32];
+    /* 512, not 32 (2026-10-12, measured). With 32-byte fills every fill became
+       its own USB transfer: the host saw a median of 10 bytes per read, ~2 ms
+       apart, and the link capped at 4.8-5.0 kB/s in three measurements - which
+       is what starved FTP replies and made a 911-parameter fetch take 88 s.
+       AP_HAL_ChibiOS hands the USB serial driver its whole pending vector and
+       the packets go out back to back. The CDC class ring is
+       CONFIG_USBD_CDC_ACM_BUF_POOL_SIZE bytes, so a fill of that size lets the
+       class build full 64-byte packets. Static, not on this (work-queue) stack. */
+    static uint8_t tmp[512];
 
     /* USB CDC with no host session (DTR low): hand NOTHING to the class. */
     uint32_t dtr = 0;

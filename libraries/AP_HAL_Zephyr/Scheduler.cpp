@@ -422,8 +422,7 @@ extern "C" uint32_t ap_lpi2c_stat_bbok_us;
 extern "C" uint16_t g_rcout_last_pulse[4];
 extern "C" int16_t  g_rcout_last_rc[4];
 extern "C" uint8_t  g_rcout_safety;
-/* Defined in AP_Logger/AP_Logger_File.cpp - reported from HERE, not from
-   io_timer(), because that runs on the starved log_io thread. */
+
 /* Defined in AP_HAL_Zephyr/RCOutput.cpp, for the i.MX RT11xx only. extern "C"
    and at FILE scope: a plain extern inside namespace Zephyr resolves to
    Zephyr::ap_flexpwm_dump, and a linkage specification is not allowed inside a
@@ -431,11 +430,6 @@ extern "C" uint8_t  g_rcout_safety;
 #if defined(CONFIG_SOC_SERIES_IMXRT11XX)
 extern "C" void ap_flexpwm_dump(void);
 #endif
-extern "C" uint32_t g_logdiag_gap_max;
-extern "C" uint32_t g_logdiag_snl_max;
-extern "C" uint32_t g_logdiag_snl_calls;
-extern "C" uint32_t g_logdiag_iot_max;
-extern "C" uint32_t g_logdiag_iot_calls;
 #endif  /* AP_ZEPHYR_BRINGUP_DIAG */
 
 void Scheduler::delay(uint16_t ms)
@@ -629,9 +623,45 @@ void Scheduler::delay_microseconds_boost(uint16_t us)
 #endif
 }
 
+
+#if AP_ZEPHYR_BRINGUP_DIAG
+/* MICROBENCH: cost of the primitives every task pays for, measured on this
+   board rather than assumed. N iterations each, k_cycle_get_32() at 1 GHz.
+   Runs once on main (from boost_end) and once on the monitor thread. */
+#include "Semaphores.h"
+static void ap_zephyr_microbench(const char *who)
+{
+    static struct k_mutex mb_mutex; static bool mb_init; static struct k_sem mb_sem;
+    static Zephyr::Semaphore mb_hal_sem;
+    if (!mb_init) { k_mutex_init(&mb_mutex); k_sem_init(&mb_sem, 0, 1); mb_init = true; }
+    const uint32_t N = 10000;
+    const uint32_t cyc_per_us = CONFIG_SYS_CLOCK_HW_CYCLES_PER_SEC / 1000000U;
+    uint32_t t0, mtx_ns, sem_ns, us64_ns, prio_ns, ksem_ns;
+    t0 = k_cycle_get_32(); for (uint32_t i = 0; i < N; i++) { k_mutex_lock(&mb_mutex, K_FOREVER); k_mutex_unlock(&mb_mutex); }
+    mtx_ns = (k_cycle_get_32() - t0) * 1000U / cyc_per_us / N;
+    t0 = k_cycle_get_32(); for (uint32_t i = 0; i < N; i++) { mb_hal_sem.take_blocking(); mb_hal_sem.give(); }
+    sem_ns = (k_cycle_get_32() - t0) * 1000U / cyc_per_us / N;
+    t0 = k_cycle_get_32(); for (uint32_t i = 0; i < N; i++) { volatile uint64_t u = AP_HAL::micros64(); (void)u; }
+    us64_ns = (k_cycle_get_32() - t0) * 1000U / cyc_per_us / N;
+    t0 = k_cycle_get_32(); for (uint32_t i = 0; i < N; i++) { volatile int pr = k_thread_priority_get(k_current_get()); (void)pr; }
+    prio_ns = (k_cycle_get_32() - t0) * 1000U / cyc_per_us / N;
+    t0 = k_cycle_get_32(); for (uint32_t i = 0; i < N; i++) { k_sem_give(&mb_sem); k_sem_take(&mb_sem, K_NO_WAIT); }
+    ksem_ns = (k_cycle_get_32() - t0) * 1000U / cyc_per_us / N;
+    printk("MICROBENCH %s: k_mutex lock+unlock=%luns  HAL Semaphore take+give=%luns  micros64=%luns  prio_get=%luns  k_sem give+take=%luns\n",
+           who, (unsigned long)mtx_ns, (unsigned long)sem_ns, (unsigned long)us64_ns, (unsigned long)prio_ns, (unsigned long)ksem_ns);
+    GCS_SEND_TEXT(MAV_SEVERITY_INFO, "MB %s mtx%lu sem%lu us64%lu prio%lu ksem%lu", who,
+                  (unsigned long)mtx_ns, (unsigned long)sem_ns, (unsigned long)us64_ns, (unsigned long)prio_ns, (unsigned long)ksem_ns);
+}
+#endif  /* AP_ZEPHYR_BRINGUP_DIAG */
+
 void Scheduler::boost_end()
 {
     g_ap_loop_count++;          /* once per main-loop iteration - see above */
+#if AP_ZEPHYR_BRINGUP_DIAG
+    if (g_ap_loop_count == 3000) {
+        ap_zephyr_microbench("main");
+    }
+#endif
     AP_PROF_TICK(AP_PROF_LOOP_COUNT);
 #if APM_MAIN_PRIORITY_BOOST != APM_MAIN_PRIORITY
     if (in_main_thread() && _priority_boosted) {
@@ -1618,6 +1648,10 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
         }
 
 #if defined(CONFIG_THREAD_RUNTIME_STATS) && AP_ZEPHYR_BRINGUP_DIAG
+            {
+                static bool mb_done;
+                if (!mb_done && g_ap_loop_count > 3500) { mb_done = true; ap_zephyr_microbench("mon"); }
+            }
         /* Per-thread CPU, once per 10 s. Measured rather than inferred: which
            threads actually consume the core is the question that decides
            whether a starved thread needs a bigger share or the load needs to
@@ -1850,14 +1884,6 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                            (unsigned)g_rcout_last_pulse[2], (unsigned)g_rcout_last_pulse[3],
                            (int)g_rcout_last_rc[0]);
 #if HAL_LOGGING_ENABLED
-                    GCS_SEND_TEXT(MAV_SEVERITY_INFO, "LOGDIAG gap%lu snl%lu/%lu iot%lu n%lu",
-                           (unsigned long)g_logdiag_gap_max,
-                           (unsigned long)g_logdiag_snl_max,
-                           (unsigned long)g_logdiag_snl_calls,
-                           (unsigned long)g_logdiag_iot_max,
-                           (unsigned long)g_logdiag_iot_calls);
-                    g_logdiag_gap_max = 0; g_logdiag_snl_max = 0;
-                    g_logdiag_iot_max = 0; g_logdiag_iot_calls = 0;
 #endif
                     GCS_SEND_TEXT(MAV_SEVERITY_INFO, "ACCT thr%u idle%u isr%u",
                            (unsigned)(all2 ? dsum * 100U / all2 : 0),

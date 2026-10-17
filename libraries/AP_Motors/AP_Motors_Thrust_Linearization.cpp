@@ -107,6 +107,17 @@ float Thrust_Linearization::thrust_to_actuator(float thrust_in) const
     return spin_min + (spin_max - spin_min) * apply_thrust_curve_and_volt_scaling(thrust_in);
 }
 
+#if AP_MOTORS_SPIN_MIN_PER_MOTOR_ENABLED
+// as thrust_to_actuator() above but with an explicit spin_min (per-motor experiment).
+// spin_min_override < 0 falls back to the global MOT_SPIN_MIN.
+float Thrust_Linearization::thrust_to_actuator(float thrust_in, float spin_min_override) const
+{
+    thrust_in = constrain_float(thrust_in, 0.0, 1.0);
+    const float smin = (spin_min_override < 0.0) ? spin_min.get() : spin_min_override;
+    return smin + (spin_max - smin) * apply_thrust_curve_and_volt_scaling(thrust_in);
+}
+#endif
+
 // inverse of above, tested with AP_Motors/examples/expo_inverse_test
 // used to calculate equivelent motor throttle level to direct ouput, used in tailsitter transtions
 float Thrust_Linearization::actuator_to_thrust(float actuator) const

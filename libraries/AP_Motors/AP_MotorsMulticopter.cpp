@@ -133,6 +133,74 @@ const AP_Param::GroupInfo AP_MotorsMulticopter::var_info[] = {
     // @User: Advanced
     AP_GROUPINFO("SPIN_ARM", 19, AP_MotorsMulticopter, _spin_arm, AP_MOTORS_SPIN_ARM_DEFAULT),
 
+#if AP_MOTORS_SPIN_MIN_PER_MOTOR_ENABLED
+    // @Param: SPIN_MIN1
+    // @DisplayName: Motor 1 Spin minimum override
+    // @Description: Per-motor override of MOT_SPIN_MIN for motor 1. 0 uses the global MOT_SPIN_MIN. Experimental: raising it gives a weak corner more low/mid output to match the others. Constrained below MOT_SPIN_MAX in use.
+    // @Range: 0.0 0.5
+    // @Increment: 0.01
+    // @User: Advanced
+    AP_GROUPINFO("SPIN_MIN1", 46, AP_MotorsMulticopter, _spin_min_pm[0], 0),
+
+    // @Param: SPIN_MIN2
+    // @DisplayName: Motor 2 Spin minimum override
+    // @Description: Per-motor override of MOT_SPIN_MIN for motor 2. 0 uses the global MOT_SPIN_MIN. Experimental: raising it gives a weak corner more low/mid output to match the others. Constrained below MOT_SPIN_MAX in use.
+    // @Range: 0.0 0.5
+    // @Increment: 0.01
+    // @User: Advanced
+    AP_GROUPINFO("SPIN_MIN2", 47, AP_MotorsMulticopter, _spin_min_pm[1], 0),
+
+    // @Param: SPIN_MIN3
+    // @DisplayName: Motor 3 Spin minimum override
+    // @Description: Per-motor override of MOT_SPIN_MIN for motor 3. 0 uses the global MOT_SPIN_MIN. Experimental: raising it gives a weak corner more low/mid output to match the others. Constrained below MOT_SPIN_MAX in use.
+    // @Range: 0.0 0.5
+    // @Increment: 0.01
+    // @User: Advanced
+    AP_GROUPINFO("SPIN_MIN3", 48, AP_MotorsMulticopter, _spin_min_pm[2], 0),
+
+    // @Param: SPIN_MIN4
+    // @DisplayName: Motor 4 Spin minimum override
+    // @Description: Per-motor override of MOT_SPIN_MIN for motor 4. 0 uses the global MOT_SPIN_MIN. Experimental: raising it gives a weak corner more low/mid output to match the others. Constrained below MOT_SPIN_MAX in use.
+    // @Range: 0.0 0.5
+    // @Increment: 0.01
+    // @User: Advanced
+    AP_GROUPINFO("SPIN_MIN4", 49, AP_MotorsMulticopter, _spin_min_pm[3], 0),
+#endif  // AP_MOTORS_SPIN_MIN_PER_MOTOR_ENABLED
+
+#if AP_MOTORS_SPIN_ARM_PER_MOTOR_ENABLED
+    // @Param: SPIN_ARM1
+    // @DisplayName: Motor 1 armed-idle override
+    // @Description: Per-motor override of MOT_SPIN_ARM (armed idle) for motor 1. 0 uses the global MOT_SPIN_ARM. Experimental: lets a hard-starting corner idle higher at arm than the others. Constrained below MOT_SPIN_MAX in use.
+    // @Range: 0.0 0.6
+    // @Increment: 0.01
+    // @User: Advanced
+    AP_GROUPINFO("SPIN_ARM1", 50, AP_MotorsMulticopter, _spin_arm_pm[0], 0),
+
+    // @Param: SPIN_ARM2
+    // @DisplayName: Motor 2 armed-idle override
+    // @Description: Per-motor override of MOT_SPIN_ARM (armed idle) for motor 2. 0 uses the global MOT_SPIN_ARM. Experimental: lets a hard-starting corner idle higher at arm than the others. Constrained below MOT_SPIN_MAX in use.
+    // @Range: 0.0 0.6
+    // @Increment: 0.01
+    // @User: Advanced
+    AP_GROUPINFO("SPIN_ARM2", 51, AP_MotorsMulticopter, _spin_arm_pm[1], 0),
+
+    // @Param: SPIN_ARM3
+    // @DisplayName: Motor 3 armed-idle override
+    // @Description: Per-motor override of MOT_SPIN_ARM (armed idle) for motor 3. 0 uses the global MOT_SPIN_ARM. Experimental: lets a hard-starting corner idle higher at arm than the others. Constrained below MOT_SPIN_MAX in use.
+    // @Range: 0.0 0.6
+    // @Increment: 0.01
+    // @User: Advanced
+    AP_GROUPINFO("SPIN_ARM3", 52, AP_MotorsMulticopter, _spin_arm_pm[2], 0),
+
+    // @Param: SPIN_ARM4
+    // @DisplayName: Motor 4 armed-idle override
+    // @Description: Per-motor override of MOT_SPIN_ARM (armed idle) for motor 4. 0 uses the global MOT_SPIN_ARM. Experimental: lets a hard-starting corner idle higher at arm than the others. Constrained below MOT_SPIN_MAX in use.
+    // @Range: 0.0 0.6
+    // @Increment: 0.01
+    // @User: Advanced
+    AP_GROUPINFO("SPIN_ARM4", 53, AP_MotorsMulticopter, _spin_arm_pm[3], 0),
+#endif  // AP_MOTORS_SPIN_ARM_PER_MOTOR_ENABLED
+
     // @Param: BAT_CURR_TC
     // @DisplayName: Motor Current Max Time Constant
     // @Description: Time constant used to limit the maximum current
@@ -508,10 +576,26 @@ void AP_MotorsMulticopter::set_actuator_with_slew(float& actuator_output, float 
 
 // gradually increase actuator output to spin_min
 // equals _spin_up_ratio * spin_min (constrained to [0..1])
+#if AP_MOTORS_SPIN_ARM_PER_MOTOR_ENABLED
+// Experimental per-motor armed idle: the global ramp still reaches _spin_arm at
+// full ground idle; scale it by (MOT_SPIN_ARMx / MOT_SPIN_ARM) so motor_num
+// reaches its own armed-idle value.  motor_num 0xFF or no per-motor value keeps
+// the global behaviour.
+float AP_MotorsMulticopter::actuator_spin_up_to_ground_idle(uint8_t motor_num) const
+{
+    const float base = constrain_float(_spin_up_ratio, 0.0f, 1.0f) * thr_lin.get_spin_min();
+    if ((motor_num < ARRAY_SIZE(_spin_arm_pm)) && is_positive(_spin_arm_pm[motor_num]) && is_positive(_spin_arm)) {
+        const float arm_i = constrain_float(_spin_arm_pm[motor_num], 0.0f, thr_lin.get_spin_max());
+        return base * (arm_i / _spin_arm);
+    }
+    return base;
+}
+#else
 float AP_MotorsMulticopter::actuator_spin_up_to_ground_idle() const
 {
     return constrain_float(_spin_up_ratio, 0.0f, 1.0f) * thr_lin.get_spin_min();
 }
+#endif
 
 // return throttle out for motor motor_num, returns true if value is valid false otherwise
 bool AP_MotorsMulticopter::get_thrust(uint8_t motor_num, float& thr_out) const
@@ -521,12 +605,29 @@ bool AP_MotorsMulticopter::get_thrust(uint8_t motor_num, float& thr_out) const
     }
 
     // Constrain to linearization range.
+#if AP_MOTORS_SPIN_MIN_PER_MOTOR_ENABLED
+    const float actuator = constrain_float(_actuator[motor_num], get_spin_min(motor_num), thr_lin.get_spin_max());
+#else
     const float actuator = constrain_float(_actuator[motor_num], thr_lin.get_spin_min(), thr_lin.get_spin_max());
+#endif
 
     // Remove linearization and compensation gain
     thr_out = thr_lin.actuator_to_thrust(actuator) / thr_lin.get_compensation_gain();
     return true;
 }
+
+#if AP_MOTORS_SPIN_MIN_PER_MOTOR_ENABLED
+// spin_min to use for a given motor: the per-motor MOT_SPIN_MINx when set (>0),
+// otherwise the global MOT_SPIN_MIN.  Constrained below MOT_SPIN_MAX so the
+// linearization band can never invert.  Experimental, bench only.
+float AP_MotorsMulticopter::get_spin_min(uint8_t motor_num) const
+{
+    if ((motor_num < ARRAY_SIZE(_spin_min_pm)) && is_positive(_spin_min_pm[motor_num])) {
+        return constrain_float(_spin_min_pm[motor_num], 0.0f, thr_lin.get_spin_max() - 0.05f);
+    }
+    return thr_lin.get_spin_min();
+}
+#endif  // AP_MOTORS_SPIN_MIN_PER_MOTOR_ENABLED
 
 // parameter checks for MOT_PWM_MIN/MAX, returns true if parameters are valid
 bool AP_MotorsMulticopter::check_mot_pwm_params() const
