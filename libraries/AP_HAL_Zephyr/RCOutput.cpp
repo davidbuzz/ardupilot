@@ -432,12 +432,21 @@ void RCOutput::_report_pwm_set(uint8_t chan, int rc)
     }
 }
 
+/* Bring-up diagnostics: thread walks, per-callback and per-transfer timing,
+   register dumps and the STATUSTEXT lines that report them. They cost CPU on a
+   board that has none to spare and they are not part of AP_HAL_ChibiOS. Off by
+   default; a hwdef `define AP_ZEPHYR_BRINGUP_DIAG 1` turns them back on. */
+#ifndef AP_ZEPHYR_BRINGUP_DIAG
+#define AP_ZEPHYR_BRINGUP_DIAG 0
+#endif
+#if AP_ZEPHYR_BRINGUP_DIAG
 /* Published for the HAL monitor thread - see the RCOUTDIAG note below. */
 extern "C" {
 uint16_t g_rcout_last_pulse[4];
 int16_t  g_rcout_last_rc[4];
 uint8_t  g_rcout_safety = 255;
 }
+#endif  /* AP_ZEPHYR_BRINGUP_DIAG */
 
 /*
   FLEXPWM register dump for the four motor channels.
@@ -465,7 +474,7 @@ uint8_t  g_rcout_safety = 255;
   CTRL 0x06 VAL0 0x0A VAL1 0x0E VAL2 0x12 VAL3 0x16 OCTRL 0x22 STS 0x24;
   OUTEN 0x180 MCTRL 0x188. Bases PWM1 0x4018C000, PWM2 0x40190000.
  */
-#if defined(__ZEPHYR__) && defined(CONFIG_SOC_SERIES_IMXRT11XX)
+#if defined(__ZEPHYR__) && defined(CONFIG_SOC_SERIES_IMXRT11XX) && AP_ZEPHYR_BRINGUP_DIAG
 #define AP_FLEXPWM1_BASE 0x4018C000UL
 #define AP_FLEXPWM2_BASE 0x40190000UL
 #define AP_FPWM_SM_STEP  0x60UL
@@ -587,11 +596,13 @@ void RCOutput::_apply_channel(uint8_t chan)
        pwm_set(), plus the safety state and the driver's return code. */
     const int rc_set = pwm_set(m.dev, m.hw_channel,
                                PWM_USEC(period_us), PWM_USEC(pulse_us), 0);
+#if AP_ZEPHYR_BRINGUP_DIAG
     if (chan < 4) {
         g_rcout_last_pulse[chan] = pulse_us;
         g_rcout_last_rc[chan] = (int16_t)rc_set;
     }
     g_rcout_safety = (uint8_t)safety_state;
+#endif
     _report_pwm_set(chan, rc_set);
 }
 #endif

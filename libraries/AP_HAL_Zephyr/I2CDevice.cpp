@@ -27,6 +27,14 @@
 #include <errno.h>
 #include <zephyr/sys/sys_io.h>
 
+/* Bring-up diagnostics: thread walks, per-callback and per-transfer timing,
+   register dumps and the STATUSTEXT lines that report them. They cost CPU on a
+   board that has none to spare and they are not part of AP_HAL_ChibiOS. Off by
+   default; a hwdef `define AP_ZEPHYR_BRINGUP_DIAG 1` turns them back on. */
+#ifndef AP_ZEPHYR_BRINGUP_DIAG
+#define AP_ZEPHYR_BRINGUP_DIAG 0
+#endif
+#if AP_ZEPHYR_BRINGUP_DIAG
 /* I2CERR: the compass and baro on this board report Bad Health, and the bus
    threads were measured blocking 24-29 ms per callback (max 1.68 s) while
    holding the DeviceBus semaphore. Cheapening a failure does not make a
@@ -44,6 +52,7 @@ int32_t  g_i2c_lasterr[3];
 uint32_t g_i2c_maxus[3];
 uint64_t g_i2c_okus[3];   /* summed elapsed of SUCCESSFUL transfers */
 }
+#endif  /* AP_ZEPHYR_BRINGUP_DIAG */
 #endif
 
 using namespace Zephyr;
@@ -243,7 +252,9 @@ bool I2CDevice::transfer(const uint8_t *send, uint32_t send_len,
         : (1U + 2U * (((8U * 1000000UL / bclk) * (send_len + recv_len)) / 1000U));
     const uint32_t budget_ms = MAX(expected_ms, _timeout_ms);
     const uint32_t t0_us = AP_HAL::micros();
+#if AP_ZEPHYR_BRINGUP_DIAG
     const uint8_t slot = (uint8_t)((_bus < 3U) ? _bus : 2U);
+#endif
 
     for (uint8_t i = 0; i < attempts; i++) {
         int ret = 0;
@@ -269,13 +280,16 @@ bool I2CDevice::transfer(const uint8_t *send, uint32_t send_len,
         }
 
         if (ret == 0) {
+#if AP_ZEPHYR_BRINGUP_DIAG
             g_i2c_ok[slot]++;
             const uint32_t el = AP_HAL::micros() - t0_us;
             g_i2c_okus[slot] += el;
             if (el > g_i2c_maxus[slot]) { g_i2c_maxus[slot] = el; }
+#endif
             return true;
         }
 
+#if AP_ZEPHYR_BRINGUP_DIAG
         g_i2c_lasterr[slot] = (int32_t)ret;
         if (ret == -ETIMEDOUT) {
             g_i2c_timeout[slot]++;
@@ -284,6 +298,7 @@ bool I2CDevice::transfer(const uint8_t *send, uint32_t send_len,
         } else {
             g_i2c_otherr[slot]++;
         }
+#endif
 
         /* Out of budget - another attempt would cost the driver's whole
            internal wait again, and the bus semaphore is held throughout. */
@@ -294,11 +309,13 @@ bool I2CDevice::transfer(const uint8_t *send, uint32_t send_len,
 
     /* Every attempt failed. DISARM THE PERIPHERAL before giving up, or the next
      * transfer inherits a controller still mid-transaction. */
+#if AP_ZEPHYR_BRINGUP_DIAG
     g_i2c_reset[slot]++;
     {
         const uint32_t el = AP_HAL::micros() - t0_us;
         if (el > g_i2c_maxus[slot]) { g_i2c_maxus[slot] = el; }
     }
+#endif
     ap_lpi2c_hard_reset(_bus);
     /* re-apply THIS device's requested clock, not an unconditional FAST:
        a 100 kHz device (e.g. the INA2xx battery backend) would otherwise

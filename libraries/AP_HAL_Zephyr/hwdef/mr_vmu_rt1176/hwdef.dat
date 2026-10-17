@@ -246,8 +246,8 @@ define AP_COMPASS_PROBING_ENABLED 1
 # and fast sampling on top of it cost more than it returned.
 define HAL_DEFAULT_INS_FAST_SAMPLE 0
 
-# Loop-rate default 600 (2026-08-08), measured.
-define SCHEDULER_DEFAULT_LOOP_RATE 600
+# The loop-rate default is SCHED_LOOP_RATE in defaults.parm, the way a ChibiOS
+# board ships one. 600 here saturated the CPU; see the note there.
 
 # Lua scripting (enabled 2026-08-13).
 define AP_SCRIPTING_ENABLED 1

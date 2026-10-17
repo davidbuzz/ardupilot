@@ -80,4 +80,49 @@ FSTRATE_ENABLE 1
 # gone; this parameter reproduces the old wiring the way every ChibiOS board
 # does it, and leaves the port selectable.
 #   23 = RCIN
+# CAUTION (2026-10-12): on the current airframe the ELRS receiver is on SERIAL2
+# (TELEM2), which is also 23. Two ports at 23 is "PreArm: Multiple SERIAL ports
+# configured for RC in", so the vehicle holds SERIAL7_PROTOCOL -1. After any
+# reset-to-defaults, set SERIAL7_PROTOCOL -1 again (or change this line).
 SERIAL7_PROTOCOL 23
+
+# Main loop rate. The old hwdef default of 600 Hz was measured on 2026-08-08 on
+# a lighter build; by 2026-10-12 the same board achieved 275 Hz against it with
+# the CPU 100% busy and 0% idle. When the loop cannot be met, the INS wait never
+# sleeps, so main never gives the lower-priority threads anything beyond the
+# per-loop yield - the same thing a ChibiOS board would do if overloaded, but
+# ChibiOS boards are not overloaded at 400 Hz. The result here was the I2C
+# compass and baros reporting Bad Health (successful transfers taking
+# 85-122 ms of wall time), MAVFTP unusable, and "AP_Logger: stuck thread
+# (fsync)" from one io_timer() call that took 22.8 s.
+#
+# 300 is the bench-measured value that removed all of that: loop ~275-345 Hz,
+# 0% I2C unhealthy. With the fast rate thread (FSTRATE_ENABLE 1 above) the
+# attitude rate loop runs at gyro rate regardless of this number. Raise it only
+# after PM.NLon shows no long loops at the higher rate.
+SCHED_LOOP_RATE 300
+
+# ESC update rate. Two of the ESCs fitted in the repairs after flight attempt 3
+# accept only 50 Hz PWM. AP_MotorsMatrix::init() applies ONE rate to the whole
+# motor mask (rc_set_freq(mask, _speed_hz), fed from this parameter), so there
+# is no per-motor rate: all four run at the slowest ESC's rate.
+#
+# Reachable with the existing FlexPWM setup, checked rather than assumed:
+# nxp,prescaler is 128, giving the 1.875 MHz counter tick the register dump
+# measured, so 20 ms is 37,500 counts against the 16-bit limit of 65,535.
+# pwm_mcux.c refuses any period over UINT16_MAX and cannot change the
+# prescaler at runtime, so the floor on this board is about 28.6 Hz.
+#
+# Cost: the Copter default is 490 Hz. At 50 Hz a motor command only reaches
+# the ESC every 20 ms, which is a real reduction in attitude-control
+# bandwidth. Revisit when those two ESCs are replaced.
+RC_SPEED 50
+
+# Throttle failsafe OFF. Bench setting, at the maintainer's request (2026-10-12):
+# with the transmitter off, an ELRS receiver in failsafe streams frozen stick
+# values and the vehicle would otherwise act on them during bench work. With
+# this at 0 the FC cannot tell "pilot holding centre sticks" from "transmitter
+# dead", so it MUST be 1 before anything flies. Baked in here because
+# parameter sets do not get through while the board is saturated, and a
+# reset-to-defaults is the planned way back to a known state.
+FS_THR_ENABLE 0

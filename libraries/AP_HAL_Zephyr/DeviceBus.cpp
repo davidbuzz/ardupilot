@@ -184,6 +184,14 @@ DeviceBus *DeviceBus::get_bus(uint8_t bus_num, uint8_t bus_type)
 /*
   per-bus callback thread
 */
+/* Bring-up diagnostics: thread walks, per-callback and per-transfer timing,
+   register dumps and the STATUSTEXT lines that report them. They cost CPU on a
+   board that has none to spare and they are not part of AP_HAL_ChibiOS. Off by
+   default; a hwdef `define AP_ZEPHYR_BRINGUP_DIAG 1` turns them back on. */
+#ifndef AP_ZEPHYR_BRINGUP_DIAG
+#define AP_ZEPHYR_BRINGUP_DIAG 0
+#endif
+#if AP_ZEPHYR_BRINGUP_DIAG
 /* BUSCB: SPI2 measured 20% of the whole CPU in CPUALL, and it sits at PREEMPT(2)
    so it outranks main AND the entire p>=10 band. The loop below is already at
    ChibiOS parity (AP_HAL_ChibiOS/Device.cpp, same 50ms cap and same 100us floor
@@ -195,6 +203,7 @@ uint32_t g_buscb_calls[6];
 uint64_t g_buscb_us[6];
 uint32_t g_buscb_max_us[6];
 }
+#endif  /* AP_ZEPHYR_BRINGUP_DIAG */
 
 void DeviceBus::bus_thread(void *arg1, void *arg2, void *arg3)
 {
@@ -229,8 +238,11 @@ void DeviceBus::bus_thread(void *arg1, void *arg2, void *arg3)
                     AP_PHASE_BUSN(prof_slot, AP_PHASE_BUS_CB);
                     AP_PROF_TICK(AP_PROF_BUSCB_COUNT);
                     AP_PROF_TICK(AP_PROF_BUSCNT0 + (prof_slot % AP_PROF_MAX_BUSES));
+#if AP_ZEPHYR_BRINGUP_DIAG
                     const uint64_t cb_t0 = AP_HAL::micros64();
+#endif
                     callback->cb();
+#if AP_ZEPHYR_BRINGUP_DIAG
                     const uint32_t cb_dt = (uint32_t)(AP_HAL::micros64() - cb_t0);
                     const uint8_t bs = prof_slot % 6U;
                     g_buscb_calls[bs]++;
@@ -238,6 +250,7 @@ void DeviceBus::bus_thread(void *arg1, void *arg2, void *arg3)
                     if (cb_dt > g_buscb_max_us[bs]) {
                         g_buscb_max_us[bs] = cb_dt;
                     }
+#endif
                 }
             }
         }

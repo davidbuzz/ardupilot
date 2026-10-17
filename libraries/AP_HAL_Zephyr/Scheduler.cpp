@@ -27,6 +27,13 @@
 extern AP_IOMCU iomcu;
 #endif
 #include "DeviceBus.h"
+/* Bring-up diagnostics: thread walks, per-callback and per-transfer timing,
+   register dumps and the STATUSTEXT lines that report them. They cost CPU on a
+   board that has none to spare and they are not part of AP_HAL_ChibiOS. Off by
+   default; a hwdef `define AP_ZEPHYR_BRINGUP_DIAG 1` turns them back on. */
+#ifndef AP_ZEPHYR_BRINGUP_DIAG
+#define AP_ZEPHYR_BRINGUP_DIAG 0
+#endif
 #include "UARTDriver.h"   /* UARTSTAT byte counters in the LOOPRATE report */
 #include "zephyr/src/ap_hooks.h"
 #include "zephyr/src/rt1176_romapi_flash.h"   /* g_ap_flash_busy/_ops for the WDG line */   /* ap_sysinfo_capture(), ap_persistent_save_fault() */
@@ -369,6 +376,7 @@ uint32_t g_boost_calls;           // delay_microseconds_boost() calls
 uint64_t g_boost_total_us;        // summed time spun in boost
 #endif
 
+#if AP_ZEPHYR_BRINGUP_DIAG
 /* DELAYPROF: requested vs actual for SHORT delays, split by thread, because the
    FTP worker's idle loop is hal.scheduler->delay(2) and its measured poll rate
    was ~1.1 Hz where 2 ms implies ~500 Hz. Split main/non-main because the
@@ -428,6 +436,7 @@ extern "C" uint32_t g_logdiag_snl_max;
 extern "C" uint32_t g_logdiag_snl_calls;
 extern "C" uint32_t g_logdiag_iot_max;
 extern "C" uint32_t g_logdiag_iot_calls;
+#endif  /* AP_ZEPHYR_BRINGUP_DIAG */
 
 void Scheduler::delay(uint16_t ms)
 {
@@ -457,9 +466,11 @@ void Scheduler::delay(uint16_t ms)
        zephyr/prj.conf. */
     const uint64_t start_us = AP_HAL::micros64();
     const uint64_t target_us = (uint64_t)ms * 1000U;
+#if AP_ZEPHYR_BRINGUP_DIAG
     const bool dly_short = (ms <= 4);
     const int dly_prio = k_thread_priority_get(k_current_get());
     const uint8_t dly_b = (dly_prio <= 3) ? 0 : ((dly_prio <= 9) ? 1 : 2);
+#endif
     while (AP_HAL::micros64() - start_us < target_us) {
         /* k_msleep(1), NOT delay_microseconds(1000): the latter busy-waits on some paths,
          * which is exactly what this loop must not do. */
@@ -483,6 +494,7 @@ void Scheduler::delay(uint16_t ms)
             }
         }
     }
+#if AP_ZEPHYR_BRINGUP_DIAG
     if (dly_short) {
         const uint64_t act = AP_HAL::micros64() - start_us;
         g_dly_calls[dly_b]++;
@@ -492,6 +504,7 @@ void Scheduler::delay(uint16_t ms)
             g_dly_max_us[dly_b] = (uint32_t)act;
         }
     }
+#endif
 #ifdef CONFIG_AP_DELAY_CB_PROFILE
     g_delay_calls++;
     g_delay_req_us_total += (uint64_t)ms * 1000U;   // ms -> us
@@ -1197,7 +1210,9 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
 #endif
 
     uint32_t lr_last_ms = 0, lr_last_count = 0;
+#if AP_ZEPHYR_BRINGUP_DIAG
     uint32_t last_cpu_report_ms = 0;
+#endif
 
     while (true) {
         k_msleep(100);
@@ -1408,6 +1423,7 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                               (unsigned long)(g_ap_main_prio_reasserts - lr_last_reassert),
                               (unsigned long)g_ap_main_prio_leaks,
                               (unsigned long)(g_ap_main_prio_inherit_holds - lr_last_hold));
+#if AP_ZEPHYR_BRINGUP_DIAG
                 /* I2C health over MAVLink as well as the console I2CERR line:
                    the compass and both baros sit on I2C, and when they report
                    Bad Health the question is always the same - did the device
@@ -1457,6 +1473,7 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
                     g_i2c_otherr[b] = 0; g_i2c_reset[b] = 0; g_i2c_maxus[b] = 0;
                     g_i2c_okus[b] = 0;
                 }
+#endif  /* AP_ZEPHYR_BRINGUP_DIAG */
                 lr_last_hold = g_ap_main_prio_inherit_holds;
                 lr_last_boost = g_ap_boost_count;
                 lr_last_reassert = g_ap_main_prio_reasserts;
@@ -1600,7 +1617,7 @@ void Scheduler::_monitor_thread_fn(void *arg, void *, void *)
             warned = false;
         }
 
-#ifdef CONFIG_THREAD_RUNTIME_STATS
+#if defined(CONFIG_THREAD_RUNTIME_STATS) && AP_ZEPHYR_BRINGUP_DIAG
         /* Per-thread CPU, once per 10 s. Measured rather than inferred: which
            threads actually consume the core is the question that decides
            whether a starved thread needs a bigger share or the load needs to

@@ -123,7 +123,7 @@ Measured:
 - IMU sampling: 8 kHz gyro FIFO on the ICM-42688-P (`INS_GYRO_RATE=3`),
   hardware-verified 2026-08-09
 - Main loop: 550-560 Hz hardware-verified 2026-08-12, against a 400 Hz
-  requirement. `hwdef.dat` sets `SCHEDULER_DEFAULT_LOOP_RATE 600`
+  requirement. `defaults.parm` sets `SCHED_LOOP_RATE 300`
 
 SPI, I2C and UART all run through eDMA. The `&lpspi1/2/3` DTS comment blocks
 are a historical narrative ending at the 2026-08-09 single-chunk full-duplex
