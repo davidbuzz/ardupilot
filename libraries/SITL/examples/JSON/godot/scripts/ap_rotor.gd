@@ -108,9 +108,10 @@ func physics_update(vehicle: RigidBody3D, pwm: PackedInt32Array, dt: float) -> v
 
 ## extra velocity relative to the air of a surface centred at point, with
 ## its span along span_dir, from this rotor's slipstream. The slipstream is
-## a cylinder of the disc's radius behind it; when it covers only part of
-## the span, the result gives the span's mean dynamic pressure. v_air is
-## the surface's velocity relative to the air outside the slipstream.
+## a cylinder behind the disc with half its area, as momentum theory gives
+## for the fully developed slipstream; when it covers only part of the
+## span, the result gives the span's mean dynamic pressure. v_air is the
+## surface's velocity relative to the air outside the slipstream.
 func propwash_at(point: Vector3, v_air: Vector3, span_dir := Vector3.ZERO, span := 0.0) -> Vector3:
     if slipstream <= 0.0:
         return Vector3.ZERO
@@ -120,7 +121,7 @@ func propwash_at(point: Vector3, v_air: Vector3, span_dir := Vector3.ZERO, span 
     var behind := -rel.dot(axis)
     if behind <= 0.0:
         return Vector3.ZERO
-    var r := 0.5 * diameter
+    var r := 0.5 * diameter / sqrt(2.0)
     var offset := rel + axis * behind
     var covered := 0.0
     var u := span_dir - axis * span_dir.dot(axis)

@@ -359,8 +359,8 @@ rolling resistance act in the ground plane, smoothed near zero speed.
 Propwash: momentum theory gives the induced velocity at the disc from the
 thrust and the inflow, and the fully developed slipstream is twice that.
 It is applied along the thrust axis to surfaces behind the rotor, over the
-part of their span inside a cylinder of the disc's radius, giving the
-span's mean dynamic pressure.
+part of their span inside a cylinder of half the disc's area, the fully
+developed slipstream, giving the span's mean dynamic pressure.
 
 Not modelled yet: ground effect, propeller gyroscopic and P-factor
 effects, motor and battery electrics, and moving mass in hinges.
