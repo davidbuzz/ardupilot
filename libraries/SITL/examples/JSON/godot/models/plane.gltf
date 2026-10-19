@@ -400,7 +400,7 @@
       ]
     },
     {
-      "name": "nose_wheel",
+      "name": "wheel_nose",
       "translation": [
         -0.12,
         0,
@@ -426,7 +426,7 @@
       ]
     },
     {
-      "name": "nose_steering",
+      "name": "steering_nose",
       "translation": [
         0,
         -0.05,
@@ -453,7 +453,7 @@
       ]
     },
     {
-      "name": "main_wheel_left",
+      "name": "wheel_left",
       "translation": [
         0.15,
         -0.17,
@@ -473,7 +473,7 @@
       }
     },
     {
-      "name": "main_wheel_right",
+      "name": "wheel_right",
       "translation": [
         -0.15,
         -0.17,

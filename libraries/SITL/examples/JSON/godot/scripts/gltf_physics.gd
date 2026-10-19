@@ -240,9 +240,9 @@ func _add_part_visual(part: Component, root: Node) -> void:
 func _choose_vehicle(ap_doc: Dictionary, khr: Dictionary, ap: Dictionary, parent_of: Dictionary) -> int:
     if ap_doc.has("vehicle"):
         return int(ap_doc["vehicle"])
-    # otherwise the body that carries the first rotor
+    # otherwise the body that carries the first part
     for i in ap.keys():
-        if not ap[i].has("rotor"):
+        if _part_key(ap[i]) == "":
             continue
         var j: int = i
         while true:
@@ -406,7 +406,6 @@ func _add_collider(state: GLTFState, root: Node, n: Node3D, collider: Dictionary
     var cs := CollisionShape3D.new()
     cs.name = String(n.name) + "_collider"
     cs.shape = shape
-    cs.set_meta("gltf_shape", geometry)
     body.add_child(cs)
     cs.owner = root
     cs.transform = Transform3D(rel.basis.orthonormalized(), rel.origin)
@@ -516,7 +515,7 @@ func _mesh_shape(state: GLTFState, mesh_idx: int, scale: Vector3, convex: bool) 
 
 # ---------------------------------------------------------------- export
 
-func _export_preflight(_state: GLTFState, root: Node) -> Error:
+func _export_preflight(_state: GLTFState, _root: Node) -> Error:
     _export_shapes.clear()
     _export_materials.clear()
     _export_vehicle = null
@@ -547,7 +546,7 @@ func _export_node(state: GLTFState, gltf_node: GLTFNode, json: Dictionary, node:
         ap[node.gltf_key()] = node.to_gltf()
         if node is Hinge:
             # export the pivot at zero deflection
-            var r: Transform3D = node.rest
+            var r: Transform3D = node.rest_transform()
             var q := r.basis.get_rotation_quaternion()
             var sc := r.basis.get_scale()
             json.erase("matrix")
@@ -573,8 +572,9 @@ func _export_post(state: GLTFState) -> Error:
     var ext: Dictionary = json.get("extensions", {})
     if not _export_shapes.is_empty():
         ext[KHR_SHAPES] = {"shapes": _export_shapes}
-        if not KHR_SHAPES in json.get("extensionsUsed", []):
-            json["extensionsUsed"] = json.get("extensionsUsed", []) + [KHR_SHAPES]
+        var used := Array(json.get("extensionsUsed", []))
+        if not KHR_SHAPES in used:
+            json["extensionsUsed"] = used + [KHR_SHAPES]
     if not _export_materials.is_empty():
         ext[KHR_RB] = {"physicsMaterials": _export_materials}
     var vehicle_idx := state.get_nodes().find(_export_vehicle) if _export_vehicle != null else -1
@@ -584,7 +584,7 @@ func _export_post(state: GLTFState) -> Error:
         ext.erase(omi)
     if not ext.is_empty():
         json["extensions"] = ext
-    var used: Array = json.get("extensionsUsed", [])
+    var used := Array(json.get("extensionsUsed", []))
     json["extensionsUsed"] = used.filter(func(e): return not e in OMI_EXTS)
     return OK
 

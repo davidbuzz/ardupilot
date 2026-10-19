@@ -70,6 +70,13 @@ func _notification(what: int) -> void:
         rest = transform * _rotation(-angle)
 
 
+## transform at zero angle, also valid before the node has been in the tree
+func rest_transform() -> Transform3D:
+    if not _initialised:
+        return transform * _rotation(-preview_angle)
+    return rest
+
+
 static func _rotation(deg: float) -> Transform3D:
     return Transform3D(Basis(Vector3.RIGHT, deg_to_rad(deg)), Vector3.ZERO)
 

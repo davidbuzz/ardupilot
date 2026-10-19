@@ -64,7 +64,8 @@ func _ready() -> void:
         get_tree().quit(1)
         return
     print(Report.report(vehicle))
-    vehicle.set_initial_velocity(vehicle.global_basis.z * float(options["spawn-speed"]))
+    if float(options["spawn-speed"]) != 0.0:
+        vehicle.set_initial_velocity(vehicle.global_basis.z * float(options["spawn-speed"]))
     var w: PackedFloat64Array = String(options["wind"]).split_floats(",")
     if w.size() == 3:
         vehicle.wind = Vehicle.TO_NED.transposed() * Vector3(w[0], w[1], w[2])

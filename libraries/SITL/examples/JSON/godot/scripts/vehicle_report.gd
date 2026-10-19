@@ -65,7 +65,7 @@ static func report(vehicle: RigidBody3D) -> String:
             # surfaces that lift upwards set the wing loading and pitch stability
             var up := t.basis.y.normalized().y
             if up > 0.7:
-                var a: float = p.lift_slope() * up * up
+                var a: float = p.lift_slope() * up * up * (1.0 - p.downwash)
                 area += s
                 cl_area += s * (p.cl0 + p.lift_slope() * deg_to_rad(p.stall_angle))
                 slope_area += a * s

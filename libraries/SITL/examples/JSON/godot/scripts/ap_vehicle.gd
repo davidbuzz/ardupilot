@@ -41,6 +41,7 @@ func _ready() -> void:
     linear_damp = 0.0
     angular_damp = 0.0
     _initial_transform = global_transform
+    _initial_velocity = linear_velocity
     _components.clear()
     _find_components(self)
     # pivots first, so parts below them use this step's pose
