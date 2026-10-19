@@ -382,13 +382,13 @@
         "ARDUPILOT_sitl": {
           "rotor": {
             "servo": 3,
-            "maxThrust": 18.0,
-            "thrustExpo": 0.5,
+            "maxThrust": 28.0,
+            "thrustExpo": 0.3,
             "torqueRatio": 0.012,
             "direction": "ccw",
             "timeConstant": 0.1,
-            "diameter": 0.25,
-            "pitchSpeed": 30.0
+            "diameter": 0.3,
+            "pitchSpeed": 50.0
           }
         }
       },
