@@ -81,10 +81,12 @@ class Backend(object):
             print("No display, so running the Godot backend without its window")
             headless = True
         # a fixed frame rate lets the physics run faster than real time
-        # when SITL is sped up; SITL sets the pace
+        # when SITL is sped up; SITL sets the pace, so V-Sync must not
         cmd = [find_godot(), "--path", PROJECT, "--fixed-fps", "50"]
         if headless:
             cmd.append("--headless")
+        else:
+            cmd.append("--disable-vsync")
         cmd.extend(["--",
                     "--vehicle=res://models/%s.gltf" % VEHICLES[self.vehicle],
                     "--port=%u" % self.port])
