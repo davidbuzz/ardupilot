@@ -1,0 +1,23 @@
+; Godot project for the ArduPilot SITL physics backend, see README.md
+
+config_version=5
+
+[application]
+
+config/name="ArduPilot SITL (Godot + Jolt)"
+run/main_scene="res://main.tscn"
+config/features=PackedStringArray("4.4")
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ardupilot_sitl/plugin.cfg")
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+3d/default_gravity=9.80665
+3d/default_linear_damp=0.0
+3d/default_angular_damp=0.0
+common/physics_ticks_per_second=1200
+common/max_physics_steps_per_frame=64
+common/physics_jitter_fix=0.0
