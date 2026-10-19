@@ -84,6 +84,16 @@ func air_velocity_at(point: Vector3) -> Vector3:
     return velocity_at(point) - wind
 
 
+## extra airflow over a point from the slipstreams of the vehicle's rotors,
+## as a velocity of the point relative to the air
+func propwash_at(point: Vector3) -> Vector3:
+    var wash := Vector3.ZERO
+    for c in _components:
+        if c is Rotor:
+            wash += c.propwash_at(point)
+    return wash
+
+
 ## apply actuator and aerodynamic forces for the coming physics step
 func apply_actuators(pwm: PackedInt32Array, dt: float) -> void:
     var v_body := global_basis.orthonormalized().transposed() * (linear_velocity - wind)

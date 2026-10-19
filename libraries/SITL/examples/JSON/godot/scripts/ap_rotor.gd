@@ -42,6 +42,8 @@ extends "res://scripts/ap_component.gd"
 var static_thrust: float = 0.0
 ## thrust after inflow effects (N)
 var thrust: float = 0.0
+## how much faster than the free stream the fully developed slipstream is (m/s)
+var slipstream: float = 0.0
 
 
 func gltf_key() -> String:
@@ -77,6 +79,16 @@ func physics_update(vehicle: RigidBody3D, pwm: PackedInt32Array, dt: float) -> v
         if v_pitch > 0.01:
             thrust *= clampf(1.0 - inflow / v_pitch, 0.0, 1.5)
 
+    # momentum theory: the induced velocity at the disc doubles far behind it
+    var area := PI * 0.25 * diameter * diameter
+    if thrust > 0.0 and area > 0.0:
+        var v_axial := maxf(inflow, 0.0)
+        var rho: float = vehicle.air_density
+        var v_induced := -0.5 * v_axial + sqrt(0.25 * v_axial * v_axial + thrust / (2.0 * rho * area))
+        slipstream = 2.0 * v_induced
+    else:
+        slipstream = 0.0
+
     var force := axis * thrust
     if inplane_drag > 0.0:
         force -= inplane_drag * thrust * (v_air - axis * inflow)
@@ -92,3 +104,18 @@ func physics_update(vehicle: RigidBody3D, pwm: PackedInt32Array, dt: float) -> v
         for child in get_children():
             if child is Node3D:
                 child.rotate_object_local(Vector3.UP, rate * dt)
+
+
+## extra velocity of a point relative to the air when it is in this rotor's
+## slipstream, which is taken as a cylinder of the disc's radius behind it
+func propwash_at(point: Vector3) -> Vector3:
+    if slipstream <= 0.0:
+        return Vector3.ZERO
+    var xform := global_transform
+    var axis := xform.basis.y.normalized()
+    var rel := point - xform.origin
+    var behind := -rel.dot(axis)
+    if behind <= 0.0 or (rel + axis * behind).length() > 0.5 * diameter:
+        return Vector3.ZERO
+    # the air there moves aft, so the point moves forward through it
+    return axis * slipstream

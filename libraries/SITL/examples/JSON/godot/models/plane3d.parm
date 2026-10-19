@@ -1,0 +1,3 @@
+# ArduPlane parameters for models/plane3d.gltf, applied on top of
+# Tools/autotest/models/plane.parm and plane-3d.parm
+TRIM_THROTTLE   40
