@@ -1850,7 +1850,7 @@ if cmd_opts.godot:
         progress("Starting Godot physics backend for instance %u, logging to %s" % (i, logfile))
         backend = godot_physics.Backend(logfile, instance=i, headless=False)
         try:
-            backend.start(godot_model)
+            backend.start(godot_model, godot_physics.reversed_servos_for(cmd_opts.vehicle, cmd_opts.frame))
         except (FileNotFoundError, RuntimeError) as e:
             print(e)
             sys.exit(1)

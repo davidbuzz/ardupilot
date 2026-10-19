@@ -24,13 +24,23 @@ SITL_MODEL = "JSON:127.0.0.1"
 # vehicleinfo.json vehicle -> {frame: model in the Godot project's models directory}
 MODELS = {
     "ArduCopter": {"+": "quadx", "quad": "quadx", "X": "quadx"},
-    "ArduPlane": {"plane": "plane", "plane-3d": "plane3d"},
+    "ArduPlane": {"plane": "plane", "plane-elevrev": "plane", "plane-3d": "plane3d"},
+}
+
+# servo outputs which a frame's SITL model reverses, and whose parameters
+# reverse them back, so the backend must reverse them too
+REVERSED_SERVOS = {
+    "ArduPlane": {"plane-elevrev": (2, 4)},
 }
 
 
 def model_for(vehicle, frame):
     '''the Godot model for a vehicle's frame, or None if there isn't one'''
     return MODELS.get(vehicle, {}).get(frame)
+
+
+def reversed_servos_for(vehicle, frame):
+    return REVERSED_SERVOS.get(vehicle, {}).get(frame, ())
 
 
 def frames_for(vehicle):
@@ -74,15 +84,16 @@ class Backend(object):
         self.port = 9002 + 10 * instance
         self.headless = headless
         self.process = None
-        self.model = None
+        self.config = None
         atexit.register(self.stop)
 
     def is_running(self):
         return self.process is not None and self.process.poll() is None
 
-    def start(self, model, timeout=60):
+    def start(self, model, reversed_servos=(), timeout=60):
+        config = (model, tuple(reversed_servos))
         if self.is_running():
-            if model == self.model:
+            if config == self.config:
                 return
             self.stop()
         # one left running by a test which did not finish would hold the port
@@ -104,9 +115,11 @@ class Backend(object):
         cmd.extend(["--",
                     "--vehicle=res://models/%s.gltf" % model,
                     "--port=%u" % self.port])
+        if reversed_servos:
+            cmd.append("--reverse=%s" % ",".join(str(ch) for ch in reversed_servos))
         with open(self.logfile, "w") as log:
             self.process = subprocess.Popen(cmd, stdout=log, stderr=subprocess.STDOUT)
-        self.model = model
+        self.config = config
         running[self.port] = self
         deadline = time.time() + timeout
         while time.time() < deadline:

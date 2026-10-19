@@ -10436,7 +10436,7 @@ Also, ignores heartbeats not from our target system'''
             self.godot_backend = godot_physics.Backend(self.buildlogs_path("godot-%s.log" % vehicle),
                                                        headless=self.godot_headless)
         self.progress("Godot model %s provides the physics for frame %s" % (model, frame), send_statustext=False)
-        self.godot_backend.start(model)
+        self.godot_backend.start(model, godot_physics.reversed_servos_for(vehicle, frame))
         start_sitl_args["model"] = godot_physics.SITL_MODEL
         # SITL looks up a frame's default parameters by model name, which
         # for JSON matches no frame, so pass them explicitly
