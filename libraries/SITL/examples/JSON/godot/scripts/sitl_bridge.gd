@@ -76,5 +76,7 @@ func send_state(timestamp: float, s: Dictionary) -> void:
             + "\"velocity\":[%.5f,%.5f,%.5f]}\n") % [
             timestamp, g.x, g.y, g.z, a.x, a.y, a.z, p.x, p.y, p.z,
             q.w, q.x, q.y, q.z, v.x, v.y, v.z]
+    if s.has("airspeed"):
+        line = line.trim_suffix("}\n") + ",\"airspeed\":%.4f}\n" % s["airspeed"]
     last_reply = line.to_ascii_buffer()
     udp.put_packet(last_reply)

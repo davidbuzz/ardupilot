@@ -101,6 +101,11 @@
               0.015,
               0.028,
               0.015
+            ],
+            "centerOfMass": [
+              0,
+              0,
+              0
             ]
           }
         },
@@ -327,7 +332,10 @@
             "thrustExpo": 0.65,
             "torqueRatio": 0.016,
             "direction": "ccw",
-            "timeConstant": 0.03
+            "timeConstant": 0.03,
+            "diameter": 0.254,
+            "pitchSpeed": 20.0,
+            "inplaneDrag": 0.02
           }
         }
       }
@@ -349,7 +357,10 @@
             "thrustExpo": 0.65,
             "torqueRatio": 0.016,
             "direction": "ccw",
-            "timeConstant": 0.03
+            "timeConstant": 0.03,
+            "diameter": 0.254,
+            "pitchSpeed": 20.0,
+            "inplaneDrag": 0.02
           }
         }
       }
@@ -371,7 +382,10 @@
             "thrustExpo": 0.65,
             "torqueRatio": 0.016,
             "direction": "cw",
-            "timeConstant": 0.03
+            "timeConstant": 0.03,
+            "diameter": 0.254,
+            "pitchSpeed": 20.0,
+            "inplaneDrag": 0.02
           }
         }
       }
@@ -393,7 +407,10 @@
             "thrustExpo": 0.65,
             "torqueRatio": 0.016,
             "direction": "cw",
-            "timeConstant": 0.03
+            "timeConstant": 0.03,
+            "diameter": 0.254,
+            "pitchSpeed": 20.0,
+            "inplaneDrag": 0.02
           }
         }
       }

@@ -12,12 +12,17 @@ extends Node3D
 const Bridge := preload("res://scripts/sitl_bridge.gd")
 const Vehicle := preload("res://scripts/ap_vehicle.gd")
 const GLTFPhysics := preload("res://scripts/gltf_physics.gd")
+const Report := preload("res://scripts/vehicle_report.gd")
 
 var options := {
     "vehicle": "res://models/quadx.gltf",
     "world": "",
     "port": "9002",
     "spawn-height": "0.0",
+    # initial forward speed, for starting in the air (m/s)
+    "spawn-speed": "0.0",
+    # wind blowing towards north, east, down (m/s)
+    "wind": "0,0,0",
 }
 
 var bridge := Bridge.new()
@@ -58,10 +63,11 @@ func _ready() -> void:
         push_error("%s has no ArduPilotVehicle body" % options["vehicle"])
         get_tree().quit(1)
         return
-    print("vehicle '%s': mass %.3f kg, %d rotors" % [vehicle.name, vehicle.mass, vehicle.get_rotors().size()])
-    for r in vehicle.get_rotors():
-        var p := Vehicle.TO_NED * (vehicle.global_transform.affine_inverse() * r.global_position)
-        print("  servo %d at FRD (%.3f, %.3f, %.3f) %s, max %.1f N" % [r.servo, p.x, p.y, p.z, r.direction, r.max_thrust])
+    print(Report.report(vehicle))
+    vehicle.set_initial_velocity(vehicle.global_basis.z * float(options["spawn-speed"]))
+    var w: PackedFloat64Array = String(options["wind"]).split_floats(",")
+    if w.size() == 3:
+        vehicle.wind = Vehicle.TO_NED.transposed() * Vector3(w[0], w[1], w[2])
 
     var err := bridge.listen(int(options["port"]))
     if err != OK:
@@ -134,10 +140,10 @@ func _process(_delta: float) -> void:
     if camera == null or vehicle == null:
         return
     var target := vehicle.global_position
-    var back := vehicle.global_basis.z
-    back.y = 0.0
-    back = back.normalized() if back.length() > 0.1 else Vector3.FORWARD
-    var want := target - back * 3.0 + Vector3.UP * 1.2
+    var fwd := vehicle.global_basis.z
+    fwd.y = 0.0
+    fwd = fwd.normalized() if fwd.length() > 0.1 else Vector3.BACK
+    var want := target - fwd * 3.0 + Vector3.UP * 1.2
     camera.global_position = camera.global_position.lerp(want, 0.1)
     camera.look_at(target)
     var ned := Vehicle.TO_NED * target

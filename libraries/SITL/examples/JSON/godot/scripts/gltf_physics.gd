@@ -5,7 +5,8 @@ extends GLTFDocumentExtension
 ##
 ## Import: KHR_physics_rigid_bodies + KHR_implicit_shapes become Godot
 ## physics bodies and collision shapes, and the ARDUPILOT_sitl node extension
-## becomes ArduPilotRotor nodes and ArduPilotVehicle drag settings.
+## becomes vehicle parts (rotors, lifting surfaces, hinges, wheels) and
+## ArduPilotVehicle drag settings.
 ## Export: the reverse, so a model edited in the Godot editor can be written
 ## back to a self-describing glTF file.
 ##
@@ -20,7 +21,13 @@ const KHR_RB := "KHR_physics_rigid_bodies"
 const KHR_SHAPES := "KHR_implicit_shapes"
 const AP_EXT := "ARDUPILOT_sitl"
 const Vehicle := preload("res://scripts/ap_vehicle.gd")
+const Component := preload("res://scripts/ap_component.gd")
 const Rotor := preload("res://scripts/ap_rotor.gd")
+const Hinge := preload("res://scripts/ap_hinge.gd")
+const Surface := preload("res://scripts/ap_surface.gd")
+const Wheel := preload("res://scripts/ap_wheel.gd")
+## ARDUPILOT_sitl node extension members that create a part
+const PARTS := {"rotor": Rotor, "surface": Surface, "hinge": Hinge, "wheel": Wheel}
 const OMI_EXTS := ["OMI_physics_body", "OMI_physics_shape", "OMI_collider"]
 
 ## the instance registered with GLTFDocument, if any. The editor addon
@@ -160,28 +167,74 @@ func build_physics(state: GLTFState, root: Node) -> void:
             continue
         _add_collider(state, root, n, k["collider"], shapes, materials, visualise)
 
-    for i in ap.keys():
-        if not ap[i].has("rotor"):
-            continue
+    # parts, parents first so that parts below a hinge stay below it
+    var part_nodes: Array = ap.keys().filter(func(i): return _part_key(ap[i]) != "")
+    part_nodes.sort_custom(func(a, b): return _depth(a, parent_of) < _depth(b, parent_of))
+    for i in part_nodes:
+        var key := _part_key(ap[i])
         var n := replaced.get(i, state.get_scene_node(i)) as Node3D
         if n == null:
             continue
         if n is PhysicsBody3D:
-            push_warning("%s: rotor on body node %s ignored; put it on a child node" % [AP_EXT, n.name])
+            push_warning("%s: %s on body node %s ignored; put it on a child node" % [AP_EXT, key, n.name])
             continue
-        var rotor := _replace_node(n, Rotor.new(), root) as Rotor
-        rotor.from_gltf(ap[i]["rotor"])
+        var part := _replace_node(n, PARTS[key].new(), root) as Component
+        replaced[i] = part
+        part.from_gltf(ap[i][key])
         if visualise:
-            var disc := MeshInstance3D.new()
-            var m := CylinderMesh.new()
-            var radius := 0.12 * sqrt(maxf(rotor.max_thrust, 0.1) / 10.0)
-            m.top_radius = radius
-            m.bottom_radius = radius
-            m.height = 0.005
-            disc.mesh = m
-            disc.name = "disc"
-            rotor.add_child(disc)
-            disc.owner = root
+            _add_part_visual(part, root)
+
+
+func _part_key(d: Dictionary) -> String:
+    var keys: Array = d.keys().filter(func(k): return PARTS.has(k))
+    if keys.size() > 1:
+        push_warning("%s: one part per node, using '%s' and ignoring the rest" % [AP_EXT, keys[0]])
+    return keys[0] if keys.size() > 0 else ""
+
+
+static func _add_mesh(parent: Node3D, root: Node, mesh: Mesh, name: String, xform := Transform3D.IDENTITY) -> MeshInstance3D:
+    var mi := MeshInstance3D.new()
+    mi.name = name
+    mi.mesh = mesh
+    mi.transform = xform
+    parent.add_child(mi)
+    mi.owner = root
+    return mi
+
+
+## stand-in geometry for a file without meshes
+func _add_part_visual(part: Component, root: Node) -> void:
+    if part is Rotor:
+        var rotor := part as Rotor
+        var disc := CylinderMesh.new()
+        disc.top_radius = rotor.diameter * 0.5
+        disc.bottom_radius = rotor.diameter * 0.5
+        disc.height = 0.004
+        _add_mesh(rotor, root, disc, "disc")
+    elif part is Surface:
+        # the origin is the quarter chord; the flap is hinged ahead of the trailing edge
+        var surface := part as Surface
+        var c := surface.chord
+        var cf := surface.flap_chord_fraction if surface.flap_servo > 0 else 0.0
+        var plate := BoxMesh.new()
+        plate.size = Vector3(surface.span, 0.008, c * (1.0 - cf))
+        _add_mesh(surface, root, plate, "plate", Transform3D(Basis(), Vector3(0, 0, 0.25 * c - 0.5 * c * (1.0 - cf))))
+        if cf > 0.0:
+            var pivot := Node3D.new()
+            pivot.name = Surface.FLAP_VISUAL
+            pivot.position = Vector3(0, 0, -0.75 * c + cf * c)
+            surface.add_child(pivot)
+            pivot.owner = root
+            var flap := BoxMesh.new()
+            flap.size = Vector3(surface.span, 0.006, cf * c)
+            _add_mesh(pivot, root, flap, "flap", Transform3D(Basis(), Vector3(0, 0, -0.5 * cf * c)))
+    elif part is Wheel:
+        var wheel := part as Wheel
+        var tyre := CylinderMesh.new()
+        tyre.top_radius = wheel.radius
+        tyre.bottom_radius = wheel.radius
+        tyre.height = wheel.radius * 0.6
+        _add_mesh(wheel, root, tyre, "tyre", Transform3D(Basis(Vector3.BACK, PI / 2), Vector3.ZERO))
 
 
 func _choose_vehicle(ap_doc: Dictionary, khr: Dictionary, ap: Dictionary, parent_of: Dictionary) -> int:
@@ -490,8 +543,17 @@ func _export_node(state: GLTFState, gltf_node: GLTFNode, json: Dictionary, node:
         var collider := _collider_to_gltf(node)
         if not collider.is_empty():
             khr["collider"] = collider
-    elif node is Rotor:
-        ap["rotor"] = node.to_gltf()
+    elif node is Component:
+        ap[node.gltf_key()] = node.to_gltf()
+        if node is Hinge:
+            # export the pivot at zero deflection
+            var r: Transform3D = node.rest
+            var q := r.basis.get_rotation_quaternion()
+            var sc := r.basis.get_scale()
+            json.erase("matrix")
+            json["translation"] = [r.origin.x, r.origin.y, r.origin.z]
+            json["rotation"] = [q.x, q.y, q.z, q.w]
+            json["scale"] = [sc.x, sc.y, sc.z]
 
     if not khr.is_empty():
         ext[KHR_RB] = khr

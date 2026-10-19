@@ -1,0 +1,7 @@
+# ArduPlane parameters for models/plane.gltf, applied on top of
+# Tools/autotest/models/plane.parm
+AIRSPEED_CRUISE 16
+AIRSPEED_MIN    11
+AIRSPEED_MAX    24
+TRIM_THROTTLE   45
+TKOFF_ROTATE_SPD 11
