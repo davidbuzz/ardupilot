@@ -10430,12 +10430,12 @@ Also, ignores heartbeats not from our target system'''
         model = godot_physics.model_for(vehicle, frame)
         if model is None:
             self.progress("No Godot model for frame %s; using SITL's own physics (Godot has %s)" %
-                          (frame, ", ".join(godot_physics.frames_for(vehicle))))
+                          (frame, ", ".join(godot_physics.frames_for(vehicle))), send_statustext=False)
             return
         if self.godot_backend is None:
             self.godot_backend = godot_physics.Backend(self.buildlogs_path("godot-%s.log" % vehicle),
                                                        headless=self.godot_headless)
-        self.progress("Godot model %s provides the physics for frame %s" % (model, frame))
+        self.progress("Godot model %s provides the physics for frame %s" % (model, frame), send_statustext=False)
         self.godot_backend.start(model)
         start_sitl_args["model"] = godot_physics.SITL_MODEL
         # SITL looks up a frame's default parameters by model name, which

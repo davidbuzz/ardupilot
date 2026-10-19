@@ -59,6 +59,10 @@ def find_godot():
     raise FileNotFoundError("Godot 4.4 or later not found: put it on the PATH as 'godot' or set GODOT")
 
 
+# the backend listening on each UDP port
+running = {}
+
+
 class Backend(object):
     '''the backend process. It keeps running across SITL restarts, resetting
     the vehicle each time SITL starts again, and is restarted only to change
@@ -81,6 +85,10 @@ class Backend(object):
             if model == self.model:
                 return
             self.stop()
+        # one left running by a test which did not finish would hold the port
+        other = running.get(self.port)
+        if other is not None and other is not self:
+            other.stop()
         headless = self.headless
         if (not headless and sys.platform.startswith("linux") and
                 not os.environ.get("DISPLAY") and not os.environ.get("WAYLAND_DISPLAY")):
@@ -99,6 +107,7 @@ class Backend(object):
         with open(self.logfile, "w") as log:
             self.process = subprocess.Popen(cmd, stdout=log, stderr=subprocess.STDOUT)
         self.model = model
+        running[self.port] = self
         deadline = time.time() + timeout
         while time.time() < deadline:
             with open(self.logfile) as f:
@@ -111,6 +120,8 @@ class Backend(object):
         raise RuntimeError("the Godot backend did not start; see %s" % self.logfile)
 
     def stop(self):
+        if running.get(self.port) is self:
+            del running[self.port]
         if not self.is_running():
             return
         self.process.terminate()
