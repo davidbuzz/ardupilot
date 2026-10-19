@@ -23,6 +23,8 @@ var options := {
     "spawn-speed": "0.0",
     # wind blowing towards north, east, down (m/s)
     "wind": "0,0,0",
+    # servo outputs to reverse about 1500, as SITL's -elevrev frames do
+    "reverse": "",
 }
 
 var bridge := Bridge.new()
@@ -33,6 +35,7 @@ var awaiting_reply := false
 var connected := false
 var camera: Camera3D
 var hud: Label
+var reversed_servos := PackedInt32Array()
 
 
 func _ready() -> void:
@@ -69,6 +72,8 @@ func _ready() -> void:
     var w: PackedFloat64Array = String(options["wind"]).split_floats(",")
     if w.size() == 3:
         vehicle.wind = Vehicle.TO_NED.transposed() * Vector3(w[0], w[1], w[2])
+    for ch in String(options["reverse"]).split(",", false):
+        reversed_servos.append(int(ch))
 
     var err := bridge.listen(int(options["port"]))
     if err != OK:
@@ -130,7 +135,14 @@ func _physics_process(delta: float) -> void:
         # takes effect from the next frame; sim_time follows the real step
         Engine.physics_ticks_per_second = bridge.frame_rate
 
-    vehicle.apply_actuators(bridge.pwm, delta)
+    var pwm := bridge.pwm
+    if not reversed_servos.is_empty():
+        pwm = pwm.duplicate()
+        for ch in reversed_servos:
+            # a disabled output stays at 0
+            if ch >= 1 and ch <= pwm.size() and pwm[ch - 1] >= 500:
+                pwm[ch - 1] = 3000 - pwm[ch - 1]
+    vehicle.apply_actuators(pwm, delta)
     PhysicsServer3D.set_active(true)
     sim_time += delta
     last_dt = delta

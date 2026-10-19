@@ -88,6 +88,7 @@ Options, after `--`:
 | `--wind=` | `0,0,0` | wind velocity, north, east, down (m/s) |
 | `--spawn-height=` | `0` | start this far above the position in the file (m) |
 | `--spawn-speed=` | `0` | start moving forward at this speed (m/s), for air starts |
+| `--reverse=` | none | servo outputs to reverse about 1500 µs, such as `2,4` |
 
 `test_flight.py` checks a vehicle end to end through MAVLink. The copter
 test arms, takes off, holds altitude, flies 20 m and lands; the plane test
@@ -110,7 +111,7 @@ physics for frames that have a Godot model:
 | Vehicle | Frame | Model |
 | --- | --- | --- |
 | ArduCopter | `+`, `quad`, `X` | `quadx` |
-| ArduPlane | `plane` | `plane` |
+| ArduPlane | `plane`, `plane-elevrev` | `plane` |
 | ArduPlane | `plane-3d` | `plane3d`, an aerobatic plane |
 
 ```sh
@@ -122,8 +123,10 @@ Tools/autotest/autotest.py --godot test.Plane.AerobaticsScripting
 
 Set `$GODOT` if Godot is not on the PATH as `godot`. `--godot-headless`
 runs the autotest backend without its window. A test which asks for a
-frame with no Godot model, including ArduPlane's default `plane-elevrev`,
-falls back to SITL's own physics and says so. The backend's log is
+frame with no Godot model falls back to SITL's own physics and says so.
+`plane-elevrev`, the default for the ArduPlane tests, reverses the
+elevator and rudder outputs in its parameters; the backend's
+`--reverse=2,4` option reverses them back, as SITL's model does. The backend's log is
 `godot-<vehicle>.log` in the autotest's build logs directory, `buildlogs`
 beside the ArduPilot tree unless `$BUILDLOGS` says otherwise.
 
