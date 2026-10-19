@@ -62,6 +62,7 @@ from pymavlink.mavftp import MAX_Payload as FTP_MAX_PAYLOAD
 from pymavlink.mavftp_op import FTP_OP
 from pymavlink.rotmat import Vector3
 
+from pysim import godot as godot_physics
 from pysim import util
 from pysim import vehicleinfo
 
@@ -2134,6 +2135,7 @@ class TestSuite(abc.ABC):
                  asan=False,
                  check_parameter_leaks=True,
                  unix_domain_socket=False,
+                 godot=False,
                  ):
         if breakpoints is None:
             breakpoints = []
@@ -2148,6 +2150,10 @@ class TestSuite(abc.ABC):
             raise ValueError("Should always have a binary")
 
         self.binary = binary
+        self.godot = godot
+        self.godot_backend = None
+        if godot:
+            godot_physics.check_supported(self.vehicleinfo_key())
         self.valgrind = valgrind
         self.callgrind = callgrind
         self.asan = asan
@@ -10371,6 +10377,8 @@ Also, ignores heartbeats not from our target system'''
             "unix_domain_socket": self.unix_domain_socket,
         }
         start_sitl_args.update(**sitl_args)
+        if self.godot and start_sitl_args.get("model") in (None, self.frame):
+            self.use_godot_physics(start_sitl_args)
         if "model" not in start_sitl_args or start_sitl_args["model"] is None:
             start_sitl_args["model"] = self.frame
         self.progress("Starting SITL", send_statustext=False)
@@ -10411,6 +10419,23 @@ Also, ignores heartbeats not from our target system'''
         # or the first packet we send will be lost:
         if self.mav is not None:
             self.mav.reconnect()
+
+    def use_godot_physics(self, start_sitl_args):
+        '''have SITL take its physics from the Godot backend, through the
+        JSON model.  Tests asking for a particular model keep SITL's own.'''
+        vehicle = self.vehicleinfo_key()
+        if self.godot_backend is None:
+            self.godot_backend = godot_physics.Backend(vehicle, self.buildlogs_path("godot-%s.log" % vehicle))
+        self.godot_backend.start()
+        start_sitl_args["model"] = godot_physics.SITL_MODEL
+        # SITL looks up a frame's default parameters by model name, which
+        # for JSON matches no frame, so pass them explicitly
+        defaults = start_sitl_args.get("defaults_filepath") or []
+        if not isinstance(defaults, list):
+            defaults = [defaults]
+        start_sitl_args["defaults_filepath"] = (self.model_defaults_filepath(self.frame) +
+                                                [godot_physics.params_filepath(vehicle)] +
+                                                defaults)
 
     def get_supplementary_programs(self):
         return self.sup_prog
@@ -14181,6 +14206,8 @@ switch value'''
             self.mav = None
 
         self.stop_SITL()
+        if self.godot_backend is not None:
+            self.godot_backend.stop()
 
         valgrind_log = util.valgrind_log_filepath(binary=self.binary,
                                                   model=self.frame)

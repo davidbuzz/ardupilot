@@ -551,6 +551,7 @@ def run_step(step):
         "generate_junit": opts.junit,
         "enable_fgview": opts.enable_fgview,
         "unix_domain_socket": opts.unix_domain_socket,
+        "godot": opts.godot,
     }
     if opts.speedup is not None:
         fly_opts["speedup"] = opts.speedup
@@ -1018,6 +1019,12 @@ if __name__ == "__main__":
                          default=None,
                          type='int',
                          help='speedup to run the simulations at')
+    group_sim.add_option("--godot",
+                         action='store_true',
+                         default=False,
+                         help='take the vehicle physics from the Godot and Jolt backend in '
+                         'libraries/SITL/examples/JSON/godot instead of SITL itself; '
+                         'needs Godot 4.4 or later on the PATH or in $GODOT')
     group_sim.add_option("--check-parameter-leaks",
                          action='store_true',
                          dest='check_parameter_leaks',
