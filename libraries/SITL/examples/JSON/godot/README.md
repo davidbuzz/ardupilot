@@ -130,12 +130,22 @@ elevator and rudder outputs in its parameters; the backend's
 `godot-<vehicle>.log` in the autotest's build logs directory, `buildlogs`
 beside the ArduPilot tree unless `$BUILDLOGS` says otherwise.
 
+The `plane` model is sized like SITL's plane, so the ArduPlane tests'
+airspeeds, throttle settings and takeoff technique suit it: 2 kg, a
+34 N propeller, cruising at 22 m/s and topping out above 30 m/s, with grass
+rolling resistance for the CMAC strip. Unlike SITL's plane it is a free
+body on the ground, with a steerable nose wheel, so a takeoff can swing or
+lift off early, and a stalled wing can drop.
+
 The backend runs about twice as fast as real time, well below the
 autotest's usual speedup, so a full suite takes much longer than with the
-built-in physics. Tests tuned against SITL's own models can fail on a
-different airframe: `test.Plane.AerobaticsScripting`, for one, flies the
-whole schedule but its largest path error is about 18 m against a limit
-of 15 m, where SITL's `plane-3d` manages about 10 m.
+built-in physics. Some tests cannot pass with any JSON backend: SITL does
+not send its wind, `SIM_WIND_*`, over the JSON interface, so tests which
+check the vehicle's response to wind fail. Tests tuned against SITL's own
+models can also fail on a different airframe:
+`test.Plane.AerobaticsScripting`, for one, flies the whole schedule but
+its largest path error is about 18 m against a limit of 15 m, where
+SITL's `plane-3d` manages about 10 m.
 
 ### In VS Code
 
