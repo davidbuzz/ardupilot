@@ -1831,10 +1831,10 @@ if cmd_opts.godot:
     if cmd_opts.model is not None:
         print("--godot sets the model; do not also give --model")
         sys.exit(1)
-    try:
-        godot_physics.check_supported(cmd_opts.vehicle)
-    except ValueError as e:
-        print(e)
+    godot_model = godot_physics.model_for(cmd_opts.vehicle, cmd_opts.frame)
+    if godot_model is None:
+        print("No Godot model for %s frame %s; there are for frames: %s" %
+              (cmd_opts.vehicle, cmd_opts.frame, ", ".join(godot_physics.frames_for(cmd_opts.vehicle)) or "none"))
         sys.exit(1)
     frame_infos["model"] = godot_physics.SITL_MODEL
     # SITL looks up a frame's default parameters by model name, which for
@@ -1843,14 +1843,14 @@ if cmd_opts.godot:
     if not isinstance(frame_defaults, list):
         frame_defaults = [frame_defaults]
     cmd_opts.add_param_file = ([os.path.join(autotest_dir, p) for p in frame_defaults] +
-                               [godot_physics.params_filepath(cmd_opts.vehicle)] +
+                               [godot_physics.params_filepath(godot_model)] +
                                (cmd_opts.add_param_file or []))
     for i in instances:
         logfile = os.path.join(tempfile.gettempdir(), "godot-sitl-%u.log" % i)
         progress("Starting Godot physics backend for instance %u, logging to %s" % (i, logfile))
-        backend = godot_physics.Backend(cmd_opts.vehicle, logfile, instance=i, headless=False)
+        backend = godot_physics.Backend(logfile, instance=i, headless=False)
         try:
-            backend.start()
+            backend.start(godot_model)
         except (FileNotFoundError, RuntimeError) as e:
             print(e)
             sys.exit(1)
