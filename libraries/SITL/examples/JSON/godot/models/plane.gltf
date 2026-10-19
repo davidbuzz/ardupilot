@@ -414,7 +414,7 @@
             "spring": 400,
             "damping": 15,
             "grip": 0.9,
-            "rollingResistance": 0.03
+            "rollingResistance": 0.12
           }
         }
       },
@@ -467,7 +467,7 @@
             "spring": 700,
             "damping": 25,
             "grip": 0.8,
-            "rollingResistance": 0.03
+            "rollingResistance": 0.12
           }
         }
       }
@@ -487,7 +487,7 @@
             "spring": 700,
             "damping": 25,
             "grip": 0.8,
-            "rollingResistance": 0.03
+            "rollingResistance": 0.12
           }
         }
       }
