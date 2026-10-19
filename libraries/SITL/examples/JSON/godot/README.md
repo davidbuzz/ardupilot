@@ -14,6 +14,8 @@ ArduPlane, using:
 - full rigid body dynamics and contacts from Jolt
 - per-rotor thrust with motor lag, inflow (thrust falls with airspeed
   through the disc), rotor drag and reaction torque
+- propwash: surfaces behind a propeller feel its slipstream, so the tail
+  keeps authority at low airspeed
 - strip-theory lifting surfaces using the local airflow at each surface,
   so rotational damping, dihedral effect and weathercock stability arise
   from the geometry rather than from stability derivatives
@@ -98,6 +100,39 @@ landing.
 
 SITL's first port, 5760, is taken by MAVProxy when it is running; without
 MAVProxy, connect to 5760 instead.
+
+### With sim_vehicle.py and the autotest suite
+
+`sim_vehicle.py` and `autotest.py` take a `--godot` option which starts
+the backend, with its window, and uses it in place of SITL's built-in
+physics for frames that have a Godot model:
+
+| Vehicle | Frame | Model |
+| --- | --- | --- |
+| ArduCopter | `+`, `quad`, `X` | `quadx` |
+| ArduPlane | `plane` | `plane` |
+| ArduPlane | `plane-3d` | `plane3d`, an aerobatic plane |
+
+```sh
+Tools/autotest/sim_vehicle.py -v ArduCopter --godot --map --console
+Tools/autotest/sim_vehicle.py -v ArduPlane -f plane-3d --godot --map --console
+Tools/autotest/autotest.py --godot build.Copter test.Copter.TakeoffAlt
+Tools/autotest/autotest.py --godot test.Plane.AerobaticsScripting
+```
+
+Set `$GODOT` if Godot is not on the PATH as `godot`. `--godot-headless`
+runs the autotest backend without its window. A test which asks for a
+frame with no Godot model, including ArduPlane's default `plane-elevrev`,
+falls back to SITL's own physics and says so. The backend's log is
+`godot-<vehicle>.log` in the autotest's build logs directory, `buildlogs`
+beside the ArduPilot tree unless `$BUILDLOGS` says otherwise.
+
+The backend runs about twice as fast as real time, well below the
+autotest's usual speedup, so a full suite takes much longer than with the
+built-in physics. Tests tuned against SITL's own models can fail on a
+different airframe: `test.Plane.AerobaticsScripting`, for one, flies the
+whole schedule but its largest path error is about 18 m against a limit
+of 15 m, where SITL's `plane-3d` manages about 10 m.
 
 ### In VS Code
 
@@ -260,6 +295,37 @@ export glTF, convert it to a scene here, add and place the parts, check the
 report, run it, and export glTF to share. A scene can be flown directly
 with `--vehicle=res://path/to/vehicle.tscn`.
 
+### Step by step
+
+1. Open the project: `godot --editor --path libraries/SITL/examples/JSON/godot`,
+   or Import it in the Project Manager. The vehicles are in `models`.
+2. Project > Tools > **ArduPilot: convert glTF vehicle to scene...** and pick,
+   say, `models/plane.gltf`. It saves `models/plane.tscn` beside it and opens
+   it.
+3. The Scene tree shows the vehicle body, an `ArduPilotVehicle` with its mass,
+   inertia and drag, and under it the parts and colliders. Select a node to
+   see its settings in the Inspector.
+4. Change a part by typing in the Inspector. For the propeller, Max Thrust
+   and Pitch Speed set its static thrust and how it falls off with speed; the
+   thrust arrow in the 3D view follows.
+5. Move a part with the gizmo arrows in the 3D view or with Transform >
+   Position, in metres from the vehicle origin: +Z forward, +Y up, +X left.
+6. A wing panel is an `ArduPilotSurface`. Span and chord size it; set Flap
+   Servo and the flap angles and chord fraction, in the Flap group, to make
+   it a control surface.
+7. Parts under an `ArduPilotHinge` pivot about the hinge's X axis, driven by
+   its servo. Drag Preview Angle to see the movement; the simulation and
+   the exported glTF start from the hinge at rest.
+8. To add a part, select its parent, click + (Add Child Node), search for
+   ArduPilot and pick a rotor, surface, hinge or wheel. Give it a servo and
+   set that output's `SERVOn_FUNCTION` in ArduPilot.
+9. Project > Tools > **ArduPilot: vehicle report** checks the design: thrust
+   to weight, wing loading, stall speed and static margin.
+10. Save with Ctrl+S and fly the scene with
+    `--vehicle=res://models/plane.tscn`, or use **ArduPilot: export vehicle
+    as glTF...** to write a glTF file. To fly it with `--godot`, export it
+    over the model in `models` named in `Tools/autotest/pysim/godot.py`.
+
 Godot's importer treats some node name suffixes as import hints, such as
 `-col`, `-rigid`, `-vehicle` and `-wheel` (also with `_`), and renames
 those nodes; avoid them in vehicle files.
@@ -287,9 +353,13 @@ Wheel: a ray from the top of the suspension travel finds the ground. The
 spring and damper force acts along the suspension; side friction and
 rolling resistance act in the ground plane, smoothed near zero speed.
 
-Not modelled yet: propwash over surfaces, ground effect, propeller
-gyroscopic and P-factor effects, motor and battery electrics, and moving
-mass in hinges.
+Propwash: momentum theory gives the induced velocity at the disc from the
+thrust and the inflow, and the fully developed slipstream is twice that.
+It is applied, along the thrust axis, to surface centres inside a cylinder
+of the disc's radius behind the rotor.
+
+Not modelled yet: ground effect, propeller gyroscopic and P-factor
+effects, motor and battery electrics, and moving mass in hinges.
 
 ## Ideas for further work
 
@@ -297,7 +367,6 @@ mass in hinges.
   loads, articulated landing gear and tilting parts with mass
 - rangefinder, optical flow and camera sensors from ray casts and rendering
 - motor and battery electrical models feeding the JSON `battery` fields
-- propwash, so that a tail behind a propeller keeps authority on the ground
 - glTF 2.1 external asset references, so a world file can place vehicles
   and scenery from separate files
 - the same glTF vehicles in a native SITL backend linking Jolt directly,
