@@ -1,4 +1,3 @@
 # ArduPlane parameters for models/plane.gltf, applied on top of
 # Tools/autotest/models/plane.parm, whose airspeeds it flies
-TRIM_THROTTLE   57
 TKOFF_ROTATE_SPD 11
