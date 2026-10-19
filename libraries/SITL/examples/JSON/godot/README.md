@@ -331,7 +331,8 @@ with `--vehicle=res://path/to/vehicle.tscn`.
    the exported glTF start from the hinge at rest.
 8. To add a part, select its parent, click + (Add Child Node), search for
    ArduPilot and pick a rotor, surface, hinge or wheel. Give it a servo and
-   set that output's `SERVOn_FUNCTION` in ArduPilot.
+   set that output's `SERVOn_FUNCTION` in ArduPilot. For a tilt rotor, add
+   an `ArduPilotHinge` at the pivot and an `ArduPilotRotor` under it.
 9. Project > Tools > **ArduPilot: vehicle report** checks the design: thrust
    to weight, wing loading, stall speed and static margin.
 10. Save with Ctrl+S and fly the scene with
