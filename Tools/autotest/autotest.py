@@ -552,6 +552,7 @@ def run_step(step):
         "enable_fgview": opts.enable_fgview,
         "unix_domain_socket": opts.unix_domain_socket,
         "godot": opts.godot,
+        "godot_headless": opts.godot_headless,
     }
     if opts.speedup is not None:
         fly_opts["speedup"] = opts.speedup
@@ -1025,6 +1026,11 @@ if __name__ == "__main__":
                          help='take the vehicle physics from the Godot and Jolt backend in '
                          'libraries/SITL/examples/JSON/godot instead of SITL itself; '
                          'needs Godot 4.4 or later on the PATH or in $GODOT')
+    group_sim.add_option("--godot-headless",
+                         action='store_true',
+                         default=False,
+                         help='with --godot, run the backend without its window, '
+                         'which is faster and needs no display')
     group_sim.add_option("--check-parameter-leaks",
                          action='store_true',
                          dest='check_parameter_leaks',

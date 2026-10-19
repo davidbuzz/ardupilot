@@ -11,6 +11,7 @@ import atexit
 import os
 import shutil
 import subprocess
+import sys
 import time
 
 from pysim import util
@@ -74,10 +75,15 @@ class Backend(object):
     def start(self, timeout=60):
         if self.is_running():
             return
+        headless = self.headless
+        if (not headless and sys.platform.startswith("linux") and
+                not os.environ.get("DISPLAY") and not os.environ.get("WAYLAND_DISPLAY")):
+            print("No display, so running the Godot backend without its window")
+            headless = True
         # a fixed frame rate lets the physics run faster than real time
         # when SITL is sped up; SITL sets the pace
         cmd = [find_godot(), "--path", PROJECT, "--fixed-fps", "50"]
-        if self.headless:
+        if headless:
             cmd.append("--headless")
         cmd.extend(["--",
                     "--vehicle=res://models/%s.gltf" % VEHICLES[self.vehicle],

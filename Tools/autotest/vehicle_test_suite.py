@@ -2136,6 +2136,7 @@ class TestSuite(abc.ABC):
                  check_parameter_leaks=True,
                  unix_domain_socket=False,
                  godot=False,
+                 godot_headless=False,
                  ):
         if breakpoints is None:
             breakpoints = []
@@ -2151,6 +2152,7 @@ class TestSuite(abc.ABC):
 
         self.binary = binary
         self.godot = godot
+        self.godot_headless = godot_headless
         self.godot_backend = None
         if godot:
             godot_physics.check_supported(self.vehicleinfo_key())
@@ -10425,7 +10427,9 @@ Also, ignores heartbeats not from our target system'''
         JSON model.  Tests asking for a particular model keep SITL's own.'''
         vehicle = self.vehicleinfo_key()
         if self.godot_backend is None:
-            self.godot_backend = godot_physics.Backend(vehicle, self.buildlogs_path("godot-%s.log" % vehicle))
+            self.godot_backend = godot_physics.Backend(vehicle,
+                                                       self.buildlogs_path("godot-%s.log" % vehicle),
+                                                       headless=self.godot_headless)
         self.godot_backend.start()
         start_sitl_args["model"] = godot_physics.SITL_MODEL
         # SITL looks up a frame's default parameters by model name, which
