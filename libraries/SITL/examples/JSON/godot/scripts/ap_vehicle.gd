@@ -84,13 +84,13 @@ func air_velocity_at(point: Vector3) -> Vector3:
     return velocity_at(point) - wind
 
 
-## extra airflow over a point from the slipstreams of the vehicle's rotors,
-## as a velocity of the point relative to the air
-func propwash_at(point: Vector3) -> Vector3:
+## extra airflow over a surface from the slipstreams of the vehicle's
+## rotors, as a velocity relative to the air; see ArduPilotRotor.propwash_at
+func propwash_at(point: Vector3, v_air: Vector3, span_dir := Vector3.ZERO, span := 0.0) -> Vector3:
     var wash := Vector3.ZERO
     for c in _components:
         if c is Rotor:
-            wash += c.propwash_at(point)
+            wash += c.propwash_at(point, v_air, span_dir, span)
     return wash
 
 

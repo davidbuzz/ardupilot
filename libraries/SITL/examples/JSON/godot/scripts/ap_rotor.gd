@@ -106,16 +106,39 @@ func physics_update(vehicle: RigidBody3D, pwm: PackedInt32Array, dt: float) -> v
                 child.rotate_object_local(Vector3.UP, rate * dt)
 
 
-## extra velocity of a point relative to the air when it is in this rotor's
-## slipstream, which is taken as a cylinder of the disc's radius behind it
-func propwash_at(point: Vector3) -> Vector3:
+## extra velocity relative to the air of a surface centred at point, with
+## its span along span_dir, from this rotor's slipstream. The slipstream is
+## a cylinder of the disc's radius behind it; when it covers only part of
+## the span, the result gives the span's mean dynamic pressure. v_air is
+## the surface's velocity relative to the air outside the slipstream.
+func propwash_at(point: Vector3, v_air: Vector3, span_dir := Vector3.ZERO, span := 0.0) -> Vector3:
     if slipstream <= 0.0:
         return Vector3.ZERO
     var xform := global_transform
     var axis := xform.basis.y.normalized()
     var rel := point - xform.origin
     var behind := -rel.dot(axis)
-    if behind <= 0.0 or (rel + axis * behind).length() > 0.5 * diameter:
+    if behind <= 0.0:
         return Vector3.ZERO
-    # the air there moves aft, so the point moves forward through it
-    return axis * slipstream
+    var r := 0.5 * diameter
+    var offset := rel + axis * behind
+    var covered := 0.0
+    var u := span_dir - axis * span_dir.dot(axis)
+    var a := u.length_squared()
+    if span <= 0.0 or a < 1e-6:
+        covered = 1.0 if offset.length() <= r else 0.0
+    else:
+        # the part of the span within r of the axis
+        var b := 2.0 * offset.dot(u)
+        var disc := b * b - 4.0 * a * (offset.length_squared() - r * r)
+        if disc <= 0.0:
+            return Vector3.ZERO
+        var s1 := maxf((-b - sqrt(disc)) / (2.0 * a), -0.5 * span)
+        var s2 := minf((-b + sqrt(disc)) / (2.0 * a), 0.5 * span)
+        covered = maxf(s2 - s1, 0.0) / span
+    if covered <= 0.0:
+        return Vector3.ZERO
+    # the air there moves aft, so the surface moves forward through it
+    var v := maxf(v_air.dot(axis), 0.0)
+    var w := slipstream
+    return axis * (sqrt((1.0 - covered) * v * v + covered * (v + w) * (v + w)) - v)

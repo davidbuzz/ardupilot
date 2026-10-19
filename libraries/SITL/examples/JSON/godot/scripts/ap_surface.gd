@@ -131,7 +131,8 @@ func physics_update(vehicle: RigidBody3D, pwm: PackedInt32Array, _dt: float) -> 
 
     var xform := global_transform
     var b := xform.basis.orthonormalized()
-    var v_air: Vector3 = vehicle.air_velocity_at(xform.origin) + vehicle.propwash_at(xform.origin)
+    var v_air: Vector3 = vehicle.air_velocity_at(xform.origin)
+    v_air += vehicle.propwash_at(xform.origin, v_air, b.x, span)
     var v_local: Vector3 = b.transposed() * v_air
     # strip theory: spanwise flow does not contribute
     v_local.x = 0.0
