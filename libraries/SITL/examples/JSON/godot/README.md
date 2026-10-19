@@ -25,9 +25,20 @@ Tested with Godot 4.7.
 ## Running
 
 Install Godot 4.4 or later. Jolt is built in and selected by
-`project.godot`; no other add-ons are needed.
+`project.godot`; no other add-ons are needed. Build SITL as usual, for
+example with `./waf configure --board sitl && ./waf copter plane`.
 
-Start the backend, which waits for SITL on UDP port 9002:
+`run_sim.sh` starts the backend and `sim_vehicle.py` together and stops
+both on Ctrl-C:
+
+```sh
+libraries/SITL/examples/JSON/godot/run_sim.sh copter --map --console
+libraries/SITL/examples/JSON/godot/run_sim.sh plane --map --console
+```
+
+It finds Godot on the PATH as `godot`, or from `$GODOT`; run it without
+arguments for its other modes. To start the two by hand instead, start the
+backend, which waits for SITL on UDP port 9002:
 
 ```sh
 godot --path libraries/SITL/examples/JSON/godot -- --vehicle=res://models/quadx.gltf
@@ -37,6 +48,7 @@ then SITL:
 
 ```sh
 sim_vehicle.py -v ArduCopter -f quad --model JSON:127.0.0.1 \
+    --add-param-file=Tools/autotest/default_params/copter.parm \
     --add-param-file=libraries/SITL/examples/JSON/godot/models/quadx.parm --map --console
 ```
 
@@ -44,8 +56,13 @@ For the aeroplane, use `--vehicle=res://models/plane.gltf` and:
 
 ```sh
 sim_vehicle.py -v ArduPlane -f plane --model JSON:127.0.0.1 \
+    --add-param-file=Tools/autotest/models/plane.parm \
     --add-param-file=libraries/SITL/examples/JSON/godot/models/plane.parm --map --console
 ```
+
+SITL looks up a frame's standard parameters by the model name, which for
+`JSON` matches no frame, so they are given explicitly before the model's
+own.
 
 The plane faces north on the ground at home and takes off from there.
 
@@ -76,8 +93,33 @@ flies an AUTO mission with a runway takeoff, a circuit and an automatic
 landing.
 
 ```sh
-./test_flight.py --vehicle plane --connect tcp:127.0.0.1:5760
+./test_flight.py --vehicle plane --connect tcp:127.0.0.1:5762
 ```
+
+SITL's first port, 5760, is taken by MAVProxy when it is running; without
+MAVProxy, connect to 5760 instead.
+
+### In VS Code
+
+Open `godot-sitl.code-workspace` (File > Open Workspace from File). It
+opens the ArduPilot tree and this project, and recommends the Godot Tools,
+C/C++ and Python extensions. If Godot is not on the PATH as `godot`, set
+its path in the workspace setting `godotTools.editorPath.godot4`, which
+both the tasks and the GDScript debugger use. Then, from Terminal > Run
+Task:
+
+- **Godot SITL: build ArduCopter** or **build ArduPlane**, once
+- **Godot SITL: fly quadcopter** or **fly aeroplane**: the backend's
+  window, SITL, and MAVProxy with its map and console
+- **Godot SITL: flight test**: the smoke test, against a running sim
+- **Godot SITL: open vehicle editor**
+
+In Run and Debug, **ArduCopter in gdb** and **ArduPlane in gdb** start the
+backend and debug SITL itself; connect a ground station with the
+**MAVProxy** task. **backend in GDScript debugger** runs the backend under
+Godot Tools' debugger, with SITL started by a **SITL only** task. Because
+the two run in lockstep, a breakpoint on either side pauses the whole
+simulation.
 
 ## Frames
 

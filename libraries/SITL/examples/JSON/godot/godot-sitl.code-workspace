@@ -1,0 +1,199 @@
+{
+    "folders": [
+        {
+            "name": "ArduPilot",
+            "path": "../../../../.."
+        },
+        {
+            "name": "Godot SITL",
+            "path": "."
+        }
+    ],
+    "extensions": {
+        "recommendations": [
+            "geequlim.godot-tools",
+            "ms-vscode.cpptools",
+            "ms-python.python"
+        ]
+    },
+    "settings": {
+        "godotTools.editorPath.godot4": "godot",
+        "files.exclude": {
+            "**/.godot": true,
+            "**/*.uid": true
+        }
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "Godot SITL: build ArduCopter",
+                "type": "shell",
+                "command": "./waf configure --board sitl && ./waf copter",
+                "options": {"cwd": "${workspaceFolder:ArduPilot}"},
+                "group": "build",
+                "problemMatcher": ["$gcc"]
+            },
+            {
+                "label": "Godot SITL: build ArduPlane",
+                "type": "shell",
+                "command": "./waf configure --board sitl && ./waf plane",
+                "options": {"cwd": "${workspaceFolder:ArduPilot}"},
+                "group": "build",
+                "problemMatcher": ["$gcc"]
+            },
+            {
+                "label": "Godot SITL: fly quadcopter",
+                "type": "shell",
+                "command": "libraries/SITL/examples/JSON/godot/run_sim.sh copter --map --console",
+                "options": {
+                    "cwd": "${workspaceFolder:ArduPilot}",
+                    "env": {"GODOT": "${config:godotTools.editorPath.godot4}"}
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "Godot SITL: fly aeroplane",
+                "type": "shell",
+                "command": "libraries/SITL/examples/JSON/godot/run_sim.sh plane --map --console",
+                "options": {
+                    "cwd": "${workspaceFolder:ArduPilot}",
+                    "env": {"GODOT": "${config:godotTools.editorPath.godot4}"}
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "Godot SITL: open vehicle editor",
+                "type": "shell",
+                "command": "libraries/SITL/examples/JSON/godot/run_sim.sh --editor",
+                "options": {
+                    "cwd": "${workspaceFolder:ArduPilot}",
+                    "env": {"GODOT": "${config:godotTools.editorPath.godot4}"}
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "Godot SITL: flight test, quadcopter",
+                "detail": "run while 'fly quadcopter' is running",
+                "type": "shell",
+                "command": "python3 libraries/SITL/examples/JSON/godot/test_flight.py --vehicle copter --connect tcp:127.0.0.1:5762",
+                "options": {"cwd": "${workspaceFolder:ArduPilot}"},
+                "problemMatcher": []
+            },
+            {
+                "label": "Godot SITL: flight test, aeroplane",
+                "detail": "run while 'fly aeroplane' is running",
+                "type": "shell",
+                "command": "python3 libraries/SITL/examples/JSON/godot/test_flight.py --vehicle plane --connect tcp:127.0.0.1:5762",
+                "options": {"cwd": "${workspaceFolder:ArduPilot}"},
+                "problemMatcher": []
+            },
+            {
+                "label": "Godot SITL: SITL only, quadcopter",
+                "detail": "for a backend started from the Godot debugger or editor",
+                "type": "shell",
+                "command": "libraries/SITL/examples/JSON/godot/run_sim.sh --sitl-only copter --map --console",
+                "options": {"cwd": "${workspaceFolder:ArduPilot}"},
+                "problemMatcher": []
+            },
+            {
+                "label": "Godot SITL: SITL only, aeroplane",
+                "detail": "for a backend started from the Godot debugger or editor",
+                "type": "shell",
+                "command": "libraries/SITL/examples/JSON/godot/run_sim.sh --sitl-only plane --map --console",
+                "options": {"cwd": "${workspaceFolder:ArduPilot}"},
+                "problemMatcher": []
+            },
+            {
+                "label": "Godot SITL: backend only, quadcopter",
+                "type": "shell",
+                "command": "libraries/SITL/examples/JSON/godot/run_sim.sh --backend-only copter",
+                "options": {
+                    "cwd": "${workspaceFolder:ArduPilot}",
+                    "env": {"GODOT": "${config:godotTools.editorPath.godot4}"}
+                },
+                "isBackground": true,
+                "problemMatcher": {
+                    "owner": "godot-sitl",
+                    "pattern": {"regexp": "^never matches$"},
+                    "background": {"activeBegins": true, "beginsPattern": "Godot Engine", "endsPattern": "waiting for SITL"}
+                }
+            },
+            {
+                "label": "Godot SITL: backend only, aeroplane",
+                "type": "shell",
+                "command": "libraries/SITL/examples/JSON/godot/run_sim.sh --backend-only plane",
+                "options": {
+                    "cwd": "${workspaceFolder:ArduPilot}",
+                    "env": {"GODOT": "${config:godotTools.editorPath.godot4}"}
+                },
+                "isBackground": true,
+                "problemMatcher": {
+                    "owner": "godot-sitl",
+                    "pattern": {"regexp": "^never matches$"},
+                    "background": {"activeBegins": true, "beginsPattern": "Godot Engine", "endsPattern": "waiting for SITL"}
+                }
+            },
+            {
+                "label": "Godot SITL: MAVProxy",
+                "detail": "a ground station for SITL started from the debugger",
+                "type": "shell",
+                "command": "mavproxy.py --master tcp:127.0.0.1:5760 --map --console",
+                "problemMatcher": []
+            }
+        ]
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Godot SITL: backend in GDScript debugger, quadcopter",
+                "type": "godot",
+                "request": "launch",
+                "project": "${workspaceFolder:Godot SITL}",
+                "scene": "main",
+                "additional_options": "-- --vehicle=res://models/quadx.gltf"
+            },
+            {
+                "name": "Godot SITL: backend in GDScript debugger, aeroplane",
+                "type": "godot",
+                "request": "launch",
+                "project": "${workspaceFolder:Godot SITL}",
+                "scene": "main",
+                "additional_options": "-- --vehicle=res://models/plane.gltf"
+            },
+            {
+                "name": "Godot SITL: ArduCopter in gdb",
+                "type": "cppdbg",
+                "request": "launch",
+                "program": "${workspaceFolder:ArduPilot}/build/sitl/bin/arducopter",
+                "args": [
+                    "--model", "JSON:127.0.0.1",
+                    "--speedup", "1",
+                    "-I0",
+                    "--defaults", "Tools/autotest/default_params/copter.parm,libraries/SITL/examples/JSON/godot/models/quadx.parm"
+                ],
+                "cwd": "${workspaceFolder:ArduPilot}",
+                "preLaunchTask": "Godot SITL: backend only, quadcopter",
+                "stopAtEntry": false,
+                "externalConsole": false
+            },
+            {
+                "name": "Godot SITL: ArduPlane in gdb",
+                "type": "cppdbg",
+                "request": "launch",
+                "program": "${workspaceFolder:ArduPilot}/build/sitl/bin/arduplane",
+                "args": [
+                    "--model", "JSON:127.0.0.1",
+                    "--speedup", "1",
+                    "-I0",
+                    "--defaults", "Tools/autotest/models/plane.parm,libraries/SITL/examples/JSON/godot/models/plane.parm"
+                ],
+                "cwd": "${workspaceFolder:ArduPilot}",
+                "preLaunchTask": "Godot SITL: backend only, aeroplane",
+                "stopAtEntry": false,
+                "externalConsole": false
+            }
+        ]
+    }
+}

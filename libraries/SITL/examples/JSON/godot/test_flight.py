@@ -43,7 +43,8 @@ def pump(seconds):
     end = time.time() + seconds
     while time.time() < end:
         m = mav.recv_match(blocking=True, timeout=0.1)
-        if m is None:
+        # ignore other ground stations, such as MAVProxy, forwarded by the vehicle
+        if m is None or m.get_srcSystem() != mav.target_system:
             continue
         t = m.get_type()
         state[t] = m
@@ -134,7 +135,7 @@ def upload_mission(items):
     end = time.time() + 30
     while time.time() < end:
         m = mav.recv_match(type=["MISSION_REQUEST", "MISSION_REQUEST_INT", "MISSION_ACK"], blocking=True, timeout=1)
-        if m is None:
+        if m is None or m.get_srcSystem() != mav.target_system or m.target_system != mav.source_system:
             continue
         if m.get_type() == "MISSION_ACK":
             return m.type == mavutil.mavlink.MAV_MISSION_ACCEPTED and len(sent) == len(items)
@@ -192,8 +193,16 @@ def test_plane():
     check(abs(e) < 15 and -100 < n < 200, "landed on the runway line")
 
 
-mav = mavutil.mavlink_connection(args.connect, source_system=255)
-mav.wait_heartbeat(timeout=60)
+mav = mavutil.mavlink_connection(args.connect, source_system=254)
+while True:
+    hb = mav.recv_match(type="HEARTBEAT", blocking=True, timeout=60)
+    if hb is None:
+        print("no heartbeat from the vehicle")
+        sys.exit(1)
+    if hb.type != mavutil.mavlink.MAV_TYPE_GCS:
+        mav.target_system = hb.get_srcSystem()
+        mav.target_component = hb.get_srcComponent()
+        break
 print("connected to system %u" % mav.target_system)
 mav.mav.request_data_stream_send(mav.target_system, mav.target_component,
                                  mavutil.mavlink.MAV_DATA_STREAM_ALL, 10, 1)
