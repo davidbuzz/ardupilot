@@ -310,6 +310,10 @@ with `--vehicle=res://path/to/vehicle.tscn`.
 
 ### Step by step
 
+`tools/tutorial/godot_vehicle_editor_tutorial.mp4` shows these steps in the
+editor. `tools` also has the scripts that wrote the models and some flight
+checks; see `tools/README.md`.
+
 1. Open the project: `godot --editor --path libraries/SITL/examples/JSON/godot`,
    or Import it in the Project Manager. The vehicles are in `models`.
 2. Project > Tools > **ArduPilot: convert glTF vehicle to scene...** and pick,
