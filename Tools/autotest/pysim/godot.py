@@ -130,6 +130,17 @@ def params_filepath(model):
     return os.path.join(PROJECT, "models", model + ".parm")
 
 
+def sim_rate_hz(model):
+    '''the SIM_RATE_HZ a Godot model's parameters set, for the backend to
+    start at: SITL can only move a backend's rate 1 Hz at a time'''
+    with open(params_filepath(model)) as f:
+        for line in f:
+            words = line.replace(",", " ").split()
+            if len(words) >= 2 and words[0] == "SIM_RATE_HZ":
+                return int(float(words[1]))
+    return 1200
+
+
 def lua_filepath(model):
     '''a Godot model's lua companion, or None. It sets what a defaults
     file cannot, such as another script's parameters, once they exist'''
@@ -289,6 +300,7 @@ class Backend(object):
             sim_args.append("--lake-depth=%g" % water[0])
             sim_args.append("--lake-radius=%g" % water[1])
         sim_args.append("--sitl-timeout=%u" % SITL_TIMEOUT)
+        sim_args.append("--rate=%u" % sim_rate_hz(models[0]))
         sim_args.extend(extra)
 
         why = None
