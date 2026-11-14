@@ -15,7 +15,16 @@ AP_FLAKE8_CLEAN
 import math
 import os
 
-from gltf_model import MODELS, Y, Z, add, body, box_inertia, collider, qaxis, qmul, write
+from gltf_model import MODELS
+from gltf_model import Y
+from gltf_model import Z
+from gltf_model import add
+from gltf_model import body
+from gltf_model import box_inertia
+from gltf_model import collider
+from gltf_model import qaxis
+from gltf_model import qmul
+from gltf_model import write
 
 # ---------------------------------------------------------------- settings
 # what to write: (name, legs, servos a leg). Legs are 3, 4 or 6; servos are

@@ -12,7 +12,14 @@ SUB_FRAME_VECTORED: four flat thrusters at 45 degrees and two upright ones.
 AP_FLAKE8_CLEAN
 '''
 
-from gltf_model import X, Y, body, collider, part, qaxis, qmul, write
+from gltf_model import X
+from gltf_model import Y
+from gltf_model import body
+from gltf_model import collider
+from gltf_model import part
+from gltf_model import qaxis
+from gltf_model import qmul
+from gltf_model import write
 
 # SIM_Submarine's hull, which this one is built to match
 MASS = 10.5            # kg

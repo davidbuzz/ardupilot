@@ -12,7 +12,10 @@ Tools/autotest/default_params/balancebot.parm suit it.
 AP_FLAKE8_CLEAN
 '''
 
-from gltf_model import body, collider, part, write
+from gltf_model import body
+from gltf_model import collider
+from gltf_model import part
+from gltf_model import write
 
 # SIM_BalanceBot's pendulum, which this one is built to match
 MASS = 3.0             # kg, the body

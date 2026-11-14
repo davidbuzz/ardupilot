@@ -14,7 +14,13 @@ AP_FLAKE8_CLEAN
 
 import math
 
-from gltf_model import X, Z, body, collider, part, qaxis, write
+from gltf_model import X
+from gltf_model import Z
+from gltf_model import body
+from gltf_model import collider
+from gltf_model import part
+from gltf_model import qaxis
+from gltf_model import write
 
 # glTF axes: +Z forward, +X left, +Y up. The body origin is the centre of
 # mass, at the wing's quarter chord.

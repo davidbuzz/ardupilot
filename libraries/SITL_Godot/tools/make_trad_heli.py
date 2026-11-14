@@ -12,7 +12,12 @@ collective and headspeed settings suit it.
 AP_FLAKE8_CLEAN
 '''
 
-from gltf_model import Z, body, collider, part, qaxis, write
+from gltf_model import Z
+from gltf_model import body
+from gltf_model import collider
+from gltf_model import part
+from gltf_model import qaxis
+from gltf_model import write
 
 # the helicopter, in metres. glTF axes: +Z forward, +X left, +Y up, and
 # the origin is the centre of mass, under the rotor shaft

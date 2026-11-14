@@ -12,7 +12,13 @@ that the Rover tests' motorboat speeds and turn rates suit it.
 AP_FLAKE8_CLEAN
 '''
 
-from gltf_model import X, Z, body, collider, part, qaxis, write
+from gltf_model import X
+from gltf_model import Z
+from gltf_model import body
+from gltf_model import collider
+from gltf_model import part
+from gltf_model import qaxis
+from gltf_model import write
 
 # the boat, in metres. glTF axes: +Z forward, +X left, +Y up, and the
 # origin is at the waterline on the hull's centreline

@@ -11,7 +11,14 @@ default frame.
 AP_FLAKE8_CLEAN
 '''
 
-from gltf_model import Y, add, body, collider_ext, part, qaxis, shape, write
+from gltf_model import Y
+from gltf_model import add
+from gltf_model import body
+from gltf_model import collider_ext
+from gltf_model import part
+from gltf_model import qaxis
+from gltf_model import shape
+from gltf_model import write
 
 FRAME = shape([0.12, 0.05, 0.16])
 BOOM = shape([0.34, 0.015, 0.02])

@@ -12,7 +12,14 @@ the post (SERVO2, pitch). The dish is the vehicle: its attitude is the aim.
 AP_FLAKE8_CLEAN
 '''
 
-from gltf_model import X, Z, add, body, box_inertia, collider, qaxis, write
+from gltf_model import X
+from gltf_model import Z
+from gltf_model import add
+from gltf_model import body
+from gltf_model import box_inertia
+from gltf_model import collider
+from gltf_model import qaxis
+from gltf_model import write
 
 # The yaw servo is continuous, with no end stop, so the dish can follow
 # something round and round: SERVO_YAW_TYPE 2, which tracker.parm sets.

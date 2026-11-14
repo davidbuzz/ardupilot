@@ -20,7 +20,9 @@ import re
 import sys
 import zipfile
 
-from gltf_model import X, Z, qaxis
+from gltf_model import X
+from gltf_model import Z
+from gltf_model import qaxis
 from json_pretify import pretty
 
 # Fly the result with the model's .parm from ArduPilot/SITL_Models, stripped

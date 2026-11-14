@@ -12,7 +12,12 @@ sheet mode: the servo sets how far the sail may swing, the wind which side.
 AP_FLAKE8_CLEAN
 '''
 
-from gltf_model import Z, body, collider, part, qaxis, write
+from gltf_model import Z
+from gltf_model import body
+from gltf_model import collider
+from gltf_model import part
+from gltf_model import qaxis
+from gltf_model import write
 
 MASS = 4.0                  # kg
 LENGTH = 1.20               # m, glTF Z
