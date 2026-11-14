@@ -10887,7 +10887,7 @@ Also, ignores heartbeats not from our target system'''
                 return
             try:
                 mode = self.mav.flightmode
-            except Exception:
+            except Exception:  # noqa: BLE001
                 return
             if mode and mode != state["mode"]:
                 state["mode"] = mode
@@ -10954,7 +10954,7 @@ Also, ignores heartbeats not from our target system'''
                                                       robust_parsing=True,
                                                       dialect="all")
                     break
-                except Exception:
+                except Exception:  # noqa: BLE001
                     time.sleep(0.1)
             if conn is None:
                 raise NotAchievedException("Godot vehicle %u did not open its serial port" % n)
@@ -10971,7 +10971,7 @@ Also, ignores heartbeats not from our target system'''
         while not getattr(conn, "godot_quit", False):
             try:
                 conn.recv_match(blocking=True, timeout=1)
-            except Exception:
+            except Exception:  # noqa: BLE001
                 time.sleep(0.5)
 
     def install_godot_mirror(self):
@@ -10988,7 +10988,7 @@ Also, ignores heartbeats not from our target system'''
             for _p, conn, _d in bystanders:
                 try:
                     conn.write(buf)
-                except Exception:
+                except Exception:  # noqa: BLE001
                     pass
             return orig_write(buf)
         self.mav.write = mirrored_write

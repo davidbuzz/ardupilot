@@ -13,8 +13,8 @@ from __future__ import annotations
 import atexit
 import os
 import shlex
-import socket
 import shutil
+import socket
 import subprocess
 import sys
 import time
