@@ -165,6 +165,7 @@ The backend's own options go after `--` on Godot's command line:
 | `--world=` | flat ground | scenery: a `.gltf`/`.glb` whose colliders have no `motion`, or a scene |
 | `--port=` | `9002` | UDP port to listen on; vehicle i listens on port + 10 x i |
 | `--spacing=` | `5,0` | east,north from one vehicle's spawn to the next (m) |
+| `--rate=` | `1200` | physics rate to start at (Hz); set it to the model's `SIM_RATE_HZ`, as SITL moves a backend's rate only 1 Hz per step |
 | `--wind=` | `0,0,0` | wind velocity, north, east, down (m/s); SITL's `SIM_WIND_*` parameters do not reach the backend |
 | `--spawn-height=` | `0` | start this far above the position in the file (m) |
 | `--spawn-speed=` | `0` | start moving forward at this speed (m/s), for air starts |

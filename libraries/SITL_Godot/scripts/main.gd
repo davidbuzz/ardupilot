@@ -22,6 +22,7 @@ var options := {
     "spawn-speed": "0.0", # initial forward speed (m/s)
     "launcher": "", # see README; servo 7 releases
     "wind": "0,0,0", # towards north,east,down (m/s)
+    "rate": "", # physics Hz at start
     "reverse": "", # servo outputs reversed about 1500
     "water": "", # surface level (m, world Y)
     "home": "-35.363261,149.165230", # lat,lon; default is CMAC
@@ -314,6 +315,8 @@ func _build_simulation() -> void: # must not need earlier state
         _build_default_world()
     for ch in String(options["reverse"]).split(",", false):
         reversed_servos.append(int(ch))
+    if int(options["rate"]) > 0:
+        Engine.physics_ticks_per_second = int(options["rate"]) # SITL only nudges 1Hz
     var w: PackedFloat64Array = String(options["wind"]).split_floats(",")
 
     var base_port := int(options["port"]) # one SITL per vehicle
@@ -411,7 +414,8 @@ func _physics_process(delta: float) -> void:
             get_tree().quit()
         return
 
-    if bridges[0].frame_rate > 0 and bridges[0].frame_rate != Engine.physics_ticks_per_second:
+    var sent_hz := roundi(1.0 / last_dt) if last_dt > 0.0 else 0 # rate SITL last saw
+    if absi(bridges[0].frame_rate - sent_hz) <= 2 and bridges[0].frame_rate != Engine.physics_ticks_per_second:
         Engine.physics_ticks_per_second = bridges[0].frame_rate # takes effect next frame
 
     for i in vehicles.size():
