@@ -3612,7 +3612,9 @@ class TestSuite(abc.ABC):
         self.set_parameters(wanted, add_to_context=False)
         changed = [n for n, v in wanted.items()
                    if before.get(n) is None or abs(before[n] - float(v)) > 1e-6]
-        if not changed:
+        # only with Godot: elsewhere this reboot also settles what the
+        # first boot after a wipe learns, such as CAN compass IDs
+        if self.godot and not changed:
             self.progress("Default parameters already applied; not rebooting",
                           send_statustext=False)
             return
@@ -10674,13 +10676,13 @@ Also, ignores heartbeats not from our target system'''
         start_sitl_args.update(**sitl_args)
         if self.godot:
             self.use_godot_physics(start_sitl_args)
-        # hand the session's baseline parameters to the starting SITL,
-        # so it comes up with them already set and needs no reboot to
-        # apply them; last in the list, so they win
-        defaults = start_sitl_args.get("defaults_filepath") or []
-        if not isinstance(defaults, list):
-            defaults = [defaults]
-        start_sitl_args["defaults_filepath"] = defaults + [self.default_parameters_filepath()]
+            # hand the session's baseline parameters to the starting SITL,
+            # so it comes up with them already set and needs no reboot to
+            # apply them; last in the list, so they win
+            defaults = start_sitl_args.get("defaults_filepath") or []
+            if not isinstance(defaults, list):
+                defaults = [defaults]
+            start_sitl_args["defaults_filepath"] = defaults + [self.default_parameters_filepath()]
         if "model" not in start_sitl_args or start_sitl_args["model"] is None:
             start_sitl_args["model"] = self.frame
         self.progress("Starting SITL", send_statustext=False)
