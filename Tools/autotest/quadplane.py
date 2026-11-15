@@ -1914,7 +1914,6 @@ class AutoTestQuadPlane(vehicle_test_suite.TestSuite):
 
         self.set_parameters({
             "SCR_ENABLE": 1,
-            "SIM_SPEEDUP": 20, # need to give some cycles to lua
             "RC7_OPTION": 300,
         })
 
@@ -2058,7 +2057,6 @@ class AutoTestQuadPlane(vehicle_test_suite.TestSuite):
 
         self.set_parameters({
             "PLND_ALT_CUTOFF" : 5,
-            "SIM_SPEEDUP" : 10,
             })
 
         self.context_collect('STATUSTEXT')
@@ -2124,7 +2122,6 @@ class AutoTestQuadPlane(vehicle_test_suite.TestSuite):
         self.context_collect('STATUSTEXT')
         self.set_parameters({
             "SHIP_ENABLE" : 1,
-            "SIM_SPEEDUP" : 10,
             })
 
         self.scripting_restart()
@@ -3358,7 +3355,6 @@ class AutoTestQuadPlane(vehicle_test_suite.TestSuite):
 
         self.set_parameters({
             "SCR_ENABLE": 1,
-            "SIM_SPEEDUP": 20, # need to give some cycles to lua
             "RC7_OPTION": 305,
             "RTL_AUTOLAND": 2,
             "RNGFND1_TYPE": 100,

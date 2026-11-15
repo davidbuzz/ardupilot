@@ -7184,7 +7184,6 @@ return update()
         self.set_parameters({
             "SCR_ENABLE": 1,
             "SCR_VM_I_COUNT": 1000000,
-            "SIM_SPEEDUP": 20,
             "NET_ENABLE": 1,
         })
 
@@ -7218,7 +7217,6 @@ return update()
         self.set_parameters({
             "SCR_ENABLE": 1,
             "SCR_VM_I_COUNT": 1000000,
-            "SIM_SPEEDUP": 20,
             "NET_ENABLE": 1,
             "SERIAL5_PROTOCOL": 48,
         })

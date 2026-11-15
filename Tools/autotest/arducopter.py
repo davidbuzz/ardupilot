@@ -13806,7 +13806,6 @@ class AutoTestCopter(vehicle_test_suite.TestSuite):
         self.set_parameters({
             "SERIAL5_PROTOCOL": 1,
             "PRX1_TYPE": 2,
-            "SIM_SPEEDUP": 8,  # much GCS interaction
         })
         self.reboot_sitl()
         # need yaw estimate to stabilise:
@@ -23014,11 +23013,9 @@ return update()
         # is initialized at process start. The OSD backend cannot be created
         # after boot (OSD_TYPE requires process restart), so if not built with
         # --sitl-osd, the test will detect this and skip gracefully.
-        # SIM_SPEEDUP=5 makes the OSD window visible longer for visual testing.
         self.set_parameters({
             "SCR_ENABLE": 1,
             "OSD_TYPE": 2,  # SITL OSD (requires --sitl-osd at configure time)
-            "SIM_SPEEDUP": 5,  # Slow enough to see the OSD
         })
         self.reboot_sitl()
 

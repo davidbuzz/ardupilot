@@ -4201,7 +4201,6 @@ return update()
             "INS_TCAL1_TMAX": 42,
             "INS_TCAL2_ENABLE": 2,
             "INS_TCAL2_TMAX": 42,
-            "SIM_SPEEDUP": 200,
         })
         self.set_parameter("LOG_DISARMED", 1)
         self.reboot_sitl()
@@ -7321,7 +7320,7 @@ return update()
             "TRIK1_ID": 72,
             "RC7_OPTION" : 300, # activation switch
             "RC9_OPTION" : 301, # selection switch
-            "SIM_SPEEDUP": 5, # need to give some cycles to lua
+            "SIM_SPEEDUP": min(self.speedup, 40), # a trick is missed at 50
         })
 
         self.wait_ready_to_arm()
@@ -9855,7 +9854,6 @@ return update()
 
         self.set_parameters({
             "SCR_ENABLE": 1,
-            "SIM_SPEEDUP": 20, # need to give some cycles to lua
             "RC7_OPTION": 301,
         })
 
