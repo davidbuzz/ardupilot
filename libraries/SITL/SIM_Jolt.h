@@ -50,7 +50,7 @@ private:
     char bake[256];
     uint32_t reversed; // reversed outputs, a bit each
     Vector3f steady_wind; // blown whatever SIM_WIND_* say (NED, m/s)
-    float lake_depth; // 0 for the usual one
+    float lake_depth, lake_radius; // 0 for the usual one
     char launcher[8]; // sled, ramp, drop or toss
     float launch[3];
     SocketAPM_native view_sock{true}; // poses for a viewer

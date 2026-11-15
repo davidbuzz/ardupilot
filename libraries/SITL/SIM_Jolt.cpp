@@ -33,7 +33,7 @@ using namespace SITL;
 Jolt::Jolt(const char *frame_str) :
     Aircraft(frame_str)
 {
-    const char *colon = strchr(frame_str, ':'); // jolt:bake[,reverse=2+4][,wind=n+e+d][,lake=m][,launcher=kind+a+b+c]
+    const char *colon = strchr(frame_str, ':'); // jolt:bake[,reverse=2+4][,wind=n+e+d][,lake=depth+radius][,launcher=kind+a+b+c]
     strncpy(bake, colon != nullptr ? colon + 1 : "", sizeof(bake) - 1);
     char *save = nullptr;
     strtok_r(bake, ",", &save);
@@ -50,7 +50,7 @@ Jolt::Jolt(const char *frame_str) :
             sscanf(option + 5, "%f+%f+%f", &w[0], &w[1], &w[2]);
             steady_wind = Vector3f(w[0], w[1], w[2]);
         } else if (strncmp(option, "lake=", 5) == 0) {
-            lake_depth = atof(option + 5);
+            sscanf(option + 5, "%f+%f", &lake_depth, &lake_radius);
         } else if (strncmp(option, "launcher=", 9) == 0) {
             const char *plus = strchr(option + 9, '+');
             strncpy(launcher, option + 9, MIN(sizeof(launcher) - 1, size_t(plus != nullptr ? plus - (option + 9) : 7)));
@@ -86,7 +86,7 @@ void Jolt::update(const struct sitl_input &input)
 {
     if (sim == nullptr) {
         char why[256] {};
-        sim = jolt_sim_create(bake, lake_depth, why, sizeof(why));
+        sim = jolt_sim_create(bake, lake_depth, lake_radius, why, sizeof(why));
         if (sim == nullptr) {
             AP_HAL::panic("SIM_Jolt: %s", why);
         }
