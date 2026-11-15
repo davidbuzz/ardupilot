@@ -10733,7 +10733,7 @@ Also, ignores heartbeats not from our target system'''
         # Remember the frame asked for: this method replaces the model with
         # the JSON one, which a restart would otherwise read back as the frame.
         asked = start_sitl_args.get("model")
-        if asked and asked != godot_physics.SITL_MODEL:
+        if asked and not godot_physics.is_sitl_model(asked):
             self.godot_frame = asked
         frame = self.godot_frame or self.frame
         model = self.godot_model or godot_physics.model_for(vehicle, frame)
@@ -10764,7 +10764,10 @@ Also, ignores heartbeats not from our target system'''
                                  launcher=godot_physics.launcher_for(vehicle, frame),
                                  water=godot_physics.water_for(vehicle, frame),
                                  wind=godot_physics.wind_for(vehicle, frame))
-        start_sitl_args["model"] = godot_physics.SITL_MODEL
+        start_sitl_args["model"] = godot_physics.sitl_model(model, reversed_servos,
+                                                            wind=godot_physics.wind_for(vehicle, frame),
+                                                            water=godot_physics.water_for(vehicle, frame),
+                                                            launcher=godot_physics.launcher_for(vehicle, frame))
         # SITL looks up a frame's default parameters by model name, which
         # for JSON matches no frame, so pass them explicitly
         defaults = start_sitl_args.get("defaults_filepath") or []

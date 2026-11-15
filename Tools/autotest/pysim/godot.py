@@ -34,6 +34,30 @@ SITL_TIMEOUT = 120
 
 # the SITL model which talks to the backend
 SITL_MODEL = "JSON:127.0.0.1"
+# Experimental: a SITL built with this set (see native/build_jolt.sh) steps a
+# baked copy of the model itself, with Jolt, and no backend runs at all.
+JOLT = bool(os.environ.get("SITL_JOLT_LIB"))
+
+
+def sitl_model(model, reversed_servos=(), wind=None, water=None, launcher=None):
+    '''what SITL's --model is for a Godot model'''
+    if JOLT:
+        options = ""
+        if reversed_servos:
+            options = ",reverse=" + "+".join(str(ch) for ch in reversed_servos)
+        if wind is not None:
+            options += ",wind=%g+%g+%g" % wind
+        if water is not None:
+            options += ",lake=%g" % water[0]
+        if launcher:
+            options += ",launcher=" + launcher.replace(",", "+")
+        return "jolt:" + os.path.join(PROJECT, "native", "build", "bakes", model + ".bake") + options
+    return SITL_MODEL
+
+
+def is_sitl_model(name):
+    return name == SITL_MODEL or str(name).startswith("jolt:")
+
 
 # vehicleinfo.json vehicle -> {frame: model in the Godot project's models directory}
 MODELS = {
@@ -310,6 +334,11 @@ class Backend(object):
         sim_args.append("--sitl-timeout=%u" % SITL_TIMEOUT)
         sim_args.append("--rate=%u" % sim_rate_hz(models[0]))
         sim_args.extend(extra)
+        if JOLT:
+            if self.headless:
+                self.config = config  # SITL has the physics; nothing to start
+                return
+            sim_args.append("--watch=%u" % (self.port + 1))  # a viewer only: SIM_Jolt sends it poses
 
         why = None
         if self.is_running():
@@ -341,6 +370,8 @@ class Backend(object):
         # when SITL is sped up; SITL sets the pace, so V-Sync must not
         fps = os.environ.get("GODOT_FIXED_FPS") or self.fixed_fps(speedup)
         cmd = [find_godot(), "--path", PROJECT, "--fixed-fps", fps]
+        if JOLT:
+            cmd = [find_godot(), "--path", PROJECT]  # draws in real time, at its own rate
         if headless:
             cmd.append("--headless")
         else:
