@@ -62,6 +62,9 @@ class MagFuseSel():
 
 
 class AutoTestSub(vehicle_test_suite.TestSuite):
+    def sitl_streamrate(self):
+        return 5  # as Copter: at 10 SITL waits on us to read for a third of a fast run
+
     @staticmethod
     def get_not_armable_mode_list():
         return []
