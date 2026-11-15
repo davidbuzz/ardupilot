@@ -177,11 +177,129 @@ Three things were, none of them in this backend:
   queue is far larger) fails to start with the Godot harness code, which
   expects a port number. It would remove most of the remaining stops.
 
+### Each test's fastest speed (2026-11-15)
+
+A search raised each test's `--speedup` from 50 in steps of 1.2 until it
+failed or fell behind, then stepped down by 0.85 until one value passed
+twice running and was held (measured speed at least 0.93 of the speed
+asked). Optimised builds, the viewer open, a 16-thread desktop, nothing
+else running. `test-all.sh` now asks each test for its own figure when
+`SITL_JOLT_LIB` is set; `SPEEDUP=n` still overrides them all.
+
+| Test | Fastest held | Measured, two runs | One step faster |
+| --- | --- | --- | --- |
+| `Copter.TakeoffAlt` | 75x | 76.1x, 77.0x | see below |
+| `Helicopter.PosHoldTakeOff` | 85x | 84.0x, 85.5x | see below |
+| `Plane.TakeoffTakeoff1` | 40x | 40.0x, 39.8x | 50x: passed, ran at 46x |
+| `Plane.AerobaticsScripting` | 40x | 40.0x, 40.0x | 50x: failed, a trick missed |
+| `Plane.TakeoffBungee` | 30x | 30.0x, 30.0x | 40x: passed, ran at 38x |
+| `Plane.GliderDrop` | 40x | 37.5x, 38.3x | 50x: passed, ran at 41x |
+| `QuadPlane.Mission` | 50x | 50.0x, 49.9x | 60x: failed |
+| `Rover.DriveRTL` | 70x | 70.3x, 70.3x | 80x: failed |
+| `Rover.DriveMotorBoat` | 80x | 80.6x, 80.1x | 95x: stalled, stopped after 25 s |
+| `BalanceBot.DriveRTL` | 40x | 40.2x, 40.2x | 50x: failed |
+| `Sailboat.DriveRTL` | 60x | 64.8x, 62.1x | 70x: stalled, stopped after 21 s |
+| `Hexapod.Walk` | 30x | 28.0x, 30.4x | 40x: passed, ran at 18x |
+| `Sub.DiveMission` | 50x | 49.8x, 48.5x | 60x: passed, ran at 46x |
+| `Tracker.TrackPlane` | 50x | 50.0x, 50.0x | 60x: failed |
+| `Blimp.FourMotorHold` | 70x | 68.9x, 68.8x | 80x: passed, ran at 68x |
+
+- **Copter and helicopter** were found by an earlier form of the search,
+  which asked for far more than could be had and took 0.9 of what was
+  reached. They were not searched again by the stepping rule.
+- **Asking for more can give less.** The hexapod ran at 18x when asked for
+  40x or 50x, the Sub at 46x when asked for 60x: SITL's MAVLink queue
+  fills, SITL pauses, and the Python harness falls behind the vehicle.
+  Asked for 1000x a plane sat on the ground and the test stalled without
+  failing. The hexapod is also the one model whose physics is costly
+  (19 bodies, about 55 us a step).
+- **Requests above 100x are given 100x** (`MAX_SPEEDUP` in
+  `vehicle_test_suite.py`) for that reason.
+- `Plane.AerobaticsScripting` held 40x twice here but has failed at 40x
+  before: fixed since, see the next section.
+- The lake's shore (below) was added part way through: tests from
+  `Rover.DriveMotorBoat` on were measured with it, those before it without.
+  The earlier tests use no water.
+
+### What held six tests under 50x (2026-11-15)
+
+Six tests in the table above were under 50x. None was held back by the
+Jolt step itself; each cause was found by measurement before anything was
+changed.
+
+| Test | Was | Cause | Fix | Now, 50x asked |
+| --- | --- | --- | --- | --- |
+| `Plane.TakeoffTakeoff1`, `Plane.TakeoffBungee`, `Plane.GliderDrop` | 40x, 30x, 40x | The Python harness: at 10 Hz streams it spent 85% of a core reading MAVLink, and SITL stopped for it about ten times a simulated second | Plane and Rover suites ask for 5 Hz streams on these backends, as Copter, Sub and Blimp do; the harness drains its pexpects every 5 ms, not every message | 50.0x, 10 of 10 passed |
+| `BalanceBot.DriveRTL` | 40x | The same: the harness fell behind and read `NAV_CONTROLLER_OUTPUT` after the drive was over | The same | 50.0x, 4 of 4 |
+| `Hexapod.Walk` | 30x | SITL's own core was full: nineteen bodies cost 46 us a step, at 400 Hz | `hexapod.parm`: `SIM_RATE_HZ 100` | 50x, 3 of 3, core at 60 to 70% |
+| `Plane.AerobaticsScripting` | 40x, marginal | SITL's clock ran on while the Lua script computed: 0.3 ms of wall time is 15 ms of flight at 50x, so the script got 40 to 50 ms between updates in place of 25 | `AP_HAL_SITL` holds the clock while the scripting thread runs | 50.0x; update interval 30 ms; 40x cap removed |
+
+- **The harness profile** (`perf`, Python's perf trampolines): of its time
+  in a test, 21% parsing MAVLink, 21% in its per-message hook, 12% of that
+  draining pexpects.
+- **The clock hold is in SITL, not in this backend**, and changes stock
+  SITL too: a script now runs at one instant at any speedup. Its first form
+  cost speed (19x): the main thread kept the scheduler's lock while waiting
+  for a script which was waiting for that lock. The clock now runs while the
+  script waits on a lock, and waits for the script again when that lock is
+  given up.
+- **The glider is close to the limit.** Its tuning needs a 200 Hz loop and
+  so 400 Hz physics, which takes 70 to 75% of a core at 50x. In one full
+  run its flight ran at 24x; in nine repeats it held 50x. This machine
+  is a laptop which throttles when hot, which is the likely cause and is
+  not confirmed.
+- **`Tracker.TrackPlane` failed about half its runs at 50x**, for a reason
+  which is not speed alone: the aeroplane circled from boot, and with the
+  dish turning the EKF took 100 to 140 simulated seconds to use GPS, once
+  never (313 s). The slower the harness's setup landed in simulated time,
+  the worse. The aeroplane now starts once the tracker is ready to arm, as
+  the stock tracker test does, and the EKF uses GPS at the same simulated
+  second every run. The dish gets one lap to lock on before it is scored
+  (it can hunt for 36 s), and the suite asks for 5 Hz streams here too:
+  10 of 10 passed at 50x, worst yaw error 3 degrees.
+
+### Against stock SITL (2026-11-15)
+
+The same tests on SITL's own physics, no Godot and no Jolt, `--speedup=100`
+asked, one run each. Speed is the median of half-second readings of SITL's
+clock against the wall, taken from the harness's telemetry log; the method
+read 50.0x on a Jolt run which reported 50.0x itself.
+
+| Test | Jolt model, default asked | Stock SITL, 100x asked: achieved |
+| --- | --- | --- |
+| `Copter.TakeoffAlt` | 75x | 46x |
+| `Helicopter.PosHoldTakeOff` | 85x | 48x |
+| `Plane.TakeoffTakeoff1` | 50x | 47x |
+| `Plane.AerobaticsScripting` | 50x | 35x |
+| `Plane.TakeoffBungee` | 50x | 39x |
+| `Plane.GliderDrop` | 50x | cannot run: nothing holds the glider up |
+| `QuadPlane.Mission` | 50x | 32x |
+| `Rover.DriveRTL` | 70x | 94x |
+| `Rover.DriveMotorBoat` | 80x | 100x |
+| `BalanceBot.DriveRTL` | 50x | 90x |
+| `Sailboat.DriveRTL` | 60x | 86x |
+| `Hexapod.Walk` | 50x | 91x, on SITL's rover: it has no legs |
+| `Sub.DiveMission` | 50x | 38x |
+| `Tracker.TrackPlane` | 50x | 95x, and the test failed |
+| `Blimp.FourMotorHold` | 70x | 78x |
+
+- The Jolt column is what each test is asked for, not its ceiling: the six
+  raised to 50x were not searched above it.
+- The two columns do not step alike: stock SITL's default physics rate is
+  1200 Hz, the Jolt models' 100 to 400 Hz. Why stock's aircraft are its
+  slow rows was not looked into.
+- Several tests last a second or two of wall time, so a figure can rest on
+  one to four readings.
+
 ### Not done yet
 
 - **Comparing whole flights against the Godot backend.** Tests passing shows
   the vehicles fly acceptably, not that they fly the same.
-- **The lake has no shore.** The bed is flat everywhere at the lake's depth.
+- **The lake's shore is a bowl, not main.gd's lake.** The bed rises from
+  the lake's depth to the ground between 0.55 and 1.0 of its radius
+  (`lake=depth+radius` in the model string). Before this the bed was flat
+  everywhere, and a speedboat run too fast drove off across "land" for
+  ever without failing.
 - **The catapult's shuttle** is not modelled; the push goes straight to the
   aircraft, as it does in the script.
 - **Scenery and impact detection.**
