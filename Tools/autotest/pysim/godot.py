@@ -280,7 +280,8 @@ class Backend(object):
               speedup=1, launcher=None, water=None, wind=None):
         '''model is a list of up to five Godot model names which share one
         world, one per SITL instance from this backend's up, spawned
-        spacing="east,north" metres apart. home is "lat,lon" for the imagery'''
+        spacing="east,north" metres apart. home is "lat,lon" for the imagery,
+        or "lat,lon,alt,heading" to face the vehicles that way too'''
         models = tuple(model)
         # extra backend options (see the README), e.g. --wind=0,5,0
         extra = tuple(shlex.split(os.environ.get("GODOT_SIM_ARGS", "")))

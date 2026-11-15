@@ -1872,9 +1872,9 @@ if cmd_opts.godot:
     # the backend places its ground imagery around home
     godot_home = None
     if cmd_opts.custom_location:
-        godot_home = ",".join(cmd_opts.custom_location.split(",")[0:2])
+        godot_home = cmd_opts.custom_location  # heading too, as autotest
     elif cmd_opts.location:
-        godot_home = ",".join(str(x) for x in find_location_by_name(cmd_opts.location)[0:2])
+        godot_home = ",".join(str(x) for x in find_location_by_name(cmd_opts.location))
     # contiguous instances up to the backend's limit of 5 share one world
     # and can collide; otherwise each instance gets its own world
     shared = (1 < len(instances) <= 5 and
