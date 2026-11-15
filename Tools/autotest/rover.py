@@ -43,6 +43,9 @@ SITL_START_HEADING = 246
 
 
 class AutoTestRover(vehicle_test_suite.TestSuite):
+    def sitl_streamrate(self):
+        return 5 if self.godot else 10  # ten floods the harness at 50x
+
     @staticmethod
     def get_not_armable_mode_list():
         return ["RTL", "SMART_RTL"]

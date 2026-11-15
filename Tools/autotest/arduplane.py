@@ -38,6 +38,9 @@ WIND = "0,180,0.2"  # speed,direction,variance
 
 
 class AutoTestPlane(vehicle_test_suite.TestSuite):
+    def sitl_streamrate(self):
+        return 5 if self.godot else 10  # ten floods the harness at 50x
+
     @staticmethod
     def get_not_armable_mode_list():
         return []
@@ -7320,7 +7323,6 @@ return update()
             "TRIK1_ID": 72,
             "RC7_OPTION" : 300, # activation switch
             "RC9_OPTION" : 301, # selection switch
-            "SIM_SPEEDUP": min(self.speedup, 40), # a trick is missed at 50
         })
 
         self.wait_ready_to_arm()
