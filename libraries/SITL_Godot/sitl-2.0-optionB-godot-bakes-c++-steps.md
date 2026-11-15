@@ -77,18 +77,23 @@ water and impact logic in `scripts/main.gd`, still move to C++.
 | One static library: Jolt 5.5.0 (the version Godot 4.7 bundles) plus the above | `native/build_jolt.sh` | Done: 53 seconds at `-j6` |
 | SITL model, `--model jolt:vehicle.bake` | `libraries/SITL/SIM_Jolt.{h,cpp}` | Done: servos in and state out by direct call |
 | Build hook | `Tools/ardupilotwaf/boards.py` | With `SITL_JOLT_LIB` set at configure, the library is linked into the SITL binary |
-| Harness | `Tools/autotest/pysim/godot.py`, `vehicle_test_suite.py` | With `SITL_JOLT_LIB` set, `--godot` starts SITL on the baked model and no backend; servo reversals, wind, lake depth and launcher travel in the model string (`jolt:vehicle.bake,reverse=2+4,wind=3+0+0,lake=60,launcher=sled+15+5+15`) |
+| Harness | `Tools/autotest/pysim/godot.py`, `vehicle_test_suite.py`, `autotest.py`, `sim_vehicle.py` | `--jolt` (viewer) or `--jolt-headless` (none) starts SITL on the baked model and no backend, where `--godot` starts Godot's own physics in a second process; servo reversals, wind, lake depth and launcher travel in the model string (`jolt:vehicle.bake,reverse=2+4,wind=3+0+0,lake=60,launcher=sled+15+5+15`) |
 | External viewer | `SIM_Jolt` (sender), `scripts/main.gd` `--watch=port` (viewer) | Working: SITL sends each body's pose over UDP fifty times a second of real time and never waits; Godot, as a separate process, freezes the vehicle and places it there. The harness starts it unless headless is asked for |
 
 To build and fly:
 
 ```sh
 libraries/SITL_Godot/native/build_jolt.sh
-godot --headless --path libraries/SITL_Godot -s native/bake.gd
-export SITL_JOLT_LIB=$PWD/libraries/SITL_Godot/native/build/libsitl_jolt.a
-Tools/autotest/autotest.py build.Copter
-Tools/autotest/autotest.py --godot --speedup=100 test.Copter.TakeoffAlt
+Tools/autotest/autotest.py --jolt --no-debug build.Copter
+Tools/autotest/autotest.py --jolt --no-debug --speedup=100 test.Copter.TakeoffAlt
 ```
+
+`--jolt` tells waf where the library is (`SITL_JOLT_LIB`, which can still
+be set by hand to use another), bakes the models when a bake is missing or
+older than its model or the loader, and refuses a binary built without the
+stepper. It was chosen by `SITL_JOLT_LIB` alone until 2026-11-15, which made
+a build setting do a run-time job. `--jolt` with `--godot`, or with more
+than one vehicle, is refused: fleets are `--godot`'s.
 
 ### Measured
 
@@ -309,7 +314,7 @@ read 50.0x on a Jolt run which reported 50.0x itself.
 - In the viewer: propellers turning, surfaces and hinges moving (only body
   poses are sent so far), the ground speed readout, and SITL's reason when
   it refuses a model.
-- `sim_vehicle.py`, fleets.
+- Fleets. (`sim_vehicle.py --jolt` starts; it has had one check, not a flight.)
 
 ## The bake
 

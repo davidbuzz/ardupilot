@@ -4,7 +4,7 @@
 # Part of ArduPilot and released under its licence: see COPYING.txt.
 
 # One autotest per Godot backend airframe; the list builds each vehicle
-# before its tests. usage: test-all.sh [autotest.py options]
+# before its tests. usage: test-all.sh [--jolt|--jolt-headless] [autotest.py options]
 set -u
 cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 
@@ -86,6 +86,12 @@ TESTS=(
 
 )
 
+JOLT="" # --jolt builds; else Godot steps
+PHYSICS=--godot
+for a in "$@"; do
+    [[ $a == --jolt || $a == --jolt-headless ]] && JOLT=--jolt && PHYSICS="" # the flag itself rides in "$@"
+done
+
 KNOWN_MARGINAL=()
 
 FAILED=()
@@ -96,8 +102,8 @@ for entry in "${TESTS[@]}"; do
     model=${model#"$t"}          # no "|" in the entry: no model named
     model_arg=()
     label="$t"
-    speedup=${SPEEDUP:-10} # Godot backend: ten is watchable
-    [ -n "${SITL_JOLT_LIB:-}" ] && speedup=${SPEEDUP:-${TEST_SPEEDUPS[$t]:-50}} # SPEEDUP=n overrides
+    speedup=${SPEEDUP:-10} # --godot: ten is watchable
+    [ -n "$JOLT" ] && speedup=${SPEEDUP:-${TEST_SPEEDUPS[$t]:-50}} # SPEEDUP=n overrides
     if [ -n "$model" ]; then
         model_arg=(--godot-model "$model")
         label="$t on $model"
@@ -107,10 +113,10 @@ for entry in "${TESTS[@]}"; do
     if [[ $t == build.* ]]; then
         # a build is not a test: it wants no physics backend, and a cold
         # one takes far longer than a test is allowed to run
-        Tools/autotest/autotest.py -j"${BUILD_JOBS:-6}" --no-debug "$t" || rc=$?  # optimised: autotest builds -O0 otherwise
+        Tools/autotest/autotest.py -j"${BUILD_JOBS:-6}" --no-debug $JOLT "$t" || rc=$?  # optimised: autotest builds -O0 otherwise
     else
         timeout --kill-after=10 "${TEST_TIMEOUTS[$t]:-$TEST_TIMEOUT}" \
-            Tools/autotest/autotest.py --godot --no-debug --speedup="$speedup" \
+            Tools/autotest/autotest.py $PHYSICS --no-debug --speedup="$speedup" \
             ${model_arg[@]+"${model_arg[@]}"} \
             "$@" "$t" || rc=$?
     fi

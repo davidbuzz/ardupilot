@@ -287,6 +287,38 @@ vehicle: it builds each firmware in turn and flies its tests with
 which failed. `SPEEDUP=` in the environment overrides the speed, and its
 arguments, such as `--godot-headless`, are passed on to `autotest.py`.
 
+#### `--jolt`: the same models, stepped inside SITL
+
+`--godot` is two processes: Godot steps the physics and draws it, and
+SITL talks to it a packet a step. `--jolt` is one: SITL steps a baked copy
+of the model itself, with the same Jolt engine, and Godot only draws what
+SITL tells it. It is experimental.
+
+| | `--godot` | `--jolt` |
+| --- | --- | --- |
+| Physics runs in | Godot, a second process | the SITL binary |
+| Speed | about 10 times real time | 50 or more |
+| Vehicles in one world | up to five | one |
+| The window shows | everything: surfaces, propellers, tilting motors | each body where it is, nothing moving on it |
+| Without a window | `--godot-headless` | `--jolt-headless`: no Godot runs at all |
+
+```sh
+libraries/SITL_Godot/native/build_jolt.sh       # once: the stepper's library
+Tools/autotest/autotest.py --jolt build.Plane test.Plane.TakeoffBungee
+Tools/autotest/autotest.py --jolt-headless --speedup=50 test.Plane.TakeoffBungee
+Tools/autotest/sim_vehicle.py -v ArduPlane -f plane-3d --jolt --map --console
+libraries/SITL_Godot/test-all.sh --jolt
+```
+
+- The firmware has to be built with `--jolt` too: that is what links the
+  stepper in. A binary built without it is refused, with a message.
+- The models are baked by Godot (`native/bake.gd`) the first time, and
+  again when a model or the loader changes, so Godot is still needed
+  once even for `--jolt-headless`.
+- `--jolt` with `--godot`, or with more than one vehicle, is refused.
+- `test-all.sh --jolt` asks each test for its own speedup, the fastest it
+  was measured to hold; `SPEEDUP=` still overrides them all.
+
 `--godot-headless` runs the autotest backend without its window. A test
 which asks for a frame with no Godot model falls back to SITL's own
 physics and says so. `plane-elevrev`, the default for the ArduPlane
