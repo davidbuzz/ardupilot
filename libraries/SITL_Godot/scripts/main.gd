@@ -23,6 +23,7 @@ var options := {
     "launcher": "", # see README; servo 7 releases
     "wind": "0,0,0", # towards north,east,down (m/s)
     "rate": "", # physics Hz at start
+    "watch": "", # UDP port: only draw SITL's own physics
     "reverse": "", # servo outputs reversed about 1500
     "water": "", # surface level (m, world Y)
     "home": "-35.363261,149.165230", # lat,lon; default is CMAC
@@ -102,6 +103,9 @@ var lake_centre := Vector3.ZERO # XZ only
 var tiles: TileGround = null
 var _sim: Node3D = null # root of everything rebuilt
 var _control := PacketPeerUDP.new() # harness control socket
+var _watch: PacketPeerUDP = null # poses from SIM_Jolt
+var _watch_ms := 0
+var _watch_time := 0.0
 var flight_mode := "" # from harness via control port
 var mission_wp := "" # mission item being steered for
 var status_msg := ""
@@ -157,7 +161,7 @@ var fleet_zoom := 1.0 # wheel scales fitted distance
 func _ready() -> void:
     _set_options(OS.get_cmdline_user_args())
 
-    if DisplayServer.get_name() != "headless": # draw on clock, not per-step
+    if DisplayServer.get_name() != "headless" and options["watch"] == "": # draw on clock, not per-step
         RenderingServer.render_loop_enabled = false
 
     PhysicsServer3D.set_active(false) # stands still until SITL drives
@@ -336,7 +340,13 @@ func _build_simulation() -> void: # must not need earlier state
             v.wind = Vehicle.TO_NED.transposed() * Vector3(w[0], w[1], w[2])
         var b := Bridge.new()
         var port := base_port + 10 * i
-        var err := b.listen(port)
+        if options["watch"] != "": # the physics is SITL's: only follow it
+            v.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
+            v.freeze = true
+            for limb in v._limbs:
+                limb[0].freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
+                limb[0].freeze = true
+        var err := OK if options["watch"] != "" else b.listen(port)
         if err != OK:
             push_error("cannot listen on UDP port %d: %s" % [port, error_string(err)])
             get_tree().quit(1)
@@ -346,7 +356,12 @@ func _build_simulation() -> void: # must not need earlier state
         fresh.append(false)
         connected.append(false)
         misses.append(0)
-    print("waiting for SITL on UDP port %s" % options["port"])
+    if options["watch"] != "":
+        if _watch != null:
+            _watch.close()
+        _watch = PacketPeerUDP.new()
+        _watch.bind(int(options["watch"]), "*")
+    print("waiting for SITL on UDP port %s" % (options["watch"] if options["watch"] != "" else options["port"]))
 
     var wv := _water_vehicle()
     if wv != null and options["world"] != "":
@@ -376,8 +391,30 @@ func _find_vehicle(n: Node) -> Vehicle:
             return v
     return null
 
+func _poll_watch() -> void: # the newest poses SIM_Jolt sent
+    var pkt := PackedByteArray()
+    while _watch.get_available_packet_count() > 0:
+        pkt = _watch.get_packet()
+    if pkt.size() < 16 or pkt.decode_u32(0) != 0x544C4F4A or vehicles.is_empty(): # "JOLT"
+        return
+    var now := Time.get_ticks_msec()
+    var t := pkt.decode_double(8)
+    if now - _watch_ms >= 1000:
+        phys_rate = (t - _watch_time) * 1000.0 / (now - _watch_ms) if _watch_ms > 0 else 0.0
+        _watch_ms = now
+        _watch_time = t
+    sim_time = t
+    connected[0] = true
+    var count := mini(pkt.decode_u32(4), (pkt.size() - 16) / 56)
+    for i in mini(count, 1 + vehicles[0]._limbs.size()): # the vehicle's body, then its limbs as baked
+        var o := 16 + 56 * i
+        var at := Vector3(pkt.decode_double(o), pkt.decode_double(o + 8), pkt.decode_double(o + 16))
+        var q := Quaternion(pkt.decode_double(o + 24), pkt.decode_double(o + 32), pkt.decode_double(o + 40), pkt.decode_double(o + 48))
+        var body: Node3D = vehicles[0] if i == 0 else vehicles[0]._limbs[i - 1][0]
+        body.global_transform = Transform3D(Basis(q), at)
+
 func _physics_process(delta: float) -> void:
-    if vehicles.is_empty():
+    if vehicles.is_empty() or _watch != null:
         return
     for i in vehicles.size():
         if awaiting[i]:
@@ -613,6 +650,8 @@ func _on_vehicle_impact(other: Node, speed: float, which: int) -> void:
     print(last_impact)
 
 func _process(_delta: float) -> void:
+    if _watch != null:
+        _poll_watch()
     _poll_control()
     if RenderingServer.render_loop_enabled:
         _update_view()
