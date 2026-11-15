@@ -2158,6 +2158,7 @@ class TestSuite(abc.ABC):
 
         self.binary = binary
         self.godot = godot
+        self.last_pexpect_drain = 0
         self.godot_headless = godot_headless
         self.godot_vehicles = max(1, min(5, godot_vehicles))
         self.godot_spacing = godot_spacing
@@ -3781,6 +3782,10 @@ class TestSuite(abc.ABC):
         """Called when waiting for a mavlink message."""
         if self.in_drain_mav:
             return
+        now = time.time()
+        if now - self.last_pexpect_drain < 0.005:  # per message it took an eighth of the harness
+            return
+        self.last_pexpect_drain = now
         self.drain_all_pexpects()
 
     class MessageHook():
