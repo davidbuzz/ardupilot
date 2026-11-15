@@ -1,5 +1,6 @@
 #pragma once
 
+#include <atomic>
 #include <AP_HAL/AP_HAL.h>
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
 #include "AP_HAL_SITL_Namespace.h"
@@ -69,6 +70,10 @@ public:
 
     // get the name of the current thread, or nullptr if not known
     const char *get_current_thread_name(void) const;
+    bool in_script_thread() const; // the Lua thread
+    void script_waits_on_lock(const void *lock); // null: has it
+    void script_lock_held(bool held); // by another thread
+    static std::atomic<const void *> script_lock; // the one Lua waits on
 
 private:
     SITL_State *_sitlState;

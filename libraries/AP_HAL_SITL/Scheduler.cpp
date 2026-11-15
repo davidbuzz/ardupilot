@@ -145,6 +145,12 @@ void Scheduler::delay_microseconds(uint16_t usec)
 
 void Scheduler::delay(uint16_t ms)
 {
+#if !defined(HAL_BUILD_AP_PERIPH)
+    if (in_script_thread() && _sitlState->_sitl != nullptr) {
+        _sitlState->wait_clock(AP_HAL::micros64() + ms * 1000ULL); // one wait: its wake time is known
+        return;
+    }
+#endif
     uint32_t start = AP_HAL::millis();
     uint32_t now = start;
     do {
@@ -315,7 +321,12 @@ void *Scheduler::thread_create_trampoline(void *ctx)
     struct thread_attr *a = (struct thread_attr *)ctx;
     a->thread = pthread_self();
     a->f[0]();
-    
+#if !defined(HAL_BUILD_AP_PERIPH)
+    if (strcmp(a->name, "Scripting") == 0) {
+        from(hal.scheduler)->_sitlState->_script_wake_us = UINT64_MAX; // gone: clock runs free
+    }
+#endif
+
     WITH_SEMAPHORE(_thread_sem);
     if (threads == a) {
         threads = a->next;
@@ -421,6 +432,40 @@ void Scheduler::check_thread_stacks(void)
 }
 
 // get the name of the current thread, or nullptr if not known
+bool Scheduler::in_script_thread() const
+{
+    static thread_local int8_t is_script = -1; // asked every wait: remember
+    if (is_script < 0) {
+        const char *name = get_current_thread_name();
+        if (pthread_self() == _main_ctx || name == nullptr) {
+            return false;
+        }
+        is_script = strcmp(name, "Scripting") == 0;
+    }
+    return is_script > 0;
+}
+
+std::atomic<const void *> Scheduler::script_lock;
+
+void Scheduler::script_waits_on_lock(const void *lock)
+{
+#if !defined(HAL_BUILD_AP_PERIPH)
+    if (in_script_thread()) {
+        script_lock = lock;
+        _sitlState->_script_wake_us = lock != nullptr ? UINT64_MAX - 1 : 0; // as asleep, with no end
+    }
+#endif
+}
+
+void Scheduler::script_lock_held(bool held)
+{
+#if !defined(HAL_BUILD_AP_PERIPH)
+    if (!in_script_thread()) {
+        _sitlState->_script_wake_us = held ? UINT64_MAX - 1 : 0;
+    }
+#endif
+}
+
 const char *Scheduler::get_current_thread_name(void) const
 {
     const pthread_t self = pthread_self();

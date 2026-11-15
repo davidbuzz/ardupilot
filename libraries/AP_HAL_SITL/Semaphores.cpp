@@ -28,6 +28,9 @@ bool Semaphore::give()
     if (pthread_mutex_unlock(&_lock) != 0) {
         AP_HAL::panic("Bad semaphore usage");
     }
+    if (take_count == 0 && Scheduler::script_lock == this) {
+        Scheduler::from(hal.scheduler)->script_lock_held(false); // Lua is next: wait for it
+    }
     return true;
 }
 
@@ -42,12 +45,17 @@ void Semaphore::check_owner() const
 bool Semaphore::take(uint32_t timeout_ms)
 {
     if (timeout_ms == HAL_SEMAPHORE_BLOCK_FOREVER) {
-        if (pthread_mutex_lock(&_lock) == 0) {
-            owner = pthread_self();
-            take_count++;
+        if (take_nonblocking()) {
             return true;
         }
-        return false;
+        Scheduler::from(hal.scheduler)->script_waits_on_lock(this); // its holder may need the clock
+        const bool locked = pthread_mutex_lock(&_lock) == 0;
+        Scheduler::from(hal.scheduler)->script_waits_on_lock(nullptr);
+        if (locked) {
+            owner = pthread_self();
+            take_count++;
+        }
+        return locked;
     }
     if (take_nonblocking()) {
         owner = pthread_self();
@@ -71,6 +79,9 @@ bool Semaphore::take_nonblocking()
     if (pthread_mutex_trylock(&_lock) == 0) {
         owner = pthread_self();
         take_count++;
+        if (Scheduler::script_lock == this) {
+            Scheduler::from(hal.scheduler)->script_lock_held(true); // taken ahead of Lua
+        }
         return true;
     }
     return false;

@@ -137,9 +137,14 @@ void SITL_State::wait_clock(uint64_t wait_time_usec)
         // for purposes of sleeps treat low speedups as 1
         speedup = 1.0;
     }
+    const bool script = Scheduler::from(hal.scheduler)->in_script_thread();
+    if (script) {
+        _script_wake_us = wait_time_usec; // the clock may run on
+    }
     while (AP_HAL::micros64() < wait_time_usec) {
         if (hal.scheduler->in_main_thread() ||
             Scheduler::from(hal.scheduler)->semaphore_wait_hack_required()) {
+            hold_clock_for_script();
             _fdm_input_step();
         } else {
 #ifdef CYGWIN_BUILD
@@ -165,6 +170,9 @@ void SITL_State::wait_clock(uint64_t wait_time_usec)
             usleep(10);
         }
     }
+    if (script) {
+        _script_wake_us = 0; // awake: hold the clock
+    }
     // check the outbound TCP queue size.  If it is too long then
     // MAVProxy/pymavlink take too long to process packets and it ends
     // up seeing traffic well into our past and hits time-out
@@ -181,6 +189,23 @@ void SITL_State::wait_clock(uint64_t wait_time_usec)
             uart->handle_reading_from_device_to_readbuffer();
             usleep(1000);
         }
+    }
+}
+
+void SITL_State::hold_clock_for_script() // else a 0.3ms run costs 15ms at 50x
+{
+    struct timespec start, now;
+    clock_gettime(CLOCK_MONOTONIC, &start); // wall: sim time is held
+    while (true) {
+        const uint64_t wake_us = _script_wake_us;
+        if (wake_us == UINT64_MAX || (wake_us != 0 && AP_HAL::micros64() < wake_us)) {
+            return; // no script, or asleep
+        }
+        clock_gettime(CLOCK_MONOTONIC, &now);
+        if ((now.tv_sec - start.tv_sec) * 1000000000LL + (now.tv_nsec - start.tv_nsec) > 2000000LL) {
+            return; // 2ms: loading, or stuck
+        }
+        sched_yield();
     }
 }
 

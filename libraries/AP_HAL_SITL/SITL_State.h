@@ -12,6 +12,7 @@
 #else
 
 #include <netinet/in.h>
+#include <atomic>
 
 class HAL_SITL;
 
@@ -84,6 +85,8 @@ private:
     void _fdm_input_step(void);
 
     void wait_clock(uint64_t wait_time_usec);
+    void hold_clock_for_script(); // Lua runs at one instant
+    std::atomic<uint64_t> _script_wake_us{UINT64_MAX}; // none; 0 running; else asleep until
 
     // internal state
     uint8_t _instance;
