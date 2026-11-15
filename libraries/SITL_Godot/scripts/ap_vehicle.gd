@@ -110,6 +110,7 @@ func set_initial_velocity(v: Vector3) -> void:
     linear_velocity = v
 
 func reset() -> void:
+    global_transform = _initial_transform # frozen: server does not sync
     var rid := get_rid()
     PhysicsServer3D.body_set_state(rid, PhysicsServer3D.BODY_STATE_TRANSFORM, _initial_transform)
     PhysicsServer3D.body_set_state(rid, PhysicsServer3D.BODY_STATE_LINEAR_VELOCITY, _initial_velocity)
