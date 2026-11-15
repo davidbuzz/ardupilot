@@ -19,6 +19,7 @@ SERVO6_MIN      1000
 SERVO6_MAX      2000
 
 
-# ArduSub's loop needs far less than the stock 1200Hz of physics, which
-# holds the backend to about twice real time.
-SIM_RATE_HZ     400
+# As the copter model: the gyro runs at the physics rate and must be 1.8x
+# the loop rate to arm. ArduSub's stock 400Hz loop is most of its cost.
+SIM_RATE_HZ     200
+SCHED_LOOP_RATE 100

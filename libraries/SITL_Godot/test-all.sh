@@ -91,10 +91,10 @@ for entry in "${TESTS[@]}"; do
     if [[ $t == build.* ]]; then
         # a build is not a test: it wants no physics backend, and a cold
         # one takes far longer than a test is allowed to run
-        Tools/autotest/autotest.py -j"${BUILD_JOBS:-6}" "$t" || rc=$?
+        Tools/autotest/autotest.py -j"${BUILD_JOBS:-6}" --no-debug "$t" || rc=$?  # optimised: autotest builds -O0 otherwise
     else
         timeout --kill-after=10 "${TEST_TIMEOUTS[$t]:-$TEST_TIMEOUT}" \
-            Tools/autotest/autotest.py --godot --speedup="$SPEEDUP" \
+            Tools/autotest/autotest.py --godot --no-debug --speedup="$SPEEDUP" \
             ${model_arg[@]+"${model_arg[@]}"} \
             "$@" "$t" || rc=$?
     fi

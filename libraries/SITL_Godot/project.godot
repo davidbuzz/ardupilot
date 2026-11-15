@@ -36,6 +36,6 @@ common/physics_jitter_fix=0.0
 [threading]
 
 ; One worker, not one per core. SITL steps one to five rigid bodies in
-; lockstep, thousands of times a second: with 4 or 16 workers each step woke
-; them all for jobs too small to share, which cost more than half of all CPU.
+; lockstep, thousands of times a second, and each step woke every worker for
+; jobs too small to share: a plane ran at 13x with 16 workers, 18x with 4, 21x with 1.
 worker_pool/max_threads=1
