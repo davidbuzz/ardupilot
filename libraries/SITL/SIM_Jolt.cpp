@@ -136,7 +136,7 @@ void Jolt::update(const struct sitl_input &input)
 
     const uint64_t wall_us = get_wall_time_us();
     send_poses(wall_us);
-    if (report_wall_us == 0 || wall_us - report_wall_us > 2000000ULL) {
+    if (report_wall_us == 0 || wall_us - report_wall_us > 500000ULL) {
         if (report_wall_us != 0) {
             printf("Jolt: rate %.1fx real time (asked %.1fx)\n",
                    (time_now_us - report_sim_us) / double(wall_us - report_wall_us), double(target_speedup));
