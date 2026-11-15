@@ -92,8 +92,15 @@ Tools/autotest/autotest.py --jolt --no-debug --speedup=100 test.Copter.TakeoffAl
 be set by hand to use another), bakes the models when a bake is missing or
 older than its model or the loader, and refuses a binary built without the
 stepper. It was chosen by `SITL_JOLT_LIB` alone until 2026-11-15, which made
-a build setting do a run-time job. `--jolt` with `--godot`, or with more
-than one vehicle, is refused: fleets are `--godot`'s.
+a build setting do a run-time job. `--jolt` with `--godot` is refused.
+
+Several `--jolt` vehicles can be flown and seen together (2026-11-15): each
+SITL instance sends its poses to its own port (9003 + 10 x instance), and
+the viewer listens on one port a vehicle and draws each `--spacing` from the
+last, as `--godot` spawns them. Each is in a Jolt world of its own, so they
+pass through each other; a shared world is still `--godot`'s. Checked with
+two copters from `sim_vehicle.py -n 2`, taken to 6 m and 12 m, and with
+`autotest.py --jolt --godot-vehicles 2 test.Copter.TakeoffAlt`, which passed.
 
 ### Measured
 
@@ -314,7 +321,7 @@ read 50.0x on a Jolt run which reported 50.0x itself.
 - In the viewer: propellers turning, surfaces and hinges moving (only body
   poses are sent so far), the ground speed readout, and SITL's reason when
   it refuses a model.
-- Fleets. (`sim_vehicle.py --jolt` starts; it has had one check, not a flight.)
+- Fleets which touch: several vehicles are drawn together but each is alone in its world (`future-work.md`).
 
 ## The bake
 

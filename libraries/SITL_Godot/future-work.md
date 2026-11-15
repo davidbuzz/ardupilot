@@ -7,10 +7,11 @@ what it rests on, and what was found out when it was looked into.
 
 Recorded 2026-11-15.
 
-`--jolt` flies one vehicle: each SITL process owns its own Jolt world, so two
-instances cannot see or touch each other. `--godot` can fly five in one
-world, at about a fifth of the speed. This is how `--jolt` could get fleets
-without giving up the one-process design.
+Each `--jolt` SITL process owns its own Jolt world. Several can be flown
+and drawn together in one viewer, but they cannot see or touch each other.
+`--godot` can fly five in one world, at about a fifth of the speed. This is
+how `--jolt` could get fleets which touch without giving up the one-process
+design.
 
 ### What it rests on
 
@@ -31,10 +32,10 @@ no physics model reads it.
 
 ### What is left to do
 
-- [ ] **One viewer for several `--jolt` instances.** Needs nothing from
-  #34019: each instance already sends its poses on its own port
-  (9003 + 10 x instance). The viewer listens to several and places each
-  vehicle. Do this first; it is most of what a fleet is watched for.
+- [x] **One viewer for several `--jolt` instances.** Done 2026-11-15, with
+  nothing from #34019: each instance sends its poses on its own port
+  (9003 + 10 x instance), and the viewer listens on one port a vehicle and
+  draws each `--spacing` from the last.
 - [ ] **Publish full poses.** Collision needs every body's position and
   attitude, not a heading: nineteen bodies for the hexapod. The slot has
   room if the 512-byte swarm region is enlarged, or the poses go in as
@@ -45,8 +46,11 @@ no physics model reads it.
   as kinematic bodies and moves them to the published poses every step. Its
   own vehicle then collides with them.
 - [ ] **A tight clock barrier for this use.** See the limits below.
-- [ ] **Allow more than one vehicle with `--jolt`** in `autotest.py`,
-  `sim_vehicle.py` and `test-all.sh`, which refuse it today.
+- [x] **Allow more than one vehicle with `--jolt`** in `autotest.py` and
+  `sim_vehicle.py`. Done 2026-11-15, for flying and seeing them together.
+- [ ] **Draw each vehicle where its home is.** The viewer places vehicle i
+  at i x `--spacing`, as `--godot` spawns them; instances given different
+  homes are still drawn that far apart.
 - [ ] **A test**: two rovers driven at each other, and a tracker following a
   real aeroplane instance in place of the harness's made-up one.
 
@@ -81,5 +85,4 @@ no physics model reads it.
 Not before #34019, or its shared-memory core, is merged: this branch is
 already unmerged work on top of the unmerged Godot backend
 ([PR #35174](https://github.com/ArduPilot/ardupilot/pull/35174)), and this
-would be a third layer. The viewer item is the exception and can be done
-now.
+would be a third layer. The viewer item was the exception and is done.

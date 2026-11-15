@@ -298,7 +298,7 @@ SITL tells it. It is experimental.
 | --- | --- | --- |
 | Physics runs in | Godot, a second process | the SITL binary |
 | Speed | about 10 times real time | 50 or more |
-| Vehicles in one world | up to five | one |
+| Several vehicles | up to five in one world, which can collide | up to five drawn together, each in a world of its own: they pass through each other |
 | The window shows | everything: surfaces, propellers, tilting motors | each body where it is, nothing moving on it |
 | Without a window | `--godot-headless` | `--jolt-headless`: no Godot runs at all |
 
@@ -315,7 +315,12 @@ libraries/SITL_Godot/test-all.sh --jolt
 - The models are baked by Godot (`native/bake.gd`) the first time, and
   again when a model or the loader changes, so Godot is still needed
   once even for `--jolt-headless`.
-- `--jolt` with `--godot`, or with more than one vehicle, is refused.
+- `--jolt` with `--godot` is refused.
+- Several vehicles (`--godot-vehicles 3` with `autotest.py`, `-n 3` with
+  `sim_vehicle.py`) each run in their own SITL and their own world. The one
+  viewer draws them together, `--spacing` apart as `--godot` spawns them,
+  but they cannot touch, and nothing holds their clocks together beyond
+  each keeping to the speedup asked. See `future-work.md`.
 - `test-all.sh --jolt` asks each test for its own speedup, the fastest it
   was measured to hold; `SPEEDUP=` still overrides them all.
 
