@@ -11,9 +11,23 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 # cores a build may use; with no limit it takes every core on the machine
 BUILD_JOBS=${BUILD_JOBS:-6}
 
-# Speedup a test asks SITL for: ten keeps a test watchable. The physics
-# sets its own ceiling under this.
-SPEEDUP=${SPEEDUP:-10}
+declare -A TEST_SPEEDUPS=( # Jolt in SITL: each test's fastest held
+    [test.Copter.TakeoffAlt]=75
+    [test.Helicopter.PosHoldTakeOff]=85
+    [test.Plane.TakeoffTakeoff1]=50
+    [test.Plane.AerobaticsScripting]=50
+    [test.Plane.TakeoffBungee]=50
+    [test.Plane.GliderDrop]=50
+    [test.QuadPlane.Mission]=50
+    [test.Rover.DriveRTL]=70
+    [test.Rover.DriveMotorBoat]=80
+    [test.BalanceBot.DriveRTL]=50
+    [test.Sailboat.DriveRTL]=60
+    [test.Hexapod.Walk]=50
+    [test.Sub.DiveMission]=50
+    [test.Tracker.TrackPlane]=50
+    [test.Blimp.FourMotorHold]=70
+)
 
 # Seconds a test may run before timeout kills its process group, SITL
 # and backend included. It is there to catch a hang, so tests which fly
@@ -82,6 +96,8 @@ for entry in "${TESTS[@]}"; do
     model=${model#"$t"}          # no "|" in the entry: no model named
     model_arg=()
     label="$t"
+    speedup=${SPEEDUP:-10} # Godot backend: ten is watchable
+    [ -n "${SITL_JOLT_LIB:-}" ] && speedup=${SPEEDUP:-${TEST_SPEEDUPS[$t]:-50}} # SPEEDUP=n overrides
     if [ -n "$model" ]; then
         model_arg=(--godot-model "$model")
         label="$t on $model"
@@ -94,7 +110,7 @@ for entry in "${TESTS[@]}"; do
         Tools/autotest/autotest.py -j"${BUILD_JOBS:-6}" --no-debug "$t" || rc=$?  # optimised: autotest builds -O0 otherwise
     else
         timeout --kill-after=10 "${TEST_TIMEOUTS[$t]:-$TEST_TIMEOUT}" \
-            Tools/autotest/autotest.py --godot --no-debug --speedup="$SPEEDUP" \
+            Tools/autotest/autotest.py --godot --no-debug --speedup="$speedup" \
             ${model_arg[@]+"${model_arg[@]}"} \
             "$@" "$t" || rc=$?
     fi
