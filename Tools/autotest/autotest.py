@@ -1075,7 +1075,9 @@ if __name__ == "__main__":
                          default=1,
                          help='with --godot, this many vehicles (up to 5) share the '
                          'world on consecutive SITL instances, and every one is sent '
-                         'the same commands and RC as the vehicle under test')
+                         'the same commands and RC as the vehicle under test. With '
+                         '--jolt each is in a world of its own: they are drawn '
+                         'together and pass through each other')
     group_sim.add_option("--godot-spacing",
                          dest='godot_spacing',
                          type='string',
@@ -1182,8 +1184,6 @@ if __name__ == "__main__":
     if opts.jolt or opts.jolt_headless:
         if opts.godot or opts.godot_headless:
             parser.error("--godot is Godot's physics in a second process, --jolt is SITL's own: give one")
-        if opts.godot_vehicles > 1:
-            parser.error("--jolt flies one vehicle; --godot flies several in one world")
         try:
             godot_physics.use_jolt()
         except FileNotFoundError as e:

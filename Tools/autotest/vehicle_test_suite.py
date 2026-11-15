@@ -10814,7 +10814,7 @@ Also, ignores heartbeats not from our target system'''
         if self.godot_test_name:
             self.godot_backend.set_test(self.godot_test_name)
         if self.godot_vehicles > 1:
-            self.start_godot_bystanders(start_sitl_args["defaults_filepath"], home)
+            self.start_godot_bystanders(start_sitl_args["defaults_filepath"], home, start_sitl_args["model"])
 
     def install_godot_impact_watch(self):
         '''fail the current step as soon as the backend reports the vehicle
@@ -10928,13 +10928,13 @@ Also, ignores heartbeats not from our target system'''
             shutil.copy(lua, os.path.join("scripts", "godot_%s.lua" % model))
             atexit.register(godot_physics.clear_lua, os.getcwd())  # not left for the next SITL here
 
-    def start_godot_bystanders(self, defaults, home):
+    def start_godot_bystanders(self, defaults, home, model):
         '''extra SITLs for the Godot vehicles flying alongside the one under
         test. The shared world steps only when they all run, and the mirror
         sends them everything the test sends, so they fly it too.'''
         import atexit
         import subprocess
-        config = (self.godot_vehicles, tuple(defaults), home)
+        config = (self.godot_vehicles, tuple(defaults), home, model)
         if (self.godot_bystanders_config == config and
                 all(p.poll() is None for p, _c, _d in self.godot_bystanders)):
             return
@@ -10955,7 +10955,7 @@ Also, ignores heartbeats not from our target system'''
                 f.write("ALT_OFFSET %u\n" % (5 * n))
             log = open(os.path.join(d, "sitl.log"), "w")
             p = subprocess.Popen([self.binary, "-w", "-I%u" % n,
-                                  "--model", godot_physics.SITL_MODEL,
+                                  "--model", model,  # JSON, or with --jolt a world of its own
                                   "--home", str(home or "-35.363261,149.165230,584,353"),
                                   "--speedup", str(self.speedup),
                                   "--defaults", ",".join(list(defaults) + [tier])],

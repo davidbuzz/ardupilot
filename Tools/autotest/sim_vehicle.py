@@ -1708,9 +1708,6 @@ if cmd_opts.jolt or cmd_opts.jolt_headless:
     if cmd_opts.godot:
         print("--godot is Godot's physics in a second process, --jolt is SITL's own: give one")
         sys.exit(1)
-    if cmd_opts.count > 1 or len((cmd_opts.instances or "").split()) > 1:
-        print("--jolt flies one vehicle; --godot flies several in one world")
-        sys.exit(1)
     try:
         godot_physics.use_jolt()  # before the build: it tells waf where the stepper is
     except FileNotFoundError as e:
