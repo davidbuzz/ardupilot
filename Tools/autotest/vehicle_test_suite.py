@@ -10674,6 +10674,7 @@ Also, ignores heartbeats not from our target system'''
             "unix_domain_socket": self.unix_domain_socket,
         }
         start_sitl_args.update(**sitl_args)
+        godot_physics.clear_lua(".")  # an earlier Godot run's, even killed
         if self.godot:
             self.use_godot_physics(start_sitl_args)
             # hand the session's baseline parameters to the starting SITL,
@@ -10902,13 +10903,14 @@ Also, ignores heartbeats not from our target system'''
         '''a Godot model's lua companion sets what a defaults file cannot,
         such as another script's parameters once they register; it loads
         with the scripts directory and is inert when scripting is off'''
-        if not os.path.exists("scripts"):
-            os.mkdir("scripts")
-        for stale in glob.glob(os.path.join("scripts", "godot_*.lua")):
-            os.unlink(stale)
+        import atexit
+        godot_physics.clear_lua(".")
         lua = godot_physics.lua_filepath(model)
         if lua is not None:
+            if not os.path.exists("scripts"):
+                os.mkdir("scripts")
             shutil.copy(lua, os.path.join("scripts", "godot_%s.lua" % model))
+            atexit.register(godot_physics.clear_lua, os.getcwd())  # not left for the next SITL here
 
     def start_godot_bystanders(self, defaults, home):
         '''extra SITLs for the Godot vehicles flying alongside the one under

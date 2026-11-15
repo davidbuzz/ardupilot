@@ -14,7 +14,6 @@ import atexit
 import binascii
 import datetime
 import errno
-import glob
 import math
 import optparse
 import os
@@ -1963,12 +1962,11 @@ def clear_godot_lua():
     '''a model's lua companion left in scripts/ would run under any SITL
     started there later, Godot or not: the hexapod's gait drives servos 1-18'''
     for i_dir in instance_dir:
-        for stale in glob.glob(os.path.join(i_dir, "scripts", "godot_*.lua")):
-            os.unlink(stale)
+        godot_physics.clear_lua(i_dir)
 
 
+clear_godot_lua()  # every start: a killed --godot run leaves it
 if cmd_opts.godot:
-    clear_godot_lua()
     atexit.register(clear_godot_lua)
     if godot_physics.lua_filepath(godot_model) is not None:
         # what the model's parameters cannot set, such as the hexapod's gait

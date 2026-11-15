@@ -11,6 +11,7 @@ AP_FLAKE8_CLEAN
 from __future__ import annotations
 
 import atexit
+import glob
 import os
 import shlex
 import shutil
@@ -146,6 +147,14 @@ def lua_filepath(model):
     file cannot, such as another script's parameters, once they exist'''
     path = os.path.join(PROJECT, "models", model + ".lua")
     return path if os.path.exists(path) else None
+
+
+def clear_lua(directory):
+    '''remove the models' lua companions from directory/scripts: one left
+    there runs under any SITL started there later, Godot or not, and the
+    hexapod's gait drives servos 1-18'''
+    for stale in glob.glob(os.path.join(directory, "scripts", "godot_*.lua")):
+        os.unlink(stale)
 
 
 def find_godot():
