@@ -48,7 +48,7 @@ def sitl_model(model, reversed_servos=(), wind=None, water=None, launcher=None):
         if wind is not None:
             options += ",wind=%g+%g+%g" % wind
         if water is not None:
-            options += ",lake=%g" % water[0]
+            options += ",lake=%g+%g" % water
         if launcher:
             options += ",launcher=" + launcher.replace(",", "+")
         return "jolt:" + os.path.join(PROJECT, "native", "build", "bakes", model + ".bake") + options
