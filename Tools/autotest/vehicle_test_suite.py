@@ -2102,6 +2102,8 @@ class TestSuite(abc.ABC):
     """Base abstract class.
     It implements the common function for all vehicle types.
     """
+    MAX_SPEEDUP = 100  # faster, SITL outruns the harness
+
     def __init__(self,
                  binary,
                  valgrind=False,
@@ -2189,6 +2191,9 @@ class TestSuite(abc.ABC):
         self.speedup = speedup
         if self.speedup is None:
             self.speedup = self.default_speedup()
+        if self.speedup > self.MAX_SPEEDUP:
+            print("--speedup=%g is more than this harness can read at; using %u" % (self.speedup, self.MAX_SPEEDUP))
+            self.speedup = self.MAX_SPEEDUP
         self.sup_binaries = sup_binaries
         self.reset_after_every_test = reset_after_every_test
         # nothing has run against a SITL we have not started yet:
