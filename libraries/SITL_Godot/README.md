@@ -321,6 +321,7 @@ libraries/SITL_Godot/test-all.sh --jolt
   viewer draws them together, `--spacing` apart as `--godot` spawns them,
   but they cannot touch, and nothing holds their clocks together beyond
   each keeping to the speedup asked. See `future-work.md`.
+- Everything `--jolt` cannot do is listed in `jolt_integrated_sim.md`.
 - `test-all.sh --jolt` asks each test for its own speedup, the fastest it
   was measured to hold; `SPEEDUP=` still overrides them all.
 
