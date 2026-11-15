@@ -53,6 +53,16 @@ func gltf_fields() -> Dictionary:
         "flapChordFraction": "flap_chord_fraction",
     }
 
+func native_params() -> PackedFloat64Array: # order: native/godot_binding.cpp add_surface
+    return PackedFloat64Array([float(fluid == "water"), span, chord, aspect_ratio, cl0, cd0, cm0, oswald, stall_angle,
+            downwash, flap_servo, flap_pwm_min, flap_pwm_max, flap_angle_min, flap_angle_max, flap_chord_fraction])
+
+func show_flap(angle: float) -> void: # trailing edge down is -X
+    flap = angle
+    var pivot := get_node_or_null(FLAP_VISUAL) as Node3D
+    if pivot:
+        pivot.basis = Basis(Vector3.RIGHT, -flap)
+
 func effective_aspect_ratio() -> float:
     if aspect_ratio > 0.0:
         return aspect_ratio
@@ -88,10 +98,7 @@ func physics_update(vehicle: RigidBody3D, pwm: PackedInt32Array, _dt: float) -> 
     if flap_servo > 0:
         var f := servo_fraction(pwm, flap_servo, flap_pwm_min, flap_pwm_max)
         if f >= 0.0:
-            flap = deg_to_rad(lerpf(flap_angle_min, flap_angle_max, f))
-            var pivot := get_node_or_null(FLAP_VISUAL) as Node3D
-            if pivot:
-                pivot.basis = Basis(Vector3.RIGHT, -flap) # trailing edge down is -X
+            show_flap(deg_to_rad(lerpf(flap_angle_min, flap_angle_max, f)))
 
     var xform := global_transform
     var b := xform.basis.orthonormalized()

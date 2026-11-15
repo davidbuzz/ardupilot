@@ -37,6 +37,11 @@ var _initial_velocity: Vector3
 var _last_velocity: Vector3
 var _have_last_velocity := false
 var _pre_step_vel := Vector3.ZERO # contacts report post-impact velocity
+var _native: Object = null # rotors and surfaces in C++
+var _native_rotors: Array[Rotor] = []
+var _native_surfaces: Array[Surface] = []
+var _scripted: Array[Component] = [] # the parts still stepped here
+var _has_surface := false
 
 func _ready() -> void:
     if Engine.is_editor_hint():
@@ -61,6 +66,40 @@ func _ready() -> void:
                 _limbs.append([sib, (sib as RigidBody3D).global_transform])
                 _find_components(sib)
     _components.sort_custom(func(a, b): return (a is Hinge) and not (b is Hinge)) # hinges first: children need pose
+    _has_surface = _components.any(func(c): return c is Surface)
+    _bind_native()
+
+func _bind_native() -> void: # optional: see native/build.sh
+    _scripted = _components
+    var mine := _components.filter(func(c): return c is Rotor or c is Surface)
+    if (not ClassDB.class_exists(&"ArduPilotNative") or OS.has_environment("SITL_GODOT_SCRIPTED")
+            or mine.is_empty() or mine.any(func(c): return not _rigid_with_body(c))):
+        return # a part which moves on the body needs its own transform each step
+    _native = ClassDB.instantiate(&"ArduPilotNative")
+    var inv := global_transform.affine_inverse()
+    for c in mine: # same order: a surface sees the rotors before it
+        if c is Rotor:
+            _native.add_rotor(inv * c.global_transform, c.native_params())
+            _native_rotors.append(c)
+        else:
+            _native.add_surface(inv * c.global_transform, c.native_params())
+            _native_surfaces.append(c)
+    _scripted = _components.filter(func(c): return not mine.has(c))
+
+func _rigid_with_body(c: Node) -> bool:
+    var n := c.get_parent()
+    while n != null and n != self:
+        if n is Component or n is RigidBody3D:
+            return false
+        n = n.get_parent()
+    return n == self
+
+func _process(_delta: float) -> void: # the picture only, once a frame
+    for i in _native_rotors.size():
+        _native_rotors[i]._spin_children(_native.rotor_turned(i))
+    for i in _native_surfaces.size():
+        if _native_surfaces[i].flap_servo > 0:
+            _native_surfaces[i].show_flap(_native.surface_flap(i))
 
 func _on_body_entered(other: Node) -> void:
     var sink := maxf(-linear_velocity.y, -_pre_step_vel.y) # signed: climbing is no crash
@@ -98,8 +137,14 @@ func apply_actuators(pwm: PackedInt32Array, dt: float) -> void:
     var b := global_basis.orthonormalized()
     var v_body := b.transposed() * (linear_velocity - wind)
     alpha = atan2(-v_body.y, v_body.z) if absf(v_body.z) + absf(v_body.y) > 0.1 else 0.0
-    for c in _components:
+    for c in _scripted:
         c.physics_update(self, pwm, dt)
+    if _native != null:
+        var st := PhysicsServer3D.body_get_direct_state(get_rid())
+        _native.step(global_transform, st.center_of_mass, st.linear_velocity, st.angular_velocity, wind,
+                PackedFloat64Array([air_density, float(water_enabled), water_level, water_density, alpha]), pwm, dt)
+        apply_central_force(_native.get_force())
+        apply_torque(_native.get_torque())
 
     if drag_area != Vector3.ZERO:
         var f_local := -0.5 * air_density * drag_area * v_body * v_body.abs()
@@ -123,6 +168,8 @@ func reset() -> void:
     for c in _components:
         if c.has_method("reset"): # forget state, e.g. suspension compression
             c.reset()
+    if _native != null:
+        _native.reset()
     _have_last_velocity = false
 
 func sitl_state(dt: float) -> Dictionary: # ArduPilot frames, after step dt
@@ -148,7 +195,7 @@ func sitl_state(dt: float) -> Dictionary: # ArduPilot frames, after step dt
         "quaternion": dcm.get_rotation_quaternion(),
         "wind": TO_NED * wind,
     }
-    if _components.any(func(c): return c is Surface):
+    if _has_surface:
         s["airspeed"] = maxf((b.transposed() * (v - wind)).z, 0.0) # pitot along forward axis
     if wind != Vector3.ZERO: # SITL cannot model this wind
         var air_body: Vector3 = b.transposed() * (wind - v) # apparent wind, body frame

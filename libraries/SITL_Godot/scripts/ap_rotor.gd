@@ -93,6 +93,10 @@ func reset() -> void:
     static_thrust = 0.0
     thrust = 0.0
 
+func native_params() -> PackedFloat64Array: # order: native/godot_binding.cpp add_rotor
+    return PackedFloat64Array([servo, pwm_min, pwm_max, max_thrust, thrust_expo, float(bidirectional), torque_ratio,
+            1.0 if direction == "ccw" else -1.0, time_constant, diameter, pitch_speed, inplane_drag])
+
 func propwash_at(point: Vector3, v_air: Vector3, span_dir := Vector3.ZERO, span := 0.0) -> Vector3: # slipstream velocity added at point
     if slipstream <= 0.0:
         return Vector3.ZERO

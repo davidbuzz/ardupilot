@@ -2,3 +2,6 @@
 *.import
 *.uid
 __pycache__/
+native/build/
+native/*.so
+native/*.gdextension
