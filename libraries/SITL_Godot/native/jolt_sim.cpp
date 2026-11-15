@@ -19,6 +19,7 @@
 #include <Jolt/Physics/Collision/Shape/CapsuleShape.h>
 #include <Jolt/Physics/Collision/Shape/CylinderShape.h>
 #include <Jolt/Physics/Collision/Shape/EmptyShape.h>
+#include <Jolt/Physics/Collision/Shape/HeightFieldShape.h>
 #include <Jolt/Physics/Collision/Shape/OffsetCenterOfMassShape.h>
 #include <Jolt/Physics/Collision/Shape/SphereShape.h>
 #include <Jolt/Physics/Collision/Shape/StaticCompoundShape.h>
@@ -43,7 +44,7 @@ namespace {
 const ObjectLayer STATIC = 0, MOVING = 1;
 const float MARGIN_FRACTION = 0.08f; // Godot's collision_margin_fraction
 const double GRAVITY = 9.80665;
-const double LAKE_LEVEL = -0.4, LAKE_DEPTH = 2.2; // main.gd's
+const double LAKE_LEVEL = -0.4, LAKE_DEPTH = 2.2, LAKE_RADIUS = 45.0, PATCH_SIZE = 300.0; // main.gd's
 
 struct BroadPhaseLayers final : BroadPhaseLayerInterface {
     uint GetNumBroadPhaseLayers() const override { return 2; }
@@ -122,7 +123,8 @@ struct JoltSim final : SITLParts::World {
     double mass = 1; // the vehicle body's (kg)
     SITLParts::Vec3 release_velocity;
 
-    bool load(const char *path, double lake_depth, std::string &error);
+    bool load(const char *path, double lake_depth, double lake_radius, std::string &error);
+    void add_ground(float friction, bool lake, double depth, double radius);
 
     SITLParts::Basis body_basis(int index) override
     {
@@ -156,7 +158,43 @@ struct JoltSim final : SITLParts::World {
     }
 };
 
-bool JoltSim::load(const char *path, double lake_depth, std::string &error)
+void JoltSim::add_ground(float friction, bool lake, double depth, double radius) // scripts/main.gd's ground and lake bed
+{
+    BodyInterface &bi = physics.GetBodyInterfaceNoLock();
+    const auto slab = [&](float x0, float x1, float z0, float z1) { // top at ground level
+        BodyCreationSettings s(new BoxShape(Vec3(0.5f * (x1 - x0), 0.5f, 0.5f * (z1 - z0))),
+                RVec3(0.5f * (x0 + x1), -0.5f, 0.5f * (z0 + z1)), Quat::sIdentity(), EMotionType::Static, STATIC);
+        s.mFriction = friction;
+        bi.CreateAndAddBody(s, EActivation::DontActivate);
+    };
+    const float far = 20000;
+    if (!lake) {
+        slab(-far, far, -far, far);
+        return;
+    }
+    const float half = 0.5f * float(std::max(PATCH_SIZE, radius * 2.6)); // shore inside the patch
+    slab(half, far, -far, far);
+    slab(-far, -half, -far, far);
+    slab(-half, half, half, far);
+    slab(-half, half, -far, -half);
+    const uint32 n = 128;
+    const float cell = 2.0f * half / float(n - 1);
+    const double inner = 0.55 * radius; // flat bed inside, bank outside
+    std::vector<float> heights(n * n);
+    for (uint32 iz = 0; iz < n; iz++) {
+        for (uint32 ix = 0; ix < n; ix++) {
+            const double r = std::hypot(-half + ix * cell, -half + iz * cell);
+            const double t = std::clamp((r - inner) / (radius - inner), 0.0, 1.0);
+            heights[iz * n + ix] = float(-depth * (1.0 - t * t * (3.0 - 2.0 * t)));
+        }
+    }
+    HeightFieldShapeSettings bed(heights.data(), Vec3(-half, 0, -half), Vec3(cell, 1, cell), n);
+    BodyCreationSettings s(bed.Create().Get(), RVec3::sZero(), Quat::sIdentity(), EMotionType::Static, STATIC);
+    s.mFriction = friction;
+    bi.CreateAndAddBody(s, EActivation::DontActivate);
+}
+
+bool JoltSim::load(const char *path, double lake_depth, double lake_radius, std::string &error)
 {
     std::ifstream file(path);
     if (!file) {
@@ -412,10 +450,7 @@ bool JoltSim::load(const char *path, double lake_depth, std::string &error)
     if (body.water_enabled) { // floaters sit in main.gd's lake
         body.water_level = LAKE_LEVEL;
     }
-    const float floor = body.water_enabled ? -float(lake_depth > 0.0 ? lake_depth : LAKE_DEPTH) : 0.0f; // no shore: the bed everywhere
-    BodyCreationSettings ground(new BoxShape(Vec3(20000, 0.5f, 20000)), RVec3(0, floor - 0.5f, 0), Quat::sIdentity(), EMotionType::Static, STATIC);
-    ground.mFriction = 0.8f; // main.gd's ground
-    bi.CreateAndAddBody(ground, EActivation::DontActivate);
+    add_ground(0.8f, body.water_enabled, lake_depth > 0.0 ? lake_depth : LAKE_DEPTH, lake_radius > 0.0 ? lake_radius : LAKE_RADIUS);
 
     Ref<GroupFilterTable> jointed = new GroupFilterTable(uint(pending.size())); // jointed bodies do not collide
     for (const PendingJoint &j : pending_joints) {
@@ -478,7 +513,7 @@ bool JoltSim::load(const char *path, double lake_depth, std::string &error)
     return true;
 }
 
-JoltSim *jolt_sim_create(const char *bake_path, double lake_depth, char *error, int error_size)
+JoltSim *jolt_sim_create(const char *bake_path, double lake_depth, double lake_radius, char *error, int error_size)
 {
     const QuietFloats quiet;
     if (!jolt_started) {
@@ -489,7 +524,7 @@ JoltSim *jolt_sim_create(const char *bake_path, double lake_depth, char *error, 
     }
     JoltSim *sim = new JoltSim();
     std::string why;
-    if (!sim->load(bake_path, lake_depth, why)) {
+    if (!sim->load(bake_path, lake_depth, lake_radius, why)) {
         snprintf(error, size_t(error_size), "%s", why.c_str());
         delete sim;
         return nullptr;

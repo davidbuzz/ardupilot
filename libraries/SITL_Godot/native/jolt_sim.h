@@ -22,7 +22,7 @@ typedef struct { // ArduPilot's frames: NED, body forward-right-down
     int has_vane;
 } JoltSimState;
 
-JoltSim *jolt_sim_create(const char *bake_path, double lake_depth, char *error, int error_size); // null and reason on failure
+JoltSim *jolt_sim_create(const char *bake_path, double lake_depth, double lake_radius, char *error, int error_size); // null and reason on failure; 0 for main.gd's lake
 void jolt_sim_destroy(JoltSim *sim);
 void jolt_sim_reset(JoltSim *sim); // back to where it starts
 void jolt_sim_set_heading(JoltSim *sim, double degrees); // start heading from north
