@@ -26,6 +26,9 @@ SITL_START_HEADING = 8.7
 
 class AutoTestTracker(vehicle_test_suite.TestSuite):
 
+    def sitl_streamrate(self):
+        return 5 if self.godot else 10  # ten floods the harness at 50x
+
     def log_name(self):
         return "AntennaTracker"
 
@@ -323,17 +326,15 @@ class AutoTestTracker(vehicle_test_suite.TestSuite):
         self.set_parameters({"ALT_SOURCE": 1})
         self.change_mode("AUTO")
 
-        # The aeroplane circles from the start. The tracker takes a minute
-        # and a half to be sure of its own position, and is only held to
-        # account once it is.
         tracker_loc = self.sitl_start_location()
 
         radius = 50.0       # m
         height = 40.0       # m above the tracker
         period = 45.0       # s a lap, which is a model aeroplane's 7 m/s
         laps = 2
-        settle = 15.0       # s to swing round and find it
+        settle = 45.0       # s to find it: it can hunt for 36
 
+        self.wait_ready_to_arm()  # still: turning, its EKF may never settle
         tstart = self.get_sim_time()
         last_sent = 0
 
@@ -372,7 +373,6 @@ class AutoTestTracker(vehicle_test_suite.TestSuite):
         self.context_push()
         self.install_message_hook_context(send_plane_position)
 
-        self.wait_ready_to_arm()
         m = self.assert_receive_message('GLOBAL_POSITION_INT')
         tracker_loc = Location(m.lat * 1.0e-7, m.lon * 1.0e-7, m.alt * 1.0e-3, AltFrame.ABSOLUTE)
         tready = self.get_sim_time()
