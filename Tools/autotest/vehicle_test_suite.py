@@ -10754,6 +10754,9 @@ Also, ignores heartbeats not from our target system'''
             self.progress("No Godot model for frame %s; using SITL's own physics (Godot has %s)" %
                           (frame, ", ".join(godot_physics.frames_for(vehicle))), send_statustext=False)
             return
+        if godot_physics.JOLT:
+            godot_physics.check_jolt_binary(self.binary)
+            godot_physics.bake(model)
         if self.godot_backend is None:
             self.godot_backend = godot_physics.backend_for(
                 self.buildlogs_path("godot-%s.log" % vehicle),

@@ -36,6 +36,7 @@ import quadplane
 import rover
 import sailboat
 
+from pysim import godot as godot_physics
 from pysim import util
 from vehicle_test_suite import Test
 
@@ -1049,14 +1050,25 @@ if __name__ == "__main__":
     group_sim.add_option("--godot",
                          action='store_true',
                          default=False,
-                         help='take the vehicle physics from the Godot and Jolt backend in '
-                         'libraries/SITL_Godot instead of SITL itself; '
-                         'needs Godot 4.4 or later on the PATH or in $GODOT')
+                         help='two processes: take the vehicle physics from the Godot '
+                         'backend in libraries/SITL_Godot instead of SITL itself; '
+                         'needs Godot 4.4 or later on the PATH or in $GODOT. See --jolt')
     group_sim.add_option("--godot-headless",
                          action='store_true',
                          default=False,
                          help='with --godot, run the backend without its window, '
                          'which is faster and needs no display')
+    group_sim.add_option("--jolt",
+                         action='store_true',
+                         default=False,
+                         help='one process: SITL itself steps the libraries/SITL_Godot '
+                         'model, with Jolt, and Godot only draws it in a viewer. Several '
+                         'times faster than --godot, but one vehicle, and the viewer '
+                         'shows bodies only. Needs native/build_jolt.sh run once')
+    group_sim.add_option("--jolt-headless",
+                         action='store_true',
+                         default=False,
+                         help='--jolt without starting the viewer')
     group_sim.add_option("--godot-vehicles",
                          dest='godot_vehicles',
                          type='int',
@@ -1166,6 +1178,18 @@ if __name__ == "__main__":
     parser.add_option_group(group_completion)
 
     opts, args = parser.parse_args()
+
+    if opts.jolt or opts.jolt_headless:
+        if opts.godot or opts.godot_headless:
+            parser.error("--godot is Godot's physics in a second process, --jolt is SITL's own: give one")
+        if opts.godot_vehicles > 1:
+            parser.error("--jolt flies one vehicle; --godot flies several in one world")
+        try:
+            godot_physics.use_jolt()
+        except FileNotFoundError as e:
+            parser.error(str(e))
+        opts.godot = True  # the same models, parameters and tests
+        opts.godot_headless = opts.jolt_headless
 
     # canonicalise on opts.debug:
     if opts.debug is None and opts.no_debug is None:

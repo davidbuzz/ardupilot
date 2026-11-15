@@ -1517,6 +1517,17 @@ group_sim.add_option("", "--godot",
                      "libraries/SITL_Godot, shown in its own window; the "
                      "frame then only chooses the default parameters. Needs Godot 4.4 "
                      "or later on the PATH or in $GODOT")
+group_sim.add_option("", "--jolt",
+                     action='store_true',
+                     default=False,
+                     help="one process: SITL itself steps the libraries/SITL_Godot model, "
+                     "with Jolt, and Godot only draws it in a viewer. Several times "
+                     "faster than --godot, but one vehicle. Needs native/build_jolt.sh "
+                     "run once")
+group_sim.add_option("", "--jolt-headless",
+                     action='store_true',
+                     default=False,
+                     help="--jolt without starting the viewer")
 group_sim.add_option("", "--use-dir",
                      type='string',
                      default=None,
@@ -1693,6 +1704,20 @@ parser.add_option_group(group_completion)
 
 cmd_opts, cmd_args = parser.parse_args()
 
+if cmd_opts.jolt or cmd_opts.jolt_headless:
+    if cmd_opts.godot:
+        print("--godot is Godot's physics in a second process, --jolt is SITL's own: give one")
+        sys.exit(1)
+    if cmd_opts.count > 1 or len((cmd_opts.instances or "").split()) > 1:
+        print("--jolt flies one vehicle; --godot flies several in one world")
+        sys.exit(1)
+    try:
+        godot_physics.use_jolt()  # before the build: it tells waf where the stepper is
+    except FileNotFoundError as e:
+        print(e)
+        sys.exit(1)
+    cmd_opts.godot = True  # the same models and parameters
+
 cwd = os.getcwd()
 vehicle_dir_name = os.path.basename(cwd)
 in_vehicle_dir = vehicle_dir_name in vinfo.options
@@ -1858,7 +1883,18 @@ if cmd_opts.godot:
         print("No Godot model for %s frame %s; there are for frames: %s" %
               (cmd_opts.vehicle, cmd_opts.frame, ", ".join(godot_physics.frames_for(cmd_opts.vehicle)) or "none"))
         sys.exit(1)
-    frame_infos["model"] = godot_physics.SITL_MODEL
+    if godot_physics.JOLT:
+        try:
+            godot_physics.bake(godot_model)
+        except (FileNotFoundError, RuntimeError) as e:
+            print(e)
+            sys.exit(1)
+    frame_infos["model"] = godot_physics.sitl_model(
+        godot_model,
+        godot_physics.reversed_servos_for(cmd_opts.vehicle, cmd_opts.frame),
+        wind=godot_physics.wind_for(cmd_opts.vehicle, cmd_opts.frame),
+        water=godot_physics.water_for(cmd_opts.vehicle, cmd_opts.frame),
+        launcher=godot_physics.launcher_for(cmd_opts.vehicle, cmd_opts.frame))
     frame_infos.pop("frame", None)  # or start_vehicle gives SITL the frame's own physics
     # SITL looks up a frame's default parameters by model name, which for
     # JSON matches no frame, so add them explicitly ahead of any others
@@ -1884,9 +1920,10 @@ if cmd_opts.godot:
     groups = [list(instances)] if shared else [[i] for i in instances]
     for group in groups:
         logfile = os.path.join(tempfile.gettempdir(), "godot-sitl-%u.log" % group[0])
-        progress("Starting Godot physics backend for instance%s %s, logging to %s" %
-                 ("s" if len(group) > 1 else "", ",".join(str(i) for i in group), logfile))
-        backend = godot_physics.Backend(logfile, instance=group[0], headless=False)
+        progress("Starting Godot %s for instance%s %s, logging to %s" %
+                 ("viewer" if godot_physics.JOLT else "physics backend",
+                  "s" if len(group) > 1 else "", ",".join(str(i) for i in group), logfile))
+        backend = godot_physics.Backend(logfile, instance=group[0], headless=cmd_opts.jolt_headless)
         try:
             backend.start([godot_model] * len(group),
                           godot_physics.reversed_servos_for(cmd_opts.vehicle, cmd_opts.frame),
@@ -1993,6 +2030,13 @@ if True:
     if not os.path.exists(vehicle_binary):
         print("Vehicle binary (%s) does not exist" % (vehicle_binary,))
         sys.exit(1)
+
+    if godot_physics.JOLT:
+        try:
+            godot_physics.check_jolt_binary(vehicle_binary)
+        except RuntimeError as e:
+            print(e)
+            sys.exit(1)
 
     start_vehicle(vehicle_binary,
                   cmd_opts,

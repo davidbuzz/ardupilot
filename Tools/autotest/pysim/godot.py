@@ -34,9 +34,8 @@ SITL_TIMEOUT = 120
 
 # the SITL model which talks to the backend
 SITL_MODEL = "JSON:127.0.0.1"
-# Experimental: a SITL built with this set (see native/build_jolt.sh) steps a
-# baked copy of the model itself, with Jolt, and no backend runs at all.
-JOLT = bool(os.environ.get("SITL_JOLT_LIB"))
+JOLT = False  # --jolt: SITL steps a baked model itself, see use_jolt()
+JOLT_LIB = os.path.join(PROJECT, "native", "build", "libsitl_jolt.a")  # native/build_jolt.sh makes it
 
 
 def sitl_model(model, reversed_servos=(), wind=None, water=None, launcher=None):
@@ -51,12 +50,50 @@ def sitl_model(model, reversed_servos=(), wind=None, water=None, launcher=None):
             options += ",lake=%g+%g" % water
         if launcher:
             options += ",launcher=" + launcher.replace(",", "+")
-        return "jolt:" + os.path.join(PROJECT, "native", "build", "bakes", model + ".bake") + options
+        return "jolt:" + bake_filepath(model) + options
     return SITL_MODEL
 
 
 def is_sitl_model(name):
     return name == SITL_MODEL or str(name).startswith("jolt:")
+
+
+def use_jolt():
+    '''--jolt: one process. SITL steps the vehicle with Jolt and Godot only
+    draws it. Sets where waf's configure finds the stepper's library.'''
+    global JOLT
+    if "SITL_JOLT_LIB" not in os.environ:
+        if not os.path.exists(JOLT_LIB):
+            raise FileNotFoundError("--jolt needs %s: run libraries/SITL_Godot/native/build_jolt.sh" % JOLT_LIB)
+        os.environ["SITL_JOLT_LIB"] = JOLT_LIB
+    JOLT = True
+
+
+def bake_filepath(model):
+    return os.path.join(PROJECT, "native", "build", "bakes", model + ".bake")
+
+
+def bake(model):
+    '''see that the model's bake is there and no older than what it is
+    made from: the glTF, the loader's scripts and the bake script'''
+    path = bake_filepath(model)
+    sources = [os.path.join(PROJECT, "models", model + ".gltf"), os.path.join(PROJECT, "native", "bake.gd")]
+    sources += glob.glob(os.path.join(PROJECT, "scripts", "ap_*.gd")) + [os.path.join(PROJECT, "scripts", "gltf_physics.gd")]
+    if os.path.exists(path) and os.path.getmtime(path) >= max(os.path.getmtime(f) for f in sources):
+        return
+    import_project()
+    print("Godot: baking the models for --jolt")
+    subprocess.run([find_godot(), "--headless", "--path", PROJECT, "-s", "native/bake.gd"],
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    if not os.path.exists(path) or os.path.getmtime(path) < os.path.getmtime(sources[0]):
+        raise RuntimeError("Godot could not bake %s; try: godot --headless --path %s -s native/bake.gd" % (model, PROJECT))
+
+
+def check_jolt_binary(binary):
+    '''a SITL configured without the stepper's library has no jolt model'''
+    with open(binary, "rb") as f:
+        if b"SIM_Jolt: " not in f.read():
+            raise RuntimeError("%s was built without the Jolt model: build it again with --jolt" % binary)
 
 
 # vehicleinfo.json vehicle -> {frame: model in the Godot project's models directory}
@@ -335,6 +372,12 @@ class Backend(object):
         sim_args.append("--rate=%u" % sim_rate_hz(models[0]))
         sim_args.extend(extra)
         if JOLT:
+            if not self.headless:
+                try:
+                    find_godot()
+                except FileNotFoundError:
+                    print("--jolt: no Godot found, so flying without the viewer")
+                    self.headless = True
             if self.headless:
                 self.config = config  # SITL has the physics; nothing to start
                 return
