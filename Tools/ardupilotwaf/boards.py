@@ -997,6 +997,12 @@ class SITLBoard(Board):
             env.LINKFLAGS += ['-Wl,--wrap,malloc']
         # Darwin has no --wrap; malloc is replaced in libraries/AP_Common/c++.cpp
         
+        if os.environ.get('SITL_JOLT_LIB'):
+            # experimental: libraries/SITL_Godot/native/build_jolt.sh makes it
+            jolt = os.path.abspath(os.environ['SITL_JOLT_LIB'])
+            env.CXXFLAGS += ['-DAP_SIM_JOLT_ENABLED=1']
+            env.LDFLAGS += [jolt]  # last on the link line, after what uses it
+
         if cfg.options.enable_sfml:
             if not cfg.check_SFML(env):
                 cfg.fatal("Failed to find SFML libraries")
