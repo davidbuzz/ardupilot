@@ -103,9 +103,12 @@ var lake_centre := Vector3.ZERO # XZ only
 var tiles: TileGround = null
 var _sim: Node3D = null # root of everything rebuilt
 var _control := PacketPeerUDP.new() # harness control socket
-var _watch: PacketPeerUDP = null # poses from SIM_Jolt
-var _watch_ms := 0
-var _watch_time := 0.0
+var _watch: Array[PacketPeerUDP] = [] # poses, one SIM_Jolt each
+var _watch_origin: Array[Vector3] = [] # where each one's world starts
+var _watch_ms: Array[int] = [] # last rate reading (wall)
+var _watch_time: Array[float] = [] # and its simulated time
+var _watch_seen: Array[int] = [] # last packet (wall ms)
+var _watch_rate: Array[float] = [] # times real time
 var flight_mode := "" # from harness via control port
 var mission_wp := "" # mission item being steered for
 var status_msg := ""
@@ -356,11 +359,24 @@ func _build_simulation() -> void: # must not need earlier state
         fresh.append(false)
         connected.append(false)
         misses.append(0)
+    for old in _watch:
+        old.close()
+    _watch.clear()
+    _watch_origin.clear()
+    _watch_ms.clear()
+    _watch_time.clear()
+    _watch_seen.clear()
+    _watch_rate.clear()
     if options["watch"] != "":
-        if _watch != null:
-            _watch.close()
-        _watch = PacketPeerUDP.new()
-        _watch.bind(int(options["watch"]), "*")
+        for i in vehicles.size(): # SITL instance i: ten ports on
+            var peer := PacketPeerUDP.new()
+            peer.bind(int(options["watch"]) + 10 * i, "*")
+            _watch.append(peer)
+            _watch_origin.append(Vector3(-spacing[0], 0, spacing[1]) * i if spacing.size() >= 2 else Vector3.ZERO) # as spawned: east -X
+            _watch_ms.append(0)
+            _watch_time.append(0.0)
+            _watch_seen.append(0)
+            _watch_rate.append(0.0)
     print("waiting for SITL on UDP port %s" % (options["watch"] if options["watch"] != "" else options["port"]))
 
     var wv := _water_vehicle()
@@ -391,30 +407,36 @@ func _find_vehicle(n: Node) -> Vehicle:
             return v
     return null
 
-func _poll_watch() -> void: # the newest poses SIM_Jolt sent
-    var pkt := PackedByteArray()
-    while _watch.get_available_packet_count() > 0:
-        pkt = _watch.get_packet()
-    if pkt.size() < 16 or pkt.decode_u32(0) != 0x544C4F4A or vehicles.is_empty(): # "JOLT"
-        return
+func _poll_watch() -> void: # the newest poses each SIM_Jolt sent
     var now := Time.get_ticks_msec()
-    var t := pkt.decode_double(8)
-    if now - _watch_ms >= 1000:
-        phys_rate = (t - _watch_time) * 1000.0 / (now - _watch_ms) if _watch_ms > 0 else 0.0
-        _watch_ms = now
-        _watch_time = t
-    sim_time = t
-    connected[0] = true
-    var count := mini(pkt.decode_u32(4), (pkt.size() - 16) / 56)
-    for i in mini(count, 1 + vehicles[0]._limbs.size()): # the vehicle's body, then its limbs as baked
-        var o := 16 + 56 * i
-        var at := Vector3(pkt.decode_double(o), pkt.decode_double(o + 8), pkt.decode_double(o + 16))
-        var q := Quaternion(pkt.decode_double(o + 24), pkt.decode_double(o + 32), pkt.decode_double(o + 40), pkt.decode_double(o + 48))
-        var body: Node3D = vehicles[0] if i == 0 else vehicles[0]._limbs[i - 1][0]
-        body.global_transform = Transform3D(Basis(q), at)
+    for i in _watch.size():
+        var pkt := PackedByteArray()
+        while _watch[i].get_available_packet_count() > 0:
+            pkt = _watch[i].get_packet()
+        if pkt.size() < 16 or pkt.decode_u32(0) != 0x544C4F4A: # "JOLT"
+            if connected[i] and now - _watch_seen[i] > 2000:
+                connected[i] = false # its SITL has gone
+            continue
+        var t := pkt.decode_double(8)
+        if now - _watch_ms[i] >= 1000:
+            _watch_rate[i] = (t - _watch_time[i]) * 1000.0 / (now - _watch_ms[i]) if _watch_ms[i] > 0 else 0.0
+            _watch_ms[i] = now
+            _watch_time[i] = t
+        _watch_seen[i] = now
+        connected[i] = true
+        if i == focus: # the HUD reads these
+            sim_time = t
+            phys_rate = _watch_rate[i]
+        var count := mini(pkt.decode_u32(4), (pkt.size() - 16) / 56)
+        for n in mini(count, 1 + vehicles[i]._limbs.size()): # the vehicle's body, then its limbs as baked
+            var o := 16 + 56 * n
+            var at := Vector3(pkt.decode_double(o), pkt.decode_double(o + 8), pkt.decode_double(o + 16))
+            var q := Quaternion(pkt.decode_double(o + 24), pkt.decode_double(o + 32), pkt.decode_double(o + 40), pkt.decode_double(o + 48))
+            var body: Node3D = vehicles[i] if n == 0 else vehicles[i]._limbs[n - 1][0]
+            body.global_transform = Transform3D(Basis(q), at + _watch_origin[i])
 
 func _physics_process(delta: float) -> void:
-    if vehicles.is_empty() or _watch != null:
+    if vehicles.is_empty() or not _watch.is_empty():
         return
     for i in vehicles.size():
         if awaiting[i]:
@@ -650,7 +672,7 @@ func _on_vehicle_impact(other: Node, speed: float, which: int) -> void:
     print(last_impact)
 
 func _process(_delta: float) -> void:
-    if _watch != null:
+    if not _watch.is_empty():
         _poll_watch()
     _poll_control()
     if RenderingServer.render_loop_enabled:
