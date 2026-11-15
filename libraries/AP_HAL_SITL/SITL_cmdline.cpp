@@ -39,6 +39,7 @@
 #include <SITL/SIM_Webots.h>
 #include <SITL/SIM_Webots_Python.h>
 #include <SITL/SIM_JSON.h>
+#include <SITL/SIM_Jolt.h>
 #include <SITL/SIM_Blimp.h>
 #include <SITL/SIM_NoVehicle.h>
 #include <SITL/SIM_StratoBlimp.h>
@@ -243,6 +244,9 @@ static const struct {
 #if AP_SIM_JSON_ENABLED
     { "JSON",               JSON::create },
 #endif  // AP_SIM_JSON_ENABLED
+#if AP_SIM_JOLT_ENABLED
+    { "jolt",               Jolt::create },
+#endif  // AP_SIM_JOLT_ENABLED
     { "blimp",              Blimp::create },
     { "novehicle",          NoVehicle::create },
 #if AP_SIM_STRATOBLIMP_ENABLED
