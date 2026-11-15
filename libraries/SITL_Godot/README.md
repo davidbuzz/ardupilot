@@ -858,6 +858,10 @@ down when trying to run `--speedup` at 10 or above, try using
   for use without Godot
 - getting anything over `--speedup=10` to work; perhaps `--headless`
   might help, or a backend linking Jolt directly
+- low priority: a video of a CI flight to review afterwards. Render
+  off-screen and record with Godot's Movie Maker: run without
+  `--headless` under a virtual display (`xvfb-run`) with software
+  rendering, and add `--write-movie flight.avi`
 
 ## Other related work
 
