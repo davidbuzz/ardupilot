@@ -265,26 +265,29 @@ asked, one run each. Speed is the median of half-second readings of SITL's
 clock against the wall, taken from the harness's telemetry log; the method
 read 50.0x on a Jolt run which reported 50.0x itself.
 
-| Test | Jolt model, default asked | Stock SITL, 100x asked: achieved |
-| --- | --- | --- |
-| `Copter.TakeoffAlt` | 75x | 46x |
-| `Helicopter.PosHoldTakeOff` | 85x | 48x |
-| `Plane.TakeoffTakeoff1` | 50x | 47x |
-| `Plane.AerobaticsScripting` | 50x | 35x |
-| `Plane.TakeoffBungee` | 50x | 39x |
-| `Plane.GliderDrop` | 50x | cannot run: nothing holds the glider up |
-| `QuadPlane.Mission` | 50x | 32x |
-| `Rover.DriveRTL` | 70x | 94x |
-| `Rover.DriveMotorBoat` | 80x | 100x |
-| `BalanceBot.DriveRTL` | 50x | 90x |
-| `Sailboat.DriveRTL` | 60x | 86x |
-| `Hexapod.Walk` | 50x | 91x, on SITL's rover: it has no legs |
-| `Sub.DiveMission` | 50x | 38x |
-| `Tracker.TrackPlane` | 50x | 95x, and the test failed |
-| `Blimp.FourMotorHold` | 70x | 78x |
+| Test | Jolt model, default asked | Jolt model, 100x asked: achieved | Stock SITL, 100x asked: achieved |
+| --- | --- | --- | --- |
+| `Copter.TakeoffAlt` | 75x | 95x | 46x |
+| `Helicopter.PosHoldTakeOff` | 85x | 84x | 48x |
+| `Plane.TakeoffTakeoff1` | 50x | 60x | 47x |
+| `Plane.AerobaticsScripting` | 50x | 73x | 35x |
+| `Plane.TakeoffBungee` | 50x | 90x | 39x |
+| `Plane.GliderDrop` | 50x | 80x | cannot run: nothing holds the glider up |
+| `QuadPlane.Mission` | 50x | 74x | 32x |
+| `Rover.DriveRTL` | 70x | 88x | 94x |
+| `Rover.DriveMotorBoat` | 80x | 97x | 100x |
+| `BalanceBot.DriveRTL` | 50x | 70x | 90x |
+| `Sailboat.DriveRTL` | 60x | 65x | 86x |
+| `Hexapod.Walk` | 50x | 33x | 91x, on SITL's rover: it has no legs |
+| `Sub.DiveMission` | 50x | 49x | 38x |
+| `Tracker.TrackPlane` | 50x | 59x | 95x, and the test failed |
+| `Blimp.FourMotorHold` | 70x | 57x | 78x |
 
-- The Jolt column is what each test is asked for, not its ceiling: the six
-  raised to 50x were not searched above it.
+- All fifteen passed on the Jolt model at 100x asked, one run each, after
+  the fixes above. The defaults in `test-all.sh` were set before them and
+  have not been raised to match.
+- **Asking for more still costs some tests speed:** the hexapod holds 50x
+  asked for 50x and ran at 33x asked for 100x; the blimp 70x and 57x.
 - The two columns do not step alike: stock SITL's default physics rate is
   1200 Hz, the Jolt models' 100 to 400 Hz. Why stock's aircraft are its
   slow rows was not looked into.
